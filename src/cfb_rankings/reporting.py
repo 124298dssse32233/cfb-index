@@ -769,6 +769,689 @@ _PHASE_BANNER_CSS_BLOCK = """
 """
 
 
+# Splits v5 component CSS (S.5b). Outer card + headline pill-comparator
+# pairs (static) + drawer with deep tabs. Today: empty/awaiting state.
+_SPLITS_CSS_BLOCK = """
+.splits {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+.splits__header { margin-bottom: var(--space-8); }
+.splits__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+.splits__sub { font-size: var(--fs-meta); color: var(--muted-foreground); margin: 0; }
+.splits__pair-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+@container (min-width: 720px) {
+  .splits__pair-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.splits__pair {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+.splits__pair-eyebrow {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-3) 0;
+}
+.splits__pair-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: var(--fs-meta); padding: var(--space-2) 0;
+}
+.splits__pair-row + .splits__pair-row { border-top: 1px solid var(--border); }
+.splits__pair-label { color: var(--muted-foreground); }
+.splits__pair-value { color: var(--foreground); font-weight: 600; font-variant-numeric: tabular-nums; }
+.splits__drawer-toggle {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background var(--motion-state), color var(--motion-state);
+}
+.splits__drawer-toggle:hover { color: var(--foreground); border-color: var(--border-strong); }
+.splits__awaiting {
+  background: var(--secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+"""
+
+
+# Bio / Recruiting / Transfer / Roster v5 (S.5c). 4-tab card; tabs use
+# Alpine for active state + URL sync via ?bio=<id>. All four tabpanels
+# in DOM (so no-JS readers see all 4 stacked — acceptable progressive
+# enhancement per kickoff §S.5.3).
+_BIO_TABS_CSS_BLOCK = """
+.biotabs {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+.biotabs__header { margin-bottom: var(--space-6); }
+.biotabs__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+.biotabs__sub { font-size: var(--fs-meta); color: var(--muted-foreground); margin: 0; }
+.biotabs__tablist {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+.biotabs__tab {
+  appearance: none; -webkit-appearance: none;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background var(--motion-state), color var(--motion-state);
+}
+.biotabs__tab[aria-selected="true"] {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-color: transparent;
+}
+.biotabs__tabpanel { padding: var(--space-2) 0; }
+.biotabs__tabpanel[hidden] { display: none; }
+.biotabs__panel-body {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--foreground);
+}
+.biotabs__panel-meta {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+  margin: 0;
+}
+.biotabs__panel-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: var(--space-2) 0; gap: var(--space-3);
+  font-size: var(--fs-meta);
+}
+.biotabs__panel-row + .biotabs__panel-row { border-top: 1px solid var(--border); }
+.biotabs__panel-label { color: var(--muted-foreground); flex: 0 0 auto; }
+.biotabs__panel-value { color: var(--foreground); font-weight: 600; text-align: right; }
+.biotabs__awaiting {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+  font-style: italic;
+}
+"""
+
+
+# Peer Comparator v5 (S.5d). 4-peer grid + search input. Empty/awaiting
+# state today (no peer-set computation in production payload).
+_PEER_COMPARATOR_CSS_BLOCK = """
+.peers {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+.peers__header { margin-bottom: var(--space-6); }
+.peers__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+.peers__sub { font-size: var(--fs-meta); color: var(--muted-foreground); margin: 0; }
+.peers__search {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  color: var(--foreground);
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-6);
+}
+.peers__search:focus {
+  outline: none;
+  border-color: var(--accolade-gold-base);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accolade-gold-base) 20%, transparent);
+}
+.peers__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+@container (min-width: 720px) {
+  .peers__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@container (min-width: 1100px) {
+  .peers__grid { grid-template-columns: repeat(4, 1fr); }
+}
+.peers__card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+.peers__card-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+.peers__card-meta {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0;
+}
+.peers__awaiting {
+  background: var(--secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+"""
+
+
+# Advanced Savant v5 (S.5e). Cohort filter (P4/G5/All-FBS) + advanced
+# stats card. Today: shell with empty/awaiting state for the cohort
+# filter (per-cohort metric snapshots not yet aggregated).
+_SAVANT_CSS_BLOCK = """
+.savant {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+.savant__header { margin-bottom: var(--space-6); }
+.savant__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+.savant__sub { font-size: var(--fs-meta); color: var(--muted-foreground); margin: 0; }
+.savant__filter {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+.savant__filter-pill {
+  appearance: none; -webkit-appearance: none;
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background var(--motion-state), color var(--motion-state);
+}
+.savant__filter-pill[aria-pressed="true"] {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-color: transparent;
+}
+.savant__awaiting {
+  background: var(--secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+"""
+
+
+# Subnav v5 (S.5g). Sticky horizontal anchor strip with
+# IntersectionObserver scroll-spy. Driven by /assets/js/subnav.js.
+_SUBNAV_CSS_BLOCK = """
+.player-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--background) 92%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-2) 0;
+  margin: 0 calc(50% - 50vw) var(--space-6);
+  padding-left: max(16px, calc(50vw - 700px));
+  padding-right: max(16px, calc(50vw - 700px));
+  font-family: var(--font-sans);
+  transition: box-shadow var(--motion-state);
+}
+.player-subnav.is-stuck {
+  box-shadow: var(--elevation-1);
+}
+.player-subnav__list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.player-subnav__list::-webkit-scrollbar { display: none; }
+.player-subnav__link {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  white-space: nowrap;
+  text-decoration: none;
+  min-height: 40px;
+  transition: background var(--motion-state), color var(--motion-state), border-color var(--motion-state);
+}
+.player-subnav__link:hover {
+  color: var(--foreground);
+  border-color: var(--border-strong);
+}
+.player-subnav__link[aria-current="page"] {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-color: transparent;
+}
+"""
+
+
+# Hero Fingerprint v5 (S.5f). Player identity strip — name, position,
+# team, hero stat callouts. Today: thin shell that doesn't replace the
+# existing big hero (which has team-color theming), just adds a v5
+# section header strip below it for visual rhythm consistency.
+_HERO_STRIP_CSS_BLOCK = """
+.hero-strip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+@container (min-width: 720px) {
+  .hero-strip { grid-template-columns: 1fr auto; align-items: center; }
+}
+.hero-strip__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0;
+}
+.hero-strip__meta {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: var(--space-2) 0 0 0;
+}
+.hero-strip__stats {
+  display: flex; flex-wrap: wrap; gap: var(--space-4);
+  align-items: center;
+}
+.hero-strip__stat {
+  display: flex; flex-direction: column;
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  min-width: 6rem;
+}
+.hero-strip__stat-label {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hero-strip__stat-value {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+"""
+
+
+# Player Standing v5 component CSS (S.5a). Visual structure from
+# figma-reference/player-page/src/app/components/PlayerStanding.tsx.
+# 17-rung universal ladder rail + 6 tier pills + rung drawer (3-col grid)
+# + accolade tabs. Today rendered with a decorative rail + empty drawer/
+# tabs since ladder classification + per-award tracking are pending data
+# tasks. Tier pills are wired via Alpine for click-to-active state.
+_PLAYER_STANDING_CSS_BLOCK = """
+.standing {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+
+.standing__header { margin-bottom: var(--space-8); }
+
+.standing__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.standing__sub {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.standing__current-rung {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--accolade-gold-base);
+  margin: 0 0 var(--space-6) 0;
+}
+
+.standing__rail-wrap { position: relative; margin-bottom: var(--space-8); }
+
+.standing__rail {
+  position: relative;
+  height: var(--space-2);
+  background: var(--muted);
+  border-radius: 999px;
+}
+
+.standing__rail-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--border-strong) 0%, var(--accolade-gold-base) 100%);
+  transition: width var(--motion-data-entry);
+}
+
+.standing__rail-tick {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: var(--space-4);
+  background: var(--border-strong);
+  border-radius: 1px;
+}
+
+.standing__rail-tick--passed { background: var(--muted-foreground); }
+
+.standing__rail-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  background: var(--accolade-gold-base);
+  border: 2px solid var(--accolade-gold-highlight);
+  border-radius: 50%;
+  box-shadow: var(--elevation-2);
+  transition: left var(--motion-data-entry);
+}
+
+.standing__rail-ghost {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--space-3);
+  height: var(--space-3);
+  background: transparent;
+  border: 2px solid var(--muted-foreground);
+  border-radius: 50%;
+  opacity: 0.4;
+  transition: left var(--motion-data-entry);
+}
+
+.standing__tier-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-4);
+  font-size: 10px;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+.standing__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.standing__pill {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background var(--motion-state), color var(--motion-state), border-color var(--motion-state);
+}
+
+.standing__pill[aria-pressed="true"],
+.standing__pill.is-active {
+  background: var(--accolade-gold-base);
+  color: oklch(0.18 0.01 250);
+  border-color: var(--accolade-gold-highlight);
+}
+
+.standing__pill:hover:not([aria-pressed="true"]):not(.is-active) {
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+
+.standing__drawer {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: var(--elevation-1);
+}
+
+.standing__drawer-eyebrow {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.standing__drawer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+@container (min-width: 720px) {
+  .standing__drawer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.standing__drawer-cell-label {
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.standing__drawer-cell-body {
+  font-size: var(--fs-meta);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.standing__awaiting {
+  background: var(--secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+  margin-bottom: var(--space-8);
+}
+
+.standing__accolade-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.standing__accolade-tab {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  min-height: 44px;
+  cursor: pointer;
+  transition: background var(--motion-state), color var(--motion-state);
+}
+
+.standing__accolade-tab[aria-pressed="true"],
+.standing__accolade-tab.is-active {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-color: transparent;
+}
+
+.standing__accolade-body {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+"""
+
+
 # The Room on [Player] v5 component CSS (S.4). Visual structure from
 # figma-reference/player-page/src/app/components/TheRoomOnPlayer.tsx.
 # Cohort pills + belief dial (gradient + indicator) + top quote card +
@@ -1532,6 +2215,20 @@ def _compose_global_css() -> str:
         + _SUPPORTING_CAST_CSS_BLOCK
         + "\n/* === The Room on [Player] v5 (S.4) === */\n"
         + _THE_ROOM_CSS_BLOCK
+        + "\n/* === Player Standing v5 (S.5a) === */\n"
+        + _PLAYER_STANDING_CSS_BLOCK
+        + "\n/* === Splits v5 (S.5b) === */\n"
+        + _SPLITS_CSS_BLOCK
+        + "\n/* === Bio/Recruiting/Transfer/Roster v5 (S.5c) === */\n"
+        + _BIO_TABS_CSS_BLOCK
+        + "\n/* === Peer Comparator v5 (S.5d) === */\n"
+        + _PEER_COMPARATOR_CSS_BLOCK
+        + "\n/* === Advanced Savant v5 (S.5e) === */\n"
+        + _SAVANT_CSS_BLOCK
+        + "\n/* === Hero strip v5 (S.5f) === */\n"
+        + _HERO_STRIP_CSS_BLOCK
+        + "\n/* === Subnav v5 (S.5g) === */\n"
+        + _SUBNAV_CSS_BLOCK
         + "\n/* === Phase banner (P.0) === */\n"
         + _PHASE_BANNER_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
@@ -1564,6 +2261,7 @@ def _ensure_global_assets(site_root: Path) -> str:
         "alpine.min.js",
         "js/url-state.js",
         "js/the-room.js",
+        "js/subnav.js",
         "fonts/Inter-Variable.woff2",
         "fonts/InterDisplay-SemiBold.woff2",
         "fonts/InterDisplay-Bold.woff2",
@@ -1599,6 +2297,7 @@ def _global_link_tags() -> str:
         f'<link rel="stylesheet" href="/assets/{filename}">\n'
         f'    <script src="/assets/js/url-state.js" defer></script>\n'
         f'    <script src="/assets/js/the-room.js" defer></script>\n'
+        f'    <script src="/assets/js/subnav.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -12027,16 +12726,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         <article class="stat-card"><span>Best official finish</span><strong>{escape(best_finish_text)}</strong><span class="submetric">Best completed Heisman placement on file</span></article>
       </div>
     """
-    player_subnav = _render_player_page_subnav(
-        [
-            ("current-heisman-lens", "Overview"),
-            ("signature-story", "Story"),
-            ("identity-role", "Bio"),
-            ("current-season-production", "Stats"),
-            ("trophy-case", "Awards"),
-            ("heisman-by-year", "History"),
-        ]
-    )
+    # S.5g — replaced legacy ad-hoc subnav with v5 sticky scroll-spy nav
+    # (driven by /assets/js/subnav.js). Anchor list maps to the v5 module
+    # sections inserted in S.2-S.5.
+    player_subnav = _render_v5_player_subnav()
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -12345,8 +13038,33 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
+      <section class="section player-anchor-section" id="player-standing">
+        {_render_v5_player_standing_card(player_data.get("standing"))}
+      </section>
+
+      <section class="section player-anchor-section" id="splits">
+        {_render_v5_splits_card(player_data.get("splits"))}
+      </section>
+
+      <section class="section player-anchor-section" id="advanced-savant">
+        {_render_v5_savant_card(player_data.get("savant"))}
+      </section>
+
+      <section class="section player-anchor-section" id="peer-comparator">
+        {_render_v5_peer_comparator_card(player_data.get("peers"))}
+      </section>
+
       <section class="section player-anchor-section" id="supporting-cast">
         {_render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
+      </section>
+
+      <section class="section player-anchor-section" id="bio-tabs">
+        {_render_v5_bio_tabs_card(
+            player_data.get("bio"),
+            player_data.get("recruiting"),
+            player_data.get("transfer"),
+            player_data.get("roster"),
+        )}
       </section>
 
       <section class="section player-anchor-section" id="trophy-case">
@@ -13744,6 +14462,372 @@ def _render_v5_current_season_card(
         <div class="csp__grid">{"".join(cards_html)}</div>
       </article>
     """
+
+
+_STANDING_RUNGS = (
+    ("Walk-on", 0), ("Scout team", 6.25),
+    ("Deep reserve", 12.5), ("Backup", 18.75), ("Rotational", 25),
+    ("Part-time starter", 31.25), ("Starter", 37.5), ("Impact starter", 43.75),
+    ("Watch-list", 50), ("All-Conf HM", 56.25), ("All-Conf 1st", 62.5), ("National watch", 68.75),
+    ("All-American", 75), ("Consensus AA", 81.25), ("Unanimous AA", 87.5),
+    ("POTY Finalist", 93.75), ("POTY Winner", 100),
+)
+_STANDING_TIERS = (
+    ("On-team", [0, 1]),
+    ("2-deep", [2, 3, 4]),
+    ("Starting", [5, 6, 7]),
+    ("Recognized", [8, 9, 10, 11]),
+    ("Elite", [12, 13, 14]),
+    ("Apex", [15, 16]),
+)
+
+
+def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
+    """Render the v5 Player Standing module (S.5a — Figma port).
+
+    Visual contract: figma-reference/.../PlayerStanding.tsx — 17-rung
+    universal ladder + 6 tier pills + rung drawer + accolade tabs.
+
+    Production payload (`player_data['standing']`) is currently None for
+    most players. The render emits the visual rail decoratively (showing
+    all 17 ticks + tier labels) plus an awaiting-classification body for
+    the rung drawer + accolade tabs. When the ladder-classification
+    aggregator lands and populates `standing` with `current_rung_id`
+    (0-16), `last_season_rung_id`, `narratives.{why_here, moves_up,
+    moves_down}`, `weekly_history`, `peers_at_rung`, and per-award
+    selector grids, the same render fn fills in.
+    """
+    payload = standing or {}
+    current_rung = payload.get("current_rung_id")
+    last_rung = payload.get("last_season_rung_id")
+
+    # Decorative rail with all 17 ticks; mark current rung if known.
+    ticks_html: list[str] = []
+    for idx, (label, x_pct) in enumerate(_STANDING_RUNGS):
+        passed_class = " standing__rail-tick--passed" if (current_rung is not None and idx <= current_rung) else ""
+        ticks_html.append(
+            f'<div class="standing__rail-tick{passed_class}" '
+            f'style="left: {x_pct}%;" title="{escape(label)}"></div>'
+        )
+    fill_pct = _STANDING_RUNGS[current_rung][1] if (current_rung is not None and 0 <= current_rung < len(_STANDING_RUNGS)) else 0
+    marker_html = ""
+    if current_rung is not None:
+        marker_html = f'<div class="standing__rail-marker" style="left: {fill_pct}%;" aria-label="Current standing"></div>'
+    ghost_html = ""
+    if last_rung is not None and 0 <= last_rung < len(_STANDING_RUNGS):
+        ghost_html = f'<div class="standing__rail-ghost" style="left: {_STANDING_RUNGS[last_rung][1]}%;" aria-label="Last season standing"></div>'
+
+    tier_labels_html = "".join(
+        f'<span style="font-size: 10px;">{escape(label)}</span>'
+        for label, _ in _STANDING_TIERS
+    )
+
+    pills_html: list[str] = []
+    for tier_label, _rungs in _STANDING_TIERS:
+        is_active = bool(current_rung is not None and current_rung in _rungs)
+        cls = "standing__pill is-active" if is_active else "standing__pill"
+        aria = "true" if is_active else "false"
+        pills_html.append(
+            f'<button type="button" class="{cls}" aria-pressed="{aria}">{escape(tier_label)}</button>'
+        )
+
+    current_rung_label = _STANDING_RUNGS[current_rung][0].upper() if current_rung is not None else "AWAITING CLASSIFICATION"
+    rung_drawer_html = ""
+    if payload.get("narratives"):
+        n = payload["narratives"]
+        rung_drawer_html = f"""
+          <div class="standing__drawer">
+            <p class="standing__drawer-eyebrow">{escape(current_rung_label)} · Rung {current_rung} of 16</p>
+            <div class="standing__drawer-grid">
+              <div>
+                <p class="standing__drawer-cell-label">Why he&rsquo;s here</p>
+                <p class="standing__drawer-cell-body">{escape(str(n.get('why_here') or ''))}</p>
+              </div>
+              <div>
+                <p class="standing__drawer-cell-label">What moves him up</p>
+                <p class="standing__drawer-cell-body">{escape(str(n.get('moves_up') or ''))}</p>
+              </div>
+              <div>
+                <p class="standing__drawer-cell-label">What moves him down</p>
+                <p class="standing__drawer-cell-body">{escape(str(n.get('moves_down') or ''))}</p>
+              </div>
+            </div>
+          </div>
+        """
+    else:
+        rung_drawer_html = (
+            '<div class="standing__awaiting" role="status">'
+            'Rung classification + narratives populate when the ladder-classifier aggregator runs '
+            '(maps roster status, snap counts, honors, and Heisman ranking onto the 17-step ladder).'
+            '</div>'
+        )
+
+    accolade_tabs_html: list[str] = []
+    for idx, tab_label in enumerate(("Heisman", "Davey O'Brien", "Manning", "Unitas")):
+        is_active = idx == 0
+        cls = "standing__accolade-tab is-active" if is_active else "standing__accolade-tab"
+        aria = "true" if is_active else "false"
+        accolade_tabs_html.append(
+            f'<button type="button" class="{cls}" aria-pressed="{aria}">{escape(tab_label)}</button>'
+        )
+
+    return f"""
+      <article class="standing" data-module="player-standing" data-state="ready">
+        <header class="standing__header">
+          <h2 class="standing__title">Player Standing</h2>
+          <p class="standing__sub">Universal 17-step ladder. Tier pills below; accolade streams nested.</p>
+        </header>
+        <p class="standing__current-rung">{escape(current_rung_label)}</p>
+        <div class="standing__rail-wrap">
+          <div class="standing__rail" role="meter" aria-valuemin="0" aria-valuemax="16"
+               aria-valuenow="{current_rung if current_rung is not None else 0}"
+               aria-label="Player standing rail (walk-on to POTY Winner)">
+            <div class="standing__rail-fill" style="width: {fill_pct}%;"></div>
+            {"".join(ticks_html)}
+            {ghost_html}
+            {marker_html}
+          </div>
+          <div class="standing__tier-row">{tier_labels_html}</div>
+        </div>
+        <div class="standing__pills">{"".join(pills_html)}</div>
+        {rung_drawer_html}
+        <div>
+          <p class="standing__drawer-eyebrow">Accolade streams</p>
+          <div class="standing__accolade-tabs" role="tablist">{"".join(accolade_tabs_html)}</div>
+          <div class="standing__accolade-body" role="tabpanel">
+            All-America selector grid + probability tiles + ladder progress populate when the per-award tracker runs (Heisman ballot model + AA selector ingestion).
+          </div>
+        </div>
+      </article>
+    """
+
+
+def _render_v5_splits_card(splits: dict[str, Any] | None) -> str:
+    """Splits v5 — pill-comparator pairs + drawer (S.5b). Today: shell."""
+    return """
+      <article class="splits" data-module="splits" data-state="empty">
+        <header class="splits__header">
+          <h2 class="splits__title">Splits</h2>
+          <p class="splits__sub">Down-distance · Situational · Personnel · Opponent-tier</p>
+        </header>
+        <div class="splits__awaiting" role="status">
+          Splits surface this player&rsquo;s performance broken down by situation (down/distance, red zone, vs Top-25, etc.). Populates when the play-by-play splits aggregator runs against ingested PBP data.
+        </div>
+      </article>
+    """
+
+
+def _render_v5_bio_tabs_card(bio: dict[str, Any] | None, recruiting: dict[str, Any] | None,
+                              transfer: dict[str, Any] | None, roster: dict[str, Any] | None) -> str:
+    """Bio / Recruiting / Transfer / Roster v5 (S.5c).
+
+    4 tab-panels (all rendered in DOM so no-JS readers can scroll
+    through). Active tab via Alpine; URL sync via ?bio=<id>.
+    """
+    def _kv_rows(d: dict[str, Any] | None, fields: list[tuple[str, str]]) -> str:
+        if not d:
+            return '<p class="biotabs__awaiting">Awaiting data ingestion for this surface.</p>'
+        rows = []
+        for label, key in fields:
+            value = d.get(key)
+            if value is None or str(value).strip() == "":
+                continue
+            rows.append(
+                f'<div class="biotabs__panel-row">'
+                f'<span class="biotabs__panel-label">{escape(label)}</span>'
+                f'<span class="biotabs__panel-value">{escape(str(value))}</span>'
+                f'</div>'
+            )
+        return "".join(rows) if rows else '<p class="biotabs__awaiting">No fields populated yet.</p>'
+
+    bio_panel = _kv_rows(bio, [
+        ("Hometown", "hometown"), ("Height", "height"), ("Weight", "weight"),
+        ("Class", "class_year"), ("Position", "position"), ("Jersey", "jersey"),
+        ("DOB", "dob"),
+    ])
+    recruit_panel = _kv_rows(recruiting, [
+        ("Stars", "stars"), ("National rank", "national_rank"),
+        ("Position rank", "position_rank"), ("State rank", "state_rank"),
+        ("Committed", "commit_date"),
+    ])
+    transfer_panel = _kv_rows(transfer, [
+        ("Status", "status"), ("Prior team", "prior_team"),
+        ("Transfer year", "transfer_year"), ("Eligibility", "eligibility"),
+    ])
+    roster_panel = _kv_rows(roster, [
+        ("Current team", "team"), ("Conference", "conference"),
+        ("Joined", "joined"), ("Career arc", "career_arc"),
+    ])
+
+    tabs = (
+        ("bio", "Bio", bio_panel),
+        ("recruiting", "Recruiting", recruit_panel),
+        ("transfer", "Transfer", transfer_panel),
+        ("roster", "Roster", roster_panel),
+    )
+
+    tab_buttons: list[str] = []
+    panels: list[str] = []
+    for idx, (tab_id, tab_label, body) in enumerate(tabs):
+        is_active = idx == 0
+        sel = "true" if is_active else "false"
+        tab_buttons.append(
+            f'<button type="button" class="biotabs__tab" role="tab" '
+            f'data-tab-id="{tab_id}" aria-selected="{sel}" '
+            f'x-on:click="selectTab(\'{tab_id}\')" '
+            f'x-bind:aria-selected="active === \'{tab_id}\'">{escape(tab_label)}</button>'
+        )
+        panels.append(
+            f'<div class="biotabs__tabpanel" role="tabpanel" data-tab-panel="{tab_id}" '
+            f'x-bind:hidden="active !== \'{tab_id}\'" {"" if is_active else "hidden"}>'
+            f'<div class="biotabs__panel-body">{body}</div>'
+            f'</div>'
+        )
+
+    return f"""
+      <article class="biotabs" data-module="bio-tabs" data-state="ready"
+               x-data="{{
+                 active: (window.urlState && window.urlState.get('bio')) || 'bio',
+                 selectTab(id) {{ this.active = id; if (window.urlState) window.urlState.set('bio', id); }},
+               }}">
+        <header class="biotabs__header">
+          <h2 class="biotabs__title">Bio &middot; Recruiting &middot; Transfer &middot; Roster</h2>
+          <p class="biotabs__sub">Off-field context — switch tabs to drill into recruit profile, transfer arc, or roster timeline.</p>
+        </header>
+        <div class="biotabs__tablist" role="tablist">{"".join(tab_buttons)}</div>
+        {"".join(panels)}
+      </article>
+    """
+
+
+def _render_v5_peer_comparator_card(peers: list[dict[str, Any]] | None) -> str:
+    """Peer Comparator v5 — 4-peer grid + search input (S.5d). Shell only."""
+    cards_html: list[str] = []
+    if peers:
+        for p in peers[:4]:
+            cards_html.append(
+                f'<div class="peers__card">'
+                f'<p class="peers__card-name">{escape(str(p.get("name") or "--"))}</p>'
+                f'<p class="peers__card-meta">{escape(str(p.get("meta") or ""))}</p>'
+                f'</div>'
+            )
+        body_html = f'<div class="peers__grid">{"".join(cards_html)}</div>'
+    else:
+        body_html = (
+            '<div class="peers__awaiting" role="status">'
+            'Peer pools surface 4 same-position, same-tier players with overlapping percentile profiles. Populates when the peer-similarity aggregator runs.'
+            '</div>'
+        )
+
+    return f"""
+      <article class="peers" data-module="peer-comparator" data-state="{'ready' if peers else 'empty'}">
+        <header class="peers__header">
+          <h2 class="peers__title">Peer Comparator</h2>
+          <p class="peers__sub">4 same-position peers in the player&rsquo;s percentile band.</p>
+        </header>
+        <input type="search" class="peers__search" placeholder="Search peers (e.g. Mendoza, Dart, Ewers)" disabled aria-label="Search peers (placeholder — search is disabled until peer-set ingestion lands)">
+        {body_html}
+      </article>
+    """
+
+
+def _render_v5_savant_card(savant: dict[str, Any] | None) -> str:
+    """Advanced Savant v5 — cohort filter + advanced stats (S.5e). Shell only."""
+    pills = ("p4", "g5", "all")
+    pill_labels = {"p4": "P4", "g5": "G5", "all": "All FBS"}
+    buttons_html: list[str] = []
+    for pid in pills:
+        buttons_html.append(
+            f'<button type="button" class="savant__filter-pill" '
+            f'data-cohort="{pid}" aria-pressed="{"true" if pid == "p4" else "false"}" '
+            f'x-on:click="cohort = \'{pid}\'" '
+            f'x-bind:aria-pressed="cohort === \'{pid}\'">{escape(pill_labels[pid])}</button>'
+        )
+    return f"""
+      <article class="savant" data-module="advanced-savant" data-state="empty"
+               x-data="{{ cohort: (window.urlState && window.urlState.get('savant')) || 'p4' }}">
+        <header class="savant__header">
+          <h2 class="savant__title">Advanced Savant</h2>
+          <p class="savant__sub">Opponent-adjusted advanced metrics with a cohort filter.</p>
+        </header>
+        <div class="savant__filter" role="group" aria-label="Cohort filter">{"".join(buttons_html)}</div>
+        <div class="savant__awaiting" role="status">
+          Per-cohort advanced metric snapshots populate when the per-cohort aggregator runs against P4 / G5 / All-FBS reference sets. Selected cohort: <strong x-text="cohort.toUpperCase()">P4</strong>.
+        </div>
+      </article>
+    """
+
+
+def _render_v5_hero_strip(player_name: str, position: str, team_name: str,
+                           current_rank: Any, season_year: Any) -> str:
+    """Hero strip v5 (S.5f). Lightweight identity strip rendered above
+    the existing ornate team-color hero. Adds v5 visual rhythm (display
+    headline + meta + stat tile row) without disrupting the legacy hero
+    composition. Decorative — no data interaction.
+    """
+    rank_html = ""
+    try:
+        rank_int = int(current_rank) if current_rank is not None else None
+    except (TypeError, ValueError):
+        rank_int = None
+    if rank_int is not None:
+        rank_html = (
+            f'<div class="hero-strip__stat">'
+            f'<span class="hero-strip__stat-label">Heisman now</span>'
+            f'<span class="hero-strip__stat-value">#{rank_int}</span>'
+            f'</div>'
+        )
+    season_html = ""
+    if season_year:
+        season_html = (
+            f'<div class="hero-strip__stat">'
+            f'<span class="hero-strip__stat-label">Season</span>'
+            f'<span class="hero-strip__stat-value">{escape(str(season_year))}</span>'
+            f'</div>'
+        )
+    return f"""
+      <article class="hero-strip" data-module="hero-strip">
+        <div>
+          <h2 class="hero-strip__title">{escape(player_name)}</h2>
+          <p class="hero-strip__meta">{escape(position)} &middot; {escape(team_name)}</p>
+        </div>
+        <div class="hero-strip__stats">
+          {rank_html}
+          {season_html}
+        </div>
+      </article>
+    """
+
+
+_PLAYER_SUBNAV_ITEMS = (
+    ("the-room", "Room"),
+    ("signature-story", "Story"),
+    ("current-season-production", "Stats"),
+    ("player-standing", "Standing"),
+    ("splits", "Splits"),
+    ("advanced-savant", "Savant"),
+    ("peer-comparator", "Peers"),
+    ("supporting-cast", "Cast"),
+    ("bio-tabs", "Bio"),
+    ("trophy-case", "Trophy"),
+)
+
+
+def _render_v5_player_subnav() -> str:
+    """Render the sticky player-page subnav (S.5g).
+
+    Anchor links to each #section on the page; /assets/js/subnav.js wires
+    IntersectionObserver scroll-spy + sticky-stuck class.
+    """
+    items_html = "".join(
+        f'<li><a class="player-subnav__link" href="#{escape(anchor)}">{escape(label)}</a></li>'
+        for anchor, label in _PLAYER_SUBNAV_ITEMS
+    )
+    return (
+        '<nav class="player-subnav" aria-label="Player page sections">'
+        f'<ul class="player-subnav__list">{items_html}</ul>'
+        '</nav>'
+    )
 
 
 def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
