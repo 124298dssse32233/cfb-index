@@ -1637,6 +1637,16 @@ def build_player_page_data_map(
         return {}
     current_season = int(summary["season_year"])
 
+    # Precompute algorithmic Signature Stories (one cohort SQL per metric,
+    # cached; cheap player-sql lookup per candidate). Only players with a
+    # player_value_metrics row or WRs with >= 20 receptions get an entry.
+    from cfb_rankings.signature_story import compute_signature_story_index
+    try:
+        algorithmic_signature_index = compute_signature_story_index(db, current_season)
+    except Exception as exc:  # pragma: no cover — keep site build resilient
+        print(f"[signature_story] precompute failed: {exc}; rendering skeletons.")
+        algorithmic_signature_index = {}
+
     roster_history_rows = _query_rows_for_player_ids(
         db,
         """
@@ -2260,6 +2270,7 @@ def build_player_page_data_map(
             recruiting_by_player.get(player_id, []),
             transfers_by_player.get(player_id, []),
             honors_by_player.get(player_id, []),
+            algorithmic_signature_index.get(player_id),
         )
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
@@ -2291,6 +2302,7 @@ def _assemble_player_page_data(
     recruiting_history: list[dict[str, Any]],
     transfer_history: list[dict[str, Any]],
     honors_history: list[dict[str, Any]],
+    algorithmic_signature: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     current_season = int(summary["season_year"])
     current_roster = next((row for row in roster_history if int(row.get("season_year") or 0) == current_season), None)
@@ -2461,6 +2473,7 @@ def _assemble_player_page_data(
         "official_best_finish": official_best_finish,
         "latest_heisman_season": heisman_years[0]["season_year"] if heisman_years else None,
         "signature_story": signature_story,
+        "algorithmic_signature": algorithmic_signature,
         "stat_profile": stat_profile,
         "season_stat_tables": season_stat_tables,
         "trophy_case": trophy_case,
@@ -10131,6 +10144,97 @@ def render_players_index_html(
 """
 
 
+def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
+    """Minimal HTML shell for the algorithmic Signature Story module.
+
+    Figma replaces this in Stage 2 of the player-page redesign. The shell
+    here carries the data payload verbatim plus readable fallback copy so
+    the page is scannable while the design is in flight.
+    """
+    if not story or not story.get("has_story"):
+        # Shape-accurate skeleton: narrative + confidence label are always present.
+        narrative = (
+            (story or {}).get("narrative")
+            or "He hasn't written his page yet — we'll start filling it in "
+               "when there are enough snaps to rank against his peers."
+        )
+        label = ((story or {}).get("confidence") or {}).get("label") or "No signal"
+        return f"""
+          <article class="panel algorithmic-signature algorithmic-signature--empty"
+                   data-module="algorithmic-signature" data-state="empty">
+            <div class="section-head">
+              <h3>Signature Story</h3>
+              <p class="section-note">An auditable, cohort-ranked read on the one stat that defines this season.</p>
+            </div>
+            <p class="prose-panel">{escape(narrative)}</p>
+            <p class="section-note">Confidence: {escape(label)}.</p>
+          </article>
+        """
+
+    hs = story.get("headline_stat") or {}
+    narrative = str(story.get("narrative") or "")
+    confidence = story.get("confidence") or {}
+    runners = story.get("runners_up") or []
+
+    def _fmt_val(val: Any, unit: str) -> str:
+        try:
+            fv = float(val)
+        except (TypeError, ValueError):
+            return str(val)
+        if unit == "pct":
+            return f"{fv:.1f}%"
+        if unit == "EPA":
+            return f"{fv:+.3f}"
+        if unit == "QBR":
+            return f"{fv:.1f}"
+        if unit == "ratio":
+            return f"{fv:.1f}"
+        if unit == "yds":
+            if fv >= 100:
+                return f"{fv:,.0f}"
+            return f"{fv:.1f}"
+        if unit == "rate":
+            return f"{fv:.0%}"
+        return f"{fv:g}"
+
+    rank = hs.get("rank")
+    cohort_size = hs.get("cohort_size")
+    rank_line = f"#{rank} of {cohort_size}" if rank and cohort_size else "--"
+
+    runners_html = ""
+    if runners:
+        items = "".join(
+            f"<li><span>{escape(r.get('label') or '')}</span>"
+            f"<span>#{r.get('rank')} / {r.get('cohort_size')}</span></li>"
+            for r in runners[:3]
+        )
+        runners_html = f'<ul class="algorithmic-signature__runners">{items}</ul>'
+
+    return f"""
+      <article class="panel algorithmic-signature"
+               data-module="algorithmic-signature" data-state="ready"
+               data-metric-id="{escape(str(hs.get('metric_id') or ''))}"
+               data-cohort-id="{escape(str(hs.get('cohort_id') or ''))}">
+        <div class="section-head">
+          <h3>Signature Story</h3>
+          <p class="section-note">{escape(str(story.get('updated_label') or ''))}</p>
+        </div>
+        <div class="algorithmic-signature__headline">
+          <span class="algorithmic-signature__label">{escape(str(hs.get('label') or ''))}</span>
+          <strong class="algorithmic-signature__value">{escape(_fmt_val(hs.get('value'), str(hs.get('unit') or '')))}</strong>
+          <span class="algorithmic-signature__unit">{escape(str(hs.get('unit') or ''))}</span>
+        </div>
+        <div class="algorithmic-signature__rank">
+          <span>{escape(rank_line)}</span>
+          <span class="section-note">{escape(str(hs.get('rank_cohort') or ''))}</span>
+        </div>
+        <p class="prose-panel algorithmic-signature__narrative">{escape(narrative)}</p>
+        <p class="section-note">Confidence: {escape(str(confidence.get('label') or ''))} (sample {int(hs.get('sample_size') or 0)}, cohort {cohort_size or 0}).</p>
+        {runners_html}
+      </article>
+    """
+
+
 def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]) -> str:
     player = player_data.get("player") or {}
     primary_team = player_data.get("primary_team") or {}
@@ -10446,6 +10550,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="signature-story">
+        {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
         <article class="panel">
           <div class="section-head">
             <h2>{escape(str(signature_story.get("title") or "What makes this player interesting right now"))}</h2>

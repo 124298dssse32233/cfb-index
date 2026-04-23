@@ -320,6 +320,188 @@ def build_candidate_scoreboard(
     return evals
 
 
+def compute_signature_story_index(
+    db: Database,
+    season_year: int,
+    week: int | None = None,
+) -> dict[int, dict[str, Any]]:
+    """Batch-precompute Signature Stories for every qualifying player.
+
+    Designed for the site-build hot path. Instead of N × M queries
+    (N players × M metrics), we run one cohort SQL per metric (cached),
+    then one cheap player SQL per candidate player. Non-candidates get
+    no entry — callers should render the skeleton for them.
+
+    Returned mapping is keyed on player_id. Only players who clear at
+    least one metric's gates receive an entry; callers fall back to
+    `_skeleton(...)` for anyone missing.
+    """
+    seed = _load_seed()
+
+    # Candidate shortlist: any player with WEPA data OR any WR with enough
+    # receptions for the WR stub metrics to have a chance.
+    candidate_rows = db.query_all(
+        """
+        select distinct player_id from player_value_metrics
+         where season_year = :season
+        union
+        select pss.player_id from player_season_stats pss
+          join players p on p.player_id = pss.player_id
+         where pss.season_year = :season
+           and pss.category = 'receiving'
+           and pss.stat_type = 'REC'
+           and pss.stat_value_num >= 20
+           and p.position = 'WR'
+        """,
+        {"season": season_year},
+    )
+    candidate_ids = {int(r["player_id"]) for r in candidate_rows}
+    if not candidate_ids:
+        return {}
+
+    # Bulk-load player positions for quick filter.
+    position_rows = db.query_all(
+        "select player_id, position from players",
+        {},
+    )
+    position_by_player = {
+        int(r["player_id"]): (r.get("position") or "").strip()
+        for r in position_rows
+    }
+
+    # Cache cohort rows keyed by metric.id.
+    cohort_cache: dict[str, list[dict[str, Any]]] = {}
+    cohort_size_cache: dict[str, int] = {}
+
+    for metric in seed.metrics:
+        cohort = seed.cohorts.get(metric.cohort)
+        if cohort is None:
+            continue
+        sql = _apply_placeholders(metric.cohort_sql_template, cohort)
+        rows = db.query_all(
+            sql,
+            {
+                "season_year": season_year,
+                "week": week,
+                "min_volume": metric.min_volume,
+            },
+        )
+        if len(rows) >= cohort.min_qualifying_members:
+            cohort_cache[metric.id] = rows
+            cohort_size_cache[metric.id] = len(rows)
+
+    # Build a per-metric lookup: player_id -> (value, sample_size) from the
+    # cached cohort rows. This avoids N × M single-row player queries during
+    # the hot loop — every piece of data we need is already in cohort_cache.
+    metric_player_lookup: dict[str, dict[int, tuple[float, float]]] = {}
+    for metric_id, rows in cohort_cache.items():
+        lookup: dict[int, tuple[float, float]] = {}
+        for r in rows:
+            pid = r.get("player_id")
+            if pid is None or r.get("value") is None or r.get("sample_size") is None:
+                continue
+            lookup[int(pid)] = (float(r["value"]), float(r["sample_size"]))
+        metric_player_lookup[metric_id] = lookup
+
+    index: dict[int, dict[str, Any]] = {}
+    updated_label = _format_week_label(season_year, week)
+
+    # Cache ranking per (metric_id, player_id) to avoid recomputing if a player
+    # appears in multiple metric evaluations. Ranking is O(cohort_size) though,
+    # which is fine for cohorts ~60-100.
+    for player_id in candidate_ids:
+        position = position_by_player.get(player_id)
+        if not position:
+            continue
+        evals: list[CandidateEval] = []
+        for metric in seed.metrics:
+            if metric.position != position:
+                continue
+            lookup = metric_player_lookup.get(metric.id)
+            if not lookup:
+                continue  # cohort didn't qualify globally — skip for everyone
+            player_entry = lookup.get(player_id)
+            if player_entry is None:
+                continue  # player not in cohort (below volume gate for this metric)
+            value, sample_size = player_entry
+            if sample_size < metric.min_volume:
+                continue
+            cohort_rows = cohort_cache[metric.id]
+            ranked = _rank_and_percentile(
+                cohort_rows, player_id,
+                higher_is_better=metric.higher_is_better,
+            )
+            if ranked is None:
+                continue
+            rank, cohort_size, percentile = ranked
+            score = _score_candidate(metric, float(value), float(sample_size), percentile)
+            evals.append(
+                CandidateEval(
+                    metric=metric,
+                    value=float(value),
+                    sample_size=float(sample_size),
+                    rank=rank,
+                    cohort_size=cohort_size,
+                    percentile=percentile,
+                    score=score,
+                    cohort_rows=cohort_rows,
+                )
+            )
+        if not evals:
+            continue
+        evals.sort(key=lambda e: e.score, reverse=True)
+        winner = evals[0]
+        index[player_id] = _story_from_winner(winner, evals, player_id, season_year, week, updated_label)
+
+    return index
+
+
+def _story_from_winner(
+    winner: CandidateEval,
+    scoreboard: list[CandidateEval],
+    player_id: int,
+    season_year: int,
+    week: int | None,
+    updated_label: str,
+) -> dict[str, Any]:
+    narrative = _render_narrative(winner)
+    confidence = _confidence_for(winner)
+    return {
+        "has_story": True,
+        "player_id": player_id,
+        "season_year": season_year,
+        "week": week,
+        "headline_stat": {
+            "metric_id": winner.metric.id,
+            "label": winner.metric.label,
+            "value": winner.value,
+            "unit": winner.metric.unit,
+            "rank": winner.rank,
+            "rank_cohort": _rank_cohort_label(winner),
+            "cohort_id": winner.metric.cohort,
+            "cohort_size": winner.cohort_size,
+            "percentile": round(winner.percentile, 1),
+            "sample_size": winner.sample_size,
+            "higher_is_better": winner.metric.higher_is_better,
+        },
+        "narrative": narrative,
+        "supporting_chart": _supporting_chart(winner),
+        "confidence": confidence,
+        "updated_label": updated_label,
+        "runners_up": [
+            {
+                "metric_id": e.metric.id,
+                "label": e.metric.label,
+                "rank": e.rank,
+                "cohort_size": e.cohort_size,
+                "percentile": round(e.percentile, 1),
+                "score": round(e.score, 4),
+            }
+            for e in scoreboard[1:4]
+        ],
+    }
+
+
 def fetch_player_signature_story(
     db: Database,
     player_id: int,
