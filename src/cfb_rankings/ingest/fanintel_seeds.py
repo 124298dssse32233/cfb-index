@@ -70,6 +70,9 @@ def seed_source_registry(db: Database, path: Path | None = None) -> dict[str, in
             "updated_at": _utcnow_iso(),
         }
         if existing:
+            # Preserve operator-set is_active flag on update (so manual
+            # deactivations via SQL / CLI survive a re-seed). Only inserts
+            # default is_active=1.
             db.execute(
                 """
                 update source_registry set
@@ -84,7 +87,6 @@ def seed_source_registry(db: Database, path: Path | None = None) -> dict[str, in
                     cohort_weights_rationale = :cohort_weights_rationale,
                     cohort_weights_updated_at = :cohort_weights_updated_at,
                     max_publication_form = :max_publication_form,
-                    is_active = :is_active,
                     updated_at = :updated_at
                 where source_id = :source_id
                 """,
