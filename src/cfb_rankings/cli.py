@@ -49,6 +49,32 @@ def build_parser() -> argparse.ArgumentParser:
         help="Compute cohort divergence per team for one week (reads team_cohort_week).",
     )
     compute_divergence_parser.add_argument("--week", required=True, help="Week key in YYYY-WW format.")
+    subparsers.add_parser(
+        "build-methodology",
+        help="Render /methodology/fan-intelligence.html from source_registry + weights.",
+    )
+
+    player_signature_parser = subparsers.add_parser(
+        "player-signature",
+        help=("Print the Signature Story for a single player. "
+              "Takes a player slug (e.g. 'cj-carr-4788') or a raw player_id."),
+    )
+    player_signature_parser.add_argument(
+        "player",
+        help="Player slug (any-prefix-<id>) or numeric player_id.",
+    )
+    player_signature_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Season year (default: latest season with player data).",
+    )
+    player_signature_parser.add_argument(
+        "--week", type=int, default=None,
+        help="Optional through-week cutoff. If omitted, full-season snapshot.",
+    )
+    player_signature_parser.add_argument(
+        "--json", action="store_true",
+        help="Emit the story payload as JSON instead of the pretty scoreboard.",
+    )
 
     list_sportsdb_parser = subparsers.add_parser("list-sportsdb-leagues")
     list_sportsdb_parser.add_argument("--country", default="United States")
@@ -514,6 +540,31 @@ def main() -> None:
         from cfb_rankings.cohorts.divergence import compute_divergence_week
         result = compute_divergence_week(db, args.week)
         print(f"compute-divergence {args.week}: teams_written={result['teams_written']}")
+        return
+
+    if args.command == "build-methodology":
+        from cfb_rankings.provenance.methodology_page import write_methodology_page
+        out = write_methodology_page(db)
+        print(f"methodology page written: {out}")
+        return
+
+    if args.command == "player-signature":
+        from cfb_rankings.signature_story import (
+            build_candidate_scoreboard,
+            fetch_player_signature_story,
+        )
+        player_id = _resolve_player_identifier(db, args.player)
+        if player_id is None:
+            print(f"error: could not resolve player '{args.player}' — "
+                  f"pass a numeric id or a slug ending in '-<id>'.")
+            return
+        season = args.season or _default_player_season(db, player_id)
+        story = fetch_player_signature_story(db, player_id, season, args.week)
+        if args.json:
+            print(json.dumps(story, indent=2, default=str))
+            return
+        _print_signature_story(db, story, player_id, season, args.week,
+                               build_candidate_scoreboard)
         return
 
     if args.command == "scrape-health":
@@ -2065,6 +2116,83 @@ def _default_offseason_backfill_plan(
             }
         )
     return entries
+
+
+def _resolve_player_identifier(db, raw: str) -> int | None:
+    """Accept either a numeric player_id or a slug with trailing '-<id>'."""
+    raw = (raw or "").strip()
+    if not raw:
+        return None
+    if raw.isdigit():
+        return int(raw)
+    if "-" in raw:
+        tail = raw.rsplit("-", 1)[-1]
+        if tail.isdigit():
+            return int(tail)
+    rows = db.query_all(
+        "select player_id from players where lower(full_name) = lower(:n)",
+        {"n": raw.replace("-", " ")},
+    )
+    if len(rows) == 1:
+        return int(rows[0]["player_id"])
+    return None
+
+
+def _default_player_season(db, player_id: int) -> int:
+    rows = db.query_all(
+        """
+        select max(season_year) as y from (
+          select season_year from player_value_metrics where player_id = :pid
+          union all
+          select season_year from player_season_stats where player_id = :pid
+          union all
+          select season_year from player_game_stats where player_id = :pid
+        )
+        """,
+        {"pid": player_id},
+    )
+    year = rows[0].get("y") if rows else None
+    return int(year or 2025)
+
+
+def _print_signature_story(db, story, player_id, season, week, build_scoreboard_fn):
+    rows = db.query_all(
+        "select full_name, position from players where player_id = :pid",
+        {"pid": player_id},
+    )
+    if rows:
+        name = rows[0]["full_name"]
+        position = rows[0]["position"]
+        header = f"{name} ({position})  player_id={player_id}  season={season}"
+    else:
+        header = f"player_id={player_id}  season={season}"
+    if week is not None:
+        header += f"  through week {week}"
+    print(header)
+    print("-" * len(header))
+    if not story["has_story"]:
+        print(f"[no story] {story['narrative']}")
+        print(f"confidence: {story['confidence']['label']}")
+        return
+    hs = story["headline_stat"]
+    print(f"Winner: {hs['metric_id']}")
+    print(f"  label         : {hs['label']}")
+    print(f"  value         : {hs['value']}  ({hs['unit']})")
+    print(f"  rank          : {hs['rank']} of {hs['cohort_size']} — {hs['rank_cohort']}")
+    print(f"  percentile    : {hs['percentile']}")
+    print(f"  sample_size   : {hs['sample_size']}")
+    print(f"  confidence    : {story['confidence']['label']}  (score={story['confidence']['score']})")
+    print()
+    print("Narrative:")
+    print(f"  {story['narrative']}")
+    print()
+    print("Scoreboard (every qualifying metric, ordered by score):")
+    scoreboard = build_scoreboard_fn(db, player_id, season, week)
+    print(f"  {'metric':<32} {'rank':>8} {'pct':>6} {'n':>6} {'wt':>5} {'score':>8}")
+    for e in scoreboard:
+        rank_str = f"{e.rank}/{e.cohort_size}"
+        print(f"  {e.metric.id:<32} {rank_str:>8} {e.percentile:>6.1f} "
+              f"{int(e.sample_size):>6} {e.metric.narrative_weight:>5.2f} {e.score:>8.3f}")
 
 
 def _mood_team_names_for_week(db: "Database", week_start: str) -> list[str]:
