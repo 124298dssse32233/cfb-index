@@ -214,7 +214,7 @@ metrics:
       SELECT
         p.player_id,
         p.full_name AS player_name,
-        pass_meta.team_name,
+        pvm.team_name,
         (COALESCE(pass.v, 0) * COALESCE(pass.n, 0)
          + COALESCE(rush.v, 0) * COALESCE(rush.n, 0))
         / NULLIF(COALESCE(pass.n, 0) + COALESCE(rush.n, 0), 0) AS value,
@@ -222,13 +222,13 @@ metrics:
       FROM players p
       LEFT JOIN pass ON pass.player_id = p.player_id
       LEFT JOIN rush ON rush.player_id = p.player_id
-      LEFT JOIN player_value_metrics pass_meta
-        ON pass_meta.player_id = p.player_id
-       AND pass_meta.season_year = %(season_year)s
-       AND pass_meta.metric_name = 'wepa_passing'
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = p.player_id
+       AND pvm.season_year = %(season_year)s
+       AND pvm.metric_name = 'wepa_passing'
       WHERE p.position = 'QB'
         AND (COALESCE(pass.n, 0) + COALESCE(rush.n, 0)) >= %(min_volume)s
-        AND pass_meta.conference_name IS NOT NULL
+        AND pvm.conference_name IS NOT NULL
         AND {cohort_filter_pvm}
 
   - id: qbr_season_avg
