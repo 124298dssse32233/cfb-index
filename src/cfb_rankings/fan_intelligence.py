@@ -123,6 +123,179 @@ def fetch_team_mood_profile(
     }
 
 
+def fetch_player_mood_profile(
+    db: Database,
+    player_id: int,
+    season_year: int,
+    week: int,
+    context: "MoodContext | None" = None,
+) -> dict[str, Any]:
+    """Build The Room on [Player] — player-scoped mirror of fetch_team_mood_profile.
+
+    Reads `player_week_conversation_features`. Returns the same shape as the
+    team-scope profile plus a ``top_quote`` field. When the player has no
+    conversation signal yet, returns a ``has_data=False`` envelope identical
+    in shape to the team-scope empty profile so the template never branches.
+
+    Reality Gap and Rival Heat are held at ``available=False`` on purpose —
+    both rely on team-level structural inputs (power percentile, rival
+    fanbase mockery) that don't map cleanly to a single player; the template
+    can still render those panels with honest "context lives on the team
+    page" copy.
+    """
+    fan_row = _fetch_weekly_bucket_scoped(
+        db, scope="player", entity_id=player_id,
+        season_year=season_year, week=week, bucket="fan",
+    )
+    national_row = _fetch_weekly_bucket_scoped(
+        db, scope="player", entity_id=player_id,
+        season_year=season_year, week=week, bucket="national",
+    )
+    rival_row = _fetch_weekly_bucket_scoped(
+        db, scope="player", entity_id=player_id,
+        season_year=season_year, week=week, bucket="rival",
+    )
+    media_row = _fetch_weekly_bucket_scoped(
+        db, scope="player", entity_id=player_id,
+        season_year=season_year, week=week, bucket="media",
+    )
+    history = _fetch_belief_history_scoped(
+        db, scope="player", entity_id=player_id,
+        season_year=season_year, week=week, window=5,
+    )
+
+    mention_count = int((fan_row or {}).get("mention_count") or 0)
+    author_count = int((fan_row or {}).get("unique_author_count") or 0)
+
+    if not fan_row or mention_count < MIN_MENTIONS_FOR_SIGNAL or author_count < MIN_AUTHORS_FOR_SIGNAL:
+        return _empty_player_profile(
+            player_id=player_id,
+            season_year=season_year,
+            week=week,
+            mention_count=mention_count,
+            author_count=author_count,
+        )
+
+    belief = _belief_from_row(fan_row)
+    national_belief = _belief_from_row(national_row) if national_row else None
+    rival_belief = _belief_from_row(rival_row) if rival_row else None  # noqa: F841
+
+    respect_gap = _respect_gap(belief, national_belief)
+    cohesion = _cohesion_from_row(fan_row)
+    swing = _swing_from_history(history, current_belief=belief["score"])
+    sarcasm_risk = _sarcasm_risk_from_row(fan_row, rival_row)
+    confidence = _confidence(
+        mentions=mention_count,
+        authors=author_count,
+        sarcasm_risk=sarcasm_risk,
+    )
+
+    # Derive the top_quote from JSON stored on the fan row (preferred) or the
+    # media row. Templates render the pseudonym + backlink per Tier B rule.
+    top_quote = _player_top_quote(fan_row, media_row)
+
+    return {
+        "has_data": True,
+        "player_id": player_id,
+        "season_year": season_year,
+        "week": week,
+        "confidence": confidence,
+        "sample": {
+            "mentions": mention_count,
+            "authors": author_count,
+            "sarcasm_risk": sarcasm_risk,
+            "national_mentions": int((national_row or {}).get("mention_count") or 0),
+            "rival_mentions": int((rival_row or {}).get("mention_count") or 0),
+            "media_mentions": int((media_row or {}).get("mention_count") or 0),
+        },
+        "belief": belief,
+        "reality_gap": {
+            "available": False,
+            "label": None,
+            "score": None,
+            "narrative": "Reality Gap is a team-level check; see the program page for structural context.",
+        },
+        "respect_gap": respect_gap,
+        "swing": swing,
+        "cohesion": cohesion,
+        "rival_heat": {
+            "available": False,
+            "label": None,
+            "score": None,
+            "narrative": "Rival Heat aggregates across a fanbase and sits on the team page.",
+        },
+        "archetype": _archetype(belief, {"label": None}, swing, cohesion),
+        "storylines": [],   # player-scope storylines require conversation_storylines(entity_type='player'); wiring pending
+        "top_quote": top_quote,
+        "updated_label": f"Week {week} conversation window",
+    }
+
+
+def _player_top_quote(
+    primary_row: dict[str, Any] | None,
+    fallback_row: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    """Pull one representative quote from the row's top_quote_json, if present."""
+    for row in (primary_row, fallback_row):
+        if not row:
+            continue
+        raw = row.get("top_quote_json")
+        if not raw:
+            continue
+        try:
+            data = json.loads(raw) if isinstance(raw, str) else raw
+        except (TypeError, ValueError):
+            continue
+        if not isinstance(data, dict):
+            continue
+        text = str(data.get("text") or "").strip()
+        if not text:
+            continue
+        return {
+            "text": text,
+            "author_pseudonym": str(data.get("author_pseudonym") or "fan"),
+            "source_url": data.get("source_url"),
+            "sentiment_score": data.get("sentiment_score"),
+            "bucket": row.get("audience_bucket"),
+        }
+    return None
+
+
+def _empty_player_profile(
+    *,
+    player_id: int,
+    season_year: int,
+    week: int,
+    mention_count: int,
+    author_count: int,
+) -> dict[str, Any]:
+    return {
+        "has_data": False,
+        "player_id": player_id,
+        "season_year": season_year,
+        "week": week,
+        "confidence": {"label": "No signal", "score": 0.0, "sarcasm_risk": "low"},
+        "sample": {
+            "mentions": mention_count,
+            "authors": author_count,
+            "sarcasm_risk": "low",
+            "national_mentions": 0,
+            "rival_mentions": 0,
+            "media_mentions": 0,
+        },
+        "belief": {"score": None, "label": None, "narrative": "Not enough player-specific chatter yet."},
+        "reality_gap": {"available": False, "label": None, "score": None, "narrative": "Reality Gap lives on the team page until player mentions clear gates."},
+        "respect_gap": {"available": False, "label": None, "score": None, "narrative": "Respect Gap compares fans vs. outsiders — needs enough of each."},
+        "swing": {"available": False, "label": None, "score": None, "narrative": "Swing needs a few weeks of history before it's honest."},
+        "cohesion": {"score": 0.0, "label": None, "narrative": "Internal polarization shows up once the sample is big enough."},
+        "rival_heat": {"available": False, "label": None, "score": None, "narrative": "Rival Heat aggregates across a fanbase and sits on the team page."},
+        "archetype": None,
+        "storylines": [],
+        "top_quote": None,
+        "updated_label": f"Week {week} conversation window",
+    }
+
+
 def fetch_fan_intel_board(
     db: Database,
     season_year: int,
@@ -712,11 +885,42 @@ def _fetch_weekly_bucket(
     week: int,
     bucket: str,
 ) -> dict[str, Any] | None:
+    # Thin wrapper around the scope-aware fetch for backward compatibility
+    # with callers that think in team-only terms.
+    return _fetch_weekly_bucket_scoped(
+        db, scope="team", entity_id=team_id,
+        season_year=season_year, week=week, bucket=bucket,
+    )
+
+
+_SCOPE_TABLES = {
+    "team": ("team_week_conversation_features", "team_id"),
+    "player": ("player_week_conversation_features", "player_id"),
+}
+
+
+def _fetch_weekly_bucket_scoped(
+    db: Database,
+    *,
+    scope: str,
+    entity_id: int,
+    season_year: int,
+    week: int,
+    bucket: str,
+) -> dict[str, Any] | None:
+    """Look up one weekly-bucket row for either a team or a player.
+
+    `scope='team'` reads `team_week_conversation_features`; `scope='player'`
+    reads `player_week_conversation_features`. Both tables carry the same
+    sentiment/emotion columns (plus `sarcasm_risk` and `top_quote_json` on
+    the player side), so downstream row-shape consumers work unchanged.
+    """
+    table, id_col = _SCOPE_TABLES[scope]
     return db.query_one(
-        """
+        f"""
         select *
-        from team_week_conversation_features
-        where team_id = %(team_id)s
+        from {table}
+        where {id_col} = %(entity_id)s
           and season_year = %(season_year)s
           and week = %(week)s
           and audience_bucket = %(bucket)s
@@ -727,7 +931,7 @@ def _fetch_weekly_bucket(
         limit 1
         """,
         {
-            "team_id": team_id,
+            "entity_id": entity_id,
             "season_year": season_year,
             "week": week,
             "bucket": bucket,
@@ -770,31 +974,47 @@ def _fetch_belief_history(
     week: int,
     window: int = 5,
 ) -> list[dict[str, Any]]:
+    return _fetch_belief_history_scoped(
+        db, scope="team", entity_id=team_id,
+        season_year=season_year, week=week, window=window,
+    )
+
+
+def _fetch_belief_history_scoped(
+    db: Database,
+    *,
+    scope: str,
+    entity_id: int,
+    season_year: int,
+    week: int,
+    window: int = 5,
+) -> list[dict[str, Any]]:
+    table, id_col = _SCOPE_TABLES[scope]
     return db.query_all(
-        """
+        f"""
         select *
         from (
           select
-            twcf.*,
+            f.*,
             row_number() over (
-              partition by twcf.week
+              partition by f.week
               order by
-                case when twcf.source_name = 'all' then 0 else 1 end,
-                twcf.mention_count desc,
-                twcf.source_name
+                case when f.source_name = 'all' then 0 else 1 end,
+                f.mention_count desc,
+                f.source_name
             ) as row_priority
-          from team_week_conversation_features twcf
-          where twcf.team_id = %(team_id)s
-            and twcf.season_year = %(season_year)s
-            and twcf.week < %(week)s
-            and twcf.audience_bucket = 'fan'
+          from {table} f
+          where f.{id_col} = %(entity_id)s
+            and f.season_year = %(season_year)s
+            and f.week < %(week)s
+            and f.audience_bucket = 'fan'
         ) ranked
         where row_priority = 1
         order by week desc
         limit %(window)s
         """,
         {
-            "team_id": team_id,
+            "entity_id": entity_id,
             "season_year": season_year,
             "week": week,
             "window": int(window),
