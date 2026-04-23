@@ -75,6 +75,8 @@ def _normalize(text: str) -> str:
 
 def build_last_name_index(
     full_name_index: dict[str, list[PlayerIndexEntry]],
+    *,
+    blocked_keys: set[str] | None = None,
 ) -> dict[str, list[PlayerIndexEntry]]:
     """Derive a {normalized_last_name: [entries]} index from the full-name index.
 
@@ -83,7 +85,13 @@ def build_last_name_index(
     everything. The caller is expected to disambiguate via team-name
     cooccurrence; a last name that doesn't cooccur with its team in the
     document must NOT be tagged.
+
+    ``blocked_keys`` is an optional lowercase set of last-name keys to
+    exclude. Used to drop last names that collide with team names (e.g.,
+    "Washington", "Duke", "Jackson") — team-name cooccurrence there is a
+    tautology and produces massive false-positive counts.
     """
+    blocked_keys = blocked_keys or set()
     out: dict[str, list[PlayerIndexEntry]] = defaultdict(list)
     for entries in full_name_index.values():
         for entry in entries:
@@ -97,8 +105,42 @@ def build_last_name_index(
             key = _normalize(last)
             if len(key) < 3:
                 continue
+            if key in blocked_keys:
+                continue
             out[key].append(entry)
     return dict(out)
+
+
+def build_team_name_blocklist(db: Database) -> set[str]:
+    """Set of normalized strings that collide with college/team names.
+
+    Covers `teams.canonical_name`, `teams.short_name`, and `teams.slug`.
+    Last names in this set must not be used as last-name-only matches
+    because text like "Washington beat Oregon" mentions the SCHOOL, not
+    the player surnamed Washington.
+    """
+    # Be tolerant of test fixtures without a `teams` table.
+    exists = db.query_one(
+        "select 1 as x from sqlite_master where type='table' and name='teams'", {},
+    )
+    if not exists:
+        return set()
+    rows = db.query_all(
+        "select canonical_name, short_name, slug from teams where is_active = 1",
+        {},
+    )
+    out: set[str] = set()
+    for r in rows:
+        for value in (r.get("canonical_name"), r.get("short_name"), r.get("slug")):
+            if value:
+                # For multi-word team names, also block the individual tokens
+                # since "Duke" alone ~= Duke Blue Devils.
+                normalized = _normalize(str(value).replace("-", " "))
+                for token in normalized.split():
+                    if len(token) >= 4:
+                        out.add(token)
+                out.add(normalized)
+    return out
 
 
 def build_player_name_index(
@@ -320,7 +362,11 @@ def tag_player_mentions(
     index = build_player_name_index(db, season_year)
     if not index:
         return {"docs_scanned": 0, "matches": 0, "skipped_ambiguous": 0, "rows_written": 0}
-    last_name_index = build_last_name_index(index) if include_last_name_matches else {}
+    if include_last_name_matches:
+        blocked = build_team_name_blocklist(db)
+        last_name_index = build_last_name_index(index, blocked_keys=blocked)
+    else:
+        last_name_index = {}
 
     # Load candidate docs. We filter to the season via existing team-scope
     # target rows to keep scan volume bounded — a doc without any team
