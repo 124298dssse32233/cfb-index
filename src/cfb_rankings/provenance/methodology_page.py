@@ -60,6 +60,78 @@ def _utcnow_iso() -> str:
     return _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
 
+def _fetch_coverage_summary(db: Database) -> dict[str, Any]:
+    """Live coverage rollup — counts that the UI can show to reassure readers
+    about whether the pipeline is actually pumping data today."""
+    out: dict[str, Any] = {
+        "cohort_cells": 0,
+        "divergence_rows": 0,
+        "source_observations": 0,
+        "conversation_docs_with_source": 0,
+        "qualifying_divergence": [],
+        "by_source": [],
+    }
+    row = db.query_one("select count(*) as n from team_cohort_week")
+    if row:
+        out["cohort_cells"] = row["n"]
+    row = db.query_one(
+        "select count(*) as n, count(case when divergence_score is not null then 1 end) as qual "
+        "from team_cohort_divergence_week"
+    )
+    if row:
+        out["divergence_rows"] = row["n"]
+        out["divergence_qualifying"] = row["qual"]
+    obs_exists = db.query_one(
+        "select 1 as x from sqlite_master where type='table' and name='source_observations'"
+    )
+    if obs_exists:
+        row = db.query_one("select count(*) as n from source_observations")
+        if row:
+            out["source_observations"] = row["n"]
+    row = db.query_one(
+        "select count(*) as n from conversation_documents where source_id is not null"
+    )
+    if row:
+        out["conversation_docs_with_source"] = row["n"]
+    # Top divergence leaderboard (week with the most qualifying rows, any non-zero score)
+    latest = db.query_one(
+        """
+        select week from team_cohort_divergence_week
+        where divergence_score is not null
+        group by week
+        order by sum(case when divergence_score > 0 then 1 else 0 end) desc,
+                 count(*) desc
+        limit 1
+        """
+    )
+    if latest and latest.get("week"):
+        out["qualifying_divergence"] = db.query_all(
+            """
+            select d.team_id, d.week, d.divergence_score, d.num_cohorts_qualifying,
+                   t.canonical_name as team_name, t.slug as team_slug
+            from team_cohort_divergence_week d
+            join teams t on t.team_id = d.team_id
+            where d.week = :w and d.divergence_score is not null
+            order by d.divergence_score desc
+            limit 10
+            """,
+            {"w": latest["week"]},
+        )
+    # Sources that landed data in the last 7 days
+    out["by_source"] = db.query_all(
+        """
+        select source_id, count(*) as n, max(run_date) as latest,
+               sum(case when status='ok' then rows_inserted else 0 end) as ok_rows
+        from scrape_health
+        where run_date >= date('now','-7 days')
+        group by source_id
+        order by ok_rows desc, source_id
+        limit 20
+        """
+    )
+    return out
+
+
 def _fetch_sources(db: Database) -> list[dict[str, Any]]:
     rows = db.query_all(
         """
@@ -167,6 +239,12 @@ code { background: #f4f4f8; padding: 1px 5px; border-radius: 3px; font-size: 13p
 .weight.mid  { background: #dde7f5; text-align: right; font-weight: 600; }
 .weight.high { background: #b7c9e6; text-align: right; font-weight: 700; }
 .gap-callout { background: #fff7e6; border-left: 4px solid #f2a900; padding: 10px 14px; margin: 1rem 0; }
+.coverage-stats { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+.coverage-stats li { background: #f4f7fa; padding: 8px 14px; border-radius: 4px; font-size: 14px; }
+.divergence-leaderboard th, .divergence-leaderboard td,
+.source-activity th, .source-activity td { padding: 4px 10px; font-size: 13px; }
+.divergence-leaderboard td:nth-child(3), .source-activity td:nth-child(2),
+.source-activity td:nth-child(3), .divergence-leaderboard td:nth-child(4) { font-variant-numeric: tabular-nums; text-align: right; }
 footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
 """
 
@@ -185,6 +263,57 @@ def render_methodology_html(db: Database) -> str:
     parts.append(f"<p class='subtitle'>Auto-generated from <code>source_registry</code>. "
                  f"Last build: {_utcnow_iso()}. "
                  f"{active_count} active sources across {len(sources)} registered.</p>")
+
+    coverage = _fetch_coverage_summary(db)
+    parts.append("<h2>0. Current coverage</h2>")
+    parts.append(
+        '<p>Live counts from the production DB, refreshed on every methodology build.</p>'
+    )
+    parts.append(
+        "<ul class='coverage-stats'>"
+        f"<li><strong>{coverage['conversation_docs_with_source']:,}</strong> "
+        "conversation_documents landed under the fan-intel schema</li>"
+        f"<li><strong>{coverage['source_observations']:,}</strong> "
+        "source_observations (Tier A numeric)</li>"
+        f"<li><strong>{coverage['cohort_cells']:,}</strong> "
+        "team_cohort_week cells</li>"
+        f"<li><strong>{coverage['divergence_rows']:,}</strong> "
+        "team-week divergence rows</li>"
+        "</ul>"
+    )
+    if coverage.get("qualifying_divergence"):
+        parts.append("<h3>Top divergence this week</h3>")
+        parts.append(
+            "<table class='divergence-leaderboard'><thead><tr>"
+            "<th>Team</th><th>Week</th><th>Divergence score</th>"
+            "<th>Qualifying cohorts</th></tr></thead><tbody>"
+        )
+        for row in coverage["qualifying_divergence"]:
+            team = html.escape(row.get("team_name") or f"team:{row['team_id']}")
+            slug = html.escape(row.get("team_slug") or "")
+            cell_label = (f"<a href='../teams/{slug}.html'>{team}</a>"
+                          if slug else team)
+            parts.append(
+                f"<tr><td>{cell_label}</td><td>{html.escape(row['week'])}</td>"
+                f"<td>{(row['divergence_score'] or 0):.3f}</td>"
+                f"<td>{row['num_cohorts_qualifying']}</td></tr>"
+            )
+        parts.append("</tbody></table>")
+    if coverage.get("by_source"):
+        parts.append("<h3>Sources with runs in the last 7 days</h3>")
+        parts.append(
+            "<table class='source-activity'><thead><tr>"
+            "<th>source_id</th><th>runs</th><th>rows (ok)</th>"
+            "<th>latest run</th></tr></thead><tbody>"
+        )
+        for row in coverage["by_source"]:
+            parts.append(
+                f"<tr><td><code>{html.escape(row['source_id'])}</code></td>"
+                f"<td>{row['n']}</td>"
+                f"<td>{row['ok_rows'] or 0}</td>"
+                f"<td>{html.escape(row['latest'] or '')}</td></tr>"
+            )
+        parts.append("</tbody></table>")
 
     parts.append("<h2>1. What we publish, and how we label it</h2>")
     parts.append("<p>Every number on the CFB Index's fan-intelligence pages is tagged with a "

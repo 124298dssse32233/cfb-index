@@ -160,3 +160,97 @@ items above are real dependencies (schema decision, API keys, live data flow),
 not quality gaps in the code that shipped. Resuming Week 2-4 adapter work is the
 next productive motion once Kevin blesses the `source_observations` landing-table
 question in SESSION_LOG.
+
+---
+
+## 2026-04-23 update — pipeline is live
+
+Significant progress after the initial audit:
+
+- **`source_observations` landed** — additive migration shipped; Tier A adapters unblocked.
+- **All Tier A adapters built** — wiki_pv, wiki_edits, seatgeek, youtube_meta,
+  kalshi, polymarket, gdelt_volume, spotify_charts. 8/8 parse tests pass.
+- **All Tier B RSS adapters built** — campus_news (reference), beat, substack,
+  athletics, locked_on (via rss_family.py). google_news per team. board adapters
+  for 5 flagship boards.
+- **Bluesky adapters built** — firehose (Jetstream WebSocket), curated+feeds
+  (AppView REST), starter-pack harvester, graph sampler.
+- **Podcast + radio adapters** — PodcastsMetaAdapter, FinebaumAdapter (Tier D),
+  seeds/podcast_feeds.yaml + seeds/radio_feeds.yaml.
+- **Selective Whisper.cpp ASR** — `tools/transcribe_episode.py` for Tier D quotes.
+- **Per-team source-instance loader** — templates × priority_teams = 75 concrete
+  registry rows. Per-feed loaders add 59 more. Registry: **171 fanintel rows**.
+- **Actions workflows wired** — hourly/daily/weekly/scrape_health all call
+  `tools/run_adapter.py` against real adapters. Progressive-enable pattern for
+  auth-required sources.
+- **Feed URL validator** — `python manage.py validate-feed-urls` runs HEAD
+  checks across all registry URLs; report at `docs/audits/feed_validation_report.md`.
+- **Status CLI** — `python manage.py fanintel-status` gives a one-shot dashboard.
+- **Methodology page extended** — live "Current coverage" + "Top divergence
+  this week" + "Sources with runs in last 7 days" sections, all driven by DB.
+- **Nav hook** — "Fan Intel" methodology link added next to the existing
+  "How we build this" pill on all pages (surgical reporting.py edit).
+- **Cohort panel on team pages** — `_render_cohort_panel()` with floor-rule
+  enforcement renders between mood_card and archetype section. Volume-only
+  cells for above-floor-but-no-sentiment land honestly (muted bar + em-dash).
+- **Sentiment-on-write** — RSS adapters (campus_news + subclasses +
+  google_news) now compute VADER+lexicon sentiment at ingest time via
+  `score_sentiment()` helper; backfilled 200 pre-existing targets.
+
+### Live ingestion this session
+
+| Source | Rows landed | Status |
+|---|---|---|
+| `wiki_pv` | 140 observations | ok |
+| `wiki_edits` | 28 observations | ok |
+| `campus_news_all` | 200 docs + targets | 13 teams ok / 7 errored |
+| `google_news_all` | 2013 docs + targets | 20 teams ok |
+| `athletics_all` | ~30 docs | 2 teams ok / 18 errored |
+| `gdelt_volume` | 0 | ok (empty response) |
+| `polymarket` | 0 | empty (guessed slugs need correction) |
+| `kalshi` | 0 | HTTP 429 rate-limit; needs auth |
+
+### Aggregation after ingestion
+
+- `team_cohort_week`: **300 cells across 22 teams × 2 weeks** (up from 0)
+- `team_cohort_divergence_week`: **25 rows / 20 qualifying**
+- First real divergence: Georgia 0.056 across 7 cohorts for week 2025-0
+
+### Feed URL validation
+
+Live HEAD-check across 89 URLs: **39 ok / 47 error / 3 skipped**. Error breakdown:
+- HTTP 403 (anti-bot): many outlets block User-Agent `CFBIndex-FanIntel/0.1`.
+- HTTP 404: guessed URLs that were never right.
+- Timeouts: a few slow outlets.
+
+Priority_teams wiki_* pages: **20/20 resolve OK**.
+
+Report: [docs/audits/feed_validation_report.md](feed_validation_report.md).
+
+### What is now definitively true
+
+1. Floor rule is enforced in code and verified live on a real team
+   (`penn-state.html` rendered cells at n=35 when sentiment was null;
+   after sentiment landed, cells jumped to n=109 with +0.229 score).
+2. Every new row in conversation_documents carries `source_id`,
+   `source_tier`, `capture_url`, `ingestion_adapter_version`, `dedup_key`
+   per STRATEGY §1 principle #2.
+3. Every adapter invocation writes a `scrape_health` row regardless of
+   outcome. `scrape-health` CLI surfaces error/empty before they go
+   silently missing.
+4. 41/41 unit tests pass. `python manage.py build-site` produces 668 team
+   + 15939 player pages with no regressions.
+
+### Still outstanding
+
+1. **Secrets not provisioned** (GH Actions): CFBD_API_KEY, YOUTUBE_API_KEY,
+   SEATGEEK_CLIENT_ID, SPOTIFY_CLIENT_ID/SECRET. Workflows skip these
+   cleanly until provisioned.
+2. **47 broken feed URLs**: triage list in `feed_validation_report.md`.
+3. **Kalshi + Polymarket contract tickers** in
+   `seeds/prediction_market_contracts.yaml` are placeholders; need
+   confirmation against live exchange pages.
+4. **Bluesky handles**: `priority_teams.bluesky_beat_handles` is empty
+   for all 20 teams — needs Deep Research pass.
+5. **Strategy doc**: STRATEGY §5 updated with source_observations schema.
+   Any further cohort-weight tuning is a 2027-April governance task.

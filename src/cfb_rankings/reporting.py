@@ -494,6 +494,25 @@ _ATTRIBUTIONS_CSS_BLOCK = """
 .attributions-page .back { margin-top: 64px; font-size: 14px; color: #6b6a63; }
 """
 
+# Cohort panel CSS — moved from inline block inside _render_cohort_panel (reporting.py:~16163).
+_COHORT_PANEL_CSS_BLOCK = """
+.cohort-panel { padding: 1.5rem 0; }
+.cohort-list { list-style: none; padding: 0; margin: 1rem 0 0; font-family: "IBM Plex Mono", monospace; font-size: .85rem; }
+.cohort-row { display: grid; grid-template-columns: 140px 1fr 60px 60px; gap: .75rem; align-items: center; padding: .25rem 0; }
+.cohort-label { text-transform: uppercase; letter-spacing: .05em; color: #5A5954; }
+.cohort-bar-track { background: #F3EEE4; height: 10px; position: relative; }
+.cohort-bar { display: block; height: 100%; }
+.cohort-bar--pos { background: #2f7d32; }
+.cohort-bar--neg { background: #b23a3a; }
+.cohort-bar--mute { background: #d7d1c2; }
+.cohort-score--mute { color: #a09b8d; }
+.cohort-row--volume-only .cohort-label { color: #5A5954; }
+.cohort-score { text-align: right; font-variant-numeric: tabular-nums; }
+.cohort-n { text-align: right; color: #5A5954; font-size: .75rem; }
+.cohort-n--thin { color: #b07a00; }
+.cohort-panel-empty-body { padding: 1rem 0; color: #5A5954; font-family: "Source Serif 4", Georgia, serif; }
+"""
+
 # Self-hosted fonts (vendored 2026-04-23). Declarations are additive in S.0;
 # legacy @import in _site_css() still loads Anton / Bebas Neue / Inter from
 # Google Fonts. S.1 typography migration removes the @import.
@@ -550,6 +569,8 @@ def _compose_global_css() -> str:
         + _TEAM_ARCHETYPE_CSS_BLOCK
         + "\n/* === Attributions page — moved from reporting.py:~467, scoped to .attributions-page === */\n"
         + _ATTRIBUTIONS_CSS_BLOCK
+        + "\n/* === Cohort panel — moved from reporting.py:~16163 === */\n"
+        + _COHORT_PANEL_CSS_BLOCK
     )
 
 
@@ -16160,23 +16181,6 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
         '<a href="../methodology/fan-intelligence.html">How we weight cohorts &raquo;</a></p>'
         '</div>'
         f'<ul class="cohort-list">{"".join(bars)}</ul>'
-        '<style>'
-        '.cohort-panel { padding: 1.5rem 0; }'
-        '.cohort-list { list-style: none; padding: 0; margin: 1rem 0 0; font-family: "IBM Plex Mono", monospace; font-size: .85rem; }'
-        '.cohort-row { display: grid; grid-template-columns: 140px 1fr 60px 60px; gap: .75rem; align-items: center; padding: .25rem 0; }'
-        '.cohort-label { text-transform: uppercase; letter-spacing: .05em; color: #5A5954; }'
-        '.cohort-bar-track { background: #F3EEE4; height: 10px; position: relative; }'
-        '.cohort-bar { display: block; height: 100%; }'
-        '.cohort-bar--pos { background: #2f7d32; }'
-        '.cohort-bar--neg { background: #b23a3a; }'
-        '.cohort-bar--mute { background: #d7d1c2; }'
-        '.cohort-score--mute { color: #a09b8d; }'
-        '.cohort-row--volume-only .cohort-label { color: #5A5954; }'
-        '.cohort-score { text-align: right; font-variant-numeric: tabular-nums; }'
-        '.cohort-n { text-align: right; color: #5A5954; font-size: .75rem; }'
-        '.cohort-n--thin { color: #b07a00; }'
-        '.cohort-panel-empty-body { padding: 1rem 0; color: #5A5954; font-family: "Source Serif 4", Georgia, serif; }'
-        '</style>'
         '</section>'
     )
 
