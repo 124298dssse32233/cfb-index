@@ -32,6 +32,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Expand *_template source_registry rows into per-team concrete rows "
              "(one per priority_teams row × family with a populated handle).",
     )
+    subparsers.add_parser(
+        "seed-feed-instances",
+        help="Expand per-feed YAML seeds (beat_writer, substack, podcast, radio) "
+             "into concrete source_registry rows.",
+    )
     scrape_health_parser = subparsers.add_parser(
         "scrape-health",
         help="Print per-source run status from scrape_health (sorted error > empty > ok).",
@@ -683,6 +688,28 @@ def main() -> None:
                   f"{(row['last_run'] or '')[:12]:<12} "
                   f"{row['rows_inserted'] or 0:>7} "
                   f"{row['status'] or '':<8}")
+        return
+
+    if args.command == "seed-feed-instances":
+        from cfb_rankings.ingest.fanintel_seeds import (
+            seed_beat_writer_feeds, seed_substack_feeds,
+            seed_podcast_feeds, seed_radio_feeds,
+        )
+        totals = {"inserted": 0, "updated": 0, "skipped": 0}
+        for family_name, fn in [
+            ("beat_writer", seed_beat_writer_feeds),
+            ("substack", seed_substack_feeds),
+            ("podcast", seed_podcast_feeds),
+            ("radio", seed_radio_feeds),
+        ]:
+            result = fn(db)
+            totals["inserted"] += result["inserted"]
+            totals["updated"] += result["updated"]
+            totals["skipped"] += result["skipped"]
+            print(f"  {family_name}: inserted={result['inserted']} "
+                  f"updated={result['updated']} skipped={result['skipped']}")
+        print(f"seed-feed-instances totals: inserted={totals['inserted']} "
+              f"updated={totals['updated']} skipped={totals['skipped']}")
         return
 
     if args.command == "seed-source-instances":

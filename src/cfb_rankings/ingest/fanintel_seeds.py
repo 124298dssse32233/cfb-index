@@ -409,4 +409,155 @@ def seed_source_instances(db: Database) -> dict[str, int]:
     }
 
 
-__all__ = ["seed_source_registry", "seed_priority_teams", "seed_source_instances"]
+def _seed_per_feed_instances(db: Database, yaml_path: Path, family: str,
+                              slug_key: str, template_id: str,
+                              team_slug_key: str | None) -> dict[str, int]:
+    """Shared loader for beat_writer_feeds.yaml / substack_feeds.yaml / etc.
+
+    Each YAML entry becomes one concrete source_registry row whose
+    cohort_weights inherit from ``template_id``. source_id is
+    ``{family}_{team_slug}_{writer_slug}`` (beat) or ``{family}_{writer_slug}``
+    (substack, when team_slug_key is None or value is null).
+    """
+    if not yaml_path.exists():
+        return {"inserted": 0, "updated": 0, "total": 0, "skipped": 0}
+    doc = _load_yaml(yaml_path)
+    feeds = doc.get("feeds") or []
+    tmpl = db.query_one(
+        "select * from source_registry where source_id = :sid", {"sid": template_id}
+    )
+    if not tmpl:
+        raise RuntimeError(f"{template_id} not found — run seed-source-registry first")
+
+    inserted = updated = skipped = 0
+    for feed in feeds:
+        writer_slug = feed.get(slug_key)
+        if not writer_slug:
+            skipped += 1
+            continue
+        team_slug = feed.get(team_slug_key) if team_slug_key else None
+        if team_slug:
+            source_id = f"{family}_{team_slug.lower()}_{writer_slug.lower()}"
+            label = f"{family} — {team_slug} / {writer_slug}"
+        else:
+            source_id = f"{family}_{writer_slug.lower()}"
+            label = f"{family} — {writer_slug}"
+        existing = db.query_one(
+            "select source_registry_id from source_registry where source_id = :sid",
+            {"sid": source_id},
+        )
+        params = {
+            "source_id": source_id,
+            "source_name": label,
+            "provider_name": family,
+            "source_kind": f"fanintel_tier_{tmpl['tier'].lower()}",
+            "collection_method": tmpl.get("ingest_method") or "unspecified",
+            "terms_profile": tmpl.get("license") or "inherited",
+            "tier": tmpl["tier"],
+            "ingest_method": tmpl.get("ingest_method"),
+            "terms_url": feed.get("url"),
+            "license": tmpl.get("license"),
+            "retention_days": tmpl.get("retention_days"),
+            "cohort_weights": tmpl["cohort_weights"],
+            "cohort_weights_rationale":
+                f"Inherits from {template_id}. Feed URL: {feed.get('url')}",
+            "cohort_weights_updated_at": _utcnow_iso()[:10],
+            "max_publication_form": tmpl["max_publication_form"],
+            "is_active": 1,
+            "updated_at": _utcnow_iso(),
+        }
+        if existing:
+            db.execute(
+                """
+                update source_registry set
+                    source_name = :source_name,
+                    tier = :tier,
+                    cohort_weights = :cohort_weights,
+                    cohort_weights_rationale = :cohort_weights_rationale,
+                    cohort_weights_updated_at = :cohort_weights_updated_at,
+                    max_publication_form = :max_publication_form,
+                    terms_url = :terms_url,
+                    updated_at = :updated_at
+                where source_id = :source_id
+                """,
+                params,
+            )
+            updated += 1
+        else:
+            params["created_at"] = _utcnow_iso()
+            db.execute(
+                """
+                insert into source_registry (
+                    source_id, source_name, provider_name, source_kind,
+                    collection_method, terms_profile, tier, ingest_method,
+                    terms_url, license, retention_days, cohort_weights,
+                    cohort_weights_rationale, cohort_weights_updated_at,
+                    max_publication_form, is_active, created_at, updated_at
+                ) values (
+                    :source_id, :source_name, :provider_name, :source_kind,
+                    :collection_method, :terms_profile, :tier, :ingest_method,
+                    :terms_url, :license, :retention_days, :cohort_weights,
+                    :cohort_weights_rationale, :cohort_weights_updated_at,
+                    :max_publication_form, :is_active, :created_at, :updated_at
+                )
+                """,
+                params,
+            )
+            inserted += 1
+    return {"inserted": inserted, "updated": updated,
+            "total": inserted + updated, "skipped": skipped}
+
+
+def seed_beat_writer_feeds(db: Database,
+                            path: Path | None = None) -> dict[str, int]:
+    return _seed_per_feed_instances(
+        db,
+        path or (_SEEDS_DIR / "beat_writer_feeds.yaml"),
+        family="beat",
+        slug_key="writer_slug",
+        template_id="beat_template",
+        team_slug_key="team_slug",
+    )
+
+
+def seed_substack_feeds(db: Database,
+                         path: Path | None = None) -> dict[str, int]:
+    return _seed_per_feed_instances(
+        db,
+        path or (_SEEDS_DIR / "substack_feeds.yaml"),
+        family="substack",
+        slug_key="writer_slug",
+        template_id="substack_template",
+        team_slug_key="team_slug",
+    )
+
+
+def seed_podcast_feeds(db: Database,
+                        path: Path | None = None) -> dict[str, int]:
+    return _seed_per_feed_instances(
+        db,
+        path or (_SEEDS_DIR / "podcast_feeds.yaml"),
+        family="podcast",
+        slug_key="show_slug",
+        template_id="locked_on_template",
+        team_slug_key=None,
+    )
+
+
+def seed_radio_feeds(db: Database,
+                      path: Path | None = None) -> dict[str, int]:
+    return _seed_per_feed_instances(
+        db,
+        path or (_SEEDS_DIR / "radio_feeds.yaml"),
+        family="radio",
+        slug_key="show_slug",
+        template_id="radio_template",
+        team_slug_key=None,
+    )
+
+
+__all__ = [
+    "seed_source_registry", "seed_priority_teams", "seed_source_instances",
+    "seed_beat_writer_feeds", "seed_substack_feeds",
+    "seed_podcast_feeds", "seed_radio_feeds",
+]

@@ -289,6 +289,44 @@ last_config_refresh  DATE
 
 `team_week_conversation_features`, `fanbase_mood_weekly`, `rivalry_obsession_weekly`, `lexicon_weekly`: add `sample_n INTEGER`, `sample_window TEXT`, `confidence_floor TEXT`, `model_version TEXT`. Backfill via migration where possible.
 
+### Player-scope extension (added 2026-04-23)
+
+Unblocks "The Room on [Player]" from `PLAYER_PAGE_WORLD_CLASS_BRIEF.md §4.2`. The row-level table `conversation_document_targets` already has `player_id` + `target_type` columns, so no row-level schema change was required. The change is an aggregate and the pipeline that writes it.
+
+- **`player_week_conversation_features`** (`migrations/20260423_01_player_conversation_features.sql`) — 30-col aggregate mirroring `team_week_conversation_features` and adding `sarcasm_risk` + `top_quote_json`. Unique index on `(player_id, season_year, week, COALESCE(source_name, ''), audience_bucket)` enforces idempotent upsert.
+- **Pipeline CLIs:**
+  - `python manage.py tag-player-mentions --season=YYYY [--commit]` — extracts player references from `conversation_documents.body_text`, writes `conversation_document_targets` rows with `target_type='player'`. Dry-run by default.
+  - `python manage.py compute-player-week-mood --week=YYYY-WW` — rolls those rows up into `player_week_conversation_features`.
+  - `python manage.py player-mood <slug|id>` / `player-signature <slug|id>` — inspection CLIs.
+
+See `docs/player_page_data_pipeline.md` for the full diagram, ordering, and turn-on sequence.
+
+### New table: `source_observations` (added 2026-04-23)
+
+Generic landing table for Tier A numeric observations — pageviews, ticket prices, contract volumes, article counts, chart ranks. Adapters that have a natural home in an existing table (CFBD → `game_lines`, `player_value_metrics`, etc.) continue to use those; anything else lands here.
+
+```
+source_observation_id integer primary key
+source_id            TEXT NOT NULL          -- FK concept to source_registry(source_id)
+entity_type          TEXT NOT NULL          -- team|player|game|market|article_query|channel|event|podcast
+entity_id            TEXT                    -- canonical id per entity_type; "{team_id}" | "{contract_ticker}" | …
+entity_label         TEXT                    -- human-readable
+observed_at_utc      TEXT NOT NULL
+metric               TEXT NOT NULL           -- pageviews|get_in_cents|listings|video_views|volume_usd|…
+value_numeric        REAL
+value_text           TEXT                    -- for ordinal/categorical observations
+sample_window        TEXT                    -- "1d"|"7d"|"instant"|"1w"
+source_tier          TEXT                    -- denormalized from source_registry
+ingestion_adapter_version TEXT
+capture_url          TEXT
+canonical_url        TEXT
+raw_payload_json     TEXT
+dedup_key            TEXT UNIQUE             -- sha1(source_id|entity_id|metric|observed_at_utc[:13])
+created_at_utc       TEXT NOT NULL default current_timestamp
+```
+
+Migration file: `migrations/20260423_01_source_observations.sql`. Additive, reversible (DROP TABLE). Indexed on `(entity_type, entity_id, metric, observed_at_utc)` and `(source_id, metric, observed_at_utc)`.
+
 ---
 
 ## 6. Publication & provenance rules (enforced in code)
