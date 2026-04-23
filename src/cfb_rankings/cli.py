@@ -106,6 +106,14 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional player_id list to filter; default = all players with mentions.",
     )
 
+    the_room_board_parser = subparsers.add_parser(
+        "build-the-room-board",
+        help=("Build the /players/the-room.html discovery page that lists "
+              "every player whose mood card renders ready-state today."),
+    )
+    the_room_board_parser.add_argument("--season", type=int, required=True)
+    the_room_board_parser.add_argument("--week", type=int, default=1)
+
     compute_player_season_mood_parser = subparsers.add_parser(
         "compute-player-season-mood",
         help=("Season rollup: aggregate ALL player-scope target rows for one "
@@ -649,6 +657,12 @@ def main() -> None:
               f"rows_read={result['rows_read']} "
               f"players_touched={result['players_touched']} "
               f"cells_written={result['cells_written']}")
+        return
+
+    if args.command == "build-the-room-board":
+        from cfb_rankings.the_room_board import build_the_room_board
+        out = build_the_room_board(db, season_year=args.season, week=args.week)
+        print(f"the-room board written: {out}")
         return
 
     if args.command == "compute-player-season-mood":

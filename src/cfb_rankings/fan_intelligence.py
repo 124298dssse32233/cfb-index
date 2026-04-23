@@ -327,9 +327,13 @@ def compute_player_mood_index(
             chosen_scope = "season"
         if primary is None:
             continue
-        chosen_bucket, fan_row = primary   # `fan_row` here = "the primary-signal row"
-        mention_count = int(fan_row.get("mention_count") or 0)
-        author_count = int(fan_row.get("unique_author_count") or 0)
+        chosen_bucket, primary_row = primary
+        mention_count = int(primary_row.get("mention_count") or 0)
+        author_count = int(primary_row.get("unique_author_count") or 0)
+        # Keep the actual fan-bucket row available separately so the top_quote
+        # preference stays "fan voice first, then media", regardless of which
+        # bucket drove the belief gate.
+        fan_row_for_quote = buckets.get("fan")
         national_row = buckets.get("national")
         rival_row = buckets.get("rival")
         media_row = buckets.get("media")
@@ -337,13 +341,22 @@ def compute_player_mood_index(
             db, scope="player", entity_id=pid,
             season_year=season_year, week=week, window=5,
         )
-        belief = _belief_from_row(fan_row)
+        # Belief, cohesion, and sarcasm are computed from the row that
+        # drove the gate — fan preferred, then national, etc.
+        belief = _belief_from_row(primary_row)
         national_belief = _belief_from_row(national_row) if national_row else None
-        cohesion = _cohesion_from_row(fan_row)
+        cohesion = _cohesion_from_row(primary_row)
         swing = _swing_from_history(history, current_belief=belief["score"])
-        sarcasm_risk = _sarcasm_risk_from_row(fan_row, rival_row)
+        sarcasm_risk = _sarcasm_risk_from_row(primary_row, rival_row)
         confidence = _confidence(mentions=mention_count, authors=author_count, sarcasm_risk=sarcasm_risk)
-        top_quote = _player_top_quote(fan_row, media_row)
+        # Quote ordering is independent of gate: fan voice first (even if
+        # the fan bucket was below the gate), then media, then the
+        # primary bucket as a last resort so the Room never renders
+        # quote-less when a quote exists anywhere in the player's data.
+        top_quote = (
+            _player_top_quote(fan_row_for_quote, media_row)
+            or _player_top_quote(primary_row, None)
+        )
         index[pid] = {
             "has_data": True,
             "player_id": pid,
