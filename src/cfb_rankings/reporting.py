@@ -1127,6 +1127,7 @@ def fetch_team_page_data(
             resume_percentile=ranking.resume_percentile,
         ),
     )
+    cohort_rows = _fetch_cohort_rows_for_team(db, ranking.team_id)
 
     return {
         "ranking": ranking,
@@ -1145,6 +1146,7 @@ def fetch_team_page_data(
         "similarity_cards": similarity_cards,
         "betting_summary": betting_summary,
         "mood_profile": mood_profile,
+        "cohort_rows": cohort_rows,
     }
 
 
@@ -8006,7 +8008,7 @@ def _render_home_meta_row(summary: dict[str, Any], latest_local_week: int, edito
           <div class="meta-pill"><span>Window</span><strong>{escape(str(active_phase.get("label") or ""))}: {escape(str(active_phase.get("theme") or ""))}</strong></div>
           <div class="meta-pill"><span>Latest Model</span><strong>{escape(season_name)} wk {escape(str(summary["week"]))}</strong></div>
           <div class="meta-pill"><span>Games Loaded</span><strong>Through wk {latest_local_week}</strong></div>
-          <div class="meta-pill"><span>Methodology</span><strong><a href="about-model/index.html" style="color:inherit;border-bottom:1px dotted currentColor;">How we build this</a></strong></div>
+          <div class="meta-pill"><span>Methodology</span><strong><a href="about-model/index.html" style="color:inherit;border-bottom:1px dotted currentColor;">How we build this</a> &middot; <a href="methodology/fan-intelligence.html" style="color:inherit;border-bottom:1px dotted currentColor;">Fan Intel</a></strong></div>
         </div>
         """
     return f"""
@@ -8014,7 +8016,7 @@ def _render_home_meta_row(summary: dict[str, Any], latest_local_week: int, edito
       <div class="meta-pill"><span>Season</span><strong>{escape(season_name)}</strong></div>
       <div class="meta-pill"><span>Model Week</span><strong>{escape(str(summary["week"]))}</strong></div>
       <div class="meta-pill"><span>Games Loaded</span><strong>Through wk {latest_local_week}</strong></div>
-      <div class="meta-pill"><span>Methodology</span><strong><a href="about-model/index.html" style="color:inherit;border-bottom:1px dotted currentColor;">How we build this</a></strong></div>
+      <div class="meta-pill"><span>Methodology</span><strong><a href="about-model/index.html" style="color:inherit;border-bottom:1px dotted currentColor;">How we build this</a> &middot; <a href="methodology/fan-intelligence.html" style="color:inherit;border-bottom:1px dotted currentColor;">Fan Intel</a></strong></div>
     </div>
     """
 
@@ -8926,6 +8928,8 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     net_points = pf - pa
     mood_profile = team_data.get("mood_profile") or {}
     mood_card = _render_team_mood_card(mood_profile, team_name=team_name)
+    cohort_rows = team_data.get("cohort_rows") or []
+    cohort_panel = _render_cohort_panel(cohort_rows, team_name=team_name)
     archetype_module = team_data.get("archetype_module_html") or ""
     return f"""<!doctype html>
 <html lang="en">
@@ -9002,6 +9006,8 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
       </section>
 
       {mood_card}
+
+      {cohort_panel}
 
       <section class="section team-archetype-section">
         <div class="section-head">
@@ -15967,6 +15973,103 @@ def _is_offseason_now(now: datetime | None = None) -> bool:
     if current.month == 1:
         return True
     return False
+
+
+def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> str:
+    """Cohort panel — STRATEGY §4 small-multiples bars per (team, cohort) cell.
+
+    Reads rows from `team_cohort_week` pre-filtered to the team's most recent
+    week. Respects the effective-N floor rule: cells with sentiment_score IS
+    NULL render as "below floor" badges, never as numbers. Empty input ->
+    compact "Awaiting Signal" fallback per STRATEGY §1 principle #1.
+
+    TASK 8.3 (2026-04-23). Does NOT hook into JS; pure inline SVG + CSS.
+    """
+    qualifying = [r for r in cohort_rows if r.get("sentiment_score") is not None]
+    if not qualifying:
+        return (
+            '<section class="section cohort-panel cohort-panel--empty" aria-label="Cohort sentiment">'
+            '<div class="section-head">'
+            '<h2>Cohort Signal</h2>'
+            '<p class="section-sub">How the fan conversation splits across age, lens, and geography cohorts.</p>'
+            '</div>'
+            '<div class="cohort-panel-empty-body">'
+            '<p><strong>Awaiting Signal.</strong> '
+            'No cohort cell for this team-week cleared the effective-N floor '
+            '(&ge;30 weighted docs). '
+            'See <a href="../methodology/fan-intelligence.html">methodology &raquo; effective sample size</a>.</p>'
+            '</div>'
+            '</section>'
+        )
+    week_label = qualifying[0].get("week") or ""
+    confidence = qualifying[0].get("confidence_tier") or "?"
+    bars = []
+    # Sort with highest effective_n first for visual anchor
+    for row in sorted(qualifying, key=lambda r: -(r.get("effective_n") or 0)):
+        cohort = str(row.get("cohort") or "?")
+        sentiment = float(row.get("sentiment_score") or 0)
+        eff_n = float(row.get("effective_n") or 0)
+        pct = max(-100.0, min(100.0, sentiment * 100))
+        bar_cls = "cohort-bar--pos" if sentiment >= 0 else "cohort-bar--neg"
+        width = abs(pct)
+        n_cls = "cohort-n--thin" if eff_n < 100 else "cohort-n--full"
+        bars.append(
+            f'<li class="cohort-row">'
+            f'<span class="cohort-label">{escape(cohort)}</span>'
+            f'<span class="cohort-bar-track">'
+            f'<span class="cohort-bar {bar_cls}" style="width:{width:.1f}%"></span>'
+            f'</span>'
+            f'<span class="cohort-score">{sentiment:+.2f}</span>'
+            f'<span class="cohort-n {n_cls}">n={eff_n:.0f}</span>'
+            f'</li>'
+        )
+    return (
+        '<section class="section cohort-panel" aria-label="Cohort sentiment">'
+        '<div class="section-head">'
+        f'<h2>Cohort Signal</h2>'
+        '<p class="section-sub">Per-cohort sentiment for '
+        f'{escape(team_name)}, week {escape(week_label)}. Confidence tier: '
+        f'<strong>{escape(confidence)}</strong>. '
+        '<a href="../methodology/fan-intelligence.html">How we weight cohorts &raquo;</a></p>'
+        '</div>'
+        f'<ul class="cohort-list">{"".join(bars)}</ul>'
+        '<style>'
+        '.cohort-panel { padding: 1.5rem 0; }'
+        '.cohort-list { list-style: none; padding: 0; margin: 1rem 0 0; font-family: "IBM Plex Mono", monospace; font-size: .85rem; }'
+        '.cohort-row { display: grid; grid-template-columns: 140px 1fr 60px 60px; gap: .75rem; align-items: center; padding: .25rem 0; }'
+        '.cohort-label { text-transform: uppercase; letter-spacing: .05em; color: #5A5954; }'
+        '.cohort-bar-track { background: #F3EEE4; height: 10px; position: relative; }'
+        '.cohort-bar { display: block; height: 100%; }'
+        '.cohort-bar--pos { background: #2f7d32; }'
+        '.cohort-bar--neg { background: #b23a3a; }'
+        '.cohort-score { text-align: right; font-variant-numeric: tabular-nums; }'
+        '.cohort-n { text-align: right; color: #5A5954; font-size: .75rem; }'
+        '.cohort-n--thin { color: #b07a00; }'
+        '.cohort-panel-empty-body { padding: 1rem 0; color: #5A5954; font-family: "Source Serif 4", Georgia, serif; }'
+        '</style>'
+        '</section>'
+    )
+
+
+def _fetch_cohort_rows_for_team(db: Any, team_id: int) -> list[dict[str, Any]]:
+    """Return the most-recent-week cohort_week rows for a team. Best-effort:
+    returns [] on any error so the cohort panel renders Awaiting Signal.
+    """
+    try:
+        latest = db.query_one(
+            "select max(week) as w from team_cohort_week where team_id = :t",
+            {"t": team_id},
+        )
+        if not latest or not latest.get("w"):
+            return []
+        return db.query_all(
+            "select cohort, week, effective_n, sentiment_score, volume, "
+            "confidence_tier from team_cohort_week "
+            "where team_id = :t and week = :w",
+            {"t": team_id, "w": latest["w"]},
+        )
+    except Exception:
+        return []
 
 
 def _render_team_mood_card(mood: dict[str, Any], team_name: str) -> str:
