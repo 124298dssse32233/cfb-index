@@ -1,0 +1,840 @@
+# Fan Intelligence source registry seed. See FAN_INTEL_SOURCE_STRATEGY.md §3, §4.
+#
+# Two kinds of entries:
+#   - FIXED global sources (one row each): cfbd, wiki_pv, kalshi, etc.
+#   - TEMPLATE family rows (source_id ends with "_template"): board_template,
+#     campus_template, substack_template, beat_template, athletics_template,
+#     locked_on_template, radio_template. Per-team instantiations are
+#     inserted later from priority_teams + per-family seed files; they inherit
+#     tier / max_publication_form / cohort_weights from the template.
+#
+# cohort_weights keys (STRATEGY §4):
+#   generation axis: boomer_gen_x, millennial, gen_z, college_age
+#   lens axis:       analytics, recruiting, gambling, casual_vibes, die_hard, media_class
+#   geography axis:  local_market, national_narrative, alumni_diaspora, hbcu_community
+#
+# max_publication_form: numeric | aggregate | rank | citation  (STRATEGY §5)
+# tier: A | B | C | D  (STRATEGY §3)
+# ingest_method: api_official | api_unofficial | rss | firehose | cowork_manual
+
+sources:
+
+  # ---------------- Tier A — numeric publication OK ----------------
+  - source_id: cfbd
+    name: College Football Data API (Patreon tier)
+    platform: cfbd
+    tier: A
+    ingest_method: api_official
+    terms_url: https://collegefootballdata.com/terms
+    license: Patreon-$10/mo
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      CFBD lines/volume data is analytics- and gambling-tilted by nature;
+      audience is media + bettors, per Pew 2023 sports-bettor demographics.
+    cohort_weights:
+      analytics: 0.60
+      recruiting: 0.20
+      gambling: 0.70
+      die_hard: 0.30
+      media_class: 0.10
+      local_market: 0.10
+      national_narrative: 0.70
+
+  - source_id: wiki_pv
+    name: Wikipedia pageviews (en)
+    platform: wikipedia
+    tier: A
+    ingest_method: api_official
+    terms_url: https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use
+    license: CC-BY-SA-3.0
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      Pageview surges reflect general attention, lightly analytics-tilted
+      (Wikipedia skews male/educated per GWI 2023); weak cohort signal.
+    cohort_weights:
+      boomer_gen_x: 0.20
+      millennial: 0.40
+      gen_z: 0.25
+      college_age: 0.15
+      analytics: 0.15
+      recruiting: 0.15
+      gambling: 0.05
+      casual_vibes: 0.40
+      die_hard: 0.15
+      media_class: 0.05
+      local_market: 0.20
+      national_narrative: 0.65
+
+  - source_id: wiki_edits
+    name: Wikipedia edit activity (en)
+    platform: wikipedia
+    tier: A
+    ingest_method: api_official
+    terms_url: https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use
+    license: CC-BY-SA-3.0
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      Active editors are a small, highly-engaged subset — die-hard + media-
+      adjacent skew. Mirrors wiki_pv cohorts but with a die_hard boost.
+    cohort_weights:
+      boomer_gen_x: 0.20
+      millennial: 0.45
+      gen_z: 0.25
+      college_age: 0.10
+      analytics: 0.20
+      die_hard: 0.45
+      media_class: 0.15
+      national_narrative: 0.55
+
+  - source_id: seatgeek
+    name: SeatGeek get-in price + listing counts
+    platform: seatgeek
+    tier: A
+    ingest_method: api_official
+    terms_url: https://seatgeek.com/terms
+    license: SeatGeek-partner-free-tier
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      Secondary ticket market is strongly local + die-hard; national narrative
+      only for marquee matchups. Casual buyers lift casual_vibes slightly.
+    cohort_weights:
+      casual_vibes: 0.30
+      die_hard: 0.60
+      local_market: 0.80
+      national_narrative: 0.20
+
+  - source_id: youtube_meta
+    name: YouTube video metadata (tracked channels)
+    platform: youtube
+    tier: A
+    ingest_method: api_official
+    terms_url: https://developers.google.com/youtube/terms/api-services-terms-of-service
+    license: YouTube-API-free-quota
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      View counts on team + national pod channels — broad cohort coverage
+      leaning millennial/gen_z, die-hard-tilted. Numeric views are clean.
+    cohort_weights:
+      boomer_gen_x: 0.25
+      millennial: 0.40
+      gen_z: 0.25
+      college_age: 0.10
+      analytics: 0.15
+      casual_vibes: 0.25
+      die_hard: 0.40
+      national_narrative: 0.50
+
+  - source_id: kalshi
+    name: Kalshi CFB contract prices + volume
+    platform: kalshi
+    tier: A
+    ingest_method: api_official
+    terms_url: https://kalshi.com/terms
+    license: Kalshi-API-free
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      Regulated prediction market, heavily analytics + gambling. Per Kalshi
+      public demographic disclosures, user base millennial-dominated.
+    cohort_weights:
+      boomer_gen_x: 0.05
+      millennial: 0.50
+      gen_z: 0.20
+      college_age: 0.10
+      analytics: 0.55
+      recruiting: 0.05
+      gambling: 0.75
+      die_hard: 0.15
+      media_class: 0.05
+      local_market: 0.05
+      national_narrative: 0.75
+
+  - source_id: polymarket
+    name: Polymarket CFB contract prices + volume
+    platform: polymarket
+    tier: A
+    ingest_method: api_official
+    terms_url: https://polymarket.com/tos
+    license: Polymarket-API-free
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      Polymarket skews slightly younger and more crypto-native than Kalshi
+      but same analytics + gambling dominance.
+    cohort_weights:
+      boomer_gen_x: 0.03
+      millennial: 0.50
+      gen_z: 0.25
+      college_age: 0.12
+      analytics: 0.55
+      gambling: 0.75
+      die_hard: 0.15
+      national_narrative: 0.75
+
+  - source_id: gdelt_volume
+    name: GDELT 2.0 article counts per entity
+    platform: gdelt
+    tier: A
+    ingest_method: api_official
+    terms_url: https://www.gdeltproject.org/about.html#termsofuse
+    license: GDELT-free-research
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      Global news article volume — national_narrative-heavy, media_class
+      adjacent. Volume only; tone lives in Tier C gdelt_tone.
+    cohort_weights:
+      media_class: 0.40
+      national_narrative: 0.80
+      local_market: 0.10
+
+  - source_id: spotify_charts
+    name: Spotify podcast chart ranks (CFB category)
+    platform: spotify
+    tier: A
+    ingest_method: api_official
+    terms_url: https://www.spotify.com/legal/end-user-agreement/
+    license: Spotify-public-charts
+    retention_days: null
+    max_publication_form: numeric
+    cohort_weights_rationale: >
+      Podcast chart ranks reflect primarily millennial listeners per Edison
+      Podcast Consumer 2023; gen_z entering. Die-hard listener lift.
+    cohort_weights:
+      millennial: 0.55
+      gen_z: 0.25
+      college_age: 0.10
+      die_hard: 0.40
+      media_class: 0.30
+      national_narrative: 0.55
+
+  # ---------------- Tier B — aggregated signal ----------------
+  - source_id: reddit_cfb
+    name: r/CFB submissions + comment trees
+    platform: reddit
+    tier: B
+    ingest_method: api_official
+    terms_url: https://www.redditinc.com/policies/data-api-terms
+    license: Reddit-Data-API
+    retention_days: 180
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix.
+    cohort_weights:
+      boomer_gen_x: 0.05
+      millennial: 0.55
+      gen_z: 0.25
+      college_age: 0.10
+      analytics: 0.30
+      recruiting: 0.10
+      gambling: 0.15
+      casual_vibes: 0.15
+      die_hard: 0.20
+      media_class: 0.05
+      local_market: 0.05
+      national_narrative: 0.60
+
+  - source_id: reddit_team
+    name: Per-team subreddit
+    platform: reddit
+    tier: B
+    ingest_method: api_official
+    terms_url: https://www.redditinc.com/policies/data-api-terms
+    license: Reddit-Data-API
+    retention_days: 180
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix.
+    cohort_weights:
+      boomer_gen_x: 0.10
+      millennial: 0.55
+      gen_z: 0.25
+      college_age: 0.15
+      analytics: 0.15
+      recruiting: 0.10
+      gambling: 0.10
+      casual_vibes: 0.15
+      die_hard: 0.55
+      media_class: 0.05
+      local_market: 0.30
+      national_narrative: 0.25
+
+  - source_id: reddit_alumni
+    name: Per-team alumni subreddit
+    platform: reddit
+    tier: B
+    ingest_method: api_official
+    terms_url: https://www.redditinc.com/policies/data-api-terms
+    license: Reddit-Data-API
+    retention_days: 180
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix; alumni_diaspora weighted.
+    cohort_weights:
+      boomer_gen_x: 0.15
+      millennial: 0.55
+      gen_z: 0.20
+      college_age: 0.10
+      analytics: 0.10
+      recruiting: 0.05
+      gambling: 0.05
+      casual_vibes: 0.15
+      die_hard: 0.30
+      media_class: 0.05
+      local_market: 0.15
+      national_narrative: 0.30
+      alumni_diaspora: 0.55
+
+  - source_id: reddit_city
+    name: Per-team city subreddit
+    platform: reddit
+    tier: B
+    ingest_method: api_official
+    terms_url: https://www.redditinc.com/policies/data-api-terms
+    license: Reddit-Data-API
+    retention_days: 180
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix; local_market-dominated.
+    cohort_weights:
+      boomer_gen_x: 0.15
+      millennial: 0.50
+      gen_z: 0.25
+      college_age: 0.15
+      analytics: 0.05
+      recruiting: 0.05
+      gambling: 0.05
+      casual_vibes: 0.20
+      die_hard: 0.20
+      media_class: 0.05
+      local_market: 0.70
+      national_narrative: 0.10
+
+  - source_id: bluesky_firehose
+    name: Bluesky Jetstream, keyword + handle filtered
+    platform: bluesky
+    tier: B
+    ingest_method: firehose
+    terms_url: https://bsky.social/about/support/tos
+    license: Bluesky-public-firehose
+    retention_days: 90
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix.
+    cohort_weights:
+      boomer_gen_x: 0.05
+      millennial: 0.50
+      gen_z: 0.25
+      college_age: 0.15
+      analytics: 0.15
+      recruiting: 0.10
+      gambling: 0.10
+      casual_vibes: 0.20
+      die_hard: 0.15
+      media_class: 0.10
+      local_market: 0.10
+      national_narrative: 0.55
+
+  - source_id: bluesky_curated
+    name: Bluesky curated handles (~600 per team graph)
+    platform: bluesky
+    tier: B
+    ingest_method: api_official
+    terms_url: https://bsky.social/about/support/tos
+    license: Bluesky-AppView
+    retention_days: 180
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix; media-adjacent lift.
+    cohort_weights:
+      boomer_gen_x: 0.15
+      millennial: 0.55
+      gen_z: 0.15
+      college_age: 0.05
+      analytics: 0.30
+      recruiting: 0.15
+      gambling: 0.10
+      casual_vibes: 0.05
+      die_hard: 0.25
+      media_class: 0.55
+      local_market: 0.20
+      national_narrative: 0.60
+
+  - source_id: bluesky_feeds
+    name: Bluesky public CFB custom feeds via AppView
+    platform: bluesky
+    tier: B
+    ingest_method: api_official
+    terms_url: https://bsky.social/about/support/tos
+    license: Bluesky-AppView
+    retention_days: 180
+    max_publication_form: aggregate
+    cohort_weights_rationale: Similar to bluesky_curated but broader reach; softer weights.
+    cohort_weights:
+      millennial: 0.55
+      gen_z: 0.25
+      analytics: 0.25
+      die_hard: 0.20
+      media_class: 0.35
+      national_narrative: 0.55
+
+  - source_id: bluesky_starterpack
+    name: Bluesky starter-pack-harvested handles
+    platform: bluesky
+    tier: B
+    ingest_method: api_official
+    terms_url: https://bsky.social/about/support/tos
+    license: Bluesky-public
+    retention_days: 180
+    max_publication_form: aggregate
+    cohort_weights_rationale: Expansion of curated list; inherit bluesky_curated weights.
+    cohort_weights:
+      millennial: 0.55
+      gen_z: 0.15
+      analytics: 0.25
+      die_hard: 0.25
+      media_class: 0.50
+      national_narrative: 0.55
+
+  - source_id: youtube_comments_team
+    name: Team-channel comment streams
+    platform: youtube
+    tier: B
+    ingest_method: api_official
+    terms_url: https://developers.google.com/youtube/terms/api-services-terms-of-service
+    license: YouTube-API-free-quota
+    retention_days: 365
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix.
+    cohort_weights:
+      boomer_gen_x: 0.35
+      millennial: 0.40
+      gen_z: 0.20
+      college_age: 0.10
+      analytics: 0.10
+      recruiting: 0.10
+      gambling: 0.05
+      casual_vibes: 0.25
+      die_hard: 0.55
+      media_class: 0.05
+      local_market: 0.40
+      national_narrative: 0.30
+
+  - source_id: youtube_comments_nat
+    name: National CFB pod channel comments
+    platform: youtube
+    tier: B
+    ingest_method: api_official
+    terms_url: https://developers.google.com/youtube/terms/api-services-terms-of-service
+    license: YouTube-API-free-quota
+    retention_days: 365
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix.
+    cohort_weights:
+      boomer_gen_x: 0.20
+      millennial: 0.45
+      gen_z: 0.25
+      college_age: 0.10
+      analytics: 0.25
+      recruiting: 0.10
+      gambling: 0.10
+      casual_vibes: 0.30
+      die_hard: 0.30
+      media_class: 0.10
+      local_market: 0.10
+      national_narrative: 0.70
+
+  - source_id: twitch_chat
+    name: Twitch chat on CFB game-day channels
+    platform: twitch
+    tier: B
+    ingest_method: api_official
+    terms_url: https://www.twitch.tv/p/en/legal/terms-of-service/
+    license: Twitch-IRC-public
+    retention_days: 30
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix.
+    cohort_weights:
+      boomer_gen_x: 0.02
+      millennial: 0.30
+      gen_z: 0.55
+      college_age: 0.30
+      analytics: 0.10
+      recruiting: 0.05
+      gambling: 0.10
+      casual_vibes: 0.40
+      die_hard: 0.30
+      media_class: 0.05
+      local_market: 0.25
+      national_narrative: 0.40
+
+  - source_id: board_template
+    name: Independent team message boards (template)
+    platform: message_board
+    tier: B
+    ingest_method: cowork_manual
+    terms_url: per-board
+    license: per-board-ToS
+    retention_days: 90
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix — older, local, die-hard.
+    cohort_weights:
+      boomer_gen_x: 0.40
+      millennial: 0.40
+      gen_z: 0.10
+      college_age: 0.05
+      analytics: 0.10
+      recruiting: 0.15
+      gambling: 0.10
+      casual_vibes: 0.05
+      die_hard: 0.70
+      media_class: 0.05
+      local_market: 0.55
+      national_narrative: 0.15
+
+  - source_id: board_247_free
+    name: 247Sports/On3/Rivals free-tier threads (template)
+    platform: message_board
+    tier: B
+    ingest_method: cowork_manual
+    terms_url: https://247sports.com/Static/terms
+    license: free-tier-only
+    retention_days: 90
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix — recruiting-heavy.
+    cohort_weights:
+      boomer_gen_x: 0.30
+      millennial: 0.45
+      gen_z: 0.15
+      college_age: 0.05
+      analytics: 0.15
+      recruiting: 0.35
+      gambling: 0.10
+      casual_vibes: 0.05
+      die_hard: 0.65
+      media_class: 0.05
+      local_market: 0.50
+      national_narrative: 0.20
+
+  - source_id: locked_on_template
+    name: Locked On team-daily podcast RSS (template)
+    platform: podcast_rss
+    tier: B
+    ingest_method: rss
+    terms_url: https://lockedonpodcasts.com/
+    license: public-RSS-metadata
+    retention_days: null
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix.
+    cohort_weights:
+      boomer_gen_x: 0.20
+      millennial: 0.50
+      gen_z: 0.20
+      college_age: 0.10
+      analytics: 0.25
+      recruiting: 0.15
+      gambling: 0.10
+      casual_vibes: 0.10
+      die_hard: 0.55
+      media_class: 0.40
+      local_market: 0.40
+      national_narrative: 0.30
+
+  - source_id: campus_template
+    name: Campus newspaper RSS (template)
+    platform: rss
+    tier: B
+    ingest_method: rss
+    terms_url: per-publication
+    license: public-RSS
+    retention_days: null
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix — college-age dominant.
+    cohort_weights:
+      boomer_gen_x: 0.05
+      millennial: 0.15
+      gen_z: 0.55
+      college_age: 0.70
+      analytics: 0.10
+      recruiting: 0.10
+      gambling: 0.05
+      casual_vibes: 0.15
+      die_hard: 0.30
+      media_class: 0.15
+      local_market: 0.70
+      national_narrative: 0.10
+
+  - source_id: substack_template
+    name: CFB Substack writers (template)
+    platform: rss
+    tier: B
+    ingest_method: rss
+    terms_url: https://substack.com/tos
+    license: public-RSS
+    retention_days: null
+    max_publication_form: aggregate
+    cohort_weights_rationale: STRATEGY §4 starting matrix — media-class-heavy.
+    cohort_weights:
+      boomer_gen_x: 0.20
+      millennial: 0.55
+      gen_z: 0.15
+      college_age: 0.05
+      analytics: 0.40
+      recruiting: 0.15
+      gambling: 0.10
+      casual_vibes: 0.05
+      die_hard: 0.30
+      media_class: 0.70
+      local_market: 0.15
+      national_narrative: 0.65
+
+  - source_id: beat_template
+    name: Beat-writer RSS (template)
+    platform: rss
+    tier: B
+    ingest_method: rss
+    terms_url: per-outlet
+    license: public-RSS
+    retention_days: null
+    max_publication_form: aggregate
+    cohort_weights_rationale: Beat writers skew older-reader, local, media-class.
+    cohort_weights:
+      boomer_gen_x: 0.40
+      millennial: 0.40
+      gen_z: 0.15
+      college_age: 0.05
+      analytics: 0.20
+      recruiting: 0.20
+      gambling: 0.05
+      casual_vibes: 0.05
+      die_hard: 0.50
+      media_class: 0.65
+      local_market: 0.75
+      national_narrative: 0.15
+
+  - source_id: athletics_template
+    name: School athletic site press RSS (template)
+    platform: rss
+    tier: B
+    ingest_method: rss
+    terms_url: per-school
+    license: public-RSS
+    retention_days: null
+    max_publication_form: aggregate
+    cohort_weights_rationale: Institutional press — local + media-adjacent.
+    cohort_weights:
+      boomer_gen_x: 0.30
+      millennial: 0.40
+      gen_z: 0.20
+      college_age: 0.10
+      analytics: 0.10
+      recruiting: 0.15
+      gambling: 0.02
+      casual_vibes: 0.10
+      die_hard: 0.55
+      media_class: 0.30
+      local_market: 0.80
+      national_narrative: 0.10
+
+  # ---------------- Tier C — rank/trend only ----------------
+  - source_id: gdelt_tone
+    name: GDELT tone score (weekly aggregate only)
+    platform: gdelt
+    tier: C
+    ingest_method: api_official
+    terms_url: https://www.gdeltproject.org/about.html#termsofuse
+    license: GDELT-free-research
+    retention_days: null
+    max_publication_form: rank
+    cohort_weights_rationale: Inherits gdelt_volume; tone is noisy, rank-only per STRATEGY §6.
+    cohort_weights:
+      media_class: 0.40
+      national_narrative: 0.80
+      local_market: 0.10
+
+  - source_id: google_trends_dma
+    name: Google Trends DMA-level regional rank (Cowork export)
+    platform: google_trends
+    tier: C
+    ingest_method: cowork_manual
+    terms_url: https://policies.google.com/terms
+    license: Google-Trends-public
+    retention_days: null
+    max_publication_form: rank
+    cohort_weights_rationale: Aggregate search interest — soft cohort signal.
+    cohort_weights:
+      millennial: 0.40
+      gen_z: 0.30
+      college_age: 0.15
+      casual_vibes: 0.50
+      local_market: 0.60
+      national_narrative: 0.30
+
+  - source_id: tiktok_observed
+    name: 30 CFB creators — weekly manual observation
+    platform: tiktok
+    tier: C
+    ingest_method: cowork_manual
+    terms_url: https://www.tiktok.com/legal/terms-of-service
+    license: public-profile-observation
+    retention_days: null
+    max_publication_form: rank
+    cohort_weights_rationale: STRATEGY §4 starting matrix — gen_z + college_age dominant.
+    cohort_weights:
+      boomer_gen_x: 0.02
+      millennial: 0.20
+      gen_z: 0.65
+      college_age: 0.35
+      analytics: 0.05
+      recruiting: 0.15
+      gambling: 0.05
+      casual_vibes: 0.60
+      die_hard: 0.10
+      media_class: 0.05
+      local_market: 0.20
+      national_narrative: 0.50
+
+  - source_id: predict_thin
+    name: Kalshi/Polymarket thin contracts (<$1k volume)
+    platform: prediction_market
+    tier: C
+    ingest_method: api_official
+    terms_url: https://kalshi.com/terms
+    license: API-free
+    retention_days: null
+    max_publication_form: rank
+    cohort_weights_rationale: Inherits predict-market cohorts; low-volume noise → rank only.
+    cohort_weights:
+      millennial: 0.50
+      gen_z: 0.20
+      analytics: 0.55
+      gambling: 0.75
+      national_narrative: 0.75
+
+  # ---------------- Tier D — editorial citation only ----------------
+  - source_id: finebaum_rss
+    name: Paul Finebaum Show — ESPN episode metadata + selective ASR
+    platform: podcast_rss
+    tier: D
+    ingest_method: rss
+    terms_url: https://disneytermsofuse.com/
+    license: public-RSS-metadata
+    retention_days: null
+    max_publication_form: citation
+    cohort_weights_rationale: STRATEGY §4 starting matrix — boomer-dominant, SEC-local.
+    cohort_weights:
+      boomer_gen_x: 0.75
+      millennial: 0.15
+      gen_z: 0.02
+      college_age: 0.02
+      analytics: 0.05
+      recruiting: 0.10
+      gambling: 0.10
+      casual_vibes: 0.15
+      die_hard: 0.60
+      media_class: 0.10
+      local_market: 0.60
+      national_narrative: 0.30
+
+  - source_id: radio_template
+    name: Local sports radio podcast RSS (template)
+    platform: radio_rss
+    tier: D
+    ingest_method: rss
+    terms_url: per-station
+    license: public-RSS
+    retention_days: null
+    max_publication_form: citation
+    cohort_weights_rationale: STRATEGY §4 starting matrix — boomer+local dominant.
+    cohort_weights:
+      boomer_gen_x: 0.65
+      millennial: 0.25
+      gen_z: 0.05
+      college_age: 0.03
+      analytics: 0.05
+      recruiting: 0.10
+      gambling: 0.10
+      casual_vibes: 0.15
+      die_hard: 0.55
+      media_class: 0.10
+      local_market: 0.80
+      national_narrative: 0.10
+
+  - source_id: beat_articles
+    name: Beat-writer article quotes via RSS
+    platform: rss
+    tier: D
+    ingest_method: rss
+    terms_url: per-outlet
+    license: fair-use-quote
+    retention_days: null
+    max_publication_form: citation
+    cohort_weights_rationale: Inherits beat_template; citation-only form.
+    cohort_weights:
+      boomer_gen_x: 0.40
+      millennial: 0.40
+      gen_z: 0.15
+      analytics: 0.20
+      recruiting: 0.20
+      die_hard: 0.50
+      media_class: 0.65
+      local_market: 0.75
+
+  - source_id: press_releases
+    name: School athletic press release quotes
+    platform: rss
+    tier: D
+    ingest_method: rss
+    terms_url: per-school
+    license: public-press-release
+    retention_days: null
+    max_publication_form: citation
+    cohort_weights_rationale: Institutional voice — local, media-adjacent.
+    cohort_weights:
+      boomer_gen_x: 0.30
+      millennial: 0.40
+      gen_z: 0.20
+      die_hard: 0.55
+      media_class: 0.30
+      local_market: 0.80
+
+  - source_id: board_quotes
+    name: Message-board pull-quotes (pseudonym + backlink)
+    platform: message_board
+    tier: D
+    ingest_method: cowork_manual
+    terms_url: per-board
+    license: fair-use-quote
+    retention_days: 90
+    max_publication_form: citation
+    cohort_weights_rationale: Inherits board_template; citation-only form.
+    cohort_weights:
+      boomer_gen_x: 0.40
+      millennial: 0.40
+      gen_z: 0.10
+      die_hard: 0.70
+      local_market: 0.55
+
+  - source_id: facebook_alumni_glance
+    name: Facebook public alumni Pages — manual observation
+    platform: facebook
+    tier: D
+    ingest_method: cowork_manual
+    terms_url: https://www.facebook.com/terms.php
+    license: public-page-observation
+    retention_days: null
+    max_publication_form: citation
+    cohort_weights_rationale: STRATEGY §4 starting matrix — boomer + alumni.
+    cohort_weights:
+      boomer_gen_x: 0.55
+      millennial: 0.30
+      gen_z: 0.05
+      college_age: 0.03
+      analytics: 0.05
+      recruiting: 0.05
+      gambling: 0.05
+      casual_vibes: 0.20
+      die_hard: 0.40
+      media_class: 0.05
+      local_market: 0.35
+      national_narrative: 0.20
+      alumni_diaspora: 0.70

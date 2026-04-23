@@ -19,6 +19,14 @@ def build_parser() -> argparse.ArgumentParser:
         "apply-migrations",
         help="Apply all SQL files in migrations/ plus runtime column migrations. Idempotent.",
     )
+    subparsers.add_parser(
+        "seed-source-registry",
+        help="Load seeds/source_registry.yaml into source_registry (upsert on source_id).",
+    )
+    subparsers.add_parser(
+        "seed-priority-teams",
+        help="Load seeds/priority_teams.yaml into priority_teams (upsert on team_id).",
+    )
 
     list_sportsdb_parser = subparsers.add_parser("list-sportsdb-leagues")
     list_sportsdb_parser.add_argument("--country", default="United States")
@@ -463,6 +471,23 @@ def main() -> None:
         )
         for row in rows:
             print(f"  {row['migration_id']} @ {row['applied_at_utc']}")
+        return
+
+    if args.command == "seed-source-registry":
+        from cfb_rankings.ingest.fanintel_seeds import seed_source_registry
+        result = seed_source_registry(db)
+        print(f"source_registry: inserted={result['inserted']} updated={result['updated']} total={result['total']}")
+        return
+
+    if args.command == "seed-priority-teams":
+        from cfb_rankings.ingest.fanintel_seeds import seed_priority_teams
+        result = seed_priority_teams(db)
+        print(
+            f"priority_teams: inserted={result['inserted']} updated={result['updated']} "
+            f"total={result['total']} missing={len(result['missing_team_names'])}"
+        )
+        for name in result["missing_team_names"]:
+            print(f"  MISSING team_name: {name}")
         return
 
     if args.command == "ingest-sportsdb":
