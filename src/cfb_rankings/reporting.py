@@ -466,20 +466,20 @@ _ALPINE_ASSET_NAME = "alpine.min.js"
 
 _TEAM_ARCHETYPE_CSS_BLOCK = """
 .team-archetype-section { padding: 2rem 0; }
-.team-archetype-module { background: #FFFFFF; border: 1px solid #B5AFA3; padding: 2rem; font-family: 'Source Serif 4', Georgia, serif; color: #0B0F14; }
-.team-archetype-eyebrow { font-family: 'IBM Plex Mono', 'SFMono-Regular', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #5A5954; margin-bottom: .75rem; }
+.team-archetype-module { background: var(--card); border: 1px solid var(--border-strong); padding: 2rem; font-family: 'Source Serif 4', Georgia, serif; color: var(--card-foreground); }
+.team-archetype-eyebrow { font-family: 'IBM Plex Mono', 'SFMono-Regular', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-foreground); margin-bottom: .75rem; }
 .team-archetype-name { font-family: 'Bebas Neue', Impact, sans-serif; font-size: 2rem; line-height: 1; letter-spacing: -.005em; margin: 0 0 .25rem 0; }
-.team-archetype-confidence { font-family: 'IBM Plex Mono', monospace; font-size: .875rem; color: #5A5954; font-variant-numeric: tabular-nums; margin-bottom: 1rem; }
+.team-archetype-confidence { font-family: 'IBM Plex Mono', monospace; font-size: .875rem; color: var(--muted-foreground); font-variant-numeric: tabular-nums; margin-bottom: 1rem; }
 .team-archetype-desc { font-size: 1rem; line-height: 1.55; margin: 0 0 1.25rem 0; }
-.team-archetype-phrase, .team-archetype-modifier-block, .team-archetype-migration { border-top: 1px solid #E8E1D2; padding-top: 1rem; margin-bottom: 1rem; }
-.team-archetype-phrase-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5A5954; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: .5rem; }
+.team-archetype-phrase, .team-archetype-modifier-block, .team-archetype-migration { border-top: 1px solid var(--border); padding-top: 1rem; margin-bottom: 1rem; }
+.team-archetype-phrase-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted-foreground); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: .5rem; }
 .team-archetype-phrase-body { font-family: 'IBM Plex Mono', monospace; font-style: italic; font-size: .95rem; }
 .team-archetype-modifier-row { display: flex; flex-wrap: wrap; gap: .75rem; }
-.modifier-chip { display: inline-flex; align-items: center; gap: .25rem; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #0B0F14; background: #F3EEE4; border: 1px solid #B5AFA3; padding: .25rem .6rem; border-radius: 999px; }
-.hub-gold-dot { color: #E0A300; }
+.modifier-chip { display: inline-flex; align-items: center; gap: .25rem; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--foreground); background: var(--muted); border: 1px solid var(--border-strong); padding: .25rem .6rem; border-radius: 999px; }
+.hub-gold-dot { color: var(--team-gold); }
 .team-archetype-link { font-family: 'IBM Plex Mono', monospace; font-size: .82rem; border-bottom: 1px dotted currentColor; text-decoration: none; color: inherit; }
 .team-archetype-spark { width: 100%; max-width: 360px; height: auto; }
-.team-archetype-empty .team-archetype-blurb { font-size: 1rem; color: #5A5954; }
+.team-archetype-empty .team-archetype-blurb { font-size: 1rem; color: var(--muted-foreground); }
 """
 
 _ATTRIBUTIONS_CSS_BLOCK = """
@@ -554,18 +554,18 @@ _COHORT_PANEL_CSS_BLOCK = """
 .cohort-panel { padding: 1.5rem 0; }
 .cohort-list { list-style: none; padding: 0; margin: 1rem 0 0; font-family: "IBM Plex Mono", monospace; font-size: .85rem; }
 .cohort-row { display: grid; grid-template-columns: 140px 1fr 60px 60px; gap: .75rem; align-items: center; padding: .25rem 0; }
-.cohort-label { text-transform: uppercase; letter-spacing: .05em; color: #5A5954; }
-.cohort-bar-track { background: #F3EEE4; height: 10px; position: relative; }
+.cohort-label { text-transform: uppercase; letter-spacing: .05em; color: var(--muted-foreground); }
+.cohort-bar-track { background: var(--muted); height: 10px; position: relative; }
 .cohort-bar { display: block; height: 100%; }
-.cohort-bar--pos { background: #2f7d32; }
-.cohort-bar--neg { background: #b23a3a; }
-.cohort-bar--mute { background: #d7d1c2; }
-.cohort-score--mute { color: #a09b8d; }
-.cohort-row--volume-only .cohort-label { color: #5A5954; }
+.cohort-bar--pos { background: var(--success, #2f7d32); }
+.cohort-bar--neg { background: var(--destructive, #b23a3a); }
+.cohort-bar--mute { background: var(--border); }
+.cohort-score--mute { color: var(--muted-foreground); }
+.cohort-row--volume-only .cohort-label { color: var(--muted-foreground); }
 .cohort-score { text-align: right; font-variant-numeric: tabular-nums; }
-.cohort-n { text-align: right; color: #5A5954; font-size: .75rem; }
-.cohort-n--thin { color: #b07a00; }
-.cohort-panel-empty-body { padding: 1rem 0; color: #5A5954; font-family: "Source Serif 4", Georgia, serif; }
+.cohort-n { text-align: right; color: var(--muted-foreground); font-size: .75rem; }
+.cohort-n--thin { color: var(--team-gold, #b07a00); }
+.cohort-panel-empty-body { padding: 1rem 0; color: var(--muted-foreground); font-family: "Source Serif 4", Georgia, serif; }
 """
 
 # Self-hosted fonts (vendored 2026-04-23). Declarations are additive in S.0;
@@ -17031,7 +17031,7 @@ def _site_css() -> str:
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
         padding: 0 max(16px, calc(50vw - 700px));
-        background: rgba(255,255,255,0.95);
+        background: color-mix(in srgb, var(--background) 92%, transparent);
         backdrop-filter: saturate(1.4) blur(12px);
         -webkit-backdrop-filter: saturate(1.4) blur(12px);
         border-bottom: 1px solid var(--border-strong);
@@ -17162,7 +17162,7 @@ def _site_css() -> str:
           margin-top: 8px;
         }
         .topbar.is-open .topbar-panels { display: flex; }
-        .topbar.is-open { background: #fff; }
+        .topbar.is-open { background: var(--background); }
         .nav { flex-direction: column; gap: 2px; }
         .nav-link { width: 100%; padding: 12px 14px; }
         .nav-actions { flex-direction: column; gap: 6px; align-items: stretch; }
