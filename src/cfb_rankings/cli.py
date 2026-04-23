@@ -27,6 +27,11 @@ def build_parser() -> argparse.ArgumentParser:
         "seed-priority-teams",
         help="Load seeds/priority_teams.yaml into priority_teams (upsert on team_id).",
     )
+    subparsers.add_parser(
+        "seed-source-instances",
+        help="Expand *_template source_registry rows into per-team concrete rows "
+             "(one per priority_teams row × family with a populated handle).",
+    )
     scrape_health_parser = subparsers.add_parser(
         "scrape-health",
         help="Print per-source run status from scrape_health (sorted error > empty > ok).",
@@ -49,6 +54,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="Compute cohort divergence per team for one week (reads team_cohort_week).",
     )
     compute_divergence_parser.add_argument("--week", required=True, help="Week key in YYYY-WW format.")
+
+    tag_players_parser = subparsers.add_parser(
+        "tag-player-mentions",
+        help=("Scan conversation_documents for player-name mentions and emit "
+              "conversation_document_targets rows with target_type='player'. "
+              "Dry-run by default; pass --commit to actually insert rows."),
+    )
+    tag_players_parser.add_argument("--season", type=int, required=True,
+                                    help="Season year — restricts both doc scope and candidate players.")
+    tag_players_parser.add_argument("--week", type=int, default=None,
+                                    help="Optional week filter.")
+    tag_players_parser.add_argument("--limit", type=int, default=None,
+                                    help="Optional cap on docs scanned (debug/preview).")
+    tag_players_parser.add_argument("--commit", action="store_true",
+                                    help="Actually insert rows. Default is dry-run.")
 
     compute_player_mood_parser = subparsers.add_parser(
         "compute-player-week-mood",
@@ -553,6 +573,23 @@ def main() -> None:
         print(f"compute-divergence {args.week}: teams_written={result['teams_written']}")
         return
 
+    if args.command == "tag-player-mentions":
+        from cfb_rankings.ingest.player_name_tagger import tag_player_mentions
+        result = tag_player_mentions(
+            db, season_year=args.season, week=args.week,
+            doc_limit=args.limit, commit=args.commit,
+        )
+        mode = "COMMIT" if args.commit else "DRY-RUN"
+        print(
+            f"[{mode}] tag-player-mentions season={args.season}"
+            + (f" week={args.week}" if args.week is not None else "")
+            + f": docs_scanned={result['docs_scanned']}"
+            + f" matches={result['matches']}"
+            + f" skipped_ambiguous={result['skipped_ambiguous']}"
+            + f" rows_written={result['rows_written']}"
+        )
+        return
+
     if args.command == "compute-player-week-mood":
         from cfb_rankings.cohorts.player_aggregate import compute_player_week_mood
         result = compute_player_week_mood(db, args.week, players=args.players)
@@ -618,6 +655,14 @@ def main() -> None:
                   f"{(row['last_run'] or '')[:12]:<12} "
                   f"{row['rows_inserted'] or 0:>7} "
                   f"{row['status'] or '':<8}")
+        return
+
+    if args.command == "seed-source-instances":
+        from cfb_rankings.ingest.fanintel_seeds import seed_source_instances
+        result = seed_source_instances(db)
+        print(f"source-instances: inserted={result['inserted']} "
+              f"updated={result['updated']} total={result['total']} "
+              f"skipped_no_template={result['skipped_no_template']}")
         return
 
     if args.command == "seed-priority-teams":

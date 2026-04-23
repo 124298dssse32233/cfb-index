@@ -269,4 +269,144 @@ def _json_or_none(value: Any) -> str | None:
     return json.dumps(value, sort_keys=True)
 
 
-__all__ = ["seed_source_registry", "seed_priority_teams"]
+_FAMILY_TO_TEMPLATE: dict[str, str] = {
+    "board": "board_template",
+    "campus": "campus_template",
+    "substack": "substack_template",
+    "beat": "beat_template",
+    "athletics": "athletics_template",
+    "locked_on": "locked_on_template",
+    "radio": "radio_template",
+    "google_news": "beat_template",  # Google News aggregates inherit beat cohort weights
+}
+
+
+def seed_source_instances(db: Database) -> dict[str, int]:
+    """Expand template rows into per-team source_registry rows.
+
+    For each priority_teams row and each supported family where a corresponding
+    seed/handle exists (e.g. priority_teams.campus_newspaper_feed), insert a
+    per-team source_registry row whose cohort_weights inherit from the
+    ``{family}_template`` row. Idempotent (upsert on the generated source_id).
+    """
+    teams = db.query_all("""
+        select pt.team_id, pt.rank_priority, t.canonical_name, t.slug,
+               pt.message_board_primary, pt.campus_newspaper_feed,
+               pt.beat_writer_rss, pt.substack_feeds, pt.athletic_dept_feed,
+               pt.locked_on_rss, pt.sports_radio_shows, pt.google_news_query
+        from priority_teams pt
+        join teams t on t.team_id = pt.team_id
+    """)
+    templates: dict[str, dict[str, Any]] = {}
+    for tmpl in db.query_all(
+        "select source_id, tier, cohort_weights, cohort_weights_rationale, "
+        "max_publication_form, ingest_method, license, retention_days "
+        "from source_registry where source_id like '%\\_template' escape '\\'"
+    ):
+        templates[tmpl["source_id"]] = tmpl
+
+    inserted = 0
+    updated = 0
+    skipped_no_template = 0
+
+    for team in teams:
+        team_slug = (team.get("slug") or team.get("canonical_name") or "").lower().replace(" ", "-")
+        if not team_slug:
+            continue
+        # Check each family signal and, if present, instantiate a per-team source row.
+        instances: list[tuple[str, str]] = []  # (family, concrete_source_id)
+        if team.get("message_board_primary"):
+            instances.append(("board", f"board_{team_slug}"))
+        if team.get("campus_newspaper_feed"):
+            instances.append(("campus", f"campus_{team_slug}"))
+        if team.get("athletic_dept_feed"):
+            instances.append(("athletics", f"athletics_{team_slug}"))
+        if team.get("locked_on_rss"):
+            instances.append(("locked_on", f"locked_on_{team_slug}"))
+        if team.get("google_news_query"):
+            instances.append(("google_news", f"google_news_{team_slug}"))
+        # Substack + beat are many-per-team; skipped here, handled by dedicated
+        # per-feed seed file loaders (seed_beat_writer_feeds, seed_substack_feeds)
+        # once those CLIs land. The template row itself still exists for cohort
+        # weight lookup.
+
+        for family, concrete_source_id in instances:
+            template_id = _FAMILY_TO_TEMPLATE.get(family)
+            if not template_id or template_id not in templates:
+                skipped_no_template += 1
+                continue
+            tmpl = templates[template_id]
+            existing = db.query_one(
+                "select source_registry_id from source_registry where source_id = :sid",
+                {"sid": concrete_source_id},
+            )
+            params = {
+                "source_id": concrete_source_id,
+                "source_name": f"{family} — {team['canonical_name']}",
+                "provider_name": family,
+                "source_kind": f"fanintel_tier_{tmpl['tier'].lower()}",
+                "collection_method": tmpl.get("ingest_method") or "unspecified",
+                "terms_profile": tmpl.get("license") or "inherited",
+                "tier": tmpl["tier"],
+                "ingest_method": tmpl.get("ingest_method"),
+                "terms_url": None,
+                "license": tmpl.get("license"),
+                "retention_days": tmpl.get("retention_days"),
+                "cohort_weights": tmpl["cohort_weights"],
+                "cohort_weights_rationale":
+                    f"Inherits from {template_id}. Per-team instance for "
+                    f"team_id={team['team_id']} ({team['canonical_name']}).",
+                "cohort_weights_updated_at": _utcnow_iso()[:10],
+                "max_publication_form": tmpl["max_publication_form"],
+                "is_active": 1,
+                "updated_at": _utcnow_iso(),
+            }
+            if existing:
+                db.execute(
+                    """
+                    update source_registry set
+                        source_name = :source_name,
+                        tier = :tier,
+                        cohort_weights = :cohort_weights,
+                        cohort_weights_rationale = :cohort_weights_rationale,
+                        cohort_weights_updated_at = :cohort_weights_updated_at,
+                        max_publication_form = :max_publication_form,
+                        ingest_method = :ingest_method,
+                        license = :license,
+                        retention_days = :retention_days,
+                        updated_at = :updated_at
+                    where source_id = :source_id
+                    """,
+                    params,
+                )
+                updated += 1
+            else:
+                params["created_at"] = _utcnow_iso()
+                db.execute(
+                    """
+                    insert into source_registry (
+                        source_id, source_name, provider_name, source_kind,
+                        collection_method, terms_profile, tier, ingest_method,
+                        terms_url, license, retention_days, cohort_weights,
+                        cohort_weights_rationale, cohort_weights_updated_at,
+                        max_publication_form, is_active, created_at, updated_at
+                    ) values (
+                        :source_id, :source_name, :provider_name, :source_kind,
+                        :collection_method, :terms_profile, :tier, :ingest_method,
+                        :terms_url, :license, :retention_days, :cohort_weights,
+                        :cohort_weights_rationale, :cohort_weights_updated_at,
+                        :max_publication_form, :is_active, :created_at, :updated_at
+                    )
+                    """,
+                    params,
+                )
+                inserted += 1
+
+    return {
+        "inserted": inserted, "updated": updated,
+        "total": inserted + updated,
+        "skipped_no_template": skipped_no_template,
+    }
+
+
+__all__ = ["seed_source_registry", "seed_priority_teams", "seed_source_instances"]
