@@ -171,13 +171,26 @@ class CampusNewsAdapter(BaseRssAdapter):
                     "where dedup_key = :k", {"k": row["dedup_key"]},
                 )
                 if doc_row is not None:
+                    sentiment = _score_sentiment_safe(
+                        f"{row.get('title_text') or ''}. {row.get('body_text') or ''}"
+                    )
                     self.db.execute(
                         """
                         insert into conversation_document_targets (
                             conversation_document_id, season_year, week,
-                            team_id, target_type, target_key, target_label, audience_bucket
+                            team_id, target_type, target_key, target_label,
+                            audience_bucket,
+                            sentiment_label, sentiment_score,
+                            emotion_primary, emotion_secondary,
+                            sarcasm_score, toxicity_score, confidence_score,
+                            model_provider, model_name, model_version
                         ) values (
-                            :doc, :season, :week, :team, 'team', :tkey, :tlabel, 'local'
+                            :doc, :season, :week, :team, 'team', :tkey, :tlabel,
+                            'local',
+                            :sentiment_label, :sentiment_score,
+                            :emotion_primary, :emotion_secondary,
+                            :sarcasm_score, :toxicity_score, :confidence_score,
+                            'local', 'vader+lexicon', 'conversation-v1'
                         )
                         """,
                         {
@@ -187,6 +200,7 @@ class CampusNewsAdapter(BaseRssAdapter):
                             "team": team_id,
                             "tkey": f"team:{team_id}",
                             "tlabel": self.source_id,
+                            **sentiment,
                         },
                     )
             written += 1
@@ -194,6 +208,30 @@ class CampusNewsAdapter(BaseRssAdapter):
 
 
 # ---------------------- helpers ----------------------
+def _score_sentiment_safe(text: str) -> dict[str, Any]:
+    """Run VADER+lexicon scoring; fall back to neutral defaults if the
+    sentiment stack is unavailable (e.g. on a minimal Actions runner).
+    """
+    try:
+        from cfb_rankings.conversation_utils import score_sentiment
+        out = score_sentiment(text or "")
+        return {
+            "sentiment_label": out.get("sentiment_label"),
+            "sentiment_score": out.get("sentiment_score"),
+            "emotion_primary": out.get("emotion_primary"),
+            "emotion_secondary": out.get("emotion_secondary"),
+            "sarcasm_score": out.get("sarcasm_score"),
+            "toxicity_score": out.get("toxicity_score"),
+            "confidence_score": out.get("confidence_score"),
+        }
+    except Exception:  # noqa: BLE001 — adapter run must continue on sentiment-only errors
+        return {
+            "sentiment_label": None, "sentiment_score": None,
+            "emotion_primary": None, "emotion_secondary": None,
+            "sarcasm_score": None, "toxicity_score": None,
+            "confidence_score": None,
+        }
+
 _TAG_RE = re.compile(r"<[^>]+>")
 _WS_RE = re.compile(r"\s+")
 

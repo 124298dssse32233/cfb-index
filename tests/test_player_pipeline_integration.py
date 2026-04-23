@@ -198,6 +198,104 @@ def test_empty_pipeline_leaves_renderer_in_skeleton_state(db: Database) -> None:
     assert "Awaiting Signal" in html
 
 
+def test_season_rollup_surfaces_card_when_no_single_week_clears(db: Database) -> None:
+    """Fragmented mentions across weeks should unlock the card via rollup.
+
+    Each doc in the fixture is week=12; to exercise rollup, we add 8 more
+    docs spread across weeks 13–20 so no single week clears the 12-mention
+    floor but the season total does.
+    """
+    from cfb_rankings.cohorts.player_aggregate import compute_player_season_mood
+    from cfb_rankings.fan_intelligence import compute_player_mood_index
+
+    # The fixture already seeded 15 fan-bucket team targets at week=12.
+    # Move most of them to later weeks so week=12 drops below the floor.
+    conn = sqlite3.connect(db._path)
+    conn.execute(
+        """
+        update conversation_document_targets
+           set week = case
+                        when conversation_document_id % 4 = 0 then 13
+                        when conversation_document_id % 4 = 1 then 14
+                        when conversation_document_id % 4 = 2 then 15
+                        else 16
+                      end
+         where target_type = 'team'
+        """
+    )
+    conn.commit()
+    conn.close()
+
+    # First ensure the tagger is live and the weekly aggregates reflect the spread.
+    tag_player_mentions(db, season_year=SEASON, commit=True)
+    # Aggregate every week in which we have data.
+    for wk in (12, 13, 14, 15, 16):
+        compute_player_week_mood(db, f"{SEASON}-{wk:02d}")
+
+    # Weekly-only reader, primary week=12: no single week clears.
+    weekly_only = compute_player_mood_index(
+        db, SEASON, WEEK, fallback_to_season_rollup=False,
+    )
+    assert CARR_ID not in weekly_only, (
+        "weekly-only path should NOT surface Carr — no single week has 12 mentions"
+    )
+
+    # Run the season rollup.
+    season_result = compute_player_season_mood(db, SEASON)
+    assert season_result["cells_written"] >= 1
+
+    # Reader with rollup fallback: Carr surfaces via the season path.
+    with_rollup = compute_player_mood_index(
+        db, SEASON, WEEK, fallback_to_season_rollup=True,
+    )
+    assert CARR_ID in with_rollup, "season rollup fallback should unlock Carr"
+    story = with_rollup[CARR_ID]
+    assert story["scope"] == "season"
+    assert story["week"] == 0
+    assert story["primary_bucket"] == "fan"
+    assert story["sample"]["mentions"] >= 12
+    assert "Season" in story["updated_label"]
+
+
+def test_primary_bucket_prefers_fan_over_national(db: Database) -> None:
+    """When BOTH fan and national clear the floor, belief must come from fan."""
+    from cfb_rankings.cohorts.player_aggregate import compute_player_season_mood
+    from cfb_rankings.fan_intelligence import compute_player_mood_index
+
+    # Add 14 national-bucket targets with NEGATIVE sentiment; fan already has
+    # 15 positive at week=12. Both clear the floor, but fan must win.
+    conn = sqlite3.connect(db._path)
+    for i in range(14):
+        cur = conn.execute(
+            """INSERT INTO conversation_documents
+               (source_name, source_author_id, body_text, like_count)
+               VALUES (?,?,?,?)""",
+            ("cfb_national", f"nat_author_{i}", f"Eh, Carr is overrated ({i})", 1),
+        )
+        doc_id = cur.lastrowid
+        conn.execute(
+            """INSERT INTO conversation_document_targets
+               (conversation_document_id, season_year, week, team_id,
+                target_type, audience_bucket, sentiment_score, emotion_primary,
+                confidence_score, is_primary_target)
+               VALUES (?,?,?,?,?,?,?,?,?,1)""",
+            (doc_id, SEASON, WEEK, 1, "team", "national", -0.4, "anger", 0.9),
+        )
+    conn.commit()
+    conn.close()
+
+    tag_player_mentions(db, season_year=SEASON, commit=True)
+    compute_player_week_mood(db, f"{SEASON}-{WEEK:02d}")
+    compute_player_season_mood(db, SEASON)
+
+    profile = compute_player_mood_index(db, SEASON, WEEK)[CARR_ID]
+    assert profile["primary_bucket"] == "fan", (
+        "fan should win when both buckets clear gates — rival/national must not drive belief"
+    )
+    # Fan belief trends positive (sentiment=0.6 baseline).
+    assert profile["belief"]["score"] > 0
+
+
 def test_aggregator_reruns_cleanly_after_new_docs(db: Database) -> None:
     """Second tag + aggregate pass doesn't duplicate rows."""
     tag_player_mentions(db, season_year=SEASON, commit=True)

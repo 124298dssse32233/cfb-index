@@ -73,6 +73,34 @@ def _normalize(text: str) -> str:
     return out.replace(".", "").strip()
 
 
+def build_last_name_index(
+    full_name_index: dict[str, list[PlayerIndexEntry]],
+) -> dict[str, list[PlayerIndexEntry]]:
+    """Derive a {normalized_last_name: [entries]} index from the full-name index.
+
+    Only entries whose last token is ≥ 3 characters are included — this
+    filters initials and suffixes like "II" / "Jr" that would match
+    everything. The caller is expected to disambiguate via team-name
+    cooccurrence; a last name that doesn't cooccur with its team in the
+    document must NOT be tagged.
+    """
+    out: dict[str, list[PlayerIndexEntry]] = defaultdict(list)
+    for entries in full_name_index.values():
+        for entry in entries:
+            last = entry.full_name.split()[-1]
+            # Strip common suffixes.
+            if last.lower() in {"jr", "jr.", "sr", "sr.", "ii", "iii", "iv"}:
+                parts = entry.full_name.split()
+                if len(parts) < 2:
+                    continue
+                last = parts[-2]
+            key = _normalize(last)
+            if len(key) < 3:
+                continue
+            out[key].append(entry)
+    return dict(out)
+
+
 def build_player_name_index(
     db: Database,
     season_year: int,
@@ -281,6 +309,7 @@ def tag_player_mentions(
     doc_limit: int | None = None,
     commit: bool = False,
     preview: bool = False,
+    include_last_name_matches: bool = True,
 ) -> dict[str, int]:
     """Scan conversation_documents for player-name mentions and either
     report (dry-run) or insert conversation_document_targets rows.
@@ -291,6 +320,7 @@ def tag_player_mentions(
     index = build_player_name_index(db, season_year)
     if not index:
         return {"docs_scanned": 0, "matches": 0, "skipped_ambiguous": 0, "rows_written": 0}
+    last_name_index = build_last_name_index(index) if include_last_name_matches else {}
 
     # Load candidate docs. We filter to the season via existing team-scope
     # target rows to keep scan volume bounded — a doc without any team
@@ -373,6 +403,30 @@ def tag_player_mentions(
                 skipped_ambiguous += 1
                 continue
             doc_matches.append(resolved)
+
+        # Last-name pass — requires team cooccurrence AND single-candidate
+        # resolution. Skip if the full-name pass already surfaced a player;
+        # last names are the backfill for casual references.
+        if last_name_index:
+            full_name_hits: set[int] = {p.player_id for p in doc_matches}
+            for last_key, entries in last_name_index.items():
+                # Shared-last-name candidates may cover many players; team
+                # cooccurrence is the only disambiguator we have.
+                if _word_boundary_pattern(last_key).search(body_norm) is None:
+                    continue
+                # Filter to candidates whose team_name appears in the doc.
+                team_matches = [
+                    e for e in entries
+                    if e.team_name and _normalize(e.team_name) in body_norm
+                    and e.player_id not in full_name_hits
+                ]
+                # One unique player per (last_name, team) — if we got
+                # multiple (e.g., Mendoza brothers at Indiana), we cannot
+                # disambiguate from text alone; skip.
+                if len(team_matches) == 1:
+                    doc_matches.append(team_matches[0])
+                elif len(team_matches) > 1:
+                    skipped_ambiguous += 1
 
         # Deduplicate within a single doc (same player mentioned twice → one row).
         seen: set[int] = set()

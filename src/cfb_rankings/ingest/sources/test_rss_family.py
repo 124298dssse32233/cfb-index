@@ -45,7 +45,11 @@ def _fresh_db() -> Database:
             id integer primary key autoincrement,
             conversation_document_id integer,
             season_year integer, week integer, team_id integer,
-            target_type text, target_key text, target_label text, audience_bucket text
+            target_type text, target_key text, target_label text, audience_bucket text,
+            sentiment_label text, sentiment_score real,
+            emotion_primary text, emotion_secondary text,
+            sarcasm_score real, toxicity_score real, confidence_score real,
+            model_provider text, model_name text, model_version text
         )
     """)
     db.execute("""

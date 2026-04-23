@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 from dataclasses import dataclass, replace
 from datetime import datetime
+import hashlib
 from html import escape
 import json
 import math
@@ -446,6 +447,143 @@ def write_latest_rankings_report(db: Database, output_path: str | Path, limit: i
     return output
 
 
+# ---------------------------------------------------------------------------
+# Frontend Migration S.0 — global asset emission
+# ---------------------------------------------------------------------------
+# Single external stylesheet served from /assets/cfb-index.<hash>.css; one
+# vendored Alpine.js 3.14 from /assets/alpine.min.js. Every page emits one
+# <link> + one <script defer> via _global_link_tags(). _ensure_global_assets
+# writes the CSS file with a content-hashed filename at build start.
+# ---------------------------------------------------------------------------
+
+_ALPINE_ASSET_NAME = "alpine.min.js"
+
+# Moved out of inline <style> blocks in S.0:
+#   - _TEAM_ARCHETYPE_CSS_BLOCK was at reporting.py:9019-9035 (team page render)
+#   - _ATTRIBUTIONS_CSS_BLOCK was at reporting.py:467-481 (attributions page)
+# Attributions rules are scoped under .attributions-page; the page now sets
+# `class="attributions-page"` on its <body>.
+
+_TEAM_ARCHETYPE_CSS_BLOCK = """
+.team-archetype-section { padding: 2rem 0; }
+.team-archetype-module { background: #FFFFFF; border: 1px solid #B5AFA3; padding: 2rem; font-family: 'Source Serif 4', Georgia, serif; color: #0B0F14; }
+.team-archetype-eyebrow { font-family: 'IBM Plex Mono', 'SFMono-Regular', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #5A5954; margin-bottom: .75rem; }
+.team-archetype-name { font-family: 'Bebas Neue', Impact, sans-serif; font-size: 2rem; line-height: 1; letter-spacing: -.005em; margin: 0 0 .25rem 0; }
+.team-archetype-confidence { font-family: 'IBM Plex Mono', monospace; font-size: .875rem; color: #5A5954; font-variant-numeric: tabular-nums; margin-bottom: 1rem; }
+.team-archetype-desc { font-size: 1rem; line-height: 1.55; margin: 0 0 1.25rem 0; }
+.team-archetype-phrase, .team-archetype-modifier-block, .team-archetype-migration { border-top: 1px solid #E8E1D2; padding-top: 1rem; margin-bottom: 1rem; }
+.team-archetype-phrase-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5A5954; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: .5rem; }
+.team-archetype-phrase-body { font-family: 'IBM Plex Mono', monospace; font-style: italic; font-size: .95rem; }
+.team-archetype-modifier-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+.modifier-chip { display: inline-flex; align-items: center; gap: .25rem; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #0B0F14; background: #F3EEE4; border: 1px solid #B5AFA3; padding: .25rem .6rem; border-radius: 999px; }
+.hub-gold-dot { color: #E0A300; }
+.team-archetype-link { font-family: 'IBM Plex Mono', monospace; font-size: .82rem; border-bottom: 1px dotted currentColor; text-decoration: none; color: inherit; }
+.team-archetype-spark { width: 100%; max-width: 360px; height: auto; }
+.team-archetype-empty .team-archetype-blurb { font-size: 1rem; color: #5A5954; }
+"""
+
+_ATTRIBUTIONS_CSS_BLOCK = """
+.attributions-page { background: #F3EEE4; color: #0B0F14; font-family: 'Source Serif 4', Georgia, serif; margin: 0; padding: 0 24px 96px; }
+.attributions-page .rule { height: 4px; background: #E0A300; margin: 0 -24px 48px; }
+.attributions-page main { max-width: 720px; margin: 0 auto; }
+.attributions-page h1 { font-family: 'Bebas Neue', 'Impact', sans-serif; font-size: 56px; letter-spacing: 0.02em; margin: 48px 0 8px; }
+.attributions-page h2 { font-family: 'Bebas Neue', 'Impact', sans-serif; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6a63; margin: 40px 0 12px; }
+.attributions-page .eyebrow { font-family: 'Bebas Neue', 'Impact', sans-serif; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b6a63; margin: 0; }
+.attributions-page p { line-height: 1.65; font-size: 17px; }
+.attributions-page a { color: #0B0F14; }
+.attributions-page .back { margin-top: 64px; font-size: 14px; color: #6b6a63; }
+"""
+
+# Self-hosted fonts (vendored 2026-04-23). Declarations are additive in S.0;
+# legacy @import in _site_css() still loads Anton / Bebas Neue / Inter from
+# Google Fonts. S.1 typography migration removes the @import.
+_FONT_FACE_BLOCK = """
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-Variable.woff2') format('woff2-variations'),
+       url('/assets/fonts/Inter-Variable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/InterDisplay-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/InterDisplay-Bold.woff2') format('woff2');
+}
+"""
+
+_CSS_LAYER_HEADER = """@layer reset, tokens, base, typography, components, utilities, overrides;
+"""
+
+
+def _compose_global_css() -> str:
+    """Assemble the contents of cfb-index.css.
+
+    S.0 is mechanical: header + @layer declaration + @font-face block +
+    verbatim _site_css() output + extracted inline blocks. S.1+ refactor.
+    """
+    header = (
+        "@charset \"utf-8\";\n"
+        "/*!\n"
+        " * CFB Index — global stylesheet (Stage S.0, 2026-04-23)\n"
+        " * Generated from src/cfb_rankings/reporting.py at build time.\n"
+        " * Mechanical migration of inline <style> blocks; refactor lands in S.1+.\n"
+        " */\n"
+    )
+    return (
+        header
+        + _CSS_LAYER_HEADER
+        + _FONT_FACE_BLOCK
+        + "\n/* === Legacy site CSS (verbatim from _site_css()) === */\n"
+        + _site_css()
+        + "\n/* === Team-archetype module — moved from reporting.py:~9019 === */\n"
+        + _TEAM_ARCHETYPE_CSS_BLOCK
+        + "\n/* === Attributions page — moved from reporting.py:~467, scoped to .attributions-page === */\n"
+        + _ATTRIBUTIONS_CSS_BLOCK
+    )
+
+
+_global_css_filename: str | None = None
+
+
+def _ensure_global_assets(site_root: Path) -> str:
+    """Write cfb-index.<hash>.css and confirm alpine.min.js exists.
+
+    Returns the content-hashed CSS filename (cached after first call).
+    Alpine is vendored manually (not auto-fetched) — file must be present.
+    """
+    global _global_css_filename
+    assets_dir = site_root / "assets"
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    if _global_css_filename is None:
+        css_text = _compose_global_css()
+        digest = hashlib.sha256(css_text.encode("utf-8")).hexdigest()[:12]
+        _global_css_filename = f"cfb-index.{digest}.css"
+        out_path = assets_dir / _global_css_filename
+        if not out_path.exists() or out_path.read_text(encoding="utf-8") != css_text:
+            out_path.write_text(css_text, encoding="utf-8")
+    return _global_css_filename
+
+
+def _global_link_tags() -> str:
+    """Per-page <link> + <script> tags for the vendored stylesheet + Alpine."""
+    filename = _global_css_filename or "cfb-index.css"
+    return (
+        f'<link rel="stylesheet" href="/assets/{filename}">\n'
+        f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
+    )
+
+
 def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> None:
     attributions_dir = site_root / "attributions"
     attributions_dir.mkdir(parents=True, exist_ok=True)
@@ -464,23 +602,9 @@ def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> N
 <meta charset=\"utf-8\">
 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
 <title>Attributions | CFB Index</title>
-<style>
-  body { background: #F3EEE4; color: #0B0F14; font-family: 'Source Serif 4', Georgia, serif;
-         margin: 0; padding: 0 24px 96px; }
-  .rule { height: 4px; background: #E0A300; margin: 0 -24px 48px; }
-  main { max-width: 720px; margin: 0 auto; }
-  h1 { font-family: 'Bebas Neue', 'Impact', sans-serif; font-size: 56px; letter-spacing: 0.02em;
-       margin: 48px 0 8px; }
-  h2 { font-family: 'Bebas Neue', 'Impact', sans-serif; font-size: 22px; letter-spacing: 0.12em;
-       text-transform: uppercase; color: #6b6a63; margin: 40px 0 12px; }
-  .eyebrow { font-family: 'Bebas Neue', 'Impact', sans-serif; font-size: 14px; letter-spacing: 0.18em;
-             text-transform: uppercase; color: #6b6a63; margin: 0; }
-  p { line-height: 1.65; font-size: 17px; }
-  a { color: #0B0F14; }
-  .back { margin-top: 64px; font-size: 14px; color: #6b6a63; }
-</style>
+__GLOBAL_TAGS__
 </head>
-<body>
+<body class=\"attributions-page\">
 <div class=\"rule\" aria-hidden=\"true\"></div>
 <main>
   <p class=\"eyebrow\">Colophon</p>
@@ -509,6 +633,7 @@ def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> N
         else ""
     )
     html = html.replace("{espn_cdn_note}", espn_cdn_note)
+    html = html.replace("__GLOBAL_TAGS__", _global_link_tags())
     (attributions_dir / "index.html").write_text(html, encoding="utf-8")
 
 
@@ -517,6 +642,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     summary, rankings = fetch_latest_rankings(db, limit=1000)
     site_root = Path(output_dir)
     site_root.mkdir(parents=True, exist_ok=True)
+    _ensure_global_assets(site_root)
     _write_attributions_page(site_root, db=db)
 
     if summary is None or not rankings:
@@ -6171,7 +6297,7 @@ def render_matchups_page_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Matchups</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -6558,7 +6684,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Compare Teams</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -7016,7 +7142,7 @@ def render_conferences_index_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Conferences</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -7239,7 +7365,7 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(conference['conference_name'])} | {escape(season_name)}</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -7478,7 +7604,7 @@ def render_archive_index_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Archive</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -7581,7 +7707,7 @@ def render_archive_snapshot_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} {escape(week_label)}</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -8125,7 +8251,7 @@ def render_home_html(
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} | College Football Power Index</title>
     {_meta_tags(f"THE CFB INDEX — Power and Resume rankings for every NCAA football team, with a fan-intelligence layer reading belief, respect, and rivalry heat. One universe from FBS through Division III.", title=f"THE CFB INDEX | {season_name}")}
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -8313,7 +8439,7 @@ def render_rankings_page_html(
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Rankings</title>
     {_meta_tags(f"Power and Resume rankings for all NCAA football teams in {season_name}. FBS, FCS, Division II, and Division III on one board with filterable sort and conference views.", title=f"{season_name} Rankings | THE CFB INDEX", image_path="../og-image.svg")}
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -8516,7 +8642,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} History</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -8938,7 +9064,7 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(team_name)} | {escape(season_name)}</title>
     {_meta_tags(f"{team_name} {season_name}: record {int(season_summary.get('wins') or 0)}-{int(season_summary.get('losses') or 0)}, Power {_public_power_text(ranking.power_display)}, Resume {_public_resume_text(ranking.resume_display)}. Mood, matchups, and the model's read on the season.", title=f"{team_name} | {season_name}", image_path=f"{ranking.slug}-og.svg")}
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -9016,23 +9142,6 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
         </div>
         {archetype_module}
         <link rel="stylesheet" href="../hub/archetype-module.css" onerror="this.remove()">
-        <style>
-        .team-archetype-section {{ padding: 2rem 0; }}
-        .team-archetype-module {{ background: #FFFFFF; border: 1px solid #B5AFA3; padding: 2rem; font-family: 'Source Serif 4', Georgia, serif; color: #0B0F14; }}
-        .team-archetype-eyebrow {{ font-family: 'IBM Plex Mono', 'SFMono-Regular', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #5A5954; margin-bottom: .75rem; }}
-        .team-archetype-name {{ font-family: 'Bebas Neue', Impact, sans-serif; font-size: 2rem; line-height: 1; letter-spacing: -.005em; margin: 0 0 .25rem 0; }}
-        .team-archetype-confidence {{ font-family: 'IBM Plex Mono', monospace; font-size: .875rem; color: #5A5954; font-variant-numeric: tabular-nums; margin-bottom: 1rem; }}
-        .team-archetype-desc {{ font-size: 1rem; line-height: 1.55; margin: 0 0 1.25rem 0; }}
-        .team-archetype-phrase, .team-archetype-modifier-block, .team-archetype-migration {{ border-top: 1px solid #E8E1D2; padding-top: 1rem; margin-bottom: 1rem; }}
-        .team-archetype-phrase-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5A5954; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: .5rem; }}
-        .team-archetype-phrase-body {{ font-family: 'IBM Plex Mono', monospace; font-style: italic; font-size: .95rem; }}
-        .team-archetype-modifier-row {{ display: flex; flex-wrap: wrap; gap: .75rem; }}
-        .modifier-chip {{ display: inline-flex; align-items: center; gap: .25rem; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #0B0F14; background: #F3EEE4; border: 1px solid #B5AFA3; padding: .25rem .6rem; border-radius: 999px; }}
-        .hub-gold-dot {{ color: #E0A300; }}
-        .team-archetype-link {{ font-family: 'IBM Plex Mono', monospace; font-size: .82rem; border-bottom: 1px dotted currentColor; text-decoration: none; color: inherit; }}
-        .team-archetype-spark {{ width: 100%; max-width: 360px; height: auto; }}
-        .team-archetype-empty .team-archetype-blurb {{ font-size: 1rem; color: #5A5954; }}
-        </style>
       </section>
 
       <section class="section premium-team-grid">
@@ -9244,7 +9353,7 @@ def render_programs_index_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Programs | {escape(season_name)}</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -9407,7 +9516,7 @@ def render_teams_index_html(
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Teams | {escape(season_name)}</title>
     {_meta_tags(f"Every NCAA football team for {season_name} — FBS, FCS, Division II, and Division III. Filter by level, browse by conference, search by name.", title=f"Teams | {season_name}", image_path="../og-image.svg")}
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -9631,7 +9740,7 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(team_name)} Program History</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -9903,7 +10012,7 @@ def render_heisman_page_html(
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Heisman Tracker | {escape(season_name)}</title>
     {_meta_tags(f"A full-board Heisman model for {season_name}. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — including the best non-QB, best G5, and best defensive case.", title=f"Heisman Tracker | {season_name}", image_path="../og-image.svg")}
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -10071,7 +10180,7 @@ def render_players_index_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Player Cards | {escape(season_name)}</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -10572,7 +10681,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(player_name)} Player Card</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
@@ -11858,7 +11967,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>About The Model</title>
-    <style>{_site_css()}</style>
+    {_global_link_tags()}
   </head>
   <body>
     <main class="site-shell" id="main-content">
