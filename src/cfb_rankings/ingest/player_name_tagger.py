@@ -233,6 +233,46 @@ def _audience_bucket_for(
     return tb or "national"
 
 
+_PATTERN_CACHE: dict[str, re.Pattern[str]] = {}
+
+
+def _word_boundary_pattern(normalized_name: str) -> re.Pattern[str]:
+    """Compile (once) a word-boundary regex for the normalized name.
+
+    Match boundaries treat any non-alphanumeric+apostrophe character as a
+    break. This catches "C.J. Carr" → normalized "cj carr" → matches in
+    bodies containing "CJ Carr", "C.J. Carr", "... about cj carr." but
+    NOT in "cjcarrington" or "carrson".
+    """
+    cached = _PATTERN_CACHE.get(normalized_name)
+    if cached is not None:
+        return cached
+    escaped = re.escape(normalized_name)
+    pattern = re.compile(rf"(?<![A-Za-z0-9']){escaped}(?![A-Za-z0-9'])", re.IGNORECASE)
+    _PATTERN_CACHE[normalized_name] = pattern
+    return pattern
+
+
+def _match_context(body: str, needle_norm: str) -> str:
+    """Return ~80 chars of raw body around the first match of the normalized needle.
+
+    Used by --preview to let an operator eyeball match quality. Falls back to
+    the first 80 chars of body if precise location can't be pinpointed
+    (e.g., when the normalization dropped periods between doc and index).
+    """
+    if not body:
+        return ""
+    lower = body.lower()
+    # Try the needle verbatim first, then a cheap variant with periods.
+    for probe in (needle_norm, needle_norm.replace(" ", ".")):
+        idx = lower.find(probe)
+        if idx >= 0:
+            start = max(0, idx - 30)
+            end = min(len(body), idx + len(probe) + 50)
+            return body[start:end].replace("\n", " ").strip()
+    return body[:80].replace("\n", " ").strip()
+
+
 def tag_player_mentions(
     db: Database,
     *,
@@ -240,6 +280,7 @@ def tag_player_mentions(
     week: int | None = None,
     doc_limit: int | None = None,
     commit: bool = False,
+    preview: bool = False,
 ) -> dict[str, int]:
     """Scan conversation_documents for player-name mentions and either
     report (dry-run) or insert conversation_document_targets rows.
@@ -321,12 +362,17 @@ def tag_player_mentions(
         # is a normalized full name; `in` substring test is fast.
         doc_matches: list[PlayerIndexEntry] = []
         for key, entries in index.items():
-            if key in body_norm:
-                resolved = _disambiguate(entries, body_norm)
-                if resolved is None:
-                    skipped_ambiguous += 1
-                    continue
-                doc_matches.append(resolved)
+            # Word-boundary check — plain substring produces false positives
+            # like "Peyton Higgins" matching "Peyton Higginson". The regex
+            # is compiled once per key by `_word_boundary_pattern`.
+            pattern = _word_boundary_pattern(key)
+            if pattern.search(body_norm) is None:
+                continue
+            resolved = _disambiguate(entries, body_norm)
+            if resolved is None:
+                skipped_ambiguous += 1
+                continue
+            doc_matches.append(resolved)
 
         # Deduplicate within a single doc (same player mentioned twice → one row).
         seen: set[int] = set()
@@ -347,6 +393,28 @@ def tag_player_mentions(
                     inherited_confidence=(primary_tt or {}).get("confidence_score") if primary_tt else None,
                 )
             )
+            if preview:
+                # Look up the first matching normalized key for this player
+                # to produce an informative context snippet.
+                needle = next(
+                    (k for k, entries in index.items()
+                     if any(e.player_id == p.player_id for e in entries)
+                     and k in body_norm),
+                    p.full_name.lower(),
+                )
+                ctx = _match_context(
+                    (doc_row.get("body_text") or "")
+                    + " "
+                    + (doc_row.get("title_text") or ""),
+                    needle,
+                )
+                print(
+                    f"  doc={doc_id:<8} pid={p.player_id:<6} "
+                    f"{p.full_name[:22]:<22} "
+                    f"team={(p.team_name or '?')[:18]:<18} "
+                    f"bucket={ (m_bucket := _audience_bucket_for(p, team_targets)) or 'fan':<8} "
+                    f"…{ctx[:120]}…"
+                )
 
     rows_written = 0
     if commit and matches:
