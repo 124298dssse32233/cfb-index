@@ -1,0 +1,26 @@
+name: fanintel-ingest-hourly
+# STRATEGY §2 Tier 1. Stubbed until adapters ship in Weeks 2-4.
+# In-season, real cadence is top of every hour.
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # env: # uncomment once adapters need keys
+    #   CFBD_API_KEY:      ${{ secrets.CFBD_API_KEY }}
+    #   CFBD_PATREON_KEY:  ${{ secrets.CFBD_PATREON_KEY }}
+    #   REDDIT_CLIENT_ID:  ${{ secrets.REDDIT_CLIENT_ID }}
+    #   REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+    #   YOUTUBE_API_KEY:   ${{ secrets.YOUTUBE_API_KEY }}
+    #   SEATGEEK_CLIENT_ID: ${{ secrets.SEATGEEK_CLIENT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Placeholder — no adapters enabled yet
+        run: |
+          echo "fanintel-ingest-hourly: no adapters registered; exiting clean."
+          exit 0

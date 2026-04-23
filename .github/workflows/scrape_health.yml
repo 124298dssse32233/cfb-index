@@ -1,0 +1,21 @@
+name: fanintel-scrape-health
+# Health canary — STRATEGY §7 "quarterly" check, but we run it daily as
+# a guardrail. Prints the scrape_health table and fails loudly if any
+# adapter shows status=error in the last 24h. Currently only prints
+# a placeholder because no adapters are wired yet.
+on:
+  schedule:
+    - cron: "30 11 * * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Placeholder — no adapters enabled yet
+        run: |
+          echo "fanintel-scrape-health: no adapters registered; nothing to check."
+          exit 0

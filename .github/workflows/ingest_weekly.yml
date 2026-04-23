@@ -1,0 +1,22 @@
+name: fanintel-ingest-weekly
+# STRATEGY §2 Tier 1. Monday 06:00 UTC = ~01:00 ET (before Kevin's
+# 09:00 ET Cowork sweep). Used for Spotify charts + slow-cadence sources.
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # env:
+    #   SPOTIFY_CLIENT_ID:     ${{ secrets.SPOTIFY_CLIENT_ID }}
+    #   SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Placeholder — no adapters enabled yet
+        run: |
+          echo "fanintel-ingest-weekly: no adapters registered; exiting clean."
+          exit 0

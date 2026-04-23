@@ -1,0 +1,23 @@
+name: fanintel-ingest-daily
+# STRATEGY §2 Tier 1. Stubbed; real adapters land in Weeks 2-4.
+# Runs once per day at 09:00 UTC.
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # env:
+    #   CFBD_API_KEY:      ${{ secrets.CFBD_API_KEY }}
+    #   YOUTUBE_API_KEY:   ${{ secrets.YOUTUBE_API_KEY }}
+    #   SEATGEEK_CLIENT_ID: ${{ secrets.SEATGEEK_CLIENT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Placeholder — no adapters enabled yet
+        run: |
+          echo "fanintel-ingest-daily: no adapters registered; exiting clean."
+          exit 0
