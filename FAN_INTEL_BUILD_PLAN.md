@@ -162,7 +162,7 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 ### TASK 4.1 — Beat-writer RSS (bulk)
 **Model**: Sonnet. **Output**: `sources/beat_writers.py` (extends `BaseRssAdapter`). Seed file `seeds/beat_writer_feeds.yaml` with ~60 feeds across the 20 priority teams.
 
-### TASK 4.2 — Campus newspapers (bulk)
+### TASK 4.2 — Campus newspapers (bulk) ✅ (2026-04-23, reference implementation)
 **Model**: Sonnet. **Output**: `sources/campus_news.py`. Seed file with 20 campus paper feeds.
 
 ### TASK 4.3 — Substack (bulk)
