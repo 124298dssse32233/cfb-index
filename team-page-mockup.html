@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Football Team Page Mockup</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+    :root {
+      --bg: #0b0c10;
+      --bg-soft: #12141b;
+      --bg-card: rgba(18, 20, 27, 0.78);
+      --bg-card-strong: rgba(15, 17, 24, 0.92);
+      --ink: #f8f4ea;
+      --ink-soft: #d2c9bb;
+      --ink-dim: #94877a;
+      --line: rgba(255, 255, 255, 0.09);
+      --accent: #a01c35;
+      --accent-bright: #d72d52;
+      --accent-soft: rgba(215, 45, 82, 0.14);
+      --field: #1f5f43;
+      --gold: #d7ab51;
+      --good: #4cd08b;
+      --good-soft: rgba(76, 208, 139, 0.14);
+      --bad: #ff7d6a;
+      --bad-soft: rgba(255, 125, 106, 0.14);
+      --warn: #f4cc62;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Sora", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(160, 28, 53, 0.30), transparent 28%),
+        radial-gradient(circle at 92% 10%, rgba(215, 171, 81, 0.18), transparent 22%),
+        radial-gradient(circle at 75% 60%, rgba(31, 95, 67, 0.16), transparent 24%),
+        linear-gradient(180deg, #08090d 0%, #0d0f14 42%, #0a0b10 100%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at center, black, transparent 85%);
+      opacity: 0.55;
+    }
+
+    .shell {
+      width: min(1440px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow,
+    .mono,
+    .meta,
+    .axis-label,
+    .note {
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 36px;
+      background:
+        linear-gradient(135deg, rgba(15, 17, 24, 0.88), rgba(12, 13, 18, 0.95)),
+        linear-gradient(120deg, rgba(160, 28, 53, 0.16), transparent 40%);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      border-radius: 999px;
+      filter: blur(0.5px);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 540px;
+      height: 540px;
+      right: -140px;
+      top: -240px;
+      background: radial-gradient(circle, rgba(215, 45, 82, 0.28) 0%, rgba(215, 45, 82, 0.06) 45%, transparent 72%);
+    }
+
+    .hero::after {
+      width: 500px;
+      height: 500px;
+      left: -160px;
+      bottom: -260px;
+      background: radial-gradient(circle, rgba(31, 95, 67, 0.18) 0%, rgba(31, 95, 67, 0.06) 42%, transparent 70%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 24px;
+      padding: 34px;
+    }
+
+    .hero-left {
+      display: grid;
+      gap: 24px;
+    }
+
+    .hero-topline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    .hero-flags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .flag {
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink-soft);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .identity-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .badge {
+      width: 104px;
+      height: 104px;
+      border-radius: 28px;
+      display: grid;
+      place-items: center;
+      font-size: 50px;
+      font-weight: 800;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)),
+        linear-gradient(145deg, #8f142d, #be2848 60%, #7d1731);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        0 18px 45px rgba(160, 28, 53, 0.24);
+    }
+
+    .identity-copy h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 4.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      max-width: 9ch;
+    }
+
+    .identity-copy p {
+      margin: 10px 0 0;
+      max-width: 58ch;
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .hero-kickers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink-soft);
+      background: rgba(255,255,255,0.035);
+      font-size: 12px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat-card {
+      padding: 18px 16px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      min-height: 112px;
+    }
+
+    .stat-card .label {
+      color: var(--ink-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .stat-card .value {
+      margin-top: 12px;
+      font-size: clamp(1.55rem, 2vw, 2.15rem);
+      font-weight: 750;
+      letter-spacing: -0.05em;
+    }
+
+    .stat-card .sub {
+      margin-top: 8px;
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .hero-right {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .panel {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: var(--bg-card);
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .snapshot {
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215,171,81,0.16), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+    }
+
+    .snapshot h2 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .snapshot-tile {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .snapshot-tile strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.25rem;
+      letter-spacing: -0.04em;
+    }
+
+    .snapshot-tile span {
+      color: var(--ink-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .snapshot .footer-note {
+      margin-top: 14px;
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .availability {
+      padding: 18px 20px 20px;
+    }
+
+    .availability h3 {
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+      letter-spacing: -0.03em;
+    }
+
+    .availability-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .availability-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+    }
+
+    .availability-item .pill {
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    .pill-native {
+      background: var(--good-soft);
+      color: #b5f1cf;
+    }
+
+    .pill-derived {
+      background: rgba(244, 204, 98, 0.14);
+      color: #f4d996;
+    }
+
+    .page {
+      display: grid;
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .section {
+      display: grid;
+      gap: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 4px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 2vw, 2rem);
+      letter-spacing: -0.055em;
+    }
+
+    .section-head p {
+      margin: 10px 0 0;
+      color: var(--ink-soft);
+      max-width: 72ch;
+      line-height: 1.7;
+      font-size: 0.93rem;
+    }
+
+    .section-meta {
+      color: var(--ink-dim);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .story-grid,
+    .split-grid,
+    .viz-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .story-grid {
+      grid-template-columns: 1.8fr 1fr;
+    }
+
+    .split-grid,
+    .viz-grid {
+      grid-template-columns: 1.35fr 1fr;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 22px 0;
+    }
+
+    .card-header h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .card-subtitle {
+      padding: 8px 22px 0;
+      color: var(--ink-dim);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .chart-wrap {
+      padding: 14px 18px 20px;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .callout-stack {
+      display: grid;
+      gap: 12px;
+      padding: 0 20px 20px;
+    }
+
+    .callout {
+      padding: 16px 16px 15px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .callout strong {
+      display: block;
+      font-size: 1.08rem;
+      letter-spacing: -0.04em;
+    }
+
+    .callout p {
+      margin: 8px 0 0;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      font-size: 0.9rem;
+    }
+
+    .callout.good {
+      background: linear-gradient(180deg, rgba(76,208,139,0.10), rgba(76,208,139,0.03));
+    }
+
+    .callout.warn {
+      background: linear-gradient(180deg, rgba(244,204,98,0.12), rgba(244,204,98,0.03));
+    }
+
+    .callout.bad {
+      background: linear-gradient(180deg, rgba(255,125,106,0.10), rgba(255,125,106,0.03));
+    }
+
+    .schedule-card {
+      display: grid;
+      gap: 0;
+    }
+
+    .schedule-list {
+      padding: 14px 18px 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1.15fr) minmax(0, 0.9fr) minmax(0, 0.8fr);
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.055);
+      background: rgba(255,255,255,0.028);
+    }
+
+    .week-col {
+      display: grid;
+      gap: 5px;
+      align-items: start;
+    }
+
+    .week-col strong {
+      font-size: 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .week-col span {
+      color: var(--ink-dim);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .game-main {
+      display: grid;
+      gap: 7px;
+    }
+
+    .game-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .result-pill {
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-family: "IBM Plex Mono", monospace;
+      border: 1px solid transparent;
+    }
+
+    .result-pill.win {
+      background: var(--good-soft);
+      color: #b8f4d2;
+      border-color: rgba(76,208,139,0.18);
+    }
+
+    .result-pill.loss {
+      background: var(--bad-soft);
+      color: #ffd2cb;
+      border-color: rgba(255,125,106,0.18);
+    }
+
+    .opponent {
+      font-size: 1rem;
+      font-weight: 650;
+      letter-spacing: -0.04em;
+    }
+
+    .score {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+
+    .micro-note {
+      color: var(--ink-dim);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .game-side {
+      display: grid;
+      gap: 8px;
+    }
+
+    .mini-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--ink-soft);
+      font-size: 0.76rem;
+    }
+
+    .mini-tag {
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .delta-col {
+      display: grid;
+      gap: 8px;
+    }
+
+    .delta-value {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .delta-value.good {
+      color: #b9f6d3;
+    }
+
+    .delta-value.bad {
+      color: #ffd2cb;
+    }
+
+    .delta-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .delta-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .delta-fill.good {
+      background: linear-gradient(90deg, #2faa73, #4cd08b);
+    }
+
+    .delta-fill.bad {
+      background: linear-gradient(90deg, #d65f4b, #ff7d6a);
+      margin-left: auto;
+    }
+
+    .fingerprint {
+      padding-bottom: 18px;
+    }
+
+    .fingerprint-grid {
+      padding: 14px 22px 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 132px 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .metric-row span {
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+    }
+
+    .metric-row strong {
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .metric-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .metric-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(215,171,81,0.65), rgba(215,45,82,0.88));
+    }
+
+    .mini-split {
+      display: grid;
+      gap: 12px;
+      padding: 18px 22px 0;
+    }
+
+    .mini-card {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 0.94rem;
+      letter-spacing: -0.03em;
+    }
+
+    .mini-card p {
+      margin: 8px 0 0;
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.65;
+    }
+
+    .footer-strip {
+      padding: 18px 22px 22px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--ink-dim);
+      font-size: 0.74rem;
+    }
+
+    .history-footer {
+      padding: 0 22px 22px;
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+      line-height: 1.7;
+    }
+
+    .footer-strip .tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .page-footer {
+      margin-top: 10px;
+      padding: 0 4px;
+      color: var(--ink-dim);
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+
+    .page-footer code {
+      color: var(--ink-soft);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 1180px) {
+      .hero-grid,
+      .story-grid,
+      .split-grid,
+      .viz-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100vw - 18px, 100%);
+        padding-top: 12px;
+      }
+
+      .hero-grid {
+        padding: 18px;
+      }
+
+      .identity-row {
+        grid-template-columns: 1fr;
+      }
+
+      .badge {
+        width: 82px;
+        height: 82px;
+        border-radius: 22px;
+        font-size: 40px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .schedule-row {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+
+      .card-header,
+      .card-subtitle,
+      .chart-wrap,
+      .schedule-list,
+      .callout-stack,
+      .fingerprint-grid,
+      .mini-split,
+      .history-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-topline">
+            <div class="eyebrow">Concept Mockup • Team Page • Illustrative Data</div>
+            <div class="hero-flags">
+              <span class="flag">Global Power Story</span>
+              <span class="flag">Week-by-Week Rating Deltas</span>
+              <span class="flag">History View</span>
+            </div>
+          </div>
+
+          <div class="identity-row">
+            <div class="badge">A</div>
+            <div class="identity-copy">
+              <h1>Alabama Crimson Tide</h1>
+              <p>
+                A mock team dossier built around the idea that a great college football page should tell a
+                season as a movement story, not just list scores. The center of gravity is the rating arc:
+                how each game nudged belief up or down, and why.
+              </p>
+            </div>
+          </div>
+
+          <div class="hero-kickers">
+            <span class="chip"><strong>9-3</strong> record</span>
+            <span class="chip"><strong>#18</strong> global rank</span>
+            <span class="chip"><strong>#9</strong> FBS rank</span>
+            <span class="chip"><strong>SEC</strong> conference</span>
+            <span class="chip"><strong>Tuscaloosa</strong> Bryant-Denny Stadium</span>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="label">Current Power</div>
+              <div class="value">84.2</div>
+              <div class="sub">Equivalent tier: fringe CFP / top-20 national profile</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Offense</div>
+              <div class="value">88.6</div>
+              <div class="sub">Explosive enough to climb fast with strong opponent wins</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Defense</div>
+              <div class="value">81.1</div>
+              <div class="sub">Good baseline, but volatility kept the ceiling lower</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Trend</div>
+              <div class="value">+3.4</div>
+              <div class="sub">Last three games suggest the team was stronger than its final record</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <section class="panel snapshot">
+            <h2>Snapshot</h2>
+            <div class="snapshot-grid">
+              <div class="snapshot-tile">
+                <span>Season Peak</span>
+                <strong>#11</strong>
+              </div>
+              <div class="snapshot-tile">
+                <span>Strongest Win</span>
+                <strong>vs Georgia</strong>
+              </div>
+              <div class="snapshot-tile">
+                <span>Volatility</span>
+                <strong>High</strong>
+              </div>
+              <div class="snapshot-tile">
+                <span>Schedule Grade</span>
+                <strong>A-</strong>
+              </div>
+            </div>
+            <p class="footer-note">
+              This mockup assumes schedule, scores, seasons, artwork, and team identity come from SportsDB, while
+              ratings, deltas, confidence, volatility, and resume logic are derived in your own model layer.
+            </p>
+          </section>
+
+          <section class="panel availability">
+            <h3>How This Page Gets Built</h3>
+            <div class="availability-list">
+              <div class="availability-item">
+                <span>Schedule, results, opponents, venue, art</span>
+                <span class="pill pill-native">SportsDB Native</span>
+              </div>
+              <div class="availability-item">
+                <span>Pregame rating, postgame rating, delta</span>
+                <span class="pill pill-derived">Derived by Us</span>
+              </div>
+              <div class="availability-item">
+                <span>Historical season rollups and trend story</span>
+                <span class="pill pill-derived">Derived by Us</span>
+              </div>
+              <div class="availability-item">
+                <span>Lineups, rosters, timelines, deep stats</span>
+                <span class="pill pill-derived">Optional When Available</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="section-meta">Season Centerpiece</div>
+            <h2>Season Rating Story</h2>
+            <p>
+              The best team page on the site should answer one question immediately: how did the season change belief?
+              This chart treats each week like a vote. Strong wins over strong teams add more. Soft wins move the needle
+              less. Competitive losses to elite opponents can still keep a team afloat.
+            </p>
+          </div>
+          <div class="section-meta">Power After Every Game</div>
+        </div>
+
+        <div class="story-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Power River</h3>
+              <div class="mono" style="color: var(--ink-dim); font-size: 12px;">2025 season • 14 points</div>
+            </div>
+            <div class="card-subtitle">
+              Illustrative weekly curve showing the team’s model strength after each game, plus inflection points for
+              statement wins, survivals, and damaging losses.
+            </div>
+            <div class="chart-wrap">
+              <svg id="rating-chart" viewBox="0 0 860 360" aria-label="Season rating chart"></svg>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <h3>What Moved the Model</h3>
+            </div>
+            <div class="card-subtitle">
+              A great team page should translate the math into plain English so users understand why a score mattered.
+            </div>
+            <div class="callout-stack">
+              <div class="callout good">
+                <strong>Largest Climb: +2.7 vs Georgia</strong>
+                <p>
+                  The team beat an elite opponent with real defensive control. That kind of win changes national belief
+                  much more than routing a weak team by thirty.
+                </p>
+              </div>
+              <div class="callout warn">
+                <strong>Quiet Win: +0.2 vs Eastern Illinois</strong>
+                <p>
+                  Comfortable, but close to expectation. The model treats “you should have won” as maintenance, not a
+                  headline.
+                </p>
+              </div>
+              <div class="callout bad">
+                <strong>Biggest Hit: -2.1 at Tennessee</strong>
+                <p>
+                  Not because the team lost, but because it looked less stable than its rating. The combination of
+                  opponent quality, margin, and prior form matters more than the `L` alone.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="split-grid">
+          <article class="card schedule-card">
+            <div class="card-header">
+              <h3>Game-by-Game Rating Timeline</h3>
+              <div class="mono" style="color: var(--ink-dim); font-size: 12px;">Schedule + delta view</div>
+            </div>
+            <div class="card-subtitle">
+              This should feel more like a season control room than a table. Every row carries opponent quality, result,
+              rating movement, and the sentence that explains what the model saw.
+            </div>
+            <div id="schedule-list" class="schedule-list"></div>
+          </article>
+
+          <article class="card fingerprint">
+            <div class="card-header">
+              <h3>Season Fingerprint</h3>
+              <div class="mono" style="color: var(--ink-dim); font-size: 12px;">Model profile</div>
+            </div>
+            <div class="card-subtitle">
+              Instead of drowning the page in raw stat categories, the team gets a few strong identity traits fans can
+              understand fast and compare across all levels.
+            </div>
+
+            <div class="fingerprint-grid">
+              <div class="metric-row">
+                <span>Offensive Ceiling</span>
+                <div class="metric-track"><div class="metric-fill" style="width: 89%;"></div></div>
+                <strong>89</strong>
+              </div>
+              <div class="metric-row">
+                <span>Defensive Stability</span>
+                <div class="metric-track"><div class="metric-fill" style="width: 74%;"></div></div>
+                <strong>74</strong>
+              </div>
+              <div class="metric-row">
+                <span>Schedule Toughness</span>
+                <div class="metric-track"><div class="metric-fill" style="width: 83%;"></div></div>
+                <strong>83</strong>
+              </div>
+              <div class="metric-row">
+                <span>Week-to-Week Volatility</span>
+                <div class="metric-track"><div class="metric-fill" style="width: 78%;"></div></div>
+                <strong>78</strong>
+              </div>
+              <div class="metric-row">
+                <span>Clutch Score</span>
+                <div class="metric-track"><div class="metric-fill" style="width: 67%;"></div></div>
+                <strong>67</strong>
+              </div>
+              <div class="metric-row">
+                <span>Resume Strength</span>
+                <div class="metric-track"><div class="metric-fill" style="width: 80%;"></div></div>
+                <strong>80</strong>
+              </div>
+            </div>
+
+            <div class="mini-split">
+              <div class="mini-card">
+                <strong>Best Wins</strong>
+                <p>Georgia, LSU, Auburn. The page should make those wins feel like assets in a portfolio, not just rows in a schedule.</p>
+              </div>
+              <div class="mini-card">
+                <strong>Loss Profile</strong>
+                <p>Tennessee and Indiana hurt more than the raw record suggests because the performance floor cracked in visible ways.</p>
+              </div>
+              <div class="mini-card">
+                <strong>Signature Identity</strong>
+                <p>Dangerous offense, uneven consistency, strong enough to scare elite teams, not stable enough to stay in the top 12 all year.</p>
+              </div>
+            </div>
+
+            <div class="footer-strip">
+              <span class="tag">Form Strip</span>
+              <span class="tag">Opponent Ladder</span>
+              <span class="tag">Volatility Meter</span>
+              <span class="tag">Best Win Cards</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="viz-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Resume vs Power</h3>
+              <div class="mono" style="color: var(--ink-dim); font-size: 12px;">Where this team lives nationally</div>
+            </div>
+            <div class="card-subtitle">
+              One of the most useful team-page visuals on the whole site. It explains why a team can be dangerous
+              without having a top-tier record, or why a shiny record may hide a weaker core.
+            </div>
+            <div class="chart-wrap">
+              <svg id="resume-chart" viewBox="0 0 760 360" aria-label="Resume versus power scatter plot"></svg>
+            </div>
+            <div class="history-footer">
+              Alabama sits above the national middle class in both dimensions, but the split between power and resume is
+              exactly the kind of argument this site should generate.
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <h3>History Skyline</h3>
+              <div class="mono" style="color: var(--ink-dim); font-size: 12px;">Ten seasons at a glance</div>
+            </div>
+            <div class="card-subtitle">
+              Year-by-year results should feel like a museum wall: visible, emotional, and easy to scan. This is where
+              the page becomes a re-visit, not just a one-time lookup.
+            </div>
+            <div class="chart-wrap">
+              <svg id="history-chart" viewBox="0 0 560 360" aria-label="Historical rating skyline"></svg>
+            </div>
+            <div class="history-footer">
+              Championships, coaching eras, playoff seasons, and national peaks can all sit on the same visual spine.
+              Even without play-by-play data, the page can still tell a rich historical story.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="section-meta">Why This Direction Fits Your Data</div>
+            <h2>Build Around What You Can Guarantee</h2>
+            <p>
+              SportsDB is strong on schedules, identities, seasons, and artwork. It is uneven on college football
+              timelines, complete rosters, and universal deep event stats. So the mockup leans into exactly the layer
+              you control: ratings, movement, context, and history.
+            </p>
+          </div>
+          <div class="section-meta">Better Than a Stats Dump</div>
+        </div>
+
+        <article class="card">
+          <div class="callout-stack" style="padding-top: 20px;">
+            <div class="callout">
+              <strong>The schedule becomes the backbone.</strong>
+              <p>Every game already exists as a strong story object: opponent, date, result, score, location, season, round, and your rating delta.</p>
+            </div>
+            <div class="callout">
+              <strong>Your model creates the page’s proprietary value.</strong>
+              <p>Pregame and postgame ratings, opponent quality at game time, volatility, and resume logic are what make the page feel like your product rather than an API wrapper.</p>
+            </div>
+            <div class="callout">
+              <strong>The page can scale across all levels.</strong>
+              <p>This exact structure works for FBS, FCS, D2, or D3 because it depends on games and derived ratings, not on perfect play-by-play coverage.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="note">
+        Mockup notes: this page intentionally favors <code>rating movement</code>, <code>historical arc</code>, and
+        <code>schedule-first storytelling</code> because those are the strongest surfaces you can build confidently on
+        top of SportsDB plus your own power model. All numbers and deltas here are illustrative.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const seasonGames = [
+      { week: "W1", date: "Aug 31", opponent: "East Carolina", venue: "Home", result: "W", score: "41-13", opp: "Opp power 54.1", tag: "Expected Win", delta: 0.7, post: 76.9, note: "Handled a weaker team the way a contender should." },
+      { week: "W2", date: "Sep 7", opponent: "at Wisconsin", venue: "Away", result: "W", score: "30-24", opp: "Opp power 71.5", tag: "Road Survival", delta: 1.2, post: 78.1, note: "A solid road win against an above-average team added real credibility." },
+      { week: "W3", date: "Sep 14", opponent: "Georgia", venue: "Home", result: "W", score: "34-27", opp: "Opp power 91.8", tag: "Statement Win", delta: 2.7, post: 80.8, note: "Elite-opponent win with strong control late. Massive national signal." },
+      { week: "W4", date: "Sep 21", opponent: "at South Carolina", venue: "Away", result: "W", score: "27-20", opp: "Opp power 69.3", tag: "Banked Win", delta: 0.9, post: 81.7, note: "Not flashy, but the team stacked another quality result." },
+      { week: "W5", date: "Sep 28", opponent: "at Tennessee", venue: "Away", result: "L", score: "23-34", opp: "Opp power 84.0", tag: "Damage Game", delta: -2.1, post: 79.6, note: "The loss exposed some defensive instability and cost more than a normal top-25 loss." },
+      { week: "W6", date: "Oct 12", opponent: "Missouri", venue: "Home", result: "W", score: "31-17", opp: "Opp power 76.4", tag: "Corrective Win", delta: 1.1, post: 80.7, note: "A clean bounce-back restored confidence quickly." },
+      { week: "W7", date: "Oct 19", opponent: "at LSU", venue: "Away", result: "W", score: "35-28", opp: "Opp power 82.7", tag: "Quality Road Win", delta: 1.8, post: 82.5, note: "Strong opponent, tough venue, efficient offense. The model bought back in." },
+      { week: "W8", date: "Oct 26", opponent: "Auburn", venue: "Home", result: "W", score: "24-17", opp: "Opp power 73.1", tag: "Rivalry Hold", delta: 0.8, post: 83.3, note: "Close game, but against a respectable rival profile." },
+      { week: "W9", date: "Nov 2", opponent: "at Ole Miss", venue: "Away", result: "L", score: "20-24", opp: "Opp power 85.9", tag: "Manageable Loss", delta: -0.5, post: 82.8, note: "The performance stayed within range, so the model only shaded them slightly." },
+      { week: "W10", date: "Nov 9", opponent: "Mercer", venue: "Home", result: "W", score: "48-7", opp: "Opp power 45.0", tag: "Maintenance", delta: 0.2, post: 83.0, note: "Exactly what should happen. Good for baseline, not for headlines." },
+      { week: "W11", date: "Nov 16", opponent: "at Oklahoma", venue: "Away", result: "W", score: "34-24", opp: "Opp power 79.9", tag: "Toughness Win", delta: 1.0, post: 84.0, note: "Another quality opponent, another sturdy road performance." },
+      { week: "W12", date: "Nov 23", opponent: "Eastern Illinois", venue: "Home", result: "W", score: "56-0", opp: "Opp power 38.8", tag: "Expected Blowout", delta: 0.2, post: 84.2, note: "Dominant, but against a team far below the target tier." },
+      { week: "CCG", date: "Dec 7", opponent: "Georgia", venue: "Neutral", result: "L", score: "21-31", opp: "Opp power 92.5", tag: "Title Miss", delta: -0.8, post: 83.4, note: "The loss mattered, but not as much as the earlier statement win helped." },
+      { week: "Bowl", date: "Jan 1", opponent: "Indiana", venue: "Neutral", result: "L", score: "17-27", opp: "Opp power 88.6", tag: "Finish Drop", delta: -1.4, post: 82.0, note: "The season ended below its late-November peak and the final rating settled back." }
+    ];
+
+    const resumePeers = [
+      { name: "Ohio State", power: 95, resume: 93 },
+      { name: "Indiana", power: 92, resume: 95 },
+      { name: "Georgia", power: 94, resume: 89 },
+      { name: "Oregon", power: 90, resume: 88 },
+      { name: "Notre Dame", power: 88, resume: 90 },
+      { name: "Miami", power: 87, resume: 86 },
+      { name: "Ole Miss", power: 86, resume: 82 },
+      { name: "Texas Tech", power: 85, resume: 84 },
+      { name: "Texas", power: 84, resume: 80 },
+      { name: "Alabama", power: 84, resume: 78, highlight: true },
+      { name: "LSU", power: 80, resume: 74 },
+      { name: "James Madison", power: 76, resume: 81 },
+      { name: "Montana State", power: 72, resume: 75 },
+      { name: "North Dakota State", power: 70, resume: 73 },
+      { name: "Pittsburg State", power: 61, resume: 65 },
+      { name: "Mary Hardin-Baylor", power: 56, resume: 62 }
+    ];
+
+    const historySeasons = [
+      { year: 2016, rating: 96, record: "14-1", elite: true },
+      { year: 2017, rating: 98, record: "13-1", elite: true },
+      { year: 2018, rating: 94, record: "14-1", elite: false },
+      { year: 2019, rating: 86, record: "11-2", elite: false },
+      { year: 2020, rating: 100, record: "13-0", elite: true },
+      { year: 2021, rating: 93, record: "13-2", elite: false },
+      { year: 2022, rating: 88, record: "11-2", elite: false },
+      { year: 2023, rating: 91, record: "12-2", elite: false },
+      { year: 2024, rating: 84, record: "9-4", elite: false },
+      { year: 2025, rating: 82, record: "9-3", elite: false, current: true }
+    ];
+
+    function scale(value, inMin, inMax, outMin, outMax) {
+      return outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin);
+    }
+
+    function linePath(points) {
+      return points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ");
+    }
+
+    function areaPath(points, baseY) {
+      if (!points.length) return "";
+      return `${linePath(points)} L ${points[points.length - 1].x.toFixed(2)} ${baseY} L ${points[0].x.toFixed(2)} ${baseY} Z`;
+    }
+
+    function renderRatingChart() {
+      const svg = document.getElementById("rating-chart");
+      const width = 860;
+      const height = 360;
+      const margin = { top: 24, right: 24, bottom: 44, left: 46 };
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const minY = 74;
+      const maxY = 85.5;
+      const baseY = margin.top + innerH;
+
+      const points = seasonGames.map((game, index) => ({
+        x: margin.left + (innerW / (seasonGames.length - 1)) * index,
+        y: scale(game.post, minY, maxY, margin.top + innerH, margin.top)
+      }));
+
+      const yTicks = [75, 78, 81, 84];
+      const grid = yTicks.map((tick) => {
+        const y = scale(tick, minY, maxY, margin.top + innerH, margin.top);
+        return `
+          <line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="5 6" />
+          <text x="${margin.left - 14}" y="${y + 4}" fill="rgba(210,201,187,0.65)" font-size="11" text-anchor="end" font-family="IBM Plex Mono">${tick}</text>
+        `;
+      }).join("");
+
+      const xLabels = seasonGames.map((game, index) => {
+        const point = points[index];
+        return `
+          <text x="${point.x}" y="${height - 14}" fill="rgba(148,135,122,0.9)" font-size="10" text-anchor="middle" font-family="IBM Plex Mono">${game.week}</text>
+        `;
+      }).join("");
+
+      const annotations = [
+        { label: "Statement win", index: 2, dx: 12, dy: -52 },
+        { label: "Tennessee hit", index: 4, dx: -10, dy: 34 },
+        { label: "Late peak", index: 10, dx: -18, dy: -48 },
+        { label: "Bowl drop", index: 13, dx: -66, dy: 30 }
+      ].map((annotation) => {
+        const point = points[annotation.index];
+        return `
+          <line x1="${point.x}" y1="${point.y}" x2="${point.x + annotation.dx}" y2="${point.y + annotation.dy}" stroke="rgba(255,255,255,0.25)" />
+          <text x="${point.x + annotation.dx + 6}" y="${point.y + annotation.dy - 4}" fill="rgba(248,244,234,0.9)" font-size="11" font-family="IBM Plex Mono">${annotation.label}</text>
+        `;
+      }).join("");
+
+      const circles = points.map((point, index) => {
+        const game = seasonGames[index];
+        const fill = game.delta >= 0 ? "#4cd08b" : "#ff7d6a";
+        return `
+          <circle cx="${point.x}" cy="${point.y}" r="5.5" fill="${fill}" stroke="rgba(10,11,16,0.95)" stroke-width="3" />
+        `;
+      }).join("");
+
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="riverFill" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(215,45,82,0.30)" />
+            <stop offset="100%" stop-color="rgba(215,45,82,0.02)" />
+          </linearGradient>
+          <linearGradient id="riverLine" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#d72d52" />
+            <stop offset="50%" stop-color="#f3d57d" />
+            <stop offset="100%" stop-color="#4cd08b" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <rect x="0" y="0" width="${width}" height="${height}" rx="24" fill="rgba(0,0,0,0)" />
+        <rect x="${margin.left}" y="${margin.top}" width="${innerW}" height="${innerH}" rx="18" fill="rgba(255,255,255,0.02)" />
+        ${grid}
+        <path d="${areaPath(points, baseY)}" fill="url(#riverFill)" />
+        <path d="${linePath(points)}" fill="none" stroke="rgba(215,45,82,0.28)" stroke-width="14" filter="url(#glow)" />
+        <path d="${linePath(points)}" fill="none" stroke="url(#riverLine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        ${circles}
+        ${annotations}
+        ${xLabels}
+        <text x="${margin.left}" y="${height - 14}" fill="rgba(148,135,122,0.86)" font-size="10" font-family="IBM Plex Mono">Week / phase</text>
+        <text x="${margin.left}" y="${margin.top - 8}" fill="rgba(148,135,122,0.86)" font-size="10" font-family="IBM Plex Mono">Power rating</text>
+      `;
+    }
+
+    function renderSchedule() {
+      const container = document.getElementById("schedule-list");
+      container.innerHTML = seasonGames.map((game) => {
+        const positive = game.delta >= 0;
+        const width = Math.max(9, Math.round((Math.abs(game.delta) / 2.7) * 100));
+
+        return `
+          <div class="schedule-row">
+            <div class="week-col">
+              <strong>${game.week}</strong>
+              <span>${game.date}</span>
+            </div>
+            <div class="game-main">
+              <div class="game-line">
+                <span class="result-pill ${game.result === "W" ? "win" : "loss"}">${game.result === "W" ? "Win" : "Loss"}</span>
+                <span class="opponent">${game.venue === "Away" ? "at " : game.venue === "Neutral" ? "vs " : "vs "}${game.opponent}</span>
+                <span class="score">${game.score}</span>
+              </div>
+              <div class="micro-note">${game.note}</div>
+            </div>
+            <div class="game-side">
+              <div class="mini-meta">
+                <span class="mini-tag">${game.opp}</span>
+                <span class="mini-tag">${game.tag}</span>
+                <span class="mini-tag">Post ${game.post.toFixed(1)}</span>
+              </div>
+            </div>
+            <div class="delta-col">
+              <div class="delta-value ${positive ? "good" : "bad"}">${positive ? "+" : ""}${game.delta.toFixed(1)}</div>
+              <div class="delta-track">
+                <div class="delta-fill ${positive ? "good" : "bad"}" style="width:${width}%;"></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderResumeChart() {
+      const svg = document.getElementById("resume-chart");
+      const width = 760;
+      const height = 360;
+      const margin = { top: 26, right: 22, bottom: 48, left: 54 };
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const min = 52;
+      const max = 98;
+
+      const x = (value) => scale(value, min, max, margin.left, width - margin.right);
+      const y = (value) => scale(value, min, max, margin.top + innerH, margin.top);
+      const midX = x(75);
+      const midY = y(75);
+
+      const ticks = [55, 65, 75, 85, 95];
+      const gridX = ticks.map((tick) => `<line x1="${x(tick)}" y1="${margin.top}" x2="${x(tick)}" y2="${height - margin.bottom}" stroke="rgba(255,255,255,0.06)" />`).join("");
+      const gridY = ticks.map((tick) => `<line x1="${margin.left}" y1="${y(tick)}" x2="${width - margin.right}" y2="${y(tick)}" stroke="rgba(255,255,255,0.06)" />`).join("");
+
+      const labels = ticks.map((tick) => `
+        <text x="${x(tick)}" y="${height - 18}" fill="rgba(148,135,122,0.86)" font-size="10" text-anchor="middle" font-family="IBM Plex Mono">${tick}</text>
+        <text x="${margin.left - 14}" y="${y(tick) + 4}" fill="rgba(148,135,122,0.86)" font-size="10" text-anchor="end" font-family="IBM Plex Mono">${tick}</text>
+      `).join("");
+
+      const peers = resumePeers.map((team) => {
+        const cx = x(team.resume);
+        const cy = y(team.power);
+        const radius = team.highlight ? 9 : 6;
+        const fill = team.highlight ? "#d72d52" : "rgba(244, 228, 197, 0.76)";
+        const stroke = team.highlight ? "#f8f4ea" : "rgba(10,11,16,0.9)";
+        const text = `
+          <text x="${cx + (team.highlight ? 14 : 10)}" y="${cy - 10}" fill="${team.highlight ? "#f8f4ea" : "rgba(210,201,187,0.75)"}" font-size="${team.highlight ? 12 : 10}" font-family="IBM Plex Mono">${team.name}</text>
+        `;
+        return `
+          <circle cx="${cx}" cy="${cy}" r="${radius}" fill="${fill}" stroke="${stroke}" stroke-width="${team.highlight ? 3 : 2}" />
+          ${text}
+        `;
+      }).join("");
+
+      svg.innerHTML = `
+        <rect x="${margin.left}" y="${margin.top}" width="${innerW}" height="${innerH}" rx="24" fill="rgba(255,255,255,0.02)" />
+        <rect x="${margin.left}" y="${margin.top}" width="${midX - margin.left}" height="${midY - margin.top}" fill="rgba(76,208,139,0.04)" />
+        <rect x="${midX}" y="${margin.top}" width="${width - margin.right - midX}" height="${midY - margin.top}" fill="rgba(244,204,98,0.04)" />
+        <rect x="${margin.left}" y="${midY}" width="${midX - margin.left}" height="${height - margin.bottom - midY}" fill="rgba(255,125,106,0.03)" />
+        <rect x="${midX}" y="${midY}" width="${width - margin.right - midX}" height="${height - margin.bottom - midY}" fill="rgba(215,45,82,0.04)" />
+        ${gridX}
+        ${gridY}
+        <line x1="${midX}" y1="${margin.top}" x2="${midX}" y2="${height - margin.bottom}" stroke="rgba(255,255,255,0.12)" stroke-dasharray="6 6" />
+        <line x1="${margin.left}" y1="${midY}" x2="${width - margin.right}" y2="${midY}" stroke="rgba(255,255,255,0.12)" stroke-dasharray="6 6" />
+        ${labels}
+        ${peers}
+        <text x="${margin.left}" y="${margin.top - 8}" fill="rgba(148,135,122,0.9)" font-size="10" font-family="IBM Plex Mono">Power</text>
+        <text x="${width - margin.right}" y="${height - 18}" fill="rgba(148,135,122,0.9)" font-size="10" text-anchor="end" font-family="IBM Plex Mono">Resume</text>
+        <text x="${margin.left + 14}" y="${margin.top + 20}" fill="rgba(185,246,211,0.86)" font-size="11" font-family="IBM Plex Mono">dangerous underseed</text>
+        <text x="${width - margin.right - 124}" y="${margin.top + 20}" fill="rgba(244,217,150,0.86)" font-size="11" font-family="IBM Plex Mono">true contenders</text>
+        <text x="${margin.left + 14}" y="${height - margin.bottom - 12}" fill="rgba(255,210,203,0.76)" font-size="11" font-family="IBM Plex Mono">thin resume / weak core</text>
+        <text x="${width - margin.right - 132}" y="${height - margin.bottom - 12}" fill="rgba(255,177,197,0.76)" font-size="11" font-family="IBM Plex Mono">good record, shakier core</text>
+      `;
+    }
+
+    function renderHistoryChart() {
+      const svg = document.getElementById("history-chart");
+      const width = 560;
+      const height = 360;
+      const margin = { top: 26, right: 16, bottom: 46, left: 34 };
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const maxRating = 102;
+
+      const barWidth = innerW / historySeasons.length * 0.62;
+      const gap = innerW / historySeasons.length * 0.38;
+
+      const bars = historySeasons.map((season, index) => {
+        const x = margin.left + index * (barWidth + gap) + gap * 0.5;
+        const h = scale(season.rating, 0, maxRating, 0, innerH);
+        const y = margin.top + innerH - h;
+        const fill = season.current
+          ? "url(#historyCurrent)"
+          : season.elite
+            ? "url(#historyElite)"
+            : "url(#historyBase)";
+        return `
+          <rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="12" fill="${fill}" />
+          <text x="${x + barWidth / 2}" y="${height - 16}" fill="rgba(148,135,122,0.9)" font-size="10" text-anchor="middle" font-family="IBM Plex Mono">${season.year}</text>
+          <text x="${x + barWidth / 2}" y="${y - 8}" fill="rgba(248,244,234,0.82)" font-size="10" text-anchor="middle" font-family="IBM Plex Mono">${season.record}</text>
+        `;
+      }).join("");
+
+      const ticks = [25, 50, 75, 100].map((tick) => {
+        const y = scale(tick, 0, maxRating, margin.top + innerH, margin.top);
+        return `
+          <line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" stroke="rgba(255,255,255,0.07)" />
+          <text x="${margin.left - 10}" y="${y + 4}" fill="rgba(148,135,122,0.86)" font-size="10" text-anchor="end" font-family="IBM Plex Mono">${tick}</text>
+        `;
+      }).join("");
+
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="historyBase" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(215,45,82,0.95)" />
+            <stop offset="100%" stop-color="rgba(131,21,43,0.92)" />
+          </linearGradient>
+          <linearGradient id="historyElite" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(244,204,98,0.98)" />
+            <stop offset="100%" stop-color="rgba(181,126,27,0.94)" />
+          </linearGradient>
+          <linearGradient id="historyCurrent" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(76,208,139,0.98)" />
+            <stop offset="100%" stop-color="rgba(39,136,88,0.94)" />
+          </linearGradient>
+        </defs>
+        <rect x="${margin.left}" y="${margin.top}" width="${innerW}" height="${innerH}" rx="24" fill="rgba(255,255,255,0.02)" />
+        ${ticks}
+        ${bars}
+        <text x="${margin.left}" y="${margin.top - 8}" fill="rgba(148,135,122,0.86)" font-size="10" font-family="IBM Plex Mono">Final season rating</text>
+      `;
+    }
+
+    renderRatingChart();
+    renderSchedule();
+    renderResumeChart();
+    renderHistoryChart();
+  </script>
+</body>
+</html>

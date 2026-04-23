@@ -1,0 +1,39 @@
+.env
+.deps/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+
+# Generated artifacts
+output/
+*.db
+*.db-shm
+*.db-wal
+
+# Uploads / design deliveries
+*.zip
+figma-delivery*/
+uploads/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Vendored deps
+.vendor/
+
+# Temp / scratch
+tmp_*/
+tmp_*.png
+tmp_*.json
+_figma_v5_review/
+_figma_v5_scratch/
+_stitch_*/
+
+# Backups
+backups/

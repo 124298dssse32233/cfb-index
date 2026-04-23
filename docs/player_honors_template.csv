@@ -1,0 +1,4 @@
+player_name,season_year,week,team_name,conference_name,honor_scope,honor_name,selector,honor_team,position,placement,consensus_flag,unanimous_flag,source_name,source_url,notes
+Travis Hunter,2024,0,Colorado,Big 12,all_america,All-America,Associated Press,First Team,CB,1,1,0,manual,https://example.com/ap-all-america,Consensus first-team All-America
+Ashton Jeanty,2024,0,Boise State,Mountain West,all_conference,All-Mountain West,Mountain West,First Team,RB,1,0,0,manual,https://example.com/mwc-awards,First-team all-conference
+Cam Ward,2024,7,Miami,ACC,weekly_honor,ACC Offensive Player of the Week,ACC,,QB,1,0,0,manual,https://example.com/acc-weekly,Weekly conference honor

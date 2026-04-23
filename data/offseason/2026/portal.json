@@ -1,0 +1,28 @@
+[
+  {
+    "player_name": "Dylan Raiola",
+    "position": "QB",
+    "from_team_slug": "nebraska",
+    "to_team_slug": "oregon",
+    "announced_date": "2026-01-16",
+    "issue": "N° 039",
+    "summary": "Raiola's move from Nebraska to Oregon becomes the defining portal story of the retro window.",
+    "sources": [
+      "https://www.pff.com/news/college-football-transfer-portal-tracker-2026",
+      "https://sports.yahoo.com/college-football/article/transfer-portal-winners-and-losers-college-football-january-window-155046297.html"
+    ]
+  },
+  {
+    "player_name": "Fernando Mendoza",
+    "position": "QB",
+    "from_team_slug": "indiana",
+    "to_team_slug": null,
+    "announced_date": "2026-01-19",
+    "issue": "N° 038",
+    "summary": "Mendoza's title-game MVP performance becomes the NFL Draft teaser for the live handoff.",
+    "sources": [
+      "https://collegefootballplayoff.com/news/2026/1/19/NCG-recap.aspx",
+      "https://sports.yahoo.com/nfl/article/2026-nfl-mock-draft-90-chiefs-trade-into-top-3-in-final-edition-while-giants-find-great-dexter-lawrence-transition-plan-114919969.html"
+    ]
+  }
+]

@@ -1,0 +1,1 @@
+Rejected Anxious Dynasty candidate — top-left panel of the original 2x2 master-plate contact sheet. Smaller ivy sprig than the approved top-right; crown silhouette less damaged. Lost to the top-right on amber-detail clarity and compositional negative-space discipline.

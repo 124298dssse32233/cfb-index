@@ -1,0 +1,1 @@
+Rejected Anxious Dynasty candidate — bottom-right panel of the original 2x2 master-plate contact sheet. Ivy dominates the composition, crown recedes. Lost to the top-right on visual-hierarchy balance — the crown must be the hero, the ivy the accent, not the reverse.

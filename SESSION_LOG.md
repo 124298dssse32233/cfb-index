@@ -1,0 +1,3 @@
+# Fan Intelligence Build — Session Log
+
+2026-04-22 | TASK 1.1 | Schema migration landed: `migrations/20260422_01_fanintel_schema.sql` creates `team_cohort_week`, `team_cohort_divergence_week`, `scrape_health`, `priority_teams`, `schema_migrations`; Python column additions in `cfb_rankings.migrations` extend `source_registry` (source_id/tier/cohort_weights/max_publication_form/etc.), add 10 provenance cols to `conversation_documents`, and add `sample_n/sample_window/confidence_floor/model_version` to the four named aggregates. New CLI `python manage.py apply-migrations`. `build-site` passes (668 team + 15939 player pages). | Repo is not a git repo — per-task commits blocked; awaiting Kevin's call on `git init` vs. skip-commits workflow.

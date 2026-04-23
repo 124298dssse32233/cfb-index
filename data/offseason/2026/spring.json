@@ -1,0 +1,113 @@
+[
+  {
+    "team_slug": "nebraska",
+    "event_date": "2026-02-21",
+    "event_type": "spring_open",
+    "issue": "N° 042",
+    "headline": "Nebraska opens spring practice",
+    "summary": "Nebraska begins spring after the Raiola portal exit reshapes the quarterback narrative.",
+    "sources": [
+      "https://www.on3.com/news/tracking-2026-college-football-spring-practice-schedules/"
+    ]
+  },
+  {
+    "team_slug": "usc",
+    "event_date": "2026-03-03",
+    "event_type": "spring_open",
+    "issue": "N° 043",
+    "headline": "USC opens spring practice after signing the No. 1 class",
+    "summary": "The recruiting-week headline becomes a spring-install expectation.",
+    "sources": [
+      "https://www.on3.com/news/tracking-2026-college-football-spring-practice-schedules/"
+    ]
+  },
+  {
+    "team_slug": "alabama",
+    "event_date": "2026-03-08",
+    "event_type": "spring_open",
+    "issue": "N° 043",
+    "headline": "Alabama spring practice opens",
+    "summary": "Alabama's spring opens under accelerated quarterback and post-dynasty narrative scrutiny.",
+    "sources": [
+      "https://www.on3.com/news/tracking-2026-college-football-spring-practice-schedules/"
+    ]
+  },
+  {
+    "team_slug": "ohio-state",
+    "event_date": "2026-03-10",
+    "event_type": "spring_open",
+    "issue": "N° 044",
+    "headline": "Ohio State spring practice opens",
+    "summary": "Ohio State enters the retro window as the quiet-stability counterweight.",
+    "sources": [
+      "https://www.on3.com/news/tracking-2026-college-football-spring-practice-schedules/"
+    ]
+  },
+  {
+    "team_slug": "oregon",
+    "event_date": "2026-03-12",
+    "event_type": "spring_open",
+    "issue": "N° 044",
+    "headline": "Oregon spring practice opens",
+    "summary": "Oregon's spring window follows the Raiola portal headline and fuels the hype-train read.",
+    "sources": [
+      "https://www.on3.com/news/tracking-2026-college-football-spring-practice-schedules/"
+    ]
+  },
+  {
+    "team_slug": "nebraska",
+    "event_date": "2026-03-28",
+    "event_type": "spring_game",
+    "issue": "N° 045",
+    "headline": "Nebraska spring game",
+    "summary": "Nebraska's spring game gives the post-Raiola fanbase a fresh reference point.",
+    "sources": [
+      "https://www.si.com/college-football/every-power-conference-spring-game-schedule-2026"
+    ]
+  },
+  {
+    "team_slug": "usc",
+    "event_date": "2026-04-04",
+    "event_type": "spring_game",
+    "issue": "N° 046",
+    "headline": "USC spring game",
+    "summary": "USC's spring game becomes the first public tape after the No. 1 signing class.",
+    "sources": [
+      "https://www.si.com/college-football/every-power-conference-spring-game-schedule-2026"
+    ]
+  },
+  {
+    "team_slug": "alabama",
+    "event_date": "2026-04-11",
+    "event_type": "spring_game",
+    "issue": "N° 046",
+    "headline": "Alabama spring game",
+    "summary": "Alabama's spring game compresses quarterback uncertainty into one public read.",
+    "sources": [
+      "https://www.si.com/college-football/every-power-conference-spring-game-schedule-2026"
+    ]
+  },
+  {
+    "team_slug": "michigan",
+    "event_date": "2026-04-18",
+    "event_type": "spring_game",
+    "issue": "N° 046",
+    "headline": "Michigan spring game",
+    "summary": "Kyle Whittingham's debut keeps the coaching reset alive while the quarterback question dominates the post-spring read.",
+    "sources": [
+      "https://mgoblog.com/content/2026-michigan-spring-game-recap",
+      "https://gbmwolverine.com/michigan-has-qb-problem-post-spring-game-kyle-whittingham-may-not-want-to-admit"
+    ]
+  },
+  {
+    "team_slug": "oregon",
+    "event_date": "2026-04-25",
+    "event_type": "spring_game_preview",
+    "issue": "N° 047",
+    "headline": "Oregon spring game preview",
+    "summary": "Oregon's spring game falls one day outside the retro window and becomes a live-calendar teaser.",
+    "sources": [
+      "https://www.si.com/college-football/every-power-conference-spring-game-schedule-2026"
+    ]
+  }
+]

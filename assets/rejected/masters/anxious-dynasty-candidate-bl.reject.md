@@ -1,0 +1,1 @@
+Rejected Anxious Dynasty candidate — bottom-left panel of the original 2x2 master-plate contact sheet. No visible ivy; crack pattern different. Lost to the top-right on narrative density — without the ivy the metaphor reads as a one-note "broken crown" rather than "slow decay."

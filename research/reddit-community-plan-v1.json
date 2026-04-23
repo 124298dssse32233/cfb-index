@@ -1,0 +1,126 @@
+{
+  "sources": [
+    {
+      "mode": "team_search",
+      "subreddit": "CFB",
+      "audience_bucket": "national",
+      "limit_teams": 12,
+      "search_limit": 5,
+      "notes": "National pulse from r/CFB watchlist search."
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Michigan",
+      "subreddit": "MichiganWolverines",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Ohio State",
+      "subreddit": "OhioStateFootball",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Texas",
+      "subreddit": "LonghornNation",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Alabama",
+      "subreddit": "rolltide",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Tennessee",
+      "subreddit": "ockytop",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Georgia",
+      "subreddit": "georgiabulldogs",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Florida",
+      "subreddit": "FloridaGators",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Nebraska",
+      "subreddit": "huskers",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "LSU",
+      "subreddit": "LSUFootball",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "subreddit_listing",
+      "team": "Texas A&M",
+      "subreddit": "aggies",
+      "audience_bucket": "fan",
+      "listing": "new",
+      "limit": 25,
+      "require_cfb_context": true
+    },
+    {
+      "mode": "team_search",
+      "subreddit": "OhioStateFootball",
+      "audience_bucket": "rival",
+      "teams": ["Michigan"],
+      "search_limit": 10,
+      "notes": "Search the Buckeye community for Michigan mentions."
+    },
+    {
+      "mode": "team_search",
+      "subreddit": "MichiganWolverines",
+      "audience_bucket": "rival",
+      "teams": ["Ohio State"],
+      "search_limit": 10,
+      "notes": "Search the Michigan community for Ohio State mentions."
+    },
+    {
+      "mode": "team_search",
+      "subreddit": "aggies",
+      "audience_bucket": "rival",
+      "teams": ["Texas"],
+      "search_limit": 10,
+      "notes": "Search the Aggie community for Texas mentions."
+    }
+  ]
+}

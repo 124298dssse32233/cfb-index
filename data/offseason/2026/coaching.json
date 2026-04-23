@@ -1,0 +1,63 @@
+[
+  {
+    "team_slug": "michigan",
+    "coach_name": "Kyle Whittingham",
+    "role": "head coach",
+    "change_type": "hire",
+    "announced_date": "2026-02-02",
+    "issue": "N° 040",
+    "summary": "Michigan hires Kyle Whittingham out of Utah, making the late carousel the emotional center of the offseason.",
+    "sources": [
+      "https://www.cbssports.com/college-football/news/2026-college-football-coaching-carousel-grades-michigan-kyle-whittingham-lane-kiffin/",
+      "https://www.cbssports.com/college-football/news/college-football-coaching-carousel-tracker-grades-analysis-on-coach-changes-2025-26-firings-and-hirings/"
+    ]
+  },
+  {
+    "team_slug": "michigan",
+    "coach_name": "Sherrone Moore",
+    "role": "head coach",
+    "change_type": "exit",
+    "announced_date": "2026-03-23",
+    "issue": "N° 045",
+    "summary": "Michigan moves on from Sherrone Moore after the March presser turns into the fanbase hinge event.",
+    "sources": [
+      "https://www.cbssports.com/college-football/news/2026-college-football-coaching-carousel-grades-michigan-kyle-whittingham-lane-kiffin/"
+    ]
+  },
+  {
+    "team_slug": "lsu",
+    "coach_name": "Lane Kiffin",
+    "role": "head coach",
+    "change_type": "hire",
+    "announced_date": "2026-01-26",
+    "issue": "N° 039",
+    "summary": "LSU's Lane Kiffin hire sets the winter optimism floor for the Tigers.",
+    "sources": [
+      "https://www.cbssports.com/college-football/news/2026-college-football-coaching-carousel-grades-michigan-kyle-whittingham-lane-kiffin/"
+    ]
+  },
+  {
+    "team_slug": "ole-miss",
+    "coach_name": "Pete Golding",
+    "role": "head coach",
+    "change_type": "promotion",
+    "announced_date": "2026-01-26",
+    "issue": "N° 040",
+    "summary": "Ole Miss promotes Pete Golding after Lane Kiffin's LSU move.",
+    "sources": [
+      "https://www.cbssports.com/college-football/news/college-football-coaching-carousel-tracker-grades-analysis-on-coach-changes-2025-26-firings-and-hirings/"
+    ]
+  },
+  {
+    "team_slug": "oklahoma-state",
+    "coach_name": "Eric Morris",
+    "role": "head coach",
+    "change_type": "hire",
+    "announced_date": "2026-02-02",
+    "issue": "N° 040",
+    "summary": "Oklahoma State hires Eric Morris from North Texas as part of the 2025-26 carousel.",
+    "sources": [
+      "https://www.cbssports.com/college-football/news/college-football-coaching-carousel-tracker-grades-analysis-on-coach-changes-2025-26-firings-and-hirings/"
+    ]
+  }
+]
