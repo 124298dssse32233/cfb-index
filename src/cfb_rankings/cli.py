@@ -49,6 +49,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Compute cohort divergence per team for one week (reads team_cohort_week).",
     )
     compute_divergence_parser.add_argument("--week", required=True, help="Week key in YYYY-WW format.")
+
+    compute_player_mood_parser = subparsers.add_parser(
+        "compute-player-week-mood",
+        help=("Aggregate conversation_document_targets (target_type='player') into "
+              "player_week_conversation_features for a YYYY-WW."),
+    )
+    compute_player_mood_parser.add_argument("--week", required=True, help="Week key in YYYY-WW.")
+    compute_player_mood_parser.add_argument(
+        "--players", nargs="*", type=int, default=None,
+        help="Optional player_id list to filter; default = all players with mentions.",
+    )
     subparsers.add_parser(
         "build-methodology",
         help="Render /methodology/fan-intelligence.html from source_registry + weights.",
@@ -540,6 +551,15 @@ def main() -> None:
         from cfb_rankings.cohorts.divergence import compute_divergence_week
         result = compute_divergence_week(db, args.week)
         print(f"compute-divergence {args.week}: teams_written={result['teams_written']}")
+        return
+
+    if args.command == "compute-player-week-mood":
+        from cfb_rankings.cohorts.player_aggregate import compute_player_week_mood
+        result = compute_player_week_mood(db, args.week, players=args.players)
+        print(f"compute-player-week-mood {args.week}: "
+              f"rows_read={result['rows_read']} "
+              f"players_touched={result['players_touched']} "
+              f"cells_written={result['cells_written']}")
         return
 
     if args.command == "build-methodology":
