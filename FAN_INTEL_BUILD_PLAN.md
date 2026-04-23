@@ -104,29 +104,29 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 **Model**: Sonnet. **Output**: `sources/cfbd.py` extended to pull `/lines`, `/lines/providers`, `/stats/season/advanced`, `/recruiting/players`. Store with `source_id=cfbd`.
 **Acceptance**: daily row counts > 0 for each endpoint during in-season period.
 
-### TASK 2.2 — Wikipedia pageviews
+### TASK 2.2 — Wikipedia pageviews ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/wikipedia_pageviews.py`. For each entity referenced in `priority_teams.wiki_*_page`, pull daily pageviews via Wikimedia REST API.
 **Acceptance**: ≥60 rows/day (20 teams × 3 entities minimum).
 
-### TASK 2.3 — Wikipedia edits
+### TASK 2.3 — Wikipedia edits ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/wikipedia_edits.py`. Daily edit counts + bytes changed per tracked page.
 
-### TASK 2.4 — SeatGeek
+### TASK 2.4 — SeatGeek ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/seatgeek.py`. For each tracked team, pull upcoming events + cheapest-listing price + listing count.
 **Acceptance**: rows for every future home game + top 3 away games per team.
 
-### TASK 2.5 — YouTube metadata
+### TASK 2.5 — YouTube metadata ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/youtube_meta.py`. Track team channels + 3 fan channels per team. Pull video uploads, views, comment counts daily.
 **Acceptance**: <5% of daily quota burned.
 
-### TASK 2.6 — Kalshi + Polymarket
+### TASK 2.6 — Kalshi + Polymarket ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/kalshi.py`, `sources/polymarket.py`. Pull contract prices + volume for CFP, Heisman, conference titles, select game markets.
 **Acceptance**: rows include `volume_usd` — floor rule enforced downstream.
 
-### TASK 2.7 — GDELT volume
+### TASK 2.7 — GDELT volume ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/gdelt_volume.py`. Daily article counts per entity; *volume only*, no tone.
 
-### TASK 2.8 — Spotify charts
+### TASK 2.8 — Spotify charts ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/spotify_charts.py`. Weekly CFB-category chart snapshot.
 
 **Week 2 closing**: Haiku subagent runs full `scrape-health`; all 8 sources report `ok`.
@@ -135,43 +135,43 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 
 ## Week 3 — Conversation expansion
 
-### TASK 3.1 — Bluesky firehose (Jetstream)
+### TASK 3.1 — Bluesky firehose (Jetstream) ✅ (2026-04-23)
 **Model**: Opus (architecture). **Output**: `sources/bluesky_firehose.py`. WebSocket client with keyword + handle filter; batched hourly writes to SQLite.
 **Acceptance**: continuous process stays alive for 24h under supervisor; <100MB/day disk growth.
 
-### TASK 3.2 — Bluesky curated handles + custom feeds
+### TASK 3.2 — Bluesky curated handles + custom feeds ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/bluesky_curated.py`, `sources/bluesky_feeds.py`. Pull `getAuthorFeed` for curated list; pull `getFeed` for subscribed public feeds.
 
-### TASK 3.3 — Bluesky starter-pack harvester
+### TASK 3.3 — Bluesky starter-pack harvester ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: CLI `python manage.py bluesky-harvest-starterpacks` that takes a list of pack URIs and appends handles to `bluesky_curated` JSON in `priority_teams`.
 
-### TASK 3.4 — Bluesky social graph sampler
+### TASK 3.4 — Bluesky social graph sampler ✅ (2026-04-23)
 **Model**: Opus. **Output**: `sources/bluesky_graph.py`. For each team's 3 top beat-writer handles, sample follower intersection; emit candidate fan handles.
 
-### TASK 3.5 — Reddit expansion
+### TASK 3.5 — Reddit expansion ✅ COVERED BY EXISTING INFRASTRUCTURE (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/reddit_team.py`, `sources/reddit_alumni.py`, `sources/reddit_city.py` (or unify into `sources/reddit.py` with sub-type config). Include comment-tree depth up to 3 for top 20 submissions/day per sub.
 **Acceptance**: `community_type` correctly tagged per row.
 
-### TASK 3.6 — Google News RSS per team
+### TASK 3.6 — Google News RSS per team ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/google_news.py`. Per-team query RSS polled every 4h.
 
 ---
 
 ## Week 4 — Media pulse
 
-### TASK 4.1 — Beat-writer RSS (bulk)
+### TASK 4.1 — Beat-writer RSS (bulk) ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/beat_writers.py` (extends `BaseRssAdapter`). Seed file `seeds/beat_writer_feeds.yaml` with ~60 feeds across the 20 priority teams.
 
 ### TASK 4.2 — Campus newspapers (bulk) ✅ (2026-04-23, reference implementation)
 **Model**: Sonnet. **Output**: `sources/campus_news.py`. Seed file with 20 campus paper feeds.
 
-### TASK 4.3 — Substack (bulk)
+### TASK 4.3 — Substack (bulk) ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/substack.py`. Seed file with ~15 CFB Substack feeds.
 
-### TASK 4.4 — School athletic sites (bulk)
+### TASK 4.4 — School athletic sites (bulk) ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/athletics_sites.py`. Seed file with 20 school athletic RSS.
 
-### TASK 4.5 — Locked On team-pod RSS metadata
+### TASK 4.5 — Locked On team-pod RSS metadata ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/locked_on.py`. One feed per team; capture title, description, duration, chapters. No transcription yet.
 
 ---
@@ -182,7 +182,7 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 **Model**: Opus. **Output**: `docs/cowork_playbooks/monday_board_sweep.md`. Step-by-step navigation + extraction schema for the first 5 boards (Tigerdroppings, Shaggy Bevo, VolNation, TideFans, OSU indep).
 **Acceptance**: a fresh Cowork session following the playbook produces rows identical in shape to a separate test run.
 
-### TASK 5.2–5.6 — Five board adapters (Python-side complement)
+### TASK 5.2–5.6 — Five board adapters (Python-side complement) ✅ (2026-04-23)
 **Model**: Sonnet, one task per board. **Output**: `sources/boards/{board}.py`. Each adapter handles the automated parts (RSS where available, structured thread indexes); the playbook handles the rest.
 **Acceptance**: adapter + playbook combined produces ≥20 posts/week/board.
 
@@ -194,7 +194,7 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 
 ## Week 6 — Cowork playbook v2
 
-### TASK 6.1 — Expand board sweep to 20 boards
+### TASK 6.1 — Expand board sweep to 20 boards ✅ PARTIAL (2026-04-23, per-team source-instance loader shipped; 15 more board adapters still TODO)
 **Model**: Sonnet. **Output**: 15 more board adapters + playbook extension.
 
 ### TASK 6.2 — TikTok observation playbook ✅ (2026-04-23)
@@ -213,17 +213,17 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 
 ## Week 7 — Podcast + radio
 
-### TASK 7.1 — Podcast RSS metadata (bulk)
+### TASK 7.1 — Podcast RSS metadata (bulk) ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/podcasts_meta.py`. Tracks ~40 shows; captures episode metadata only.
 
-### TASK 7.2 — Whisper.cpp selective ASR
+### TASK 7.2 — Whisper.cpp selective ASR ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `tools/transcribe_episode.py` — CLI that downloads one episode, transcribes locally, stores segment table. Not run on cron; triggered manually for episodes flagged for editorial use.
 **Acceptance**: runs on Kevin's PC; transcript stored with `source_tier=D`.
 
-### TASK 7.3 — Finebaum daily metadata
+### TASK 7.3 — Finebaum daily metadata ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `sources/finebaum.py`. Daily ESPN feed metadata capture; no transcription by default.
 
-### TASK 7.4 — Local sports radio podcast RSS
+### TASK 7.4 — Local sports radio podcast RSS ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: seed file with 8–12 regional sports radio podcast feeds (Atlanta, Birmingham, Columbus, Knoxville, Baton Rouge, Dallas, LA, Columbus OH, Ann Arbor region). Reuse `BaseRssAdapter`.
 
 ---
