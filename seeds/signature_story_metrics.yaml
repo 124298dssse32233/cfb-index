@@ -1,0 +1,795 @@
+# Signature Story — metric library.
+#
+# Each player page surfaces ONE "signature stat" chosen by the engine in
+# src/cfb_rankings/signature_story.py. Candidates are position-aware; the
+# winner is scored by:
+#
+#   score = percentile * log(max(sample_size, 2)) * narrative_weight
+#
+# Every pick must be AUDITABLE — nothing here is model-derived. Narrative
+# weight is an editorial lever: higher weight makes the story more
+# interesting (efficiency > volume, advanced > counting, situational >
+# global) while percentile + sample keep the pick statistically honest.
+#
+# Fields:
+#   id                 — stable metric id used in output payload.
+#   label              — human-readable, shown in the Signature Story card.
+#   unit               — display unit (EPA, QBR, yds, rate, pct, ratio).
+#   higher_is_better   — true when larger values mean better performance.
+#                        false when we need to invert percentile (e.g. INT%).
+#   position           — one of: QB, RB, WR, TE, (future: DL, LB, DB).
+#   cohort             — cohort_id referenced in `cohorts:` block below.
+#   min_volume         — minimum sample_size required before this metric is
+#                        even considered. If every QB metric falls below its
+#                        gate, the engine emits a shape-accurate skeleton.
+#   volume_field       — which SQL-selected column supplies sample_size.
+#   narrative_weight   — 0.0..1.0 editorial multiplier on the score.
+#                        1.0 = marquee narrative (rank #1 headline).
+#                        0.5 = interesting but not a headline.
+#                        0.2 = volume-leader / snap-share stories.
+#   sql_query_template — parameterized SQL (%(player_id)s, %(season_year)s,
+#                        %(week)s). MUST return columns: value, sample_size.
+#                        Rank/percentile is computed by the engine against
+#                        the cohort, not by the query.
+#   cohort_sql_template — parallel SQL returning (player_id, value,
+#                         sample_size) for every member of the cohort so
+#                         the engine can rank + percentile.
+#
+# Honesty rules baked into narrative_weight:
+#   - WEPA-per-play > raw WEPA total > traditional rate > counting stat >
+#     snap-share. Efficiency beats volume.
+#   - If a metric is a proxy (e.g. 3rd-down USAGE as proxy for 3rd-down
+#     EPA), cap narrative_weight at 0.35 — proxies should never win the
+#     story outright; they can only tie-break when no real metric qualifies.
+#
+# Cohort min-volume gates are from research/signature_story_data_inventory_2026-04-22.md §7.
+
+# ---------------------------------------------------------------------------
+# Cohorts — who we rank against.
+# ---------------------------------------------------------------------------
+cohorts:
+
+  - id: p4_plus_nd_qbs
+    label: "P4 + Notre Dame QBs"
+    description: >
+      ACC, Big 12, Big Ten, SEC, plus Notre Dame (listed as FBS Independent
+      in the DB but universally treated as P4-tier for QB comparisons).
+    # Applied as a WHERE filter on cohort SQL.
+    sql_filter: >
+      (pvm.conference_name IN ('ACC', 'Big 12', 'Big Ten', 'SEC')
+       OR pvm.team_name = 'Notre Dame')
+    min_qualifying_members: 20
+
+  - id: fbs_qbs
+    label: "All FBS QBs"
+    description: >
+      Every QB with a WEPA row in player_value_metrics — i.e. enough CFBD
+      play coverage to produce a weighted-EPA estimate.
+    sql_filter: "1 = 1"
+    min_qualifying_members: 30
+
+  - id: p4_plus_nd_rbs
+    label: "P4 + Notre Dame RBs"
+    sql_filter: >
+      (pvm.conference_name IN ('ACC', 'Big 12', 'Big Ten', 'SEC')
+       OR pvm.team_name = 'Notre Dame')
+    min_qualifying_members: 25
+
+  - id: fbs_rbs
+    label: "All FBS RBs"
+    sql_filter: "1 = 1"
+    min_qualifying_members: 40
+
+  - id: fbs_wrs
+    label: "All FBS WRs"
+    sql_filter: "1 = 1"
+    min_qualifying_members: 40
+
+# ---------------------------------------------------------------------------
+# Metrics — the candidate pool evaluated per player.
+# ---------------------------------------------------------------------------
+metrics:
+
+  # ========== QB ==========
+
+  - id: wepa_passing_per_dropback
+    label: "WEPA per dropback"
+    unit: EPA
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 250
+    volume_field: sample_size
+    narrative_weight: 1.0
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} by weighted EPA per
+      dropback (min {min_volume} dropbacks) — {value:+.3f} EPA/play.
+    sql_query_template: |
+      SELECT
+        metric_value AS value,
+        plays AS sample_size
+      FROM player_value_metrics
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND metric_name = 'wepa_passing'
+        AND plays >= 1
+      LIMIT 1
+    cohort_sql_template: |
+      SELECT
+        pvm.player_id,
+        pvm.player_name,
+        pvm.team_name,
+        pvm.metric_value AS value,
+        pvm.plays AS sample_size
+      FROM player_value_metrics pvm
+      JOIN players p ON p.player_id = pvm.player_id
+      WHERE pvm.season_year = %(season_year)s
+        AND pvm.metric_name = 'wepa_passing'
+        AND pvm.plays >= %(min_volume)s
+        AND p.position = 'QB'
+        AND {cohort_filter}
+
+  - id: wepa_passing_total
+    label: "Total weighted-EPA passing"
+    unit: EPA
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 250
+    volume_field: sample_size
+    narrative_weight: 0.75
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} in total weighted-EPA
+      passing — {cumulative_value:+.1f} WEPA on {sample_size} dropbacks.
+    sql_query_template: |
+      SELECT
+        metric_value * plays AS value,
+        plays AS sample_size
+      FROM player_value_metrics
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND metric_name = 'wepa_passing'
+      LIMIT 1
+    cohort_sql_template: |
+      SELECT
+        pvm.player_id,
+        pvm.player_name,
+        pvm.team_name,
+        (pvm.metric_value * pvm.plays) AS value,
+        pvm.plays AS sample_size
+      FROM player_value_metrics pvm
+      JOIN players p ON p.player_id = pvm.player_id
+      WHERE pvm.season_year = %(season_year)s
+        AND pvm.metric_name = 'wepa_passing'
+        AND pvm.plays >= %(min_volume)s
+        AND p.position = 'QB'
+        AND {cohort_filter}
+
+  - id: wepa_combined_per_play
+    label: "Combined WEPA per play (pass + rush)"
+    unit: EPA
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 280
+    volume_field: sample_size
+    narrative_weight: 0.95
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} in combined passing +
+      rushing weighted-EPA per play — {value:+.3f} EPA on {sample_size}
+      touches.
+    sql_query_template: |
+      WITH pass AS (
+        SELECT metric_value AS v, plays AS n
+        FROM player_value_metrics
+        WHERE player_id = %(player_id)s
+          AND season_year = %(season_year)s
+          AND metric_name = 'wepa_passing'
+      ), rush AS (
+        SELECT metric_value AS v, plays AS n
+        FROM player_value_metrics
+        WHERE player_id = %(player_id)s
+          AND season_year = %(season_year)s
+          AND metric_name = 'wepa_rushing'
+      )
+      SELECT
+        (COALESCE((SELECT v FROM pass), 0) * COALESCE((SELECT n FROM pass), 0)
+         + COALESCE((SELECT v FROM rush), 0) * COALESCE((SELECT n FROM rush), 0))
+        / NULLIF(COALESCE((SELECT n FROM pass), 0)
+                 + COALESCE((SELECT n FROM rush), 0), 0) AS value,
+        (COALESCE((SELECT n FROM pass), 0)
+         + COALESCE((SELECT n FROM rush), 0)) AS sample_size
+    cohort_sql_template: |
+      WITH pass AS (
+        SELECT pvm.player_id, pvm.metric_value AS v, pvm.plays AS n
+        FROM player_value_metrics pvm
+        WHERE pvm.season_year = %(season_year)s
+          AND pvm.metric_name = 'wepa_passing'
+      ), rush AS (
+        SELECT pvm.player_id, pvm.metric_value AS v, pvm.plays AS n
+        FROM player_value_metrics pvm
+        WHERE pvm.season_year = %(season_year)s
+          AND pvm.metric_name = 'wepa_rushing'
+      )
+      SELECT
+        p.player_id,
+        p.full_name AS player_name,
+        pass_meta.team_name,
+        (COALESCE(pass.v, 0) * COALESCE(pass.n, 0)
+         + COALESCE(rush.v, 0) * COALESCE(rush.n, 0))
+        / NULLIF(COALESCE(pass.n, 0) + COALESCE(rush.n, 0), 0) AS value,
+        (COALESCE(pass.n, 0) + COALESCE(rush.n, 0)) AS sample_size
+      FROM players p
+      LEFT JOIN pass ON pass.player_id = p.player_id
+      LEFT JOIN rush ON rush.player_id = p.player_id
+      LEFT JOIN player_value_metrics pass_meta
+        ON pass_meta.player_id = p.player_id
+       AND pass_meta.season_year = %(season_year)s
+       AND pass_meta.metric_name = 'wepa_passing'
+      WHERE p.position = 'QB'
+        AND (COALESCE(pass.n, 0) + COALESCE(rush.n, 0)) >= %(min_volume)s
+        AND pass_meta.conference_name IS NOT NULL
+        AND {cohort_filter_pvm}
+
+  - id: qbr_season_avg
+    label: "ESPN QBR (season average)"
+    unit: QBR
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 2       # ESPN QBR coverage in this DB averages 1-2 games per QB
+    volume_field: sample_size
+    narrative_weight: 0.4   # reduced — sparse QBR coverage means it can't win the headline
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} by ESPN QBR —
+      {value:.1f} across {sample_size} games.
+    sql_query_template: |
+      SELECT
+        AVG(stat_value_num) AS value,
+        COUNT(*) AS sample_size
+      FROM player_game_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'passing'
+        AND stat_type = 'QBR'
+        AND stat_value_num IS NOT NULL
+    cohort_sql_template: |
+      SELECT
+        pgs.player_id,
+        MAX(pgs.player_name) AS player_name,
+        MAX(pgs.team_name) AS team_name,
+        AVG(pgs.stat_value_num) AS value,
+        COUNT(*) AS sample_size
+      FROM player_game_stats pgs
+      JOIN players p ON p.player_id = pgs.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pgs.player_id
+       AND pvm.season_year = pgs.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pgs.season_year = %(season_year)s
+        AND pgs.category = 'passing'
+        AND pgs.stat_type = 'QBR'
+        AND pgs.stat_value_num IS NOT NULL
+        AND p.position = 'QB'
+      GROUP BY pgs.player_id
+      HAVING COUNT(*) >= %(min_volume)s
+         AND ({cohort_filter_pvm_or_team})
+
+  - id: ypa
+    label: "Yards per attempt"
+    unit: yds
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 150     # season ATT floor
+    volume_field: sample_size
+    narrative_weight: 0.5
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} at {value:.1f} yards
+      per attempt ({sample_size} attempts).
+    # player_season_stats is EAV: one row per stat_type. YDS + ATT live in
+    # separate rows; we pivot via conditional aggregation.
+    sql_query_template: |
+      SELECT
+        SUM(CASE WHEN stat_type = 'YDS' THEN stat_value_num END)
+          / NULLIF(SUM(CASE WHEN stat_type = 'ATT' THEN stat_value_num END), 0)
+          AS value,
+        MAX(CASE WHEN stat_type = 'ATT' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'passing'
+        AND stat_type IN ('YDS', 'ATT')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        SUM(CASE WHEN pss.stat_type = 'YDS' THEN pss.stat_value_num END)
+          / NULLIF(SUM(CASE WHEN pss.stat_type = 'ATT'
+                            THEN pss.stat_value_num END), 0) AS value,
+        MAX(CASE WHEN pss.stat_type = 'ATT'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pss.player_id
+       AND pvm.season_year = pss.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'passing'
+        AND pss.stat_type IN ('YDS', 'ATT')
+        AND p.position = 'QB'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'ATT'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+         AND ({cohort_filter_pvm_or_team})
+
+  - id: td_int_ratio
+    label: "TD : INT ratio"
+    unit: ratio
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 150
+    volume_field: sample_size
+    narrative_weight: 0.45
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} at {value:.1f} TDs per
+      INT ({sample_size} attempts).
+    sql_query_template: |
+      SELECT
+        COALESCE(
+          SUM(CASE WHEN stat_type = 'TD' THEN stat_value_num END)
+          / NULLIF(SUM(CASE WHEN stat_type = 'INT'
+                            THEN stat_value_num END), 0),
+          SUM(CASE WHEN stat_type = 'TD' THEN stat_value_num END)
+        ) AS value,
+        MAX(CASE WHEN stat_type = 'ATT' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'passing'
+        AND stat_type IN ('TD', 'INT', 'ATT')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        COALESCE(
+          SUM(CASE WHEN pss.stat_type = 'TD' THEN pss.stat_value_num END)
+          / NULLIF(SUM(CASE WHEN pss.stat_type = 'INT'
+                            THEN pss.stat_value_num END), 0),
+          SUM(CASE WHEN pss.stat_type = 'TD' THEN pss.stat_value_num END)
+        ) AS value,
+        MAX(CASE WHEN pss.stat_type = 'ATT'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pss.player_id
+       AND pvm.season_year = pss.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'passing'
+        AND pss.stat_type IN ('TD', 'INT', 'ATT')
+        AND p.position = 'QB'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'ATT'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+         AND ({cohort_filter_pvm_or_team})
+
+  - id: completion_pct
+    label: "Completion %"
+    unit: pct
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 150
+    volume_field: sample_size
+    narrative_weight: 0.4
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} at {value:.1f}%
+      completion rate ({sample_size} attempts).
+    sql_query_template: |
+      SELECT
+        MAX(CASE WHEN stat_type = 'PCT' THEN stat_value_num END) AS value,
+        MAX(CASE WHEN stat_type = 'ATT' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'passing'
+        AND stat_type IN ('PCT', 'ATT')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        MAX(CASE WHEN pss.stat_type = 'PCT'
+                 THEN pss.stat_value_num END) AS value,
+        MAX(CASE WHEN pss.stat_type = 'ATT'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pss.player_id
+       AND pvm.season_year = pss.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'passing'
+        AND pss.stat_type IN ('PCT', 'ATT')
+        AND p.position = 'QB'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'ATT'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+         AND ({cohort_filter_pvm_or_team})
+
+  - id: passing_yards_total
+    label: "Passing yards (total)"
+    unit: yds
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 150
+    volume_field: sample_size
+    narrative_weight: 0.3
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} in total passing yards
+      — {value:,.0f} yards on {sample_size} attempts.
+    sql_query_template: |
+      SELECT
+        MAX(CASE WHEN stat_type = 'YDS' THEN stat_value_num END) AS value,
+        MAX(CASE WHEN stat_type = 'ATT' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'passing'
+        AND stat_type IN ('YDS', 'ATT')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        MAX(CASE WHEN pss.stat_type = 'YDS'
+                 THEN pss.stat_value_num END) AS value,
+        MAX(CASE WHEN pss.stat_type = 'ATT'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pss.player_id
+       AND pvm.season_year = pss.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'passing'
+        AND pss.stat_type IN ('YDS', 'ATT')
+        AND p.position = 'QB'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'ATT'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+         AND ({cohort_filter_pvm_or_team})
+
+  - id: wepa_rushing_qb
+    label: "QB rushing weighted-EPA"
+    unit: EPA
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 50      # rushing plays for a QB
+    volume_field: sample_size
+    narrative_weight: 0.6
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} among scrambling QBs
+      by rushing weighted-EPA — {value:+.3f} EPA per run on {sample_size}
+      carries.
+    sql_query_template: |
+      SELECT
+        metric_value AS value,
+        plays AS sample_size
+      FROM player_value_metrics
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND metric_name = 'wepa_rushing'
+      LIMIT 1
+    cohort_sql_template: |
+      SELECT
+        pvm.player_id,
+        pvm.player_name,
+        pvm.team_name,
+        pvm.metric_value AS value,
+        pvm.plays AS sample_size
+      FROM player_value_metrics pvm
+      JOIN players p ON p.player_id = pvm.player_id
+      WHERE pvm.season_year = %(season_year)s
+        AND pvm.metric_name = 'wepa_rushing'
+        AND pvm.plays >= %(min_volume)s
+        AND p.position = 'QB'
+        AND {cohort_filter}
+
+  - id: third_down_usage_share
+    label: "Third-down snap share"
+    unit: rate
+    higher_is_better: true
+    position: QB
+    cohort: p4_plus_nd_qbs
+    min_volume: 1
+    volume_field: sample_size
+    narrative_weight: 0.2      # proxy — capped per honesty rule in header
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} in 3rd-down snap share
+      — on the field for {value:.0%} of third-down plays.
+    sql_query_template: |
+      SELECT
+        usage_third_down AS value,
+        1 AS sample_size
+      FROM player_usage_season
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+      LIMIT 1
+    cohort_sql_template: |
+      SELECT
+        pus.player_id,
+        pus.player_name,
+        pus.team_name,
+        pus.usage_third_down AS value,
+        1 AS sample_size
+      FROM player_usage_season pus
+      JOIN players p ON p.player_id = pus.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pus.player_id
+       AND pvm.season_year = pus.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pus.season_year = %(season_year)s
+        AND pus.position = 'QB'
+        AND pus.usage_third_down IS NOT NULL
+        AND ({cohort_filter_pvm_or_team})
+
+  # ========== RB (stub coverage per kickoff) ==========
+
+  - id: wepa_rushing_per_carry
+    label: "Rushing WEPA per carry"
+    unit: EPA
+    higher_is_better: true
+    position: RB
+    cohort: p4_plus_nd_rbs
+    min_volume: 80
+    volume_field: sample_size
+    narrative_weight: 1.0
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} by rushing weighted-
+      EPA per carry — {value:+.3f} EPA/carry on {sample_size} carries.
+    sql_query_template: |
+      SELECT
+        metric_value AS value,
+        plays AS sample_size
+      FROM player_value_metrics
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND metric_name = 'wepa_rushing'
+      LIMIT 1
+    cohort_sql_template: |
+      SELECT
+        pvm.player_id,
+        pvm.player_name,
+        pvm.team_name,
+        pvm.metric_value AS value,
+        pvm.plays AS sample_size
+      FROM player_value_metrics pvm
+      JOIN players p ON p.player_id = pvm.player_id
+      WHERE pvm.season_year = %(season_year)s
+        AND pvm.metric_name = 'wepa_rushing'
+        AND pvm.plays >= %(min_volume)s
+        AND p.position = 'RB'
+        AND {cohort_filter}
+
+  - id: ypc
+    label: "Yards per carry"
+    unit: yds
+    higher_is_better: true
+    position: RB
+    cohort: p4_plus_nd_rbs
+    min_volume: 80
+    volume_field: sample_size
+    narrative_weight: 0.5
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} at {value:.1f} yards
+      per carry ({sample_size} carries).
+    sql_query_template: |
+      SELECT
+        MAX(CASE WHEN stat_type = 'YPC' THEN stat_value_num END) AS value,
+        MAX(CASE WHEN stat_type = 'CAR' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'rushing'
+        AND stat_type IN ('YPC', 'CAR')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        MAX(CASE WHEN pss.stat_type = 'YPC'
+                 THEN pss.stat_value_num END) AS value,
+        MAX(CASE WHEN pss.stat_type = 'CAR'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pss.player_id
+       AND pvm.season_year = pss.season_year
+       AND pvm.metric_name = 'wepa_rushing'
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'rushing'
+        AND pss.stat_type IN ('YPC', 'CAR')
+        AND p.position = 'RB'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'CAR'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+         AND ({cohort_filter_pvm_or_team})
+
+  - id: rushing_yards_total
+    label: "Rushing yards (total)"
+    unit: yds
+    higher_is_better: true
+    position: RB
+    cohort: p4_plus_nd_rbs
+    min_volume: 80
+    volume_field: sample_size
+    narrative_weight: 0.35
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} in total rushing
+      yards — {value:,.0f} yards on {sample_size} carries.
+    sql_query_template: |
+      SELECT
+        MAX(CASE WHEN stat_type = 'YDS' THEN stat_value_num END) AS value,
+        MAX(CASE WHEN stat_type = 'CAR' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'rushing'
+        AND stat_type IN ('YDS', 'CAR')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        MAX(CASE WHEN pss.stat_type = 'YDS'
+                 THEN pss.stat_value_num END) AS value,
+        MAX(CASE WHEN pss.stat_type = 'CAR'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pss.player_id
+       AND pvm.season_year = pss.season_year
+       AND pvm.metric_name = 'wepa_rushing'
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'rushing'
+        AND pss.stat_type IN ('YDS', 'CAR')
+        AND p.position = 'RB'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'CAR'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+         AND ({cohort_filter_pvm_or_team})
+
+  # ========== WR (stub coverage per kickoff) ==========
+
+  - id: receiving_yards_total
+    label: "Receiving yards (total)"
+    unit: yds
+    higher_is_better: true
+    position: WR
+    cohort: fbs_wrs
+    min_volume: 20       # min receptions
+    volume_field: sample_size
+    narrative_weight: 0.5
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} in receiving yards —
+      {value:,.0f} yards on {sample_size} receptions.
+    sql_query_template: |
+      SELECT
+        MAX(CASE WHEN stat_type = 'YDS' THEN stat_value_num END) AS value,
+        MAX(CASE WHEN stat_type = 'REC' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'receiving'
+        AND stat_type IN ('YDS', 'REC')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        MAX(CASE WHEN pss.stat_type = 'YDS'
+                 THEN pss.stat_value_num END) AS value,
+        MAX(CASE WHEN pss.stat_type = 'REC'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'receiving'
+        AND pss.stat_type IN ('YDS', 'REC')
+        AND p.position = 'WR'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'REC'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+
+  - id: ypr
+    label: "Yards per reception"
+    unit: yds
+    higher_is_better: true
+    position: WR
+    cohort: fbs_wrs
+    min_volume: 20
+    volume_field: sample_size
+    narrative_weight: 0.7
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} at {value:.1f} yards
+      per reception ({sample_size} catches).
+    sql_query_template: |
+      SELECT
+        MAX(CASE WHEN stat_type = 'YPR' THEN stat_value_num END) AS value,
+        MAX(CASE WHEN stat_type = 'REC' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'receiving'
+        AND stat_type IN ('YPR', 'REC')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        MAX(CASE WHEN pss.stat_type = 'YPR'
+                 THEN pss.stat_value_num END) AS value,
+        MAX(CASE WHEN pss.stat_type = 'REC'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'receiving'
+        AND pss.stat_type IN ('YPR', 'REC')
+        AND p.position = 'WR'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'REC'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
+
+  - id: receiving_tds
+    label: "Receiving TDs"
+    unit: count
+    higher_is_better: true
+    position: WR
+    cohort: fbs_wrs
+    min_volume: 20
+    volume_field: sample_size
+    narrative_weight: 0.4
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} in receiving TDs —
+      {value:.0f} TDs on {sample_size} receptions.
+    sql_query_template: |
+      SELECT
+        MAX(CASE WHEN stat_type = 'TD' THEN stat_value_num END) AS value,
+        MAX(CASE WHEN stat_type = 'REC' THEN stat_value_num END) AS sample_size
+      FROM player_season_stats
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND category = 'receiving'
+        AND stat_type IN ('TD', 'REC')
+    cohort_sql_template: |
+      SELECT
+        pss.player_id,
+        MAX(pss.player_name) AS player_name,
+        MAX(pss.team_name) AS team_name,
+        MAX(CASE WHEN pss.stat_type = 'TD'
+                 THEN pss.stat_value_num END) AS value,
+        MAX(CASE WHEN pss.stat_type = 'REC'
+                 THEN pss.stat_value_num END) AS sample_size
+      FROM player_season_stats pss
+      JOIN players p ON p.player_id = pss.player_id
+      WHERE pss.season_year = %(season_year)s
+        AND pss.category = 'receiving'
+        AND pss.stat_type IN ('TD', 'REC')
+        AND p.position = 'WR'
+      GROUP BY pss.player_id
+      HAVING MAX(CASE WHEN pss.stat_type = 'REC'
+                      THEN pss.stat_value_num END) >= %(min_volume)s
