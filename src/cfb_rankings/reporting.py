@@ -1040,6 +1040,14 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         _report_progress(f"Signature Stories board written to {ss_path}.")
     except Exception as exc:
         _report_progress(f"Signature Stories board build skipped: {exc}")
+    try:
+        from cfb_rankings.players_landing import build_players_landing
+        landing_path = build_players_landing(
+            db, output_dir=site_root, season_year=season_year_value,
+        )
+        _report_progress(f"Players spotlight landing written to {landing_path}.")
+    except Exception as exc:
+        _report_progress(f"Players landing build skipped: {exc}")
 
     _report_progress(f"Static site build finished at {site_root}.")
     return site_root
@@ -8233,6 +8241,7 @@ def _render_home_meta_row(summary: dict[str, Any], latest_local_week: int, edito
           <div class="meta-pill"><span>Latest Model</span><strong>{escape(season_name)} wk {escape(str(summary["week"]))}</strong></div>
           <div class="meta-pill"><span>Games Loaded</span><strong>Through wk {latest_local_week}</strong></div>
           <div class="meta-pill"><span>Methodology</span><strong><a href="about-model/index.html" style="color:inherit;border-bottom:1px dotted currentColor;">How we build this</a> &middot; <a href="methodology/fan-intelligence.html" style="color:inherit;border-bottom:1px dotted currentColor;">Fan Intel</a></strong></div>
+          <div class="meta-pill"><span>Players</span><strong><a href="players/spotlight.html" style="color:inherit;border-bottom:1px dotted currentColor;">Spotlight</a> &middot; <a href="players/signature-stories.html" style="color:inherit;border-bottom:1px dotted currentColor;">Signature Stories</a> &middot; <a href="players/the-room.html" style="color:inherit;border-bottom:1px dotted currentColor;">The Room</a></strong></div>
         </div>
         """
     return f"""
@@ -8241,6 +8250,7 @@ def _render_home_meta_row(summary: dict[str, Any], latest_local_week: int, edito
       <div class="meta-pill"><span>Model Week</span><strong>{escape(str(summary["week"]))}</strong></div>
       <div class="meta-pill"><span>Games Loaded</span><strong>Through wk {latest_local_week}</strong></div>
       <div class="meta-pill"><span>Methodology</span><strong><a href="about-model/index.html" style="color:inherit;border-bottom:1px dotted currentColor;">How we build this</a> &middot; <a href="methodology/fan-intelligence.html" style="color:inherit;border-bottom:1px dotted currentColor;">Fan Intel</a></strong></div>
+      <div class="meta-pill"><span>Players</span><strong><a href="players/spotlight.html" style="color:inherit;border-bottom:1px dotted currentColor;">Spotlight</a> &middot; <a href="players/signature-stories.html" style="color:inherit;border-bottom:1px dotted currentColor;">Signature Stories</a> &middot; <a href="players/the-room.html" style="color:inherit;border-bottom:1px dotted currentColor;">The Room</a></strong></div>
     </div>
     """
 
@@ -13062,8 +13072,8 @@ def _site_nav(prefix: str, current: str) -> str:
         "home": "rankings",
         "rankings": "rankings",
         "heisman": "heisman",
-        "players": "heisman",
-        "player": "heisman",
+        "players": "players",
+        "player": "players",
         "programs": "programs",
         "history": "history",
         "about": "model",
@@ -13076,6 +13086,7 @@ def _site_nav(prefix: str, current: str) -> str:
     links = [
         ("rankings", "Power Rankings", f"{prefix}rankings/index.html"),
         ("teams", "Teams", f"{prefix}teams/index.html"),
+        ("players", "Players", f"{prefix}players/spotlight.html"),
         ("heisman", "Heisman", f"{prefix}heisman/index.html"),
         ("programs", "Programs", f"{prefix}programs/index.html"),
         ("history", "History", f"{prefix}history/index.html"),
