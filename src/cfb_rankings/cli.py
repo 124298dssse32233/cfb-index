@@ -35,6 +35,20 @@ def build_parser() -> argparse.ArgumentParser:
         "--since-days", type=int, default=7,
         help="Limit to runs within the last N days (default: 7).",
     )
+    compute_cohort_parser = subparsers.add_parser(
+        "compute-cohort-week",
+        help="Aggregate conversation_documents into team_cohort_week for a YYYY-WW.",
+    )
+    compute_cohort_parser.add_argument("--week", required=True, help="Week key in YYYY-WW format.")
+    compute_cohort_parser.add_argument(
+        "--teams", nargs="*", type=int, default=None,
+        help="Optional team_id list to filter; default = all teams present in docs.",
+    )
+    compute_divergence_parser = subparsers.add_parser(
+        "compute-divergence",
+        help="Compute cohort divergence per team for one week (reads team_cohort_week).",
+    )
+    compute_divergence_parser.add_argument("--week", required=True, help="Week key in YYYY-WW format.")
 
     list_sportsdb_parser = subparsers.add_parser("list-sportsdb-leagues")
     list_sportsdb_parser.add_argument("--country", default="United States")
@@ -485,6 +499,21 @@ def main() -> None:
         from cfb_rankings.ingest.fanintel_seeds import seed_source_registry
         result = seed_source_registry(db)
         print(f"source_registry: inserted={result['inserted']} updated={result['updated']} total={result['total']}")
+        return
+
+    if args.command == "compute-cohort-week":
+        from cfb_rankings.cohorts.aggregate import compute_cohort_week
+        result = compute_cohort_week(db, args.week, teams=args.teams)
+        print(f"compute-cohort-week {args.week}: "
+              f"docs_considered={result['docs_considered']} "
+              f"docs_skipped={result['docs_skipped']} "
+              f"cells_written={result['cells_written']}")
+        return
+
+    if args.command == "compute-divergence":
+        from cfb_rankings.cohorts.divergence import compute_divergence_week
+        result = compute_divergence_week(db, args.week)
+        print(f"compute-divergence {args.week}: teams_written={result['teams_written']}")
         return
 
     if args.command == "scrape-health":
