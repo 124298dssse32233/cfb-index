@@ -29,8 +29,16 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
-      - name: Apply migrations
-        run: python manage.py apply-migrations
+      # NOTE: runner starts with an empty DB because cfb_rankings.db is gitignored
+      # (contains multi-season data, wrong place for git). This workflow therefore
+      # runs as a CI smoke test only — ingestion rows land in the ephemeral runner
+      # DB and disappear when the job ends. Real persistence is a TODO: either
+      # (a) upload/download the DB as a GH Actions artifact across runs, or
+      # (b) move cron ingestion to a machine with persistent state.
+      - name: Init DB (fresh schema; seeds below give registry + priority teams)
+        run: python manage.py init-db
+      - name: Seed source registry
+        run: python manage.py seed-source-registry
       - name: Free / no-auth sources
         run: |
           set +e

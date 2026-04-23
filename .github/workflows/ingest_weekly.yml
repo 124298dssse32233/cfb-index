@@ -24,8 +24,11 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
-      - name: Apply migrations
-        run: python manage.py apply-migrations
+      # See ingest_hourly.yml for the persistence-gap TODO.
+      - name: Init DB (fresh schema per run)
+        run: python manage.py init-db
+      - name: Seed source registry
+        run: python manage.py seed-source-registry
       - name: Spotify charts
         run: |
           set +e

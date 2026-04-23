@@ -22,8 +22,10 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
-      - name: Apply migrations
-        run: python manage.py apply-migrations
+      - name: Init DB (fresh schema on every run — CI smoke test only)
+        run: python manage.py init-db
+      - name: Seed source registry
+        run: python manage.py seed-source-registry
       - name: Validate feed URLs
         run: python manage.py validate-feed-urls
       - name: Fan Intelligence status
