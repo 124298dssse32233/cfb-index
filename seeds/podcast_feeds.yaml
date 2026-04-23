@@ -1,0 +1,66 @@
+# Tracked podcast RSS feeds — TASK 7.1.
+# Metadata only (no transcription). Tier B unless noted otherwise.
+
+feeds:
+  # National CFB — Tier B
+  - show_slug: split_zone_duo
+    tier: B
+    url: https://feeds.megaphone.fm/VMP5705694282
+    needs_research: true
+
+  - show_slug: the_solid_verbal
+    tier: B
+    url: https://feeds.simplecast.com/wkp4yYBk
+    needs_research: true
+
+  - show_slug: locked_on_college_football
+    tier: B
+    url: https://feeds.megaphone.fm/lockedoncfb
+    needs_research: true
+
+  - show_slug: saturday_down_south_podcast
+    tier: B
+    url: https://feeds.megaphone.fm/sdsnetwork
+    needs_research: true
+
+  - show_slug: the_audible
+    tier: B
+    url: https://feeds.simplecast.com/k6Opj0Mx
+    needs_research: true
+
+  # Per-team Locked On — Tier B
+  - show_slug: locked_on_alabama
+    tier: B
+    url: https://feeds.megaphone.fm/lockedonalabama
+    needs_research: true
+
+  - show_slug: locked_on_georgia
+    tier: B
+    url: https://feeds.megaphone.fm/lockedongeorgia
+    needs_research: true
+
+  - show_slug: locked_on_lsu
+    tier: B
+    url: https://feeds.megaphone.fm/lockedonlsu
+    needs_research: true
+
+  - show_slug: locked_on_buckeyes
+    tier: B
+    url: https://feeds.megaphone.fm/lockedonbuckeyes
+    needs_research: true
+
+  - show_slug: locked_on_wolverines
+    tier: B
+    url: https://feeds.megaphone.fm/lockedonwolverines
+    needs_research: true
+
+  - show_slug: locked_on_ducks
+    tier: B
+    url: https://feeds.megaphone.fm/lockedonducks
+    needs_research: true
+
+  # Tier D — editorial citation only
+  - show_slug: finebaum_rss
+    tier: D
+    url: https://rss.art19.com/paul-finebaum-show
+    needs_research: true

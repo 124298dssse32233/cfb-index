@@ -1,0 +1,68 @@
+# Local sports radio podcast RSS — TASK 7.4.
+# Tier D citation-only. 10 regional shows aligned with priority_teams geography.
+
+feeds:
+  # SEC — Atlanta / Birmingham / Baton Rouge / Knoxville
+  - show_slug: radio_atlanta_929
+    tier: D
+    market: Atlanta
+    url: https://www.929thegame.com/feed
+    needs_research: true
+
+  - show_slug: radio_birmingham_wjox
+    tier: D
+    market: Birmingham
+    url: https://omny.fm/shows/the-roundtable/playlists/podcast.rss
+    needs_research: true
+
+  - show_slug: radio_baton_rouge_wbrp
+    tier: D
+    market: Baton Rouge
+    url: https://www.eagle981.com/feed
+    needs_research: true
+
+  - show_slug: radio_knoxville_wnml
+    tier: D
+    market: Knoxville
+    url: https://www.sportsradiownml.com/feed
+    needs_research: true
+
+  # Texas
+  - show_slug: radio_dallas_1053
+    tier: D
+    market: Dallas
+    url: https://www.thefan1053.com/feed
+    needs_research: true
+
+  # B1G
+  - show_slug: radio_columbus_9710
+    tier: D
+    market: Columbus OH
+    url: https://www.97one.com/feed
+    needs_research: true
+
+  - show_slug: radio_ann_arbor_971
+    tier: D
+    market: Ann Arbor
+    url: https://www.971theticket.com/feed
+    needs_research: true
+
+  # PNW / Mountain
+  - show_slug: radio_portland_1080
+    tier: D
+    market: Portland
+    url: https://www.1080thefan.com/feed
+    needs_research: true
+
+  - show_slug: radio_salt_lake_ksl
+    tier: D
+    market: Salt Lake City
+    url: https://kslnewsradio.com/feed
+    needs_research: true
+
+  # HBCU-region
+  - show_slug: radio_jackson_wjdx
+    tier: D
+    market: Jackson MS
+    url: https://supertalk.fm/feed
+    needs_research: true
