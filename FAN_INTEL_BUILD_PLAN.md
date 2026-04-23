@@ -84,12 +84,12 @@ Goal: schema, adapter base, source_registry seeded, priority_teams seeded, Actio
 **Acceptance**: 20 rows in `priority_teams`. The 20 selected programs cover the geographic + cohort diversity STRATEGY §9 requires.
 **Verification**: Haiku subagent: count, diversity check.
 
-### TASK 1.5 — GitHub Actions workflows (stubbed)
+### TASK 1.5 — GitHub Actions workflows (stubbed) ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `.github/workflows/ingest_hourly.yml`, `ingest_daily.yml`, `ingest_weekly.yml`, `scrape_health.yml`. No adapters enabled yet — jobs just echo and exit 0. Secrets block included but empty (commented).
 **Acceptance**: push → jobs appear in Actions tab on schedule.
 **Verification**: manual check of Actions tab after push.
 
-### TASK 1.6 — `scrape-health` CLI
+### TASK 1.6 — `scrape-health` CLI ✅ (2026-04-23)
 **Model**: Haiku-subagent. **Output**: `python manage.py scrape-health` prints a table: `source_id | last_run | rows | status`. Sorted by status (error > empty > ok).
 **Acceptance**: runs in <1s; output matches DB rows.
 **Verification**: sqlite query cross-check.

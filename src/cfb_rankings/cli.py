@@ -27,6 +27,14 @@ def build_parser() -> argparse.ArgumentParser:
         "seed-priority-teams",
         help="Load seeds/priority_teams.yaml into priority_teams (upsert on team_id).",
     )
+    scrape_health_parser = subparsers.add_parser(
+        "scrape-health",
+        help="Print per-source run status from scrape_health (sorted error > empty > ok).",
+    )
+    scrape_health_parser.add_argument(
+        "--since-days", type=int, default=7,
+        help="Limit to runs within the last N days (default: 7).",
+    )
 
     list_sportsdb_parser = subparsers.add_parser("list-sportsdb-leagues")
     list_sportsdb_parser.add_argument("--country", default="United States")
@@ -477,6 +485,39 @@ def main() -> None:
         from cfb_rankings.ingest.fanintel_seeds import seed_source_registry
         result = seed_source_registry(db)
         print(f"source_registry: inserted={result['inserted']} updated={result['updated']} total={result['total']}")
+        return
+
+    if args.command == "scrape-health":
+        from datetime import date, timedelta
+        cutoff = (date.today() - timedelta(days=args.since_days)).isoformat()
+        rows = db.query_all(
+            """
+            select source_id,
+                   max(run_date) as last_run,
+                   (select rows_inserted from scrape_health sh2
+                    where sh2.source_id = sh.source_id order by run_date desc limit 1) as rows_inserted,
+                   (select status from scrape_health sh2
+                    where sh2.source_id = sh.source_id order by run_date desc limit 1) as status
+            from scrape_health sh
+            where run_date >= :cutoff
+            group by source_id
+            """,
+            {"cutoff": cutoff},
+        )
+        priority = {"error": 0, "empty": 1, "skipped": 2, "ok": 3}
+        rows.sort(key=lambda r: (priority.get(r["status"], 9), r["source_id"]))
+        header = f"{'source_id':<28} {'last_run':<12} {'rows':>7} {'status':<8}"
+        print(header)
+        print("-" * len(header))
+        if not rows:
+            print("(no scrape_health rows in the last"
+                  f" {args.since_days} days — adapters not yet wired)")
+            return
+        for row in rows:
+            print(f"{(row['source_id'] or '')[:28]:<28} "
+                  f"{(row['last_run'] or '')[:12]:<12} "
+                  f"{row['rows_inserted'] or 0:>7} "
+                  f"{row['status'] or '':<8}")
         return
 
     if args.command == "seed-priority-teams":
