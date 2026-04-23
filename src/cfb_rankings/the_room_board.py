@@ -90,7 +90,7 @@ def render_the_room_board_html(rows: list[dict[str, Any]], season_year: int, wee
 
     title = f"Players in The Room — {season_year}"
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

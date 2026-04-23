@@ -494,6 +494,61 @@ _ATTRIBUTIONS_CSS_BLOCK = """
 .attributions-page .back { margin-top: 64px; font-size: 14px; color: #6b6a63; }
 """
 
+# Dark-mode override (S.1). OKLCH values from design-ref/Premium College
+# Football Website UI/src/styles/theme.css. Every rendered <html> gets
+# class="dark" so dark is the default; OS `prefers-color-scheme: light`
+# reverts to the :root light palette via the media query block.
+_DARK_MODE_CSS_BLOCK = """
+html.dark {
+  color-scheme: dark;
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.165 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.165 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent-surface: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.55 0.19 25.7);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.3 0 0);
+  --border-strong: oklch(0.4 0 0);
+  --input-background: oklch(0.269 0 0);
+}
+
+@media (prefers-color-scheme: light) {
+  html.dark {
+    color-scheme: light;
+    --background: #FAFAFA;
+    --foreground: #0A0A0A;
+    --card: #FFFFFF;
+    --card-foreground: #0A0A0A;
+    --popover: #FFFFFF;
+    --popover-foreground: #0A0A0A;
+    --primary: #0A0A0A;
+    --primary-foreground: #FFFFFF;
+    --secondary: #F5F5F5;
+    --secondary-foreground: #0A0A0A;
+    --muted: #E8E8E8;
+    --muted-foreground: #6B6B6B;
+    --accent-surface: #1a1a1a;
+    --accent-foreground: #FFFFFF;
+    --destructive: #DC2626;
+    --destructive-foreground: #FFFFFF;
+    --border: rgba(10, 10, 10, 0.08);
+    --border-strong: rgba(10, 10, 10, 0.14);
+    --input-background: #F5F5F5;
+  }
+}
+"""
+
+
 # Cohort panel CSS — moved from inline block inside _render_cohort_panel (reporting.py:~16163).
 _COHORT_PANEL_CSS_BLOCK = """
 .cohort-panel { padding: 1.5rem 0; }
@@ -571,6 +626,8 @@ def _compose_global_css() -> str:
         + _ATTRIBUTIONS_CSS_BLOCK
         + "\n/* === Cohort panel — moved from reporting.py:~16163 === */\n"
         + _COHORT_PANEL_CSS_BLOCK
+        + "\n/* === Dark-mode override (S.1) === */\n"
+        + _DARK_MODE_CSS_BLOCK
     )
 
 
@@ -618,7 +675,7 @@ def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> N
         except Exception:
             pass
     html = """<!doctype html>
-<html lang=\"en\">
+<html lang=\"en\" class=\"dark\">
 <head>
 <meta charset=\"utf-8\">
 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
@@ -963,6 +1020,26 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         _report_progress(f"Hub page written to {hub_path}.")
     except Exception as exc:
         _report_progress(f"Hub page build skipped: {exc}")
+
+    # Player-scope discovery boards — small, cheap to regenerate, and the
+    # only way readers find the players with live Room or Signature Story
+    # cards under a 17k-page index.
+    try:
+        from cfb_rankings.the_room_board import build_the_room_board
+        the_room_path = build_the_room_board(
+            db, output_dir=site_root, season_year=season_year_value,
+        )
+        _report_progress(f"The Room board written to {the_room_path}.")
+    except Exception as exc:
+        _report_progress(f"The Room board build skipped: {exc}")
+    try:
+        from cfb_rankings.signature_story_board import build_signature_story_board
+        ss_path = build_signature_story_board(
+            db, output_dir=site_root, season_year=season_year_value,
+        )
+        _report_progress(f"Signature Stories board written to {ss_path}.")
+    except Exception as exc:
+        _report_progress(f"Signature Stories board build skipped: {exc}")
 
     _report_progress(f"Static site build finished at {site_root}.")
     return site_root
@@ -6313,7 +6390,7 @@ def render_matchups_page_html(
     scenarios = _render_matchup_scenario_cards(team_pages, site_pulse)
     argument_theater = _render_matchup_argument_theater(fan_intel_board or {}, prefix="../teams/")
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -6700,7 +6777,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
         for team in sorted((item["ranking"] for item in team_pages), key=lambda row: (row.team_name.lower(), row.level_code, row.rank))
     )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7158,7 +7235,7 @@ def render_conferences_index_html(
     top_cards = _render_conference_spotlight([conference for conference in conference_pages if int(conference["team_count"]) >= 4][:12], prefix="")
     table_rows = "\n".join(_render_conference_table_row(conference) for conference in conference_pages)
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7381,7 +7458,7 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
             + _render_conference_parity_section(conference)
         )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7620,7 +7697,7 @@ def render_archive_index_html(
             """
         )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7723,7 +7800,7 @@ def render_archive_snapshot_html(
         else "No prior snapshot loaded"
     )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7917,7 +7994,7 @@ def render_legacy_entry_html(summary: dict[str, Any], rankings: list[RankingRow]
     season_name = season_label(int(summary["season_year"]))
     top_row = rankings[0]
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="refresh" content="0; url=site/rankings/index.html">
@@ -8266,7 +8343,7 @@ def render_home_html(
     hero_meta_row = _render_home_meta_row(summary, latest_local_week, editorial_context)
 
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8454,7 +8531,7 @@ def render_rankings_page_html(
     history_level_cards = _render_history_level_cards(history_hub or {}, prefix="../programs/")
 
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8658,7 +8735,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
     explorer_table_rows = _render_history_explorer_rows(explorer_rows)
     explorer_conferences = sorted({str(row.get("conference_name") or "") for row in explorer_rows if row.get("conference_name")})
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9079,7 +9156,7 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     cohort_panel = _render_cohort_panel(cohort_rows, team_name=team_name)
     archetype_module = team_data.get("archetype_module_html") or ""
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9369,7 +9446,7 @@ def render_programs_index_html(
     cards = _render_program_explorer_cards(explorer_rows)
     table_rows = "".join(_render_program_explorer_row(row) for row in explorer_rows)
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9531,7 +9608,7 @@ def render_teams_index_html(
         if level_counts.get(level)
     )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9756,7 +9833,7 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
     """
     season_name = season_label(int(summary["season_year"]))
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10027,7 +10104,7 @@ def render_heisman_page_html(
         else "The probabilities reflect the live vote-eligible data horizon for this week."
     )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10196,7 +10273,7 @@ def render_players_index_html(
     )
     latest_week = heisman_snapshot.get("week")
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10697,7 +10774,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         ]
     )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11983,7 +12060,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

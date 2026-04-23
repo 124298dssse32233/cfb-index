@@ -114,6 +114,13 @@ def build_parser() -> argparse.ArgumentParser:
     the_room_board_parser.add_argument("--season", type=int, required=True)
     the_room_board_parser.add_argument("--week", type=int, default=1)
 
+    signature_board_parser = subparsers.add_parser(
+        "build-signature-story-board",
+        help=("Build /players/signature-stories.html — Top 25 per position "
+              "by engine percentile, each clickable to the player page."),
+    )
+    signature_board_parser.add_argument("--season", type=int, required=True)
+
     compute_player_season_mood_parser = subparsers.add_parser(
         "compute-player-season-mood",
         help=("Season rollup: aggregate ALL player-scope target rows for one "
@@ -663,6 +670,12 @@ def main() -> None:
         from cfb_rankings.the_room_board import build_the_room_board
         out = build_the_room_board(db, season_year=args.season, week=args.week)
         print(f"the-room board written: {out}")
+        return
+
+    if args.command == "build-signature-story-board":
+        from cfb_rankings.signature_story_board import build_signature_story_board
+        out = build_signature_story_board(db, season_year=args.season)
+        print(f"signature-stories board written: {out}")
         return
 
     if args.command == "compute-player-season-mood":
