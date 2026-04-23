@@ -69,17 +69,17 @@ Goal: schema, adapter base, source_registry seeded, priority_teams seeded, Actio
 **Acceptance**: `sqlite3 cfb_rankings.db ".schema"` shows new tables/columns; existing `build-site` still runs without errors.
 **Verification**: Haiku subagent: run `build-site`, diff site output — only additive changes allowed.
 
-### TASK 1.2 — `SourceAdapter` base class
+### TASK 1.2 — `SourceAdapter` base class ✅ (2026-04-22)
 **Model**: Opus. **Output**: `src/cfb_rankings/ingest/sources/base.py` with abstract methods `fetch()`, `parse()`, `write_rows()`, `health_check()`. Constants for `adapter_version`, retry policy, rate-limit. Concrete helper `BaseRssAdapter(SourceAdapter)` for the 40+ RSS sources to reuse.
 **Acceptance**: unit test instantiates a dummy adapter, runs full lifecycle, writes one row to `scrape_health`.
 **Verification**: pytest.
 
-### TASK 1.3 — `source_registry` seed
+### TASK 1.3 — `source_registry` seed ✅ (2026-04-22)
 **Model**: Opus (weights are editorial judgment). **Output**: `seeds/source_registry.yaml` with one entry per source in STRATEGY §3, cohort_weights copied from §4. Loader CLI: `python manage.py seed-source-registry`.
 **Acceptance**: `SELECT COUNT(*) FROM source_registry` matches expected count; every row has non-null `cohort_weights`, `tier`, `max_publication_form`.
 **Verification**: Haiku subagent: grep YAML for any missing required field.
 
-### TASK 1.4 — `priority_teams` seed (20 teams)
+### TASK 1.4 — `priority_teams` seed (20 teams) ✅ (2026-04-22)
 **Model**: Sonnet. **Output**: `seeds/priority_teams.yaml` with 20 teams: 5 SEC, 4 B1G, 3 ACC, 3 B12, 3 G5, 2 HBCU. Fill in known handles; mark uncertain rows `needs_research: true`. Loader CLI: `python manage.py seed-priority-teams`.
 **Acceptance**: 20 rows in `priority_teams`. The 20 selected programs cover the geographic + cohort diversity STRATEGY §9 requires.
 **Verification**: Haiku subagent: count, diversity check.
