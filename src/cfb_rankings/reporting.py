@@ -17487,10 +17487,10 @@ def _site_css() -> str:
         transition: all .15s ease;
         white-space: nowrap;
       }
-      .button-primary { background: #fff; color: var(--foreground); border-color: transparent; }
-      .button-primary:hover { background: rgba(255,255,255,0.9); }
-      .button-secondary { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.18); backdrop-filter: blur(6px); }
-      .button-secondary:hover { background: rgba(255,255,255,0.2); }
+      .button-primary { background: var(--primary); color: var(--primary-foreground); border-color: transparent; }
+      .button-primary:hover { opacity: 0.9; }
+      .button-secondary { background: color-mix(in srgb, var(--foreground) 10%, transparent); color: var(--foreground); border-color: color-mix(in srgb, var(--foreground) 18%, transparent); backdrop-filter: blur(6px); }
+      .button-secondary:hover { background: color-mix(in srgb, var(--foreground) 20%, transparent); }
 
       /* When buttons appear on light backgrounds (non-hero), flip palette */
       .site-shell > .home-shell .button-primary,
