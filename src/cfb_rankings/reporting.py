@@ -1647,6 +1647,18 @@ def build_player_page_data_map(
         print(f"[signature_story] precompute failed: {exc}; rendering skeletons.")
         algorithmic_signature_index = {}
 
+    # Precompute "The Room on [Player]" mood profiles. Today this returns
+    # an empty index because `player_week_conversation_features` has no rows;
+    # every player page renders the Awaiting Signal shell until player-scope
+    # extraction starts populating the aggregate.
+    from cfb_rankings.fan_intelligence import compute_player_mood_index
+    the_room_week = int(summary.get("week") or 0) or 1
+    try:
+        player_mood_index = compute_player_mood_index(db, current_season, the_room_week)
+    except Exception as exc:  # pragma: no cover
+        print(f"[the_room] precompute failed: {exc}; rendering skeletons.")
+        player_mood_index = {}
+
     roster_history_rows = _query_rows_for_player_ids(
         db,
         """
@@ -2271,6 +2283,7 @@ def build_player_page_data_map(
             transfers_by_player.get(player_id, []),
             honors_by_player.get(player_id, []),
             algorithmic_signature_index.get(player_id),
+            player_mood_index.get(player_id),
         )
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
@@ -2303,6 +2316,7 @@ def _assemble_player_page_data(
     transfer_history: list[dict[str, Any]],
     honors_history: list[dict[str, Any]],
     algorithmic_signature: dict[str, Any] | None = None,
+    the_room: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     current_season = int(summary["season_year"])
     current_roster = next((row for row in roster_history if int(row.get("season_year") or 0) == current_season), None)
@@ -2474,6 +2488,7 @@ def _assemble_player_page_data(
         "latest_heisman_season": heisman_years[0]["season_year"] if heisman_years else None,
         "signature_story": signature_story,
         "algorithmic_signature": algorithmic_signature,
+        "the_room": the_room,
         "stat_profile": stat_profile,
         "season_stat_tables": season_stat_tables,
         "trophy_case": trophy_case,
@@ -10235,6 +10250,82 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
     """
 
 
+def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str:
+    """Minimal HTML shell for "The Room on [Player]" — Feature B template slot.
+
+    Same contract as the algorithmic Signature Story card: Figma replaces
+    the innards in Stage 2. Empty state matches the team-scope "Awaiting
+    Signal" voice so the template is consistent across scopes.
+    """
+    if not story or not story.get("has_data"):
+        return f"""
+          <article class="panel the-room the-room--empty"
+                   data-module="the-room" data-state="empty">
+            <div class="section-head">
+              <h3>The Room on {escape(player_name)}</h3>
+              <p class="section-note">Fan conversation pulse for this player — across own fans, rivals, national, and media.</p>
+            </div>
+            <p class="prose-panel">Not enough player-specific chatter yet. We start publishing a pulse once mentions clear sample and author gates.</p>
+            <p class="mood-waiting-banner">Awaiting Signal</p>
+          </article>
+        """
+
+    belief = story.get("belief") or {}
+    sample = story.get("sample") or {}
+    confidence = story.get("confidence") or {}
+    respect_gap = story.get("respect_gap") or {}
+    cohesion = story.get("cohesion") or {}
+    swing = story.get("swing") or {}
+    top_quote = story.get("top_quote") or {}
+    archetype = story.get("archetype") or "--"
+
+    quote_block = ""
+    if top_quote and top_quote.get("text"):
+        url = top_quote.get("source_url") or ""
+        attrib = escape(str(top_quote.get("author_pseudonym") or "fan"))
+        src = f'<a href="{escape(url)}">{attrib}</a>' if url else attrib
+        quote_block = f"""
+          <blockquote class="the-room__quote">
+            <p>{escape(str(top_quote.get('text') or ''))}</p>
+            <cite>— {src}</cite>
+          </blockquote>
+        """
+
+    def _belief_pct(score: Any) -> str:
+        try:
+            return f"{float(score):+.2f}"
+        except (TypeError, ValueError):
+            return "--"
+
+    return f"""
+      <article class="panel the-room"
+               data-module="the-room" data-state="ready">
+        <div class="section-head">
+          <h3>The Room on {escape(player_name)}</h3>
+          <p class="section-note">{escape(str(story.get('updated_label') or ''))}</p>
+        </div>
+        <div class="the-room__header">
+          <span class="the-room__archetype">{escape(str(archetype))}</span>
+          <span class="the-room__belief">Belief {_belief_pct(belief.get('score'))}</span>
+          <span class="the-room__confidence">{escape(str(confidence.get('label') or ''))} ({int(sample.get('mentions') or 0)} mentions · {int(sample.get('authors') or 0)} authors)</span>
+        </div>
+        <p class="prose-panel">{escape(str(belief.get('narrative') or ''))}</p>
+        <ul class="the-room__axes">
+          <li><span>Respect Gap</span><span>{escape(str(respect_gap.get('label') or '--'))}</span></li>
+          <li><span>Swing</span><span>{escape(str(swing.get('label') or '--'))}</span></li>
+          <li><span>Cohesion</span><span>{escape(str(cohesion.get('label') or '--'))}</span></li>
+        </ul>
+        <ul class="the-room__pills">
+          <li>Own fans · {int(sample.get('mentions') or 0)}</li>
+          <li>Rivals · {int(sample.get('rival_mentions') or 0)}</li>
+          <li>National · {int(sample.get('national_mentions') or 0)}</li>
+          <li>Media · {int(sample.get('media_mentions') or 0)}</li>
+        </ul>
+        {quote_block}
+      </article>
+    """
+
+
 def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]) -> str:
     player = player_data.get("player") or {}
     primary_team = player_data.get("primary_team") or {}
@@ -10547,6 +10638,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           </div>
           {current_context}
         </article>
+      </section>
+
+      <section class="section player-anchor-section" id="the-room">
+        {_render_the_room_card(player_data.get("the_room"), player_name)}
       </section>
 
       <section class="section player-anchor-section" id="signature-story">

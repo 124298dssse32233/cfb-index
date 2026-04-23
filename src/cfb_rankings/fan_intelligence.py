@@ -231,6 +231,111 @@ def fetch_player_mood_profile(
     }
 
 
+def compute_player_mood_index(
+    db: Database,
+    season_year: int,
+    week: int,
+) -> dict[int, dict[str, Any]]:
+    """Batch-precompute per-player mood profiles for a site build.
+
+    One query pulls all qualifying player rows for (season, week); rows are
+    grouped by player_id and handed to `fetch_player_mood_profile`-equivalent
+    logic without re-querying. If the player table is empty (current state
+    of the DB), this returns an empty dict and callers should fall back to
+    the skeleton render for every player.
+    """
+    all_rows = db.query_all(
+        """
+        select *
+        from player_week_conversation_features
+        where season_year = %(season_year)s
+          and week = %(week)s
+        """,
+        {"season_year": season_year, "week": week},
+    )
+    if not all_rows:
+        return {}
+    # Group by player_id → {bucket: row}. Prefer source_name='all' then
+    # highest mention_count, matching the non-batch helper's ordering.
+    grouped: dict[int, dict[str, dict[str, Any]]] = {}
+    for row in all_rows:
+        pid = int(row["player_id"])
+        bucket = str(row.get("audience_bucket") or "all")
+        existing = grouped.setdefault(pid, {}).get(bucket)
+        if existing is None or _better_bucket_row(row, existing):
+            grouped.setdefault(pid, {})[bucket] = row
+
+    # History is still per-player; query once per qualifying player. Given
+    # player-scope row counts are small at v1, this is not a hot path.
+    index: dict[int, dict[str, Any]] = {}
+    for pid, buckets in grouped.items():
+        fan_row = buckets.get("fan")
+        national_row = buckets.get("national")
+        rival_row = buckets.get("rival")
+        media_row = buckets.get("media")
+        mention_count = int((fan_row or {}).get("mention_count") or 0)
+        author_count = int((fan_row or {}).get("unique_author_count") or 0)
+        if not fan_row or mention_count < MIN_MENTIONS_FOR_SIGNAL or author_count < MIN_AUTHORS_FOR_SIGNAL:
+            # Skip — callers render the skeleton for anyone missing here.
+            continue
+        history = _fetch_belief_history_scoped(
+            db, scope="player", entity_id=pid,
+            season_year=season_year, week=week, window=5,
+        )
+        belief = _belief_from_row(fan_row)
+        national_belief = _belief_from_row(national_row) if national_row else None
+        cohesion = _cohesion_from_row(fan_row)
+        swing = _swing_from_history(history, current_belief=belief["score"])
+        sarcasm_risk = _sarcasm_risk_from_row(fan_row, rival_row)
+        confidence = _confidence(mentions=mention_count, authors=author_count, sarcasm_risk=sarcasm_risk)
+        top_quote = _player_top_quote(fan_row, media_row)
+        index[pid] = {
+            "has_data": True,
+            "player_id": pid,
+            "season_year": season_year,
+            "week": week,
+            "confidence": confidence,
+            "sample": {
+                "mentions": mention_count,
+                "authors": author_count,
+                "sarcasm_risk": sarcasm_risk,
+                "national_mentions": int((national_row or {}).get("mention_count") or 0),
+                "rival_mentions": int((rival_row or {}).get("mention_count") or 0),
+                "media_mentions": int((media_row or {}).get("mention_count") or 0),
+            },
+            "belief": belief,
+            "reality_gap": {
+                "available": False, "label": None, "score": None,
+                "narrative": "Reality Gap is a team-level check; see the program page for structural context.",
+            },
+            "respect_gap": _respect_gap(belief, national_belief),
+            "swing": swing,
+            "cohesion": cohesion,
+            "rival_heat": {
+                "available": False, "label": None, "score": None,
+                "narrative": "Rival Heat aggregates across a fanbase and sits on the team page.",
+            },
+            "archetype": _archetype(belief, {"label": None}, swing, cohesion),
+            "storylines": [],
+            "top_quote": top_quote,
+            "updated_label": f"Week {week} conversation window",
+        }
+    return index
+
+
+def _better_bucket_row(candidate: dict[str, Any], current: dict[str, Any]) -> bool:
+    """Prefer source_name='all'; tie-break by mention_count; then source_name."""
+    c_all = (candidate.get("source_name") == "all")
+    x_all = (current.get("source_name") == "all")
+    if c_all != x_all:
+        return c_all  # True if candidate is 'all' and current isn't
+    c_n = int(candidate.get("mention_count") or 0)
+    x_n = int(current.get("mention_count") or 0)
+    if c_n != x_n:
+        return c_n > x_n
+    return str(candidate.get("source_name") or "") < str(current.get("source_name") or "")
+
+
 def _player_top_quote(
     primary_row: dict[str, Any] | None,
     fallback_row: dict[str, Any] | None,
