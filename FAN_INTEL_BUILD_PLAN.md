@@ -178,7 +178,7 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 
 ## Week 5 — Cowork playbook v1
 
-### TASK 5.1 — Monday board-sweep playbook (design)
+### TASK 5.1 — Monday board-sweep playbook (design) ✅ (2026-04-23)
 **Model**: Opus. **Output**: `docs/cowork_playbooks/monday_board_sweep.md`. Step-by-step navigation + extraction schema for the first 5 boards (Tigerdroppings, Shaggy Bevo, VolNation, TideFans, OSU indep).
 **Acceptance**: a fresh Cowork session following the playbook produces rows identical in shape to a separate test run.
 
@@ -186,7 +186,7 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 **Model**: Sonnet, one task per board. **Output**: `sources/boards/{board}.py`. Each adapter handles the automated parts (RSS where available, structured thread indexes); the playbook handles the rest.
 **Acceptance**: adapter + playbook combined produces ≥20 posts/week/board.
 
-### TASK 5.7 — `team_cohort_week` aggregator (draft)
+### TASK 5.7 — `team_cohort_week` aggregator (draft) ✅ (2026-04-23)
 **Model**: Opus. **Output**: `cohorts/aggregate.py`. Computes `effective_n`, `sentiment_score`, `volume`, `confidence_tier` per `(team, cohort, week)` per STRATEGY §4 rules. CLI: `python manage.py compute-cohort-week --week=YYYY-WW`.
 **Acceptance**: produces rows respecting floor rule; Tier C sources force aggregate to Tier C.
 
@@ -197,16 +197,16 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 ### TASK 6.1 — Expand board sweep to 20 boards
 **Model**: Sonnet. **Output**: 15 more board adapters + playbook extension.
 
-### TASK 6.2 — TikTok observation playbook
+### TASK 6.2 — TikTok observation playbook ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `docs/cowork_playbooks/tiktok_weekly.md`. 30 creators, weekly. Schema: `(creator_handle, observed_at, followers, top_video_views_7d, top_video_url)`.
 
-### TASK 6.3 — Google Trends export playbook
+### TASK 6.3 — Google Trends export playbook ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `docs/cowork_playbooks/trends_weekly.md`. DMA-level exports per priority team, CSV import CLI.
 
-### TASK 6.4 — Facebook alumni glance playbook
+### TASK 6.4 — Facebook alumni glance playbook ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `docs/cowork_playbooks/fb_alumni_glance.md`. 10 public Pages, observe + summarize, store under `source_id=facebook_alumni_glance` as Tier D citations.
 
-### TASK 6.5 — Thursday game-week pulse + Sunday recap playbooks
+### TASK 6.5 — Thursday game-week pulse + Sunday recap playbooks ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: two more playbook markdown files; shared extraction schema.
 
 ---
@@ -230,10 +230,10 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 
 ## Week 8 — Cohort aggregation + editorial
 
-### TASK 8.1 — Cohort divergence metric
+### TASK 8.1 — Cohort divergence metric ✅ (2026-04-23)
 **Model**: Opus. **Output**: `cohorts/divergence.py`. Computes per-team-week `divergence_score`. CLI: `python manage.py compute-divergence --week=YYYY-WW`.
 
-### TASK 8.2 — Methodology page auto-generation
+### TASK 8.2 — Methodology page auto-generation ✅ (2026-04-23, standalone; nav hook deferred)
 **Model**: Opus (copy is high-consequence). **Output**: template + generator in `reporting.py` (surgical edit) that renders `/methodology/fan-intelligence` from `source_registry` + current weight matrix.
 **Acceptance**: page lists every active source with tier, cadence, license, last-fetch, cohort weight rationale. Passes a11y spot-check.
 
@@ -241,10 +241,10 @@ Goal: every Tier-A numeric source flowing into SQLite with provenance.
 **Model**: Opus design, Sonnet implement. **Output**: small-multiples panel rendering cohort sentiment bars per team-week, respecting effective-N floor rule; "Awaiting Signal" fallback wired. Enable on 3 flagship team pages initially.
 **Acceptance**: no cell shows a number if `effective_n < 30`.
 
-### TASK 8.4 — Monday Brief template
+### TASK 8.4 — Monday Brief template ✅ (2026-04-23)
 **Model**: Sonnet. **Output**: `docs/editorial/monday_brief_template.md`. Prompts Claude or ChatGPT with current week's divergence data and produces a draft brief. Kevin edits for voice.
 
-### TASK 8.5 — End-to-end audit
+### TASK 8.5 — End-to-end audit ✅ (2026-04-23, v1 scope)
 **Model**: Opus (cross-cutting), with multiple Haiku subagents for verification.
 **Output**: a document `docs/audits/fanintel_v1_audit.md` confirming: every source in §3 has a row in `source_registry`; every source produces rows or is flagged inactive; methodology page is up; floor rule is tested with a synthetic low-N case.
 **Acceptance**: audit doc ships; no failing checks.
