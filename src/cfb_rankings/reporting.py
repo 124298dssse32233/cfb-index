@@ -744,6 +744,162 @@ _SIGNATURE_STORY_CSS_BLOCK = """
 """
 
 
+# Phase banner (P.0 offseason hotfix). Slug-line above the Hero that sets
+# the reading frame so retrospective modules are read as retrospective.
+# Copy is hard-coded for now; P.1 will thread a detected phase through.
+_PHASE_BANNER_CSS_BLOCK = """
+.phase-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--muted);
+  background: transparent;
+  margin-bottom: var(--space-4);
+}
+
+.phase-banner__label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accolade-gold-base);
+  text-align: center;
+}
+"""
+
+
+# Current Season Production v5 component CSS (S.3). Visual structure
+# ported from
+# figma-reference/player-page/src/app/components/CurrentSeasonProduction.tsx.
+# Outer card matches .signature-story shell; 3-column production-grid
+# (1col → 3col at container >900px) holds passing/rushing/misc stat
+# cards. Each stat row pairs a value with a percentile pill colored by
+# bucket (--percentile-25/50/75/90/100).
+_CURRENT_SEASON_CSS_BLOCK = """
+.csp {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+
+.csp__header {
+  margin-bottom: var(--space-8);
+}
+
+.csp__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.csp__sub {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.csp__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@container (min-width: 900px) {
+  .csp__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.csp__stat-card-label {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.csp__stat-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.csp__stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.csp__stat-row-label {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  flex: 1 1 auto;
+}
+
+.csp__stat-row-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 0 0 auto;
+}
+
+.csp__stat-value {
+  font-weight: 600;
+  font-size: var(--fs-body);
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+.csp__pct-pill {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: oklch(0.18 0.01 250);
+  border-radius: 999px;
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+.csp__pct-pill--top { background: var(--percentile-100); }
+.csp__pct-pill--high { background: var(--percentile-90); }
+.csp__pct-pill--mid { background: var(--percentile-75); }
+.csp__pct-pill--low { background: var(--percentile-25); }
+
+.csp__pct-pill-suffix {
+  font-size: 9px;
+  margin-left: 1px;
+  opacity: 0.85;
+}
+
+.csp__pct-pill-empty {
+  display: inline-block;
+  min-width: 2.5rem;
+}
+"""
+
+
 # Figma v5 token canon (S.2 prep). Sourced verbatim from
 # figma-reference/player-page/src/styles/theme.css. Adds fluid clamp type,
 # spacing scale, radius (8/12/16), elevation, motion roles (with
@@ -958,6 +1114,10 @@ def _compose_global_css() -> str:
         + _COHORT_PANEL_CSS_BLOCK
         + "\n/* === Signature Story v5 (S.2) === */\n"
         + _SIGNATURE_STORY_CSS_BLOCK
+        + "\n/* === Current Season Production v5 (S.3) === */\n"
+        + _CURRENT_SEASON_CSS_BLOCK
+        + "\n/* === Phase banner (P.0) === */\n"
+        + _PHASE_BANNER_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -10748,7 +10908,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
           <article class="signature-story signature-story--empty"
                    data-module="signature-story" data-state="empty">
             <header class="signature-story__header">
-              <p class="signature-story__eyebrow">Signature Story</p>
+              <p class="signature-story__eyebrow">2025 Signature</p>
               <h2 class="signature-story__headline">Awaiting candidate metric</h2>
             </header>
             <p class="signature-story__empty-body">{escape(narrative)}</p>
@@ -10822,7 +10982,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
 
     # Headline: real production data has no sentence-headline yet; use the
     # metric label as the headline (that's what the data carries today).
-    headline = label_str or "Signature Story"
+    headline = label_str or "2025 Signature"
 
     # Rank cards
     rank_card = (
@@ -10889,7 +11049,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
                data-metric-id="{escape(str(hs.get('metric_id') or ''))}"
                data-cohort-id="{escape(str(hs.get('cohort_id') or ''))}">
         <header class="signature-story__header">
-          <p class="signature-story__eyebrow">Signature Story · {escape(str(story.get('updated_label') or ''))}</p>
+          <p class="signature-story__eyebrow">2025 Signature · {escape(str(story.get('updated_label') or ''))}</p>
           <h2 class="signature-story__headline">{escape(headline)}</h2>
         </header>
         <div class="signature-story__grid">
@@ -11112,10 +11272,15 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         ]
         if str(text or "").strip()
     )
-    traditional_sections_html = "".join(
-        _render_player_traditional_stat_section(section)
-        for section in (stat_profile.get("traditional_sections") or [])
-    ) or '<p class="footer-note">Traditional season stats will appear here as soon as the player-season feed has the needed categories.</p>'
+    traditional_sections_list = stat_profile.get("traditional_sections") or []
+    traditional_sections_html = (
+        _render_v5_current_season_card(
+            traditional_sections_list,
+            snapshot_note=str(stat_profile.get("snapshot_note") or "").strip(),
+        )
+        if traditional_sections_list
+        else '<p class="footer-note">Traditional season stats will appear here as soon as the player-season feed has the needed categories.</p>'
+    )
     season_stat_tables_html = "".join(
         _render_player_season_stat_table(section)
         for section in season_stat_tables
@@ -11221,8 +11386,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         [
             ("current-heisman-lens", "Overview"),
             ("signature-story", "Story"),
-            ("current-season-production", "Stats"),
             ("identity-role", "Bio"),
+            ("current-season-production", "Stats"),
             ("trophy-case", "Awards"),
             ("heisman-by-year", "History"),
         ]
@@ -11238,6 +11403,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="player")}
+      <div class="phase-banner" role="note">
+        <span class="phase-banner__label">OFFSEASON &middot; SPRING 2026 &middot; DRAFT WEEK</span>
+      </div>
       <section class="team-shell" style="--team-accent:{team_theme['accent']}; --team-accent-soft:{team_theme['accent_soft']};">
         <div class="team-breadcrumbs">
           <a href="../heisman/index.html">Heisman</a>
@@ -11327,10 +11495,72 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
+      <section class="section player-anchor-section" id="identity-role">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Identity & Role</h2>
+            <p class="section-note">The durable bio layer: position, size, hometown, and roster role.</p>
+          </div>
+          {identity_cards}
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Recruiting Pedigree</h2>
+            <p class="section-note">How big the prospect was before college, and whether the later career arc beat that expectation.</p>
+          </div>
+          <div class="feature-grid history-snapshot-grid">
+            {recruiting_cards}
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Profile</th>
+                  <th>Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recruiting_rows}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Transfer Arc</h2>
+            <p class="section-note">Portal movement changes role, context, and perception. This keeps that path in one place.</p>
+          </div>
+          <div class="feature-grid history-snapshot-grid">
+            {transfer_cards}
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Season</th>
+                  <th>Move</th>
+                  <th>Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transfer_rows}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
       <section class="section player-anchor-section" id="current-season-production">
         <article class="panel">
           <div class="section-head">
-            <h2>Current Season Production</h2>
+            <h2>2025 Season · Final</h2>
             <p class="section-note">Traditional stats first. Advanced context underneath.</p>
           </div>
           <div class="player-stats-shell">
@@ -11364,10 +11594,11 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
               </div>
             </details>
           </div>
+          {traditional_sections_html}
           <details class="player-stats-drawer player-stats-drawer-open" open>
             <summary>
-              <span>Traditional stats</span>
-              <strong>Season box score</strong>
+              <span>Season-by-season tables</span>
+              <strong>Career rows + per-season box score</strong>
             </summary>
             <div class="player-stats-season-ledger">
               <div class="player-stat-module-head">
@@ -11466,68 +11697,6 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           </details>
           {_player_stats_script()}
           {_player_page_nav_script()}
-        </article>
-      </section>
-
-      <section class="section player-anchor-section" id="identity-role">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Identity & Role</h2>
-            <p class="section-note">The durable bio layer: position, size, hometown, and roster role.</p>
-          </div>
-          {identity_cards}
-        </article>
-      </section>
-
-      <section class="section">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Recruiting Pedigree</h2>
-            <p class="section-note">How big the prospect was before college, and whether the later career arc beat that expectation.</p>
-          </div>
-          <div class="feature-grid history-snapshot-grid">
-            {recruiting_cards}
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Profile</th>
-                  <th>Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recruiting_rows}
-              </tbody>
-            </table>
-          </div>
-        </article>
-      </section>
-
-      <section class="section">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Transfer Arc</h2>
-            <p class="section-note">Portal movement changes role, context, and perception. This keeps that path in one place.</p>
-          </div>
-          <div class="feature-grid history-snapshot-grid">
-            {transfer_cards}
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Season</th>
-                  <th>Move</th>
-                  <th>Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transfer_rows}
-              </tbody>
-            </table>
-          </div>
         </article>
       </section>
 
@@ -12845,6 +13014,86 @@ def _render_player_honor_row(row: dict[str, Any]) -> str:
       <td>{escape(team_or_selector)}</td>
       <td>{escape(" | ".join(context_bits) if context_bits else "--")}</td>
     </tr>
+    """
+
+
+def _render_v5_current_season_card(
+    sections: list[dict[str, Any]],
+    snapshot_note: str = "",
+) -> str:
+    """Render the v5 Current Season Production module (S.3 — Figma port).
+
+    Visual contract:
+    figma-reference/player-page/src/app/components/CurrentSeasonProduction.tsx
+    Tokens: --fs-h1/meta, --space-12/8/6/4/3/2/1, --radius-lg/md,
+    --percentile-{25,50,75,90,100}.
+
+    Sections come from `_build_player_traditional_sections` — each carries
+    title/cells, where each cell has label/value/peer/tone. The peer
+    string typically reads "#5 of 73 | 92nd"; we extract the percentile
+    integer for the colored pill via `_player_stat_percentile_value`.
+    """
+    if not sections:
+        return ""
+
+    def _bucket_class(pct: int | None) -> str:
+        if pct is None:
+            return ""
+        if pct >= 90:
+            return "csp__pct-pill--top"
+        if pct >= 75:
+            return "csp__pct-pill--high"
+        if pct >= 50:
+            return "csp__pct-pill--mid"
+        return "csp__pct-pill--low"
+
+    cards_html: list[str] = []
+    for section in sections:
+        title = str(section.get("title") or "")
+        rows_html: list[str] = []
+        for cell in section.get("cells") or []:
+            label = str(cell.get("label") or "")
+            value = str(cell.get("value") or "--")
+            peer = str(cell.get("peer") or "")
+            # peer is typically "#5 of 73 | 92nd"; extract the ordinal-
+            # suffixed integer (the real percentile) not the first number
+            # (which is the rank).
+            pct_match = re.search(r"(\d+)(?:st|nd|rd|th)", peer)
+            pct = int(pct_match.group(1)) if pct_match else None
+            if pct is not None:
+                pill_html = (
+                    f'<span class="csp__pct-pill {_bucket_class(pct)}" '
+                    f'aria-label="{pct}th percentile">'
+                    f'{pct}<span class="csp__pct-pill-suffix">th</span>'
+                    f'</span>'
+                )
+            else:
+                pill_html = '<span class="csp__pct-pill-empty" aria-hidden="true"></span>'
+            rows_html.append(
+                f'<div class="csp__stat-row">'
+                f'  <span class="csp__stat-row-label">{escape(label)}</span>'
+                f'  <div class="csp__stat-row-right">'
+                f'    <span class="csp__stat-value">{escape(value)}</span>'
+                f'    {pill_html}'
+                f'  </div>'
+                f'</div>'
+            )
+        cards_html.append(
+            f'<div>'
+            f'  <p class="csp__stat-card-label">{escape(title)}</p>'
+            f'  <div class="csp__stat-card">{"".join(rows_html)}</div>'
+            f'</div>'
+        )
+
+    sub_text = snapshot_note or "Box score · Rank + percentile context · Opponent-adjusted"
+    return f"""
+      <article class="csp" data-module="current-season-production" data-state="ready">
+        <header class="csp__header">
+          <h2 class="csp__title">2025 Season · Final</h2>
+          <p class="csp__sub">{escape(sub_text)}</p>
+        </header>
+        <div class="csp__grid">{"".join(cards_html)}</div>
+      </article>
     """
 
 
