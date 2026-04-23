@@ -49,7 +49,7 @@ Log "   last_monday=$LastMonday  cur_season=$CurSeason"
 $LastSunday = $Now.AddDays(-(([int]$Now.DayOfWeek + 6) % 7) - 1).ToString("yyyy-MM-dd")
 Run "reddit: backfill-offseason-conversation (prior week w/ comments)" {
     python manage.py backfill-offseason-conversation `
-        --seasons $CurSeason `
+        --season $CurSeason `
         --through-date $LastSunday `
         --provider arctic-shift `
         --days-per-window 7 `

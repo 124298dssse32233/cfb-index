@@ -64,7 +64,7 @@ if (-not $SkipReddit) {
 
         Run "reddit: backfill season=$season ($seasonStart..$seasonEnd)" {
             python manage.py backfill-offseason-conversation `
-                --seasons $season `
+                --season $season `
                 --through-date $seasonEnd `
                 --provider arctic-shift `
                 --days-per-window 7 `
