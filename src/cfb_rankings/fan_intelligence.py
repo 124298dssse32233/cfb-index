@@ -235,14 +235,21 @@ def compute_player_mood_index(
     db: Database,
     season_year: int,
     week: int,
+    *,
+    fallback_to_season_rollup: bool = True,
 ) -> dict[int, dict[str, Any]]:
     """Batch-precompute per-player mood profiles for a site build.
 
     One query pulls all qualifying player rows for (season, week); rows are
     grouped by player_id and handed to `fetch_player_mood_profile`-equivalent
-    logic without re-querying. If the player table is empty (current state
-    of the DB), this returns an empty dict and callers should fall back to
-    the skeleton render for every player.
+    logic without re-querying.
+
+    When ``fallback_to_season_rollup`` is True (default), players whose
+    weekly row does NOT clear the gates are evaluated against the
+    season-rollup row (week=0) written by
+    ``compute_player_season_mood``. Lets offseason pages surface real
+    Room cards for players whose mentions cross the floor *across* the
+    season even when no single week clears it on its own.
     """
     all_rows = db.query_all(
         """
@@ -253,31 +260,79 @@ def compute_player_mood_index(
         """,
         {"season_year": season_year, "week": week},
     )
-    if not all_rows:
+    season_rollup_rows: list[dict[str, Any]] = []
+    if fallback_to_season_rollup and week != 0:
+        season_rollup_rows = db.query_all(
+            """
+            select *
+            from player_week_conversation_features
+            where season_year = %(season_year)s
+              and week = 0
+            """,
+            {"season_year": season_year},
+        )
+    if not all_rows and not season_rollup_rows:
         return {}
     # Group by player_id → {bucket: row}. Prefer source_name='all' then
     # highest mention_count, matching the non-batch helper's ordering.
-    grouped: dict[int, dict[str, dict[str, Any]]] = {}
-    for row in all_rows:
-        pid = int(row["player_id"])
-        bucket = str(row.get("audience_bucket") or "all")
-        existing = grouped.setdefault(pid, {}).get(bucket)
-        if existing is None or _better_bucket_row(row, existing):
-            grouped.setdefault(pid, {})[bucket] = row
+    def _group(rows: list[dict[str, Any]]) -> dict[int, dict[str, dict[str, Any]]]:
+        out: dict[int, dict[str, dict[str, Any]]] = {}
+        for row in rows:
+            pid = int(row["player_id"])
+            bucket = str(row.get("audience_bucket") or "all")
+            existing = out.setdefault(pid, {}).get(bucket)
+            if existing is None or _better_bucket_row(row, existing):
+                out.setdefault(pid, {})[bucket] = row
+        return out
+
+    weekly_groups = _group(all_rows)
+    rollup_groups = _group(season_rollup_rows)
+    # Consider every player who appears in either dataset.
+    all_player_ids = set(weekly_groups) | set(rollup_groups)
+
+    def _primary_bucket(buckets: dict[str, dict[str, Any]]) -> tuple[str, dict[str, Any]] | None:
+        """Pick the bucket that drives belief.
+
+        Preference order: fan (own-fan chatter is the highest-fidelity signal
+        when available), then national, then media, then rival. Within the
+        chosen preference, the bucket must clear MIN_MENTIONS_FOR_SIGNAL and
+        MIN_AUTHORS_FOR_SIGNAL. Returns (bucket_name, row) or None if no
+        bucket clears.
+
+        Honoring this order avoids rival mockery driving the belief score
+        (an existing design rule: rival never bleeds into fan belief).
+        """
+        for name in ("fan", "national", "media", "rival"):
+            row = buckets.get(name)
+            if not row:
+                continue
+            m = int(row.get("mention_count") or 0)
+            a = int(row.get("unique_author_count") or 0)
+            if m >= MIN_MENTIONS_FOR_SIGNAL and a >= MIN_AUTHORS_FOR_SIGNAL:
+                return name, row
+        return None
 
     # History is still per-player; query once per qualifying player. Given
     # player-scope row counts are small at v1, this is not a hot path.
     index: dict[int, dict[str, Any]] = {}
-    for pid, buckets in grouped.items():
-        fan_row = buckets.get("fan")
+    for pid in all_player_ids:
+        # Try weekly first; fall back to season rollup if weekly is below gates.
+        chosen_scope = "weekly"
+        chosen_bucket = "fan"
+        buckets = weekly_groups.get(pid) or {}
+        primary = _primary_bucket(buckets)
+        if primary is None and fallback_to_season_rollup and pid in rollup_groups:
+            buckets = rollup_groups[pid]
+            primary = _primary_bucket(buckets)
+            chosen_scope = "season"
+        if primary is None:
+            continue
+        chosen_bucket, fan_row = primary   # `fan_row` here = "the primary-signal row"
+        mention_count = int(fan_row.get("mention_count") or 0)
+        author_count = int(fan_row.get("unique_author_count") or 0)
         national_row = buckets.get("national")
         rival_row = buckets.get("rival")
         media_row = buckets.get("media")
-        mention_count = int((fan_row or {}).get("mention_count") or 0)
-        author_count = int((fan_row or {}).get("unique_author_count") or 0)
-        if not fan_row or mention_count < MIN_MENTIONS_FOR_SIGNAL or author_count < MIN_AUTHORS_FOR_SIGNAL:
-            # Skip — callers render the skeleton for anyone missing here.
-            continue
         history = _fetch_belief_history_scoped(
             db, scope="player", entity_id=pid,
             season_year=season_year, week=week, window=5,
@@ -293,7 +348,9 @@ def compute_player_mood_index(
             "has_data": True,
             "player_id": pid,
             "season_year": season_year,
-            "week": week,
+            "week": week if chosen_scope == "weekly" else 0,
+            "scope": chosen_scope,
+            "primary_bucket": chosen_bucket,
             "confidence": confidence,
             "sample": {
                 "mentions": mention_count,
@@ -318,7 +375,11 @@ def compute_player_mood_index(
             "archetype": _archetype(belief, {"label": None}, swing, cohesion),
             "storylines": [],
             "top_quote": top_quote,
-            "updated_label": f"Week {week} conversation window",
+            "updated_label": (
+                f"Season {season_year} conversation window"
+                if chosen_scope == "season"
+                else f"Week {week} conversation window"
+            ),
         }
     return index
 

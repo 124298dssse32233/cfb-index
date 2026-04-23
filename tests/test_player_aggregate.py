@@ -264,6 +264,39 @@ def test_sample_standard_floor_constant() -> None:
     assert SAMPLE_STANDARD_FLOOR > SAMPLE_SIGNAL_FLOOR
 
 
+def test_season_rollup_writes_week_zero_rows(db: Database) -> None:
+    from cfb_rankings.cohorts.player_aggregate import (
+        SEASON_ROLLUP_WEEK,
+        compute_player_season_mood,
+    )
+    # Seed a target in a different week so the rollup has to span.
+    conn = sqlite3.connect(db._path)
+    doc = _doc(conn, body="Carr dominated again", author="late_fan")
+    _target(conn, doc, player_id=CARR, bucket="fan", sentiment=0.7, emotion="joy")
+    conn.execute(
+        "update conversation_document_targets set week=13 where conversation_document_id=?",
+        (doc,),
+    )
+    conn.commit()
+    conn.close()
+
+    result = compute_player_season_mood(db, SEASON)
+    assert result["rows_read"] == 23  # 22 original + 1 late
+    assert result["players_touched"] == 2
+    assert result["cells_written"] >= 4
+
+    # Every cell written by the rollup uses week=0.
+    rows = db.query_all(
+        "select * from player_week_conversation_features where week = :w",
+        {"w": SEASON_ROLLUP_WEEK},
+    )
+    assert rows, "expected at least one season-rollup row"
+    # The Carr fan row should now aggregate 15 (wk=12) + 1 (wk=13) = 16 mentions.
+    carr_fan = [r for r in rows if r["player_id"] == CARR and r["audience_bucket"] == "fan"]
+    assert len(carr_fan) == 1
+    assert carr_fan[0]["mention_count"] == 16
+
+
 def test_round_trip_aggregate_then_mood_profile(db: Database) -> None:
     """Aggregate the fixture rows, then read via fetch_player_mood_profile.
 
