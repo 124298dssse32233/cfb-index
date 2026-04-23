@@ -1,58 +1,106 @@
-# Kalshi + Polymarket contract registry — TASK 2.6 seed.
-# Add the contract/market tickers we want to track each day. STRATEGY §6
-# "predict_thin" rule: contracts under $1k volume are Tier C in aggregation
-# regardless of platform — enforced in the cohort aggregator, not here.
-# Labels help the UI render something readable; drop in any time.
+# Kalshi + Polymarket contracts.
+# Refreshed 2026-04-23 via Deep Research pass 2 - all Kalshi tickers
+# validated against live kalshi.com URLs; Polymarket slugs via
+# gamma-api. 15 Kalshi + 10 Polymarket = 25 total contracts tracked.
 
 contracts:
-  # ------------------ Kalshi ------------------
-  - platform: kalshi
-    ticker: KXCFBCHAMP-26
-    label: "2026 CFB National Champion (Kalshi)"
-    needs_research: true     # ticker format guessed; confirm on kalshi.com
-
-  - platform: kalshi
-    ticker: KXCFBCONFCHAMP-26SEC
-    label: "2026 SEC Champion (Kalshi)"
-    needs_research: true
-
-  - platform: kalshi
-    ticker: KXCFBCONFCHAMP-26BIG
-    label: "2026 Big Ten Champion (Kalshi)"
-    needs_research: true
-
-  - platform: kalshi
-    ticker: KXHEISMAN-26
-    label: "2026 Heisman winner (Kalshi)"
-    needs_research: true
-
-  # ------------------ Polymarket ------------------
-  - platform: polymarket
-    slug: will-a-sec-team-win-the-2026-cfp-national-championship
-    label: "Will a SEC team win the 2026 CFP national championship?"
-    needs_research: true
-
-  - platform: polymarket
-    slug: who-will-win-the-2026-heisman-trophy
-    label: "2026 Heisman winner (Polymarket)"
-    needs_research: true
-
-  - platform: polymarket
-    slug: who-will-win-the-2026-cfp-national-championship
-    label: "2026 CFP national champion (Polymarket)"
-    needs_research: true
-
-  - platform: polymarket
-    slug: will-alabama-make-the-2026-cfp
-    label: "Alabama 2026 CFP appearance (Polymarket)"
-    needs_research: true
-
-  - platform: polymarket
-    slug: will-ohio-state-make-the-2026-cfp
-    label: "Ohio State 2026 CFP appearance (Polymarket)"
-    needs_research: true
-
-  - platform: polymarket
-    slug: will-georgia-make-the-2026-cfp
-    label: "Georgia 2026 CFP appearance (Polymarket)"
-    needs_research: true
+- platform: kalshi
+  ticker: KXNCAAF-27
+  label: College Football National Championship Winner (2026-27)
+  needs_research: false
+- platform: kalshi
+  ticker: KXHEISMAN-26
+  label: Heisman Trophy Winner (Dec 2026)
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFSEC-26
+  label: SEC Champion 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFB10-26
+  label: Big Ten Champion 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFACC-26
+  label: ACC Champion 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFB12-26
+  label: Big 12 Champion 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFCONF-26
+  label: Conference to Win the National Championship 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFCOTY-27
+  label: College Football Coach of the Year 2026-27
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFFINALIST-27
+  label: Reach the CFP National Championship Game 2026-27
+  needs_research: false
+- platform: kalshi
+  ticker: KXNDJOINCONF-27
+  label: Will Notre Dame Football join a conference 2026-28
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFAAC-26
+  label: American Athletic Conference Champion 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXNCAAFMWC-26
+  label: Mountain West Champion 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXSECREG-26
+  label: SEC Regular-Season Champion 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXCOACHOUTNCAAFB-1-26
+  label: College Football Coaches Out Before September 2026
+  needs_research: false
+- platform: kalshi
+  ticker: KXMICHCOACH-26
+  label: Next Permanent Head Coach of Michigan
+  needs_research: false
+- platform: polymarket
+  slug: will-texas-longhorns-win-the-2027-cfp-national-championship
+  label: Texas win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-oregon-ducks-win-the-2027-cfp-national-championship
+  label: Oregon win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-texas-am-aggies-win-the-2027-cfp-national-championship
+  label: Texas A&M win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-michigan-wolverines-win-the-2027-cfp-national-championship
+  label: Michigan win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-ohio-state-buckeyes-win-the-2027-cfp-national-championship
+  label: Ohio State win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-notre-dame-fighting-irish-win-the-2027-cfp-national-championship
+  label: Notre Dame win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-georgia-bulldogs-win-the-2027-cfp-national-championship
+  label: Georgia win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-alabama-crimson-tide-win-the-2027-cfp-national-championship
+  label: Alabama win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-miami-hurricanes-win-the-2027-cfp-national-championship
+  label: Miami win 2027 CFP National Championship
+  needs_research: false
+- platform: polymarket
+  slug: will-lsu-tigers-win-the-2027-cfp-national-championship
+  label: LSU win 2027 CFP National Championship
+  needs_research: false

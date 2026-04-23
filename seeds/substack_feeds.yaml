@@ -1,80 +1,40 @@
-# CFB Substack feeds — TASK 4.3.
-# National CFB writers + team-specific where they exist. Substack RSS is
-# always /feed appended to the custom domain. needs_research=true pending
-# live verification.
+# CFB Substack feeds - TASK 4.3. Updated 2026-04-23 via Deep Research.
+# Dead Substacks removed (4 from original list + 2 found 404 during validation).
 
 feeds:
-  - writer_slug: split_zone_duo
-    team_slug: null
-    url: https://splitzoneduo.substack.com/feed
-    needs_research: true
-
-  - writer_slug: go_long
-    team_slug: null
-    url: https://www.golongtd.com/feed
-    needs_research: true
-
-  - writer_slug: the_solid_verbal
-    team_slug: null
-    url: https://www.thesolidverbal.com/feed
-    needs_research: true
-
-  - writer_slug: saturday_road
-    team_slug: null
-    url: https://saturdayroad.substack.com/feed
-    needs_research: true
-
-  - writer_slug: extra_points
-    team_slug: null
-    url: https://www.extrapointsmb.com/feed
-    needs_research: true
-
-  - writer_slug: good_call
-    team_slug: null
-    url: https://goodcallnewsletter.substack.com/feed
-    needs_research: true
-
-  - writer_slug: the_athletic_cfb
-    team_slug: null
-    url: https://theathletic.com/college-football/feed/
-    needs_research: true
-
-  - writer_slug: saturday_tradition
-    team_slug: null
-    url: https://saturdaytradition.com/feed
-    needs_research: true
-
-  - writer_slug: football_brainiacs
-    team_slug: null
-    url: https://footballbrainiacs.substack.com/feed
-    needs_research: true
-
-  - writer_slug: recruiting_scoops
-    team_slug: null
-    url: https://recruitingscoops.substack.com/feed
-    needs_research: true
-
-  - writer_slug: on3_recruits
-    team_slug: null
-    url: https://www.on3.com/feed/
-    needs_research: true
-
-  - writer_slug: swindle_stats
-    team_slug: null
-    url: https://swindlestats.substack.com/feed
-    needs_research: true
-
-  - writer_slug: hbcu_gameday
-    team_slug: null
-    url: https://hbcugameday.com/feed
-    needs_research: true
-
-  - writer_slug: max_olson
-    team_slug: null
-    url: https://theathletic.com/author/max-olson/feed/
-    needs_research: true
-
-  - writer_slug: bud_elliott
-    team_slug: null
-    url: https://247sports.com/author/bud-elliott/feed/
-    needs_research: true
+- writer_slug: split_zone_duo
+  team_slug: null
+  url: https://splitzoneduo.substack.com/feed
+  needs_research: true
+- writer_slug: go_long
+  team_slug: null
+  url: https://www.golongtd.com/feed
+  needs_research: true
+- writer_slug: the_solid_verbal
+  team_slug: null
+  url: https://www.thesolidverbal.com/feed
+  needs_research: true
+- writer_slug: saturday_road
+  team_slug: null
+  url: https://saturdayroad.substack.com/feed
+  needs_research: true
+- writer_slug: extra_points
+  team_slug: null
+  url: https://extrapoints.substack.com/feed
+  needs_research: false
+- writer_slug: saturday_tradition
+  team_slug: null
+  url: https://saturdaytradition.com/feed
+  needs_research: true
+- writer_slug: on3_recruits
+  team_slug: null
+  url: https://www.on3.com/feed/
+  needs_research: true
+- writer_slug: hbcu_gameday
+  team_slug: null
+  url: https://hbcugameday.com/feed
+  needs_research: true
+- writer_slug: bud_elliott
+  team_slug: null
+  url: https://247sports.com/author/bud-elliott/feed/
+  needs_research: true

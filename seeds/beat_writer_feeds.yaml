@@ -1,132 +1,69 @@
-# Beat-writer RSS feeds — TASK 4.1.
-# ~3-4 beat writers per priority team. Team slug matches priority_teams.
-# All feeds are public; needs_research=true until a live run confirms them.
+# Beat-writer RSS feeds - TASK 4.1.
+# Updated 2026-04-23 via Deep Research: Gannett outlets replaced
+# with SBN/FanSided equivalents that expose working RSS.
+# Gannett originals removed (were placeholders; never yielded 200).
 
 feeds:
-  # Alabama
-  - team_slug: alabama
-    writer_slug: al_com_alabama
-    url: https://www.al.com/arc/outboundfeeds/rss/category/sports/alabama-football/
-    needs_research: true
-  - team_slug: alabama
-    writer_slug: tuscaloosa_news_cecil
-    url: https://www.tuscaloosanews.com/rss
-    needs_research: true
-
-  # Georgia
-  - team_slug: georgia
-    writer_slug: ajc_seth_emerson
-    url: https://www.ajc.com/arc/outboundfeeds/rss/category/sports/uga/
-    needs_research: true
-  - team_slug: georgia
-    writer_slug: dawg_nation
-    url: https://www.dawgnation.com/feed
-    needs_research: true
-
-  # LSU
-  - team_slug: lsu
-    writer_slug: advocate_lsu
-    url: https://www.theadvocate.com/tncms/rss/?t=article&c=sports/lsu/football
-    needs_research: true
-
-  # Tennessee
-  - team_slug: tennessee
-    writer_slug: knoxville_sentinel_football
-    url: https://www.knoxnews.com/feeds/sports/
-    needs_research: true
-
-  # Texas
-  - team_slug: texas
-    writer_slug: statesman_longhorns
-    url: https://www.statesman.com/arc/outboundfeeds/rss/category/sports/longhorns/
-    needs_research: true
-
-  # Ohio State
-  - team_slug: ohio-state
-    writer_slug: dispatch_osu
-    url: https://www.dispatch.com/arc/outboundfeeds/rss/category/sports/ohio-state/
-    needs_research: true
-
-  # Michigan
-  - team_slug: michigan
-    writer_slug: detroit_free_press_um
-    url: https://www.freep.com/feeds/sports/michigan/
-    needs_research: true
-
-  # Penn State
-  - team_slug: penn-state
-    writer_slug: centre_daily_times
-    url: https://www.centredaily.com/sports/college/penn-state-university/rss
-    needs_research: true
-
-  # Oregon
-  - team_slug: oregon
-    writer_slug: oregonian_ducks
-    url: https://www.oregonlive.com/arc/outboundfeeds/rss/category/ducks/
-    needs_research: true
-
-  # Clemson
-  - team_slug: clemson
-    writer_slug: greenville_news
-    url: https://www.greenvilleonline.com/feeds/sports/
-    needs_research: true
-
-  # Florida State
-  - team_slug: florida-state
-    writer_slug: tallahassee_democrat
-    url: https://www.tallahassee.com/feeds/sports/
-    needs_research: true
-
-  # Miami
-  - team_slug: miami
-    writer_slug: miami_herald_canes
-    url: https://www.miamiherald.com/sports/college/acc/university-of-miami/rss
-    needs_research: true
-
-  # Texas Tech
-  - team_slug: texas-tech
-    writer_slug: lubbock_avalanche
-    url: https://www.lubbockonline.com/feeds/sports/
-    needs_research: true
-
-  # Kansas State
-  - team_slug: kansas-state
-    writer_slug: topeka_capital
-    url: https://www.cjonline.com/feeds/sports/
-    needs_research: true
-
-  # BYU
-  - team_slug: byu
-    writer_slug: deseret_news_byu
-    url: https://www.deseret.com/feeds/byu/
-    needs_research: true
-
-  # Boise State
-  - team_slug: boise-state
-    writer_slug: idaho_statesman
-    url: https://www.idahostatesman.com/sports/college/mountain-west/boise-state-university/rss
-    needs_research: true
-
-  # Memphis
-  - team_slug: memphis
-    writer_slug: commercial_appeal
-    url: https://www.commercialappeal.com/feeds/sports/
-    needs_research: true
-
-  # Tulane
-  - team_slug: tulane
-    writer_slug: advocate_tulane
-    url: https://www.theadvocate.com/tncms/rss/?t=article&c=sports/tulane
-    needs_research: true
-
-  # Jackson State (HBCU)
-  - team_slug: jackson-state
-    writer_slug: clarion_ledger
-    url: https://www.clarionledger.com/feeds/sports/
-    needs_research: true
-
-  # Howard (HBCU)
-  - team_slug: howard
-    writer_slug: washington_post_dc_colleges
-    url: https://www.washingtonpost.com/wp-srv/rss/metro/colleges.xml
-    needs_research: true
+- team_slug: alabama
+  writer_slug: al_com_alabama
+  url: https://www.al.com/arc/outboundfeeds/rss/category/sports/alabama-football/
+  needs_research: true
+- team_slug: alabama
+  writer_slug: roll_bama_roll
+  url: https://www.rollbamaroll.com/rss/index.xml
+  needs_research: false
+  notes: Gannett tuscaloosanews.com killed RSS; SBN Roll Bama Roll atom feed verified
+    200 + valid XML
+- team_slug: tennessee
+  writer_slug: rocky_top_insider
+  url: https://www.rockytopinsider.com/feed/
+  needs_research: false
+  notes: Gannett knoxnews.com dead; Rocky Top Insider WordPress RSS verified 200 +
+    valid XML
+- team_slug: ohio-state
+  writer_slug: land_grant_holy_land
+  url: https://www.landgrantholyland.com/rss/index.xml
+  needs_research: false
+  notes: Gannett dispatch.com dead; SBN Land-Grant Holy Land atom feed verified 200
+    + valid XML
+- team_slug: michigan
+  writer_slug: maize_n_brew
+  url: https://www.maizenbrew.com/rss/index.xml
+  needs_research: false
+  notes: Gannett freep.com dead; SBN Maize n Brew atom feed verified 200 + valid XML
+- team_slug: clemson
+  writer_slug: shakin_the_southland
+  url: https://www.shakinthesouthland.com/rss/index.xml
+  needs_research: false
+  notes: Gannett greenvilleonline.com dead; SBN Shakin The Southland atom feed verified
+    200 + valid XML
+- team_slug: florida-state
+  writer_slug: tomahawk_nation
+  url: https://www.tomahawknation.com/rss/index.xml
+  needs_research: false
+  notes: Gannett tallahassee.com dead; SBN Tomahawk Nation atom feed verified 200
+    + valid XML
+- team_slug: texas-tech
+  writer_slug: wreck_em_red
+  url: https://wreckemred.com/feed
+  needs_research: false
+  notes: "Gannett lubbockonline.com dead; vivathematadors status ambiguous across\
+    \ subagent runs \u2014 FanSided Wreck Em Red RSS verified 200 + valid XML"
+- team_slug: kansas-state
+  writer_slug: bring_on_the_cats
+  url: https://www.bringonthecats.com/rss/index.xml
+  needs_research: false
+  notes: Gannett cjonline.com dead; SBN Bring On The Cats atom feed verified 200 +
+    valid XML
+- team_slug: memphis
+  writer_slug: underdog_dynasty_memphis
+  url: https://www.underdogdynasty.com/rss/index.xml
+  needs_research: false
+  notes: Gannett commercialappeal.com dead; SBN Underdog Dynasty (G5 including Memphis/AAC)
+    atom feed verified 200 + valid XML
+- team_slug: jackson-state
+  writer_slug: hbcu_gameday_jackson_state
+  url: https://hbcugameday.com/tag/jackson-state/feed/
+  needs_research: false
+  notes: Gannett clarionledger.com RSS dead; HBCU Gameday tag feed verified 200 +
+    valid RSS XML

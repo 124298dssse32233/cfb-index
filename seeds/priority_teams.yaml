@@ -1,274 +1,366 @@
-# Fan Intelligence priority teams. 20 programs covering:
-#   5 SEC / 4 B1G / 3 ACC / 3 B12 / 3 G5 / 2 HBCU
-# Geographic + cohort diversity chosen per STRATEGY §9 coverage-gap guidance.
+# Fan Intelligence priority teams. 21 programs (Notre Dame added 2026-04-23)
+#   5 SEC / 4 B1G+ND / 3 ACC / 3 B12 / 3 G5 / 2 HBCU
 #
-# Handles with low confidence are marked needs_research: true and will be
-# refreshed by the monthly Deep Research pass (STRATEGY §7 monthly cadence).
-# Fields for which we don't yet have a verified handle are left null; the
-# adapter layer skips null fields gracefully.
-#
-# team_name is resolved against teams.canonical_name first, then school_name,
-# then short_name, then slug, then team_aliases.
+# Last refreshed via Deep Research pass 2 on 2026-04-23
+# (research/deep_research_refresh_2026-04-23_pass2.yaml).
+# Includes 7 coach changes (LSU/Mich/PSU/K-State/Memphis/Tulane/Howard),
+# 13 teams with verified Bluesky beat handles, 17 YouTube channel IDs,
+# 18 Locked On RSS feeds.
 
 teams:
-
-  # ================ SEC (5) ================
-  - team_name: Alabama
-    rank_priority: 1
-    reddit_team_sub: rolltide
-    reddit_alumni_sub: null
-    reddit_city_sub: tuscaloosa
-    wiki_team_page: Alabama_Crimson_Tide_football
-    wiki_coach_page: Kalen_DeBoer
-    google_news_query: "Alabama Crimson Tide football"
-    campus_newspaper_feed: https://cw.ua.edu/feed/
-    athletic_dept_feed: https://rolltide.com/rss.aspx
-    message_board_primary: tidefans.com
-    message_board_secondary: bamaonline.com
-    seatgeek_team_slug: alabama-crimson-tide-football
-    needs_research: true
-
-  - team_name: Georgia
-    rank_priority: 2
-    reddit_team_sub: georgiabulldogs
-    reddit_city_sub: Athens
-    wiki_team_page: Georgia_Bulldogs_football
-    wiki_coach_page: Kirby_Smart
-    google_news_query: "Georgia Bulldogs football"
-    campus_newspaper_feed: https://www.redandblack.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
-    athletic_dept_feed: https://georgiadogs.com/rss.aspx
-    message_board_primary: dawgs247.forums.247sports.com
-    seatgeek_team_slug: georgia-bulldogs-football
-    needs_research: true
-
-  - team_name: LSU
-    rank_priority: 3
-    reddit_team_sub: LSUFootball
-    reddit_city_sub: BatonRouge
-    wiki_team_page: LSU_Tigers_football
-    wiki_coach_page: Brian_Kelly
-    google_news_query: "LSU Tigers football"
-    campus_newspaper_feed: https://www.lsureveille.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
-    athletic_dept_feed: https://lsusports.net/rss.aspx
-    message_board_primary: tigerdroppings.com
-    seatgeek_team_slug: lsu-tigers-football
-    needs_research: true
-
-  - team_name: Tennessee
-    rank_priority: 4
-    reddit_team_sub: tennesseevols
-    reddit_city_sub: Knoxville
-    wiki_team_page: Tennessee_Volunteers_football
-    wiki_coach_page: Josh_Heupel
-    google_news_query: "Tennessee Volunteers football"
-    campus_newspaper_feed: https://www.utdailybeacon.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
-    athletic_dept_feed: https://utsports.com/rss.aspx
-    message_board_primary: volnation.com
-    seatgeek_team_slug: tennessee-volunteers-football
-    needs_research: true
-
-  - team_name: Texas
-    rank_priority: 5
-    reddit_team_sub: LonghornNation
-    reddit_city_sub: Austin
-    wiki_team_page: Texas_Longhorns_football
-    wiki_coach_page: Steve_Sarkisian
-    google_news_query: "Texas Longhorns football"
-    campus_newspaper_feed: https://thedailytexan.com/feed/
-    athletic_dept_feed: https://texassports.com/rss.aspx
-    message_board_primary: shaggybevo.com
-    message_board_secondary: orangebloods.forums.247sports.com
-    seatgeek_team_slug: texas-longhorns-football
-    needs_research: true
-
-  # ================ B1G (4) ================
-  - team_name: Ohio State
-    rank_priority: 6
-    reddit_team_sub: OSUFootball
-    reddit_city_sub: Columbus
-    wiki_team_page: Ohio_State_Buckeyes_football
-    wiki_coach_page: Ryan_Day
-    google_news_query: "Ohio State Buckeyes football"
-    campus_newspaper_feed: https://www.thelantern.com/feed/
-    athletic_dept_feed: https://ohiostatebuckeyes.com/rss.aspx
-    message_board_primary: 11warriors.com
-    message_board_secondary: buckeyeplanet.com
-    seatgeek_team_slug: ohio-state-buckeyes-football
-    needs_research: true
-
-  - team_name: Michigan
-    rank_priority: 7
-    reddit_team_sub: MichiganWolverines
-    reddit_city_sub: AnnArbor
-    wiki_team_page: Michigan_Wolverines_football
-    wiki_coach_page: Sherrone_Moore
-    google_news_query: "Michigan Wolverines football"
-    campus_newspaper_feed: https://www.michigandaily.com/feed/
-    athletic_dept_feed: https://mgoblue.com/rss.aspx
-    message_board_primary: mgoblog.com
-    seatgeek_team_slug: michigan-wolverines-football
-    needs_research: true
-
-  - team_name: Penn State
-    rank_priority: 8
-    reddit_team_sub: PennStateUniversity
-    reddit_city_sub: StateCollege
-    wiki_team_page: Penn_State_Nittany_Lions_football
-    wiki_coach_page: James_Franklin_(American_football_coach)
-    google_news_query: "Penn State Nittany Lions football"
-    campus_newspaper_feed: https://www.collegian.psu.edu/search/?f=rss&t=article&l=50&s=start_time&sd=desc
-    athletic_dept_feed: https://gopsusports.com/rss.aspx
-    message_board_primary: bluewhiteillustrated.forums.247sports.com
-    seatgeek_team_slug: penn-state-nittany-lions-football
-    needs_research: true
-
-  - team_name: Oregon
-    rank_priority: 9
-    reddit_team_sub: ducks
-    reddit_city_sub: Eugene
-    wiki_team_page: Oregon_Ducks_football
-    wiki_coach_page: Dan_Lanning
-    google_news_query: "Oregon Ducks football"
-    campus_newspaper_feed: https://www.dailyemerald.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
-    athletic_dept_feed: https://goducks.com/rss.aspx
-    message_board_primary: educkfans.com
-    seatgeek_team_slug: oregon-ducks-football
-    needs_research: true
-
-  # ================ ACC (3) ================
-  - team_name: Clemson
-    rank_priority: 10
-    reddit_team_sub: CFB  # no active dedicated sub; placeholder for research
-    reddit_city_sub: ClemsonSC
-    wiki_team_page: Clemson_Tigers_football
-    wiki_coach_page: Dabo_Swinney
-    google_news_query: "Clemson Tigers football"
-    campus_newspaper_feed: https://www.thetigercu.com/feed/
-    athletic_dept_feed: https://clemsontigers.com/rss.aspx
-    message_board_primary: tigernet.com
-    seatgeek_team_slug: clemson-tigers-football
-    needs_research: true
-
-  - team_name: Florida State
-    rank_priority: 11
-    reddit_team_sub: fsusports
-    reddit_city_sub: Tallahassee
-    wiki_team_page: Florida_State_Seminoles_football
-    wiki_coach_page: Mike_Norvell
-    google_news_query: "Florida State Seminoles football"
-    campus_newspaper_feed: https://www.fsunews.com/rss/
-    athletic_dept_feed: https://seminoles.com/rss.aspx
-    message_board_primary: warchant.forums.247sports.com
-    seatgeek_team_slug: florida-state-seminoles-football
-    needs_research: true
-
-  - team_name: Miami
-    rank_priority: 12
-    reddit_team_sub: MiamiHurricanes
-    reddit_city_sub: Miami
-    wiki_team_page: Miami_Hurricanes_football
-    wiki_coach_page: Mario_Cristobal
-    google_news_query: "Miami Hurricanes football"
-    campus_newspaper_feed: https://themiamihurricane.com/feed/
-    athletic_dept_feed: https://miamihurricanes.com/rss.aspx
-    message_board_primary: canesinsight.com
-    seatgeek_team_slug: miami-hurricanes-football
-    needs_research: true
-
-  # ================ Big 12 (3) ================
-  - team_name: Texas Tech
-    rank_priority: 13
-    reddit_team_sub: TexasTechFootball
-    reddit_city_sub: Lubbock
-    wiki_team_page: Texas_Tech_Red_Raiders_football
-    wiki_coach_page: Joey_McGuire
-    google_news_query: "Texas Tech Red Raiders football"
-    campus_newspaper_feed: https://www.dailytoreador.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
-    athletic_dept_feed: https://texastech.com/rss.aspx
-    message_board_primary: redraiders.com
-    seatgeek_team_slug: texas-tech-red-raiders-football
-    needs_research: true
-
-  - team_name: Kansas State
-    rank_priority: 14
-    reddit_team_sub: KStateFootball
-    reddit_city_sub: Manhattan_KS
-    wiki_team_page: Kansas_State_Wildcats_football
-    wiki_coach_page: Chris_Klieman
-    google_news_query: "Kansas State Wildcats football"
-    campus_newspaper_feed: https://www.kstatecollegian.com/feed/
-    athletic_dept_feed: https://kstatesports.com/rss.aspx
-    message_board_primary: gopowercat.com
-    seatgeek_team_slug: kansas-state-wildcats-football
-    needs_research: true
-
-  - team_name: BYU
-    rank_priority: 15
-    reddit_team_sub: BYUfootball
-    reddit_city_sub: Provo
-    wiki_team_page: BYU_Cougars_football
-    wiki_coach_page: Kalani_Sitake
-    google_news_query: "BYU Cougars football"
-    campus_newspaper_feed: https://universe.byu.edu/feed/
-    athletic_dept_feed: https://byucougars.com/rss.aspx
-    message_board_primary: cougarboard.com
-    seatgeek_team_slug: byu-cougars-football
-    needs_research: true
-
-  # ================ G5 (3) ================
-  - team_name: Boise State
-    rank_priority: 16
-    reddit_team_sub: BroncoNation
-    reddit_city_sub: boise
-    wiki_team_page: Boise_State_Broncos_football
-    wiki_coach_page: Spencer_Danielson
-    google_news_query: "Boise State Broncos football"
-    campus_newspaper_feed: https://arbiteronline.com/feed/
-    athletic_dept_feed: https://broncosports.com/rss.aspx
-    seatgeek_team_slug: boise-state-broncos-football
-    needs_research: true
-
-  - team_name: Memphis
-    rank_priority: 17
-    reddit_team_sub: MemphisTigers
-    reddit_city_sub: memphis
-    wiki_team_page: Memphis_Tigers_football
-    wiki_coach_page: Ryan_Silverfield
-    google_news_query: "Memphis Tigers football"
-    campus_newspaper_feed: https://www.dailyhelmsman.com/feed/
-    athletic_dept_feed: https://gotigersgo.com/rss.aspx
-    seatgeek_team_slug: memphis-tigers-football
-    needs_research: true
-
-  - team_name: Tulane
-    rank_priority: 18
-    reddit_team_sub: TulaneFootball
-    reddit_city_sub: NewOrleans
-    wiki_team_page: Tulane_Green_Wave_football
-    wiki_coach_page: Jon_Sumrall
-    google_news_query: "Tulane Green Wave football"
-    campus_newspaper_feed: https://tulanehullabaloo.com/feed/
-    athletic_dept_feed: https://tulanegreenwave.com/rss.aspx
-    seatgeek_team_slug: tulane-green-wave-football
-    needs_research: true
-
-  # ================ HBCU (2) ================
-  - team_name: Jackson State
-    rank_priority: 19
-    reddit_team_sub: null
-    reddit_city_sub: jackson
-    wiki_team_page: Jackson_State_Tigers_football
-    google_news_query: "Jackson State Tigers football"
-    campus_newspaper_feed: https://thebluprint.com/feed/
-    athletic_dept_feed: https://gojsutigers.com/rss.aspx
-    needs_research: true
-
-  - team_name: Howard
-    rank_priority: 20
-    reddit_team_sub: null
-    reddit_city_sub: washingtondc
-    wiki_team_page: Howard_Bison_football
-    google_news_query: "Howard Bison football"
-    campus_newspaper_feed: https://thehilltoponline.com/feed/
-    athletic_dept_feed: https://hubison.com/rss.aspx
-    needs_research: true
+- team_name: Alabama
+  rank_priority: 1
+  reddit_team_sub: rolltide
+  reddit_alumni_sub: null
+  reddit_city_sub: tuscaloosa
+  wiki_team_page: Alabama_Crimson_Tide_football
+  wiki_coach_page: Kalen_DeBoer
+  google_news_query: Alabama Crimson Tide football
+  campus_newspaper_feed: https://cw.ua.edu/feed/
+  athletic_dept_feed: https://rolltide.com/rss.aspx
+  message_board_primary: https://www.tidefans.com/forums/
+  message_board_secondary: bamaonline.com
+  seatgeek_team_slug: alabama-crimson-tide-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@bycasagrande.bsky.social'
+  - '@nickkelly.bsky.social'
+  youtube_team_channel_id: UCUQis-AjFEA1AgRbnTbuBqA
+  youtube_fan_channels:
+  - UCXovZWLiLAQwhc07L_TuHYQ
+  - UCXLM426XzspM1Ea4aXWMhhw
+  locked_on_rss: https://feeds.simplecast.com/w5B7c1tY
+- team_name: Georgia
+  rank_priority: 2
+  reddit_team_sub: georgiabulldogs
+  reddit_city_sub: Athens
+  wiki_team_page: Georgia_Bulldogs_football
+  wiki_coach_page: Kirby_Smart
+  google_news_query: Georgia Bulldogs football
+  campus_newspaper_feed: https://www.redandblack.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
+  athletic_dept_feed: https://georgiadogs.com/rss.aspx
+  message_board_primary: https://www.dawgvent.com/
+  seatgeek_team_slug: georgia-bulldogs-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@sethemerson.bsky.social'
+  youtube_team_channel_id: UCiK5OOII_B2-RKW7HsTkXRw
+  youtube_fan_channels:
+  - UCx1fIh0oakoyniYnrNxgaTg
+  - UC18DBD7YEdN3XDa8IEclzjw
+  locked_on_rss: https://feeds.simplecast.com/_NxJ3Otx
+- team_name: LSU
+  rank_priority: 3
+  reddit_team_sub: LSUFootball
+  reddit_city_sub: BatonRouge
+  wiki_team_page: LSU_Tigers_football
+  wiki_coach_page: Lane_Kiffin
+  google_news_query: LSU Tigers football
+  campus_newspaper_feed: https://www.lsureveille.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
+  athletic_dept_feed: https://lsusports.net/rss.aspx
+  message_board_primary: https://www.tigerdroppings.com/rant/lsu-sports/
+  seatgeek_team_slug: lsu-tigers-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@kokiriley.bsky.social'
+  - '@wilsonalexander.bsky.social'
+  youtube_team_channel_id: UC7JKiKZ5xphFgqrZAtsYlTQ
+  youtube_fan_channels:
+  - UCJgVefj_p3xeFnM4JBpD5Hg
+  - UCcqQ2qdzAvXe81IQI48qB2g
+  locked_on_rss: https://feeds.simplecast.com/4q9SasrY
+- team_name: Tennessee
+  rank_priority: 4
+  reddit_team_sub: tennesseevols
+  reddit_city_sub: Knoxville
+  wiki_team_page: Tennessee_Volunteers_football
+  wiki_coach_page: Josh_Heupel
+  google_news_query: Tennessee Volunteers football
+  campus_newspaper_feed: https://www.utdailybeacon.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
+  athletic_dept_feed: https://utsports.com/rss.aspx
+  message_board_primary: https://www.volnation.com/forum/
+  seatgeek_team_slug: tennessee-volunteers-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@bymikewilson.bsky.social'
+  - '@tennesseerivals.bsky.social'
+  youtube_team_channel_id: UCD9UkxpIo5W16Ou3eo4eZbA
+  youtube_fan_channels:
+  - UCH9YFd-kZe4jscnWfDyRU_Q
+  - UCwSUMCWwc-GOnGTB7n8UnXg
+  locked_on_rss: https://feeds.simplecast.com/bGDwSDbR
+- team_name: Texas
+  rank_priority: 5
+  reddit_team_sub: LonghornNation
+  reddit_city_sub: Austin
+  wiki_team_page: Texas_Longhorns_football
+  wiki_coach_page: Steve_Sarkisian
+  google_news_query: Texas Longhorns football
+  campus_newspaper_feed: https://thedailytexan.com/feed/
+  athletic_dept_feed: https://texassports.com/rss.aspx
+  message_board_primary: https://www.shaggytexas.com/
+  message_board_secondary: orangebloods.forums.247sports.com
+  seatgeek_team_slug: texas-longhorns-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@danny-davis.bsky.social'
+  youtube_team_channel_id: UCFINGaivm4gMWK-UFqNwZvA
+  youtube_fan_channels:
+  - UCxBJ2uOG2ordSgq5mnkhWAA
+  - UCvAKYkiGBfPyYdfStKhT1AQ
+  locked_on_rss: https://feeds.simplecast.com/S6lYsUlD
+- team_name: Ohio State
+  rank_priority: 6
+  reddit_team_sub: OSUFootball
+  reddit_city_sub: Columbus
+  wiki_team_page: Ohio_State_Buckeyes_football
+  wiki_coach_page: Ryan_Day
+  google_news_query: Ohio State Buckeyes football
+  campus_newspaper_feed: https://www.thelantern.com/feed/
+  athletic_dept_feed: https://ohiostatebuckeyes.com/rss.aspx
+  message_board_primary: https://www.elevenwarriors.com/forum
+  message_board_secondary: buckeyeplanet.com
+  seatgeek_team_slug: ohio-state-buckeyes-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@joeyrkaufman.bsky.social'
+  - '@billrabinowitz.bsky.social'
+  - '@cdadamjardy.bsky.social'
+  - '@elevenwarriors.com'
+  youtube_team_channel_id: UClUenqlbOKb11Hx0AuIWjjA
+  youtube_fan_channels:
+  - UCnVlvNjWQFrIxVx6X2HtQgw
+  locked_on_rss: https://feeds.simplecast.com/SBG23EyJ
+- team_name: Michigan
+  rank_priority: 7
+  reddit_team_sub: MichiganWolverines
+  reddit_city_sub: AnnArbor
+  wiki_team_page: Michigan_Wolverines_football
+  wiki_coach_page: Kyle_Whittingham
+  google_news_query: Michigan Wolverines football
+  campus_newspaper_feed: https://www.michigandaily.com/feed/
+  athletic_dept_feed: https://mgoblue.com/rss.aspx
+  message_board_primary: https://mgoblog.com/mgoboard
+  seatgeek_team_slug: michigan-wolverines-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@realtonygarcia.bsky.social'
+  - '@mgoblog.bsky.social'
+  youtube_team_channel_id: UC-je1DMrkGkWSw_ewnt0rkA
+  locked_on_rss: https://feeds.simplecast.com/nWPZmiJH
+- team_name: Penn State
+  rank_priority: 8
+  reddit_team_sub: PennStateUniversity
+  reddit_city_sub: StateCollege
+  wiki_team_page: Penn_State_Nittany_Lions_football
+  wiki_coach_page: Matt_Campbell_(American_football_coach)
+  google_news_query: Penn State Nittany Lions football
+  campus_newspaper_feed: https://www.psucollegian.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc
+  athletic_dept_feed: https://gopsusports.com/rss.aspx
+  message_board_primary: https://www.blackshoediaries.com
+  seatgeek_team_slug: penn-state-nittany-lions-football
+  needs_research: false
+  youtube_team_channel_id: UC4hTOSIeyTNXVami5IqxXyg
+  youtube_fan_channels:
+  - UChxdUL75n6RsZUX17SXbcew
+  locked_on_rss: https://feeds.simplecast.com/HnckP81G
+- team_name: Oregon
+  rank_priority: 9
+  reddit_team_sub: ducks
+  reddit_city_sub: Eugene
+  wiki_team_page: Oregon_Ducks_football
+  wiki_coach_page: Dan_Lanning
+  google_news_query: Oregon Ducks football
+  campus_newspaper_feed: https://dailyemerald.com/feed/
+  athletic_dept_feed: https://goducks.com/rss.aspx
+  message_board_primary: https://forum.fishduck.com/
+  seatgeek_team_slug: oregon-ducks-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@ryantclarke.bsky.social'
+  - '@oregoniansports.bsky.social'
+  youtube_team_channel_id: UC6hQ7rJDFcr0to1nC4XVegQ
+  locked_on_rss: https://feeds.simplecast.com/AqYl4jTm
+- team_name: Clemson
+  rank_priority: 10
+  reddit_team_sub: CFB
+  reddit_city_sub: ClemsonSC
+  wiki_team_page: Clemson_Tigers_football
+  wiki_coach_page: Dabo_Swinney
+  google_news_query: Clemson Tigers football
+  campus_newspaper_feed: null
+  athletic_dept_feed: https://clemsontigers.com/rss.aspx
+  message_board_primary: https://www.tigernet.com/clemson-forums
+  seatgeek_team_slug: clemson-tigers-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@stsouthland.bsky.social'
+  - '@adavidhalejoint.bsky.social'
+  youtube_team_channel_id: UCiAcuTMKc_WBQGFjtPnjxJQ
+- team_name: Florida State
+  rank_priority: 11
+  reddit_team_sub: fsusports
+  reddit_city_sub: Tallahassee
+  wiki_team_page: Florida_State_Seminoles_football
+  wiki_coach_page: Mike_Norvell
+  google_news_query: Florida State Seminoles football
+  campus_newspaper_feed: null
+  athletic_dept_feed: https://seminoles.com/rss.aspx
+  message_board_primary: https://chopchat.com/
+  seatgeek_team_slug: florida-state-seminoles-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@tomahawknation.bsky.social'
+  youtube_team_channel_id: UCUZBUFtB6gVyYuNm-eIWZaw
+  youtube_fan_channels:
+  - UCF0kads13wbyg-43YiMvXBw
+  - UCOKiswdQlZtthKkyBi6Fieg
+  locked_on_rss: https://feeds.simplecast.com/zO6d7bff
+- team_name: Miami
+  rank_priority: 12
+  reddit_team_sub: MiamiHurricanes
+  reddit_city_sub: Miami
+  wiki_team_page: Miami_Hurricanes_football
+  wiki_coach_page: Mario_Cristobal
+  google_news_query: Miami Hurricanes football
+  campus_newspaper_feed: https://themiamihurricane.com/feed/
+  athletic_dept_feed: https://miamihurricanes.com/rss.aspx
+  message_board_primary: https://www.canesinsight.com/forums/-/list
+  seatgeek_team_slug: miami-hurricanes-football
+  needs_research: false
+  youtube_fan_channels:
+  - UC0DApVLAlrU8WJDY67AmMdA
+  locked_on_rss: https://feeds.simplecast.com/zdc1bsy4
+- team_name: Texas Tech
+  rank_priority: 13
+  reddit_team_sub: TexasTechFootball
+  reddit_city_sub: Lubbock
+  wiki_team_page: Texas_Tech_Red_Raiders_football
+  wiki_coach_page: Joey_McGuire
+  google_news_query: Texas Tech Red Raiders football
+  campus_newspaper_feed: null
+  athletic_dept_feed: https://texastech.com/rss.aspx
+  message_board_primary: http://www.vivathematadors.com/
+  seatgeek_team_slug: texas-tech-red-raiders-football
+  needs_research: false
+  youtube_team_channel_id: UCeGcdO4Xell4mdc_RLIjEew
+- team_name: Kansas State
+  rank_priority: 14
+  reddit_team_sub: KStateFootball
+  reddit_city_sub: Manhattan_KS
+  wiki_team_page: Kansas_State_Wildcats_football
+  wiki_coach_page: Collin_Klein
+  google_news_query: Kansas State Wildcats football
+  campus_newspaper_feed: null
+  athletic_dept_feed: https://kstatesports.com/rss.aspx
+  message_board_primary: https://www.k-statefans.com/forums/
+  seatgeek_team_slug: kansas-state-wildcats-football
+  needs_research: false
+  bluesky_beat_handles:
+  - '@botc.bsky.social'
+  - '@jonfmorse.com'
+  youtube_team_channel_id: UCj2P3JWoADDiat2CeNzPZsg
+  locked_on_rss: https://feeds.simplecast.com/OTUUuVoI
+- team_name: BYU
+  rank_priority: 15
+  reddit_team_sub: BYUfootball
+  reddit_city_sub: Provo
+  wiki_team_page: BYU_Cougars_football
+  wiki_coach_page: Kalani_Sitake
+  google_news_query: BYU Cougars football
+  campus_newspaper_feed: null
+  athletic_dept_feed: https://byucougars.com/rss.aspx
+  message_board_primary: https://www.cougarboard.com/
+  seatgeek_team_slug: byu-cougars-football
+  needs_research: false
+  youtube_team_channel_id: UCreL2UlUK2cV2OXZ4SGstBQ
+  youtube_fan_channels:
+  - UCPGJ6U6tzIKHubr5zFWFZLw
+  locked_on_rss: https://feeds.simplecast.com/DzohBBeS
+- team_name: Boise State
+  rank_priority: 16
+  reddit_team_sub: BroncoNation
+  reddit_city_sub: boise
+  wiki_team_page: Boise_State_Broncos_football
+  wiki_coach_page: Spencer_Danielson
+  google_news_query: Boise State Broncos football
+  campus_newspaper_feed: https://arbiteronline.com/feed/
+  athletic_dept_feed: https://broncosports.com/rss.aspx
+  seatgeek_team_slug: boise-state-broncos-football
+  needs_research: false
+  youtube_team_channel_id: UCw7-Uy9ACDofmfVbbZtu-1Q
+  youtube_fan_channels:
+  - UCsjNMoNNeXTycXHB16KiwxA
+  message_board_primary: https://broncofans.net
+- team_name: Memphis
+  rank_priority: 17
+  reddit_team_sub: MemphisTigers
+  reddit_city_sub: memphis
+  wiki_team_page: Memphis_Tigers_football
+  wiki_coach_page: Charles_Huff
+  google_news_query: Memphis Tigers football
+  campus_newspaper_feed: https://www.dailyhelmsman.com/feed/
+  athletic_dept_feed: https://gotigersgo.com/rss.aspx
+  seatgeek_team_slug: memphis-tigers-football
+  needs_research: false
+  youtube_team_channel_id: UCzWw4a6Lp2uq891HbAT7ANw
+  message_board_primary: https://www.csnbbs.com/forumdisplay.php?fid=446
+- team_name: Tulane
+  rank_priority: 18
+  reddit_team_sub: TulaneFootball
+  reddit_city_sub: NewOrleans
+  wiki_team_page: Tulane_Green_Wave_football
+  wiki_coach_page: Will_Hall
+  google_news_query: Tulane Green Wave football
+  campus_newspaper_feed: https://tulanehullabaloo.com/feed/
+  athletic_dept_feed: https://tulanegreenwave.com/rss.aspx
+  seatgeek_team_slug: tulane-green-wave-football
+  needs_research: false
+  youtube_team_channel_id: UCNSyUGDZ0M4ATau4PkmNp9g
+  message_board_primary: https://www.yogwf.com/
+- team_name: Jackson State
+  rank_priority: 19
+  reddit_team_sub: null
+  reddit_city_sub: jackson
+  wiki_team_page: Jackson_State_Tigers_football
+  google_news_query: Jackson State Tigers football
+  campus_newspaper_feed: null
+  athletic_dept_feed: https://gojsutigers.com/rss.aspx
+  needs_research: false
+  youtube_team_channel_id: UC3OgCd_-LUEcMlpv9QGrQqw
+  youtube_fan_channels:
+  - UCoMv284iYWxL3JSY-9agY2w
+  message_board_primary: https://hbcusports.com/forums/
+- team_name: Howard
+  rank_priority: 20
+  reddit_team_sub: null
+  reddit_city_sub: washingtondc
+  wiki_team_page: Howard_Bison_football
+  google_news_query: Howard Bison football
+  campus_newspaper_feed: https://thehilltoponline.com/feed/
+  athletic_dept_feed: https://hubison.com/rss.aspx
+  needs_research: false
+  youtube_team_channel_id: UCdjDhKcFwA6vAWnrBCiq3vA
+  youtube_fan_channels:
+  - UCoMv284iYWxL3JSY-9agY2w
+  message_board_primary: https://bisonsports.freeforums.net/
+  wiki_coach_page: Ted_White
+- team_name: Notre Dame
+  rank_priority: 21
+  reddit_team_sub: notredamefootball
+  reddit_alumni_sub: null
+  reddit_city_sub: southbend
+  wiki_team_page: Notre_Dame_Fighting_Irish_football
+  wiki_coach_page: Marcus_Freeman
+  google_news_query: Notre Dame Fighting Irish football
+  campus_newspaper_feed: https://ndsmcobserver.com/feed/
+  athletic_dept_feed: https://und.com/rss.aspx
+  message_board_primary: https://ndnation.com/boards/index.php
+  bluesky_beat_handles:
+  - '@petesampson.bsky.social'
+  youtube_team_channel_id: UCAMR05qSc5mfhVx20fDyAoQ
+  youtube_fan_channels:
+  - UC6yeifyW6tb-PPaCFKN45xw
+  locked_on_rss: https://feeds.simplecast.com/MBMdx979
+  seatgeek_team_slug: notre-dame-fighting-irish-football
+  needs_research: false

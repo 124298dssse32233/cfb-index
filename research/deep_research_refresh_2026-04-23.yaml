@@ -1,0 +1,573 @@
+# Deep Research Refresh — CFB Index Source Handle Refresh
+# Date: 2026-04-23
+# Generated via parallel subagent research per docs/deep_research_prompt.
+# 21 priority programs (added Notre Dame to original 20 per user request).
+#
+# Verification strategy: every URL/handle was fetched live where the
+# environment permitted. Subagents varied in egress reach — some hosts
+# (bsky.app, iTunes API, simplecast) were reachable from one session and
+# blocked in another. Where verification was indirect (via WebSearch
+# result snippets quoting the target URL), the notes field flags it.
+# Per prompt rule: "Null > guess, do not invent handles."
+#
+# SUMMARY OF PASS
+#   SEC (5):        ~34/40 fields verified live
+#   B1G + ND (5):   ~27/40 fields verified live
+#   ACC + B12 (6):  ~24/48 fields verified (middle run had egress issues)
+#   G5 + HBCU (5):  ~25/40 fields; HBCU thin coverage is accurate
+#   Replacements:   22/26 non-null (Athletic per-author feeds disabled)
+#   Markets:        10 Kalshi tickers (format best-guess — see caveat),
+#                   10 Polymarket slugs (verified via gamma-api)
+#   Starter packs:  5 (bsky.app URLs; at:// URIs need resolution step)
+#   TikTok:         1 national + 6 team-aligned verified; HBCU section
+#                   empty — re-run TikTok pass needed.
+
+# ============================================================
+# 1. PRIORITY TEAMS (21)
+# ============================================================
+priority_teams:
+
+  # ================ SEC (5) ================
+  - team_slug: alabama
+    bluesky_beat_handles: ["@bycasagrande.bsky.social", "@nickkelly.bsky.social"]
+    youtube_team_channel_id: "UCUQis-AjFEA1AgRbnTbuBqA"
+    youtube_fan_channels: ["UCXovZWLiLAQwhc07L_TuHYQ", "UCXLM426XzspM1Ea4aXWMhhw"]
+    locked_on_rss: "https://feeds.simplecast.com/w5B7c1tY"
+    message_board_primary: "https://www.tidefans.com/forums/"
+    campus_newspaper_feed: "https://cw.ua.edu/feed/"
+    beat_writer_rss: "https://www.rollbamaroll.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Casagrande + Kelly are the AL.com Alabama beat team; both verified on Bluesky. Fan YT: Alabama on AL.com (~128k) + Kyle Henderson Bama Football."
+
+  - team_slug: georgia
+    bluesky_beat_handles: ["@sethemerson.bsky.social"]
+    youtube_team_channel_id: "UCiK5OOII_B2-RKW7HsTkXRw"
+    youtube_fan_channels: ["UCx1fIh0oakoyniYnrNxgaTg", "UC18DBD7YEdN3XDa8IEclzjw"]
+    locked_on_rss: "https://feeds.simplecast.com/_NxJ3Otx"
+    message_board_primary: "https://www.dawgvent.com/"
+    campus_newspaper_feed: "https://www.redandblack.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.dawgsports.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "AJC Chip Towers retired. Seth Emerson (The Athletic, Athens-based) is the strongest verified Bluesky handle. Mike Griffith + Marc Weiszer not confirmed on Bluesky. Fan YT: DawgNation + DawgsHQ."
+
+  - team_slug: lsu
+    bluesky_beat_handles: ["@kokiriley.bsky.social", "@wilsonalexander.bsky.social"]
+    youtube_team_channel_id: "UC7JKiKZ5xphFgqrZAtsYlTQ"
+    youtube_fan_channels: ["UCJgVefj_p3xeFnM4JBpD5Hg", "UCcqQ2qdzAvXe81IQI48qB2g"]
+    locked_on_rss: "https://feeds.simplecast.com/4q9SasrY"
+    message_board_primary: "https://www.tigerdroppings.com/rant/lsu-sports/"
+    campus_newspaper_feed: "https://www.lsureveille.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.andthevalleyshook.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Koki Riley (football/baseball) + Wilson Alexander (LSU/CFB) — both Advocate/NOLA.com beat, both active on Bluesky. Fan YT: Geaux Tigers + Tough Tiger Talk."
+
+  - team_slug: tennessee
+    bluesky_beat_handles: ["@bymikewilson.bsky.social", "@tennesseerivals.bsky.social"]
+    youtube_team_channel_id: "UCD9UkxpIo5W16Ou3eo4eZbA"
+    youtube_fan_channels: ["UCH9YFd-kZe4jscnWfDyRU_Q", "UCwSUMCWwc-GOnGTB7n8UnXg"]
+    locked_on_rss: "https://feeds.simplecast.com/bGDwSDbR"
+    message_board_primary: "https://www.volnation.com/forum/"
+    campus_newspaper_feed: "https://www.utdailybeacon.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.rockytoptalk.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Adam Sparks (Knoxnews FB beat) is Gannett and not on Bluesky — adamsparks.bsky.social is a different person (Nebraska educator). Mike Wilson (Knoxnews Vols) + VolReport/Rivals verified. KnoxNews is [gannett] but RockyTopTalk non-Gannett."
+
+  - team_slug: texas
+    bluesky_beat_handles: ["@danny-davis.bsky.social"]
+    youtube_team_channel_id: "UCFINGaivm4gMWK-UFqNwZvA"
+    youtube_fan_channels: ["UCxBJ2uOG2ordSgq5mnkhWAA", "UCvAKYkiGBfPyYdfStKhT1AQ"]
+    locked_on_rss: "https://feeds.simplecast.com/S6lYsUlD"
+    message_board_primary: "https://www.shaggytexas.com/"
+    campus_newspaper_feed: "https://thedailytexan.com/feed/"
+    beat_writer_rss: "https://www.burntorangenation.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Danny Davis (Statesman/Gannett) confirmed on Bluesky with recent podcast activity March 2026. Brian Davis + Kirk Bohls not found on Bluesky. Statesman is [gannett]; BON non-Gannett. ShaggyBevo renamed to ShaggyTexas after UT trademark action."
+
+  # ================ B1G (4) + Independents (Notre Dame) ================
+  - team_slug: ohio-state
+    bluesky_beat_handles: ["@joeyrkaufman.bsky.social", "@billrabinowitz.bsky.social", "@cdadamjardy.bsky.social", "@elevenwarriors.com"]
+    youtube_team_channel_id: "UClUenqlbOKb11Hx0AuIWjjA"
+    youtube_fan_channels: ["UCnVlvNjWQFrIxVx6X2HtQgw"]
+    locked_on_rss: "https://feeds.simplecast.com/SBG23EyJ"
+    message_board_primary: "https://www.elevenwarriors.com/forum"
+    campus_newspaper_feed: "https://www.thelantern.com/feed/"
+    beat_writer_rss: "https://www.landgrantholyland.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Kaufman (Dispatch/Gannett) + Rabinowitz (Substack ex-Dispatch) verified via bsky.app profile URLs in search. Adam Jardy covers OSU hoops. 11warriors.com forum is public. LGHL SBN feed uses verified /rss/index.xml pattern. Fan YT secondary channels (Buckeye Scoop, Buckeye Huddle) exist but UC ids not indexed."
+
+  - team_slug: michigan
+    bluesky_beat_handles: ["@realtonygarcia.bsky.social", "@angeliquesc.bsky.social", "@mgoblog.bsky.social", "@mgoseth.bsky.social"]
+    youtube_team_channel_id: "UC-je1DMrkGkWSw_ewnt0rkA"
+    youtube_fan_channels: []
+    locked_on_rss: "https://feeds.simplecast.com/nWPZmiJH"
+    message_board_primary: "https://mgoblog.com/mgoboard"
+    campus_newspaper_feed: "https://www.michigandaily.com/feed/"
+    beat_writer_rss: "https://www.maizenbrew.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_caveat] Sherrone Moore reportedly fired per search results — verify current HC before finalizing. Tony Garcia (Freep) + Angelique Chengelis (Detroit News) + mgoblog + mgoseth verified via bsky.app URLs."
+
+  - team_slug: penn-state
+    bluesky_beat_handles: ["@audreysnyder.bsky.social"]
+    youtube_team_channel_id: null
+    youtube_fan_channels: ["UChxdUL75n6RsZUX17SXbcew"]
+    locked_on_rss: "https://feeds.simplecast.com/HnckP81G"
+    message_board_primary: "https://www.blackshoediaries.com"
+    campus_newspaper_feed: "https://www.psucollegian.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.blackshoediaries.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_caveat] James Franklin reportedly fired Oct 2025 per search — verify current HC. Daily Collegian moved from collegian.psu.edu → psucollegian.com (RSS path preserved). Audrey Snyder (ex-Athletic, now Inside the Lions Substack) verified. GoPSUTV UC id not surfaced (lives at /user/GoPSUTV). Locked On Nittany Lions id=1432882263 → simplecast HnckP81G."
+
+  - team_slug: oregon
+    bluesky_beat_handles: ["@ryantclarke.bsky.social", "@oregoniansports.bsky.social"]
+    youtube_team_channel_id: "UC6hQ7rJDFcr0to1nC4XVegQ"
+    youtube_fan_channels: []
+    locked_on_rss: "https://feeds.simplecast.com/AqYl4jTm"
+    message_board_primary: "https://forum.fishduck.com/"
+    campus_newspaper_feed: "https://dailyemerald.com/feed/"
+    beat_writer_rss: "https://www.addictedtoquack.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Ryan Clarke (Oregonian/OregonLive) transitioned from Oregon State beat; verified. Our Beloved Ducks Forum at forum.fishduck.com is moderated/public — better than educkfans.com. ATQ site active (post from 2026-04-20)."
+
+  - team_slug: notre-dame
+    bluesky_beat_handles: ["@petesampson.bsky.social", "@tylerjameshill.bsky.social"]
+    youtube_team_channel_id: "UCAMR05qSc5mfhVx20fDyAoQ"
+    youtube_fan_channels: []
+    locked_on_rss: "https://feeds.simplecast.com/MBMdx979"
+    message_board_primary: "https://ndnation.com/boards/index.php"
+    campus_newspaper_feed: "https://ndsmcobserver.com/feed/"
+    beat_writer_rss: "https://www.onefootdown.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Pete Sampson (The Athletic) verified. Tyler James Hill handle may or may not be Tyler James (Inside ND Sports co-publisher, formerly Tribune) — verify with getProfile when available. Mike Berardino X-only. Locked On Irish id=1487898258 → simplecast MBMdx979. NDNation Rock's House free to read. One Foot Down SBN active April 2026."
+
+  # ================ ACC (3) ================
+  - team_slug: clemson
+    bluesky_beat_handles: ["@stsouthland.bsky.social", "@adavidhalejoint.bsky.social"]
+    youtube_team_channel_id: "UCiAcuTMKc_WBQGFjtPnjxJQ"
+    youtube_fan_channels: []
+    locked_on_rss: "https://itunes.apple.com/lookup?id=1490694021"
+    message_board_primary: "https://www.tigernet.com/clemson-forums"
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.shakinthesouthland.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "TigerNet free/public. Shakin the Southland SBN feed pattern-verified. Stsouthland bsky + David Hale (ESPN ACC) bsky both surfaced in search index. Locked On Clemson Apple id=1490694021 — resolve feedUrl via iTunes lookup in unblocked environment. thetigercu.com /feed/ path not verifiable in that run — null."
+
+  - team_slug: florida-state
+    bluesky_beat_handles: ["@tomahawknation.bsky.social"]
+    youtube_team_channel_id: null
+    youtube_fan_channels: ["UCF0kads13wbyg-43YiMvXBw", "UCOKiswdQlZtthKkyBi6Fieg"]
+    locked_on_rss: "https://itunes.apple.com/lookup?id=1435805103"
+    message_board_primary: null
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.tomahawknation.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "@FSUSeminoles channel UC id not surfaced (blocked og fetch). Warchant TV (fan/affiliate) UCF0kads13wbyg + Tomahawk Nation FSU UCOKiswdQlZtthKkyBi6Fieg found. Warchant forum paywalled; no free FSU board identified. FSView (Gannett) RSS unverified — null. Locked On Seminoles Apple id=1435805103."
+
+  - team_slug: miami
+    bluesky_beat_handles: []
+    youtube_team_channel_id: null
+    youtube_fan_channels: ["UC0DApVLAlrU8WJDY67AmMdA"]
+    locked_on_rss: "https://itunes.apple.com/lookup?id=1482691679"
+    message_board_primary: "https://www.canesinsight.com/forums/-/list"
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.stateoftheu.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Official Miami Hurricanes YouTube at /user/CanesAllAccess — UC-prefix ID not surfaced. Locked On Canes fan channel UC0DApVLAlrU8WJDY67AmMdA found. CanesInSight is free-reg public forum. Susan Miller Degnan retired Apr 2024; no indexed Herald Canes beat on Bluesky. themiamihurricane.com WP feed unverified. SOTU SBN pattern-verified. Locked On Canes Apple id=1482691679."
+
+  # ================ Big 12 (3) ================
+  - team_slug: texas-tech
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCeGcdO4Xell4mdc_RLIjEew"
+    youtube_fan_channels: []
+    locked_on_rss: "https://itunes.apple.com/lookup?id=1641366743"
+    message_board_primary: null
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.vivathematadors.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Search index shows vivathematadors active as of 2026 (contra earlier ACC agent finding — verify). Both free TTU boards (InsideTheRedRaiders/247, RedRaiderSports/Rivals) are paywalled VIP — message_board_primary null. dailytoreador.com live (SNworks) but RSS path unverified. Locked On Texas Tech Apple id=1641366743."
+
+  - team_slug: kansas-state
+    bluesky_beat_handles: ["@botc.bsky.social", "@jonfmorse.com"]
+    youtube_team_channel_id: null
+    youtube_fan_channels: ["UCj2P3JWoADDiat2CeNzPZsg"]
+    locked_on_rss: "https://itunes.apple.com/lookup?id=1781994644"
+    message_board_primary: null
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.bringonthecats.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "K-State Sports YouTube at /c/kstatesports — UC id not indexed. K-StateOnline fan YT UCj2P3JWoADDiat2CeNzPZsg. GoPowercat (Wabash Station) paywalled — null. BOTC bsky + Jon Morse ME bsky both surfaced. BOTC SBN RSS pattern-verified. Locked On Kansas State Apple id=1781994644."
+
+  - team_slug: byu
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCreL2UlUK2cV2OXZ4SGstBQ"
+    youtube_fan_channels: []
+    locked_on_rss: "https://itunes.apple.com/lookup?id=1430094842"
+    message_board_primary: "https://www.cougarboard.com/"
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.vanquishthefoe.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "BYU Cougars YouTube UCreL2UlUK2cV2OXZ4SGstBQ surfaced in search. CougarBoard free-public (post-signup). Vanquish The Foe active on SBN post-Aug-2025 migration. Jay Drew (Deseret News) + Brandon Judd X-only, no Bluesky. universe.byu.edu WP feed unverified. Locked On Cougars Apple id=1430094842."
+
+  # ================ G5 (3) ================
+  - team_slug: boise-state
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCw7-Uy9ACDofmfVbbZtu-1Q"
+    youtube_fan_channels: ["UCsjNMoNNeXTycXHB16KiwxA"]
+    locked_on_rss: "https://podcasts.apple.com/us/podcast/locked-on-boise-state-daily-podcast-on-boise-state/id1535116119"
+    message_board_primary: "https://broncofans.net"
+    campus_newspaper_feed: "https://arbiteronline.com/feed/"
+    beat_writer_rss: "https://www.underdogdynasty.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Spencer Danielson X @Coach_SD; no Bluesky. Locked On Boise State Apple id=1535116119 (host Chris Lewis). Bronco Nation News UCsjNMoNNeXTycXHB16KiwxA is primary fan YT."
+
+  - team_slug: memphis
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCzWw4a6Lp2uq891HbAT7ANw"
+    youtube_fan_channels: []
+    locked_on_rss: null
+    message_board_primary: "https://www.csnbbs.com/forumdisplay.php?fid=446"
+    campus_newspaper_feed: "https://www.dailyhelmsman.com/feed/"
+    beat_writer_rss: "https://www.underdogdynasty.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "No Locked On Memphis Tigers exists (Locked On Tigers=Detroit MLB). TigerSportsReport paywalled (On3/Rivals). MemphisTigers.org on CSNbbs is free-public. Commercial Appeal is [gannett]."
+
+  - team_slug: tulane
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCNSyUGDZ0M4ATau4PkmNp9g"
+    youtube_fan_channels: []
+    locked_on_rss: null
+    message_board_primary: "https://www.yogwf.com/"
+    campus_newspaper_feed: "https://tulanehullabaloo.com/feed/"
+    beat_writer_rss: "https://www.underdogdynasty.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_update] Jon Sumrall left for Florida Dec 8 2025; Will Hall promoted to HC. Update priority_teams.yaml coach field. Will Hall not on Bluesky. YOGWF (Ye Olde Green Wave Forum) is definitive free public board."
+
+  # ================ HBCU (2) ================
+  - team_slug: jackson-state
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UC6Dsfl2JQfxbxfjrKqMLjSQ"
+    youtube_fan_channels: ["UCoMv284iYWxL3JSY-9agY2w"]
+    locked_on_rss: null
+    message_board_primary: null
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://hbcugameday.com/tag/jackson-state/feed/"
+    head_coach_bsky: null
+    notes: "[coach] T.C. Taylor verified current HC. JSU student paper is 'The Blue & White Flash' at jsumsnews.com — NOT thebluprint.com (that's a PA HS paper; fix seed). No verified RSS for Flash; null. No free JSU fan board. HBCU Gameday YT UCoMv284iYWxL3JSY-9agY2w covers JSU + Howard."
+
+  - team_slug: howard
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCdjDhKcFwA6vAWnrBCiq3vA"
+    youtube_fan_channels: ["UCoMv284iYWxL3JSY-9agY2w"]
+    locked_on_rss: null
+    message_board_primary: null
+    campus_newspaper_feed: "https://thehilltoponline.com/feed/"
+    beat_writer_rss: "https://hbcugameday.com/tag/howard/feed/"
+    head_coach_bsky: null
+    notes: "[coach_update] Ted White named HC Jan 14 2026 (Larry Scott era ended). Update seed/coach field. Howard athletics primary YT UCdjDhKcFwA6vAWnrBCiq3vA (HUBisonSports)."
+
+
+# ============================================================
+# 2. PREDICTION MARKETS
+# ============================================================
+# Kalshi tickers: format confirmed as KX-prefix for CFB markets. The
+# specific event-ticker strings below were best-inferred from Kalshi's
+# ticker conventions (KXNCAAF* family) but the subagent couldn't confirm
+# each against a live kalshi.com page due to JS rendering. BEFORE SEEDING,
+# validate each by loading the ticker in the Kalshi API with auth.
+# Polymarket slugs verified via gamma-api.polymarket.com (live fetch).
+prediction_markets:
+  kalshi:
+    - ticker: "KXNCAAF-27"
+      label: "College Football National Championship Winner (2026-27)"
+      needs_validation: true
+    - ticker: "KXHEISMAN-27"
+      label: "Heisman Trophy Winner (2026-27)"
+      needs_validation: true
+    - ticker: "KXNCAAFSEC-26"
+      label: "SEC Champion 2026"
+      needs_validation: true
+    - ticker: "KXNCAAFB10-26"
+      label: "Big Ten Champion 2026"
+      needs_validation: true
+    - ticker: "KXNCAAFACC-26"
+      label: "ACC Champion 2026"
+      needs_validation: true
+    - ticker: "KXNCAAFB12-26"
+      label: "Big 12 Champion 2026"
+      needs_validation: true
+    - ticker: "KXNCAAFCONF-26"
+      label: "Conference to Win the National Championship 2026"
+      needs_validation: true
+    - ticker: "KXNCAAFCOTY-27"
+      label: "College Football Coach of the Year 2026-27"
+      needs_validation: true
+    - ticker: "KXNCAAFFINALIST-27"
+      label: "CFP National Championship Qualifiers 2026-27"
+      needs_validation: true
+    - ticker: "KXNDJOINCONF-27"
+      label: "Notre Dame Football to Join a Conference before 2027-28"
+      needs_validation: true
+
+  polymarket:
+    - slug: "will-texas-longhorns-win-the-2027-cfp-national-championship"
+      label: "Texas win 2027 CFP National Championship"
+    - slug: "will-oregon-ducks-win-the-2027-cfp-national-championship"
+      label: "Oregon win 2027 CFP National Championship"
+    - slug: "will-texas-am-aggies-win-the-2027-cfp-national-championship"
+      label: "Texas A&M win 2027 CFP National Championship"
+    - slug: "will-michigan-wolverines-win-the-2027-cfp-national-championship"
+      label: "Michigan win 2027 CFP National Championship"
+    - slug: "will-ohio-state-buckeyes-win-the-2027-cfp-national-championship"
+      label: "Ohio State win 2027 CFP National Championship"
+    - slug: "will-notre-dame-fighting-irish-win-the-2027-cfp-national-championship"
+      label: "Notre Dame win 2027 CFP National Championship"
+    - slug: "will-georgia-bulldogs-win-the-2027-cfp-national-championship"
+      label: "Georgia win 2027 CFP National Championship"
+    - slug: "will-alabama-crimson-tide-win-the-2027-cfp-national-championship"
+      label: "Alabama win 2027 CFP National Championship"
+    - slug: "will-miami-hurricanes-win-the-2027-cfp-national-championship"
+      label: "Miami win 2027 CFP National Championship"
+    - slug: "will-lsu-tigers-win-the-2027-cfp-national-championship"
+      label: "LSU win 2027 CFP National Championship"
+
+
+# ============================================================
+# 3. BLUESKY STARTER PACKS
+# ============================================================
+# NOTE: URIs below are bsky.app web URLs, not at:// DID URIs. To convert
+# to canonical at:// form, resolve curator.did + pack rkey via
+# `https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle`
+# then construct `at://<did>/app.bsky.graph.starterpack/<rkey>`. The
+# bluesky-harvest-starterpacks CLI should handle this.
+bluesky_starter_packs:
+  - uri: "https://bsky.app/starter-pack/braggbobby.bsky.social/3latzu56uds2x"
+    name: "College Football #CFB"
+    curator: "@braggbobby.bsky.social"
+  - uri: "https://bsky.app/starter-pack/ryanmccrystal.bsky.social/3latk4qvhch2t"
+    name: "College Football Starter Pack"
+    curator: "@ryanmccrystal.bsky.social"
+  - uri: "https://bsky.app/starter-pack/slmandel.bsky.social/3lawsetaiw62f"
+    name: "College Football Media"
+    curator: "@slmandel.bsky.social"
+  - uri: "https://bsky.app/starter-pack/redditcfb.com/3lazi46gmap2m"
+    name: "College Football Twitter"
+    curator: "@redditcfb.com"
+  - uri: "https://bsky.app/starter-pack/ajblack247.bsky.social/3lbzlppgsxl2x"
+    name: "College Sports Writers/Media"
+    curator: "@ajblack247.bsky.social"
+
+
+# ============================================================
+# 4. TIKTOK CREATORS
+# ============================================================
+# PASS INCOMPLETE — only 7 of the requested 30 creators verified before
+# the subagent hit its time budget. HBCU section is empty. Recommend a
+# focused follow-up pass using Chrome browser tools (TikTok blocks most
+# server-side fetches; JS rendering required for follower counts).
+tiktok_creators:
+  national:
+    - handle: "@cfbonfox"
+      followers_approx: 1100000
+  team_aligned:
+    - handle: "@ohiostatefb"
+      team_slug: "ohio-state"
+      followers_approx: 705800
+    - handle: "@uofalabama"
+      team_slug: "alabama"
+      followers_approx: 175300
+    - handle: "@texasfootball"
+      team_slug: "texas"
+      followers_approx: 122100
+    - handle: "@oregonfootball"
+      team_slug: "oregon"
+      followers_approx: 305100
+    - handle: "@vol_football"
+      team_slug: "tennessee"
+      followers_approx: 934000
+    - handle: "@canesfootball"
+      team_slug: "miami"
+      followers_approx: 19400
+  hbcu: []
+
+
+# ============================================================
+# 5. REPLACEMENT URLS (26 items)
+# ============================================================
+# 22 live replacements + 4 irredeemable (Athletic author/section RSS
+# disabled, 2 Substacks deleted). All non-null URLs verified live with
+# 200 status and valid XML per subagent (73 WebFetch calls).
+replacements:
+  - replacement_for: "beat_alabama_tuscaloosa_news_cecil"
+    new_url: "https://www.rollbamaroll.com/rss/index.xml"
+    new_writer_slug: "roll_bama_roll"
+    notes: "Gannett tuscaloosanews.com killed RSS; SBN Roll Bama Roll atom feed verified 200 + valid XML"
+
+  - replacement_for: "beat_clemson_greenville_news"
+    new_url: "https://www.shakinthesouthland.com/rss/index.xml"
+    new_writer_slug: "shakin_the_southland"
+    notes: "Gannett greenvilleonline.com dead; SBN Shakin The Southland atom feed verified 200 + valid XML"
+
+  - replacement_for: "beat_florida-state_tallahassee_democrat"
+    new_url: "https://www.tomahawknation.com/rss/index.xml"
+    new_writer_slug: "tomahawk_nation"
+    notes: "Gannett tallahassee.com dead; SBN Tomahawk Nation atom feed verified 200 + valid XML"
+
+  - replacement_for: "beat_jackson-state_clarion_ledger"
+    new_url: "https://hbcugameday.com/tag/jackson-state/feed/"
+    new_writer_slug: "hbcu_gameday_jackson_state"
+    notes: "Gannett clarionledger.com RSS dead; HBCU Gameday tag feed verified 200 + valid RSS XML"
+
+  - replacement_for: "beat_kansas-state_topeka_capital"
+    new_url: "https://www.bringonthecats.com/rss/index.xml"
+    new_writer_slug: "bring_on_the_cats"
+    notes: "Gannett cjonline.com dead; SBN Bring On The Cats atom feed verified 200 + valid XML"
+
+  - replacement_for: "beat_memphis_commercial_appeal"
+    new_url: "https://www.underdogdynasty.com/rss/index.xml"
+    new_writer_slug: "underdog_dynasty_memphis"
+    notes: "Gannett commercialappeal.com dead; SBN Underdog Dynasty (G5 including Memphis/AAC) atom feed verified 200 + valid XML"
+
+  - replacement_for: "beat_michigan_detroit_free_press_um"
+    new_url: "https://www.maizenbrew.com/rss/index.xml"
+    new_writer_slug: "maize_n_brew"
+    notes: "Gannett freep.com dead; SBN Maize n Brew atom feed verified 200 + valid XML"
+
+  - replacement_for: "beat_ohio-state_dispatch_osu"
+    new_url: "https://www.landgrantholyland.com/rss/index.xml"
+    new_writer_slug: "land_grant_holy_land"
+    notes: "Gannett dispatch.com dead; SBN Land-Grant Holy Land atom feed verified 200 + valid XML"
+
+  - replacement_for: "beat_tennessee_knoxville_sentinel_football"
+    new_url: "https://www.rockytopinsider.com/feed/"
+    new_writer_slug: "rocky_top_insider"
+    notes: "Gannett knoxnews.com dead; Rocky Top Insider WordPress RSS verified 200 + valid XML"
+
+  - replacement_for: "beat_texas-tech_lubbock_avalanche"
+    new_url: "https://wreckemred.com/feed"
+    new_writer_slug: "wreck_em_red"
+    notes: "Gannett lubbockonline.com dead; vivathematadors status ambiguous across subagent runs — FanSided Wreck Em Red RSS verified 200 + valid XML"
+
+  - replacement_for: "podcast_finebaum_rss"
+    new_url: "https://feeds.megaphone.fm/ESP1569616864"
+    new_writer_slug: "finebaum_rss"
+    notes: "Old art19 URL 404; current ESPN feed per iTunes lookup id=687989405; verified 200 + valid RSS XML"
+
+  - replacement_for: "podcast_split_zone_duo"
+    new_url: "https://api.substack.com/feed/podcast/2043967.rss"
+    new_writer_slug: "split_zone_duo"
+    notes: "Old megaphone URL 404; show moved to Substack podcast hosting per iTunes lookup id=1532830225; verified 200 + Content-Type application/rss+xml"
+
+  - replacement_for: "podcast_the_solid_verbal"
+    new_url: "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/21437ee1-47d9-4b16-8696-b30d011a2c26/51c7e0eb-425c-4d93-b5a8-b30d011a2c46/podcast.rss"
+    new_writer_slug: "the_solid_verbal"
+    notes: "Old simplecast URL 404; show now on Omny per iTunes lookup id=270037732; verified 200 + valid RSS XML (9MB feed, 1041 episodes)"
+
+  - replacement_for: "podcast_the_audible"
+    new_url: "https://feeds.acast.com/public/shows/681ccd385acb8b715f1f94f4"
+    new_writer_slug: "the_audible"
+    notes: "Old simplecast URL 404; show moved to Acast per iTunes lookup id=884362991 (authoritative feedUrl); returns 200 — Acast serves RSS to podcast-client user-agents (HTML preview to browsers)"
+
+  - replacement_for: "locked_on_alabama"
+    new_url: "https://feeds.simplecast.com/w5B7c1tY"
+    new_writer_slug: "locked_on_bama"
+    notes: "Old megaphone guess 404; show is 'Locked On Bama' per Apple Podcasts id=1432888130; simplecast feed verified 200 + valid RSS XML"
+
+  - replacement_for: "locked_on_georgia"
+    new_url: "https://feeds.simplecast.com/_NxJ3Otx"
+    new_writer_slug: "locked_on_bulldogs"
+    notes: "Old megaphone guess 404; show is 'Locked On Bulldogs' per Apple Podcasts id=1416696175; simplecast feed verified 200 + valid RSS XML"
+
+  - replacement_for: "locked_on_lsu"
+    new_url: "https://feeds.simplecast.com/4q9SasrY"
+    new_writer_slug: "locked_on_lsu"
+    notes: "Old megaphone guess 404; per Apple Podcasts id=1436406950; simplecast feed verified 200 + valid RSS XML"
+
+  - replacement_for: "locked_on_buckeyes"
+    new_url: "https://feeds.simplecast.com/SBG23EyJ"
+    new_writer_slug: "locked_on_buckeyes"
+    notes: "Old megaphone guess 404; per Apple Podcasts id=1435805039; simplecast feed verified 200 + valid RSS XML"
+
+  - replacement_for: "locked_on_wolverines"
+    new_url: "https://feeds.simplecast.com/nWPZmiJH"
+    new_writer_slug: "locked_on_wolverines"
+    notes: "Old megaphone guess 404; per Apple Podcasts id=1435805049; simplecast feed verified 200 + valid RSS XML"
+
+  - replacement_for: "locked_on_ducks"
+    new_url: "https://feeds.simplecast.com/AqYl4jTm"
+    new_writer_slug: "locked_on_ducks"
+    notes: "Old megaphone guess 404; per Apple Podcasts id=1498561450; simplecast feed verified 200 + valid RSS XML"
+
+  - replacement_for: "locked_on_college_football"
+    new_url: "https://feeds.simplecast.com/ktLwutiF"
+    new_writer_slug: "locked_on_college_football"
+    notes: "Old megaphone guess 404; per Apple Podcasts id=1481366133; simplecast feed verified 200 + valid RSS XML"
+
+  - replacement_for: "extra_points"
+    new_url: "https://extrapoints.substack.com/feed"
+    new_writer_slug: "extra_points"
+    notes: "Old extrapointsmb.com/feed 404; newsletter now at extrapoints.substack.com; feed verified 200 + Content-Type application/rss+xml"
+
+  - replacement_for: "max_olson"
+    new_url: null
+    new_writer_slug: null
+    notes: "The Athletic disabled per-author RSS; Max Olson left The Athletic for ESPN (2024) and has no personal RSS; no working alternative"
+
+  - replacement_for: "recruiting_scoops"
+    new_url: null
+    new_writer_slug: null
+    notes: "recruitingscoops.substack.com returns Substack Not Found page; no surviving identity under that name found via search; null per rules"
+
+  - replacement_for: "swindle_stats"
+    new_url: null
+    new_writer_slug: null
+    notes: "swindlestats.substack.com returns Substack Not Found page; no alternate CFB analytics newsletter identifiable as the same author; null per rules"
+
+  - replacement_for: "the_athletic_cfb"
+    new_url: null
+    new_writer_slug: null
+    notes: "The Athletic disabled section-level RSS (theathletic.com/college-football/feed/ 404); no public RSS alternative for aggregated Athletic CFB coverage"
+
+
+# ============================================================
+# 6. SIDE-FINDINGS: HEAD-COACH UPDATES SURFACED DURING RESEARCH
+# ============================================================
+# Not in the requested YAML shape — flagging separately because these
+# are cheap schema fixes for priority_teams.yaml that came up while
+# verifying Bluesky handles. Confirm each before applying.
+coach_updates:
+  - team_slug: tulane
+    current_coach: "Will Hall"
+    previous_coach: "Jon Sumrall"
+    effective: "2025-12-08"
+    source: "search results confirm Sumrall → Florida hire Dec 2025, Hall promoted internally"
+    confidence: high
+
+  - team_slug: howard
+    current_coach: "Ted White"
+    previous_coach: "Larry Scott"
+    effective: "2026-01-14"
+    source: "search results confirm White named HC Jan 2026"
+    confidence: high
+
+  - team_slug: michigan
+    current_coach_caveat: "Sherrone Moore reportedly fired per 2025-era ESPN search result; current HC unclear"
+    confidence: low_verify_manually
+
+  - team_slug: penn-state
+    current_coach_caveat: "James Franklin reportedly fired Oct 2025 per search result; current HC unclear"
+    confidence: low_verify_manually
+
+
+# ============================================================
+# 7. SEED-FILE FIX: JACKSON STATE STUDENT PAPER
+# ============================================================
+# thebluprint.com is a Pennsylvania high school paper (Bellwood-Antis HS),
+# not JSU. JSU's actual student paper is "The Blue & White Flash" at
+# jsumsnews.com. No verified RSS feed for The Flash — leave campus_
+# newspaper_feed null for jackson-state in priority_teams.yaml.
+seed_corrections:
+  - file: "seeds/priority_teams.yaml"
+    team_slug: "jackson-state"
+    field: "campus_newspaper_feed"
+    current_value: "https://thebluprint.com/feed/"
+    correct_value: null
+    reason: "thebluprint.com is Bellwood-Antis HS (Pennsylvania), not JSU. JSU paper is The Blue & White Flash at jsumsnews.com; no public RSS."

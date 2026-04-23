@@ -1,0 +1,43 @@
+# Bluesky curated handles - national / team-agnostic CFB media.
+# Harvested 2026-04-23 via bluesky-harvest-starterpacks from Mandel's
+# "College Football Media" + redditcfb.com's "College Football Twitter"
+# starter packs (both resolved-DID packs from Deep Research pass 2).
+#
+# These handles are NOT team-specific beat writers; they cover CFB at a
+# national or topical level. BlueskyCuratedAdapter currently reads only
+# per-team handles from priority_teams.bluesky_beat_handles - a follow-up
+# "global curated" adapter should pull this list on the same cadence.
+
+handles:
+  - handle: andrewmarchand.bsky.social
+    focus: "Sports media (sports business, CFB media rights)"
+  - handle: brucefeldmancfb.bsky.social
+    focus: "FOX / The Athletic national CFB"
+  - handle: chrisvannini.com
+    focus: "The Athletic (national CFB)"
+  - handle: edsbs.bsky.social
+    focus: "Every Day Should Be Saturday founder / Spencer Hall"
+  - handle: espnbillc.bsky.social
+    focus: "ESPN (Bill Connelly - advanced stats + SP+ ratings)"
+  - handle: jasonkirk.fyi
+    focus: "Shutdown Fullcast / independent CFB"
+  - handle: jessicasmetana.bsky.social
+    focus: "College GameDay / national CFB"
+  - handle: mattbrown.bsky.social
+    focus: "Extra Points newsletter founder"
+  - handle: mikegolicjr.bsky.social
+    focus: "ESPN Radio / national CFB"
+  - handle: nauerbach.com
+    focus: "Sports Illustrated / national CFB"
+  - handle: redditcfb.com
+    focus: "r/CFB collective account"
+  - handle: richarddeitsch.bsky.social
+    focus: "Sports media beat / CFB coverage"
+  - handle: rodger.bsky.social
+    focus: "ESPN (Rodger Sherman) - national CFB analytics"
+  - handle: sickoscommittee.org
+    focus: "Mercenary CFB humor / Sickos collective"
+  - handle: slmandel.bsky.social
+    focus: "The Athletic senior CFB writer (Stewart Mandel)"
+  - handle: stevengodfrey.bsky.social
+    focus: "Shutdown Fullcast / independent CFB"

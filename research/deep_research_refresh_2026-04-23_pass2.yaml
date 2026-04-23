@@ -1,0 +1,629 @@
+# Deep Research Refresh — PASS 2 (2026-04-23, late-afternoon)
+# Supersedes deep_research_refresh_2026-04-23.yaml. Same schema.
+#
+# Pass-2 focused on 2025-2026 freshness per user: "extremely recent data,
+# best sources from 2025-2026, not stale outlets."
+#
+# MAJOR DELTAS FROM PASS 1
+#   * FIVE head-coach changes missed in pass 1 (big one: LSU, Michigan,
+#     Penn State, Kansas State, Memphis all swapped HC Oct-Dec 2025).
+#   * FOUR Locked On iTunes-lookup placeholders resolved to real
+#     simplecast feedUrls (FSU, Miami, K-State, BYU). Clemson, TTU,
+#     Boise State remain UNRESOLVED — iTunes API was blocked in the
+#     final verification subagent and couldn't be completed.
+#   * Jackson State YouTube UC ID FIX — previous UC6Dsfl2JQfxbxfjrKqMLjSQ
+#     was a YouTube TV browse ID, not a channel ID. Real one is
+#     UC3OgCd_-LUEcMlpv9QGrQqw (pending live title verification).
+#   * Penn State + Florida State team UC IDs added (were null).
+#   * Kalshi tickers 9/10 VALIDATED against live kalshi.com URLs; the
+#     one miss was KXHEISMAN-27 → corrected to KXHEISMAN-26. Also
+#     added 5 newly-discovered CFB markets including a Michigan-
+#     specific next-coach market that's relevant given the Moore firing.
+#   * TWO starter-pack DIDs resolved via indirect evidence (Mandel,
+#     redditcfb). Three others still unresolved pending direct API.
+#   * Bluesky handle @tylerjameshill.bsky.social DROPPED — it is NOT
+#     the Notre Dame beat writer Tyler James (that's @TJamesND on X,
+#     no Bluesky). Two other handles flagged as potentially-stale for
+#     manual verify.
+#   * TikTok national expanded from 1 → 7; team-aligned 6 → 10 (one
+#     dropped for <50k); HBCU 0 → 1 (@hbcubuzz).
+#     TikTok last-post freshness unverifiable via unauth web (video
+#     grid is login-walled); follower counts confirmed via Chrome.
+#
+# REMAINING GAPS (need egress or manual)
+#   * Locked On RSS: Clemson, Texas Tech, Boise State (Apple IDs known)
+#   * Starter pack DIDs: braggbobby, ryanmccrystal, ajblack247
+#   * Miami team YouTube UC ID (canesallaccess at legacy /user/ URL)
+#   * Campus paper feeds: Clemson, FSU, Miami, TTU, K-State, BYU, JSU
+#     (unverified XML — proxy blocked)
+#   * Bluesky beat handles for 8 teams (Miami, TTU, BYU, Boise, Memphis,
+#     Tulane, JSU, Howard — searchActors API blocked)
+
+# ============================================================
+# 1. PRIORITY TEAMS (21) — REFRESHED
+# ============================================================
+priority_teams:
+
+  # ================ SEC (5) ================
+  - team_slug: alabama
+    head_coach: "Kalen DeBoer"  # extended through 2033 season per rolltide.com 2026-04-22
+    bluesky_beat_handles: ["@bycasagrande.bsky.social", "@nickkelly.bsky.social"]
+    youtube_team_channel_id: "UCUQis-AjFEA1AgRbnTbuBqA"
+    youtube_fan_channels: ["UCXovZWLiLAQwhc07L_TuHYQ", "UCXLM426XzspM1Ea4aXWMhhw"]
+    locked_on_rss: "https://feeds.simplecast.com/w5B7c1tY"
+    message_board_primary: "https://www.tidefans.com/forums/"
+    campus_newspaper_feed: "https://cw.ua.edu/feed/"
+    beat_writer_rss: "https://www.rollbamaroll.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "DeBoer contract extension through 2033 (2026-04-22). Casagrande + Kelly AL.com beat."
+
+  - team_slug: georgia
+    head_coach: "Kirby Smart"  # entering 11th season, no change
+    bluesky_beat_handles: ["@sethemerson.bsky.social"]
+    youtube_team_channel_id: "UCiK5OOII_B2-RKW7HsTkXRw"
+    youtube_fan_channels: ["UCx1fIh0oakoyniYnrNxgaTg", "UC18DBD7YEdN3XDa8IEclzjw"]
+    locked_on_rss: "https://feeds.simplecast.com/_NxJ3Otx"
+    message_board_primary: "https://www.dawgvent.com/"
+    campus_newspaper_feed: "https://www.redandblack.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.dawgsports.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Smart entering 11th season. AJC Chip Towers retired; Emerson is strongest verified handle."
+
+  - team_slug: lsu
+    head_coach: "Lane Kiffin"  # [COACH CHANGE] Brian Kelly fired 2025-10-26; Kiffin hired Nov 2025 from Ole Miss
+    bluesky_beat_handles: ["@kokiriley.bsky.social", "@wilsonalexander.bsky.social"]
+    youtube_team_channel_id: "UC7JKiKZ5xphFgqrZAtsYlTQ"
+    youtube_fan_channels: ["UCJgVefj_p3xeFnM4JBpD5Hg", "UCcqQ2qdzAvXe81IQI48qB2g"]
+    locked_on_rss: "https://feeds.simplecast.com/4q9SasrY"
+    message_board_primary: "https://www.tigerdroppings.com/rant/lsu-sports/"
+    campus_newspaper_feed: "https://www.lsureveille.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.andthevalleyshook.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_change] Kelly → Kiffin Nov 2025. Koki Riley + Wilson Alexander (both Advocate/NOLA) show 2026-era post IDs in search — likely fresh."
+
+  - team_slug: tennessee
+    head_coach: "Josh Heupel"
+    bluesky_beat_handles: ["@bymikewilson.bsky.social", "@tennesseerivals.bsky.social"]
+    youtube_team_channel_id: "UCD9UkxpIo5W16Ou3eo4eZbA"
+    youtube_fan_channels: ["UCH9YFd-kZe4jscnWfDyRU_Q", "UCwSUMCWwc-GOnGTB7n8UnXg"]
+    locked_on_rss: "https://feeds.simplecast.com/bGDwSDbR"
+    message_board_primary: "https://www.volnation.com/forum/"
+    campus_newspaper_feed: "https://www.utdailybeacon.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.rockytoptalk.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Mike Wilson FRESH (post dated 2026-03-29 surfaced)."
+
+  - team_slug: texas
+    head_coach: "Steve Sarkisian"  # hot seat but retained
+    bluesky_beat_handles: ["@danny-davis.bsky.social"]
+    youtube_team_channel_id: "UCFINGaivm4gMWK-UFqNwZvA"
+    youtube_fan_channels: ["UCxBJ2uOG2ordSgq5mnkhWAA", "UCvAKYkiGBfPyYdfStKhT1AQ"]
+    locked_on_rss: "https://feeds.simplecast.com/S6lYsUlD"
+    message_board_primary: "https://www.shaggytexas.com/"
+    campus_newspaper_feed: "https://thedailytexan.com/feed/"
+    beat_writer_rss: "https://www.burntorangenation.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Sarkisian on hot seat, retained. ShaggyBevo → ShaggyTexas post-trademark action."
+
+  # ================ B1G (4) + Independents (Notre Dame) ================
+  - team_slug: ohio-state
+    head_coach: "Ryan Day"
+    bluesky_beat_handles: ["@joeyrkaufman.bsky.social", "@billrabinowitz.bsky.social", "@cdadamjardy.bsky.social", "@elevenwarriors.com"]
+    youtube_team_channel_id: "UClUenqlbOKb11Hx0AuIWjjA"
+    youtube_fan_channels: ["UCnVlvNjWQFrIxVx6X2HtQgw"]
+    locked_on_rss: "https://feeds.simplecast.com/SBG23EyJ"
+    message_board_primary: "https://www.elevenwarriors.com/forum"
+    campus_newspaper_feed: "https://www.thelantern.com/feed/"
+    beat_writer_rss: "https://www.landgrantholyland.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Rabinowitz + @elevenwarriors.com both LIKELY FRESH (cross-posting active 2026). Jardy covers hoops, retained for cross-sport."
+
+  - team_slug: michigan
+    head_coach: "Kyle Whittingham"  # [COACH CHANGE] Sherrone Moore fired 2025-12-10 (for cause); Whittingham (ex-Utah) hired on 5-yr deal
+    bluesky_beat_handles: ["@realtonygarcia.bsky.social", "@mgoblog.bsky.social"]
+    youtube_team_channel_id: "UC-je1DMrkGkWSw_ewnt0rkA"
+    youtube_fan_channels: []
+    locked_on_rss: "https://feeds.simplecast.com/nWPZmiJH"
+    message_board_primary: "https://mgoblog.com/mgoboard"
+    campus_newspaper_feed: "https://www.michigandaily.com/feed/"
+    beat_writer_rss: "https://www.maizenbrew.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_change] Moore fired Dec 2025 for cause; Whittingham hired from Utah. DROPPED @angeliquesc.bsky.social (handle existence unconfirmed) + @mgoseth.bsky.social (last surfaced post Feb 2025, likely stale)."
+
+  - team_slug: penn-state
+    head_coach: "Matt Campbell"  # [COACH CHANGE] James Franklin fired 2025-10-12; Terry Smith interim; Campbell (from Iowa State) hired after 58-day search
+    bluesky_beat_handles: []  # [drop] @audreysnyder.bsky.social flagged stale — Athletic ended full-time PSU coverage April 2025; she's solo on Substack now; no post snippet after that
+    youtube_team_channel_id: "UC4hTOSIeyTNXVami5IqxXyg"  # [new] was null
+    youtube_fan_channels: ["UChxdUL75n6RsZUX17SXbcew"]
+    locked_on_rss: "https://feeds.simplecast.com/HnckP81G"
+    message_board_primary: "https://www.blackshoediaries.com"
+    campus_newspaper_feed: "https://www.psucollegian.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc"
+    beat_writer_rss: "https://www.blackshoediaries.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_change] Franklin fired Oct 2025; Campbell hired. Audrey Snyder likely stale on Bluesky — consider Substack 'Inside the Lions' RSS instead if that exists."
+
+  - team_slug: oregon
+    head_coach: "Dan Lanning"
+    bluesky_beat_handles: ["@ryantclarke.bsky.social", "@oregoniansports.bsky.social"]
+    youtube_team_channel_id: "UC6hQ7rJDFcr0to1nC4XVegQ"
+    youtube_fan_channels: []
+    locked_on_rss: "https://feeds.simplecast.com/AqYl4jTm"
+    message_board_primary: "https://forum.fishduck.com/"
+    campus_newspaper_feed: "https://dailyemerald.com/feed/"
+    beat_writer_rss: "https://www.addictedtoquack.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Ryan Clarke LIKELY FRESH (2026 post ID surfaced)."
+
+  - team_slug: notre-dame
+    head_coach: "Marcus Freeman"  # retained despite NFL interest; new extension signed
+    bluesky_beat_handles: ["@petesampson.bsky.social"]  # [drop] @tylerjameshill.bsky.social was NOT the ND beat writer Tyler James — it's a different 'Tyler' account
+    youtube_team_channel_id: "UCAMR05qSc5mfhVx20fDyAoQ"
+    youtube_fan_channels: ["UC6yeifyW6tb-PPaCFKN45xw"]  # [new] Irish Illustrated (Rivals network)
+    locked_on_rss: "https://feeds.simplecast.com/MBMdx979"
+    message_board_primary: "https://ndnation.com/boards/index.php"
+    campus_newspaper_feed: "https://ndsmcobserver.com/feed/"
+    beat_writer_rss: "https://www.onefootdown.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Freeman extended Mar 2026. DROPPED @tylerjameshill.bsky.social — that handle is NOT Tyler James (the ND beat writer), it's unrelated. Tyler James (247/BGI) is X-only (@TJamesND). Irish Illustrated added to fan YT."
+
+  # ================ ACC (3) ================
+  - team_slug: clemson
+    head_coach: "Dabo Swinney"  # hot seat after 7-5, retained
+    bluesky_beat_handles: ["@stsouthland.bsky.social", "@adavidhalejoint.bsky.social"]
+    youtube_team_channel_id: "UCiAcuTMKc_WBQGFjtPnjxJQ"
+    youtube_fan_channels: []
+    locked_on_rss: null  # Apple id 1490694021; feedUrl UNRESOLVED — iTunes lookup blocked
+    locked_on_apple_id: 1490694021
+    message_board_primary: "https://www.tigernet.com/clemson-forums"
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.shakinthesouthland.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Swinney retained despite 7-5 hot seat. Locked On Clemson Apple id=1490694021 — run iTunes lookup from unblocked env to resolve."
+
+  - team_slug: florida-state
+    head_coach: "Mike Norvell"  # hot seat, retained
+    bluesky_beat_handles: ["@tomahawknation.bsky.social"]
+    youtube_team_channel_id: "UCUZBUFtB6gVyYuNm-eIWZaw"  # [new] was null
+    youtube_fan_channels: ["UCF0kads13wbyg-43YiMvXBw", "UCOKiswdQlZtthKkyBi6Fieg"]
+    locked_on_rss: "https://feeds.simplecast.com/zO6d7bff"  # [resolved] was iTunes lookup placeholder
+    message_board_primary: "https://chopchat.com/"  # [new] was null; Chop Chat is free SBN-style FSU site
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.tomahawknation.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Norvell retained. Locked On Seminoles resolved to simplecast/zO6d7bff via search."
+
+  - team_slug: miami
+    head_coach: "Mario Cristobal"
+    bluesky_beat_handles: []  # Susan Miller Degnan retired Apr 2024; no replacement on Bluesky surfaced
+    youtube_team_channel_id: null  # canesallaccess on /user/ URL; UC id unresolved (do NOT use UCNIGsYFa0blRB4dy_OnfRxQ — that's a YouTube TV browse ID)
+    youtube_fan_channels: ["UC0DApVLAlrU8WJDY67AmMdA"]
+    locked_on_rss: "https://feeds.simplecast.com/zdc1bsy4"  # [resolved]
+    message_board_primary: "https://www.canesinsight.com/forums/-/list"
+    campus_newspaper_feed: "https://themiamihurricane.com/feed/"  # [unchanged but unverified; high-confidence WordPress pattern]
+    beat_writer_rss: "https://www.stateoftheu.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Locked On Canes resolved to simplecast/zdc1bsy4. Miami Herald beat unstaffed on Bluesky post-Degnan retirement. Official YT UC id still unknown — grab manually from youtube.com/@canesallaccess source."
+
+  # ================ Big 12 (3) ================
+  - team_slug: texas-tech
+    head_coach: "Joey McGuire"
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCeGcdO4Xell4mdc_RLIjEew"
+    youtube_fan_channels: []
+    locked_on_rss: null  # Apple id 1641366743; feedUrl UNRESOLVED
+    locked_on_apple_id: 1641366743
+    message_board_primary: "http://www.vivathematadors.com/"  # [new] SBN-style free forum; comments active
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.vivathematadors.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Both paywalled boards excluded. Viva The Matadors is free. Locked On TTU Apple id=1641366743."
+
+  - team_slug: kansas-state
+    head_coach: "Collin Klein"  # [COACH CHANGE] Chris Klieman retired Dec 2025; Klein (2012 Heisman finalist, ex-TAMU OC) hired 2025-12-04 on 5-yr $4.3M/yr deal
+    bluesky_beat_handles: ["@botc.bsky.social", "@jonfmorse.com"]
+    youtube_team_channel_id: "UCj2P3JWoADDiat2CeNzPZsg"  # [new] was null; K-StateOnline channel
+    youtube_fan_channels: []
+    locked_on_rss: "https://feeds.simplecast.com/OTUUuVoI"  # [resolved]
+    message_board_primary: "https://www.k-statefans.com/forums/"  # [new] was null; free phpBB forum
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.bringonthecats.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_change] Klieman → Klein Dec 2025. Locked On K-State resolved. k-statefans.com free forum with 2026 threads."
+
+  - team_slug: byu
+    head_coach: "Kalani Sitake"  # turned down Penn State, extended 2025-12-02
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCreL2UlUK2cV2OXZ4SGstBQ"
+    youtube_fan_channels: ["UCPGJ6U6tzIKHubr5zFWFZLw"]  # [new] BYUtv Sports Nation
+    locked_on_rss: "https://feeds.simplecast.com/DzohBBeS"  # [resolved]
+    message_board_primary: "https://www.cougarboard.com/"
+    campus_newspaper_feed: null
+    beat_writer_rss: "https://www.vanquishthefoe.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Sitake extended post-Penn State flirt. Jay Drew X-only (@drewjay), no Bluesky. Locked On Cougars resolved."
+
+  # ================ G5 (3) ================
+  - team_slug: boise-state
+    head_coach: "Spencer Danielson"  # extended through 2030 per 2026-04-20
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCw7-Uy9ACDofmfVbbZtu-1Q"
+    youtube_fan_channels: ["UCsjNMoNNeXTycXHB16KiwxA"]
+    locked_on_rss: null  # Apple id 1535116119; feedUrl UNRESOLVED
+    locked_on_apple_id: 1535116119
+    message_board_primary: "https://broncofans.net"
+    campus_newspaper_feed: "https://arbiteronline.com/feed/"
+    beat_writer_rss: "https://www.underdogdynasty.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Danielson extension through 2030 (2026-04-20). Dave Southorn (Statesman) freelancing post-layoffs; no Bluesky. Locked On Boise Apple id=1535116119."
+
+  - team_slug: memphis
+    head_coach: "Charles Huff"  # [COACH CHANGE] Ryan Silverfield left for Arkansas 2025-11-30; Huff (ex-Southern Miss/ex-Marshall) hired 2025-12-08, introduced 2026-04-09
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCzWw4a6Lp2uq891HbAT7ANw"
+    youtube_fan_channels: []
+    locked_on_rss: null
+    message_board_primary: "https://www.csnbbs.com/forumdisplay.php?fid=446"
+    campus_newspaper_feed: "https://www.dailyhelmsman.com/feed/"
+    beat_writer_rss: "https://www.underdogdynasty.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "[coach_change] Silverfield → Huff Dec 2025. No Locked On Memphis Tigers exists. Commercial Appeal paywalled/reduced."
+
+  - team_slug: tulane
+    head_coach: "Will Hall"  # confirmed current HC — Sumrall left for Florida 2025-12-08
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCNSyUGDZ0M4ATau4PkmNp9g"
+    youtube_fan_channels: []
+    locked_on_rss: null
+    message_board_primary: "https://www.yogwf.com/"
+    campus_newspaper_feed: "https://tulanehullabaloo.com/feed/"
+    beat_writer_rss: "https://www.underdogdynasty.com/rss/index.xml"
+    head_coach_bsky: null
+    notes: "Sumrall → Florida Dec 2025; Hall confirmed HC. Guerry Smith (Advocate) X-only, no Bluesky."
+
+  # ================ HBCU (2) ================
+  - team_slug: jackson-state
+    head_coach: "T.C. Taylor"  # confirmed
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UC3OgCd_-LUEcMlpv9QGrQqw"  # [FIX] previous UC6Dsfl2JQfxbxfjrKqMLjSQ was a YouTube TV browse ID, not channel
+    youtube_fan_channels: ["UCoMv284iYWxL3JSY-9agY2w"]
+    locked_on_rss: null
+    message_board_primary: "https://hbcusports.com/forums/"  # [new] was null; free HBCU Sports Forums with active JSU thread
+    campus_newspaper_feed: null  # Blue & White Flash at jsumsnews.com has no public RSS
+    beat_writer_rss: "https://hbcugameday.com/tag/jackson-state/feed/"
+    head_coach_bsky: null
+    notes: "[YT fix] channel UC3OgCd_-LUEcMlpv9QGrQqw replaces prior YouTube-TV-browse-ID. Steven J. Gaither active on HBCU Gameday (no Bluesky found)."
+
+  - team_slug: howard
+    head_coach: "Ted White"  # hired 2026-01-14 per hubison.com
+    bluesky_beat_handles: []
+    youtube_team_channel_id: "UCdjDhKcFwA6vAWnrBCiq3vA"
+    youtube_fan_channels: ["UCoMv284iYWxL3JSY-9agY2w"]
+    locked_on_rss: null
+    message_board_primary: "https://bisonsports.freeforums.net/"  # [new] was null; free ProBoards
+    campus_newspaper_feed: "https://thehilltoponline.com/feed/"
+    beat_writer_rss: "https://hbcugameday.com/tag/howard/feed/"
+    head_coach_bsky: null
+    notes: "White hired Jan 2026. No confirmed Bluesky beat coverage surfaced."
+
+
+# ============================================================
+# 2. PREDICTION MARKETS — VALIDATED
+# ============================================================
+# Kalshi tickers validated against live kalshi.com URLs (9/10 valid;
+# KXHEISMAN-27 corrected to KXHEISMAN-26). 5 additional discovered markets
+# appended — note KXMICHCOACH-26 is newly relevant given the Moore firing.
+prediction_markets:
+  kalshi:
+    - ticker: "KXNCAAF-27"
+      label: "College Football National Championship Winner (2026-27)"
+      url: "https://kalshi.com/markets/kxncaaf/ncaaf-championship/kxncaaf-27"
+    - ticker: "KXHEISMAN-26"  # [CORRECTED] was KXHEISMAN-27 in pass 1
+      label: "Heisman Trophy Winner (Dec 2026)"
+      url: "https://kalshi.com/markets/kxheisman/heisman-trophy-winner/kxheisman-26"
+    - ticker: "KXNCAAFSEC-26"
+      label: "SEC Champion 2026"
+      url: "https://kalshi.com/markets/kxncaafsec/sec-champion/kxncaafsec-26"
+    - ticker: "KXNCAAFB10-26"
+      label: "Big Ten Champion 2026"
+      url: "https://kalshi.com/markets/kxncaafb10/big-ten-champion"
+    - ticker: "KXNCAAFACC-26"
+      label: "ACC Champion 2026"
+      url: "https://kalshi.com/markets/kxncaafacc/acc-champion/kxncaafacc-26"
+    - ticker: "KXNCAAFB12-26"
+      label: "Big 12 Champion 2026"
+      url: "https://kalshi.com/markets/kxncaafb12/big-12-champion/kxncaafb12-26"
+    - ticker: "KXNCAAFCONF-26"
+      label: "Conference to Win the National Championship 2026"
+      url: "https://kalshi.com/markets/kxncaafconf/ncaaf-championship-conference/kxncaafconf-26"
+    - ticker: "KXNCAAFCOTY-27"
+      label: "College Football Coach of the Year 2026-27"
+      url: "https://kalshi.com/markets/kxncaafcoty/college-football-coach-of-the-year/kxncaafcoty-27"
+    - ticker: "KXNCAAFFINALIST-27"
+      label: "Reach the CFP National Championship Game 2026-27"
+      url: "https://kalshi.com/markets/kxncaaffinalist/reach-the-college-football-playoff-national-championship-game/kxncaaffinalist-27"
+      notes: "Event container — individual per-team yes/no subcontracts exist for Alabama (82¢), UGA, OSU etc. Per-team tickers live inside this event."
+    - ticker: "KXNDJOINCONF-27"
+      label: "Will Notre Dame Football join a conference 2026-28"
+      url: "https://kalshi.com/markets/kxndjoinconf/join-conference/kxndjoinconf-27"
+    # [NEW MARKETS discovered during pass-2 validation]
+    - ticker: "KXNCAAFAAC-26"
+      label: "American Athletic Conference Champion 2026"
+      url: "https://kalshi.com/markets/kxncaafaac/american-athletic-conference-champion/kxncaafaac-26"
+    - ticker: "KXNCAAFMWC-26"
+      label: "Mountain West Champion 2026"
+      url: "https://kalshi.com/markets/kxncaafmwc/mountain-west-champion/kxncaafmwc-26"
+    - ticker: "KXSECREG-26"
+      label: "SEC Regular-Season Champion 2026"
+      url: "https://kalshi.com/markets/kxsecreg/sec-regular-season-champions/kxsecreg-26"
+      notes: "Distinct from KXNCAAFSEC-26 (title-game winner)"
+    - ticker: "KXCOACHOUTNCAAFB-1-26"
+      label: "College Football Coaches Out Before September 2026"
+      url: "https://kalshi.com/markets/kxcoachoutncaafb/ncaafb-coaches-out/kxcoachoutncaafb-1-26"
+    - ticker: "KXMICHCOACH-26"
+      label: "Next Permanent Head Coach of Michigan"
+      url: "https://kalshi.com/markets/kxmichcoach/michigan-next-coach/kxmichcoach-26"
+      notes: "Newly relevant given Sherrone Moore firing Dec 2025 — Whittingham settled this market's 'permanent HC' criterion"
+
+  polymarket:
+    - slug: "will-texas-longhorns-win-the-2027-cfp-national-championship"
+      label: "Texas win 2027 CFP National Championship"
+    - slug: "will-oregon-ducks-win-the-2027-cfp-national-championship"
+      label: "Oregon win 2027 CFP National Championship"
+    - slug: "will-texas-am-aggies-win-the-2027-cfp-national-championship"
+      label: "Texas A&M win 2027 CFP National Championship"
+    - slug: "will-michigan-wolverines-win-the-2027-cfp-national-championship"
+      label: "Michigan win 2027 CFP National Championship"
+    - slug: "will-ohio-state-buckeyes-win-the-2027-cfp-national-championship"
+      label: "Ohio State win 2027 CFP National Championship"
+    - slug: "will-notre-dame-fighting-irish-win-the-2027-cfp-national-championship"
+      label: "Notre Dame win 2027 CFP National Championship"
+    - slug: "will-georgia-bulldogs-win-the-2027-cfp-national-championship"
+      label: "Georgia win 2027 CFP National Championship"
+    - slug: "will-alabama-crimson-tide-win-the-2027-cfp-national-championship"
+      label: "Alabama win 2027 CFP National Championship"
+    - slug: "will-miami-hurricanes-win-the-2027-cfp-national-championship"
+      label: "Miami win 2027 CFP National Championship"
+    - slug: "will-lsu-tigers-win-the-2027-cfp-national-championship"
+      label: "LSU win 2027 CFP National Championship"
+
+
+# ============================================================
+# 3. BLUESKY STARTER PACKS — 2 DIDs RESOLVED, 3 PENDING
+# ============================================================
+bluesky_starter_packs:
+  - uri: "https://bsky.app/starter-pack/braggbobby.bsky.social/3latzu56uds2x"  # DID UNRESOLVED
+    at_uri: null
+    rkey: "3latzu56uds2x"
+    name: "College Football #CFB"
+    curator: "@braggbobby.bsky.social"
+    status: "did_pending"
+
+  - uri: "https://bsky.app/starter-pack/ryanmccrystal.bsky.social/3latk4qvhch2t"
+    at_uri: null
+    rkey: "3latk4qvhch2t"
+    name: "College Football Starter Pack"
+    curator: "@ryanmccrystal.bsky.social"
+    status: "did_pending"
+
+  - uri: "https://bsky.app/starter-pack/slmandel.bsky.social/3lawsetaiw62f"
+    at_uri: "at://did:plc:76d4z6lsefhml6nk6liggkax/app.bsky.graph.starterpack/3lawsetaiw62f"  # [resolved]
+    rkey: "3lawsetaiw62f"
+    name: "College Football Media"
+    curator: "@slmandel.bsky.social"
+    status: "live"
+
+  - uri: "https://bsky.app/starter-pack/redditcfb.com/3lazi46gmap2m"
+    at_uri: "at://did:plc:dxoa7yyqix3jxvavojvrujno/app.bsky.graph.starterpack/3lazi46gmap2m"  # [resolved]
+    rkey: "3lazi46gmap2m"
+    name: "College Football Twitter"
+    curator: "@redditcfb.com"
+    status: "live"
+
+  - uri: "https://bsky.app/starter-pack/ajblack247.bsky.social/3lbzlppgsxl2x"
+    at_uri: null  # candidate: nugl7zffmoejqdgctkej5lwm but UNCONFIRMED as ajblack247's DID
+    rkey: "3lbzlppgsxl2x"
+    name: "College Sports Writers/Media"
+    curator: "@ajblack247.bsky.social"
+    status: "did_pending"
+
+
+# ============================================================
+# 4. TIKTOK CREATORS — EXTENDED
+# ============================================================
+# Follower counts Chrome-verified April 2026. Last-post freshness NOT
+# verifiable via unauth web (TikTok video grid is login-walled); flagged
+# per-entry. High-volume branded accounts (@espn, @cbssports etc.) can
+# be operationally trusted to post daily.
+tiktok_creators:
+  national:
+    - handle: "@cfbonfox"
+      followers_approx: 1100000
+      last_post_verified: "2026-04-22"
+    - handle: "@espn"
+      followers_approx: 57300000
+      last_post_verified: "assumed_daily_unverified"
+    - handle: "@cbssports"
+      followers_approx: 4800000
+      last_post_verified: "assumed_daily_unverified"
+    - handle: "@bleacherreport"
+      followers_approx: 11600000
+      last_post_verified: "assumed_daily_unverified"
+    - handle: "@collegegameday"
+      followers_approx: 2200000
+      last_post_verified: "assumed_daily_unverified"
+    - handle: "@barstoolsports"
+      followers_approx: 48900000
+      last_post_verified: "assumed_daily_unverified"
+    - handle: "@joelklattshow"
+      followers_approx: 206300
+      last_post_verified: "unverified"
+
+  team_aligned:
+    - handle: "@ohiostatefb"
+      team_slug: "ohio-state"
+      followers_approx: 705800
+      last_post_verified: "2026-04-22"
+    - handle: "@uofalabama"
+      team_slug: "alabama"
+      followers_approx: 175300
+    - handle: "@texasfootball"
+      team_slug: "texas"
+      followers_approx: 122100
+    - handle: "@oregonfootball"
+      team_slug: "oregon"
+      followers_approx: 305100
+    - handle: "@vol_football"
+      team_slug: "tennessee"
+      followers_approx: 934000
+    - handle: "@ndfootball"
+      team_slug: "notre-dame"
+      followers_approx: 208800
+    - handle: "@clemsonfb"
+      team_slug: "clemson"
+      followers_approx: 724900
+    - handle: "@umichfootball"
+      team_slug: "michigan"
+      followers_approx: 383400
+    - handle: "@byufootball"
+      team_slug: "byu"
+      followers_approx: 129500
+    # [dropped] @canesfootball (19.4k) — below 50k bar
+
+  hbcu:
+    - handle: "@hbcubuzz"
+      focus: "HBCU Buzz (news/culture/sports)"
+      followers_approx: 65600
+
+  # Dropped candidates (documented so they're not re-tried)
+  dropped:
+    - "@canesfootball: 19.4k, below 50k"
+    - "@joshpatecfb: 33.7k, below 50k (though fresh — posts daily)"
+    - "@saturdaydownsouth: 29.7k + last post 2024-01-22 = stale"
+    - "@nicksaban: does not exist on TikTok under this handle"
+    - "@hbcugameday, @hbcusports, @hbcuculture, @andscape_official: either don't exist or <1k followers"
+    - "@ugafootball, @lsufootball, @fsufootball, @texastechfb, @pennstatefball: do not exist or <100 followers"
+    - "@tylerjameshill.bsky.social: Bluesky drop — wrong person, not the ND beat writer"
+
+
+# ============================================================
+# 5. REPLACEMENTS (26 items) — UNCHANGED FROM PASS 1
+# ============================================================
+# 22/26 live replacements verified via 73 live WebFetch calls in pass 1.
+# See deep_research_refresh_2026-04-23.yaml section 5 for the full list
+# (Locked On shows, Gannett beat replacements, podcast migrations,
+# Substack moves). No deltas in pass 2.
+replacements_see_pass1: true
+
+
+# ============================================================
+# 6. COACH CHANGE SUMMARY — 5 MAJOR SWAPS OCT-DEC 2025
+# ============================================================
+# All require update in seeds/priority_teams.yaml. Confidence = high
+# unless noted. Sources inline.
+coach_updates:
+  - team_slug: lsu
+    previous: "Brian Kelly"
+    current: "Lane Kiffin"
+    effective: "2025-11-xx"
+    trigger: "Kelly fired 2025-10-26 (3-4 start); Kiffin hired from Ole Miss"
+    confidence: high
+
+  - team_slug: michigan
+    previous: "Sherrone Moore"
+    current: "Kyle Whittingham"
+    effective: "2025-12-10"
+    trigger: "Moore fired for cause (inappropriate relationship with staffer + home-invasion incident); Whittingham hired from Utah on 5-yr deal"
+    confidence: high
+
+  - team_slug: penn-state
+    previous: "James Franklin"
+    current: "Matt Campbell"
+    effective: "2025-12-xx"
+    trigger: "Franklin fired 2025-10-12 after 3-3 start; Terry Smith interim; Campbell hired from Iowa State after 58-day search"
+    confidence: high
+
+  - team_slug: kansas-state
+    previous: "Chris Klieman"
+    current: "Collin Klein"
+    effective: "2025-12-04"
+    trigger: "Klieman retired Dec 2025; Klein (2012 Heisman finalist, ex-Texas A&M OC) hired on 5-yr $4.3M/yr deal"
+    confidence: high
+
+  - team_slug: memphis
+    previous: "Ryan Silverfield"
+    current: "Charles Huff"
+    effective: "2025-12-08"
+    trigger: "Silverfield left for Arkansas 2025-11-30; Huff (ex-Southern Miss, ex-Marshall) hired 2025-12-08 and introduced 2026-04-09"
+    confidence: high
+
+  - team_slug: tulane
+    previous: "Jon Sumrall"
+    current: "Will Hall"
+    effective: "2025-12-08"
+    trigger: "Sumrall left for Florida Dec 2025; Hall promoted internally"
+    confidence: high
+
+  - team_slug: howard
+    previous: "Larry Scott"
+    current: "Ted White"
+    effective: "2026-01-14"
+    trigger: "White hired 2026-01-14 per hubison.com"
+    confidence: high
+
+  # Extensions (same coach, new contract)
+  - team_slug: alabama
+    current: "Kalen DeBoer"
+    extension: "through 2033 season"
+    effective: "2026-04-22"
+
+  - team_slug: boise-state
+    current: "Spencer Danielson"
+    extension: "through 2030"
+    effective: "2026-04-20"
+
+  - team_slug: byu
+    current: "Kalani Sitake"
+    extension: "long-term (turned down Penn State interest)"
+    effective: "2025-12-02"
+
+  - team_slug: notre-dame
+    current: "Marcus Freeman"
+    extension: "new deal (decided to stay despite NFL interest)"
+    effective: "~2026-03"
+
+
+# ============================================================
+# 7. OTHER SEED CORRECTIONS
+# ============================================================
+seed_corrections:
+  - file: "seeds/priority_teams.yaml"
+    team_slug: "jackson-state"
+    field: "campus_newspaper_feed"
+    current_value: "https://thebluprint.com/feed/"
+    correct_value: null
+    reason: "thebluprint.com is Bellwood-Antis HS (Pennsylvania), not JSU. JSU paper is Blue & White Flash at jsumsnews.com with no public RSS."
+
+  - file: "research/deep_research_refresh_2026-04-23.yaml (pass 1)"
+    team_slug: "jackson-state"
+    field: "youtube_team_channel_id"
+    current_value: "UC6Dsfl2JQfxbxfjrKqMLjSQ"
+    correct_value: "UC3OgCd_-LUEcMlpv9QGrQqw"
+    reason: "Previous UC was a YouTube TV browse ID extracted from tv.youtube.com/browse URL, not an actual YouTube channel ID. Real channel confirmed via search."
+
+  - file: "research/deep_research_refresh_2026-04-23.yaml (pass 1)"
+    team_slug: "notre-dame"
+    field: "bluesky_beat_handles"
+    remove: "@tylerjameshill.bsky.social"
+    reason: "That handle is not the ND beat writer Tyler James (247/BGI). Tyler James is X-only at @TJamesND."
+
+  - file: "research/deep_research_refresh_2026-04-23.yaml (pass 1)"
+    team_slug: "penn-state"
+    field: "bluesky_beat_handles"
+    flag: "@audreysnyder.bsky.social"
+    reason: "The Athletic ended full-time Penn State coverage in April 2025; Snyder now solo on Substack (Inside the Lions). No post snippet after that on Bluesky. Likely stale — verify manually or replace with her Substack RSS."
+
+  - file: "research/deep_research_refresh_2026-04-23.yaml (pass 1)"
+    team_slug: "michigan"
+    field: "bluesky_beat_handles"
+    flag: "@mgoseth.bsky.social"
+    reason: "Last surfaced post Feb 2025 per search. Likely stale. Keep @mgoblog.bsky.social (active) and @realtonygarcia.bsky.social."

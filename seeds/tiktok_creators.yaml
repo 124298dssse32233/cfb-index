@@ -1,0 +1,70 @@
+# TikTok creator roster - TASK 6.2 (weekly Cowork observation).
+# Seeded 2026-04-23 from Deep Research pass 2. Follower counts
+# Chrome-verified. Last-post freshness unverifiable via unauth web
+# (TikTok video grids are login-walled) - per-entry field flags this.
+
+national:
+- handle: '@cfbonfox'
+  followers_approx: 1100000
+  last_post_verified: '2026-04-22'
+- handle: '@espn'
+  followers_approx: 57300000
+  last_post_verified: assumed_daily_unverified
+- handle: '@cbssports'
+  followers_approx: 4800000
+  last_post_verified: assumed_daily_unverified
+- handle: '@bleacherreport'
+  followers_approx: 11600000
+  last_post_verified: assumed_daily_unverified
+- handle: '@collegegameday'
+  followers_approx: 2200000
+  last_post_verified: assumed_daily_unverified
+- handle: '@barstoolsports'
+  followers_approx: 48900000
+  last_post_verified: assumed_daily_unverified
+- handle: '@joelklattshow'
+  followers_approx: 206300
+  last_post_verified: unverified
+team_aligned:
+- handle: '@ohiostatefb'
+  team_slug: ohio-state
+  followers_approx: 705800
+  last_post_verified: '2026-04-22'
+- handle: '@uofalabama'
+  team_slug: alabama
+  followers_approx: 175300
+- handle: '@texasfootball'
+  team_slug: texas
+  followers_approx: 122100
+- handle: '@oregonfootball'
+  team_slug: oregon
+  followers_approx: 305100
+- handle: '@vol_football'
+  team_slug: tennessee
+  followers_approx: 934000
+- handle: '@ndfootball'
+  team_slug: notre-dame
+  followers_approx: 208800
+- handle: '@clemsonfb'
+  team_slug: clemson
+  followers_approx: 724900
+- handle: '@umichfootball'
+  team_slug: michigan
+  followers_approx: 383400
+- handle: '@byufootball'
+  team_slug: byu
+  followers_approx: 129500
+hbcu:
+- handle: '@hbcubuzz'
+  focus: HBCU Buzz (news/culture/sports)
+  followers_approx: 65600
+dropped:
+- '@canesfootball: 19.4k, below 50k'
+- '@joshpatecfb: 33.7k, below 50k (though fresh — posts daily)'
+- '@saturdaydownsouth: 29.7k + last post 2024-01-22 = stale'
+- '@nicksaban: does not exist on TikTok under this handle'
+- '@hbcugameday, @hbcusports, @hbcuculture, @andscape_official: either don''t exist
+  or <1k followers'
+- '@ugafootball, @lsufootball, @fsufootball, @texastechfb, @pennstatefball: do not
+  exist or <100 followers'
+- '@tylerjameshill.bsky.social: Bluesky drop — wrong person, not the ND beat writer'
