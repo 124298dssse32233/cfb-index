@@ -195,7 +195,7 @@ def test_empty_pipeline_leaves_renderer_in_skeleton_state(db: Database) -> None:
     html = _render_the_room_card(profile, "C.J. Carr")
     assert 'data-state="empty"' in html
     assert "the-room--empty" in html
-    assert "Awaiting Signal" in html
+    assert "Awaiting signal" in html  # v5 sub-line: "Fan sentiment · Awaiting signal"
 
 
 def test_season_rollup_surfaces_card_when_no_single_week_clears(db: Database) -> None:

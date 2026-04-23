@@ -769,6 +769,279 @@ _PHASE_BANNER_CSS_BLOCK = """
 """
 
 
+# The Room on [Player] v5 component CSS (S.4). Visual structure from
+# figma-reference/player-page/src/app/components/TheRoomOnPlayer.tsx.
+# Cohort pills + belief dial (gradient + indicator) + top quote card +
+# 6-week trajectory SVG. Interactive — Alpine drives state, URL sync via
+# /assets/js/url-state.js, registered in /assets/js/the-room.js.
+_THE_ROOM_CSS_BLOCK = """
+.the-room {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+
+.the-room__header {
+  margin-bottom: var(--space-8);
+}
+
+.the-room__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.the-room__sub {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.the-room__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.the-room__pill {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background var(--motion-state), color var(--motion-state), border-color var(--motion-state);
+}
+
+.the-room__pill:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+
+.the-room__pill[aria-pressed="true"],
+.the-room__pill.is-active {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-color: transparent;
+}
+
+.the-room__pill:disabled,
+.the-room__pill[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.the-room__pill-count {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+.the-room__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+@container (min-width: 720px) {
+  .the-room__grid {
+    grid-template-columns: 1fr 1.5fr;
+  }
+}
+
+.the-room__eyebrow {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.the-room__dial {
+  position: relative;
+  height: var(--space-4);
+  background: var(--muted);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.the-room__dial-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  transition: width var(--motion-data-entry), background var(--motion-state);
+}
+
+.the-room__dial-fill--positive {
+  background: linear-gradient(90deg, var(--belief-neutral) 0%, var(--belief-positive) 100%);
+}
+
+.the-room__dial-fill--neutral {
+  background: var(--belief-neutral);
+}
+
+.the-room__dial-fill--negative {
+  background: linear-gradient(90deg, var(--belief-negative) 0%, var(--belief-neutral) 100%);
+}
+
+.the-room__dial-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: var(--space-6);
+  background: var(--foreground);
+  border-radius: 2px;
+  transition: left var(--motion-data-entry);
+}
+
+.the-room__score {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.the-room__score--positive { color: var(--belief-positive); }
+.the-room__score--negative { color: var(--belief-negative); }
+
+.the-room__archetype {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-6) 0;
+}
+
+.the-room__meta-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.the-room__meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-meta);
+  gap: var(--space-3);
+}
+
+.the-room__meta-label {
+  color: var(--muted-foreground);
+}
+
+.the-room__meta-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+
+.the-room__meta-value--high { color: var(--belief-positive); }
+.the-room__meta-value--low { color: var(--belief-negative); }
+
+.the-room__quote-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--elevation-1);
+  margin-bottom: var(--space-6);
+}
+
+.the-room__quote {
+  margin: 0 0 var(--space-3) 0;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.the-room__quote-attrib {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+}
+
+.the-room__quote-attrib a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+}
+
+.the-room__trajectory svg {
+  width: 100%;
+  height: 60px;
+  display: block;
+}
+
+.the-room__trajectory-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+}
+
+.the-room__awaiting {
+  background: var(--secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.the-room--empty .the-room__title {
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+.the-room__empty-body {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+"""
+
+
 # Supporting Cast v5 component CSS (S.3b). Visual structure ported from
 # figma-reference/player-page/src/app/components/SupportingCast.tsx.
 # Outer card with responsive grid (1col → 2col @720 → 3col @1200) of
@@ -1257,6 +1530,8 @@ def _compose_global_css() -> str:
         + _CURRENT_SEASON_CSS_BLOCK
         + "\n/* === Supporting Cast v5 (S.3b) === */\n"
         + _SUPPORTING_CAST_CSS_BLOCK
+        + "\n/* === The Room on [Player] v5 (S.4) === */\n"
+        + _THE_ROOM_CSS_BLOCK
         + "\n/* === Phase banner (P.0) === */\n"
         + _PHASE_BANNER_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
@@ -1268,14 +1543,39 @@ _global_css_filename: str | None = None
 
 
 def _ensure_global_assets(site_root: Path) -> str:
-    """Write cfb-index.<hash>.css and confirm alpine.min.js exists.
+    """Write cfb-index.<hash>.css and copy vendored assets into output/site/assets/.
+
+    Source-of-truth for vendored assets is `src/cfb_rankings/static_assets/`
+    (tracked in git). At build time we copy alpine.min.js, the JS modules,
+    and the woff2 fonts into the build output. This keeps `output/` cleanly
+    gitignored while ensuring deploys (Cloudflare Pages, etc.) reproduce
+    the exact same vendored bytes from source.
 
     Returns the content-hashed CSS filename (cached after first call).
-    Alpine is vendored manually (not auto-fetched) — file must be present.
     """
     global _global_css_filename
     assets_dir = site_root / "assets"
     assets_dir.mkdir(parents=True, exist_ok=True)
+
+    # Copy vendored assets from source tree to build output.
+    import shutil
+    src_assets_dir = Path(__file__).parent / "static_assets"
+    for rel_path in (
+        "alpine.min.js",
+        "js/url-state.js",
+        "js/the-room.js",
+        "fonts/Inter-Variable.woff2",
+        "fonts/InterDisplay-SemiBold.woff2",
+        "fonts/InterDisplay-Bold.woff2",
+    ):
+        src_path = src_assets_dir / rel_path
+        if not src_path.exists():
+            continue
+        dst_path = assets_dir / rel_path
+        dst_path.parent.mkdir(parents=True, exist_ok=True)
+        if not dst_path.exists() or dst_path.stat().st_mtime < src_path.stat().st_mtime:
+            shutil.copy2(src_path, dst_path)
+
     if _global_css_filename is None:
         css_text = _compose_global_css()
         digest = hashlib.sha256(css_text.encode("utf-8")).hexdigest()[:12]
@@ -1287,10 +1587,18 @@ def _ensure_global_assets(site_root: Path) -> str:
 
 
 def _global_link_tags() -> str:
-    """Per-page <link> + <script> tags for the vendored stylesheet + Alpine."""
+    """Per-page <link> + <script> tags for the vendored stylesheet + Alpine.
+
+    Order matters: url-state.js loads first (defines window.urlState as an
+    IIFE), then the-room.js (registers an Alpine component via the
+    `alpine:init` event), then alpine.min.js. All `defer` so they execute
+    in document order after HTML parse, before DOMContentLoaded.
+    """
     filename = _global_css_filename or "cfb-index.css"
     return (
         f'<link rel="stylesheet" href="/assets/{filename}">\n'
+        f'    <script src="/assets/js/url-state.js" defer></script>\n'
+        f'    <script src="/assets/js/the-room.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -11218,78 +11526,274 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
     """
 
 
-def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str:
-    """Minimal HTML shell for "The Room on [Player]" — Feature B template slot.
+_ROOM_BUCKET_DEFS = (
+    # (id, label, mentions_field)
+    ("own", "Own fans", "mentions"),
+    ("rival", "Rivals", "rival_mentions"),
+    ("national", "National", "national_mentions"),
+    ("media", "Media", "media_mentions"),
+)
 
-    Same contract as the algorithmic Signature Story card: Figma replaces
-    the innards in Stage 2. Empty state matches the team-scope "Awaiting
-    Signal" voice so the template is consistent across scopes.
+# Maps production primary_bucket label → cohort id used in the Alpine state.
+_ROOM_PRIMARY_BUCKET_MAP = {
+    "fan": "own",
+    "fans": "own",
+    "own": "own",
+    "rival": "rival",
+    "rivals": "rival",
+    "national": "national",
+    "media": "media",
+}
+
+
+def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str:
+    """Render "The Room on [Player]" v5 (S.4 — Figma port + Alpine).
+
+    Visual contract:
+    figma-reference/player-page/src/app/components/TheRoomOnPlayer.tsx
+    Tokens: --fs-h1/meta/body, --space-*, --radius-md/lg, --motion-state/
+    data-entry, --belief-{negative,neutral,positive}, --elevation-1.
+
+    Interactive: cohort pills update active state via the `theRoom`
+    Alpine component (output/site/assets/js/the-room.js); state syncs to
+    `?room=<id>` via `pushState` (output/site/assets/js/url-state.js).
+    Hydrates from URL on load.
+
+    Backend payload comes from `fetch_player_mood_profile` /
+    `compute_player_mood_index`. Today the payload exposes a single
+    belief score (for the primary bucket) plus per-cohort sample counts;
+    only the primary cohort gets a populated dial/quote. The other three
+    cohorts render an "Awaiting per-cohort signal" body when selected.
+    Per-cohort belief + per-cohort top-quote + per-cohort trajectory will
+    populate when the bucket-aware aggregator ships (follow-up task).
     """
     if not story or not story.get("has_data"):
         return f"""
-          <article class="panel the-room the-room--empty"
+          <article class="the-room the-room--empty"
                    data-module="the-room" data-state="empty">
-            <div class="section-head">
-              <h3>The Room on {escape(player_name)}</h3>
-              <p class="section-note">Fan conversation pulse for this player — across own fans, rivals, national, and media.</p>
-            </div>
-            <p class="prose-panel">Not enough player-specific chatter yet. We start publishing a pulse once mentions clear sample and author gates.</p>
-            <p class="mood-waiting-banner">Awaiting Signal</p>
+            <header class="the-room__header">
+              <h2 class="the-room__title">The Room on {escape(player_name)}</h2>
+              <p class="the-room__sub">Fan sentiment · Awaiting signal</p>
+            </header>
+            <p class="the-room__empty-body">Belief tracking publishes once player-mention sample + author counts clear the floor. Check back as in-season chatter density rises.</p>
           </article>
         """
 
     belief = story.get("belief") or {}
     sample = story.get("sample") or {}
     confidence = story.get("confidence") or {}
-    respect_gap = story.get("respect_gap") or {}
-    cohesion = story.get("cohesion") or {}
-    swing = story.get("swing") or {}
     top_quote = story.get("top_quote") or {}
-    archetype = story.get("archetype") or "--"
+    archetype = str(story.get("archetype") or "")
+    primary_bucket_raw = str(story.get("primary_bucket") or "fan")
+    primary_id = _ROOM_PRIMARY_BUCKET_MAP.get(primary_bucket_raw.lower(), "own")
+    updated_label = str(story.get("updated_label") or "")
 
-    quote_block = ""
+    raw_score = belief.get("score")
+    try:
+        primary_score: float | None = float(raw_score) if raw_score is not None else None
+    except (TypeError, ValueError):
+        primary_score = None
+    confidence_label = str(confidence.get("label") or "")
+
+    # Build the per-cohort state. Only the primary cohort gets the live
+    # belief/quote/confidence; others get sample count + null score until
+    # bucket-aware aggregation lands.
+    quote_payload: dict[str, Any] | None = None
     if top_quote and top_quote.get("text"):
-        url = top_quote.get("source_url") or ""
-        attrib = escape(str(top_quote.get("author_pseudonym") or "fan"))
-        src = f'<a href="{escape(url)}">{attrib}</a>' if url else attrib
-        quote_block = f"""
-          <blockquote class="the-room__quote">
-            <p>{escape(str(top_quote.get('text') or ''))}</p>
-            <cite>— {src}</cite>
-          </blockquote>
-        """
+        quote_payload = {
+            "text": str(top_quote.get("text") or ""),
+            "attrib": str(top_quote.get("author_pseudonym") or "fan"),
+            "url": str(top_quote.get("source_url") or ""),
+            "takeCount": int(top_quote.get("similar_count") or 0),
+        }
 
-    def _belief_pct(score: Any) -> str:
-        try:
-            return f"{float(score):+.2f}"
-        except (TypeError, ValueError):
-            return "--"
+    buckets: dict[str, dict[str, Any]] = {}
+    for cohort_id, label, sample_field in _ROOM_BUCKET_DEFS:
+        is_primary = cohort_id == primary_id
+        bucket_sample = int(sample.get(sample_field) or 0)
+        # The "own" bucket reads from sample.mentions (the main count);
+        # rival/national/media read from their dedicated fields.
+        buckets[cohort_id] = {
+            "id": cohort_id,
+            "label": label,
+            "score": primary_score if is_primary else None,
+            "sample": bucket_sample,
+            "confidence": confidence_label if is_primary else "",
+            "topQuote": quote_payload if is_primary else None,
+            "trajectory": [],   # per-cohort time-series not in current payload
+            "awaiting": (not is_primary),
+        }
 
+    cohorts_json = json.dumps(buckets, separators=(",", ":"))
+
+    # Server-render the active (primary) cohort's content directly so
+    # progressive enhancement works without JS. Alpine then takes over
+    # via x-text/x-show on hydration.
+    active = buckets[primary_id]
+
+    def _score_class(score: float | None) -> str:
+        if score is None:
+            return ""
+        if score >= 70:
+            return "the-room__score--positive"
+        if score < 40:
+            return "the-room__score--negative"
+        return ""
+
+    def _dial_fill_class(score: float | None) -> str:
+        if score is None:
+            return "the-room__dial-fill--neutral"
+        if score >= 70:
+            return "the-room__dial-fill--positive"
+        if score >= 40:
+            return "the-room__dial-fill--neutral"
+        return "the-room__dial-fill--negative"
+
+    def _archetype_label(score: float | None) -> str:
+        if score is None:
+            return "Awaiting per-cohort signal"
+        if score >= 70:
+            return "Grounded Optimism"
+        if score >= 40:
+            return "Mixed Sentiment"
+        return "Skeptical"
+
+    score_value = active["score"]
+    score_text = f"{score_value:.0f}" if score_value is not None else "—"
+    dial_width = max(0.0, min(100.0, score_value)) if score_value is not None else 0.0
+    archetype_for_active = archetype or _archetype_label(score_value)
+
+    # Pills: render as <button> with Alpine bindings; static initial state
+    # uses .is-active so the page is correct without JS.
+    pills_html: list[str] = []
+    for cohort_id, _label, _ in _ROOM_BUCKET_DEFS:
+        bucket = buckets[cohort_id]
+        is_active = cohort_id == primary_id
+        active_attrs = ' aria-pressed="true" class="the-room__pill is-active"' if is_active else ' aria-pressed="false" class="the-room__pill"'
+        pills_html.append(
+            f'<button type="button" data-cohort-id="{cohort_id}"'
+            f' x-on:click="selectCohort(\'{cohort_id}\')"'
+            f' x-bind:class="isActive(\'{cohort_id}\') ? \'the-room__pill is-active\' : \'the-room__pill\'"'
+            f' x-bind:aria-pressed="isActive(\'{cohort_id}\')"'
+            f'{active_attrs}>'
+            f'<span x-text="cohorts[\'{cohort_id}\'].label">{escape(bucket["label"])}</span>'
+            f'<span class="the-room__pill-count" x-text="(cohorts[\'{cohort_id}\'].sample || 0).toLocaleString()">{bucket["sample"]:,}</span>'
+            f'</button>'
+        )
+
+    # Top quote (server-rendered for primary; replaced by Alpine when
+    # active cohort changes). For non-primary cohorts Alpine renders the
+    # awaiting body.
+    quote_attrib_html = ""
+    if quote_payload:
+        if quote_payload["url"]:
+            quote_attrib_html = (
+                f'<a href="{escape(quote_payload["url"])}">{escape(quote_payload["attrib"])}</a>'
+            )
+        else:
+            quote_attrib_html = escape(quote_payload["attrib"])
+
+    # SVG trajectory baseline at 50% — empty when no data, but always
+    # shape-accurate so Alpine can swap in points without DOM rewrites.
     return f"""
-      <article class="panel the-room"
-               data-module="the-room" data-state="ready">
-        <div class="section-head">
-          <h3>The Room on {escape(player_name)}</h3>
-          <p class="section-note">{escape(str(story.get('updated_label') or ''))}</p>
+      <article class="the-room"
+               data-module="the-room" data-state="ready"
+               data-cohorts='{escape(cohorts_json)}'
+               data-initial="{escape(primary_id)}"
+               x-data="theRoom($el.dataset.cohorts, $el.dataset.initial)">
+        <header class="the-room__header">
+          <h2 class="the-room__title">The Room on {escape(player_name)}</h2>
+          <p class="the-room__sub">Fan sentiment · {escape(updated_label)}</p>
+        </header>
+
+        <div class="the-room__pills" role="tablist" aria-label="Cohort filter">
+          {"".join(pills_html)}
         </div>
-        <div class="the-room__header">
-          <span class="the-room__archetype">{escape(str(archetype))}</span>
-          <span class="the-room__belief">Belief {_belief_pct(belief.get('score'))}</span>
-          <span class="the-room__confidence">{escape(str(confidence.get('label') or ''))} ({int(sample.get('mentions') or 0)} mentions · {int(sample.get('authors') or 0)} authors)</span>
+
+        <div class="the-room__grid">
+          <div>
+            <p class="the-room__eyebrow">Belief Meter</p>
+            <div class="the-room__dial"
+                 role="meter"
+                 x-bind:aria-valuenow="active.score === null ? 0 : active.score"
+                 aria-valuemin="0" aria-valuemax="100"
+                 x-bind:aria-label="`${{active.label}} belief: ${{active.score === null ? '—' : active.score}}`">
+              <div class="the-room__dial-fill {_dial_fill_class(score_value)}"
+                   x-bind:class="dialClass()"
+                   x-bind:style="`width: ${{active.score === null ? 0 : active.score}}%;`"
+                   style="width: {dial_width:.1f}%;"></div>
+              <div class="the-room__dial-marker"
+                   x-bind:style="`left: ${{active.score === null ? 0 : active.score}}%;`"
+                   style="left: {dial_width:.1f}%;"
+                   x-show="active.score !== null"></div>
+            </div>
+
+            <p class="the-room__score {_score_class(score_value)}"
+               x-bind:class="scoreClass()"
+               x-text="active.score === null ? '—' : Math.round(active.score)">{escape(score_text)}</p>
+            <p class="the-room__archetype" x-text="archetypeFor()">{escape(archetype_for_active)}</p>
+
+            <div class="the-room__meta-card">
+              <div class="the-room__meta-row">
+                <span class="the-room__meta-label">Sample</span>
+                <span class="the-room__meta-value" x-text="formattedSample()">{active['sample']:,} mentions</span>
+              </div>
+              <div class="the-room__meta-row">
+                <span class="the-room__meta-label">Confidence</span>
+                <span class="the-room__meta-value"
+                      x-text="active.confidence || '—'">{escape(confidence_label or "—")}</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="the-room__eyebrow">Top Take</p>
+            <template x-if="active.topQuote">
+              <div class="the-room__quote-card">
+                <p class="the-room__quote">&ldquo;<span x-text="active.topQuote.text"></span>&rdquo;</p>
+                <p class="the-room__quote-attrib">
+                  <span x-text="`Most-quoted sentiment · ${{active.topQuote.takeCount || 0}} similar takes`"></span>
+                </p>
+              </div>
+            </template>
+            <template x-if="!active.topQuote">
+              <div class="the-room__awaiting" role="status">
+                <span x-text="`No representative quote for ${{active.label}} yet — per-cohort quote selection lands when the bucket-aware aggregator runs.`"></span>
+              </div>
+            </template>
+
+            <p class="the-room__eyebrow" style="margin-top: var(--space-6);">Trajectory</p>
+            <template x-if="(active.trajectory || []).length">
+              <div class="the-room__trajectory">
+                <svg viewBox="0 0 400 60" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="theRoomBeliefGradient" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="var(--belief-neutral)"></stop>
+                      <stop offset="100%" stop-color="var(--belief-positive)"></stop>
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="30" x2="400" y2="30"
+                        stroke="var(--border)" stroke-dasharray="4,4" stroke-width="1"></line>
+                  <polyline x-bind:points="trajectoryPoints()"
+                            fill="none" stroke="var(--belief-neutral)" stroke-width="2.5"></polyline>
+                  <circle cx="400" x-bind:cy="trajectoryEndY()" r="4" fill="var(--belief-positive)"></circle>
+                </svg>
+              </div>
+            </template>
+            <template x-if="!(active.trajectory || []).length">
+              <div class="the-room__awaiting" role="status">Per-cohort trajectory lands when historical bucket data is aggregated.</div>
+            </template>
+          </div>
         </div>
-        <p class="prose-panel">{escape(str(belief.get('narrative') or ''))}</p>
-        <ul class="the-room__axes">
-          <li><span>Respect Gap</span><span>{escape(str(respect_gap.get('label') or '--'))}</span></li>
-          <li><span>Swing</span><span>{escape(str(swing.get('label') or '--'))}</span></li>
-          <li><span>Cohesion</span><span>{escape(str(cohesion.get('label') or '--'))}</span></li>
-        </ul>
-        <ul class="the-room__pills">
-          <li>Own fans · {int(sample.get('mentions') or 0)}</li>
-          <li>Rivals · {int(sample.get('rival_mentions') or 0)}</li>
-          <li>National · {int(sample.get('national_mentions') or 0)}</li>
-          <li>Media · {int(sample.get('media_mentions') or 0)}</li>
-        </ul>
-        {quote_block}
+
+        <noscript>
+          {(
+            f'<blockquote class="the-room__quote-card">'
+            f'<p class="the-room__quote">&ldquo;{escape(quote_payload["text"])}&rdquo;</p>'
+            f'<p class="the-room__quote-attrib">— {quote_attrib_html} · {quote_payload["takeCount"]} similar takes</p>'
+            f'</blockquote>'
+          ) if quote_payload else ''}
+        </noscript>
       </article>
     """
 
