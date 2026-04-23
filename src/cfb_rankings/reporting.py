@@ -795,6 +795,14 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     )
 
     _report_progress("Writing home, rankings, and history pages...")
+    try:
+        from cfb_rankings.players_landing import render_home_player_spotlight
+        player_spotlight_html = render_home_player_spotlight(
+            db, season_year=int(summary["season_year"]),
+        )
+    except Exception as exc:
+        _report_progress(f"Player spotlight (home) skipped: {exc}")
+        player_spotlight_html = ""
     (site_root / "index.html").write_text(
         render_home_html(
             summary,
@@ -807,6 +815,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
             archive_snapshots[:6],
             archive_rankings,
             fan_intel_board,
+            player_spotlight_html,
         ),
         encoding="utf-8",
     )
@@ -8324,6 +8333,7 @@ def render_home_html(
     archive_snapshots: list[dict[str, Any]],
     archive_rankings: dict[str, list[RankingRow]],
     fan_intel_board: dict[str, Any] | None = None,
+    player_spotlight_html: str = "",
 ) -> str:
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
@@ -8377,6 +8387,8 @@ def render_home_html(
         {offseason_section}
 
         {fan_intel_section}
+
+        {player_spotlight_html}
 
         <section class="dashboard-grid premium-dashboard-grid">
           <section class="main-column">

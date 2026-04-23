@@ -251,4 +251,108 @@ def build_players_landing(
     return out_path
 
 
-__all__ = ["build_players_landing", "render_players_landing_html"]
+def render_home_player_spotlight(
+    db: Database,
+    *,
+    season_year: int,
+    week: int = 1,
+) -> str:
+    """Compact homepage preview: top Signature Story + top Room card.
+
+    One 2-column strip for the home page. Empty string when no data
+    qualifies so the home layout can drop the panel cleanly.
+    """
+    try:
+        payload = _gather(db, season_year, week)
+    except Exception:
+        return ""
+
+    room_rows = payload.get("room") or []
+    ss_by_pos = payload.get("ss_by_pos") or {}
+    # Pick the single most interesting Signature Story across QB/RB/WR.
+    best_ss: dict[str, Any] | None = None
+    for pos in ("QB", "RB", "WR"):
+        bucket = ss_by_pos.get(pos) or []
+        if not bucket:
+            continue
+        top = bucket[0]
+        pct = top.get("percentile") or 0
+        if best_ss is None or float(pct) > float(best_ss.get("percentile") or 0):
+            best_ss = top
+    best_room = room_rows[0] if room_rows else None
+
+    if best_ss is None and best_room is None:
+        return ""
+
+    ss_block = ""
+    if best_ss is not None:
+        val = _fmt_value(best_ss.get("value"), best_ss.get("unit") or "")
+        pct = best_ss.get("percentile")
+        pct_txt = f"{float(pct):.0f}th percentile" if pct is not None else ""
+        rank_txt = ""
+        if best_ss.get("rank") and best_ss.get("cohort_size"):
+            rank_txt = f"#{best_ss['rank']} of {best_ss['cohort_size']}"
+        ss_block = f"""
+          <article class="home-player-spotlight__card home-player-spotlight__card--ss">
+            <span class="eyebrow">Signature Story — {escape(best_ss['position'])}</span>
+            <h3><a href="players/{escape(best_ss['slug'])}.html">{escape(best_ss['name'])}</a></h3>
+            <p class="home-player-spotlight__line">
+              <strong>{escape(val)}</strong>
+              <span class="section-note">{escape(best_ss.get('metric_label') or '')}</span>
+            </p>
+            <p class="section-note">{escape(rank_txt)} · {escape(pct_txt)}</p>
+            <a class="home-player-spotlight__more" href="players/signature-stories.html">See all →</a>
+          </article>
+        """
+
+    room_block = ""
+    if best_room is not None:
+        belief_txt = "--"
+        b = best_room.get("belief")
+        if b is not None:
+            try: belief_txt = f"{float(b):+.1f}"
+            except (TypeError, ValueError): pass
+        room_block = f"""
+          <article class="home-player-spotlight__card home-player-spotlight__card--room">
+            <span class="eyebrow">The Room — {escape(best_room['position'])}</span>
+            <h3><a href="players/{escape(best_room['slug'])}.html">{escape(best_room['name'])}</a></h3>
+            <p class="home-player-spotlight__line">
+              <strong>Belief {escape(belief_txt)}</strong>
+              <span class="section-note">{escape(best_room.get('archetype') or '')}</span>
+            </p>
+            <p class="section-note">
+              {int(best_room.get('mentions') or 0)} mentions · {escape(best_room.get('bucket') or 'fan')} bucket
+            </p>
+            <a class="home-player-spotlight__more" href="players/the-room.html">See all →</a>
+          </article>
+        """
+    elif ss_block:
+        # No live Room card yet; the side of the strip renders an Awaiting
+        # Signal stub so the layout doesn't collapse.
+        room_block = """
+          <article class="home-player-spotlight__card home-player-spotlight__card--room home-player-spotlight__card--empty">
+            <span class="eyebrow">The Room</span>
+            <h3>Awaiting Signal</h3>
+            <p class="section-note">
+              Player mood cards light up once fan conversation clears the
+              publication floor. <a href="players/the-room.html">How we gate this</a>.
+            </p>
+          </article>
+        """
+
+    return f"""
+      <section class="home-player-spotlight panel">
+        <header class="home-player-spotlight__head">
+          <h2>Player Spotlight</h2>
+          <a class="section-note" href="players/spotlight.html">Full spotlight →</a>
+        </header>
+        <div class="home-player-spotlight__grid">{ss_block}{room_block}</div>
+      </section>
+    """
+
+
+__all__ = [
+    "build_players_landing",
+    "render_players_landing_html",
+    "render_home_player_spotlight",
+]
