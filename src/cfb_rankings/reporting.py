@@ -494,32 +494,360 @@ _ATTRIBUTIONS_CSS_BLOCK = """
 .attributions-page .back { margin-top: 64px; font-size: 14px; color: #6b6a63; }
 """
 
-# Dark-mode override (S.1). OKLCH values from design-ref/Premium College
-# Football Website UI/src/styles/theme.css. Every rendered <html> gets
-# class="dark" so dark is the default; OS `prefers-color-scheme: light`
-# reverts to the :root light palette via the media query block.
+# Signature Story v5 component CSS (S.2). Visual structure ported from
+# figma-reference/player-page/src/app/components/SignatureStory.tsx.
+# Container query at 720px flips left-rail + main grid from 1col to 1+1.6fr.
+# All surface colors come from the .dark canonical surface tokens (oklch
+# 0.18 0.01 250 family); in default light mode these resolve to the
+# existing :root light values.
+_SIGNATURE_STORY_CSS_BLOCK = """
+.signature-story {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+
+.signature-story__header {
+  margin-bottom: var(--space-8);
+}
+
+.signature-story__eyebrow {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.signature-story__headline {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.signature-story__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+@container (min-width: 720px) {
+  .signature-story__grid {
+    grid-template-columns: 1fr 1.6fr;
+  }
+}
+
+.signature-story__hero-stat {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--elevation-2);
+  margin-bottom: var(--space-6);
+}
+
+.signature-story__stat-value {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--percentile-100);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.signature-story__stat-unit {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.signature-story__stat-context {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.signature-story__rank {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.signature-story__rank-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.signature-story__rank-label {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+}
+
+.signature-story__rank-value {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.signature-story__rank-value--top {
+  color: var(--percentile-100);
+}
+
+.signature-story__rank-value--high {
+  color: var(--percentile-90);
+}
+
+.signature-story__rank-value--mid {
+  color: var(--percentile-50);
+}
+
+.signature-story__rank-value--low {
+  color: var(--percentile-10);
+}
+
+.signature-story__why-label,
+.signature-story__cohort-label {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.signature-story__narrative {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--foreground);
+  opacity: 0.9;
+  margin: 0 0 var(--space-6) 0;
+}
+
+.signature-story__cohort {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.signature-story__cohort-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.signature-story__cohort-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-meta);
+}
+
+.signature-story__cohort-name {
+  color: var(--muted-foreground);
+}
+
+.signature-story__cohort-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+
+.signature-story__cohort-track {
+  position: relative;
+  height: var(--space-2);
+  background: var(--muted);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.signature-story__cohort-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  transition: width var(--motion-data-entry);
+}
+
+.signature-story__confidence {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: var(--space-4) 0 0 0;
+  letter-spacing: 0.04em;
+}
+
+.signature-story__runners {
+  list-style: none;
+  padding: var(--space-4) 0 0 0;
+  margin: var(--space-4) 0 0 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.signature-story__runners-label {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.signature-story__runner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+}
+
+.signature-story__runner-name {
+  color: var(--foreground);
+  opacity: 0.85;
+}
+
+/* Empty / skeleton state */
+.signature-story--empty .signature-story__headline {
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+.signature-story__empty-body {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-body);
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin: 0;
+}
+"""
+
+
+# Figma v5 token canon (S.2 prep). Sourced verbatim from
+# figma-reference/player-page/src/styles/theme.css. Adds fluid clamp type,
+# spacing scale, radius (8/12/16), elevation, motion roles (with
+# prefers-reduced-motion override), OKLCH percentile/belief ramps, and
+# accolade gold. These extend the existing :root tokens in _site_css()
+# without colliding (no name overlaps).
+_FIGMA_V5_TOKENS_CSS_BLOCK = """
+:root {
+  /* Fluid clamp typography scale */
+  --fs-display: clamp(2.5rem, 5vw + 1rem, 5.5rem);
+  --fs-h1: clamp(1.75rem, 2.5vw + 0.5rem, 3rem);
+  --fs-h2: clamp(1.25rem, 1.5vw + 0.25rem, 1.75rem);
+  --fs-body: clamp(0.9375rem, 0.25vw + 0.875rem, 1.0625rem);
+  --fs-meta: clamp(0.75rem, 0.1vw + 0.75rem, 0.8125rem);
+
+  /* 8-step spacing scale (powers of 4px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radius (3 values: 8/12/16) — overrides legacy 6/10/12 from _site_css() */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Elevation (3 levels) — light defaults; .dark overrides below */
+  --elevation-1: 0 2px 8px oklch(0 0 0 / 0.04);
+  --elevation-2: 0 8px 16px oklch(0 0 0 / 0.08);
+  --elevation-3: 0 16px 32px oklch(0 0 0 / 0.12);
+
+  /* Motion roles (4 — collapse to instant under prefers-reduced-motion) */
+  --motion-reveal: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-state: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-data-entry: 420ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --motion-delight: 800ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Percentile ramp: red → grey → blue (OKLCH-interpolated) */
+  --percentile-0: oklch(0.55 0.18 12);
+  --percentile-10: oklch(0.56 0.14 18);
+  --percentile-25: oklch(0.58 0.09 30);
+  --percentile-50: oklch(0.6 0.02 250);
+  --percentile-75: oklch(0.62 0.09 240);
+  --percentile-90: oklch(0.65 0.15 250);
+  --percentile-100: oklch(0.68 0.18 255);
+
+  /* Belief ramp: red → grey → green */
+  --belief-negative: oklch(0.5 0.15 20);
+  --belief-neutral: oklch(0.6 0.02 250);
+  --belief-positive: oklch(0.6 0.15 145);
+
+  /* Accolade gold */
+  --accolade-gold-base: oklch(0.7 0.12 85);
+  --accolade-gold-highlight: oklch(0.8 0.1 90);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-reveal: 0ms linear;
+    --motion-state: 0ms linear;
+    --motion-data-entry: 0ms linear;
+    --motion-delight: 0ms linear;
+  }
+}
+"""
+
+
+# Dark-mode override (S.1, refined for Figma canon in S.2). OKLCH values
+# from figma-reference/player-page/src/styles/theme.css `.dark` block —
+# subtle blue cast (oklch(0.18 0.01 250) for surface, 0.22 for muted,
+# 0.25 for border) instead of the pure-greyscale set we shipped in S.1.
+# Activated by class="dark" on <html>; not applied by default per S.1
+# follow-up. Stage S.6 flips it on after all modules are ported.
 _DARK_MODE_CSS_BLOCK = """
 html.dark {
   color-scheme: dark;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.165 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.165 0 0);
+  --background: oklch(0.18 0.01 250);
+  --foreground: oklch(0.95 0.01 250);
+  --card: oklch(0.18 0.01 250);
+  --card-foreground: oklch(0.95 0.01 250);
+  --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.985 0 0);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --secondary: oklch(0.22 0.01 250);
+  --secondary-foreground: oklch(0.95 0.01 250);
+  --muted: oklch(0.22 0.01 250);
+  --muted-foreground: oklch(0.6 0.02 250);
   --accent-surface: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.55 0.19 25.7);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.3 0 0);
-  --border-strong: oklch(0.4 0 0);
+  --border: oklch(0.25 0.01 250);
+  --border-strong: oklch(0.35 0.01 250);
   --input-background: oklch(0.269 0 0);
+
+  /* Elevation shadows for dark surfaces */
+  --elevation-1: 0 2px 8px oklch(0.18 0.01 250 / 0.3);
+  --elevation-2: 0 8px 16px oklch(0.18 0.01 250 / 0.4);
+  --elevation-3: 0 16px 32px oklch(0.18 0.01 250 / 0.5);
 }
 
 @media (prefers-color-scheme: light) {
@@ -620,12 +948,16 @@ def _compose_global_css() -> str:
         + _FONT_FACE_BLOCK
         + "\n/* === Legacy site CSS (verbatim from _site_css()) === */\n"
         + _site_css()
+        + "\n/* === Figma v5 token canon (S.2 prep) === */\n"
+        + _FIGMA_V5_TOKENS_CSS_BLOCK
         + "\n/* === Team-archetype module — moved from reporting.py:~9019 === */\n"
         + _TEAM_ARCHETYPE_CSS_BLOCK
         + "\n/* === Attributions page — moved from reporting.py:~467, scoped to .attributions-page === */\n"
         + _ATTRIBUTIONS_CSS_BLOCK
         + "\n/* === Cohort panel — moved from reporting.py:~16163 === */\n"
         + _COHORT_PANEL_CSS_BLOCK
+        + "\n/* === Signature Story v5 (S.2) === */\n"
+        + _SIGNATURE_STORY_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -10395,29 +10727,31 @@ def render_players_index_html(
 
 
 def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
-    """Minimal HTML shell for the algorithmic Signature Story module.
+    """Render the Signature Story module (S.2 — Figma v5 port).
 
-    Figma replaces this in Stage 2 of the player-page redesign. The shell
-    here carries the data payload verbatim plus readable fallback copy so
-    the page is scannable while the design is in flight.
+    Visual contract:
+    figma-reference/player-page/src/app/components/SignatureStory.tsx
+    Tokens: --fs-display/h1/h2/body/meta, --space-*, --radius-*,
+    --elevation-2, --motion-data-entry, --percentile-{0..100}.
+
+    Backend payload comes from `fetch_player_signature_story`; a
+    has_story=False payload renders the shape-accurate empty/skeleton
+    state (Awaiting candidate metric).
     """
     if not story or not story.get("has_story"):
-        # Shape-accurate skeleton: narrative + confidence label are always present.
         narrative = (
             (story or {}).get("narrative")
             or "He hasn't written his page yet — we'll start filling it in "
                "when there are enough snaps to rank against his peers."
         )
-        label = ((story or {}).get("confidence") or {}).get("label") or "No signal"
         return f"""
-          <article class="panel algorithmic-signature algorithmic-signature--empty"
-                   data-module="algorithmic-signature" data-state="empty">
-            <div class="section-head">
-              <h3>Signature Story</h3>
-              <p class="section-note">An auditable, cohort-ranked read on the one stat that defines this season.</p>
-            </div>
-            <p class="prose-panel">{escape(narrative)}</p>
-            <p class="section-note">Confidence: {escape(label)}.</p>
+          <article class="signature-story signature-story--empty"
+                   data-module="signature-story" data-state="empty">
+            <header class="signature-story__header">
+              <p class="signature-story__eyebrow">Signature Story</p>
+              <h2 class="signature-story__headline">Awaiting candidate metric</h2>
+            </header>
+            <p class="signature-story__empty-body">{escape(narrative)}</p>
           </article>
         """
 
@@ -10425,6 +10759,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
     narrative = str(story.get("narrative") or "")
     confidence = story.get("confidence") or {}
     runners = story.get("runners_up") or []
+    supporting = story.get("supporting_chart") or {}
 
     def _fmt_val(val: Any, unit: str) -> str:
         try:
@@ -10447,40 +10782,137 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
             return f"{fv:.0%}"
         return f"{fv:g}"
 
+    def _percentile_class(pct: float) -> str:
+        # Maps to .signature-story__rank-value--{top,high,mid,low}
+        if pct >= 90:
+            return "signature-story__rank-value--top"
+        if pct >= 75:
+            return "signature-story__rank-value--high"
+        if pct >= 25:
+            return "signature-story__rank-value--mid"
+        return "signature-story__rank-value--low"
+
+    def _percentile_token(pct: float) -> str:
+        # OKLCH ramp lookup for cohort-bar fill.
+        if pct >= 90:
+            return "var(--percentile-100)"
+        if pct >= 75:
+            return "var(--percentile-90)"
+        if pct >= 50:
+            return "var(--percentile-75)"
+        if pct >= 25:
+            return "var(--percentile-50)"
+        if pct >= 10:
+            return "var(--percentile-25)"
+        return "var(--percentile-10)"
+
+    value_str = _fmt_val(hs.get("value"), str(hs.get("unit") or ""))
+    unit_str = str(hs.get("unit") or "")
+    label_str = str(hs.get("label") or "")
     rank = hs.get("rank")
     cohort_size = hs.get("cohort_size")
-    rank_line = f"#{rank} of {cohort_size}" if rank and cohort_size else "--"
+    rank_cohort = str(hs.get("rank_cohort") or "")
+    pct_raw = hs.get("percentile")
+    try:
+        pct = float(pct_raw) if pct_raw is not None else 0.0
+    except (TypeError, ValueError):
+        pct = 0.0
+    pct_int = int(round(pct))
+    sample_size = hs.get("sample_size") or 0
+
+    # Headline: real production data has no sentence-headline yet; use the
+    # metric label as the headline (that's what the data carries today).
+    headline = label_str or "Signature Story"
+
+    # Rank cards
+    rank_card = (
+        f'<div class="signature-story__rank-row">'
+        f'  <span class="signature-story__rank-label">National rank</span>'
+        f'  <span class="signature-story__rank-value {_percentile_class(pct)}" '
+        f'aria-label="Ranked number {rank} of {cohort_size}">'
+        f'#{rank}<span style="font-size: var(--fs-meta); color: var(--muted-foreground); margin-left: var(--space-1);"> of {cohort_size}</span>'
+        f'</span>'
+        f'</div>'
+    ) if rank and cohort_size else ""
+    pctile_card = (
+        f'<div class="signature-story__rank-row">'
+        f'  <span class="signature-story__rank-label">Percentile vs {escape(rank_cohort or "cohort")}</span>'
+        f'  <span class="signature-story__rank-value {_percentile_class(pct)}" '
+        f'aria-label="{pct_int}th percentile">'
+        f'{pct_int}<span style="font-size: var(--fs-meta);">th</span>'
+        f'</span>'
+        f'</div>'
+    )
+
+    # VS COHORT bar — single bar showing where this player lands on the
+    # 0-100 percentile axis. Built from real data we have today (per-player
+    # cohort strip lives in supporting_chart.data; for v1 we render just
+    # the player's own bar; richer multi-bar comparison comes after the
+    # cohort-summary helper lands in a follow-up).
+    cohort_bar = (
+        f'<div class="signature-story__cohort-row">'
+        f'  <div class="signature-story__cohort-row-head">'
+        f'    <span class="signature-story__cohort-name">This player</span>'
+        f'    <span class="signature-story__cohort-value">{escape(value_str)} <span style="color: var(--muted-foreground); font-weight: 400;">({pct_int}th)</span></span>'
+        f'  </div>'
+        f'  <div class="signature-story__cohort-track">'
+        f'    <div class="signature-story__cohort-bar" '
+        f'style="width: {max(2.0, min(100.0, pct)):.1f}%; background: {_percentile_token(pct)};"></div>'
+        f'  </div>'
+        f'</div>'
+    )
 
     runners_html = ""
     if runners:
         items = "".join(
-            f"<li><span>{escape(r.get('label') or '')}</span>"
-            f"<span>#{r.get('rank')} / {r.get('cohort_size')}</span></li>"
+            f'<li class="signature-story__runner">'
+            f'<span class="signature-story__runner-name">{escape(str(r.get("label") or ""))}</span>'
+            f'<span>#{r.get("rank")} / {r.get("cohort_size")}</span>'
+            f'</li>'
             for r in runners[:3]
         )
-        runners_html = f'<ul class="algorithmic-signature__runners">{items}</ul>'
+        runners_html = (
+            f'<ul class="signature-story__runners">'
+            f'  <li class="signature-story__runners-label">Also strong</li>'
+            f'  {items}'
+            f'</ul>'
+        )
+
+    confidence_label = str(confidence.get("label") or "")
+    confidence_line = (
+        f'Confidence: {escape(confidence_label)} · sample {int(sample_size)} · cohort {cohort_size or 0}'
+    )
 
     return f"""
-      <article class="panel algorithmic-signature"
-               data-module="algorithmic-signature" data-state="ready"
+      <article class="signature-story"
+               data-module="signature-story" data-state="ready"
                data-metric-id="{escape(str(hs.get('metric_id') or ''))}"
                data-cohort-id="{escape(str(hs.get('cohort_id') or ''))}">
-        <div class="section-head">
-          <h3>Signature Story</h3>
-          <p class="section-note">{escape(str(story.get('updated_label') or ''))}</p>
+        <header class="signature-story__header">
+          <p class="signature-story__eyebrow">Signature Story · {escape(str(story.get('updated_label') or ''))}</p>
+          <h2 class="signature-story__headline">{escape(headline)}</h2>
+        </header>
+        <div class="signature-story__grid">
+          <div>
+            <div class="signature-story__hero-stat">
+              <p class="signature-story__stat-value" aria-label="{escape(value_str)} {escape(unit_str)}">{escape(value_str)}</p>
+              <p class="signature-story__stat-unit">{escape(unit_str)}</p>
+              <p class="signature-story__stat-context">{escape(rank_cohort)}</p>
+            </div>
+            <div class="signature-story__rank">
+              {rank_card}
+              {pctile_card}
+            </div>
+          </div>
+          <div>
+            <p class="signature-story__why-label">Why it matters</p>
+            <p class="signature-story__narrative">{escape(narrative)}</p>
+            <p class="signature-story__cohort-label">Vs cohort</p>
+            <div class="signature-story__cohort">{cohort_bar}</div>
+            <p class="signature-story__confidence">{confidence_line}</p>
+            {runners_html}
+          </div>
         </div>
-        <div class="algorithmic-signature__headline">
-          <span class="algorithmic-signature__label">{escape(str(hs.get('label') or ''))}</span>
-          <strong class="algorithmic-signature__value">{escape(_fmt_val(hs.get('value'), str(hs.get('unit') or '')))}</strong>
-          <span class="algorithmic-signature__unit">{escape(str(hs.get('unit') or ''))}</span>
-        </div>
-        <div class="algorithmic-signature__rank">
-          <span>{escape(rank_line)}</span>
-          <span class="section-note">{escape(str(hs.get('rank_cohort') or ''))}</span>
-        </div>
-        <p class="prose-panel algorithmic-signature__narrative">{escape(narrative)}</p>
-        <p class="section-note">Confidence: {escape(str(confidence.get('label') or ''))} (sample {int(hs.get('sample_size') or 0)}, cohort {cohort_size or 0}).</p>
-        {runners_html}
       </article>
     """
 
