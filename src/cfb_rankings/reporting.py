@@ -769,6 +769,145 @@ _PHASE_BANNER_CSS_BLOCK = """
 """
 
 
+# Supporting Cast v5 component CSS (S.3b). Visual structure ported from
+# figma-reference/player-page/src/app/components/SupportingCast.tsx.
+# Outer card with responsive grid (1col → 2col @720 → 3col @1200) of
+# reference cards: OL pass protection, top-3 receivers, OC, DC.
+# Production data slot (`player_data['supporting_cast']`) is currently
+# unpopulated — the empty-state shell renders so the visual slot is ready
+# for when team-context ingestion lands.
+_SUPPORTING_CAST_CSS_BLOCK = """
+.sc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  container-type: inline-size;
+  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+}
+
+.sc__header {
+  margin-bottom: var(--space-8);
+}
+
+.sc__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.sc__sub {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.sc__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@container (min-width: 720px) {
+  .sc__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container (min-width: 1200px) {
+  .sc__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sc__card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.sc__card-eyebrow {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.sc__card-headline {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.sc__card-grade {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--percentile-90);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.sc__card-narrative {
+  font-size: var(--fs-meta);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.sc__rcv-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sc__rcv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-meta);
+}
+
+.sc__rcv-label {
+  color: var(--muted-foreground);
+}
+
+.sc__rcv-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+
+.sc__card-scheme {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.sc__empty-body {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+"""
+
+
 # Current Season Production v5 component CSS (S.3). Visual structure
 # ported from
 # figma-reference/player-page/src/app/components/CurrentSeasonProduction.tsx.
@@ -1116,6 +1255,8 @@ def _compose_global_css() -> str:
         + _SIGNATURE_STORY_CSS_BLOCK
         + "\n/* === Current Season Production v5 (S.3) === */\n"
         + _CURRENT_SEASON_CSS_BLOCK
+        + "\n/* === Supporting Cast v5 (S.3b) === */\n"
+        + _SUPPORTING_CAST_CSS_BLOCK
         + "\n/* === Phase banner (P.0) === */\n"
         + _PHASE_BANNER_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
@@ -11700,6 +11841,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
+      <section class="section player-anchor-section" id="supporting-cast">
+        {_render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
+      </section>
+
       <section class="section player-anchor-section" id="trophy-case">
         <article class="panel">
           <div class="section-head">
@@ -13093,6 +13238,92 @@ def _render_v5_current_season_card(
           <p class="csp__sub">{escape(sub_text)}</p>
         </header>
         <div class="csp__grid">{"".join(cards_html)}</div>
+      </article>
+    """
+
+
+def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
+    """Render the v5 Supporting Cast module (S.3b — Figma port).
+
+    Visual contract:
+    figma-reference/player-page/src/app/components/SupportingCast.tsx
+
+    Expected payload shape (when populated):
+      {
+        "ol_protection": {"grade": float, "rank": int, "percentile": int, "narrative": str},
+        "top_receivers": [{"name": str, "targets": int, "catches": int, "yards": int, "tds": int, "percentile": int}, ...],
+        "play_caller":   {"name": str, "role": str, "scheme": str, "narrative": str},
+        "def_coordinator": {"name": str, "role": str, "scheme": str, "narrative": str},
+      }
+
+    Production data slot (`player_data['supporting_cast']`) is currently
+    None — the empty-state shell renders so the visual canvas exists.
+    Populate when team-context ingestion lands.
+    """
+    populated = bool(cast)
+
+    if not populated:
+        return """
+          <article class="sc" data-module="supporting-cast" data-state="empty">
+            <header class="sc__header">
+              <h2 class="sc__title">Supporting Cast</h2>
+              <p class="sc__sub">Team context · Awaiting roster + coordinator data</p>
+            </header>
+            <p class="sc__empty-body">Supporting Cast surfaces the OL pass-protection grade, top three receivers, offensive coordinator, and defensive coordinator that shape this player's environment. Populates when team-context ingestion lands.</p>
+          </article>
+        """
+
+    cards: list[str] = []
+
+    ol = cast.get("ol_protection") or {}
+    if ol:
+        cards.append(
+            f'<div class="sc__card">'
+            f'  <p class="sc__card-eyebrow">OL pass protection</p>'
+            f'  <p class="sc__card-grade">{escape(str(ol.get("grade") or "--"))}</p>'
+            f'  <p class="sc__card-narrative">{escape(str(ol.get("narrative") or ""))}</p>'
+            f'</div>'
+        )
+
+    for idx, rcv in enumerate(cast.get("top_receivers") or [], start=1):
+        catches = rcv.get("catches")
+        targets = rcv.get("targets")
+        catches_line = f"{catches}/{targets}" if catches is not None and targets is not None else "--"
+        cards.append(
+            f'<div class="sc__card">'
+            f'  <p class="sc__card-eyebrow">WR {idx}</p>'
+            f'  <p class="sc__card-headline">{escape(str(rcv.get("name") or "--"))}</p>'
+            f'  <div class="sc__rcv-stats">'
+            f'    <div class="sc__rcv-row"><span class="sc__rcv-label">Catches</span><span class="sc__rcv-value">{escape(catches_line)}</span></div>'
+            f'    <div class="sc__rcv-row"><span class="sc__rcv-label">Yards</span><span class="sc__rcv-value">{escape(str(rcv.get("yards") or "--"))}</span></div>'
+            f'    <div class="sc__rcv-row"><span class="sc__rcv-label">TDs</span><span class="sc__rcv-value">{escape(str(rcv.get("tds") or "--"))}</span></div>'
+            f'  </div>'
+            f'</div>'
+        )
+
+    for slot in (cast.get("play_caller"), cast.get("def_coordinator")):
+        if not slot:
+            continue
+        cards.append(
+            f'<div class="sc__card">'
+            f'  <p class="sc__card-eyebrow">{escape(str(slot.get("role") or ""))}</p>'
+            f'  <p class="sc__card-headline">{escape(str(slot.get("name") or "--"))}</p>'
+            f'  <p class="sc__card-scheme">{escape(str(slot.get("scheme") or ""))}</p>'
+            f'  <p class="sc__card-narrative">{escape(str(slot.get("narrative") or ""))}</p>'
+            f'</div>'
+        )
+
+    if not cards:
+        # Has key but all sub-fields empty — fall back to empty.
+        return _render_v5_supporting_cast_card(None)
+
+    return f"""
+      <article class="sc" data-module="supporting-cast" data-state="ready">
+        <header class="sc__header">
+          <h2 class="sc__title">Supporting Cast</h2>
+          <p class="sc__sub">Team context · OL protection · Top receivers · Coordinators</p>
+        </header>
+        <div class="sc__grid">{"".join(cards)}</div>
       </article>
     """
 
