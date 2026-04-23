@@ -114,6 +114,14 @@ def build_parser() -> argparse.ArgumentParser:
     the_room_board_parser.add_argument("--season", type=int, required=True)
     the_room_board_parser.add_argument("--week", type=int, default=1)
 
+    players_landing_parser = subparsers.add_parser(
+        "build-players-landing",
+        help=("Build /players/spotlight.html — curated landing that previews "
+              "The Room + Signature Stories boards in one page."),
+    )
+    players_landing_parser.add_argument("--season", type=int, required=True)
+    players_landing_parser.add_argument("--week", type=int, default=1)
+
     signature_board_parser = subparsers.add_parser(
         "build-signature-story-board",
         help=("Build /players/signature-stories.html — Top 25 per position "
@@ -670,6 +678,12 @@ def main() -> None:
         from cfb_rankings.the_room_board import build_the_room_board
         out = build_the_room_board(db, season_year=args.season, week=args.week)
         print(f"the-room board written: {out}")
+        return
+
+    if args.command == "build-players-landing":
+        from cfb_rankings.players_landing import build_players_landing
+        out = build_players_landing(db, season_year=args.season, week=args.week)
+        print(f"players landing written: {out}")
         return
 
     if args.command == "build-signature-story-board":
