@@ -29,6 +29,8 @@ from cfb_rankings.signature_story import (
 CARR_ID = 4788
 BACKUP_ID = 99001
 WALKON_ID = 99002
+STAR_RB_ID = 97001
+STAR_WR_ID = 97101
 
 
 @pytest.fixture()
@@ -208,6 +210,90 @@ def _seed_fixtures(conn: sqlite3.Connection) -> None:
         conn, WALKON_ID, "Walk-on QB", "Test Team", att=3, yds=15, td=0, intc=1, pct=33.3
     )
 
+    # RB fixture: a star RB with elite wepa_rushing, embedded in a cohort of 30 RBs.
+    conn.execute(
+        "INSERT INTO players(player_id, full_name, position) VALUES (?,?,?)",
+        (STAR_RB_ID, "Star RB", "RB"),
+    )
+    for idx in range(30):
+        pid = 200 + idx
+        conn.execute(
+            "INSERT INTO players(player_id, full_name, position) VALUES (?,?,?)",
+            (pid, f"Cohort RB {pid}", "RB"),
+        )
+        value = 0.35 - 0.01 * idx  # 0.35 down to 0.06
+        conn.execute(
+            """INSERT INTO player_value_metrics(
+                season_year, week, player_id, team_id, source_name, source_player_id,
+                team_name, player_name, conference_name, position,
+                metric_name, metric_value, plays, created_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (2025, 99, pid, 1, "cfbd", str(pid), "Test Team",
+             f"Cohort RB {pid}", "SEC", "RB", "wepa_rushing", value, 120 + idx, ""),
+        )
+        _insert_rushing_stats(conn, pid, f"Cohort RB {pid}", "Test Team",
+                              car=120 + idx, yds=int(500 + value * 2000),
+                              td=int(3 + value * 20), ypc=5.0 + value * 2)
+    # Star RB: wepa_rushing=0.40 → rank 1 of 31.
+    conn.execute(
+        """INSERT INTO player_value_metrics(
+            season_year, week, player_id, team_id, source_name, source_player_id,
+            team_name, player_name, conference_name, position,
+            metric_name, metric_value, plays, created_at)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        (2025, 99, STAR_RB_ID, 1, "cfbd", str(STAR_RB_ID), "Notre Dame",
+         "Star RB", "FBS Independents", "RB", "wepa_rushing", 0.40, 180, ""),
+    )
+    _insert_rushing_stats(conn, STAR_RB_ID, "Star RB", "Notre Dame",
+                          car=180, yds=1000, td=12, ypc=5.6)
+
+    # WR fixture: star with high YPR, embedded in a cohort of 40 WRs.
+    conn.execute(
+        "INSERT INTO players(player_id, full_name, position) VALUES (?,?,?)",
+        (STAR_WR_ID, "Star WR", "WR"),
+    )
+    for idx in range(40):
+        pid = 300 + idx
+        conn.execute(
+            "INSERT INTO players(player_id, full_name, position) VALUES (?,?,?)",
+            (pid, f"Cohort WR {pid}", "WR"),
+        )
+        rec = 30 + idx
+        ypr = 12.0 + 0.1 * idx
+        _insert_receiving_stats(conn, pid, f"Cohort WR {pid}", "Test Team",
+                                rec=rec, yds=int(rec * ypr), td=max(1, idx // 5),
+                                ypr=ypr)
+    _insert_receiving_stats(conn, STAR_WR_ID, "Star WR", "Notre Dame",
+                            rec=80, yds=1500, td=12, ypr=18.75)
+
+
+def _insert_rushing_stats(conn, pid, name, team, *, car, yds, td, ypc):
+    for stat_type, val in [("CAR", car), ("YDS", yds), ("TD", td), ("YPC", ypc), ("LONG", 50)]:
+        conn.execute(
+            """INSERT INTO player_season_stats(
+                season_year, week, season_type, player_id, team_id, source_name,
+                source_player_id, team_name, player_name, conference_name,
+                position, category, stat_type, stat_value_text, stat_value_num,
+                created_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (2025, 99, "regular", pid, 1, "cfbd", str(pid), team, name, "SEC",
+             "RB", "rushing", stat_type, str(val), float(val), ""),
+        )
+
+
+def _insert_receiving_stats(conn, pid, name, team, *, rec, yds, td, ypr):
+    for stat_type, val in [("REC", rec), ("YDS", yds), ("TD", td), ("YPR", ypr), ("LONG", 60)]:
+        conn.execute(
+            """INSERT INTO player_season_stats(
+                season_year, week, season_type, player_id, team_id, source_name,
+                source_player_id, team_name, player_name, conference_name,
+                position, category, stat_type, stat_value_text, stat_value_num,
+                created_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (2025, 99, "regular", pid, 1, "cfbd", str(pid), team, name, "SEC",
+             "WR", "receiving", stat_type, str(val), float(val), ""),
+        )
+
 
 def _insert_wepa(conn, pid, name, team, conf, metric, value, plays):
     conn.execute(
@@ -322,6 +408,29 @@ def test_scoreboard_orders_by_score(db_with_fixtures: Database) -> None:
     assert scores == sorted(scores, reverse=True)
     # Every entry exposes the cohort strip we'll render in Figma.
     assert all(len(e.cohort_rows) >= 1 for e in scoreboard)
+
+
+def test_rb_gets_wepa_rushing_story(db_with_fixtures: Database) -> None:
+    """Star RB should win via wepa_rushing_per_carry (narrative_weight=1.0)."""
+    story = fetch_player_signature_story(db_with_fixtures, STAR_RB_ID, 2025)
+    _assert_shape(story)
+    assert story["has_story"] is True
+    hs = story["headline_stat"]
+    assert hs is not None
+    # Among RB metrics, WEPA/carry has the highest narrative_weight.
+    assert hs["metric_id"] in {"wepa_rushing_per_carry", "ypc", "rushing_yards_total"}
+    assert hs["cohort_size"] >= 25
+    assert 1 <= hs["rank"] <= hs["cohort_size"]
+
+
+def test_wr_gets_story_from_stubs(db_with_fixtures: Database) -> None:
+    """Star WR (80 rec / 1500 yds / 18.75 ypr) should surface one of the 3 WR stub metrics."""
+    story = fetch_player_signature_story(db_with_fixtures, STAR_WR_ID, 2025)
+    _assert_shape(story)
+    assert story["has_story"] is True
+    hs = story["headline_stat"]
+    assert hs["metric_id"] in {"receiving_yards_total", "ypr", "receiving_tds"}
+    assert hs["cohort_size"] >= 30
 
 
 def test_higher_is_better_ranking_direction(db_with_fixtures: Database) -> None:

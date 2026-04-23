@@ -85,6 +85,20 @@ def build_parser() -> argparse.ArgumentParser:
         help="Render /methodology/fan-intelligence.html from source_registry + weights.",
     )
 
+    player_mood_parser = subparsers.add_parser(
+        "player-mood",
+        help=("Print The Room on [Player] — the player-scope mood profile. "
+              "Takes a slug ('cj-carr-4788') or numeric player_id."),
+    )
+    player_mood_parser.add_argument(
+        "player", help="Player slug (any-prefix-<id>) or numeric player_id.",
+    )
+    player_mood_parser.add_argument("--season", type=int, default=None)
+    player_mood_parser.add_argument("--week", type=int, default=1,
+                                    help="Week number (default 1; aggregate is weekly).")
+    player_mood_parser.add_argument("--json", action="store_true",
+                                    help="Emit the profile as JSON.")
+
     player_signature_parser = subparsers.add_parser(
         "player-signature",
         help=("Print the Signature Story for a single player. "
@@ -603,6 +617,20 @@ def main() -> None:
         from cfb_rankings.provenance.methodology_page import write_methodology_page
         out = write_methodology_page(db)
         print(f"methodology page written: {out}")
+        return
+
+    if args.command == "player-mood":
+        from cfb_rankings.fan_intelligence import fetch_player_mood_profile
+        player_id = _resolve_player_identifier(db, args.player)
+        if player_id is None:
+            print(f"error: could not resolve player '{args.player}'.")
+            return
+        season = args.season or _default_player_season(db, player_id)
+        profile = fetch_player_mood_profile(db, player_id, season, args.week)
+        if args.json:
+            print(json.dumps(profile, indent=2, default=str))
+            return
+        _print_player_mood(db, profile, player_id, season, args.week)
         return
 
     if args.command == "player-signature":
@@ -2218,6 +2246,46 @@ def _default_player_season(db, player_id: int) -> int:
     )
     year = rows[0].get("y") if rows else None
     return int(year or 2025)
+
+
+def _print_player_mood(db, profile, player_id, season, week):
+    rows = db.query_all(
+        "select full_name, position from players where player_id = :pid",
+        {"pid": player_id},
+    )
+    if rows:
+        header = f"{rows[0]['full_name']} ({rows[0]['position']})  player_id={player_id}  season={season}  week={week}"
+    else:
+        header = f"player_id={player_id}  season={season}  week={week}"
+    print(header)
+    print("-" * len(header))
+    if not profile["has_data"]:
+        print("[no signal yet]")
+        print(f"  sample: {profile['sample']['mentions']} mentions / {profile['sample']['authors']} authors")
+        print(f"  confidence: {profile['confidence']['label']}")
+        narrative = (profile.get("belief") or {}).get("narrative") or ""
+        if narrative:
+            print(f"  narrative: {narrative}")
+        return
+    s = profile["sample"]
+    b = profile["belief"] or {}
+    c = profile["confidence"]
+    print(f"Archetype: {profile.get('archetype') or '--'}")
+    print(f"Belief:    score={b.get('score')}  label={b.get('label') or '--'}")
+    print(f"Narrative: {b.get('narrative') or ''}")
+    print(f"Confidence: {c.get('label')} (score={c.get('score')}, sarcasm={c.get('sarcasm_risk')})")
+    print(f"Sample:")
+    print(f"  own fans   : {s.get('mentions')}")
+    print(f"  rivals     : {s.get('rival_mentions')}")
+    print(f"  national   : {s.get('national_mentions')}")
+    print(f"  media      : {s.get('media_mentions')}")
+    for axis in ("respect_gap", "swing", "cohesion"):
+        ax = profile.get(axis) or {}
+        print(f"  {axis:12s}: {ax.get('label') or '--'}")
+    tq = profile.get("top_quote")
+    if tq:
+        print()
+        print(f'Top quote ({tq.get("bucket") or "?"}): "{tq.get("text")}"  — {tq.get("author_pseudonym") or "fan"}')
 
 
 def _print_signature_story(db, story, player_id, season, week, build_scoreboard_fn):
