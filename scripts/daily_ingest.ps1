@@ -1,20 +1,19 @@
 # scripts/daily_ingest.ps1
 #
-# Daily Fan Intelligence ingestion runner — driven by Windows Task Scheduler.
-# Runs all Tier A + Tier B adapters that don't need aggressive rate-limiting,
-# then recomputes the prior ISO week's cohort aggregates and rebuilds the
-# methodology page.
+# Full daily Fan Intelligence + CFBD + site pipeline. Driven by Windows Task
+# Scheduler; runs under the logged-in user at 09:00. Expected wall-clock: ~15 min.
 #
-# Exits 0 if at least one adapter succeeded; exits 1 if every adapter failed
-# (so Task Scheduler flags a failure state you'd actually care about).
+# In-season (Aug 15 - Jan 20), this also runs CFBD week ingest + model runs.
+# Offseason, those are skipped cleanly.
 #
+# Exits 0 even if individual adapters fail; scrape_health captures the detail.
 # Logs per-run to logs/fanintel_ingest_YYYY-MM-DD.log.
 
-$ErrorActionPreference = "Continue"  # keep going when one adapter fails
+$ErrorActionPreference = "Continue"
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $RepoRoot
 
-# Load .env into the current process (so adapters see API keys)
+# --- Load .env into process so API keys are visible to python -----------------
 if (Test-Path ".env") {
     Get-Content ".env" | ForEach-Object {
         if ($_ -match '^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)\s*$') {
@@ -25,7 +24,6 @@ if (Test-Path ".env") {
     }
 }
 
-# Per-day log
 $LogDir = Join-Path $RepoRoot "logs"
 if (-not (Test-Path $LogDir)) { New-Item -ItemType Directory -Path $LogDir | Out-Null }
 $LogPath = Join-Path $LogDir ("fanintel_ingest_{0:yyyy-MM-dd}.log" -f (Get-Date))
@@ -35,45 +33,140 @@ function Log([string]$msg) {
     "$stamp  $msg" | Tee-Object -FilePath $LogPath -Append
 }
 
-function Run-Adapter([string]$id) {
-    Log "== $id =="
-    python tools/run_adapter.py $id *>&1 | Tee-Object -FilePath $LogPath -Append
-    return $LASTEXITCODE
+function Run([string]$label, [scriptblock]$block) {
+    Log "== $label =="
+    & $block *>&1 | Tee-Object -FilePath $LogPath -Append
+    if ($LASTEXITCODE -ne 0) { Log "   $label exited with code $LASTEXITCODE (continuing)" }
 }
 
-Log "==== daily_ingest start ===="
+function Run-Adapter([string]$id) {
+    Run "adapter: $id" { python tools/run_adapter.py $id }
+}
 
-# Always-run free sources (no auth required)
-$free = @(
+# --- Derived dates -----------------------------------------------------------
+$Now        = Get-Date
+$IsInSeason = ($Now.Month -ge 8) -or ($Now.Month -eq 1 -and $Now.Day -le 20)
+$CurSeason  = if ($Now.Month -ge 7) { $Now.Year } else { $Now.Year - 1 }
+
+# Previous Monday date (YYYY-MM-DD) — what compute-mood-week expects
+$PrevMonday = $Now.AddDays(-(([int]$Now.DayOfWeek + 6) % 7)).ToString("yyyy-MM-dd")
+
+# Current ISO week key (YYYY-WW) — what cohort aggregator expects
+$WeekNum  = [int]((Get-Culture).Calendar.GetWeekOfYear(
+    $Now, [System.Globalization.CalendarWeekRule]::FirstFourDayWeek,
+    [System.DayOfWeek]::Monday))
+$IsoWeekKey = "{0}-{1:D2}" -f $Now.Year, $WeekNum
+
+# Current season week (integer) — for CFBD. Rough: weeks since Aug 26.
+$SeasonStart = Get-Date -Year $CurSeason -Month 8 -Day 26
+$SeasonWeek  = [math]::Max(1, [math]::Floor(($Now - $SeasonStart).TotalDays / 7) + 1)
+
+Log "==== daily_ingest start ===="
+Log "   today=$($Now.ToString('yyyy-MM-dd'))  iso_week=$IsoWeekKey  prev_monday=$PrevMonday"
+Log "   in_season=$IsInSeason  cur_season=$CurSeason  season_week=$SeasonWeek"
+
+# =========================================================================
+# A. Fan-intelligence ingestion (year-round, free / auth-gated)
+# =========================================================================
+$freeSources = @(
     "wiki_pv", "wiki_edits", "gdelt_volume",
     "kalshi", "polymarket",
     "bluesky_curated", "bluesky_feeds"
 )
-foreach ($a in $free) { Run-Adapter $a | Out-Null }
+foreach ($s in $freeSources) { Run-Adapter $s }
 
-# Auth-required (env var presence will let them run; otherwise they exit 0)
-$auth = @("youtube_meta", "seatgeek", "spotify_charts")
-foreach ($a in $auth) { Run-Adapter $a | Out-Null }
+$authSources = @("youtube_meta", "seatgeek", "spotify_charts")
+foreach ($s in $authSources) { Run-Adapter $s }
 
-# Per-team bulk families (RSS)
-$bulk = @("google_news_all", "campus_news_all", "athletics_all", "locked_on_all")
-foreach ($a in $bulk) { Run-Adapter $a | Out-Null }
+$bulkFamilies = @("google_news_all", "campus_news_all", "athletics_all", "locked_on_all")
+foreach ($s in $bulkFamilies) { Run-Adapter $s }
 
-# Aggregation + methodology refresh for the ISO week that just ended
-$week = (Get-Date).AddDays(-7).ToString("yyyy")
-$wkNum = [int]((Get-Culture).Calendar.GetWeekOfYear((Get-Date).AddDays(-7), [System.Globalization.CalendarWeekRule]::FirstFourDayWeek, [System.DayOfWeek]::Monday))
-$WeekKey = "{0}-{1}" -f $week, $wkNum
+# =========================================================================
+# B. Reddit (Arctic Shift provider = free, no auth required)
+# =========================================================================
+Run "reddit: collect-reddit-watchlist" {
+    python manage.py collect-reddit-watchlist `
+        --season $CurSeason --week $SeasonWeek `
+        --subreddit CFB `
+        --audience-bucket national `
+        --provider arctic-shift `
+        --search-limit 15
+}
 
-Log "== compute-cohort-week --week=$WeekKey =="
-python manage.py compute-cohort-week --week=$WeekKey *>&1 | Tee-Object -FilePath $LogPath -Append
+# =========================================================================
+# C. CFBD weekly refresh - in-season only
+# =========================================================================
+if ($IsInSeason) {
+    Run "cfbd: ingest-cfbd-week --season=$CurSeason --week=$SeasonWeek" {
+        python manage.py ingest-cfbd-week --season $CurSeason --week $SeasonWeek
+    }
+    Run "cfbd: import-player-honors" { python manage.py import-player-honors }
+} else {
+    Log "   (offseason: skipping ingest-cfbd-week + import-player-honors)"
+}
 
-Log "== compute-divergence --week=$WeekKey =="
-python manage.py compute-divergence --week=$WeekKey *>&1 | Tee-Object -FilePath $LogPath -Append
+# =========================================================================
+# D. Aggregators - current week
+# =========================================================================
+Run "aggregate: compute-cohort-week --week=$IsoWeekKey" {
+    python manage.py compute-cohort-week --week $IsoWeekKey
+}
+Run "aggregate: compute-divergence --week=$IsoWeekKey" {
+    python manage.py compute-divergence --week $IsoWeekKey
+}
+Run "aggregate: compute-mood-week --week=$PrevMonday" {
+    python manage.py compute-mood-week --week $PrevMonday --no-from-seed
+}
+Run "aggregate: compute-rivalry-ratios --week=$PrevMonday" {
+    python manage.py compute-rivalry-ratios --week $PrevMonday --no-from-seed
+}
+Run "aggregate: mine-lexicon --week=$PrevMonday" {
+    python manage.py mine-lexicon --week $PrevMonday --no-from-seed
+}
 
-Log "== build-methodology =="
-python manage.py build-methodology *>&1 | Tee-Object -FilePath $LogPath -Append
+# =========================================================================
+# E. Player pipeline
+# =========================================================================
+Run "player: tag-player-mentions --season=$CurSeason --commit" {
+    python manage.py tag-player-mentions --season $CurSeason --commit
+}
+Run "player: compute-player-week-mood --week=$IsoWeekKey" {
+    python manage.py compute-player-week-mood --week $IsoWeekKey
+}
 
-Log "== fanintel-status =="
-python manage.py fanintel-status *>&1 | Tee-Object -FilePath $LogPath -Append
+# =========================================================================
+# F. Team feature rebuild (recomputes team_week_conversation_features)
+# =========================================================================
+Run "features: build-conversation-features --season=$CurSeason --week=$SeasonWeek" {
+    python manage.py build-conversation-features --season $CurSeason --week $SeasonWeek
+}
+
+# =========================================================================
+# G. Models (in-season only - require fresh game data)
+# =========================================================================
+if ($IsInSeason) {
+    Run "models: run-models" { python manage.py run-models }
+    Run "models: run-heisman-model" { python manage.py run-heisman-model }
+} else {
+    Log "   (offseason: skipping run-models + run-heisman-model)"
+}
+
+# =========================================================================
+# H. Board builders (fast, stateless reads)
+# =========================================================================
+Run "board: build-the-room-board" { python manage.py build-the-room-board }
+Run "board: build-players-landing" { python manage.py build-players-landing }
+Run "board: build-signature-story-board" { python manage.py build-signature-story-board }
+Run "board: build-methodology" { python manage.py build-methodology }
+
+# =========================================================================
+# I. Full static site rebuild - the main product output
+# =========================================================================
+Run "site: build-site" { python manage.py build-site }
+
+# =========================================================================
+# J. Status dump for the log trailer
+# =========================================================================
+Run "status: fanintel-status" { python manage.py fanintel-status }
 
 Log "==== daily_ingest end ===="
