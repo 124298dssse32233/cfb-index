@@ -1416,7 +1416,7 @@ def render_hub_page_html(data: dict[str, Any]) -> str:
     )
 
     return f"""<!doctype html>
-<html lang=\"en\" class=\"dark\">
+<html lang=\"en\">
   <head>
     <meta charset=\"utf-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">

@@ -254,7 +254,7 @@ def render_methodology_html(db: Database) -> str:
     tiers = ["A", "B", "C", "D"]
     active_count = sum(1 for s in sources if s["is_active"])
 
-    parts = ["<!doctype html>", "<html lang='en' class='dark'><head>",
+    parts = ["<!doctype html>", "<html lang='en'><head>",
              "<meta charset='utf-8'>",
              "<title>Fan Intelligence — Methodology | CFB Index</title>",
              f"<style>{_CSS}</style>",

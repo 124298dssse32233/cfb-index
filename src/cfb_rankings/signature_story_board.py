@@ -112,7 +112,7 @@ def render_signature_story_board_html(rows: list[dict[str, Any]], season_year: i
         body = "\n".join(sections)
 
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

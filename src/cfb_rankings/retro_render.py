@@ -147,7 +147,7 @@ def _archive_html(cache_token: str | None = None) -> str:
     cards = "".join(_archive_card(key) for key in sorted(RETRO_ISSUES))
     cache_meta = f'<meta name="cfb-retro-cache" content="{escape(cache_token)}">' if cache_token else ""
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

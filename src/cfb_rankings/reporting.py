@@ -675,7 +675,7 @@ def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> N
         except Exception:
             pass
     html = """<!doctype html>
-<html lang=\"en\" class=\"dark\">
+<html lang=\"en\">
 <head>
 <meta charset=\"utf-8\">
 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
@@ -6407,7 +6407,7 @@ def render_matchups_page_html(
     scenarios = _render_matchup_scenario_cards(team_pages, site_pulse)
     argument_theater = _render_matchup_argument_theater(fan_intel_board or {}, prefix="../teams/")
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -6794,7 +6794,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
         for team in sorted((item["ranking"] for item in team_pages), key=lambda row: (row.team_name.lower(), row.level_code, row.rank))
     )
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7252,7 +7252,7 @@ def render_conferences_index_html(
     top_cards = _render_conference_spotlight([conference for conference in conference_pages if int(conference["team_count"]) >= 4][:12], prefix="")
     table_rows = "\n".join(_render_conference_table_row(conference) for conference in conference_pages)
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7475,7 +7475,7 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
             + _render_conference_parity_section(conference)
         )
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7714,7 +7714,7 @@ def render_archive_index_html(
             """
         )
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7817,7 +7817,7 @@ def render_archive_snapshot_html(
         else "No prior snapshot loaded"
     )
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8011,7 +8011,7 @@ def render_legacy_entry_html(summary: dict[str, Any], rankings: list[RankingRow]
     season_name = season_label(int(summary["season_year"]))
     top_row = rankings[0]
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="refresh" content="0; url=site/rankings/index.html">
@@ -8363,7 +8363,7 @@ def render_home_html(
     hero_meta_row = _render_home_meta_row(summary, latest_local_week, editorial_context)
 
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8553,7 +8553,7 @@ def render_rankings_page_html(
     history_level_cards = _render_history_level_cards(history_hub or {}, prefix="../programs/")
 
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8757,7 +8757,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
     explorer_table_rows = _render_history_explorer_rows(explorer_rows)
     explorer_conferences = sorted({str(row.get("conference_name") or "") for row in explorer_rows if row.get("conference_name")})
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9178,7 +9178,7 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     cohort_panel = _render_cohort_panel(cohort_rows, team_name=team_name)
     archetype_module = team_data.get("archetype_module_html") or ""
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9468,7 +9468,7 @@ def render_programs_index_html(
     cards = _render_program_explorer_cards(explorer_rows)
     table_rows = "".join(_render_program_explorer_row(row) for row in explorer_rows)
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9630,7 +9630,7 @@ def render_teams_index_html(
         if level_counts.get(level)
     )
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9855,7 +9855,7 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
     """
     season_name = season_label(int(summary["season_year"]))
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10126,7 +10126,7 @@ def render_heisman_page_html(
         else "The probabilities reflect the live vote-eligible data horizon for this week."
     )
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10295,7 +10295,7 @@ def render_players_index_html(
     )
     latest_week = heisman_snapshot.get("week")
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10796,7 +10796,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         ]
     )
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12082,7 +12082,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

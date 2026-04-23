@@ -165,7 +165,7 @@ def render_players_landing_html(payload: dict[str, Any], season_year: int) -> st
 
     title = f"Players — {season_year}"
     return f"""<!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
