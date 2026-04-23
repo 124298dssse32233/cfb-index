@@ -37,6 +37,24 @@ def build_parser() -> argparse.ArgumentParser:
         help="Expand per-feed YAML seeds (beat_writer, substack, podcast, radio) "
              "into concrete source_registry rows.",
     )
+    subparsers.add_parser(
+        "fanintel-status",
+        help="One-shot operational summary: source_registry counts, scrape_health, "
+             "priority_teams coverage, team_cohort_week coverage.",
+    )
+    validate_parser = subparsers.add_parser(
+        "validate-feed-urls",
+        help="HEAD-check every source_registry.terms_url (+ priority_teams wiki pages). "
+             "Writes scrape_health rows and prints a summary of broken URLs.",
+    )
+    validate_parser.add_argument(
+        "--include-templates", action="store_true",
+        help="Also validate *_template ToS URLs (usually skipped).",
+    )
+    validate_parser.add_argument(
+        "--include-wiki-pages", action="store_true",
+        help="Also HEAD-check priority_teams.wiki_{team,coach,qb}_page articles.",
+    )
     scrape_health_parser = subparsers.add_parser(
         "scrape-health",
         help="Print per-source run status from scrape_health (sorted error > empty > ok).",
@@ -74,6 +92,8 @@ def build_parser() -> argparse.ArgumentParser:
                                     help="Optional cap on docs scanned (debug/preview).")
     tag_players_parser.add_argument("--commit", action="store_true",
                                     help="Actually insert rows. Default is dry-run.")
+    tag_players_parser.add_argument("--preview", action="store_true",
+                                    help="Print each match with a context snippet for eyeball review.")
 
     compute_player_mood_parser = subparsers.add_parser(
         "compute-player-week-mood",
@@ -597,6 +617,7 @@ def main() -> None:
         result = tag_player_mentions(
             db, season_year=args.season, week=args.week,
             doc_limit=args.limit, commit=args.commit,
+            preview=getattr(args, "preview", False),
         )
         mode = "COMMIT" if args.commit else "DRY-RUN"
         print(
@@ -688,6 +709,107 @@ def main() -> None:
                   f"{(row['last_run'] or '')[:12]:<12} "
                   f"{row['rows_inserted'] or 0:>7} "
                   f"{row['status'] or '':<8}")
+        return
+
+    if args.command == "fanintel-status":
+        from datetime import date, timedelta
+        print("=" * 64)
+        print("Fan Intelligence — operational status")
+        print("=" * 64)
+
+        n_fanintel = db.query_one(
+            "select count(*) as n from source_registry where source_id is not null"
+        )["n"]
+        n_active = db.query_one(
+            "select count(*) as n from source_registry where source_id is not null and is_active = 1"
+        )["n"]
+        print(f"\nsource_registry: {n_fanintel} fanintel rows ({n_active} active)")
+        tier_rows = db.query_all(
+            "select tier, count(*) as n from source_registry "
+            "where source_id is not null group by tier order by tier"
+        )
+        for r in tier_rows:
+            print(f"  tier {r['tier']}: {r['n']}")
+
+        n_pt = db.query_one("select count(*) as n from priority_teams")["n"]
+        n_pt_needs = db.query_one(
+            "select count(*) as n from priority_teams where needs_research = 1"
+        )["n"]
+        print(f"\npriority_teams: {n_pt} teams ({n_pt_needs} flagged needs_research)")
+
+        cutoff = (date.today() - timedelta(days=7)).isoformat()
+        health_rows = db.query_all(
+            "select status, count(*) as n from scrape_health "
+            "where run_date >= :cutoff group by status order by status",
+            {"cutoff": cutoff},
+        )
+        if health_rows:
+            print(f"\nscrape_health (last 7 days):")
+            for r in health_rows:
+                print(f"  {r['status']}: {r['n']}")
+        else:
+            print("\nscrape_health: no runs in the last 7 days")
+
+        cohort_rows = db.query_one(
+            "select count(*) as n, count(distinct team_id) as teams, "
+            "count(distinct week) as weeks from team_cohort_week"
+        )
+        print(f"\nteam_cohort_week: {cohort_rows['n']} cells across "
+              f"{cohort_rows['teams']} teams × {cohort_rows['weeks']} weeks")
+
+        obs_rows = db.query_one(
+            "select count(*) as n, count(distinct source_id) as srcs "
+            "from source_observations"
+        ) if db.query_one(
+            "select 1 as x from sqlite_master where type='table' and name='source_observations'"
+        ) else None
+        if obs_rows:
+            print(f"\nsource_observations: {obs_rows['n']} rows from "
+                  f"{obs_rows['srcs']} distinct source_id's")
+
+        docs = db.query_one(
+            "select count(*) as n from conversation_documents"
+        )["n"]
+        docs_w_src = db.query_one(
+            "select count(*) as n from conversation_documents where source_id is not null"
+        )["n"]
+        print(f"\nconversation_documents: {docs} rows "
+              f"({docs_w_src} with new-schema source_id populated)")
+
+        div_rows = db.query_one(
+            "select count(*) as n, count(case when divergence_score is not null then 1 end) as qual "
+            "from team_cohort_divergence_week"
+        )
+        print(f"\nteam_cohort_divergence_week: {div_rows['n']} rows "
+              f"({div_rows['qual']} with qualifying divergence_score)")
+
+        print("\n" + "=" * 64)
+        return
+
+    if args.command == "validate-feed-urls":
+        from cfb_rankings.ingest.feed_validator import (
+            validate_registry_feeds, validate_priority_team_wiki_pages,
+        )
+        print("Validating source_registry terms_url entries...")
+        result = validate_registry_feeds(
+            db, include_templates=args.include_templates,
+        )
+        print(f"  ok={result['ok']} error={result['error']} "
+              f"skipped={result['skipped']} total={result['total']}")
+        if result["error"] > 0:
+            print("  See `python manage.py scrape-health` for error details.")
+        if args.include_wiki_pages:
+            print("Validating priority_teams wiki_* pages...")
+            wiki = validate_priority_team_wiki_pages(db)
+            issue_count = 0
+            for team in wiki["teams"]:
+                if team["issues"]:
+                    issue_count += 1
+                    print(f"  {team['team_name']}:")
+                    for issue in team["issues"]:
+                        print(f"    - {issue}")
+            if issue_count == 0:
+                print("  all wiki pages resolve OK")
         return
 
     if args.command == "seed-feed-instances":
