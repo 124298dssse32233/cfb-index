@@ -1,6 +1,9 @@
 name: fanintel-ingest-hourly
-# STRATEGY §2 Tier 1. Stubbed until adapters ship in Weeks 2-4.
-# In-season, real cadence is top of every hour.
+# STRATEGY §2 Tier 1, hourly. Adapters that gracefully no-op without secrets
+# stay here (Wikipedia, GDELT, Kalshi, Polymarket, Bluesky — all free/no-auth).
+# Auth-dependent adapters (CFBD, YouTube, SeatGeek, Spotify) short-circuit
+# to exit 0 when their secret is absent, so a progressive-enable rollout
+# does not flood the Actions tab with errors.
 on:
   schedule:
     - cron: "7 * * * *"
@@ -9,18 +12,39 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    # env: # uncomment once adapters need keys
-    #   CFBD_API_KEY:      ${{ secrets.CFBD_API_KEY }}
-    #   CFBD_PATREON_KEY:  ${{ secrets.CFBD_PATREON_KEY }}
-    #   REDDIT_CLIENT_ID:  ${{ secrets.REDDIT_CLIENT_ID }}
-    #   REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
-    #   YOUTUBE_API_KEY:   ${{ secrets.YOUTUBE_API_KEY }}
-    #   SEATGEEK_CLIENT_ID: ${{ secrets.SEATGEEK_CLIENT_ID }}
+    timeout-minutes: 30
+    env:
+      CFBD_API_KEY:          ${{ secrets.CFBD_API_KEY }}
+      YOUTUBE_API_KEY:       ${{ secrets.YOUTUBE_API_KEY }}
+      SEATGEEK_CLIENT_ID:    ${{ secrets.SEATGEEK_CLIENT_ID }}
+      SPOTIFY_CLIENT_ID:     ${{ secrets.SPOTIFY_CLIENT_ID }}
+      SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Placeholder — no adapters enabled yet
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Deps
         run: |
-          echo "fanintel-ingest-hourly: no adapters registered; exiting clean."
-          exit 0
+          python -m pip install -U pip
+          python -m pip install pyyaml
+      - name: Apply migrations
+        run: python manage.py apply-migrations
+      - name: Free / no-auth sources
+        run: |
+          set +e
+          python tools/run_adapter.py kalshi
+          python tools/run_adapter.py polymarket
+          python tools/run_adapter.py gdelt_volume
+          python tools/run_adapter.py bluesky_curated
+          python tools/run_adapter.py bluesky_feeds
+          echo "done"
+      - name: Auth-required sources (skip if secret absent)
+        run: |
+          set +e
+          python tools/run_adapter.py youtube_meta
+          python tools/run_adapter.py seatgeek
+          echo "done"
+      - name: Google News RSS per team
+        run: python tools/run_adapter.py google_news_all

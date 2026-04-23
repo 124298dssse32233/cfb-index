@@ -15985,8 +15985,12 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
 
     TASK 8.3 (2026-04-23). Does NOT hook into JS; pure inline SVG + CSS.
     """
-    qualifying = [r for r in cohort_rows if r.get("sentiment_score") is not None]
-    if not qualifying:
+    FLOOR_MIN = 30.0  # STRATEGY §4
+    # A cell counts as "shown" when effective_n clears the floor, regardless
+    # of whether sentiment itself is populated. Cells below the floor are
+    # suppressed (never a fake number).
+    shown = [r for r in cohort_rows if (r.get("effective_n") or 0) >= FLOOR_MIN]
+    if not shown:
         return (
             '<section class="section cohort-panel cohort-panel--empty" aria-label="Cohort sentiment">'
             '<div class="section-head">'
@@ -16001,18 +16005,32 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
             '</div>'
             '</section>'
         )
-    week_label = qualifying[0].get("week") or ""
-    confidence = qualifying[0].get("confidence_tier") or "?"
+    week_label = shown[0].get("week") or ""
+    confidence = shown[0].get("confidence_tier") or "?"
     bars = []
     # Sort with highest effective_n first for visual anchor
-    for row in sorted(qualifying, key=lambda r: -(r.get("effective_n") or 0)):
+    for row in sorted(shown, key=lambda r: -(r.get("effective_n") or 0)):
         cohort = str(row.get("cohort") or "?")
-        sentiment = float(row.get("sentiment_score") or 0)
+        sentiment_raw = row.get("sentiment_score")
         eff_n = float(row.get("effective_n") or 0)
+        n_cls = "cohort-n--thin" if eff_n < 100 else "cohort-n--full"
+        if sentiment_raw is None:
+            # Volume-only cell — honest "n= shown, no sentiment number yet"
+            bars.append(
+                f'<li class="cohort-row cohort-row--volume-only">'
+                f'<span class="cohort-label">{escape(cohort)}</span>'
+                f'<span class="cohort-bar-track">'
+                f'<span class="cohort-bar cohort-bar--mute" style="width:100%"></span>'
+                f'</span>'
+                f'<span class="cohort-score cohort-score--mute" title="Volume above floor; no sentiment data yet">&mdash;</span>'
+                f'<span class="cohort-n {n_cls}">n={eff_n:.0f}</span>'
+                f'</li>'
+            )
+            continue
+        sentiment = float(sentiment_raw)
         pct = max(-100.0, min(100.0, sentiment * 100))
         bar_cls = "cohort-bar--pos" if sentiment >= 0 else "cohort-bar--neg"
         width = abs(pct)
-        n_cls = "cohort-n--thin" if eff_n < 100 else "cohort-n--full"
         bars.append(
             f'<li class="cohort-row">'
             f'<span class="cohort-label">{escape(cohort)}</span>'
@@ -16042,6 +16060,9 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
         '.cohort-bar { display: block; height: 100%; }'
         '.cohort-bar--pos { background: #2f7d32; }'
         '.cohort-bar--neg { background: #b23a3a; }'
+        '.cohort-bar--mute { background: #d7d1c2; }'
+        '.cohort-score--mute { color: #a09b8d; }'
+        '.cohort-row--volume-only .cohort-label { color: #5A5954; }'
         '.cohort-score { text-align: right; font-variant-numeric: tabular-nums; }'
         '.cohort-n { text-align: right; color: #5A5954; font-size: .75rem; }'
         '.cohort-n--thin { color: #b07a00; }'

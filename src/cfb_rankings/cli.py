@@ -105,6 +105,18 @@ def build_parser() -> argparse.ArgumentParser:
         "--players", nargs="*", type=int, default=None,
         help="Optional player_id list to filter; default = all players with mentions.",
     )
+
+    compute_player_season_mood_parser = subparsers.add_parser(
+        "compute-player-season-mood",
+        help=("Season rollup: aggregate ALL player-scope target rows for one "
+              "season into week=0 rows. Lets offseason player pages surface "
+              "a non-empty Room when no single week clears the floor."),
+    )
+    compute_player_season_mood_parser.add_argument("--season", type=int, required=True)
+    compute_player_season_mood_parser.add_argument(
+        "--players", nargs="*", type=int, default=None,
+        help="Optional player_id filter.",
+    )
     subparsers.add_parser(
         "build-methodology",
         help="Render /methodology/fan-intelligence.html from source_registry + weights.",
@@ -634,6 +646,15 @@ def main() -> None:
         from cfb_rankings.cohorts.player_aggregate import compute_player_week_mood
         result = compute_player_week_mood(db, args.week, players=args.players)
         print(f"compute-player-week-mood {args.week}: "
+              f"rows_read={result['rows_read']} "
+              f"players_touched={result['players_touched']} "
+              f"cells_written={result['cells_written']}")
+        return
+
+    if args.command == "compute-player-season-mood":
+        from cfb_rankings.cohorts.player_aggregate import compute_player_season_mood
+        result = compute_player_season_mood(db, args.season, players=args.players)
+        print(f"compute-player-season-mood {args.season}: "
               f"rows_read={result['rows_read']} "
               f"players_touched={result['players_touched']} "
               f"cells_written={result['cells_written']}")

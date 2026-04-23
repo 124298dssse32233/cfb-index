@@ -1,8 +1,8 @@
 name: fanintel-scrape-health
-# Health canary — STRATEGY §7 "quarterly" check, but we run it daily as
-# a guardrail. Prints the scrape_health table and fails loudly if any
-# adapter shows status=error in the last 24h. Currently only prints
-# a placeholder because no adapters are wired yet.
+# Daily health canary. Validates feed URLs (HEAD check), prints the
+# scrape-health table, fails the workflow if any source has been
+# `error` for 3 consecutive days (STRATEGY §7 quarterly review — but
+# daily is safer and cheap).
 on:
   schedule:
     - cron: "30 11 * * *"
@@ -11,11 +11,22 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Placeholder — no adapters enabled yet
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Deps
         run: |
-          echo "fanintel-scrape-health: no adapters registered; nothing to check."
-          exit 0
+          python -m pip install -U pip
+          python -m pip install pyyaml
+      - name: Apply migrations
+        run: python manage.py apply-migrations
+      - name: Validate feed URLs
+        run: python manage.py validate-feed-urls
+      - name: Fan Intelligence status
+        run: python manage.py fanintel-status
+      - name: Print scrape-health
+        run: python manage.py scrape-health --since-days 2

@@ -166,7 +166,7 @@ def main() -> None:
                         help="Whisper model name (default: small.en).")
     args = parser.parse_args()
 
-    config = AppConfig.load()
+    config = AppConfig.from_env()
     db = Database(config.database_url)
     apply_runtime_migrations(db)
     transcribe(db,

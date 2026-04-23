@@ -1,6 +1,7 @@
 name: fanintel-ingest-weekly
-# STRATEGY §2 Tier 1. Monday 06:00 UTC = ~01:00 ET (before Kevin's
-# 09:00 ET Cowork sweep). Used for Spotify charts + slow-cadence sources.
+# STRATEGY §2 Tier 1, Monday 06:00 UTC (~01:00 ET — before Kevin's 09:00 ET
+# Cowork sweep). Weekly-cadence sources: Spotify podcast charts.
+# Also: compute-cohort-week + compute-divergence for the prior CFB week.
 on:
   schedule:
     - cron: "0 6 * * 1"
@@ -9,14 +10,32 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-    # env:
-    #   SPOTIFY_CLIENT_ID:     ${{ secrets.SPOTIFY_CLIENT_ID }}
-    #   SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+    timeout-minutes: 30
+    env:
+      SPOTIFY_CLIENT_ID:     ${{ secrets.SPOTIFY_CLIENT_ID }}
+      SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Placeholder — no adapters enabled yet
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Deps
         run: |
-          echo "fanintel-ingest-weekly: no adapters registered; exiting clean."
-          exit 0
+          python -m pip install -U pip
+          python -m pip install pyyaml
+      - name: Apply migrations
+        run: python manage.py apply-migrations
+      - name: Spotify charts
+        run: |
+          set +e
+          python tools/run_adapter.py spotify_charts
+          echo "done"
+      - name: Compute prior-week cohort aggregation
+        run: |
+          # ISO week label for last week
+          WEEK=$(date -u -d "last week" +%G-%V)
+          python manage.py compute-cohort-week --week="$WEEK"
+          python manage.py compute-divergence --week="$WEEK"
+      - name: Rebuild methodology page
+        run: python manage.py build-methodology
