@@ -192,6 +192,11 @@ class TagMatch:
     player: PlayerIndexEntry
     affiliation_team_id: int | None
     inherited_audience_bucket: str | None
+    inherited_week: int | None
+    inherited_sentiment: float | None = None
+    inherited_emotion: str | None = None
+    inherited_sarcasm: float | None = None
+    inherited_confidence: float | None = None
 
 
 def _audience_bucket_for(
@@ -291,16 +296,25 @@ def tag_player_mentions(
         if not body_norm:
             continue
 
-        # Pull this doc's existing team-scope targets once for bucket inference.
+        # Pull this doc's existing team-scope targets once for bucket +
+        # week + sentiment inheritance. The player-target row MUST carry
+        # document-level sentiment/emotion/sarcasm/confidence so the
+        # aggregator can do its math — those scores are produced by the
+        # upstream classifier on the full document, not re-derived by the
+        # tagger. Week must match too, or the aggregator (which filters
+        # by :week) never finds it.
         team_targets = db.query_all(
             """
-            select team_id, audience_bucket, affiliation_team_id
+            select team_id, audience_bucket, affiliation_team_id, week,
+                   sentiment_score, emotion_primary, sarcasm_score, confidence_score
               from conversation_document_targets
              where conversation_document_id = :doc
                and target_type = 'team'
             """,
             {"doc": doc_id},
         )
+        inherited_week = team_targets[0]["week"] if team_targets else week
+        primary_tt = team_targets[0] if team_targets else None
 
         # Scan the index. For perf, we iterate the (small) index of
         # in-season skill players, not the (large) doc tokens. Each key
@@ -326,6 +340,11 @@ def tag_player_mentions(
                     player=p,
                     affiliation_team_id=p.team_id,
                     inherited_audience_bucket=_audience_bucket_for(p, team_targets),
+                    inherited_week=inherited_week,
+                    inherited_sentiment=(primary_tt or {}).get("sentiment_score") if primary_tt else None,
+                    inherited_emotion=(primary_tt or {}).get("emotion_primary") if primary_tt else None,
+                    inherited_sarcasm=(primary_tt or {}).get("sarcasm_score") if primary_tt else None,
+                    inherited_confidence=(primary_tt or {}).get("confidence_score") if primary_tt else None,
                 )
             )
 
@@ -349,22 +368,28 @@ def tag_player_mentions(
                 insert into conversation_document_targets (
                     conversation_document_id, season_year, week, player_id,
                     target_type, target_key, target_label, affiliation_team_id,
-                    audience_bucket, is_primary_target
+                    audience_bucket, sentiment_score, emotion_primary,
+                    sarcasm_score, confidence_score, is_primary_target
                 ) values (
                     :doc, :season, :week, :pid,
                     'player', :target_key, :target_label, :aff_team,
-                    :bucket, 0
+                    :bucket, :sentiment, :emotion,
+                    :sarcasm, :confidence, 0
                 )
                 """,
                 {
                     "doc": m.conversation_document_id,
                     "season": season_year,
-                    "week": week,
+                    "week": m.inherited_week if m.inherited_week is not None else week,
                     "pid": m.player.player_id,
                     "target_key": f"player:{m.player.player_id}",
                     "target_label": m.player.full_name,
                     "aff_team": m.affiliation_team_id,
                     "bucket": m.inherited_audience_bucket or "fan",
+                    "sentiment": m.inherited_sentiment,
+                    "emotion": m.inherited_emotion,
+                    "sarcasm": m.inherited_sarcasm,
+                    "confidence": m.inherited_confidence,
                 },
             )
             rows_written += 1

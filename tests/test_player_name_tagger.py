@@ -71,7 +71,9 @@ def _schema(conn: sqlite3.Connection) -> None:
             team_id INTEGER, player_id INTEGER,
             target_type TEXT, target_key TEXT, target_label TEXT,
             affiliation_team_id INTEGER, audience_bucket TEXT,
-            sentiment_score REAL, is_primary_target INTEGER DEFAULT 0
+            sentiment_score REAL, emotion_primary TEXT,
+            sarcasm_score REAL, confidence_score REAL,
+            is_primary_target INTEGER DEFAULT 0
         );
         """
     )
