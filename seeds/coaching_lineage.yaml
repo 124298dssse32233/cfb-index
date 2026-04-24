@@ -461,3 +461,275 @@ programs:
       comparative_line: >-
         Venables calls his own D; Arbuckle's Air Raid keeps the OU
         offensive identity intact post-Riley.
+
+  "auburn":
+    display_name: Auburn
+    head_coach:
+      name: Hugh Freeze
+      year_in_seat: 3
+      prior_school: Liberty
+    offensive_coordinator:
+      name: Derrick Nix
+      year_in_seat: 3
+      scheme_family: RPO spread
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.53
+        explosive_rate: 0.14
+        tempo: moderate
+      lineage:
+        - Derrick Nix
+        - Hugh Freeze (Ole Miss lineage)
+        - Gus Malzahn (Auburn RPO heritage)
+    defensive_coordinator:
+      name: D.J. Durkin
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 3 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Freeze's RPO DNA continues; Auburn's QB room keeps running
+        downhill off of pre-snap reads.
+
+  "ole-miss":
+    display_name: Ole Miss
+    head_coach:
+      name: Lane Kiffin
+      year_in_seat: 6
+      prior_school: FAU
+    offensive_coordinator:
+      name: Charlie Weis Jr.
+      year_in_seat: 4
+      scheme_family: Pro-style RPO
+      system_fingerprint:
+        plays_per_game: 74
+        pass_rate: 0.57
+        explosive_rate: 0.16
+        tempo: fast
+      lineage:
+        - Charlie Weis Jr.
+        - Lane Kiffin (Alabama OC / USC HC)
+        - Norm Chow (Pete Carroll-era USC)
+    defensive_coordinator:
+      name: Pete Golding
+      year_in_seat: 3
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 4 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Kiffin's Ole Miss floor keeps climbing; the QB room is the
+        most QB-friendly in the SEC by explosive-play rate.
+
+  "texas-am":
+    display_name: Texas A&M
+    head_coach:
+      name: Mike Elko
+      year_in_seat: 2
+      prior_school: Duke
+    offensive_coordinator:
+      name: Collin Klein
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.52
+        explosive_rate: 0.13
+        tempo: moderate
+      lineage:
+        - Collin Klein
+        - Chris Klieman (Kansas State)
+        - Bill Snyder (K-State tree)
+    defensive_coordinator:
+      name: Jay Bateman
+      year_in_seat: 2
+      scheme_family: 3-3-5 odd
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Elko's Duke track record paired with Klein's K-State identity
+        makes A&M a running-down heritage team.
+
+  "missouri":
+    display_name: Missouri
+    head_coach:
+      name: Eli Drinkwitz
+      year_in_seat: 6
+      prior_school: Appalachian State
+    offensive_coordinator:
+      name: Kirby Moore
+      year_in_seat: 3
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 72
+        pass_rate: 0.56
+        explosive_rate: 0.15
+        tempo: moderate
+      lineage:
+        - Kirby Moore
+        - Jay Graham
+        - Gary Pinkel (Missouri heritage)
+    defensive_coordinator:
+      name: Corey Batoon
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 3 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Drinkwitz stays scheme-stable; the QB room's YPA numbers
+        trend with the OL's pass-protection grade.
+
+  "south-carolina":
+    display_name: South Carolina
+    head_coach:
+      name: Shane Beamer
+      year_in_seat: 5
+      prior_school: Oklahoma (assistant)
+    offensive_coordinator:
+      name: Mike Shula
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 68
+        pass_rate: 0.53
+        explosive_rate: 0.12
+        tempo: slow
+      lineage:
+        - Mike Shula
+        - Nick Saban (Alabama assistant influence)
+        - Don Shula (NFL pro-style pedigree)
+    defensive_coordinator:
+      name: Clayton White
+      year_in_seat: 5
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Shula's NFL pedigree shows — Gamecock QBs post clean pocket
+        numbers; the ceiling is the OL and the WR corps.
+
+  "arkansas":
+    display_name: Arkansas
+    head_coach:
+      name: Bobby Petrino
+      year_in_seat: 2
+      prior_school: Texas A&M (OC)
+    offensive_coordinator:
+      name: Bobby Petrino
+      year_in_seat: 2
+      scheme_family: Pro-style vertical
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.56
+        explosive_rate: 0.17
+        tempo: moderate
+      lineage:
+        - Bobby Petrino
+        - Bill Walsh (West Coast roots)
+        - Sid Gillman (vertical game)
+    defensive_coordinator:
+      name: Travis Williams
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: HC calls it
+      year_on_year_change: Same
+      comparative_line: >-
+        Petrino's vertical game rewards a QB who can push the ball;
+        YPA ranks trend top-10 SEC when the pocket holds.
+
+  "wisconsin":
+    display_name: Wisconsin
+    head_coach:
+      name: Luke Fickell
+      year_in_seat: 4
+      prior_school: Cincinnati
+    offensive_coordinator:
+      name: Jeff Grimes
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 68
+        pass_rate: 0.48
+        explosive_rate: 0.12
+        tempo: slow
+      lineage:
+        - Jeff Grimes (BYU + Baylor lineage)
+        - Ed Zaunbrecher
+        - Rob Staub (Baylor tree)
+    defensive_coordinator:
+      name: Mike Tressel
+      year_in_seat: 3
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Fickell's rebuild stays pro-style; ground game is the
+        program's signature, efficiency metrics track with RB health.
+
+  "iowa":
+    display_name: Iowa
+    head_coach:
+      name: Kirk Ferentz
+      year_in_seat: 27
+      prior_school: Iowa (OL coach)
+    offensive_coordinator:
+      name: Tim Lester
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 64
+        pass_rate: 0.47
+        explosive_rate: 0.09
+        tempo: slow
+      lineage:
+        - Tim Lester
+        - Brian Ferentz (Iowa lineage)
+        - Kirk Ferentz (Iowa heritage)
+    defensive_coordinator:
+      name: Phil Parker
+      year_in_seat: 14
+      scheme_family: Cover 2 base
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Parker's defense is the program's identity; the offense
+        plays field-position ball. QB efficiency traded for low INT
+        risk.
+
+  "utah":
+    display_name: Utah
+    head_coach:
+      name: Kyle Whittingham
+      year_in_seat: 21
+      prior_school: Utah (DC)
+    offensive_coordinator:
+      name: Jason Beck
+      year_in_seat: 1
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 68
+        pass_rate: 0.50
+        explosive_rate: 0.11
+        tempo: moderate
+      lineage:
+        - Jason Beck (New Mexico)
+        - Brian Ferentz (pro-style heritage)
+        - Andy Ludwig (Utah tradition)
+    defensive_coordinator:
+      name: Morgan Scalley
+      year_in_seat: 9
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: "NEW OC · Year 1"
+      year_on_year_change: New OC (Beck in)
+      comparative_line: >-
+        Whittingham's defense stays; new OC brings Big 12 tempo
+        tweaks. First-year QB ceiling carries higher variance than
+        usual.
