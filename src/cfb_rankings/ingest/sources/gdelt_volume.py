@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import urllib.parse
 from typing import Any
 
@@ -21,24 +22,28 @@ logger = logging.getLogger(__name__)
 
 _DOC_URL = (
     "https://api.gdeltproject.org/api/v2/doc/doc?"
-    "query={query}&mode=TimelineVol&timespan=7d&FORMAT=JSON"
+    "query={query}&mode=TimelineVol&timespan={timespan}&FORMAT=JSON"
 )
 
 
 class GdeltVolumeAdapter(NumericSourceAdapter):
     source_id = "gdelt_volume"
-    adapter_version = "0.1.0"
+    adapter_version = "0.2.0"
     min_seconds_between_requests = 1.5  # GDELT throttles aggressively
+    # GDELT caps timespan at 2y. Normal hourly cron uses 7d; historical
+    # backfill can set GDELT_TIMESPAN=2y via env for a one-shot pull.
+    default_timespan = "7d"
 
     def fetch(self) -> list[tuple[dict[str, Any], dict[str, Any]]]:
         teams = self.db.query_all(
             "select team_id, google_news_query from priority_teams "
             "where google_news_query is not null"
         )
+        timespan = os.environ.get("GDELT_TIMESPAN", self.default_timespan)
         out: list[tuple[dict[str, Any], dict[str, Any]]] = []
         for t in teams:
             q = urllib.parse.quote(t["google_news_query"])
-            url = _DOC_URL.format(query=q)
+            url = _DOC_URL.format(query=q, timespan=timespan)
             try:
                 data = json.loads(self.http_get(url).decode("utf-8"))
             except Exception as exc:  # noqa: BLE001
