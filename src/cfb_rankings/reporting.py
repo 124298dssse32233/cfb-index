@@ -16373,28 +16373,28 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <div class="team-rank-chip">Player Card</div>
           </div>
           <div class="team-stat-ribbon">
-            <article class="team-stat-tile">
+            <article class="team-stat-tile" data-metric="Current nowcast|{escape(current_rank_text)}">
               <div class="team-mark">{escape(team_mark)}</div>
               <div>
                 <span>Current nowcast</span>
                 <strong>{escape(current_rank_text)}</strong>
               </div>
             </article>
-            <article class="team-stat-tile">
+            <article class="team-stat-tile" data-metric="Season forecast|{escape(forecast_text)}">
               <div class="team-mark">{escape(team_mark)}</div>
               <div>
                 <span>Season forecast</span>
                 <strong>{escape(forecast_text)}</strong>
               </div>
             </article>
-            <article class="team-stat-tile">
+            <article class="team-stat-tile" data-metric="Win probability|{escape(_probability_text(current_snapshot.get('win_probability')))}">
               <div class="team-mark">{escape(team_mark)}</div>
               <div>
                 <span>Win probability</span>
                 <strong>{escape(_probability_text(current_snapshot.get("win_probability")))}</strong>
               </div>
             </article>
-            <article class="team-stat-tile">
+            <article class="team-stat-tile" data-metric="Best official finish|{escape(best_finish_text)}">
               <div class="team-mark">{escape(team_mark)}</div>
               <div>
                 <span>Best official finish</span>
