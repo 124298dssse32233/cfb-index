@@ -174,3 +174,172 @@ arcs:
           Manning Award watch-list entry landed in a compressed window
           vs peers; the off-season conversation flipped to whether the
           system or the QB drove the number.
+
+  "3800":
+    player_name: Trinidad Chambliss
+    season: 2025
+    acts:
+      - title: Emergence
+        week_range: Weeks 1-4
+        inflection: >-
+          Ole Miss's opener against a ranked SEC opponent answered
+          the transfer question inside the first half.
+        synthesis: >-
+          Kiffin's portal bet turned into an SEC-leading efficiency
+          story. YPA ranked top-3 inside the conference by Week 4.
+
+      - title: SEC Validation
+        week_range: Weeks 5-9
+        inflection: >-
+          The October road stretch through LSU + Auburn showed the
+          arm and the brain were travel-proof.
+        synthesis: >-
+          Chambliss's stock climbed faster than any SEC QB not named
+          Manning by volume + cohort-adjusted efficiency.
+
+      - title: Recognition
+        week_range: Weeks 10-13
+        inflection: >-
+          3,900+ passing yards + a Heisman finalist trajectory turned
+          Ole Miss's portal story into the season's biggest
+          transfer-ROI case study.
+        synthesis: >-
+          The freshman-phenom narrative opened for 2026; Kiffin's
+          scheme carries the volume, Chambliss carries the variance.
+
+  "1309":
+    player_name: Jayden Maiava
+    season: 2025
+    acts:
+      - title: Opportunity
+        week_range: Weeks 1-4
+        inflection: >-
+          USC's first drive of Week 1 told every defense what kind of
+          year this would be — pace + vertical routes + tempo.
+        synthesis: >-
+          Riley's Air Raid found the ceiling QB it was built for.
+          The offense ran at the league's fastest tempo inside of a
+          month.
+
+      - title: Recalibration
+        week_range: Weeks 5-9
+        inflection: >-
+          A mid-season Pac-expansion stretch pushed Maiava into the
+          national YPA conversation; a road game at Michigan set the
+          schedule-adjusted ceiling.
+        synthesis: >-
+          The offense adapted to heavier pressure looks; decision-
+          making numbers rose alongside attempts.
+
+      - title: Ambition
+        week_range: Weeks 10-13
+        inflection: >-
+          3,700+ yards with a top-10 YPA inside the P4+ND cohort
+          closed USC's year on a Heisman-proximate note.
+        synthesis: >-
+          Riley's system shipped the numbers. Maiava's 2026 return
+          question is now a conference-reshaping variable.
+
+  "1354":
+    player_name: Ty Simpson
+    season: 2025
+    acts:
+      - title: Inheritance
+        week_range: Weeks 1-4
+        inflection: >-
+          Alabama's first start post-Milroe answered the heir-apparent
+          question; Simpson played on schedule, not in highlights.
+        synthesis: >-
+          DeBoer's scheme demanded efficiency, not volume. Simpson
+          delivered both without a single two-INT game through
+          September.
+
+      - title: Consolidation
+        week_range: Weeks 5-9
+        inflection: >-
+          A three-game stretch against top-25 SEC defenses pushed
+          Simpson into the conference's top-5 YPA readings.
+        synthesis: >-
+          The SEC's best pass-game offenses earned their numbers
+          against top-10 defenses. Simpson's entry into that club
+          made the Heisman conversation active.
+
+      - title: Completion
+        week_range: Weeks 10-13
+        inflection: >-
+          Iron Bowl win + bowl invite capped the season. No Alabama
+          QB since Bryce Young hit this many top-tier efficiency
+          markers in a single year.
+        synthesis: >-
+          The torch transition is complete. 2026 Heisman boards open
+          with Simpson near the top of the cohort.
+
+  "2873":
+    player_name: Dante Moore
+    season: 2025
+    acts:
+      - title: Reset
+        week_range: Weeks 1-4
+        inflection: >-
+          Oregon's tempo found its QB — the Week 2 game against a
+          ranked opponent confirmed Moore was the scheme's ceiling
+          player.
+        synthesis: >-
+          Lanning + Stein's system translated to a QB whose ceiling
+          was the cohort, not the conference. UCLA tape stayed
+          relevant only in context.
+
+      - title: Ascent
+        week_range: Weeks 5-9
+        inflection: >-
+          A back-to-back ranked-opponent stretch pushed Moore to a
+          top-10 QBR reading in the P4+ND cohort.
+        synthesis: >-
+          The explosive-play rate climbed with the tempo; turnovers
+          stayed flat. Efficiency + volume traveled together — rare.
+
+      - title: Coronation
+        week_range: Weeks 10-13
+        inflection: >-
+          Year-end 3,500+ yards + a top-10 finish in the P4+ND
+          cohort make the 2026 Heisman baseline live.
+        synthesis: >-
+          The Oregon identity — fast + efficient — has its QB.
+          Moore's 2026 question is what he can do with a full
+          offseason inside the system.
+
+  "2865":
+    player_name: Arch Manning
+    season: 2025
+    acts:
+      - title: Launch
+        week_range: Weeks 1-4
+        inflection: >-
+          First year as a full-time starter; the family name
+          absorbed the first month of attention until the tape
+          started showing his own identity.
+        synthesis: >-
+          The learning curve showed; the Week 4 breakout was a
+          marker for the rest of the season. Sarkisian + Flood's
+          scheme gave Manning the runway he needed.
+
+      - title: Adjustment
+        week_range: Weeks 5-9
+        inflection: >-
+          A two-game stretch against ranked SEC defenses tested the
+          decision-making; Manning answered with a top-5 red-zone
+          TD rate inside the conference.
+        synthesis: >-
+          Volume numbers stayed modest by design; efficiency crept
+          into top-10 territory. The offensive system kept him on
+          schedule.
+
+      - title: Validation
+        week_range: Weeks 10-13
+        inflection: >-
+          3,100+ yards + a clean INT rate closed a debut-starter
+          season with national watch-list consideration.
+        synthesis: >-
+          The family-name tax is paid; the sophomore year opens with
+          top-5 Heisman odds on every major book. The scheme travel
+          is now the variable, not the QB.
