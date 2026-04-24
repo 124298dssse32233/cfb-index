@@ -2536,6 +2536,126 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Prediction Markets — Signature Bets S2.8 / §4 Bet #9. Small card
+# near the Hero surfacing Heisman futures snapshot. Honest empty state
+# when the player isn't on a major market today.
+_PREDICTION_MARKETS_CSS_BLOCK = """
+@layer components {
+  .prediction-markets {
+    margin: 0 0 var(--space-4, 1rem) 0;
+    padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+    background: var(--card, #fff);
+    border: 1px solid var(--border, #d0d0d0);
+    border-left: 3px solid var(--belief-neutral, #888);
+    border-radius: var(--radius-md, 12px);
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+  }
+  .prediction-markets__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .prediction-markets__row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3, 0.75rem);
+    flex-wrap: wrap;
+  }
+  .prediction-markets__implied {
+    margin: 0;
+    font-size: var(--fs-h2, 1.25rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .prediction-markets__move {
+    font-size: var(--fs-meta, 0.78rem);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .prediction-markets__move--up { color: var(--confidence-high, #3fa35b); }
+  .prediction-markets__move--down { color: var(--confidence-low, #c43a3a); }
+  .prediction-markets__meta {
+    margin: 0;
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+  }
+  .prediction-markets--empty .prediction-markets__implied {
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-body, 1rem);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--muted-foreground, #666);
+  }
+}
+"""
+
+
+def render_prediction_markets_card(sig: Any | None) -> str:
+    """Render the Heisman futures mini-card. Honest empty state when unlisted."""
+    if sig is None:
+        sig_dict = {"listed": False}
+    elif hasattr(sig, "listed"):
+        sig_dict = {
+            "listed":                sig.listed,
+            "heisman_implied_pct":   getattr(sig, "heisman_implied_pct", None),
+            "heisman_provider":      getattr(sig, "heisman_provider", None),
+            "heisman_market_title":  getattr(sig, "heisman_market_title", None),
+            "heisman_last_price":    getattr(sig, "heisman_last_price", None),
+            "heisman_source_url":    getattr(sig, "heisman_source_url", None),
+            "heisman_snapshot_time": getattr(sig, "heisman_snapshot_time", None),
+            "trailing_move_bps":     getattr(sig, "trailing_move_bps", None),
+        }
+    else:
+        sig_dict = sig
+
+    if not sig_dict.get("listed"):
+        return (
+            '<article class="prediction-markets prediction-markets--empty" '
+            'data-module="prediction-markets" data-state="empty">'
+            '  <p class="prediction-markets__eyebrow">Heisman Futures</p>'
+            '  <p class="prediction-markets__implied">Not yet listed on major futures markets.</p>'
+            '</article>'
+        )
+
+    implied = float(sig_dict.get("heisman_implied_pct") or 0)
+    provider = str(sig_dict.get("heisman_provider") or "Market")
+    title = str(sig_dict.get("heisman_market_title") or "Heisman Trophy Winner")
+    move = sig_dict.get("trailing_move_bps")
+    move_html = ""
+    if isinstance(move, (int, float)) and move != 0:
+        cls = "prediction-markets__move--up" if move > 0 else "prediction-markets__move--down"
+        sign = "+" if move > 0 else ""
+        move_html = (
+            f'<span class="prediction-markets__move {cls}">'
+            f'{sign}{move:.0f} bps season-to-date</span>'
+        )
+    source_url = sig_dict.get("heisman_source_url")
+    source_html = (
+        f'<a class="prediction-markets__source" href="{escape(str(source_url))}" '
+        f'rel="noopener">Open market &rarr;</a>'
+        if source_url else ""
+    )
+    return (
+        '<article class="prediction-markets" data-module="prediction-markets" '
+        'data-state="ready">'
+        f'  <p class="prediction-markets__eyebrow">Heisman Futures &middot; {escape(provider)}</p>'
+        '  <div class="prediction-markets__row">'
+        f'    <p class="prediction-markets__implied">{implied:.1f}%</p>'
+        f'    {move_html}'
+        '  </div>'
+        f'  <p class="prediction-markets__meta">{escape(title)}. Prediction '
+        'markets are third-party signals, not inputs to our model. '
+        f'{source_html}</p>'
+        '</article>'
+    )
+
+
 # Achievements ribbon — Signature Bets S2.7 / §4 Bet #7. Row of gold
 # medallions near the Hero; tooltip on hover shows rarity + unlock
 # context. Empty state renders a single muted line so the module is
@@ -3496,6 +3616,8 @@ def _compose_global_css() -> str:
         + _MIRROR_MATCH_CSS_BLOCK
         + "\n/* === Achievements ribbon (S2.7) === */\n"
         + _ACHIEVEMENTS_CSS_BLOCK
+        + "\n/* === Prediction Markets (S2.8) === */\n"
+        + _PREDICTION_MARKETS_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -5605,6 +5727,14 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["achievements"] = []
+        # Prediction markets (Signature Bets S2.8) — per-player fetch.
+        try:
+            from cfb_rankings.bets.prediction_markets import fetch_player_market_signals
+            page_data["market_signal"] = fetch_player_market_signals(
+                db, player_id, int(summary["season_year"])
+            )
+        except Exception:
+            page_data["market_signal"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -15066,6 +15196,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="achievements">
+        {render_prediction_markets_card(player_data.get("market_signal"))}
         {render_achievements_ribbon(player_data.get("achievements"))}
       </section>
 
