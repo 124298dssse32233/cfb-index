@@ -2258,6 +2258,41 @@ _RHYTHM_UTILITIES_CSS_BLOCK = """
     font-weight: 700;
     font-size: var(--fs-h2, 1.25rem);
   }
+
+  /* S4.11 rhythm-sweep — apply tabular-nums to every well-known
+   * number-bearing selector site-wide. Zero-risk additive rules; the
+   * template still ships its own font-sizes / weights, this just
+   * aligns the digit stems. */
+  .stat-card strong,
+  .stat-card .value,
+  .team-stat-tile strong,
+  .team-stat-tile .value,
+  .player-stat-summary-tile .value,
+  .player-stat-summary-tile strong,
+  .team-rank-chip,
+  .feature-rank,
+  .feature-card .value,
+  .player-stats-topline strong,
+  .cohort-score,
+  .cohort-n,
+  .hero-fingerprint__value,
+  .the-room__score,
+  .the-room__meta-value,
+  .signature-story__stat-value,
+  .signature-story__rank-value,
+  .csp__stat-value,
+  .csp__pct-pill,
+  .scenario-explorer__metric-value,
+  .rival-radar__metric-value,
+  .mirror-match__headline,
+  .mirror-match__sub,
+  .achievement__rarity,
+  .prediction-markets__implied,
+  .change-log__list li,
+  .hot-take__text,
+  .hot-take__meta {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
 }
 """
 
