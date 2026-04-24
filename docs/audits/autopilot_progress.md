@@ -29,7 +29,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [ ] TASK 1.3 — 2026 in-season + offseason refresh (Sonnet)
 - [x] TASK 1.4 — PBP-derived advanced metrics table (Opus design; Sonnet implement)
 - [ ] TASK 1.5 — Advanced metrics backfill 2022-2025 (Sonnet)
-- [ ] TASK 1.6 — Extend Signature Story seed with PBP metrics (Opus seed, Sonnet smoke)
+- [x] TASK 1.6 — Extend Signature Story seed with PBP metrics (Opus seed, Sonnet smoke)
 - [x] TASK 1.7 — Weekly CFBD auto-refresh wiring (Sonnet)
 
 ## Workstream 2 — Conversation corpus backfill (2022 → today)
