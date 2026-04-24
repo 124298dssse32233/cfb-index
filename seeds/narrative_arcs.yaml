@@ -1,0 +1,78 @@
+# Narrative Arc Board — hand-authored seeds (Signature Bets S3.4).
+#
+# Each arc has exactly three acts (Discovery / Ascent / Coronation
+# variants are fine; pick what fits). Voice per SIGNATURE_BETS §2:
+# declarative, opinionated, no exclamation, no hype adjectives.
+#
+# Key is player_id (as string for YAML safety). Adding arcs is a pure
+# YAML edit; no code change required. Auto-gen (V2) writes to the same
+# shape behind a flag-for-review gate.
+
+arcs:
+  "4788":
+    player_name: CJ Carr
+    season: 2025
+    acts:
+      - title: Discovery
+        week_range: Weeks 1-4
+        inflection: >-
+          The Miami game — 221 passing yards in a 24-27 loss — was the
+          inflection. Early-season volatility gave way to a template:
+          keep the offense on schedule, live to the next series.
+        synthesis: >-
+          From preseason question mark to verified starter. Efficiency
+          was the surprise; the traditional counting stats lagged by design.
+
+      - title: Ascent
+        week_range: Weeks 5-9
+        inflection: >-
+          Back-to-back 80th-percentile YPA games against top-30 defenses
+          moved him into the Heisman radar.
+        synthesis: >-
+          Peak Heisman Heat arrived in early November. The WEPA curve
+          broke toward historic; decision-making rose from 47th to 83rd
+          pct in one month of film.
+
+      - title: Coronation
+        week_range: Weeks 10-13
+        inflection: >-
+          Heisman finalist at 22. The selection committee's short list
+          validated the efficiency story the analytics community had
+          been writing since Week 5.
+        synthesis: >-
+          The freshman-phenom narrative closed; the multi-year-star
+          narrative opened. Returning value metric tops the 96th pct
+          entering 2026.
+
+  "2431":
+    player_name: Fernando Mendoza
+    season: 2025
+    acts:
+      - title: Arrival
+        week_range: Weeks 1-4
+        inflection: >-
+          Big Ten debut — the first of six 300-yard passing games
+          cleared any doubt that the transfer would translate.
+        synthesis: >-
+          Indiana's portal bet paid off inside the first quarter of
+          the season. Volume and efficiency traveled together.
+
+      - title: Ascent
+        week_range: Weeks 5-9
+        inflection: >-
+          Late-October run against Nebraska + Wisconsin locked in top-5
+          YPA standing inside the P4+ND cohort.
+        synthesis: >-
+          The conversation shifted from "useful transfer" to "Heisman
+          trajectory." Media cohort volume doubled week-over-week at
+          peak.
+
+      - title: Recognition
+        week_range: Weeks 10-13
+        inflection: >-
+          Heisman Trophy Finalist nod capped the season's re-rating.
+          Draft boards followed.
+        synthesis: >-
+          The program's highest-profile QB finish in the modern era.
+          Returning-QB scenarios flipped from hypothetical to live
+          portal-watch the day after the ceremony.

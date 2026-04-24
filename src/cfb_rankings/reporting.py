@@ -2536,6 +2536,111 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Narrative Arc Board — Signature Bets S3.4 / §4 Bet #14. 3-act
+# season synopsis; hand-authored seeds today, auto-gen follow-up.
+_NARRATIVE_ARC_CSS_BLOCK = """
+@layer components {
+  .narrative-arc {
+    margin: 0 0 var(--space-6, 1.5rem) 0;
+    padding: var(--space-5, 1.25rem);
+    background: var(--card, #fff);
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-lg, 16px);
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+  }
+  .narrative-arc__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .narrative-arc__title {
+    margin: 0;
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-h2, 1.25rem);
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .narrative-arc__acts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4, 1rem);
+  }
+  .narrative-arc__act {
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+    padding-top: var(--space-2, 0.5rem);
+    border-top: 2px solid var(--accolade-gold-base, #d1a23a);
+  }
+  .narrative-arc__act h3 {
+    margin: 0;
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-h3, 1.05rem);
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .narrative-arc__meta {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .narrative-arc__inflection {
+    margin: 0;
+    font-size: var(--fs-body, 0.95rem);
+    font-style: italic;
+    color: var(--muted-foreground, #666);
+    line-height: 1.4;
+  }
+  .narrative-arc__synthesis {
+    margin: 0;
+    font-size: var(--fs-body, 0.95rem);
+    line-height: 1.45;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .narrative-arc--empty {
+    color: var(--muted-foreground, #666);
+    font-style: italic;
+  }
+}
+"""
+
+
+def render_narrative_arc_card(arc: dict[str, Any] | None) -> str:
+    """Render the 3-act card; empty state when no seed exists."""
+    if not arc:
+        return (
+            '<article class="narrative-arc narrative-arc--empty" '
+            'data-module="narrative-arc" data-state="empty">'
+            '  <p class="narrative-arc__eyebrow">Season in 3 Acts</p>'
+            '  <p>Arc authoring in progress for this player. Lights up '
+            'when the editorial pass covers them or the auto-generator '
+            'clears its confidence gate.</p>'
+            '</article>'
+        )
+    player_name = escape(str(arc.get("player_name") or "Player"))
+    season = int(arc.get("season") or 0)
+    acts_html: list[str] = []
+    for act in (arc.get("acts") or []):
+        acts_html.append(
+            '<section class="narrative-arc__act">'
+            f'  <h3>{escape(str(act.get("title") or ""))}</h3>'
+            f'  <p class="narrative-arc__meta">{escape(str(act.get("week_range") or ""))}</p>'
+            f'  <p class="narrative-arc__inflection">{escape(" ".join(str(act.get("inflection") or "").split()))}</p>'
+            f'  <p class="narrative-arc__synthesis">{escape(" ".join(str(act.get("synthesis") or "").split()))}</p>'
+            '</section>'
+        )
+    return (
+        '<article class="narrative-arc" data-module="narrative-arc" data-state="ready">'
+        f'  <p class="narrative-arc__eyebrow">{season} Season in 3 Acts</p>'
+        f'  <h2 class="narrative-arc__title">{player_name}</h2>'
+        f'  <div class="narrative-arc__acts">{"".join(acts_html)}</div>'
+        '</article>'
+    )
+
+
 # Scenario Explorer — Signature Bets S3.3 / §4 Bet #12. Alpine-driven
 # slider widget: reader dials remaining-games + per-game projection,
 # component recomputes projected season total + rank in the cohort.
@@ -4226,6 +4331,8 @@ def _compose_global_css() -> str:
         + _SIGNATURE_PLAY_CSS_BLOCK
         + "\n/* === Scenario Explorer (S3.3) === */\n"
         + _SCENARIO_EXPLORER_CSS_BLOCK
+        + "\n/* === Narrative Arc Board (S3.4) === */\n"
+        + _NARRATIVE_ARC_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -6385,6 +6492,14 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["scenario_payload"] = None
+        # Narrative Arc (Signature Bets S3.4) — YAML-seeded.
+        try:
+            from cfb_rankings.bets.narrative_arc import fetch_narrative_arc
+            page_data["narrative_arc"] = fetch_narrative_arc(
+                player_id, int(summary["season_year"])
+            )
+        except Exception:
+            page_data["narrative_arc"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -15864,6 +15979,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section" id="signature-story">
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
         {render_signature_play_card(player_data.get("signature_moment"))}
+        {render_narrative_arc_card(player_data.get("narrative_arc"))}
         {render_scenario_explorer_card(player_data.get("scenario_payload"))}
         <article class="panel">
           <div class="section-head">
