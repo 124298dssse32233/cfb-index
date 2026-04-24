@@ -62,6 +62,22 @@ document.addEventListener('alpine:init', function () {
         var n = (this.active.sample || 0);
         try { return n.toLocaleString() + ' mentions'; } catch (_e) { return n + ' mentions'; }
       },
+      confidenceBand: function () {
+        var n = (this.active.sample || 0);
+        if (n >= 40) return 'high';
+        if (n >= 12) return 'medium';
+        if (n >= 4) return 'low';
+        return 'below-floor';
+      },
+      confidenceLabelText: function () {
+        var explicit = this.active && this.active.confidence;
+        if (explicit) return String(explicit).toUpperCase();
+        var band = this.confidenceBand();
+        return band === 'below-floor' ? 'BELOW FLOOR' :
+               band === 'medium'      ? 'MEDIUM' :
+               band === 'low'         ? 'LOW' :
+                                        'HIGH';
+      },
       trajectoryPoints: function () {
         var pts = (this.active.trajectory || []);
         if (!pts.length) return '';

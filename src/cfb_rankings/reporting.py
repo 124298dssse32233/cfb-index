@@ -692,6 +692,13 @@ _SIGNATURE_STORY_CSS_BLOCK = """
   color: var(--muted-foreground);
   margin: var(--space-4) 0 0 0;
   letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+.signature-story__confidence-sub {
+  color: var(--muted-foreground);
 }
 
 .signature-story__runners {
@@ -2054,6 +2061,14 @@ _FIGMA_V5_TOKENS_CSS_BLOCK = """
   /* Accolade gold */
   --accolade-gold-base: oklch(0.7 0.12 85);
   --accolade-gold-highlight: oklch(0.8 0.1 90);
+
+  /* Confidence ramp for inline chips (Signature Bets S1.2) — green
+   * (sample ≥ 40), amber (12 ≤ n < 40), red (4 ≤ n < 12), muted grey
+   * (n < 4 or below_floor flag). Tuned to stay subtle against --fs-meta. */
+  --confidence-high: oklch(0.65 0.15 145);
+  --confidence-medium: oklch(0.72 0.12 85);
+  --confidence-low: oklch(0.65 0.15 20);
+  --confidence-below-floor: oklch(0.5 0.02 250);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2334,6 +2349,120 @@ _GLOSSARY_CSS_BLOCK = """
 """
 
 
+# Inline confidence chip — Signature Bets S1.2 / brief §5 item 3.
+# "Every stat gets a confidence dot + tiny sample count. Not a separate
+# 'Page Confidence Score' module — just ambient, per-metric honesty."
+_CONFIDENCE_CSS_BLOCK = """
+@layer components {
+  .fi-confidence {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35em;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.04em;
+    color: var(--muted-foreground, #666);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .fi-confidence__dot {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: var(--confidence-below-floor);
+    transform: translateY(-0.05em);
+  }
+  .fi-confidence--high   .fi-confidence__dot { background: var(--confidence-high); }
+  .fi-confidence--medium .fi-confidence__dot { background: var(--confidence-medium); }
+  .fi-confidence--low    .fi-confidence__dot { background: var(--confidence-low); }
+  .fi-confidence--below-floor .fi-confidence__dot { background: var(--confidence-below-floor); }
+
+  .fi-confidence__label {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .fi-confidence--high   .fi-confidence__label { color: var(--confidence-high); }
+  .fi-confidence--medium .fi-confidence__label { color: var(--confidence-medium); }
+  .fi-confidence--low    .fi-confidence__label { color: var(--confidence-low); }
+  .fi-confidence--below-floor .fi-confidence__label { color: var(--confidence-below-floor); }
+
+  .fi-confidence__sample {
+    color: var(--muted-foreground, #666);
+  }
+}
+"""
+
+
+# Confidence-band thresholds (brief §S1.2 semantic rules). Keyed by sample
+# count; per-cohort floors can override HIGH by passing `high_threshold`.
+_CONFIDENCE_BANDS = (
+    ("high", 40),
+    ("medium", 12),
+    ("low", 4),
+    ("below-floor", 0),
+)
+
+
+def render_confidence_chip(
+    sample: int | float | None,
+    confidence_label: str | None = None,
+    *,
+    below_floor: bool = False,
+    high_threshold: int = 40,
+    show_sample: bool = True,
+) -> str:
+    """Emit a small `● HIGH · n=142`-style chip.
+
+    Band resolution:
+      - below_floor flag, or sample < 4  → BELOW FLOOR (muted dot, no n)
+      - 4 ≤ sample < 12                  → LOW (red dot; caller should
+        prefix the value with `~` where it reads a numeric stat)
+      - 12 ≤ sample < high_threshold     → MEDIUM (amber)
+      - sample ≥ high_threshold          → HIGH (green)
+
+    `confidence_label` overrides the band name if supplied (so a caller
+    with an editorial label like "Moderate" can surface that text while
+    keeping the semantic colour derived from sample size).
+    """
+    try:
+        n = int(sample) if sample is not None else 0
+    except (TypeError, ValueError):
+        n = 0
+    if below_floor or n < 4:
+        band = "below-floor"
+        default_label = "Below floor"
+    elif n < 12:
+        band = "low"
+        default_label = "Low"
+    elif n < high_threshold:
+        band = "medium"
+        default_label = "Medium"
+    else:
+        band = "high"
+        default_label = "High"
+
+    label_text = (confidence_label or default_label).strip() or default_label
+    label_upper = escape(label_text.upper())
+
+    include_sample = bool(show_sample and band != "below-floor" and n > 0)
+    sample_html = (
+        f' <span class="fi-confidence__sample">&middot; n={n}</span>'
+        if include_sample else ""
+    )
+    aria_suffix = f", sample {n}" if include_sample else ""
+    aria = escape(f"Confidence {label_text}{aria_suffix}")
+    return (
+        f'<span class="fi-confidence fi-confidence--{band}" '
+        f'data-confidence="{band}" '
+        f'role="img" aria-label="{aria}">'
+        f'<span class="fi-confidence__dot" aria-hidden="true"></span>'
+        f'<span class="fi-confidence__label">{label_upper}</span>'
+        f'{sample_html}'
+        f'</span>'
+    )
+
+
 def _glossary_label_for(slug: str) -> str:
     """Resolve a human display name for a glossary slug.
 
@@ -2428,6 +2557,8 @@ def _compose_global_css() -> str:
         + _PHASE_BANNER_CSS_BLOCK
         + "\n/* === FI glossary popover (Bet #5, S1.1) === */\n"
         + _GLOSSARY_CSS_BLOCK
+        + "\n/* === Inline confidence chips (S1.2) === */\n"
+        + _CONFIDENCE_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -12545,8 +12676,15 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
         )
 
     confidence_label = str(confidence.get("label") or "")
+    confidence_chip = render_confidence_chip(
+        int(sample_size) if sample_size else 0,
+        confidence_label or None,
+    )
     confidence_line = (
-        f'Confidence: {escape(confidence_label)} · sample {int(sample_size)} · cohort {cohort_size or 0}'
+        f'{confidence_chip} '
+        f'<span class="signature-story__confidence-sub">'
+        f'cohort {int(cohort_size) if cohort_size else 0}'
+        f'</span>'
     )
 
     return f"""
@@ -12706,6 +12844,18 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
             return "the-room__dial-fill--neutral"
         return "the-room__dial-fill--negative"
 
+    def _room_band_for(n: int) -> str:
+        """Map sample count to confidence-chip band — mirrors
+        render_confidence_chip's semantics but returns just the band slug
+        for use in class-name interpolation on the Alpine template."""
+        if n >= 40:
+            return "high"
+        if n >= 12:
+            return "medium"
+        if n >= 4:
+            return "low"
+        return "below-floor"
+
     def _archetype_label(score: float | None) -> str:
         if score is None:
             return "Awaiting per-cohort signal"
@@ -12797,8 +12947,16 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
               </div>
               <div class="the-room__meta-row">
                 <span class="the-room__meta-label">Confidence</span>
-                <span class="the-room__meta-value"
-                      x-text="active.confidence || '—'">{escape(confidence_label or "—")}</span>
+                <span class="fi-confidence fi-confidence--{_room_band_for(int(active['sample'] or 0))}"
+                      x-bind:class="'fi-confidence fi-confidence--' + confidenceBand()"
+                      x-bind:data-confidence="confidenceBand()"
+                      data-confidence="{_room_band_for(int(active['sample'] or 0))}"
+                      role="img"
+                      x-bind:aria-label="`Confidence ${{confidenceLabelText()}}`"
+                      aria-label="Confidence {escape((confidence_label or _room_band_for(int(active['sample'] or 0))).title())}">
+                  <span class="fi-confidence__dot" aria-hidden="true"></span>
+                  <span class="fi-confidence__label" x-text="confidenceLabelText()">{escape((confidence_label or _room_band_for(int(active['sample'] or 0))).upper())}</span>
+                </span>
               </div>
             </div>
           </div>
