@@ -4808,6 +4808,7 @@ def build_player_page_data_map(
     team_strength_index = _compute_team_strength_index(db, current_season)
     top_receivers_by_team = _compute_top_receivers_by_team(db, current_season)
     savant_bands = _compute_savant_cohort_bands(db, current_season)
+    room_buckets_index = _compute_player_room_buckets(db, current_season, the_room_week)
 
     # Per-player value metrics (all rows, keyed by player_id).
     pvm_by_player: dict[int, list[dict[str, Any]]] = {}
@@ -4873,6 +4874,7 @@ def build_player_page_data_map(
             savant_bands=savant_bands,
             player_value_metrics=pvm_by_player.get(player_id, []),
             stat_rank_on_team=stat_rank_by_player.get(player_id),
+            room_buckets=room_buckets_index.get(player_id),
         )
         page_data["active_signals"] = signals_by_player.get(player_id, [])
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
@@ -5000,6 +5002,110 @@ def _compute_team_strength_index(db: Database, season: int) -> dict[int, dict[st
         }
 
     _TEAM_STRENGTH_CACHE[cache_key] = out
+    return out
+
+
+_ROOM_BUCKET_ALIAS = {
+    # DB audience_bucket → v5 cohort id
+    "fan": "own",
+    "own": "own",
+    "rival": "rival",
+    "rivals": "rival",
+    "national": "national",
+    "media": "media",
+    "local": "media",  # repurpose "local" as the media bucket surrogate
+}
+
+
+def _compute_player_room_buckets(db: Database, season: int, week: int) -> dict[int, dict[str, dict[str, Any]]]:
+    """Per-player per-cohort mood state for The Room.
+
+    Shape: {player_id: {own, rival, national, media}}
+    Each bucket: {score: 0-100 or None, sample: int, authors: int,
+                  confidence: label, top_quote: {...}|None, trajectory: []}
+
+    Reads `player_week_conversation_features` directly — it already has
+    per-(player, week, audience_bucket) rows. We pick the most recent
+    (season, week=0 = season rollup preferred when it exists) and map
+    the 4 bucket IDs to v5 cohort ids.
+    """
+    # Pull all rows for this season. Prefer week=0 (season rollup) rows
+    # when source_name='all' (the consolidated rollup) — fall back to
+    # per-source rows for the requested week.
+    rows = db.query_all(
+        """
+        SELECT player_id, week, audience_bucket, source_name,
+               mention_count, unique_author_count, mean_sentiment_score,
+               net_sentiment_score, sample_quality_score, sarcasm_risk,
+               top_quote_json
+        FROM player_week_conversation_features
+        WHERE season_year = :s
+          AND player_id IS NOT NULL
+          AND audience_bucket IS NOT NULL
+        """,
+        {"s": season},
+    )
+
+    # Pick the best row per (player_id, bucket): prefer source_name='all',
+    # tie-break by max mention_count.
+    best: dict[tuple[int, str], dict[str, Any]] = {}
+    for r in rows:
+        pid = int(r["player_id"])
+        raw_bucket = str(r["audience_bucket"] or "").lower()
+        cohort_id = _ROOM_BUCKET_ALIAS.get(raw_bucket)
+        if not cohort_id:
+            continue
+        key = (pid, cohort_id)
+        prev = best.get(key)
+        src_is_all = str(r.get("source_name") or "") == "all"
+        prev_is_all = prev and str(prev.get("source_name") or "") == "all"
+        if prev is None or (src_is_all and not prev_is_all) or (
+            src_is_all == prev_is_all
+            and (r.get("mention_count") or 0) > (prev.get("mention_count") or 0)
+        ):
+            best[key] = dict(r)
+
+    out: dict[int, dict[str, dict[str, Any]]] = {}
+    for (pid, cohort_id), r in best.items():
+        # Score: map net_sentiment_score (-1..+1) to 0..100 dial.
+        score_raw = r.get("net_sentiment_score")
+        score: float | None
+        try:
+            score = round((float(score_raw) + 1.0) * 50.0, 1) if score_raw is not None else None
+        except (TypeError, ValueError):
+            score = None
+
+        # Top quote: stored as JSON string.
+        tq = None
+        tq_raw = r.get("top_quote_json")
+        if tq_raw:
+            try:
+                tq_parsed = json.loads(tq_raw) if isinstance(tq_raw, str) else tq_raw
+                if tq_parsed and tq_parsed.get("text"):
+                    tq = {
+                        "text": str(tq_parsed.get("text") or "")[:500],
+                        "attrib": str(tq_parsed.get("author_pseudonym") or "fan"),
+                        "url": str(tq_parsed.get("source_url") or ""),
+                        "takeCount": int(r.get("mention_count") or 0),
+                    }
+            except (ValueError, TypeError, json.JSONDecodeError):
+                pass
+
+        confidence_floor = str(r.get("sample_quality_score") or "")
+        if isinstance(r.get("sample_quality_score"), (int, float)):
+            q = float(r["sample_quality_score"])
+            confidence = "High" if q >= 0.7 else "Medium" if q >= 0.4 else "Low"
+        else:
+            confidence = "—"
+
+        out.setdefault(pid, {})[cohort_id] = {
+            "score": score,
+            "sample": int(r.get("mention_count") or 0),
+            "authors": int(r.get("unique_author_count") or 0),
+            "confidence": confidence,
+            "top_quote": tq,
+            "trajectory": [],  # week-over-week per-cohort still pending
+        }
     return out
 
 
@@ -5188,6 +5294,7 @@ def _assemble_player_page_data(
     savant_bands: dict[str, dict[str, dict[str, dict[str, Any]]]] | None = None,
     player_value_metrics: list[dict[str, Any]] | None = None,
     stat_rank_on_team: int | None = None,
+    room_buckets: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     current_season = int(summary["season_year"])
     current_roster = next((row for row in roster_history if int(row.get("season_year") or 0) == current_season), None)

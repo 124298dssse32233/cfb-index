@@ -145,6 +145,41 @@ def build_parser() -> argparse.ArgumentParser:
         help="Render /methodology/fan-intelligence.html from source_registry + weights.",
     )
 
+    # Signature Bets S1.6 — Live Signal Flow event lifecycle.
+    signal_emit_parser = subparsers.add_parser(
+        "signal-emit",
+        help="Emit one Live Signal Flow event (Signature Bets S1.6).",
+    )
+    signal_emit_parser.add_argument("--player-id", type=int, required=True)
+    signal_emit_parser.add_argument(
+        "--event-type", required=True,
+        choices=[
+            "portal_entry", "commit", "injury", "draft_declare", "draft_pick",
+            "watch_list", "all_american", "program_record",
+            "heisman_odds_swing", "major_news",
+        ],
+    )
+    signal_emit_parser.add_argument("--headline", required=True)
+    signal_emit_parser.add_argument("--sub-line", default=None)
+    signal_emit_parser.add_argument("--source-url", default=None)
+    signal_emit_parser.add_argument("--source-name", default=None)
+    signal_emit_parser.add_argument("--decay-hours", type=float, default=72.0)
+    signal_emit_parser.add_argument("--dedup-key", default=None)
+
+    signal_list_parser = subparsers.add_parser(
+        "signal-list",
+        help="List active (non-decayed) signals for a player.",
+    )
+    signal_list_parser.add_argument("--player-id", type=int, required=True)
+
+    signal_prune_parser = subparsers.add_parser(
+        "signal-prune",
+        help="Delete signals that decayed more than --older-than-hours ago.",
+    )
+    signal_prune_parser.add_argument(
+        "--older-than-hours", type=float, default=24.0,
+    )
+
     player_mood_parser = subparsers.add_parser(
         "player-mood",
         help=("Print The Room on [Player] — the player-scope mood profile. "
@@ -705,6 +740,40 @@ def main() -> None:
         from cfb_rankings.provenance.methodology_page import write_methodology_page
         out = write_methodology_page(db)
         print(f"methodology page written: {out}")
+        return
+
+    if args.command == "signal-emit":
+        from cfb_rankings.bets.signal_flow import emit_signal_event
+        eid = emit_signal_event(
+            db,
+            player_id=args.player_id,
+            event_type=args.event_type,
+            headline=args.headline,
+            sub_line=args.sub_line,
+            source_url=args.source_url,
+            source_name=args.source_name,
+            decay_hours=args.decay_hours,
+            dedup_key=args.dedup_key,
+        )
+        print(f"emitted signal event id={eid} for player_id={args.player_id}")
+        return
+
+    if args.command == "signal-list":
+        from cfb_rankings.bets.signal_flow import fetch_active_signals
+        sigs = fetch_active_signals(db, args.player_id)
+        print(f"{len(sigs)} active signal(s) for player_id={args.player_id}:")
+        for s in sigs:
+            print(
+                f"  #{s.player_signal_event_id} [{s.event_type}] {s.headline!r} "
+                f"— remaining {s.remaining_fraction():.2f} — "
+                f"expires {s.expires_at.isoformat()}"
+            )
+        return
+
+    if args.command == "signal-prune":
+        from cfb_rankings.bets.signal_flow import prune_expired_signals
+        n = prune_expired_signals(db, older_than_hours=args.older_than_hours)
+        print(f"pruned {n} expired signal(s)")
         return
 
     if args.command == "player-mood":
