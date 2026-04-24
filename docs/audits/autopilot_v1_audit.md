@@ -1,12 +1,12 @@
-# Autopilot v1 — End-to-End Audit · 2026-04-24 11:41 UTC
+# Autopilot v1 — End-to-End Audit · 2026-04-24 15:51 UTC
 
 **14/14** checks pass.
 
 | # | Check | Result | Evidence |
 |---|---|---|---|
 | 1 | source_registry §3 family coverage | ✅ PASS | 18/18 families present |
-| 2 | conversation_document_targets season coverage | ✅ PASS | 2016:1 / 2022:14,786 / 2023:15,979 / 2024:19,308 / 2025:23,391 |
-| 3 | conversation_document_targets player scope | ✅ PASS | 11,442 player-target rows / 1296 distinct players |
+| 2 | conversation_document_targets season coverage | ✅ PASS | 2016:1 / 2022:30,763 / 2023:34,297 / 2024:34,535 / 2025:34,203 |
+| 3 | conversation_document_targets player scope | ✅ PASS | 11,911 player-target rows / 1302 distinct players |
 | 4 | player_week_conversation_features populated | ✅ PASS | 8,229 rows / 1296 players |
 | 5 | player_advanced_metrics multi-season | ✅ PASS | 2022:20,121 / 2023:20,963 / 2024:22,079 / 2025:36,708 / 2026:0 |
 | 6 | player_honors scoped rows | ✅ PASS | 57 rows across scopes: {'national_award': 57} |
