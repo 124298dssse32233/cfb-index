@@ -206,6 +206,22 @@ def build_parser() -> argparse.ArgumentParser:
     cdht_parser.add_argument("--season", type=int, default=None)
     cdht_parser.add_argument("--as-of", default=None)
 
+    # Signature Bets S2.5 — Mirror Match CLI.
+    pmm_parser = subparsers.add_parser(
+        "player-mirror-match",
+        help="Print the top Mirror Matches for one player.",
+    )
+    pmm_parser.add_argument("slug_or_id")
+    pmm_parser.add_argument("--season", type=int, default=None)
+    pmm_parser.add_argument("-k", type=int, default=10)
+
+    cmm_parser = subparsers.add_parser(
+        "compute-mirror-matches",
+        help="Populate player_mirror_matches for every player in --season.",
+    )
+    cmm_parser.add_argument("--season", type=int, default=None)
+    cmm_parser.add_argument("-k", type=int, default=10)
+
     player_mood_parser = subparsers.add_parser(
         "player-mood",
         help=("Print The Room on [Player] — the player-scope mood profile. "
@@ -877,6 +893,35 @@ def main() -> None:
         )
         n = compute_daily_hot_takes(db, season, as_of=as_of)
         print(f"computed + cached {n} Hot-Take(s) for season={season} as_of={as_of}")
+        return
+
+    if args.command == "player-mirror-match":
+        from cfb_rankings.bets.mirror_match import find_mirror_matches
+        target = args.slug_or_id
+        if target.isdigit():
+            pid = int(target)
+        else:
+            digits = "".join(ch for ch in target if ch.isdigit())
+            pid = int(digits) if digits else 0
+        season = args.season or int(db.query_one(
+            "SELECT MAX(season_year) AS y FROM player_season_stats"
+        )["y"] or 2025)
+        matches = find_mirror_matches(db, pid, season, k=args.k)
+        print(f"--- {len(matches)} Mirror Match(es) for player_id={pid}, season={season} ---")
+        for m in matches:
+            print(
+                f"  {m.match_player_name} ({m.match_team_name or '?'}) "
+                f"{m.match_season} — sim={m.similarity_pct}%  cov={m.coverage_pct}%"
+            )
+        return
+
+    if args.command == "compute-mirror-matches":
+        from cfb_rankings.bets.mirror_match import compute_mirror_matches
+        season = args.season or int(db.query_one(
+            "SELECT MAX(season_year) AS y FROM player_season_stats"
+        )["y"] or 2025)
+        n = compute_mirror_matches(db, season, k=args.k)
+        print(f"computed + cached matches for {n} player(s), season={season}")
         return
 
     if args.command == "player-mood":

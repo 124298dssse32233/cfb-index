@@ -140,6 +140,17 @@ def _build_schema(conn: sqlite3.Connection) -> None:
             usage_passing_downs REAL,
             created_at TEXT
         );
+        CREATE TABLE player_advanced_metrics (
+            player_advanced_metric_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            season_year INTEGER,
+            week INTEGER,
+            player_id INTEGER,
+            team_id INTEGER,
+            metric_id TEXT,
+            value REAL,
+            sample_size INTEGER,
+            created_at TEXT
+        );
         """
     )
 

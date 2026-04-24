@@ -2536,6 +2536,141 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Mirror Match — Signature Bets S2.5 / §4 Bet #4. Small card nested
+# in the Peer Comparator section showing the closest historical
+# statistical fingerprint. Renders empty state when no match clears
+# the 75-similarity floor (today's data reality for most players).
+_MIRROR_MATCH_CSS_BLOCK = """
+@layer components {
+  .mirror-match {
+    margin: 0;
+    padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+    background: color-mix(in srgb, var(--muted, #eee) 20%, var(--card));
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-md, 12px);
+    display: grid;
+    gap: var(--space-2, 0.5rem);
+  }
+  .mirror-match__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .mirror-match__headline {
+    margin: 0;
+    font-size: var(--fs-h2, 1.15rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .mirror-match__sub {
+    margin: 0;
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+  }
+  .mirror-match__drivers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
+    margin: 0;
+    list-style: none;
+    padding: 0;
+  }
+  .mirror-match__driver-chip {
+    padding: 2px var(--space-2, 0.5rem);
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: 999px;
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+    font-variant-numeric: tabular-nums;
+  }
+  .mirror-match__drawer {
+    margin-top: var(--space-2, 0.5rem);
+    border-top: 1px dashed var(--border, #d0d0d0);
+    padding-top: var(--space-2, 0.5rem);
+  }
+  .mirror-match__drawer summary {
+    cursor: pointer;
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+    letter-spacing: 0.04em;
+  }
+  .mirror-match__drawer-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-2, 0.5rem) 0 0 0;
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+  }
+  .mirror-match__drawer-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2, 0.5rem);
+    font-size: var(--fs-meta, 0.78rem);
+    font-variant-numeric: tabular-nums;
+  }
+}
+"""
+
+
+def render_mirror_match_card(matches: list[Any] | None) -> str:
+    """Render the Mirror Match card; top match + collapsible drawer of the rest.
+
+    ``matches`` is a list of bets.mirror_match.MirrorMatch dataclasses.
+    Empty / None list → empty-state card.
+    """
+    if not matches:
+        return (
+            '<article class="mirror-match" data-module="mirror-match" '
+            'data-state="empty">'
+            '  <p class="mirror-match__eyebrow">Statistical mirror</p>'
+            '  <p class="mirror-match__headline">Awaiting historical backfill</p>'
+            '  <p class="mirror-match__sub">The 15-year cohort is thin for '
+            'this player\'s position today. Matches surface automatically '
+            'as historical coverage lands.</p>'
+            '</article>'
+        )
+    top = matches[0]
+    team_txt = f" &middot; {escape(str(top.match_team_name))}" if getattr(top, 'match_team_name', None) else ""
+    drivers_html = "".join(
+        f'<li class="mirror-match__driver-chip">'
+        f'{escape(str(d.get("feature") or ""))} '
+        f'Δ{d.get("delta"):+.1f}'
+        f'</li>'
+        for d in (getattr(top, "drivers", None) or [])[:4]
+    )
+    extra_html = ""
+    if len(matches) > 1:
+        items = "".join(
+            f'<li class="mirror-match__drawer-item">'
+            f'<span>{escape(m.match_player_name)}'
+            f'{f" ({escape(str(m.match_team_name))})" if m.match_team_name else ""} '
+            f'{m.match_season}</span>'
+            f'<span>{m.similarity_pct}% &middot; cov {m.coverage_pct}%</span>'
+            f'</li>'
+            for m in matches[1:10]
+        )
+        extra_html = (
+            '<details class="mirror-match__drawer">'
+            f'  <summary>Show top {min(len(matches), 10) - 1} more</summary>'
+            f'  <ul class="mirror-match__drawer-list">{items}</ul>'
+            '</details>'
+        )
+    return (
+        '<article class="mirror-match" data-module="mirror-match" '
+        'data-state="ready">'
+        '  <p class="mirror-match__eyebrow">Statistical mirror</p>'
+        f'  <p class="mirror-match__headline">{escape(top.match_player_name)}{team_txt}, {top.match_season}</p>'
+        f'  <p class="mirror-match__sub">{top.similarity_pct}% similar '
+        f'&middot; {top.coverage_pct}% feature coverage</p>'
+        f'  <ul class="mirror-match__drivers">{drivers_html}</ul>'
+        f'  {extra_html}'
+        '</article>'
+    )
+
+
 # Rival Radar — Signature Bets S2.4 / §4 Bet #1. Module between The
 # Room and 2026 Outlook. Shows rival-fanbase fixation (mention volume
 # normalized + sentiment mix) when ≥ MIN_MENTIONS cleared, else an
@@ -3219,6 +3354,8 @@ def _compose_global_css() -> str:
         + _HOT_TAKE_CSS_BLOCK
         + "\n/* === Rival Radar (S2.4) === */\n"
         + _RIVAL_RADAR_CSS_BLOCK
+        + "\n/* === Mirror Match (S2.5) === */\n"
+        + _MIRROR_MATCH_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -5302,6 +5439,15 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["rival_radar"] = None
+        # Mirror Match (Signature Bets S2.5) — read-only from cache so
+        # build-site stays fast. Empty list → renderer shows empty state.
+        try:
+            from cfb_rankings.bets.mirror_match import fetch_cached_matches
+            page_data["mirror_matches"] = fetch_cached_matches(
+                db, player_id, int(summary["season_year"]), k=10
+            )
+        except Exception:
+            page_data["mirror_matches"] = []
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -15007,6 +15153,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="peer-comparator">
         {_render_v5_peer_comparator_card(player_data.get("peers"))}
+        {render_mirror_match_card(player_data.get("mirror_matches"))}
       </section>
 
       <section class="section player-anchor-section" id="supporting-cast">
