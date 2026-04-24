@@ -100,6 +100,9 @@ def build_parser() -> argparse.ArgumentParser:
                                     help="Actually insert rows. Default is dry-run.")
     tag_players_parser.add_argument("--preview", action="store_true",
                                     help="Print each match with a context snippet for eyeball review.")
+    tag_players_parser.add_argument("--no-last-name", action="store_true",
+                                    help="Disable last-name-only matching (TASK 5.2 strict mode — "
+                                         "full-name match required; higher precision, lower recall).")
 
     compute_player_advanced_parser = subparsers.add_parser(
         "compute-player-advanced",
@@ -963,6 +966,7 @@ def main() -> None:
             db, season_year=args.season, week=args.week,
             doc_limit=args.limit, commit=args.commit,
             preview=getattr(args, "preview", False),
+            include_last_name_matches=not getattr(args, "no_last_name", False),
         )
         mode = "COMMIT" if args.commit else "DRY-RUN"
         print(

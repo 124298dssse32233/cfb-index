@@ -2536,6 +2536,49 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Keyboard-shortcut + screenshot-mode utilities — Signature Bets S4.1 / S4.6.
+# When body[data-screenshot-mode="on"] is set (via `S` keybinding) we
+# hide the top/bottom nav + subnav + any interactive cruft so a reader
+# can capture a clean image of the body.
+_KEYBOARD_SCREENSHOT_CSS_BLOCK = """
+@layer utilities {
+  body[data-screenshot-mode="on"] .topbar,
+  body[data-screenshot-mode="on"] .player-subnav,
+  body[data-screenshot-mode="on"] .site-footer,
+  body[data-screenshot-mode="on"] .phase-banner,
+  body[data-screenshot-mode="on"] .hot-take__actions,
+  body[data-screenshot-mode="on"] .scenario-explorer,
+  body[data-screenshot-mode="on"] [data-what-changed],
+  body[data-screenshot-mode="on"] [data-kb-toast] {
+    display: none !important;
+  }
+  body[data-screenshot-mode="on"] {
+    padding-top: 0 !important;
+  }
+  [data-kb-toast] {
+    position: fixed;
+    bottom: var(--space-4, 1rem);
+    right: var(--space-4, 1rem);
+    padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+    background: var(--popover, var(--card, #222));
+    color: var(--popover-foreground, var(--foreground, #fff));
+    border-radius: var(--radius-md, 12px);
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.04em;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity var(--motion-state, 180ms), transform var(--motion-state, 180ms);
+  }
+  [data-kb-toast][data-open="true"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+"""
+
+
 # Narrative Arc Board — Signature Bets S3.4 / §4 Bet #14. 3-act
 # season synopsis; hand-authored seeds today, auto-gen follow-up.
 _NARRATIVE_ARC_CSS_BLOCK = """
@@ -4333,6 +4376,8 @@ def _compose_global_css() -> str:
         + _SCENARIO_EXPLORER_CSS_BLOCK
         + "\n/* === Narrative Arc Board (S3.4) === */\n"
         + _NARRATIVE_ARC_CSS_BLOCK
+        + "\n/* === Keyboard shortcuts + screenshot mode (S4.1 / S4.6) === */\n"
+        + _KEYBOARD_SCREENSHOT_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -4368,6 +4413,7 @@ def _ensure_global_assets(site_root: Path) -> str:
         "js/bets/what-changed.js",
         "js/bets/signal-flow.js",
         "js/bets/scenario-explorer.js",
+        "js/bets/keyboard-shortcuts.js",
         "fonts/Inter-Variable.woff2",
         "fonts/InterDisplay-SemiBold.woff2",
         "fonts/InterDisplay-Bold.woff2",
@@ -4415,6 +4461,7 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/bets/what-changed.js" defer></script>\n'
         f'    <script src="/assets/js/bets/signal-flow.js" defer></script>\n'
         f'    <script src="/assets/js/bets/scenario-explorer.js" defer></script>\n'
+        f'    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -16325,6 +16372,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
     </main>
+    <div data-kb-toast aria-live="polite" data-open="false"></div>
   </body>
 </html>
 """
