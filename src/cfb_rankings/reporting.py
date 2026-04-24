@@ -2915,6 +2915,22 @@ _NARRATIVE_ARC_CSS_BLOCK = """
     color: var(--muted-foreground, #666);
     font-style: italic;
   }
+  .narrative-arc--auto {
+    border-style: dashed;
+  }
+  .narrative-arc__badge {
+    display: inline-block;
+    margin-left: var(--space-2, 0.5rem);
+    padding: 2px var(--space-2, 0.5rem);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accolade-gold-base, #d1a23a) 12%, transparent);
+    border: 1px solid var(--accolade-gold-base, #d1a23a);
+    color: var(--accolade-gold-base, #d1a23a);
+    font-size: calc(var(--fs-meta, 0.72rem) * 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
 }
 """
 
@@ -2933,6 +2949,11 @@ def render_narrative_arc_card(arc: dict[str, Any] | None) -> str:
         )
     player_name = escape(str(arc.get("player_name") or "Player"))
     season = int(arc.get("season") or 0)
+    auto = bool(arc.get("auto_generated"))
+    eyebrow_badge = (
+        ' <span class="narrative-arc__badge">Auto-draft &middot; flag to review</span>'
+        if auto else ""
+    )
     acts_html: list[str] = []
     for act in (arc.get("acts") or []):
         acts_html.append(
@@ -2944,8 +2965,10 @@ def render_narrative_arc_card(arc: dict[str, Any] | None) -> str:
             '</section>'
         )
     return (
-        '<article class="narrative-arc" data-module="narrative-arc" data-state="ready">'
-        f'  <p class="narrative-arc__eyebrow">{season} Season in 3 Acts</p>'
+        f'<article class="narrative-arc{" narrative-arc--auto" if auto else ""}" '
+        'data-module="narrative-arc" data-state="ready" '
+        f'data-auto="{str(auto).lower()}">'
+        f'  <p class="narrative-arc__eyebrow">{season} Season in 3 Acts{eyebrow_badge}</p>'
         f'  <h2 class="narrative-arc__title">{player_name}</h2>'
         f'  <div class="narrative-arc__acts">{"".join(acts_html)}</div>'
         '</article>'
@@ -6832,12 +6855,25 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["scenario_payload"] = None
-        # Narrative Arc (Signature Bets S3.4) — YAML-seeded.
+        # Narrative Arc (Signature Bets S3.4) — YAML-seeded first; fall
+        # back to auto-draft behind a confidence gate (S4.10).
         try:
-            from cfb_rankings.bets.narrative_arc import fetch_narrative_arc
-            page_data["narrative_arc"] = fetch_narrative_arc(
-                player_id, int(summary["season_year"])
+            from cfb_rankings.bets.narrative_arc import (
+                fetch_narrative_arc, auto_draft_arc, draft_arc_to_dict,
             )
+            arc = fetch_narrative_arc(player_id, int(summary["season_year"]))
+            if arc is None:
+                draft = auto_draft_arc(
+                    player_id=player_id,
+                    player_name=str((page_data.get("player") or {}).get("full_name") or ""),
+                    season=int(summary["season_year"]),
+                    signature_story=page_data.get("algorithmic_signature"),
+                    achievements=page_data.get("achievements") or [],
+                    hot_take=page_data.get("hot_take"),
+                )
+                if draft is not None:
+                    arc = draft_arc_to_dict(draft)
+            page_data["narrative_arc"] = arc
         except Exception:
             page_data["narrative_arc"] = None
         # This-day chip (Signature Bets S4.3) — historical anchor.
