@@ -330,6 +330,17 @@ def build_parser() -> argparse.ArgumentParser:
     draft_parser.add_argument("--end-year", type=int, default=None,
         help="End year (inclusive) for range ingest.")
 
+    wiki_awards_parser = subparsers.add_parser(
+        "scrape-wiki-awards",
+        help="Scrape Wikipedia All-America / All-Conference / Position Awards "
+             "into CSVs under data/scraped_honors/ (TASKs 4.1/4.2/4.3).",
+    )
+    wiki_awards_parser.add_argument("--start-year", type=int, default=2022)
+    wiki_awards_parser.add_argument("--end-year", type=int, default=2025)
+    wiki_awards_parser.add_argument("--out-dir", default="data/scraped_honors")
+    wiki_awards_parser.add_argument("--auto-import", action="store_true",
+        help="After scraping, auto-import every produced CSV via import-player-honors.")
+
     seed_team_aliases_parser = subparsers.add_parser("seed-team-aliases")
     seed_team_aliases_parser.add_argument("--season", type=int, required=True)
 
@@ -709,6 +720,78 @@ def build_parser() -> argparse.ArgumentParser:
         help="NCAA classification to sync (default: fbs).",
     )
 
+    # ---------------------------------------------------------------- team pages
+    load_profiles_parser = subparsers.add_parser(
+        "load-team-profiles",
+        help="Read profiles/<slug>.md files into team_profiles + team_voice tables.",
+    )
+    load_profiles_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slug(s) to load. Omit to load every profile in profiles/.",
+    )
+
+    gen_narr_parser = subparsers.add_parser(
+        "generate-narratives",
+        help="Generate state-of-team narratives for each loaded profile, persist to "
+             "team_season_narratives. Template mode by default; pass --llm for Claude.",
+    )
+    gen_narr_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slugs to run. Omit for all loaded profiles.",
+    )
+    gen_narr_parser.add_argument(
+        "--llm", choices=["template", "claude", "claude-code"], default="template",
+        help="Generation backend. Default: template (deterministic, offline).",
+    )
+    gen_narr_parser.add_argument(
+        "--model", default="claude-sonnet-4-6",
+        help="Claude model id for --llm claude / claude-code.",
+    )
+    gen_narr_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Override season context. Default: latest season with games for the team.",
+    )
+
+    gen_chron_parser = subparsers.add_parser(
+        "generate-chronicle",
+        help="Generate Chronicle observation cards (anomaly/moment/flashpoint/echo) "
+             "per loaded profile and persist top-K to team_chronicle_observations.",
+    )
+    gen_chron_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slugs to run. Omit for all loaded profiles.",
+    )
+    gen_chron_parser.add_argument(
+        "--top-k", type=int, default=4,
+        help="Number of cards to publish per team-season (default: 4).",
+    )
+    gen_chron_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Season override.",
+    )
+
+    render_team_parser = subparsers.add_parser(
+        "render-team",
+        help="Render the team page HTML for one or more slugs to "
+             "output/site/teams/<slug>.html.",
+    )
+    render_team_parser.add_argument(
+        "slugs", nargs="+",
+        help="Program slug(s) to render (e.g. notre-dame alabama vanderbilt massachusetts).",
+    )
+    render_team_parser.add_argument(
+        "--output-dir", default="output/site/teams",
+        help="Output directory (default: output/site/teams).",
+    )
+    render_team_parser.add_argument(
+        "--date", default=None,
+        help="Override 'today' as YYYY-MM-DD for state resolution (testing).",
+    )
+    render_team_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Override season.",
+    )
+
     return parser
 
 
@@ -758,6 +841,120 @@ def main() -> None:
         from cfb_rankings.cohorts.divergence import compute_divergence_week
         result = compute_divergence_week(db, args.week)
         print(f"compute-divergence {args.week}: teams_written={result['teams_written']}")
+        return
+
+    # --------------------------------------------------------- team pages
+    if args.command == "load-team-profiles":
+        from cfb_rankings.team_pages.profile_loader import (
+            load_profile, upsert_profile_to_db, PROFILES_DIR,
+        )
+        slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
+        loaded = 0
+        for slug in slugs:
+            try:
+                profile = load_profile(slug)
+            except (FileNotFoundError, ValueError) as exc:
+                print(f"  skip {slug}: {exc}")
+                continue
+            upsert_profile_to_db(db, profile)
+            loaded += 1
+            print(f"  loaded {slug} (tier {profile.program_tier}, register {profile.voice_register})")
+        print(f"load-team-profiles: {loaded}/{len(slugs)} profiles written")
+        return
+
+    if args.command == "generate-narratives":
+        from cfb_rankings.team_pages.profile_loader import load_profile, PROFILES_DIR
+        from cfb_rankings.team_pages.data import fetch_team_snapshot
+        from cfb_rankings.team_pages.state_resolver import resolve_state
+        from cfb_rankings.team_pages.narrative_generator import generate_state_of_team
+
+        slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
+        totals = {"prompt_tokens": 0, "completion_tokens": 0, "cost_usd": 0.0}
+        for slug in slugs:
+            try:
+                profile = load_profile(slug)
+            except FileNotFoundError:
+                print(f"  skip {slug}: profile not found")
+                continue
+            try:
+                snapshot = fetch_team_snapshot(db, slug, season_year=args.season)
+            except LookupError as exc:
+                print(f"  skip {slug}: {exc}")
+                continue
+            state = resolve_state(profile, snapshot)
+            try:
+                result = generate_state_of_team(
+                    profile, snapshot, state,
+                    mode=args.llm, claude_model=args.model,
+                )
+            except Exception as exc:
+                print(f"  {slug} narrative error: {exc}")
+                continue
+            result.persist(db, snapshot.team_id, snapshot.season_year, state)
+            totals["prompt_tokens"] += result.prompt_tokens
+            totals["completion_tokens"] += result.completion_tokens
+            totals["cost_usd"] += result.cost_usd
+            preview = (result.body_md[:120] + "…") if len(result.body_md) > 120 else result.body_md
+            print(f"  {slug} [{result.model_id}] {result.prompt_tokens}p/{result.completion_tokens}c tok ${result.cost_usd:.4f}")
+            print(f"    {preview}")
+        print(
+            f"generate-narratives: programs={len(slugs)} "
+            f"prompt_tok={totals['prompt_tokens']} "
+            f"completion_tok={totals['completion_tokens']} "
+            f"cost=${totals['cost_usd']:.4f}"
+        )
+        return
+
+    if args.command == "generate-chronicle":
+        from cfb_rankings.team_pages.profile_loader import load_profile, PROFILES_DIR
+        from cfb_rankings.team_pages.data import fetch_team_snapshot
+        from cfb_rankings.team_pages.state_resolver import resolve_state
+        from cfb_rankings.team_pages.chronicle_generator import generate_chronicle_for_team
+
+        slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
+        for slug in slugs:
+            try:
+                profile = load_profile(slug)
+            except FileNotFoundError:
+                print(f"  skip {slug}: profile not found")
+                continue
+            try:
+                snapshot = fetch_team_snapshot(db, slug, season_year=args.season)
+            except LookupError as exc:
+                print(f"  skip {slug}: {exc}")
+                continue
+            state = resolve_state(profile, snapshot)
+            candidates = generate_chronicle_for_team(profile, snapshot)
+            # Mark old rows unpublished for idempotency
+            db.execute(
+                "update team_chronicle_observations set is_published = 0 "
+                "where team_id = :tid and season_year = :s",
+                {"tid": snapshot.team_id, "s": snapshot.season_year},
+            )
+            top = candidates[: args.top_k]
+            for rank, card in enumerate(top, start=1):
+                card.persist(db, snapshot.team_id, snapshot.season_year, rank, state.as_dict())
+            print(
+                f"  {slug}: {len(candidates)} candidates, published top-{len(top)} "
+                f"(types: {', '.join(c.card_type for c in top)})"
+            )
+        print(f"generate-chronicle: done for {len(slugs)} programs")
+        return
+
+    if args.command == "render-team":
+        from cfb_rankings.team_pages.renderer import render_team_page
+        override_date = None
+        if getattr(args, "date", None):
+            override_date = date.fromisoformat(args.date)
+        for slug in args.slugs:
+            try:
+                path = render_team_page(
+                    db, slug, args.output_dir,
+                    today=override_date, season_year=args.season,
+                )
+                print(f"  rendered {slug} -> {path}")
+            except Exception as exc:
+                print(f"  {slug} render failed: {exc}")
         return
 
     if args.command == "tag-player-mentions":
@@ -1433,6 +1630,36 @@ def main() -> None:
     if args.command == "seed-team-aliases":
         inserted = repository.seed_team_aliases(args.season)
         print(f"Seeded or refreshed {inserted} team alias rows for season {args.season}.", flush=True)
+        return
+
+    if args.command == "scrape-wiki-awards":
+        from cfb_rankings.ingest.sources.wiki_awards import emit_honor_csvs
+        from cfb_rankings.ingest.honors import import_player_honors_csv
+        from pathlib import Path as _Path
+
+        years = range(args.start_year, args.end_year + 1)
+        print(f"scrape-wiki-awards: years={list(years)} out_dir={args.out_dir}")
+        summary = emit_honor_csvs(years, out_dir=args.out_dir)
+        total = sum(summary.values()) if summary else 0
+        print(f"  scraped {total} rows across {len(summary)} CSV(s)")
+        for name, count in sorted(summary.items()):
+            print(f"    {name}: {count} rows")
+
+        if args.auto_import and summary:
+            print("  auto-import: running import-player-honors on every CSV...")
+            imported_total = 0
+            for name in sorted(summary.keys()):
+                p = _Path(args.out_dir) / name
+                try:
+                    imported = import_player_honors_csv(
+                        repository=repository, db=db, csv_path=p,
+                        default_source_name="wikipedia",
+                    )
+                    imported_total += imported
+                    print(f"    imported {imported} rows from {name}")
+                except Exception as exc:
+                    print(f"    FAIL {name}: {exc}")
+            print(f"  auto-import total: {imported_total} honor rows imported")
         return
 
     if args.command == "collect-reddit-watchlist":
