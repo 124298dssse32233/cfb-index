@@ -1,7 +1,10 @@
 name: fanintel-ingest-weekly
 # STRATEGY §2 Tier 1, Monday 06:00 UTC (~01:00 ET — before Kevin's 09:00 ET
 # Cowork sweep). Weekly-cadence sources: Spotify podcast charts.
-# Also: compute-cohort-week + compute-divergence for the prior CFB week.
+# Also: compute-cohort-week + compute-divergence for the prior CFB week,
+# refresh methodology, rebuild the public site.
+#
+# Persistence: W8.1 default — artifact-based. See ingest_hourly.yml.
 on:
   schedule:
     - cron: "0 6 * * 1"
@@ -10,7 +13,7 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
     env:
       SPOTIFY_CLIENT_ID:     ${{ secrets.SPOTIFY_CLIENT_ID }}
       SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
@@ -24,21 +27,54 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
-      # See ingest_hourly.yml for the persistence-gap TODO.
-      - name: Init DB (fresh schema per run)
-        run: python manage.py init-db
-      - name: Seed source registry
-        run: python manage.py seed-source-registry
+
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
       - name: Spotify charts
         run: |
           set +e
           python tools/run_adapter.py spotify_charts
           echo "done"
+
       - name: Compute prior-week cohort aggregation
         run: |
           # ISO week label for last week
           WEEK=$(date -u -d "last week" +%G-%V)
-          python manage.py compute-cohort-week --week="$WEEK"
-          python manage.py compute-divergence --week="$WEEK"
+          python manage.py compute-cohort-week --week="$WEEK" || true
+          python manage.py compute-divergence --week="$WEEK" || true
+
       - name: Rebuild methodology page
         run: python manage.py build-methodology
+
+      - name: Rebuild static site
+        run: python -u manage.py build-site
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+      - name: Upload built site (published branch seed)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site
+          retention-days: 30
+          overwrite: true

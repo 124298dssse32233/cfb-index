@@ -1,8 +1,8 @@
 name: fanintel-scrape-health
-# Daily health canary. Validates feed URLs (HEAD check), prints the
-# scrape-health table, fails the workflow if any source has been
-# `error` for 3 consecutive days (STRATEGY §7 quarterly review — but
-# daily is safer and cheap).
+# Daily health canary (STRATEGY §7). Validates feed URLs (HEAD check),
+# prints the scrape-health table, runs the autopilot status dashboard.
+# Also picks up the prior DB artifact so scrape_health row history
+# persists across runs — needed for the 3-consecutive-error trigger.
 on:
   schedule:
     - cron: "30 11 * * *"
@@ -11,7 +11,7 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,13 +22,38 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
-      - name: Init DB (fresh schema on every run — CI smoke test only)
-        run: python manage.py init-db
-      - name: Seed source registry
-        run: python manage.py seed-source-registry
+
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
       - name: Validate feed URLs
         run: python manage.py validate-feed-urls
+
       - name: Fan Intelligence status
         run: python manage.py fanintel-status
-      - name: Print scrape-health
-        run: python manage.py scrape-health --since-days 2
+
+      - name: Autopilot status dashboard
+        run: python manage.py autopilot-status
+
+      - name: Print scrape-health (7 days)
+        run: python manage.py scrape-health --since-days 7
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true

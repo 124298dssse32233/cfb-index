@@ -2,6 +2,10 @@ name: fanintel-ingest-daily
 # STRATEGY §2 Tier 1, daily at 09:00 UTC. Daily-cadence sources: Wikipedia
 # pageviews + edits (free), campus newspapers (RSS), school athletics (RSS),
 # Locked On team-daily podcast metadata (RSS).
+#
+# Persistence: W8.1 default — artifact-based. See ingest_hourly.yml for the
+# full pattern. First run has no prior artifact; apply-migrations + seed-*
+# make that case safe.
 on:
   schedule:
     - cron: "0 9 * * *"
@@ -10,7 +14,7 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       YOUTUBE_API_KEY:       ${{ secrets.YOUTUBE_API_KEY }}
       SEATGEEK_CLIENT_ID:    ${{ secrets.SEATGEEK_CLIENT_ID }}
@@ -24,11 +28,21 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
-      # See ingest_hourly.yml for the persistence-gap TODO.
-      - name: Init DB (fresh schema per run)
-        run: python manage.py init-db
-      - name: Seed source registry
-        run: python manage.py seed-source-registry
+
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
       - name: Wikipedia pageviews + edits
         run: |
           set +e
@@ -41,3 +55,18 @@ jobs:
         run: python tools/run_adapter.py athletics_all
       - name: Locked On team-pod metadata
         run: python tools/run_adapter.py locked_on_all
+      - name: Beat writer + substack RSS
+        run: |
+          set +e
+          python tools/run_adapter.py beat_writers_all
+          python tools/run_adapter.py substack_all
+          echo "done"
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
