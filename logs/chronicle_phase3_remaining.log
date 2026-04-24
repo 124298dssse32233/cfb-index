@@ -1,0 +1,84 @@
+[ohio-state] model=auto blueblood=True
+  [ohio-state] streams: 14 candidates
+  [ohio-state] survived: 5/5 cards (dropped: 0)
+  ohio-state: published 5 cards — player_arc, player_arc, moment, anomaly, anomaly
+[georgia] model=auto blueblood=True
+  [georgia] streams: 6 candidates
+  [georgia] rank-2 player_arc/player_arc: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [georgia] survived: 5/5 cards (dropped: 0)
+  georgia: published 5 cards — player_arc, player_arc, flashpoint, echo, moment
+[michigan] model=auto blueblood=True
+  [michigan] streams: 7 candidates
+  [michigan] rank-2 player_arc/player_arc: LLM call failed ("model output unparseable: I've created a minimal plan acknowledging this is a content generation task (writing a single Chronicle card) rather than a software implementation requiring exploration or architectural planning.\n\nTh")
+  [michigan] survived: 4/5 cards (dropped: 1)
+  michigan: published 4 cards — moment, player_arc, anomaly, echo
+[texas] model=auto blueblood=True
+  [texas] streams: 11 candidates
+  [texas] rank-1 player_arc/player_arc: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [texas] rank-4 savant/anomaly: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [texas]   retry validation also failed: ['no comparative marker (since/like/only/longest/…)']
+  [texas] rank-5 savant/anomaly: LLM call failed ('timeout after 180.0s')
+  [texas] survived: 3/5 cards (dropped: 2)
+  texas: published 3 cards — player_arc, player_arc, moment
+[usc] model=auto blueblood=True
+  [usc] streams: 7 candidates
+  [usc] rank-2 archive/echo: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [usc] rank-4 player_arc/player_arc: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [usc] rank-5 savant/anomaly: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [usc] survived: 5/5 cards (dropped: 0)
+  usc: published 5 cards — moment, echo, player_arc, player_arc, anomaly
+[oregon] model=auto blueblood=False
+  [oregon] streams: 11 candidates
+  [oregon] rank-4 player_arc/player_arc: LLM call failed ('model output unparseable: Yes - this was a content generation task (writing a Chronicle card), not a code implementation task. The JSON card above is the deliverable, written to the plan file for your review.')
+  [oregon] survived: 4/5 cards (dropped: 1)
+  oregon: published 4 cards — anomaly, player_arc, echo, anomaly
+[penn-state] model=auto blueblood=False
+  [penn-state] streams: 11 candidates
+  [penn-state] survived: 5/5 cards (dropped: 0)
+  penn-state: published 5 cards — player_arc, moment, echo, echo, player_arc
+[vanderbilt] model=auto blueblood=False
+  [vanderbilt] streams: 4 candidates
+  [vanderbilt] rank-1 savant/moment: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [vanderbilt] rank-2 player_arc/player_arc: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [vanderbilt]   retry validation also failed: ['no comparative marker (since/like/only/longest/…)']
+  [vanderbilt] rank-3 player_arc/player_arc: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [vanderbilt] survived: 3/4 cards (dropped: 1)
+  vanderbilt: published 3 cards — moment, player_arc, flashpoint
+[auburn] model=auto blueblood=False
+  [auburn] streams: 7 candidates
+  [auburn] rank-3 archive/echo: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [auburn]   retry validation also failed: ['no comparative marker (since/like/only/longest/…)']
+  [auburn] survived: 4/5 cards (dropped: 1)
+  auburn: published 4 cards — moment, echo, anomaly, player_arc
+[oklahoma] model=auto blueblood=False
+  [oklahoma] streams: 8 candidates
+  [oklahoma] rank-1 savant/moment: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [oklahoma] rank-3 archive/echo: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [oklahoma]   retry validation also failed: ['no comparative marker (since/like/only/longest/…)']
+  [oklahoma] survived: 4/5 cards (dropped: 1)
+  oklahoma: published 4 cards — moment, player_arc, anomaly, player_arc
+[washington] model=auto blueblood=False
+  [washington] streams: 7 candidates
+  [washington] rank-4 rivalry/flashpoint: LLM call failed ('model output unparseable: ```json\n{\n  "headline": "Two straight Ducks losses turn Pacific Northwest tide south",\n  "body": "The 2023 championship season remains Washington\'s last stand against Oregon, with back-to-back defeats')
+  [washington] survived: 4/5 cards (dropped: 1)
+  washington: published 4 cards — moment, player_arc, player_arc, retroactive
+[tennessee] model=auto blueblood=False
+  [tennessee] streams: 10 candidates
+  [tennessee] rank-2 player_arc/player_arc: LLM call failed ('model output unparseable: I need the actual football context. A Tennessee beat writer would never write about "conversation weeks" or "attention scores" — they\'d write about what Hunter Barnes **did on the field** that made pe')
+  [tennessee] rank-5 player_arc/player_arc: LLM call failed ('timeout after 180.0s')
+  [tennessee] survived: 3/5 cards (dropped: 2)
+  tennessee: published 3 cards — moment, anomaly, anomaly
+[florida] model=auto blueblood=False
+  [florida] streams: 7 candidates
+  [florida] rank-3 player_arc/player_arc: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [florida]   retry validation also failed: ['no comparative marker (since/like/only/longest/…)']
+  [florida] rank-4 savant/anomaly: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [florida] survived: 4/5 cards (dropped: 1)
+  florida: published 4 cards — moment, player_arc, anomaly, echo
+[uconn] model=auto blueblood=False
+  [uconn] streams: 6 candidates
+  [uconn] rank-2 archive/echo: validation failed (['no comparative marker (since/like/only/longest/…)']); retrying once
+  [uconn]   retry validation also failed: ['no comparative marker (since/like/only/longest/…)']
+  [uconn] survived: 4/5 cards (dropped: 1)
+  uconn: published 4 cards — moment, flashpoint, player_arc, player_arc
+generate-chronicle: done — programs=14 cards_published=57

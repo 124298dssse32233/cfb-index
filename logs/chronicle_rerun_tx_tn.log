@@ -1,0 +1,9 @@
+[texas] model=auto blueblood=True
+  [texas] streams: 11 candidates
+  [texas] survived: 5/5 cards (dropped: 0)
+  texas: published 5 cards — player_arc, player_arc, moment, anomaly, anomaly
+[tennessee] model=auto blueblood=False
+  [tennessee] streams: 10 candidates
+  [tennessee] survived: 5/5 cards (dropped: 0)
+  tennessee: published 5 cards — moment, player_arc, anomaly, anomaly, player_arc
+generate-chronicle: done — programs=2 cards_published=10

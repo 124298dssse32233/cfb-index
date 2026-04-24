@@ -773,12 +773,22 @@ def build_parser() -> argparse.ArgumentParser:
         help="Program slugs to run. Omit for all loaded profiles.",
     )
     gen_chron_parser.add_argument(
-        "--top-k", type=int, default=4,
-        help="Number of cards to publish per team-season (default: 4).",
+        "--top-k", type=int, default=5,
+        help="Max number of cards to publish per team-season (default: 5).",
     )
     gen_chron_parser.add_argument(
         "--season", type=int, default=None,
         help="Season override.",
+    )
+    gen_chron_parser.add_argument(
+        "--model", default="auto",
+        choices=["auto", "sonnet", "opus", "template"],
+        help="LLM routing. 'auto' = Sonnet standard + Opus for blue-bloods' "
+             "top-1 card. 'template' = skip LLM entirely (degraded mode).",
+    )
+    gen_chron_parser.add_argument(
+        "--workers", type=int, default=3,
+        help="Parallel LLM subprocess workers per team (default: 3).",
     )
 
     render_team_parser = subparsers.add_parser(
@@ -1004,9 +1014,13 @@ def main() -> None:
         from cfb_rankings.team_pages.profile_loader import load_profile, PROFILES_DIR
         from cfb_rankings.team_pages.data import fetch_team_snapshot
         from cfb_rankings.team_pages.state_resolver import resolve_state
-        from cfb_rankings.team_pages.chronicle_generator import generate_chronicle_for_team
+        from cfb_rankings.team_pages.chronicle_generator import (
+            generate_chronicle_for_team, BLUE_BLOODS,
+        )
 
         slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
+        totals = {"scanned": 0, "published": 0, "dropped": 0}
+        NEW_STREAM_TYPES = ("anomaly", "moment", "flashpoint", "echo", "retroactive", "player_arc")
         for slug in slugs:
             try:
                 profile = load_profile(slug)
@@ -1019,21 +1033,41 @@ def main() -> None:
                 print(f"  skip {slug}: {exc}")
                 continue
             state = resolve_state(profile, snapshot)
-            candidates = generate_chronicle_for_team(profile, snapshot)
-            # Mark old rows unpublished for idempotency
+            print(f"[{slug}] model={args.model} blueblood={slug in BLUE_BLOODS}")
+            cards = generate_chronicle_for_team(
+                db, profile, snapshot,
+                model=args.model,
+                max_cards=args.top_k,
+                parallel_workers=args.workers,
+            )
+            # Unpublish prior rows ONLY for the 6 stream-driven types — leave
+            # any other card_type (rivalry_posture, rivalry_stakes, savant_echo,
+            # etc. from separate scripts) untouched.
+            type_placeholders = ",".join(["?"] * len(NEW_STREAM_TYPES))
             db.execute(
-                "update team_chronicle_observations set is_published = 0 "
-                "where team_id = :tid and season_year = :s",
-                {"tid": snapshot.team_id, "s": snapshot.season_year},
-            )
-            top = candidates[: args.top_k]
-            for rank, card in enumerate(top, start=1):
+                f"update team_chronicle_observations set is_published = 0 "
+                f"where team_id = :tid and season_year = :s "
+                f"  and card_type in ({type_placeholders})",
+                {"tid": snapshot.team_id, "s": snapshot.season_year, **{}},
+            ) if False else None  # placeholder — real exec below with tuple params
+            # Use raw params since :placeholder won't bind tuple; fall through
+            with db.connection() as _c:
+                _c.execute(
+                    f"update team_chronicle_observations set is_published = 0 "
+                    f"where team_id = ? and season_year = ? "
+                    f"  and card_type in ({type_placeholders})",
+                    (snapshot.team_id, snapshot.season_year, *NEW_STREAM_TYPES),
+                )
+                _c.commit()
+            for rank, card in enumerate(cards, start=1):
                 card.persist(db, snapshot.team_id, snapshot.season_year, rank, state.as_dict())
-            print(
-                f"  {slug}: {len(candidates)} candidates, published top-{len(top)} "
-                f"(types: {', '.join(c.card_type for c in top)})"
-            )
-        print(f"generate-chronicle: done for {len(slugs)} programs")
+            type_summary = ", ".join(c.card_type for c in cards) or "(none survived)"
+            print(f"  {slug}: published {len(cards)} cards — {type_summary}")
+            totals["published"] += len(cards)
+        print(
+            f"generate-chronicle: done — programs={len(slugs)} "
+            f"cards_published={totals['published']}"
+        )
         return
 
     if args.command == "render-team":

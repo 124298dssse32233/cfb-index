@@ -99,7 +99,7 @@ def render_team_page(
     divergence = fetch_divergence(db, snapshot.team_id, snapshot.season_year)
     sp_rating = fetch_last_sp_rating(db, snapshot.team_id, snapshot.season_year)
     state_of_team = fetch_state_of_team(db, snapshot.team_id, snapshot.season_year)
-    chronicle_cards = fetch_chronicle_cards(db, snapshot.team_id, snapshot.season_year, limit=4)
+    chronicle_cards = fetch_chronicle_cards(db, snapshot.team_id, snapshot.season_year, limit=5)
 
     # Savant card data — falls back to the latest season that has rows so
     # the card renders even when the current-season ingest is incomplete.
@@ -869,21 +869,25 @@ def _offseason_events(
 def _resolve_top_take(storyline, profile: Profile, state: PageState) -> tuple[str, str]:
     if storyline and isinstance(storyline, dict):
         text = str(storyline.get("text") or storyline.get("headline") or "").strip()
-        venue = str(storyline.get("venue") or storyline.get("source") or "fan-intel pipeline").strip()
+        venue = str(storyline.get("venue") or storyline.get("source") or "beat-writer feed").strip()
         if text:
             return text, f"— {venue}"
-    # Off-season fallback: rotate which stock phrase appears per week so
-    # the same fan doesn't see the same line each visit. Deterministic
-    # hash on (slug + week_number) keeps the rotation stable within a
-    # week but variable across weeks.
+    # Off-season / below-floor fallback: deterministic rotation through the
+    # profile's stock_phrases. Hash on (slug + ISO week) stabilizes within a
+    # week, varies week to week. Attribution reads as fanbase vernacular —
+    # never references the pipeline or the module itself.
     stock = profile.stock_phrases
     if stock:
         week_no = state.today.isocalendar().week
         idx = abs(hash((profile.slug, week_no))) % len(stock)
-        return stock[idx], f"— {profile.program_name} fanbase, the stock phrase that recurs"
+        return stock[idx], f"— {profile.program_name} fanbase · recurring line"
+    # Last-resort: an on-voice mascot quiet-state line.
+    quiet = profile.mascot_voice.get("empty_state") or profile.mascot_voice.get("awaiting_signal")
+    if quiet:
+        return quiet, f"— {profile.program_name} · offseason register"
     return (
-        f"Checking in on {profile.program_name} through the quiet.",
-        "— CFB Index fan-intel, placeholder reading",
+        f"{profile.program_name} through the quiet.",
+        f"— {profile.program_name} · offseason register",
     )
 
 

@@ -244,21 +244,25 @@ def _mood_from_cohort_week(db, team_id: int) -> dict[str, Any] | None:
     if not rows:
         return None
 
-    # Headline reading = latest week WITH sentiment in the recent window.
-    # This handles the offseason case where the most-recent week's docs
-    # haven't been sentiment-scored yet but earlier weeks were.
+    # Headline reading = the most recent week within the last 8 that BOTH
+    # has sentiment AND clears the awaiting-signal floor at the team level.
+    # Looking back through the window (not strictly the latest week)
+    # smooths over offseason gaps where one calendar week may have only a
+    # handful of docs while a prior week is more representative.
     FLOOR_AWAITING = 20.0
     headline_idx = next(
-        (i for i, r in enumerate(rows)
-         if (r["wsent"] is not None and float(r["eff_n_with_sent"] or 0.0) > 0)),
+        (
+            i for i, r in enumerate(rows)
+            if (r["wsent"] is not None
+                and float(r["eff_n_with_sent"] or 0.0) > 0
+                and float(r["eff_n_total"] or 0.0) >= FLOOR_AWAITING)
+        ),
         None,
     )
     if headline_idx is None:
         return None
     latest = rows[headline_idx]
     eff_n = float(latest["eff_n_total"] or 0.0)
-    if eff_n < FLOOR_AWAITING:
-        return None
     eff_n_with_sent = float(latest["eff_n_with_sent"] or 0.0)
     latest_sent = float(latest["wsent"]) / eff_n_with_sent
 
@@ -462,7 +466,14 @@ def fetch_chronicle_cards(
     season_year: int,
     limit: int = 3,
 ) -> list[dict[str, Any]]:
-    """Read back the top-ranked, published Chronicle observations."""
+    """Read back the top-ranked, published Chronicle observations.
+
+    Scoped to the six editorial stream types (anomaly / moment / flashpoint /
+    echo / retroactive / player_arc). Other card_types live in
+    team_chronicle_observations alongside these — e.g. rivalry_posture /
+    rivalry_stakes / savant_echo emitted by separate sprint scripts — but
+    those render in their own modules, not in The Chronicle feed.
+    """
     rows = db.query_all(
         """
         select card_type, headline, body_md, source_attribution,
@@ -471,6 +482,8 @@ def fetch_chronicle_cards(
         where team_id = :tid
           and season_year = :season
           and is_published = 1
+          and card_type in ('anomaly','moment','flashpoint','echo',
+                            'retroactive','player_arc')
         order by coalesce(surfaced_rank, 999) asc, generated_at_utc desc
         limit :lim
         """,
