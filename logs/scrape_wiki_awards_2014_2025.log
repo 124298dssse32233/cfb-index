@@ -1,0 +1,38 @@
+scrape-wiki-awards: years=[2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025] out_dir=data/scraped_honors
+  scraped 7348 rows across 17 CSV(s)
+    all_conf_acc_2016.csv: 157 rows
+    all_conf_acc_2018.csv: 323 rows
+    all_conf_acc_2019.csv: 358 rows
+    all_conf_acc_2024.csv: 680 rows
+    all_conf_acc_2025.csv: 640 rows
+    all_conf_big_ten_2014.csv: 310 rows
+    all_conf_big_ten_2015.csv: 416 rows
+    all_conf_big_ten_2016.csv: 409 rows
+    all_conf_big_ten_2017.csv: 416 rows
+    all_conf_big_ten_2018.csv: 430 rows
+    all_conf_big_ten_2019.csv: 435 rows
+    all_conf_big_ten_2020.csv: 372 rows
+    all_conf_big_ten_2021.csv: 401 rows
+    all_conf_big_ten_2022.csv: 561 rows
+    all_conf_big_ten_2023.csv: 487 rows
+    all_conf_big_ten_2024.csv: 468 rows
+    all_conf_big_ten_2025.csv: 485 rows
+  auto-import: running import-player-honors on every CSV...
+    FAIL all_conf_acc_2016.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_acc_2018.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_acc_2019.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_acc_2024.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_acc_2025.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2014.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2015.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2016.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2017.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2018.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2019.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2020.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2021.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2022.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2023.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2024.csv: invalid literal for int() with base 10: 'first_team'
+    FAIL all_conf_big_ten_2025.csv: invalid literal for int() with base 10: 'first_team'
+  auto-import total: 0 honor rows imported

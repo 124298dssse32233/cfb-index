@@ -1,0 +1,232 @@
+/* Savant Card — 13-metric percentile grid with peer-set toggle.
+   Tokens live in tokens.css; this file composes cards from those tokens. */
+
+.savant-card {
+  background: var(--surface-card, #fff);
+  border: 1px solid var(--line-subtle, #e6e6e6);
+  border-top: 3px solid var(--accent-primary, #0C2340);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  margin-top: var(--sp-5, 24px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color: var(--text-primary, #111);
+}
+
+.savant-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3, 12px);
+}
+
+.savant-card__eyebrow {
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+}
+
+.savant-card__toggle {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--surface-muted, #f2f2f2);
+  border-radius: 999px;
+  padding: 3px;
+}
+.savant-card__chip {
+  background: transparent;
+  border: none;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted, #555);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.savant-card__chip:hover { color: var(--text-primary, #111); }
+.savant-card__chip--active {
+  background: var(--accent-primary, #0C2340);
+  color: #fff;
+}
+
+.savant-card__narrative {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--text-primary, #111);
+  margin: 0 0 var(--sp-4, 16px) 0;
+  padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+  border-left: 3px solid var(--accent-primary, #0C2340);
+}
+.savant-card__narrative--fallback {
+  color: var(--text-muted, #555);
+  font-style: italic;
+}
+
+.savant-card__section {
+  padding: var(--sp-3, 12px) 0;
+  border-top: 1px solid var(--line-subtle, #e6e6e6);
+}
+.savant-card__section:first-of-type { border-top: none; }
+.savant-card__section-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+  margin: 0 0 var(--sp-3, 12px) 0;
+}
+
+/* Bar layout: label | track | value  */
+.savant-bar {
+  display: grid;
+  grid-template-columns: 160px 1fr 56px;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+  padding: 6px 0;
+  transition: background 120ms ease;
+}
+.savant-bar:hover { background: rgba(0,0,0,0.02); }
+
+.savant-bar__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.savant-bar__label-text {
+  font-size: 0.86rem;
+  color: var(--text-primary, #111);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.savant-bar__raw {
+  font-size: 0.68rem;
+  color: var(--text-muted, #888);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.savant-bar__track {
+  position: relative;
+  background: var(--surface-muted, #f2f2f2);
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.savant-bar__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 260ms cubic-bezier(.2,.8,.3,1), background 260ms ease;
+  background: var(--band-color, #9aa0a6);
+}
+.savant-bar__midline {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0,0,0,0.08);
+}
+.savant-bar__value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text-primary, #111);
+  text-align: right;
+  font-size: 0.98rem;
+}
+.savant-bar__pct-sup {
+  font-size: 0.6em;
+  vertical-align: super;
+  color: var(--text-muted, #888);
+  font-weight: 500;
+  margin-left: 1px;
+}
+
+/* Band colors — encoded via data-band so the peer toggle can swap them
+   without rewriting inline styles. */
+.savant-bar[data-band="elite"]    .savant-bar__fill { background: #22c55e; }
+.savant-bar[data-band="strong"]   .savant-bar__fill { background: #65a30d; }
+.savant-bar[data-band="average"]  .savant-bar__fill { background: #a3a3a3; }
+.savant-bar[data-band="concern"]  .savant-bar__fill { background: #f59e0b; }
+.savant-bar[data-band="bottom"]   .savant-bar__fill { background: #dc2626; }
+.savant-bar[data-band="missing"]  .savant-bar__fill { background: transparent; }
+.savant-bar[data-band="missing"]  .savant-bar__value .savant-bar__pct { color: var(--text-muted, #999); }
+
+.savant-card__echo {
+  margin-top: var(--sp-3, 12px);
+  padding: var(--sp-3, 12px) var(--sp-4, 14px);
+  background: var(--surface-muted, #f2f2f2);
+  border-left: 2px solid #6b7280;
+  border-radius: 4px;
+}
+.savant-card__echo-eyebrow {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted, #666);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.savant-card__echo-body {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-primary, #222);
+}
+.savant-card__echo-body strong { font-weight: 600; }
+
+.savant-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--sp-3, 12px) 0 0 0;
+  padding-top: var(--sp-3, 12px);
+  border-top: 1px dashed var(--line-subtle, #e6e6e6);
+}
+.savant-card__legend-chip {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 3px;
+  color: #fff;
+}
+.savant-card__legend-chip--elite    { background: #22c55e; }
+.savant-card__legend-chip--strong   { background: #65a30d; }
+.savant-card__legend-chip--average  { background: #a3a3a3; }
+.savant-card__legend-chip--concern  { background: #f59e0b; }
+.savant-card__legend-chip--bottom   { background: #dc2626; }
+
+.savant-card__source {
+  margin-top: var(--sp-3, 12px);
+  padding-top: var(--sp-3, 10px);
+  border-top: 1px solid var(--line-subtle, #eee);
+  font-size: 0.7rem;
+  color: var(--text-muted, #888);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .savant-bar {
+    grid-template-columns: 104px 1fr 44px;
+    gap: 8px;
+  }
+  .savant-bar__label-text { font-size: 0.78rem; }
+  .savant-bar__value { font-size: 0.86rem; }
+  .savant-card__header { gap: 10px; }
+  .savant-card__toggle { flex-wrap: wrap; }
+  .savant-card__chip { padding: 5px 9px; font-size: 0.64rem; }
+}

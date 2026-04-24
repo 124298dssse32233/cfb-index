@@ -36,13 +36,19 @@ def parse_datetime(value: str | None) -> datetime:
 def maybe_int(value: object) -> int | None:
     if value in (None, "", "null"):
         return None
-    return int(value)
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def maybe_float(value: object) -> float | None:
     if value in (None, "", "null"):
         return None
-    return float(value)
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def normalize_status(completed: bool | None, home_points: int | None, away_points: int | None) -> str:

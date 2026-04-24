@@ -1,0 +1,52 @@
+Skipping CFBD connectivity preflight for game-player-stat backfill.
+[game-player-stats] target classifications: FBS
+[game-player-stats] season 2022: targeting 15 regular source weeks with missing FBS player stats.
+[game-player-stats] season 2022: ingesting regular source week 1...
+[CFBD] 2022 regular week 1: loading games...
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 25, in main
+    cli_main()
+    ~~~~~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\cli.py", line 1812, in main
+    ingest_cfbd_week(
+    ~~~~~~~~~~~~~~~~^
+        repository=repository,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+        game_player_stat_classifications=game_player_stat_classifications,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\cfbd.py", line 40, in ingest_cfbd_week
+    _ingest_games(repository, games, season)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\cfbd.py", line 272, in _ingest_games
+    repository.upsert_team_season(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        team_id=away_team_id,
+        ^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        conference_name=away_conference,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\storage.py", line 243, in upsert_team_season
+    self.ensure_season(season_year)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\storage.py", line 50, in ensure_season
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<4 lines>...
+        {"season_year": season_year, "season_label": season_label(season_year)},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 35, in execute
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: attempt to write a readonly database

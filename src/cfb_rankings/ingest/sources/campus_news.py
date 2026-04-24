@@ -145,9 +145,13 @@ class CampusNewsAdapter(BaseRssAdapter):
             )
             if existing:
                 continue
+            # OR IGNORE: same (source_name, source_document_id) re-fetched
+            # under a freshly-hashed dedup_key (e.g. when external_created_at
+            # shifts on the source's RSS) would otherwise crash the run with
+            # IntegrityError. Silently skip — the existing row is canonical.
             self.db.execute(
                 """
-                insert into conversation_documents (
+                insert or ignore into conversation_documents (
                     source_name, source_document_id, content_type, title_text, body_text,
                     external_created_at_utc, source_author_name, source_url, language_code,
                     is_deleted, is_removed,

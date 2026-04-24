@@ -803,6 +803,90 @@ def build_parser() -> argparse.ArgumentParser:
         help="Override season.",
     )
 
+    refresh_savant_parser = subparsers.add_parser(
+        "refresh-savant",
+        help="Recompute the 13-metric percentile rows in team_savant_weekly for "
+             "every profiled program (or a specific slug).",
+    )
+    refresh_savant_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slug(s) to refresh. Omit for all profiled programs.",
+    )
+    refresh_savant_parser.add_argument(
+        "--season", type=int, default=2024,
+        help="Season to compute percentiles for. Default: 2024 (latest complete).",
+    )
+
+    refresh_arc_parser = subparsers.add_parser(
+        "refresh-season-arc",
+        help="Populate team_season_arc (2014+ per-team-season rows) for every "
+             "profiled program.",
+    )
+    refresh_arc_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slug(s) to refresh. Omit for all profiled programs.",
+    )
+    refresh_arc_parser.add_argument(
+        "--latest-season", type=int, default=2025,
+        help="Season marked is_current. Default: 2025.",
+    )
+
+    refresh_rivalry_parser = subparsers.add_parser(
+        "refresh-rivalry",
+        help="Refresh team_rivalry_meetings head-to-head rows for each profiled "
+             "program's Tier-1 rivalry (from profile frontmatter).",
+    )
+    refresh_rivalry_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slug(s) to refresh. Omit for all profiled programs.",
+    )
+
+    render_all_team_parser = subparsers.add_parser(
+        "render-team-pages",
+        help="Render every profiled program (all profiles/*.md) without a full "
+             "build-site cycle. Convenience for iteration on the team_pages module.",
+    )
+    render_all_team_parser.add_argument(
+        "--output-dir", default="output/site/teams",
+        help="Output directory (default: output/site/teams).",
+    )
+    render_all_team_parser.add_argument(
+        "--date", default=None,
+        help="Override 'today' as YYYY-MM-DD for state resolution (testing).",
+    )
+    render_all_team_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Override season.",
+    )
+
+    gen_hs_parser = subparsers.add_parser(
+        "generate-historical-seasons",
+        help="Populate team_historical_seasons — flagship authored seasons "
+             "overwrite template fallback; subsequent Opus runs overwrite those.",
+    )
+    gen_hs_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slug(s). Omit for all profiled programs.",
+    )
+    gen_hs_parser.add_argument(
+        "--force-template", action="store_true",
+        help="Skip authored content; write template fallback for every season.",
+    )
+
+    render_hs_parser = subparsers.add_parser(
+        "render-historical-seasons",
+        help="Render output/site/teams/<slug>/seasons/<year>.html for every "
+             "(slug, year) with a team_season_arc row.",
+    )
+    render_hs_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Program slug(s). Omit for all profiled programs.",
+    )
+    render_hs_parser.add_argument(
+        "--output-dir", default="output/site/teams",
+        help="Output root (default: output/site/teams).",
+    )
+
     return parser
 
 
@@ -966,6 +1050,151 @@ def main() -> None:
                 print(f"  rendered {slug} -> {path}")
             except Exception as exc:
                 print(f"  {slug} render failed: {exc}")
+        return
+
+    if args.command == "refresh-savant":
+        from cfb_rankings.team_pages.savant_data_loader import refresh_team_savant
+        from cfb_rankings.team_pages.profile_loader import PROFILES_DIR
+        slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
+        with db.connection() as conn:
+            placeholders = ",".join(["?"] * len(slugs))
+            rows = conn.execute(
+                f"select slug, team_id from teams where slug in ({placeholders})",
+                slugs,
+            ).fetchall()
+            slug_to_id = {r[0]: r[1] for r in rows}
+            total = 0
+            for slug in slugs:
+                tid = slug_to_id.get(slug)
+                if not tid:
+                    print(f"  {slug}: team not found")
+                    continue
+                n = refresh_team_savant(conn, tid, args.season)
+                conn.commit()
+                total += n
+                print(f"  {slug}: {n} metrics written")
+            print(f"refresh-savant: wrote {total} rows across {len(slugs)} programs for season {args.season}")
+        return
+
+    if args.command == "refresh-season-arc":
+        from cfb_rankings.team_pages.season_arc_loader import refresh_team_arc
+        from cfb_rankings.team_pages.profile_loader import PROFILES_DIR
+        slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
+        with db.connection() as conn:
+            placeholders = ",".join(["?"] * len(slugs))
+            rows = conn.execute(
+                f"select slug, team_id from teams where slug in ({placeholders})",
+                slugs,
+            ).fetchall()
+            slug_to_id = {r[0]: r[1] for r in rows}
+            total = 0
+            for slug in slugs:
+                tid = slug_to_id.get(slug)
+                if not tid:
+                    continue
+                n = refresh_team_arc(conn, slug, tid, args.latest_season)
+                conn.commit()
+                total += n
+                print(f"  {slug}: {n} seasons")
+            print(f"refresh-season-arc: {total} rows across {len(slugs)} programs")
+        return
+
+    if args.command == "refresh-rivalry":
+        from cfb_rankings.team_pages.rivalry_data_loader import refresh_rivalry_meetings
+        from cfb_rankings.team_pages.profile_loader import load_profile, PROFILES_DIR
+        slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
+        with db.connection() as conn:
+            pairs_seen: set[tuple[str, str]] = set()
+            total = 0
+            for slug in slugs:
+                try:
+                    profile = load_profile(slug)
+                except FileNotFoundError:
+                    continue
+                t1 = next((r for r in profile.rivalries if (r.get("tier") or 99) == 1), None)
+                if not t1 or not t1.get("opponent_slug"):
+                    print(f"  {slug}: no Tier-1 rivalry")
+                    continue
+                opp = t1["opponent_slug"]
+                key = tuple(sorted([slug, opp]))
+                if key in pairs_seen:
+                    continue
+                pairs_seen.add(key)
+                n = refresh_rivalry_meetings(conn, slug, opp)
+                conn.commit()
+                total += n
+                print(f"  {slug} vs {opp}: {n} meetings")
+            print(f"refresh-rivalry: {total} meetings across {len(pairs_seen)} pairs")
+        return
+
+    if args.command == "render-team-pages":
+        from cfb_rankings.team_pages import render_all_profiled_pages, PROFILED_SLUGS
+        override_date = None
+        if getattr(args, "date", None):
+            override_date = date.fromisoformat(args.date)
+        count = render_all_profiled_pages(
+            db, args.output_dir,
+            today=override_date, season_year=args.season,
+        )
+        print(
+            f"render-team-pages: rendered {count}/{len(PROFILED_SLUGS)} profiled programs "
+            f"-> {args.output_dir}"
+        )
+        return
+
+    if args.command == "generate-historical-seasons":
+        from cfb_rankings.team_pages.historical_season_generator import (
+            generate_all, generate_for_slug,
+        )
+        from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS
+        slugs = args.slug
+        if slugs:
+            totals = {"authored": 0, "template": 0, "skipped": 0}
+            for slug in slugs:
+                c = generate_for_slug(db, slug, force_template=args.force_template)
+                for k, v in c.items():
+                    totals[k] += v
+                print(f"  {slug}: authored={c['authored']} template={c['template']}")
+        else:
+            totals = generate_all(db, force_template=args.force_template)
+        print(
+            f"generate-historical-seasons: "
+            f"authored={totals['authored']} template={totals['template']}"
+        )
+        return
+
+    if args.command == "render-historical-seasons":
+        from cfb_rankings.team_pages.historical_season_page import (
+            render_all_historical_seasons, render_historical_season_page,
+        )
+        from cfb_rankings.team_pages.profile_loader import load_profile, PROFILED_SLUGS
+        if args.slug:
+            count = 0
+            for slug in args.slug:
+                try:
+                    profile = load_profile(slug)
+                except FileNotFoundError:
+                    print(f"  skip {slug}: profile not found")
+                    continue
+                if not profile.team_id:
+                    continue
+                years = [
+                    r["season_year"] for r in db.query_all(
+                        "select season_year from team_season_arc where team_id = :tid "
+                        "order by season_year asc",
+                        {"tid": profile.team_id},
+                    )
+                ]
+                for year in years:
+                    try:
+                        render_historical_season_page(db, slug, year, args.output_dir)
+                        count += 1
+                    except Exception as exc:
+                        print(f"  {slug}/{year} failed: {exc}")
+            print(f"render-historical-seasons: wrote {count} pages")
+        else:
+            count = render_all_historical_seasons(db, args.output_dir)
+            print(f"render-historical-seasons: wrote {count} pages")
         return
 
     if args.command == "tag-player-mentions":

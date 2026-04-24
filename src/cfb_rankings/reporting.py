@@ -5227,7 +5227,10 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
 
     teams_dir = site_root / "teams"
     teams_dir.mkdir(parents=True, exist_ok=True)
+    from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS  # profiled teams rendered by team_pages/renderer.py
     for existing_file in teams_dir.glob("*.html"):
+        if existing_file.stem in PROFILED_SLUGS:
+            continue  # preserve world-class output
         _safe_unlink_generated_file(existing_file)
     (teams_dir / "index.html").write_text(
         render_teams_index_html(summary, rankings),
@@ -5264,7 +5267,8 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
 
     _report_progress("Writing team season pages...")
     for slug, team_data in team_pages.items():
-        (teams_dir / f"{slug}.html").write_text(render_team_page_html(summary, team_data), encoding="utf-8")
+        if slug not in PROFILED_SLUGS:  # profiled teams rendered by team_pages/renderer.py
+            (teams_dir / f"{slug}.html").write_text(render_team_page_html(summary, team_data), encoding="utf-8")
         ranking = team_data.get("ranking")
         season_summary = team_data.get("season_summary") or {}
         if ranking is not None:
@@ -5280,6 +5284,19 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
                 ),
                 encoding="utf-8",
             )
+
+    # Team Pages v2 — world-class renderer for profiled programs (Sprint 2).
+    # Legacy pages for unprofiled programs are written above; the legacy loop
+    # at L5269-5271 short-circuits for profiled slugs. This step writes the
+    # new-style pages from src/cfb_rankings/team_pages/. See CLAUDE.md
+    # "Team Pages (new module)" for the integration notes.
+    _report_progress("Writing team pages v2 (profiled programs)...")
+    try:
+        from cfb_rankings.team_pages import render_all_profiled_pages
+        count = render_all_profiled_pages(db, output_dir=teams_dir)
+        _report_progress(f"Team-pages v2: rendered {count} profiled programs.")
+    except Exception as exc:
+        _report_progress(f"Team-pages v2 render skipped: {exc}")
 
     season_year_value = int(summary["season_year"])
     (site_root / "og-image.svg").write_text(

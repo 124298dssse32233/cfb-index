@@ -1,0 +1,56 @@
+=== SEASON 2022 (through 2023-01-31) ===
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 25, in main
+    cli_main()
+    ~~~~~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\cli.py", line 2238, in main
+    raise RuntimeError(f"No offseason weeks found for {args.season} window {args.window}.")
+RuntimeError: No offseason weeks found for 2022 window 21..31.
+=== SEASON 2023 (through 2024-01-31) ===
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 25, in main
+    cli_main()
+    ~~~~~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\cli.py", line 2238, in main
+    raise RuntimeError(f"No offseason weeks found for {args.season} window {args.window}.")
+RuntimeError: No offseason weeks found for 2023 window 21..31.
+=== SEASON 2024 (through 2025-01-31) ===
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 25, in main
+    cli_main()
+    ~~~~~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\cli.py", line 2238, in main
+    raise RuntimeError(f"No offseason weeks found for {args.season} window {args.window}.")
+RuntimeError: No offseason weeks found for 2024 window 21..31.
+=== SEASON 2025 (through 2026-01-31) ===
+[week 21] entry=1/1 2026-01-12..2026-01-19 docs=154 targets=183
+[week 22] entry=1/1 2026-01-19..2026-01-26 docs=90 targets=140
+[week 23] entry=1/1 2026-01-26..2026-02-02 docs=31 targets=54
+[week 24] entry=1/1 2026-02-02..2026-02-09 docs=19 targets=33
+[week 25] entry=1/1 2026-02-09..2026-02-16 docs=27 targets=48
+[week 25] entry=1/1 2026-02-16..2026-02-23 docs=20 targets=37
+[week 26] entry=1/1 2026-02-23..2026-03-02 docs=15 targets=27
+[week 27] entry=1/1 2026-03-02..2026-03-09 docs=11 targets=20
+[week 28] entry=1/1 2026-03-09..2026-03-16 docs=10 targets=24
+Arctic Shift 429 for subreddit=CFB after=1773633600 before=1774238400; retrying in 30.0s
+Arctic Shift 429 for subreddit=CFB after=1773633600 before=1774238400; retrying in 1.0s
+[week 28] entry=1/1 2026-03-16..2026-03-23 docs=8 targets=13
+[week 29] entry=1/1 2026-03-23..2026-03-30 docs=18 targets=23
+[week 29] entry=1/1 2026-03-30..2026-04-06 docs=8 targets=11
+[week 30] entry=1/1 2026-04-06..2026-04-13 docs=22 targets=48
+[week 30] entry=1/1 2026-04-13..2026-04-20 docs=23 targets=45
+[week 30] entry=1/1 2026-04-20..2026-04-22 docs=1 targets=1
+Arctic Shift 429 for subreddit=CFB after=1776830400 before=1776916800; retrying in 30.0s
+Arctic Shift 429 for subreddit=CFB after=1776830400 before=1776916800; retrying in 8.0s
+[week 31] entry=1/1 2026-04-22..2026-04-23 docs=5 targets=7
+Backfilled offseason conversation: 462 documents, 714 targets, errors=0.
+=== all done ===

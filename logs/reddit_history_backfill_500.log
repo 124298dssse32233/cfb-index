@@ -1,0 +1,28 @@
+[plan] 500 windows queued. primary=arctic-shift fallback=pullpush
+[state] 2000 already completed
+[checkpoint] 20/500 ok=0 err=0 skip=20 elapsed=0s
+[checkpoint] 40/500 ok=0 err=0 skip=40 elapsed=0s
+[checkpoint] 60/500 ok=0 err=0 skip=60 elapsed=0s
+[checkpoint] 80/500 ok=0 err=0 skip=80 elapsed=0s
+[checkpoint] 100/500 ok=0 err=0 skip=100 elapsed=0s
+[checkpoint] 120/500 ok=0 err=0 skip=120 elapsed=0s
+[checkpoint] 140/500 ok=0 err=0 skip=140 elapsed=0s
+[checkpoint] 160/500 ok=0 err=0 skip=160 elapsed=0s
+[checkpoint] 180/500 ok=0 err=0 skip=180 elapsed=0s
+[checkpoint] 200/500 ok=0 err=0 skip=200 elapsed=0s
+[checkpoint] 220/500 ok=0 err=0 skip=220 elapsed=0s
+[checkpoint] 240/500 ok=0 err=0 skip=240 elapsed=0s
+[checkpoint] 260/500 ok=0 err=0 skip=260 elapsed=0s
+[checkpoint] 280/500 ok=0 err=0 skip=280 elapsed=0s
+[checkpoint] 300/500 ok=0 err=0 skip=300 elapsed=0s
+[checkpoint] 320/500 ok=0 err=0 skip=320 elapsed=0s
+[checkpoint] 340/500 ok=0 err=0 skip=340 elapsed=0s
+[checkpoint] 360/500 ok=0 err=0 skip=360 elapsed=0s
+[checkpoint] 380/500 ok=0 err=0 skip=380 elapsed=0s
+[checkpoint] 400/500 ok=0 err=0 skip=400 elapsed=0s
+[checkpoint] 420/500 ok=0 err=0 skip=420 elapsed=0s
+[checkpoint] 440/500 ok=0 err=0 skip=440 elapsed=0s
+[checkpoint] 460/500 ok=0 err=0 skip=460 elapsed=0s
+[checkpoint] 480/500 ok=0 err=0 skip=480 elapsed=0s
+[checkpoint] 500/500 ok=0 err=0 skip=500 elapsed=0s
+[done] {'ok': 0, 'error': 0, 'skipped-completed': 500, 'dry-run': 0}

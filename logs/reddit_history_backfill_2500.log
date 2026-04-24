@@ -1,0 +1,398 @@
+[plan] 2500 windows queued. primary=arctic-shift fallback=pullpush
+[state] 2000 already completed
+[checkpoint] 20/2500 ok=0 err=0 skip=20 elapsed=0s
+[checkpoint] 40/2500 ok=0 err=0 skip=40 elapsed=0s
+[checkpoint] 60/2500 ok=0 err=0 skip=60 elapsed=0s
+[checkpoint] 80/2500 ok=0 err=0 skip=80 elapsed=0s
+[checkpoint] 100/2500 ok=0 err=0 skip=100 elapsed=0s
+[checkpoint] 120/2500 ok=0 err=0 skip=120 elapsed=0s
+[checkpoint] 140/2500 ok=0 err=0 skip=140 elapsed=0s
+[checkpoint] 160/2500 ok=0 err=0 skip=160 elapsed=0s
+[checkpoint] 180/2500 ok=0 err=0 skip=180 elapsed=0s
+[checkpoint] 200/2500 ok=0 err=0 skip=200 elapsed=0s
+[checkpoint] 220/2500 ok=0 err=0 skip=220 elapsed=0s
+[checkpoint] 240/2500 ok=0 err=0 skip=240 elapsed=0s
+[checkpoint] 260/2500 ok=0 err=0 skip=260 elapsed=0s
+[checkpoint] 280/2500 ok=0 err=0 skip=280 elapsed=0s
+[checkpoint] 300/2500 ok=0 err=0 skip=300 elapsed=0s
+[checkpoint] 320/2500 ok=0 err=0 skip=320 elapsed=0s
+[checkpoint] 340/2500 ok=0 err=0 skip=340 elapsed=0s
+[checkpoint] 360/2500 ok=0 err=0 skip=360 elapsed=0s
+[checkpoint] 380/2500 ok=0 err=0 skip=380 elapsed=0s
+[checkpoint] 400/2500 ok=0 err=0 skip=400 elapsed=0s
+[checkpoint] 420/2500 ok=0 err=0 skip=420 elapsed=0s
+[checkpoint] 440/2500 ok=0 err=0 skip=440 elapsed=0s
+[checkpoint] 460/2500 ok=0 err=0 skip=460 elapsed=0s
+[checkpoint] 480/2500 ok=0 err=0 skip=480 elapsed=0s
+[checkpoint] 500/2500 ok=0 err=0 skip=500 elapsed=0s
+[checkpoint] 520/2500 ok=0 err=0 skip=520 elapsed=0s
+[checkpoint] 540/2500 ok=0 err=0 skip=540 elapsed=0s
+[checkpoint] 560/2500 ok=0 err=0 skip=560 elapsed=0s
+[checkpoint] 580/2500 ok=0 err=0 skip=580 elapsed=0s
+[checkpoint] 600/2500 ok=0 err=0 skip=600 elapsed=0s
+[checkpoint] 620/2500 ok=0 err=0 skip=620 elapsed=0s
+[checkpoint] 640/2500 ok=0 err=0 skip=640 elapsed=0s
+[checkpoint] 660/2500 ok=0 err=0 skip=660 elapsed=0s
+[checkpoint] 680/2500 ok=0 err=0 skip=680 elapsed=0s
+[checkpoint] 700/2500 ok=0 err=0 skip=700 elapsed=0s
+[checkpoint] 720/2500 ok=0 err=0 skip=720 elapsed=0s
+[checkpoint] 740/2500 ok=0 err=0 skip=740 elapsed=0s
+[checkpoint] 760/2500 ok=0 err=0 skip=760 elapsed=0s
+[checkpoint] 780/2500 ok=0 err=0 skip=780 elapsed=0s
+[checkpoint] 800/2500 ok=0 err=0 skip=800 elapsed=0s
+[checkpoint] 820/2500 ok=0 err=0 skip=820 elapsed=0s
+[checkpoint] 840/2500 ok=0 err=0 skip=840 elapsed=0s
+[checkpoint] 860/2500 ok=0 err=0 skip=860 elapsed=0s
+[checkpoint] 880/2500 ok=0 err=0 skip=880 elapsed=0s
+[checkpoint] 900/2500 ok=0 err=0 skip=900 elapsed=0s
+[checkpoint] 920/2500 ok=0 err=0 skip=920 elapsed=0s
+[checkpoint] 940/2500 ok=0 err=0 skip=940 elapsed=0s
+[checkpoint] 960/2500 ok=0 err=0 skip=960 elapsed=0s
+[checkpoint] 980/2500 ok=0 err=0 skip=980 elapsed=0s
+[checkpoint] 1000/2500 ok=0 err=0 skip=1000 elapsed=0s
+[checkpoint] 1020/2500 ok=0 err=0 skip=1020 elapsed=0s
+[checkpoint] 1040/2500 ok=0 err=0 skip=1040 elapsed=0s
+[checkpoint] 1060/2500 ok=0 err=0 skip=1060 elapsed=0s
+[checkpoint] 1080/2500 ok=0 err=0 skip=1080 elapsed=0s
+[checkpoint] 1100/2500 ok=0 err=0 skip=1100 elapsed=0s
+[checkpoint] 1120/2500 ok=0 err=0 skip=1120 elapsed=0s
+[checkpoint] 1140/2500 ok=0 err=0 skip=1140 elapsed=0s
+[checkpoint] 1160/2500 ok=0 err=0 skip=1160 elapsed=0s
+[checkpoint] 1180/2500 ok=0 err=0 skip=1180 elapsed=0s
+[checkpoint] 1200/2500 ok=0 err=0 skip=1200 elapsed=0s
+[checkpoint] 1220/2500 ok=0 err=0 skip=1220 elapsed=0s
+[checkpoint] 1240/2500 ok=0 err=0 skip=1240 elapsed=0s
+[checkpoint] 1260/2500 ok=0 err=0 skip=1260 elapsed=0s
+[checkpoint] 1280/2500 ok=0 err=0 skip=1280 elapsed=0s
+[checkpoint] 1300/2500 ok=0 err=0 skip=1300 elapsed=0s
+[checkpoint] 1320/2500 ok=0 err=0 skip=1320 elapsed=0s
+[checkpoint] 1340/2500 ok=0 err=0 skip=1340 elapsed=0s
+[checkpoint] 1360/2500 ok=0 err=0 skip=1360 elapsed=0s
+[checkpoint] 1380/2500 ok=0 err=0 skip=1380 elapsed=0s
+[checkpoint] 1400/2500 ok=0 err=0 skip=1400 elapsed=0s
+[checkpoint] 1420/2500 ok=0 err=0 skip=1420 elapsed=0s
+[checkpoint] 1440/2500 ok=0 err=0 skip=1440 elapsed=0s
+[checkpoint] 1460/2500 ok=0 err=0 skip=1460 elapsed=0s
+[checkpoint] 1480/2500 ok=0 err=0 skip=1480 elapsed=0s
+[checkpoint] 1500/2500 ok=0 err=0 skip=1500 elapsed=0s
+[checkpoint] 1520/2500 ok=0 err=0 skip=1520 elapsed=0s
+[checkpoint] 1540/2500 ok=0 err=0 skip=1540 elapsed=0s
+[checkpoint] 1560/2500 ok=0 err=0 skip=1560 elapsed=0s
+[checkpoint] 1580/2500 ok=0 err=0 skip=1580 elapsed=0s
+[checkpoint] 1600/2500 ok=0 err=0 skip=1600 elapsed=0s
+[checkpoint] 1620/2500 ok=0 err=0 skip=1620 elapsed=0s
+[checkpoint] 1640/2500 ok=0 err=0 skip=1640 elapsed=0s
+[checkpoint] 1660/2500 ok=0 err=0 skip=1660 elapsed=0s
+[checkpoint] 1680/2500 ok=0 err=0 skip=1680 elapsed=0s
+[checkpoint] 1700/2500 ok=0 err=0 skip=1700 elapsed=0s
+[checkpoint] 1720/2500 ok=0 err=0 skip=1720 elapsed=0s
+[checkpoint] 1740/2500 ok=0 err=0 skip=1740 elapsed=0s
+[checkpoint] 1760/2500 ok=0 err=0 skip=1760 elapsed=0s
+[checkpoint] 1780/2500 ok=0 err=0 skip=1780 elapsed=0s
+[checkpoint] 1800/2500 ok=0 err=0 skip=1800 elapsed=0s
+[checkpoint] 1820/2500 ok=0 err=0 skip=1820 elapsed=0s
+[checkpoint] 1840/2500 ok=0 err=0 skip=1840 elapsed=0s
+[checkpoint] 1860/2500 ok=0 err=0 skip=1860 elapsed=0s
+[checkpoint] 1880/2500 ok=0 err=0 skip=1880 elapsed=0s
+[checkpoint] 1900/2500 ok=0 err=0 skip=1900 elapsed=0s
+[checkpoint] 1920/2500 ok=0 err=0 skip=1920 elapsed=0s
+[checkpoint] 1940/2500 ok=0 err=0 skip=1940 elapsed=0s
+[checkpoint] 1960/2500 ok=0 err=0 skip=1960 elapsed=0s
+[checkpoint] 1980/2500 ok=0 err=0 skip=1980 elapsed=0s
+[checkpoint] 2000/2500 ok=0 err=0 skip=2000 elapsed=0s
+[OK provider=arctic-shift] texas_city|2024-05-23
+[OK provider=arctic-shift] texas_city|2024-05-30
+[OK provider=arctic-shift] texas_city|2024-06-06
+[OK provider=arctic-shift] texas_city|2024-06-13
+[OK provider=arctic-shift] texas_city|2024-06-20
+[OK provider=arctic-shift] texas_city|2024-06-27
+[OK provider=arctic-shift] texas_city|2024-07-04
+[OK provider=arctic-shift] texas_city|2024-07-11
+[OK provider=arctic-shift] texas_city|2024-07-18
+[OK provider=arctic-shift] texas_city|2024-07-25
+[OK provider=arctic-shift] texas_city|2024-08-01
+[OK provider=arctic-shift] texas_city|2024-08-08
+[OK provider=arctic-shift] texas_city|2024-08-15
+[OK provider=arctic-shift] texas_city|2024-08-22
+[OK provider=arctic-shift] texas_city|2024-08-29
+[OK provider=arctic-shift] texas_city|2024-09-05
+[OK provider=arctic-shift] texas_city|2024-09-12
+[OK provider=arctic-shift] texas_city|2024-09-19
+[OK provider=arctic-shift] texas_city|2024-09-26
+[OK provider=arctic-shift] texas_city|2024-10-03
+[checkpoint] 2020/2500 ok=20 err=0 skip=2000 elapsed=99s
+[OK provider=arctic-shift] texas_city|2024-10-10
+[OK provider=arctic-shift] texas_city|2024-10-17
+[OK provider=arctic-shift] texas_city|2024-10-24
+[OK provider=arctic-shift] texas_city|2024-10-31
+[OK provider=arctic-shift] texas_city|2024-11-07
+[OK provider=arctic-shift] texas_city|2024-11-14
+[OK provider=arctic-shift] texas_city|2024-11-21
+[OK provider=arctic-shift] texas_city|2024-11-28
+[OK provider=arctic-shift] texas_city|2024-12-05
+[OK provider=arctic-shift] texas_city|2024-12-12
+[OK provider=arctic-shift] texas_city|2024-12-19
+[OK provider=arctic-shift] texas_city|2024-12-26
+[OK provider=arctic-shift] texas_city|2025-01-02
+[OK provider=arctic-shift] texas_city|2025-01-09
+[OK provider=arctic-shift] texas_city|2025-01-16
+[OK provider=arctic-shift] texas_city|2025-01-23
+[OK provider=arctic-shift] texas_city|2025-01-30
+[OK provider=arctic-shift] texas_city|2025-02-06
+[OK provider=pullpush] texas_city|2025-02-13
+[OK provider=arctic-shift] texas_city|2025-02-20
+[checkpoint] 2040/2500 ok=40 err=0 skip=2000 elapsed=198s
+[OK provider=arctic-shift] texas_city|2025-02-27
+[OK provider=arctic-shift] texas_city|2025-03-06
+[OK provider=arctic-shift] texas_city|2025-03-13
+[OK provider=arctic-shift] texas_city|2025-03-20
+[OK provider=arctic-shift] texas_city|2025-03-27
+[OK provider=arctic-shift] texas_city|2025-04-03
+[OK provider=arctic-shift] texas_city|2025-04-10
+[OK provider=arctic-shift] texas_city|2025-04-17
+[OK provider=arctic-shift] texas_city|2025-04-24
+[OK provider=arctic-shift] texas_city|2025-05-01
+[OK provider=arctic-shift] texas_city|2025-05-08
+[OK provider=arctic-shift] texas_city|2025-05-15
+[OK provider=arctic-shift] texas_city|2025-05-22
+[OK provider=arctic-shift] texas_city|2025-05-29
+[OK provider=arctic-shift] texas_city|2025-06-05
+[OK provider=arctic-shift] texas_city|2025-06-12
+[OK provider=arctic-shift] texas_city|2025-06-19
+[OK provider=arctic-shift] texas_city|2025-06-26
+[OK provider=arctic-shift] texas_city|2025-07-03
+[OK provider=arctic-shift] texas_city|2025-07-10
+[checkpoint] 2060/2500 ok=60 err=0 skip=2000 elapsed=275s
+[OK provider=arctic-shift] texas_city|2025-07-17
+[OK provider=arctic-shift] texas_city|2025-07-24
+[OK provider=arctic-shift] texas_city|2025-07-31
+[OK provider=arctic-shift] texas_city|2025-08-07
+[OK provider=arctic-shift] texas_city|2025-08-14
+[OK provider=arctic-shift] texas_city|2025-08-21
+[OK provider=arctic-shift] texas_city|2025-08-28
+[OK provider=arctic-shift] texas_city|2025-09-04
+[OK provider=arctic-shift] texas_city|2025-09-11
+[OK provider=arctic-shift] texas_city|2025-09-18
+[OK provider=arctic-shift] texas_city|2025-09-25
+[OK provider=arctic-shift] texas_city|2025-10-02
+[OK provider=arctic-shift] texas_city|2025-10-09
+[OK provider=arctic-shift] texas_city|2025-10-16
+[OK provider=arctic-shift] texas_city|2025-10-23
+[OK provider=arctic-shift] texas_city|2025-10-30
+[OK provider=arctic-shift] texas_city|2025-11-06
+[OK provider=arctic-shift] texas_city|2025-11-13
+[OK provider=arctic-shift] texas_city|2025-11-20
+[OK provider=arctic-shift] texas_city|2025-11-27
+[checkpoint] 2080/2500 ok=80 err=0 skip=2000 elapsed=352s
+[OK provider=arctic-shift] texas_city|2025-12-04
+[OK provider=arctic-shift] texas_city|2025-12-11
+[OK provider=arctic-shift] texas_city|2025-12-18
+[OK provider=arctic-shift] texas_city|2025-12-25
+[OK provider=arctic-shift] texas_city|2026-01-01
+[OK provider=arctic-shift] texas_city|2026-01-08
+[OK provider=arctic-shift] texas_city|2026-01-15
+[OK provider=arctic-shift] texas_city|2026-01-22
+[OK provider=arctic-shift] texas_city|2026-01-29
+[OK provider=arctic-shift] texas_city|2026-02-05
+[OK provider=arctic-shift] texas_city|2026-02-12
+[OK provider=arctic-shift] texas_city|2026-02-19
+[OK provider=arctic-shift] texas_city|2026-02-26
+[OK provider=arctic-shift] texas_city|2026-03-05
+[OK provider=arctic-shift] texas_city|2026-03-12
+[OK provider=arctic-shift] texas_city|2026-03-19
+[OK provider=arctic-shift] texas_city|2026-03-26
+[OK provider=arctic-shift] texas_city|2026-04-02
+[OK provider=arctic-shift] texas_city|2026-04-09
+[OK provider=arctic-shift] texas_city|2026-04-16
+[checkpoint] 2100/2500 ok=100 err=0 skip=2000 elapsed=427s
+[OK provider=arctic-shift] texas_city|2026-04-23
+[OK provider=arctic-shift] ohiostate_team|2022-09-01
+[OK provider=arctic-shift] ohiostate_team|2022-09-08
+[OK provider=arctic-shift] ohiostate_team|2022-09-15
+[OK provider=arctic-shift] ohiostate_team|2022-09-22
+[OK provider=arctic-shift] ohiostate_team|2022-09-29
+[OK provider=arctic-shift] ohiostate_team|2022-10-06
+[OK provider=arctic-shift] ohiostate_team|2022-10-13
+[OK provider=arctic-shift] ohiostate_team|2022-10-20
+[OK provider=arctic-shift] ohiostate_team|2022-10-27
+[OK provider=arctic-shift] ohiostate_team|2022-11-03
+[OK provider=arctic-shift] ohiostate_team|2022-11-10
+[OK provider=arctic-shift] ohiostate_team|2022-11-17
+[OK provider=arctic-shift] ohiostate_team|2022-11-24
+[OK provider=arctic-shift] ohiostate_team|2022-12-01
+[OK provider=arctic-shift] ohiostate_team|2022-12-08
+[OK provider=arctic-shift] ohiostate_team|2022-12-15
+[OK provider=arctic-shift] ohiostate_team|2022-12-22
+[OK provider=arctic-shift] ohiostate_team|2022-12-29
+[OK provider=arctic-shift] ohiostate_team|2023-01-05
+[checkpoint] 2120/2500 ok=120 err=0 skip=2000 elapsed=494s
+[OK provider=arctic-shift] ohiostate_team|2023-01-12
+[OK provider=arctic-shift] ohiostate_team|2023-01-19
+[OK provider=arctic-shift] ohiostate_team|2023-01-26
+[OK provider=arctic-shift] ohiostate_team|2023-02-02
+[OK provider=arctic-shift] ohiostate_team|2023-02-09
+[OK provider=arctic-shift] ohiostate_team|2023-02-16
+[OK provider=arctic-shift] ohiostate_team|2023-02-23
+[OK provider=arctic-shift] ohiostate_team|2023-03-02
+[OK provider=arctic-shift] ohiostate_team|2023-03-09
+[OK provider=arctic-shift] ohiostate_team|2023-03-16
+[OK provider=arctic-shift] ohiostate_team|2023-03-23
+[OK provider=arctic-shift] ohiostate_team|2023-03-30
+[OK provider=arctic-shift] ohiostate_team|2023-04-06
+[OK provider=arctic-shift] ohiostate_team|2023-04-13
+[OK provider=arctic-shift] ohiostate_team|2023-04-20
+[OK provider=arctic-shift] ohiostate_team|2023-04-27
+[OK provider=arctic-shift] ohiostate_team|2023-05-04
+[OK provider=arctic-shift] ohiostate_team|2023-05-11
+[OK provider=arctic-shift] ohiostate_team|2023-05-18
+[OK provider=arctic-shift] ohiostate_team|2023-05-25
+[checkpoint] 2140/2500 ok=140 err=0 skip=2000 elapsed=560s
+[OK provider=arctic-shift] ohiostate_team|2023-06-01
+[OK provider=arctic-shift] ohiostate_team|2023-06-08
+[OK provider=arctic-shift] ohiostate_team|2023-06-15
+[OK provider=arctic-shift] ohiostate_team|2023-06-22
+[OK provider=arctic-shift] ohiostate_team|2023-06-29
+[OK provider=arctic-shift] ohiostate_team|2023-07-06
+[OK provider=arctic-shift] ohiostate_team|2023-07-13
+[OK provider=arctic-shift] ohiostate_team|2023-07-20
+[OK provider=arctic-shift] ohiostate_team|2023-07-27
+[OK provider=arctic-shift] ohiostate_team|2023-08-03
+[OK provider=arctic-shift] ohiostate_team|2023-08-10
+[OK provider=arctic-shift] ohiostate_team|2023-08-17
+[OK provider=arctic-shift] ohiostate_team|2023-08-24
+[OK provider=arctic-shift] ohiostate_team|2023-08-31
+[OK provider=arctic-shift] ohiostate_team|2023-09-07
+[OK provider=arctic-shift] ohiostate_team|2023-09-14
+[OK provider=arctic-shift] ohiostate_team|2023-09-21
+[OK provider=arctic-shift] ohiostate_team|2023-09-28
+[OK provider=arctic-shift] ohiostate_team|2023-10-05
+[OK provider=arctic-shift] ohiostate_team|2023-10-12
+[checkpoint] 2160/2500 ok=160 err=0 skip=2000 elapsed=619s
+[OK provider=arctic-shift] ohiostate_team|2023-10-19
+[OK provider=arctic-shift] ohiostate_team|2023-10-26
+[OK provider=arctic-shift] ohiostate_team|2023-11-02
+[OK provider=arctic-shift] ohiostate_team|2023-11-09
+[OK provider=arctic-shift] ohiostate_team|2023-11-16
+[OK provider=arctic-shift] ohiostate_team|2023-11-23
+[OK provider=arctic-shift] ohiostate_team|2023-11-30
+[OK provider=arctic-shift] ohiostate_team|2023-12-07
+[OK provider=arctic-shift] ohiostate_team|2023-12-14
+[OK provider=arctic-shift] ohiostate_team|2023-12-21
+[OK provider=arctic-shift] ohiostate_team|2023-12-28
+[OK provider=arctic-shift] ohiostate_team|2024-01-04
+[OK provider=arctic-shift] ohiostate_team|2024-01-11
+[OK provider=arctic-shift] ohiostate_team|2024-01-18
+[OK provider=arctic-shift] ohiostate_team|2024-01-25
+[OK provider=arctic-shift] ohiostate_team|2024-02-01
+[OK provider=arctic-shift] ohiostate_team|2024-02-08
+[OK provider=arctic-shift] ohiostate_team|2024-02-15
+[OK provider=arctic-shift] ohiostate_team|2024-02-22
+[OK provider=arctic-shift] ohiostate_team|2024-02-29
+[checkpoint] 2180/2500 ok=180 err=0 skip=2000 elapsed=688s
+[OK provider=arctic-shift] ohiostate_team|2024-03-07
+[OK provider=arctic-shift] ohiostate_team|2024-03-14
+[OK provider=arctic-shift] ohiostate_team|2024-03-21
+[OK provider=arctic-shift] ohiostate_team|2024-03-28
+[OK provider=arctic-shift] ohiostate_team|2024-04-04
+[OK provider=arctic-shift] ohiostate_team|2024-04-11
+[OK provider=arctic-shift] ohiostate_team|2024-04-18
+[OK provider=arctic-shift] ohiostate_team|2024-04-25
+[OK provider=arctic-shift] ohiostate_team|2024-05-02
+[OK provider=arctic-shift] ohiostate_team|2024-05-09
+[OK provider=arctic-shift] ohiostate_team|2024-05-16
+[OK provider=arctic-shift] ohiostate_team|2024-05-23
+[OK provider=arctic-shift] ohiostate_team|2024-05-30
+[OK provider=arctic-shift] ohiostate_team|2024-06-06
+[OK provider=arctic-shift] ohiostate_team|2024-06-13
+[OK provider=arctic-shift] ohiostate_team|2024-06-20
+[OK provider=arctic-shift] ohiostate_team|2024-06-27
+[OK provider=arctic-shift] ohiostate_team|2024-07-04
+[OK provider=arctic-shift] ohiostate_team|2024-07-11
+[OK provider=arctic-shift] ohiostate_team|2024-07-18
+[checkpoint] 2200/2500 ok=200 err=0 skip=2000 elapsed=749s
+[OK provider=arctic-shift] ohiostate_team|2024-07-25
+[OK provider=arctic-shift] ohiostate_team|2024-08-01
+[OK provider=arctic-shift] ohiostate_team|2024-08-08
+[OK provider=arctic-shift] ohiostate_team|2024-08-15
+[OK provider=arctic-shift] ohiostate_team|2024-08-22
+[OK provider=arctic-shift] ohiostate_team|2024-08-29
+[OK provider=arctic-shift] ohiostate_team|2024-09-05
+[OK provider=arctic-shift] ohiostate_team|2024-09-12
+[OK provider=arctic-shift] ohiostate_team|2024-09-19
+[OK provider=arctic-shift] ohiostate_team|2024-09-26
+[OK provider=arctic-shift] ohiostate_team|2024-10-03
+[OK provider=arctic-shift] ohiostate_team|2024-10-10
+[OK provider=arctic-shift] ohiostate_team|2024-10-17
+[OK provider=arctic-shift] ohiostate_team|2024-10-24
+[OK provider=arctic-shift] ohiostate_team|2024-10-31
+[OK provider=arctic-shift] ohiostate_team|2024-11-07
+[OK provider=arctic-shift] ohiostate_team|2024-11-14
+[OK provider=arctic-shift] ohiostate_team|2024-11-21
+[OK provider=arctic-shift] ohiostate_team|2024-11-28
+[OK provider=arctic-shift] ohiostate_team|2024-12-05
+[checkpoint] 2220/2500 ok=220 err=0 skip=2000 elapsed=809s
+[OK provider=arctic-shift] ohiostate_team|2024-12-12
+[OK provider=arctic-shift] ohiostate_team|2024-12-19
+[OK provider=arctic-shift] ohiostate_team|2024-12-26
+[OK provider=arctic-shift] ohiostate_team|2025-01-02
+[OK provider=arctic-shift] ohiostate_team|2025-01-09
+[OK provider=arctic-shift] ohiostate_team|2025-01-16
+[OK provider=arctic-shift] ohiostate_team|2025-01-23
+[OK provider=arctic-shift] ohiostate_team|2025-01-30
+[OK provider=arctic-shift] ohiostate_team|2025-02-06
+[OK provider=arctic-shift] ohiostate_team|2025-02-13
+[OK provider=arctic-shift] ohiostate_team|2025-02-20
+[OK provider=arctic-shift] ohiostate_team|2025-02-27
+[OK provider=arctic-shift] ohiostate_team|2025-03-06
+[OK provider=arctic-shift] ohiostate_team|2025-03-13
+[OK provider=arctic-shift] ohiostate_team|2025-03-20
+[OK provider=arctic-shift] ohiostate_team|2025-03-27
+[OK provider=arctic-shift] ohiostate_team|2025-04-03
+[OK provider=arctic-shift] ohiostate_team|2025-04-10
+[OK provider=arctic-shift] ohiostate_team|2025-04-17
+[OK provider=arctic-shift] ohiostate_team|2025-04-24
+[checkpoint] 2240/2500 ok=240 err=0 skip=2000 elapsed=869s
+[OK provider=arctic-shift] ohiostate_team|2025-05-01
+[OK provider=arctic-shift] ohiostate_team|2025-05-08
+[OK provider=arctic-shift] ohiostate_team|2025-05-15
+[OK provider=arctic-shift] ohiostate_team|2025-05-22
+[OK provider=arctic-shift] ohiostate_team|2025-05-29
+[OK provider=arctic-shift] ohiostate_team|2025-06-05
+[OK provider=arctic-shift] ohiostate_team|2025-06-12
+[OK provider=arctic-shift] ohiostate_team|2025-06-19
+[OK provider=arctic-shift] ohiostate_team|2025-06-26
+[OK provider=arctic-shift] ohiostate_team|2025-07-03
+[OK provider=arctic-shift] ohiostate_team|2025-07-10
+[OK provider=arctic-shift] ohiostate_team|2025-07-17
+[OK provider=arctic-shift] ohiostate_team|2025-07-24
+[OK provider=arctic-shift] ohiostate_team|2025-07-31
+[OK provider=arctic-shift] ohiostate_team|2025-08-07
+[OK provider=arctic-shift] ohiostate_team|2025-08-14
+[OK provider=arctic-shift] ohiostate_team|2025-08-21
+[OK provider=arctic-shift] ohiostate_team|2025-08-28
+[OK provider=arctic-shift] ohiostate_team|2025-09-04
+[OK provider=arctic-shift] ohiostate_team|2025-09-11
+[checkpoint] 2260/2500 ok=260 err=0 skip=2000 elapsed=949s
+[OK provider=arctic-shift] ohiostate_team|2025-09-18
+[OK provider=arctic-shift] ohiostate_team|2025-09-25
+[OK provider=arctic-shift] ohiostate_team|2025-10-02
+[OK provider=arctic-shift] ohiostate_team|2025-10-09
+[OK provider=arctic-shift] ohiostate_team|2025-10-16
+[OK provider=arctic-shift] ohiostate_team|2025-10-23
+[OK provider=arctic-shift] ohiostate_team|2025-10-30
+[OK provider=arctic-shift] ohiostate_team|2025-11-06
+[OK provider=arctic-shift] ohiostate_team|2025-11-13
+[OK provider=arctic-shift] ohiostate_team|2025-11-20
+[OK provider=arctic-shift] ohiostate_team|2025-11-27
+[OK provider=arctic-shift] ohiostate_team|2025-12-04
+[OK provider=arctic-shift] ohiostate_team|2025-12-11
+[OK provider=arctic-shift] ohiostate_team|2025-12-18
+[OK provider=arctic-shift] ohiostate_team|2025-12-25
+[OK provider=arctic-shift] ohiostate_team|2026-01-01
+[OK provider=arctic-shift] ohiostate_team|2026-01-08
+[OK provider=arctic-shift] ohiostate_team|2026-01-15
+[OK provider=arctic-shift] ohiostate_team|2026-01-22
+[OK provider=arctic-shift] ohiostate_team|2026-01-29
+[checkpoint] 2280/2500 ok=280 err=0 skip=2000 elapsed=1095s
+[OK provider=arctic-shift] ohiostate_team|2026-02-05
+[OK provider=arctic-shift] ohiostate_team|2026-02-12

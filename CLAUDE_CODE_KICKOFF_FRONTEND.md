@@ -8,9 +8,10 @@
 - `CLAUDE.md`
 - `FRONTEND_ARCHITECTURE_DECISION.md` (why this plan)
 - `PLAYER_PAGE_WORLD_CLASS_BRIEF.md` §8 (design craft — locked tokens, motion grammar)
-- `outputs/figma-delivery-stage3b/src/styles/theme.css` (the token canon)
-- `outputs/figma-delivery-stage3b/src/app/components/*.tsx` (the component canon)
-- `outputs/figma-delivery-stage3b/src/app/pages/PlayerPage.tsx` (assembly canon)
+- `figma-reference/player-page/README.md` (what the reference folder is and isn't)
+- `figma-reference/player-page/src/styles/theme.css` (the token canon)
+- `figma-reference/player-page/src/app/components/*.tsx` (the component canon)
+- `figma-reference/player-page/src/app/pages/PlayerPage.tsx` (assembly canon)
 
 ---
 
@@ -28,8 +29,8 @@ production.
 1. CLAUDE.md
 2. FRONTEND_ARCHITECTURE_DECISION.md (the plan you are executing)
 3. PLAYER_PAGE_WORLD_CLASS_BRIEF.md §8 only (design craft — locked)
-4. outputs/figma-delivery-stage3b/src/styles/theme.css (token canon)
-5. outputs/figma-delivery-stage3b/src/app/components/HeroFingerprint.tsx
+4. figma-reference/player-page/src/styles/theme.css (token canon)
+5. figma-reference/player-page/src/app/components/HeroFingerprint.tsx
    (representative component; skim 3-4 more later as needed per task)
 6. SESSION_LOG.md (to see the state of prior kickoffs — you pick up after
    Feature A/B/Fan-Intel work; do not disturb their output)
@@ -73,9 +74,15 @@ can do.
 - Any new tests colocated with Python code under tests/.
 
 ## Pre-flight defaults (already decided — do not re-litigate)
-- Dark mode IS the default. <html class="dark"> on every generated page.
-  prefers-color-scheme: light overrides to the light palette. A user-toggle
-  button can ship later; not in scope for this kickoff.
+- Dark mode is NOT the default during the migration. The old production
+  modules are drawn for light surfaces; switching to dark before the v5
+  modules land produces a worse visual. The dark palette is defined in
+  cfb-index.css under a .dark class but no page activates it by default
+  through Stage S.5. In Stage S.6 (after all 10 modules are ported) the
+  kickoff flips <html class="dark"> as the default and respects
+  prefers-color-scheme: light to override. If the S.0/S.1 commits already
+  shipped with dark as the default, revert that first — it's a one-line
+  change in reporting.py (the <html> tag rendering).
 - Self-hosted Inter + Inter Display via woff2 subsets, font-display: swap.
 - Browser support floor: Chrome 111 / Safari 15.4 / Firefox 113 (the OKLCH
   floor). Announce in methodology footer; do not add polyfills.
@@ -139,7 +146,7 @@ block.
 ### Stage S.1 — Token migration (Sonnet, with one Opus micro-decision if needed)
 
 **Inputs**: cfb-index.css from S.0 (currently a copy of the old inline CSS);
-outputs/figma-delivery-stage3b/src/styles/theme.css (the canonical v5
+figma-reference/player-page/src/styles/theme.css (the canonical v5
 token file).
 
 **Outputs**:
@@ -197,7 +204,7 @@ diff is a bug — root-cause it before moving on.
 ### Stage S.2 — First module port: Signature Story (Sonnet)
 
 **Inputs**:
-- Reference: outputs/figma-delivery-stage3b/src/app/components/
+- Reference: figma-reference/player-page/src/app/components/
     SignatureStory.tsx
 - Production: reporting.py `_render_algorithmic_signature_card(story)` —
   grep for the function to find it. Exists at a known line; Grep for
@@ -391,7 +398,14 @@ Order:
 
 ---
 
-### Stage S.6 — Retire legacy tokens + cleanup (Sonnet)
+### Stage S.6 — Flip dark-mode default + retire legacy tokens + cleanup (Sonnet)
+
+With all 10 modules ported and v5 visuals in every surface, dark mode is
+now safe to default on. Flip `<html>` to `<html class="dark">` in the page
+shell and verify every surface renders cleanly. `prefers-color-scheme:
+light` via `.light {}` overrides lets readers who prefer light still get
+it. The manual toggle UI is a follow-up, not blocking.
+
 
 **Inputs**: cfb-index.css (all components ported), reporting.py
 (all render functions ported).

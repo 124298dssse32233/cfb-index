@@ -1,0 +1,306 @@
+[plan] 50 windows queued. primary=arctic-shift fallback=pullpush
+[state] 0 already completed
+[FAIL] cfb_national|2022-09-01
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-09-08
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-09-15
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-09-22
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-09-29
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-10-06
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-10-13
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-10-20
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-10-27
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-11-03
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-11-10
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-11-17
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-11-24
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-12-01
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-12-08
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-12-15
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-12-22
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2022-12-29
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-01-05
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-01-12
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[checkpoint] 20/50 ok=0 err=20 skip=0 elapsed=89s
+[FAIL] cfb_national|2023-01-19
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-01-26
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-02-02
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-02-09
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-02-16
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-02-23
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-03-02
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-03-09
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-03-16
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-03-23
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-03-30
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-04-06
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-04-13
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-04-20
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-04-27
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-05-04
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-05-11
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-05-18
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-05-25
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-06-01
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[checkpoint] 40/50 ok=0 err=40 skip=0 elapsed=246s
+[FAIL] cfb_national|2023-06-08
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-06-15
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-06-22
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-06-29
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-07-06
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-07-13
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-07-20
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-07-27
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-08-03
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[FAIL] cfb_national|2023-08-10
+    Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", li
+[checkpoint] 50/50 ok=0 err=50 skip=0 elapsed=312s
+[done] {'ok': 0, 'error': 50, 'skipped-completed': 0, 'dry-run': 0}

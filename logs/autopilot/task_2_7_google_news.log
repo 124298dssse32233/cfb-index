@@ -1,0 +1,413 @@
+2026-04-24 00:30:19,677 ERROR cfb_rankings.ingest.sources.base: adapter google_news_kansas-state failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:19,698 INFO run_adapter: google kansas-state: error (0 rows)
+2026-04-24 00:30:20,343 ERROR cfb_rankings.ingest.sources.base: adapter google_news_boise-state failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:20,361 INFO run_adapter: google boise-state: error (0 rows)
+2026-04-24 00:30:20,980 ERROR cfb_rankings.ingest.sources.base: adapter google_news_tennessee failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:20,998 INFO run_adapter: google tennessee: error (0 rows)
+2026-04-24 00:30:23,015 INFO run_adapter: google tulane: ok (8 rows)
+2026-04-24 00:30:23,821 ERROR cfb_rankings.ingest.sources.base: adapter google_news_ohio-state failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:23,856 INFO run_adapter: google ohio-state: error (0 rows)
+2026-04-24 00:30:24,545 ERROR cfb_rankings.ingest.sources.base: adapter google_news_texas failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:24,554 INFO run_adapter: google texas: error (0 rows)
+2026-04-24 00:30:26,400 INFO run_adapter: google jackson-state: ok (12 rows)
+2026-04-24 00:30:27,037 ERROR cfb_rankings.ingest.sources.base: adapter google_news_penn-state failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:27,051 INFO run_adapter: google penn-state: error (0 rows)
+2026-04-24 00:30:27,833 ERROR cfb_rankings.ingest.sources.base: adapter google_news_georgia failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:27,868 INFO run_adapter: google georgia: error (0 rows)
+2026-04-24 00:30:28,424 ERROR cfb_rankings.ingest.sources.base: adapter google_news_florida-state failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:28,443 INFO run_adapter: google florida-state: error (0 rows)
+2026-04-24 00:30:29,571 ERROR cfb_rankings.ingest.sources.base: adapter google_news_alabama failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:29,580 INFO run_adapter: google alabama: error (0 rows)
+2026-04-24 00:30:31,339 INFO run_adapter: google howard: ok (6 rows)
+2026-04-24 00:30:32,300 ERROR cfb_rankings.ingest.sources.base: adapter google_news_oregon failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:32,324 INFO run_adapter: google oregon: error (0 rows)
+2026-04-24 00:30:34,028 INFO run_adapter: google memphis: ok (4 rows)
+2026-04-24 00:30:34,758 ERROR cfb_rankings.ingest.sources.base: adapter google_news_texas-tech failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:34,779 INFO run_adapter: google texas-tech: error (0 rows)
+2026-04-24 00:30:35,578 ERROR cfb_rankings.ingest.sources.base: adapter google_news_michigan failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:35,600 INFO run_adapter: google michigan: error (0 rows)
+2026-04-24 00:30:36,584 ERROR cfb_rankings.ingest.sources.base: adapter google_news_clemson failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:36,594 INFO run_adapter: google clemson: error (0 rows)
+2026-04-24 00:30:37,300 ERROR cfb_rankings.ingest.sources.base: adapter google_news_lsu failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:37,310 INFO run_adapter: google lsu: error (0 rows)
+2026-04-24 00:30:38,156 ERROR cfb_rankings.ingest.sources.base: adapter google_news_byu failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:38,181 INFO run_adapter: google byu: error (0 rows)
+2026-04-24 00:30:41,304 ERROR cfb_rankings.ingest.sources.base: adapter google_news_miami failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:41,379 INFO run_adapter: google miami: error (0 rows)
+2026-04-24 00:30:42,720 ERROR cfb_rankings.ingest.sources.base: adapter google_news_notre-dame failed
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\base.py", line 160, in run
+    n = self.write_rows(rows)
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\sources\campus_news.py", line 148, in write_rows
+    self.db.execute(
+    ~~~~~~~~~~~~~~~^
+        """
+        ^^^
+    ...<16 lines>...
+        row,
+        ^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 95, in execute
+    _with_retry("execute", _op)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 42, in _with_retry
+    return fn()
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 92, in _op
+    conn.execute(normalized_query, params or {})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: conversation_documents.source_name, conversation_documents.source_document_id
+2026-04-24 00:30:42,764 INFO run_adapter: google notre-dame: error (0 rows)
+2026-04-24 00:30:42,764 INFO run_adapter: google_news_all totals: ok=4 err=17

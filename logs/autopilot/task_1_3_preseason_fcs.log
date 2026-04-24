@@ -1,0 +1,47 @@
+Loading preseason context tables plus the full FCS roster snapshot...
+[CFBD preseason] 2026: loading returning production...
+[CFBD preseason] 2026: loading talent composites...
+[CFBD preseason] 2026: loading team recruiting summaries...
+[CFBD preseason] 2026: loading transfer portal...
+[CFBD preseason] 2026: loading classification-wide roster snapshot for FCS...
+[CFBD preseason] 2026: loading player recruiting class 2021...
+[CFBD preseason] 2026: loading player recruiting class 2022...
+[CFBD preseason] 2026: loading player recruiting class 2023...
+[CFBD preseason] 2026: loading player recruiting class 2024...
+Traceback (most recent call last):
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\manage.py", line 25, in main
+    cli_main()
+    ~~~~~~~~^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\cli.py", line 1211, in main
+    ingest_cfbd_preseason(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        repository=repository,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        classification=args.classification,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\cfbd.py", line 177, in ingest_cfbd_preseason
+    _ingest_player_recruiting(repository, db, recruit_rows, recruit_season)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\cfbd.py", line 831, in _ingest_player_recruiting
+    _upsert_player_source_ids(db, player_id, "cfbd-recruit", [source_recruit_id])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\ingest\cfbd.py", line 1189, in _upsert_player_source_ids
+    db.upsert_many(
+    ~~~~~~~~~~~~~~^
+        "player_source_ids",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        update_columns=["player_id"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kevin\Downloads\Sports Website\src\cfb_rankings\db.py", line 100, in upsert_many
+    conn.executemany(query, rows)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: attempt to write a readonly database

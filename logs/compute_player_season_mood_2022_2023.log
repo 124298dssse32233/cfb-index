@@ -1,0 +1,4 @@
+=== 2022 season rollup ===
+compute-player-season-mood 2022: rows_read=1921 players_touched=577 cells_written=654
+=== 2023 season rollup ===
+compute-player-season-mood 2023: rows_read=2485 players_touched=681 cells_written=785

@@ -1,0 +1,2 @@
+db.execute attempt 1/6 hit attempt to write a readonly database — sleeping 0.28s and retrying
+[COMMIT] tag-player-mentions season=2024: docs_scanned=25931 matches=3268 skipped_ambiguous=4 rows_written=1833

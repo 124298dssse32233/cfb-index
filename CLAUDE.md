@@ -39,6 +39,9 @@ Sonnet = default. Opus = schema/data decisions, cross-cutting copy. Haiku = veri
 - CFB_INDEX_AUDIT.md — full product+UX audit this brief is derived from.
 - PLAYER_PAGE_WORLD_CLASS_BRIEF.md — QB-first player-page redesign strategy, UX principles, Accolade Lens spec, Figma handoff. Archive trail in research/player-page-worldclass-brainstorm-2026-04-22.md.
 
+## Team Pages (new module)
+World-class team-page renderer at `src/cfb_rankings/team_pages/`. Disjoint from `reporting.py`. Profiled programs = every slug with a file in `profiles/*.md` (discovered at import time as `PROFILED_SLUGS`). During `build-site`, `reporting.py` short-circuits both the delete-sweep (L5230-5234) and the HTML write (L5269-5271) for profiled slugs, then after the legacy loop a new-style render hook calls `team_pages.render_all_profiled_pages(db, teams_dir)` to emit the 11 world-class pages. Unprofiled programs keep legacy output. Standalone iteration: `python manage.py render-team-pages` (all 11) or `python manage.py render-team <slug> [<slug> ...]` (one or more). Sprint-2 adds Savant + Rivalry modules; see `TEAM_PAGE_WORLD_CLASS_BRIEF.md` and `docs/design-system/12-modules-intel.md`.
+
 ## Fan Intelligence system (2026 buildout)
 - FAN_INTEL_SOURCE_STRATEGY.md — canonical source + cohort reference. Read first before any fan-intel work.
 - FAN_INTEL_BUILD_PLAN.md — 8-week task list with per-task model routing (Opus/Sonnet/Haiku).
