@@ -2357,6 +2357,76 @@ _GLOSSARY_CSS_BLOCK = """
 """
 
 
+# Weekly "What Changed" diff — Signature Bets S1.4 / §4 Bet #6.
+# Client-only (JS-gated): first visit writes a snapshot; return visits
+# diff it and render a small gold-left-border card above the hero. The
+# <div data-what-changed> placeholder sits at the top of render_player_
+# page_html; the client fills it in only when there's something to show.
+_WHAT_CHANGED_CSS_BLOCK = """
+@layer components {
+  .what-changed {
+    margin: 0 0 var(--space-6, 1.5rem) 0;
+    padding: var(--space-4, 1rem) var(--space-6, 1.5rem);
+    border-left: 3px solid var(--accolade-gold-base, #d1a23a);
+    background: color-mix(in srgb, var(--accolade-gold-base) 8%, var(--card));
+    border-radius: var(--radius-md, 12px);
+    color: var(--card-foreground, var(--foreground, #222));
+    animation: what-changed-reveal var(--motion-reveal, 240ms) ease-out;
+  }
+  .what-changed__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3, 0.75rem);
+    margin-bottom: var(--space-2, 0.5rem);
+  }
+  .what-changed__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accolade-gold-base, #d1a23a);
+    font-weight: 600;
+  }
+  .what-changed__dismiss {
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    color: var(--muted-foreground, #666);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .what-changed__dismiss:hover,
+  .what-changed__dismiss:focus-visible {
+    color: var(--foreground, #222);
+  }
+  .what-changed__bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+    font-size: var(--fs-body, 0.95rem);
+    font-variant-numeric: tabular-nums;
+  }
+  .what-changed__bullets li::before {
+    content: '\\25B8';
+    color: var(--accolade-gold-base, #d1a23a);
+    margin-right: 0.5em;
+  }
+  @keyframes what-changed-reveal {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .what-changed { animation: none; }
+  }
+}
+"""
+
+
 # Inline confidence chip — Signature Bets S1.2 / brief §5 item 3.
 # "Every stat gets a confidence dot + tiny sample count. Not a separate
 # 'Page Confidence Score' module — just ambient, per-metric honesty."
@@ -2567,6 +2637,8 @@ def _compose_global_css() -> str:
         + _GLOSSARY_CSS_BLOCK
         + "\n/* === Inline confidence chips (S1.2) === */\n"
         + _CONFIDENCE_CSS_BLOCK
+        + "\n/* === What-Changed diff card (S1.4) === */\n"
+        + _WHAT_CHANGED_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -2599,6 +2671,7 @@ def _ensure_global_assets(site_root: Path) -> str:
         "js/the-room.js",
         "js/subnav.js",
         "js/bets/glossary.js",
+        "js/bets/what-changed.js",
         "fonts/Inter-Variable.woff2",
         "fonts/InterDisplay-SemiBold.woff2",
         "fonts/InterDisplay-Bold.woff2",
@@ -2643,6 +2716,7 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/subnav.js" defer></script>\n'
         f'    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>\n'
         f'    <script src="/assets/js/bets/glossary.js" defer></script>\n'
+        f'    <script src="/assets/js/bets/what-changed.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -13264,6 +13338,17 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     # (driven by /assets/js/subnav.js). Anchor list maps to the v5 module
     # sections inserted in S.2-S.5.
     player_subnav = _render_v5_player_subnav()
+
+    # What-Changed state blob (Signature Bets S1.4). Embedded per-page
+    # so the client can diff against the reader's last-visit snapshot.
+    from cfb_rankings.bets.what_changed import (
+        build_player_state_blob,
+        state_blob_script_tag,
+    )
+    _player_slug = str(summary.get("player_slug") or player.get("player_slug") or "")
+    _what_changed_blob = build_player_state_blob(player_data)
+    _what_changed_script = state_blob_script_tag(_player_slug, _what_changed_blob)
+
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -13278,6 +13363,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <div class="phase-banner" role="note">
         <span class="phase-banner__label">OFFSEASON &middot; SPRING 2026 &middot; DRAFT WEEK</span>
       </div>
+      {_what_changed_script}
+      <div data-what-changed aria-live="polite"></div>
       <section class="team-shell" style="--team-accent:{team_theme['accent']}; --team-accent-soft:{team_theme['accent_soft']};">
         <div class="team-breadcrumbs">
           <a href="../heisman/index.html">Heisman</a>
