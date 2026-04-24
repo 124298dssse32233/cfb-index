@@ -319,6 +319,17 @@ def build_parser() -> argparse.ArgumentParser:
     import_honors_parser.add_argument("--csv", required=True)
     import_honors_parser.add_argument("--source-name", default="manual")
 
+    draft_parser = subparsers.add_parser(
+        "ingest-nfl-draft",
+        help="Fetch CFBD /draft/picks for one year or a range; upserts into player_nfl_draft.",
+    )
+    draft_parser.add_argument("--year", type=int, default=None,
+        help="Single draft year to ingest.")
+    draft_parser.add_argument("--start-year", type=int, default=None,
+        help="Start year (inclusive) for range ingest.")
+    draft_parser.add_argument("--end-year", type=int, default=None,
+        help="End year (inclusive) for range ingest.")
+
     seed_team_aliases_parser = subparsers.add_parser("seed-team-aliases")
     seed_team_aliases_parser.add_argument("--season", type=int, required=True)
 
@@ -1395,6 +1406,28 @@ def main() -> None:
             default_source_name=args.source_name,
         )
         print(f"Imported {imported} player honor rows from {args.csv}.", flush=True)
+        return
+
+    if args.command == "ingest-nfl-draft":
+        from cfb_rankings.clients.cfbd import CfbdClient
+        from cfb_rankings.ingest.draft import ingest_draft_range, ingest_draft_year
+
+        if not config.cfbd_api_key:
+            raise RuntimeError("CFBD_API_KEY not set — cannot fetch draft picks.")
+        cfbd = CfbdClient(config.cfbd_api_key, config.cfbd_base_url, config.request_timeout_seconds)
+
+        if args.year:
+            summary = ingest_draft_year(db, cfbd, args.year)
+            print(f"ingest-nfl-draft year={args.year}: {summary}")
+        elif args.start_year and args.end_year:
+            summaries = ingest_draft_range(db, cfbd, args.start_year, args.end_year)
+            for s in summaries:
+                print(f"  year={s['year']}: fetched={s['rows_fetched']} "
+                      f"upserted={s['rows_upserted']} "
+                      f"player_hits={s['resolved_player_ids']} "
+                      f"team_hits={s['resolved_team_ids']}")
+        else:
+            raise RuntimeError("Provide either --year N or --start-year X --end-year Y.")
         return
 
     if args.command == "seed-team-aliases":

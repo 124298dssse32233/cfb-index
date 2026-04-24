@@ -378,6 +378,12 @@ class CfbdClient(JsonApiClient):
     def get_transfer_portal(self, year: int) -> list[dict[str, Any]]:
         return self.get_json("/player/portal", params={"year": year})
 
+    def get_nfl_draft_picks(self, year: int) -> list[dict[str, Any]]:
+        """Fetch NFL Draft picks for a draft year. CFBD /draft/picks
+        returns college-to-NFL pick rows with collegeId / collegeTeam /
+        name / position / round / pick / overall / nflTeam."""
+        return self.get_json("/draft/picks", params={"year": year})
+
     def get_teams(
         self,
         year: int | None = None,
