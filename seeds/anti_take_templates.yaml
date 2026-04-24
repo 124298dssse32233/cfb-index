@@ -1,0 +1,62 @@
+# Anti-Take Engine — caveat library (Signature Bets S2.3).
+#
+# Conditions are evaluated in bets/anti_take.py against the Hot-Take's
+# meta dict. Lower priority wins. At least one "always" template must
+# match so every Hot-Take gets paired.
+
+templates:
+  - id: efficiency-volume-offset
+    condition: efficiency_metric
+    priority: 1
+    caveat_tag: EFFICIENCY
+    text: >-
+      Efficiency rewards selectivity. Volume-adjusted rank in the same
+      cohort almost always looks looser — call it elite, not unique.
+
+  - id: volume-opportunity-offset
+    condition: volume_metric
+    priority: 1
+    caveat_tag: VOLUME
+    text: >-
+      Volume reflects opportunity. Per-play efficiency inside the same
+      cohort will tell a different story; we lead with the harder read.
+
+  - id: thin-sample
+    condition: sample_thin_for_band
+    priority: 2
+    caveat_tag: SAMPLE
+    text: >-
+      Sample of {sample} clears our floor but sits at the low end of
+      the band. Reproduce it over a fuller season before calling it recurring.
+
+  - id: compressed-band
+    condition: rank_band_compressed
+    priority: 3
+    caveat_tag: BAND
+    text: >-
+      {percentile}th percentile is deep, but the top-band compresses
+      — #{rank} and #{runner_up} in this cohort swap with small-sample noise.
+
+  - id: near-tie
+    condition: near_tie
+    priority: 3
+    caveat_tag: TIE
+    text: >-
+      Rank #{rank} of {cohort_size} here is a photo finish. Flip the
+      cohort cut by one season and someone else is top-of-board.
+
+  - id: cohort-tiered
+    condition: cohort_tiered
+    priority: 4
+    caveat_tag: COHORT
+    text: >-
+      Cohort is {cohort} — a cleaner read than all-FBS. An all-FBS cut
+      would add lower-tier programs whose numbers would move this rank.
+
+  - id: always
+    condition: always
+    priority: 5
+    caveat_tag: COHORT
+    text: >-
+      Cohort is {cohort} ({cohort_size} players). Any "best" claim only
+      holds inside this cut — different cohort, different rank.

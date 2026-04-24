@@ -2491,8 +2491,74 @@ _HOT_TAKE_CSS_BLOCK = """
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+
+  .anti-take {
+    margin: 0 0 var(--space-6, 1.5rem) 0;
+    padding: var(--space-4, 1rem) var(--space-6, 1.5rem);
+    background: color-mix(in srgb, var(--muted, #eee) 35%, var(--card));
+    border: 1px solid var(--border, #d0d0d0);
+    border-left: 3px solid var(--muted-foreground, #666);
+    border-radius: var(--radius-lg, 16px);
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+  }
+  .anti-take__header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2, 0.5rem);
+  }
+  .anti-take__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .anti-take__tag {
+    display: inline-block;
+    padding: 0 var(--space-2, 0.5rem);
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: 999px;
+    font-size: calc(var(--fs-meta, 0.72rem) * 0.9);
+    letter-spacing: 0.06em;
+    color: var(--muted-foreground, #666);
+    font-weight: 500;
+  }
+  .anti-take__text {
+    margin: 0;
+    font-size: var(--fs-body, 0.95rem);
+    color: var(--card-foreground, var(--foreground, #222));
+    line-height: 1.45;
+    max-width: 62ch;
+  }
 }
 """
+
+
+def render_anti_take_card(anti_take: Any | None) -> str:
+    """Render the Anti-Take sibling card. Empty string when none."""
+    if not anti_take:
+        return ""
+    if hasattr(anti_take, "rendered_text"):
+        text = anti_take.rendered_text
+        tag = anti_take.caveat_tag
+    elif isinstance(anti_take, dict):
+        text = str(anti_take.get("rendered_text") or "")
+        tag = str(anti_take.get("caveat_tag") or "")
+    else:
+        return ""
+    if not text:
+        return ""
+    return (
+        '<article class="anti-take" data-module="anti-take">'
+        '  <div class="anti-take__header">'
+        '    <p class="anti-take__eyebrow">Anti-Take</p>'
+        f'    <span class="anti-take__tag">{escape(tag or "NOTE")}</span>'
+        '  </div>'
+        f'  <p class="anti-take__text">{escape(text)}</p>'
+        '</article>'
+    )
 
 
 def render_hot_take_card(take: Any | None) -> str:
@@ -4957,8 +5023,10 @@ def build_player_page_data_map(
     import datetime as _dt_ht
     _today = _dt_ht.date.today()
     hot_takes_by_player: dict[int, Any] = {}
+    anti_takes_by_player: dict[int, Any] = {}
     try:
         from cfb_rankings.bets.hot_take import fetch_cached_take
+        from cfb_rankings.bets.anti_take import generate_anti_take
         for _row in db.query_all(
             "SELECT player_id FROM player_daily_hot_take "
             "WHERE as_of_date = :d",
@@ -4966,10 +5034,17 @@ def build_player_page_data_map(
         ):
             pid = int(_row["player_id"])
             t = fetch_cached_take(db, pid, _today)
-            if t is not None:
-                hot_takes_by_player[pid] = t
+            if t is None:
+                continue
+            ant = generate_anti_take(t)
+            if ant is None:
+                # Pairing mandatory (S2.3 spec): hold the Hot-Take.
+                continue
+            hot_takes_by_player[pid] = t
+            anti_takes_by_player[pid] = ant
     except Exception:
         hot_takes_by_player = {}
+        anti_takes_by_player = {}
 
     # V5 aggregators (data-wiring follow-up) — precomputed once per build.
     team_strength_index = _compute_team_strength_index(db, current_season)
@@ -5047,6 +5122,7 @@ def build_player_page_data_map(
         )
         page_data["active_signals"] = signals_by_player.get(player_id, [])
         page_data["hot_take"] = hot_takes_by_player.get(player_id)
+        page_data["anti_take"] = anti_takes_by_player.get(player_id)
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -14509,6 +14585,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="the-room">
         {render_hot_take_card(player_data.get("hot_take"))}
+        {render_anti_take_card(player_data.get("anti_take"))}
         {_render_the_room_card(player_data.get("the_room"), player_name)}
       </section>
 
