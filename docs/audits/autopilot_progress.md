@@ -37,7 +37,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [x] TASK 2.1 — Reddit historical plan (Opus)
 - [x] TASK 2.2 — Reddit backfill runner (Sonnet)
 - [ ] TASK 2.3 — Execute Reddit backfill (Sonnet, long-running)
-- [ ] TASK 2.4 — Bluesky historical backfill (Sonnet)
+- [x] TASK 2.4 — Bluesky historical backfill (Sonnet)
 - [x] TASK 2.5 — Message board backfill (Sonnet, per-board)
 - [x] TASK 2.6 — RSS-family activation (Sonnet)
 - [x] TASK 2.7 — Google News RSS activation (Sonnet)
@@ -48,10 +48,10 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [x] TASK 3.1 — Wikipedia pageviews + edits backfill (Sonnet)
 - [x] TASK 3.2 — GDELT volume backfill (Sonnet)
 - [ ] TASK 3.3 — Prediction markets historical (Sonnet)
-- [ ] TASK 3.4 — SeatGeek live start (Sonnet)
-- [ ] TASK 3.5 — YouTube metadata live start (Sonnet)
-- [ ] TASK 3.6 — Spotify charts weekly start (Sonnet)
-- [ ] TASK 3.7 — Google Trends weekly (Cowork — playbook only)
+- [x] TASK 3.4 — SeatGeek live start (Sonnet) — adapter + cron wired
+- [x] TASK 3.5 — YouTube metadata live start (Sonnet) — adapter + cron wired
+- [x] TASK 3.6 — Spotify charts weekly start (Sonnet) — adapter + weekly cron wired
+- [x] TASK 3.7 — Google Trends weekly (Cowork — playbook only) — trends_weekly.md present (85 lines)
 
 ## Workstream 4 — Honors, awards, draft, NIL backfill
 

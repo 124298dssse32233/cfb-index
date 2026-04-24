@@ -1,11 +1,11 @@
-# Autopilot v1 — End-to-End Audit · 2026-04-24 10:22 UTC
+# Autopilot v1 — End-to-End Audit · 2026-04-24 10:55 UTC
 
 **14/14** checks pass.
 
 | # | Check | Result | Evidence |
 |---|---|---|---|
 | 1 | source_registry §3 family coverage | ✅ PASS | 18/18 families present |
-| 2 | conversation_document_targets season coverage | ✅ PASS | 2016:1 / 2022:6,465 / 2023:7,716 / 2024:9,393 / 2025:15,715 |
+| 2 | conversation_document_targets season coverage | ✅ PASS | 2016:1 / 2022:13,686 / 2023:15,979 / 2024:15,908 / 2025:19,658 |
 | 3 | conversation_document_targets player scope | ✅ PASS | 11,362 player-target rows / 1292 distinct players |
 | 4 | player_week_conversation_features populated | ✅ PASS | 8,198 rows / 1286 players |
 | 5 | player_advanced_metrics multi-season | ✅ PASS | 2022:20,121 / 2023:20,963 / 2024:22,079 / 2025:36,708 / 2026:0 |
@@ -14,7 +14,7 @@
 | 8 | player_draft_projection schema | ✅ PASS | 0 projection rows (table present, rows expected from per-source scrapers) |
 | 9 | workflow artifact pattern | ✅ PASS | 6/6 workflows wire the DB artifact |
 | 10 | publish_site.yml present | ✅ PASS | publish_site.yml present |
-| 11 | cohort divergence nonzero cells | ✅ PASS | 58 (team, week) pairs with divergence_score > 0 |
+| 11 | cohort divergence nonzero cells | ✅ PASS | 95 (team, week) pairs with divergence_score > 0 |
 | 12 | CJ Carr page renders modules | ✅ PASS | present: 3/3 modules |
 | 13 | methodology + freshness pages | ✅ PASS | fan-intelligence.html + freshness.html both present |
 | 14 | Database retry wrapper present | ✅ PASS | db.py _with_retry wrapper present |
