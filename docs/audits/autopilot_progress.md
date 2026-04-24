@@ -20,7 +20,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 
 - [x] TASK 0.1 — Read-first + progress tracker (Sonnet)
 - [x] TASK 0.2 — DB inventory (Sonnet + Haiku)
-- [ ] TASK 0.3 — Scrape-health baseline (Haiku subagent) [in progress]
+- [x] TASK 0.3 — Scrape-health baseline (Haiku subagent)
 
 ## Workstream 1 — CFBD deep backfill
 
