@@ -2203,6 +2203,40 @@ _CSS_LAYER_HEADER = """@layer reset, tokens, base, typography, components, utili
 """
 
 
+# Rhythm-rule utilities — Signature Bets S1.5 / brief §5 items 1-3.
+# Three primitives every metric render should pattern-match to, plus a
+# site-wide tabular-nums default so number alignment holds even in
+# legacy templates we haven't refactored yet.
+_RHYTHM_UTILITIES_CSS_BLOCK = """
+@layer base {
+  body {
+    /* Numbers line up across modules by default — legacy templates
+     * without .tabular-num still get aligned digits. */
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
+
+@layer utilities {
+  .tabular-num {
+    font-feature-settings: "tnum", "lnum";
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .eyebrow-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+    font-weight: 500;
+  }
+  .metric-value {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-weight: 700;
+    font-size: var(--fs-h2, 1.25rem);
+  }
+}
+"""
+
+
 # Fan Intelligence glossary — Bet #5 / Signature Bets S1.1. The `?` button
 # sits next to every FI eyebrow label; click opens the shared dialog popover
 # sourced from seeds/fi_glossary.yaml.
@@ -2603,6 +2637,8 @@ def _compose_global_css() -> str:
         + _site_css()
         + "\n/* === Figma v5 token canon (S.2 prep) === */\n"
         + _FIGMA_V5_TOKENS_CSS_BLOCK
+        + "\n/* === Rhythm utilities (S1.5) === */\n"
+        + _RHYTHM_UTILITIES_CSS_BLOCK
         + "\n/* === Team-archetype module — moved from reporting.py:~9019 === */\n"
         + _TEAM_ARCHETYPE_CSS_BLOCK
         + "\n/* === Attributions page — moved from reporting.py:~467, scoped to .attributions-page === */\n"
