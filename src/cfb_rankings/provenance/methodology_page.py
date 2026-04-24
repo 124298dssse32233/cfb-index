@@ -264,6 +264,8 @@ def render_methodology_html(db: Database) -> str:
     parts.append(f"<p class='subtitle'>Auto-generated from <code>source_registry</code>. "
                  f"Last build: {_utcnow_iso()}. "
                  f"{active_count} active sources across {len(sources)} registered.</p>")
+    parts.append("<p class='subtitle'><a href='freshness.html'>→ Data freshness "
+                 "(last-run-per-source)</a></p>")
 
     coverage = _fetch_coverage_summary(db)
     parts.append("<h2>0. Current coverage</h2>")

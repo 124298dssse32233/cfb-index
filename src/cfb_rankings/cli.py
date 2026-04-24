@@ -158,7 +158,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers.add_parser(
         "build-methodology",
-        help="Render /methodology/fan-intelligence.html from source_registry + weights.",
+        help="Render /methodology/fan-intelligence.html from source_registry + weights. "
+             "Also regenerates /methodology/freshness.html (TASK 8.7).",
+    )
+    subparsers.add_parser(
+        "build-freshness",
+        help="Render /methodology/freshness.html only — last-run-per-source summary.",
     )
 
     # Signature Bets S1.6 — Live Signal Flow event lifecycle.
@@ -813,8 +818,17 @@ def main() -> None:
 
     if args.command == "build-methodology":
         from cfb_rankings.provenance.methodology_page import write_methodology_page
+        from cfb_rankings.provenance.freshness_page import write_freshness_page
         out = write_methodology_page(db)
         print(f"methodology page written: {out}")
+        fresh = write_freshness_page(db)
+        print(f"freshness page written: {fresh}")
+        return
+
+    if args.command == "build-freshness":
+        from cfb_rankings.provenance.freshness_page import write_freshness_page
+        out = write_freshness_page(db)
+        print(f"freshness page written: {out}")
         return
 
     if args.command == "signal-emit":

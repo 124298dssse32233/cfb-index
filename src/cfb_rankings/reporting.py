@@ -2536,6 +2536,160 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Scenario Explorer — Signature Bets S3.3 / §4 Bet #12. Alpine-driven
+# slider widget: reader dials remaining-games + per-game projection,
+# component recomputes projected season total + rank in the cohort.
+_SCENARIO_EXPLORER_CSS_BLOCK = """
+@layer components {
+  .scenario-explorer {
+    margin: 0 0 var(--space-6, 1.5rem) 0;
+    padding: var(--space-5, 1.25rem);
+    background: var(--card, #fff);
+    border: 1px solid var(--border, #d0d0d0);
+    border-left: 3px solid var(--percentile-75, #8aa3ff);
+    border-radius: var(--radius-lg, 16px);
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+  }
+  .scenario-explorer__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .scenario-explorer__title {
+    margin: 0;
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-h2, 1.15rem);
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .scenario-explorer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-3, 0.75rem);
+  }
+  .scenario-explorer__slider {
+    display: grid;
+    gap: 4px;
+  }
+  .scenario-explorer__slider label {
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .scenario-explorer__slider input[type="range"] {
+    width: 100%;
+    accent-color: var(--percentile-100, #5985ff);
+  }
+  .scenario-explorer__slider-value {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .scenario-explorer__output {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-3, 0.75rem);
+    padding-top: var(--space-3, 0.75rem);
+    border-top: 1px dashed var(--border, #d0d0d0);
+  }
+  .scenario-explorer__metric {
+    display: grid;
+    gap: 2px;
+  }
+  .scenario-explorer__metric-label {
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .scenario-explorer__metric-value {
+    font-size: var(--fs-h2, 1.2rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .scenario-explorer__shift--pos { color: var(--confidence-high, #3fa35b); }
+  .scenario-explorer__shift--neg { color: var(--confidence-low, #c43a3a); }
+  .scenario-explorer--empty {
+    color: var(--muted-foreground, #666);
+    font-style: italic;
+    font-size: var(--fs-body, 0.95rem);
+  }
+}
+"""
+
+
+def render_scenario_explorer_card(payload: Any | None) -> str:
+    """Render the scenario-explorer card. Empty state when no payload."""
+    import json
+    if payload is None or not getattr(payload, "applicable", False):
+        return (
+            '<article class="scenario-explorer scenario-explorer--empty" '
+            'data-module="scenario-explorer" data-state="empty">'
+            '  <p class="scenario-explorer__eyebrow">Scenario Explorer</p>'
+            '  <p>Lights up once the player has a qualifying signature '
+            'metric. Use the slider to project a season finish.</p>'
+            '</article>'
+        )
+    from cfb_rankings.bets.scenario_explorer import payload_to_dict
+    data = payload_to_dict(payload) or {}
+    body_json = json.dumps(data, separators=(",", ":"), ensure_ascii=False)
+    body_json = body_json.replace("</", "<\\/")
+    metric_label = escape(str(data.get("metric_label") or "Signature metric"))
+    unit = str(data.get("unit") or "")
+    unit_suffix = {"pct": "%", "yds": "yds"}.get(unit, unit)
+    current_val = float(data.get("current_value") or 0)
+    return (
+        f'<article class="scenario-explorer" data-module="scenario-explorer" '
+        f'data-state="ready" x-data="scenarioExplorer($el.dataset.payload)" '
+        f'data-payload=\'{body_json}\'>'
+        '  <p class="scenario-explorer__eyebrow">Scenario Explorer</p>'
+        f'  <h2 class="scenario-explorer__title">Project the rest of the '
+        f'{escape(metric_label.lower())} story</h2>'
+        '  <div class="scenario-explorer__grid">'
+        '    <div class="scenario-explorer__slider">'
+        '      <label for="scenario-remaining">Remaining games '
+        '<span class="scenario-explorer__slider-value" x-text="remaining"></span>'
+        '</label>'
+        '      <input id="scenario-remaining" type="range" min="0" max="14" step="1" x-model="remaining">'
+        '    </div>'
+        '    <div class="scenario-explorer__slider">'
+        f'      <label for="scenario-per-game">Per-game projection '
+        f'<span class="scenario-explorer__slider-value" x-text="perGame"></span>'
+        f' {escape(unit_suffix)}</label>'
+        f'      <input id="scenario-per-game" type="range" min="0" max="{max(int(current_val * 2) or 100, 100)}" step="1" x-model="perGame">'
+        '    </div>'
+        '  </div>'
+        '  <div class="scenario-explorer__output">'
+        '    <div class="scenario-explorer__metric">'
+        '      <span class="scenario-explorer__metric-label">Current season</span>'
+        f'      <span class="scenario-explorer__metric-value">{int(current_val) if current_val >= 10 else round(current_val, 2)} {escape(unit_suffix)}</span>'
+        '    </div>'
+        '    <div class="scenario-explorer__metric">'
+        '      <span class="scenario-explorer__metric-label">Projected total</span>'
+        '      <span class="scenario-explorer__metric-value" x-text="formattedValue(projectedTotal)"></span>'
+        '    </div>'
+        '    <div class="scenario-explorer__metric">'
+        '      <span class="scenario-explorer__metric-label">Projected rank</span>'
+        '      <span class="scenario-explorer__metric-value" '
+        'x-text="\'#\' + projectedRank + \' of \' + payload.cohort_size"></span>'
+        '    </div>'
+        '    <div class="scenario-explorer__metric">'
+        '      <span class="scenario-explorer__metric-label">Rank shift</span>'
+        '      <span class="scenario-explorer__metric-value" '
+        'x-bind:class="rankShift > 0 ? \'scenario-explorer__shift--pos\' : '
+        'rankShift < 0 ? \'scenario-explorer__shift--neg\' : \'\'" '
+        'x-text="(rankShift > 0 ? \'+\' : \'\') + rankShift + (rankShift === 0 ? \' · steady\' : \'\')"></span>'
+        '    </div>'
+        '  </div>'
+        '</article>'
+    )
+
+
 # Signature Moment — Signature Bets S3.2 / §4 Bet #8. Small card under
 # the Signature Story that surfaces the player's season-defining game.
 # Needs ≥ 2 games of coverage; empty state otherwise.
@@ -4070,6 +4224,8 @@ def _compose_global_css() -> str:
         + _COHORT_DIVERGENCE_CSS_BLOCK
         + "\n/* === Signature Moment (S3.2) === */\n"
         + _SIGNATURE_PLAY_CSS_BLOCK
+        + "\n/* === Scenario Explorer (S3.3) === */\n"
+        + _SCENARIO_EXPLORER_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -4104,6 +4260,7 @@ def _ensure_global_assets(site_root: Path) -> str:
         "js/bets/glossary.js",
         "js/bets/what-changed.js",
         "js/bets/signal-flow.js",
+        "js/bets/scenario-explorer.js",
         "fonts/Inter-Variable.woff2",
         "fonts/InterDisplay-SemiBold.woff2",
         "fonts/InterDisplay-Bold.woff2",
@@ -4150,6 +4307,7 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/bets/glossary.js" defer></script>\n'
         f'    <script src="/assets/js/bets/what-changed.js" defer></script>\n'
         f'    <script src="/assets/js/bets/signal-flow.js" defer></script>\n'
+        f'    <script src="/assets/js/bets/scenario-explorer.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -6219,6 +6377,14 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["signature_moment"] = None
+        # Scenario Explorer (Signature Bets S3.3) — builds per-page.
+        try:
+            from cfb_rankings.bets.scenario_explorer import build_scenario_payload
+            page_data["scenario_payload"] = build_scenario_payload(
+                db, player_id, int(summary["season_year"])
+            )
+        except Exception:
+            page_data["scenario_payload"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -15698,6 +15864,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section" id="signature-story">
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
         {render_signature_play_card(player_data.get("signature_moment"))}
+        {render_scenario_explorer_card(player_data.get("scenario_payload"))}
         <article class="panel">
           <div class="section-head">
             <h2>{escape(str(signature_story.get("title") or "What makes this player interesting right now"))}</h2>
