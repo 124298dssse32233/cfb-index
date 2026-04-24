@@ -12,6 +12,7 @@ import re
 from typing import Any
 
 from cfb_rankings.db import Database
+from cfb_rankings.bets.glossary import glossary_payload_js, load_glossary
 from cfb_rankings.fan_intelligence import (
     MoodContext,
     build_team_index,
@@ -2179,6 +2180,200 @@ _CSS_LAYER_HEADER = """@layer reset, tokens, base, typography, components, utili
 """
 
 
+# Fan Intelligence glossary — Bet #5 / Signature Bets S1.1. The `?` button
+# sits next to every FI eyebrow label; click opens the shared dialog popover
+# sourced from seeds/fi_glossary.yaml.
+_GLOSSARY_CSS_BLOCK = """
+@layer components {
+  .fi-glossary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    min-height: 18px;
+    margin-left: 0.35em;
+    padding: 0 0.4em;
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted-foreground, #555);
+    font: inherit;
+    font-size: var(--fs-meta, 0.72rem);
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: help;
+    vertical-align: baseline;
+    transition: background-color 180ms, border-color 180ms, color 180ms;
+  }
+  .fi-glossary:hover,
+  .fi-glossary:focus-visible {
+    background: color-mix(in srgb, var(--foreground, #222) 10%, transparent);
+    border-color: var(--border-strong, var(--muted-foreground, #888));
+    color: var(--foreground, #222);
+  }
+  .fi-glossary:focus-visible {
+    outline: 2px solid var(--foreground, #222);
+    outline-offset: 2px;
+  }
+
+  .fi-glossary-popover {
+    max-width: min(480px, calc(100vw - 2rem));
+    padding: 0;
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-lg, 16px);
+    background: var(--popover, var(--card, #fff));
+    color: var(--popover-foreground, var(--foreground, #222));
+    box-shadow: var(--elevation-3, 0 16px 32px rgba(0,0,0,0.16));
+  }
+  .fi-glossary-popover::backdrop {
+    background: color-mix(in srgb, #000 48%, transparent);
+  }
+  .fi-glossary-popover__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3, 0.75rem);
+    padding: var(--space-6, 1.5rem) var(--space-6, 1.5rem) var(--space-4, 1rem);
+    margin: 0;
+  }
+  .fi-glossary-popover__header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: var(--space-2, 0.5rem);
+  }
+  .fi-glossary-popover__eyebrow {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .fi-glossary-popover__name {
+    margin: 0;
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-h2, 1.35rem);
+    line-height: 1.2;
+  }
+  .fi-glossary-popover__close {
+    grid-row: 2;
+    grid-column: 2;
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    color: var(--muted-foreground, #666);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    align-self: start;
+  }
+  .fi-glossary-popover__close:hover,
+  .fi-glossary-popover__close:focus-visible {
+    color: var(--foreground, #222);
+  }
+  .fi-glossary-popover__one-line {
+    margin: 0;
+    font-size: var(--fs-body, 1rem);
+    font-weight: 600;
+    color: var(--foreground, #222);
+  }
+  .fi-glossary-popover__full {
+    margin: 0;
+    font-size: var(--fs-body, 0.95rem);
+    color: var(--muted-foreground, #555);
+  }
+  .fi-glossary-popover__micro,
+  .fi-glossary-popover__see-also,
+  .fi-glossary-popover__footer {
+    margin: 0;
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+  }
+  .fi-glossary-popover__micro-label,
+  .fi-glossary-popover__see-label {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--foreground, #222);
+  }
+  .fi-glossary-popover__see-link {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font: inherit;
+    color: var(--foreground, #222);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+  }
+  .fi-glossary-popover__see-link:hover,
+  .fi-glossary-popover__see-link:focus-visible {
+    color: var(--accent-foreground, var(--foreground, #222));
+  }
+  .fi-glossary-popover__method-link {
+    color: inherit;
+  }
+
+  @media (max-width: 520px) {
+    .fi-glossary-popover {
+      max-width: 100vw;
+      width: 100vw;
+      margin: 0;
+      position: fixed;
+      inset: auto 0 0 0;
+      border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fi-glossary { transition: none; }
+  }
+}
+"""
+
+
+def _glossary_label_for(slug: str) -> str:
+    """Resolve a human display name for a glossary slug.
+
+    Falls back to the slug (title-cased) if the term isn't registered —
+    so a typo in a render call never breaks the page.
+    """
+    try:
+        term = load_glossary().get(slug)
+    except Exception:
+        term = None
+    if term and term.get("name"):
+        return term["name"]
+    return slug.replace("-", " ").title()
+
+
+def render_glossary_icon(term_slug: str, *, label: str | None = None) -> str:
+    """Emit a tiny ``?`` button next to an FI eyebrow label.
+
+    The button is native HTML (progressively enhanced by
+    ``/assets/js/bets/glossary.js``): if JS is disabled the ``data-fi-
+    glossary-term`` attribute still round-trips to the per-term anchor
+    on the methodology page.
+
+    Args:
+        term_slug: kebab-case slug from seeds/fi_glossary.yaml.
+        label: optional override for the aria-label; defaults to
+            "What is <term name>".
+    """
+    slug = (term_slug or "").strip().lower()
+    if not slug:
+        return ""
+    name = label or _glossary_label_for(slug)
+    aria = escape(f"What is {name}?")
+    return (
+        f'<button type="button" class="fi-glossary" '
+        f'data-fi-glossary-term="{escape(slug)}" '
+        f'aria-label="{aria}">?</button>'
+    )
+
+
 def _compose_global_css() -> str:
     """Assemble the contents of cfb-index.css.
 
@@ -2231,6 +2426,8 @@ def _compose_global_css() -> str:
         + _SUBNAV_CSS_BLOCK
         + "\n/* === Phase banner (P.0) === */\n"
         + _PHASE_BANNER_CSS_BLOCK
+        + "\n/* === FI glossary popover (Bet #5, S1.1) === */\n"
+        + _GLOSSARY_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -2262,6 +2459,7 @@ def _ensure_global_assets(site_root: Path) -> str:
         "js/url-state.js",
         "js/the-room.js",
         "js/subnav.js",
+        "js/bets/glossary.js",
         "fonts/Inter-Variable.woff2",
         "fonts/InterDisplay-SemiBold.woff2",
         "fonts/InterDisplay-Bold.woff2",
@@ -2273,6 +2471,12 @@ def _ensure_global_assets(site_root: Path) -> str:
         dst_path.parent.mkdir(parents=True, exist_ok=True)
         if not dst_path.exists() or dst_path.stat().st_mtime < src_path.stat().st_mtime:
             shutil.copy2(src_path, dst_path)
+
+    # Generate fi-glossary-data.js from seeds/fi_glossary.yaml. Rewritten
+    # every build so edits to the seed file propagate to the live site.
+    glossary_data_path = assets_dir / "js" / "bets" / "fi-glossary-data.js"
+    glossary_data_path.parent.mkdir(parents=True, exist_ok=True)
+    glossary_data_path.write_text(glossary_payload_js(), encoding="utf-8")
 
     if _global_css_filename is None:
         css_text = _compose_global_css()
@@ -2298,6 +2502,8 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/url-state.js" defer></script>\n'
         f'    <script src="/assets/js/the-room.js" defer></script>\n'
         f'    <script src="/assets/js/subnav.js" defer></script>\n'
+        f'    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>\n'
+        f'    <script src="/assets/js/bets/glossary.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -4351,6 +4557,109 @@ def _assemble_player_page_data(
     )
     honors_history = _filter_projected_heisman_honors(honors_history, current_season)
     trophy_case = _build_player_trophy_case(heisman_years, honors_history)
+
+    # V5 bio/recruiting/transfer/roster payloads for the Bio Tabs module.
+    h_in = player_identity.get("height_inches")
+    height_display = None
+    try:
+        if h_in is not None:
+            h = int(h_in)
+            height_display = f"{h // 12}'{h % 12}\""
+    except (TypeError, ValueError):
+        pass
+    weight_display = None
+    try:
+        w = player_identity.get("weight_lbs")
+        if w is not None:
+            weight_display = f"{int(w)} lb"
+    except (TypeError, ValueError):
+        pass
+    hometown_display = None
+    town = player_identity.get("hometown")
+    state = player_identity.get("home_state")
+    if town and state:
+        hometown_display = f"{town}, {state}"
+    elif town:
+        hometown_display = str(town)
+
+    bio_card = {
+        "hometown": hometown_display,
+        "height": height_display,
+        "weight": weight_display,
+        "class_year": player_identity.get("class_year"),
+        "position": player_identity.get("position"),
+        "jersey": player_identity.get("jersey"),
+    }
+
+    recruiting_card = None
+    if recruiting_profile:
+        recruiting_card = {
+            "stars": recruiting_profile.get("stars"),
+            "national_rank": recruiting_profile.get("national_rank")
+            or recruiting_profile.get("overall_rank"),
+            "position_rank": recruiting_profile.get("position_rank"),
+            "state_rank": recruiting_profile.get("state_rank"),
+            "commit_date": recruiting_profile.get("commit_date")
+            or recruiting_profile.get("signing_date"),
+        }
+
+    transfer_card = None
+    if transfer_profile:
+        transfer_card = {
+            "status": transfer_profile.get("status") or transfer_profile.get("label"),
+            "prior_team": transfer_profile.get("prior_team"),
+            "transfer_year": transfer_profile.get("year"),
+            "eligibility": transfer_profile.get("eligibility"),
+        }
+
+    roster_card = None
+    if primary_team:
+        roster_card = {
+            "team": primary_team.get("team_name") or primary_team.get("name"),
+            "conference": primary_team.get("conference_name")
+            or primary_team.get("conference"),
+            "joined": primary_team.get("joined_year")
+            or (roster_history[0].get("season_year") if roster_history else None),
+            "career_arc": f"{len(roster_history)} season(s)" if roster_history else None,
+        }
+
+    # V5 Player Standing — cheap classification from existing data. More
+    # sophisticated ladder-classifier is a follow-up data task.
+    standing_payload = None
+    nowcast_rank = (current_snapshot or {}).get("current_heisman_rank") or best_heisman_rank
+    official_finish = (current_snapshot or {}).get("official_finish") or official_best_finish
+    # Use Heisman nowcast as a cheap rung proxy:
+    # - rank 1       → POTY Winner (rung 16) only after season finalized
+    # - rank 2-5     → POTY Finalist (rung 15)
+    # - rank 6-20    → National watch (rung 11) / All-American (rung 12)
+    # - honors       → All-Conf 1st (rung 10) if any All-Conference honor
+    # Default: Starter (rung 6) — most FBS players with game action.
+    rung_id = None
+    if nowcast_rank:
+        try:
+            r = int(nowcast_rank)
+            if r == 1 and official_finish == 1:
+                rung_id = 16
+            elif r <= 5:
+                rung_id = 15
+            elif r <= 12:
+                rung_id = 12
+            elif r <= 25:
+                rung_id = 11
+        except (TypeError, ValueError):
+            pass
+    if rung_id is None and honors_history:
+        for h in honors_history:
+            label = str(h.get("honor_type") or h.get("honor") or "").lower()
+            if "all-american" in label or "unanimous" in label or "consensus" in label:
+                rung_id = 12
+                break
+            if "all-conf" in label or "all conference" in label:
+                rung_id = 10
+                break
+    if rung_id is not None:
+        standing_payload = {"current_rung_id": rung_id}
+
     return {
         "player": {
             "player_id": int(player_row["player_id"]),
@@ -4376,6 +4685,12 @@ def _assemble_player_page_data(
         "season_stat_tables": season_stat_tables,
         "trophy_case": trophy_case,
         "modules": _player_module_cards(),
+        # V5 module payloads (S.5 wiring):
+        "bio": bio_card,
+        "recruiting": recruiting_card,
+        "transfer": transfer_card,
+        "roster": roster_card,
+        "standing": standing_payload,
     }
 
 
@@ -10897,7 +11212,7 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
 
       <section class="section team-archetype-section">
         <div class="section-head">
-          <h2>Fanbase Archetype</h2>
+          <h2>Fanbase Archetype{render_glossary_icon("fanbase-archetype")}</h2>
           <p class="section-sub">How this fanbase sorts in the Fan Intelligence taxonomy (N\u00b0 04 on the Hub).</p>
         </div>
         {archetype_module}
@@ -12411,7 +12726,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
 
         <div class="the-room__grid">
           <div>
-            <p class="the-room__eyebrow">Belief Meter</p>
+            <p class="the-room__eyebrow">Belief Meter{render_glossary_icon("belief-dial", label="Belief Meter")}</p>
             <div class="the-room__dial"
                  role="meter"
                  x-bind:aria-valuenow="active.score === null ? 0 : active.score"
@@ -18984,7 +19299,7 @@ def _render_team_mood_card(mood: dict[str, Any], team_name: str) -> str:
     sample_detail = f"{sample_mentions} fan mentions" if has_data else "Fan sample not yet published"
     sarcasm_row = ""
     if has_data:
-        sarcasm_row = f'<span class="mood-meta-chip">Sarcasm risk: {sarcasm_risk}</span>'
+        sarcasm_row = f'<span class="mood-meta-chip">Sarcasm risk: {sarcasm_risk}{render_glossary_icon("sarcasm-risk")}</span>'
 
     return f"""
     <section class="section mood-card-section">
@@ -19009,7 +19324,7 @@ def _render_team_mood_card(mood: dict[str, Any], team_name: str) -> str:
 
         <div class="mood-hero">
           <div class="mood-hero-score">
-            <span class="mood-hero-score-label">Fan Pulse</span>
+            <span class="mood-hero-score-label">Fan Pulse{render_glossary_icon("fan-pulse")}</span>
             <strong class="mood-hero-score-value">{belief_label}</strong>
             <span class="mood-hero-score-number">{belief_score_text}</span>
           </div>
