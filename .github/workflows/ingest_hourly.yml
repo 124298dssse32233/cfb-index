@@ -4,6 +4,11 @@ name: fanintel-ingest-hourly
 # Auth-dependent adapters (CFBD, YouTube, SeatGeek, Spotify) short-circuit
 # to exit 0 when their secret is absent, so a progressive-enable rollout
 # does not flood the Actions tab with errors.
+#
+# Persistence: W8.1 default — cfb_rankings.db is uploaded as a Workflow
+# artifact and re-downloaded on the next run. First run has no prior
+# artifact; `actions/download-artifact@v4` + `continue-on-error` lets the
+# pipeline start from a fresh DB that `apply-migrations` + seed-* re-create.
 on:
   schedule:
     - cron: "7 * * * *"
@@ -12,13 +17,14 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       CFBD_API_KEY:          ${{ secrets.CFBD_API_KEY }}
       YOUTUBE_API_KEY:       ${{ secrets.YOUTUBE_API_KEY }}
       SEATGEEK_CLIENT_ID:    ${{ secrets.SEATGEEK_CLIENT_ID }}
       SPOTIFY_CLIENT_ID:     ${{ secrets.SPOTIFY_CLIENT_ID }}
       SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+      CURRENT_CFB_SEASON:    "2026"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,16 +35,24 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
-      # NOTE: runner starts with an empty DB because cfb_rankings.db is gitignored
-      # (contains multi-season data, wrong place for git). This workflow therefore
-      # runs as a CI smoke test only — ingestion rows land in the ephemeral runner
-      # DB and disappear when the job ends. Real persistence is a TODO: either
-      # (a) upload/download the DB as a GH Actions artifact across runs, or
-      # (b) move cron ingestion to a machine with persistent state.
-      - name: Init DB (fresh schema; seeds below give registry + priority teams)
-        run: python manage.py init-db
-      - name: Seed source registry
-        run: python manage.py seed-source-registry
+
+      # Bootstrap-safe: on the very first run the artifact doesn't exist
+      # yet, so continue-on-error and apply-migrations together produce a
+      # fresh DB consistent with the latest schema.
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
       - name: Free / no-auth sources
         run: |
           set +e
@@ -48,11 +62,53 @@ jobs:
           python tools/run_adapter.py bluesky_curated
           python tools/run_adapter.py bluesky_feeds
           echo "done"
+
       - name: Auth-required sources (skip if secret absent)
         run: |
           set +e
           python tools/run_adapter.py youtube_meta
           python tools/run_adapter.py seatgeek
           echo "done"
+
       - name: Google News RSS per team
         run: python tools/run_adapter.py google_news_all
+
+      # Conditional in-season CFBD refresh. Aug–early-Jan is CFB season.
+      # Week is approximated as ((today - Aug 20) // 7) + 1, capped to 16.
+      # In offseason this step no-ops. Per autonomy: CURRENT_CFB_SEASON env
+      # is edited once per year (Aug) — prefer explicit to clever.
+      - name: In-season CFBD incremental sync
+        run: |
+          set +e
+          python <<'PY'
+          import os, subprocess
+          from datetime import date
+          today = date.today()
+          in_season = (today.month >= 8) or (today.month == 1)
+          if not in_season:
+              print("out-of-season — skipping CFBD incremental sync")
+              raise SystemExit(0)
+          anchor_year = today.year if today.month >= 8 else today.year - 1
+          anchor = date(anchor_year, 8, 20)
+          week = max(1, min(16, (today - anchor).days // 7 + 1))
+          season = int(os.environ["CURRENT_CFB_SEASON"])
+          print(f"in-season run: season={season} week={week}")
+          subprocess.run(
+              ["python", "-u", "manage.py", "sync-site-incremental",
+               "--season", str(season),
+               "--through-week", str(week),
+               "--skip-play-level",
+               "--skip-heisman",
+               "--skip-connectivity-check"],
+              check=False,
+          )
+          PY
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
