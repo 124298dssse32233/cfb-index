@@ -115,3 +115,47 @@
 2026-04-23 | Daily cron now | Ran scripts/daily_ingest.ps1 in foreground (~60 min wall clock due to enriched adapter pulls + tag-player-mentions on 21K docs). Deep-Research-enabled adapters (Bluesky curated with 13 teams' handles, 7 real Locked On RSS, 15 valid Kalshi tickers, 10 Polymarket slugs) all pulled their first-ever real data. conversation_documents 14021 → 21188 (+7167 new), source_observations 330 → 41090 (+40760 from parallel Wikipedia historical pull I kicked off). scrape_health improved 44 ok → 80 ok.
 2026-04-23 | Wikipedia historical | Ran scripts/backfill_wiki_gdelt_historical.py with lookback_days ~1575 = 4.3 years. Pulled Wikipedia pageviews for all 21 priority teams × 3 entity types (team/coach/qb) × ~1575 days = ~30k rows. Killed mid-run after 23k rows when it started contending for SQLite write locks with the daily run. Final source_observations: 41,090 rows including 4+ years of daily pageview history. | Can re-run the rest after daily cron finishes; interrupting was lock-safe (upserts on dedup_key).
 2026-04-23 | Historical re-aggregation | After daily + historical Wiki completed, re-ran compute-cohort-week + compute-divergence for 2025 offseason weeks 17-32 (where daily+Reddit docs landed at season_year=2025). team_cohort_week 21312 → 21864 (+552 new cells), team_cohort_divergence_week 1776 → 1822 (+46 new divergence rows). 2026-W1..W17 returned zero because docs use season_year=2025 convention for offseason mapping.
+2026-04-23 | Autonomous session close | Final state after full autonomous run:
+  * conversation_documents: 21,188 rows (9,426 with new-schema source_id) — doubled today
+  * source_observations:    41,092 rows (mostly Wikipedia 2022-present daily pageviews + today's Tier A pulls)
+  * team_cohort_week:       21,864 cells across 123 teams × 80 weeks covering 2022-W1 through 2025-W32 CFB seasons + offseason
+  * team_cohort_divergence_week: 1,822 rows (46 qualifying divergence_score)
+  * source_registry:        171 fanintel rows (169 active; 2 inactive by operator flag)
+  * scrape_health:          80 ok / 76 error / 17 empty / 3 skipped in last 7 days
+  * Scheduled tasks:        CFBIndex-FanintelDaily (9 AM daily), CFBIndex-FanintelWeekly (Mon 10 AM) both Ready
+
+  Everything ran autonomously after Kevin left keyboard:
+   1. Deep Research pass 2 YAML applied (21 teams incl Notre Dame, 7 coach changes,
+      25 validated markets, 17 TikTok creators, 16 harvested Bluesky handles)
+   2. 34 broken feeds deactivated (operator flag preserved on re-seed)
+   3. Daily cron fired manually — full pipeline ran ~60 min (slower than usual
+      because now 21K docs to tag-player-mentions + richer adapter pulls)
+   4. Wikipedia 2022-present historical backfill + GDELT historical (GDELT
+      timed out for most teams; Wikipedia pulled 30k+ pageview observations)
+   5. Historical cohort re-aggregation for 2025 offseason weeks 17-32 —
+      +552 cells, +46 divergence rows
+   6. Site rebuilt fresh
+
+  7 local commits ahead of origin/master (git push hanging on network —
+  Kevin should run `git push` manually when back; everything is safe on
+  disk at /C/Users/kevin/Downloads/Sports Website):
+    4f445e8 session log
+    f39f0bc --seasons fix
+    aac3389 is_active preserve + reddit history script
+    9cfb11b deep research prompt
+    ff89229 reddit backfill complete
+    0a96172 deep research pass 2 applied
+    1ba3ef5 daily cron + wiki historical + re-aggregation
+
+  Remaining work (optional, not blocking):
+   - Locked On Clemson/TTU/Boise State RSS URLs still null (iTunes API was
+     blocked in research environment)
+   - 3 Bluesky starter-pack DIDs still pending
+   - ~14 beat writer feeds still needs_research (non-priority outlets)
+   - 8 priority teams still have empty bluesky_beat_handles (Miami, TTU,
+     BYU, Boise, Memphis, Tulane, JSU, Howard — search API was blocked)
+
+  Tomorrow 9 AM the daily cron fires automatically. It will add ~2,000
+  more Google News docs, refresh Wikipedia, pull Kalshi prices, and
+  rebuild the site. Monday's weekly cron does a deep Reddit pull + full
+  site rebuild.
