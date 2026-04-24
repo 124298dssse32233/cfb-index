@@ -24,7 +24,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 
 ## Workstream 1 — CFBD deep backfill
 
-- [ ] TASK 1.1 — Connectivity preflight (Haiku subagent)
+- [x] TASK 1.1 — Connectivity preflight (Haiku subagent)
 - [ ] TASK 1.2 — Full CFBD history backfill, 2022-2025 regular + postseason (Sonnet)
 - [ ] TASK 1.3 — 2026 in-season + offseason refresh (Sonnet)
 - [ ] TASK 1.4 — PBP-derived advanced metrics table (Opus design; Sonnet implement)
