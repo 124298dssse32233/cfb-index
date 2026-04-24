@@ -2536,6 +2536,45 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Right-click context menu on metrics — Signature Bets S4.12 / §5 item 17.
+_CONTEXT_MENU_CSS_BLOCK = """
+@layer components {
+  .cfb-ctx-menu {
+    position: fixed;
+    z-index: 100;
+    display: grid;
+    gap: 0;
+    min-width: 240px;
+    background: var(--popover, var(--card, #fff));
+    color: var(--popover-foreground, var(--foreground, #222));
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-md, 12px);
+    box-shadow: var(--elevation-3, 0 16px 32px rgba(0,0,0,0.18));
+    padding: var(--space-1, 0.25rem);
+    font-size: var(--fs-body, 0.95rem);
+  }
+  .cfb-ctx-menu button {
+    text-align: left;
+    border: none;
+    background: transparent;
+    padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+    border-radius: var(--radius-sm, 8px);
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    min-height: 36px;
+  }
+  .cfb-ctx-menu button:hover,
+  .cfb-ctx-menu button:focus-visible {
+    background: color-mix(in srgb, var(--muted-foreground, #666) 12%, transparent);
+  }
+  [data-metric] {
+    cursor: context-menu;
+  }
+}
+"""
+
+
 # Gilded Section — Signature Bets S4.5 / §5 item 15. One module per
 # page gets a subtle accolade-gold top border when it carries the
 # page's "most interesting" data point. Deterministic novelty rule
@@ -4678,6 +4717,8 @@ def _compose_global_css() -> str:
         + _OPP_STRENGTH_CSS_BLOCK
         + "\n/* === Gilded Section (S4.5) === */\n"
         + _GILDED_SECTION_CSS_BLOCK
+        + "\n/* === Right-click context menu (S4.12) === */\n"
+        + _CONTEXT_MENU_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -4714,6 +4755,7 @@ def _ensure_global_assets(site_root: Path) -> str:
         "js/bets/signal-flow.js",
         "js/bets/scenario-explorer.js",
         "js/bets/keyboard-shortcuts.js",
+        "js/bets/context-menu.js",
         "fonts/Inter-Variable.woff2",
         "fonts/InterDisplay-SemiBold.woff2",
         "fonts/InterDisplay-Bold.woff2",
@@ -4762,6 +4804,7 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/bets/signal-flow.js" defer></script>\n'
         f'    <script src="/assets/js/bets/scenario-explorer.js" defer></script>\n'
         f'    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>\n'
+        f'    <script src="/assets/js/bets/context-menu.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -15666,7 +15709,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
         <div class="signature-story__grid">
           <div>
             <div class="signature-story__hero-stat">
-              <p class="signature-story__stat-value" aria-label="{escape(value_str)} {escape(unit_str)}">{escape(value_str)}</p>
+              <p class="signature-story__stat-value" aria-label="{escape(value_str)} {escape(unit_str)}" data-metric="{escape(label_str)}|{escape(value_str)}">{escape(value_str)}</p>
               <p class="signature-story__stat-unit">{escape(unit_str)}</p>
               <p class="signature-story__stat-context">{escape(rank_cohort)}</p>
               {era_line_html}
