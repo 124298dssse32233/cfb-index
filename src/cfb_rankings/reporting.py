@@ -2536,6 +2536,144 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Achievements ribbon — Signature Bets S2.7 / §4 Bet #7. Row of gold
+# medallions near the Hero; tooltip on hover shows rarity + unlock
+# context. Empty state renders a single muted line so the module is
+# always present on the page.
+_ACHIEVEMENTS_CSS_BLOCK = """
+@layer components {
+  .achievements {
+    margin: var(--space-4, 1rem) 0 var(--space-6, 1.5rem) 0;
+    display: grid;
+    gap: var(--space-2, 0.5rem);
+  }
+  .achievements__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .achievements__ribbon {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
+  }
+  .achievement {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, 0.5rem);
+    padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+    border: 1px solid var(--accolade-gold-base, #d1a23a);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accolade-gold-base) 10%, var(--card));
+    color: var(--card-foreground, var(--foreground, #222));
+    font-size: var(--fs-meta, 0.78rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: help;
+    min-height: 32px;
+  }
+  .achievement__medallion {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%,
+      var(--accolade-gold-highlight, #f2c866) 0%,
+      var(--accolade-gold-base, #d1a23a) 70%);
+    display: inline-block;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accolade-gold-base) 40%, transparent);
+  }
+  .achievement__rarity {
+    font-size: calc(var(--fs-meta, 0.72rem) * 0.85);
+    letter-spacing: 0.06em;
+    color: var(--muted-foreground, #666);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .achievement__tooltip {
+    position: absolute;
+    bottom: calc(100% + var(--space-1, 0.25rem));
+    left: 0;
+    min-width: 240px;
+    max-width: 320px;
+    padding: var(--space-3, 0.75rem);
+    background: var(--popover, var(--card, #fff));
+    color: var(--popover-foreground, var(--foreground, #222));
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-md, 12px);
+    box-shadow: var(--elevation-2, 0 8px 16px rgba(0,0,0,0.12));
+    font-size: var(--fs-meta, 0.78rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+    display: none;
+    z-index: 20;
+  }
+  .achievement:hover .achievement__tooltip,
+  .achievement:focus-visible .achievement__tooltip,
+  .achievement:focus-within .achievement__tooltip {
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+  }
+  .achievement__tooltip strong {
+    font-weight: 700;
+    color: var(--accolade-gold-base, #d1a23a);
+  }
+  .achievements--empty {
+    color: var(--muted-foreground, #666);
+    font-style: italic;
+    font-size: var(--fs-meta, 0.78rem);
+  }
+}
+"""
+
+
+def render_achievements_ribbon(achievements: list[dict[str, Any]] | None) -> str:
+    """Render the achievements ribbon; empty-state line when no unlocks."""
+    if not achievements:
+        return (
+            '<div class="achievements achievements--empty" data-module="achievements" data-state="empty">'
+            'No achievements unlocked yet this season.'
+            '</div>'
+        )
+    items: list[str] = []
+    for a in achievements:
+        name = escape(str(a.get("display_name") or "Achievement"))
+        desc = escape(str(a.get("description") or ""))
+        ctx = escape(str(a.get("unlock_context") or ""))
+        rarity = a.get("rarity_pct")
+        rarity_txt = (
+            f"Held by {float(rarity):.1f}% of the 2025 pool"
+            if rarity is not None
+            else "Rarity pending"
+        )
+        items.append(
+            '<li class="achievement" tabindex="0">'
+            '  <span class="achievement__medallion" aria-hidden="true"></span>'
+            f'  <span class="achievement__label">{name}</span>'
+            f'  <span class="achievement__rarity">{float(rarity or 0):.1f}%</span>'
+            '  <span class="achievement__tooltip" role="tooltip">'
+            f'    <strong>{name}</strong>'
+            f'    <span>{desc}</span>'
+            f'    <span>{escape(rarity_txt)}.</span>'
+            f'    <span>{ctx}</span>'
+            '  </span>'
+            '</li>'
+        )
+    return (
+        '<section class="achievements" data-module="achievements" data-state="ready">'
+        '  <p class="achievements__eyebrow">Achievements</p>'
+        f'  <ul class="achievements__ribbon">{"".join(items)}</ul>'
+        '</section>'
+    )
+
+
 # Mirror Match — Signature Bets S2.5 / §4 Bet #4. Small card nested
 # in the Peer Comparator section showing the closest historical
 # statistical fingerprint. Renders empty state when no match clears
@@ -3356,6 +3494,8 @@ def _compose_global_css() -> str:
         + _RIVAL_RADAR_CSS_BLOCK
         + "\n/* === Mirror Match (S2.5) === */\n"
         + _MIRROR_MATCH_CSS_BLOCK
+        + "\n/* === Achievements ribbon (S2.7) === */\n"
+        + _ACHIEVEMENTS_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -3523,6 +3663,15 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         _report_progress(f"Hot-Take cache populated with {n_takes} row(s).")
     except Exception as exc:
         _report_progress(f"Hot-Take cache skipped: {exc}")
+
+    # Signature Bets S2.7 — achievements detection + rarity pass. Small
+    # set of detectors, cheap queries; idempotent per season_year.
+    try:
+        from cfb_rankings.bets.achievements import compute_achievements
+        n_ach = compute_achievements(db, int(summary["season_year"]))
+        _report_progress(f"Achievements cache populated with {n_ach} unlock(s).")
+    except Exception as exc:
+        _report_progress(f"Achievements cache skipped: {exc}")
     historical_rows_by_team: dict[int, list[dict[str, Any]]] = {}
     for row in historical_season_ledger:
         historical_rows_by_team.setdefault(int(row["team_id"]), []).append(row)
@@ -5448,6 +5597,14 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["mirror_matches"] = []
+        # Achievements (Signature Bets S2.7) — read-only per-player.
+        try:
+            from cfb_rankings.bets.achievements import fetch_player_achievements
+            page_data["achievements"] = fetch_player_achievements(
+                db, player_id, int(summary["season_year"])
+            )
+        except Exception:
+            page_data["achievements"] = []
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -14906,6 +15063,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           </div>
           {current_context}
         </article>
+      </section>
+
+      <section class="section player-anchor-section" id="achievements">
+        {render_achievements_ribbon(player_data.get("achievements"))}
       </section>
 
       <section class="section player-anchor-section" id="the-room">

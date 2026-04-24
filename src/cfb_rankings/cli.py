@@ -222,6 +222,20 @@ def build_parser() -> argparse.ArgumentParser:
     cmm_parser.add_argument("--season", type=int, default=None)
     cmm_parser.add_argument("-k", type=int, default=10)
 
+    # Signature Bets S2.7 — Achievements CLI.
+    cach_parser = subparsers.add_parser(
+        "compute-achievements",
+        help="Run every achievement detector + recompute rarity for --season.",
+    )
+    cach_parser.add_argument("--season", type=int, default=None)
+
+    pach_parser = subparsers.add_parser(
+        "player-achievements",
+        help="Print unlocked achievements for one player.",
+    )
+    pach_parser.add_argument("slug_or_id")
+    pach_parser.add_argument("--season", type=int, default=None)
+
     player_mood_parser = subparsers.add_parser(
         "player-mood",
         help=("Print The Room on [Player] — the player-scope mood profile. "
@@ -922,6 +936,37 @@ def main() -> None:
         )["y"] or 2025)
         n = compute_mirror_matches(db, season, k=args.k)
         print(f"computed + cached matches for {n} player(s), season={season}")
+        return
+
+    if args.command == "compute-achievements":
+        from cfb_rankings.bets.achievements import compute_achievements
+        season = args.season or int(db.query_one(
+            "SELECT MAX(season_year) AS y FROM player_season_stats"
+        )["y"] or 2025)
+        n = compute_achievements(db, season)
+        print(f"wrote {n} achievement unlock(s) for season={season}")
+        return
+
+    if args.command == "player-achievements":
+        from cfb_rankings.bets.achievements import fetch_player_achievements
+        target = args.slug_or_id
+        if target.isdigit():
+            pid = int(target)
+        else:
+            digits = "".join(ch for ch in target if ch.isdigit())
+            pid = int(digits) if digits else 0
+        season = args.season or int(db.query_one(
+            "SELECT MAX(season_year) AS y FROM player_season_stats"
+        )["y"] or 2025)
+        ach = fetch_player_achievements(db, pid, season)
+        print(f"--- {len(ach)} achievement(s) for player_id={pid}, season={season} ---")
+        for a in ach:
+            rarity = (
+                f"{a['rarity_pct']:.1f}%"
+                if a.get("rarity_pct") is not None
+                else "n/a"
+            )
+            print(f"  [{rarity}] {a['display_name']} — {a['unlock_context']}")
         return
 
     if args.command == "player-mood":
