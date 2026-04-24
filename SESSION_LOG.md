@@ -4,6 +4,8 @@
 
 2026-04-24 | autopilot: tag-player-mentions 2022+2023 committed | `tag-player-mentions --season 2022 --commit --no-last-name`: 19,900 docs scanned, 1,921 matches, 58 ambiguous-skips, **1,921 rows written** (577 distinct players × 25 distinct weeks). `tag-player-mentions --season 2023 --commit --no-last-name`: 24,061 docs scanned, 2,485 matches, 38 ambiguous-skips, **2,485 rows written** (681 distinct players × 26 distinct weeks). Combined +4,406 player-scope target rows. For reference, 2024 still sits at 1,425 (thin — `player_value_metrics` still zero for 2024, so the tagger's candidate index is skinny there too; out of scope for this task). Logs at `logs/tag_player_mentions_20{22,23}.log`. | Next: compute-player-week-mood per tagged week, then compute-player-season-mood per season.
 
+2026-04-24 | autopilot: compute-player-{week,season}-mood 2022+2023 | Looped `compute-player-week-mood` across all 51 tagged weeks (2022: weeks 1-25, 2023: weeks 0-25). Then season rollups: `compute-player-season-mood --season 2022` wrote **654 week=0 cells** (577 players, 1,921 target rows read); `--season 2023` wrote **785 week=0 cells** (681 players, 2,485 rows). **`player_week_conversation_features` net new: +5,227 rows** (2022: 2,406 cells / 577 players; 2023: 2,821 cells / 681 players). Table now at 13,456 rows across 4 seasons (was 8,229 post-overnight). Logs at `logs/compute_player_{week,season}_mood_2022_2023.log`. | Next: re-run `scripts/autopilot_v1_audit.py` to confirm 14/14 still passes and player-scope coverage grew.
+
 2026-04-24 | OVERNIGHT AUTOPILOT CLOSE — FINAL | Kevin slept ~8 hours; autopilot worked autonomously the whole time. Final audit 14/14 PASS. ~40+ commits across W0-W9.
 
 **Data growth from TASK 0.2 baseline to final:**
