@@ -157,21 +157,38 @@ class BlueskyCuratedAdapter(_BlueskyWriter):
             except (TypeError, ValueError, json.JSONDecodeError):
                 continue
             for h in handles or []:
-                out.append((r["team_id"], h))
+                # Normalize: Bluesky's getAuthorFeed expects the raw handle
+                # without leading '@'. Seeds/priority_teams sometimes carry
+                # the display form "@name.bsky.social"; strip it defensively.
+                cleaned = (h or "").strip().lstrip("@")
+                if cleaned:
+                    out.append((r["team_id"], cleaned))
         return out
 
     def fetch(self) -> list[tuple[str, dict[str, Any]]]:
+        import os
+        deep_pages = int(os.environ.get("BLUESKY_DEEP_PAGES", "1"))
         handles = self._gather_handles()
         out: list[tuple[str, dict[str, Any]]] = []
         for _team_id, handle in handles:
-            url = (f"{_APPVIEW}/app.bsky.feed.getAuthorFeed"
-                   f"?actor={urllib.parse.quote(handle)}&limit=30")
-            try:
-                data = json.loads(self.http_get(url).decode("utf-8"))
-            except Exception as exc:  # noqa: BLE001
-                logger.warning("bluesky_curated getAuthorFeed failed for %s: %s", handle, exc)
-                continue
-            out.append((handle, data))
+            cursor: str | None = None
+            for _ in range(max(1, deep_pages)):
+                url = (f"{_APPVIEW}/app.bsky.feed.getAuthorFeed"
+                       f"?actor={urllib.parse.quote(handle)}&limit=100")
+                if cursor:
+                    url += f"&cursor={urllib.parse.quote(cursor)}"
+                try:
+                    data = json.loads(self.http_get(url).decode("utf-8"))
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning(
+                        "bluesky_curated getAuthorFeed failed for %s: %s",
+                        handle, exc,
+                    )
+                    break
+                out.append((handle, data))
+                cursor = data.get("cursor")
+                if not cursor:
+                    break
         return out
 
     def parse(self, raw: list[tuple[str, dict[str, Any]]]) -> list[dict[str, Any]]:
