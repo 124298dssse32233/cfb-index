@@ -1,0 +1,59 @@
+name: deep-research-monthly
+# Autopilot v1 TASK 8.6 — 1st of the month at 14:00 UTC.
+# Opens an issue reminding Kevin to run the monthly Deep Research refresh
+# (STRATEGY §7 monthly cadence) using the stock prompts in
+# research/deep_research_refresh_*.yaml.
+#
+# The research itself is human-in-the-loop (ChatGPT Deep Research / Claude
+# Research) — this workflow only raises the reminder so it doesn't get
+# forgotten during a busy season.
+on:
+  schedule:
+    - cron: "0 14 1 * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Open Deep Research reminder issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          MONTH=$(date -u +%B)
+          YEAR=$(date -u +%Y)
+          TITLE="Deep Research refresh due — ${MONTH} ${YEAR}"
+          BODY=$(cat <<'EOF'
+          Monthly Deep Research refresh per STRATEGY §7.
+
+          Run the stock prompts with ChatGPT Deep Research (or Claude Research)
+          and apply the resulting YAML patches via `scripts/apply_deep_research.py`.
+
+          Prompt sources:
+          - `research/deep_research_refresh_*.yaml`
+
+          Deliverables to refresh:
+          1. Beat-writer handles per priority team.
+          2. Active boards per team.
+          3. Podcast chart entrants.
+          4. Coach social accounts.
+          5. NIL / portal writer cohort.
+
+          Close this issue once the YAML patch is applied and the feed-validator
+          is clean (`python manage.py validate-feed-urls`).
+          EOF
+          )
+
+          gh issue create \
+            --title "$TITLE" \
+            --body "$BODY" \
+            --label "autopilot,deep-research" \
+            || echo "issue create failed (no gh auth or repo perms)"

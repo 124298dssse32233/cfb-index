@@ -1,0 +1,120 @@
+name: publish-site
+# Autopilot v1 TASK 8.5 — Monday 11:00 UTC (~06:00 ET) weekly publish.
+# Downloads the DB artifact, rebuilds the site (or runs an incremental
+# sync during CFB season), uploads output/site/** as an artifact, and
+# optionally commits to a `published` branch for GitHub Pages consumption.
+on:
+  schedule:
+    - cron: "0 11 * * 1"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      CURRENT_CFB_SEASON: "2026"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyyaml
+
+      - name: Download DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
+      - name: Build or incrementally sync
+        run: |
+          set +e
+          python <<'PY'
+          import os, subprocess
+          from datetime import date
+          today = date.today()
+          in_season = (today.month >= 8) or (today.month == 1)
+          season = int(os.environ.get("CURRENT_CFB_SEASON", str(today.year)))
+          if in_season:
+              anchor_year = today.year if today.month >= 8 else today.year - 1
+              anchor = date(anchor_year, 8, 20)
+              week = max(1, min(16, (today - anchor).days // 7 + 1))
+              print(f"[publish] in-season incremental sync: season={season} week={week}")
+              subprocess.run(
+                  ["python", "-u", "manage.py", "sync-site-incremental",
+                   "--season", str(season),
+                   "--through-week", str(week),
+                   "--skip-play-level",
+                   "--skip-heisman",
+                   "--skip-connectivity-check"],
+                  check=False,
+              )
+          else:
+              print("[publish] out-of-season full site rebuild")
+              subprocess.run(
+                  ["python", "-u", "manage.py", "build-site"],
+                  check=False,
+              )
+          PY
+
+      - name: Refresh methodology + freshness pages
+        run: |
+          set +e
+          python manage.py build-methodology
+          echo "done"
+
+      - name: Upload site artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site
+          retention-days: 14
+          overwrite: true
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+      # Optional: commit output/site/** to a `published` branch. Requires
+      # GITHUB_TOKEN to have contents:write (default for workflow-triggered
+      # pushes). Skip if the `published` branch push endpoint returns 403.
+      - name: Push to published branch
+        if: success()
+        run: |
+          set +e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin published || true
+          if git show-ref --verify --quiet refs/remotes/origin/published; then
+            git checkout -B published origin/published
+          else
+            git checkout --orphan published
+            git rm -rf . 2>/dev/null || true
+          fi
+          mkdir -p ./
+          rm -rf ./assets ./rankings ./teams ./players ./heisman ./hub ./methodology ./archive ./programs ./history ./conferences ./compare ./matchups ./about-model || true
+          cp -r output/site/* ./
+          git add -A
+          git commit -m "publish: weekly rebuild $(date -u +%Y-%m-%dT%H:%MZ)" || echo "nothing to commit"
+          git push origin published --force-with-lease || echo "publish push failed (token perms?)"
