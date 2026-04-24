@@ -6859,6 +6859,8 @@ def _assemble_player_page_data(
         "supporting_cast": supporting_cast_payload,
         "savant": savant_payload,
         "splits": splits_payload,
+        # TASK 7.1: season-phase awareness — resolves at build time.
+        "phase": _current_season_phase(),
     }
 
 
@@ -15305,9 +15307,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="player")}
-      <div class="phase-banner" role="note">
-        <span class="phase-banner__label">OFFSEASON &middot; SPRING 2026 &middot; DRAFT WEEK</span>
-      </div>
+      {_render_phase_banner(player_data.get("phase"))}
       {_signal_flow_html}
       {_what_changed_script}
       <div data-what-changed aria-live="polite"></div>
@@ -18286,6 +18286,35 @@ def _player_module_cards() -> list[dict[str, str]]:
             "body": "Recruit pedigree, transfer path, age, breakout timing, draft trajectory, and year-over-year development are what turn a season page into a durable career dossier.",
         },
     ]
+
+
+def _current_season_phase():
+    """Resolve today's SeasonPhase. Kept as a helper so future phase-
+    dependent modules in reporting.py don't need to import at every
+    call site."""
+    from cfb_rankings.season_phase import current_phase
+    return current_phase()
+
+
+def _render_phase_banner(phase_obj=None) -> str:
+    """Render the phase banner above the player-page hero.
+
+    TASK 7.1 wiring: accepts an optional SeasonPhase from
+    cfb_rankings.season_phase. If none is passed (legacy call sites),
+    resolves today() and renders that. Always returns a valid banner.
+    """
+    from cfb_rankings.season_phase import current_phase
+    if phase_obj is None:
+        phase_obj = current_phase()
+    banner_text = getattr(phase_obj, "banner_text", None) or "OFFSEASON"
+    # Match the original HTML shape so CSS + downstream class contracts are
+    # unchanged. Middot separator rendered as raw entity for canon consistency.
+    safe_text = banner_text.replace("·", "&middot;")
+    return (
+        '<div class="phase-banner" role="note">'
+        f'<span class="phase-banner__label">{safe_text}</span>'
+        '</div>'
+    )
 
 
 def _site_nav(prefix: str, current: str) -> str:
