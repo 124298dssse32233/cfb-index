@@ -35,7 +35,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 ## Workstream 2 — Conversation corpus backfill (2022 → today)
 
 - [x] TASK 2.1 — Reddit historical plan (Opus)
-- [ ] TASK 2.2 — Reddit backfill runner (Sonnet)
+- [x] TASK 2.2 — Reddit backfill runner (Sonnet)
 - [ ] TASK 2.3 — Execute Reddit backfill (Sonnet, long-running)
 - [ ] TASK 2.4 — Bluesky historical backfill (Sonnet)
 - [ ] TASK 2.5 — Message board backfill (Sonnet, per-board)
