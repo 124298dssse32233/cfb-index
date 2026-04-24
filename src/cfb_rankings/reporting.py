@@ -700,6 +700,14 @@ _SIGNATURE_STORY_CSS_BLOCK = """
 .signature-story__confidence-sub {
   color: var(--muted-foreground);
 }
+.signature-story__era-context {
+  font-size: var(--fs-meta);
+  color: var(--muted-foreground);
+  margin: var(--space-2) 0 0 0;
+  font-style: italic;
+  line-height: 1.45;
+  max-width: 38ch;
+}
 
 .signature-story__runners {
   list-style: none;
@@ -12687,6 +12695,15 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
         f'</span>'
     )
 
+    # Era-context hook (S1.3). Rendered as a small muted line beneath
+    # the hero stat when coverage supports an honest comparable.
+    era_ctx = (story.get("era_context") or {}) if story else {}
+    era_line_html = ""
+    if era_ctx.get("applicable") and era_ctx.get("text"):
+        era_line_html = (
+            f'<p class="signature-story__era-context">{escape(str(era_ctx["text"]))}</p>'
+        )
+
     return f"""
       <article class="signature-story"
                data-module="signature-story" data-state="ready"
@@ -12702,6 +12719,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
               <p class="signature-story__stat-value" aria-label="{escape(value_str)} {escape(unit_str)}">{escape(value_str)}</p>
               <p class="signature-story__stat-unit">{escape(unit_str)}</p>
               <p class="signature-story__stat-context">{escape(rank_cohort)}</p>
+              {era_line_html}
             </div>
             <div class="signature-story__rank">
               {rank_card}

@@ -451,7 +451,7 @@ def compute_signature_story_index(
             continue
         evals.sort(key=lambda e: e.score, reverse=True)
         winner = evals[0]
-        index[player_id] = _story_from_winner(winner, evals, player_id, season_year, week, updated_label)
+        index[player_id] = _story_from_winner(winner, evals, player_id, season_year, week, updated_label, db=db)
 
     return index
 
@@ -463,14 +463,33 @@ def _story_from_winner(
     season_year: int,
     week: int | None,
     updated_label: str,
+    *,
+    db: Database | None = None,
 ) -> dict[str, Any]:
     narrative = _render_narrative(winner)
     confidence = _confidence_for(winner)
+    era_ctx = {"applicable": False, "text": "", "target_ref": None}
+    if db is not None:
+        from cfb_rankings.bets.era_context import compute_era_context
+        try:
+            era_ctx = compute_era_context(
+                db,
+                player_id=player_id,
+                metric_id=winner.metric.id,
+                season=season_year,
+                value=winner.value,
+                position=winner.metric.position,
+            )
+        except Exception:
+            # Era context is best-effort; a schema-lacking test DB or a
+            # missing cohort join should never break signature-story.
+            era_ctx = {"applicable": False, "text": "", "target_ref": None}
     return {
         "has_story": True,
         "player_id": player_id,
         "season_year": season_year,
         "week": week,
+        "era_context": era_ctx,
         "headline_stat": {
             "metric_id": winner.metric.id,
             "label": winner.metric.label,
@@ -527,11 +546,26 @@ def fetch_player_signature_story(
     winner = scoreboard[0]
     narrative = _render_narrative(winner)
     confidence = _confidence_for(winner)
+    # Era-context hook (Signature Bets S1.3). Returns applicable=False
+    # silently when coverage is thin; renderer skips the line.
+    from cfb_rankings.bets.era_context import compute_era_context
+    try:
+        era_ctx = compute_era_context(
+            db,
+            player_id=player_id,
+            metric_id=winner.metric.id,
+            season=season_year,
+            value=winner.value,
+            position=winner.metric.position,
+        )
+    except Exception:
+        era_ctx = {"applicable": False, "text": "", "target_ref": None}
     return {
         "has_story": True,
         "player_id": player_id,
         "season_year": season_year,
         "week": week,
+        "era_context": era_ctx,
         "headline_stat": {
             "metric_id": winner.metric.id,
             "label": winner.metric.label,
