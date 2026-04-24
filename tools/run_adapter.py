@@ -71,6 +71,78 @@ def _build_adapter(adapter_id: str, db: Database):
     raise SystemExit(f"run_adapter: unknown adapter_id={adapter_id!r}")
 
 
+def _per_feed_adapter_runs(adapter_id: str, db: Database) -> int:
+    """Bulk-run beat_writers_all or substack_all by iterating over the per-
+    feed source_registry rows seeded by seed-feed-instances.
+
+    Each row has source_id like 'beat_<team>_<writer>' or
+    'substack_<writer>' and a terms_url that points at the feed RSS.
+    """
+    from cfb_rankings.ingest.sources.rss_family import (
+        BeatWriterAdapter, SubstackAdapter,
+    )
+
+    if adapter_id == "beat_writers_all":
+        prefix = "beat_"
+        AdapterClass = BeatWriterAdapter
+        family = "beat"
+    elif adapter_id == "substack_all":
+        prefix = "substack_"
+        AdapterClass = SubstackAdapter
+        family = "substack"
+    else:
+        return -1
+
+    rows = db.query_all(
+        "select source_id, source_name, terms_url from source_registry "
+        "where source_id like :p and terms_url is not null "
+        "and (is_active = 1 or is_active is null) "
+        "and source_id not in ('beat_articles', 'substack_cfb')",
+        {"p": f"{prefix}%"},
+    )
+    ok = err = 0
+    for r in rows:
+        sid = r["source_id"]
+        feed_url = r["terms_url"]
+        # Derive team_slug / writer_slug from the source_id.
+        parts = sid[len(prefix):].split("_", 1)
+        team_slug = parts[0] if len(parts) == 2 else ""
+        writer_slug = parts[1] if len(parts) == 2 else parts[0]
+        try:
+            team_id_row = db.query_one(
+                "select t.team_id from teams t where lower(t.slug) = lower(:s) limit 1",
+                {"s": team_slug},
+            ) if team_slug else None
+            team_id = int(team_id_row["team_id"]) if team_id_row else None
+
+            if AdapterClass is BeatWriterAdapter:
+                if team_id is None:
+                    err += 1
+                    logger.info("%s %s: no team match for slug=%r", family, sid, team_slug)
+                    continue
+                adapter = AdapterClass(
+                    db, team_id=team_id, team_slug=team_slug,
+                    writer_slug=writer_slug, feed_url=feed_url,
+                )
+            else:  # SubstackAdapter
+                adapter = AdapterClass(
+                    db, team_id=team_id, writer_slug=(writer_slug if writer_slug else team_slug),
+                    feed_url=feed_url,
+                )
+            result = adapter.run()
+            logger.info("%s %s: %s (%d rows)",
+                        family, sid, result.status, result.rows_inserted)
+            if result.status == "error":
+                err += 1
+            else:
+                ok += 1
+        except Exception as exc:  # noqa: BLE001
+            logger.exception("%s %s failed: %s", family, sid, exc)
+            err += 1
+    logger.info("%s totals: ok=%d err=%d", adapter_id, ok, err)
+    return 0
+
+
 def _per_team_adapter_runs(adapter_id: str, db: Database) -> int:
     """Handle adapters that need one instance per priority_teams row."""
     from cfb_rankings.ingest.sources.campus_news import CampusNewsAdapter
@@ -78,6 +150,9 @@ def _per_team_adapter_runs(adapter_id: str, db: Database) -> int:
     from cfb_rankings.ingest.sources.rss_family import (
         AthleticsSiteAdapter, LockedOnAdapter,
     )
+
+    if adapter_id in ("beat_writers_all", "substack_all"):
+        return _per_feed_adapter_runs(adapter_id, db)
 
     family_map = {
         "campus_news_all": ("campus_newspaper_feed", CampusNewsAdapter, "campus"),
