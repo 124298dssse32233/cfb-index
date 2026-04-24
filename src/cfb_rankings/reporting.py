@@ -2536,6 +2536,67 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Opponent-strength stripe — Signature Bets S4.4 / §5 item 6. 1px
+# gradient bar under game-level stats: green = top-25, orange = P4 mid,
+# grey = G5, red = FCS. Applied inline via _opp_strength_class.
+_OPP_STRENGTH_CSS_BLOCK = """
+@layer utilities {
+  .opp-stripe {
+    position: relative;
+  }
+  .opp-stripe::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 3px;
+    border-radius: 0 0 var(--radius-md, 12px) var(--radius-md, 12px);
+    background: var(--muted-foreground, #999);
+  }
+  .opp-stripe--top      ::after,
+  .opp-stripe--top::after    { background: var(--confidence-high, #3fa35b); }
+  .opp-stripe--p4       ::after,
+  .opp-stripe--p4::after     { background: var(--accolade-gold-base, #d1a23a); }
+  .opp-stripe--g5       ::after,
+  .opp-stripe--g5::after     { background: var(--muted-foreground, #999); }
+  .opp-stripe--fcs      ::after,
+  .opp-stripe--fcs::after    { background: var(--confidence-low, #c43a3a); }
+}
+"""
+
+
+def _opp_strength_class(db: Database, team_id: int | None) -> str:
+    """Classify an opponent into top / p4 / g5 / fcs tiers.
+
+    Heuristic: read teams.level_code + a coarse P4 allow-list by
+    conference name. Returns a CSS class suffix (top/p4/g5/fcs).
+    Returns empty string when the team can't be resolved.
+    """
+    if not team_id:
+        return ""
+    try:
+        row = db.query_one(
+            "SELECT t.level_code, c.canonical_name AS conf "
+            "FROM teams t LEFT JOIN conferences c "
+            "  ON c.conference_id = t.current_conference_id "
+            "WHERE t.team_id = :tid",
+            {"tid": int(team_id)},
+        )
+    except Exception:
+        return ""
+    if not row:
+        return ""
+    level = str(row.get("level_code") or "").lower()
+    if level in ("fcs", "fcs-d1", "div1aa"):
+        return "fcs"
+    conf = str(row.get("conf") or "").upper()
+    p4_set = {"SEC", "BIG TEN", "ACC", "BIG 12"}
+    if conf in p4_set or "NOTRE DAME" in conf:
+        return "p4"
+    if level in ("fbs", "fbs-a", "div1a"):
+        return "g5"
+    return ""
+
+
 # Historical "this day" chip — Signature Bets S4.3 / §5 item 19. Small
 # muted line near the hero when the player has a historical game on
 # today's month+day. Empty string when none.
@@ -3020,7 +3081,7 @@ _SIGNATURE_PLAY_CSS_BLOCK = """
 """
 
 
-def render_signature_play_card(moment: Any | None) -> str:
+def render_signature_play_card(moment: Any | None, opp_tier: str = "") -> str:
     """Render the Signature Moment card. Empty state when no moment qualifies."""
     if moment is None:
         return (
@@ -3031,6 +3092,7 @@ def render_signature_play_card(moment: Any | None) -> str:
             '  <p class="signature-play__sub">Today\'s player_game_stats only carries 2025 Week 1 — we ship when the next weeks land.</p>'
             '</article>'
         )
+    stripe_cls = f" opp-stripe opp-stripe--{opp_tier}" if opp_tier else ""
     if hasattr(moment, "week"):
         data = {
             "week": moment.week,
@@ -3045,7 +3107,7 @@ def render_signature_play_card(moment: Any | None) -> str:
         data = moment or {}
     site = "at" if data.get("home_away") == "away" else "vs"
     return (
-        '<article class="signature-play" data-module="signature-play" data-state="ready">'
+        f'<article class="signature-play{stripe_cls}" data-module="signature-play" data-state="ready">'
         '  <p class="signature-play__eyebrow">Signature Moment</p>'
         f'  <p class="signature-play__headline">Week {int(data.get("week") or 0)} '
         f'{site} {escape(str(data.get("opponent_name") or "—"))} — '
@@ -4512,6 +4574,8 @@ def _compose_global_css() -> str:
         + _CHANGE_LOG_CSS_BLOCK
         + "\n/* === This-day chip (S4.3) === */\n"
         + _THIS_DAY_CSS_BLOCK
+        + "\n/* === Opponent-strength stripe (S4.4) === */\n"
+        + _OPP_STRENGTH_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -6660,11 +6724,27 @@ def build_player_page_data_map(
         # Signature Moment (Signature Bets S3.2) — read from cache.
         try:
             from cfb_rankings.bets.signature_play import fetch_signature_moment
-            page_data["signature_moment"] = fetch_signature_moment(
+            sm = fetch_signature_moment(
                 db, player_id, int(summary["season_year"])
             )
+            page_data["signature_moment"] = sm
+            # Resolve opponent-strength tier for the stripe (S4.4).
+            page_data["signature_moment_opp_tier"] = ""
+            if sm is not None:
+                try:
+                    opp_row = db.query_one(
+                        "SELECT CASE WHEN g.home_team_id = :tid THEN g.away_team_id "
+                        "            ELSE g.home_team_id END AS opp "
+                        "FROM games g WHERE g.game_id = :gid",
+                        {"tid": (page_data.get("primary_team") or {}).get("team_id") or 0, "gid": sm.game_id},
+                    )
+                    opp_team_id = (opp_row or {}).get("opp")
+                    page_data["signature_moment_opp_tier"] = _opp_strength_class(db, opp_team_id)
+                except Exception:
+                    pass
         except Exception:
             page_data["signature_moment"] = None
+            page_data["signature_moment_opp_tier"] = ""
         # Scenario Explorer (Signature Bets S3.3) — builds per-page.
         try:
             from cfb_rankings.bets.scenario_explorer import build_scenario_payload
@@ -16166,7 +16246,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="signature-story">
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
-        {render_signature_play_card(player_data.get("signature_moment"))}
+        {render_signature_play_card(player_data.get("signature_moment"), player_data.get("signature_moment_opp_tier") or "")}
         {render_narrative_arc_card(player_data.get("narrative_arc"))}
         {render_scenario_explorer_card(player_data.get("scenario_payload"))}
         <article class="panel">
