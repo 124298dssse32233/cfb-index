@@ -21,6 +21,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.bets.glossary import load_glossary
 from cfb_rankings.cohorts.aggregate import COHORTS
 from cfb_rankings.db import Database
 
@@ -364,6 +365,32 @@ def render_methodology_html(db: Database) -> str:
                  "year in April, and prior weight versions are snapshotted so historical "
                  "aggregates do not silently shift.</p>")
     parts.append("<p>Corrections: open an issue on the repo or email <a href='mailto:corrections@cfb-index.com'>corrections@cfb-index.com</a>.</p>")
+
+    parts.append("<h2 id='glossary'>7. Glossary</h2>")
+    parts.append("<p>Every Fan Intelligence term used on a player or team page has a "
+                 "definition here. The same entries back the <code>?</code> popovers next to "
+                 "eyebrow labels throughout the site; this section is the canonical copy "
+                 "(source: <code>seeds/fi_glossary.yaml</code>).</p>")
+    try:
+        glossary = load_glossary()
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("Failed to load fi_glossary.yaml: %s", exc)
+        glossary = {}
+    for slug in sorted(glossary.keys()):
+        term = glossary[slug]
+        parts.append(f"<h3 id='glossary-{html.escape(slug)}'>{html.escape(term['name'])}</h3>")
+        parts.append(f"<p><strong>{html.escape(term['one_line'])}</strong></p>")
+        parts.append(f"<p>{html.escape(term['full'])}</p>")
+        parts.append(
+            f"<p><em>Example &middot;</em> {html.escape(term['micro_example'])}</p>"
+        )
+        see_also = [s for s in (term.get('see_also') or []) if s in glossary]
+        if see_also:
+            links = " &middot; ".join(
+                f"<a href='#glossary-{html.escape(s)}'>{html.escape(glossary[s]['name'])}</a>"
+                for s in see_also
+            )
+            parts.append(f"<p class='tier-explainer'>See also &middot; {links}</p>")
 
     parts.append("<footer>"
                  "Fan Intelligence methodology page — generated at "

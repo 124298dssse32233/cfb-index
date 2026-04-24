@@ -2904,6 +2904,18 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Players landing build skipped: {exc}")
 
+    # Refresh the methodology page so edits to seeds/fi_glossary.yaml propagate
+    # to the /methodology/fan-intelligence.html#glossary-<slug> anchors that
+    # the `?` popover fallback links to.
+    try:
+        from cfb_rankings.provenance.methodology_page import write_methodology_page
+        methodology_path = write_methodology_page(
+            db, output_path=site_root / "methodology" / "fan-intelligence.html"
+        )
+        _report_progress(f"Methodology page written to {methodology_path}.")
+    except Exception as exc:
+        _report_progress(f"Methodology page build skipped: {exc}")
+
     _report_progress(f"Static site build finished at {site_root}.")
     return site_root
 
