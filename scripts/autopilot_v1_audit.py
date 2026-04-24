@@ -191,7 +191,7 @@ def check_carr_page_renders() -> tuple[bool, str]:
     if not p.exists():
         return False, "Carr page not built yet — run python manage.py build-site"
     text = p.read_text(encoding="utf-8", errors="replace")
-    required = ["the-room", "algorithmic-signature", "phase-banner"]
+    required = ["the-room", "signature-story", "phase-banner"]
     missing = [r for r in required if r not in text]
     return not missing, (
         f"present: {len(required)}/{len(required)} modules"

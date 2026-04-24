@@ -76,8 +76,8 @@ Defaults policy, autonomy rules, and stop conditions live in
 ## Workstream 6 — Fan Intelligence aggregation backfill
 
 - [ ] TASK 6.1 — Team weekly features (Sonnet)
-- [ ] TASK 6.2 — Cohort aggregation backfill (Sonnet)
-- [ ] TASK 6.3 — Divergence backfill (Sonnet)
+- [x] TASK 6.2 — Cohort aggregation backfill (Sonnet)
+- [x] TASK 6.3 — Divergence backfill (Sonnet)
 - [ ] TASK 6.4 — Hub v5 weekly data (Sonnet)
 - [ ] TASK 6.5 — Storylines refresh (Sonnet)
 
@@ -87,7 +87,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [ ] TASK 7.2 — Offseason Status chip + 2026 Outlook module (Sonnet)
 - [ ] TASK 7.3 — Development Trajectory module (Sonnet)
 - [x] TASK 7.4 — Methodology page global-nav link (Opus single-edit, Haiku diff)
-- [ ] TASK 7.5 — Phase S1 voice layer (Sonnet)
+- [x] TASK 7.5 — Phase S1 voice layer (Sonnet)
 - [ ] TASK 7.6 — Draft Day Live skeleton (Sonnet)
 
 ## Workstream 8 — Autopilot: real persistence + scheduling + monitoring
@@ -103,7 +103,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 
 ## Workstream 9 — End-to-end audit
 
-- [ ] TASK 9.1 — Autopilot v1 audit (Opus synthesis + multi-Haiku verification)
+- [x] TASK 9.1 — Autopilot v1 audit (Opus synthesis + multi-Haiku verification) _(13/14 pre-site-rebuild; final rerun post-build)_
 
 ---
 

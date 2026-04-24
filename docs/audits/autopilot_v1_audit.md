@@ -1,6 +1,6 @@
-# Autopilot v1 — End-to-End Audit · 2026-04-24 08:48 UTC
+# Autopilot v1 — End-to-End Audit · 2026-04-24 08:50 UTC
 
-**13/14** checks pass.
+**14/14** checks pass.
 
 | # | Check | Result | Evidence |
 |---|---|---|---|
@@ -15,10 +15,7 @@
 | 9 | workflow artifact pattern | ✅ PASS | 6/6 workflows wire the DB artifact |
 | 10 | publish_site.yml present | ✅ PASS | publish_site.yml present |
 | 11 | cohort divergence nonzero cells | ✅ PASS | 58 (team, week) pairs with divergence_score > 0 |
-| 12 | CJ Carr page renders modules | ❌ FAIL | Carr page missing: ['algorithmic-signature'] |
+| 12 | CJ Carr page renders modules | ✅ PASS | present: 3/3 modules |
 | 13 | methodology + freshness pages | ✅ PASS | fan-intelligence.html + freshness.html both present |
 | 14 | Database retry wrapper present | ✅ PASS | db.py _with_retry wrapper present |
 
-## Follow-ups
-
-- Investigate: **CJ Carr page renders modules**
