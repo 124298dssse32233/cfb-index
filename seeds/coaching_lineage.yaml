@@ -160,3 +160,304 @@ programs:
       comparative_line: >-
         Smart/Bobo partnership carries the Saban-tree discipline; 10-year
         HC tenure makes schematic continuity the program's baseline.
+
+  "texas":
+    display_name: Texas
+    head_coach:
+      name: Steve Sarkisian
+      year_in_seat: 5
+      prior_school: Alabama (OC)
+    offensive_coordinator:
+      name: Kyle Flood
+      year_in_seat: 5
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.56
+        explosive_rate: 0.14
+        tempo: moderate
+      lineage:
+        - Kyle Flood
+        - Steve Sarkisian (USC lineage)
+        - Pete Carroll (USC early-2000s tree)
+    defensive_coordinator:
+      name: Pete Kwiatkowski
+      year_in_seat: 5
+      scheme_family: Multiple 3-3-5
+    notes:
+      continuity_chip: Year 5 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Sarkisian/Flood retention makes Texas' identity a Saban-adjacent
+        pro-style that can line up and punch. No transition tax.
+
+  "oregon":
+    display_name: Oregon
+    head_coach:
+      name: Dan Lanning
+      year_in_seat: 4
+      prior_school: Georgia (DC)
+    offensive_coordinator:
+      name: Will Stein
+      year_in_seat: 3
+      scheme_family: Up-tempo spread
+      system_fingerprint:
+        plays_per_game: 76
+        pass_rate: 0.54
+        explosive_rate: 0.16
+        tempo: fast
+      lineage:
+        - Will Stein
+        - Josh Heupel (Tennessee spread)
+        - Mike Leach (Air Raid roots)
+    defensive_coordinator:
+      name: Tosh Lupoi
+      year_in_seat: 2
+      scheme_family: 3-4 multiple
+    notes:
+      continuity_chip: Year 3 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Stein's tempo keeps Oregon's identity; Lanning's Smart-tree
+        defense is the newer constant.
+
+  "lsu":
+    display_name: LSU
+    head_coach:
+      name: Brian Kelly
+      year_in_seat: 4
+      prior_school: Notre Dame
+    offensive_coordinator:
+      name: Joe Sloan
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.55
+        explosive_rate: 0.13
+        tempo: moderate
+      lineage:
+        - Joe Sloan
+        - Mike Denbrock (ND influence)
+        - Brian Kelly (Cincinnati spread era)
+    defensive_coordinator:
+      name: Blake Baker
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Kelly's program carries the spread DNA he imported from Notre
+        Dame; Sloan keeps the QB room productive against SEC fronts.
+
+  "clemson":
+    display_name: Clemson
+    head_coach:
+      name: Dabo Swinney
+      year_in_seat: 17
+      prior_school: Clemson (WR coach)
+    offensive_coordinator:
+      name: Garrett Riley
+      year_in_seat: 3
+      scheme_family: Air Raid spread
+      system_fingerprint:
+        plays_per_game: 72
+        pass_rate: 0.58
+        explosive_rate: 0.15
+        tempo: moderate
+      lineage:
+        - Garrett Riley
+        - Mike Leach (Air Raid)
+        - Hal Mumme (Air Raid originator)
+    defensive_coordinator:
+      name: Tom Allen
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 3 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Riley's Air Raid is the cleanest Leach-descendant in the ACC;
+        Swinney tenure makes schematic consistency the default.
+
+  "usc":
+    display_name: USC
+    head_coach:
+      name: Lincoln Riley
+      year_in_seat: 4
+      prior_school: Oklahoma
+    offensive_coordinator:
+      name: Lincoln Riley
+      year_in_seat: 4
+      scheme_family: Air Raid RPO
+      system_fingerprint:
+        plays_per_game: 74
+        pass_rate: 0.60
+        explosive_rate: 0.16
+        tempo: fast
+      lineage:
+        - Lincoln Riley
+        - Mike Leach (Air Raid at OU)
+        - Hal Mumme (Air Raid originator)
+    defensive_coordinator:
+      name: D'Anton Lynn
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: HC calls it
+      year_on_year_change: Same
+      comparative_line: >-
+        Riley runs his own offense; the QB position's production
+        ceiling in any given season is the Air Raid ceiling.
+
+  "penn-state":
+    display_name: Penn State
+    head_coach:
+      name: James Franklin
+      year_in_seat: 12
+      prior_school: Vanderbilt
+    offensive_coordinator:
+      name: Andy Kotelnicki
+      year_in_seat: 2
+      scheme_family: Pro-style RPO
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.52
+        explosive_rate: 0.13
+        tempo: moderate
+      lineage:
+        - Andy Kotelnicki
+        - Lance Leipold (Buffalo tree)
+        - Gus Malzahn (Auburn RPO lineage)
+    defensive_coordinator:
+      name: Tom Allen
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Kotelnicki's arrival in 2024 recalibrated the PSU ceiling;
+        Year 2 turnover of scheme should translate to Heisman
+        conversations when the QB stays healthy.
+
+  "florida-state":
+    display_name: Florida State
+    head_coach:
+      name: Mike Norvell
+      year_in_seat: 6
+      prior_school: Memphis
+    offensive_coordinator:
+      name: Gus Malzahn
+      year_in_seat: 1
+      scheme_family: RPO spread
+      system_fingerprint:
+        plays_per_game: 72
+        pass_rate: 0.53
+        explosive_rate: 0.14
+        tempo: moderate
+      lineage:
+        - Gus Malzahn (Auburn + UCF eras)
+        - Hugh Freeze (Briles tree)
+        - Art Briles (RPO originator)
+    defensive_coordinator:
+      name: Tony White
+      year_in_seat: 2
+      scheme_family: 3-3-5 odd
+    notes:
+      continuity_chip: "NEW OC · Year 1"
+      year_on_year_change: New OC (Malzahn in)
+      comparative_line: >-
+        Malzahn brings an Auburn-era identity FSU hasn't carried
+        before. First-year variance is the story.
+
+  "tennessee":
+    display_name: Tennessee
+    head_coach:
+      name: Josh Heupel
+      year_in_seat: 5
+      prior_school: UCF
+    offensive_coordinator:
+      name: Josh Heupel
+      year_in_seat: 5
+      scheme_family: Up-tempo Air Raid
+      system_fingerprint:
+        plays_per_game: 78
+        pass_rate: 0.55
+        explosive_rate: 0.17
+        tempo: fast
+      lineage:
+        - Josh Heupel
+        - Mike Leach (Air Raid)
+        - Hal Mumme (Air Raid)
+    defensive_coordinator:
+      name: Tim Banks
+      year_in_seat: 5
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: HC calls it
+      year_on_year_change: Same
+      comparative_line: >-
+        Heupel's tempo baseline is the fastest in the SEC. Any QB
+        starts at +200 snaps vs peer programs over a full season.
+
+  "miami":
+    display_name: Miami
+    head_coach:
+      name: Mario Cristobal
+      year_in_seat: 4
+      prior_school: Oregon
+    offensive_coordinator:
+      name: Shannon Dawson
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 72
+        pass_rate: 0.56
+        explosive_rate: 0.14
+        tempo: moderate
+      lineage:
+        - Shannon Dawson
+        - Mike Leach (Washington State years)
+        - Hal Mumme (Air Raid roots)
+    defensive_coordinator:
+      name: Lance Guidry
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Cristobal's Oregon transfer DNA shows up in the line play;
+        Dawson's passing game pushes the explosive-play rate up.
+
+  "oklahoma":
+    display_name: Oklahoma
+    head_coach:
+      name: Brent Venables
+      year_in_seat: 4
+      prior_school: Clemson (DC)
+    offensive_coordinator:
+      name: Ben Arbuckle
+      year_in_seat: 2
+      scheme_family: Air Raid spread
+      system_fingerprint:
+        plays_per_game: 74
+        pass_rate: 0.58
+        explosive_rate: 0.15
+        tempo: fast
+      lineage:
+        - Ben Arbuckle (Washington State)
+        - Mike Leach (Air Raid)
+        - Hal Mumme (Air Raid)
+    defensive_coordinator:
+      name: Brent Venables
+      year_in_seat: 4
+      scheme_family: 3-4 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Venables calls his own D; Arbuckle's Air Raid keeps the OU
+        offensive identity intact post-Riley.
