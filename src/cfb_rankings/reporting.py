@@ -4660,6 +4660,36 @@ def _assemble_player_page_data(
     if rung_id is not None:
         standing_payload = {"current_rung_id": rung_id}
 
+    # V5 Peer Comparator — pull 4 nearest peers from the Signature Story
+    # cohort strip. Every qualifying member has {player_id, player_name,
+    # team_name, value}; we slice 2 above + 2 below the player's rank.
+    peers_payload = None
+    if algorithmic_signature and algorithmic_signature.get("has_story"):
+        strip = (algorithmic_signature.get("supporting_chart") or {}).get("data") or []
+        winner_rank = ((algorithmic_signature.get("headline_stat") or {}).get("rank") or 0)
+        try:
+            winner_idx = max(0, int(winner_rank) - 1)
+        except (TypeError, ValueError):
+            winner_idx = 0
+        start = max(0, winner_idx - 2)
+        end = min(len(strip), start + 5)  # 5 to allow skipping self
+        slice_peers = strip[start:end]
+        self_id = int(player_row["player_id"])
+        peers_payload = []
+        for p in slice_peers:
+            if int(p.get("player_id") or 0) == self_id:
+                continue
+            value = p.get("value")
+            team = p.get("team_name") or "—"
+            meta = f"{team} · {value:.3f}" if isinstance(value, (int, float)) else str(team)
+            peers_payload.append(
+                {"name": str(p.get("player_name") or "Unknown"), "meta": meta}
+            )
+            if len(peers_payload) >= 4:
+                break
+        if not peers_payload:
+            peers_payload = None
+
     return {
         "player": {
             "player_id": int(player_row["player_id"]),
@@ -4691,6 +4721,7 @@ def _assemble_player_page_data(
         "transfer": transfer_card,
         "roster": roster_card,
         "standing": standing_payload,
+        "peers": peers_payload,
     }
 
 
@@ -19343,22 +19374,22 @@ def _render_team_mood_card(mood: dict[str, Any], team_name: str) -> str:
 
         <div class="mood-axis-grid">
           <article class="mood-axis">
-            <header><span>Reality Check</span><strong>{reality_label}</strong></header>
+            <header><span>Reality Check{render_glossary_icon("reality-check")}</span><strong>{reality_label}</strong></header>
             <p>{reality_narrative}</p>
             {f'<span class="mood-axis-detail">{escape(reality_score_text)}</span>' if reality_score_text else ''}
           </article>
           <article class="mood-axis">
-            <header><span>Respect Gap</span><strong>{respect_label}</strong></header>
+            <header><span>Respect Gap{render_glossary_icon("respect-gap")}</span><strong>{respect_label}</strong></header>
             <p>{respect_narrative}</p>
             {f'<span class="mood-axis-detail">{respect_detail}</span>' if respect_detail else ''}
           </article>
           <article class="mood-axis">
-            <header><span>Swing Meter</span><strong>{swing_label}</strong></header>
+            <header><span>Swing Meter{render_glossary_icon("swing", label="Swing Meter")}</span><strong>{swing_label}</strong></header>
             <p>{swing_narrative}</p>
             {f'<span class="mood-axis-detail">{escape(swing_detail)}</span>' if swing_detail else ''}
           </article>
           <article class="mood-axis mood-axis-cohesion">
-            <header><span>Cohesion</span><strong>{cohesion_label}</strong></header>
+            <header><span>Cohesion{render_glossary_icon("cohesion")}</span><strong>{cohesion_label}</strong></header>
             <p>{cohesion_narrative}</p>
             <div class="mood-cohesion-stack" role="presentation">
               <span class="mood-cohesion-seg mood-cohesion-pos" style="width:{cohesion_pos:.1f}%"></span>
@@ -19367,7 +19398,7 @@ def _render_team_mood_card(mood: dict[str, Any], team_name: str) -> str:
             </div>
           </article>
           <article class="mood-axis">
-            <header><span>Rival Heat</span><strong>{rival_label}</strong></header>
+            <header><span>Rival Heat{render_glossary_icon("rival-heat")}</span><strong>{rival_label}</strong></header>
             <p>{rival_narrative}</p>
             {f'<span class="mood-axis-detail">{escape(rival_detail)}</span>' if rival_detail else ''}
           </article>
@@ -19485,7 +19516,7 @@ def _render_fan_intel_home_section(
               <p>Teams living rent-free in rival fanbases this week.</p>
             </article>
             <article class="panel intel-empty-card">
-              <h3>Main Character Of The Week</h3>
+              <h3>Main Character Of The Week{render_glossary_icon("main-character")}</h3>
               <p>Whichever team the broader sport cannot stop talking about.</p>
             </article>
           </div>
@@ -19539,7 +19570,7 @@ def _render_fan_intel_home_section(
 
         <article class="panel intel-card intel-card-main">
           <div class="intel-card-head">
-            <h3>{"Main Character Right Now" if is_offseason else "Main Character Of The Week"}</h3>
+            <h3>{"Main Character Right Now" if is_offseason else "Main Character Of The Week"}{render_glossary_icon("main-character")}</h3>
             <p class="section-note">Whoever the sport cannot stop discussing in this window.</p>
           </div>
           {render_list(board.get('main_characters') or [], 'No team hit main-character volume this week.')}
