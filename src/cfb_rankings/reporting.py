@@ -18343,6 +18343,7 @@ def _site_nav(prefix: str, current: str) -> str:
         ("model", "The Model", f"{prefix}about-model/index.html"),
         ("analysis", "Analysis", f"{prefix}conferences/index.html"),
         ("archive", "Weekly Archive", f"{prefix}archive/index.html"),
+        ("methodology", "Methodology", f"{prefix}methodology/fan-intelligence.html"),
     ]
     rendered = "".join(
         f'<a class="nav-link{" is-current" if key == active_key else ""}" href="{href}">{label}</a>'
