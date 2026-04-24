@@ -61,3 +61,73 @@ templates:
     voice: cohort_top
     min_percentile: 90
     text: "{value} {metric_label}: #{rank} of {cohort_size} {cohort_label} ({percentile}th percentile)."
+
+  # ---- ADDITIONAL TEMPLATES (expanded library, S4 polish) ----
+
+  - id: record-only-in-era
+    applies_to: "*"
+    voice: record
+    min_percentile: 99
+    text: "{value} {metric_label} — a top mark across every {cohort_label} {position} we can score in the {era_label} era."
+
+  - id: cohort-top-air-raid
+    applies_to:
+      - completion_pct
+      - ypa
+    voice: cohort_top
+    min_percentile: 93
+    text: "{value} {metric_label} inside a {cohort_label} cohort where the {percentile}th percentile is the rarefied air — #{rank} of {cohort_size}."
+
+  - id: cohort-top-ground
+    applies_to:
+      - rushing_yards_total
+      - ypc
+      - rushing_tds
+    voice: cohort_top
+    min_percentile: 92
+    text: "{value} {metric_label} at #{rank} in a {cohort_size}-{position} cohort — the ground game's signature number for this season."
+
+  - id: cohort-top-passing-volume
+    applies_to:
+      - passing_yards_total
+      - passing_tds
+    voice: pace
+    min_percentile: 92
+    text: "{value} {metric_label} — the offense ran through this {position} more than {percentile}% of {cohort_label} peers."
+
+  - id: cohort-top-receiver
+    applies_to:
+      - receiving_yards_total
+      - ypr
+      - receiving_tds
+    voice: cohort_top
+    min_percentile: 92
+    text: "{value} {metric_label} at #{rank} among {cohort_size} {cohort_label} — every target cleared its weight."
+
+  - id: record-near-efficiency
+    applies_to:
+      - ypa
+      - ypc
+      - ypr
+      - completion_pct
+    voice: record_near
+    min_percentile: 96
+    text: "{value} {metric_label} on the efficiency axis — only {top_n} {cohort_label} cleared that bar in the {era_label} era."
+
+  - id: cohort-top-wepa
+    applies_to:
+      - wepa_passing_per_dropback
+      - wepa_combined_per_play
+      - wepa_rushing_per_carry
+    voice: cohort_top
+    min_percentile: 92
+    text: "{value} {metric_label} — top-{rank} opponent-adjusted value among {cohort_size} {cohort_label}."
+
+  - id: record-near-volume-efficiency
+    applies_to:
+      - passing_yards_total
+      - rushing_yards_total
+      - receiving_yards_total
+    voice: record_near
+    min_percentile: 97
+    text: "{value} {metric_label} — the rare volume number that stayed efficient; top-{rank} in a {cohort_size}-{position} pool."
