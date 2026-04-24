@@ -1,5 +1,35 @@
 # Fan Intelligence Build — Session Log
 
+2026-04-24 | OVERNIGHT AUTOPILOT CLOSE — FINAL | Kevin slept ~8 hours; autopilot worked autonomously the whole time. Final audit 14/14 PASS. ~40+ commits across W0-W9.
+
+**Data growth from TASK 0.2 baseline to final:**
+- conversation_documents: 21,188 → 87,842 (4.1x)
+- conversation_document_targets: 38,569 → ~135,000 (3.5x; each 2022-2025 grew 6-8x)
+- player_game_stats: 59,871 → 1,798,161 (30x — 1.3 complete for 2022-2025)
+- player_advanced_metrics: 0 → 99,871 (new, 4 seasons live)
+- player_advanced_metrics_season: 0 → 67,354 (cohort percentiles)
+- player_nfl_draft: 0 → 1,035 (4 years × ~260 picks)
+- player_week_conversation_features: 593 → 8,229 (1,296 players with Room data)
+- team_week_conversation_features: 100 → 1,305
+- team_cohort_week: 21,864 → 35,436 (146 distinct weeks)
+- team_cohort_divergence_week >0: 46 → 95 (2x multi-source signal)
+- source_observations: 41,092 → 54,487 (GDELT 2y + bluesky_curated)
+
+**Autopilot unlock:** db.py `_with_retry` wrapper absorbing "readonly/locked" errors; Dropbox `com.dropbox.ignored` on cfb_rankings.db; WAL journal mode. Zero crashes across 8 hours of concurrent writes.
+
+**Bugs fixed overnight:**
+- Bluesky `@handle` URL encoding (12,861 rows on first real pull).
+- Reddit backfill national-sitewide skip (unblocked 309 windows).
+- Tagger precision 50% → ~100% via full-name-only flag.
+
+**Tasks shipped ~36 of 59:** W0 3/3, W1 7/7, W2 5/8 (2.3 partial at 3k/7.6k windows; 2.8 optional), W3 6/7 (3.3 deferred), W4 2/8 scaffolded, W5 6/6, W6 3/5, W7 5/6, W8 8/8, W9 1/1.
+
+**Follow-ups for Kevin:** TASK 2.3 remaining 4,600 Reddit windows; 3.3 Kalshi/Polymarket history APIs; 4.1-4.3 wiki heuristic tuning; 4.6 per-source mock-draft scrapers; 4.7 NIL; 4.8 watch lists; 6.4/6.5 hub v5 + storylines; 7.3 trajectory compute+SVG; 7.6 Draft Day Live reporting.py module.
+
+Full audit: `docs/audits/autopilot_v1_audit.md` · Progress tracker: `docs/audits/autopilot_progress.md`.
+
+---
+
 2026-04-22 | TASK 1.1 | Schema migration landed: `migrations/20260422_01_fanintel_schema.sql` creates `team_cohort_week`, `team_cohort_divergence_week`, `scrape_health`, `priority_teams`, `schema_migrations`; Python column additions in `cfb_rankings.migrations` extend `source_registry` (source_id/tier/cohort_weights/max_publication_form/etc.), add 10 provenance cols to `conversation_documents`, and add `sample_n/sample_window/confidence_floor/model_version` to the four named aggregates. New CLI `python manage.py apply-migrations`. `build-site` passes (668 team + 15939 player pages). | Artifacts rolled into baseline commit 9d8250e (git was initialized after task complete).
 2026-04-23 | TASK 1.2 | SourceAdapter base + BaseRssAdapter in `src/cfb_rankings/ingest/sources/base.py`. Abstract fetch/parse/write_rows; orchestrating `run()` with exception capture that always writes one `scrape_health` row. Retry+backoff on `http_get`. 6/6 unit tests pass (`test_base.py`). | —
 2026-04-23 | TASK 1.3 | `seeds/source_registry.yaml` — 37 sources (9 Tier A / 18 Tier B / 4 Tier C / 6 Tier D). Loader `seed_source_registry` upserts via new `source_id` UNIQUE index. CLI `python manage.py seed-source-registry` → inserted=37 first run, updated=37 re-run (idempotent). All 37 have non-null cohort_weights/tier/max_publication_form. | Per-team template families (board/campus/substack/beat/athletics/locked_on/radio) stored as `*_template`; per-team rows generated from priority_teams + per-family seeds later.
