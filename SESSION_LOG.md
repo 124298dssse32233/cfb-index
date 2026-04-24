@@ -1,5 +1,7 @@
 # Fan Intelligence Build — Session Log
 
+2026-04-24 | autopilot: 2022/2023 player-context backfill | `backfill-player-context --start-season 2022 --end-season 2023 --classification fbs --skip-connectivity-check` ran end-to-end (exit 0). Added **+162,448 player_season_stats rows** (2022: 80,880 / 2023: 81,568) and **+1,380 player_value_metrics rows** (2022: 682 / 2023: 698). `player_value_metrics` previously had zero rows for any season except 2025 — now 2022 and 2023 both populated with WEPA passing + rushing percentiles. `player_usage` (via heisman usage table) also gained 5,253 normalized rows across both seasons. Unblocks `tag-player-mentions` for 2022/2023 (the player-name tagger indexes only players with `player_value_metrics` / `player_season_stats` rows — previously 0/0 for those seasons). Log at `logs/backfill_player_context_2022_2023.log`. | Next: tag-player-mentions --season 2022 / 2023 --commit --no-last-name, then compute-player-*-mood, then re-audit.
+
 2026-04-24 | OVERNIGHT AUTOPILOT CLOSE — FINAL | Kevin slept ~8 hours; autopilot worked autonomously the whole time. Final audit 14/14 PASS. ~40+ commits across W0-W9.
 
 **Data growth from TASK 0.2 baseline to final:**
