@@ -1,0 +1,248 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Base */
+  --font-size: 16px;
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.145 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.0058 264.53);
+  --secondary-foreground: oklch(0.145 0 0);
+  --muted: oklch(0.93 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.92 0 0);
+  --accent-foreground: oklch(0.145 0 0);
+  --destructive: oklch(0.5 0.2 20);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.88 0 0);
+  --input: transparent;
+  --input-background: oklch(0.96 0 0);
+  --switch-background: oklch(0.8 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.145 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* CFB Index Typography Scale (fluid clamp) */
+  --fs-display: clamp(2.5rem, 5vw + 1rem, 5.5rem);
+  --fs-h1: clamp(1.75rem, 2.5vw + 0.5rem, 3rem);
+  --fs-h2: clamp(1.25rem, 1.5vw + 0.25rem, 1.75rem);
+  --fs-body: clamp(0.9375rem, 0.25vw + 0.875rem, 1.0625rem);
+  --fs-meta: clamp(0.75rem, 0.1vw + 0.75rem, 0.8125rem);
+
+  /* CFB Index Spacing Scale (8-step, powers of 4px base) */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+
+  /* CFB Index Radius (3 values: 8/12/16) */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* CFB Index Elevation (3 levels) */
+  --elevation-1: 0 2px 8px oklch(0 0 0 / 0.04);
+  --elevation-2: 0 8px 16px oklch(0 0 0 / 0.08);
+  --elevation-3: 0 16px 32px oklch(0 0 0 / 0.12);
+
+  /* CFB Index Motion (4 roles) - collapse to instant under prefers-reduced-motion */
+  --motion-reveal: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-state: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-data-entry: 420ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --motion-delight: 800ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* CFB Index semantic color ramps (dark-mode defaults in :root, override in .light if needed) */
+  /* Percentile ramp: red → grey → blue (OKLCH-interpolated for perceptual continuity) */
+  --percentile-0: oklch(0.55 0.18 12);
+  --percentile-10: oklch(0.56 0.14 18);
+  --percentile-25: oklch(0.58 0.09 30);
+  --percentile-50: oklch(0.6 0.02 250);
+  --percentile-75: oklch(0.62 0.09 240);
+  --percentile-90: oklch(0.65 0.15 250);
+  --percentile-100: oklch(0.68 0.18 255);
+
+  /* Belief ramp: red → grey → green */
+  --belief-negative: oklch(0.5 0.15 20);
+  --belief-neutral: oklch(0.6 0.02 250);
+  --belief-positive: oklch(0.6 0.15 145);
+
+  /* Accolade gold */
+  --accolade-gold-base: oklch(0.7 0.12 85);
+  --accolade-gold-highlight: oklch(0.8 0.1 90);
+
+  /* Team accent (Notre Dame blue-gold) */
+  --team-accent: oklch(0.45 0.15 260);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-reveal: 0ms linear;
+    --motion-state: 0ms linear;
+    --motion-data-entry: 0ms linear;
+    --motion-delight: 0ms linear;
+  }
+}
+
+.dark {
+  /* CFB Index dark-mode-first surface */
+  --background: oklch(0.18 0.01 250);
+  --foreground: oklch(0.95 0.01 250);
+  --card: oklch(0.18 0.01 250);
+  --card-foreground: oklch(0.95 0.01 250);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.22 0.01 250);
+  --secondary-foreground: oklch(0.95 0.01 250);
+  --muted: oklch(0.22 0.01 250);
+  --muted-foreground: oklch(0.6 0.02 250);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.25 0.01 250);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.7 0.12 85);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+
+  /* CFB Index Elevation (dark-mode shadows) */
+  --elevation-1: 0 2px 8px oklch(0.18 0.01 250 / 0.3);
+  --elevation-2: 0 8px 16px oklch(0.18 0.01 250 / 0.4);
+  --elevation-3: 0 16px 32px oklch(0.18 0.01 250 / 0.5);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}
