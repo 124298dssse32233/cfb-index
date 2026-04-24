@@ -1,10 +1,61 @@
 from __future__ import annotations
 
+import logging
+import os
+import random
+import time
 from contextlib import contextmanager
 from pathlib import Path
 import re
 import sqlite3
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable, TypeVar
+
+log = logging.getLogger(__name__)
+
+T = TypeVar("T")
+
+# Transient-error retry. On Windows under Dropbox/OneDrive/Defender contention
+# we see SQLite occasionally raise OperationalError with "database is locked"
+# or "attempt to write a readonly database" — the file is momentarily held by
+# the sync/scan process. These are harmless if retried, and fatal if not. Env
+# overrides exist so Kevin can tune without editing code.
+_RETRY_MAX_ATTEMPTS = int(os.environ.get("CFB_DB_RETRY_ATTEMPTS", "6"))
+_RETRY_BASE_SECONDS = float(os.environ.get("CFB_DB_RETRY_BASE", "0.25"))
+_RETRY_CAP_SECONDS = float(os.environ.get("CFB_DB_RETRY_CAP", "5.0"))
+_RETRYABLE_PHRASES = (
+    "database is locked",
+    "readonly database",
+    "disk i/o error",
+    "database schema has changed",
+)
+
+
+def _is_retryable(exc: sqlite3.OperationalError) -> bool:
+    message = (str(exc) or "").lower()
+    return any(phrase in message for phrase in _RETRYABLE_PHRASES)
+
+
+def _with_retry(op_name: str, fn: Callable[[], T]) -> T:
+    last: sqlite3.OperationalError | None = None
+    for attempt in range(1, _RETRY_MAX_ATTEMPTS + 1):
+        try:
+            return fn()
+        except sqlite3.OperationalError as exc:
+            if not _is_retryable(exc) or attempt == _RETRY_MAX_ATTEMPTS:
+                raise
+            backoff = min(
+                _RETRY_CAP_SECONDS,
+                _RETRY_BASE_SECONDS * (2 ** (attempt - 1)),
+            ) * (0.75 + random.random() * 0.5)  # jitter
+            log.warning(
+                "db.%s attempt %d/%d hit %s — sleeping %.2fs and retrying",
+                op_name, attempt, _RETRY_MAX_ATTEMPTS, exc, backoff,
+            )
+            time.sleep(backoff)
+            last = exc
+    if last is not None:
+        raise last
+    raise RuntimeError("unreachable")
 
 
 class Database:
@@ -25,24 +76,36 @@ class Database:
 
     def apply_sql_file(self, path: str | Path) -> None:
         sql_text = Path(path).read_text(encoding="utf-8")
-        with self.connection() as conn:
-            conn.executescript(sql_text)
-            conn.commit()
+
+        def _op() -> None:
+            with self.connection() as conn:
+                conn.executescript(sql_text)
+                conn.commit()
+
+        _with_retry("apply_sql_file", _op)
 
     def execute(self, query: str, params: dict[str, Any] | tuple[Any, ...] | None = None) -> None:
         normalized_query = _normalize_query(query)
-        with self.connection() as conn:
-            conn.execute(normalized_query, params or {})
-            conn.commit()
+
+        def _op() -> None:
+            with self.connection() as conn:
+                conn.execute(normalized_query, params or {})
+                conn.commit()
+
+        _with_retry("execute", _op)
 
     def execute_many(self, query: str, rows: Iterable[dict[str, Any] | tuple[Any, ...]]) -> None:
         batch = list(rows)
         if not batch:
             return
         normalized_query = _normalize_query(query)
-        with self.connection() as conn:
-            conn.executemany(normalized_query, batch)
-            conn.commit()
+
+        def _op() -> None:
+            with self.connection() as conn:
+                conn.executemany(normalized_query, batch)
+                conn.commit()
+
+        _with_retry("execute_many", _op)
 
     def query_all(
         self,
@@ -50,12 +113,16 @@ class Database:
         params: dict[str, Any] | tuple[Any, ...] | None = None,
     ) -> list[dict[str, Any]]:
         normalized_query = _normalize_query(query)
-        with self.connection() as conn:
-            cursor = conn.execute(normalized_query, params or {})
-            rows = [dict(row) for row in cursor.fetchall()]
-            if _is_mutating_query(normalized_query):
-                conn.commit()
-            return rows
+
+        def _op() -> list[dict[str, Any]]:
+            with self.connection() as conn:
+                cursor = conn.execute(normalized_query, params or {})
+                rows = [dict(row) for row in cursor.fetchall()]
+                if _is_mutating_query(normalized_query):
+                    conn.commit()
+                return rows
+
+        return _with_retry("query_all", _op)
 
     def query_one(
         self,
@@ -96,9 +163,12 @@ class Database:
                 do nothing
             """
 
-        with self.connection() as conn:
-            conn.executemany(query, rows)
-            conn.commit()
+        def _op() -> None:
+            with self.connection() as conn:
+                conn.executemany(query, rows)
+                conn.commit()
+
+        _with_retry("upsert_many", _op)
 
     def column_exists(self, table: str, column: str) -> bool:
         with self.connection() as conn:
