@@ -138,7 +138,7 @@ def _window_key(window: dict) -> str:
 # ---------------------------------------------------------------------------
 
 
-def _build_plan_json(window: dict) -> dict:
+def _build_plan_json(window: dict) -> dict | None:
     entry = {
         "mode": window["mode"],
         "subreddit": window["subreddit"],
@@ -149,7 +149,13 @@ def _build_plan_json(window: dict) -> dict:
         "replace_existing": False,
     }
     if window["mode"] == "subreddit_listing":
-        entry["team"] = window["team_name"] or "National"
+        # collect-reddit-plan's subreddit_listing mode requires a real team
+        # name to attribute rows. The r/CFB sitewide row (team_name is None)
+        # doesn't map cleanly onto this API — skip at runtime by returning
+        # a sentinel; caller filters out these windows.
+        if not window["team_name"]:
+            return None  # caller will skip
+        entry["team"] = window["team_name"]
         entry["listing"] = "new"
         entry["require_cfb_context"] = window["subreddit"].upper() == "CFB"
     else:
@@ -229,6 +235,9 @@ def backfill_one(
         return "skipped-completed"
 
     plan_json = _build_plan_json(window)
+    if plan_json is None:
+        state["completed"][key] = "skipped-unsupported"
+        return "skipped-completed"
 
     if not commit:
         print(f"[DRY-RUN] {key} -> mode={window['mode']} "
@@ -259,7 +268,7 @@ def backfill_one(
         # Both providers failed.
         state["errors"][key] = stdout[-500:] if stdout else "unknown error"
         _record_scrape_health(window["source_key"], window, "error", stdout[:500])
-        print(f"[FAIL] {key}\n    {stdout[:200]}")
+        print(f"[FAIL] {key}\n    {stdout[-1200:]}")
         return "error"
     finally:
         try:
