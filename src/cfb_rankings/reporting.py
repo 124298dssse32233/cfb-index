@@ -2536,6 +2536,181 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Coaching Lineage — Signature Bets S2.9 / §4 Bet #11. Small module
+# near Supporting Cast. Renders hand-authored seed data for the top
+# programs; empty state elsewhere.
+_COACHING_LINEAGE_CSS_BLOCK = """
+@layer components {
+  .coaching-lineage {
+    margin: 0 0 var(--space-6, 1.5rem) 0;
+    padding: var(--space-5, 1.25rem);
+    background: var(--card, #fff);
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-lg, 16px);
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+  }
+  .coaching-lineage__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .coaching-lineage__title {
+    margin: 0;
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-h2, 1.15rem);
+    line-height: 1.2;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .coaching-lineage__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-3, 0.75rem);
+  }
+  .coaching-lineage__col h3 {
+    margin: 0 0 var(--space-1, 0.25rem) 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .coaching-lineage__coach {
+    margin: 0;
+    font-size: var(--fs-body, 0.95rem);
+    font-weight: 700;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .coaching-lineage__scheme {
+    margin: 0;
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+  }
+  .coaching-lineage__chip {
+    display: inline-block;
+    padding: 2px var(--space-2, 0.5rem);
+    border-radius: 999px;
+    border: 1px solid var(--accolade-gold-base, #d1a23a);
+    color: var(--accolade-gold-base, #d1a23a);
+    background: color-mix(in srgb, var(--accolade-gold-base) 8%, transparent);
+    font-size: calc(var(--fs-meta, 0.72rem) * 0.9);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .coaching-lineage__lineage {
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+    font-style: italic;
+  }
+  .coaching-lineage__comparative {
+    font-size: var(--fs-body, 0.9rem);
+    color: var(--card-foreground, var(--foreground, #222));
+    line-height: 1.4;
+    border-top: 1px dashed var(--border, #d0d0d0);
+    padding-top: var(--space-2, 0.5rem);
+  }
+  .coaching-lineage__system {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3, 0.75rem);
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+    font-variant-numeric: tabular-nums;
+  }
+  .coaching-lineage--empty {
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+    font-style: italic;
+  }
+}
+"""
+
+
+def render_coaching_lineage_card(lineage: dict[str, Any] | None, team_name: str) -> str:
+    """Render the coaching-lineage module. Empty state when no seed exists."""
+    if not lineage:
+        return (
+            '<article class="coaching-lineage coaching-lineage--empty" '
+            'data-module="coaching-lineage" data-state="empty">'
+            '  <p class="coaching-lineage__eyebrow">Coaching Lineage</p>'
+            '  <p class="coaching-lineage__title">Awaiting seed data.</p>'
+            '  <p>Hand-authored seeds cover the top programs today; '
+            'coverage grows with each data pull.</p>'
+            '</article>'
+        )
+    hc = lineage.get("head_coach") or {}
+    oc = lineage.get("offensive_coordinator") or {}
+    dc = lineage.get("defensive_coordinator") or {}
+    notes = lineage.get("notes") or {}
+    sysfp = oc.get("system_fingerprint") or {}
+    lineage_list = (oc.get("lineage") or [])[:3]
+
+    def _chip(text: str) -> str:
+        return (
+            f'<span class="coaching-lineage__chip">{escape(text)}</span>'
+            if text else ""
+        )
+
+    lineage_txt = " → ".join(str(x) for x in lineage_list) if lineage_list else ""
+    system_bits: list[str] = []
+    if sysfp.get("plays_per_game") is not None:
+        system_bits.append(f'{sysfp["plays_per_game"]} plays/gm')
+    if sysfp.get("pass_rate") is not None:
+        system_bits.append(f'{int(float(sysfp["pass_rate"]) * 100)}% pass rate')
+    if sysfp.get("explosive_rate") is not None:
+        system_bits.append(f'{int(float(sysfp["explosive_rate"]) * 100)}% explosive')
+    if sysfp.get("tempo"):
+        system_bits.append(f'{sysfp["tempo"]} tempo')
+
+    system_html = (
+        '<div class="coaching-lineage__system">'
+        + "".join(f'<span>{escape(b)}</span>' for b in system_bits)
+        + '</div>'
+        if system_bits else ""
+    )
+
+    comparative = str(notes.get("comparative_line") or "")
+    comparative_html = (
+        f'<p class="coaching-lineage__comparative">{escape(comparative)}</p>'
+        if comparative else ""
+    )
+
+    return (
+        '<article class="coaching-lineage" data-module="coaching-lineage" '
+        'data-state="ready">'
+        '  <p class="coaching-lineage__eyebrow">Coaching Lineage</p>'
+        f'  <h2 class="coaching-lineage__title">{escape(str(lineage.get("display_name") or team_name))}</h2>'
+        '  <div class="coaching-lineage__grid">'
+        '    <div class="coaching-lineage__col">'
+        '      <h3>Head coach</h3>'
+        f'      <p class="coaching-lineage__coach">{escape(str(hc.get("name") or "—"))}</p>'
+        f'      <p class="coaching-lineage__scheme">Year {hc.get("year_in_seat") or "—"} '
+        f'&middot; from {escape(str(hc.get("prior_school") or "—"))}</p>'
+        f'      {_chip(str(notes.get("continuity_chip") or ""))}'
+        '    </div>'
+        '    <div class="coaching-lineage__col">'
+        '      <h3>Offensive coordinator</h3>'
+        f'      <p class="coaching-lineage__coach">{escape(str(oc.get("name") or "—"))}</p>'
+        f'      <p class="coaching-lineage__scheme">Year {oc.get("year_in_seat") or "—"} '
+        f'&middot; {escape(str(oc.get("scheme_family") or "—"))}</p>'
+        f'      <p class="coaching-lineage__lineage">{escape(lineage_txt)}</p>'
+        f'      {system_html}'
+        '    </div>'
+        '    <div class="coaching-lineage__col">'
+        '      <h3>Defensive coordinator</h3>'
+        f'      <p class="coaching-lineage__coach">{escape(str(dc.get("name") or "—"))}</p>'
+        f'      <p class="coaching-lineage__scheme">Year {dc.get("year_in_seat") or "—"} '
+        f'&middot; {escape(str(dc.get("scheme_family") or "—"))}</p>'
+        '    </div>'
+        '  </div>'
+        f'  {comparative_html}'
+        '</article>'
+    )
+
+
 # Prediction Markets — Signature Bets S2.8 / §4 Bet #9. Small card
 # near the Hero surfacing Heisman futures snapshot. Honest empty state
 # when the player isn't on a major market today.
@@ -3618,6 +3793,8 @@ def _compose_global_css() -> str:
         + _ACHIEVEMENTS_CSS_BLOCK
         + "\n/* === Prediction Markets (S2.8) === */\n"
         + _PREDICTION_MARKETS_CSS_BLOCK
+        + "\n/* === Coaching Lineage (S2.9) === */\n"
+        + _COACHING_LINEAGE_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -5735,6 +5912,14 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["market_signal"] = None
+        # Coaching lineage (Signature Bets S2.9) — YAML-seeded, team-keyed.
+        try:
+            from cfb_rankings.bets.coaching_lineage import fetch_coaching_lineage
+            page_data["coaching_lineage"] = fetch_coaching_lineage(
+                (page_data.get("primary_team") or {}).get("team_slug")
+            )
+        except Exception:
+            page_data["coaching_lineage"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -15450,6 +15635,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="supporting-cast">
         {_render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
+        {render_coaching_lineage_card(player_data.get("coaching_lineage"), team_name)}
       </section>
 
       <section class="section player-anchor-section" id="bio-tabs">

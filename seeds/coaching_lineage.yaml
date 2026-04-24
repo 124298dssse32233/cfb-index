@@ -1,0 +1,162 @@
+# Coaching Lineage — Signature Bets S2.9 / §4 Bet #11.
+#
+# Manual seed covering a starter set of programs. Each program entry
+# carries head coach + OC + DC, scheme family, system-fingerprint
+# stats, and a 3-deep lineage where traceable. When the cfbd_coaching
+# ingestion pipeline lands this file becomes a fallback — the loader
+# prefers DB rows when present, falls back to YAML when not.
+#
+# Editorial style: short and factual. Coach names lowercased in slug
+# form so cross-referencing a coach-across-programs page later is a
+# table join, not a fuzzy match.
+
+programs:
+  "notre-dame":
+    display_name: Notre Dame
+    head_coach:
+      name: Marcus Freeman
+      year_in_seat: 4
+      prior_school: Cincinnati (DC)
+    offensive_coordinator:
+      name: Mike Denbrock
+      year_in_seat: 3
+      scheme_family: RPO-heavy spread
+      system_fingerprint:
+        plays_per_game: 72
+        pass_rate: 0.56
+        explosive_rate: 0.14
+        tempo: moderate
+      lineage:
+        - Mike Denbrock
+        - Nick Saban (Alabama assistant influence)
+        - Steve Spurrier (Florida offense)
+    defensive_coordinator:
+      name: Al Golden
+      year_in_seat: 3
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 3 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Denbrock's previous 3 QBs averaged +0.28 WEPA/play across 2 seasons;
+        Carr posted +0.41 in Year 1 of the system.
+
+  "ohio-state":
+    display_name: Ohio State
+    head_coach:
+      name: Ryan Day
+      year_in_seat: 7
+      prior_school: Temple (OC)
+    offensive_coordinator:
+      name: Chip Kelly
+      year_in_seat: 2
+      scheme_family: Up-tempo spread
+      system_fingerprint:
+        plays_per_game: 74
+        pass_rate: 0.52
+        explosive_rate: 0.15
+        tempo: fast
+      lineage:
+        - Chip Kelly
+        - Rich Rodriguez (West Virginia spread era)
+        - Mouse Davis (run-and-shoot roots)
+    defensive_coordinator:
+      name: Jim Knowles
+      year_in_seat: 4
+      scheme_family: Multiple 4-2-5
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Kelly's spread retains the up-tempo identity Day installed in 2019,
+        with Knowles' havoc defense a consistent second-half strength.
+
+  "alabama":
+    display_name: Alabama
+    head_coach:
+      name: Kalen DeBoer
+      year_in_seat: 2
+      prior_school: Washington
+    offensive_coordinator:
+      name: Ryan Grubb
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.55
+        explosive_rate: 0.13
+        tempo: moderate
+      lineage:
+        - Ryan Grubb
+        - Nick Rolovich (June Jones tree)
+        - Mike Leach (Air Raid descendant)
+    defensive_coordinator:
+      name: Kane Wommack
+      year_in_seat: 2
+      scheme_family: Aggressive 4-2-5
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        DeBoer's Washington teams averaged +0.18 WEPA/play across 2 seasons;
+        the system translates against SEC fronts when the OL holds up.
+
+  "michigan":
+    display_name: Michigan
+    head_coach:
+      name: Sherrone Moore
+      year_in_seat: 2
+      prior_school: Michigan (OC)
+    offensive_coordinator:
+      name: Chip Lindsey
+      year_in_seat: 1
+      scheme_family: Pro-style RPO
+      system_fingerprint:
+        plays_per_game: 68
+        pass_rate: 0.48
+        explosive_rate: 0.11
+        tempo: slow
+      lineage:
+        - Chip Lindsey
+        - Gus Malzahn (Auburn RPO)
+        - Herb Hand (zone read lineage)
+    defensive_coordinator:
+      name: Wink Martindale
+      year_in_seat: 2
+      scheme_family: NFL 3-4 multiple
+    notes:
+      continuity_chip: "NEW OC · Year 1"
+      year_on_year_change: New OC (Lindsey in)
+      comparative_line: >-
+        Scheme tilts back toward pro-style RPO after Campbell → Warinner era.
+        First-year transition carries higher variance on Heisman projections.
+
+  "georgia":
+    display_name: Georgia
+    head_coach:
+      name: Kirby Smart
+      year_in_seat: 10
+      prior_school: Alabama (DC)
+    offensive_coordinator:
+      name: Mike Bobo
+      year_in_seat: 3
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 66
+        pass_rate: 0.50
+        explosive_rate: 0.12
+        tempo: slow
+      lineage:
+        - Mike Bobo
+        - Mark Richt (Florida State lineage)
+        - Bobby Bowden (FSU fork)
+    defensive_coordinator:
+      name: Glenn Schumann
+      year_in_seat: 2
+      scheme_family: Multiple 4-2-5
+    notes:
+      continuity_chip: Year 3 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Smart/Bobo partnership carries the Saban-tree discipline; 10-year
+        HC tenure makes schematic continuity the program's baseline.
