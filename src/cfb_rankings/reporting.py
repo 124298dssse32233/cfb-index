@@ -1093,6 +1093,31 @@ _SAVANT_CSS_BLOCK = """
   color: var(--muted-foreground);
   line-height: 1.5;
 }
+.savant__metrics {
+  display: flex; flex-direction: column; gap: var(--space-2);
+}
+.savant__metric-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) auto 1fr;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-meta);
+}
+.savant__metric-name { color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.06em; }
+.savant__metric-value {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+  text-align: right;
+}
+.savant__metric-placement { color: var(--foreground); font-weight: 600; }
+.savant__metric-placement em { color: var(--muted-foreground); font-style: normal; font-weight: 400; font-size: 11px; margin-left: var(--space-1); }
 """
 
 
@@ -2391,6 +2416,151 @@ _GLOSSARY_CSS_BLOCK = """
 """
 
 
+# Live Signal Flow — Signature Bets S1.6 / §4 Bet #13. Thin bar above
+# the Hero on any player page with >= 1 active (non-decayed) event in
+# player_signal_events. The JS layer fades opacity over the decay window
+# and hides entries once fraction hits 0.
+_SIGNAL_FLOW_CSS_BLOCK = """
+@layer components {
+  .signal-flow {
+    margin: 0 0 var(--space-4, 1rem) 0;
+    padding: var(--space-3, 0.75rem) var(--space-5, 1.25rem);
+    border-left: 3px solid var(--accolade-gold-base, #d1a23a);
+    background: color-mix(in srgb, var(--accolade-gold-base) 6%, var(--card));
+    border-radius: var(--radius-md, 12px);
+    font-size: var(--fs-body, 0.95rem);
+    display: grid;
+    gap: var(--space-2, 0.5rem);
+  }
+  .signal-flow[aria-expanded="false"] .signal-flow__sub {
+    display: none;
+  }
+  .signal-flow__event {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: var(--space-2, 0.5rem);
+    transition: opacity var(--motion-state, 180ms) linear;
+  }
+  .signal-flow__dot {
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: var(--destructive, #c43a3a);
+    animation: signal-flow-pulse 1.8s infinite;
+  }
+  .signal-flow__headline {
+    font-weight: 600;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .signal-flow__meta {
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .signal-flow__sub {
+    grid-column: 1 / -1;
+    color: var(--muted-foreground, #666);
+    font-size: var(--fs-meta, 0.78rem);
+    padding-left: 1.05em;
+  }
+  .signal-flow__toggle {
+    justify-self: end;
+    min-width: 44px;
+    min-height: 24px;
+    padding: 0 var(--space-2, 0.5rem);
+    border: none;
+    background: transparent;
+    color: var(--muted-foreground, #666);
+    font-size: var(--fs-meta, 0.72rem);
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .signal-flow__toggle:hover,
+  .signal-flow__toggle:focus-visible {
+    color: var(--foreground, #222);
+  }
+  .signal-flow__source {
+    color: var(--accolade-gold-base, #d1a23a);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  @keyframes signal-flow-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.45; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .signal-flow__dot { animation: none; }
+    .signal-flow__event { transition: none; }
+  }
+}
+"""
+
+
+def render_signal_flow_bar(signals: list[Any] | None) -> str:
+    """Render the Live Signal Flow bar from a list of bets.signal_flow.Signal.
+
+    Empty list / None returns empty string — zero visual impact when no
+    events are active.
+    """
+    if not signals:
+        return ""
+    events_html: list[str] = []
+    has_sub = False
+    for sig in signals:
+        try:
+            data = sig.to_render_dict()
+        except AttributeError:
+            continue
+        source_html = ""
+        if data.get("source_url") and data.get("source_name"):
+            source_html = (
+                f'<a class="signal-flow__source" href="{escape(data["source_url"])}" '
+                f'rel="noopener">{escape(data["source_name"])}</a>'
+            )
+        elif data.get("source_name"):
+            source_html = (
+                f'<span class="signal-flow__source">{escape(data["source_name"])}</span>'
+            )
+        sub_html = ""
+        if data.get("sub_line"):
+            has_sub = True
+            sub_html = (
+                f'<p class="signal-flow__sub">{escape(str(data["sub_line"]))}'
+                f'{" &middot; " + source_html if source_html else ""}</p>'
+            )
+        elif source_html:
+            has_sub = True
+            sub_html = f'<p class="signal-flow__sub">{source_html}</p>'
+        decay_hours = getattr(sig, "decay_hours", 72)
+        events_html.append(
+            f'<div class="signal-flow__event" '
+            f'data-event-ts="{escape(data["event_ts"])}" '
+            f'data-decay-hours="{escape(str(decay_hours))}" '
+            f'data-event-type="{escape(data["event_type"])}">'
+            f'  <span class="signal-flow__dot" aria-hidden="true"></span>'
+            f'  <span class="signal-flow__headline">{escape(data["headline"])}</span>'
+            f'  <span class="signal-flow__meta">LIVE</span>'
+            f'  {sub_html}'
+            f'</div>'
+        )
+    toggle_html = (
+        '<button type="button" class="signal-flow__toggle" '
+        'aria-controls="signal-flow-events">Details</button>'
+        if has_sub else ""
+    )
+    return (
+        f'<aside class="signal-flow" data-signal-flow '
+        f'role="status" aria-live="polite" aria-expanded="false" '
+        f'aria-label="Live signal flow">'
+        f'{"".join(events_html)}'
+        f'{toggle_html}'
+        f'</aside>'
+    )
+
+
 # Weekly "What Changed" diff — Signature Bets S1.4 / §4 Bet #6.
 # Client-only (JS-gated): first visit writes a snapshot; return visits
 # diff it and render a small gold-left-border card above the hero. The
@@ -2675,6 +2845,8 @@ def _compose_global_css() -> str:
         + _CONFIDENCE_CSS_BLOCK
         + "\n/* === What-Changed diff card (S1.4) === */\n"
         + _WHAT_CHANGED_CSS_BLOCK
+        + "\n/* === Live Signal Flow bar (S1.6) === */\n"
+        + _SIGNAL_FLOW_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -2708,6 +2880,7 @@ def _ensure_global_assets(site_root: Path) -> str:
         "js/subnav.js",
         "js/bets/glossary.js",
         "js/bets/what-changed.js",
+        "js/bets/signal-flow.js",
         "fonts/Inter-Variable.woff2",
         "fonts/InterDisplay-SemiBold.woff2",
         "fonts/InterDisplay-Bold.woff2",
@@ -2753,6 +2926,7 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>\n'
         f'    <script src="/assets/js/bets/glossary.js" defer></script>\n'
         f'    <script src="/assets/js/bets/what-changed.js" defer></script>\n'
+        f'    <script src="/assets/js/bets/signal-flow.js" defer></script>\n'
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
     )
 
@@ -4615,6 +4789,66 @@ def build_player_page_data_map(
         )
     stat_peer_context = _build_player_stat_peer_context(peer_stat_rows, peer_usage_rows, peer_value_rows)
 
+    # Bulk-fetch active signals (Signature Bets S1.6). One query; empty
+    # table on fresh DBs → zero signals, zero rendered bars.
+    signals_by_player: dict[int, list[Any]] = {}
+    try:
+        from cfb_rankings.bets.signal_flow import fetch_active_signals
+        import datetime as _dt_sf
+        _sf_now = _dt_sf.datetime.now(_dt_sf.timezone.utc)
+        for _row in db.query_all(
+            "SELECT DISTINCT player_id FROM player_signal_events"
+        ):
+            pid = int(_row["player_id"])
+            signals_by_player[pid] = fetch_active_signals(db, pid, now=_sf_now)
+    except Exception:
+        signals_by_player = {}
+
+    # V5 aggregators (data-wiring follow-up) — precomputed once per build.
+    team_strength_index = _compute_team_strength_index(db, current_season)
+    top_receivers_by_team = _compute_top_receivers_by_team(db, current_season)
+    savant_bands = _compute_savant_cohort_bands(db, current_season)
+
+    # Per-player value metrics (all rows, keyed by player_id).
+    pvm_by_player: dict[int, list[dict[str, Any]]] = {}
+    for row in db.query_all(
+        "SELECT player_id, metric_name, metric_value FROM player_value_metrics "
+        "WHERE season_year = :s",
+        {"s": current_season},
+    ):
+        pvm_by_player.setdefault(int(row["player_id"]), []).append(
+            {"metric_name": row["metric_name"], "metric_value": row["metric_value"]}
+        )
+
+    # Per-player stat volume rank within their team+position (precomputed
+    # in one pass so the build doesn't run a correlated subquery per player).
+    stat_rank_by_player: dict[int, int] = {}
+    vol_rows = db.query_all(
+        """
+        SELECT player_id, team_id, position,
+               SUM(stat_value_num) AS total_vol
+        FROM player_season_stats
+        WHERE season_year = :s
+          AND category IN ('passing','rushing','receiving','defensive')
+          AND stat_type IN ('YDS','CAR','REC','ATT','SOLO','TOT')
+          AND stat_value_num IS NOT NULL
+          AND player_id IS NOT NULL
+          AND team_id IS NOT NULL
+        GROUP BY player_id, team_id, position
+        """,
+        {"s": current_season},
+    )
+    # Rank within (team_id, position) by descending total_vol.
+    team_pos_buckets: dict[tuple[int, str], list[tuple[int, float]]] = {}
+    for row in vol_rows:
+        team_pos_buckets.setdefault(
+            (int(row["team_id"]), str(row["position"] or "")), []
+        ).append((int(row["player_id"]), float(row["total_vol"] or 0)))
+    for key, players in team_pos_buckets.items():
+        players.sort(key=lambda t: t[1], reverse=True)
+        for idx, (pid, _) in enumerate(players):
+            stat_rank_by_player[pid] = idx + 1  # 1-based
+
     player_pages: dict[str, dict[str, Any]] = {}
     for row in player_directory_rows:
         player_id = int(row["player_id"])
@@ -4634,7 +4868,13 @@ def build_player_page_data_map(
             honors_by_player.get(player_id, []),
             algorithmic_signature_index.get(player_id),
             player_mood_index.get(player_id),
+            team_strength_index=team_strength_index,
+            top_receivers_by_team=top_receivers_by_team,
+            savant_bands=savant_bands,
+            player_value_metrics=pvm_by_player.get(player_id, []),
+            stat_rank_on_team=stat_rank_by_player.get(player_id),
         )
+        page_data["active_signals"] = signals_by_player.get(player_id, [])
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -4649,6 +4889,281 @@ def build_player_page_data_map(
             row["conference_name"] = page_data["primary_team"]["conference_name"]
         player_pages[str(row["player_slug"])] = page_data
     return player_pages
+
+
+# ---------------------------------------------------------------------------
+# Data aggregators for v5 modules (S.5 data wiring follow-up)
+# ---------------------------------------------------------------------------
+# Each aggregator is lazy + memoized per (db, season) pair. First call
+# computes, subsequent calls return cached dict.
+_TEAM_STRENGTH_CACHE: dict[tuple[int, int], dict[int, dict[str, Any]]] = {}
+_TOP_RECEIVERS_CACHE: dict[tuple[int, int], dict[int, list[dict[str, Any]]]] = {}
+_SAVANT_BANDS_CACHE: dict[tuple[int, int], dict[str, dict[str, dict[str, dict[str, Any]]]]] = {}
+
+
+def _db_key(db: Any) -> int:
+    return id(db)
+
+
+def _compute_team_strength_index(db: Database, season: int) -> dict[int, dict[str, Any]]:
+    """Compute a 5-tier strength band (0-4) + rung addend for every team.
+
+    Tier boundaries from FBS power_rating distribution:
+      Tier 4 (+2) blueblood     — FBS p90+
+      Tier 3 (+1) elite P4      — FBS p75-p90
+      Tier 2 ( 0) mid P4        — FBS p25-p75 (baseline)
+      Tier 1 (-1) weak P4 / strong G5 — FBS p10-p25
+      Tier 0 (-2) weak G5       — FBS < p10
+      FCS/DII/DIII: addend -3
+
+    Recruiting boost: if FBS and team's 4-yr avg 247 Composite rating is
+    in the top decile, bump tier up by 1 (max tier 4).
+    Blend matches research spec: ~60% power rating tier + ~40% recruiting
+    as one-tier boost signal.
+    """
+    cache_key = (_db_key(db), season)
+    if cache_key in _TEAM_STRENGTH_CACHE:
+        return _TEAM_STRENGTH_CACHE[cache_key]
+
+    power_rows = db.query_all(
+        """
+        SELECT prw.team_id,
+               MAX(prw.power_rating) AS power_rating,
+               t.level_code
+        FROM power_ratings_weekly prw
+        JOIN teams t ON t.team_id = prw.team_id
+        WHERE prw.model_run_id = (SELECT MAX(model_run_id) FROM power_ratings_weekly)
+        GROUP BY prw.team_id, t.level_code
+        """
+    )
+
+    recruiting_rows = db.query_all(
+        """
+        SELECT team_id, AVG(rating) AS avg_rating, COUNT(*) AS n
+        FROM recruiting_entries
+        WHERE season_year BETWEEN :s0 AND :s1 AND rating IS NOT NULL
+        GROUP BY team_id
+        HAVING n >= 5
+        """,
+        {"s0": season - 3, "s1": season},
+    )
+    recruiting_map = {int(r["team_id"]): float(r["avg_rating"]) for r in recruiting_rows}
+
+    fbs_ratings = sorted(
+        (float(r["power_rating"]) for r in power_rows
+         if r["level_code"] == "FBS" and r["power_rating"] is not None),
+        reverse=True,
+    )
+    if not fbs_ratings:
+        _TEAM_STRENGTH_CACHE[cache_key] = {}
+        return {}
+    n = len(fbs_ratings)
+    p90 = fbs_ratings[max(0, int(n * 0.10))]
+    p75 = fbs_ratings[max(0, int(n * 0.25))]
+    p25 = fbs_ratings[min(n - 1, int(n * 0.75))]
+    p10 = fbs_ratings[min(n - 1, int(n * 0.90))]
+
+    rec_vals = sorted(recruiting_map.values(), reverse=True)
+    rec_top = rec_vals[max(0, int(len(rec_vals) * 0.10))] if rec_vals else None
+
+    out: dict[int, dict[str, Any]] = {}
+    for row in power_rows:
+        team_id = int(row["team_id"])
+        level = str(row["level_code"] or "")
+        rating = float(row["power_rating"] or 0.0)
+        rec_rating = recruiting_map.get(team_id)
+
+        if level != "FBS":
+            tier, addend = -1, -3
+        elif rating >= p90:
+            tier, addend = 4, 2
+        elif rating >= p75:
+            tier, addend = 3, 1
+        elif rating >= p25:
+            tier, addend = 2, 0
+        elif rating >= p10:
+            tier, addend = 1, -1
+        else:
+            tier, addend = 0, -2
+
+        if (level == "FBS" and rec_rating is not None and rec_top is not None
+            and rec_rating >= rec_top and tier < 4):
+            tier += 1
+            addend = min(2, addend + 1)
+
+        out[team_id] = {
+            "tier": tier,
+            "addend": addend,
+            "level": level,
+            "power_rating": round(rating, 3),
+            "recruiting_rating_4yr": round(rec_rating, 4) if rec_rating is not None else None,
+        }
+
+    _TEAM_STRENGTH_CACHE[cache_key] = out
+    return out
+
+
+def _compute_top_receivers_by_team(db: Database, season: int) -> dict[int, list[dict[str, Any]]]:
+    """For every team in `season`, return the top-4 receivers by yards
+    (top-4 so caller can skip self and still get 3)."""
+    cache_key = (_db_key(db), season)
+    if cache_key in _TOP_RECEIVERS_CACHE:
+        return _TOP_RECEIVERS_CACHE[cache_key]
+    rows = db.query_all(
+        """
+        SELECT team_id,
+               player_id,
+               MAX(player_name) AS player_name,
+               MAX(position) AS position,
+               MAX(CASE WHEN stat_type='REC' THEN stat_value_num END) AS catches,
+               MAX(CASE WHEN stat_type='YDS' THEN stat_value_num END) AS yards,
+               MAX(CASE WHEN stat_type='TD'  THEN stat_value_num END) AS tds
+        FROM player_season_stats
+        WHERE season_year = :s AND category = 'receiving'
+        GROUP BY team_id, player_id
+        HAVING yards IS NOT NULL AND yards > 0
+        ORDER BY team_id, yards DESC
+        """,
+        {"s": season},
+    )
+    out: dict[int, list[dict[str, Any]]] = {}
+    for row in rows:
+        tid = int(row["team_id"])
+        bucket = out.setdefault(tid, [])
+        if len(bucket) >= 4:
+            continue
+        bucket.append({
+            "player_id": int(row["player_id"]),
+            "name": str(row["player_name"] or "Unknown"),
+            "position": str(row["position"] or ""),
+            "catches": int(row["catches"] or 0),
+            "yards": int(row["yards"] or 0),
+            "tds": int(row["tds"] or 0),
+        })
+    _TOP_RECEIVERS_CACHE[cache_key] = out
+    return out
+
+
+def _compute_savant_cohort_bands(db: Database, season: int) -> dict[str, dict[str, dict[str, dict[str, Any]]]]:
+    """Per-position, per-metric, per-cohort percentile bands.
+    Shape: bands[position][metric][cohort] = {p25, p50, p75, p90, n}
+    Cohorts: 'p4' (SEC/B1G/ACC/B12/ND), 'g5' (other FBS), 'all' (all FBS).
+    """
+    cache_key = (_db_key(db), season)
+    if cache_key in _SAVANT_BANDS_CACHE:
+        return _SAVANT_BANDS_CACHE[cache_key]
+
+    p4_conferences = ("SEC", "Big Ten", "ACC", "Big 12", "FBS Independents")
+
+    rows = db.query_all(
+        """
+        SELECT pvm.team_id, pvm.position, pvm.metric_name, pvm.metric_value,
+               COALESCE(pvm.conference_name, '') AS conf,
+               t.level_code
+        FROM player_value_metrics pvm
+        LEFT JOIN teams t ON t.team_id = pvm.team_id
+        WHERE pvm.season_year = :s AND pvm.metric_value IS NOT NULL
+        """,
+        {"s": season},
+    )
+
+    def _tier(conf: str, level: str) -> str | None:
+        if level != "FBS":
+            return None
+        return "p4" if conf in p4_conferences else "g5"
+
+    bands: dict[str, dict[str, dict[str, list[float]]]] = {}
+    for r in rows:
+        pos = str(r["position"] or "").upper()
+        metric = str(r["metric_name"] or "")
+        if not pos or not metric:
+            continue
+        val = float(r["metric_value"])
+        pb = bands.setdefault(pos, {})
+        mb = pb.setdefault(metric, {"p4": [], "g5": [], "all": []})
+        tier = _tier(str(r["conf"]), str(r["level_code"] or ""))
+        if tier:
+            mb[tier].append(val)
+        mb["all"].append(val)
+
+    def _pctiles(values: list[float]) -> dict[str, Any]:
+        if not values:
+            return {"p25": 0.0, "p50": 0.0, "p75": 0.0, "p90": 0.0, "n": 0}
+        values = sorted(values)
+        m = len(values)
+        def at(q: float) -> float:
+            i = min(m - 1, max(0, int(round(q * (m - 1)))))
+            return round(values[i], 4)
+        return {"p25": at(0.25), "p50": at(0.50), "p75": at(0.75), "p90": at(0.90), "n": m}
+
+    out: dict[str, dict[str, dict[str, dict[str, Any]]]] = {}
+    for pos, metrics in bands.items():
+        op = out.setdefault(pos, {})
+        for metric, cohorts in metrics.items():
+            op[metric] = {c: _pctiles(vals) for c, vals in cohorts.items()}
+
+    _SAVANT_BANDS_CACHE[cache_key] = out
+    return out
+
+
+def _classify_player_rung(
+    *,
+    best_heisman_rank: int | None,
+    official_best_finish: int | None,
+    honors_count: int,
+    stat_volume_rank_on_team: int | None,
+    team_strength: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Map a player onto the 17-rung ladder, then apply team-strength
+    addend (rungs 0-7 only; honor rungs untouched).
+    """
+    raw: int | None = None
+    reason: str | None = None
+
+    if best_heisman_rank and official_best_finish == 1:
+        raw, reason = 16, "Heisman winner"
+    elif best_heisman_rank and best_heisman_rank <= 5:
+        raw, reason = 15, f"Heisman finalist (rank #{best_heisman_rank})"
+    elif best_heisman_rank and best_heisman_rank <= 12:
+        raw, reason = 12, f"Heisman top-12 (rank #{best_heisman_rank})"
+    elif best_heisman_rank and best_heisman_rank <= 25:
+        raw, reason = 11, f"Heisman top-25 (rank #{best_heisman_rank})"
+    elif honors_count >= 3:
+        raw, reason = 13, f"{honors_count} national honors"
+    elif honors_count >= 1:
+        raw, reason = 10, f"{honors_count} all-conference-tier honor(s)"
+    elif stat_volume_rank_on_team is not None:
+        if stat_volume_rank_on_team == 1:
+            raw, reason = 7, "top volume at position on team"
+        elif stat_volume_rank_on_team <= 2:
+            raw, reason = 6, f"#{stat_volume_rank_on_team} at position"
+        elif stat_volume_rank_on_team <= 3:
+            raw, reason = 5, f"#{stat_volume_rank_on_team} at position (rotational)"
+        elif stat_volume_rank_on_team <= 5:
+            raw, reason = 4, f"#{stat_volume_rank_on_team} at position"
+        else:
+            raw, reason = 3, f"#{stat_volume_rank_on_team} at position (backup)"
+    else:
+        raw, reason = 1, "no stat volume on record"
+
+    addend = 0
+    team_tier = None
+    if team_strength and raw is not None and raw <= 7:
+        addend = int(team_strength.get("addend") or 0)
+        team_tier = team_strength.get("tier")
+    adjusted: int | None = None
+    if raw is not None:
+        adjusted = max(0, min(16, raw + addend))
+        if raw <= 7:
+            adjusted = min(adjusted, 7)
+
+    return {
+        "rung_id": adjusted,
+        "raw_rung": raw,
+        "addend": addend,
+        "team_tier": team_tier,
+        "why": reason,
+    }
 
 
 def _assemble_player_page_data(
@@ -4667,6 +5182,12 @@ def _assemble_player_page_data(
     honors_history: list[dict[str, Any]],
     algorithmic_signature: dict[str, Any] | None = None,
     the_room: dict[str, Any] | None = None,
+    *,
+    team_strength_index: dict[int, dict[str, Any]] | None = None,
+    top_receivers_by_team: dict[int, list[dict[str, Any]]] | None = None,
+    savant_bands: dict[str, dict[str, dict[str, dict[str, Any]]]] | None = None,
+    player_value_metrics: list[dict[str, Any]] | None = None,
+    stat_rank_on_team: int | None = None,
 ) -> dict[str, Any]:
     current_season = int(summary["season_year"])
     current_roster = next((row for row in roster_history if int(row.get("season_year") or 0) == current_season), None)
@@ -4884,42 +5405,93 @@ def _assemble_player_page_data(
             "career_arc": f"{len(roster_history)} season(s)" if roster_history else None,
         }
 
-    # V5 Player Standing — cheap classification from existing data. More
-    # sophisticated ladder-classifier is a follow-up data task.
+    # V5 Player Standing — full 17-rung classifier with team-strength
+    # weighting. Honors tier first, then stat-volume rank within team
+    # at the player's position, then team-strength addend applied only
+    # to rungs 0-7. Inputs (team_strength_index, stat_rank_on_team)
+    # precomputed in build_player_page_data_map and passed in.
+    team_strength = None
+    if team_strength_index:
+        team_strength = team_strength_index.get(int((primary_team or {}).get("team_id") or 0))
+
+    honors_count = sum(
+        1 for h in (honors_history or [])
+        if "all-american" in str(h.get("honor_type") or "").lower()
+        or "all-conf" in str(h.get("honor_type") or "").lower()
+    )
+
+    rung_result = _classify_player_rung(
+        best_heisman_rank=best_heisman_rank,
+        official_best_finish=official_best_finish,
+        honors_count=honors_count,
+        stat_volume_rank_on_team=stat_rank_on_team,
+        team_strength=team_strength,
+    )
+
     standing_payload = None
-    nowcast_rank = (current_snapshot or {}).get("current_heisman_rank") or best_heisman_rank
-    official_finish = (current_snapshot or {}).get("official_finish") or official_best_finish
-    # Use Heisman nowcast as a cheap rung proxy:
-    # - rank 1       → POTY Winner (rung 16) only after season finalized
-    # - rank 2-5     → POTY Finalist (rung 15)
-    # - rank 6-20    → National watch (rung 11) / All-American (rung 12)
-    # - honors       → All-Conf 1st (rung 10) if any All-Conference honor
-    # Default: Starter (rung 6) — most FBS players with game action.
-    rung_id = None
-    if nowcast_rank:
-        try:
-            r = int(nowcast_rank)
-            if r == 1 and official_finish == 1:
-                rung_id = 16
-            elif r <= 5:
-                rung_id = 15
-            elif r <= 12:
-                rung_id = 12
-            elif r <= 25:
-                rung_id = 11
-        except (TypeError, ValueError):
-            pass
-    if rung_id is None and honors_history:
-        for h in honors_history:
-            label = str(h.get("honor_type") or h.get("honor") or "").lower()
-            if "all-american" in label or "unanimous" in label or "consensus" in label:
-                rung_id = 12
-                break
-            if "all-conf" in label or "all conference" in label:
-                rung_id = 10
-                break
-    if rung_id is not None:
-        standing_payload = {"current_rung_id": rung_id}
+    if rung_result.get("rung_id") is not None:
+        standing_payload = {
+            "current_rung_id": rung_result["rung_id"],
+            "raw_rung_id": rung_result.get("raw_rung"),
+            "team_tier": rung_result.get("team_tier"),
+            "addend": rung_result.get("addend"),
+            "why": rung_result.get("why"),
+            "team_strength": team_strength,
+        }
+
+    # V5 Supporting Cast — top-3 teammate receivers (excluding self).
+    supporting_cast_payload = None
+    tid = int((primary_team or {}).get("team_id") or 0)
+    if tid and top_receivers_by_team:
+        receivers = top_receivers_by_team.get(tid) or []
+        self_id = int(player_row["player_id"])
+        picks = [r for r in receivers if r["player_id"] != self_id][:3]
+        if picks:
+            supporting_cast_payload = {
+                "top_receivers": [
+                    {
+                        "name": r["name"],
+                        "targets": r["catches"] * 2 if r["catches"] else 0,  # rough — no targets field
+                        "catches": r["catches"],
+                        "yards": r["yards"],
+                        "tds": r["tds"],
+                        "percentile": None,
+                    }
+                    for r in picks
+                ],
+            }
+
+    # V5 Advanced Savant — per-cohort percentile bands (P4/G5/AllFBS).
+    # `savant_bands` is precomputed per-season/position and `player_value_metrics`
+    # is the per-player metric snapshot; both passed in from the caller.
+    savant_payload = None
+    position_key = str(player_identity.get("position") or "").upper()
+    if position_key and savant_bands:
+        bands = savant_bands.get(position_key)
+        if bands and player_value_metrics:
+            player_metrics: dict[str, float] = {}
+            for pr in player_value_metrics:
+                mn = str(pr.get("metric_name") or "")
+                mv = pr.get("metric_value")
+                if mn and mv is not None:
+                    try:
+                        player_metrics[mn] = float(mv)
+                    except (TypeError, ValueError):
+                        pass
+            if player_metrics:
+                savant_payload = {
+                    "metrics": [
+                        {
+                            "metric": mn,
+                            "value": round(mv, 3),
+                            "cohorts": {
+                                coh: bands.get(mn, {}).get(coh) or {}
+                                for coh in ("p4", "g5", "all")
+                            },
+                        }
+                        for mn, mv in sorted(player_metrics.items())
+                    ],
+                }
 
     # V5 Peer Comparator — pull 4 nearest peers from the Signature Story
     # cohort strip. Every qualifying member has {player_id, player_name,
@@ -4983,6 +5555,8 @@ def _assemble_player_page_data(
         "roster": roster_card,
         "standing": standing_payload,
         "peers": peers_payload,
+        "supporting_cast": supporting_cast_payload,
+        "savant": savant_payload,
     }
 
 
@@ -13385,6 +13959,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     _what_changed_blob = build_player_state_blob(player_data)
     _what_changed_script = state_blob_script_tag(_player_slug, _what_changed_blob)
 
+    # Live Signal Flow bar (Signature Bets S1.6). Renders empty string
+    # when there are no active events for this player.
+    _signal_flow_html = render_signal_flow_bar(player_data.get("active_signals"))
+
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -13399,6 +13977,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <div class="phase-banner" role="note">
         <span class="phase-banner__label">OFFSEASON &middot; SPRING 2026 &middot; DRAFT WEEK</span>
       </div>
+      {_signal_flow_html}
       {_what_changed_script}
       <div data-what-changed aria-live="polite"></div>
       <section class="team-shell" style="--team-accent:{team_theme['accent']}; --team-accent-soft:{team_theme['accent_soft']};">
@@ -15389,7 +15968,10 @@ def _render_v5_peer_comparator_card(peers: list[dict[str, Any]] | None) -> str:
 
 
 def _render_v5_savant_card(savant: dict[str, Any] | None) -> str:
-    """Advanced Savant v5 — cohort filter + advanced stats (S.5e). Shell only."""
+    """Advanced Savant v5 — cohort filter + advanced stats (S.5e).
+
+    Populated when `savant.metrics` exists (per-player WEPA-family rows).
+    """
     pills = ("p4", "g5", "all")
     pill_labels = {"p4": "P4", "g5": "G5", "all": "All FBS"}
     buttons_html: list[str] = []
@@ -15400,17 +15982,62 @@ def _render_v5_savant_card(savant: dict[str, Any] | None) -> str:
             f'x-on:click="cohort = \'{pid}\'" '
             f'x-bind:aria-pressed="cohort === \'{pid}\'">{escape(pill_labels[pid])}</button>'
         )
+
+    metrics = (savant or {}).get("metrics") or []
+    if not metrics:
+        body_html = (
+            '<div class="savant__awaiting" role="status">'
+            'No WEPA-family advanced metrics ingested for this player yet. '
+            'Populates when `player_value_metrics` has entries for `player_id`. '
+            'Selected cohort: <strong x-text="cohort.toUpperCase()">P4</strong>.'
+            '</div>'
+        )
+        state = "empty"
+    else:
+        def _placement(value: Any, band: dict[str, Any]) -> str:
+            n = band.get("n") or 0
+            if value is None or n == 0:
+                return "—"
+            p25, p50, p75, p90 = band.get("p25"), band.get("p50"), band.get("p75"), band.get("p90")
+            if p90 is not None and value >= p90: return "Elite (≥p90)"
+            if p75 is not None and value >= p75: return "High (p75–p90)"
+            if p50 is not None and value >= p50: return "Mid (p50–p75)"
+            if p25 is not None and value >= p25: return "Low (p25–p50)"
+            return "Below (<p25)"
+
+        rows_html: list[str] = []
+        for m in metrics[:10]:
+            metric = str(m.get("metric") or "")
+            value = m.get("value")
+            cohorts = m.get("cohorts") or {}
+            p4_b = cohorts.get("p4") or {}
+            g5_b = cohorts.get("g5") or {}
+            all_b = cohorts.get("all") or {}
+            p4_text = f'{escape(_placement(value, p4_b))} <em>(n={p4_b.get("n") or 0})</em>'
+            g5_text = f'{escape(_placement(value, g5_b))} <em>(n={g5_b.get("n") or 0})</em>'
+            all_text = f'{escape(_placement(value, all_b))} <em>(n={all_b.get("n") or 0})</em>'
+            value_str = f'{value:g}' if isinstance(value, (int, float)) else "—"
+            rows_html.append(
+                '<div class="savant__metric-row">'
+                f'<span class="savant__metric-name">{escape(metric)}</span>'
+                f'<span class="savant__metric-value">{escape(value_str)}</span>'
+                f'<span class="savant__metric-placement" x-show="cohort === \'p4\'">{p4_text}</span>'
+                f'<span class="savant__metric-placement" x-show="cohort === \'g5\'" style="display:none;">{g5_text}</span>'
+                f'<span class="savant__metric-placement" x-show="cohort === \'all\'" style="display:none;">{all_text}</span>'
+                '</div>'
+            )
+        body_html = f'<div class="savant__metrics">{"".join(rows_html)}</div>'
+        state = "ready"
+
     return f"""
-      <article class="savant" data-module="advanced-savant" data-state="empty"
+      <article class="savant" data-module="advanced-savant" data-state="{state}"
                x-data="{{ cohort: (window.urlState && window.urlState.get('savant')) || 'p4' }}">
         <header class="savant__header">
           <h2 class="savant__title">Advanced Savant</h2>
           <p class="savant__sub">Opponent-adjusted advanced metrics with a cohort filter.</p>
         </header>
         <div class="savant__filter" role="group" aria-label="Cohort filter">{"".join(buttons_html)}</div>
-        <div class="savant__awaiting" role="status">
-          Per-cohort advanced metric snapshots populate when the per-cohort aggregator runs against P4 / G5 / All-FBS reference sets. Selected cohort: <strong x-text="cohort.toUpperCase()">P4</strong>.
-        </div>
+        {body_html}
       </article>
     """
 
