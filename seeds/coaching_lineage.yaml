@@ -703,6 +703,186 @@ programs:
         plays field-position ball. QB efficiency traded for low INT
         risk.
 
+  "baylor":
+    display_name: Baylor
+    head_coach:
+      name: Dave Aranda
+      year_in_seat: 6
+      prior_school: LSU (DC)
+    offensive_coordinator:
+      name: Jake Spavital
+      year_in_seat: 2
+      scheme_family: Air Raid spread
+      system_fingerprint:
+        plays_per_game: 73
+        pass_rate: 0.58
+        explosive_rate: 0.15
+        tempo: fast
+      lineage:
+        - Jake Spavital
+        - Kliff Kingsbury (Tech Air Raid)
+        - Mike Leach (Air Raid)
+    defensive_coordinator:
+      name: Matt Powledge
+      year_in_seat: 2
+      scheme_family: 3-3-5 odd
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Aranda's LSU pedigree on defense pairs with Spavital's Air
+        Raid — Baylor's QB room posts top-15 YPA when the OL holds.
+
+  "tcu":
+    display_name: TCU
+    head_coach:
+      name: Sonny Dykes
+      year_in_seat: 4
+      prior_school: SMU
+    offensive_coordinator:
+      name: Kendal Briles
+      year_in_seat: 2
+      scheme_family: Briles-family spread
+      system_fingerprint:
+        plays_per_game: 76
+        pass_rate: 0.55
+        explosive_rate: 0.18
+        tempo: fast
+      lineage:
+        - Kendal Briles
+        - Art Briles (originator)
+        - RPO spread heritage
+    defensive_coordinator:
+      name: Andy Avalos
+      year_in_seat: 2
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Briles-family offense means vertical shots + tempo; TCU's
+        explosive-play rate is consistently top-15 nationally.
+
+  "kansas-state":
+    display_name: Kansas State
+    head_coach:
+      name: Chris Klieman
+      year_in_seat: 7
+      prior_school: North Dakota State
+    offensive_coordinator:
+      name: Matt Wells
+      year_in_seat: 2
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.50
+        explosive_rate: 0.12
+        tempo: moderate
+      lineage:
+        - Matt Wells (Utah State)
+        - Bill Snyder (K-State tradition)
+        - Kirk Ferentz (Iowa pro-style lineage)
+    defensive_coordinator:
+      name: Joe Klanderman
+      year_in_seat: 6
+      scheme_family: 4-2-5 multiple
+    notes:
+      continuity_chip: Year 2 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Klieman's program stays scheme-stable; K-State QBs thrive
+        when the run game opens up play-action shots.
+
+  "virginia-tech":
+    display_name: Virginia Tech
+    head_coach:
+      name: Brent Pry
+      year_in_seat: 4
+      prior_school: Penn State (DC)
+    offensive_coordinator:
+      name: Tyler Bowen
+      year_in_seat: 3
+      scheme_family: Pro-style RPO
+      system_fingerprint:
+        plays_per_game: 68
+        pass_rate: 0.51
+        explosive_rate: 0.11
+        tempo: moderate
+      lineage:
+        - Tyler Bowen (Maryland / Hokies influence)
+        - James Franklin (Penn State heritage)
+        - Matt Canada (zone-read RPO)
+    defensive_coordinator:
+      name: Chris Marve
+      year_in_seat: 2
+      scheme_family: 4-3 base
+    notes:
+      continuity_chip: Year 3 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Pry's rebuild keeps the Penn State DNA on defense; the
+        offense trails the scheme upgrade the conference set in 2024.
+
+  "west-virginia":
+    display_name: West Virginia
+    head_coach:
+      name: Rich Rodriguez
+      year_in_seat: 1
+      prior_school: Jacksonville State
+    offensive_coordinator:
+      name: Pat White
+      year_in_seat: 1
+      scheme_family: Read-option spread
+      system_fingerprint:
+        plays_per_game: 78
+        pass_rate: 0.45
+        explosive_rate: 0.14
+        tempo: fast
+      lineage:
+        - Pat White (WVU 2007 QB era)
+        - Rich Rodriguez (spread originator)
+        - Larry Coker (run-read roots)
+    defensive_coordinator:
+      name: Zac Alley
+      year_in_seat: 1
+      scheme_family: 3-3-5 odd
+    notes:
+      continuity_chip: "NEW STAFF · Year 1"
+      year_on_year_change: New OC + DC (full rebuild)
+      comparative_line: >-
+        Rodriguez back in Morgantown. First-year variance is the
+        dominant story; the scheme DNA is the 2007 highlight tape.
+
+  "byu":
+    display_name: BYU
+    head_coach:
+      name: Kalani Sitake
+      year_in_seat: 10
+      prior_school: Utah (assistant)
+    offensive_coordinator:
+      name: Aaron Roderick
+      year_in_seat: 5
+      scheme_family: Pro-style spread
+      system_fingerprint:
+        plays_per_game: 70
+        pass_rate: 0.55
+        explosive_rate: 0.13
+        tempo: moderate
+      lineage:
+        - Aaron Roderick
+        - BYU quarterback tradition
+        - LaVell Edwards (BYU heritage)
+    defensive_coordinator:
+      name: Jay Hill
+      year_in_seat: 2
+      scheme_family: 3-4 multiple
+    notes:
+      continuity_chip: Year 5 OC
+      year_on_year_change: Same OC
+      comparative_line: >-
+        Roderick's QB development pipeline is the program's identity;
+        Edwards-era pass-game DNA hasn't drifted far.
+
   "utah":
     display_name: Utah
     head_coach:
