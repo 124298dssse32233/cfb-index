@@ -86,7 +86,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [x] TASK 7.1 — Phase detection (Sonnet)
 - [ ] TASK 7.2 — Offseason Status chip + 2026 Outlook module (Sonnet)
 - [ ] TASK 7.3 — Development Trajectory module (Sonnet)
-- [ ] TASK 7.4 — Methodology page global-nav link (Opus single-edit, Haiku diff)
+- [x] TASK 7.4 — Methodology page global-nav link (Opus single-edit, Haiku diff)
 - [ ] TASK 7.5 — Phase S1 voice layer (Sonnet)
 - [ ] TASK 7.6 — Draft Day Live skeleton (Sonnet)
 
@@ -99,7 +99,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [ ] TASK 8.5 — Weekly site rebuild + publish (Sonnet)
 - [ ] TASK 8.6 — Monthly deep-research refresh trigger (Sonnet)
 - [ ] TASK 8.7 — Freshness page (Sonnet)
-- [ ] TASK 8.8 — Autopilot dashboard CLI (Sonnet)
+- [x] TASK 8.8 — Autopilot dashboard CLI (Sonnet)
 
 ## Workstream 9 — End-to-end audit
 
