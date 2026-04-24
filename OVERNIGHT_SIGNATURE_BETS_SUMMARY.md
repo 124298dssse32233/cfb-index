@@ -73,8 +73,17 @@ In order (see [docs/specs/signature_bets/phase_s5_roadmap.md](docs/specs/signatu
 ## Commit chain (this session)
 
 ```
-24 bets/content/tests/docs commits since Phase S3 close (5b8a868).
-Latest: 11a517b (narrative arc expansion).
+28+ bets/content/tests/docs commits since Phase S3 close (5b8a868).
+Latest work: b085965 coaching lineage 24 → 30 programs + 308526f
+player-bets-audit CLI.
+
+Final state:
+- 14 hot-take templates (was 6 at Phase S2 close)
+- 10 hand-authored narrative arcs (was 2 at Phase S3 close)
+- 30 coaching-lineage programs (was 5 at Phase S2 close)
+- 27 regression tests (new)
+- New CLI: `python manage.py player-bets-audit <slug>` — dumps every
+  module's output for a player in one command.
 ```
 
 Full list via `git log --oneline --grep="bets:\|content:\|tests:\|docs:" -30`.
