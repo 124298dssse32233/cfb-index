@@ -2536,6 +2536,94 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Signature Moment — Signature Bets S3.2 / §4 Bet #8. Small card under
+# the Signature Story that surfaces the player's season-defining game.
+# Needs ≥ 2 games of coverage; empty state otherwise.
+_SIGNATURE_PLAY_CSS_BLOCK = """
+@layer components {
+  .signature-play {
+    margin: var(--space-4, 1rem) 0 0 0;
+    padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+    background: color-mix(in srgb, var(--muted, #eee) 18%, var(--card));
+    border: 1px solid var(--border, #d0d0d0);
+    border-left: 3px solid var(--percentile-100, #5985ff);
+    border-radius: var(--radius-md, 12px);
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+  }
+  .signature-play__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .signature-play__headline {
+    margin: 0;
+    font-size: var(--fs-h2, 1.1rem);
+    line-height: 1.25;
+    color: var(--card-foreground, var(--foreground, #222));
+    font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .signature-play__sub {
+    margin: 0;
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+  }
+  .signature-play__gloss {
+    margin: 0;
+    font-size: var(--fs-body, 0.95rem);
+    line-height: 1.4;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .signature-play--empty .signature-play__headline {
+    font-weight: 500;
+    font-style: italic;
+    color: var(--muted-foreground, #666);
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+  }
+}
+"""
+
+
+def render_signature_play_card(moment: Any | None) -> str:
+    """Render the Signature Moment card. Empty state when no moment qualifies."""
+    if moment is None:
+        return (
+            '<article class="signature-play signature-play--empty" '
+            'data-module="signature-play" data-state="empty">'
+            '  <p class="signature-play__eyebrow">Signature Moment</p>'
+            '  <p class="signature-play__headline">Lights up once multi-game coverage loads.</p>'
+            '  <p class="signature-play__sub">Today\'s player_game_stats only carries 2025 Week 1 — we ship when the next weeks land.</p>'
+            '</article>'
+        )
+    if hasattr(moment, "week"):
+        data = {
+            "week": moment.week,
+            "metric_id": moment.metric_id,
+            "stat_value": moment.stat_value,
+            "opponent_name": moment.opponent_name,
+            "home_away": moment.home_away,
+            "result_label": moment.result_label,
+            "gloss": moment.gloss,
+        }
+    else:
+        data = moment or {}
+    site = "at" if data.get("home_away") == "away" else "vs"
+    return (
+        '<article class="signature-play" data-module="signature-play" data-state="ready">'
+        '  <p class="signature-play__eyebrow">Signature Moment</p>'
+        f'  <p class="signature-play__headline">Week {int(data.get("week") or 0)} '
+        f'{site} {escape(str(data.get("opponent_name") or "—"))} — '
+        f'{int(float(data.get("stat_value") or 0))} {escape(str(data.get("metric_id") or ""))}</p>'
+        f'  <p class="signature-play__sub">Result {escape(str(data.get("result_label") or "—"))}</p>'
+        f'  <p class="signature-play__gloss">{escape(str(data.get("gloss") or ""))}</p>'
+        '</article>'
+    )
+
+
 # Cohort Divergence Map — Signature Bets S3.1 / §4 Bet #10. SVG
 # scatter showing per-bucket (belief, intensity, mention-volume) for a
 # player. Lives inside The Room as a collapsible <details> so
@@ -3980,6 +4068,8 @@ def _compose_global_css() -> str:
         + _COACHING_LINEAGE_CSS_BLOCK
         + "\n/* === Cohort Divergence Map (S3.1) === */\n"
         + _COHORT_DIVERGENCE_CSS_BLOCK
+        + "\n/* === Signature Moment (S3.2) === */\n"
+        + _SIGNATURE_PLAY_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -4147,6 +4237,14 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         _report_progress(f"Hot-Take cache populated with {n_takes} row(s).")
     except Exception as exc:
         _report_progress(f"Hot-Take cache skipped: {exc}")
+
+    # Signature Bets S3.2 — Signature Moment cache. Cheap + idempotent.
+    try:
+        from cfb_rankings.bets.signature_play import compute_signature_plays_for_season
+        n_plays = compute_signature_plays_for_season(db, int(summary["season_year"]))
+        _report_progress(f"Signature Moment cache populated for {n_plays} player(s).")
+    except Exception as exc:
+        _report_progress(f"Signature Moment cache skipped: {exc}")
 
     # Signature Bets S2.7 — achievements detection + rarity pass. Small
     # set of detectors, cheap queries; idempotent per season_year.
@@ -6113,6 +6211,14 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["cohort_divergence"] = None
+        # Signature Moment (Signature Bets S3.2) — read from cache.
+        try:
+            from cfb_rankings.bets.signature_play import fetch_signature_moment
+            page_data["signature_moment"] = fetch_signature_moment(
+                db, player_id, int(summary["season_year"])
+            )
+        except Exception:
+            page_data["signature_moment"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -15591,6 +15697,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="signature-story">
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
+        {render_signature_play_card(player_data.get("signature_moment"))}
         <article class="panel">
           <div class="section-head">
             <h2>{escape(str(signature_story.get("title") or "What makes this player interesting right now"))}</h2>
