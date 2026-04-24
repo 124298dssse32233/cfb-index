@@ -2917,6 +2917,73 @@ _KEYBOARD_SCREENSHOT_CSS_BLOCK = """
     opacity: 1;
     transform: translateY(0);
   }
+  .cfb-kb-help {
+    position: fixed;
+    inset: 0;
+    background: color-mix(in srgb, #000 60%, transparent);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4, 1rem);
+  }
+  .cfb-kb-help[data-open="true"] { display: flex; }
+  .cfb-kb-help__inner {
+    width: min(560px, 100%);
+    background: var(--popover, var(--card, #fff));
+    color: var(--popover-foreground, var(--foreground, #222));
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-5, 1.25rem);
+    box-shadow: var(--elevation-3, 0 16px 32px rgba(0,0,0,0.18));
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .cfb-kb-help__inner header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2, 0.5rem);
+    border-bottom: 1px solid var(--border, #d0d0d0);
+    padding-bottom: var(--space-2, 0.5rem);
+    margin-bottom: var(--space-3, 0.75rem);
+  }
+  .cfb-kb-help__inner h2 {
+    margin: 0;
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-h2, 1.2rem);
+  }
+  .cfb-kb-help__close {
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    color: var(--muted-foreground, #666);
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+  .cfb-kb-help__close:hover,
+  .cfb-kb-help__close:focus-visible { color: var(--foreground, #222); }
+  .cfb-kb-help dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+    margin: 0;
+    font-size: var(--fs-body, 0.95rem);
+  }
+  .cfb-kb-help dt {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    font-weight: 700;
+    padding: 2px var(--space-2, 0.5rem);
+    background: color-mix(in srgb, var(--muted-foreground, #666) 15%, transparent);
+    border-radius: var(--radius-sm, 8px);
+    color: var(--foreground, #222);
+    align-self: start;
+  }
+  .cfb-kb-help dd {
+    margin: 0;
+    color: var(--muted-foreground, #666);
+  }
 }
 """
 

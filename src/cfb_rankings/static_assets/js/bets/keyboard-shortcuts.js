@@ -123,6 +123,50 @@
     window.dispatchEvent(new CustomEvent('cfb:game-nav', { detail: { dir: dir } }));
   }
 
+  function toggleHelpOverlay() {
+    var el = document.getElementById('cfb-kb-help');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'cfb-kb-help';
+      el.className = 'cfb-kb-help';
+      el.setAttribute('role', 'dialog');
+      el.setAttribute('aria-label', 'Keyboard shortcuts');
+      el.innerHTML =
+        '<div class="cfb-kb-help__inner">' +
+        '  <header>' +
+        '    <h2>Keyboard shortcuts</h2>' +
+        '    <button class="cfb-kb-help__close" type="button" aria-label="Close">&times;</button>' +
+        '  </header>' +
+        '  <dl>' +
+        '    <dt>?</dt><dd>Open Fan Intelligence glossary</dd>' +
+        '    <dt>H</dt><dd>Show this shortcut list</dd>' +
+        '    <dt>J / K</dt><dd>Next / previous section</dd>' +
+        '    <dt>G + R</dt><dd>Jump to The Room</dd>' +
+        '    <dt>G + S</dt><dd>Jump to Signature Story</dd>' +
+        '    <dt>G + V</dt><dd>Jump to Rival Radar</dd>' +
+        '    <dt>G + C</dt><dd>Jump to Peer Comparator</dd>' +
+        '    <dt>G + L</dt><dd>Jump to Supporting Cast (Coaching Lineage)</dd>' +
+        '    <dt>G + A</dt><dd>Jump to Achievements</dd>' +
+        '    <dt>G + B</dt><dd>Jump to Bio</dd>' +
+        '    <dt>S</dt><dd>Toggle screenshot mode (hides nav + chrome)</dd>' +
+        '    <dt>/</dt><dd>Focus peer search</dd>' +
+        '    <dt>C</dt><dd>Copy page URL (includes URL-state query)</dd>' +
+        '    <dt>[ / ]</dt><dd>Previous / next game (per-module)</dd>' +
+        '    <dt>Esc</dt><dd>Close popups / exit screenshot mode</dd>' +
+        '  </dl>' +
+        '</div>';
+      document.body.appendChild(el);
+      el.querySelector('.cfb-kb-help__close').addEventListener('click', function () {
+        el.setAttribute('data-open', 'false');
+      });
+      el.addEventListener('click', function (ev) {
+        if (ev.target === el) el.setAttribute('data-open', 'false');
+      });
+    }
+    var open = el.getAttribute('data-open') === 'true';
+    el.setAttribute('data-open', open ? 'false' : 'true');
+  }
+
   function onKeydown(ev) {
     if (isEditableTarget(ev.target)) return;
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
@@ -142,6 +186,10 @@
     switch (key) {
       case '?':
         openGlossaryPopover();
+        ev.preventDefault();
+        return;
+      case 'h':
+        toggleHelpOverlay();
         ev.preventDefault();
         return;
       case 'j':
