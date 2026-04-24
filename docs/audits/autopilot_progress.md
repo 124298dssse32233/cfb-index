@@ -70,12 +70,12 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [x] TASK 5.2 — Tagger tuning (Opus) — only if 5.1 precision < 0.9
 - [x] TASK 5.3 — Commit tagger run on full corpus (Sonnet)
 - [x] TASK 5.4 — Compute player mood weekly + season rollups (Sonnet)
-- [ ] TASK 5.5 — Rebuild player pages + spot-check (Sonnet)
-- [ ] TASK 5.6 — The Room board + Signature Story board (Sonnet)
+- [x] TASK 5.5 — Rebuild player pages + spot-check (Sonnet)
+- [x] TASK 5.6 — The Room board + Signature Story board (Sonnet)
 
 ## Workstream 6 — Fan Intelligence aggregation backfill
 
-- [ ] TASK 6.1 — Team weekly features (Sonnet)
+- [x] TASK 6.1 — Team weekly features (Sonnet)
 - [x] TASK 6.2 — Cohort aggregation backfill (Sonnet)
 - [x] TASK 6.3 — Divergence backfill (Sonnet)
 - [ ] TASK 6.4 — Hub v5 weekly data (Sonnet)
