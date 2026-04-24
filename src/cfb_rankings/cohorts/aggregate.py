@@ -89,6 +89,13 @@ def parse_week_key(week_key: str) -> tuple[int, int]:
     return int(y), int(w)
 
 
+def normalize_week_key(week_key: str) -> str:
+    """Canonical zero-padded form so 2022-1 and 2022-01 collapse to 2022-01."""
+    # Historical bug: both 'YYYY-W' and 'YYYY-WW' got written for weeks 0-9.
+    y, w = parse_week_key(week_key)
+    return f"{y:04d}-{w:02d}"
+
+
 def _fetch_source_weights(db: Database) -> dict[str, dict[str, Any]]:
     """Return mapping source_id → {tier, cohort_weights(dict), max_publication_form}.
 
@@ -150,6 +157,7 @@ def compute_cohort_week(db: Database, week_key: str,
     Returns counts: {'cells_written': N, 'docs_considered': M, 'docs_skipped': K}.
     """
     season_year, week_int = parse_week_key(week_key)
+    week_key = normalize_week_key(week_key)
 
     # Check the underlying table has SOMETHING with a source_id — the filter
     # to non-D tiers happens inside _fetch_source_weights, and an all-D registry
@@ -272,4 +280,4 @@ def _utcnow_iso() -> str:
     return _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-__all__ = ["compute_cohort_week", "COHORTS", "parse_week_key", "FLOOR_MIN", "FLOOR_STANDARD"]
+__all__ = ["compute_cohort_week", "COHORTS", "parse_week_key", "normalize_week_key", "FLOOR_MIN", "FLOOR_STANDARD"]

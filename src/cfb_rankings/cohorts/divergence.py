@@ -13,6 +13,7 @@ from __future__ import annotations
 import math
 from typing import Iterable
 
+from cfb_rankings.cohorts.aggregate import normalize_week_key
 from cfb_rankings.db import Database
 
 
@@ -32,6 +33,7 @@ def _sample_stdev(values: list[float]) -> float:
 
 def compute_divergence_week(db: Database, week_key: str,
                             teams: Iterable[int] | None = None) -> dict[str, int]:
+    week_key = normalize_week_key(week_key)
     params: dict[str, object] = {"week": week_key}
     filter_sql = ""
     if teams:
