@@ -59,7 +59,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [ ] TASK 4.2 — All-Conference scraper (Sonnet)
 - [ ] TASK 4.3 — Position awards backfill (Sonnet)
 - [ ] TASK 4.4 — Freshman AA + Shaun Alexander (Sonnet)
-- [ ] TASK 4.5 — NFL Draft backfill (Sonnet)
+- [x] TASK 4.5 — NFL Draft backfill (Sonnet)
 - [ ] TASK 4.6 — Mock draft adapter (Sonnet)
 - [ ] TASK 4.7 — NIL valuations snapshot (Sonnet — best effort)
 - [ ] TASK 4.8 — Watch lists ingestor (Sonnet)
@@ -92,13 +92,13 @@ Defaults policy, autonomy rules, and stop conditions live in
 
 ## Workstream 8 — Autopilot: real persistence + scheduling + monitoring
 
-- [ ] TASK 8.1 — DB persistence strategy (Opus decision, Sonnet wire)
-- [ ] TASK 8.2 — Seed + migrate on every workflow bootstrap (Sonnet)
-- [ ] TASK 8.3 — Adapter orchestrator (Sonnet)
-- [ ] TASK 8.4 — scrape_health alerting (Sonnet)
+- [x] TASK 8.1 — DB persistence strategy (Opus decision, Sonnet wire)
+- [x] TASK 8.2 — Seed + migrate on every workflow bootstrap (Sonnet)
+- [x] TASK 8.3 — Adapter orchestrator (Sonnet)
+- [x] TASK 8.4 — scrape_health alerting (Sonnet)
 - [ ] TASK 8.5 — Weekly site rebuild + publish (Sonnet)
 - [ ] TASK 8.6 — Monthly deep-research refresh trigger (Sonnet)
-- [ ] TASK 8.7 — Freshness page (Sonnet)
+- [x] TASK 8.7 — Freshness page (Sonnet)
 - [x] TASK 8.8 — Autopilot dashboard CLI (Sonnet)
 
 ## Workstream 9 — End-to-end audit
