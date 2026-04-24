@@ -2536,6 +2536,51 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Historical "this day" chip — Signature Bets S4.3 / §5 item 19. Small
+# muted line near the hero when the player has a historical game on
+# today's month+day. Empty string when none.
+_THIS_DAY_CSS_BLOCK = """
+@layer components {
+  .this-day-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: var(--space-1, 0.25rem) 0 0 0;
+    padding: 2px var(--space-2, 0.5rem);
+    background: color-mix(in srgb, var(--accolade-gold-base, #d1a23a) 10%, transparent);
+    border: 1px solid var(--accolade-gold-base, #d1a23a);
+    border-radius: 999px;
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--foreground, #222);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    max-width: 100%;
+  }
+  .this-day-chip__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accolade-gold-base, #d1a23a);
+    flex-shrink: 0;
+  }
+}
+"""
+
+
+def render_this_day_chip(moment: Any | None) -> str:
+    if moment is None:
+        return ""
+    headline = getattr(moment, "headline", None) or (moment.get("headline") if isinstance(moment, dict) else None)
+    if not headline:
+        return ""
+    return (
+        '<p class="this-day-chip" data-module="this-day">'
+        '<span class="this-day-chip__dot" aria-hidden="true"></span>'
+        f'<span>{escape(str(headline))}</span>'
+        '</p>'
+    )
+
+
 # Page-change log footer — Signature Bets S4.2 / §5 item 13. A
 # terminal-style tail of the 5 most recent player_signal_events for
 # the player. Ambient; power-user-facing.
@@ -4465,6 +4510,8 @@ def _compose_global_css() -> str:
         + _KEYBOARD_SCREENSHOT_CSS_BLOCK
         + "\n/* === Page-change log footer (S4.2) === */\n"
         + _CHANGE_LOG_CSS_BLOCK
+        + "\n/* === This-day chip (S4.3) === */\n"
+        + _THIS_DAY_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -6634,6 +6681,12 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["narrative_arc"] = None
+        # This-day chip (Signature Bets S4.3) — historical anchor.
+        try:
+            from cfb_rankings.bets.this_day import fetch_this_day_moment
+            page_data["this_day_moment"] = fetch_this_day_moment(db, player_id)
+        except Exception:
+            page_data["this_day_moment"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -16039,6 +16092,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
               <h1>{escape(player_name)}</h1>
               <p class="team-hero-sub">{escape(position)} | {escape(team_name)} | {escape(conference_name)}</p>
               {f'<div class="player-hero-facts">{hero_facts}</div>' if hero_facts else ''}
+              {render_this_day_chip(player_data.get("this_day_moment"))}
             </div>
             <div class="team-rank-chip">Player Card</div>
           </div>
