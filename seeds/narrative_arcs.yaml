@@ -76,3 +76,101 @@ arcs:
           The program's highest-profile QB finish in the modern era.
           Returning-QB scenarios flipped from hypothetical to live
           portal-watch the day after the ceremony.
+
+  "6626":
+    player_name: Darian Mensah
+    season: 2025
+    acts:
+      - title: Transplant
+        week_range: Weeks 1-4
+        inflection: >-
+          Duke's portal bet opened with a 400-yard game that confirmed
+          the Tulane tape translated.
+        synthesis: >-
+          The first four weeks answered "is this a Tulane number or a
+          Duke number?" — it was both.
+
+      - title: Consolidation
+        week_range: Weeks 5-9
+        inflection: >-
+          Three consecutive 300-plus passing games against ACC defenses
+          moved Mensah into Heisman-fringe conversations.
+        synthesis: >-
+          Volume stayed elite; decision-making tightened. Efficiency
+          metrics trailed by a week then caught up.
+
+      - title: Verification
+        week_range: Weeks 10-13
+        inflection: >-
+          Year-end 3,900+ yards clinched a top-10 volume mark in the
+          ACC era and anchored Mensah's NFL-conversation ticket.
+        synthesis: >-
+          Duke's rebuild shifts from "surprise" to "system." The
+          portal gamble plus the Manning Award watch list rewrite the
+          program's ceiling heading into 2026.
+
+  "202":
+    player_name: Carson Beck
+    season: 2025
+    acts:
+      - title: Resettlement
+        week_range: Weeks 1-4
+        inflection: >-
+          Miami opener re-established Beck's baseline after the Georgia
+          chapter; 320 yards + 3 TDs on 28 attempts.
+        synthesis: >-
+          The move to Coral Gables reset the tape; the same QB brain
+          in a faster offense. Early-season variance was expected; the
+          floor held.
+
+      - title: Calibration
+        week_range: Weeks 5-9
+        inflection: >-
+          A Clemson game with 4 TDs + 0 INTs was the quietest elite
+          game of the ACC year — the film traveled more than the
+          box score.
+        synthesis: >-
+          ACC defenses adjusted; Beck adjusted back. Interception rate
+          fell to top-15 in the conference by Week 9.
+
+      - title: Contention
+        week_range: Weeks 10-13
+        inflection: >-
+          Year-end 3,800+ yards with ~90 PCT made Beck the second
+          ACC QB in a decade to clear both thresholds.
+        synthesis: >-
+          The pre-season Heisman favorite ended as the cohort's
+          steadiness pick. Draft-room sentiment matches.
+
+  "11876":
+    player_name: Drew Mestemaker
+    season: 2025
+    acts:
+      - title: Unheralded
+        week_range: Weeks 1-4
+        inflection: >-
+          North Texas opener with 4 TDs + 350 yards broke out of AAC
+          obscurity inside two drives.
+        synthesis: >-
+          The preseason didn't carry Mestemaker; September did. The
+          numbers caught up to what the tape suggested from Week 1.
+
+      - title: Recognition
+        week_range: Weeks 5-9
+        inflection: >-
+          Back-to-back 400-yard games against C-USA + AAC defenses
+          pushed the cumulative volume past every starting QB in the
+          conference.
+        synthesis: >-
+          The Group-of-5 conversation widened: "Which AAC QB gets the
+          P4 transfer-portal call first?"
+
+      - title: Ascension
+        week_range: Weeks 10-13
+        inflection: >-
+          Year-end 4,300+ yards clinched the nation's single-season
+          passing-volume lead among all FBS QBs.
+        synthesis: >-
+          Manning Award watch-list entry landed in a compressed window
+          vs peers; the off-season conversation flipped to whether the
+          system or the QB drove the number.
