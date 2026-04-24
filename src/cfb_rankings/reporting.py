@@ -2536,6 +2536,91 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Page-change log footer — Signature Bets S4.2 / §5 item 13. A
+# terminal-style tail of the 5 most recent player_signal_events for
+# the player. Ambient; power-user-facing.
+_CHANGE_LOG_CSS_BLOCK = """
+@layer components {
+  .change-log {
+    margin: var(--space-6, 1.5rem) 0 var(--space-8, 2rem) 0;
+    padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+    background: color-mix(in srgb, var(--muted, #eee) 25%, var(--card));
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-md, 12px);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+  }
+  .change-log__eyebrow {
+    margin: 0 0 var(--space-2, 0.5rem);
+    font-family: var(--font-sans, 'Inter', sans-serif);
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .change-log__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 2px;
+  }
+  .change-log__list li {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .change-log__ts {
+    color: var(--accolade-gold-base, #d1a23a);
+    margin-right: 0.75em;
+  }
+  .change-log__kind {
+    color: var(--foreground, #222);
+    font-weight: 600;
+    margin-right: 0.5em;
+  }
+  .change-log--empty {
+    font-style: italic;
+    color: var(--muted-foreground, #666);
+  }
+}
+"""
+
+
+def render_change_log(events: list[Any] | None) -> str:
+    """Terminal-tail of the 5 most recent signal events for this player."""
+    if not events:
+        return (
+            '<aside class="change-log change-log--empty" data-module="change-log" data-state="empty">'
+            '<p class="change-log__eyebrow">Page-change log</p>'
+            '<p>No recent events on this page. Signals will land here as ingestion pulls new data.</p>'
+            '</aside>'
+        )
+    items: list[str] = []
+    for sig in events[:5]:
+        try:
+            d = sig.to_render_dict()
+        except AttributeError:
+            continue
+        ts = str(d.get("event_ts") or "")[:16].replace("T", " ")
+        kind = str(d.get("event_type") or "event").replace("_", " ")
+        headline = str(d.get("headline") or "")
+        items.append(
+            f'<li><span class="change-log__ts">{escape(ts)}</span>'
+            f'<span class="change-log__kind">{escape(kind)}</span>'
+            f'<span class="change-log__msg">{escape(headline)}</span></li>'
+        )
+    return (
+        '<aside class="change-log" data-module="change-log" data-state="ready">'
+        '<p class="change-log__eyebrow">Page-change log</p>'
+        f'<ul class="change-log__list">{"".join(items)}</ul>'
+        '</aside>'
+    )
+
+
 # Keyboard-shortcut + screenshot-mode utilities — Signature Bets S4.1 / S4.6.
 # When body[data-screenshot-mode="on"] is set (via `S` keybinding) we
 # hide the top/bottom nav + subnav + any interactive cruft so a reader
@@ -4378,6 +4463,8 @@ def _compose_global_css() -> str:
         + _NARRATIVE_ARC_CSS_BLOCK
         + "\n/* === Keyboard shortcuts + screenshot mode (S4.1 / S4.6) === */\n"
         + _KEYBOARD_SCREENSHOT_CSS_BLOCK
+        + "\n/* === Page-change log footer (S4.2) === */\n"
+        + _CHANGE_LOG_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -16370,6 +16457,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           </div>
         </article>
       </section>
+
+      {render_change_log(player_data.get("active_signals") or [])}
 
     </main>
     <div data-kb-toast aria-live="polite" data-open="false"></div>
