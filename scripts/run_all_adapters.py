@@ -135,6 +135,94 @@ TIERS = {
 }
 
 
+def _three_fail_sources() -> list[str]:
+    """Return source_ids whose last 3 scrape_health runs are all 'error'.
+
+    Defensive against missing table — returns [] if scrape_health is
+    not yet populated.
+    """
+    import sqlite3
+    db_path = ROOT / "cfb_rankings.db"
+    if not db_path.exists():
+        return []
+    try:
+        conn = sqlite3.connect(str(db_path), timeout=30.0)
+        conn.row_factory = sqlite3.Row
+        rows = conn.execute(
+            """
+            SELECT source_id, COUNT(*) AS fails
+            FROM (
+                SELECT source_id, status,
+                    ROW_NUMBER() OVER (PARTITION BY source_id ORDER BY run_date DESC) rn
+                FROM scrape_health
+            )
+            WHERE rn <= 3 AND status = 'error'
+            GROUP BY source_id HAVING COUNT(*) = 3
+            ORDER BY source_id
+            """
+        ).fetchall()
+        return [r["source_id"] for r in rows]
+    except sqlite3.OperationalError:
+        return []
+    finally:
+        try:
+            conn.close()
+        except Exception:
+            pass
+
+
+def _deactivate_source(source_id: str) -> None:
+    """Set source_registry.is_active=0 for a source that crossed the threshold."""
+    import sqlite3
+    db_path = ROOT / "cfb_rankings.db"
+    try:
+        conn = sqlite3.connect(str(db_path), timeout=30.0)
+        conn.execute(
+            "UPDATE source_registry SET is_active = 0 WHERE source_id = ?",
+            (source_id,),
+        )
+        conn.commit()
+        conn.close()
+    except sqlite3.OperationalError as exc:
+        print(f"  [warn] deactivate {source_id} failed: {exc}")
+
+
+def _emit_followup(source_ids: list[str], tier: str) -> None:
+    """Write a dated heading + bullet list to docs/audits/autopilot_followups.md.
+
+    Also tries `gh issue create`; falls back silently if gh is not on PATH.
+    """
+    if not source_ids:
+        return
+    from datetime import datetime
+    followup = ROOT / "docs" / "audits" / "autopilot_followups.md"
+    followup.parent.mkdir(parents=True, exist_ok=True)
+    heading = f"\n## {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')} — 3-fail sources auto-deactivated (tier={tier})\n\n"
+    bullets = "\n".join(
+        f"- `{sid}` — set `source_registry.is_active=0` after 3 consecutive errors."
+        for sid in source_ids
+    )
+    entry = heading + bullets + "\n\n---\n"
+    existing = followup.read_text(encoding="utf-8") if followup.exists() else ""
+    followup.write_text(entry + existing, encoding="utf-8")
+    print(f"  [followup] wrote {len(source_ids)} entry/entries to {followup}")
+
+    # Best-effort: try to file a GitHub issue.
+    try:
+        subprocess.run(
+            [
+                "gh", "issue", "create",
+                "--title", f"Autopilot: {len(source_ids)} source(s) at 3-fail threshold ({tier})",
+                "--body", "Auto-deactivated:\n\n" + bullets,
+                "--label", "autopilot,data-health",
+            ],
+            check=False,
+            timeout=30,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass  # gh not installed or slow — followup file is the durable record
+
+
 def run_tier(tier: str, dry_run: bool = False) -> int:
     steps_fn = TIERS.get(tier)
     if steps_fn is None:
@@ -164,6 +252,19 @@ def run_tier(tier: str, dry_run: bool = False) -> int:
     for name, dur, exit_code in results:
         status = "OK" if exit_code == 0 else f"FAIL({exit_code})"
         print(f"  {status:<9} {dur:>6.1f}s  {name}")
+
+    # TASK 8.4: 3-consecutive-fail alerting. After the tier's runs have
+    # written fresh scrape_health rows, look for sources stuck in error
+    # and deactivate them + emit a follow-up entry.
+    if not dry_run:
+        stuck = _three_fail_sources()
+        if stuck:
+            print(f"\n[orchestrator] {len(stuck)} source(s) at 3-fail threshold:")
+            for sid in stuck:
+                print(f"  - {sid} (deactivating)")
+                _deactivate_source(sid)
+            _emit_followup(stuck, tier)
+
     # Always exit 0: per kickoff autonomy, cron continues even when one
     # adapter errors. Row-level failure lives in scrape_health.
     return 0
