@@ -38,15 +38,15 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [x] TASK 2.2 — Reddit backfill runner (Sonnet)
 - [ ] TASK 2.3 — Execute Reddit backfill (Sonnet, long-running)
 - [ ] TASK 2.4 — Bluesky historical backfill (Sonnet)
-- [ ] TASK 2.5 — Message board backfill (Sonnet, per-board)
-- [ ] TASK 2.6 — RSS-family activation (Sonnet)
-- [ ] TASK 2.7 — Google News RSS activation (Sonnet)
+- [x] TASK 2.5 — Message board backfill (Sonnet, per-board)
+- [x] TASK 2.6 — RSS-family activation (Sonnet)
+- [x] TASK 2.7 — Google News RSS activation (Sonnet)
 - [ ] TASK 2.8 — Podcast ASR selective (Sonnet — optional)
 
 ## Workstream 3 — Tier-A numeric observation backfill
 
-- [ ] TASK 3.1 — Wikipedia pageviews + edits backfill (Sonnet)
-- [ ] TASK 3.2 — GDELT volume backfill (Sonnet)
+- [x] TASK 3.1 — Wikipedia pageviews + edits backfill (Sonnet)
+- [x] TASK 3.2 — GDELT volume backfill (Sonnet)
 - [ ] TASK 3.3 — Prediction markets historical (Sonnet)
 - [ ] TASK 3.4 — SeatGeek live start (Sonnet)
 - [ ] TASK 3.5 — YouTube metadata live start (Sonnet)
@@ -66,10 +66,10 @@ Defaults policy, autonomy rules, and stop conditions live in
 
 ## Workstream 5 — Player-mention extraction at scale
 
-- [ ] TASK 5.1 — Dry-run the tagger on the full corpus (Sonnet)
-- [ ] TASK 5.2 — Tagger tuning (Opus) — only if 5.1 precision < 0.9
-- [ ] TASK 5.3 — Commit tagger run on full corpus (Sonnet)
-- [ ] TASK 5.4 — Compute player mood weekly + season rollups (Sonnet)
+- [x] TASK 5.1 — Dry-run the tagger on the full corpus (Sonnet)
+- [x] TASK 5.2 — Tagger tuning (Opus) — only if 5.1 precision < 0.9
+- [x] TASK 5.3 — Commit tagger run on full corpus (Sonnet)
+- [x] TASK 5.4 — Compute player mood weekly + season rollups (Sonnet)
 - [ ] TASK 5.5 — Rebuild player pages + spot-check (Sonnet)
 - [ ] TASK 5.6 — The Room board + Signature Story board (Sonnet)
 
@@ -96,8 +96,8 @@ Defaults policy, autonomy rules, and stop conditions live in
 - [x] TASK 8.2 — Seed + migrate on every workflow bootstrap (Sonnet)
 - [x] TASK 8.3 — Adapter orchestrator (Sonnet)
 - [x] TASK 8.4 — scrape_health alerting (Sonnet)
-- [ ] TASK 8.5 — Weekly site rebuild + publish (Sonnet)
-- [ ] TASK 8.6 — Monthly deep-research refresh trigger (Sonnet)
+- [x] TASK 8.5 — Weekly site rebuild + publish (Sonnet)
+- [x] TASK 8.6 — Monthly deep-research refresh trigger (Sonnet)
 - [x] TASK 8.7 — Freshness page (Sonnet)
 - [x] TASK 8.8 — Autopilot dashboard CLI (Sonnet)
 
