@@ -5650,7 +5650,11 @@ def _assemble_player_page_data(
         "latest_heisman_season": heisman_years[0]["season_year"] if heisman_years else None,
         "signature_story": signature_story,
         "algorithmic_signature": algorithmic_signature,
-        "the_room": the_room,
+        "the_room": (
+            {**the_room, "buckets": room_buckets}
+            if the_room is not None and room_buckets
+            else (the_room if the_room is not None else ({"buckets": room_buckets} if room_buckets else None))
+        ),
         "stat_profile": stat_profile,
         "season_stat_tables": season_stat_tables,
         "trophy_case": trophy_case,
@@ -13571,7 +13575,11 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
     Per-cohort belief + per-cohort top-quote + per-cohort trajectory will
     populate when the bucket-aware aggregator ships (follow-up task).
     """
-    if not story or not story.get("has_data"):
+    # Empty state: no story AND no per-cohort buckets. If bucket data
+    # exists (from `_compute_player_room_buckets`), synthesize a minimal
+    # story so the rest of the render can use the per-cohort shape.
+    has_buckets = isinstance(story, dict) and bool(story.get("buckets"))
+    if (not story or not story.get("has_data")) and not has_buckets:
         return f"""
           <article class="the-room the-room--empty"
                    data-module="the-room" data-state="empty">
@@ -13611,22 +13619,47 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
             "takeCount": int(top_quote.get("similar_count") or 0),
         }
 
+    # Prefer the per-cohort `buckets` payload (from
+    # `_compute_player_room_buckets`) when present — fully populates all
+    # 4 cohorts with live belief/sample/quote. Falls back to the
+    # primary-only shape if not available.
+    per_cohort = story.get("buckets") if isinstance(story, dict) else None
     buckets: dict[str, dict[str, Any]] = {}
     for cohort_id, label, sample_field in _ROOM_BUCKET_DEFS:
         is_primary = cohort_id == primary_id
-        bucket_sample = int(sample.get(sample_field) or 0)
-        # The "own" bucket reads from sample.mentions (the main count);
-        # rival/national/media read from their dedicated fields.
-        buckets[cohort_id] = {
-            "id": cohort_id,
-            "label": label,
-            "score": primary_score if is_primary else None,
-            "sample": bucket_sample,
-            "confidence": confidence_label if is_primary else "",
-            "topQuote": quote_payload if is_primary else None,
-            "trajectory": [],   # per-cohort time-series not in current payload
-            "awaiting": (not is_primary),
-        }
+        pc = (per_cohort or {}).get(cohort_id) if per_cohort else None
+        if pc:
+            pc_quote = pc.get("top_quote")
+            pc_quote_payload = None
+            if pc_quote and pc_quote.get("text"):
+                pc_quote_payload = {
+                    "text": str(pc_quote.get("text") or ""),
+                    "attrib": str(pc_quote.get("attrib") or "fan"),
+                    "url": str(pc_quote.get("url") or ""),
+                    "takeCount": int(pc_quote.get("takeCount") or 0),
+                }
+            buckets[cohort_id] = {
+                "id": cohort_id,
+                "label": label,
+                "score": pc.get("score"),
+                "sample": int(pc.get("sample") or 0),
+                "confidence": str(pc.get("confidence") or ""),
+                "topQuote": pc_quote_payload,
+                "trajectory": pc.get("trajectory") or [],
+                "awaiting": pc.get("score") is None and int(pc.get("sample") or 0) == 0,
+            }
+        else:
+            bucket_sample = int(sample.get(sample_field) or 0)
+            buckets[cohort_id] = {
+                "id": cohort_id,
+                "label": label,
+                "score": primary_score if is_primary else None,
+                "sample": bucket_sample,
+                "confidence": confidence_label if is_primary else "",
+                "topQuote": quote_payload if is_primary else None,
+                "trajectory": [],
+                "awaiting": not is_primary,
+            }
 
     cohorts_json = json.dumps(buckets, separators=(",", ":"))
 
