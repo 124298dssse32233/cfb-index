@@ -2416,6 +2416,139 @@ _GLOSSARY_CSS_BLOCK = """
 """
 
 
+# Hot-Take card — Signature Bets S2.2 / §4 Bet #2. One defensibly-true
+# one-liner per player per day, rendered as a standalone card above The
+# Room. Paired with the Anti-Take card (S2.3) directly below when an
+# Anti-Take exists.
+_HOT_TAKE_CSS_BLOCK = """
+@layer components {
+  .hot-take {
+    margin: 0 0 var(--space-6, 1.5rem) 0;
+    padding: var(--space-5, 1.25rem) var(--space-6, 1.5rem);
+    background: var(--card, #fff);
+    border: 1px solid var(--border, #d0d0d0);
+    border-left: 3px solid var(--accolade-gold-base, #d1a23a);
+    border-radius: var(--radius-lg, 16px);
+    display: grid;
+    gap: var(--space-2, 0.5rem);
+  }
+  .hot-take__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accolade-gold-base, #d1a23a);
+    font-weight: 600;
+  }
+  .hot-take__text {
+    margin: 0;
+    font-size: var(--fs-h2, 1.25rem);
+    line-height: 1.35;
+    color: var(--card-foreground, var(--foreground, #222));
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums lining-nums;
+    max-width: 62ch;
+  }
+  .hot-take__meta {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3, 0.75rem);
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+  }
+  .hot-take__meta-label {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--foreground, #222);
+  }
+  .hot-take__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
+    margin-top: var(--space-2, 0.5rem);
+  }
+  .hot-take__action {
+    border: 1px solid var(--border, #d0d0d0);
+    background: transparent;
+    color: var(--foreground, #222);
+    padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+    border-radius: var(--radius-sm, 8px);
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    min-height: 32px;
+  }
+  .hot-take__action:hover,
+  .hot-take__action:focus-visible {
+    border-color: var(--foreground, #222);
+  }
+  .hot-take + .anti-take {
+    margin-top: calc(-1 * var(--space-4, 1rem));
+    border-top: 1px dashed var(--border, #d0d0d0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+"""
+
+
+def render_hot_take_card(take: Any | None) -> str:
+    """Render the Hot-Take card. Empty string when no take.
+
+    Input is a bets.hot_take.HotTake dataclass (or a dict with the same
+    shape from the cached render payload).
+    """
+    if not take:
+        return ""
+    if hasattr(take, "rendered_text"):
+        text = take.rendered_text
+        meta = take.meta or {}
+    elif isinstance(take, dict):
+        text = str(take.get("rendered_text") or "")
+        meta = take.get("meta") or {}
+    else:
+        return ""
+    if not text:
+        return ""
+    rank = meta.get("rank")
+    sample = meta.get("sample")
+    cohort = meta.get("cohort") or ""
+    pct = meta.get("percentile")
+
+    meta_bits: list[str] = []
+    if rank is not None:
+        meta_bits.append(
+            f'<span><span class="hot-take__meta-label">Rank</span> #{int(rank)}</span>'
+        )
+    if cohort:
+        meta_bits.append(
+            f'<span><span class="hot-take__meta-label">Cohort</span> {escape(str(cohort))}</span>'
+        )
+    if sample is not None:
+        meta_bits.append(
+            f'<span><span class="hot-take__meta-label">Sample</span> n={int(sample)}</span>'
+        )
+    if pct is not None:
+        meta_bits.append(
+            f'<span><span class="hot-take__meta-label">Percentile</span> {int(round(float(pct)))}</span>'
+        )
+    meta_html = "".join(meta_bits)
+    return (
+        '<article class="hot-take" data-module="hot-take">'
+        '  <p class="hot-take__eyebrow">Today&rsquo;s Hot-Take</p>'
+        f'  <p class="hot-take__text">{escape(text)}</p>'
+        f'  <p class="hot-take__meta">{meta_html}</p>'
+        '  <div class="hot-take__actions">'
+        '    <button type="button" class="hot-take__action" data-hot-take-flag aria-label="Flag this take">Flag this take</button>'
+        '    <button type="button" class="hot-take__action" data-hot-take-share aria-label="Copy take to clipboard">Share</button>'
+        '  </div>'
+        '</article>'
+    )
+
+
 # Live Signal Flow — Signature Bets S1.6 / §4 Bet #13. Thin bar above
 # the Hero on any player page with >= 1 active (non-decayed) event in
 # player_signal_events. The JS layer fades opacity over the decay window
@@ -2847,6 +2980,8 @@ def _compose_global_css() -> str:
         + _WHAT_CHANGED_CSS_BLOCK
         + "\n/* === Live Signal Flow bar (S1.6) === */\n"
         + _SIGNAL_FLOW_CSS_BLOCK
+        + "\n/* === Hot-Take card (S2.2) === */\n"
+        + _HOT_TAKE_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -3003,6 +3138,17 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     )
     historical_season_ledger = fetch_historical_season_ledger(db)
     _report_progress(f"Loaded {len(historical_season_ledger)} historical season rows.")
+
+    # Signature Bets S2.2 — populate today's Hot-Take cache before player
+    # pages assemble, so the renderer picks up a fresh pick per (player,
+    # date) with one query per player instead of per-page scoreboard
+    # rebuilds. Failure here is non-fatal; pages fall back to empty.
+    try:
+        from cfb_rankings.bets.hot_take import compute_daily_hot_takes
+        n_takes = compute_daily_hot_takes(db, int(summary["season_year"]))
+        _report_progress(f"Hot-Take cache populated with {n_takes} row(s).")
+    except Exception as exc:
+        _report_progress(f"Hot-Take cache skipped: {exc}")
     historical_rows_by_team: dict[int, list[dict[str, Any]]] = {}
     for row in historical_season_ledger:
         historical_rows_by_team.setdefault(int(row["team_id"]), []).append(row)
@@ -4804,11 +4950,33 @@ def build_player_page_data_map(
     except Exception:
         signals_by_player = {}
 
+    # Bulk-fetch cached Hot-Takes (Signature Bets S2.2). Cache-first:
+    # renderer falls back to on-the-fly generation when a cached row is
+    # absent, but the cache lets us skip N×candidate-scoreboard builds
+    # across a 17k-page run once the nightly CLI has populated it.
+    import datetime as _dt_ht
+    _today = _dt_ht.date.today()
+    hot_takes_by_player: dict[int, Any] = {}
+    try:
+        from cfb_rankings.bets.hot_take import fetch_cached_take
+        for _row in db.query_all(
+            "SELECT player_id FROM player_daily_hot_take "
+            "WHERE as_of_date = :d",
+            {"d": _today.isoformat()},
+        ):
+            pid = int(_row["player_id"])
+            t = fetch_cached_take(db, pid, _today)
+            if t is not None:
+                hot_takes_by_player[pid] = t
+    except Exception:
+        hot_takes_by_player = {}
+
     # V5 aggregators (data-wiring follow-up) — precomputed once per build.
     team_strength_index = _compute_team_strength_index(db, current_season)
     top_receivers_by_team = _compute_top_receivers_by_team(db, current_season)
     savant_bands = _compute_savant_cohort_bands(db, current_season)
     room_buckets_index = _compute_player_room_buckets(db, current_season, the_room_week)
+    team_splits_index = _compute_team_offensive_splits(db, current_season)
 
     # Per-player value metrics (all rows, keyed by player_id).
     pvm_by_player: dict[int, list[dict[str, Any]]] = {}
@@ -4875,8 +5043,10 @@ def build_player_page_data_map(
             player_value_metrics=pvm_by_player.get(player_id, []),
             stat_rank_on_team=stat_rank_by_player.get(player_id),
             room_buckets=room_buckets_index.get(player_id),
+            team_splits=team_splits_index,
         )
         page_data["active_signals"] = signals_by_player.get(player_id, [])
+        page_data["hot_take"] = hot_takes_by_player.get(player_id)
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -5109,6 +5279,129 @@ def _compute_player_room_buckets(db: Database, season: int, week: int) -> dict[i
     return out
 
 
+_TEAM_SPLITS_CACHE: dict[tuple[int, int], dict[int, dict[str, Any]]] = {}
+
+
+def _compute_team_offensive_splits(db: Database, season: int) -> dict[int, dict[str, Any]]:
+    """Per-team offensive situational splits for a season.
+
+    Uses the existing `plays` table (1.14M rows in this DB). Joins to
+    `games` to filter by season. Returns per-team:
+      - total_plays
+      - down_breakdown: counts + success rate by down (1/2/3/4)
+      - red_zone: % of plays inside opponent 20, success rate
+      - third_down: conversion rate (success on 3rd down)
+      - explosiveness: % of plays with yards_gained >= 15
+      - epa_per_play: avg EPA across non-special-teams plays
+      - is_garbage_time fraction
+
+    The Splits module surfaces these as "team context" for any player
+    on that team — true per-player splits require play-level player
+    attribution which isn't in the current schema.
+    """
+    cache_key = (_db_key(db), season)
+    if cache_key in _TEAM_SPLITS_CACHE:
+        return _TEAM_SPLITS_CACHE[cache_key]
+
+    rows = db.query_all(
+        """
+        SELECT p.offense_team_id AS team_id,
+               p.down,
+               p.distance,
+               p.yard_line,
+               p.play_type,
+               p.yards_gained,
+               p.epa,
+               p.ppa,
+               p.success_flag,
+               p.is_garbage_time
+        FROM plays p
+        JOIN games g ON g.game_id = p.game_id
+        WHERE g.season_year = :s
+          AND p.offense_team_id IS NOT NULL
+          AND (p.is_garbage_time IS NULL OR p.is_garbage_time = 0)
+        """,
+        {"s": season},
+    )
+
+    # Aggregate in Python (single pass).
+    by_team: dict[int, dict[str, Any]] = {}
+    for r in rows:
+        tid = int(r["team_id"])
+        b = by_team.setdefault(tid, {
+            "total_plays": 0,
+            "down_counts": {1: 0, 2: 0, 3: 0, 4: 0},
+            "down_success": {1: 0, 2: 0, 3: 0, 4: 0},
+            "red_zone_total": 0,
+            "red_zone_success": 0,
+            "third_down_total": 0,
+            "third_down_converted": 0,
+            "explosive": 0,
+            "epa_sum": 0.0,
+            "epa_n": 0,
+            "ppa_sum": 0.0,
+            "ppa_n": 0,
+        })
+        b["total_plays"] += 1
+        down = r.get("down")
+        success = bool(r.get("success_flag"))
+        yards = r.get("yards_gained") or 0
+        yard_line = r.get("yard_line")
+        if down in (1, 2, 3, 4):
+            b["down_counts"][down] += 1
+            if success:
+                b["down_success"][down] += 1
+        if yard_line is not None and yard_line <= 20:
+            b["red_zone_total"] += 1
+            if success:
+                b["red_zone_success"] += 1
+        if down == 3:
+            b["third_down_total"] += 1
+            if success:
+                b["third_down_converted"] += 1
+        if yards >= 15:
+            b["explosive"] += 1
+        if r.get("epa") is not None:
+            b["epa_sum"] += float(r["epa"])
+            b["epa_n"] += 1
+        if r.get("ppa") is not None:
+            b["ppa_sum"] += float(r["ppa"])
+            b["ppa_n"] += 1
+
+    out: dict[int, dict[str, Any]] = {}
+    for tid, b in by_team.items():
+        total = max(1, b["total_plays"])
+        out[tid] = {
+            "total_plays": b["total_plays"],
+            "down_breakdown": [
+                {
+                    "down": d,
+                    "count": b["down_counts"][d],
+                    "success_rate": (
+                        round(b["down_success"][d] / b["down_counts"][d], 3)
+                        if b["down_counts"][d] > 0 else None
+                    ),
+                }
+                for d in (1, 2, 3, 4)
+            ],
+            "red_zone_share_pct": round(100 * b["red_zone_total"] / total, 1),
+            "red_zone_success_rate": (
+                round(b["red_zone_success"] / b["red_zone_total"], 3)
+                if b["red_zone_total"] > 0 else None
+            ),
+            "third_down_conversion_rate": (
+                round(b["third_down_converted"] / b["third_down_total"], 3)
+                if b["third_down_total"] > 0 else None
+            ),
+            "explosive_play_rate": round(b["explosive"] / total, 3),
+            "epa_per_play": round(b["epa_sum"] / b["epa_n"], 4) if b["epa_n"] > 0 else None,
+            "ppa_per_play": round(b["ppa_sum"] / b["ppa_n"], 4) if b["ppa_n"] > 0 else None,
+        }
+
+    _TEAM_SPLITS_CACHE[cache_key] = out
+    return out
+
+
 def _compute_top_receivers_by_team(db: Database, season: int) -> dict[int, list[dict[str, Any]]]:
     """For every team in `season`, return the top-4 receivers by yards
     (top-4 so caller can skip self and still get 3)."""
@@ -5295,6 +5588,7 @@ def _assemble_player_page_data(
     player_value_metrics: list[dict[str, Any]] | None = None,
     stat_rank_on_team: int | None = None,
     room_buckets: dict[str, dict[str, Any]] | None = None,
+    team_splits: dict[int, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     current_season = int(summary["season_year"])
     current_roster = next((row for row in roster_history if int(row.get("season_year") or 0) == current_season), None)
@@ -5568,6 +5862,29 @@ def _assemble_player_page_data(
                 ],
             }
 
+    # V5 Splits — team-level situational context (down/distance, red zone,
+    # 3rd down, explosive). True per-player splits require play-level
+    # player attribution which isn't in the current `plays` schema; this
+    # surfaces the team environment the player operated in.
+    splits_payload = None
+    if team_splits and tid:
+        team_splits_row = team_splits.get(tid)
+        if team_splits_row and team_splits_row.get("total_plays", 0) > 0:
+            splits_payload = {
+                "scope": "team",
+                "team_name": (primary_team or {}).get("team_name") or (primary_team or {}).get("name"),
+                "total_plays": team_splits_row["total_plays"],
+                "down_breakdown": team_splits_row["down_breakdown"],
+                "red_zone": {
+                    "share_pct": team_splits_row["red_zone_share_pct"],
+                    "success_rate": team_splits_row["red_zone_success_rate"],
+                },
+                "third_down_conversion_rate": team_splits_row["third_down_conversion_rate"],
+                "explosive_play_rate": team_splits_row["explosive_play_rate"],
+                "epa_per_play": team_splits_row["epa_per_play"],
+                "ppa_per_play": team_splits_row["ppa_per_play"],
+            }
+
     # V5 Advanced Savant — per-cohort percentile bands (P4/G5/AllFBS).
     # `savant_bands` is precomputed per-season/position and `player_value_metrics`
     # is the per-player metric snapshot; both passed in from the caller.
@@ -5668,6 +5985,7 @@ def _assemble_player_page_data(
         "peers": peers_payload,
         "supporting_cast": supporting_cast_payload,
         "savant": savant_payload,
+        "splits": splits_payload,
     }
 
 
@@ -14190,6 +14508,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="the-room">
+        {render_hot_take_card(player_data.get("hot_take"))}
         {_render_the_room_card(player_data.get("the_room"), player_name)}
       </section>
 
@@ -15979,15 +16298,96 @@ def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
 
 
 def _render_v5_splits_card(splits: dict[str, Any] | None) -> str:
-    """Splits v5 — pill-comparator pairs + drawer (S.5b). Today: shell."""
-    return """
-      <article class="splits" data-module="splits" data-state="empty">
+    """Splits v5 — team-level situational pairs + per-down breakdown.
+
+    Today renders TEAM-context splits (the team's down/distance, red
+    zone, third-down rates) since play-level player attribution isn't
+    in the schema. Per-player splits land when PBP enrichment ships.
+    """
+    if not splits or not splits.get("total_plays"):
+        return """
+          <article class="splits" data-module="splits" data-state="empty">
+            <header class="splits__header">
+              <h2 class="splits__title">Splits</h2>
+              <p class="splits__sub">Down-distance · Situational · Personnel · Opponent-tier</p>
+            </header>
+            <div class="splits__awaiting" role="status">
+              Splits surface this player&rsquo;s performance by situation. Populates once the team has play-by-play data ingested for the season.
+            </div>
+          </article>
+        """
+
+    team_name = str(splits.get("team_name") or "team")
+    total_plays = int(splits.get("total_plays") or 0)
+
+    def _pct(v: float | None) -> str:
+        return f"{v*100:.1f}%" if isinstance(v, (int, float)) else "—"
+
+    def _ppa(v: float | None) -> str:
+        return f"{v:+.3f}" if isinstance(v, (int, float)) else "—"
+
+    rz = splits.get("red_zone") or {}
+    rz_share = rz.get("share_pct")
+    rz_share_text = f"{rz_share:.1f}%" if isinstance(rz_share, (int, float)) else "—"
+
+    # Down-by-down success rate pairs
+    down_rows: list[str] = []
+    for db_row in splits.get("down_breakdown") or []:
+        down = db_row.get("down")
+        cnt = db_row.get("count") or 0
+        sr = db_row.get("success_rate")
+        if cnt == 0:
+            continue
+        down_rows.append(
+            '<div class="splits__pair-row">'
+            f'<span class="splits__pair-label">{down}{("st","nd","rd","th")[down-1] if down in (1,2,3,4) else "th"} down ({cnt:,} plays)</span>'
+            f'<span class="splits__pair-value">{_pct(sr)}</span>'
+            '</div>'
+        )
+
+    # Situational rates pairs
+    situational_rows = [
+        ('<div class="splits__pair-row">'
+         f'<span class="splits__pair-label">Red zone share</span>'
+         f'<span class="splits__pair-value">{rz_share_text}</span>'
+         '</div>'),
+        ('<div class="splits__pair-row">'
+         f'<span class="splits__pair-label">Red zone success rate</span>'
+         f'<span class="splits__pair-value">{_pct(rz.get("success_rate"))}</span>'
+         '</div>'),
+        ('<div class="splits__pair-row">'
+         f'<span class="splits__pair-label">3rd down conversion</span>'
+         f'<span class="splits__pair-value">{_pct(splits.get("third_down_conversion_rate"))}</span>'
+         '</div>'),
+        ('<div class="splits__pair-row">'
+         f'<span class="splits__pair-label">Explosive play rate (15+ yds)</span>'
+         f'<span class="splits__pair-value">{_pct(splits.get("explosive_play_rate"))}</span>'
+         '</div>'),
+        ('<div class="splits__pair-row">'
+         f'<span class="splits__pair-label">EPA per play</span>'
+         f'<span class="splits__pair-value">{_ppa(splits.get("epa_per_play"))}</span>'
+         '</div>'),
+        ('<div class="splits__pair-row">'
+         f'<span class="splits__pair-label">PPA per play</span>'
+         f'<span class="splits__pair-value">{_ppa(splits.get("ppa_per_play"))}</span>'
+         '</div>'),
+    ]
+
+    return f"""
+      <article class="splits" data-module="splits" data-state="ready">
         <header class="splits__header">
           <h2 class="splits__title">Splits</h2>
-          <p class="splits__sub">Down-distance · Situational · Personnel · Opponent-tier</p>
+          <p class="splits__sub">Team-context splits ({escape(team_name)}, {total_plays:,} plays — non-garbage-time). Per-player splits land when play-level player attribution ships.</p>
         </header>
-        <div class="splits__awaiting" role="status">
-          Splits surface this player&rsquo;s performance broken down by situation (down/distance, red zone, vs Top-25, etc.). Populates when the play-by-play splits aggregator runs against ingested PBP data.
+        <div class="splits__pair-grid">
+          <div class="splits__pair">
+            <p class="splits__pair-eyebrow">By down</p>
+            {"".join(down_rows)}
+          </div>
+          <div class="splits__pair">
+            <p class="splits__pair-eyebrow">Situational</p>
+            {"".join(situational_rows)}
+          </div>
         </div>
       </article>
     """
