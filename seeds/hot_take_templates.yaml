@@ -1,0 +1,63 @@
+# Hot-Take Engine — template library (Signature Bets S2.1).
+#
+# Each template has id, applies_to (list of metric_ids or "*" wildcard),
+# text (Python .format() string), voice, and an optional min_percentile
+# override (default 90). Placeholders: {value}, {metric_label}, {rank},
+# {cohort_size}, {cohort_label}, {position}, {percentile}, {era_label}.
+
+templates:
+  # ---- RECORD VOICE (top-1, 99th+ pct, single-player framing) ----
+
+  - id: record-top-of-cohort
+    applies_to: "*"
+    voice: record
+    min_percentile: 99
+    text: "{value} {metric_label} from a {position} — no other {cohort_label} in the {era_label} era touches that number."
+
+  # ---- RECORD-NEAR VOICE (top-3, 95th+ pct) ----
+
+  - id: record-near-top3
+    applies_to: "*"
+    voice: record_near
+    min_percentile: 95
+    text: "{value} {metric_label} — #{rank} in a {cohort_size}-{position} cohort, {percentile}th percentile in the {era_label} era."
+
+  - id: record-near-paragraph
+    applies_to: "*"
+    voice: record_near
+    min_percentile: 95
+    text: "Only {top_n} {cohort_label} have posted a higher {metric_label} than {value} in the {era_label} era."
+
+  # ---- PACE VOICE (highlights trajectory / volume leadership) ----
+
+  - id: pace-volume-leader
+    applies_to:
+      - passing_yards_total
+      - rushing_yards_total
+      - receiving_yards_total
+    voice: pace
+    min_percentile: 90
+    text: "{value} {metric_label}, {percentile}th percentile against {cohort_label} — the volume is real, not a small-sample mirage."
+
+  # ---- COHORT-TOP VOICE (standard top-5 + context) ----
+
+  - id: cohort-top-efficiency
+    applies_to:
+      - ypa
+      - ypc
+      - completion_pct
+      - td_int_ratio
+      - wepa_passing_per_dropback
+      - wepa_combined_per_play
+      - wepa_rushing_per_carry
+      - qbr_season_avg
+      - ypr
+    voice: cohort_top
+    min_percentile: 90
+    text: "{value} {metric_label} puts this {position} in the top {rank} of {cohort_size} {cohort_label} — {percentile}th percentile, clean sample."
+
+  - id: cohort-top-generic
+    applies_to: "*"
+    voice: cohort_top
+    min_percentile: 90
+    text: "{value} {metric_label}: #{rank} of {cohort_size} {cohort_label} ({percentile}th percentile)."

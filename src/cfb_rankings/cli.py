@@ -95,6 +95,16 @@ def build_parser() -> argparse.ArgumentParser:
     tag_players_parser.add_argument("--preview", action="store_true",
                                     help="Print each match with a context snippet for eyeball review.")
 
+    compute_player_advanced_parser = subparsers.add_parser(
+        "compute-player-advanced",
+        help=("Compute player_advanced_metrics for a season (optionally "
+              "through-week) and its season rollup with cohort percentiles."),
+    )
+    compute_player_advanced_parser.add_argument("--season", type=int, required=True)
+    compute_player_advanced_parser.add_argument("--week", type=int, default=None,
+        help="Optional through-week cutoff. If omitted, writes the full-season "
+             "rollup (week=0) + per-position percentiles.")
+
     compute_player_mood_parser = subparsers.add_parser(
         "compute-player-week-mood",
         help=("Aggregate conversation_document_targets (target_type='player') into "
@@ -179,6 +189,22 @@ def build_parser() -> argparse.ArgumentParser:
     signal_prune_parser.add_argument(
         "--older-than-hours", type=float, default=24.0,
     )
+
+    # Signature Bets S2.2 — Hot-Take Engine CLI.
+    pht_parser = subparsers.add_parser(
+        "player-hot-take",
+        help="Print the Hot-Take for one player (math trail + daily pick).",
+    )
+    pht_parser.add_argument("slug_or_id", help="player slug ('cj-carr-4788') or player_id.")
+    pht_parser.add_argument("--season", type=int, default=None)
+    pht_parser.add_argument("--as-of", default=None, help="YYYY-MM-DD; defaults to today.")
+
+    cdht_parser = subparsers.add_parser(
+        "compute-daily-hot-takes",
+        help="Populate player_daily_hot_take for every qualifying player.",
+    )
+    cdht_parser.add_argument("--season", type=int, default=None)
+    cdht_parser.add_argument("--as-of", default=None)
 
     player_mood_parser = subparsers.add_parser(
         "player-mood",
@@ -700,6 +726,19 @@ def main() -> None:
         )
         return
 
+    if args.command == "compute-player-advanced":
+        from cfb_rankings.metrics.player_advanced import (
+            compute_player_advanced_metrics,
+            compute_player_advanced_metrics_season,
+        )
+        if args.week is None:
+            written = compute_player_advanced_metrics_season(db, args.season)
+            print(f"compute-player-advanced season={args.season} (rollup+percentiles): rows_written={written}")
+        else:
+            written = compute_player_advanced_metrics(db, args.season, week=args.week)
+            print(f"compute-player-advanced season={args.season} week={args.week}: rows_written={written}")
+        return
+
     if args.command == "compute-player-week-mood":
         from cfb_rankings.cohorts.player_aggregate import compute_player_week_mood
         result = compute_player_week_mood(db, args.week, players=args.players)
@@ -774,6 +813,70 @@ def main() -> None:
         from cfb_rankings.bets.signal_flow import prune_expired_signals
         n = prune_expired_signals(db, older_than_hours=args.older_than_hours)
         print(f"pruned {n} expired signal(s)")
+        return
+
+    if args.command == "player-hot-take":
+        import datetime as _dt_ht
+        from cfb_rankings.bets.hot_take import (
+            fetch_or_generate_take, generate_hot_takes,
+        )
+        # Resolve slug → player_id.
+        target = args.slug_or_id
+        if target.isdigit():
+            pid = int(target)
+        else:
+            row = db.query_one(
+                "SELECT player_id FROM players "
+                "WHERE lower(full_name) = lower(:q) "
+                "   OR player_id = CAST(:q AS INTEGER) "
+                "LIMIT 1",
+                {"q": target},
+            )
+            if not row:
+                digits = "".join(ch for ch in target if ch.isdigit())
+                pid = int(digits) if digits else 0
+            else:
+                pid = int(row["player_id"])
+        if not pid:
+            print(f"no player resolved for {target!r}")
+            return
+        season = args.season or int(db.query_one(
+            "SELECT MAX(season_year) AS y FROM player_season_stats"
+        )["y"] or 2025)
+        as_of = (
+            _dt_ht.date.fromisoformat(args.as_of) if args.as_of else _dt_ht.date.today()
+        )
+        take = fetch_or_generate_take(db, pid, season, as_of=as_of)
+        if take is None:
+            print(f"no defensibly-true take for player_id={pid} on {as_of}.")
+            return
+        print(f"--- Hot-Take for player_id={pid} ({as_of.isoformat()}) ---")
+        print(take.rendered_text)
+        print()
+        print("math trail:")
+        for k, v in take.meta.items():
+            print(f"  {k}: {v}")
+        # Show runners-up for context.
+        all_takes = generate_hot_takes(db, pid, season)
+        if len(all_takes) > 1:
+            print()
+            print(f"runners-up ({len(all_takes)-1}):")
+            for other in all_takes[1:4]:
+                if other.rendered_text != take.rendered_text:
+                    print(f"  - [{other.template_id}] {other.rendered_text}")
+        return
+
+    if args.command == "compute-daily-hot-takes":
+        import datetime as _dt_ht
+        from cfb_rankings.bets.hot_take import compute_daily_hot_takes
+        season = args.season or int(db.query_one(
+            "SELECT MAX(season_year) AS y FROM player_season_stats"
+        )["y"] or 2025)
+        as_of = (
+            _dt_ht.date.fromisoformat(args.as_of) if args.as_of else _dt_ht.date.today()
+        )
+        n = compute_daily_hot_takes(db, season, as_of=as_of)
+        print(f"computed + cached {n} Hot-Take(s) for season={season} as_of={as_of}")
         return
 
     if args.command == "player-mood":
