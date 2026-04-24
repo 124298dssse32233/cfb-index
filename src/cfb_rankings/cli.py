@@ -42,6 +42,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="One-shot operational summary: source_registry counts, scrape_health, "
              "priority_teams coverage, team_cohort_week coverage.",
     )
+    subparsers.add_parser(
+        "autopilot-status",
+        help="One-screen dashboard of the Autopilot v1 pipeline: source/tier counts, "
+             "scrape_health last 7 days, row-count deltas for the headline tables, "
+             "build timestamp, sources over the 3-fail threshold.",
+    )
     validate_parser = subparsers.add_parser(
         "validate-feed-urls",
         help="HEAD-check every source_registry.terms_url (+ priority_teams wiki pages). "
@@ -1033,6 +1039,108 @@ def main() -> None:
                   f"{(row['last_run'] or '')[:12]:<12} "
                   f"{row['rows_inserted'] or 0:>7} "
                   f"{row['status'] or '':<8}")
+        return
+
+    if args.command == "autopilot-status":
+        from datetime import date, timedelta
+        print("=" * 64)
+        print("Autopilot v1 — one-screen dashboard")
+        print("=" * 64)
+
+        # Source / tier counts
+        tier_rows = db.query_all(
+            "select tier, count(*) as n from source_registry "
+            "where source_id is not null group by tier order by tier"
+        )
+        total_sources = sum(int(r["n"]) for r in tier_rows)
+        active = db.query_one(
+            "select count(*) as n from source_registry "
+            "where source_id is not null and is_active = 1"
+        )["n"]
+        print(f"\nSources: {total_sources} total, {active} active")
+        for r in tier_rows:
+            print(f"  Tier {r['tier']}: {r['n']}")
+
+        # scrape_health last 7 days
+        since = (date.today() - timedelta(days=7)).isoformat()
+        health = db.query_all(
+            "select status, count(*) as n from scrape_health "
+            "where run_date >= :since group by status order by status",
+            {"since": since},
+        )
+        total_runs = sum(int(r["n"]) for r in health) or 0
+        print(f"\nscrape_health (last 7d): {total_runs} runs")
+        for r in health:
+            print(f"  {r['status']}: {r['n']}")
+
+        # 3-fail sources
+        three_fail = db.query_all(
+            """
+            select source_id, count(*) as fails
+            from (
+                select source_id, status,
+                    row_number() over (partition by source_id order by run_date desc) rn
+                from scrape_health
+            )
+            where rn <= 3 and status = 'error'
+            group by source_id having count(*) = 3
+            order by source_id
+            """
+        )
+        if three_fail:
+            print(f"\n!! {len(three_fail)} source(s) with 3 consecutive errors:")
+            for r in three_fail:
+                print(f"  {r['source_id']}")
+        else:
+            print("\nNo sources at the 3-consecutive-error threshold.")
+
+        # Row-count deltas — headline tables
+        print("\nHeadline tables:")
+        for table in (
+            "conversation_documents",
+            "conversation_document_targets",
+            "player_week_conversation_features",
+            "player_advanced_metrics",
+            "player_advanced_metrics_season",
+            "player_game_stats",
+            "source_observations",
+            "team_cohort_week",
+            "team_cohort_divergence_week",
+        ):
+            try:
+                n = db.query_one(f"select count(*) as n from {table}")["n"]
+                # Rows inserted in last 7 days (where a created_at/ingested_at-ish
+                # column exists). Keep the query defensive — fall back silently.
+                recent = 0
+                for ts_col in ("created_at", "observed_at_utc", "computed_at",
+                               "ingested_at", "captured_at", "updated_at"):
+                    if db.column_exists(table, ts_col):
+                        try:
+                            recent_row = db.query_one(
+                                f"select count(*) as n from {table} "
+                                f"where {ts_col} >= :since",
+                                {"since": since},
+                            )
+                            recent = int(recent_row["n"]) if recent_row else 0
+                            break
+                        except Exception:
+                            continue
+                suffix = f" (+{recent:,} last 7d)" if recent else ""
+                print(f"  {table}: {n:,}{suffix}")
+            except Exception as e:
+                print(f"  {table}: n/a ({e})")
+
+        # Latest build timestamp (approx): take site root file mtime.
+        from pathlib import Path as _Path
+        from datetime import datetime as _dt
+        index = _Path("output/site/index.html")
+        if index.exists():
+            mtime = _dt.fromtimestamp(index.stat().st_mtime)
+            print(f"\nSite last built: {mtime.isoformat(timespec='seconds')}")
+        else:
+            print("\nSite last built: (no output/site/index.html yet)")
+
+        print()
         return
 
     if args.command == "fanintel-status":
