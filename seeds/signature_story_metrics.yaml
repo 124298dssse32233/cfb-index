@@ -85,6 +85,19 @@ cohorts:
     sql_filter: "1 = 1"
     min_qualifying_members: 40
 
+  - id: p4_qbs_min_80_dropbacks
+    label: "P4 + Notre Dame QBs (80+ dropbacks)"
+    description: >
+      QB cohort keyed on player_advanced_metrics. 80-dropback gate is
+      lower than p4_plus_nd_qbs (250) so situational / team-proxy
+      metrics have a wider candidate pool. Added 2026-04-23 via
+      Autopilot TASK 1.6 — signature-story scoreboard uses this cohort
+      for team_red_zone_td_rate and team_success_rate_on_offense.
+    sql_filter: >
+      (pvm.conference_name IN ('ACC', 'Big 12', 'Big Ten', 'SEC')
+       OR pvm.team_name = 'Notre Dame')
+    min_qualifying_members: 20
+
 # ---------------------------------------------------------------------------
 # Metrics — the candidate pool evaluated per player.
 # ---------------------------------------------------------------------------
@@ -543,6 +556,99 @@ metrics:
         AND pus.position = 'QB'
         AND pus.usage_third_down IS NOT NULL
         AND ({cohort_filter_pvm_or_team})
+
+  # --- Autopilot TASK 1.6 (2026-04-23): player_advanced_metrics-backed
+  #     situational supports. Team-proxy metrics so narrative_weight is
+  #     capped at 0.35 per the honesty rules — they tie-break between
+  #     genuine player-attribution stories, never win the headline.
+
+  - id: team_red_zone_td_rate
+    label: "Team red-zone TD rate (while QB plays)"
+    unit: pct
+    higher_is_better: true
+    position: QB
+    cohort: p4_qbs_min_80_dropbacks
+    min_volume: 10
+    volume_field: sample_size
+    narrative_weight: 0.35
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} — offense finishes
+      {value:.1f}% of red-zone trips in the end zone while he's
+      starting ({sample_size} red-zone drives).
+    sql_query_template: |
+      SELECT
+        value AS value,
+        sample_size AS sample_size
+      FROM player_advanced_metrics
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND week = 0
+        AND metric_id = 'team_red_zone_td_rate'
+      LIMIT 1
+    cohort_sql_template: |
+      SELECT
+        pam.player_id,
+        COALESCE(p.full_name, 'Unknown') AS player_name,
+        pvm.team_name AS team_name,
+        pam.value AS value,
+        pam.sample_size AS sample_size
+      FROM player_advanced_metrics pam
+      JOIN players p ON p.player_id = pam.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pam.player_id
+       AND pvm.season_year = pam.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pam.season_year = %(season_year)s
+        AND pam.week = 0
+        AND pam.metric_id = 'team_red_zone_td_rate'
+        AND pam.sample_size >= %(min_volume)s
+        AND p.position = 'QB'
+        AND pam.value IS NOT NULL
+        AND {cohort_filter}
+
+  - id: team_success_rate_on_offense
+    label: "Team offensive success rate (while QB plays)"
+    unit: pct
+    higher_is_better: true
+    position: QB
+    cohort: p4_qbs_min_80_dropbacks
+    min_volume: 200
+    volume_field: sample_size
+    narrative_weight: 0.30
+    narrative_template: >
+      {rank_ordinal} of {cohort_size} {cohort_label} — offense runs at
+      {value:.1f}% success rate on his snaps ({sample_size} plays, all
+      non-garbage-time).
+    sql_query_template: |
+      SELECT
+        value AS value,
+        sample_size AS sample_size
+      FROM player_advanced_metrics
+      WHERE player_id = %(player_id)s
+        AND season_year = %(season_year)s
+        AND week = 0
+        AND metric_id = 'team_success_rate_on_offense'
+      LIMIT 1
+    cohort_sql_template: |
+      SELECT
+        pam.player_id,
+        COALESCE(p.full_name, 'Unknown') AS player_name,
+        pvm.team_name AS team_name,
+        pam.value AS value,
+        pam.sample_size AS sample_size
+      FROM player_advanced_metrics pam
+      JOIN players p ON p.player_id = pam.player_id
+      LEFT JOIN player_value_metrics pvm
+        ON pvm.player_id = pam.player_id
+       AND pvm.season_year = pam.season_year
+       AND pvm.metric_name = 'wepa_passing'
+      WHERE pam.season_year = %(season_year)s
+        AND pam.week = 0
+        AND pam.metric_id = 'team_success_rate_on_offense'
+        AND pam.sample_size >= %(min_volume)s
+        AND p.position = 'QB'
+        AND pam.value IS NOT NULL
+        AND {cohort_filter}
 
   # ========== RB (stub coverage per kickoff) ==========
 
