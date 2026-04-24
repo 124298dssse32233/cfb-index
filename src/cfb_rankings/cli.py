@@ -250,6 +250,14 @@ def build_parser() -> argparse.ArgumentParser:
     pach_parser.add_argument("slug_or_id")
     pach_parser.add_argument("--season", type=int, default=None)
 
+    # QA audit — dump every Signature Bets module's output for a player.
+    pbets_parser = subparsers.add_parser(
+        "player-bets-audit",
+        help="Dump all Signature Bets module outputs for one player (QA tool).",
+    )
+    pbets_parser.add_argument("slug_or_id")
+    pbets_parser.add_argument("--season", type=int, default=None)
+
     player_mood_parser = subparsers.add_parser(
         "player-mood",
         help=("Print The Room on [Player] — the player-scope mood profile. "
@@ -1199,6 +1207,141 @@ def main() -> None:
                 else "n/a"
             )
             print(f"  [{rarity}] {a['display_name']} — {a['unlock_context']}")
+        return
+
+    if args.command == "player-bets-audit":
+        target = args.slug_or_id
+        if target.isdigit():
+            pid = int(target)
+        else:
+            digits = "".join(ch for ch in target if ch.isdigit())
+            pid = int(digits) if digits else 0
+        if not pid:
+            print(f"no player resolved for {target!r}")
+            return
+        season = args.season or int(db.query_one(
+            "SELECT MAX(season_year) AS y FROM player_season_stats"
+        )["y"] or 2025)
+        prow = db.query_one("SELECT full_name FROM players WHERE player_id = :p", {"p": pid})
+        name = (prow or {}).get("full_name") or f"player_id={pid}"
+        team_row = db.query_one(
+            "SELECT team_id FROM player_season_stats WHERE player_id = :p ORDER BY season_year DESC LIMIT 1",
+            {"p": pid},
+        )
+        team_id = (team_row or {}).get("team_id")
+        team_meta = db.query_one("SELECT slug, canonical_name FROM teams WHERE team_id = :t", {"t": team_id}) if team_id else None
+
+        print(f"{'='*72}")
+        print(f"  Signature Bets audit: {name} (player_id={pid}) · season {season}")
+        print(f"  team: {(team_meta or {}).get('canonical_name') or '(unknown)'} · slug: {(team_meta or {}).get('slug') or '(unknown)'}")
+        print(f"{'='*72}\n")
+
+        # Hot-Take / Anti-Take
+        print("--- Hot-Take / Anti-Take ------------------------------------")
+        from cfb_rankings.bets.hot_take import fetch_or_generate_take
+        from cfb_rankings.bets.anti_take import generate_anti_take
+        import datetime as _dt_a
+        take = fetch_or_generate_take(db, pid, season, as_of=_dt_a.date.today())
+        if take:
+            ant = generate_anti_take(take)
+            if ant:
+                print(f"HOT:  {take.rendered_text}")
+                print(f"ANTI: [{ant.caveat_tag}] {ant.rendered_text}")
+                print(f"meta: rank={take.meta.get('rank')} / cohort_size={take.meta.get('cohort_size')} "
+                      f"/ sample={take.meta.get('sample')} / pct={take.meta.get('percentile')}")
+            else:
+                print("Take present but Anti-Take unpairable — held per S2.3 spec.")
+        else:
+            print("(no qualifying take today)")
+
+        # Achievements
+        print("\n--- Achievements --------------------------------------------")
+        from cfb_rankings.bets.achievements import fetch_player_achievements
+        for a in fetch_player_achievements(db, pid, season):
+            r = f"{a['rarity_pct']:.1f}%" if a.get("rarity_pct") is not None else "n/a"
+            print(f"  [{r}] {a['display_name']} — {a['unlock_context']}")
+
+        # Mirror Match
+        print("\n--- Mirror Match --------------------------------------------")
+        from cfb_rankings.bets.mirror_match import fetch_cached_matches
+        matches = fetch_cached_matches(db, pid, season, k=5)
+        if matches:
+            for m in matches:
+                team = m.match_team_name or "?"
+                print(f"  #{m.similarity_pct}% sim — {m.match_player_name} ({team}) {m.match_season}")
+        else:
+            print("  (no cached matches — run `compute-mirror-matches --season N`)")
+
+        # Rival Radar
+        print("\n--- Rival Radar ---------------------------------------------")
+        from cfb_rankings.bets.rival_radar import compute_rival_radar
+        rr = compute_rival_radar(db, pid, season)
+        if rr.applicable:
+            print(f"  mentions={rr.mention_count_season} / weeks={rr.weeks_with_rival_chatter} "
+                  f"/ obsession={rr.obsession_score}")
+        else:
+            print(f"  empty — {rr.awaiting_reason}")
+
+        # Coaching Lineage
+        print("\n--- Coaching Lineage ----------------------------------------")
+        from cfb_rankings.bets.coaching_lineage import fetch_coaching_lineage
+        lineage = fetch_coaching_lineage((team_meta or {}).get("slug"))
+        if lineage:
+            hc = (lineage.get("head_coach") or {}).get("name")
+            oc = (lineage.get("offensive_coordinator") or {}).get("name")
+            dc = (lineage.get("defensive_coordinator") or {}).get("name")
+            print(f"  {lineage.get('display_name')}: HC {hc} · OC {oc} · DC {dc}")
+        else:
+            print("  (no seed for this program)")
+
+        # Narrative Arc
+        print("\n--- Narrative Arc -------------------------------------------")
+        from cfb_rankings.bets.narrative_arc import fetch_narrative_arc
+        arc = fetch_narrative_arc(pid, season)
+        if arc:
+            for a in arc.get("acts") or []:
+                print(f"  {a.get('title')} ({a.get('week_range')})")
+        else:
+            print("  (no hand-authored arc; auto-draft may fire at render time)")
+
+        # Signature Moment
+        print("\n--- Signature Moment ----------------------------------------")
+        from cfb_rankings.bets.signature_play import fetch_signature_moment
+        sm = fetch_signature_moment(db, pid, season)
+        if sm:
+            print(f"  Week {sm.week} vs {sm.opponent_name} — {int(sm.stat_value)} {sm.metric_id} ({sm.result_label})")
+        else:
+            print("  (empty — player_game_stats coverage too thin)")
+
+        # Prediction Markets
+        print("\n--- Prediction Markets --------------------------------------")
+        from cfb_rankings.bets.prediction_markets import fetch_player_market_signals
+        ms = fetch_player_market_signals(db, pid, season)
+        if ms.listed:
+            print(f"  Heisman implied {ms.heisman_implied_pct}% · {ms.heisman_provider}")
+        else:
+            print("  (unlisted on major futures markets)")
+
+        # Cohort Divergence
+        print("\n--- Cohort Divergence ---------------------------------------")
+        from cfb_rankings.bets.cohort_divergence import compute_cohort_divergence
+        cd = compute_cohort_divergence(db, pid, season)
+        if cd.applicable:
+            for d in cd.dots:
+                print(f"  {d.label}: belief={d.belief:+.1f}, intensity={d.intensity:.1f}, n={d.mention_count}")
+        else:
+            print(f"  empty — {cd.awaiting_reason}")
+
+        # This-day chip
+        print("\n--- This-day chip -------------------------------------------")
+        from cfb_rankings.bets.this_day import fetch_this_day_moment
+        td = fetch_this_day_moment(db, pid)
+        if td:
+            print(f"  {td.headline}")
+        else:
+            print("  (no historical match for today)")
+
+        print(f"\n{'='*72}\n")
         return
 
     if args.command == "player-mood":
