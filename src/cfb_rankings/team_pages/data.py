@@ -249,7 +249,7 @@ def _mood_from_cohort_week(db, team_id: int) -> dict[str, Any] | None:
     # Looking back through the window (not strictly the latest week)
     # smooths over offseason gaps where one calendar week may have only a
     # handful of docs while a prior week is more representative.
-    FLOOR_AWAITING = 20.0
+    FLOOR_AWAITING = 30.0
     headline_idx = next(
         (
             i for i, r in enumerate(rows)

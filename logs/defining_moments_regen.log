@@ -1,0 +1,32 @@
+
+Audit: 32 pass / 28 fail (20 seasons, 60 cards)
+  [alabama/2014 #2] ok model=claude-sonnet-4-6 dur=16.71s 
+  [alabama/2016 #0] ok model=claude-sonnet-4-6 dur=18.28s 
+  [alabama/2014 #0] ok model=claude-sonnet-4-6 dur=21.19s 
+  [alabama/2016 #2] ok model=claude-sonnet-4-6 dur=10.87s 
+  [alabama/2016 #1] ok model=claude-sonnet-4-6 dur=14.23s 
+  [alabama/2017 #0] ok model=claude-sonnet-4-6 dur=16.55s 
+  [alabama/2017 #1] ok model=claude-sonnet-4-6 dur=12.13s 
+  [alabama/2018 #0] ok model=claude-sonnet-4-6 dur=11.32s 
+  [alabama/2019 #0] ok model=claude-sonnet-4-6 dur=12.93s 
+  [alabama/2019 #2] ok model=claude-sonnet-4-6 dur=14.47s 
+  [alabama/2019 #1] ok model=claude-sonnet-4-6 dur=17.91s 
+  [alabama/2022 #1] ok model=claude-sonnet-4-6 dur=8.93s 
+  [alabama/2024 #0] ok model=claude-sonnet-4-6 dur=10.33s 
+  [alabama/2023 #0] ok model=claude-sonnet-4-6 dur=13.36s 
+  [notre-dame/2016 #0] ok model=claude-sonnet-4-6 dur=9.66s 
+  [notre-dame/2016 #1] ok model=claude-sonnet-4-6 dur=9.74s 
+  [alabama/2025 #0] ok model=claude-sonnet-4-6 dur=11.52s 
+  [notre-dame/2016 #2] ok model=claude-sonnet-4-6 dur=8.37s 
+  [notre-dame/2018 #1] ok model=claude-sonnet-4-6 dur=10.43s 
+  [notre-dame/2018 #2] ok model=claude-sonnet-4-6 dur=10.21s 
+  [notre-dame/2020 #0] ok model=claude-sonnet-4-6 dur=13.67s 
+  [ohio-state/2014 #0] ok model=claude-sonnet-4-6 dur=11.59s 
+  [ohio-state/2014 #2] ok model=claude-sonnet-4-6 dur=17.12s 
+  [ohio-state/2024 #0] ok model=claude-sonnet-4-6 dur=16.88s 
+  [ohio-state/2014 #1] ok model=claude-sonnet-4-6 dur=24.7s 
+  [vanderbilt/2020 #1] ok model=claude-sonnet-4-6 dur=11.16s 
+  [ohio-state/2024 #1] ok model=claude-sonnet-4-6 dur=21.14s 
+  [vanderbilt/2025 #1] ok model=claude-sonnet-4-6 dur=46.75s 
+
+Post-audit: 60 pass / 0 fail (regen ok=28, dropped=0)

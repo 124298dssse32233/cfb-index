@@ -134,11 +134,17 @@ def rank_candidates(
       - aim for ≥3 distinct types in the final list
       - tie-break on recency (later date_window wins)
     """
+    # Thin-pool tilt: mid-tier programs (program_tier >= 4) have weak
+    # fan-intel signal. Boost archive + player_arc streams 1.5× so the
+    # ranker leans on what the team actually has — historical echoes and
+    # player arcs — rather than stalling on cohort sparsity.
+    thin_pool_boost = profile.program_tier >= 4
     scored: list[tuple[float, CandidateObservation]] = []
     for c in candidates:
         voice_fit = _voice_fit_score(c, profile)
         evidence_strength = _evidence_strength_score(c)
-        score = c.oddity_score * voice_fit * evidence_strength
+        stream_weight = 1.5 if (thin_pool_boost and c.stream in ("archive", "player_arc")) else 1.0
+        score = c.oddity_score * voice_fit * evidence_strength * stream_weight
         scored.append((score, c))
     # Sort high-to-low, with recency tie-break.
     scored.sort(key=lambda t: (t[0], t[1].date_window[1]), reverse=True)
