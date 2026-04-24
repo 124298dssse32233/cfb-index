@@ -2536,6 +2536,175 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Rival Radar — Signature Bets S2.4 / §4 Bet #1. Module between The
+# Room and 2026 Outlook. Shows rival-fanbase fixation (mention volume
+# normalized + sentiment mix) when ≥ MIN_MENTIONS cleared, else an
+# Awaiting-Signal shell.
+_RIVAL_RADAR_CSS_BLOCK = """
+@layer components {
+  .rival-radar {
+    margin: 0 0 var(--space-6, 1.5rem) 0;
+    padding: var(--space-6, 1.5rem);
+    background: var(--card, #fff);
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-lg, 16px);
+    display: grid;
+    gap: var(--space-4, 1rem);
+  }
+  .rival-radar__header { display: grid; gap: var(--space-1, 0.25rem); }
+  .rival-radar__eyebrow {
+    margin: 0;
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .rival-radar__title {
+    margin: 0;
+    font-family: var(--font-display, 'Inter Display', 'Inter', sans-serif);
+    font-size: var(--fs-h2, 1.35rem);
+    line-height: 1.2;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .rival-radar__score-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-4, 1rem);
+  }
+  .rival-radar__metric {
+    display: grid;
+    gap: 2px;
+    padding: var(--space-3, 0.75rem);
+    border: 1px solid var(--border, #d0d0d0);
+    border-radius: var(--radius-md, 12px);
+    background: color-mix(in srgb, var(--muted, #eee) 30%, var(--card));
+  }
+  .rival-radar__metric-label {
+    font-size: var(--fs-meta, 0.72rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, #666);
+  }
+  .rival-radar__metric-value {
+    font-size: var(--fs-h2, 1.25rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--card-foreground, var(--foreground, #222));
+  }
+  .rival-radar__sentiment {
+    display: grid;
+    gap: var(--space-1, 0.25rem);
+  }
+  .rival-radar__sentiment-bar {
+    display: flex;
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--border, #d0d0d0);
+  }
+  .rival-radar__sentiment-bar > span {
+    display: block;
+    height: 100%;
+  }
+  .rival-radar__sentiment-bar--pos { background: var(--confidence-high, #3fa35b); }
+  .rival-radar__sentiment-bar--neu { background: var(--muted-foreground, #999); }
+  .rival-radar__sentiment-bar--neg { background: var(--confidence-low, #c43a3a); }
+  .rival-radar__sentiment-legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+    font-variant-numeric: tabular-nums;
+  }
+  .rival-radar__awaiting {
+    padding: var(--space-4, 1rem) var(--space-6, 1.5rem);
+    color: var(--muted-foreground, #666);
+    font-size: var(--fs-body, 0.95rem);
+    font-style: italic;
+  }
+}
+"""
+
+
+def render_rival_radar_card(radar: Any | None, player_name: str) -> str:
+    """Render the Rival Radar module. Empty-state shell when applicable=False."""
+    if radar is None:
+        return ""
+    if hasattr(radar, "to_render_dict"):
+        data = radar.to_render_dict()
+    elif isinstance(radar, dict):
+        data = radar
+    else:
+        return ""
+    eyebrow = '<p class="rival-radar__eyebrow">Rival Radar</p>'
+    title = (
+        f'<h2 class="rival-radar__title">How rival fanbases talk about '
+        f'{escape(player_name)}</h2>'
+    )
+    if not data.get("applicable"):
+        reason = data.get("awaiting_reason") or "Awaiting rival-bucket signal."
+        return (
+            '<article class="rival-radar" data-module="rival-radar" '
+            'data-state="empty">'
+            f'  <header class="rival-radar__header">{eyebrow}{title}</header>'
+            f'  <p class="rival-radar__awaiting">{escape(str(reason))}</p>'
+            '</article>'
+        )
+
+    obsession = int(round(float(data.get("obsession_score") or 0)))
+    mentions = int(data.get("mention_count_season") or 0)
+    weeks = int(data.get("weeks_with_rival_chatter") or 0)
+    peak_week = data.get("peak_week")
+    peak_mentions = int(data.get("peak_week_mentions") or 0)
+    pos = int(round(float(data.get("positive_share") or 0) * 100))
+    neg = int(round(float(data.get("negative_share") or 0) * 100))
+    neu = max(0, 100 - pos - neg)
+
+    peak_label = (
+        f"Week {peak_week} &middot; {peak_mentions} mention{'s' if peak_mentions != 1 else ''}"
+        if peak_week is not None
+        else "—"
+    )
+
+    return (
+        '<article class="rival-radar" data-module="rival-radar" '
+        'data-state="ready">'
+        f'  <header class="rival-radar__header">{eyebrow}{title}</header>'
+        '  <div class="rival-radar__score-row">'
+        '    <div class="rival-radar__metric">'
+        '      <span class="rival-radar__metric-label">Obsession score</span>'
+        f'      <span class="rival-radar__metric-value">{obsession}</span>'
+        '    </div>'
+        '    <div class="rival-radar__metric">'
+        '      <span class="rival-radar__metric-label">Rival mentions</span>'
+        f'      <span class="rival-radar__metric-value">{mentions}</span>'
+        '    </div>'
+        '    <div class="rival-radar__metric">'
+        '      <span class="rival-radar__metric-label">Weeks on radar</span>'
+        f'      <span class="rival-radar__metric-value">{weeks}</span>'
+        '    </div>'
+        '    <div class="rival-radar__metric">'
+        '      <span class="rival-radar__metric-label">Peak moment</span>'
+        f'      <span class="rival-radar__metric-value" style="font-size: var(--fs-body);">{peak_label}</span>'
+        '    </div>'
+        '  </div>'
+        '  <div class="rival-radar__sentiment">'
+        '    <div class="rival-radar__sentiment-bar" role="img" '
+        f'aria-label="Rival sentiment: {pos}% positive, {neu}% neutral, {neg}% negative">'
+        f'      <span class="rival-radar__sentiment-bar--pos" style="width: {pos}%"></span>'
+        f'      <span class="rival-radar__sentiment-bar--neu" style="width: {neu}%"></span>'
+        f'      <span class="rival-radar__sentiment-bar--neg" style="width: {neg}%"></span>'
+        '    </div>'
+        '    <div class="rival-radar__sentiment-legend">'
+        f'      <span>Grudging respect {pos}%</span>'
+        f'      <span>Neutral {neu}%</span>'
+        f'      <span>Mockery {neg}%</span>'
+        '    </div>'
+        '  </div>'
+        '</article>'
+    )
+
+
 def render_anti_take_card(anti_take: Any | None) -> str:
     """Render the Anti-Take sibling card. Empty string when none."""
     if not anti_take:
@@ -3048,6 +3217,8 @@ def _compose_global_css() -> str:
         + _SIGNAL_FLOW_CSS_BLOCK
         + "\n/* === Hot-Take card (S2.2) === */\n"
         + _HOT_TAKE_CSS_BLOCK
+        + "\n/* === Rival Radar (S2.4) === */\n"
+        + _RIVAL_RADAR_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -5123,6 +5294,14 @@ def build_player_page_data_map(
         page_data["active_signals"] = signals_by_player.get(player_id, [])
         page_data["hot_take"] = hot_takes_by_player.get(player_id)
         page_data["anti_take"] = anti_takes_by_player.get(player_id)
+        # Rival Radar (Signature Bets S2.4) — per-player, cheap query.
+        try:
+            from cfb_rankings.bets.rival_radar import compute_rival_radar
+            page_data["rival_radar"] = compute_rival_radar(
+                db, player_id, int(summary["season_year"])
+            )
+        except Exception:
+            page_data["rival_radar"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -14587,6 +14766,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {render_hot_take_card(player_data.get("hot_take"))}
         {render_anti_take_card(player_data.get("anti_take"))}
         {_render_the_room_card(player_data.get("the_room"), player_name)}
+      </section>
+
+      <section class="section player-anchor-section" id="rival-radar">
+        {render_rival_radar_card(player_data.get("rival_radar"), player_name)}
       </section>
 
       <section class="section player-anchor-section" id="signature-story">
