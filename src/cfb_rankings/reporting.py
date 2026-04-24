@@ -2536,6 +2536,189 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Cohort Divergence Map — Signature Bets S3.1 / §4 Bet #10. SVG
+# scatter showing per-bucket (belief, intensity, mention-volume) for a
+# player. Lives inside The Room as a collapsible <details> so
+# progressive enhancement renders without JS.
+_COHORT_DIVERGENCE_CSS_BLOCK = """
+@layer components {
+  .cohort-divergence {
+    margin: var(--space-4, 1rem) 0 0 0;
+    padding: var(--space-4, 1rem);
+    border: 1px dashed var(--border, #d0d0d0);
+    border-radius: var(--radius-md, 12px);
+    background: color-mix(in srgb, var(--muted, #eee) 15%, var(--card));
+  }
+  .cohort-divergence > summary {
+    cursor: pointer;
+    font-size: var(--fs-meta, 0.78rem);
+    letter-spacing: 0.06em;
+    color: var(--muted-foreground, #666);
+    font-weight: 600;
+  }
+  .cohort-divergence[open] > summary {
+    color: var(--foreground, #222);
+  }
+  .cohort-divergence__plot {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    margin: var(--space-3, 0.75rem) auto;
+    height: auto;
+  }
+  .cohort-divergence__axis-label {
+    font-size: var(--fs-meta, 0.72rem);
+    fill: var(--muted-foreground, #666);
+    font-family: 'Inter', sans-serif;
+  }
+  .cohort-divergence__axis-line {
+    stroke: var(--border, #d0d0d0);
+    stroke-width: 1;
+  }
+  .cohort-divergence__dot {
+    stroke-width: 1.5;
+    stroke: var(--card, #fff);
+  }
+  .cohort-divergence__dot--fan      { fill: var(--confidence-high, #3fa35b); }
+  .cohort-divergence__dot--rival    { fill: var(--confidence-low, #c43a3a); }
+  .cohort-divergence__dot--national { fill: var(--belief-neutral, #888); }
+  .cohort-divergence__dot--media    { fill: var(--accolade-gold-base, #d1a23a); }
+  .cohort-divergence__dot-label {
+    font-size: var(--fs-meta, 0.7rem);
+    fill: var(--foreground, #222);
+    font-weight: 600;
+  }
+  .cohort-divergence__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3, 0.75rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--fs-meta, 0.72rem);
+    color: var(--muted-foreground, #666);
+    font-variant-numeric: tabular-nums;
+  }
+  .cohort-divergence__legend li {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .cohort-divergence__legend li::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted-foreground, #666);
+  }
+  .cohort-divergence__legend li.fan::before       { background: var(--confidence-high, #3fa35b); }
+  .cohort-divergence__legend li.rival::before     { background: var(--confidence-low, #c43a3a); }
+  .cohort-divergence__legend li.national::before  { background: var(--belief-neutral, #888); }
+  .cohort-divergence__legend li.media::before     { background: var(--accolade-gold-base, #d1a23a); }
+  .cohort-divergence__awaiting {
+    font-size: var(--fs-meta, 0.78rem);
+    color: var(--muted-foreground, #666);
+    font-style: italic;
+    margin: var(--space-2, 0.5rem) 0 0;
+  }
+}
+"""
+
+
+def render_cohort_divergence_map(map_data: Any | None) -> str:
+    """Render the 2D scatter as a <details> inside The Room."""
+    if map_data is None:
+        return ""
+    if hasattr(map_data, "applicable"):
+        applicable = bool(map_data.applicable)
+        dots = list(map_data.dots)
+        reason = map_data.awaiting_reason
+    else:
+        applicable = bool((map_data or {}).get("applicable"))
+        dots = list((map_data or {}).get("dots") or [])
+        reason = (map_data or {}).get("awaiting_reason") or ""
+    if not applicable:
+        return (
+            '<details class="cohort-divergence" data-module="cohort-divergence" data-state="empty">'
+            '<summary>Cohort divergence map</summary>'
+            f'<p class="cohort-divergence__awaiting">{escape(str(reason or "Awaiting per-cohort signal."))}</p>'
+            '</details>'
+        )
+
+    # SVG coordinate space: 520 × 260; plot area inset 40 each side.
+    VBW, VBH = 520, 260
+    MX, MY = 40, 30
+    PLOT_W = VBW - MX * 2
+    PLOT_H = VBH - MY * 2
+
+    def x_for(belief: float) -> float:
+        # belief -100..100 → 0..PLOT_W
+        return MX + ((belief + 100.0) / 200.0) * PLOT_W
+
+    def y_for(intensity: float) -> float:
+        # intensity 0..100 → bottom (0) to top (100). Flip axis.
+        return MY + PLOT_H - (intensity / 100.0) * PLOT_H
+
+    def radius_for(mentions: int) -> float:
+        # 1..200+ mapped to 4..14 px.
+        r = 4 + min(mentions, 200) / 200.0 * 10.0
+        return r
+
+    axis_x_line = (
+        f'<line class="cohort-divergence__axis-line" '
+        f'x1="{MX}" y1="{MY + PLOT_H/2}" x2="{VBW - MX}" y2="{MY + PLOT_H/2}" />'
+    )
+    axis_y_line = (
+        f'<line class="cohort-divergence__axis-line" '
+        f'x1="{MX + PLOT_W/2}" y1="{MY}" x2="{MX + PLOT_W/2}" y2="{VBH - MY}" />'
+    )
+    labels = (
+        f'<text class="cohort-divergence__axis-label" x="{MX}" y="{VBH - 6}">bearish</text>'
+        f'<text class="cohort-divergence__axis-label" x="{VBW - MX - 46}" y="{VBH - 6}">bullish</text>'
+        f'<text class="cohort-divergence__axis-label" x="{MX + 2}" y="{MY + 12}">heated</text>'
+        f'<text class="cohort-divergence__axis-label" x="{MX + 2}" y="{VBH - MY - 2}">calm</text>'
+    )
+    dots_svg: list[str] = []
+    for d in dots:
+        bucket = getattr(d, "bucket", None) or d.get("bucket")
+        label = getattr(d, "label", None) or d.get("label")
+        belief = float(getattr(d, "belief", None) if hasattr(d, "belief") else d.get("belief") or 0)
+        intensity = float(getattr(d, "intensity", None) if hasattr(d, "intensity") else d.get("intensity") or 0)
+        mentions = int(getattr(d, "mention_count", None) if hasattr(d, "mention_count") else d.get("mention_count") or 0)
+        top_quote = getattr(d, "top_quote", None) if hasattr(d, "top_quote") else d.get("top_quote")
+        x = x_for(belief)
+        y = y_for(intensity)
+        r = radius_for(mentions)
+        title = f"{label}: {mentions} mentions · belief {belief:+.0f}"
+        if top_quote:
+            title += f' · "{top_quote[:80]}"'
+        dots_svg.append(
+            f'<g><circle class="cohort-divergence__dot cohort-divergence__dot--{bucket}" '
+            f'cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}">'
+            f'<title>{escape(title)}</title></circle>'
+            f'<text class="cohort-divergence__dot-label" x="{x + r + 4:.1f}" y="{y + 4:.1f}">{escape(str(label))}</text>'
+            f'</g>'
+        )
+    legend_items = "".join(
+        f'<li class="{getattr(d, "bucket", None) or d.get("bucket")}">'
+        f'{escape(getattr(d, "label", None) or d.get("label"))} &middot; '
+        f'n={getattr(d, "mention_count", None) or d.get("mention_count")}</li>'
+        for d in dots
+    )
+    return (
+        '<details class="cohort-divergence" data-module="cohort-divergence" data-state="ready" open>'
+        '<summary>Cohort divergence map</summary>'
+        f'<svg class="cohort-divergence__plot" viewBox="0 0 {VBW} {VBH}" role="img" '
+        f'aria-label="Cohort divergence scatter">'
+        f'{axis_x_line}{axis_y_line}{labels}'
+        f'{"".join(dots_svg)}'
+        '</svg>'
+        f'<ul class="cohort-divergence__legend">{legend_items}</ul>'
+        '</details>'
+    )
+
+
 # Coaching Lineage — Signature Bets S2.9 / §4 Bet #11. Small module
 # near Supporting Cast. Renders hand-authored seed data for the top
 # programs; empty state elsewhere.
@@ -3795,6 +3978,8 @@ def _compose_global_css() -> str:
         + _PREDICTION_MARKETS_CSS_BLOCK
         + "\n/* === Coaching Lineage (S2.9) === */\n"
         + _COACHING_LINEAGE_CSS_BLOCK
+        + "\n/* === Cohort Divergence Map (S3.1) === */\n"
+        + _COHORT_DIVERGENCE_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -5920,6 +6105,14 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["coaching_lineage"] = None
+        # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
+        try:
+            from cfb_rankings.bets.cohort_divergence import compute_cohort_divergence
+            page_data["cohort_divergence"] = compute_cohort_divergence(
+                db, player_id, int(summary["season_year"])
+            )
+        except Exception:
+            page_data["cohort_divergence"] = None
         row["tracked_heisman_seasons"] = len(page_data["heisman_years"])
         row["best_heisman_rank"] = page_data["best_heisman_rank"]
         row["latest_heisman_season"] = page_data["latest_heisman_season"]
@@ -15389,6 +15582,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {render_hot_take_card(player_data.get("hot_take"))}
         {render_anti_take_card(player_data.get("anti_take"))}
         {_render_the_room_card(player_data.get("the_room"), player_name)}
+        {render_cohort_divergence_map(player_data.get("cohort_divergence"))}
       </section>
 
       <section class="section player-anchor-section" id="rival-radar">
