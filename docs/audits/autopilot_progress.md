@@ -83,7 +83,7 @@ Defaults policy, autonomy rules, and stop conditions live in
 
 ## Workstream 7 — Phase-aware site + offseason modules
 
-- [ ] TASK 7.1 — Phase detection (Sonnet)
+- [x] TASK 7.1 — Phase detection (Sonnet)
 - [ ] TASK 7.2 — Offseason Status chip + 2026 Outlook module (Sonnet)
 - [ ] TASK 7.3 — Development Trajectory module (Sonnet)
 - [ ] TASK 7.4 — Methodology page global-nav link (Opus single-edit, Haiku diff)
