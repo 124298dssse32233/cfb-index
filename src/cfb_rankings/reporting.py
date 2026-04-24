@@ -2536,6 +2536,83 @@ _HOT_TAKE_CSS_BLOCK = """
 """
 
 
+# Gilded Section — Signature Bets S4.5 / §5 item 15. One module per
+# page gets a subtle accolade-gold top border when it carries the
+# page's "most interesting" data point. Deterministic novelty rule
+# (see _select_gilded_module).
+_GILDED_SECTION_CSS_BLOCK = """
+@layer utilities {
+  .gilded {
+    position: relative;
+    isolation: isolate;
+  }
+  .gilded::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--accolade-gold-highlight, #f2c866) 0%,
+      var(--accolade-gold-base, #d1a23a) 40%,
+      var(--accolade-gold-highlight, #f2c866) 100%);
+    border-radius: var(--radius-md, 12px) var(--radius-md, 12px) 0 0;
+    z-index: 2;
+  }
+  .gilded-badge {
+    position: absolute;
+    top: var(--space-3, 0.75rem);
+    right: var(--space-3, 0.75rem);
+    font-size: calc(var(--fs-meta, 0.72rem) * 0.85);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accolade-gold-base, #d1a23a);
+    font-weight: 700;
+    pointer-events: none;
+  }
+}
+"""
+
+
+def _select_gilded_module(player_data: dict[str, Any]) -> str:
+    """Return a slug — 'hot-take' / 'signature-story' / 'achievements' /
+    'mirror-match' / '' — indicating which surface gets the gilded
+    top-border treatment on this page. Deterministic rule:
+
+      1. Hot-Take pair present  → 'hot-take'
+      2. Signature Story ready  → 'signature-story'
+      3. Any achievement with rarity <= 2.0%  → 'achievements'
+      4. Top mirror match sim >= 95%  → 'mirror-match'
+      5. else  → '' (no gilding)
+    """
+    if player_data.get("hot_take") and player_data.get("anti_take"):
+        return "hot-take"
+    sig = (player_data.get("algorithmic_signature") or {})
+    if isinstance(sig, dict) and sig.get("has_story"):
+        return "signature-story"
+    achievements = player_data.get("achievements") or []
+    for a in achievements:
+        r = a.get("rarity_pct") if isinstance(a, dict) else None
+        try:
+            if r is not None and float(r) <= 2.0:
+                return "achievements"
+        except (TypeError, ValueError):
+            continue
+    matches = player_data.get("mirror_matches") or []
+    for m in matches:
+        sim = getattr(m, "similarity_pct", None) if not isinstance(m, dict) else m.get("similarity_pct")
+        try:
+            if sim is not None and float(sim) >= 95.0:
+                return "mirror-match"
+        except (TypeError, ValueError):
+            continue
+    return ""
+
+
+def _gilded_class(target_slug: str, gilded_slug: str) -> str:
+    """Helper: return ' gilded' when this section is the gilded one."""
+    return " gilded" if target_slug and target_slug == gilded_slug else ""
+
+
 # Opponent-strength stripe — Signature Bets S4.4 / §5 item 6. 1px
 # gradient bar under game-level stats: green = top-25, orange = P4 mid,
 # grey = G5, red = FCS. Applied inline via _opp_strength_class.
@@ -4576,6 +4653,8 @@ def _compose_global_css() -> str:
         + _THIS_DAY_CSS_BLOCK
         + "\n/* === Opponent-strength stripe (S4.4) === */\n"
         + _OPP_STRENGTH_CSS_BLOCK
+        + "\n/* === Gilded Section (S4.5) === */\n"
+        + _GILDED_SECTION_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -16129,6 +16208,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     # sections inserted in S.2-S.5.
     player_subnav = _render_v5_player_subnav()
 
+    # Gilded Section (S4.5) — one slug per page gets the gold border.
+    _gilded = _select_gilded_module(player_data)
+
     # What-Changed state blob (Signature Bets S1.4). Embedded per-page
     # so the client can diff against the reader's last-visit snapshot.
     from cfb_rankings.bets.what_changed import (
@@ -16228,12 +16310,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
-      <section class="section player-anchor-section" id="achievements">
+      <section class="section player-anchor-section{_gilded_class('achievements', _gilded)}" id="achievements">
         {render_prediction_markets_card(player_data.get("market_signal"))}
         {render_achievements_ribbon(player_data.get("achievements"))}
       </section>
 
-      <section class="section player-anchor-section" id="the-room">
+      <section class="section player-anchor-section{_gilded_class('hot-take', _gilded)}" id="the-room">
         {render_hot_take_card(player_data.get("hot_take"))}
         {render_anti_take_card(player_data.get("anti_take"))}
         {_render_the_room_card(player_data.get("the_room"), player_name)}
@@ -16244,7 +16326,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {render_rival_radar_card(player_data.get("rival_radar"), player_name)}
       </section>
 
-      <section class="section player-anchor-section" id="signature-story">
+      <section class="section player-anchor-section{_gilded_class('signature-story', _gilded)}" id="signature-story">
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
         {render_signature_play_card(player_data.get("signature_moment"), player_data.get("signature_moment_opp_tier") or "")}
         {render_narrative_arc_card(player_data.get("narrative_arc"))}
@@ -16480,7 +16562,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {_render_v5_savant_card(player_data.get("savant"))}
       </section>
 
-      <section class="section player-anchor-section" id="peer-comparator">
+      <section class="section player-anchor-section{_gilded_class('mirror-match', _gilded)}" id="peer-comparator">
         {_render_v5_peer_comparator_card(player_data.get("peers"))}
         {render_mirror_match_card(player_data.get("mirror_matches"))}
       </section>
