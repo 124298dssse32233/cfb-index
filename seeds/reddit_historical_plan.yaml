@@ -1,0 +1,246 @@
+# Reddit historical backfill plan — Autopilot v1 TASK 2.1.
+#
+# Defines WHICH subs to backfill and the DATE RANGE. The runner
+# (scripts/backfill_reddit_history.py, TASK 2.2) partitions each
+# (subreddit, date-range) pair into N-day windows and translates each
+# window into a `collect-reddit-plan` invocation.
+#
+# Math sanity check at plan defaults:
+#   2022-09-01 → today (2026-04-23) ≈ 1,330 days ≈ 190 × 7-day windows
+#   43 sub-rows × 190 windows/sub ≈ 8,170 windows total.
+#
+# Providers:
+#   1. arctic-shift — primary. Most complete historical coverage per
+#      FAN_INTEL_SOURCE_STRATEGY.md §3. Soft rate limit ~1 req/3s.
+#   2. pullpush — fallback for recent/post-2024 density. Soft rate
+#      limit ~1 req/sec.
+#
+# The runner tries arctic-shift first for each window; on a 3-consecutive-
+# failure sequence for one sub it switches to pullpush and logs a note.
+
+defaults:
+  windows_start: "2022-09-01"       # STRATEGY §3 window floor
+  windows_end: "today"              # resolved at runtime
+  window_days: 7
+  provider_primary: arctic-shift
+  provider_fallback: pullpush
+  mode: subreddit_listing           # "fresh window" pull per sub
+  listing: new                      # sort, not filtered
+  limit_per_window: 100             # subreddit_listing page size
+  require_cfb_context: true         # weeds out off-topic noise in r/CFB
+  replace_existing: false           # idempotent re-runs won't double-count
+
+# ---------------------------------------------------------------------------
+# Priority-team sub-rows. One per (team_name, subreddit, audience_bucket).
+# audience_bucket semantics:
+#   - fan    = the team's own sub or city sub (own-fan voice)
+#   - rival  = we don't enumerate rival subs here; rival voice comes
+#              from cross-matches when the cfb-wide sub mentions the team
+#   - national = r/CFB sitewide
+# ---------------------------------------------------------------------------
+
+sources:
+
+  # --- r/CFB national feed ---
+  - key: cfb_national
+    subreddit: CFB
+    audience_bucket: national
+    description: "r/CFB flagship — the national narrative cohort."
+
+  # --- Alabama ---
+  - key: alabama_team
+    team_name: Alabama
+    subreddit: rolltide
+    audience_bucket: fan
+  - key: alabama_city
+    team_name: Alabama
+    subreddit: tuscaloosa
+    audience_bucket: fan
+
+  # --- Georgia ---
+  - key: georgia_team
+    team_name: Georgia
+    subreddit: georgiabulldogs
+    audience_bucket: fan
+  - key: georgia_city
+    team_name: Georgia
+    subreddit: Athens
+    audience_bucket: fan
+
+  # --- LSU ---
+  - key: lsu_team
+    team_name: LSU
+    subreddit: LSUFootball
+    audience_bucket: fan
+  - key: lsu_city
+    team_name: LSU
+    subreddit: BatonRouge
+    audience_bucket: fan
+
+  # --- Tennessee ---
+  - key: tennessee_team
+    team_name: Tennessee
+    subreddit: tennesseevols
+    audience_bucket: fan
+  - key: tennessee_city
+    team_name: Tennessee
+    subreddit: Knoxville
+    audience_bucket: fan
+
+  # --- Texas ---
+  - key: texas_team
+    team_name: Texas
+    subreddit: LonghornNation
+    audience_bucket: fan
+  - key: texas_city
+    team_name: Texas
+    subreddit: Austin
+    audience_bucket: fan
+
+  # --- Ohio State ---
+  - key: ohiostate_team
+    team_name: Ohio State
+    subreddit: OSUFootball
+    audience_bucket: fan
+  - key: ohiostate_city
+    team_name: Ohio State
+    subreddit: Columbus
+    audience_bucket: fan
+
+  # --- Michigan ---
+  - key: michigan_team
+    team_name: Michigan
+    subreddit: MichiganWolverines
+    audience_bucket: fan
+  - key: michigan_city
+    team_name: Michigan
+    subreddit: AnnArbor
+    audience_bucket: fan
+
+  # --- Penn State ---
+  - key: pennstate_team
+    team_name: Penn State
+    subreddit: PennStateUniversity
+    audience_bucket: fan
+  - key: pennstate_city
+    team_name: Penn State
+    subreddit: StateCollege
+    audience_bucket: fan
+
+  # --- Oregon ---
+  - key: oregon_team
+    team_name: Oregon
+    subreddit: ducks
+    audience_bucket: fan
+  - key: oregon_city
+    team_name: Oregon
+    subreddit: Eugene
+    audience_bucket: fan
+
+  # --- Clemson --- (primary sub resolves to r/CFB — spec. Keep city as the distinct signal.)
+  - key: clemson_city
+    team_name: Clemson
+    subreddit: ClemsonSC
+    audience_bucket: fan
+
+  # --- Florida State ---
+  - key: fsu_team
+    team_name: Florida State
+    subreddit: fsusports
+    audience_bucket: fan
+  - key: fsu_city
+    team_name: Florida State
+    subreddit: Tallahassee
+    audience_bucket: fan
+
+  # --- Miami ---
+  - key: miami_team
+    team_name: Miami
+    subreddit: MiamiHurricanes
+    audience_bucket: fan
+  - key: miami_city
+    team_name: Miami
+    subreddit: Miami
+    audience_bucket: fan
+
+  # --- Texas Tech ---
+  - key: ttech_team
+    team_name: Texas Tech
+    subreddit: TexasTechFootball
+    audience_bucket: fan
+  - key: ttech_city
+    team_name: Texas Tech
+    subreddit: Lubbock
+    audience_bucket: fan
+
+  # --- Kansas State ---
+  - key: ksu_team
+    team_name: Kansas State
+    subreddit: KStateFootball
+    audience_bucket: fan
+  - key: ksu_city
+    team_name: Kansas State
+    subreddit: Manhattan_KS
+    audience_bucket: fan
+
+  # --- BYU ---
+  - key: byu_team
+    team_name: BYU
+    subreddit: BYUfootball
+    audience_bucket: fan
+  - key: byu_city
+    team_name: BYU
+    subreddit: Provo
+    audience_bucket: fan
+
+  # --- Boise State ---
+  - key: boise_team
+    team_name: Boise State
+    subreddit: BroncoNation
+    audience_bucket: fan
+  - key: boise_city
+    team_name: Boise State
+    subreddit: boise
+    audience_bucket: fan
+
+  # --- Memphis ---
+  - key: memphis_team
+    team_name: Memphis
+    subreddit: MemphisTigers
+    audience_bucket: fan
+  - key: memphis_city
+    team_name: Memphis
+    subreddit: memphis
+    audience_bucket: fan
+
+  # --- Tulane ---
+  - key: tulane_team
+    team_name: Tulane
+    subreddit: TulaneFootball
+    audience_bucket: fan
+  - key: tulane_city
+    team_name: Tulane
+    subreddit: NewOrleans
+    audience_bucket: fan
+
+  # --- Jackson State (HBCU; no dedicated team sub — city only) ---
+  - key: jacksonstate_city
+    team_name: Jackson State
+    subreddit: jackson
+    audience_bucket: fan
+
+  # --- Howard (HBCU; no dedicated team sub — city only) ---
+  - key: howard_city
+    team_name: Howard
+    subreddit: washingtondc
+    audience_bucket: fan
+
+  # --- Notre Dame ---
+  - key: notredame_team
+    team_name: Notre Dame
+    subreddit: notredamefootball
+    audience_bucket: fan
+  - key: notredame_city
+    team_name: Notre Dame
+    subreddit: southbend
+    audience_bucket: fan
