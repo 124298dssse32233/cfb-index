@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Canon · CFB Index</title>
+<meta name="description" content="The Canon — annual canonical lists. Players, games, coaching hires of the College Football Playoff era.">
+<style>{styles_css}</style>
+</head>
+<body class="canon-page canon-index">
+<header class="canon-masthead">
+  <div class="canon-masthead__inner">
+    <a class="canon-masthead__brand" href="/">CFB Index</a>
+    <nav class="canon-masthead__nav" aria-label="primary">
+      <a href="/teams/">Teams</a>
+      <a href="/canon/" aria-current="page">The Canon</a>
+    </nav>
+  </div>
+</header>
+
+<main class="canon-main">
+  <section class="canon-hero">
+    <p class="canon-hero__eyebrow">The Canon · {edition_year} edition</p>
+    <h1 class="canon-hero__title">The lists that settle the era's arguments — or start them.</h1>
+    <p class="canon-hero__dek">
+      Annual rankings published in {edition_year}. Three lists at v1 — players, games,
+      coaching hires of the College Football Playoff era. Settled enough to defend.
+      Argued enough to revisit.
+    </p>
+  </section>
+
+  <section class="canon-list-grid">
+    {list_cards}
+  </section>
+
+  <section class="canon-methodology">
+    <h2 class="canon-methodology__title">How the lists work</h2>
+    <p class="canon-methodology__body">
+      Each list is editorial — written, ranked, and revised once a year.
+      Rank deltas show the shift since the last edition. Cohort divergence
+      shows where stat-folks and casual-fans see the same entries differently.
+      Every entry has a one-liner; top entries get an editorial paragraph;
+      a smaller subset gets the deepest register reserved for the era's
+      blue-bloods. Next revision: {next_revision_year}.
+    </p>
+  </section>
+</main>
+
+<footer class="canon-footer">
+  <div class="canon-footer__inner">
+    <p class="canon-footer__line">
+      The Canon is published annually by CFB Index. Every list shifts year to year.
+      Argue with us — argument is the point.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

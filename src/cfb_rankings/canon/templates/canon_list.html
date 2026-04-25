@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{list_title} · {edition_year} · The Canon</title>
+<meta name="description" content="{list_description}">
+<style>{styles_css}</style>
+</head>
+<body class="canon-page canon-list-page">
+<header class="canon-masthead">
+  <div class="canon-masthead__inner">
+    <a class="canon-masthead__brand" href="/">CFB Index</a>
+    <nav class="canon-masthead__nav" aria-label="primary">
+      <a href="/teams/">Teams</a>
+      <a href="/canon/">The Canon</a>
+    </nav>
+  </div>
+</header>
+
+<main class="canon-main">
+  <section class="canon-list-hero">
+    <p class="canon-list-hero__eyebrow">The Canon · {edition_year} edition</p>
+    <h1 class="canon-list-hero__title">{list_title}</h1>
+    <p class="canon-list-hero__dek">{list_description}</p>
+    <div class="canon-list-hero__meta">
+      <span class="canon-list-hero__meta-item">{entry_count} entries</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Published {published_at}</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Next revision {next_revision_year}</span>
+    </div>
+  </section>
+
+  <section class="canon-stat-strip" aria-label="Cohort-divergence summary">
+    <div class="canon-stat-strip__inner">
+      <dl class="canon-stat-strip__items">
+        <div class="canon-stat-strip__item">
+          <dt>Consensus</dt>
+          <dd>{consensus_count}</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Slight divergence</dt>
+          <dd>{slight_div_count}</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Wide divergence</dt>
+          <dd>{wide_div_count}</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Top-25 mean delta</dt>
+          <dd>{mean_delta}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="canon-top-entries" aria-label="Top entries">
+    {top_entries_html}
+  </section>
+
+  <section class="canon-mid-entries" aria-label="Ranks {mid_start}\u2013{mid_end}">
+    <h2 class="canon-mid-entries__title">Ranks {mid_start}\u2013{mid_end}</h2>
+    <ol class="canon-mid-entries__list" start="{mid_start}">
+      {mid_entries_html}
+    </ol>
+  </section>
+
+  {footer_entries_section}
+
+  <section class="canon-receipts" aria-label="Receipts panel">
+    <h2 class="canon-receipts__title">Revision receipts</h2>
+    <p class="canon-receipts__body">
+      Every rank in this edition is tracked against last year's slot.
+      <span class="canon-receipts__legend">
+        <span class="canon-receipts__chip canon-receipts__chip--up">\u2191</span> moved up
+        <span class="canon-receipts__chip canon-receipts__chip--down">\u2193</span> moved down
+        <span class="canon-receipts__chip canon-receipts__chip--flat">\u2192</span> held
+        <span class="canon-receipts__chip canon-receipts__chip--new">NEW</span> first edition
+      </span>
+    </p>
+    <p class="canon-receipts__note">
+      v1 edition \u2014 prior-year ranks are NEW across the board. The 2027
+      edition is the first one where the deltas read movement.
+    </p>
+  </section>
+
+  <section class="canon-methodology">
+    <h2 class="canon-methodology__title">How this list was put together</h2>
+    <p class="canon-methodology__body">{methodology_notes}</p>
+  </section>
+</main>
+
+<footer class="canon-footer">
+  <div class="canon-footer__inner">
+    <p class="canon-footer__line">
+      Argue at the rankings, not the players \u2014 every entry below earned its way onto
+      the list, and the rank is the read, not the verdict. Next revision: {next_revision_year}.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

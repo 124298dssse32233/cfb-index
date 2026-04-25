@@ -1,0 +1,15 @@
+{
+  "_comment": "Forward-compatible stub for Sprint 9's homepage Canon entry-of-the-week block. Replicates the hardcoded Caleb Williams entry that Sprint 9 shipped, and is the fallback when canon_entries is empty. When canon entries exist in the database, cfb_rankings.canon.data.load_featured_entry rotates weekly through every list's top-5 instead of reading this file. See src/cfb_rankings/canon/data.py:load_featured_entry.",
+  "list_slug": "the-100-best-players-cfp-era",
+  "list_title": "The 100 Best Players of the CFP Era",
+  "edition_year": 2026,
+  "rank": 4,
+  "entity_slug": "caleb-williams",
+  "entity_display_name": "Caleb Williams",
+  "program_slug": "usc",
+  "program_label": "USC",
+  "era_label": "Riley Era \u00b7 2022\u20132023",
+  "summary_short": "Bridged the Oklahoma\u2013USC Lincoln Riley transition and won the Heisman doing it in his first year as a starter at his second program.",
+  "editorial_paragraph": null,
+  "statline": "2022 Heisman \u00b7 10,082 career passing yards \u00b7 93 TD \u00b7 14 INT"
+}
