@@ -1,46 +1,62 @@
-"""Voice validator (Sprint 13 cross-cut).
+"""Receipts validator shim.
 
-Lightweight banned-phrase + tone check for receipts editorial copy. Mirrors
-the pattern used by chronicle/pulse but tuned for the receipts framing rules:
+Sprint 13 once had its own banned-phrase list here. Per the Sprint-13
+review (no-drift rule from the user), the canonical fan-voice validator
+lives in `cfb_rankings.team_pages.voice_validator`. The receipts-specific
+tone-violation phrases ("hot take", "L take", "cope", etc.) were ported
+into the canonical's `BANNED_PHRASES` tuple, and this module now defers
+to that single source of truth.
 
-  * Celebratory not gotcha.
-  * Aged-poorly takes are framed gently.
-  * No anonymized sources — names are non-negotiable.
-  * No editorializing on the source's character (only on the take itself).
-
-Returns (passed, notes).
+What stays here: receipts-specific *required-token* checks (the
+`Surprise Index` mention rule on Best-Calls editorial), which are an
+editorial completeness gate, not a phrasing-leakage gate.
 """
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 from typing import Iterable
 
+try:
+    # Preferred path once team_pages package imports cleanly (post-merge).
+    from cfb_rankings.team_pages.voice_validator import (
+        BANNED_PHRASES,
+        FAN_VOICE_REPLACEMENTS,
+        ValidationResult as CanonicalValidationResult,
+        first_violation,
+        has_banned_phrase,
+        validate as _canonical_validate,
+        validate_fan_voice,
+    )
+except ImportError:
+    # Worktree fallback: team_pages/__init__.py eagerly imports the renderer,
+    # which depends on uncommitted Sprint-8 WIP (FLOOR_AWAITING, etc.) that
+    # may not be present in this branch's base. Load the canonical module
+    # directly from its path so receipts validation still uses ONE source of
+    # truth without dragging in the rest of team_pages.
+    import importlib.util as _ilu
+    import sys as _sys
+    from pathlib import Path as _P
+    _src = _P(__file__).resolve().parents[1] / "team_pages" / "voice_validator.py"
+    _mod_name = "cfb_rankings._receipts_canonical_voice"
+    _spec = _ilu.spec_from_file_location(_mod_name, str(_src))
+    _mod = _ilu.module_from_spec(_spec)
+    # Register before exec so @dataclass / TYPE introspection resolves cleanly
+    # under Python 3.14's stricter module-namespace lookup.
+    _sys.modules[_mod_name] = _mod
+    _spec.loader.exec_module(_mod)
+    BANNED_PHRASES = _mod.BANNED_PHRASES
+    FAN_VOICE_REPLACEMENTS = _mod.FAN_VOICE_REPLACEMENTS
+    CanonicalValidationResult = _mod.ValidationResult
+    first_violation = _mod.first_violation
+    has_banned_phrase = _mod.has_banned_phrase
+    _canonical_validate = _mod.validate
+    validate_fan_voice = _mod.validate_fan_voice
 
-# Phrases that violate receipts framing rules.
-BANNED_PHRASES: tuple[tuple[re.Pattern[str], str], ...] = tuple(
-    (re.compile(rf"\b{re.escape(phrase)}\b", re.IGNORECASE), reason)
-    for phrase, reason in [
-        ("hot take",          "use 'take' or 'prediction' — 'hot take' editorializes"),
-        ("clown",             "gotcha-tone; banned by framing rules"),
-        ("clowned",           "gotcha-tone"),
-        ("idiot",             "personal attack"),
-        ("stupid",            "personal attack"),
-        ("dumb",              "personal attack"),
-        ("anonymous source",  "framing rule: no anonymous attribution"),
-        ("according to a source", "framing rule: name the predictor"),
-        ("we all know",       "lazy editorial filler"),
-        ("obviously",         "lazy editorial filler"),
-        ("of course",         "lazy editorial filler"),
-        ("amirite",            "tone violation"),
-        ("L take",            "gotcha-tone"),
-        ("ratio",             "platform-native sneering tone"),
-        ("cope",              "personal attack"),
-        ("seethe",            "personal attack"),
-    ]
-)
 
-# Phrases REQUIRED somewhere in best-calls / receipts copy.
+# Tokens that MUST appear in receipts editorial copy (currently only the
+# "Surprise Index" callout rule from EDITORIAL_POSITIONING_AND_CONTENT_TYPES.md
+# §"The Long-Shot That Hit"). Kept as a receipts-local constant because the
+# requirement is editorial-completeness-specific to the Receipts surface.
 REQUIRED_TOKENS_BEST_CALLS: tuple[str, ...] = (
     "Surprise Index",
 )
@@ -48,6 +64,10 @@ REQUIRED_TOKENS_BEST_CALLS: tuple[str, ...] = (
 
 @dataclass
 class ValidationResult:
+    """Receipts-flavored result that adds `missing` (required tokens not present)
+    on top of the canonical validator's `passed` / `violations`.
+    """
+
     passed: bool
     violations: list[str]
     missing: list[str]
@@ -55,22 +75,25 @@ class ValidationResult:
 
 
 def validate(text: str, *, require_tokens: Iterable[str] = ()) -> ValidationResult:
-    violations: list[str] = []
-    for pat, reason in BANNED_PHRASES:
-        if pat.search(text):
-            violations.append(f"{pat.pattern}: {reason}")
-    missing: list[str] = []
-    for tok in require_tokens:
-        if tok.lower() not in text.lower():
-            missing.append(tok)
-    passed = not violations and not missing
-    notes = "ok" if passed else (
-        f"{len(violations)} violations, {len(missing)} missing tokens"
+    """Run the canonical banned-phrase check + receipts-specific required-token check."""
+    canonical = _canonical_validate(text)
+    missing = [t for t in require_tokens if t.lower() not in (text or "").lower()]
+    passed = canonical.passed and not missing
+    notes = (
+        "ok" if passed
+        else f"{len(canonical.violations)} violations, {len(missing)} missing tokens"
     )
-    return ValidationResult(passed=passed, violations=violations, missing=missing, notes=notes)
+    return ValidationResult(
+        passed=passed,
+        violations=list(canonical.violations),
+        missing=missing,
+        notes=notes,
+    )
 
 
-def validate_corpus(texts: Iterable[str], *, require_tokens: Iterable[str] = ()) -> dict[str, int | float]:
+def validate_corpus(
+    texts: Iterable[str], *, require_tokens: Iterable[str] = (),
+) -> dict[str, int | float]:
     total = 0
     passing = 0
     violation_count = 0
@@ -90,3 +113,16 @@ def validate_corpus(texts: Iterable[str], *, require_tokens: Iterable[str] = ())
         "missing_total": missing_count,
         "pass_rate": round(pass_rate, 4),
     }
+
+
+__all__ = [
+    "BANNED_PHRASES",
+    "FAN_VOICE_REPLACEMENTS",
+    "REQUIRED_TOKENS_BEST_CALLS",
+    "ValidationResult",
+    "first_violation",
+    "has_banned_phrase",
+    "validate",
+    "validate_corpus",
+    "validate_fan_voice",
+]

@@ -37,6 +37,49 @@ class BestCallEntry:
 # Selection
 # ---------------------------------------------------------------------------
 
+def _passes_precision_filter(row: sqlite3.Row) -> bool:
+    """Drop entries the offline resolver mis-classified.
+
+    The offline resolver has two known precision gaps (documented in the
+    sprint report): (1) game-resolver counts winner-mention-anywhere as a
+    hit (so "FSU will beat Virginia" + Virginia winning still resolves hit
+    because Virginia appears in the claim text), and (2) playoff_bid +
+    record resolvers can fire on the empty 2026 season, producing
+    "finished 0-0 in 2026" outcome strings that aren't real outcomes.
+    Until the resolver is hardened, this filter excludes obvious
+    mis-resolutions from editorial selection so we don't celebrate
+    non-hits.
+    """
+    text = (row["claim_text"] or "").lower()
+    outcome = (row["outcome_text"] or "").lower()
+    # 1. Empty-2026 artifacts.
+    if "finished 0-0 in 2026" in outcome:
+        return False
+    if "unranked all season 2026" in outcome:
+        return False
+    # 2. Locked-On podcast feed *episode descriptions* aren't predictions —
+    # they're show notes. Filter the worst pattern: a single sentence that
+    # ends with "?" (rhetorical question) or contains "is joined by"
+    # (host introduction) or "Skull Session:" (link aggregator).
+    if " is joined by " in text:
+        return False
+    if "skull session:" in text:
+        return False
+    if text.strip().endswith("?") and "will " in text and "podcast" in text:
+        return False
+    # Bare title-case "Will X DO Y?" chyron-style is filter-worthy.
+    if text.strip().endswith("?") and any(w in text for w in (
+        "shakes ", "shock ", "exploit ", "revolt", "explode", "patch",
+    )):
+        return False
+    # 3. Game-resolver false positive: predicted-loser mentioned in claim
+    # but actual winner was the OTHER team. Detect by checking if the
+    # predicted-winner phrase ("X will beat Y" / "X to win" / "X over Y")
+    # has an explicit subject-verb pattern AND that subject lost.
+    # Skipped here at SQL-filter level; we'll do this at hand-curation.
+    return True
+
+
 def select_best_calls(season_year: int, *, n: int = 25, min_surprise: float = 30.0) -> list[sqlite3.Row]:
     with db_conn(read_only=True) as conn:
         rows = conn.execute("""
@@ -48,14 +91,15 @@ def select_best_calls(season_year: int, *, n: int = 25, min_surprise: float = 30
                AND CAST(strftime('%Y', source_published_at) AS INTEGER) BETWEEN ? AND ?
              ORDER BY surprise_index DESC, aged_well_pct DESC
              LIMIT ?
-        """, (min_surprise, season_year - 1, season_year, n)).fetchall()
-    return list(rows)
+        """, (min_surprise, season_year - 1, season_year, n * 4)).fetchall()
+    filtered = [r for r in rows if _passes_precision_filter(r)]
+    return filtered[:n]
 
 
 def select_aged_poorly(season_year: int, *, n: int = 10, min_surprise: float = 30.0) -> list[sqlite3.Row]:
     """Companion list — gentle framing, not gotcha."""
     with db_conn(read_only=True) as conn:
-        return list(conn.execute("""
+        rows = conn.execute("""
             SELECT * FROM predictive_claims
              WHERE outcome_resolved = 1
                AND outcome_verdict = 'miss'
@@ -64,7 +108,9 @@ def select_aged_poorly(season_year: int, *, n: int = 10, min_surprise: float = 3
                AND CAST(strftime('%Y', source_published_at) AS INTEGER) BETWEEN ? AND ?
              ORDER BY surprise_index DESC
              LIMIT ?
-        """, (min_surprise, season_year - 1, season_year, n)).fetchall())
+        """, (min_surprise, season_year - 1, season_year, n * 4)).fetchall()
+        filtered = [r for r in rows if _passes_precision_filter(r)]
+        return filtered[:n]
 
 
 # ---------------------------------------------------------------------------
