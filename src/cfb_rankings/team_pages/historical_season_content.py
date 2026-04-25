@@ -231,7 +231,7 @@ def _template_moments(
         out.append({
             "type": "statement",
             "register": "triumph",
-            "body": f"The {year} season's largest margin: {profile.program_name} {tp}, {_opp(g)} {op}. A {abs(int(m))}-point win anchoring the year's ceiling.",
+            "body": f"The {year} season's largest margin: {profile.program_name} {tp}, {_opp(g)} {op}. A {abs(int(m))}-point win — the year's high-water mark.",
         })
     if losses_by_margin:
         m, g = losses_by_margin[0]
@@ -240,7 +240,7 @@ def _template_moments(
         out.append({
             "type": "setback",
             "register": "crash",
-            "body": f"The season's deepest loss: {profile.program_name} {tp}, {_opp(g)} {op}. A {abs(int(m))}-point margin the chapter carries forward.",
+            "body": f"The season's deepest loss: {profile.program_name} {tp}, {_opp(g)} {op}. A {abs(int(m))}-point margin the season is remembered by.",
         })
 
     # Postseason result
@@ -256,8 +256,8 @@ def _template_moments(
             "type": "postseason",
             "register": "turning-point" if not won else "triumph",
             "body": (
-                f"The season's last act: {profile.program_name} {'beat' if won else 'fell to'} {opp} {tp}-{op} in the postseason. "
-                f"The bowl / CFP result closes the chapter's arc."
+                f"The season's last act: {profile.program_name} "
+                f"{'beat' if won else 'fell to'} {opp} {tp}-{op} in the postseason."
             ),
         })
 
