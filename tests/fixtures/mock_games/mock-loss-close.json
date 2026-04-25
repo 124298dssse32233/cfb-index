@@ -1,0 +1,79 @@
+{
+  "scenario": "loss-close",
+  "description": "Alabama loses to Auburn 24-31 in the Iron Bowl. Bama led 24-17 at halftime, gave up 14 unanswered in 4Q. Pre-game spread: Alabama -7.5 (so spread_home = +7.5 since Auburn is home).",
+  "home_team_slug": "auburn",
+  "away_team_slug": "alabama",
+  "final_home": 31,
+  "final_away": 24,
+  "pre_game_spread_home": 7.5,
+  "week": 14,
+  "wp_timeseries": [
+    {"t": 0,    "home_wp": 0.32, "event": "kickoff"},
+    {"t": 300,  "home_wp": 0.28, "event": "ALA TD"},
+    {"t": 900,  "home_wp": 0.24, "event": "Q1 end"},
+    {"t": 1200, "home_wp": 0.20, "event": "ALA FG"},
+    {"t": 1500, "home_wp": 0.18, "event": "ALA TD"},
+    {"t": 1800, "home_wp": 0.30, "event": "AUB FG"},
+    {"t": 2100, "home_wp": 0.12, "event": "ALA TD"},
+    {"t": 2400, "home_wp": 0.20, "event": "AUB TD"},
+    {"t": 2700, "home_wp": 0.18, "event": "halftime 17-24"},
+    {"t": 3000, "home_wp": 0.22, "event": "AUB FG"},
+    {"t": 3300, "home_wp": 0.20, "event": "ALA punts"},
+    {"t": 3600, "home_wp": 0.45, "event": "AUB TD — 24-24"},
+    {"t": 3900, "home_wp": 0.55, "event": "ALA 3-and-out"},
+    {"t": 4200, "home_wp": 0.78, "event": "AUB TD — 31-24"},
+    {"t": 4500, "home_wp": 0.85, "event": "ALA INT"},
+    {"t": 4800, "home_wp": 0.92, "event": "AUB takes a knee"},
+    {"t": 5100, "home_wp": 1.00, "event": "FINAL"}
+  ],
+  "events_log": [
+    {"period": 1, "clock": "10:00", "text": "ALA 7-0 (Milroe pass)", "home_score": 0, "away_score": 7},
+    {"period": 2, "clock": "06:30", "text": "AUB 7-7 (Thorne pass)", "home_score": 7, "away_score": 7},
+    {"period": 2, "clock": "01:48", "text": "ALA 17-7 (RB run)", "home_score": 7, "away_score": 17},
+    {"period": 2, "clock": "00:08", "text": "AUB 17-17 (FG)", "home_score": 17, "away_score": 17},
+    {"period": 4, "clock": "08:11", "text": "AUB 24-17 (TD)", "home_score": 24, "away_score": 17},
+    {"period": 4, "clock": "03:42", "text": "ALA 24-24 (TD)", "home_score": 24, "away_score": 24},
+    {"period": 4, "clock": "01:02", "text": "AUB 31-24 (TD)", "home_score": 31, "away_score": 24}
+  ],
+  "diagnosis_stats": {
+    "away": [
+      {"label": "RUSH YPC", "value": "3.1", "band": "concern", "caption": "worst IB since 2013"},
+      {"label": "3RD-DOWN%", "value": "29%", "band": "bad", "caption": "below season avg of 44"},
+      {"label": "PASS YPA", "value": "8.2", "band": "ok", "caption": "near season median"},
+      {"label": "TO MARGIN", "value": "-2", "band": "concern", "caption": "two 4Q INTs"}
+    ],
+    "home": [
+      {"label": "RUSH YPC", "value": "5.8", "band": "strength", "caption": "best of season"},
+      {"label": "3RD-DOWN%", "value": "47%", "band": "ok", "caption": "matches season avg"},
+      {"label": "PASS YPA", "value": "10.4", "band": "strength", "caption": "season high"},
+      {"label": "TO MARGIN", "value": "+2", "band": "strength", "caption": "two takeaways"}
+    ]
+  },
+  "game_edition_seeds": {
+    "anomaly": {
+      "stat_name": "3.1 YPC",
+      "stat_value": "3.1",
+      "historical_context": "Alabama's worst rush YPC in an Iron Bowl since 2013",
+      "source_citation": "gamelog \u00b7 Iron Bowl 2025 \u00b7 4Q breakdown",
+      "oddity_score": 0.92,
+      "quarter": 4,
+      "notes": "Alabama's 3.1 rush YPC was the worst the program has posted in an Iron Bowl since the 2013 'Kick Six' game. The number that built the Process Era did not show up at Jordan-Hare."
+    },
+    "echo": {
+      "echoed_season": "2019",
+      "echoed_game": "at Auburn",
+      "similarity_features": "early lead, 4Q collapse, two failed two-minute drives",
+      "source_citation": "historical archive \u00b7 2019 season \u00b7 vs Auburn",
+      "oddity_score": 0.81,
+      "notes": "The shape of the 24-31 loss \u2014 17-7 lead, 14 unanswered in the 4Q \u2014 rhymes with the 45-48 loss at Jordan-Hare in 2019."
+    },
+    "retroactive": {
+      "earlier_card_headline": "The O-line settled in October",
+      "earlier_card_week": 10,
+      "overturned_by": "the second-half tape against Auburn's front",
+      "source_citation": "prior Chronicle card \u00b7 Wk 10 \u00b7 2025",
+      "oddity_score": 0.74,
+      "notes": "The line concerns the room had after LSU and quietly wrote off after Tennessee did not survive the Iron Bowl."
+    }
+  }
+}

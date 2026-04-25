@@ -138,6 +138,263 @@ def generate_state_of_team(
 
 
 # --------------------------------------------------------------------------
+# Sprint 6 — post-game state-of-team paragraph (outcome-variant voice).
+#
+# Editorial load-bearing paragraph that anchors the team page for the 24h
+# after a game. Always Opus when an LLM is available because this is the
+# single most-read paragraph on the page during the gameday window.
+# --------------------------------------------------------------------------
+
+def generate_state_of_team_post_game(
+    profile: Profile,
+    snapshot: TeamSnapshot,
+    state: PageState,
+    *,
+    final_meta: dict[str, Any],
+    mode: str = "template",
+    claude_model: str = "claude-opus-4-7",
+) -> NarrativeResult:
+    """Generate the post-game state-of-team paragraph for the GameRecapHero.
+
+    ``final_meta`` carries the just-finalized game's score and venue context
+    (home_team_slug, away_team_slug, home_score, away_score, optional
+    quarter-by-quarter breakdown). Voice register is selected by
+    ``state.outcome_category``.
+
+    mode='template' produces a deterministic on-voice paragraph that passes
+    the Beat-Writer Test for offline rehearsal. 'claude' / 'claude-code'
+    route through the LLM with the structured prompt.
+    """
+    prompt = build_state_of_team_post_game_prompt(profile, snapshot, state, final_meta)
+
+    if mode == "template":
+        body = _template_state_of_team_post_game(profile, snapshot, state, final_meta)
+        return NarrativeResult(
+            body_md=body,
+            title=None,
+            attribution=None,
+            model_id="template-v2-post-game",
+            prompt_tokens=0,
+            completion_tokens=0,
+            cost_usd=0.0,
+            variant="state_of_team_post_game",
+        )
+
+    if mode == "claude":
+        return _call_anthropic_sdk(prompt, claude_model, variant="state_of_team_post_game")
+
+    if mode == "claude-code":
+        return _call_claude_code_cli(prompt, claude_model, variant="state_of_team_post_game")
+
+    raise ValueError(f"unknown narrative mode: {mode}")
+
+
+_OUTCOME_REGISTER_BRIEF: dict[str, str] = {
+    "win-clear": (
+        "OUTCOME REGISTER: confident. The expected result, executed. Don't "
+        "preen. Don't catalogue what went wrong on isolated drives. Speak as "
+        "the program continuing its work."
+    ),
+    "win-upset": (
+        "OUTCOME REGISTER: vindicated. The result the room wasn't sure was "
+        "coming. Don't gloat. Don't pretend it was always coming. Speak as "
+        "a program that just earned what it took."
+    ),
+    "loss-close": (
+        "OUTCOME REGISTER: reckoning. Not catastrophizing. Not bargaining. "
+        "The register of a program accepting what just happened without "
+        "flinching or posturing."
+    ),
+    "loss-blowout": (
+        "OUTCOME REGISTER: wound. The result that stings and stays. Speak "
+        "as a program that knows what just happened. Do not soften it. Do "
+        "not announce a rebuild. Honest, not performative."
+    ),
+    "loss-upset": (
+        "OUTCOME REGISTER: crisis. The result the room wasn't supposed to "
+        "have to write. The register of a program facing a question it "
+        "must answer aloud. Not panic, not denial — the honest reckoning of "
+        "a result the program should not have lost."
+    ),
+}
+
+
+def build_state_of_team_post_game_prompt(
+    profile: Profile,
+    snapshot: TeamSnapshot,
+    state: PageState,
+    final_meta: dict[str, Any],
+) -> str:
+    """Assemble the LLM prompt for the post-game paragraph.
+
+    Strict by design: voice register, identity phrase, mantra, banned
+    phrases, and the outcome's editorial register are surfaced separately
+    so the model has no room to invent a voice.
+    """
+    cat = state.outcome_category or "loss-close"
+    register_brief = _OUTCOME_REGISTER_BRIEF.get(
+        cat, _OUTCOME_REGISTER_BRIEF["loss-close"]
+    )
+    score_facts = _post_game_score_facts(profile, final_meta)
+
+    stock = "\n".join(f"- {s}" for s in profile.stock_phrases)
+    never = "\n".join(f"- {s}" for s in profile.never_use)
+
+    banned = (
+        "sample, pipeline, every season produces, this table, pattern is, "
+        "compression of outcome, methodology, stat engine, our algorithm, "
+        "the engine, cfb index, summary stat"
+    )
+
+    return f"""ROLE: Write the single paragraph that anchors {profile.program_name}'s
+team page for the next 24 hours after their game.
+
+# Program voice
+- Voice register: {profile.voice_register}
+- Identity phrase: "{profile.identity_phrase}"
+- Mantra (may close paragraph if it lands): "{profile.mantra}"
+- Tonal template: {profile.tonal_template}
+
+# Stock phrases (use only if they fit naturally; do not force)
+{stock}
+
+# Never use
+{never}
+
+# Outcome
+{score_facts}
+
+# {register_brief}
+
+# Structure
+2-4 sentences. 60-100 words. First sentence must be a factual statement of
+what happened (score, venue, quarter where applicable). Remaining sentences
+carry the program's voice processing it. Must reference a specific element
+of the game — the venue, the rivalry name (if a rival), a specific quarter,
+a specific play phase. No generic gestures.
+
+# Banned constructions (verbatim — do not produce these phrases anywhere)
+{banned}
+
+# Beat-Writer Test
+Could a sharp columnist for {profile.program_name} have written this paragraph
+the morning after this game? If no, rewrite. The paragraph should read as
+the program's honest reader, not as a stat engine commenting on the program.
+
+Return only the paragraph text — no headline, no attribution, no quotes
+wrapping it.
+"""
+
+
+def _post_game_score_facts(profile: Profile, final_meta: dict[str, Any]) -> str:
+    """Build a short facts block for the prompt."""
+    team_slug = profile.slug.lower()
+    home_slug = (final_meta.get("home_team_slug") or "").lower()
+    away_slug = (final_meta.get("away_team_slug") or "").lower()
+    home_score = final_meta.get("home_score")
+    away_score = final_meta.get("away_score")
+    if home_slug == team_slug:
+        team_pts, opp_pts, opp_slug, was_home = home_score, away_score, away_slug, True
+    elif away_slug == team_slug:
+        team_pts, opp_pts, opp_slug, was_home = away_score, home_score, home_slug, False
+    else:
+        team_pts, opp_pts, opp_slug, was_home = 0, 0, "opponent", False
+
+    venue = "at home" if was_home else f"on the road at {opp_slug.replace('-', ' ').title()}"
+    rivalry_name = ""
+    for r in profile.rivalries:
+        if (r.get("opponent_slug") or "").lower() == opp_slug:
+            rivalry_name = r.get("name") or r.get("trophy") or ""
+            break
+
+    lines = [
+        f"- Final: {profile.program_name} {team_pts}, {opp_slug.replace('-', ' ').title()} {opp_pts} ({venue})",
+    ]
+    if rivalry_name:
+        lines.append(f"- This game is the {rivalry_name}.")
+    if final_meta.get("quarter_summary"):
+        lines.append(f"- Quarter-by-quarter: {final_meta['quarter_summary']}")
+    if final_meta.get("turning_point"):
+        lines.append(f"- Turning point: {final_meta['turning_point']}")
+    return "\n".join(lines)
+
+
+def _template_state_of_team_post_game(
+    profile: Profile,
+    snapshot: TeamSnapshot,
+    state: PageState,
+    final_meta: dict[str, Any],
+) -> str:
+    """Deterministic on-voice fallback. Used when the LLM is unavailable
+    or by simulate-game's offline rehearsal path.
+
+    The scaffold pulls voice fields from the profile (identity_phrase,
+    mantra, mascot_voice.post_loss / post_win) so the same template
+    produces distinct voices per program.
+    """
+    cat = state.outcome_category or "loss-close"
+    team_slug = profile.slug.lower()
+    home_slug = (final_meta.get("home_team_slug") or "").lower()
+    away_slug = (final_meta.get("away_team_slug") or "").lower()
+    home_score = int(final_meta.get("home_score") or 0)
+    away_score = int(final_meta.get("away_score") or 0)
+    if home_slug == team_slug:
+        team_pts, opp_pts, opp_slug, was_home = home_score, away_score, away_slug, True
+    elif away_slug == team_slug:
+        team_pts, opp_pts, opp_slug, was_home = away_score, home_score, home_slug, False
+    else:
+        team_pts, opp_pts, opp_slug, was_home = 0, 0, "opponent", False
+
+    opp_pretty = opp_slug.replace("-", " ").title()
+
+    rivalry_name = ""
+    for r in profile.rivalries:
+        if (r.get("opponent_slug") or "").lower() == opp_slug:
+            rivalry_name = r.get("name") or r.get("trophy") or ""
+            break
+
+    venue = "at home" if was_home else f"at {opp_pretty}"
+    # Avoid double article when rivalry name already starts with "The".
+    rivalry_clause = ""
+    if rivalry_name:
+        rname = rivalry_name.strip()
+        if rname.lower().startswith("the "):
+            rivalry_clause = f" — {rname}"
+        else:
+            rivalry_clause = f" — the {rname}"
+
+    factual = (
+        f"{team_pts}-{opp_pts} {('over' if team_pts > opp_pts else 'to')} "
+        f"{opp_pretty} {venue}{rivalry_clause}."
+    )
+
+    mascot = profile.mascot_voice
+    if cat in ("loss-close", "loss-blowout", "loss-upset"):
+        register_line = mascot.get("post_loss") or (
+            f"The {profile.program_name} room is honest about it. The standard "
+            f"this program holds itself to is the same one that built it."
+        )
+    else:
+        register_line = mascot.get("post_win") or (
+            f"The result counted for what it counted for. The work continues."
+        )
+
+    cat_modifier = {
+        "win-clear":    "The game played out close to expectation, and the program took it.",
+        "win-upset":    "The room wasn't sure this one was coming. It came anyway.",
+        "loss-close":   "It was the kind of finish where every drive in the second half mattered.",
+        "loss-blowout": "It was the kind of result that asks the program to look at itself.",
+        "loss-upset":   "It was a result this program should not have lost. The room knows it.",
+    }.get(cat, "")
+
+    mantra_close = f" {profile.mantra}" if profile.mantra else ""
+
+    body = f"{factual} {cat_modifier} {register_line}{mantra_close}".strip()
+    # Collapse whitespace.
+    return " ".join(body.split())
+
+
+# --------------------------------------------------------------------------
 # Prompt builder
 # --------------------------------------------------------------------------
 

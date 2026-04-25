@@ -1,0 +1,75 @@
+{
+  "scenario": "win-upset",
+  "description": "UMass shocks the world: beats Oklahoma State 27-24 in OT as a 21-point road dog. Pre-game spread Oklahoma State -21 (UMass +21).",
+  "home_team_slug": "oklahoma",
+  "away_team_slug": "massachusetts",
+  "final_home": 24,
+  "final_away": 27,
+  "pre_game_spread_home": -21.0,
+  "week": 5,
+  "wp_timeseries": [
+    {"t": 0,    "home_wp": 0.92, "event": "kickoff (heavy favorite)"},
+    {"t": 300,  "home_wp": 0.88, "event": "MASS punt"},
+    {"t": 900,  "home_wp": 0.85, "event": "OK FG"},
+    {"t": 1500, "home_wp": 0.78, "event": "MASS FG"},
+    {"t": 1800, "home_wp": 0.66, "event": "MASS TD! 7-3"},
+    {"t": 2400, "home_wp": 0.72, "event": "OK TD 10-7"},
+    {"t": 2700, "home_wp": 0.68, "event": "halftime"},
+    {"t": 3300, "home_wp": 0.55, "event": "MASS TD 14-10"},
+    {"t": 3900, "home_wp": 0.62, "event": "OK TD 17-14"},
+    {"t": 4200, "home_wp": 0.45, "event": "MASS FG 17-17"},
+    {"t": 4500, "home_wp": 0.30, "event": "MASS TD 24-17"},
+    {"t": 4800, "home_wp": 0.55, "event": "OK TD 24-24 — regulation ends"},
+    {"t": 5400, "home_wp": 0.50, "event": "OT begins"},
+    {"t": 5700, "home_wp": 0.38, "event": "MASS FG OT 27-24"},
+    {"t": 6000, "home_wp": 0.00, "event": "OK INT \u2014 MASS WINS"}
+  ],
+  "events_log": [
+    {"period": 1, "clock": "08:30", "text": "OK FG 3-0", "home_score": 3, "away_score": 0},
+    {"period": 2, "clock": "12:00", "text": "MASS FG 3-3", "home_score": 3, "away_score": 3},
+    {"period": 2, "clock": "06:30", "text": "MASS TD 7-3", "home_score": 3, "away_score": 7},
+    {"period": 4, "clock": "00:30", "text": "OK TD 24-24", "home_score": 24, "away_score": 24},
+    {"period": 5, "clock": "OT", "text": "MASS FG 27-24", "home_score": 24, "away_score": 27},
+    {"period": 5, "clock": "OT", "text": "OK INT seals win", "home_score": 24, "away_score": 27}
+  ],
+  "diagnosis_stats": {
+    "away": [
+      {"label": "RUSH YPC", "value": "5.4", "band": "strength", "caption": "season high"},
+      {"label": "3RD-DOWN%", "value": "55%", "band": "strength", "caption": "well above season"},
+      {"label": "TO MARGIN", "value": "+2", "band": "strength", "caption": "OT INT iced it"},
+      {"label": "PASS YPA", "value": "7.8", "band": "ok", "caption": "matches season avg"}
+    ],
+    "home": [
+      {"label": "RUSH YPC", "value": "3.4", "band": "concern", "caption": "below season avg"},
+      {"label": "RED-ZONE TD%", "value": "33%", "band": "bad", "caption": "two FGs cost the game"},
+      {"label": "TO MARGIN", "value": "-2", "band": "concern", "caption": "OT INT was the dagger"},
+      {"label": "3RD-DOWN%", "value": "31%", "band": "bad", "caption": "season low"}
+    ]
+  },
+  "game_edition_seeds": {
+    "anomaly": {
+      "stat_name": "5.4 rush YPC vs Oklahoma",
+      "stat_value": "5.4",
+      "historical_context": "the highest single-game rush YPC by an UMass team against a ranked opponent in the FBS era",
+      "source_citation": "gamelog \u00b7 Massachusetts at Oklahoma 2026 \u00b7 OT breakdown",
+      "oddity_score": 0.95,
+      "notes": "5.4 rush YPC is the highest a Massachusetts team has put up against a ranked opponent since the program moved to FBS. The road map was sustainable, drive after drive."
+    },
+    "echo": {
+      "echoed_season": "2007",
+      "echoed_game": "Appalachian State at Michigan",
+      "similarity_features": "21-point road dog, late-game stop, OT/late FG seals it",
+      "source_citation": "historical archive \u00b7 college football lore \u00b7 cited as comp",
+      "oddity_score": 0.84,
+      "notes": "The shape rhymes with App State at Michigan in 2007 \u2014 a heavy underdog that didn't read the script."
+    },
+    "retroactive": {
+      "earlier_card_headline": "The bowl push is theoretical",
+      "earlier_card_week": 3,
+      "overturned_by": "the tape against Oklahoma's front",
+      "source_citation": "prior Chronicle card \u00b7 Wk 3 \u00b7 2026",
+      "oddity_score": 0.79,
+      "notes": "The bowl-eligibility framing two weeks ago read as long-shot. The OT win at Oklahoma changes the math: the floor is no longer a concern."
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "scenario": "win-clear",
+  "description": "Notre Dame beats a tomato can 45-3 on the road. ND favored by ~28; expected result executed.",
+  "home_team_slug": "massachusetts",
+  "away_team_slug": "notre-dame",
+  "final_home": 3,
+  "final_away": 45,
+  "pre_game_spread_home": 28.0,
+  "week": 4,
+  "wp_timeseries": [
+    {"t": 0,    "home_wp": 0.05, "event": "kickoff"},
+    {"t": 300,  "home_wp": 0.04, "event": "ND TD"},
+    {"t": 900,  "home_wp": 0.03, "event": "ND TD"},
+    {"t": 1500, "home_wp": 0.02, "event": "ND TD"},
+    {"t": 1800, "home_wp": 0.04, "event": "MASS FG"},
+    {"t": 2400, "home_wp": 0.02, "event": "halftime 3-21"},
+    {"t": 3000, "home_wp": 0.02, "event": "ND TD"},
+    {"t": 3600, "home_wp": 0.01, "event": "ND TD"},
+    {"t": 4200, "home_wp": 0.01, "event": "ND TD"},
+    {"t": 4800, "home_wp": 0.00, "event": "FINAL 45-3"},
+    {"t": 5100, "home_wp": 0.00, "event": "FINAL"}
+  ],
+  "events_log": [
+    {"period": 1, "clock": "12:30", "text": "ND TD", "home_score": 0, "away_score": 7},
+    {"period": 2, "clock": "06:14", "text": "ND TD", "home_score": 0, "away_score": 21},
+    {"period": 2, "clock": "01:30", "text": "MASS FG", "home_score": 3, "away_score": 21},
+    {"period": 4, "clock": "02:00", "text": "ND TD (running clock)", "home_score": 3, "away_score": 45}
+  ],
+  "diagnosis_stats": {
+    "away": [
+      {"label": "RUSH YPC", "value": "6.2", "band": "strength", "caption": "season high"},
+      {"label": "PASS YPA", "value": "9.8", "band": "strength", "caption": "starters by Q3"},
+      {"label": "TO MARGIN", "value": "+3", "band": "strength", "caption": "two early takeaways"},
+      {"label": "TIME OF POSS", "value": "37:21", "band": "strength", "caption": "ground game in 2H"}
+    ],
+    "home": [
+      {"label": "PASS YPA", "value": "4.1", "band": "concern", "caption": "QB pressured all night"},
+      {"label": "RUSH YPC", "value": "2.3", "band": "bad", "caption": "front 7 dominated"},
+      {"label": "TO MARGIN", "value": "-3", "band": "concern", "caption": "three takeaways given"},
+      {"label": "1ST DOWNS", "value": "8", "band": "bad", "caption": "lowest of season"}
+    ]
+  },
+  "game_edition_seeds": {
+    "anomaly": {
+      "stat_name": "37:21 TOP",
+      "stat_value": "37:21",
+      "historical_context": "Notre Dame's longest time-of-possession in a road game since 2018",
+      "source_citation": "gamelog \u00b7 Notre Dame at Massachusetts 2026 \u00b7 4Q breakdown",
+      "oddity_score": 0.78,
+      "notes": "Notre Dame's 37:21 time of possession was the longest in a road game since the 2018 win over Stanford. The ground game showed up early and never gave the ball back."
+    },
+    "echo": {
+      "echoed_season": "2018",
+      "echoed_game": "at Stanford",
+      "similarity_features": "early scoring, ground game closer, starters out by Q3",
+      "source_citation": "historical archive \u00b7 2018 season \u00b7 at Stanford",
+      "oddity_score": 0.71,
+      "notes": "The script of the 45-3 win read like 2018 at Stanford \u2014 early three-score lead, ground game closer, starters resting by midway through the third."
+    },
+    "retroactive": {
+      "earlier_card_headline": "The portal QB settled in by Week 2",
+      "earlier_card_week": 2,
+      "overturned_by": "tonight's 9.8 YPA",
+      "source_citation": "prior Chronicle card \u00b7 Wk 2 \u00b7 2026",
+      "oddity_score": 0.62,
+      "notes": "What looked like a portal-QB project two weeks ago has compounded \u2014 9.8 YPA tonight against a worst-case opponent, but the throws were the throws."
+    }
+  }
+}

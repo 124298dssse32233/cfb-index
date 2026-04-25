@@ -1,0 +1,77 @@
+{
+  "scenario": "loss-upset",
+  "description": "Georgia loses to Vanderbilt 17-20 at home. Vandy +14 dog. Crisis register: a result the program should not have lost.",
+  "home_team_slug": "georgia",
+  "away_team_slug": "vanderbilt",
+  "final_home": 17,
+  "final_away": 20,
+  "pre_game_spread_home": -14.0,
+  "week": 7,
+  "wp_timeseries": [
+    {"t": 0,    "home_wp": 0.92, "event": "kickoff"},
+    {"t": 300,  "home_wp": 0.88, "event": "VAN punt"},
+    {"t": 900,  "home_wp": 0.82, "event": "VAN FG 0-3"},
+    {"t": 1500, "home_wp": 0.85, "event": "GA FG 3-3"},
+    {"t": 2100, "home_wp": 0.78, "event": "VAN TD 3-10"},
+    {"t": 2400, "home_wp": 0.72, "event": "halftime 3-10"},
+    {"t": 3000, "home_wp": 0.78, "event": "GA TD 10-10"},
+    {"t": 3300, "home_wp": 0.62, "event": "VAN FG 10-13"},
+    {"t": 3900, "home_wp": 0.55, "event": "GA FG 13-13"},
+    {"t": 4200, "home_wp": 0.42, "event": "VAN TD 13-20"},
+    {"t": 4500, "home_wp": 0.50, "event": "GA TD 17-20"},
+    {"t": 4800, "home_wp": 0.35, "event": "GA INT"},
+    {"t": 5100, "home_wp": 0.20, "event": "VAN FG attempt missed"},
+    {"t": 5400, "home_wp": 0.05, "event": "GA fumble — VAN runs out clock"},
+    {"t": 5700, "home_wp": 0.00, "event": "FINAL"}
+  ],
+  "events_log": [
+    {"period": 1, "clock": "08:14", "text": "VAN FG 3-0", "home_score": 0, "away_score": 3},
+    {"period": 2, "clock": "11:00", "text": "GA FG 3-3", "home_score": 3, "away_score": 3},
+    {"period": 2, "clock": "03:00", "text": "VAN TD 3-10", "home_score": 3, "away_score": 10},
+    {"period": 3, "clock": "08:00", "text": "GA TD 10-10", "home_score": 10, "away_score": 10},
+    {"period": 4, "clock": "10:00", "text": "VAN FG 13-13", "home_score": 13, "away_score": 13},
+    {"period": 4, "clock": "04:30", "text": "VAN TD 13-20", "home_score": 13, "away_score": 20},
+    {"period": 4, "clock": "01:30", "text": "GA TD 17-20", "home_score": 17, "away_score": 20},
+    {"period": 4, "clock": "00:30", "text": "GA fumble inside Vandy territory", "home_score": 17, "away_score": 20}
+  ],
+  "diagnosis_stats": {
+    "home": [
+      {"label": "RED-ZONE TD%", "value": "33%", "band": "concern", "caption": "two FGs cost the game"},
+      {"label": "TO MARGIN", "value": "-2", "band": "concern", "caption": "INT + late fumble"},
+      {"label": "RUSH YPC", "value": "3.6", "band": "bad", "caption": "below season avg"},
+      {"label": "3RD-DOWN%", "value": "33%", "band": "concern", "caption": "season low at home"}
+    ],
+    "away": [
+      {"label": "RUSH YPC", "value": "4.4", "band": "strength", "caption": "season high vs SEC"},
+      {"label": "TO MARGIN", "value": "+2", "band": "strength", "caption": "two takeaways"},
+      {"label": "TIME OF POSS", "value": "33:14", "band": "strength", "caption": "controlled tempo"},
+      {"label": "3RD-DOWN%", "value": "47%", "band": "strength", "caption": "best of season"}
+    ]
+  },
+  "game_edition_seeds": {
+    "anomaly": {
+      "stat_name": "33% red-zone TD",
+      "stat_value": "33%",
+      "historical_context": "Georgia's worst red-zone TD rate in a home loss since 2014",
+      "source_citation": "gamelog \u00b7 Vanderbilt at Georgia 2026 \u00b7 4Q breakdown",
+      "oddity_score": 0.91,
+      "notes": "33% red-zone touchdown rate is the worst Georgia has rendered in a home loss since the 2014 season. Two trips ended in field goals; the third in a late fumble."
+    },
+    "echo": {
+      "echoed_season": "2013",
+      "echoed_game": "vs Auburn (Prayer at Jordan-Hare)",
+      "similarity_features": "favored by two scores, late lead given up, special-teams-or-fumble decisive",
+      "source_citation": "historical archive \u00b7 2013 SEC season",
+      "oddity_score": 0.84,
+      "notes": "The shape of the loss \u2014 favored by 14, regulation lead surrendered, the dagger came on a fluke after the offense had a chance \u2014 carries the same outline as the 2013 loss in Jordan-Hare."
+    },
+    "retroactive": {
+      "earlier_card_headline": "The post-Smart era will keep its standard",
+      "earlier_card_week": 4,
+      "overturned_by": "the second half against Vanderbilt's 4-2-5 look",
+      "source_citation": "prior Chronicle card \u00b7 Wk 4 \u00b7 2026",
+      "oddity_score": 0.86,
+      "notes": "The framing of the post-Smart era as continuing the standard read clean through Week 6. Vanderbilt's win in Athens forces that framing to be re-opened."
+    }
+  }
+}

@@ -1,0 +1,56 @@
+name: fanintel-gameday-live
+# Sprint 6 — Live Gameday Mode polling.
+#
+# Polls CFBD's live-game endpoint every minute on Saturdays during the
+# kickoff window (12:00 ET / 16:00 UTC through 06:00 UTC Sun). The adapter
+# itself is a graceful no-op when:
+#   - no CFBD_API_KEY is configured
+#   - no games are in_progress for the active week
+#
+# Cron note: GitHub Actions cron is UTC. Saturdays during US college season
+# = day-of-week 6. We run roughly noon Saturday → early-morning Sunday UTC.
+on:
+  schedule:
+    # Every minute, Saturdays + early Sunday UTC, kickoff-to-postgame window.
+    - cron: "* 16-23 * * 6"
+    - cron: "* 0-6 * * 0"
+  workflow_dispatch:
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyyaml
+
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+
+      - name: Apply migrations (idempotent)
+        run: python manage.py apply-migrations
+
+      - name: Poll live games
+        run: python -c "from cfb_rankings.db import Database; from cfb_rankings.ingest.sources.cfbd_live_game import run_poll; import json; print(json.dumps(run_poll(Database()), indent=2))"
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 14
+          overwrite: true

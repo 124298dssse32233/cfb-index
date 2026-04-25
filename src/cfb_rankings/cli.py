@@ -869,6 +869,63 @@ def build_parser() -> argparse.ArgumentParser:
         help="Override season.",
     )
 
+    simulate_game_parser = subparsers.add_parser(
+        "simulate-game",
+        help="Simulate a finished game end-to-end against a mock fixture. "
+             "Sprint 6 §4 — used for offseason rehearsal of live-gameday mode.",
+    )
+    simulate_game_parser.add_argument(
+        "--home", required=True, help="Home team slug (e.g. alabama)",
+    )
+    simulate_game_parser.add_argument(
+        "--away", required=True, help="Away team slug (e.g. auburn)",
+    )
+    simulate_game_parser.add_argument(
+        "--final-home", type=int, default=None, help="Final home score",
+    )
+    simulate_game_parser.add_argument(
+        "--final-away", type=int, default=None, help="Final away score",
+    )
+    simulate_game_parser.add_argument(
+        "--fixture", default=None,
+        help="Path to a mock fixture JSON. When set, scalar args (final-home, "
+             "final-away, pre-game-spread-home) may be omitted — fixture wins.",
+    )
+    simulate_game_parser.add_argument(
+        "--wp-curve", default=None, help="Standalone WP timeseries JSON file",
+    )
+    simulate_game_parser.add_argument(
+        "--events-log", default=None, help="Standalone events-log JSON file",
+    )
+    simulate_game_parser.add_argument(
+        "--pre-game-spread-home", type=float, default=None,
+        help="Pre-game spread, home perspective. Negative = home favored.",
+    )
+    simulate_game_parser.add_argument(
+        "--persist", action="store_true",
+        help="Keep the simulated games_live row after running (default deletes).",
+    )
+    simulate_game_parser.add_argument(
+        "--output-dir", default="output/site/teams",
+        help="Where the rendered HTML lands (default: output/site/teams).",
+    )
+    simulate_game_parser.add_argument(
+        "--narrative-mode", default="template",
+        choices=("template", "claude", "claude-code"),
+        help="State-of-team narrative mode (default: template, no LLM cost).",
+    )
+    simulate_game_parser.add_argument(
+        "--chronicle-mode", default="template",
+        choices=("template", "auto", "sonnet", "opus"),
+        help="Chronicle game-edition mode (default: template, no LLM cost).",
+    )
+    simulate_game_parser.add_argument(
+        "--season", type=int, default=None, help="Override season year",
+    )
+    simulate_game_parser.add_argument(
+        "--week", type=int, default=None, help="Override week",
+    )
+
     gen_hs_parser = subparsers.add_parser(
         "generate-historical-seasons",
         help="Populate team_historical_seasons — flagship authored seasons "
@@ -1174,6 +1231,30 @@ def main() -> None:
             f"render-team-pages: rendered {count}/{len(PROFILED_SLUGS)} profiled programs "
             f"-> {args.output_dir}"
         )
+        return
+
+    if args.command == "simulate-game":
+        from cfb_rankings.team_pages.simulate_game import run_simulation
+        # When fixture is supplied without scalar args, we still need defaults
+        # so argparse doesn't object — the simulator reads from the fixture.
+        report = run_simulation(
+            db=db,
+            home_slug=args.home,
+            away_slug=args.away,
+            final_home=args.final_home or 0,
+            final_away=args.final_away or 0,
+            wp_curve_path=args.wp_curve,
+            events_log_path=args.events_log,
+            persist=args.persist,
+            output_dir=args.output_dir,
+            pre_game_spread_home=args.pre_game_spread_home,
+            fixture_path=args.fixture,
+            chronicle_mode=args.chronicle_mode,
+            narrative_mode=args.narrative_mode,
+            season_year=args.season,
+            week=args.week,
+        )
+        print(report)
         return
 
     if args.command == "generate-historical-seasons":

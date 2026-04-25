@@ -93,7 +93,16 @@ def render_team_page(
     """Build the HTML and write it to output_dir/<slug>.html."""
     profile = load_profile(slug)
     snapshot = fetch_team_snapshot(db, slug, season_year)
-    state = resolve_state(profile, snapshot, today=today)
+    # Sprint 6 — load any recent finalized live-game row for this team
+    # within the 72h post-game window. resolve_state uses this to flip into
+    # game-recap mode for the first 24h, then post-game-monday-tuesday
+    # for hours 24–72.
+    from cfb_rankings.ingest.sources.cfbd_live_game import fetch_recent_final_for_team
+    try:
+        live_game_meta = fetch_recent_final_for_team(db, slug, window_hours=72.0)
+    except Exception:
+        live_game_meta = None
+    state = resolve_state(profile, snapshot, today=today, live_game_meta=live_game_meta)
 
     mood = fetch_mood_snapshot(db, snapshot.team_id, snapshot.season_year)
     divergence = fetch_divergence(db, snapshot.team_id, snapshot.season_year)
@@ -116,6 +125,33 @@ def render_team_page(
     arc_thesis = fetch_arc_narrative(db, snapshot.team_id, "arc_thesis") if snapshot.team_id else None
     arc_closing = fetch_arc_narrative(db, snapshot.team_id, "arc_closing") if snapshot.team_id else None
 
+    # Sprint 6 — game-recap mode: when state.game_recap_active is True,
+    # generate / reuse the post-game narrative + diagnosis stats so the
+    # GameRecapHero has its content. The standard hero is suppressed by
+    # _render_page when state.hero_priority == 'game-recap'.
+    game_recap_state_para = None
+    game_recap_diagnosis = None
+    if state.game_recap_active and live_game_meta is not None:
+        from .narrative_generator import generate_state_of_team_post_game
+        from .game_recap_hero import build_diagnosis_stats
+        try:
+            res = generate_state_of_team_post_game(
+                profile, snapshot, state,
+                final_meta=live_game_meta, mode="template",
+            )
+            game_recap_state_para = {"body_md": res.body_md, "model_id": res.model_id}
+        except Exception as exc:
+            print(f"  team-pages: game-recap narrative failed for {slug} — {exc}")
+        # Diagnosis stats — pulled from live_game_meta if pre-populated by
+        # simulate-game; otherwise an empty list hides the row.
+        try:
+            mock = live_game_meta.get("diagnosis_stats")
+            if isinstance(mock, str):
+                mock = json.loads(mock)
+            game_recap_diagnosis = build_diagnosis_stats(mock=mock)
+        except Exception:
+            game_recap_diagnosis = []
+
     html_out = _render_page(
         profile=profile,
         snapshot=snapshot,
@@ -133,6 +169,9 @@ def render_team_page(
         arc_rows=arc_rows,
         arc_thesis=arc_thesis,
         arc_closing=arc_closing,
+        live_game_meta=live_game_meta,
+        game_recap_state_para=game_recap_state_para,
+        game_recap_diagnosis=game_recap_diagnosis,
     )
 
     out = Path(output_dir)
@@ -239,6 +278,9 @@ def _render_page(
     arc_rows: list[dict[str, Any]],
     arc_thesis: str | None,
     arc_closing: str | None,
+    live_game_meta: dict[str, Any] | None = None,
+    game_recap_state_para: dict[str, Any] | None = None,
+    game_recap_diagnosis: list[dict[str, Any]] | None = None,
 ) -> str:
     tokens_css = (_ASSETS_DIR / "tokens.css").read_text(encoding="utf-8")
     styles_css = (_ASSETS_DIR / "styles.css").read_text(encoding="utf-8")
@@ -251,7 +293,19 @@ def _render_page(
 
     page_title = f"{profile.program_name} — CFB Index"
 
-    hero_html = _render_hero(profile, snapshot, state, state_of_team, sp_rating)
+    # Sprint 6 — when state.game_recap_active, the GameRecapHero replaces the
+    # standard hero block. Falls back gracefully when the helper returns "".
+    hero_html = ""
+    if state.game_recap_active and live_game_meta is not None:
+        from .game_recap_hero import render_game_recap_hero
+        hero_html = render_game_recap_hero(
+            profile=profile, snapshot=snapshot, state=state,
+            live_meta=live_game_meta,
+            state_of_team_para=game_recap_state_para,
+            diagnosis=game_recap_diagnosis,
+        )
+    if not hero_html:
+        hero_html = _render_hero(profile, snapshot, state, state_of_team, sp_rating)
     pulse_html = _render_pulse(profile, snapshot, state, mood, divergence)
     chronicle_html = _render_chronicle_section(chronicle_cards, profile, state)
     savant_html = render_savant_card(

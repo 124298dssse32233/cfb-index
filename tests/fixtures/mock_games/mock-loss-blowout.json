@@ -1,0 +1,75 @@
+{
+  "scenario": "loss-blowout",
+  "description": "Notre Dame loses to Ohio State 14-45. Pre-game spread: ND +3 (small underdog). WP under 30% by Q3. Wound register.",
+  "home_team_slug": "ohio-state",
+  "away_team_slug": "notre-dame",
+  "final_home": 45,
+  "final_away": 14,
+  "pre_game_spread_home": -3.0,
+  "week": 11,
+  "wp_timeseries": [
+    {"t": 0,    "home_wp": 0.55, "event": "kickoff"},
+    {"t": 300,  "home_wp": 0.62, "event": "OSU TD"},
+    {"t": 900,  "home_wp": 0.58, "event": "ND FG"},
+    {"t": 1500, "home_wp": 0.72, "event": "OSU TD"},
+    {"t": 1800, "home_wp": 0.68, "event": "ND punt"},
+    {"t": 2100, "home_wp": 0.85, "event": "OSU TD"},
+    {"t": 2400, "home_wp": 0.78, "event": "halftime 21-3"},
+    {"t": 3000, "home_wp": 0.82, "event": "OSU TD"},
+    {"t": 3300, "home_wp": 0.92, "event": "ND INT"},
+    {"t": 3600, "home_wp": 0.95, "event": "OSU TD"},
+    {"t": 3900, "home_wp": 0.92, "event": "ND TD"},
+    {"t": 4200, "home_wp": 0.97, "event": "OSU TD"},
+    {"t": 4800, "home_wp": 1.00, "event": "FINAL 45-14"}
+  ],
+  "events_log": [
+    {"period": 1, "clock": "08:00", "text": "OSU TD 7-0", "home_score": 7, "away_score": 0},
+    {"period": 1, "clock": "01:30", "text": "ND FG 7-3", "home_score": 7, "away_score": 3},
+    {"period": 2, "clock": "10:00", "text": "OSU TD 14-3", "home_score": 14, "away_score": 3},
+    {"period": 2, "clock": "01:30", "text": "OSU TD 21-3", "home_score": 21, "away_score": 3},
+    {"period": 3, "clock": "08:00", "text": "OSU TD 28-3", "home_score": 28, "away_score": 3},
+    {"period": 3, "clock": "02:00", "text": "OSU TD 35-3", "home_score": 35, "away_score": 3},
+    {"period": 4, "clock": "06:00", "text": "ND TD 35-10", "home_score": 35, "away_score": 10},
+    {"period": 4, "clock": "03:00", "text": "OSU TD 42-10", "home_score": 42, "away_score": 10}
+  ],
+  "diagnosis_stats": {
+    "away": [
+      {"label": "RUSH YPC", "value": "1.8", "band": "concern", "caption": "season low"},
+      {"label": "3RD-DOWN%", "value": "21%", "band": "concern", "caption": "lowest in 5 years"},
+      {"label": "EXPLOSIVES ALLOWED", "value": "9", "band": "concern", "caption": "twice the season avg"},
+      {"label": "TO MARGIN", "value": "-3", "band": "bad", "caption": "three takeaways given"}
+    ],
+    "home": [
+      {"label": "RUSH YPC", "value": "5.9", "band": "strength", "caption": "above season avg"},
+      {"label": "PASS YPA", "value": "11.2", "band": "strength", "caption": "season high"},
+      {"label": "RED-ZONE TD%", "value": "100%", "band": "strength", "caption": "five-for-five"},
+      {"label": "TO MARGIN", "value": "+3", "band": "strength", "caption": "all in second half"}
+    ]
+  },
+  "game_edition_seeds": {
+    "anomaly": {
+      "stat_name": "1.8 rush YPC",
+      "stat_value": "1.8",
+      "historical_context": "Notre Dame's worst rush YPC in a regular-season game since 2007",
+      "source_citation": "gamelog \u00b7 Notre Dame at Ohio State 2026 \u00b7 4Q breakdown",
+      "oddity_score": 0.93,
+      "notes": "1.8 rush YPC is the worst Notre Dame has produced in a regular-season game since 2007. The line of scrimmage was the loss."
+    },
+    "echo": {
+      "echoed_season": "2012",
+      "echoed_game": "Alabama (BCS NCG)",
+      "similarity_features": "early lopsided lead, line of scrimmage dictated everything",
+      "source_citation": "historical archive \u00b7 2012 BCS NCG",
+      "oddity_score": 0.86,
+      "notes": "The shape of the loss \u2014 line dominated, lead ballooned by halftime, no answer in the second half \u2014 is the same shape as January 2013 in Miami."
+    },
+    "retroactive": {
+      "earlier_card_headline": "The defensive front is the strength of the team",
+      "earlier_card_week": 6,
+      "overturned_by": "what happened up the middle for 60 minutes",
+      "source_citation": "prior Chronicle card \u00b7 Wk 6 \u00b7 2026",
+      "oddity_score": 0.83,
+      "notes": "The Wk 6 framing of the front as the strength held until Columbus. It did not survive Columbus."
+    }
+  }
+}
