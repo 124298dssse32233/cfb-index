@@ -601,15 +601,25 @@ def fetch_fan_intel_board(
             )
         )
 
+        # Panic = combined fear+anger ("unease"). Both are negative-arousal
+        # emotions; treating them as one signal matches how readers perceive
+        # an anxious fanbase. Threshold 0.06 reflects the actual distribution
+        # of the emotion classifier's output (fear alone p90 ≈ 0.03; combined
+        # fear+anger p90 ≈ 0.10). The trajectory condition (mood flat or down)
+        # keeps celebratory anger out — a fanbase angrily celebrating a win
+        # has a positive delta and is filtered out here.
         fear_share = float(fan_row.get("fear_share") or 0.0)
-        if fear_share >= 0.18 and (delta is None or delta <= 0):
+        anger_share = float(fan_row.get("anger_share") or 0.0)
+        unease_share = fear_share + anger_share
+        if unease_share >= 0.06 and (delta is None or delta <= 0):
+            dominant = "Fear" if fear_share >= anger_share else "Anger"
             panicked_fanbases.append(
                 _board_row(
                     team_meta,
-                    headline=f"{int(round(fear_share * 100))}% fear share",
-                    subtext=f"Dominant emotion: {(fan_row.get('emotion_primary') or 'fear').title()}",
-                    sort_value=fear_share,
-                    signed_value=fear_share,
+                    headline=f"{int(round(unease_share * 100))}% fear/anger share",
+                    subtext=f"Dominant negative emotion: {dominant} ({int(round(max(fear_share, anger_share) * 100))}%)",
+                    sort_value=unease_share,
+                    signed_value=unease_share,
                 )
             )
 
