@@ -44,7 +44,10 @@ jobs:
         run: python manage.py apply-migrations
 
       - name: Poll live games
-        run: python -c "from cfb_rankings.db import Database; from cfb_rankings.ingest.sources.cfbd_live_game import run_poll; import json; print(json.dumps(run_poll(Database()), indent=2))"
+        run: python -c "from cfb_rankings.db import Database; from cfb_rankings.config import AppConfig; from cfb_rankings.ingest.sources.cfbd_live_game import run_poll; import json; print(json.dumps(run_poll(Database(AppConfig.from_env().database_url)), indent=2))"
+
+      - name: Drain render queue
+        run: python manage.py process-render-queue --output-dir output/site/teams
 
       - name: Upload DB artifact
         if: always()

@@ -925,6 +925,29 @@ def build_parser() -> argparse.ArgumentParser:
     simulate_game_parser.add_argument(
         "--week", type=int, default=None, help="Override week",
     )
+    simulate_game_parser.add_argument(
+        "--with-cadence", action="store_true",
+        help="Also enqueue + drain the post-game render cadence (T+5..T+45). "
+             "Exercises games_live_render_queue end-to-end against the fixture.",
+    )
+
+    process_queue_parser = subparsers.add_parser(
+        "process-render-queue",
+        help="Drain pending render jobs from games_live_render_queue. "
+             "Sprint 6 §1.3 — fires the T+5/15/.../45 post-game cadence.",
+    )
+    process_queue_parser.add_argument(
+        "--output-dir", default="output/site/teams",
+        help="Where rendered HTML lands (default: output/site/teams).",
+    )
+    process_queue_parser.add_argument(
+        "--max-jobs", type=int, default=50,
+        help="Max jobs to process per tick (default: 50).",
+    )
+    process_queue_parser.add_argument(
+        "--summary", action="store_true",
+        help="Print queue counts by status and exit (no work done).",
+    )
 
     gen_hs_parser = subparsers.add_parser(
         "generate-historical-seasons",
@@ -1253,8 +1276,30 @@ def main() -> None:
             narrative_mode=args.narrative_mode,
             season_year=args.season,
             week=args.week,
+            with_cadence=args.with_cadence,
         )
         print(report)
+        return
+
+    if args.command == "process-render-queue":
+        from cfb_rankings.team_pages.render_queue_worker import (
+            process_queue, queue_summary,
+        )
+        if args.summary:
+            counts = queue_summary(db)
+            print(
+                f"render-queue: pending={counts['pending']} "
+                f"running={counts['running']} done={counts['done']} "
+                f"failed={counts['failed']}"
+            )
+            return
+        result = process_queue(
+            db, output_dir=args.output_dir, max_jobs=args.max_jobs,
+        )
+        print(
+            f"process-render-queue: processed={result['processed']} "
+            f"ok={result['ok']} failed={result['failed']} skipped={result['skipped']}"
+        )
         return
 
     if args.command == "generate-historical-seasons":

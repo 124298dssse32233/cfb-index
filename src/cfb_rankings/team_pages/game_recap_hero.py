@@ -636,20 +636,151 @@ _DEFAULT_DIAGNOSIS_CANDIDATES: tuple[str, ...] = (
 
 
 def build_diagnosis_stats(
-    *, mock: list[dict[str, Any]] | None = None
+    *,
+    mock: list[dict[str, Any]] | None = None,
+    db=None,
+    team_id: int | None = None,
+    season_year: int | None = None,
+    week: int | None = None,
 ) -> list[dict[str, Any]]:
     """Return up to 4 diagnosis-stat dicts.
 
-    Production path: take per-game stat snapshot, compute z-scores vs
-    season baseline + program-historical baseline, rank by absolute z, then
-    enforce diversity (≥1 concern band, ≥1 program-historical citation).
+    Resolution order:
+      1. ``mock`` overrides selection entirely (simulate-game / fixtures path)
+      2. If db + team_id are provided, derive from team_savant_weekly's
+         most-recent week — pick the 4 stats with the most-extreme percentiles
+         vs FBS, mapped to bands (concern / bad / ok / strength)
+      3. Otherwise return empty (renderer hides the diagnosis row)
 
-    Mock path: ``mock`` overrides the candidate selection entirely. Used
-    by simulate-game CLI fixtures.
+    pct_vs_fbs is already inversion-corrected by the savant loader (high =
+    good for both offensive and defensive metrics), so the band map is the
+    same regardless of is_inverted:
+      pct_vs_fbs ≥ 70 → strength
+      40 ≤ ... < 70   → ok
+      20 ≤ ... < 40   → bad
+      ... < 20        → concern
     """
     if mock is not None:
-        return mock[:4]
-    # Default empty-state — surfaced when called without a mock and without
-    # a real game-stats accessor wired up. The renderer hides the row in
-    # that case.
-    return []
+        return list(mock)[:4]
+    if db is None or team_id is None:
+        return []
+    try:
+        rows = _fetch_savant_for_diagnosis(db, team_id, season_year, week)
+    except Exception:
+        return []
+    if not rows:
+        return []
+    # Score each by distance from 50th percentile, sort descending — the
+    # most-extreme percentiles (in either direction) are the most newsworthy.
+    scored: list[tuple[float, dict[str, Any]]] = []
+    for r in rows:
+        pct = float(r.get("pct_vs_fbs") or 50.0)
+        scored.append((abs(pct - 50.0), r))
+    scored.sort(key=lambda t: t[0], reverse=True)
+
+    # Diversity guard: enforce ≥1 concern band when one is available, so
+    # the row matches the Figma spec's editorial intent (show what the
+    # fanbase will talk about, not just the highlights).
+    picked: list[dict[str, Any]] = []
+    has_concern = False
+    pool = [r for _, r in scored]
+    for r in pool:
+        if len(picked) >= 4:
+            break
+        pct = float(r.get("pct_vs_fbs") or 50.0)
+        band = _band_from_percentile(pct)
+        if not has_concern and band != "concern":
+            # Try to slot a concern earlier — peek ahead.
+            concerns = [r2 for r2 in pool if r2 not in picked
+                        and _band_from_percentile(float(r2.get("pct_vs_fbs") or 50.0)) == "concern"]
+            if concerns and len(picked) >= 3:
+                picked.append(concerns[0])
+                has_concern = True
+                continue
+        picked.append(r)
+        if band == "concern":
+            has_concern = True
+
+    out: list[dict[str, Any]] = []
+    for r in picked[:4]:
+        pct = float(r.get("pct_vs_fbs") or 50.0)
+        out.append({
+            "label": (r.get("metric_label") or r.get("metric_key") or "").upper()[:24],
+            "value": _format_savant_value(r),
+            "band": _band_from_percentile(pct),
+            "caption": _caption_from_savant(r),
+        })
+    return out
+
+
+def _fetch_savant_for_diagnosis(db, team_id: int, season_year: int | None, week: int | None) -> list[dict[str, Any]]:
+    """Pull the latest week's metric rows for a team. Falls back to the most-
+    recent week with rows when ``week`` is omitted.
+    """
+    if season_year is None:
+        row = db.query_one(
+            "select max(season_year) as y from team_savant_weekly where team_id=:t",
+            {"t": team_id},
+        )
+        season_year = int(row["y"]) if row and row.get("y") else None
+    if season_year is None:
+        return []
+    if week is None:
+        row = db.query_one(
+            """
+            select max(week) as w from team_savant_weekly
+            where team_id=:t and season_year=:s
+            """,
+            {"t": team_id, "s": season_year},
+        )
+        week = int(row["w"]) if row and row.get("w") else None
+    if week is None:
+        return []
+    rows = db.query_all(
+        """
+        select metric_key, metric_label, metric_group, is_inverted,
+               raw_value, pct_vs_fbs, pct_vs_p4, pct_vs_conf
+        from team_savant_weekly
+        where team_id=:t and season_year=:s and week=:w
+          and pct_vs_fbs is not null
+        """,
+        {"t": team_id, "s": season_year, "w": week},
+    )
+    return [dict(r) for r in (rows or [])]
+
+
+def _band_from_percentile(pct: float) -> str:
+    """pct_vs_fbs is already inversion-corrected by the savant loader."""
+    if pct >= 70: return "strength"
+    if pct >= 40: return "ok"
+    if pct >= 20: return "bad"
+    return "concern"
+
+
+def _format_savant_value(r: dict[str, Any]) -> str:
+    raw = r.get("raw_value")
+    if raw is None:
+        return "—"
+    try:
+        v = float(raw)
+    except (TypeError, ValueError):
+        return str(raw)[:8]
+    # Heuristic formatting based on metric_key — percentages get a %, EPA
+    # gets a sign, anything else gets one decimal.
+    mk = (r.get("metric_key") or "").lower()
+    if "rate" in mk or "pct" in mk or "share" in mk:
+        return f"{v * 100:.1f}%" if abs(v) <= 1.0 else f"{v:.1f}%"
+    if "epa" in mk:
+        return f"{v:+.2f}"
+    return f"{v:.2f}" if abs(v) < 10 else f"{v:.1f}"
+
+
+def _caption_from_savant(r: dict[str, Any]) -> str:
+    pct = float(r.get("pct_vs_fbs") or 50.0)
+    if pct >= 90:    return "top decile FBS"
+    if pct >= 75:    return "top quartile"
+    if pct >= 60:    return f"{int(round(pct))}th pct FBS"
+    if pct >= 40:    return f"{int(round(pct))}th pct FBS"
+    if pct >= 25:    return "bottom third FBS"
+    if pct >= 10:    return "bottom quartile"
+    return "bottom decile FBS"

@@ -20,6 +20,7 @@ from typing import Any
 
 from .profile_loader import Profile, load_profile, PROFILED_SLUGS
 from .data import (
+    FLOOR_AWAITING, FLOOR_GROWING,
     GameResult, TeamSnapshot, fetch_team_snapshot, fetch_mood_snapshot,
     fetch_divergence, fetch_state_of_team, fetch_chronicle_cards,
     fetch_last_sp_rating,
@@ -142,13 +143,21 @@ def render_team_page(
             game_recap_state_para = {"body_md": res.body_md, "model_id": res.model_id}
         except Exception as exc:
             print(f"  team-pages: game-recap narrative failed for {slug} — {exc}")
-        # Diagnosis stats — pulled from live_game_meta if pre-populated by
-        # simulate-game; otherwise an empty list hides the row.
+        # Diagnosis stats — fixture-supplied mock wins; otherwise derive from
+        # team_savant_weekly's most-recent week. Returns [] (hides row) when
+        # neither is available.
         try:
             mock = live_game_meta.get("diagnosis_stats")
             if isinstance(mock, str):
                 mock = json.loads(mock)
-            game_recap_diagnosis = build_diagnosis_stats(mock=mock)
+            if mock:
+                game_recap_diagnosis = build_diagnosis_stats(mock=mock)
+            else:
+                game_recap_diagnosis = build_diagnosis_stats(
+                    db=db,
+                    team_id=snapshot.team_id,
+                    season_year=snapshot.season_year,
+                )
         except Exception:
             game_recap_diagnosis = []
 
@@ -603,13 +612,14 @@ def _record_delta_label(snap: TeamSnapshot) -> str | None:
 # Pulse
 # ------------------------------------------------------------------------
 
-# Floor thresholds for the fan-intelligence floor rule. <FLOOR_AWAITING is
-# rendered as "Awaiting Signal" (no sparkline, no velocity number, takes
-# fall back to profile stock phrases). FLOOR_AWAITING ≤ effective_n <
-# FLOOR_GROWING shows a sample-growing badge with the live data we have.
-# ≥ FLOOR_GROWING gets the full render with no caveat.
-FLOOR_AWAITING = 30.0
-FLOOR_GROWING = 100.0
+# Floor thresholds (FLOOR_AWAITING, FLOOR_GROWING) live in data.py and
+# are imported above — single source of truth. Keep the rendering rules
+# documented here for grep-ability:
+#   <FLOOR_AWAITING       → "Awaiting Signal" (no sparkline, no velocity
+#                            number, takes fall back to profile stock
+#                            phrases).
+#   FLOOR_AWAITING-FLOOR_GROWING → "Sample Growing" badge with live data.
+#   ≥FLOOR_GROWING        → Full render, no caveat badge.
 
 
 def _render_pulse(

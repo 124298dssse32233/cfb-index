@@ -74,6 +74,7 @@ def run_simulation(
     narrative_mode: str = "template",
     season_year: int | None = None,
     week: int | None = None,
+    with_cadence: bool = False,
 ) -> str:
     """Run a single simulated game end-to-end. Returns a printable report.
 
@@ -277,6 +278,43 @@ def run_simulation(
         report.token_usage["completion_tokens"] = (
             report.token_usage.get("completion_tokens", 0) + (narr.completion_tokens or 0)
         )
+
+    # Optional: enqueue + drain the render queue. Exercises the queue
+    # worker against the just-written games_live row. We back-date all
+    # queued ticks to "now − 1s" so process_queue picks them all up in
+    # one call (the production cadence is t-offset based).
+    if with_cadence:
+        gl_row = db.query_one(
+            """
+            select games_live_id from games_live
+            where season_year=:s and week=:w
+              and home_team_slug=:h and away_team_slug=:a
+            """,
+            {"s": season_year, "w": week, "h": home_slug, "a": away_slug},
+        )
+        if gl_row:
+            from .render_queue_worker import process_queue
+            queued_at = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+            for slug in (home_slug, away_slug):
+                if not slug:
+                    continue
+                for t_offset in (5, 15, 20, 25, 30, 35, 40, 45):
+                    db.execute(
+                        """
+                        insert or ignore into games_live_render_queue (
+                            games_live_id, team_slug, t_offset_minutes,
+                            scheduled_at_utc, status
+                        ) values (:gl, :slug, :t, :sched, 'pending')
+                        """,
+                        {"gl": gl_row["games_live_id"], "slug": slug,
+                         "t": t_offset, "sched": queued_at},
+                    )
+            counts = process_queue(db, output_dir=output_dir, log=lambda _msg: None)
+            print(
+                f"  simulate-game: cadence drained — "
+                f"processed={counts['processed']} ok={counts['ok']} "
+                f"failed={counts['failed']} skipped={counts['skipped']}"
+            )
 
     if not persist:
         # Default: leave the row but mark for cleanup.
