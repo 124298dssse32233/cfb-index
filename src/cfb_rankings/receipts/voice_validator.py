@@ -57,6 +57,9 @@ except ImportError:
 # "Surprise Index" callout rule from EDITORIAL_POSITIONING_AND_CONTENT_TYPES.md
 # §"The Long-Shot That Hit"). Kept as a receipts-local constant because the
 # requirement is editorial-completeness-specific to the Receipts surface.
+# Do NOT merge this into team_pages/voice_validator.py — it is an editorial
+# completeness gate (does the copy mention Surprise Index?), not a phrasing-
+# leakage gate. The canonical validator has no concept of required tokens.
 REQUIRED_TOKENS_BEST_CALLS: tuple[str, ...] = (
     "Surprise Index",
 )
