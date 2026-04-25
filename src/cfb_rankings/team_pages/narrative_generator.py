@@ -755,7 +755,11 @@ def _call_claude_code_cli(prompt: str, model: str, variant: str) -> NarrativeRes
         raise RuntimeError(
             "claude CLI not on PATH. Install Claude Code or use mode='template'."
         )
-    # Use headless `claude -p` to get a single response.
+    # Use headless `claude -p` to get a single response. Strip CLAUDECODE
+    # from the subprocess env so the CLI doesn't refuse to nest when this
+    # generator runs from inside a Claude Code parent session.
+    sub_env = {k: v for k, v in os.environ.items()
+               if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
     start = time.time()
     try:
         proc = subprocess.run(
@@ -763,6 +767,7 @@ def _call_claude_code_cli(prompt: str, model: str, variant: str) -> NarrativeRes
             capture_output=True,
             text=True,
             timeout=90,
+            env=sub_env,
         )
     except subprocess.TimeoutExpired:
         raise RuntimeError("claude CLI timed out after 90s")
