@@ -37,3 +37,6 @@ _stitch_*/
 
 # Backups
 backups/
+
+# Git worktrees
+.worktrees/
