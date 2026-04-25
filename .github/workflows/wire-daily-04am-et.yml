@@ -1,0 +1,91 @@
+name: wire-daily-04am-et
+# Sprint 12 — The Wire daily refresh.
+#
+# Runs every day at 04:00 America/New_York (which is 09:00 UTC during
+# EDT and 09:00 UTC during EST — we use UTC here; the "04am ET" name is
+# the editorial cadence target documented in the sprint brief, with the
+# small DST drift accepted).
+#
+# Pipeline (matches the sprint brief Phase 5):
+#   1. apply-migrations (idempotent)
+#   2. wire-ingest --days 7    -- pull last week's transactions; dedup
+#                                  index absorbs anything already
+#                                  recorded by prior days.
+#   3. wire-generate-editorial -- backfill why_it_matters / impact for
+#                                  any new rows, leaving completed
+#                                  rows untouched (overwrite=False).
+#   4. render-wire             -- writes output/site/wire/index.html,
+#                                  monthly archive pages, and patches
+#                                  the homepage Wire <tbody>.
+#
+# DISABLED by spec — Kevin enables manually after first live cycle.
+# Two layers of disable:
+#   1. The schedule trigger below is commented out (no cron firing).
+#   2. The `if: false` job gate makes any workflow_dispatch run a no-op
+#      until Kevin flips it. Together: this workflow exists, can be
+#      reviewed/edited, but cannot execute under any trigger until the
+#      gate is opened.
+# To enable:
+#   * Uncomment the `schedule:` block below.
+#   * Change `if: false` on the job to `if: true` (or delete the line).
+
+on:
+  # schedule:
+  #   - cron: "0 9 * * *"   # 04:00 ET (EDT) / 03:00 ET (EST) — accepted DST drift
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    if: false   # disabled per Sprint 12 spec; flip to enable.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyyaml
+
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+
+      - name: Apply migrations (idempotent)
+        run: python manage.py apply-migrations
+
+      - name: Wire — ingest last 7 days of transactions
+        run: python manage.py wire-ingest --days 7 --target-count 60
+
+      - name: Wire — generate editorial fields for new entries
+        run: python manage.py wire-generate-editorial --days 14
+
+      - name: Wire — render pages + patch homepage
+        run: python manage.py render-wire --days 30
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-site-wire
+          path: |
+            output/site/wire/
+            output/site/index.html
+          retention-days: 14
+          overwrite: true
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true

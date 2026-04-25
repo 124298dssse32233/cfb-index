@@ -1,0 +1,45 @@
+<!--
+  Wire monthly archive template (see cfb_rankings.wire.renderer for
+  token list). Substituted at render time.
+-->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} CFB Index</title>
+<style>{{HEAD_STYLE}}</style>
+</head><body>
+<div class="page">
+  <div class="chrome">
+    <span><a href="/">CFB INDEX</a></span>
+    <span><a href="/wire/">Back to Wire</a></span>
+  </div>
+  <div class="brand-row">
+    <div class="brand">CFB <span class="slash">/</span> INDEX</div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/wire/">Wire</a>
+    </nav>
+  </div>
+  <hr class="rule">
+  <header class="hero hero-wire">
+    <div class="eyebrow">WIRE ARCHIVE</div>
+    <h1 class="roman-big">{{MONTH_LABEL}}</h1>
+    <p class="lede">{{ENTRY_COUNT}} entries from {{MONTH_LABEL}}. Every move, captioned.</p>
+    <p class="archive-nav">{{PREV_LINK}} &nbsp; {{NEXT_LINK}}</p>
+  </header>
+  <hr class="rule soft">
+  <section class="dept">
+    <table class="wire-table">
+      <thead>
+        <tr><th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th></tr>
+      </thead>
+      <tbody>{{ENTRIES_TBODY}}</tbody>
+    </table>
+  </section>
+  <footer class="footer">
+    <hr class="rule soft">
+    <p class="eyebrow muted">CFB INDEX · {{UPDATED_AT}}</p>
+  </footer>
+</div>
+</body></html>
