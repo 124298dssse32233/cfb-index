@@ -977,6 +977,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Output root (default: output/site/teams).",
     )
 
+    # Sprint 9 — Editions framework registrations.
+    from cfb_rankings.editions.cli import register_edition_subcommands
+    register_edition_subcommands(subparsers)
+
     return parser
 
 
@@ -3419,6 +3423,11 @@ def main() -> None:
             site_root=Path("output/site"),
         )
         return
+
+    # Sprint 9 — Edition framework dispatch.
+    if args.command in ("publish-edition", "render-edition", "render-homepage", "seed-editions"):
+        rc = args.func(args)
+        raise SystemExit(rc or 0)
 
     raise RuntimeError(f"Unsupported command: {args.command}")
 

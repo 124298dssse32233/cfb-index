@@ -1,0 +1,20 @@
+{
+  "_comment": "Stub Storyline Threads for Wave 2 (Sprint 10). Replace with live storylines DB query when that sprint ships.",
+  "featured": {
+    "slug": "after-the-bracket-2026",
+    "title": "After the Bracket: Three Conversations",
+    "chapters": 4,
+    "latest_chapter_title": "Chapter 4 · The Quiet Conversation",
+    "latest_chapter_dek": "Where the bottom third of the sport is right now, and why it is the most interesting room in college football.",
+    "thread_summary": "Tracing how the 12-team era reshaped fan-voice posture across the sport's three tiers — from the loud-anxious top to the patient middle to the quiet bottom.",
+    "starting_date": "2026-01-12"
+  },
+  "active": [
+    {"slug": "iowa-tempo-2026", "title": "Iowa Goes Faster", "chapters": 3, "last_updated": "2026-04-22"},
+    {"slug": "auburn-tonal-shift", "title": "Auburn's Quiet Spring", "chapters": 5, "last_updated": "2026-04-19"},
+    {"slug": "boise-the-window-stays-open", "title": "Boise: The Window Stays Open", "chapters": 6, "last_updated": "2026-04-21"},
+    {"slug": "fsu-the-leak", "title": "Florida State, Leaking", "chapters": 4, "last_updated": "2026-04-15"},
+    {"slug": "indiana-second-act", "title": "Indiana's Second Act", "chapters": 2, "last_updated": "2026-04-23"},
+    {"slug": "the-acc-question", "title": "The ACC Question", "chapters": 3, "last_updated": "2026-04-20"}
+  ]
+}
