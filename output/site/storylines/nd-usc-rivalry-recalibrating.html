@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ND-USC: A Rivalry Recalibrating · CFB Index Storyline Threads</title>
+    <meta name="description" content="Two blue bloods, separated by realignment, a coastal divide, and a hundred and thirty years of memory. The series resumes — and the discourse about what it should be is louder than the game.">
+    <style>/* Storyline Threads — embedded stylesheet.
+ *
+ * Aligned to Figma node 62:2 (file eGIVOKDIFSmo1yM1LShLQx) on Sprint 10.
+ * Single-column flow, sans typography (Inter/system-ui), inline chapter
+ * index + related + receipts panels. Color tokens match Figma's dark
+ * editorial palette. */
+
+:root {
+    --bg: #0b0d12;
+    --bg-card: #12151d;
+    --bg-card-2: #171b24;
+    --bg-card-hover: #1e2330;
+    --text: #f5f6fa;
+    --text-dim: #c6cad6;
+    --text-faint: #8a90a1;
+    --text-muted: #5c6172;
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --accent: #c5b358; /* overridden inline per thread */
+    --accent-soft: rgba(197, 179, 88, 0.18);
+    --good: #3ea073;
+    --bad: #c04a4a;
+    --bad-soft: rgba(192, 74, 74, 0.18);
+    --good-soft: rgba(62, 160, 115, 0.18);
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
+
+/* ---------- shell ---------- */
+.shell { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+.site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.site-header .shell { display: flex; align-items: center; justify-content: space-between; }
+.site-header .brand { color: var(--text); font-weight: 700; }
+.site-header nav a { color: var(--text-faint); margin-left: 22px; font-weight: 600; }
+.site-header nav a:hover { color: var(--text); }
+
+/* ---------- thread page wrapper ---------- */
+.thread-card-wrap {
+    max-width: 1040px;
+    margin: 32px auto 48px;
+    padding: 0 28px;
+}
+.thread-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+@media (max-width: 720px) {
+    .thread-card { padding: 28px 22px; gap: 24px; }
+    .thread-card-wrap { padding: 0 12px; margin: 16px auto 32px; }
+}
+
+/* ---------- thread header ---------- */
+.thread-header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.breadcrumb {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.breadcrumb .seg { color: var(--text-faint); font-weight: 600; }
+.breadcrumb .sep { color: var(--text-muted); font-weight: 400; padding: 0 2px; }
+.breadcrumb .current { color: var(--accent); font-weight: 600; }
+
+.thread-title {
+    font-size: 56px;
+    line-height: 1.14;
+    letter-spacing: -0.5px;
+    margin: 0;
+    font-weight: 400;
+    color: var(--text);
+}
+.thread-dek {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 880px;
+}
+@media (max-width: 720px) {
+    .thread-title { font-size: 36px; line-height: 1.1; }
+    .thread-dek { font-size: 17px; }
+}
+
+.meta-strip {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 8px;
+    flex-wrap: wrap;
+}
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.meta-item .label {
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.meta-item .value {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+.meta-item .value.status-active { color: var(--good); }
+.meta-item .value.value-accent { color: var(--accent); }
+.meta-strip .meta-dot {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.subscribe-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 4px;
+    flex-wrap: wrap;
+}
+.follow-cta {
+    background: var(--accent);
+    color: #0b0d12;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-family: inherit;
+}
+.follow-cta .plus { font-size: 13px; }
+.follow-cta:hover { filter: brightness(1.1); color: #0b0d12; }
+.subscribe-row .microcopy {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ---------- nav-rail (chapter index, inline) ---------- */
+.nav-rail {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 16px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.nav-rail-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.chapter-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 8px 0;
+}
+.chapter-num {
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--bg-card-hover);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.chapter-row.current .chapter-num {
+    background: var(--accent);
+    color: #0b0d12;
+}
+.chapter-row .ct {
+    flex: 1;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.chapter-row.current .ct {
+    color: var(--text);
+    font-weight: 600;
+}
+.chapter-row .cd {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.nav-rail-more {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* ---------- current chapter ---------- */
+.current-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.chapter-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.chapter-eyebrow .accent { color: var(--accent); }
+.chapter-eyebrow .meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--text-muted);
+    display: inline-block;
+}
+.chapter-eyebrow .meta-text {
+    color: var(--text-faint);
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 500;
+}
+.chapter-title {
+    font-size: 36px;
+    line-height: 1.22;
+    margin: 0;
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: -0.3px;
+}
+.chapter-dek {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 760px;
+}
+@media (max-width: 720px) {
+    .chapter-title { font-size: 26px; }
+    .chapter-dek { font-size: 15px; }
+}
+
+.chapter-body {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.65;
+}
+.chapter-body p { margin: 0; }
+.chapter-body em { font-style: italic; color: var(--text-dim); }
+.chapter-body strong { font-weight: 700; color: var(--text); }
+.chapter-body a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(197, 179, 88, 0.4);
+}
+.chapter-body a:hover { border-bottom-color: var(--accent); }
+.chapter-body blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 0;
+    padding: 4px 0 4px 18px;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.pull-quote {
+    margin: 4px 0;
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1.45;
+    font-weight: 500;
+    font-style: italic;
+    max-width: 760px;
+}
+.pull-quote-attribution {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: -8px;
+    text-transform: none;
+}
+
+.ref-callout {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 760px;
+}
+.ref-callout .label {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.ref-callout .ref-row { font-size: 14px; line-height: 1.5; }
+.ref-callout .ref-num {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-right: 8px;
+}
+.ref-callout .ref-row a { color: var(--text-dim); }
+.ref-callout .ref-row a:hover { color: var(--accent); }
+
+/* ---------- sources panel (inline) ---------- */
+.sources-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.sources-panel .panel-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.source-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--border);
+}
+.source-row:first-of-type { border-top: none; padding-top: 0; }
+.source-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.source-row-top .left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.source-row .src-name {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+}
+.source-row .src-publisher {
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+}
+.source-row .src-dot {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+.source-row .src-date {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.source-row .src-quote {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ---------- related threads (3-up inline) ---------- */
+.related-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.related-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+@media (max-width: 720px) {
+    .related-grid { grid-template-columns: 1fr; }
+}
+.related-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.15s;
+}
+.related-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.related-card .accent-bar {
+    width: 32px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent); /* overridden inline per card */
+}
+.related-card .rel-title {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.36;
+    font-weight: 400;
+}
+.related-card .rel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+.related-card .rel-meta .rel-chapters {
+    color: var(--text-faint);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.related-card .rel-meta .rel-date {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ---------- receipts panel ---------- */
+.receipts-panel {
+    background: var(--bg-card);
+    border: 1px solid rgba(197, 179, 88, 0.4);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.receipts-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.receipts-header .stub-tag {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    font-weight: 500;
+    font-style: italic;
+}
+.receipt-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--border);
+}
+.receipt-row:first-of-type { border-top: none; padding-top: 0; }
+.receipt-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+.receipt-row .receipt-quote {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    flex: 1;
+}
+.verdict-pill {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.verdict-pill.aged-poorly {
+    background: var(--bad-soft);
+    color: var(--bad);
+}
+.verdict-pill.vindicated {
+    background: var(--good-soft);
+    color: var(--good);
+}
+.verdict-pill.premature {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+.receipt-attribution {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+/* ---------- footer ---------- */
+.thread-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+.thread-footer .footer-left {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    padding-top: 14px;
+}
+.thread-footer .footer-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 14px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+.thread-footer .footer-right a { color: var(--text-faint); }
+.thread-footer .footer-right a.email { color: var(--accent); }
+.thread-footer .footer-right a:hover { color: var(--text); }
+.thread-footer .footer-right a.email:hover { color: var(--accent); filter: brightness(1.2); }
+
+/* ---------- index page ---------- */
+.index-hero {
+    padding: 24px 0 40px;
+    border-bottom: 1px solid var(--border);
+}
+.index-hero h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    margin: 0 0 14px 0;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+}
+.index-hero .dek {
+    color: var(--text-dim);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0;
+}
+.index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    padding: 36px 0 60px;
+}
+.index-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.15s;
+}
+.index-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.index-card .ic-bar {
+    width: 36px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+}
+.index-card .ic-eyebrow {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.index-card .ic-title {
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.22;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin: 0;
+}
+.index-card .ic-dek {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    flex-grow: 1;
+}
+.index-card .ic-foot {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+}
+.index-card .ic-foot strong { color: var(--text-dim); font-weight: 700; }
+
+/* ---------- site footer (separate from per-thread footer) ---------- */
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0 48px;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+.site-footer .shell { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.site-footer a { color: var(--text-faint); }
+.site-footer a:hover { color: var(--text); }
+</style>
+    <style>:root { --accent: #ae9142; --accent-soft: rgba(174, 145, 66, 0.18); }</style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell">
+            <a href="/" class="brand">CFB Index</a>
+            <nav>
+                <a href="/storylines/">Storylines</a>
+                <a href="/teams/">Teams</a>
+                <a href="/conferences/">Conferences</a>
+                <a href="/edition/">The Edition</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="thread-card-wrap">
+        <article class="thread-card" data-thread-slug="nd-usc-rivalry-recalibrating">
+
+            <header class="thread-header">
+                <div class="breadcrumb">
+                    <span class="seg"><a href="/storylines/">Storylines</a></span>
+                    <span class="sep">/</span>
+                    <span class="seg">Active Threads</span>
+                    <span class="sep">/</span>
+                    <span class="current">ND-USC: A RIVALRY RECALIBRATING</span>
+                </div>
+                <h1 class="thread-title">ND-USC: A Rivalry Recalibrating</h1>
+                <p class="thread-dek">Two blue bloods, separated by realignment, a coastal divide, and a hundred and thirty years of memory. The series resumes — and the discourse about what it should be is louder than the game.</p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <div class="label">Status</div>
+                        <div class="value status-active">Active</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Chapters</div>
+                        <div class="value">4</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Started</div>
+                        <div class="value">Sep 2024</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Last Update</div>
+                        <div class="value">3 days ago</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Following</div>
+                        <div class="value value-accent">—</div>
+                    </div>
+                </div>
+                <div class="subscribe-row">
+                    <button class="follow-cta" type="button" data-thread-slug="nd-usc-rivalry-recalibrating">
+                        <span class="plus">+</span>
+                        <span>Follow this thread</span>
+                    </button>
+                    <span class="microcopy">get notified when new chapters land · no spam, ~weekly</span>
+                </div>
+            </header>
+
+            <section class="nav-rail" aria-label="Chapter index">
+                <div class="nav-rail-header">Chapter Index · Newest First</div>
+                <div class="chapter-row current"><span class="chapter-num">04</span><a class="ct" href="#chapter-4">Spring 2026: The Series Holds, the Programs Diverge Again, and the Rivalry's Future Is the Schedule's Discipline</a><span class="cd">Apr 22</span></div>
+<div class="chapter-row"><span class="chapter-num">03</span><a class="ct" href="#chapter-3">October 2025: The South Bend Meeting, the Rivalry's Schedule Survives Another Year</a><span class="cd">Oct 21</span></div>
+<div class="chapter-row"><span class="chapter-num">02</span><a class="ct" href="#chapter-2">January: The CFP Run, the Title Game, and the Rivalry's Stakes Recontextualized</a><span class="cd">Jan 25</span></div>
+<div class="chapter-row"><span class="chapter-num">01</span><a class="ct" href="#chapter-1">November 30, 2024: 49-35 in the Coliseum, and the Series Survives First Contact With Realignment</a><span class="cd">Dec 2</span></div>
+                
+            </section>
+
+            <section class="current-chapter">
+                <div class="chapter-eyebrow">
+                    <span><span class="accent">CHAPTER 04</span> · CURRENT</span>
+                    <span class="meta-dot"></span>
+                    <span class="meta-text">Apr 22, 2026 · 8 min read</span>
+                </div>
+                <h2 class="chapter-title">Spring 2026: The Series Holds, the Programs Diverge Again, and the Rivalry's Future Is the Schedule's Discipline</h2>
+                <p class="chapter-dek">Two cycles of post-realignment ND-USC are in the books. The series is intact. The future depends on whether USC and Notre Dame keep deciding it should be intact.</p>
+                <div class="ref-callout"><div class="label">Builds on prior chapters</div><div class="ref-row"><span class="ref-num">CH 01</span><a href="#chapter-1">November 30, 2024: 49-35 in the Coliseum, and the Series Survives First Contact With Realignment</a></div><div class="ref-row"><span class="ref-num">CH 02</span><a href="#chapter-2">January: The CFP Run, the Title Game, and the Rivalry's Stakes Recontextualized</a></div><div class="ref-row"><span class="ref-num">CH 03</span><a href="#chapter-3">October 2025: The South Bend Meeting, the Rivalry's Schedule Survives Another Year</a></div></div>
+                <div class="chapter-body" id="chapter-04"><p>Spring of 2026 finds the ND-USC series in the same place every elite cross-regional rivalry eventually finds itself: structurally durable but contingently scheduled, dependent on the two programs' continued institutional commitment to keep the matchup on the calendar each year. The 2025 season closed with Notre Dame finishing 11-2 and missing the CFP semifinal in a quarterfinal loss to Texas; USC finished 9-4 and made the bracket as the No. 11 seed, where the program lost in the first round to Tennessee at home. The asymmetry that we wrote up in <a href="#chapter-2">Chapter 2</a> has compressed but has not closed. USC is closer to peer status than the Trojan program of November 2024 was. Notre Dame is structurally elevated relative to where the program had been before Marcus Freeman's title-game run. The series is being played by two programs whose competitive levels are different but no longer dramatically so.</p>
+<p>Marcus Freeman, in the third year of the head-coaching run that we have tracked across these chapters, has now produced two consecutive seasons of CFP-level work. The 2024 season ended in Atlanta. The 2025 season ended in the quarterfinals to Texas, in a game that Notre Dame led at the half and lost in a fourth quarter that Texas's offensive front controlled. The two seasons together — and we noted in <a href="#chapter-2">Chapter 2</a> that GoldRush89 had written that the program was <em>"not who we were a year ago"</em> — have established the program's institutional ceiling at a level South Bend has not consistently operated at since the Lou Holtz era. <em>"We are now a program whose ceiling is the College Football Playoff every year,"</em> one BlueGrayGold reply in a January 2026 thread read. <em>"That is a different program than the one we have been since 1993. The work to operate at that ceiling is the work of every offseason from now on. Our time is now is no longer aspirational. It is the actual standard."</em></p>
+<p class="pull-quote">“The series is older than any of us. The series will outlast all of us. Standards inherited.”</p><p class="pull-quote-attribution">— Antonio Morales, The Athletic USC March column</p>
+<p>USC's spring, parallel to Notre Dame's, has been the chapter Antonio Morales has been writing in installments for two years. <em>"USC has done the work,"</em> he wrote in his March 2026 column. <em>"The defense under Lynn is now structurally credible. The offense under Riley is, as it always has been, elite. The recruiting class for 2026 finished No. 9 nationally — the program's best class since 2018. The program is no longer in the conversation about whether Riley's hire is producing returns. The program is in the conversation about whether the returns will produce a Big Ten title and a CFP semifinal, which is the standard the program has been operating to since the moment it joined the Big Ten."</em></p>
+<p>What this does to the November 2026 meeting — which is in South Bend, on the regularly-scheduled date, with both programs entering as preseason top-fifteen teams — is that it produces the chapter ND-USC has not yet had in the post-realignment era: the meeting between two peer-quality programs, both of whom have legitimate playoff stakes, both of whom carry the institutional weight the rivalry has historically carried. We noted in <a href="#chapter-1">Chapter 1</a> that ND-USC was the only rivalry in college football in which both programs measured themselves against the rivalry itself, not against the rest of the schedule. The 2026 meeting will be the first one since 2017 in which both programs are also being measured against the broader playoff race. That is a different kind of stakes. That is the stakes the rivalry has been wanting to find again.</p>
+<p>The schedule's structural future is the chapter that does not write itself. The contractual situation we flagged in <a href="#chapter-3">Chapter 3</a> — that USC's 2030 contract cycle is the next moment when the Notre Dame slot could come under structural pressure — has not changed. What has changed is the institutional mood inside USC's athletic department. Jen Cohen, in a March interview with Pete Sampson at The Athletic that received unusual amplification in the rivalry's beat coverage, said: <em>"Notre Dame is on our schedule because Notre Dame should be on our schedule. The conversations we have about non-conference scheduling start with Notre Dame and then move outward. That is the program's institutional position. That position is not currently under review."</em> The line read as a deliberate institutional reassertion. The boards on WeAreSC processed it as such. <em>"The series is safe through this contract cycle,"</em> one reply read. <em>"The next cycle starts in 2030. The conversations about that cycle start in 2028. We have time. The program's leadership is on the right side of this question. The program's fans are on the right side of this question. As long as both stay on the right side, the series stays on the schedule."</em></p>
+<p>The boards on BlueGrayGold, in a March 2026 thread by GoldRush89 titled <em>"Where the rivalry stands"</em>, ran 320 replies and the dominant tone was the institutional patience that the program's voice has carried through the thread. <em>"The series has had asymmetric moments before,"</em> one reply read. <em>"It had them in the late 1990s when USC was rebuilding from the post-Smith era. It had them in the Charlie Weis years when Notre Dame was rebuilding from itself. The asymmetric moments do not last. The series is older than any of us. The series will outlast all of us. Standards inherited. We will be there in November 2026. We will be there in November 2030. The schedule holds."</em></p>
+<p>What this thread is going to do, going forward, is treat the rivalry as the institutional case study it has always been: the rivalry that two programs choose to keep playing because the rivalry's institutional value is greater than any single season's competitive logic. ND-USC has been an institutional choice for ninety-eight years. The post-realignment chapters have tested whether the choice would survive in its modern form. Two cycles of testing have produced the answer: yes, structurally, the choice survives. The schedule is the discipline. The programs' continued mutual commitment is the practice of the discipline.</p>
+<p>We pick this thread up after the 2026 meeting. The chapter to come is the one where the two programs play each other as competitive peers for the first time in nearly a decade, with the Big Ten's structural elevation in the conference's back pocket and Notre Dame's CFP-level institutional status as the program's defining identity. November is six months away. We will be there.</p></div>
+            </section>
+
+            <section class="sources-panel">
+                <div class="panel-header">Sources + Evidence This Chapter</div>
+                <div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Antonio Morales</span><span class="src-dot">·</span><span class="src-publisher">The Athletic USC March column</span></div><span class="src-date">Mar 8</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Pete Sampson</span><span class="src-dot">·</span><span class="src-publisher">The Athletic (Jen Cohen interview)</span></div><span class="src-date">Mar 19</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">GoldRush89</span><span class="src-dot">·</span><span class="src-publisher">BlueGrayGold March thread</span></div><span class="src-date">Mar 22</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">TrojanLifer</span><span class="src-dot">·</span><span class="src-publisher">WeAreSC reply on Cohen interview</span></div><span class="src-date">Mar 20</span></div></div>
+            </section>
+
+            <section class="related-block">
+                <div class="related-header">Related Threads</div>
+                <div class="related-grid"><a class="related-card" href="/storylines/vandy-renaissance.html"><span class="accent-bar" style="background: #cfae70;"></span><span class="rel-title">The Vandy Renaissance</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/coaching-carousel-2026-27.html"><span class="accent-bar" style="background: #d97706;"></span><span class="rel-title">Coaching Carousel · 2026-27</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/big-ten-reasserting.html"><span class="accent-bar" style="background: #003c7e;"></span><span class="rel-title">The Big Ten Reasserting</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a></div>
+            </section>
+
+            <section class="receipts-panel">
+                <div class="receipts-header">
+                    <span>Receipts · Takes From This Thread, Aged</span>
+                    <span class="stub-tag">placeholder · Sprint 13 ships the live ledger</span>
+                </div>
+                <div class="receipt-row"><div class="receipt-row-top"><p class="receipt-quote">“Receipts on this thread's prior takes will appear here.”</p><span class="verdict-pill premature">AWAITING</span></div><p class="receipt-attribution">— Sprint 13 (Receipts) ships the live ledger.</p></div>
+            </section>
+
+            <footer class="thread-footer">
+                <div class="footer-left">4 chapters · 4.3k words · started Sep 1, 2024</div>
+                <div class="footer-right">
+                    <a href="#" aria-disabled="true" title="Coming in a follow-on sprint">↗ Archive PDF</a>
+                    <a href="/storylines/nd-usc-rivalry-recalibrating.rss" title="Coming in a follow-on sprint">↗ RSS</a>
+                    <a class="email" href="#follow" data-thread-slug="nd-usc-rivalry-recalibrating">↗ Email on new chapter</a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <footer class="site-footer">
+        <div class="shell">
+            <div>CFB Index · Storyline Threads · 2026</div>
+            <div>Department bylines indicate institutional editorial work. <a href="/methodology/">How we do this</a></div>
+        </div>
+    </footer>
+</body>
+</html>
