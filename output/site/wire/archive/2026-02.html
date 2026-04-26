@@ -1,0 +1,198 @@
+<!--
+  Wire monthly archive template (see cfb_rankings.wire.renderer for
+  token list). Substituted at render time.
+-->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wire — February 2026 CFB Index</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --ink: #1a1a1a;
+  --paper: #f6f1e6;
+  --paper-dim: #ece6d6;
+  --rule: #1a1a1a;
+  --rule-soft: rgba(26,26,26,0.18);
+  --gold: #c9a24a;
+  --navy: #1f2c4d;
+  --muted: #7a7a7a;
+  --amber: #b8842c;
+  --green: #2d6f3a;
+  --red: #a23232;
+  --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
+  --sans: 'Inter', 'Helvetica Neue', -apple-system, system-ui, sans-serif;
+}
+html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--serif); font-size: 17px; line-height: 1.55; }
+.page { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+@media (max-width: 720px) { .page { padding: 0 24px; } }
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
+.eyebrow.muted { color: var(--muted); }
+.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
+.rule.soft { background: var(--rule-soft); }
+a { color: inherit; text-decoration: none; }
+a.text-link { border-bottom: 1px dotted currentColor; }
+
+.chrome { font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  display: flex; justify-content: space-between; padding: 12px 0; }
+.brand-row { display: flex; align-items: baseline; justify-content: space-between;
+  padding: 24px 0; }
+.brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
+  letter-spacing: 0.04em; }
+.brand .slash { color: var(--gold); margin: 0 6px; }
+.nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; }
+.nav a { margin-left: 28px; color: var(--ink); }
+.nav a:hover { color: var(--gold); }
+
+.hero { padding: 72px 0 48px; }
+.hero-wire .roman-big { font-family: var(--serif); font-size: 64px; line-height: 1;
+  font-weight: 600; color: var(--ink); margin: 12px 0 16px; }
+.hero-wire .lede { font-family: var(--serif); font-size: 22px; font-style: italic;
+  line-height: 1.4; max-width: 720px; color: var(--ink); margin: 16px 0 0; }
+.archive-nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  margin-top: 24px; }
+.archive-nav a { color: var(--ink); border-bottom: 1px dotted currentColor; }
+
+.dept { padding: 32px 0; }
+.dept-head { display: flex; gap: 24px; align-items: baseline; padding-bottom: 16px; }
+.dept-head .roman { font-family: var(--serif); font-size: 32px; color: var(--gold); }
+.dept-head .label { font-family: var(--sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; }
+.dept-head .meta { font-family: var(--sans); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.16em; text-transform: uppercase; }
+
+.wire-table { width: 100%; border-collapse: collapse; font-family: var(--sans);
+  font-size: 14px; }
+.wire-table th { text-align: left; padding: 12px 16px 12px 0; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; font-size: 11px;
+  color: var(--muted); border-bottom: 1px solid var(--rule); }
+.wire-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top; }
+.wire-table td.when { color: var(--muted); font-variant-numeric: tabular-nums;
+  white-space: nowrap; width: 92px; }
+.wire-table td.program { font-weight: 700; width: 168px; }
+.wire-table td.program a { border-bottom: 1px dotted currentColor; }
+.wire-table td.action { width: 240px; }
+.wire-table td.why { font-family: var(--serif); font-size: 16px; line-height: 1.4;
+  color: var(--ink); }
+.wire-table td.why .hist-comp { display: block; margin-top: 4px;
+  color: var(--muted); font-size: 14px; font-style: italic; }
+.wire-table td.impact { width: 132px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; font-size: 11px; }
+.wire-table td.impact.amber { color: var(--amber); }
+.wire-table td.impact.muted { color: var(--muted); }
+.wire-table td.impact.green { color: var(--green); }
+.wire-table td.impact.red   { color: var(--red); }
+
+.archive-list { list-style: none; padding: 0; margin: 0; columns: 2;
+  font-family: var(--sans); font-size: 14px; }
+.archive-list li { padding: 8px 0; }
+.archive-list a { border-bottom: 1px dotted currentColor; }
+
+.footer { padding: 64px 0 48px; }
+
+@media (max-width: 720px) {
+  .hero { padding: 48px 0 24px; }
+  .hero-wire .roman-big { font-size: 44px; }
+  .hero-wire .lede { font-size: 18px; }
+  .wire-table { font-size: 13px; }
+  .wire-table td.action { width: auto; }
+  .wire-table td.program { width: 110px; }
+  .wire-table td.when { width: 64px; }
+  .wire-table td.why { font-size: 15px; }
+}
+</style>
+</head><body>
+<div class="page">
+  <div class="chrome">
+    <span><a href="/">CFB INDEX</a></span>
+    <span><a href="/wire/">Back to Wire</a></span>
+  </div>
+  <div class="brand-row">
+    <div class="brand">CFB <span class="slash">/</span> INDEX</div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/wire/">Wire</a>
+    </nav>
+  </div>
+  <hr class="rule">
+  <header class="hero hero-wire">
+    <div class="eyebrow">WIRE ARCHIVE</div>
+    <h1 class="roman-big">February 2026</h1>
+    <p class="lede">54 entries from February 2026. Every move, captioned.</p>
+    <p class="archive-nav"><a href="/wire/archive/2026-01.html">← January 2026</a> &nbsp; <a href="/wire/archive/2026-03.html">March 2026 →</a></p>
+  </header>
+  <hr class="rule soft">
+  <section class="dept">
+    <table class="wire-table">
+      <thead>
+        <tr><th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th></tr>
+      </thead>
+      <tbody><tr><td class="when">Feb 28</td><td class="program"><a href="/teams/rutgers/">Rutgers</a></td><td class="action">LB Sean Allison transfer commits from Drake</td><td class="why">Pioneer League linebacker to Big Ten — quiet pull, the kind of evaluation that makes Schiano&#x27;s defense work.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 26</td><td class="program"><a href="/teams/vanderbilt/">Vanderbilt</a></td><td class="action">CB Jaylin Davies transfer commits from Oklahoma State</td><td class="why">Big-12 corner to SEC — Davies&#x27;s snap count fell off in Stillwater, Lea&#x27;s defense gives him the room.</td><td class="impact red">WATCH</td></tr>
+<tr><td class="when">Feb 20</td><td class="program"><a href="/teams/eastern-michigan/">Eastern Michigan</a></td><td class="action">QB Brogan McCaughey transfer commits from Yale</td><td class="why">Ivy passer to MAC — McCaughey is a graduate transfer with starts banked, real competition arm.</td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Feb 16</td><td class="program"><a href="/teams/nc-state/">NC State</a></td><td class="action">OT Jai&#x27;Lun Hampton transfer commits from UT Martin</td><td class="why">Doeren goes to the OVC for line help — the Wolfpack OL room has been thin for two cycles.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 16</td><td class="program"><a href="/teams/rutgers/">Rutgers</a></td><td class="action">CB Mikey Munn transfer commits from South Dakota</td><td class="why">FCS production for Big Ten depth — Schiano&#x27;s secondary churn keeps churning.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 16</td><td class="program"><a href="/teams/nc-state/">NC State</a></td><td class="action">QB Tad Hudson transfer commits from Coastal Carolina</td><td class="why">Sun Belt starter with film — Hudson is an insurance arm, not a presumed starter, but the room had to add one.</td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Feb 15</td><td class="program"><a href="/teams/north-carolina/">North Carolina</a></td><td class="action">QB Taron Dickens transfer commits from Western Carolina</td><td class="why">Belichick&#x27;s first portal-window QB add — Dickens is competition arm, not presumed QB1.<span class="hist-comp">First quarterback the Belichick staff has signed publicly — read that one closely.</span></td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Feb 11</td><td class="program"><a href="/teams/miami-oh/">Miami (OH)</a></td><td class="action">EDGE Mikah Coleman transfer commits from Cincinnati</td><td class="why">Power-Four pass-rusher to MAC&#x27;s defending champ — RedHawks add experience for the title-defense run.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 8</td><td class="program"><a href="/teams/boston-college/">Boston College</a></td><td class="action">EDGE Alex DeGrieck transfer commits from Harvard</td><td class="why">Ivy edge to ACC trenches — Bill O&#x27;Brien&#x27;s defensive staff has been stalking the Northeast hard.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 6</td><td class="program"><a href="/teams/usc/">USC</a></td><td class="action">LB GianCarlo Rufo transfer commits from Georgetown</td><td class="why">Patriot League graduate transfer to Lincoln Riley&#x27;s defense — depth add, not a stopgap starter.</td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Feb 6</td><td class="program"><a href="/teams/georgia-state/">Georgia State</a></td><td class="action">WR Owen Dupree transfer commits from West Georgia</td><td class="why">DII to Sun Belt — Dupree&#x27;s per-target production was Power-Four-grade, GSU got the eval right.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 5</td><td class="program"><a href="/teams/new-mexico/">New Mexico</a></td><td class="action">TE Bear Tenney transfer commits from Sacramento State</td><td class="why">FCS production with two years left of eligibility — Mendenhall&#x27;s tight-end room had a hole exactly here.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 5</td><td class="program"><a href="/teams/arizona/">Arizona</a></td><td class="action">P Carter Schwartz transfer commits from Louisville</td><td class="why">ACC specialist to Big-12 — kicking-game continuity in Tucson was a real spring-window question.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/fresno-state/">Fresno State</a></td><td class="action">WR Darrian Anderson transfer commits from Oregon</td><td class="why">Big Ten Duck to MWC Bulldog — Anderson saw the snap count math and chose California sun and starter reps.</td><td class="impact red">WATCH</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/southern-miss/">Southern Miss</a></td><td class="action">DL Jackson Banks transfer commits from Western Carolina</td><td class="why">FCS interior depth — Banks gives the rotation a body that&#x27;s started against Power-Four opponents.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/southern-miss/">Southern Miss</a></td><td class="action">CB Michael Robinson III transfer commits from UConn</td><td class="why">Second UConn transfer in the same week — the Golden Eagles staff is mining a specific room hard.<span class="hist-comp">Two same-program same-week pulls is a coordinator-to-coordinator pipeline working at full speed.</span></td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/kansas/">Kansas</a></td><td class="action">OT Brandon Solis transfer commits from Missouri</td><td class="why">Border-rivalry portal move; Solis crosses to Lance Leipold&#x27;s line that&#x27;s quietly become a strength.<span class="hist-comp">Kansas-Missouri portal moves are not normal — this one will be referenced inside the rivalry&#x27;s resumption talk.</span></td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">WR DJ Young transfer commits from Siena Heights</td><td class="why">NAIA-to-MAC level-up — the kind of opportunity hire G5 staffs win on.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">IOL Maxwell Wentz transfer commits from Dartmouth</td><td class="why">Ivy graduate transfer with starts banked — depth add for a line that lost two seniors.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/utah-state/">Utah State</a></td><td class="action">DL Ronnie Mageo transfer commits from Baylor</td><td class="why">Power-Four interior body — Aggies&#x27; line rotation gets real with a former Big-12 contributor.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/utah-state/">Utah State</a></td><td class="action">EDGE BJ Diakite transfer commits from North Alabama</td><td class="why">FCS pass-rusher with bend — the kind of sub-FBS evaluation that makes a G5 staff&#x27;s spring.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/california/">California</a></td><td class="action">LS David Bird transfer commits from Alabama</td><td class="why">Bama specialist to the Bay — long-snapper transfers don&#x27;t get noticed, this one earns the ACC spot.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/bowling-green/">Bowling Green</a></td><td class="action">LB Jonathan Goins transfer commits from Alabama A&amp;M</td><td class="why">SWAC linebacker, three years of eligibility — Bulldogs of all kinds in the Falcon defensive room now.</td><td class="impact red">WATCH</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">TE Sean Ward transfer commits from Dartmouth</td><td class="why">Second Dartmouth add of the spring — somebody on staff has a recruiting pipeline through Hanover.<span class="hist-comp">Two Big Green transfers in one cycle is not coincidence — it&#x27;s a relationship.</span></td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/utah-state/">Utah State</a></td><td class="action">IOL Seth Wilfred transfer commits from Auburn</td><td class="why">SEC body to the MWC — Wilfred chose snaps over the warmup, exactly what every G5 staff hopes for.</td><td class="impact red">WATCH</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/bowling-green/">Bowling Green</a></td><td class="action">EDGE John Baker IV transfer commits from Toledo</td><td class="why">MAC rivalry transfer that absolutely will be replayed in October — Baker leaves the Glass Bowl for I-75 north.<span class="hist-comp">Toledo-Bowling Green portal swaps inside the league are rare; the game just got a new subplot.</span></td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">WR Corey Thompson Jr. transfer commits from Utah State</td><td class="why">Cross-conference G5 swap; Thompson saw the snap count he wanted in Muncie, not Logan.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/utah-state/">Utah State</a></td><td class="action">S Kye Stokes transfer commits from Cincinnati</td><td class="why">Big-12 secondary fall to MWC — Stokes had the recruiting pedigree, just not the depth chart.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">EDGE Austin Stief transfer commits from Davenport</td><td class="why">Another NAIA pull — Ball State&#x27;s evaluation pipeline below the FBS line is doing real work.<span class="hist-comp">Third NAIA-or-DII add of the cycle for Ball State — that&#x27;s a deliberate model.</span></td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/old-dominion/">Old Dominion</a></td><td class="action">IOL Bubba Craig transfer commits from Arkansas</td><td class="why">SEC line body to Sun Belt — Craig was a Razorback reserve and arrives ready to start in Norfolk.</td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">LB Cincear Lewis transfer commits from Cincinnati</td><td class="why">Power-Four LB drops to MAC — Ball State gets a starter who wasn&#x27;t going to crack Cincinnati&#x27;s two-deep.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/utah-state/">Utah State</a></td><td class="action">CB Antonio Bluiett transfer commits from North Dakota</td><td class="why">FCS production with starter snaps — Bluiett&#x27;s tape graded out for a couple of MWC programs.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/utah-state/">Utah State</a></td><td class="action">WR L.J. Johnson Jr. transfer commits from Texas State</td><td class="why">Sun Belt receiver for MWC — Johnson chose familiarity over conference branding.</td><td class="impact red">WATCH</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">WR CJ Nelson transfer commits from Eastern Illinois</td><td class="why">Ball State&#x27;s spring window is leaning hard on FCS production — Nelson is a route-runner the room needed.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ohio/">Ohio</a></td><td class="action">K Will Hryszko transfer commits from Kent State</td><td class="why">MAC rivalry transfer — kickers don&#x27;t usually swap inside a conference, this one did.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/buffalo/">Buffalo</a></td><td class="action">LS Joseph Stoever transfer commits from Georgia Tech</td><td class="why">ACC specialist to MAC — Stoever&#x27;s snaps were limited in Atlanta, Buffalo gets a clean room.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/maryland/">Maryland</a></td><td class="action">QB Devin Kargman transfer commits from Kent State</td><td class="why">MAC starter to Big Ten backup — Kargman is an insurance hire while the room sorts the QB1 picture.</td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">LB Gavin Forsha transfer commits from Tennessee State</td><td class="why">FCS production with eligibility — Ball State keeps stacking off-ball linebackers from the SWAC and OVC.</td><td class="impact red">WATCH</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/ball-state/">Ball State</a></td><td class="action">EDGE Jared Badie transfer commits from San Diego State</td><td class="why">Lateral G5 move that almost nobody notices — Badie&#x27;s tape from the MWC was better than his depth chart said.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 4</td><td class="program"><a href="/teams/south-alabama/">South Alabama</a></td><td class="action">K Peyton Argent transfer commits from South Carolina</td><td class="why">SEC specialist takes the Sun Belt job — kicking-room cycles like this rarely make wires, but this one did.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 3</td><td class="program"><a href="/teams/memphis/">Memphis</a></td><td class="action">EDGE DeAngelo Thompson transfer commits from Syracuse</td><td class="why">ACC pass-rusher to AAC — Thompson&#x27;s snap count fell off in upstate New York, gets a fresh look in Memphis.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 3</td><td class="program"><a href="/teams/ohio/">Ohio</a></td><td class="action">TE Riley Palmeter transfer commits from Marian College</td><td class="why">NAIA-to-MAC tight end — the kind of evaluation pickup that pays off for a third year.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 3</td><td class="program"><a href="/teams/utep/">UTEP</a></td><td class="action">RB Lamar Sperling transfer commits from Buffalo</td><td class="why">MAC back to CUSA — Sperling had carries banked at Buffalo and gets a feature shot in El Paso.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 3</td><td class="program"><a href="/teams/san-jose-state/">San Jose State</a></td><td class="action">LS Dylan Aguilera transfer commits from Lafayette</td><td class="why">Specialist add — long-snappers don&#x27;t move markets, but the room had to fill the hole.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 2</td><td class="program"><a href="/teams/san-jose-state/">San Jose State</a></td><td class="action">S Jonathan Watts transfer commits from Idaho State</td><td class="why">FCS production with eligibility — Brent Brennan&#x27;s secondary keeps cycling through Big Sky pipelines.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 2</td><td class="program"><a href="/teams/louisiana-tech/">Louisiana Tech</a></td><td class="action">WR Marcus Calwise Jr. transfer commits from Eastern Kentucky</td><td class="why">FCS production with one year left — Bulldogs need outside speed and Calwise Jr. brings it.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 2</td><td class="program"><a href="/teams/tulsa/">Tulsa</a></td><td class="action">LB Devin Hightower transfer commits from UAB</td><td class="why">AAC internal — Hightower swaps Birmingham for Tulsa with one year of eligibility left.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 2</td><td class="program"><a href="/teams/virginia/">Virginia</a></td><td class="action">CB Patrick Campbell transfer commits from Dartmouth</td><td class="why">Tony Elliott goes Ivy League again — Campbell brings two years of Patriot League starts and graduate eligibility.<span class="hist-comp">Cavaliers continue to lean on Ivy graduate transfers under Elliott — third one in two cycles.</span></td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 2</td><td class="program"><a href="/teams/new-mexico/">New Mexico</a></td><td class="action">P Michael Kern transfer commits from California</td><td class="why">Specialist add from a Power-Four roster — small splash, but field-position math matters in Albuquerque.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 1</td><td class="program"><a href="/teams/san-jose-state/">San Jose State</a></td><td class="action">S Jackson Barton transfer commits from Nevada</td><td class="why">Battle of California-Nevada G5s; Barton wins his snap count by changing zip codes.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 1</td><td class="program"><a href="/teams/utep/">UTEP</a></td><td class="action">LS Carson Loeb transfer commits from Texas-Permian Basin</td><td class="why">DII specialist, in-state — UTEP keeps the Permian Basin pipeline open as Scotty Walden&#x27;s identity move.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 1</td><td class="program"><a href="/teams/southern-miss/">Southern Miss</a></td><td class="action">S Kobi Albert transfer commits from UConn</td><td class="why">Independent program safety to Sun Belt — Albert&#x27;s freshman tape was already starter-grade.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 1</td><td class="program"><a href="/teams/arkansas-state/">Arkansas State</a></td><td class="action">IOL Landry Cannon transfer commits from Tulane</td><td class="why">AAC line piece comes home — Cannon was a depth player at Tulane, becomes a starter in Jonesboro.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Feb 1</td><td class="program"><a href="/teams/arkansas/">Arkansas</a></td><td class="action">IOL Lucas Possenti transfer commits from Temple</td><td class="why">AAC line piece to SEC — Possenti&#x27;s body and starts banked are exactly the depth the Razorback room needed.</td><td class="impact muted">MINOR</td></tr></tbody>
+    </table>
+  </section>
+  <footer class="footer">
+    <hr class="rule soft">
+    <p class="eyebrow muted">CFB INDEX · 2026-04-25 22:01 UTC</p>
+  </footer>
+</div>
+</body></html>
