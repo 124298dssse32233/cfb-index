@@ -1156,6 +1156,99 @@ def build_parser() -> argparse.ArgumentParser:
 
     # END MERGE ZONE — Sprint 13
 
+    # =========================================================================
+    # MERGE ZONE — Sprint 14: The Daily subcommands. Concurrent sprints adding
+    # commands should append below this block. See CLAUDE_CODE_THE_DAILY.md.
+    # =========================================================================
+    # ---- sprint 14: daily ----
+
+    generate_daily_parser = subparsers.add_parser(
+        "generate-daily",
+        help="Sprint 14: run input selector + LLM synthesis for a Daily edition. "
+             "Persists to daily_editions + daily_takes.",
+    )
+    generate_daily_parser.add_argument(
+        "--date", default=None,
+        help="Edition date YYYY-MM-DD (default: today ET).",
+    )
+
+    render_daily_parser = subparsers.add_parser(
+        "render-daily",
+        help="Sprint 14: render HTML from persisted Daily edition rows.",
+    )
+    render_daily_parser.add_argument(
+        "--date", default=None,
+        help="Edition date YYYY-MM-DD (default: today ET).",
+    )
+    render_daily_parser.add_argument(
+        "--output-dir", default=None,
+        help="Override output directory (default: output/site/daily/).",
+    )
+
+    daily_history_parser = subparsers.add_parser(
+        "daily-history",
+        help="Sprint 14: print last N Daily editions with status + take count.",
+    )
+    daily_history_parser.add_argument(
+        "--limit", type=int, default=10,
+        help="Number of editions to show (default: 10).",
+    )
+
+    # END MERGE ZONE — Sprint 14
+
+    # =========================================================================
+    # MERGE ZONE — Sprint 15 Reaction Story subcommands. Concurrent sprints
+    # should append below this block. See CLAUDE_CODE_THE_REACTION_STORY.md.
+    # =========================================================================
+
+    check_triggers_parser = subparsers.add_parser(
+        "reactions-check-triggers",
+        help="Sprint 15: scan recent Wire entries for Reaction Story triggers.",
+    )
+    check_triggers_parser.add_argument(
+        "--hours", type=int, default=24,
+        help="Lookback window in hours (default: 24).",
+    )
+    check_triggers_parser.add_argument(
+        "--force-trigger", type=int, default=None, dest="force_trigger",
+        metavar="WIRE_ID",
+        help="Force-trigger a specific wire_id regardless of thresholds.",
+    )
+    check_triggers_parser.add_argument(
+        "--auto", action="store_true",
+        help="Auto-generate + render reaction stories for all triggered candidates.",
+    )
+
+    generate_reaction_parser = subparsers.add_parser(
+        "generate-reaction",
+        help="Sprint 15: run cohort divergence + synthesis for a known trigger.",
+    )
+    generate_reaction_parser.add_argument("--slug", required=True, help="Story slug.")
+    generate_reaction_parser.add_argument(
+        "--wire-id", type=int, required=True, dest="wire_id",
+        help="Wire entry id to generate from.",
+    )
+
+    render_reactions_parser = subparsers.add_parser(
+        "render-reactions",
+        help="Sprint 15: render reaction story pages to output/site/reactions/.",
+    )
+    render_reactions_parser.add_argument(
+        "--slug", default=None,
+        help="Render one specific story slug. Omit to render all published stories.",
+    )
+
+    reactions_history_parser = subparsers.add_parser(
+        "reactions-history",
+        help="Sprint 15: print recent reaction stories.",
+    )
+    reactions_history_parser.add_argument(
+        "--limit", type=int, default=20,
+        help="Number of recent stories to show (default: 20).",
+    )
+
+    # END MERGE ZONE — Sprint 15
+
     # ---- Sprint 8.5: Pulse follow-ups ----
     prepare_pulse_parser = subparsers.add_parser(
         "prepare-pulse",
@@ -1213,6 +1306,58 @@ def build_parser() -> argparse.ArgumentParser:
     classify_player_sentiment_parser.add_argument(
         "--dry-run", action="store_true",
         help="Count unlabelled rows without classifying.",
+    )
+
+    # -------------------------------------------------------------------------
+    # Sprint 16: The Mailbag — fan submission editorial
+    # -------------------------------------------------------------------------
+    mailbag_seed_parser = subparsers.add_parser(
+        "mailbag-seed-submissions",
+        help="Sprint 16: Seed N representative questions for Mailbag bootstrapping.",
+    )
+    mailbag_seed_parser.add_argument(
+        "--n", type=int, default=5,
+        help="Number of seed questions to plant (default: 5, max: 7).",
+    )
+
+    mailbag_curate_parser = subparsers.add_parser(
+        "mailbag-curate-submissions",
+        help="Sprint 16: Select 3–5 queued submissions for a Mailbag edition.",
+    )
+    mailbag_curate_parser.add_argument(
+        "--edition", type=str, default=None,
+        help="Edition slug (e.g. 2026-w17). Defaults to current ISO week.",
+    )
+    mailbag_curate_parser.add_argument(
+        "--max", type=int, default=5, dest="max_answers",
+        help="Maximum answers per edition (default: 5).",
+    )
+
+    mailbag_gen_parser = subparsers.add_parser(
+        "mailbag-generate-answers",
+        help="Sprint 16: Generate corpus-synthesis answers for a curated Mailbag edition.",
+    )
+    mailbag_gen_parser.add_argument(
+        "--edition", type=str, default=None,
+        help="Edition slug. Defaults to current ISO week.",
+    )
+
+    render_mailbag_parser = subparsers.add_parser(
+        "render-mailbag",
+        help="Sprint 16: Render Mailbag HTML pages (edition + archive + submit form).",
+    )
+    render_mailbag_parser.add_argument(
+        "--edition", type=str, default=None,
+        help="Render only this edition slug. Omit to render all.",
+    )
+
+    mailbag_history_parser = subparsers.add_parser(
+        "mailbag-history",
+        help="Sprint 16: Print recent Mailbag editions.",
+    )
+    mailbag_history_parser.add_argument(
+        "--limit", type=int, default=10,
+        help="Number of editions to show (default: 10).",
     )
 
     return parser
@@ -3915,6 +4060,143 @@ def main() -> None:
 
     # END MERGE ZONE — Sprint 13
 
+    # =========================================================================
+    # MERGE ZONE — Sprint 14: The Daily dispatch.
+    # =========================================================================
+    # ---- sprint 14: daily ----
+
+    if args.command == "generate-daily":
+        from datetime import date as _date
+        from cfb_rankings.daily import select_inputs, synthesize_takes, persist_edition
+        apply_runtime_migrations(db)
+        edition_date = args.date or _date.today().isoformat()
+        with db.connection() as conn:
+            bundle = select_inputs(conn, edition_date)
+            takes = synthesize_takes(bundle)
+            persist_edition(conn, bundle, takes)
+        vv_pass = sum(1 for t in takes if t.voice_validator_passed)
+        print(f"generate-daily {edition_date}: {len(takes)} takes generated, "
+              f"voice_validator passed {vv_pass}/{len(takes)}")
+        for t in takes:
+            print(f"  #{t.rank_position}: {t.headline[:80]}")
+        return
+
+    if args.command == "render-daily":
+        from datetime import date as _date
+        from cfb_rankings.daily import render_daily
+        edition_date = args.date or _date.today().isoformat()
+        with db.connection() as conn:
+            paths = render_daily(conn, edition_date, output_dir=args.output_dir)
+        for p in paths:
+            print(f"  wrote: {p}")
+        return
+
+    if args.command == "daily-history":
+        from cfb_rankings.daily import fetch_recent_editions
+        with db.connection() as conn:
+            editions = fetch_recent_editions(conn, limit=args.limit)
+        if not editions:
+            print("No Daily editions found in DB.")
+            return
+        print(f"{'Date':<14} {'Status':<12} {'Takes':>6} {'Voice':>6} {'Model'}")
+        print("-" * 60)
+        for ed in editions:
+            vv = "OK" if ed["voice_validator_passed"] else "WARN"
+            model = (ed.get("generation_model") or "")[:24]
+            print(f"{ed['edition_date']:<14} {ed['status']:<12} {ed['takes_count']:>6} {vv:>6}  {model}")
+        return
+
+    # END MERGE ZONE — Sprint 14
+
+    # =========================================================================
+    # MERGE ZONE — Sprint 15 Reaction Story dispatch. See CLI parser merge zone.
+    # =========================================================================
+
+    if args.command == "reactions-check-triggers":
+        from cfb_rankings.reactions.triggers import check_triggers
+        from cfb_rankings.reactions.synthesizer import generate_reaction
+        from cfb_rankings.reactions.cohort_divergence import extract_cohort_divergence
+        from cfb_rankings.reactions.data import fetch_wire_entry
+        from cfb_rankings.reactions.renderer import render_story, render_archive
+        events = check_triggers(
+            hours=args.hours,
+            force_wire_id=args.force_trigger,
+        )
+        print(json.dumps(
+            [{"wire_id": e.wire_id, "entity_slug": e.primary_entity_slug,
+              "suggested_slug": e.suggested_slug, "velocity": e.velocity,
+              "reason": e.trigger_reason}
+             for e in events],
+            indent=2,
+        ), flush=True)
+        if args.auto and events:
+            for evt in events:
+                wire_row = fetch_wire_entry(evt.wire_id)
+                if wire_row is None:
+                    continue
+                cohort_div = extract_cohort_divergence(wire_row)
+                story = generate_reaction(evt, wire_row, cohort_div, evt.suggested_slug)
+                render_story(story.slug)
+                render_archive()
+                print(f"  auto-generated: {story.slug}", flush=True)
+        return
+
+    if args.command == "generate-reaction":
+        from cfb_rankings.reactions.triggers import TriggerEvent
+        from cfb_rankings.reactions.synthesizer import generate_reaction
+        from cfb_rankings.reactions.cohort_divergence import extract_cohort_divergence
+        from cfb_rankings.reactions.data import fetch_wire_entry
+        wire_row = fetch_wire_entry(args.wire_id)
+        if wire_row is None:
+            print(json.dumps({"error": "wire_entry_not_found", "wire_id": args.wire_id}), flush=True)
+            return
+        entity_slug = wire_row.get("program_slug") or args.slug.split("-")[0]
+        actor_kind = wire_row.get("actor_kind", "program")
+        etype_map = {"program": "team", "player": "player", "coach": "coach",
+                     "conference": "conference", "committee": "event"}
+        evt = TriggerEvent(
+            wire_id=args.wire_id,
+            primary_entity_slug=entity_slug,
+            primary_entity_type=etype_map.get(actor_kind, "team"),
+            suggested_slug=args.slug,
+            velocity=float(wire_row.get("fan_intel_velocity_spike") or 70),
+            trigger_reason="manual",
+        )
+        cohort_div = extract_cohort_divergence(wire_row)
+        story = generate_reaction(evt, wire_row, cohort_div, args.slug)
+        print(json.dumps({
+            "slug": story.slug,
+            "headline": story.headline,
+            "surprise_index": story.surprise_index,
+            "voice_validator_passed": bool(story.voice_validator_passed),
+            "generation_model": story.generation_model,
+        }, indent=2), flush=True)
+        return
+
+    if args.command == "render-reactions":
+        from cfb_rankings.reactions.renderer import render_story, render_all
+        if args.slug:
+            path = render_story(args.slug)
+            print(json.dumps({"rendered": str(path) if path else None}), flush=True)
+        else:
+            result = render_all()
+            print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "reactions-history":
+        from cfb_rankings.reactions.data import list_stories
+        stories = list_stories(limit=args.limit)
+        print(json.dumps(
+            [{"slug": s.slug, "headline": s.headline, "triggered_at": s.triggered_at_utc,
+              "surprise_index": s.surprise_index, "status": s.status,
+              "voice_ok": bool(s.voice_validator_passed)}
+             for s in stories],
+            indent=2,
+        ), flush=True)
+        return
+
+    # END MERGE ZONE — Sprint 15
+
     # ---- Sprint 8.5: Pulse follow-ups ----
     if args.command == "prepare-pulse":
         from cfb_rankings.team_pages.pulse_state import TOP_ENTITIES_FULL, TOP_ENTITIES_PARTIAL
@@ -3994,6 +4276,76 @@ def main() -> None:
                 dry_run=getattr(args, "dry_run", False),
             )
         print(f"classify-player-sentiment: {result}", flush=True)
+        return
+
+    # -------------------------------------------------------------------------
+    # Sprint 16: The Mailbag
+    # -------------------------------------------------------------------------
+    if args.command == "mailbag-seed-submissions":
+        from cfb_rankings.mailbag.submissions import seed_representative_submissions
+        n = getattr(args, "n", 5)
+        ids = seed_representative_submissions(n)
+        print(f"mailbag-seed-submissions: planted {len(ids)} seed rows: {ids}", flush=True)
+        return
+
+    if args.command == "mailbag-curate-submissions":
+        from cfb_rankings.mailbag.curator import curate_for_edition
+        from cfb_rankings.mailbag.data import current_edition_slug
+        edition = getattr(args, "edition", None) or current_edition_slug()
+        max_answers = getattr(args, "max_answers", 5)
+        result = curate_for_edition(edition, max_answers=max_answers)
+        print(
+            f"mailbag-curate-submissions: edition={result['edition_slug']} "
+            f"selected={len(result['selected_ids'])} rejected={len(result['rejected_ids'])} "
+            f"bootstrap_seeded={result['bootstrap_seeded']} "
+            f"publish_date={result['publish_date']}",
+            flush=True,
+        )
+        return
+
+    if args.command == "mailbag-generate-answers":
+        from cfb_rankings.mailbag.synthesizer import generate_answers_for_edition
+        from cfb_rankings.mailbag.data import current_edition_slug
+        edition = getattr(args, "edition", None) or current_edition_slug()
+        result = generate_answers_for_edition(edition)
+        print(
+            f"mailbag-generate-answers: edition={result['edition_slug']} "
+            f"answers={result['answers_generated']} "
+            f"voice_passed={result['voice_passed']} voice_failed={result['voice_failed']} "
+            f"tokens_in={result['total_input_tokens']} tokens_out={result['total_output_tokens']} "
+            f"model_usage={result['model_usage']}",
+            flush=True,
+        )
+        return
+
+    if args.command == "render-mailbag":
+        from cfb_rankings.mailbag.renderer import render_all
+        edition = getattr(args, "edition", None)
+        result = render_all(edition_slug=edition)
+        print(
+            f"render-mailbag: output_root={result['output_root']} "
+            f"edition_pages={len(result['edition_pages'])} "
+            f"index={result['index']} archive={result['archive']} submit={result['submit']}",
+            flush=True,
+        )
+        return
+
+    if args.command == "mailbag-history":
+        from cfb_rankings.mailbag.data import db_conn, list_recent_editions, list_answers_for_edition
+        limit = getattr(args, "limit", 10)
+        with db_conn() as conn:
+            editions = list_recent_editions(conn, limit=limit)
+        if not editions:
+            print("mailbag-history: no editions found", flush=True)
+            return
+        print(f"{'EDITION':<14} {'DATE':<12} {'STATUS':<12} {'NOTES'}", flush=True)
+        print("-" * 60, flush=True)
+        for ed in editions:
+            slug = ed.get("edition_slug", "")
+            date_str = ed.get("publish_date", "")
+            status = ed.get("status", "")
+            notes = (ed.get("notes") or "")[:40]
+            print(f"{slug:<14} {date_str:<12} {status:<12} {notes}", flush=True)
         return
 
     raise RuntimeError(f"Unsupported command: {args.command}")
