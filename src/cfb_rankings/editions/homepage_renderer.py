@@ -48,6 +48,126 @@ _ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
 _STUB_DIR = Path(__file__).resolve().parent / "stub_data"
 
 
+# ----------------------- Live data fetchers -----------------------
+
+def _fetch_threads_live(db: Database) -> dict[str, Any] | None:
+    """Query storyline_threads + storyline_chapters for the Active Threads widget.
+
+    Returns None if the table is empty (caller falls back to stub).
+    """
+    rows = db.query_all(
+        "SELECT thread_slug, title, dek, chapter_count, last_chapter_at, started_at "
+        "FROM storyline_threads WHERE status='active' "
+        "ORDER BY last_chapter_at DESC"
+    )
+    if not rows:
+        return None
+    featured_row = rows[0]
+    chaps = db.query_all(
+        "SELECT title, dek FROM storyline_chapters "
+        "WHERE thread_slug=:slug ORDER BY chapter_number DESC LIMIT 1",
+        {"slug": featured_row["thread_slug"]},
+    )
+    chap = chaps[0] if chaps else {}
+    featured: dict[str, Any] = {
+        "slug": featured_row["thread_slug"],
+        "title": featured_row["title"],
+        "chapters": featured_row["chapter_count"],
+        "thread_summary": featured_row["dek"],
+        "latest_chapter_title": chap.get("title", ""),
+        "latest_chapter_dek": chap.get("dek", ""),
+        "starting_date": (featured_row["started_at"] or ""),
+    }
+    active = [
+        {
+            "slug": r["thread_slug"],
+            "title": r["title"],
+            "chapters": r["chapter_count"],
+            "last_updated": (r["last_chapter_at"] or "")[:10],
+        }
+        for r in rows[1:]
+    ]
+    return {"featured": featured, "active": active}
+
+
+def _fetch_canon_live(db: Database) -> dict[str, Any] | None:
+    """Query canon_entries for The Canon widget.
+
+    Rotates the featured entry weekly so the homepage always shows
+    something different. Returns None if the table is empty.
+    """
+    total_rows = db.query_all("SELECT COUNT(*) AS n FROM canon_entries")
+    total = (total_rows[0]["n"] if total_rows else 0)
+    if not total:
+        return None
+    week = date.today().isocalendar()[1]
+    offset = (week - 1) % total
+    rows = db.query_all(
+        "SELECT list_slug, rank, entity_kind, entity_slug, entity_display_name, "
+        "era_label, summary_short, cohort_split_stat_rank, cohort_split_casual_rank, "
+        "cohort_split_label, statline "
+        "FROM canon_entries ORDER BY list_slug, rank LIMIT 1 OFFSET :offset",
+        {"offset": offset},
+    )
+    if not rows:
+        return None
+    e = rows[0]
+    kind = e["entity_kind"] or "player"
+    category = kind.replace("_", " ").title()
+    return {
+        "entry": {
+            "slug": e["entity_slug"] or "",
+            "title": e["entity_display_name"] or "",
+            "category": category,
+            "era": e["era_label"] or "",
+            "summary": e["summary_short"] or "",
+            "cohort_divergence": {
+                "stat_folks_rank": e["cohort_split_stat_rank"] or "—",
+                "regular_fans_rank": e["cohort_split_casual_rank"] or "—",
+                "gap_label": e["cohort_split_label"] or "",
+                "discussion_starter": e["statline"] or "",
+            },
+        }
+    }
+
+
+def _fetch_wire_live(db: Database) -> dict[str, Any] | None:
+    """Query wire_entries for The Wire widget.
+
+    Returns the 8 most recent entries. Returns None if table is empty.
+    """
+    rows = db.query_all(
+        "SELECT occurred_at, program_display, action, why_it_matters, impact_label "
+        "FROM wire_entries ORDER BY occurred_at DESC LIMIT 8"
+    )
+    if not rows:
+        return None
+
+    def _when_label(ts: str) -> str:
+        if not ts:
+            return ""
+        try:
+            dt = datetime.strptime(ts[:10], "%Y-%m-%d")
+            try:
+                return dt.strftime("%b %#d")
+            except ValueError:
+                return dt.strftime("%b %-d")
+        except Exception:
+            return ts[:10]
+
+    entries = [
+        {
+            "when": _when_label(r["occurred_at"]),
+            "program": r["program_display"],
+            "action": r["action"],
+            "why": r["why_it_matters"],
+            "impact": r["impact_label"],
+        }
+        for r in rows
+    ]
+    return {"entries": entries}
+
+
 def render_homepage(db: Database, output_path: Path | None = None) -> Path | None:
     """Render the active edition's homepage to ``output_path``.
 
@@ -59,7 +179,7 @@ def render_homepage(db: Database, output_path: Path | None = None) -> Path | Non
         return None
     features = fetch_edition_features(db, edition.edition_slug)
     voices = fetch_edition_voices(db, edition.edition_slug)
-    html_doc = _render_document(edition, features, voices)
+    html_doc = _render_document(edition, features, voices, db=db)
     if output_path is None:
         repo_root = Path(__file__).resolve().parents[3]
         output_path = repo_root / "output" / "site" / "index.html"
@@ -69,14 +189,20 @@ def render_homepage(db: Database, output_path: Path | None = None) -> Path | Non
 
 
 def _render_document(edition: Edition, features: list[EditionFeature],
-                     voices: list[EditionVoice]) -> str:
+                     voices: list[EditionVoice],
+                     db: Database | None = None) -> str:
     cover_essay = next((f for f in features if f.feature_kind == "cover_essay"), None)
     secondary = [f for f in features if f.feature_kind != "cover_essay"]
 
-    threads_data = _load_stub("threads.json")
-    canon_data = _load_stub("canon_featured.json")
-    wire_data = _load_stub("wire_seed.json")
-    daily_data = _load_stub("daily_seed.json")
+    if db is not None:
+        threads_data = _fetch_threads_live(db) or _load_stub("threads.json")
+        canon_data = _fetch_canon_live(db) or _load_stub("canon_featured.json")
+        wire_data = _fetch_wire_live(db) or _load_stub("wire_seed.json")
+    else:
+        threads_data = _load_stub("threads.json")
+        canon_data = _load_stub("canon_featured.json")
+        wire_data = _load_stub("wire_seed.json")
+    daily_data = _load_stub("daily_seed.json")  # Sprint 14 live source not yet available
 
     publish_dt = datetime.combine(edition.publish_date, datetime.min.time())
     # Windows-safe date formatting (no %-d on win32):
@@ -547,7 +673,7 @@ def _render_the_wire(wire: dict[str, Any]) -> str:
     <div class="dept-head">
       <span class="roman">X.</span>
       <span class="label">THE WIRE</span>
-      <span class="meta">UPDATED CONTINUOUSLY · STUB DATA UNTIL SPRINT 12</span>
+      <span class="meta">UPDATED CONTINUOUSLY · LIVE</span>
     </div>
     <table class="wire-table">
       <thead><tr>
@@ -562,6 +688,7 @@ def _render_the_wire(wire: dict[str, Any]) -> str:
 def _render_active_threads(threads: dict[str, Any]) -> str:
     f = threads.get("featured") or {}
     active = threads.get("active") or []
+    total_count = len(active) + (1 if f else 0)
     list_html = "".join(
         f"""<div class="thread-row">
           <div>
@@ -578,7 +705,7 @@ def _render_active_threads(threads: dict[str, Any]) -> str:
     <div class="dept-head">
       <span class="roman">XI.</span>
       <span class="label">ACTIVE THREADS</span>
-      <span class="meta">STUB DATA UNTIL SPRINT 10</span>
+      <span class="meta">LIVE · {total_count} ACTIVE</span>
     </div>
     <div class="threads-grid">
       <article class="thread-featured">
@@ -609,7 +736,7 @@ def _render_the_canon(canon: dict[str, Any]) -> str:
     <div class="dept-head">
       <span class="roman">XII.</span>
       <span class="label">THE CANON · ENTRY OF THE WEEK</span>
-      <span class="meta">STUB DATA UNTIL SPRINT 11</span>
+      <span class="meta">LIVE · WEEKLY ROTATION</span>
     </div>
     <div class="canon-grid">
       <article class="canon-entry">

@@ -477,8 +477,8 @@ def entries() -> list[CanonEntry]:
                 "fact: 4,057 yards, 40 touchdowns, 10 interceptions, the "
                 "BCS title win against Auburn, the first national title "
                 "won by a freshman since the 1980s. The off-field "
-                "complications and the NFL trajectory are not in this "
-                "list's scope. The Florida State era he represents — "
+                "complications and the NFL trajectory fall outside the "
+                "list's frame. The Florida State era he represents — "
                 "the Fisher peak before the program's collapse — is."
             ),
         ),
