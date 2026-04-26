@@ -1,0 +1,27 @@
+name: The Daily — weekday 06:00 ET
+
+on:
+  schedule:
+    - cron: '0 10 * * 1-5'  # 06:00 ET = 10:00 UTC (no DST handling for now)
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    if: false  # GUARD — disabled until first-live-cycle verification flips this
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install -e .
+      - run: python manage.py apply-migrations
+      - run: python manage.py generate-daily
+      - run: python manage.py render-daily
+      - run: python manage.py build-site
+        env: { ANTHROPIC_API_KEY: '${{ secrets.ANTHROPIC_API_KEY }}' }
+      - run: |
+          git config user.name "daily-cron"
+          git config user.email "daily-cron@cfbindex.local"
+          git add output/site/daily/
+          git diff --cached --quiet || git commit -m "daily: $(date -u +%Y-%m-%d)"
+          git push origin master
