@@ -5080,22 +5080,33 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Player spotlight (home) skipped: {exc}")
         player_spotlight_html = ""
-    (site_root / "index.html").write_text(
-        render_home_html(
-            summary,
-            rankings,
-            featured_team_pages,
-            latest_local_week,
-            site_pulse,
-            history_hub,
-            conference_pages,
-            archive_snapshots[:6],
-            archive_rankings,
-            fan_intel_board,
-            player_spotlight_html,
-        ),
-        encoding="utf-8",
-    )
+    # Sprint 9 — Edition framework: when an active edition exists, the new
+    # editions homepage renderer takes over. This is the single documented
+    # exception to the "don't edit reporting.py" rule (see CLAUDE.md).
+    _edition_homepage_path = None
+    try:
+        from cfb_rankings.editions.homepage_renderer import render_homepage as _render_edition_homepage
+        _edition_homepage_path = _render_edition_homepage(db, output_path=site_root / "index.html")
+    except Exception as exc:
+        _report_progress(f"Edition homepage skipped, falling back to legacy: {exc}")
+        _edition_homepage_path = None
+    if _edition_homepage_path is None:
+        (site_root / "index.html").write_text(
+            render_home_html(
+                summary,
+                rankings,
+                featured_team_pages,
+                latest_local_week,
+                site_pulse,
+                history_hub,
+                conference_pages,
+                archive_snapshots[:6],
+                archive_rankings,
+                fan_intel_board,
+                player_spotlight_html,
+            ),
+            encoding="utf-8",
+        )
 
     rankings_dir = site_root / "rankings"
     rankings_dir.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,19 @@
+{
+  "_comment": "Stub The Daily entries for Wave 3 (Sprint 14). Replace with live The Daily DB query when that sprint ships.",
+  "today": {
+    "date_label": "Saturday, April 25, 2026",
+    "title": "Three Things This Morning",
+    "takes": [
+      {"n": 1, "headline": "Iowa's tempo is the most interesting offensive story of the spring", "body": "78 plays in 90 minutes during HI's count of practice three. Iowa's all-time spring average is 51. The new OC's first public statement about what this offense will be."},
+      {"n": 2, "headline": "The Boise zero-first-round-pick math is honest",                    "body": "Cincinnati 2021 had the same silhouette and made the CFP. Take the comparison seriously."},
+      {"n": 3, "headline": "FSU's quiet boards are the leading indicator",                     "body": "The fan-board sentiment turned three weeks before the trackers caught it. Fans are reading correctly."}
+    ]
+  },
+  "archive": [
+    {"date_label": "Apr 24", "title": "What Sarkisian said at the spring presser",       "summary": "He didn't say roster — he said *room*. Word choice matters."},
+    {"date_label": "Apr 23", "title": "Why the Big 12 boards are quiet",                 "summary": "Quiet, in fan-voice, usually means we don't think we beat them."},
+    {"date_label": "Apr 22", "title": "Indiana's edge transfer echoes 2023",            "summary": "Cignetti's 2023 Coastal pickup was identical in shape."},
+    {"date_label": "Apr 21", "title": "The Heupel-2015 echo Tennessee fans missed",     "summary": "Same first-quarter script. Same depth chart shape."},
+    {"date_label": "Apr 20", "title": "Reading the Auburn fanbase's anger arc",         "summary": "Anger to fatigue to numbness to acceptance. The standard CFP-loss arc."}
+  ]
+}
