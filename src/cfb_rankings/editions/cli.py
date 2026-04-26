@@ -85,9 +85,9 @@ def _cmd_render_homepage(args: argparse.Namespace) -> int:
 
 
 def _open_db() -> Database:
-    from cfb_rankings.config import default_db_path
+    from cfb_rankings.config import AppConfig
     from cfb_rankings.migrations import apply_sql_migrations
-    db_path = default_db_path()
-    db = Database(db_path)
+    config = AppConfig.from_env()
+    db = Database(config.database_url)
     apply_sql_migrations(db)
     return db
