@@ -1,0 +1,280 @@
+"""Phase 4 — HTML renderer for The Daily.
+
+Writes:
+  output/site/daily/index.html          — current edition
+  output/site/daily/YYYY-MM-DD/index.html — archive per-date
+  output/site/daily/archive.html        — last-30 index
+"""
+from __future__ import annotations
+
+import json
+import logging
+import os
+import re
+import string
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+log = logging.getLogger(__name__)
+
+_TEMPLATES_DIR = Path(__file__).parent / "templates"
+_SITE_DAILY = Path("output/site/daily")
+
+# tentpole "what we're watching" bullets (static calendar)
+_WATCHING_BULLETS = [
+    "Spring practice reports — portal decisions follow coaching feedback",
+    "Transfer portal deadline windows — commitment trackers update daily",
+    "Draft advisory declarations — underclassmen decisions shape fall depth",
+]
+
+_LONG_MONTHS = {
+    "01": "January", "02": "February", "03": "March", "04": "April",
+    "05": "May", "06": "June", "07": "July", "08": "August",
+    "09": "September", "10": "October", "11": "November", "12": "December",
+}
+
+_ORDINALS = {
+    1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "5th", 6: "6th", 7: "7th",
+    8: "8th", 9: "9th", 10: "10th", 11: "11th", 12: "12th", 13: "13th",
+    14: "14th", 15: "15th", 16: "16th", 17: "17th", 18: "18th", 19: "19th",
+    20: "20th", 21: "21st", 22: "22nd", 23: "23rd", 24: "24th", 25: "25th",
+    26: "26th", 27: "27th", 28: "28th", 29: "29th", 30: "30th", 31: "31st",
+}
+
+
+def _long_date(iso_date: str) -> str:
+    """'2026-04-21' → 'Tuesday, April 21st, 2026'"""
+    try:
+        d = datetime.strptime(iso_date, "%Y-%m-%d")
+        day_name = d.strftime("%A")
+        month = _LONG_MONTHS[d.strftime("%m")]
+        ordinal = _ORDINALS.get(d.day, f"{d.day}th")
+        return f"{day_name}, {month} {ordinal}, {d.year}"
+    except Exception:
+        return iso_date
+
+
+def _load_template() -> string.Template:
+    return string.Template((_TEMPLATES_DIR / "daily.html").read_text(encoding="utf-8"))
+
+
+def _source_pills_html(cited_json: str) -> str:
+    try:
+        sources = json.loads(cited_json)
+    except Exception:
+        sources = []
+    if not sources:
+        return ""
+    pills = "".join(f'<span class="source-pill">{_esc(s)}</span>' for s in sources)
+    return f'<div class="source-pills">{pills}</div>'
+
+
+def _entity_link_html(slug: str, entity_type: str) -> str:
+    if not slug:
+        return ""
+    if entity_type == "team":
+        href = f"/teams/{slug}.html"
+        label = slug.replace("-", " ").title()
+    elif entity_type == "player":
+        href = f"/players/{slug}.html"
+        label = slug.replace("-", " ").title()
+    elif entity_type == "conference":
+        href = f"/conferences/{slug}.html"
+        label = slug.upper()
+    else:
+        return ""
+    return f'<a class="entity-link" href="{href}">→ {_esc(label)} page</a>'
+
+
+def _esc(s: str) -> str:
+    return (s
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;"))
+
+
+def _take_html(rank: int, headline: str, body: str,
+               cited_json: str, entity_slug: str, entity_type: str) -> str:
+    rank_labels = {1: "Take #1 — Top Story", 2: "Take #2 — Two Reads", 3: "Take #3 — Buried Lede"}
+    rank_label = rank_labels.get(rank, f"Take #{rank}")
+
+    body_paras = "".join(f"<p>{_esc(p.strip())}</p>" for p in body.split("\n") if p.strip())
+    if not body_paras:
+        body_paras = f"<p>{_esc(body)}</p>"
+
+    pills = _source_pills_html(cited_json)
+    entity = _entity_link_html(entity_slug, entity_type)
+
+    return f"""<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">{rank}</span>{_esc(rank_label)}
+  </div>
+  <h2 class="take__headline">{_esc(headline)}</h2>
+  <div class="take__body">{body_paras}</div>
+  {pills}
+  {entity}
+</article>"""
+
+
+def _watching_html() -> str:
+    items = "".join(f'<div class="sidebar__item">{_esc(b)}</div>' for b in _WATCHING_BULLETS)
+    return items
+
+
+def _archive_links_html(recent_editions: list[dict[str, Any]]) -> str:
+    links = []
+    for ed in recent_editions[:5]:
+        date = ed["edition_date"]
+        long = _long_date(date)
+        links.append(f'<a class="archive-footer__link" href="/daily/{date}/">{_esc(long)}</a>')
+    return "\n".join(links) if links else '<span style="opacity:0.4">No prior editions yet</span>'
+
+
+def _render_one(
+    conn,
+    edition_date: str,
+    out_path: Path,
+    recent_editions: list[dict[str, Any]],
+) -> Path:
+    """Render a single edition date to out_path/index.html."""
+    rows = conn.execute(
+        """
+        SELECT rank_position, headline, body, cited_sources_json,
+               primary_entity_slug, primary_entity_type
+        FROM daily_takes
+        WHERE edition_date = ?
+        ORDER BY rank_position
+        """,
+        (edition_date,),
+    ).fetchall()
+
+    if not rows:
+        log.warning("render_one(%s): no takes found in DB", edition_date)
+        rows = []
+
+    takes_html = "\n".join(
+        _take_html(r[0], r[1], r[2], r[3], r[4] or "", r[5] or "event")
+        for r in rows
+    )
+
+    tpl = _load_template()
+    html = tpl.substitute(
+        title=f"The Daily — {_long_date(edition_date)}",
+        long_date=_long_date(edition_date),
+        takes_html=takes_html or "<p>No takes available for this edition.</p>",
+        watching_html=_watching_html(),
+        archive_links=_archive_links_html(recent_editions),
+    )
+
+    out_path.mkdir(parents=True, exist_ok=True)
+    dest = out_path / "index.html"
+    dest.write_text(html, encoding="utf-8")
+    log.info("rendered %s", dest)
+    return dest
+
+
+def render_daily(conn, edition_date: str, output_dir: str | None = None) -> list[Path]:
+    """Render today's edition + archive entry. Returns list of paths written."""
+    base = Path(output_dir) if output_dir else _SITE_DAILY
+    base.mkdir(parents=True, exist_ok=True)
+
+    recent = fetch_recent_editions(conn, limit=6)
+
+    written: list[Path] = []
+
+    # Archive entry
+    archive_path = base / edition_date
+    written.append(_render_one(conn, edition_date, archive_path, recent))
+
+    # Current (index)
+    written.append(_render_one(conn, edition_date, base, recent))
+
+    # Archive index
+    archive_index = _render_archive_index(conn, base, limit=30)
+    written.append(archive_index)
+
+    return written
+
+
+def _render_archive_index(conn, base: Path, limit: int = 30) -> Path:
+    """Render archive.html listing last `limit` editions."""
+    editions = fetch_recent_editions(conn, limit=limit)
+
+    rows_html = ""
+    for ed in editions:
+        date = ed["edition_date"]
+        status = ed.get("status", "published")
+        vv = "✓" if ed.get("voice_validator_passed") else "–"
+        takes_count = ed.get("takes_count", 0)
+        rows_html += (
+            f'<tr>'
+            f'<td><a href="/daily/{date}/">{_esc(_long_date(date))}</a></td>'
+            f'<td>{_esc(status)}</td>'
+            f'<td style="text-align:center">{takes_count}</td>'
+            f'<td style="text-align:center">{vv}</td>'
+            f'</tr>\n'
+        )
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily — Archive</title>
+<style>
+body{{font-family:'Georgia',serif;background:#f8f6f0;color:#1a1a2e;max-width:760px;margin:3rem auto;padding:0 1rem;}}
+h1{{font-size:2rem;margin-bottom:0.5rem;color:#0f2044;}}
+.sub{{color:#4a5568;font-family:'Inter',sans-serif;font-size:0.8rem;margin-bottom:2rem;}}
+table{{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;font-size:0.85rem;}}
+th{{text-align:left;border-bottom:2px solid #c9a84c;padding:0.5rem;color:#0f2044;}}
+td{{padding:0.5rem;border-bottom:1px solid #e2ddd5;}}
+a{{color:#0f2044;}}
+a:hover{{color:#c9a84c;}}
+</style>
+</head>
+<body>
+<h1>The Daily — Archive</h1>
+<p class="sub">Last {limit} editions · <a href="/daily/">← Current edition</a></p>
+<table>
+<thead><tr><th>Edition</th><th>Status</th><th>Takes</th><th>Voice OK</th></tr></thead>
+<tbody>{rows_html}</tbody>
+</table>
+</body>
+</html>"""
+
+    dest = base / "archive.html"
+    dest.write_text(html, encoding="utf-8")
+    log.info("rendered archive index %s", dest)
+    return dest
+
+
+def fetch_recent_editions(conn, limit: int = 6) -> list[dict[str, Any]]:
+    """Return last `limit` editions from DB ordered newest first."""
+    try:
+        rows = conn.execute(
+            """
+            SELECT e.edition_date, e.status, e.voice_validator_passed, e.generation_model,
+                   COUNT(t.rank_position) AS takes_count
+            FROM daily_editions e
+            LEFT JOIN daily_takes t ON t.edition_date = e.edition_date
+            GROUP BY e.edition_date
+            ORDER BY e.edition_date DESC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        return [
+            {
+                "edition_date": r[0],
+                "status": r[1],
+                "voice_validator_passed": bool(r[2]),
+                "generation_model": r[3],
+                "takes_count": r[4],
+            }
+            for r in rows
+        ]
+    except Exception as exc:
+        log.warning("fetch_recent_editions failed: %s", exc)
+        return []
