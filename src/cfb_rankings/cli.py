@@ -1215,6 +1215,59 @@ def build_parser() -> argparse.ArgumentParser:
         help="Count unlabelled rows without classifying.",
     )
 
+
+    # -------------------------------------------------------------------------
+    # Sprint 16: The Mailbag -- fan submission editorial
+    # -------------------------------------------------------------------------
+    mailbag_seed_parser = subparsers.add_parser(
+        "mailbag-seed-submissions",
+        help="Sprint 16: Seed N representative questions for Mailbag bootstrapping.",
+    )
+    mailbag_seed_parser.add_argument(
+        "--n", type=int, default=5,
+        help="Number of seed questions to plant (default: 5, max: 7).",
+    )
+
+    mailbag_curate_parser = subparsers.add_parser(
+        "mailbag-curate-submissions",
+        help="Sprint 16: Select 3-5 queued submissions for a Mailbag edition.",
+    )
+    mailbag_curate_parser.add_argument(
+        "--edition", type=str, default=None,
+        help="Edition slug (e.g. 2026-w17). Defaults to current ISO week.",
+    )
+    mailbag_curate_parser.add_argument(
+        "--max", type=int, default=5, dest="max_answers",
+        help="Maximum answers per edition (default: 5).",
+    )
+
+    mailbag_gen_parser = subparsers.add_parser(
+        "mailbag-generate-answers",
+        help="Sprint 16: Generate corpus-synthesis answers for a curated Mailbag edition.",
+    )
+    mailbag_gen_parser.add_argument(
+        "--edition", type=str, default=None,
+        help="Edition slug. Defaults to current ISO week.",
+    )
+
+    render_mailbag_parser = subparsers.add_parser(
+        "render-mailbag",
+        help="Sprint 16: Render Mailbag HTML pages (edition + archive + submit form).",
+    )
+    render_mailbag_parser.add_argument(
+        "--edition", type=str, default=None,
+        help="Render only this edition slug. Omit to render all.",
+    )
+
+    mailbag_history_parser = subparsers.add_parser(
+        "mailbag-history",
+        help="Sprint 16: Print recent Mailbag editions.",
+    )
+    mailbag_history_parser.add_argument(
+        "--limit", type=int, default=10,
+        help="Number of editions to show (default: 10).",
+    )
+
     return parser
 
 
@@ -3996,7 +4049,77 @@ def main() -> None:
         print(f"classify-player-sentiment: {result}", flush=True)
         return
 
-    raise RuntimeError(f"Unsupported command: {args.command}")
+
+    # -------------------------------------------------------------------------
+    # Sprint 16: The Mailbag
+    # -------------------------------------------------------------------------
+    if args.command == "mailbag-seed-submissions":
+        from cfb_rankings.mailbag.submissions import seed_representative_submissions
+        n = getattr(args, "n", 5)
+        ids = seed_representative_submissions(n)
+        print("mailbag-seed-submissions: planted {} seed rows: {}".format(len(ids), ids), flush=True)
+        return
+
+    if args.command == "mailbag-curate-submissions":
+        from cfb_rankings.mailbag.curator import curate_for_edition
+        from cfb_rankings.mailbag.data import current_edition_slug
+        edition = getattr(args, "edition", None) or current_edition_slug()
+        max_answers = getattr(args, "max_answers", 5)
+        result = curate_for_edition(edition, max_answers=max_answers)
+        print(
+            "mailbag-curate-submissions: edition={} selected={} rejected={} bootstrap={} date={}".format(
+                result["edition_slug"], len(result["selected_ids"]), len(result["rejected_ids"]),
+                result["bootstrap_seeded"], result["publish_date"],
+            ),
+            flush=True,
+        )
+        return
+
+    if args.command == "mailbag-generate-answers":
+        from cfb_rankings.mailbag.synthesizer import generate_answers_for_edition
+        from cfb_rankings.mailbag.data import current_edition_slug
+        edition = getattr(args, "edition", None) or current_edition_slug()
+        result = generate_answers_for_edition(edition)
+        print(
+            "mailbag-generate-answers: edition={} answers={} voice_passed={} voice_failed={} tokens_in={} tokens_out={}".format(
+                result["edition_slug"], result["answers_generated"],
+                result["voice_passed"], result["voice_failed"],
+                result["total_input_tokens"], result["total_output_tokens"],
+            ),
+            flush=True,
+        )
+        return
+
+    if args.command == "render-mailbag":
+        from cfb_rankings.mailbag.renderer import render_all
+        edition = getattr(args, "edition", None)
+        result = render_all(edition_slug=edition)
+        print(
+            "render-mailbag: pages={} index={} archive={} submit={}".format(
+                len(result["edition_pages"]), result["index"], result["archive"], result["submit"],
+            ),
+            flush=True,
+        )
+        return
+
+    if args.command == "mailbag-history":
+        from cfb_rankings.mailbag.data import db_conn, list_recent_editions
+        limit = getattr(args, "limit", 10)
+        with db_conn() as conn:
+            editions = list_recent_editions(conn, limit=limit)
+        if not editions:
+            print("mailbag-history: no editions found", flush=True)
+            return
+        print("{:<14} {:<12} {:<12} {}".format("EDITION", "DATE", "STATUS", "NOTES"), flush=True)
+        print("-" * 60, flush=True)
+        for ed in editions:
+            print("{:<14} {:<12} {:<12} {}".format(
+                ed.get("edition_slug", ""), ed.get("publish_date", ""),
+                ed.get("status", ""), (ed.get("notes") or "")[:40],
+            ), flush=True)
+        return
+
+    raise RuntimeError("Unsupported command: {}".format(args.command))
 
 
 def _ensure_cfbd_connectivity_or_exit(

@@ -1,0 +1,73 @@
+{# The Mailbag edition template — Jinja2 reference stub.
+   The current renderer (renderer.py) builds HTML inline using the
+   {{TOKEN}} pattern consistent with the existing static-site model.
+   This .j2 file documents the intended template structure for a
+   future full Jinja2 migration. #}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Mailbag — {{ edition_slug }} — CFB Index</title>
+  <style>{{ head_style }}</style>
+</head>
+<body>
+<div class="page">
+  <!-- chrome + nav -->
+  {{ chrome }}
+  {{ brand_row }}
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="kicker">The Mailbag</div>
+    <h1 class="masthead">The Mailbag</h1>
+    <p class="deck">Edition {{ edition_slug }} — published Friday {{ publish_date }}</p>
+    <div class="meta">Your questions. The corpus answers.</div>
+  </header>
+  <hr class="rule soft" />
+
+  <!-- Two-column grid -->
+  <div class="content-grid">
+    <main>
+      {% for answer in answers %}
+      <div class="answer-card">
+        <div class="answer-num">Question {{ answer.rank_position }}</div>
+        <blockquote class="answer-question">&ldquo;{{ answer.question_text }}&rdquo;</blockquote>
+        <div class="answer-byline">— {{ answer.submitter_handle }}</div>
+        <div class="answer-body">{{ answer.body_html | safe }}</div>
+        {% if answer.short_answer %}
+        <div class="short-answer">
+          <span class="label">Short answer</span>{{ answer.short_answer }}
+        </div>
+        {% endif %}
+        {% if answer.source_pills %}
+        <div class="source-pills">
+          {% for source in answer.sources %}
+          <span class="pill">{{ source }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar-head">Recent Editions</div>
+      {% for ed in recent_editions %}
+      <div class="sidebar-edition">
+        <a href="/mailbag/{{ ed.edition_slug }}/">{{ ed.edition_slug }}</a>
+        <span class="date">{{ ed.publish_date }}</span>
+      </div>
+      {% endfor %}
+      <div class="sidebar-cta">
+        <p>Got a question about CFB? We read everything.</p>
+        <a href="/mailbag/submit/">Submit a question &rarr;</a>
+      </div>
+    </aside>
+  </div>
+
+  {{ footer }}
+</div>
+</body>
+</html>
