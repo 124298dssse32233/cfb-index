@@ -1078,6 +1078,84 @@ def build_parser() -> argparse.ArgumentParser:
     from cfb_rankings.editions.cli import register_edition_subcommands
     register_edition_subcommands(subparsers)
 
+    # =========================================================================
+    # MERGE ZONE — Sprint 13 Receipts subcommands. Concurrent sprints adding
+    # commands should append below this block (not interleave) so merges stay
+    # trivial. See CLAUDE_CODE_RECEIPTS_AND_LONG_SHOTS.md.
+    # =========================================================================
+
+    extract_pc_parser = subparsers.add_parser(
+        "extract-predictive-claims",
+        help="Sprint 13: scan conversation_documents for predictive claims, "
+             "extract via Haiku → Sonnet pipeline, persist to predictive_claims.",
+    )
+    extract_pc_parser.add_argument("--days", type=int, default=365)
+    extract_pc_parser.add_argument(
+        "--sources", default=None,
+        help="Comma-separated source_name values to filter (e.g. reddit,bluesky).",
+    )
+    extract_pc_parser.add_argument("--limit-docs", type=int, default=None)
+    extract_pc_parser.add_argument("--haiku-batch", type=int, default=25)
+    extract_pc_parser.add_argument(
+        "--offline", action="store_true",
+        help="Force offline stub mode (no Anthropic API calls).",
+    )
+
+    consensus_parser = subparsers.add_parser(
+        "load-historical-consensus",
+        help="Sprint 13: populate historical_consensus_snapshots from existing "
+             "game_lines, official_rankings, power_ratings_weekly, and corpus "
+             "aggregate signals.",
+    )
+    consensus_parser.add_argument(
+        "--kind", choices=["all", "vegas", "polls", "sp_plus", "polymarket", "corpus"],
+        default="all",
+    )
+
+    surprise_parser = subparsers.add_parser(
+        "compute-surprise-index",
+        help="Sprint 13: compute Surprise Index for predictive_claims.",
+    )
+    surprise_parser.add_argument(
+        "--all-unscored", action="store_true",
+        help="Recompute every claim with NULL surprise_index (default).",
+    )
+    surprise_parser.add_argument(
+        "--claim-id", type=int, default=None,
+        help="Compute only for a single claim id.",
+    )
+
+    resolve_parser = subparsers.add_parser(
+        "resolve-outcomes",
+        help="Sprint 13: resolve outcomes for predictive claims whose window has closed.",
+    )
+    resolve_parser.add_argument(
+        "--window-end-before", default=None,
+        help="ISO date (YYYY-MM-DD). Default: process all unresolved.",
+    )
+
+    best_calls_parser = subparsers.add_parser(
+        "generate-best-calls",
+        help="Sprint 13: generate the annual 'Best Calls of <year>' canonical list.",
+    )
+    best_calls_parser.add_argument("--year", type=int, required=True)
+    best_calls_parser.add_argument("--n", type=int, default=25)
+    best_calls_parser.add_argument("--opus-top", type=int, default=3)
+
+    source_profiles_parser = subparsers.add_parser(
+        "recompute-source-profiles",
+        help="Sprint 13: recompute source_profiles aggregates + bios.",
+    )
+    source_profiles_parser.add_argument("--min-takes", type=int, default=3)
+    source_profiles_parser.add_argument("--top-n", type=int, default=50)
+
+    render_receipts_parser = subparsers.add_parser(
+        "render-receipts",
+        help="Sprint 13: render output/site/receipts/ — landing, annual lists, source profiles.",
+    )
+
+    # END MERGE ZONE — Sprint 13
+
     return parser
 
 
@@ -3691,6 +3769,92 @@ def main() -> None:
     if args.command in ("publish-edition", "render-edition", "render-homepage", "seed-editions"):
         rc = args.func(args)
         raise SystemExit(rc or 0)
+
+    # =========================================================================
+    # MERGE ZONE — Sprint 13 Receipts dispatch. See CLI parser merge zone.
+    # =========================================================================
+
+    if args.command == "extract-predictive-claims":
+        from cfb_rankings.receipts import extract as _ex
+        sources = args.sources.split(",") if args.sources else None
+        result = _ex.run_extraction(
+            days=args.days,
+            source_names=sources,
+            limit_docs=args.limit_docs,
+            haiku_batch=args.haiku_batch,
+            offline=True if args.offline else None,
+        )
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "load-historical-consensus":
+        from cfb_rankings.receipts import consensus as _co
+        if args.kind == "all":
+            result = _co.load_all()
+        elif args.kind == "vegas":
+            result = {"vegas_lines": _co.load_vegas_lines()}
+        elif args.kind == "polls":
+            result = {"polls": _co.load_polls()}
+        elif args.kind == "sp_plus":
+            result = {"sp_plus": _co.load_sp_plus()}
+        elif args.kind == "polymarket":
+            result = {"polymarket": _co.load_polymarket()}
+        elif args.kind == "corpus":
+            result = {"corpus_aggregate": _co.load_corpus_aggregate()}
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "compute-surprise-index":
+        from cfb_rankings.receipts import surprise as _su
+        if args.claim_id is not None:
+            from cfb_rankings.receipts.runtime import db_conn as _conn
+            with _conn() as c:
+                row = c.execute(
+                    "SELECT * FROM predictive_claims WHERE id = ?",
+                    (args.claim_id,),
+                ).fetchone()
+                if not row:
+                    print(json.dumps({"error": "claim_not_found"}), flush=True)
+                    return
+                score, breakdown = _su.compute(row)
+                c.execute(
+                    "UPDATE predictive_claims SET surprise_index = ?, "
+                    "surprise_index_components_json = ? WHERE id = ?",
+                    (score, json.dumps(breakdown), args.claim_id),
+                )
+                c.commit()
+                print(json.dumps({"claim_id": args.claim_id, "score": score,
+                                  "breakdown": breakdown}, indent=2), flush=True)
+            return
+        result = _su.compute_batch(only_unscored=True)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "resolve-outcomes":
+        from cfb_rankings.receipts import resolve as _re
+        result = _re.resolve_batch(window_end_before=args.window_end_before)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "generate-best-calls":
+        from cfb_rankings.receipts import best_calls as _bc
+        result = _bc.generate(args.year, n=args.n, opus_top=args.opus_top)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "recompute-source-profiles":
+        from cfb_rankings.receipts import source_profiles as _sp
+        result = _sp.recompute_all(min_takes=args.min_takes, top_n=args.top_n)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "render-receipts":
+        from cfb_rankings.receipts import render as _re
+        result = _re.render_all()
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    # END MERGE ZONE — Sprint 13
 
     raise RuntimeError(f"Unsupported command: {args.command}")
 
