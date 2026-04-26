@@ -299,14 +299,34 @@ Stash@{1} preserved. Do not apply or drop until Kevin reviews the DEFER files.
 
 **Build-site run:** `python -u manage.py build-site 2>&1 | tee output/sprint_reports/build-site-integration-run.log`
 
-Build confirmed no errors through:
-- Snapshot load: 668 ranking rows, 4845 historical seasons
-- Hot-Take cache: 34 rows
-- Signature Moment cache: 443 players
-- Achievements cache: 752 unlocks
-- 668 team pages ✓
-- 685 program pages ✓
-- Player + Heisman pages (in progress at time of report write — build still running ~35 min elapsed)
+Build completed successfully (22:57 → 01:49, ~2h52m). Full output:
+
+```
+Snapshot load: 668 ranking rows, 4845 historical seasons
+Hot-Take cache: 34 rows
+Signature Moment cache: 443 players
+Achievements cache: 752 unlocks
+668 team pages ✓
+685 program pages ✓
+65,374 player page data maps built ✓ (precomputation, 23:10→01:19 = ~2h)
+46 archive snapshots + 72 conference pages ✓
+Fan intelligence board: 19 rows
+Home/rankings/history pages ✓
+Matchup + compare pages ✓
+Archive + conference pages ✓
+Program pages ✓
+Heisman pages ✓
+Player pages written ✓ (01:27→01:32)
+Team season pages ✓
+Team pages v2: 203 historical-season pages + 17 profiled programs ✓
+Fan Intelligence Hub: output/site/hub/index.html ✓
+The Room board ✓
+Signature Stories board ✓
+Players spotlight landing ✓
+Methodology page ✓
+```
+
+Zero errors. One retryable DB lock (handled automatically). Final file count: **67,296 HTML files** across `output/site/`.
 
 Full log: `output/sprint_reports/build-site-integration-run.log`
 
