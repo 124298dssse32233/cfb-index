@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${page_title}</title>
+    <meta name="description" content="${page_description}">
+    <style>${embedded_css}</style>
+    <style>:root { --accent: ${accent_hex}; --accent-soft: ${accent_hex_soft}; }</style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell">
+            <a href="/" class="brand">CFB Index</a>
+            <nav>
+                <a href="/storylines/">Storylines</a>
+                <a href="/teams/">Teams</a>
+                <a href="/conferences/">Conferences</a>
+                <a href="/edition/">The Edition</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="thread-card-wrap">
+        <article class="thread-card" data-thread-slug="${thread_slug}">
+
+            <header class="thread-header">
+                <div class="breadcrumb">
+                    <span class="seg"><a href="/storylines/">Storylines</a></span>
+                    <span class="sep">/</span>
+                    <span class="seg">Active Threads</span>
+                    <span class="sep">/</span>
+                    <span class="current">${thread_title_upper}</span>
+                </div>
+                <h1 class="thread-title">${thread_title}</h1>
+                <p class="thread-dek">${thread_dek}</p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <div class="label">Status</div>
+                        <div class="value status-${status_class}">${status_label}</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Chapters</div>
+                        <div class="value">${chapter_count}</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Started</div>
+                        <div class="value">${started_at_short}</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Last Update</div>
+                        <div class="value">${last_chapter_relative}</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Following</div>
+                        <div class="value value-accent">${follower_count_display}</div>
+                    </div>
+                </div>
+                <div class="subscribe-row">
+                    <button class="follow-cta" type="button" data-thread-slug="${thread_slug}">
+                        <span class="plus">+</span>
+                        <span>Follow this thread</span>
+                    </button>
+                    <span class="microcopy">get notified when new chapters land · no spam, ~weekly</span>
+                </div>
+            </header>
+
+            <section class="nav-rail" aria-label="Chapter index">
+                <div class="nav-rail-header">Chapter Index · Newest First</div>
+                ${chapter_index_html}
+                ${chapter_index_more_html}
+            </section>
+
+            <section class="current-chapter">
+                <div class="chapter-eyebrow">
+                    <span><span class="accent">CHAPTER ${current_chapter_number}</span> · CURRENT</span>
+                    <span class="meta-dot"></span>
+                    <span class="meta-text">${current_chapter_published_display} · ${current_chapter_read_time} min read</span>
+                </div>
+                <h2 class="chapter-title">${current_chapter_title}</h2>
+                <p class="chapter-dek">${current_chapter_dek}</p>
+                ${current_chapter_referenced_html}
+                <div class="chapter-body" id="chapter-${current_chapter_number}">${current_chapter_body_html}</div>
+            </section>
+
+            <section class="sources-panel">
+                <div class="panel-header">Sources + Evidence This Chapter</div>
+                ${current_chapter_sources_html}
+            </section>
+
+            <section class="related-block">
+                <div class="related-header">Related Threads</div>
+                <div class="related-grid">${related_threads_html}</div>
+            </section>
+
+            <section class="receipts-panel">
+                <div class="receipts-header">
+                    <span>Receipts · Takes From This Thread, Aged</span>
+                    <span class="stub-tag">${receipts_stub_label}</span>
+                </div>
+                ${receipts_html}
+            </section>
+
+            <footer class="thread-footer">
+                <div class="footer-left">${chapter_count} chapters · ${word_count_display} words · started ${started_at_long}</div>
+                <div class="footer-right">
+                    <a href="#" aria-disabled="true" title="Coming in a follow-on sprint">↗ Archive PDF</a>
+                    <a href="/storylines/${thread_slug}.rss" title="Coming in a follow-on sprint">↗ RSS</a>
+                    <a class="email" href="#follow" data-thread-slug="${thread_slug}">↗ Email on new chapter</a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <footer class="site-footer">
+        <div class="shell">
+            <div>CFB Index · Storyline Threads · ${footer_year}</div>
+            <div>Department bylines indicate institutional editorial work. <a href="/methodology/">How we do this</a></div>
+        </div>
+    </footer>
+</body>
+</html>

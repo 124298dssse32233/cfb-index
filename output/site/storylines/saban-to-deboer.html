@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Saban-to-DeBoer Transition · CFB Index Storyline Threads</title>
+    <meta name="description" content="Eighteen months into Alabama after Saban. The question is no longer whether DeBoer can win — it's what Bama becomes when the founder is gone and the standard remains.">
+    <style>/* Storyline Threads — embedded stylesheet.
+ *
+ * Aligned to Figma node 62:2 (file eGIVOKDIFSmo1yM1LShLQx) on Sprint 10.
+ * Single-column flow, sans typography (Inter/system-ui), inline chapter
+ * index + related + receipts panels. Color tokens match Figma's dark
+ * editorial palette. */
+
+:root {
+    --bg: #0b0d12;
+    --bg-card: #12151d;
+    --bg-card-2: #171b24;
+    --bg-card-hover: #1e2330;
+    --text: #f5f6fa;
+    --text-dim: #c6cad6;
+    --text-faint: #8a90a1;
+    --text-muted: #5c6172;
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --accent: #c5b358; /* overridden inline per thread */
+    --accent-soft: rgba(197, 179, 88, 0.18);
+    --good: #3ea073;
+    --bad: #c04a4a;
+    --bad-soft: rgba(192, 74, 74, 0.18);
+    --good-soft: rgba(62, 160, 115, 0.18);
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
+
+/* ---------- shell ---------- */
+.shell { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+.site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.site-header .shell { display: flex; align-items: center; justify-content: space-between; }
+.site-header .brand { color: var(--text); font-weight: 700; }
+.site-header nav a { color: var(--text-faint); margin-left: 22px; font-weight: 600; }
+.site-header nav a:hover { color: var(--text); }
+
+/* ---------- thread page wrapper ---------- */
+.thread-card-wrap {
+    max-width: 1040px;
+    margin: 32px auto 48px;
+    padding: 0 28px;
+}
+.thread-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+@media (max-width: 720px) {
+    .thread-card { padding: 28px 22px; gap: 24px; }
+    .thread-card-wrap { padding: 0 12px; margin: 16px auto 32px; }
+}
+
+/* ---------- thread header ---------- */
+.thread-header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.breadcrumb {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.breadcrumb .seg { color: var(--text-faint); font-weight: 600; }
+.breadcrumb .sep { color: var(--text-muted); font-weight: 400; padding: 0 2px; }
+.breadcrumb .current { color: var(--accent); font-weight: 600; }
+
+.thread-title {
+    font-size: 56px;
+    line-height: 1.14;
+    letter-spacing: -0.5px;
+    margin: 0;
+    font-weight: 400;
+    color: var(--text);
+}
+.thread-dek {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 880px;
+}
+@media (max-width: 720px) {
+    .thread-title { font-size: 36px; line-height: 1.1; }
+    .thread-dek { font-size: 17px; }
+}
+
+.meta-strip {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 8px;
+    flex-wrap: wrap;
+}
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.meta-item .label {
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.meta-item .value {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+.meta-item .value.status-active { color: var(--good); }
+.meta-item .value.value-accent { color: var(--accent); }
+.meta-strip .meta-dot {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.subscribe-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 4px;
+    flex-wrap: wrap;
+}
+.follow-cta {
+    background: var(--accent);
+    color: #0b0d12;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-family: inherit;
+}
+.follow-cta .plus { font-size: 13px; }
+.follow-cta:hover { filter: brightness(1.1); color: #0b0d12; }
+.subscribe-row .microcopy {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ---------- nav-rail (chapter index, inline) ---------- */
+.nav-rail {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 16px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.nav-rail-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.chapter-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 8px 0;
+}
+.chapter-num {
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--bg-card-hover);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.chapter-row.current .chapter-num {
+    background: var(--accent);
+    color: #0b0d12;
+}
+.chapter-row .ct {
+    flex: 1;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.chapter-row.current .ct {
+    color: var(--text);
+    font-weight: 600;
+}
+.chapter-row .cd {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.nav-rail-more {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* ---------- current chapter ---------- */
+.current-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.chapter-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.chapter-eyebrow .accent { color: var(--accent); }
+.chapter-eyebrow .meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--text-muted);
+    display: inline-block;
+}
+.chapter-eyebrow .meta-text {
+    color: var(--text-faint);
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 500;
+}
+.chapter-title {
+    font-size: 36px;
+    line-height: 1.22;
+    margin: 0;
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: -0.3px;
+}
+.chapter-dek {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 760px;
+}
+@media (max-width: 720px) {
+    .chapter-title { font-size: 26px; }
+    .chapter-dek { font-size: 15px; }
+}
+
+.chapter-body {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.65;
+}
+.chapter-body p { margin: 0; }
+.chapter-body em { font-style: italic; color: var(--text-dim); }
+.chapter-body strong { font-weight: 700; color: var(--text); }
+.chapter-body a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(197, 179, 88, 0.4);
+}
+.chapter-body a:hover { border-bottom-color: var(--accent); }
+.chapter-body blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 0;
+    padding: 4px 0 4px 18px;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.pull-quote {
+    margin: 4px 0;
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1.45;
+    font-weight: 500;
+    font-style: italic;
+    max-width: 760px;
+}
+.pull-quote-attribution {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: -8px;
+    text-transform: none;
+}
+
+.ref-callout {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 760px;
+}
+.ref-callout .label {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.ref-callout .ref-row { font-size: 14px; line-height: 1.5; }
+.ref-callout .ref-num {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-right: 8px;
+}
+.ref-callout .ref-row a { color: var(--text-dim); }
+.ref-callout .ref-row a:hover { color: var(--accent); }
+
+/* ---------- sources panel (inline) ---------- */
+.sources-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.sources-panel .panel-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.source-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--border);
+}
+.source-row:first-of-type { border-top: none; padding-top: 0; }
+.source-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.source-row-top .left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.source-row .src-name {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+}
+.source-row .src-publisher {
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+}
+.source-row .src-dot {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+.source-row .src-date {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.source-row .src-quote {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ---------- related threads (3-up inline) ---------- */
+.related-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.related-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+@media (max-width: 720px) {
+    .related-grid { grid-template-columns: 1fr; }
+}
+.related-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.15s;
+}
+.related-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.related-card .accent-bar {
+    width: 32px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent); /* overridden inline per card */
+}
+.related-card .rel-title {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.36;
+    font-weight: 400;
+}
+.related-card .rel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+.related-card .rel-meta .rel-chapters {
+    color: var(--text-faint);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.related-card .rel-meta .rel-date {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ---------- receipts panel ---------- */
+.receipts-panel {
+    background: var(--bg-card);
+    border: 1px solid rgba(197, 179, 88, 0.4);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.receipts-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.receipts-header .stub-tag {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    font-weight: 500;
+    font-style: italic;
+}
+.receipt-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--border);
+}
+.receipt-row:first-of-type { border-top: none; padding-top: 0; }
+.receipt-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+.receipt-row .receipt-quote {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    flex: 1;
+}
+.verdict-pill {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.verdict-pill.aged-poorly {
+    background: var(--bad-soft);
+    color: var(--bad);
+}
+.verdict-pill.vindicated {
+    background: var(--good-soft);
+    color: var(--good);
+}
+.verdict-pill.premature {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+.receipt-attribution {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+/* ---------- footer ---------- */
+.thread-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+.thread-footer .footer-left {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    padding-top: 14px;
+}
+.thread-footer .footer-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 14px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+.thread-footer .footer-right a { color: var(--text-faint); }
+.thread-footer .footer-right a.email { color: var(--accent); }
+.thread-footer .footer-right a:hover { color: var(--text); }
+.thread-footer .footer-right a.email:hover { color: var(--accent); filter: brightness(1.2); }
+
+/* ---------- index page ---------- */
+.index-hero {
+    padding: 24px 0 40px;
+    border-bottom: 1px solid var(--border);
+}
+.index-hero h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    margin: 0 0 14px 0;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+}
+.index-hero .dek {
+    color: var(--text-dim);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0;
+}
+.index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    padding: 36px 0 60px;
+}
+.index-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.15s;
+}
+.index-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.index-card .ic-bar {
+    width: 36px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+}
+.index-card .ic-eyebrow {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.index-card .ic-title {
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.22;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin: 0;
+}
+.index-card .ic-dek {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    flex-grow: 1;
+}
+.index-card .ic-foot {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+}
+.index-card .ic-foot strong { color: var(--text-dim); font-weight: 700; }
+
+/* ---------- site footer (separate from per-thread footer) ---------- */
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0 48px;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+.site-footer .shell { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.site-footer a { color: var(--text-faint); }
+.site-footer a:hover { color: var(--text); }
+</style>
+    <style>:root { --accent: #9e1b32; --accent-soft: rgba(158, 27, 50, 0.18); }</style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell">
+            <a href="/" class="brand">CFB Index</a>
+            <nav>
+                <a href="/storylines/">Storylines</a>
+                <a href="/teams/">Teams</a>
+                <a href="/conferences/">Conferences</a>
+                <a href="/edition/">The Edition</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="thread-card-wrap">
+        <article class="thread-card" data-thread-slug="saban-to-deboer">
+
+            <header class="thread-header">
+                <div class="breadcrumb">
+                    <span class="seg"><a href="/storylines/">Storylines</a></span>
+                    <span class="sep">/</span>
+                    <span class="seg">Active Threads</span>
+                    <span class="sep">/</span>
+                    <span class="current">THE SABAN-TO-DEBOER TRANSITION</span>
+                </div>
+                <h1 class="thread-title">The Saban-to-DeBoer Transition</h1>
+                <p class="thread-dek">Eighteen months into Alabama after Saban. The question is no longer whether DeBoer can win — it's what Bama becomes when the founder is gone and the standard remains.</p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <div class="label">Status</div>
+                        <div class="value status-active">Active</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Chapters</div>
+                        <div class="value">4</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Started</div>
+                        <div class="value">Jan 2024</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Last Update</div>
+                        <div class="value">4 days ago</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Following</div>
+                        <div class="value value-accent">—</div>
+                    </div>
+                </div>
+                <div class="subscribe-row">
+                    <button class="follow-cta" type="button" data-thread-slug="saban-to-deboer">
+                        <span class="plus">+</span>
+                        <span>Follow this thread</span>
+                    </button>
+                    <span class="microcopy">get notified when new chapters land · no spam, ~weekly</span>
+                </div>
+            </header>
+
+            <section class="nav-rail" aria-label="Chapter index">
+                <div class="nav-rail-header">Chapter Index · Newest First</div>
+                <div class="chapter-row current"><span class="chapter-num">04</span><a class="ct" href="#chapter-4">Spring 2026: The Standard, Re-Articulated</a><span class="cd">Apr 21</span></div>
+<div class="chapter-row"><span class="chapter-num">03</span><a class="ct" href="#chapter-3">11-2, the Vandy Loss, and the First Verdict</a><span class="cd">Jan 8</span></div>
+<div class="chapter-row"><span class="chapter-num">02</span><a class="ct" href="#chapter-2">August: First Camp Under DeBoer, and the Things You Can Already See</a><span class="cd">Aug 15</span></div>
+<div class="chapter-row"><span class="chapter-num">01</span><a class="ct" href="#chapter-1">January 10. The Standard Did Not Retire.</a><span class="cd">Jan 18</span></div>
+                
+            </section>
+
+            <section class="current-chapter">
+                <div class="chapter-eyebrow">
+                    <span><span class="accent">CHAPTER 04</span> · CURRENT</span>
+                    <span class="meta-dot"></span>
+                    <span class="meta-text">Apr 21, 2026 · 8 min read</span>
+                </div>
+                <h2 class="chapter-title">Spring 2026: The Standard, Re-Articulated</h2>
+                <p class="chapter-dek">Two cycles in. DeBoer's identity is showing. The OL has been rebuilt. The third recruiting class has landed. The Standard is being re-articulated in DeBoer's voice. The question is no longer whether it holds. The question is what it sounds like now.</p>
+                <div class="ref-callout"><div class="label">Builds on prior chapters</div><div class="ref-row"><span class="ref-num">CH 01</span><a href="#chapter-1">January 10. The Standard Did Not Retire.</a></div><div class="ref-row"><span class="ref-num">CH 02</span><a href="#chapter-2">August: First Camp Under DeBoer, and the Things You Can Already See</a></div><div class="ref-row"><span class="ref-num">CH 03</span><a href="#chapter-3">11-2, the Vandy Loss, and the First Verdict</a></div></div>
+                <div class="chapter-body" id="chapter-04"><p>The spring of 2026 finds Bama in the position the spring of 2025 was supposed to find Bama in: with a clear identity, a settled coaching staff, and a recruiting board that is competing for the same players Saban-era Bama would have competed for. The 2025 season — DeBoer's second — finished 12-1, with a regular-season loss at Tennessee that was the kind of road-environment loss the Saban-era program also occasionally absorbed, and a CFP semifinal exit to Ohio State that, by the verdict that landed in the boards' Sunday morning postgame threads, was the kind of loss the program could live with because the program had played the game on its own terms. <em>"We lost,"</em> TideRollerSC wrote on the morning of December 28. <em>"We lost the way Bama loses. That has not always been true the past two years. It is true today. That matters."</em></p>
+<p>We picked this thread up in <a href="#chapter-1">Chapter 1</a> by asking whether the institution would survive the change in pulpit voice. We picked it up in <a href="#chapter-2">Chapter 2</a> by tracking the texture of DeBoer's first camp. We picked it up in <a href="#chapter-3">Chapter 3</a> by reckoning with the Vandy loss and the 11-2 first-year verdict. The two-cycle verdict is now a different shape: the Standard holds, but the Standard's <em>articulation</em> — the words, the rhythms, the day-to-day cadence, the press-conference vocabulary — is now DeBoer's. That is the change Saban-era Bama spent two decades resisting in its own continuity. The continuity is now broken. The continuity is also, surprisingly, intact in the ways that matter.</p>
+<p class="pull-quote">“DeBoer is the head coach. He is not Saban. He is not pretending to be Saban. He is also not failing to be Bama.”</p><p class="pull-quote-attribution">— Aaron Suttles, Tuscaloosa News signing day analysis</p>
+<p>The clearest evidence of the re-articulation is the recruiting class for 2026. DeBoer's third class signed at No. 2 nationally per all major services, with eleven five-stars and the highest average per-player rating of any class Bama has signed since 2017. The class includes the No. 1 overall recruit (a defensive end from Memphis whose recruitment Saban had been managing personally before retiring), the No. 4 overall recruit (a quarterback from Houston who decommitted from Texas in November and committed to Bama in early February), and a four-star OL haul of seven players — the largest single-class OL infusion in program history. <em>"The OL question is no longer the OL question,"</em> Aaron Suttles wrote in the Tuscaloosa News on February 5, the morning after signing day. <em>"The OL question is now what kind of line the staff develops out of the talent it has stockpiled. That is a coaching question. That is a winnable question."</em></p>
+<p>The portal complement to the recruiting class has been smaller than DeBoer's first-year hauls. He took eight players in the spring 2026 window, with three at OL and one at quarterback (a backup move, not a starter move — Milroe had departed for the NFL after his junior year, and Ty Simpson had won the QB1 job decisively in the fall). The smaller portal number is the data point that signals the second-order shift the Bama people have been waiting for. <em>"DeBoer no longer needs to portal his way into competence,"</em> Joseph Goodman wrote in his AL.com column on February 8. <em>"He can recruit at the level Bama recruits. The portal is now a tool he uses sparingly, the way Saban eventually used it sparingly. The transition is not yet complete. It is meaningfully more advanced than it was two years ago. We are now looking at a Bama that is recognizably Bama in its roster construction, with a head coach whose play-calling identity is no longer being measured against the predecessor's because the predecessor's identity has been retired."</em></p>
+<p>The boards have arrived at a settled view that they did not have a year ago. The TideFans thread CrimsonAndCool opened in mid-March titled <em>"Year three: where we are"</em> ran 480 replies and the dominant tone was confident in a way the boards had not allowed themselves to be in 2024. <em>"DeBoer is the head coach,"</em> one reply read. <em>"He is not Saban. He is not pretending to be Saban. He is also not failing to be Bama. The two distinctions are the work of his first three years. The work is done. The next chapter is not whether he can be Bama. The next chapter is what kind of Bama he is going to build. Roll Tide."</em> The Roll Tide at the end was — and we mean this in the institutional-affection sense — the first time in two years a TideFans thread of that length had ended on the program's traditional sign-off without it reading as either defensive or wishful. It read as settled.</p>
+<p>What DeBoer's Bama is going to look like in the back half of his contract — and the contract, extended in October 2025, runs through 2030 — is the thing we are going to track from here. The early indicators: a slightly more open offense than Saban's late-career teams ran, a more aggressive defense than Saban's late-career teams ran, a portal philosophy that uses the portal as a precision tool rather than a roster-building strategy, and a recruiting board that competes for everyone Saban-era Bama competed for. The institutional weight that we wrote about in <a href="#chapter-1">Chapter 1</a> has not lessened. The institutional weight is now being borne by a coach who is not the man who built it, and the institution has spent two years figuring out what that means.</p>
+<p>The Cole Cubelic line that we returned to in earlier chapters — <em>"Nick Saban built the church. Kalen DeBoer is the new pastor. The church doesn't change"</em> — has aged remarkably well. The church has not changed. The pastor's voice is now the voice the congregation hears on Sundays, and the congregation has, in the spring of 2026, mostly stopped comparing the new voice to the old one. That is the deepest thing the transition was ever going to require. The transition has, broadly, accomplished it.</p>
+<p>We pick this up in chapter five whenever the next meaningful inflection lands. Probably the back half of the 2026 season. Probably whatever DeBoer's first marquee playoff run looks like.</p></div>
+            </section>
+
+            <section class="sources-panel">
+                <div class="panel-header">Sources + Evidence This Chapter</div>
+                <div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Aaron Suttles</span><span class="src-dot">·</span><span class="src-publisher">Tuscaloosa News signing day analysis</span></div><span class="src-date">Feb 5</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Joseph Goodman</span><span class="src-dot">·</span><span class="src-publisher">AL.com column</span></div><span class="src-date">Feb 8</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">TideRollerSC</span><span class="src-dot">·</span><span class="src-publisher">TideFans CFP semi postgame</span></div><span class="src-date">Dec 28</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">CrimsonAndCool</span><span class="src-dot">·</span><span class="src-publisher">TideFans 'Year three' thread</span></div><span class="src-date">Mar 12</span></div></div>
+            </section>
+
+            <section class="related-block">
+                <div class="related-header">Related Threads</div>
+                <div class="related-grid"><a class="related-card" href="/storylines/vandy-renaissance.html"><span class="accent-bar" style="background: #cfae70;"></span><span class="rel-title">The Vandy Renaissance</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/coaching-carousel-2026-27.html"><span class="accent-bar" style="background: #d97706;"></span><span class="rel-title">Coaching Carousel · 2026-27</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/big-ten-reasserting.html"><span class="accent-bar" style="background: #003c7e;"></span><span class="rel-title">The Big Ten Reasserting</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a></div>
+            </section>
+
+            <section class="receipts-panel">
+                <div class="receipts-header">
+                    <span>Receipts · Takes From This Thread, Aged</span>
+                    <span class="stub-tag">placeholder · Sprint 13 ships the live ledger</span>
+                </div>
+                <div class="receipt-row"><div class="receipt-row-top"><p class="receipt-quote">“Receipts on this thread's prior takes will appear here.”</p><span class="verdict-pill premature">AWAITING</span></div><p class="receipt-attribution">— Sprint 13 (Receipts) ships the live ledger.</p></div>
+            </section>
+
+            <footer class="thread-footer">
+                <div class="footer-left">4 chapters · 3.9k words · started Jan 12, 2024</div>
+                <div class="footer-right">
+                    <a href="#" aria-disabled="true" title="Coming in a follow-on sprint">↗ Archive PDF</a>
+                    <a href="/storylines/saban-to-deboer.rss" title="Coming in a follow-on sprint">↗ RSS</a>
+                    <a class="email" href="#follow" data-thread-slug="saban-to-deboer">↗ Email on new chapter</a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <footer class="site-footer">
+        <div class="shell">
+            <div>CFB Index · Storyline Threads · 2026</div>
+            <div>Department bylines indicate institutional editorial work. <a href="/methodology/">How we do this</a></div>
+        </div>
+    </footer>
+</body>
+</html>
