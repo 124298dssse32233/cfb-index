@@ -12733,6 +12733,7 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
             _render_conference_movers_section(conference)
             + _render_conference_market_section(conference)
             + _render_conference_parity_section(conference)
+            + _load_conference_pulse_fragment(conference.get("slug", ""))  # Sprint 8.5 hook
         )
     return f"""<!doctype html>
 <html lang="en">
@@ -12841,6 +12842,24 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
   </body>
 </html>
 """
+
+
+def _load_conference_pulse_fragment(conference_slug: str) -> str:
+    """Sprint 8.5 hook: inject pre-rendered Pulse fragment for FBS conferences.
+
+    Reads output/site/conferences/<slug>_pulse.html if it exists.
+    Returns empty string (silent no-op) when the file is absent — callers
+    can re-run `manage.py render-conferences-pulse --all` to generate it.
+    """
+    import os
+    fragment_path = os.path.join(
+        "output", "site", "conferences", f"{conference_slug}_pulse.html"
+    )
+    try:
+        with open(fragment_path, encoding="utf-8") as _f:
+            return _f.read()
+    except OSError:
+        return ""
 
 
 def _render_conference_table_row(conference: dict[str, Any]) -> str:
