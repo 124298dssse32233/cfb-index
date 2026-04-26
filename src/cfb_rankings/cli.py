@@ -981,6 +981,53 @@ def build_parser() -> argparse.ArgumentParser:
              "Exercises games_live_render_queue end-to-end against the fixture.",
     )
 
+    # ----- Sprint 11 — The Canon -----
+    canon_seed_parser = subparsers.add_parser(
+        "seed-canon-metadata",
+        help="Seed the 3 canon_lists rows (idempotent). "
+             "Sprint 11 §Phase 1.",
+    )
+
+    canon_gen_parser = subparsers.add_parser(
+        "generate-canon-list",
+        help="Generate one Canon list end-to-end: editorial entries from "
+             "seed_authored, cohort splits, rank deltas, voice-validator pass. "
+             "Sprint 11.",
+    )
+    canon_gen_parser.add_argument(
+        "--list", required=True,
+        help="Canon list slug (the-100-best-players-cfp-era, "
+             "the-50-most-defining-games-cfp-era, "
+             "the-25-best-coaching-hires-2020s).",
+    )
+    canon_gen_parser.add_argument(
+        "--year", type=int, default=2026,
+        help="Edition year (default: 2026).",
+    )
+
+    canon_render_parser = subparsers.add_parser(
+        "render-canon",
+        help="Render one Canon list (per-list page + per-entry pages). "
+             "Sprint 11.",
+    )
+    canon_render_parser.add_argument(
+        "--list", required=True, help="Canon list slug.",
+    )
+    canon_render_parser.add_argument(
+        "--output-dir", default="output/site",
+        help="Output root (default: output/site).",
+    )
+
+    canon_render_all_parser = subparsers.add_parser(
+        "render-canon-all",
+        help="Render the Canon index + every list + every per-entry page. "
+             "Sprint 11.",
+    )
+    canon_render_all_parser.add_argument(
+        "--output-dir", default="output/site",
+        help="Output root (default: output/site).",
+    )
+
     process_queue_parser = subparsers.add_parser(
         "process-render-queue",
         help="Drain pending render jobs from games_live_render_queue. "
@@ -1413,6 +1460,52 @@ def main() -> None:
                 total += n
                 print(f"  {slug} vs {opp}: {n} meetings")
             print(f"refresh-rivalry: {total} meetings across {len(pairs_seen)} pairs")
+        return
+
+    # ----- Sprint 11 — The Canon -----
+    if args.command == "seed-canon-metadata":
+        from cfb_rankings.canon import seed_list_metadata
+        with db.connection() as conn:
+            n = seed_list_metadata(conn)
+        print(f"seed-canon-metadata: seeded {n} list metadata rows")
+        return
+
+    if args.command == "generate-canon-list":
+        from cfb_rankings.canon import generate_canon_list, seed_list_metadata
+        with db.connection() as conn:
+            # Make sure metadata is seeded first; idempotent.
+            seed_list_metadata(conn)
+            report = generate_canon_list(conn, args.list, edition_year=args.year)
+        print(f"generate-canon-list: {report.list_slug}")
+        print(f"  entries           : {report.entry_count}")
+        print(f"  paragraphs/oneliners : {report.paragraphs_validated}/{report.oneliners_validated}")
+        print(f"  validator         : {report.validator_passed} passed, "
+              f"{report.validator_failed} failed "
+              f"({report.pass_rate * 100:.1f}% pass rate)")
+        if report.validator_failed_labels:
+            for lbl in report.validator_failed_labels[:10]:
+                print(f"    - {lbl}")
+        print(f"  cohort splits     : {report.cohort_splits_computed}")
+        print(f"  rank deltas       : {report.rank_deltas_computed}")
+        print(f"  effort buckets    : {report.effort_buckets}")
+        return
+
+    if args.command == "render-canon":
+        from cfb_rankings.canon import render_canon_list, render_canon_index
+        with db.connection() as conn:
+            list_path = render_canon_list(conn, args.list, args.output_dir)
+            index_path = render_canon_index(conn, args.output_dir)
+        print(f"render-canon: list  -> {list_path}")
+        print(f"             index -> {index_path}")
+        return
+
+    if args.command == "render-canon-all":
+        from cfb_rankings.canon import render_all_canon
+        with db.connection() as conn:
+            counts = render_all_canon(conn, args.output_dir)
+        print(f"render-canon-all: {counts['lists']} lists, "
+              f"{counts['entries']} entries, {counts['index']} index "
+              f"-> {args.output_dir}/canon/")
         return
 
     if args.command == "render-team-pages":
