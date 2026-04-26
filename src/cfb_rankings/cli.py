@@ -1156,6 +1156,65 @@ def build_parser() -> argparse.ArgumentParser:
 
     # END MERGE ZONE — Sprint 13
 
+    # ---- Sprint 8.5: Pulse follow-ups ----
+    prepare_pulse_parser = subparsers.add_parser(
+        "prepare-pulse",
+        help="Sprint 8.5: extract themes + generate ledes for top entities. "
+             "Writes to team_pulse_cache and conference_themes tables.",
+    )
+    prepare_pulse_parser.add_argument(
+        "--entity", default=None,
+        help="Single entity slug to run (e.g. 'alabama'). Omit to run all top-15 entities.",
+    )
+    prepare_pulse_parser.add_argument(
+        "--type", dest="entity_type", default="team",
+        choices=["team", "conference", "player"],
+        help="Entity type (default: team).",
+    )
+    prepare_pulse_parser.add_argument(
+        "--tier", default=None, choices=["full", "partial"],
+        help="Force tier override. Default: auto-detect from top-entity lists.",
+    )
+
+    render_conf_pulse_parser = subparsers.add_parser(
+        "render-conferences-pulse",
+        help="Sprint 8.5: render conference Pulse sections to output/site/conferences/.",
+    )
+    render_conf_pulse_parser.add_argument(
+        "--all", dest="all_conferences", action="store_true",
+        help="Render all 11 conferences.",
+    )
+    render_conf_pulse_parser.add_argument(
+        "--slug", default=None,
+        help="Single conference slug to render.",
+    )
+    render_conf_pulse_parser.add_argument(
+        "--output-dir", default="output/site/conferences",
+        help="Output directory.",
+    )
+
+    render_the_room_parser = subparsers.add_parser(
+        "render-the-room",
+        help="Sprint 8.5: generate Player Pulse v2 (The Room) for top-N players.",
+    )
+    render_the_room_parser.add_argument(
+        "--top", type=int, default=15,
+        help="Number of top players by velocity to generate (default: 15).",
+    )
+
+    classify_player_sentiment_parser = subparsers.add_parser(
+        "classify-player-sentiment",
+        help="Sprint 8.5: Haiku-classify unlabelled player conversation targets.",
+    )
+    classify_player_sentiment_parser.add_argument(
+        "--limit", type=int, default=None,
+        help="Max rows to classify (omit = all unlabelled).",
+    )
+    classify_player_sentiment_parser.add_argument(
+        "--dry-run", action="store_true",
+        help="Count unlabelled rows without classifying.",
+    )
+
     return parser
 
 
@@ -3855,6 +3914,87 @@ def main() -> None:
         return
 
     # END MERGE ZONE — Sprint 13
+
+    # ---- Sprint 8.5: Pulse follow-ups ----
+    if args.command == "prepare-pulse":
+        from cfb_rankings.team_pages.pulse_state import TOP_ENTITIES_FULL, TOP_ENTITIES_PARTIAL
+        from cfb_rankings.team_pages import pulse_themes, pulse_lede
+
+        # Build the run list
+        if args.entity:
+            run_list = [(args.entity, args.entity_type)]
+        else:
+            run_list = (
+                [(slug, "team") for slug in ["alabama", "ohio-state", "georgia", "notre-dame"]]
+                + [(slug, "conference") for slug in ["sec"]]
+                + [(slug, "team") for slug in ["michigan", "texas", "usc", "penn-state",
+                                                "tennessee", "auburn"]]
+                + [(slug, "conference") for slug in ["fbs-big-ten", "acc", "big-12",
+                                                      "american-athletic", "mountain-west"]]
+            )
+
+        with db.connection() as conn:
+            for slug, etype in run_list:
+                if args.tier:
+                    tier = args.tier
+                else:
+                    tier = "full" if slug in TOP_ENTITIES_FULL else "partial"
+                print(f"  prepare-pulse: {slug} ({etype}) tier={tier}", flush=True)
+                themes = pulse_themes.extract_entity_themes(slug, etype, tier, conn)
+                model_tier = "opus" if slug in {"alabama", "ohio-state", "georgia"} else "sonnet"
+                lede_result = pulse_lede.generate_entity_lede(
+                    slug, etype, themes, model_tier, conn
+                )
+                lede_ok = lede_result.get("voice_validator_passed", False)
+                print(
+                    f"    themes={len(themes)} lede_ok={lede_ok} "
+                    f"mode={lede_result.get('mode')}",
+                    flush=True,
+                )
+        print("prepare-pulse complete.", flush=True)
+        return
+
+    if args.command == "render-conferences-pulse":
+        from cfb_rankings.conferences_pulse import renderer as _cpr
+        import sqlite3
+
+        output_dir = getattr(args, "output_dir", "output/site/conferences")
+        with db.connection() as conn:
+            if getattr(args, "all_conferences", False):
+                result = _cpr.render_all_conferences(conn, output_dir)
+                print(f"render-conferences-pulse: {result['rendered']}/{result['total']} rendered "
+                      f"-> {output_dir}/", flush=True)
+            elif args.slug:
+                html = _cpr.render_conference_pulse_section(args.slug, conn)
+                print(f"render-conferences-pulse: {args.slug} -> {len(html)} chars", flush=True)
+            else:
+                print("render-conferences-pulse: specify --all or --slug", flush=True)
+        return
+
+    if args.command == "render-the-room":
+        from cfb_rankings.team_pages import the_room_renderer as _trr
+
+        with db.connection() as conn:
+            result = _trr.generate_all_player_rooms(conn, top_n=args.top)
+        print(
+            f"render-the-room: processed {result['processed']} players, "
+            f"{result['live']} live, {result['fallback']} fallback",
+            flush=True,
+        )
+        return
+
+    if args.command == "classify-player-sentiment":
+        from cfb_rankings.team_pages.sentiment_classifier import classify_player_targets
+        import sqlite3
+
+        with db.connection() as conn:
+            result = classify_player_targets(
+                conn,
+                limit=getattr(args, "limit", None),
+                dry_run=getattr(args, "dry_run", False),
+            )
+        print(f"classify-player-sentiment: {result}", flush=True)
+        return
 
     raise RuntimeError(f"Unsupported command: {args.command}")
 
