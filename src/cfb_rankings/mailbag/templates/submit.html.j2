@@ -1,0 +1,73 @@
+{# The Mailbag submission form template — Jinja2 reference stub.
+   The current renderer builds this page inline (renderer.py render_submit_page).
+   The form action uses mailto:mailbag@cfbindex.local — a future sprint
+   wires Resend/Postmark for real server-side intake. #}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Submit a Question — The Mailbag — CFB Index</title>
+  <style>{{ head_style }}</style>
+</head>
+<body>
+<div class="page">
+  {{ chrome }}
+  {{ brand_row }}
+
+  <header class="hero">
+    <div class="kicker">The Mailbag</div>
+    <h1 class="masthead">Submit a Question</h1>
+    <p class="deck">
+      Ask us anything about college football. We pull from the full corpus —
+      Wire, Pulse, Receipts, beat writers — to give you a sourced answer,
+      not an opinion.
+    </p>
+  </header>
+  <hr class="rule soft" />
+
+  <div style="padding:48px 0;">
+    <div class="submit-form">
+      {# mailto action — future sprint replaces with Resend/Postmark POST endpoint #}
+      <form action="mailto:mailbag@cfbindex.local" method="post" enctype="text/plain">
+        <div class="form-group">
+          <label for="handle">Your name / handle</label>
+          <input type="text" id="handle" name="handle"
+                 placeholder="e.g. Marcus from Columbus" />
+          <div class="form-note">This is how we'll credit you if we run your question.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email (optional)</label>
+          <input type="email" id="email" name="email"
+                 placeholder="you@example.com" />
+          <div class="form-note">Only used to follow up. Never published.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="question">Your question</label>
+          <textarea id="question" name="question"
+            placeholder="The more specific the better. What do you actually want to know?"></textarea>
+          <div class="form-note">
+            Best questions are specific and narrative.
+            &ldquo;Which teams benefited most from the transfer portal this year?&rdquo;
+            beats &ldquo;Is the transfer portal good?&rdquo;
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Question</button>
+      </form>
+
+      <p class="mailto-note">
+        &dagger; This form currently opens your email client (mailto).
+        A future sprint wires real email ingestion via Resend/Postmark.
+        You can also email mailbag@cfbindex.local directly.
+      </p>
+    </div>
+  </div>
+
+  {{ footer }}
+</div>
+</body>
+</html>
