@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coaching Carousel · 2026-27 · CFB Index Storyline Threads</title>
+    <meta name="description" content="The hot seats, the open jobs, the candidates that won't say they're candidates. The annual reshuffle that reshapes the sport, mapped chapter by chapter as it happens.">
+    <style>/* Storyline Threads — embedded stylesheet.
+ *
+ * Aligned to Figma node 62:2 (file eGIVOKDIFSmo1yM1LShLQx) on Sprint 10.
+ * Single-column flow, sans typography (Inter/system-ui), inline chapter
+ * index + related + receipts panels. Color tokens match Figma's dark
+ * editorial palette. */
+
+:root {
+    --bg: #0b0d12;
+    --bg-card: #12151d;
+    --bg-card-2: #171b24;
+    --bg-card-hover: #1e2330;
+    --text: #f5f6fa;
+    --text-dim: #c6cad6;
+    --text-faint: #8a90a1;
+    --text-muted: #5c6172;
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --accent: #c5b358; /* overridden inline per thread */
+    --accent-soft: rgba(197, 179, 88, 0.18);
+    --good: #3ea073;
+    --bad: #c04a4a;
+    --bad-soft: rgba(192, 74, 74, 0.18);
+    --good-soft: rgba(62, 160, 115, 0.18);
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
+
+/* ---------- shell ---------- */
+.shell { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+.site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.site-header .shell { display: flex; align-items: center; justify-content: space-between; }
+.site-header .brand { color: var(--text); font-weight: 700; }
+.site-header nav a { color: var(--text-faint); margin-left: 22px; font-weight: 600; }
+.site-header nav a:hover { color: var(--text); }
+
+/* ---------- thread page wrapper ---------- */
+.thread-card-wrap {
+    max-width: 1040px;
+    margin: 32px auto 48px;
+    padding: 0 28px;
+}
+.thread-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+@media (max-width: 720px) {
+    .thread-card { padding: 28px 22px; gap: 24px; }
+    .thread-card-wrap { padding: 0 12px; margin: 16px auto 32px; }
+}
+
+/* ---------- thread header ---------- */
+.thread-header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.breadcrumb {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.breadcrumb .seg { color: var(--text-faint); font-weight: 600; }
+.breadcrumb .sep { color: var(--text-muted); font-weight: 400; padding: 0 2px; }
+.breadcrumb .current { color: var(--accent); font-weight: 600; }
+
+.thread-title {
+    font-size: 56px;
+    line-height: 1.14;
+    letter-spacing: -0.5px;
+    margin: 0;
+    font-weight: 400;
+    color: var(--text);
+}
+.thread-dek {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 880px;
+}
+@media (max-width: 720px) {
+    .thread-title { font-size: 36px; line-height: 1.1; }
+    .thread-dek { font-size: 17px; }
+}
+
+.meta-strip {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 8px;
+    flex-wrap: wrap;
+}
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.meta-item .label {
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.meta-item .value {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+.meta-item .value.status-active { color: var(--good); }
+.meta-item .value.value-accent { color: var(--accent); }
+.meta-strip .meta-dot {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.subscribe-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 4px;
+    flex-wrap: wrap;
+}
+.follow-cta {
+    background: var(--accent);
+    color: #0b0d12;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-family: inherit;
+}
+.follow-cta .plus { font-size: 13px; }
+.follow-cta:hover { filter: brightness(1.1); color: #0b0d12; }
+.subscribe-row .microcopy {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ---------- nav-rail (chapter index, inline) ---------- */
+.nav-rail {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 16px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.nav-rail-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.chapter-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 8px 0;
+}
+.chapter-num {
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--bg-card-hover);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.chapter-row.current .chapter-num {
+    background: var(--accent);
+    color: #0b0d12;
+}
+.chapter-row .ct {
+    flex: 1;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.chapter-row.current .ct {
+    color: var(--text);
+    font-weight: 600;
+}
+.chapter-row .cd {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.nav-rail-more {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* ---------- current chapter ---------- */
+.current-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.chapter-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.chapter-eyebrow .accent { color: var(--accent); }
+.chapter-eyebrow .meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--text-muted);
+    display: inline-block;
+}
+.chapter-eyebrow .meta-text {
+    color: var(--text-faint);
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 500;
+}
+.chapter-title {
+    font-size: 36px;
+    line-height: 1.22;
+    margin: 0;
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: -0.3px;
+}
+.chapter-dek {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 760px;
+}
+@media (max-width: 720px) {
+    .chapter-title { font-size: 26px; }
+    .chapter-dek { font-size: 15px; }
+}
+
+.chapter-body {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.65;
+}
+.chapter-body p { margin: 0; }
+.chapter-body em { font-style: italic; color: var(--text-dim); }
+.chapter-body strong { font-weight: 700; color: var(--text); }
+.chapter-body a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(197, 179, 88, 0.4);
+}
+.chapter-body a:hover { border-bottom-color: var(--accent); }
+.chapter-body blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 0;
+    padding: 4px 0 4px 18px;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.pull-quote {
+    margin: 4px 0;
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1.45;
+    font-weight: 500;
+    font-style: italic;
+    max-width: 760px;
+}
+.pull-quote-attribution {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: -8px;
+    text-transform: none;
+}
+
+.ref-callout {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 760px;
+}
+.ref-callout .label {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.ref-callout .ref-row { font-size: 14px; line-height: 1.5; }
+.ref-callout .ref-num {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-right: 8px;
+}
+.ref-callout .ref-row a { color: var(--text-dim); }
+.ref-callout .ref-row a:hover { color: var(--accent); }
+
+/* ---------- sources panel (inline) ---------- */
+.sources-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.sources-panel .panel-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.source-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--border);
+}
+.source-row:first-of-type { border-top: none; padding-top: 0; }
+.source-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.source-row-top .left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.source-row .src-name {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+}
+.source-row .src-publisher {
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+}
+.source-row .src-dot {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+.source-row .src-date {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.source-row .src-quote {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ---------- related threads (3-up inline) ---------- */
+.related-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.related-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+@media (max-width: 720px) {
+    .related-grid { grid-template-columns: 1fr; }
+}
+.related-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.15s;
+}
+.related-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.related-card .accent-bar {
+    width: 32px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent); /* overridden inline per card */
+}
+.related-card .rel-title {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.36;
+    font-weight: 400;
+}
+.related-card .rel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+.related-card .rel-meta .rel-chapters {
+    color: var(--text-faint);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.related-card .rel-meta .rel-date {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ---------- receipts panel ---------- */
+.receipts-panel {
+    background: var(--bg-card);
+    border: 1px solid rgba(197, 179, 88, 0.4);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.receipts-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.receipts-header .stub-tag {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    font-weight: 500;
+    font-style: italic;
+}
+.receipt-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--border);
+}
+.receipt-row:first-of-type { border-top: none; padding-top: 0; }
+.receipt-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+.receipt-row .receipt-quote {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    flex: 1;
+}
+.verdict-pill {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.verdict-pill.aged-poorly {
+    background: var(--bad-soft);
+    color: var(--bad);
+}
+.verdict-pill.vindicated {
+    background: var(--good-soft);
+    color: var(--good);
+}
+.verdict-pill.premature {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+.receipt-attribution {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+/* ---------- footer ---------- */
+.thread-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+.thread-footer .footer-left {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    padding-top: 14px;
+}
+.thread-footer .footer-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 14px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+.thread-footer .footer-right a { color: var(--text-faint); }
+.thread-footer .footer-right a.email { color: var(--accent); }
+.thread-footer .footer-right a:hover { color: var(--text); }
+.thread-footer .footer-right a.email:hover { color: var(--accent); filter: brightness(1.2); }
+
+/* ---------- index page ---------- */
+.index-hero {
+    padding: 24px 0 40px;
+    border-bottom: 1px solid var(--border);
+}
+.index-hero h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    margin: 0 0 14px 0;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+}
+.index-hero .dek {
+    color: var(--text-dim);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0;
+}
+.index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    padding: 36px 0 60px;
+}
+.index-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.15s;
+}
+.index-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.index-card .ic-bar {
+    width: 36px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+}
+.index-card .ic-eyebrow {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.index-card .ic-title {
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.22;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin: 0;
+}
+.index-card .ic-dek {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    flex-grow: 1;
+}
+.index-card .ic-foot {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+}
+.index-card .ic-foot strong { color: var(--text-dim); font-weight: 700; }
+
+/* ---------- site footer (separate from per-thread footer) ---------- */
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0 48px;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+.site-footer .shell { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.site-footer a { color: var(--text-faint); }
+.site-footer a:hover { color: var(--text); }
+</style>
+    <style>:root { --accent: #d97706; --accent-soft: rgba(217, 119, 6, 0.18); }</style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell">
+            <a href="/" class="brand">CFB Index</a>
+            <nav>
+                <a href="/storylines/">Storylines</a>
+                <a href="/teams/">Teams</a>
+                <a href="/conferences/">Conferences</a>
+                <a href="/edition/">The Edition</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="thread-card-wrap">
+        <article class="thread-card" data-thread-slug="coaching-carousel-2026-27">
+
+            <header class="thread-header">
+                <div class="breadcrumb">
+                    <span class="seg"><a href="/storylines/">Storylines</a></span>
+                    <span class="sep">/</span>
+                    <span class="seg">Active Threads</span>
+                    <span class="sep">/</span>
+                    <span class="current">COACHING CAROUSEL · 2026-27</span>
+                </div>
+                <h1 class="thread-title">Coaching Carousel · 2026-27</h1>
+                <p class="thread-dek">The hot seats, the open jobs, the candidates that won't say they're candidates. The annual reshuffle that reshapes the sport, mapped chapter by chapter as it happens.</p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <div class="label">Status</div>
+                        <div class="value status-active">Active</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Chapters</div>
+                        <div class="value">4</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Started</div>
+                        <div class="value">Sep 2026</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Last Update</div>
+                        <div class="value">2 days ago</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Following</div>
+                        <div class="value value-accent">—</div>
+                    </div>
+                </div>
+                <div class="subscribe-row">
+                    <button class="follow-cta" type="button" data-thread-slug="coaching-carousel-2026-27">
+                        <span class="plus">+</span>
+                        <span>Follow this thread</span>
+                    </button>
+                    <span class="microcopy">get notified when new chapters land · no spam, ~weekly</span>
+                </div>
+            </header>
+
+            <section class="nav-rail" aria-label="Chapter index">
+                <div class="nav-rail-header">Chapter Index · Newest First</div>
+                <div class="chapter-row current"><span class="chapter-num">04</span><a class="ct" href="#chapter-4">Spring 2026: Drinkwitz at Auburn, Franklin at Florida, and the Early Evidence on Whether the Hires Are Producing</a><span class="cd">Apr 23</span></div>
+<div class="chapter-row"><span class="chapter-num">03</span><a class="ct" href="#chapter-3">January: The Hires Settle, Lanning Stays, and the Auburn-Drinkwitz Surprise</a><span class="cd">Jan 18</span></div>
+<div class="chapter-row"><span class="chapter-num">02</span><a class="ct" href="#chapter-2">Black Friday Week: Three Firings, One Surprise, and the AD Phone Calls That Started Friday Morning</a><span class="cd">Dec 2</span></div>
+<div class="chapter-row"><span class="chapter-num">01</span><a class="ct" href="#chapter-1">November 5: The Pre-Firing-Season Hot Board</a><span class="cd">Nov 5</span></div>
+                
+            </section>
+
+            <section class="current-chapter">
+                <div class="chapter-eyebrow">
+                    <span><span class="accent">CHAPTER 04</span> · CURRENT</span>
+                    <span class="meta-dot"></span>
+                    <span class="meta-text">Apr 23, 2026 · 8 min read</span>
+                </div>
+                <h2 class="chapter-title">Spring 2026: Drinkwitz at Auburn, Franklin at Florida, and the Early Evidence on Whether the Hires Are Producing</h2>
+                <p class="chapter-dek">Three months in. Drinkwitz is closing on the recruiting class Auburn needed. Franklin is rebuilding Florida's class while installing his program. Diaz at Penn State is mostly invisible, which is what year one of any rebuild should look like.</p>
+                <div class="ref-callout"><div class="label">Builds on prior chapters</div><div class="ref-row"><span class="ref-num">CH 01</span><a href="#chapter-1">November 5: The Pre-Firing-Season Hot Board</a></div><div class="ref-row"><span class="ref-num">CH 02</span><a href="#chapter-2">Black Friday Week: Three Firings, One Surprise, and the AD Phone Calls That Started Friday Morning</a></div><div class="ref-row"><span class="ref-num">CH 03</span><a href="#chapter-3">January: The Hires Settle, Lanning Stays, and the Auburn-Drinkwitz Surprise</a></div></div>
+                <div class="chapter-body" id="chapter-04"><p>The spring of 2026 — three months after the cycle's hires settled in <a href="#chapter-3">Chapter 3</a> — has produced the kind of early-evidence chapter that this thread was built to track. The hires are now installed. The recruiting classes are signed. The spring practices are happening. The early reads on whether each program is going to produce what the program hired the coach to produce are starting to be readable in the way they always start to be readable in late April, after spring games, before the summer-program work begins.</p>
+<p><strong>Drinkwitz at Auburn</strong> has been the cycle's success story so far. The recruiting class, after the Black Friday-week disruption we tracked in <a href="#chapter-2">Chapter 2</a>, finished at No. 6 nationally — Auburn's highest finish since 2017. Drinkwitz personally landed three five-stars who had been previously committed to other SEC programs (one from LSU, one from Texas A&amp;M, one from Tennessee). The institutional commitment Cohen had front-loaded into the hire — the contract structure, the NIL collective coordination, the on-campus recruiting infrastructure — had produced the recovery McMurphy projected and slightly exceeded it. The boards on AuburnSports, where WarEagle1972's <em>"Now what"</em> thread from <a href="#chapter-2">Chapter 2</a> had set the program's anxious tone, were processing the spring with a more confident register. <em>"Drinkwitz is doing the job we hired him to do,"</em> one reply on a March thread read. <em>"The class is real. The portal additions are real. The staff is what we wanted. The next data point is the season itself. The first three months are as good as they could have been."</em></p>
+<p class="pull-quote">“Drinkwitz is doing the job we hired him to do. The class is real. The portal additions are real. The staff is what we wanted.”</p><p class="pull-quote-attribution">— Pete Sampson, The Athletic Diaz column</p>
+<p>The portal moves Drinkwitz made — and we are tracking these because the cycle's portal additions tell a structural story about how each new coach is building — have been targeted: a graduate-transfer quarterback (from Boise State, in the Hank Bachmeier-replacement chair Mountain West programs have spent the past four years figuring out), an OL out of the Big Ten (a former four-star who had been buried at Iowa for two years and saw the playing-time path at Auburn as the right move), and a wide receiver from Indiana who had played for Cignetti the year before. The portal additions are recognizably Drinkwitz's portal additions — high-floor, position-of-need, transferable culture. The portal-architecture-as-coaching-specialty thread that we have written about across the wider Coaching Carousel discourse is, at Auburn, being practiced at a level the program has not previously demonstrated.</p>
+<p><strong>Franklin at Florida</strong> has been the cycle's rebuild story. The recruiting class, which had cratered to No. 19 by early February as we wrote in <a href="#chapter-3">Chapter 3</a>, recovered to No. 13 by the late February signing window — a meaningful improvement but not the top-eight finish Florida had been targeting before Napier's firing. The institutional disruption of the coaching change had cost the program approximately five spots of recruiting-class quality, which translates to perhaps four to six players who would have signed if Napier had been retained. Franklin's first month at Florida was spent entirely on retention and re-recruiting; the structural rebuild of the program's identity has been pushed into spring practice. <em>"Franklin is doing the work in the order he has to do it,"</em> GatorChomp1990 wrote in a March thread. <em>"The class first. The staff second. The identity third. He has spent his entire career building programs in this order. The work will take all of 2026 to install. The program will not be a Franklin program until 2027 at the earliest. We knew this when we hired him. The hire was always the hire that produced 2027 results, not 2026."</em></p>
+<p>That sober expectation-setting, on the boards, is the chapter Florida has needed. The program's institutional habit of expecting immediate results from every hire has been, by most beat-writer accounts, the single biggest impediment to building the kind of long-arc program the SEC's structural elevation now requires. The Franklin hire's structural advantage is that Franklin's track record is for long-arc programs — at both Vanderbilt and Penn State, he produced his best work in years three through six. The boards' patience-on-display in the spring threads is the institutional precondition the program needed.</p>
+<p><strong>Diaz at Penn State</strong> has been the cycle's invisible chapter, in a way that is widely interpreted as positive. The new head coach has been low-profile through the spring: no major staff changes after the initial hires (Diaz brought his Duke offensive coordinator and his defensive coordinator), no dramatic portal moves (a quarterback from Coastal Carolina, a running back from Wake Forest, three OL from G5 programs), and a recruiting class that Franklin had signed in the December early signing period and Diaz held intact through February. <em>"Year one of a rebuild should be invisible,"</em> Pete Sampson wrote in his March column on the program. <em>"Diaz is doing what year one needs him to do. The visible chapter starts in August when his actual program plays its first game."</em> The Black Shoe Diaries threads on Diaz, in the spring, have been notably less anxious than they were in the immediate aftermath of Franklin's departure. <em>"Diaz is the coach,"</em> one reply read. <em>"He is doing year one stuff. We are seeing what we need to see. The next hire we evaluate is whoever we hire after Diaz, in five or seven years. That is a long time from now. We will let him cook."</em></p>
+<p><strong>Sunseri at Maryland</strong> has been the cycle's developmental chapter. Three months in, the program's recruiting class finished at No. 38 — slightly below the program's recent floor and substantially below the program's institutional aspiration. The portal moves have been small. The staff hires (Sunseri brought his Indiana defensive line coach and is building out the rest of the staff with a mix of MAC head coaches and FCS coordinators) have been competent rather than splashy. The spring practices, which the boards have processed with the patience of fans who knew this would be a slow rebuild, have produced the kind of early reports that suggest the program is being properly installed. <em>"We hired a developmental coach,"</em> one TerpInChief reply read in March. <em>"He is doing developmental work. The program will not be Indiana for at least three years. The program will be a credibly-coached Big Ten program by year two. We will see if the cycle pays off."</em></p>
+<p>The losers'-bracket programs from <a href="#chapter-3">Chapter 3</a> — Tulane, James Madison, the smaller G5 openings that had to compete for second-tier candidates — have settled. Tulane hired the JMU OC who had replaced Bob Chesney's departed coordinator (the cascade is real). JMU promoted from within. The cycle's full chapter is now closed.</p>
+<p>What this thread is going to track, going forward, is the next cycle. The 2026 in-season hot board will start populating in late summer. The structural conditions that produced the 2025-26 cycle — the CFP pressure, the SEC/Big Ten elevation, the AD class's institutional permission to make changes — are not going away. The 2026-27 cycle will have its own chapters. We will write them as they land.</p>
+<p>In the meantime: Drinkwitz at Auburn is the early winner, Franklin at Florida is the long-arc bet, Diaz at Penn State is the invisible install, Sunseri at Maryland is the developmental project. The cycle produced the chapters the cycle was always going to produce. The chapters that follow them are the work of the seasons to come.</p></div>
+            </section>
+
+            <section class="sources-panel">
+                <div class="panel-header">Sources + Evidence This Chapter</div>
+                <div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Pete Sampson</span><span class="src-dot">·</span><span class="src-publisher">The Athletic Diaz column</span></div><span class="src-date">Mar 12</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">WarEagle1972</span><span class="src-dot">·</span><span class="src-publisher">AuburnSports March update thread</span></div><span class="src-date">Mar 8</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">GatorChomp1990</span><span class="src-dot">·</span><span class="src-publisher">GatorCountry March thread</span></div><span class="src-date">Mar 15</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">TerpInChief</span><span class="src-dot">·</span><span class="src-publisher">TestudoTimes spring thread</span></div><span class="src-date">Mar 21</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Brett McMurphy</span><span class="src-dot">·</span><span class="src-publisher">Action Network spring carousel update</span></div><span class="src-date">Apr 10</span></div></div>
+            </section>
+
+            <section class="related-block">
+                <div class="related-header">Related Threads</div>
+                <div class="related-grid"><a class="related-card" href="/storylines/vandy-renaissance.html"><span class="accent-bar" style="background: #cfae70;"></span><span class="rel-title">The Vandy Renaissance</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/big-ten-reasserting.html"><span class="accent-bar" style="background: #003c7e;"></span><span class="rel-title">The Big Ten Reasserting</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/12-team-playoff-settling.html"><span class="accent-bar" style="background: #c9a544;"></span><span class="rel-title">The 12-Team Playoff Settling</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a></div>
+            </section>
+
+            <section class="receipts-panel">
+                <div class="receipts-header">
+                    <span>Receipts · Takes From This Thread, Aged</span>
+                    <span class="stub-tag">placeholder · Sprint 13 ships the live ledger</span>
+                </div>
+                <div class="receipt-row"><div class="receipt-row-top"><p class="receipt-quote">“Receipts on this thread's prior takes will appear here.”</p><span class="verdict-pill premature">AWAITING</span></div><p class="receipt-attribution">— Sprint 13 (Receipts) ships the live ledger.</p></div>
+            </section>
+
+            <footer class="thread-footer">
+                <div class="footer-left">4 chapters · 4.7k words · started Sep 1, 2026</div>
+                <div class="footer-right">
+                    <a href="#" aria-disabled="true" title="Coming in a follow-on sprint">↗ Archive PDF</a>
+                    <a href="/storylines/coaching-carousel-2026-27.rss" title="Coming in a follow-on sprint">↗ RSS</a>
+                    <a class="email" href="#follow" data-thread-slug="coaching-carousel-2026-27">↗ Email on new chapter</a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <footer class="site-footer">
+        <div class="shell">
+            <div>CFB Index · Storyline Threads · 2026</div>
+            <div>Department bylines indicate institutional editorial work. <a href="/methodology/">How we do this</a></div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -16,6 +16,17 @@ COACHES_SYSTEM = "Coaches Poll"
 CFP_SYSTEM = "Playoff Committee Rankings"
 
 
+# Floor thresholds for the fan-intelligence floor rule. Single source of
+# truth for the data-layer reader AND the renderer — DO NOT duplicate.
+# <FLOOR_AWAITING is rendered as "Awaiting Signal" (no sparkline, no
+# velocity number, takes fall back to profile stock phrases).
+# FLOOR_AWAITING ≤ effective_n < FLOOR_GROWING shows a sample-growing
+# badge with the live data we have. ≥ FLOOR_GROWING gets the full render
+# with no caveat.
+FLOOR_AWAITING = 20.0
+FLOOR_GROWING = 100.0
+
+
 @dataclass
 class GameResult:
     season_year: int
@@ -249,7 +260,6 @@ def _mood_from_cohort_week(db, team_id: int) -> dict[str, Any] | None:
     # Looking back through the window (not strictly the latest week)
     # smooths over offseason gaps where one calendar week may have only a
     # handful of docs while a prior week is more representative.
-    FLOOR_AWAITING = 30.0
     headline_idx = next(
         (
             i for i, r in enumerate(rows)

@@ -37,3 +37,9 @@ _stitch_*/
 
 # Backups
 backups/
+
+# Git worktrees
+.worktrees/
+
+# Storyline draft scaffolds (LLM-generated drafts written by --auto fallback path)
+src/cfb_rankings/storylines/seeds/_drafts/

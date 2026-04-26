@@ -1,0 +1,1661 @@
+diff --git a/data/reddit_backfill_state.json b/data/reddit_backfill_state.json
+index 6735885..24d7bdb 100644
+--- a/data/reddit_backfill_state.json
++++ b/data/reddit_backfill_state.json
+@@ -1337,6 +1337,214 @@
+     "lsu_team|2026-04-09": "ok",
+     "lsu_team|2026-04-16": "ok",
+     "lsu_team|2026-04-23": "ok",
++    "michigan_team|2022-09-01": "ok",
++    "michigan_team|2022-09-08": "ok",
++    "michigan_team|2022-09-15": "ok",
++    "michigan_team|2022-09-22": "ok",
++    "michigan_team|2022-09-29": "ok",
++    "michigan_team|2022-10-06": "ok",
++    "michigan_team|2022-10-13": "ok",
++    "michigan_team|2022-10-20": "ok",
++    "michigan_team|2022-10-27": "ok",
++    "michigan_team|2022-11-03": "ok",
++    "michigan_team|2022-11-10": "ok",
++    "michigan_team|2022-11-17": "ok",
++    "michigan_team|2022-11-24": "ok",
++    "michigan_team|2022-12-01": "ok",
++    "michigan_team|2022-12-08": "ok",
++    "michigan_team|2022-12-15": "ok",
++    "michigan_team|2022-12-22": "ok",
++    "ohiostate_city|2022-09-01": "ok",
++    "ohiostate_city|2022-09-08": "ok",
++    "ohiostate_city|2022-09-15": "ok",
++    "ohiostate_city|2022-09-22": "ok",
++    "ohiostate_city|2022-09-29": "ok",
++    "ohiostate_city|2022-10-06": "ok",
++    "ohiostate_city|2022-10-13": "ok",
++    "ohiostate_city|2022-10-20": "ok",
++    "ohiostate_city|2022-10-27": "ok",
++    "ohiostate_city|2022-11-03": "ok",
++    "ohiostate_city|2022-11-10": "ok",
++    "ohiostate_city|2022-11-17": "ok",
++    "ohiostate_city|2022-11-24": "ok",
++    "ohiostate_city|2022-12-01": "ok",
++    "ohiostate_city|2022-12-08": "ok",
++    "ohiostate_city|2022-12-15": "ok",
++    "ohiostate_city|2022-12-22": "ok",
++    "ohiostate_city|2022-12-29": "ok",
++    "ohiostate_city|2023-01-05": "ok",
++    "ohiostate_city|2023-01-12": "ok",
++    "ohiostate_city|2023-01-19": "ok",
++    "ohiostate_city|2023-01-26": "ok",
++    "ohiostate_city|2023-02-02": "ok",
++    "ohiostate_city|2023-02-09": "ok",
++    "ohiostate_city|2023-02-16": "ok",
++    "ohiostate_city|2023-02-23": "ok",
++    "ohiostate_city|2023-03-02": "ok",
++    "ohiostate_city|2023-03-09": "ok",
++    "ohiostate_city|2023-03-16": "ok",
++    "ohiostate_city|2023-03-23": "ok",
++    "ohiostate_city|2023-03-30": "ok",
++    "ohiostate_city|2023-04-06": "ok",
++    "ohiostate_city|2023-04-13": "ok",
++    "ohiostate_city|2023-04-20": "ok",
++    "ohiostate_city|2023-04-27": "ok",
++    "ohiostate_city|2023-05-04": "ok",
++    "ohiostate_city|2023-05-11": "ok",
++    "ohiostate_city|2023-05-18": "ok",
++    "ohiostate_city|2023-05-25": "ok",
++    "ohiostate_city|2023-06-01": "ok",
++    "ohiostate_city|2023-06-08": "ok",
++    "ohiostate_city|2023-06-15": "ok",
++    "ohiostate_city|2023-06-22": "ok",
++    "ohiostate_city|2023-06-29": "ok",
++    "ohiostate_city|2023-07-06": "ok",
++    "ohiostate_city|2023-07-13": "ok",
++    "ohiostate_city|2023-07-20": "ok",
++    "ohiostate_city|2023-07-27": "ok",
++    "ohiostate_city|2023-08-03": "ok",
++    "ohiostate_city|2023-08-10": "ok",
++    "ohiostate_city|2023-08-17": "ok",
++    "ohiostate_city|2023-08-24": "ok",
++    "ohiostate_city|2023-08-31": "ok",
++    "ohiostate_city|2023-09-07": "ok",
++    "ohiostate_city|2023-09-14": "ok",
++    "ohiostate_city|2023-09-21": "ok",
++    "ohiostate_city|2023-09-28": "ok",
++    "ohiostate_city|2023-10-05": "ok",
++    "ohiostate_city|2023-10-12": "ok",
++    "ohiostate_city|2023-10-19": "ok",
++    "ohiostate_city|2023-10-26": "ok",
++    "ohiostate_city|2023-11-02": "ok",
++    "ohiostate_city|2023-11-09": "ok",
++    "ohiostate_city|2023-11-16": "ok",
++    "ohiostate_city|2023-11-23": "ok",
++    "ohiostate_city|2023-11-30": "ok",
++    "ohiostate_city|2023-12-07": "ok",
++    "ohiostate_city|2023-12-14": "ok",
++    "ohiostate_city|2023-12-21": "ok",
++    "ohiostate_city|2023-12-28": "ok",
++    "ohiostate_city|2024-01-04": "ok",
++    "ohiostate_city|2024-01-11": "ok",
++    "ohiostate_city|2024-01-18": "ok",
++    "ohiostate_city|2024-01-25": "ok",
++    "ohiostate_city|2024-02-01": "ok",
++    "ohiostate_city|2024-02-08": "ok",
++    "ohiostate_city|2024-02-15": "ok",
++    "ohiostate_city|2024-02-22": "ok",
++    "ohiostate_city|2024-02-29": "ok",
++    "ohiostate_city|2024-03-07": "ok",
++    "ohiostate_city|2024-03-14": "ok",
++    "ohiostate_city|2024-03-21": "ok",
++    "ohiostate_city|2024-03-28": "ok",
++    "ohiostate_city|2024-04-04": "ok",
++    "ohiostate_city|2024-04-11": "ok",
++    "ohiostate_city|2024-04-18": "ok",
++    "ohiostate_city|2024-04-25": "ok",
++    "ohiostate_city|2024-05-02": "ok",
++    "ohiostate_city|2024-05-09": "ok",
++    "ohiostate_city|2024-05-16": "ok",
++    "ohiostate_city|2024-05-23": "ok",
++    "ohiostate_city|2024-05-30": "ok",
++    "ohiostate_city|2024-06-06": "ok",
++    "ohiostate_city|2024-06-13": "ok",
++    "ohiostate_city|2024-06-20": "ok",
++    "ohiostate_city|2024-06-27": "ok",
++    "ohiostate_city|2024-07-04": "ok",
++    "ohiostate_city|2024-07-11": "ok",
++    "ohiostate_city|2024-07-18": "ok",
++    "ohiostate_city|2024-07-25": "ok",
++    "ohiostate_city|2024-08-01": "ok",
++    "ohiostate_city|2024-08-08": "ok",
++    "ohiostate_city|2024-08-15": "ok",
++    "ohiostate_city|2024-08-22": "ok",
++    "ohiostate_city|2024-08-29": "ok",
++    "ohiostate_city|2024-09-05": "ok",
++    "ohiostate_city|2024-09-12": "ok",
++    "ohiostate_city|2024-09-19": "ok",
++    "ohiostate_city|2024-09-26": "ok",
++    "ohiostate_city|2024-10-03": "ok",
++    "ohiostate_city|2024-10-10": "ok",
++    "ohiostate_city|2024-10-17": "ok",
++    "ohiostate_city|2024-10-24": "ok",
++    "ohiostate_city|2024-10-31": "ok",
++    "ohiostate_city|2024-11-07": "ok",
++    "ohiostate_city|2024-11-14": "ok",
++    "ohiostate_city|2024-11-21": "ok",
++    "ohiostate_city|2024-11-28": "ok",
++    "ohiostate_city|2024-12-05": "ok",
++    "ohiostate_city|2024-12-12": "ok",
++    "ohiostate_city|2024-12-19": "ok",
++    "ohiostate_city|2024-12-26": "ok",
++    "ohiostate_city|2025-01-02": "ok",
++    "ohiostate_city|2025-01-09": "ok",
++    "ohiostate_city|2025-01-16": "ok",
++    "ohiostate_city|2025-01-23": "ok",
++    "ohiostate_city|2025-01-30": "ok",
++    "ohiostate_city|2025-02-06": "ok",
++    "ohiostate_city|2025-02-13": "ok",
++    "ohiostate_city|2025-02-20": "ok",
++    "ohiostate_city|2025-02-27": "ok",
++    "ohiostate_city|2025-03-06": "ok",
++    "ohiostate_city|2025-03-13": "ok",
++    "ohiostate_city|2025-03-20": "ok",
++    "ohiostate_city|2025-03-27": "ok",
++    "ohiostate_city|2025-04-03": "ok",
++    "ohiostate_city|2025-04-10": "ok",
++    "ohiostate_city|2025-04-17": "ok",
++    "ohiostate_city|2025-04-24": "ok",
++    "ohiostate_city|2025-05-01": "ok",
++    "ohiostate_city|2025-05-08": "ok",
++    "ohiostate_city|2025-05-15": "ok",
++    "ohiostate_city|2025-05-22": "ok",
++    "ohiostate_city|2025-05-29": "ok",
++    "ohiostate_city|2025-06-05": "ok",
++    "ohiostate_city|2025-06-12": "ok",
++    "ohiostate_city|2025-06-19": "ok",
++    "ohiostate_city|2025-06-26": "ok",
++    "ohiostate_city|2025-07-03": "ok",
++    "ohiostate_city|2025-07-10": "ok",
++    "ohiostate_city|2025-07-17": "ok",
++    "ohiostate_city|2025-07-24": "ok",
++    "ohiostate_city|2025-07-31": "ok",
++    "ohiostate_city|2025-08-07": "ok",
++    "ohiostate_city|2025-08-14": "ok",
++    "ohiostate_city|2025-08-21": "ok",
++    "ohiostate_city|2025-08-28": "ok",
++    "ohiostate_city|2025-09-04": "ok",
++    "ohiostate_city|2025-09-11": "ok",
++    "ohiostate_city|2025-09-18": "ok",
++    "ohiostate_city|2025-09-25": "ok",
++    "ohiostate_city|2025-10-02": "ok",
++    "ohiostate_city|2025-10-09": "ok",
++    "ohiostate_city|2025-10-16": "ok",
++    "ohiostate_city|2025-10-23": "ok",
++    "ohiostate_city|2025-10-30": "ok",
++    "ohiostate_city|2025-11-06": "ok",
++    "ohiostate_city|2025-11-13": "ok",
++    "ohiostate_city|2025-11-20": "ok",
++    "ohiostate_city|2025-11-27": "ok",
++    "ohiostate_city|2025-12-04": "ok",
++    "ohiostate_city|2025-12-11": "ok",
++    "ohiostate_city|2025-12-18": "ok",
++    "ohiostate_city|2025-12-25": "ok",
++    "ohiostate_city|2026-01-01": "ok",
++    "ohiostate_city|2026-01-08": "ok",
++    "ohiostate_city|2026-01-15": "ok",
++    "ohiostate_city|2026-01-22": "ok",
++    "ohiostate_city|2026-01-29": "ok",
++    "ohiostate_city|2026-02-05": "ok",
++    "ohiostate_city|2026-02-12": "ok",
++    "ohiostate_city|2026-02-19": "ok",
++    "ohiostate_city|2026-02-26": "ok",
++    "ohiostate_city|2026-03-05": "ok",
++    "ohiostate_city|2026-03-12": "ok",
++    "ohiostate_city|2026-03-19": "ok",
++    "ohiostate_city|2026-03-26": "ok",
++    "ohiostate_city|2026-04-02": "ok",
++    "ohiostate_city|2026-04-09": "ok",
++    "ohiostate_city|2026-04-16": "ok",
++    "ohiostate_city|2026-04-23": "ok",
+     "ohiostate_team|2022-09-01": "ok",
+     "ohiostate_team|2022-09-08": "ok",
+     "ohiostate_team|2022-09-15": "ok",
+@@ -1516,6 +1724,18 @@
+     "ohiostate_team|2026-01-15": "ok",
+     "ohiostate_team|2026-01-22": "ok",
+     "ohiostate_team|2026-01-29": "ok",
++    "ohiostate_team|2026-02-05": "ok",
++    "ohiostate_team|2026-02-12": "ok",
++    "ohiostate_team|2026-02-19": "ok",
++    "ohiostate_team|2026-02-26": "ok",
++    "ohiostate_team|2026-03-05": "ok",
++    "ohiostate_team|2026-03-12": "ok",
++    "ohiostate_team|2026-03-19": "ok",
++    "ohiostate_team|2026-03-26": "ok",
++    "ohiostate_team|2026-04-02": "ok",
++    "ohiostate_team|2026-04-09": "ok",
++    "ohiostate_team|2026-04-16": "ok",
++    "ohiostate_team|2026-04-23": "ok",
+     "tennessee_city|2022-09-01": "ok",
+     "tennessee_city|2022-09-08": "ok",
+     "tennessee_city|2022-09-15": "ok",
+diff --git a/docs/CHRONICLE_EDITORIAL_BRIEF.md b/docs/CHRONICLE_EDITORIAL_BRIEF.md
+index ad58f6f..0c2d8a7 100644
+--- a/docs/CHRONICLE_EDITORIAL_BRIEF.md
++++ b/docs/CHRONICLE_EDITORIAL_BRIEF.md
+@@ -40,6 +40,8 @@ Every sentence should pass a BEAT-WRITER TEST: would a sharp independent blogger
+ Bad: *"Running the last eight games end-to-end produces a run of 8 consecutive wins."*
+ Better: *"Freeman hasn't lost since September. Eight in a row."*
+ 
++**The voice register is warm-and-fan-positioned, not aloof-magazine.** We are closer to the Solid Verbal podcast in textual form, Defector at its mid-range, The Athletic columnists at their personable best, or Spencer Hall / EDSBS at peak — than to The New Yorker, Bloomberg Businessweek, or Stratechery. CFB is uniquely warm and absurd; our voice should be too. We love the sport unironically, know the in-jokes (Roll Tide, Sooner Schooner, Howard's Rock, Saturdays in the South), acknowledge absurdity (a Tuesday-night MAC game IS funny in its specific way), and use first-person plural when natural ("we ingested 184,000 posts," "we kept the receipt"). See `docs/EDITORIAL_POSITIONING_AND_CONTENT_TYPES.md` §"Voice register" for full register guidance.
++
+ ### 2. Name names, every time
+ 
+ Every card contains at least one proper noun beyond the program name. A player, a coach, a specific opponent, a specific stadium, a specific date, a specific play. Generic cards — ones that could equally describe Oklahoma and UMass — fail.
+diff --git a/logs/reddit_history_backfill_2500.log b/logs/reddit_history_backfill_2500.log
+index a36bc68..6e25f0e 100644
+--- a/logs/reddit_history_backfill_2500.log
++++ b/logs/reddit_history_backfill_2500.log
+@@ -396,3 +396,233 @@
+ [checkpoint] 2280/2500 ok=280 err=0 skip=2000 elapsed=1095s
+ [OK provider=arctic-shift] ohiostate_team|2026-02-05
+ [OK provider=arctic-shift] ohiostate_team|2026-02-12
++[OK provider=arctic-shift] ohiostate_team|2026-02-19
++[OK provider=arctic-shift] ohiostate_team|2026-02-26
++[OK provider=arctic-shift] ohiostate_team|2026-03-05
++[OK provider=arctic-shift] ohiostate_team|2026-03-12
++[OK provider=arctic-shift] ohiostate_team|2026-03-19
++[OK provider=arctic-shift] ohiostate_team|2026-03-26
++[OK provider=arctic-shift] ohiostate_team|2026-04-02
++[OK provider=arctic-shift] ohiostate_team|2026-04-09
++[OK provider=arctic-shift] ohiostate_team|2026-04-16
++[OK provider=arctic-shift] ohiostate_team|2026-04-23
++[OK provider=arctic-shift] ohiostate_city|2022-09-01
++[OK provider=arctic-shift] ohiostate_city|2022-09-08
++[OK provider=arctic-shift] ohiostate_city|2022-09-15
++[OK provider=arctic-shift] ohiostate_city|2022-09-22
++[OK provider=arctic-shift] ohiostate_city|2022-09-29
++[OK provider=arctic-shift] ohiostate_city|2022-10-06
++[OK provider=arctic-shift] ohiostate_city|2022-10-13
++[OK provider=arctic-shift] ohiostate_city|2022-10-20
++[checkpoint] 2300/2500 ok=300 err=0 skip=2000 elapsed=1367s
++[OK provider=arctic-shift] ohiostate_city|2022-10-27
++[OK provider=arctic-shift] ohiostate_city|2022-11-03
++[OK provider=arctic-shift] ohiostate_city|2022-11-10
++[OK provider=arctic-shift] ohiostate_city|2022-11-17
++[OK provider=arctic-shift] ohiostate_city|2022-11-24
++[OK provider=arctic-shift] ohiostate_city|2022-12-01
++[OK provider=arctic-shift] ohiostate_city|2022-12-08
++[OK provider=arctic-shift] ohiostate_city|2022-12-15
++[OK provider=arctic-shift] ohiostate_city|2022-12-22
++[OK provider=arctic-shift] ohiostate_city|2022-12-29
++[OK provider=arctic-shift] ohiostate_city|2023-01-05
++[OK provider=arctic-shift] ohiostate_city|2023-01-12
++[OK provider=arctic-shift] ohiostate_city|2023-01-19
++[OK provider=arctic-shift] ohiostate_city|2023-01-26
++[OK provider=arctic-shift] ohiostate_city|2023-02-02
++[OK provider=arctic-shift] ohiostate_city|2023-02-09
++[OK provider=arctic-shift] ohiostate_city|2023-02-16
++[OK provider=arctic-shift] ohiostate_city|2023-02-23
++[OK provider=arctic-shift] ohiostate_city|2023-03-02
++[OK provider=arctic-shift] ohiostate_city|2023-03-09
++[checkpoint] 2320/2500 ok=320 err=0 skip=2000 elapsed=1513s
++[OK provider=arctic-shift] ohiostate_city|2023-03-16
++[OK provider=arctic-shift] ohiostate_city|2023-03-23
++[OK provider=arctic-shift] ohiostate_city|2023-03-30
++[OK provider=arctic-shift] ohiostate_city|2023-04-06
++[OK provider=arctic-shift] ohiostate_city|2023-04-13
++[OK provider=arctic-shift] ohiostate_city|2023-04-20
++[OK provider=arctic-shift] ohiostate_city|2023-04-27
++[OK provider=arctic-shift] ohiostate_city|2023-05-04
++[OK provider=arctic-shift] ohiostate_city|2023-05-11
++[OK provider=arctic-shift] ohiostate_city|2023-05-18
++[OK provider=arctic-shift] ohiostate_city|2023-05-25
++[OK provider=arctic-shift] ohiostate_city|2023-06-01
++[OK provider=arctic-shift] ohiostate_city|2023-06-08
++[OK provider=arctic-shift] ohiostate_city|2023-06-15
++[OK provider=arctic-shift] ohiostate_city|2023-06-22
++[OK provider=arctic-shift] ohiostate_city|2023-06-29
++[OK provider=arctic-shift] ohiostate_city|2023-07-06
++[OK provider=arctic-shift] ohiostate_city|2023-07-13
++[OK provider=arctic-shift] ohiostate_city|2023-07-20
++[OK provider=arctic-shift] ohiostate_city|2023-07-27
++[checkpoint] 2340/2500 ok=340 err=0 skip=2000 elapsed=1601s
++[OK provider=arctic-shift] ohiostate_city|2023-08-03
++[OK provider=arctic-shift] ohiostate_city|2023-08-10
++[OK provider=arctic-shift] ohiostate_city|2023-08-17
++[OK provider=arctic-shift] ohiostate_city|2023-08-24
++[OK provider=arctic-shift] ohiostate_city|2023-08-31
++[OK provider=arctic-shift] ohiostate_city|2023-09-07
++[OK provider=arctic-shift] ohiostate_city|2023-09-14
++[OK provider=arctic-shift] ohiostate_city|2023-09-21
++[OK provider=arctic-shift] ohiostate_city|2023-09-28
++[OK provider=arctic-shift] ohiostate_city|2023-10-05
++[OK provider=arctic-shift] ohiostate_city|2023-10-12
++[OK provider=arctic-shift] ohiostate_city|2023-10-19
++[OK provider=arctic-shift] ohiostate_city|2023-10-26
++[OK provider=arctic-shift] ohiostate_city|2023-11-02
++[OK provider=arctic-shift] ohiostate_city|2023-11-09
++[OK provider=arctic-shift] ohiostate_city|2023-11-16
++[OK provider=arctic-shift] ohiostate_city|2023-11-23
++[OK provider=arctic-shift] ohiostate_city|2023-11-30
++[OK provider=arctic-shift] ohiostate_city|2023-12-07
++[OK provider=arctic-shift] ohiostate_city|2023-12-14
++[checkpoint] 2360/2500 ok=360 err=0 skip=2000 elapsed=1714s
++[OK provider=arctic-shift] ohiostate_city|2023-12-21
++[OK provider=arctic-shift] ohiostate_city|2023-12-28
++[OK provider=arctic-shift] ohiostate_city|2024-01-04
++[OK provider=arctic-shift] ohiostate_city|2024-01-11
++[OK provider=arctic-shift] ohiostate_city|2024-01-18
++[OK provider=arctic-shift] ohiostate_city|2024-01-25
++[OK provider=arctic-shift] ohiostate_city|2024-02-01
++[OK provider=arctic-shift] ohiostate_city|2024-02-08
++[OK provider=arctic-shift] ohiostate_city|2024-02-15
++[OK provider=arctic-shift] ohiostate_city|2024-02-22
++[OK provider=arctic-shift] ohiostate_city|2024-02-29
++[OK provider=arctic-shift] ohiostate_city|2024-03-07
++[OK provider=arctic-shift] ohiostate_city|2024-03-14
++[OK provider=arctic-shift] ohiostate_city|2024-03-21
++[OK provider=arctic-shift] ohiostate_city|2024-03-28
++[OK provider=arctic-shift] ohiostate_city|2024-04-04
++[OK provider=arctic-shift] ohiostate_city|2024-04-11
++[OK provider=arctic-shift] ohiostate_city|2024-04-18
++[OK provider=arctic-shift] ohiostate_city|2024-04-25
++[OK provider=arctic-shift] ohiostate_city|2024-05-02
++[checkpoint] 2380/2500 ok=380 err=0 skip=2000 elapsed=1877s
++[OK provider=arctic-shift] ohiostate_city|2024-05-09
++[OK provider=arctic-shift] ohiostate_city|2024-05-16
++[OK provider=arctic-shift] ohiostate_city|2024-05-23
++[OK provider=arctic-shift] ohiostate_city|2024-05-30
++[OK provider=arctic-shift] ohiostate_city|2024-06-06
++[OK provider=arctic-shift] ohiostate_city|2024-06-13
++[OK provider=arctic-shift] ohiostate_city|2024-06-20
++[OK provider=arctic-shift] ohiostate_city|2024-06-27
++[OK provider=arctic-shift] ohiostate_city|2024-07-04
++[OK provider=arctic-shift] ohiostate_city|2024-07-11
++[OK provider=arctic-shift] ohiostate_city|2024-07-18
++[OK provider=arctic-shift] ohiostate_city|2024-07-25
++[OK provider=arctic-shift] ohiostate_city|2024-08-01
++[OK provider=arctic-shift] ohiostate_city|2024-08-08
++[OK provider=arctic-shift] ohiostate_city|2024-08-15
++[OK provider=arctic-shift] ohiostate_city|2024-08-22
++[OK provider=arctic-shift] ohiostate_city|2024-08-29
++[OK provider=arctic-shift] ohiostate_city|2024-09-05
++[OK provider=arctic-shift] ohiostate_city|2024-09-12
++[OK provider=arctic-shift] ohiostate_city|2024-09-19
++[checkpoint] 2400/2500 ok=400 err=0 skip=2000 elapsed=2131s
++[OK provider=arctic-shift] ohiostate_city|2024-09-26
++[OK provider=arctic-shift] ohiostate_city|2024-10-03
++[OK provider=arctic-shift] ohiostate_city|2024-10-10
++[OK provider=arctic-shift] ohiostate_city|2024-10-17
++[OK provider=arctic-shift] ohiostate_city|2024-10-24
++[OK provider=arctic-shift] ohiostate_city|2024-10-31
++[OK provider=arctic-shift] ohiostate_city|2024-11-07
++[OK provider=arctic-shift] ohiostate_city|2024-11-14
++[OK provider=arctic-shift] ohiostate_city|2024-11-21
++[OK provider=arctic-shift] ohiostate_city|2024-11-28
++[OK provider=arctic-shift] ohiostate_city|2024-12-05
++[OK provider=arctic-shift] ohiostate_city|2024-12-12
++[OK provider=arctic-shift] ohiostate_city|2024-12-19
++[OK provider=arctic-shift] ohiostate_city|2024-12-26
++[OK provider=arctic-shift] ohiostate_city|2025-01-02
++[OK provider=arctic-shift] ohiostate_city|2025-01-09
++[OK provider=arctic-shift] ohiostate_city|2025-01-16
++[OK provider=arctic-shift] ohiostate_city|2025-01-23
++[OK provider=arctic-shift] ohiostate_city|2025-01-30
++[OK provider=arctic-shift] ohiostate_city|2025-02-06
++[checkpoint] 2420/2500 ok=420 err=0 skip=2000 elapsed=2344s
++[OK provider=arctic-shift] ohiostate_city|2025-02-13
++[OK provider=arctic-shift] ohiostate_city|2025-02-20
++[OK provider=arctic-shift] ohiostate_city|2025-02-27
++[OK provider=arctic-shift] ohiostate_city|2025-03-06
++[OK provider=arctic-shift] ohiostate_city|2025-03-13
++[OK provider=arctic-shift] ohiostate_city|2025-03-20
++[OK provider=arctic-shift] ohiostate_city|2025-03-27
++[OK provider=arctic-shift] ohiostate_city|2025-04-03
++[OK provider=arctic-shift] ohiostate_city|2025-04-10
++[OK provider=arctic-shift] ohiostate_city|2025-04-17
++[OK provider=arctic-shift] ohiostate_city|2025-04-24
++[OK provider=arctic-shift] ohiostate_city|2025-05-01
++[OK provider=arctic-shift] ohiostate_city|2025-05-08
++[OK provider=arctic-shift] ohiostate_city|2025-05-15
++[OK provider=arctic-shift] ohiostate_city|2025-05-22
++[OK provider=arctic-shift] ohiostate_city|2025-05-29
++[OK provider=arctic-shift] ohiostate_city|2025-06-05
++[OK provider=arctic-shift] ohiostate_city|2025-06-12
++[OK provider=arctic-shift] ohiostate_city|2025-06-19
++[OK provider=arctic-shift] ohiostate_city|2025-06-26
++[checkpoint] 2440/2500 ok=440 err=0 skip=2000 elapsed=2596s
++[OK provider=arctic-shift] ohiostate_city|2025-07-03
++[OK provider=arctic-shift] ohiostate_city|2025-07-10
++[OK provider=arctic-shift] ohiostate_city|2025-07-17
++[OK provider=arctic-shift] ohiostate_city|2025-07-24
++[OK provider=arctic-shift] ohiostate_city|2025-07-31
++[OK provider=arctic-shift] ohiostate_city|2025-08-07
++[OK provider=arctic-shift] ohiostate_city|2025-08-14
++[OK provider=arctic-shift] ohiostate_city|2025-08-21
++[OK provider=arctic-shift] ohiostate_city|2025-08-28
++[OK provider=arctic-shift] ohiostate_city|2025-09-04
++[OK provider=arctic-shift] ohiostate_city|2025-09-11
++[OK provider=arctic-shift] ohiostate_city|2025-09-18
++[OK provider=arctic-shift] ohiostate_city|2025-09-25
++[OK provider=arctic-shift] ohiostate_city|2025-10-02
++[OK provider=arctic-shift] ohiostate_city|2025-10-09
++[OK provider=arctic-shift] ohiostate_city|2025-10-16
++[OK provider=arctic-shift] ohiostate_city|2025-10-23
++[OK provider=arctic-shift] ohiostate_city|2025-10-30
++[OK provider=arctic-shift] ohiostate_city|2025-11-06
++[OK provider=arctic-shift] ohiostate_city|2025-11-13
++[checkpoint] 2460/2500 ok=460 err=0 skip=2000 elapsed=2964s
++[OK provider=arctic-shift] ohiostate_city|2025-11-20
++[OK provider=arctic-shift] ohiostate_city|2025-11-27
++[OK provider=arctic-shift] ohiostate_city|2025-12-04
++[OK provider=arctic-shift] ohiostate_city|2025-12-11
++[OK provider=arctic-shift] ohiostate_city|2025-12-18
++[OK provider=arctic-shift] ohiostate_city|2025-12-25
++[OK provider=arctic-shift] ohiostate_city|2026-01-01
++[OK provider=arctic-shift] ohiostate_city|2026-01-08
++[OK provider=arctic-shift] ohiostate_city|2026-01-15
++[OK provider=arctic-shift] ohiostate_city|2026-01-22
++[OK provider=arctic-shift] ohiostate_city|2026-01-29
++[OK provider=arctic-shift] ohiostate_city|2026-02-05
++[OK provider=arctic-shift] ohiostate_city|2026-02-12
++[OK provider=arctic-shift] ohiostate_city|2026-02-19
++[OK provider=arctic-shift] ohiostate_city|2026-02-26
++[OK provider=arctic-shift] ohiostate_city|2026-03-05
++[OK provider=arctic-shift] ohiostate_city|2026-03-12
++[OK provider=arctic-shift] ohiostate_city|2026-03-19
++[OK provider=arctic-shift] ohiostate_city|2026-03-26
++[OK provider=arctic-shift] ohiostate_city|2026-04-02
++[checkpoint] 2480/2500 ok=480 err=0 skip=2000 elapsed=3148s
++[OK provider=arctic-shift] ohiostate_city|2026-04-09
++[OK provider=arctic-shift] ohiostate_city|2026-04-16
++[OK provider=arctic-shift] ohiostate_city|2026-04-23
++[OK provider=arctic-shift] michigan_team|2022-09-01
++[OK provider=arctic-shift] michigan_team|2022-09-08
++[OK provider=arctic-shift] michigan_team|2022-09-15
++[OK provider=arctic-shift] michigan_team|2022-09-22
++[OK provider=arctic-shift] michigan_team|2022-09-29
++[OK provider=arctic-shift] michigan_team|2022-10-06
++[OK provider=arctic-shift] michigan_team|2022-10-13
++[OK provider=arctic-shift] michigan_team|2022-10-20
++[OK provider=arctic-shift] michigan_team|2022-10-27
++[OK provider=arctic-shift] michigan_team|2022-11-03
++[OK provider=arctic-shift] michigan_team|2022-11-10
++[OK provider=arctic-shift] michigan_team|2022-11-17
++[OK provider=arctic-shift] michigan_team|2022-11-24
++[OK provider=arctic-shift] michigan_team|2022-12-01
++[OK provider=arctic-shift] michigan_team|2022-12-08
++[OK provider=arctic-shift] michigan_team|2022-12-15
++[OK provider=arctic-shift] michigan_team|2022-12-22
++[checkpoint] 2500/2500 ok=500 err=0 skip=2000 elapsed=3281s
++[done] {'ok': 500, 'error': 0, 'skipped-completed': 2000, 'dry-run': 0}
+diff --git a/scripts/backfill_reddit_history.py b/scripts/backfill_reddit_history.py
+index 18de1aa..56acd67 100644
+--- a/scripts/backfill_reddit_history.py
++++ b/scripts/backfill_reddit_history.py
+@@ -157,7 +157,13 @@ def _build_plan_json(window: dict) -> dict | None:
+             return None  # caller will skip
+         entry["team"] = window["team_name"]
+         entry["listing"] = "new"
+-        entry["require_cfb_context"] = window["subreddit"].upper() == "CFB"
++        # Always require football context. Earlier this only applied to r/CFB,
++        # which let city-subreddit posts (r/Knoxville, r/Athens, r/Austin)
++        # tag every "cat catchers" / "mortgage broker" thread as a team
++        # mention. The filter (`is_probably_cfb_reddit_post`) self-adapts
++        # for dedicated football subs vs city subs, so leaving it on across
++        # the board is the right default.
++        entry["require_cfb_context"] = True
+     else:
+         entry["teams"] = [window["team_name"]] if window["team_name"] else []
+     return {"sources": [entry]}
+diff --git a/seeds/priority_teams.yaml b/seeds/priority_teams.yaml
+index 8eb677b..2ef76dd 100644
+--- a/seeds/priority_teams.yaml
++++ b/seeds/priority_teams.yaml
+@@ -364,3 +364,106 @@ teams:
+   locked_on_rss: https://feeds.simplecast.com/MBMdx979
+   seatgeek_team_slug: notre-dame-fighting-irish-football
+   needs_research: false
++
++# ---- Sprint 5 profiled programs (added 2026-04-24) ----
++# These were added to profiles/ but not to priority_teams; the hourly cron
++# wasn't team-tagging their conversation docs as a result. Per-source
++# config below is intentionally minimal — fill in needs_research items as
++# you have time. The rss/handles will be enriched in a follow-up Deep
++# Research pass.
++
++- team_name: Auburn
++  rank_priority: 22
++  reddit_team_sub: AuburnTigers
++  reddit_alumni_sub: null
++  reddit_city_sub: auburn
++  wiki_team_page: Auburn_Tigers_football
++  wiki_coach_page: Hugh_Freeze
++  google_news_query: Auburn Tigers football
++  athletic_dept_feed: https://auburntigers.com/rss.aspx
++  seatgeek_team_slug: auburn-tigers-football
++  needs_research: true
++
++- team_name: Florida
++  rank_priority: 23
++  reddit_team_sub: floridagators
++  reddit_alumni_sub: null
++  reddit_city_sub: gainesville
++  wiki_team_page: Florida_Gators_football
++  wiki_coach_page: Billy_Napier
++  google_news_query: Florida Gators football
++  athletic_dept_feed: https://floridagators.com/rss.aspx
++  seatgeek_team_slug: florida-gators-football
++  needs_research: true
++
++- team_name: Massachusetts
++  rank_priority: 24
++  reddit_team_sub: UMass
++  reddit_alumni_sub: null
++  reddit_city_sub: amherst
++  wiki_team_page: UMass_Minutemen_football
++  wiki_coach_page: Joe_Harasymiak
++  google_news_query: UMass Minutemen football
++  athletic_dept_feed: https://umassathletics.com/rss.aspx
++  seatgeek_team_slug: umass-minutemen-football
++  needs_research: true
++
++- team_name: Oklahoma
++  rank_priority: 25
++  reddit_team_sub: Sooners
++  reddit_alumni_sub: null
++  reddit_city_sub: norman
++  wiki_team_page: Oklahoma_Sooners_football
++  wiki_coach_page: Brent_Venables
++  google_news_query: Oklahoma Sooners football
++  athletic_dept_feed: https://soonersports.com/rss.aspx
++  seatgeek_team_slug: oklahoma-sooners-football
++  needs_research: true
++
++- team_name: UConn
++  rank_priority: 26
++  reddit_team_sub: UConn
++  reddit_alumni_sub: null
++  reddit_city_sub: storrs
++  wiki_team_page: UConn_Huskies_football
++  wiki_coach_page: Jim_Mora_Jr.
++  google_news_query: UConn Huskies football
++  athletic_dept_feed: https://uconnhuskies.com/rss.aspx
++  seatgeek_team_slug: connecticut-huskies-football
++  needs_research: true
++
++- team_name: USC
++  rank_priority: 27
++  reddit_team_sub: USCTrojans
++  reddit_alumni_sub: null
++  reddit_city_sub: LosAngeles
++  wiki_team_page: USC_Trojans_football
++  wiki_coach_page: Lincoln_Riley
++  google_news_query: USC Trojans football
++  athletic_dept_feed: https://usctrojans.com/rss.aspx
++  seatgeek_team_slug: usc-trojans-football
++  needs_research: true
++
++- team_name: Vanderbilt
++  rank_priority: 28
++  reddit_team_sub: VandyFootball
++  reddit_alumni_sub: null
++  reddit_city_sub: nashville
++  wiki_team_page: Vanderbilt_Commodores_football
++  wiki_coach_page: Clark_Lea
++  google_news_query: Vanderbilt Commodores football
++  athletic_dept_feed: https://vucommodores.com/rss.aspx
++  seatgeek_team_slug: vanderbilt-commodores-football
++  needs_research: true
++
++- team_name: Washington
++  rank_priority: 29
++  reddit_team_sub: huskies
++  reddit_alumni_sub: null
++  reddit_city_sub: SeattleWA
++  wiki_team_page: Washington_Huskies_football
++  wiki_coach_page: Jedd_Fisch
++  google_news_query: Washington Huskies football
++  athletic_dept_feed: https://gohuskies.com/rss.aspx
++  seatgeek_team_slug: washington-huskies-football
++  needs_research: true
+diff --git a/seeds/reddit_historical_plan.yaml b/seeds/reddit_historical_plan.yaml
+index e2c5a2f..170a218 100644
+--- a/seeds/reddit_historical_plan.yaml
++++ b/seeds/reddit_historical_plan.yaml
+@@ -55,7 +55,7 @@ sources:
+   - key: alabama_city
+     team_name: Alabama
+     subreddit: tuscaloosa
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Georgia ---
+   - key: georgia_team
+@@ -65,7 +65,7 @@ sources:
+   - key: georgia_city
+     team_name: Georgia
+     subreddit: Athens
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- LSU ---
+   - key: lsu_team
+@@ -75,7 +75,7 @@ sources:
+   - key: lsu_city
+     team_name: LSU
+     subreddit: BatonRouge
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Tennessee ---
+   - key: tennessee_team
+@@ -85,7 +85,7 @@ sources:
+   - key: tennessee_city
+     team_name: Tennessee
+     subreddit: Knoxville
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Texas ---
+   - key: texas_team
+@@ -95,7 +95,7 @@ sources:
+   - key: texas_city
+     team_name: Texas
+     subreddit: Austin
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Ohio State ---
+   - key: ohiostate_team
+@@ -105,7 +105,7 @@ sources:
+   - key: ohiostate_city
+     team_name: Ohio State
+     subreddit: Columbus
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Michigan ---
+   - key: michigan_team
+@@ -115,7 +115,7 @@ sources:
+   - key: michigan_city
+     team_name: Michigan
+     subreddit: AnnArbor
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Penn State ---
+   - key: pennstate_team
+@@ -125,7 +125,7 @@ sources:
+   - key: pennstate_city
+     team_name: Penn State
+     subreddit: StateCollege
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Oregon ---
+   - key: oregon_team
+@@ -135,13 +135,13 @@ sources:
+   - key: oregon_city
+     team_name: Oregon
+     subreddit: Eugene
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Clemson --- (primary sub resolves to r/CFB — spec. Keep city as the distinct signal.)
+   - key: clemson_city
+     team_name: Clemson
+     subreddit: ClemsonSC
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Florida State ---
+   - key: fsu_team
+@@ -151,7 +151,7 @@ sources:
+   - key: fsu_city
+     team_name: Florida State
+     subreddit: Tallahassee
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Miami ---
+   - key: miami_team
+@@ -161,7 +161,7 @@ sources:
+   - key: miami_city
+     team_name: Miami
+     subreddit: Miami
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Texas Tech ---
+   - key: ttech_team
+@@ -171,7 +171,7 @@ sources:
+   - key: ttech_city
+     team_name: Texas Tech
+     subreddit: Lubbock
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Kansas State ---
+   - key: ksu_team
+@@ -181,7 +181,7 @@ sources:
+   - key: ksu_city
+     team_name: Kansas State
+     subreddit: Manhattan_KS
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- BYU ---
+   - key: byu_team
+@@ -191,7 +191,7 @@ sources:
+   - key: byu_city
+     team_name: BYU
+     subreddit: Provo
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Boise State ---
+   - key: boise_team
+@@ -201,7 +201,7 @@ sources:
+   - key: boise_city
+     team_name: Boise State
+     subreddit: boise
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Memphis ---
+   - key: memphis_team
+@@ -211,7 +211,7 @@ sources:
+   - key: memphis_city
+     team_name: Memphis
+     subreddit: memphis
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Tulane ---
+   - key: tulane_team
+@@ -221,19 +221,19 @@ sources:
+   - key: tulane_city
+     team_name: Tulane
+     subreddit: NewOrleans
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Jackson State (HBCU; no dedicated team sub — city only) ---
+   - key: jacksonstate_city
+     team_name: Jackson State
+     subreddit: jackson
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Howard (HBCU; no dedicated team sub — city only) ---
+   - key: howard_city
+     team_name: Howard
+     subreddit: washingtondc
+-    audience_bucket: fan
++    audience_bucket: local
+ 
+   # --- Notre Dame ---
+   - key: notredame_team
+@@ -243,4 +243,83 @@ sources:
+   - key: notredame_city
+     team_name: Notre Dame
+     subreddit: southbend
+-    audience_bucket: fan
++    audience_bucket: local
++
++  # --- Sprint 5 profiled programs added 2026-04-24 ---
++  # These appeared in profiles/ but were missing from priority_teams +
++  # this plan, so the hourly cron wasn't tagging their conversation docs.
++  # Pulse readings for these teams currently rely on a one-shot mention
++  # backfill (scripts/backfill_profiled_team_mentions.py); these plan
++  # entries put them on the recurring collection cycle.
++
++  - key: auburn_team
++    team_name: Auburn
++    subreddit: AuburnTigers
++    audience_bucket: fan
++  - key: auburn_city
++    team_name: Auburn
++    subreddit: auburn
++    audience_bucket: local
++
++  - key: florida_team
++    team_name: Florida
++    subreddit: floridagators
++    audience_bucket: fan
++  - key: florida_city
++    team_name: Florida
++    subreddit: gainesville
++    audience_bucket: local
++
++  - key: massachusetts_team
++    team_name: Massachusetts
++    subreddit: UMass
++    audience_bucket: fan
++  - key: massachusetts_city
++    team_name: Massachusetts
++    subreddit: amherst
++    audience_bucket: local
++
++  - key: oklahoma_team
++    team_name: Oklahoma
++    subreddit: Sooners
++    audience_bucket: fan
++  - key: oklahoma_city
++    team_name: Oklahoma
++    subreddit: norman
++    audience_bucket: local
++
++  - key: uconn_team
++    team_name: UConn
++    subreddit: UConn
++    audience_bucket: fan
++  - key: uconn_city
++    team_name: UConn
++    subreddit: storrs
++    audience_bucket: local
++
++  - key: usc_team
++    team_name: USC
++    subreddit: USCTrojans
++    audience_bucket: fan
++  - key: usc_city
++    team_name: USC
++    subreddit: LosAngeles
++    audience_bucket: local
++
++  - key: vanderbilt_team
++    team_name: Vanderbilt
++    subreddit: VandyFootball
++    audience_bucket: fan
++  - key: vanderbilt_city
++    team_name: Vanderbilt
++    subreddit: nashville
++    audience_bucket: local
++
++  - key: washington_team
++    team_name: Washington
++    subreddit: huskies
++    audience_bucket: fan
++  - key: washington_city
++    team_name: Washington
++    subreddit: SeattleWA
++    audience_bucket: local
+diff --git a/src/cfb_rankings/cli.py b/src/cfb_rankings/cli.py
+index ffd456f..e315175 100644
+--- a/src/cfb_rankings/cli.py
++++ b/src/cfb_rankings/cli.py
+@@ -1021,6 +1021,33 @@ def build_parser() -> argparse.ArgumentParser:
+         help="Output root (default: output/site/teams).",
+     )
+ 
++    # ---- sprint 12: wire ----  (merge-zone marker)
++    wire_ingest_parser = subparsers.add_parser(
++        "wire-ingest",
++        help="Pull candidate Wire transactions from CFBD live + cached "
++             "tables and insert into wire_entries.",
++    )
++    wire_ingest_parser.add_argument("--days", type=int, default=90)
++    wire_ingest_parser.add_argument("--target-count", type=int, default=60)
++
++    wire_editorial_parser = subparsers.add_parser(
++        "wire-generate-editorial",
++        help="Backfill why_it_matters / historical_comp / impact for Wire entries.",
++    )
++    wire_editorial_parser.add_argument("--days", type=int, default=90)
++    wire_editorial_parser.add_argument("--overwrite", action="store_true")
++
++    render_wire_parser = subparsers.add_parser(
++        "render-wire",
++        help="Write output/site/wire/index.html and monthly archive pages, "
++             "then patch the homepage Wire <tbody> to live data.",
++    )
++    render_wire_parser.add_argument("--days", type=int, default=30)
++    render_wire_parser.add_argument("--output-dir", default="output/site/wire")
++    render_wire_parser.add_argument("--skip-homepage", action="store_true")
++    render_wire_parser.add_argument("--homepage-limit", type=int, default=8)
++    # ---- /sprint 12: wire ----
++
+     return parser
+ 
+ 
+@@ -3531,6 +3558,51 @@ def main() -> None:
+         )
+         return
+ 
++    # ---- sprint 12: wire ----  (merge-zone marker)
++    if args.command == "wire-ingest":
++        from cfb_rankings.wire.ingestion import collect_recent_actions, upsert_actions
++        rows = collect_recent_actions(db, days=args.days, target_count=args.target_count)
++        stats = upsert_actions(db, rows)
++        print(
++            f"wire-ingest days={args.days}: candidates={len(rows)} "
++            f"inserted={stats['inserted']} skipped_duplicate={stats['skipped']}"
++        )
++        return
++
++    if args.command == "wire-generate-editorial":
++        from cfb_rankings.wire.editorial import generate_editorial_for_pending
++        result = generate_editorial_for_pending(db, days=args.days, overwrite=args.overwrite)
++        print(
++            f"wire-generate-editorial days={args.days} overwrite={args.overwrite}: "
++            f"processed={result['processed']} "
++            f"authored_used={result.get('authored_used',0)} "
++            f"factual_fallback={result.get('factual_fallback',0)} "
++            f"validator_passed={result['validator_passed']} "
++            f"validator_dropped={result['validator_dropped']} "
++            f"historical_comps={result['historical_comps']}"
++        )
++        return
++
++    if args.command == "render-wire":
++        from cfb_rankings.wire.renderer import render_all
++        from cfb_rankings.wire.homepage_integration import refresh_homepage_wire_block
++        result = render_all(db, output_dir=Path(args.output_dir), days=args.days)
++        print(
++            f"render-wire: index={result['index']} "
++            f"archive_pages={len(result['archive_pages'])}"
++        )
++        if not args.skip_homepage:
++            stats = refresh_homepage_wire_block(db, limit=args.homepage_limit)
++            if stats.get("skipped"):
++                print(f"  homepage patch skipped: {stats.get('reason')}")
++            else:
++                print(
++                    f"  homepage patched: {stats['entries_written']} entries -> "
++                    f"{stats['homepage_path']}"
++                )
++        return
++    # ---- /sprint 12: wire ----
++
+     raise RuntimeError(f"Unsupported command: {args.command}")
+ 
+ 
+diff --git a/src/cfb_rankings/cohorts/aggregate.py b/src/cfb_rankings/cohorts/aggregate.py
+index 9ef7c31..e0ef9ae 100644
+--- a/src/cfb_rankings/cohorts/aggregate.py
++++ b/src/cfb_rankings/cohorts/aggregate.py
+@@ -69,8 +69,12 @@ class CohortCell:
+         self.top_source_ids[source_id] = self.top_source_ids.get(source_id, 0.0) + weight
+ 
+     def sentiment(self) -> float | None:
+-        if self.effective_n < FLOOR_MIN:
+-            return None
++        # Always preserve the computed sentiment when at least one
++        # contributing doc had a score. Per-cohort publication floors
++        # (FLOOR_MIN, FLOOR_STANDARD) are applied downstream by the
++        # divergence aggregator and the renderer — keeping them out
++        # of the data layer means small-N cohorts can still be summed
++        # at the team level without losing the underlying signal.
+         if self.weight_sum_for_sentiment <= 0:
+             return None
+         return self.weighted_sentiment_sum / self.weight_sum_for_sentiment
+diff --git a/src/cfb_rankings/cohorts/divergence.py b/src/cfb_rankings/cohorts/divergence.py
+index e74e781..388d044 100644
+--- a/src/cfb_rankings/cohorts/divergence.py
++++ b/src/cfb_rankings/cohorts/divergence.py
+@@ -5,15 +5,17 @@
+ High divergence = fragmented fanbase = story. Low divergence = real consensus.
+ Written to ``team_cohort_divergence_week`` per (team_id, week).
+ 
+-Only cohorts that passed the floor (sentiment_score IS NOT NULL) participate.
+-If fewer than 2 cohorts qualify, divergence_score is NULL.
++Qualification: cohorts must have ``effective_n >= FLOOR_MIN`` AND a
++non-null sentiment value. If fewer than 2 cohorts qualify, divergence
++is NULL. The aggregator now writes sentiment regardless of per-cohort
++floor (data-layer fidelity), so the floor gate lives here.
+ """
+ from __future__ import annotations
+ 
+ import math
+ from typing import Iterable
+ 
+-from cfb_rankings.cohorts.aggregate import normalize_week_key
++from cfb_rankings.cohorts.aggregate import FLOOR_MIN, normalize_week_key
+ from cfb_rankings.db import Database
+ 
+ 
+@@ -43,12 +45,14 @@ def compute_divergence_week(db: Database, week_key: str,
+             params[f"team_{i}"] = t
+         filter_sql = f" and team_id in ({placeholders}) "
+ 
++    params["floor"] = FLOOR_MIN
+     rows = db.query_all(
+         f"""
+         select team_id, cohort, sentiment_score
+         from team_cohort_week
+         where week = :week
+           and sentiment_score is not null
++          and effective_n >= :floor
+           {filter_sql}
+         """,
+         params,
+@@ -87,16 +91,18 @@ def compute_divergence_week(db: Database, week_key: str,
+ 
+     # Also write zero-row entries for teams that exist in team_cohort_week
+     # for this week but had zero qualifying cohorts (so /methodology can show
+-    # "Awaiting Signal" instead of omitting the team silently).
++    # "Awaiting Signal" instead of omitting the team silently). Qualification
++    # mirrors the gate above.
+     empty_rows = db.query_all(
+         """
+         select distinct team_id from team_cohort_week
+         where week = :week and team_id not in (
+             select team_id from team_cohort_week
+             where week = :week and sentiment_score is not null
++              and effective_n >= :floor
+         )
+         """,
+-        {"week": week_key},
++        {"week": week_key, "floor": FLOOR_MIN},
+     )
+     for r in empty_rows:
+         db.execute(
+diff --git a/src/cfb_rankings/cohorts/test_aggregate.py b/src/cfb_rankings/cohorts/test_aggregate.py
+index 80af584..9f6eade 100644
+--- a/src/cfb_rankings/cohorts/test_aggregate.py
++++ b/src/cfb_rankings/cohorts/test_aggregate.py
+@@ -79,9 +79,11 @@ def _seed_doc(db: Database, source_id: str, team_id: int, sentiment: float | Non
+     )
+ 
+ 
+-def test_floor_rule_suppresses_small_n() -> None:
++def test_below_floor_still_writes_sentiment() -> None:
+     db = _fresh_db()
+-    # tiny weight, only a handful of docs → effective_n << 30
++    # tiny weight, only a handful of docs → effective_n << FLOOR_MIN.
++    # The aggregator preserves the computed sentiment regardless; the
++    # publication floor is enforced downstream (divergence + renderer).
+     _seed_source(db, "source_a", "B", millennial=0.5, die_hard=0.2)
+     for _ in range(5):
+         _seed_doc(db, "source_a", team_id=10, sentiment=0.4)
+@@ -90,10 +92,11 @@ def test_floor_rule_suppresses_small_n() -> None:
+     row = db.query_one(
+         "select * from team_cohort_week where team_id=10 and cohort='millennial' and week='2025-01'"
+     )
+-    # 5 * 0.5 = 2.5 effective_n; below FLOOR_MIN
++    # 5 * 0.5 = 2.5 effective_n; below FLOOR_MIN, but sentiment is preserved.
+     assert row["effective_n"] == 2.5
+     assert row["effective_n"] < FLOOR_MIN
+-    assert row["sentiment_score"] is None  # floor rule
++    assert row["sentiment_score"] is not None
++    assert abs(row["sentiment_score"] - 0.4) < 1e-9
+     assert row["volume"] == 5
+     assert row["confidence_tier"] == "B"
+ 
+diff --git a/src/cfb_rankings/db.py b/src/cfb_rankings/db.py
+index 34eacde..79d6313 100644
+--- a/src/cfb_rankings/db.py
++++ b/src/cfb_rankings/db.py
+@@ -75,11 +75,40 @@ class Database:
+             connection.close()
+ 
+     def apply_sql_file(self, path: str | Path) -> None:
++        """Apply a .sql migration file, idempotently.
++
++        Some migrations contain ``ALTER TABLE ... ADD COLUMN`` which SQLite
++        does not support with ``IF NOT EXISTS``. We try the whole script
++        first (fast path) and only fall back to per-statement execution
++        — swallowing "duplicate column name" errors — if the bulk apply
++        trips that specific error.
++        """
+         sql_text = Path(path).read_text(encoding="utf-8")
+ 
+         def _op() -> None:
+             with self.connection() as conn:
+-                conn.executescript(sql_text)
++                try:
++                    conn.executescript(sql_text)
++                    conn.commit()
++                    return
++                except sqlite3.OperationalError as exc:
++                    if "duplicate column name" not in str(exc).lower():
++                        raise
++                # Fallback: idempotent re-apply, line-by-line. Strip
++                # comments so naive ';' splitting works on real-world
++                # migrations.
++                cleaned = "\n".join(
++                    line for line in sql_text.splitlines()
++                    if not line.lstrip().startswith("--")
++                )
++                statements = [s.strip() for s in cleaned.split(";") if s.strip()]
++                for stmt in statements:
++                    try:
++                        conn.execute(stmt)
++                    except sqlite3.OperationalError as exc:
++                        if "duplicate column name" in str(exc).lower():
++                            continue
++                        raise
+                 conn.commit()
+ 
+         _with_retry("apply_sql_file", _op)
+diff --git a/src/cfb_rankings/team_pages/assets/styles.css b/src/cfb_rankings/team_pages/assets/styles.css
+index 8792fe9..0ea4abf 100644
+--- a/src/cfb_rankings/team_pages/assets/styles.css
++++ b/src/cfb_rankings/team_pages/assets/styles.css
+@@ -399,6 +399,402 @@ a { color: inherit; text-decoration: none; }
+ }
+ .pulse__badge--awaiting { color: var(--fg-muted); }
+ .pulse__badge--growing  { color: var(--fg-secondary); }
++.pulse__badge--full     { color: var(--fg-subtle); }
++.pulse__badge--low      { color: var(--fg-muted); }
++
++/* ================================================================== */
++/* Pulse v2 — eight-component editorial render                         */
++/* ================================================================== */
++/* Per docs/PULSE_REDESIGN_BRIEF.md §"Module structure" + Figma 60:2.   */
++/* Existing .pulse__* classes above (header, title, live-dot, meta,     */
++/* badge) are reused. The v2-specific additions below cover the lede,   */
++/* the three-up grid, the bullet/thermometer/diverging viz, the theme   */
++/* cards, and the new footer strip.                                     */
++
++/* The Lede — most important content on the module ------------------- */
++
++.pulse__lede-wrap {
++  display: grid;
++  gap: var(--sp-2);
++  margin-top: var(--sp-2);
++}
++
++.pulse__lede-eyebrow {
++  font-family: var(--font-display);
++  text-transform: uppercase;
++  letter-spacing: var(--ls-label);
++  font-size: var(--fs-label);
++  color: var(--fg-muted);
++}
++
++.pulse__lede {
++  font-family: var(--font-serif);
++  font-size: clamp(20px, 2.4vw + 8px, 28px);
++  line-height: var(--lh-snug);
++  color: var(--fg-primary);
++  padding: var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-4);
++  border-inline-start: 3px solid var(--accent-primary);
++  margin: 0;
++}
++
++.pulse__lede--empty {
++  display: none;
++}
++
++/* Three-up grid: Mood / Volume / Sentiment -------------------------- */
++
++.pulse__three-up {
++  display: grid;
++  gap: var(--sp-4);
++  grid-template-columns: 1fr;
++}
++
++@media (min-width: 760px) {
++  .pulse__three-up {
++    grid-template-columns: 1fr 1fr 1fr;
++  }
++}
++
++.pulse__card {
++  display: grid;
++  gap: var(--sp-2);
++  padding: var(--sp-4);
++  background: var(--bg-card);
++  border: 1px solid var(--stroke-default);
++  border-radius: var(--radius-md);
++  align-content: start;
++}
++
++.pulse__card--hidden {
++  display: none;
++}
++
++.pulse__card-eyebrow {
++  font-family: var(--font-display);
++  text-transform: uppercase;
++  letter-spacing: var(--ls-label);
++  font-size: var(--fs-label);
++  color: var(--fg-muted);
++}
++
++.pulse__context-line {
++  font-family: var(--font-mono);
++  font-size: var(--fs-label);
++  color: var(--fg-secondary);
++  letter-spacing: var(--ls-wide);
++  margin: 0;
++  line-height: var(--lh-snug);
++}
++
++/* Mood card ---------------------------------------------------------- */
++/* The mood number must clear AA against bg-card. Color comes from the */
++/* program accent_hex inline (per the brief — dark navy on dark bg     */
++/* fails the contract).                                                 */
++
++.pulse__mood-card .pulse__mood-number {
++  font-family: var(--font-display);
++  font-size: clamp(40px, 4vw + 18px, 64px);
++  font-weight: 800;
++  letter-spacing: var(--ls-tight);
++  line-height: 1;
++  /* Default to fg-primary (readable). Programs with bright-enough accents
++     override via inline color (set by pulse_renderer using mood_accent_hex
++     — see pulse_state.pick_readable_accent for the luminance threshold). */
++  color: var(--fg-primary);
++}
++
++.pulse__mood-number--placeholder {
++  color: var(--fg-muted);
++}
++
++.pulse__bullet-chart {
++  width: 100%;
++  height: auto;
++  margin-top: var(--sp-2);
++}
++
++/* Volume card ------------------------------------------------------- */
++
++.pulse__volume-number {
++  font-family: var(--font-display);
++  font-size: clamp(32px, 3vw + 14px, 48px);
++  font-weight: 700;
++  letter-spacing: var(--ls-tight);
++  line-height: 1;
++  color: var(--fg-primary);
++}
++
++.pulse__thermometer {
++  width: 100%;
++  height: auto;
++  margin-top: var(--sp-2);
++}
++
++.pulse__peer-bars {
++  display: grid;
++  gap: var(--sp-1);
++  margin-top: var(--sp-2);
++}
++
++.pulse__peer-row {
++  display: grid;
++  grid-template-columns: 80px 1fr auto;
++  gap: var(--sp-2);
++  align-items: center;
++  font-family: var(--font-mono);
++  font-size: var(--fs-label);
++  color: var(--fg-muted);
++}
++
++.pulse__peer-row--self {
++  color: var(--fg-primary);
++}
++
++.pulse__peer-name {
++  letter-spacing: var(--ls-wide);
++  white-space: nowrap;
++  overflow: hidden;
++  text-overflow: ellipsis;
++}
++
++.pulse__peer-bar {
++  position: relative;
++  height: 4px;
++  background: var(--bg-card-raised);
++  border-radius: 2px;
++  overflow: hidden;
++}
++
++.pulse__peer-bar > span {
++  position: absolute;
++  inset: 0 auto 0 0;
++  height: 100%;
++  background: var(--fg-muted);
++  border-radius: 2px;
++}
++
++.pulse__peer-count {
++  font-feature-settings: "tnum";
++  text-align: right;
++  min-width: 40px;
++}
++
++/* Sentiment card ---------------------------------------------------- */
++
++.pulse__sentiment-bar {
++  display: flex;
++  height: 36px;
++  border-radius: var(--radius-sm, 4px);
++  overflow: hidden;
++  background: var(--bg-card-raised);
++  margin-top: var(--sp-2);
++}
++
++.pulse__sentiment-bar > span {
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  font-family: var(--font-mono);
++  font-size: 11px;
++  font-weight: 600;
++  color: var(--fg-primary);
++  letter-spacing: var(--ls-wide);
++  min-width: 24px;
++}
++
++.pulse__sentiment-neg { background: color-mix(in oklab, var(--tone-red) 60%, var(--bg-card-raised) 40%); }
++.pulse__sentiment-neu { background: color-mix(in oklab, var(--fg-muted) 45%, var(--bg-card-raised) 55%); }
++.pulse__sentiment-pos { background: color-mix(in oklab, var(--tone-green) 65%, var(--bg-card-raised) 35%); }
++
++.pulse__sentiment-read {
++  font-family: var(--font-serif);
++  font-style: italic;
++  font-size: var(--fs-body);
++  color: var(--fg-secondary);
++  margin: var(--sp-2) 0 0;
++}
++
++/* What's being said — themes ---------------------------------------- */
++
++.pulse__themes {
++  display: grid;
++  gap: var(--sp-3);
++  margin-top: var(--sp-5);
++}
++
++.pulse__themes-grid {
++  display: grid;
++  gap: var(--sp-3);
++  grid-template-columns: 1fr;
++}
++
++@media (min-width: 760px) {
++  .pulse__themes-grid {
++    grid-template-columns: 1fr 1fr 1fr;
++  }
++}
++
++.pulse__theme {
++  display: grid;
++  gap: var(--sp-2);
++  padding: var(--sp-4);
++  background: var(--bg-card);
++  border: 1px solid var(--stroke-default);
++  border-radius: var(--radius-md);
++}
++
++.pulse__theme-head {
++  display: flex;
++  align-items: center;
++  gap: var(--sp-2);
++  flex-wrap: wrap;
++}
++
++.pulse__theme-label {
++  font-family: var(--font-display);
++  font-weight: 700;
++  font-size: var(--fs-body);
++  color: var(--fg-primary);
++  flex: 1;
++}
++
++.pulse__theme-delta {
++  font-family: var(--font-mono);
++  font-weight: 700;
++  font-size: 9px;
++  letter-spacing: var(--ls-label);
++  text-transform: uppercase;
++  padding: 2px 6px;
++  border-radius: var(--radius-sm, 4px);
++}
++
++.pulse__theme-delta--up      { color: var(--tone-green); background: color-mix(in oklab, var(--tone-green) 18%, transparent); }
++.pulse__theme-delta--new     { color: var(--tone-green); background: color-mix(in oklab, var(--tone-green) 18%, transparent); }
++.pulse__theme-delta--hold    { color: var(--fg-secondary); background: color-mix(in oklab, var(--fg-secondary) 12%, transparent); }
++.pulse__theme-delta--down    { color: var(--tone-red); background: color-mix(in oklab, var(--tone-red) 18%, transparent); }
++.pulse__theme-delta--neutral { color: var(--fg-secondary); background: color-mix(in oklab, var(--fg-secondary) 10%, transparent); }
++
++.pulse__sparkline {
++  display: inline-flex;
++  align-items: flex-end;
++  gap: 1px;
++  height: 16px;
++  width: 60px;
++}
++
++.pulse__spark-bar {
++  flex: 1;
++  background: color-mix(in oklab, var(--fg-muted) 60%, transparent);
++  border-radius: 1px;
++  min-height: 1px;
++}
++
++.pulse__spark-bar--current { background: var(--accent-primary); }
++.pulse__spark-bar--up      { background: var(--tone-green); }
++.pulse__spark-bar--new     { background: var(--tone-green); }
++.pulse__spark-bar--down    { background: var(--tone-red); }
++.pulse__spark-bar--hold    { background: var(--fg-secondary); }
++
++.pulse__theme-summary {
++  font-size: var(--fs-body);
++  color: var(--fg-primary);
++  line-height: var(--lh-snug);
++  margin: 0;
++}
++
++.pulse__theme-quote {
++  font-family: var(--font-serif);
++  font-style: italic;
++  font-size: var(--fs-body);
++  line-height: var(--lh-relaxed);
++  color: var(--fg-secondary);
++  margin: 0;
++  padding-inline-start: var(--sp-3);
++  border-inline-start: 2px solid var(--stroke-subtle);
++}
++
++.pulse__theme-quote-source {
++  display: block;
++  font-family: var(--font-display);
++  font-style: normal;
++  font-size: var(--fs-label);
++  color: var(--fg-muted);
++  letter-spacing: var(--ls-label);
++  text-transform: uppercase;
++  margin-top: var(--sp-1);
++}
++
++.pulse__theme-attr {
++  font-family: var(--font-mono);
++  font-size: var(--fs-label);
++  color: var(--fg-subtle);
++  letter-spacing: var(--ls-wide);
++}
++
++/* Stock-phrase fallback (when themes is empty) */
++.pulse__stock-phrase {
++  font-family: var(--font-serif);
++  font-style: italic;
++  font-size: var(--fs-body);
++  line-height: var(--lh-relaxed);
++  color: var(--fg-secondary);
++  padding: var(--sp-4);
++  background: var(--bg-card);
++  border: 1px solid var(--stroke-default);
++  border-radius: var(--radius-md);
++  margin: 0;
++}
++
++.pulse__stock-attr {
++  display: block;
++  font-family: var(--font-display);
++  font-style: normal;
++  font-size: var(--fs-label);
++  color: var(--fg-muted);
++  letter-spacing: var(--ls-label);
++  text-transform: uppercase;
++  margin-top: var(--sp-2);
++}
++
++/* What moved it — the v2 wrapper around the legacy event log -------- */
++
++.pulse__moved-it-wrap {
++  margin-top: var(--sp-5);
++}
++
++/* Footer strip ------------------------------------------------------ */
++
++.pulse__footer-strip {
++  display: flex;
++  align-items: center;
++  flex-wrap: wrap;
++  gap: var(--sp-2);
++  margin-top: var(--sp-5);
++  padding-top: var(--sp-3);
++  border-top: 1px solid var(--stroke-subtle);
++  font-family: var(--font-mono);
++  font-size: var(--fs-label);
++  color: var(--fg-muted);
++  letter-spacing: var(--ls-wide);
++}
++
++.pulse__footer-link {
++  color: var(--fg-secondary);
++  text-decoration: underline;
++  text-decoration-color: var(--stroke-default);
++  text-underline-offset: 2px;
++}
++
++.pulse__footer-link:hover {
++  color: var(--fg-primary);
++  text-decoration-color: currentColor;
++}
++
++.pulse__footer-sep { color: var(--fg-subtle); }
++
++/* ================================================================== */
++/* End Pulse v2                                                         */
++/* ================================================================== */
+ 
+ /* ------------------------------------------------------------------ */
+ /* Chronicle cards (compact render)                                    */
+diff --git a/src/cfb_rankings/team_pages/data.py b/src/cfb_rankings/team_pages/data.py
+index ef429d2..22ba907 100644
+--- a/src/cfb_rankings/team_pages/data.py
++++ b/src/cfb_rankings/team_pages/data.py
+@@ -16,6 +16,17 @@ COACHES_SYSTEM = "Coaches Poll"
+ CFP_SYSTEM = "Playoff Committee Rankings"
+ 
+ 
++# Floor thresholds for the fan-intelligence floor rule. Single source of
++# truth for the data-layer reader AND the renderer — DO NOT duplicate.
++# <FLOOR_AWAITING is rendered as "Awaiting Signal" (no sparkline, no
++# velocity number, takes fall back to profile stock phrases).
++# FLOOR_AWAITING ≤ effective_n < FLOOR_GROWING shows a sample-growing
++# badge with the live data we have. ≥ FLOOR_GROWING gets the full render
++# with no caveat.
++FLOOR_AWAITING = 20.0
++FLOOR_GROWING = 100.0
++
++
+ @dataclass
+ class GameResult:
+     season_year: int
+@@ -249,7 +260,6 @@ def _mood_from_cohort_week(db, team_id: int) -> dict[str, Any] | None:
+     # Looking back through the window (not strictly the latest week)
+     # smooths over offseason gaps where one calendar week may have only a
+     # handful of docs while a prior week is more representative.
+-    FLOOR_AWAITING = 30.0
+     headline_idx = next(
+         (
+             i for i, r in enumerate(rows)
+diff --git a/src/cfb_rankings/team_pages/renderer.py b/src/cfb_rankings/team_pages/renderer.py
+index 0e6fbb1..4fd014e 100644
+--- a/src/cfb_rankings/team_pages/renderer.py
++++ b/src/cfb_rankings/team_pages/renderer.py
+@@ -28,6 +28,8 @@ from .data import (
+     fetch_rivalry_posture, fetch_rivalry_stakes, fetch_rivalry_quote,
+     fetch_season_arc, fetch_arc_narrative,
+ )
++from .pulse_state import build_pulse_state
++from .pulse_renderer import render_pulse_v2
+ from .state_resolver import PageState, resolve_state
+ from .savant_card import render_savant_card
+ from .rivalry_card import render_rivalry_card
+@@ -161,6 +163,23 @@ def render_team_page(
+         except Exception:
+             game_recap_diagnosis = []
+ 
++    # Pulse v2 state — built once here (where db is available) and passed
++    # through to _render_page. Wrapped in try so a build-blocking issue
++    # in the redesigned Pulse falls back to the legacy renderer rather
++    # than killing the team page entirely.
++    pulse_state_v2 = None
++    try:
++        pulse_state_v2 = build_pulse_state(
++            db,
++            profile=profile,
++            snapshot=snapshot,
++            seasonal_state=state.season_phase,
++            anchor_variant=getattr(state, "anchor_variant", None),
++            today=state.today,
++        )
++    except Exception as exc:
++        print(f"  team-pages: pulse-v2 state build failed for {slug} — {type(exc).__name__}: {exc}")
++
+     html_out = _render_page(
+         profile=profile,
+         snapshot=snapshot,
+@@ -181,6 +200,7 @@ def render_team_page(
+         live_game_meta=live_game_meta,
+         game_recap_state_para=game_recap_state_para,
+         game_recap_diagnosis=game_recap_diagnosis,
++        pulse_state_v2=pulse_state_v2,
+     )
+ 
+     out = Path(output_dir)
+@@ -290,6 +310,7 @@ def _render_page(
+     live_game_meta: dict[str, Any] | None = None,
+     game_recap_state_para: dict[str, Any] | None = None,
+     game_recap_diagnosis: list[dict[str, Any]] | None = None,
++    pulse_state_v2: Any = None,
+ ) -> str:
+     tokens_css = (_ASSETS_DIR / "tokens.css").read_text(encoding="utf-8")
+     styles_css = (_ASSETS_DIR / "styles.css").read_text(encoding="utf-8")
+@@ -315,7 +336,26 @@ def _render_page(
+         )
+     if not hero_html:
+         hero_html = _render_hero(profile, snapshot, state, state_of_team, sp_rating)
+-    pulse_html = _render_pulse(profile, snapshot, state, mood, divergence)
++
++    # Pulse v2 — eight-component editorial render. PulseState was built
++    # in render_team_page (where db is in scope) and passed through.
++    # If state build failed there, pulse_state_v2 is None and we fall
++    # back to the legacy _render_pulse so the page still renders.
++    if pulse_state_v2 is not None:
++        try:
++            pulse_html = render_pulse_v2(
++                pulse_state=pulse_state_v2,
++                profile=profile,
++                snapshot=snapshot,
++                page_state=state,
++                mood=mood,
++                event_log_renderer=_render_event_log,
++            )
++        except Exception as exc:
++            print(f"  team-pages: pulse-v2 render fallback for {snapshot.slug} — {type(exc).__name__}: {exc}")
++            pulse_html = _render_pulse(profile, snapshot, state, mood, divergence)
++    else:
++        pulse_html = _render_pulse(profile, snapshot, state, mood, divergence)
+     chronicle_html = _render_chronicle_section(chronicle_cards, profile, state)
+     savant_html = render_savant_card(
+         profile, savant_rows,
+diff --git a/src/cfb_rankings/team_pages/rivalry_card.py b/src/cfb_rankings/team_pages/rivalry_card.py
+index c2132c4..dc3e510 100644
+--- a/src/cfb_rankings/team_pages/rivalry_card.py
++++ b/src/cfb_rankings/team_pages/rivalry_card.py
+@@ -247,7 +247,7 @@ def _render_trajectory(profile: Profile, opp: str, opponent_profiled: bool) -> s
+       <text x="272" y="138" fill="#9ca3af" font-size="10" font-family="system-ui">kickoff</text>
+     </svg>
+     <p class="rivalry-card__trajectory-note">
+-      Signal accumulating · per-rivalry weekly fan-intel feeding in as the 2025-26 season approaches.
++      Signal accumulating · per-rivalry weekly fan signal feeding in as the 2025-26 season approaches.
+     </p>
+   </div>"""
+ 

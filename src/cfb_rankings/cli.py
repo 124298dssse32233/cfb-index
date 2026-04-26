@@ -813,6 +813,56 @@ def build_parser() -> argparse.ArgumentParser:
         help="Override season.",
     )
 
+    # ---- sprint 10: storylines (merge-zone marker) ----
+    gen_thread_parser = subparsers.add_parser(
+        "generate-thread-chapter",
+        help="Generate a draft next chapter for a Storyline Thread. Writes "
+             "to seeds/_drafts/<slug>_<timestamp>.py for human review before "
+             "publishing. --auto runs without interactive prompts (stub for "
+             "live LLM call infra in a follow-on sprint).",
+    )
+    gen_thread_parser.add_argument(
+        "--thread", required=True,
+        help="Thread slug (e.g. 12-team-playoff-settling).",
+    )
+    gen_thread_parser.add_argument(
+        "--auto", action="store_true",
+        help="Cron-mode: no interactive prompts. Calls the shared "
+             "llm_runtime; if ANTHROPIC_API_KEY is unset, falls back to "
+             "writing a draft scaffold for human review.",
+    )
+    gen_thread_parser.add_argument(
+        "--skip-render", action="store_true",
+        help="Skip the post-append render-storylines re-render. Useful "
+             "for batch generation; render once after all chapters land.",
+    )
+
+    render_storylines_parser = subparsers.add_parser(
+        "render-storylines",
+        help="Re-seed the storylines DB tables from seeds/, render every "
+             "thread page + the index to output/site/storylines/, and emit "
+             "the stub_data/threads.json contract Sprint 9 reads.",
+    )
+    render_storylines_parser.add_argument(
+        "--all", action="store_true",
+        help="Render every thread (current default behavior — accepted for "
+             "explicitness).",
+    )
+    render_storylines_parser.add_argument(
+        "--output-dir", default="output/site/storylines",
+        help="Output directory (default: output/site/storylines).",
+    )
+    render_storylines_parser.add_argument(
+        "--contract-path", default="stub_data/threads.json",
+        help="Where to write the homepage contract JSON (default: "
+             "stub_data/threads.json).",
+    )
+    render_storylines_parser.add_argument(
+        "--no-seed", action="store_true",
+        help="Skip the seed-load step and render from existing DB rows only.",
+    )
+    # ---- end sprint 10: storylines ----
+
     refresh_savant_parser = subparsers.add_parser(
         "refresh-savant",
         help="Recompute the 13-metric percentile rows in team_savant_weekly for "
@@ -931,6 +981,53 @@ def build_parser() -> argparse.ArgumentParser:
              "Exercises games_live_render_queue end-to-end against the fixture.",
     )
 
+    # ----- Sprint 11 — The Canon -----
+    canon_seed_parser = subparsers.add_parser(
+        "seed-canon-metadata",
+        help="Seed the 3 canon_lists rows (idempotent). "
+             "Sprint 11 §Phase 1.",
+    )
+
+    canon_gen_parser = subparsers.add_parser(
+        "generate-canon-list",
+        help="Generate one Canon list end-to-end: editorial entries from "
+             "seed_authored, cohort splits, rank deltas, voice-validator pass. "
+             "Sprint 11.",
+    )
+    canon_gen_parser.add_argument(
+        "--list", required=True,
+        help="Canon list slug (the-100-best-players-cfp-era, "
+             "the-50-most-defining-games-cfp-era, "
+             "the-25-best-coaching-hires-2020s).",
+    )
+    canon_gen_parser.add_argument(
+        "--year", type=int, default=2026,
+        help="Edition year (default: 2026).",
+    )
+
+    canon_render_parser = subparsers.add_parser(
+        "render-canon",
+        help="Render one Canon list (per-list page + per-entry pages). "
+             "Sprint 11.",
+    )
+    canon_render_parser.add_argument(
+        "--list", required=True, help="Canon list slug.",
+    )
+    canon_render_parser.add_argument(
+        "--output-dir", default="output/site",
+        help="Output root (default: output/site).",
+    )
+
+    canon_render_all_parser = subparsers.add_parser(
+        "render-canon-all",
+        help="Render the Canon index + every list + every per-entry page. "
+             "Sprint 11.",
+    )
+    canon_render_all_parser.add_argument(
+        "--output-dir", default="output/site",
+        help="Output root (default: output/site).",
+    )
+
     process_queue_parser = subparsers.add_parser(
         "process-render-queue",
         help="Drain pending render jobs from games_live_render_queue. "
@@ -976,6 +1073,88 @@ def build_parser() -> argparse.ArgumentParser:
         "--output-dir", default="output/site/teams",
         help="Output root (default: output/site/teams).",
     )
+
+    # Sprint 9 — Editions framework registrations.
+    from cfb_rankings.editions.cli import register_edition_subcommands
+    register_edition_subcommands(subparsers)
+
+    # =========================================================================
+    # MERGE ZONE — Sprint 13 Receipts subcommands. Concurrent sprints adding
+    # commands should append below this block (not interleave) so merges stay
+    # trivial. See CLAUDE_CODE_RECEIPTS_AND_LONG_SHOTS.md.
+    # =========================================================================
+
+    extract_pc_parser = subparsers.add_parser(
+        "extract-predictive-claims",
+        help="Sprint 13: scan conversation_documents for predictive claims, "
+             "extract via Haiku → Sonnet pipeline, persist to predictive_claims.",
+    )
+    extract_pc_parser.add_argument("--days", type=int, default=365)
+    extract_pc_parser.add_argument(
+        "--sources", default=None,
+        help="Comma-separated source_name values to filter (e.g. reddit,bluesky).",
+    )
+    extract_pc_parser.add_argument("--limit-docs", type=int, default=None)
+    extract_pc_parser.add_argument("--haiku-batch", type=int, default=25)
+    extract_pc_parser.add_argument(
+        "--offline", action="store_true",
+        help="Force offline stub mode (no Anthropic API calls).",
+    )
+
+    consensus_parser = subparsers.add_parser(
+        "load-historical-consensus",
+        help="Sprint 13: populate historical_consensus_snapshots from existing "
+             "game_lines, official_rankings, power_ratings_weekly, and corpus "
+             "aggregate signals.",
+    )
+    consensus_parser.add_argument(
+        "--kind", choices=["all", "vegas", "polls", "sp_plus", "polymarket", "corpus"],
+        default="all",
+    )
+
+    surprise_parser = subparsers.add_parser(
+        "compute-surprise-index",
+        help="Sprint 13: compute Surprise Index for predictive_claims.",
+    )
+    surprise_parser.add_argument(
+        "--all-unscored", action="store_true",
+        help="Recompute every claim with NULL surprise_index (default).",
+    )
+    surprise_parser.add_argument(
+        "--claim-id", type=int, default=None,
+        help="Compute only for a single claim id.",
+    )
+
+    resolve_parser = subparsers.add_parser(
+        "resolve-outcomes",
+        help="Sprint 13: resolve outcomes for predictive claims whose window has closed.",
+    )
+    resolve_parser.add_argument(
+        "--window-end-before", default=None,
+        help="ISO date (YYYY-MM-DD). Default: process all unresolved.",
+    )
+
+    best_calls_parser = subparsers.add_parser(
+        "generate-best-calls",
+        help="Sprint 13: generate the annual 'Best Calls of <year>' canonical list.",
+    )
+    best_calls_parser.add_argument("--year", type=int, required=True)
+    best_calls_parser.add_argument("--n", type=int, default=25)
+    best_calls_parser.add_argument("--opus-top", type=int, default=3)
+
+    source_profiles_parser = subparsers.add_parser(
+        "recompute-source-profiles",
+        help="Sprint 13: recompute source_profiles aggregates + bios.",
+    )
+    source_profiles_parser.add_argument("--min-takes", type=int, default=3)
+    source_profiles_parser.add_argument("--top-n", type=int, default=50)
+
+    render_receipts_parser = subparsers.add_parser(
+        "render-receipts",
+        help="Sprint 13: render output/site/receipts/ — landing, annual lists, source profiles.",
+    )
+
+    # END MERGE ZONE — Sprint 13
 
     return parser
 
@@ -1166,6 +1345,126 @@ def main() -> None:
                 print(f"  {slug} render failed: {exc}")
         return
 
+    # ---- sprint 10: storylines (merge-zone marker) ----
+    if args.command == "generate-thread-chapter":
+        from cfb_rankings.storylines.seeds import iter_thread_metadata
+        from cfb_rankings.storylines.chapter_authoring import (
+            build_context_pack,
+            build_prompt,
+            parse_llm_chapter_response,
+            append_chapter_to_seed,
+            write_draft_scaffold,
+        )
+        from cfb_rankings.llm_runtime import generate_with_voice_check
+
+        slug = args.thread
+        meta = next((t for t in iter_thread_metadata() if t["thread_slug"] == slug), None)
+        if not meta:
+            print(f"unknown thread slug: {slug}")
+            return
+
+        next_n_row = db.query_one(
+            "select coalesce(max(chapter_number), 0) + 1 as n "
+            "from storyline_chapters where thread_slug = :slug",
+            {"slug": slug},
+        )
+        next_n = int(next_n_row["n"]) if next_n_row else 1
+
+        # Build context pack + prompt.
+        context = build_context_pack(db, slug, meta, next_n)
+        prompt = build_prompt(context)
+
+        print(f"generate-thread-chapter: {slug} chapter {next_n}")
+        print(f"  prior chapters in context: {len(context['prior_chapters'])}")
+        print(f"  voice register source: {context['voice_register_source']}")
+
+        result = generate_with_voice_check(
+            prompt,
+            model="claude-sonnet-4-6",
+            max_tokens=6000,
+            max_retries=1,
+        )
+
+        print(f"  llm_runtime mode: {result['mode']}")
+        print(
+            f"  attempts: {result['attempts']}, "
+            f"tokens: in={result['tokens_used']['input']} "
+            f"out={result['tokens_used']['output']}"
+        )
+        print(f"  voice_validator_passed: {result['voice_validator_passed']}")
+
+        # Branch: offline-stub fallback.
+        if result["mode"] == "offline-stub":
+            path = write_draft_scaffold(
+                slug, meta, next_n,
+                note="ANTHROPIC_API_KEY not set; --auto deferred to next live run.",
+            )
+            print(f"  draft scaffold written: {path}")
+            print("  set ANTHROPIC_API_KEY and re-run for live generation.")
+            return
+
+        # Branch: live but voice failed.
+        if not result["voice_validator_passed"]:
+            path = write_draft_scaffold(
+                slug, meta, next_n,
+                llm_text=result["text"],
+                violations=result["voice_violations"],
+                note="Voice validator failed twice. Raw LLM output preserved below for review.",
+            )
+            print(f"  voice validator failed: {result['voice_violations']}")
+            print(f"  draft (with raw response) written: {path}")
+            return
+
+        # Branch: live + voice-passed. Parse, append to seed, re-render.
+        try:
+            chapter_dict = parse_llm_chapter_response(
+                result["text"],
+                thread_slug=slug,
+                chapter_number=next_n,
+                meta=meta,
+            )
+        except Exception as exc:
+            path = write_draft_scaffold(
+                slug, meta, next_n,
+                llm_text=result["text"],
+                note=f"Could not parse LLM response: {exc}. Raw output preserved below.",
+            )
+            print(f"  parse error: {exc}")
+            print(f"  draft (with raw response) written: {path}")
+            return
+
+        seed_path = append_chapter_to_seed(slug, chapter_dict)
+        print(f"  appended chapter {next_n} to {seed_path}")
+
+        if not getattr(args, "skip_render", False):
+            from cfb_rankings.storylines.seed_loader import load_all_seeds
+            from cfb_rankings.storylines import renderer as _stl_renderer
+            seed_summary = load_all_seeds(db)
+            _stl_renderer.render_all(db)
+            print(f"  re-seeded: {seed_summary['total_chapters']} chapters total")
+            print("  storylines re-rendered to output/site/storylines/")
+        return
+
+    if args.command == "render-storylines":
+        from cfb_rankings.storylines.seed_loader import load_all_seeds
+        from cfb_rankings.storylines import renderer as _stl_renderer
+        if not args.no_seed:
+            seed_result = load_all_seeds(db)
+            print(f"seeded: {seed_result['threads_written']} threads, "
+                  f"{seed_result['total_chapters']} chapters")
+            for slug, n in sorted(seed_result["chapter_counts"].items()):
+                print(f"  {slug:40s} {n} chapters")
+        result = _stl_renderer.render_all(
+            db,
+            output_dir=args.output_dir,
+            homepage_contract_path=args.contract_path,
+        )
+        print(f"rendered {result['thread_pages_written']} thread pages + index")
+        print(f"  index: {result['index_written']}")
+        print(f"  contract: {result['homepage_contract_written']}")
+        return
+    # ---- end sprint 10: storylines ----
+
     if args.command == "refresh-savant":
         from cfb_rankings.team_pages.savant_data_loader import refresh_team_savant
         from cfb_rankings.team_pages.profile_loader import PROFILES_DIR
@@ -1239,6 +1538,52 @@ def main() -> None:
                 total += n
                 print(f"  {slug} vs {opp}: {n} meetings")
             print(f"refresh-rivalry: {total} meetings across {len(pairs_seen)} pairs")
+        return
+
+    # ----- Sprint 11 — The Canon -----
+    if args.command == "seed-canon-metadata":
+        from cfb_rankings.canon import seed_list_metadata
+        with db.connection() as conn:
+            n = seed_list_metadata(conn)
+        print(f"seed-canon-metadata: seeded {n} list metadata rows")
+        return
+
+    if args.command == "generate-canon-list":
+        from cfb_rankings.canon import generate_canon_list, seed_list_metadata
+        with db.connection() as conn:
+            # Make sure metadata is seeded first; idempotent.
+            seed_list_metadata(conn)
+            report = generate_canon_list(conn, args.list, edition_year=args.year)
+        print(f"generate-canon-list: {report.list_slug}")
+        print(f"  entries           : {report.entry_count}")
+        print(f"  paragraphs/oneliners : {report.paragraphs_validated}/{report.oneliners_validated}")
+        print(f"  validator         : {report.validator_passed} passed, "
+              f"{report.validator_failed} failed "
+              f"({report.pass_rate * 100:.1f}% pass rate)")
+        if report.validator_failed_labels:
+            for lbl in report.validator_failed_labels[:10]:
+                print(f"    - {lbl}")
+        print(f"  cohort splits     : {report.cohort_splits_computed}")
+        print(f"  rank deltas       : {report.rank_deltas_computed}")
+        print(f"  effort buckets    : {report.effort_buckets}")
+        return
+
+    if args.command == "render-canon":
+        from cfb_rankings.canon import render_canon_list, render_canon_index
+        with db.connection() as conn:
+            list_path = render_canon_list(conn, args.list, args.output_dir)
+            index_path = render_canon_index(conn, args.output_dir)
+        print(f"render-canon: list  -> {list_path}")
+        print(f"             index -> {index_path}")
+        return
+
+    if args.command == "render-canon-all":
+        from cfb_rankings.canon import render_all_canon
+        with db.connection() as conn:
+            counts = render_all_canon(conn, args.output_dir)
+        print(f"render-canon-all: {counts['lists']} lists, "
+              f"{counts['entries']} entries, {counts['index']} index "
+              f"-> {args.output_dir}/canon/")
         return
 
     if args.command == "render-team-pages":
@@ -3419,6 +3764,97 @@ def main() -> None:
             site_root=Path("output/site"),
         )
         return
+
+    # Sprint 9 — Edition framework dispatch.
+    if args.command in ("publish-edition", "render-edition", "render-homepage", "seed-editions"):
+        rc = args.func(args)
+        raise SystemExit(rc or 0)
+
+    # =========================================================================
+    # MERGE ZONE — Sprint 13 Receipts dispatch. See CLI parser merge zone.
+    # =========================================================================
+
+    if args.command == "extract-predictive-claims":
+        from cfb_rankings.receipts import extract as _ex
+        sources = args.sources.split(",") if args.sources else None
+        result = _ex.run_extraction(
+            days=args.days,
+            source_names=sources,
+            limit_docs=args.limit_docs,
+            haiku_batch=args.haiku_batch,
+            offline=True if args.offline else None,
+        )
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "load-historical-consensus":
+        from cfb_rankings.receipts import consensus as _co
+        if args.kind == "all":
+            result = _co.load_all()
+        elif args.kind == "vegas":
+            result = {"vegas_lines": _co.load_vegas_lines()}
+        elif args.kind == "polls":
+            result = {"polls": _co.load_polls()}
+        elif args.kind == "sp_plus":
+            result = {"sp_plus": _co.load_sp_plus()}
+        elif args.kind == "polymarket":
+            result = {"polymarket": _co.load_polymarket()}
+        elif args.kind == "corpus":
+            result = {"corpus_aggregate": _co.load_corpus_aggregate()}
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "compute-surprise-index":
+        from cfb_rankings.receipts import surprise as _su
+        if args.claim_id is not None:
+            from cfb_rankings.receipts.runtime import db_conn as _conn
+            with _conn() as c:
+                row = c.execute(
+                    "SELECT * FROM predictive_claims WHERE id = ?",
+                    (args.claim_id,),
+                ).fetchone()
+                if not row:
+                    print(json.dumps({"error": "claim_not_found"}), flush=True)
+                    return
+                score, breakdown = _su.compute(row)
+                c.execute(
+                    "UPDATE predictive_claims SET surprise_index = ?, "
+                    "surprise_index_components_json = ? WHERE id = ?",
+                    (score, json.dumps(breakdown), args.claim_id),
+                )
+                c.commit()
+                print(json.dumps({"claim_id": args.claim_id, "score": score,
+                                  "breakdown": breakdown}, indent=2), flush=True)
+            return
+        result = _su.compute_batch(only_unscored=True)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "resolve-outcomes":
+        from cfb_rankings.receipts import resolve as _re
+        result = _re.resolve_batch(window_end_before=args.window_end_before)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "generate-best-calls":
+        from cfb_rankings.receipts import best_calls as _bc
+        result = _bc.generate(args.year, n=args.n, opus_top=args.opus_top)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "recompute-source-profiles":
+        from cfb_rankings.receipts import source_profiles as _sp
+        result = _sp.recompute_all(min_takes=args.min_takes, top_n=args.top_n)
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    if args.command == "render-receipts":
+        from cfb_rankings.receipts import render as _re
+        result = _re.render_all()
+        print(json.dumps(result, indent=2), flush=True)
+        return
+
+    # END MERGE ZONE — Sprint 13
 
     raise RuntimeError(f"Unsupported command: {args.command}")
 

@@ -1,0 +1,13 @@
+{
+  "_comment": "Stub Wire entries for Wave 2 (Sprint 12). Replace with live transactions table when that sprint ships.",
+  "entries": [
+    {"when": "10:14 ET",  "program": "Texas",       "action": "OL transfer commits", "why": "Replaces a draft pick at LT; Sark gets continuity",                "impact": "+0.4 win"},
+    {"when": "08:42 ET",  "program": "Auburn",      "action": "DC promotion",        "why": "Internal hire signals Hugh keeping the staff intact",              "impact": "+0.1 win"},
+    {"when": "Yesterday", "program": "Boise State", "action": "QB1 commits 2027",    "why": "Top dual-threat in the 2027 class chooses the Cinderella program",  "impact": "+0.6 win"},
+    {"when": "Yesterday", "program": "FSU",         "action": "WR portal exit",      "why": "Third leak this week; the boards' read is correct",                 "impact": "-0.5 win"},
+    {"when": "2d",        "program": "Iowa",        "action": "OC tempo signal",     "why": "78 plays in 90 minutes is a 30% increase over Iowa's spring norm",   "impact": "+0.3 win"},
+    {"when": "2d",        "program": "Notre Dame",  "action": "Coordinator hire",    "why": "Special-teams hire from Penn State adds a piece OFD has flagged",   "impact": "+0.2 win"},
+    {"when": "3d",        "program": "Oregon",      "action": "Spring close-out",    "why": "Practice plays counted up 22% — Lanning installs new tempo",       "impact": "+0.3 win"},
+    {"when": "4d",        "program": "Indiana",     "action": "Edge signing",        "why": "Cincinnati transfer is the missing piece — echoes 2023 Cignetti",    "impact": "+0.4 win"}
+  ]
+}

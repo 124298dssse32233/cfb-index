@@ -1,0 +1,17 @@
+{
+  "_comment": "Stub Canon entry for Wave 2 (Sprint 11). Replace with canon DB query when that sprint ships.",
+  "entry": {
+    "slug": "caleb-williams-2024",
+    "title": "Caleb Williams: The 2024 Heisman That Wasn't",
+    "category": "Player Arc",
+    "era": "2022-2024",
+    "summary": "Williams won the 2022 Heisman as a sophomore at USC, finished sixth in 2023, and went undrafted-in-the-top-ten in the 2024 NFL Draft despite being the consensus top quarterback prospect in the country for two years. The Canon entry traces how the 2023 USC season — and one specific November loss to Utah — rewrote the trajectory of a player who, on November 1, 2023, was the heaviest Heisman favorite of any player since Lamar Jackson.",
+    "cohort_divergence": {
+      "stat_folks_rank": 7,
+      "regular_fans_rank": 3,
+      "gap_label": "STAT FOLKS UNDERWEIGHT IT · FANS REMEMBER IT MORE",
+      "discussion_starter": "Was the 2023 USC collapse a coaching failure, a roster failure, or a Williams ceiling?"
+    },
+    "linked_threads": ["the-2024-heisman-rerun", "usc-the-year-of-the-loss"]
+  }
+}

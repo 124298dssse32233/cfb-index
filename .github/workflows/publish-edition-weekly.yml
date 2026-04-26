@@ -1,0 +1,57 @@
+# Weekly Edition publish — Sprint 9.
+# Status: configured but DISABLED. Kevin enables when ready by removing
+# the `if: false` guard and uncommenting the schedule trigger.
+#
+# When enabled: runs every Saturday 06:00 ET (10:00 UTC). Generates the
+# upcoming-Saturday edition slug, calls publish-edition, then
+# render-edition, then commits the rendered HTML to the branch.
+name: Publish Weekly Edition
+
+on:
+  workflow_dispatch:
+  # Uncomment when ready:
+  # schedule:
+  #   - cron: '0 10 * * 6'   # Saturdays 06:00 ET = 10:00 UTC
+
+jobs:
+  publish:
+    if: false  # Disabled by default; remove when ready to go live.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Compute edition slug for upcoming Saturday
+        id: slug
+        run: |
+          # Saturday-of-this-week ISO week number, formatted as 2026-w17.
+          SLUG=$(python -c "from datetime import date; t=date.today(); y,w,_=t.isocalendar(); print(f'{y}-w{w:02d}')")
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+
+      - name: Apply migrations
+        run: python manage.py apply-migrations
+
+      - name: Publish edition (idempotent)
+        run: python manage.py publish-edition --slug ${{ steps.slug.outputs.slug }}
+
+      - name: Render homepage + article pages
+        run: python manage.py render-edition --slug ${{ steps.slug.outputs.slug }}
+
+      - name: Commit rendered output
+        run: |
+          git config user.name "edition-bot"
+          git config user.email "edition-bot@cfbindex.local"
+          git add output/site/index.html output/site/editions/
+          git commit -m "Edition ${{ steps.slug.outputs.slug }} published" || echo "no changes"
+          git push
