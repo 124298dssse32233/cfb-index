@@ -131,6 +131,33 @@ BANNED_PHRASES: tuple[str, ...] = (
     "we all know",
     "obviously",
     "of course",
+    # Editions register additions (ported from editions/voice_validator.py
+    # during wave-1-2 integration). Methodology/meta-language tells.
+    "the methodology",
+    "the scoring",
+    "the pipeline",
+    "our pipeline",
+    "tier 1",
+    "tier 2",
+    "this widget",
+    "a flattening of",
+    "every season produces one of these",
+    # Meta-data-language sentence starters (banned anywhere; the canonical
+    # validator does not distinguish position — these are weak phrases
+    # whether they open a sentence or sit in the middle).
+    "the pattern is",
+    "the data shows",
+    "the numbers show",
+    "the stats show",
+    # AI/system-tells — voice failure if any of these reach a fan surface.
+    "as an ai",
+    "as a language model",
+    "i was trained",
+    "let me know if",
+    "feel free to",
+    # Generic-magazine clichés.
+    "stay tuned",
+    "without further ado",
 )
 
 
