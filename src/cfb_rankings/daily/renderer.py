@@ -223,6 +223,7 @@ def _render_archive_index(conn, base: Path, limit: int = 30) -> Path:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Daily — Archive</title>
+<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
 <style>
 body{{font-family:'Georgia',serif;background:#f8f6f0;color:#1a1a2e;max-width:760px;margin:3rem auto;padding:0 1rem;}}
 h1{{font-size:2rem;margin-bottom:0.5rem;color:#0f2044;}}
@@ -234,7 +235,10 @@ a{{color:#0f2044;}}
 a:hover{{color:#c9a84c;}}
 </style>
 </head>
-<body>
+<body class="daily__archive">
+<nav style="font-family:'Inter',sans-serif;font-size:0.75rem;margin-bottom:2rem;">
+<a href="/">CFB Index</a> · <a href="/daily/">The Daily</a>
+</nav>
 <h1>The Daily — Archive</h1>
 <p class="sub">Last {limit} editions · <a href="/daily/">← Current edition</a></p>
 <table>

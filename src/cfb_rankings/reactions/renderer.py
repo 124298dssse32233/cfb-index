@@ -67,13 +67,23 @@ h2.section{font:600 18px/1.25 system-ui;margin:4px 0 16px;}
 
 def _page_head(title: str) -> str:
     escaped = html.escape(title)
+    nav = (
+        '<nav class="reaction__nav" style="background:#14171b;padding:10px 24px;'
+        'font:600 11px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;">'
+        '<a href="/" style="color:#95a0ad;text-decoration:none;margin-right:20px;">CFB Index</a>'
+        '<a href="/reactions/" style="color:#f4c95d;text-decoration:none;margin-right:20px;">Reaction Stories</a>'
+        '<a href="/wire/" style="color:#95a0ad;text-decoration:none;margin-right:20px;">Wire</a>'
+        '<a href="/storylines/" style="color:#95a0ad;text-decoration:none;">Storylines</a>'
+        '</nav>'
+    )
     return (
         f'<!doctype html>\n<html lang="en">\n<head>\n'
         f'<meta charset="utf-8"/>\n'
         f'<title>{escaped}</title>\n'
         f'<meta name="viewport" content="width=device-width,initial-scale=1"/>\n'
+        f'<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css"/>\n'
         f'<style>\n{_CSS}</style>\n'
-        f'</head>\n<body><div class="wrap">\n'
+        f'</head>\n<body class="reaction__page">{nav}<div class="wrap">\n'
     )
 
 
@@ -209,8 +219,8 @@ def render_archive(limit: int = 50) -> Path:
     page += '<h1>Reaction Stories</h1>\n'
     page += (
         '<p class="dek">On-demand pieces that fire when a wire event crosses a velocity '
-        'threshold — the proprietary spin is cohort divergence: what stat folks, '
-        'regular fans, and the boards each said, and why the split matters.</p>\n'
+        'threshold. Each story maps how stat folks, regular fans, and die-hards '
+        'diverged on the same event — and explains why the split matters.</p>\n'
     )
     page += f'<h2 class="section">Latest {len(stories)} Stories</h2>\n'
 
