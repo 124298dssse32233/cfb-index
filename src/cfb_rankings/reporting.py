@@ -5406,7 +5406,7 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
     broken: list[dict[str, str]] = []
     script_style_re = re.compile(r"<(?:script|style)\b[\s\S]*?</(?:script|style)>", re.IGNORECASE)
     href_re = re.compile(r"""href\s*=\s*["']([^"']+)["']""", re.IGNORECASE)
-    skip_prefixes = ("http://", "https://", "mailto:", "tel:", "javascript:", "data:", "#")
+    skip_prefixes = ("http://", "https://", "//", "mailto:", "tel:", "javascript:", "data:", "#")
     for path in html_files:
         try:
             raw = path.read_text(encoding="utf-8", errors="replace")

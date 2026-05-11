@@ -99,8 +99,7 @@ def render_methodology_index_html(output_dir: Path | None = None) -> str:
 
   <footer>
     Methodology index &middot; generated {html.escape(generated_at)} &middot;
-    source of truth:
-    <a href="https://github.com/kevinsherrin/cfb-rankings/blob/master/FAN_INTEL_SOURCE_STRATEGY.md">FAN_INTEL_SOURCE_STRATEGY.md</a>
+    source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> in the repo.
   </footer>
 </body>
 </html>
