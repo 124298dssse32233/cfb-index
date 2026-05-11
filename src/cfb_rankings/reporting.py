@@ -5391,6 +5391,29 @@ def _team_link(prefix: str, slug: str | None, label: str, css_class: str = "team
     return f'<span class="{css_class} is-unlinked">{escaped_label}</span>{extra_html}'
 
 
+def _valid_team_slug(slug: Any) -> str | None:
+    """Return slug if a team page exists for it, else None.
+
+    Use this to gate `<a href="../teams/{slug}.html">...</a>` emissions on
+    player / heisman / index pages. Without this guard, ~2000 broken links
+    fire from player pages to small-school teams (NAIA/DIII/Indep) whose
+    team pages never get built because they have no current ranking.
+
+    Returns None when:
+      - slug is empty / falsy
+      - _VALID_TEAM_SLUGS has been populated and slug is not in it
+
+    Callers that already test `if team_slug:` for emission will short-
+    circuit naturally when this returns None.
+    """
+    slug_str = str(slug or "").strip()
+    if not slug_str:
+        return None
+    if _VALID_TEAM_SLUGS and slug_str not in _VALID_TEAM_SLUGS:
+        return None
+    return slug_str
+
+
 def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str]]:
     """Walk the built site and return a list of broken internal href targets.
 
@@ -16234,10 +16257,14 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     position = str(player.get("position") or primary_team.get("position") or "--")
     class_year = str(player.get("class_year") or primary_team.get("class_year") or "--")
     team_name = str(primary_team.get("team_name") or "Independent file")
-    team_slug = primary_team.get("team_slug")
+    # team_slug used for url-emitting context drops to None when the team page
+    # was never built (NAIA / DIII / unranked). team_theme/team_mark still see
+    # the raw slug so theming holds for the player page itself.
+    raw_team_slug = primary_team.get("team_slug")
+    team_slug = _valid_team_slug(raw_team_slug)
     conference_name = str(primary_team.get("conference_name") or "Team context TBD")
-    team_theme = _team_theme(str(team_slug or player.get("player_slug") or "player"))
-    team_mark = _team_mark(player_name, slug=team_slug)
+    team_theme = _team_theme(str(raw_team_slug or player.get("player_slug") or "player"))
+    team_mark = _team_mark(player_name, slug=raw_team_slug)
     current_rank_text = _display_rank_text(current_snapshot.get("nowcast_rank"))
     forecast_text = _display_rank_text(current_snapshot.get("forecast_rank"))
     best_finish_text = (
@@ -17961,9 +17988,10 @@ def _render_heisman_board_row(row: HeismanRankingRow, include_market: bool = Fal
             row.class_year or "",
         ]
     ).lower()
+    team_slug = _valid_team_slug(row.team_slug)
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(row.team_slug))}.html">{escape(str(row.team_name or ""))}</a>'
-        if row.team_slug
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(str(row.team_name or ""))}</a>'
+        if team_slug
         else escape(str(row.team_name or "--"))
     )
     market_cell = (
@@ -18010,9 +18038,9 @@ def _render_player_directory_row(row: dict[str, Any]) -> str:
         ]
     ).lower()
     team_name = str(row.get("team_name") or row.get("primary_team_name") or "--")
-    team_slug = row.get("team_slug") or row.get("primary_team_slug")
+    team_slug = _valid_team_slug(row.get("team_slug") or row.get("primary_team_slug"))
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)}</a>'
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(team_name)}</a>'
         if team_slug
         else escape(team_name)
     )
@@ -18039,9 +18067,10 @@ def _render_player_directory_row(row: dict[str, Any]) -> str:
 
 
 def _render_player_heisman_year_row(row: dict[str, Any]) -> str:
+    team_slug = _valid_team_slug(row.get("team_slug"))
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(row.get("team_slug") or ""))}.html">{escape(str(row.get("team_name") or ""))}</a>'
-        if row.get("team_slug")
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(str(row.get("team_name") or ""))}</a>'
+        if team_slug
         else escape(str(row.get("team_name") or "--"))
     )
     latest_model_rank = (
@@ -18083,9 +18112,10 @@ def _render_player_heisman_year_row(row: dict[str, Any]) -> str:
 
 
 def _render_player_roster_history_row(row: dict[str, Any]) -> str:
+    team_slug = _valid_team_slug(row.get("team_slug"))
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(row.get("team_slug") or ""))}.html">{escape(str(row.get("team_name") or ""))}</a>'
-        if row.get("team_slug")
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(str(row.get("team_name") or ""))}</a>'
+        if team_slug
         else escape(str(row.get("team_name") or "--"))
     )
     bio_parts = []
@@ -18892,9 +18922,9 @@ def _render_player_season_stat_table(section: dict[str, Any]) -> str:
     rows_html: list[str] = []
     for row in (section.get("rows") or []):
         team_name = str(row.get("team_name") or "--")
-        team_slug = row.get("team_slug")
+        team_slug = _valid_team_slug(row.get("team_slug"))
         team_cell = (
-            f'<a class="team-link" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)}</a>'
+            f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(team_name)}</a>'
             if team_slug
             else f"<strong>{escape(team_name)}</strong>"
         )

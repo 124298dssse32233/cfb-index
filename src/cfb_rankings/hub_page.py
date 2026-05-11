@@ -289,7 +289,8 @@ def render_methodology_row(*parts: str, link_label: str = "methodology \u2192") 
         fragments.append(f'<span>{escape(part)}</span>')
     if link_label:
         fragments.append('<span class="hub-gold-dot">\u00b7</span>')
-        fragments.append(f'<a href="../about-model/">{escape(link_label)}</a>')
+        # site-absolute so this works from hub root (/hub/) AND hub/retro/<issue>/
+        fragments.append(f'<a href="/about-model/">{escape(link_label)}</a>')
     return f'<div class="hub-methodology">{" ".join(fragments)}</div>'
 
 
@@ -1260,7 +1261,7 @@ def render_index_cards_section(issue: dict[str, Any]) -> str:
         {render_section_eyebrow("N\u00b0 07", f"The Index Cards \u00b7 {issue['issue_number']}")}
         <h2 class="hub-display-l">This week&rsquo;s cards</h2>
         <div class="hub-index-cards">{cards_html}</div>
-        <p class="hub-caption hub-caption-center">All Index Cards are collectible. <a href="#">Save this week&rsquo;s cards</a> <span class="hub-gold-dot">\u00b7</span> <a href="../archive/">archive of all 47 issues &rarr;</a></p>
+        <p class="hub-caption hub-caption-center">All Index Cards are collectible. <a href="#">Save this week&rsquo;s cards</a> <span class="hub-gold-dot">\u00b7</span> <a href="/archive/">archive of all 47 issues &rarr;</a></p>
       </div>
     </section>
     """
@@ -1335,21 +1336,21 @@ def render_hub_footer(issue: dict[str, Any]) -> str:
           <div>
             <div class="hub-footer-col-title">Publication</div>
             <a href="#">Subscribe \u00b7 Wednesdays 9AM ET \u2192</a>
-            <a href="../archive/">Archive</a>
-            <a href="../about-model/">About</a>
-            <a href="../about-model/">Methodology</a>
+            <a href="/archive/">Archive</a>
+            <a href="/about-model/">About</a>
+            <a href="/methodology/">Methodology</a>
           </div>
           <div>
             <div class="hub-footer-col-title">Explore</div>
-            <a href="../rankings/">Rankings</a>
-            <a href="../teams/">Teams</a>
-            <a href="../players/">Players</a>
-            <a href="../matchups/">Matchups</a>
+            <a href="/rankings/">Rankings</a>
+            <a href="/teams/">Teams</a>
+            <a href="/players/">Players</a>
+            <a href="/matchups/">Matchups</a>
             <a href="./">Hub</a>
           </div>
           <div>
             <div class="hub-footer-col-title">Legal</div>
-            <a href="../attributions/">Attributions</a>
+            <a href="/attributions/">Attributions</a>
             <a href="#">Privacy</a>
             <a href="#">Terms</a>
           </div>
@@ -1368,7 +1369,7 @@ def render_hub_footer(issue: dict[str, Any]) -> str:
             133 FBS fanbases <span class="hub-gold-dot">\u00b7</span> 10 FBS conferences <span class="hub-gold-dot">\u00b7</span> 3,828 games since 2014
           </div>
           <div class="hub-footer-meta-small">
-            Model: {FRIENDLY_MODEL_LABEL} <span class="hub-gold-dot">\u00b7</span> last cut {escape(issue['issue_date'])} <span class="hub-gold-dot">\u00b7</span> <a href="../about-model/">changelog \u2192</a>
+            Model: {FRIENDLY_MODEL_LABEL} <span class="hub-gold-dot">\u00b7</span> last cut {escape(issue['issue_date'])} <span class="hub-gold-dot">\u00b7</span> <a href="/about-model/">changelog \u2192</a>
           </div>
         </div>
       </div>
