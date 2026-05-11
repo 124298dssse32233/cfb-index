@@ -20,7 +20,10 @@ $settings = New-ScheduledTaskSettingsSet `
     -AllowStartIfOnBatteries `
     -DontStopIfGoingOnBatteries `
     -StartWhenAvailable `
-    -ExecutionTimeLimit (New-TimeSpan -Hours 3)
+    -ExecutionTimeLimit (New-TimeSpan -Hours 5)
+# 5h limit (was 3h). Weekly task runs the full daily ingest plus weekly-deep
+# work; the 3h limit cut it short for the same reason daily_ingest was being
+# killed at the 2h mark — see register_daily_task.ps1 for context.
 
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
 

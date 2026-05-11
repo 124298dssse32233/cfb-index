@@ -24,7 +24,12 @@ $settings = New-ScheduledTaskSettingsSet `
     -AllowStartIfOnBatteries `
     -DontStopIfGoingOnBatteries `
     -StartWhenAvailable `
-    -ExecutionTimeLimit (New-TimeSpan -Hours 2)
+    -ExecutionTimeLimit (New-TimeSpan -Hours 4)
+# 4h limit (was 2h). The 2h limit was killing build-site mid-run at the
+# player-pages stage every day — ingest+aggregators+models+boards alone
+# consume ~1h50m on average, leaving <10m for build-site which needs ~30m.
+# Symptom: output/site/index.html was stale for 7+ days in early May 2026
+# because every daily run died before the homepage write step.
 
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
 

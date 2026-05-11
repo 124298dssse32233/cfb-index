@@ -61,6 +61,9 @@ jobs:
       - name: Rebuild static site
         run: python -u manage.py build-site
 
+      - name: Rebuild editions archive
+        run: python manage.py build-editions-archive
+
       - name: Upload DB artifact
         if: always()
         uses: actions/upload-artifact@v4

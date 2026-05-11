@@ -100,9 +100,11 @@ if ($IsInSeason) {
     Run "cfbd: ingest-cfbd-week --season=$CurSeason --week=$SeasonWeek" {
         python manage.py ingest-cfbd-week --season $CurSeason --week $SeasonWeek
     }
-    Run "cfbd: import-player-honors" { python manage.py import-player-honors }
+    # NOTE: import-player-honors is CSV-driven, not daily cadence. The wiki-awards
+    # scraper auto-imports each CSV it produces. Honors mostly land in December —
+    # use weekly_deep.ps1 / load_history scripts to refresh, not the daily loop.
 } else {
-    Log "   (offseason: skipping ingest-cfbd-week + import-player-honors)"
+    Log "   (offseason: skipping ingest-cfbd-week)"
 }
 
 # =========================================================================
@@ -145,8 +147,12 @@ Run "features: build-conversation-features --season=$CurSeason --week=$SeasonWee
 # G. Models (in-season only - require fresh game data)
 # =========================================================================
 if ($IsInSeason) {
-    Run "models: run-models" { python manage.py run-models }
-    Run "models: run-heisman-model" { python manage.py run-heisman-model }
+    Run "models: run-models --season=$CurSeason --through-week=$SeasonWeek" {
+        python manage.py run-models --season $CurSeason --through-week $SeasonWeek
+    }
+    Run "models: run-heisman-model --season=$CurSeason --through-week=$SeasonWeek" {
+        python manage.py run-heisman-model --season $CurSeason --through-week $SeasonWeek
+    }
 } else {
     Log "   (offseason: skipping run-models + run-heisman-model)"
 }
@@ -154,15 +160,22 @@ if ($IsInSeason) {
 # =========================================================================
 # H. Board builders (fast, stateless reads)
 # =========================================================================
-Run "board: build-the-room-board" { python manage.py build-the-room-board }
-Run "board: build-players-landing" { python manage.py build-players-landing }
-Run "board: build-signature-story-board" { python manage.py build-signature-story-board }
+Run "board: build-the-room-board --season=$CurSeason" {
+    python manage.py build-the-room-board --season $CurSeason --week $SeasonWeek
+}
+Run "board: build-players-landing --season=$CurSeason" {
+    python manage.py build-players-landing --season $CurSeason --week $SeasonWeek
+}
+Run "board: build-signature-story-board --season=$CurSeason" {
+    python manage.py build-signature-story-board --season $CurSeason
+}
 Run "board: build-methodology" { python manage.py build-methodology }
 
 # =========================================================================
 # I. Full static site rebuild - the main product output
 # =========================================================================
 Run "site: build-site" { python manage.py build-site }
+Run "site: build-editions-archive" { python manage.py build-editions-archive }
 
 # =========================================================================
 # J. Status dump for the log trailer

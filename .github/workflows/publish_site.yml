@@ -78,6 +78,12 @@ jobs:
           python manage.py build-methodology
           echo "done"
 
+      - name: Refresh editions archive
+        run: |
+          set +e
+          python manage.py build-editions-archive
+          echo "done"
+
       - name: Upload site artifact
         if: always()
         uses: actions/upload-artifact@v4
@@ -113,7 +119,7 @@ jobs:
             git rm -rf . 2>/dev/null || true
           fi
           mkdir -p ./
-          rm -rf ./assets ./rankings ./teams ./players ./heisman ./hub ./methodology ./archive ./programs ./history ./conferences ./compare ./matchups ./about-model || true
+          rm -rf ./assets ./rankings ./teams ./players ./heisman ./hub ./methodology ./editions ./archive ./programs ./history ./conferences ./compare ./matchups ./about-model || true
           cp -r output/site/* ./
           git add -A
           git commit -m "publish: weekly rebuild $(date -u +%Y-%m-%dT%H:%MZ)" || echo "nothing to commit"

@@ -859,7 +859,16 @@ def _load_stub(filename: str) -> dict[str, Any]:
 
 
 def _slugify(text: str) -> str:
-    return "".join(c if c.isalnum() else "-" for c in text.lower()).strip("-")
+    # Must collapse consecutive dashes to match article_renderer._slugify so
+    # the homepage cover-essay link resolves to the filesystem path that
+    # article_renderer actually wrote. Without the collapse, titles with
+    # consecutive non-alnum chars (em-dash + space, "It's — Just a Show",
+    # double hyphens, etc.) produced a homepage link with "--" pointing at a
+    # path that was written with single "-".
+    out = "".join(c if c.isalnum() else "-" for c in text.lower()).strip("-")
+    while "--" in out:
+        out = out.replace("--", "-")
+    return out
 
 
 def _humanize_slug(slug: str) -> str:

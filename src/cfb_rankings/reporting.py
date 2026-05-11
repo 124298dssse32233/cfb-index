@@ -5428,9 +5428,22 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
             if re.search(r"/\.html$", href) or href.endswith("/.html"):
                 broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "empty-slug .html"})
                 continue
-            if not href.endswith(".html"):
+            # Resolve target. Site-absolute paths ("/foo/bar.html") are correct
+            # on the deployed site (served at /); for the audit we resolve them
+            # against the site root rather than the filesystem root. Trailing-
+            # slash hrefs map to <dir>/index.html the same way a web server
+            # would serve them.
+            if href.startswith("/"):
+                base = root
+                rel = href.lstrip("/")
+            else:
+                base = path.parent
+                rel = href
+            if rel.endswith("/"):
+                rel = rel + "index.html"
+            if not rel.endswith(".html"):
                 continue
-            target = (path.parent / href).resolve()
+            target = (base / rel).resolve()
             try:
                 target.relative_to(root)
             except ValueError:

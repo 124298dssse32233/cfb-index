@@ -1977,10 +1977,13 @@ def main() -> None:
     if args.command == "build-methodology":
         from cfb_rankings.provenance.methodology_page import write_methodology_page
         from cfb_rankings.provenance.freshness_page import write_freshness_page
+        from cfb_rankings.provenance.methodology_index_page import write_methodology_index_page
         out = write_methodology_page(db)
         print(f"methodology page written: {out}")
         fresh = write_freshness_page(db)
         print(f"freshness page written: {fresh}")
+        idx = write_methodology_index_page()
+        print(f"methodology index written: {idx}")
         return
 
     if args.command == "build-freshness":
@@ -3970,7 +3973,13 @@ def main() -> None:
         return
 
     # Sprint 9 — Edition framework dispatch.
-    if args.command in ("publish-edition", "render-edition", "render-homepage", "seed-editions"):
+    if args.command in (
+        "publish-edition",
+        "render-edition",
+        "render-homepage",
+        "seed-editions",
+        "build-editions-archive",
+    ):
         rc = args.func(args)
         raise SystemExit(rc or 0)
 
