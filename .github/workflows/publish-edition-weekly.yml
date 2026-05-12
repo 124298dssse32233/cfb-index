@@ -9,23 +9,24 @@ name: Publish Weekly Edition
 
 on:
   workflow_dispatch:
-  # Uncomment when ready:
-  # schedule:
-  #   - cron: '0 10 * * 6'   # Saturdays 06:00 ET = 10:00 UTC
+  schedule:
+    - cron: '0 10 * * 6'   # Saturdays 06:00 ET = 10:00 UTC
 
 jobs:
   publish:
-    if: false  # Disabled by default; remove when ready to go live.
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -39,8 +40,13 @@ jobs:
           SLUG=$(python -c "from datetime import date; t=date.today(); y,w,_=t.isocalendar(); print(f'{y}-w{w:02d}')")
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
 
-      - name: Apply migrations
-        run: python manage.py apply-migrations
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with: { name: cfb-rankings-db, path: . }
+
+      - name: Bootstrap DB schema
+        run: python manage.py init-db
 
       - name: Publish edition (idempotent)
         run: python manage.py publish-edition --slug ${{ steps.slug.outputs.slug }}
@@ -48,10 +54,22 @@ jobs:
       - name: Render homepage + article pages
         run: python manage.py render-edition --slug ${{ steps.slug.outputs.slug }}
 
-      - name: Commit rendered output
-        run: |
-          git config user.name "edition-bot"
-          git config user.email "edition-bot@cfbindex.local"
-          git add output/site/index.html output/site/editions/
-          git commit -m "Edition ${{ steps.slug.outputs.slug }} published" || echo "no changes"
-          git push
+      - name: Upload edition artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-edition-${{ steps.slug.outputs.slug }}
+          path: |
+            output/site/index.html
+            output/site/editions/
+          retention-days: 30
+          overwrite: true
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true

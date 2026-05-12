@@ -143,12 +143,19 @@ if (-not $SkipBuild) {
     Run "archetypes: classify-fanbases --season=$mostRecent" {
         python manage.py classify-fanbases --season $mostRecent
     }
-    # Board + site rebuild
-    Run "board: build-the-room-board" { python manage.py build-the-room-board }
-    Run "board: build-players-landing" { python manage.py build-players-landing }
-    Run "board: build-signature-story-board" { python manage.py build-signature-story-board }
+    # Board + site rebuild (boards are season snapshots — pin to most recent)
+    Run "board: build-the-room-board --season=$mostRecent" {
+        python manage.py build-the-room-board --season $mostRecent
+    }
+    Run "board: build-players-landing --season=$mostRecent" {
+        python manage.py build-players-landing --season $mostRecent
+    }
+    Run "board: build-signature-story-board --season=$mostRecent" {
+        python manage.py build-signature-story-board --season $mostRecent
+    }
     Run "board: build-methodology" { python manage.py build-methodology }
     Run "site: build-site" { python manage.py build-site }
+    Run "site: build-editions-archive" { python manage.py build-editions-archive }
 } else {
     Log "   (SkipBuild=true; skipping Phase 3)"
 }

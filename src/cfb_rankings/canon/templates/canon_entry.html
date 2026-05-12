@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{entity_display_name} \u00b7 #{rank} \u00b7 {list_title} \u00b7 The Canon</title>
+<title>{entity_display_name} · #{rank} · {list_title} · The Canon</title>
 <meta name="description" content="{summary_short}">
 <style>{styles_css}</style>
 </head>
@@ -21,9 +21,9 @@
 <main class="canon-main">
   <nav class="canon-breadcrumb" aria-label="breadcrumb">
     <a href="/canon/">The Canon</a>
-    <span class="canon-breadcrumb__sep" aria-hidden="true">\u203a</span>
+    <span class="canon-breadcrumb__sep" aria-hidden="true">›</span>
     <a href="/canon/{list_slug}.html">{list_title}</a>
-    <span class="canon-breadcrumb__sep" aria-hidden="true">\u203a</span>
+    <span class="canon-breadcrumb__sep" aria-hidden="true">›</span>
     <span aria-current="page">#{rank} {entity_display_name}</span>
   </nav>
 
@@ -63,7 +63,7 @@
     <section class="canon-entry__delta" aria-label="Year-over-year delta">
       <h2 class="canon-entry__section-title">Year-over-year</h2>
       <p class="canon-entry__delta-text">
-        Prior edition rank: <strong>{prior_year_rank_text}</strong> \u00b7
+        Prior edition rank: <strong>{prior_year_rank_text}</strong> ·
         Movement: <strong>{rank_delta_label}</strong>
       </p>
     </section>

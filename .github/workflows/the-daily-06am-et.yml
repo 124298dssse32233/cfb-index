@@ -7,21 +7,85 @@ on:
 
 jobs:
   publish:
-    if: false  # GUARD — disabled until first-live-cycle verification flips this
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: '3.11' }
+        with: { python-version: '3.12' }
       - run: pip install -e .
-      - run: python manage.py apply-migrations
+
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with: { name: cfb-rankings-db, path: . }
+
+      - run: python manage.py init-db
       - run: python manage.py generate-daily
       - run: python manage.py render-daily
-      - run: python manage.py build-site
-        env: { ANTHROPIC_API_KEY: '${{ secrets.ANTHROPIC_API_KEY }}' }
-      - run: |
-          git config user.name "daily-cron"
-          git config user.email "daily-cron@cfbindex.local"
-          git add output/site/daily/
-          git diff --cached --quiet || git commit -m "daily: $(date -u +%Y-%m-%d)"
-          git push origin master
+
+      # ---- Rolling site-state assembly ----
+      # Download the prior full site state. First-time bootstrap: download
+      # the seed tarball from the deploy-state-v1 release. Subsequent runs:
+      # download the cfb-rankings-site artifact maintained by these crons.
+      - name: Download prior site state (artifact)
+        id: dl_site
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with: { name: cfb-rankings-site, path: prior-site/ }
+
+      - name: Bootstrap site state from release if no artifact
+        if: steps.dl_site.outcome != 'success'
+        run: |
+          set -e
+          mkdir -p prior-site
+          gh release download deploy-state-v1 --pattern site-state-bootstrap.tar.gz --output /tmp/seed.tar.gz
+          tar -xzf /tmp/seed.tar.gz -C prior-site
+          echo "Bootstrapped $(find prior-site -type f | wc -l) files from release."
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+
+      - name: Merge generated daily into prior site state
+        run: |
+          set -e
+          mkdir -p output/site
+          # Copy prior site as base
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          # Re-render daily on top of merged state so the homepage / cross-refs
+          # see the new daily takes. (render-daily already ran above; this
+          # ensures it sits in the correct merged tree.)
+          python manage.py render-daily
+          echo "Merged. Total deployable files: $(find output/site -type f | wc -l)"
+
+      # ---- Vercel deploy ----
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        run: |
+          vercel deploy --prod --yes --archive=tgz \
+            --token=$VERCEL_TOKEN \
+            --scope=$VERCEL_ORG_ID
+
+      # ---- Maintain artifacts for next cron ----
+      - name: Upload site state for next cron
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site/
+          retention-days: 14
+          overwrite: true
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true

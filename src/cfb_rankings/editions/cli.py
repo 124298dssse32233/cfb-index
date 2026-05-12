@@ -43,6 +43,12 @@ def register_edition_subcommands(subparsers: argparse._SubParsersAction) -> None
     )
     seed.set_defaults(func=_cmd_seed_editions)
 
+    archive = subparsers.add_parser(
+        "build-editions-archive",
+        help="Render /editions/index.html — the archive page listing every edition.",
+    )
+    archive.set_defaults(func=_cmd_build_archive)
+
 
 # ---------------- Command implementations ----------------
 
@@ -81,6 +87,14 @@ def _cmd_render_homepage(args: argparse.Namespace) -> int:
         print("no active edition; nothing rendered")
         return 1
     print(f"rendered: {path}")
+    return 0
+
+
+def _cmd_build_archive(args: argparse.Namespace) -> int:
+    from .archive_renderer import write_editions_archive
+    db = _open_db()
+    path = write_editions_archive(db)
+    print(f"editions archive written: {path}")
     return 0
 
 

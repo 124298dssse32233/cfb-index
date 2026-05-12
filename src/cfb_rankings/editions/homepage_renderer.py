@@ -48,6 +48,30 @@ _ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
 _STUB_DIR = Path(__file__).resolve().parent / "stub_data"
 
 
+# Matches *foo* (italic) and **foo** (bold) in escaped HTML text. We render
+# inline emphasis on dek / summary / tease fields so seed copy that uses
+# markdown convention ("the conversation is about *tempo*") doesn't bleed
+# literal asterisks into the page. Order matters: bold first so its inner
+# `*foo*` doesn't get re-matched as italic.
+import re as _re
+
+_BOLD_RE = _re.compile(r"\*\*([^*]+)\*\*")
+_ITALIC_RE = _re.compile(r"\*([^*\s][^*]*?[^*\s]|[^*\s])\*")
+
+
+def _inline_emphasis(text: str) -> str:
+    """Apply *foo*→<em> and **foo**→<strong> AFTER html.escape().
+
+    Use only on plain-text fields where consistent markdown emphasis has
+    been authored into seed copy. For full markdown processing on body
+    content, use article_renderer._markdown_to_html.
+    """
+    escaped = html.escape(text or "")
+    escaped = _BOLD_RE.sub(r"<strong>\1</strong>", escaped)
+    escaped = _ITALIC_RE.sub(r"<em>\1</em>", escaped)
+    return escaped
+
+
 # ----------------------- Live data fetchers -----------------------
 
 def _fetch_threads_live(db: Database) -> dict[str, Any] | None:
@@ -565,7 +589,7 @@ def _render_cover_essay_tease(edition: Edition, essay: EditionFeature) -> str:
       <span class="meta">{html.escape(essay.byline)}</span>
     </div>
     <h2 class="tease-title">{html.escape(essay.title)}</h2>
-    <p class="tease-dek">{html.escape(essay.dek)}</p>
+    <p class="tease-dek">{_inline_emphasis(essay.dek)}</p>
     <a class="cta" href="/editions/{edition.edition_slug}/{_slugify(essay.title)}/">READ THE COVER ESSAY →</a>
   </div>
 </section>"""
@@ -581,7 +605,7 @@ def _render_feature_toc(secondary: list[EditionFeature]) -> str:
       <div class="toc-roman">{roman}.</div>
       <div>
         <div class="toc-title">{html.escape(f.title)}</div>
-        <div class="toc-dek">{html.escape(f.dek)}</div>
+        <div class="toc-dek">{_inline_emphasis(f.dek)}</div>
       </div>
       <div class="toc-meta">
         {f.read_time_minutes} MIN READ<br>{html.escape(f.byline)}
@@ -625,7 +649,7 @@ def _render_the_daily(daily: dict[str, Any]) -> str:
           <div class="archive-date">{html.escape(a.get('date_label', ''))}</div>
           <div>
             <div class="archive-title">{html.escape(a.get('title', ''))}</div>
-            <div class="archive-summary">{html.escape(a.get('summary', ''))}</div>
+            <div class="archive-summary">{_inline_emphasis(a.get('summary', ''))}</div>
           </div>
         </div>"""
         for a in archive
@@ -805,9 +829,9 @@ def _render_footer(edition: Edition) -> str:
         <h4>DEPARTMENTS</h4>
         <ul>
           <li><a href="/editions/">Editions Archive</a></li>
-          <li><a href="/the-daily/">The Daily</a></li>
+          <li><a href="/daily/">The Daily</a></li>
           <li><a href="/wire/">The Wire</a></li>
-          <li><a href="/threads/">Storyline Threads</a></li>
+          <li><a href="/storylines/">Storyline Threads</a></li>
           <li><a href="/canon/">The Canon</a></li>
         </ul>
       </div>
@@ -859,7 +883,16 @@ def _load_stub(filename: str) -> dict[str, Any]:
 
 
 def _slugify(text: str) -> str:
-    return "".join(c if c.isalnum() else "-" for c in text.lower()).strip("-")
+    # Must collapse consecutive dashes to match article_renderer._slugify so
+    # the homepage cover-essay link resolves to the filesystem path that
+    # article_renderer actually wrote. Without the collapse, titles with
+    # consecutive non-alnum chars (em-dash + space, "It's — Just a Show",
+    # double hyphens, etc.) produced a homepage link with "--" pointing at a
+    # path that was written with single "-".
+    out = "".join(c if c.isalnum() else "-" for c in text.lower()).strip("-")
+    while "--" in out:
+        out = out.replace("--", "-")
+    return out
 
 
 def _humanize_slug(slug: str) -> str:

@@ -229,6 +229,11 @@
 .rivalry-card__meeting-body {
   color: var(--text-primary, #222);
 }
+.rivalry-card__meeting-body--placeholder {
+  color: var(--text-muted, #888);
+  font-style: italic;
+  font-size: 0.9em;
+}
 
 /* ---------- Stakes ---------- */
 .rivalry-card__stakes {

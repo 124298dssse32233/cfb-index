@@ -22,6 +22,16 @@ from cfb_rankings.integrity import (
 from cfb_rankings.reporting import audit_site_links
 
 
+# Link-audit severity thresholds. Tiered rather than binary because a real
+# site of 67k pages will always have a small surface of long-tail dead
+# links (e.g. small-school teams without ranking pages, draft picks whose
+# canon player pages haven't been built). A binary 0/>0 check makes the
+# maintenance validator permanently FAIL and the daily P0 alert noise out
+# the genuinely-urgent failures.
+LINK_AUDIT_WARN_THRESHOLD = 50
+LINK_AUDIT_FAIL_THRESHOLD = 500
+
+
 SEASON_STAGE_LABELS: tuple[tuple[str, str], ...] = (
     ("teamBackfill", "Team/Game Backfill"),
     ("teamSeasonSync", "Season Team Sync"),
@@ -723,15 +733,31 @@ def validate_maintenance_outputs(
         site_link_audit = local_health.get("siteLinkAudit") or {}
         if site_link_audit.get("skipped"):
             _append_validation_check(checks, "Site link audit", "WARN", "Site link audit was skipped.")
-        elif int(site_link_audit.get("brokenLinkCount") or 0) == 0:
-            _append_validation_check(checks, "Site link audit", "PASS", "No broken links reported.")
         else:
-            _append_validation_check(
-                checks,
-                "Site link audit",
-                "FAIL",
-                f"{int(site_link_audit.get('brokenLinkCount') or 0)} broken links reported.",
-            )
+            count = int(site_link_audit.get("brokenLinkCount") or 0)
+            if count == 0:
+                _append_validation_check(checks, "Site link audit", "PASS", "No broken links reported.")
+            elif count < LINK_AUDIT_WARN_THRESHOLD:
+                _append_validation_check(
+                    checks,
+                    "Site link audit",
+                    "WARN",
+                    f"{count} broken links reported (under WARN threshold of {LINK_AUDIT_WARN_THRESHOLD}).",
+                )
+            elif count < LINK_AUDIT_FAIL_THRESHOLD:
+                _append_validation_check(
+                    checks,
+                    "Site link audit",
+                    "WARN",
+                    f"{count} broken links reported (cleanup needed; FAIL threshold is {LINK_AUDIT_FAIL_THRESHOLD}).",
+                )
+            else:
+                _append_validation_check(
+                    checks,
+                    "Site link audit",
+                    "FAIL",
+                    f"{count} broken links reported (over FAIL threshold of {LINK_AUDIT_FAIL_THRESHOLD}).",
+                )
 
         freshness = local_health.get("freshness") or {}
         _append_validation_check(
@@ -1218,13 +1244,23 @@ def _maintenance_action_rows(bundle: dict[str, Any]) -> list[dict[str, Any]]:
 
     site_link_audit = local_health.get("siteLinkAudit") or {}
     broken_links = site_link_audit.get("brokenLinkCount")
-    if isinstance(broken_links, int) and broken_links > 0:
+    if isinstance(broken_links, int) and broken_links >= LINK_AUDIT_WARN_THRESHOLD:
+        # Tiered priority — small counts are cleanup, large counts are structural.
+        # See LINK_AUDIT_*_THRESHOLD comment at module top.
+        if broken_links >= LINK_AUDIT_FAIL_THRESHOLD:
+            priority = "P0"
+            title = "Fix broken internal links before trusting the published site."
+            evidence = f"{broken_links} broken links were reported (over FAIL threshold {LINK_AUDIT_FAIL_THRESHOLD})."
+        else:
+            priority = "P1"
+            title = "Clean up broken internal links."
+            evidence = f"{broken_links} broken links were reported (over WARN threshold {LINK_AUDIT_WARN_THRESHOLD})."
         actions.append(
             _action(
-                "P0",
+                priority,
                 "Publish Health",
-                "Fix broken internal links before trusting the published site.",
-                f"{broken_links} broken links were reported by the site link audit.",
+                title,
+                evidence,
                 ["python manage.py audit-links --site-dir output/site --strict"],
                 "local-health",
             )

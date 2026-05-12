@@ -29,6 +29,7 @@ from cfb_rankings.fan_intelligence import compute_player_mood_index
 # ---------------------------------------------------------------------------
 
 def clean_truncate(text: str, max_chars: int = 240) -> str:
+    text = _strip_reddit_escapes(text)
     if len(text) <= max_chars:
         return text
     truncated = text[:max_chars]
@@ -38,15 +39,42 @@ def clean_truncate(text: str, max_chars: int = 240) -> str:
     return truncated.rstrip(".,;:") + "…"
 
 
+# Reddit-flavored markdown escapes the characters # > * _ ~ ` to prevent
+# autolinks / formatting. When we display the raw text those literal
+# backslashes look like a rendering bug ("\#18 Michigan" instead of
+# "#18 Michigan"). Strip them; we're not doing reddit-side formatting
+# either way.
+_REDDIT_ESCAPE_RE = __import__("re").compile(r"\\([#>*_~`\[\](){}.!|+\\-])")
+
+
+def _strip_reddit_escapes(text: str) -> str:
+    if not text or "\\" not in text:
+        return text
+    return _REDDIT_ESCAPE_RE.sub(r"\1", text)
+
+
 def _clean_attribution(author_pseudonym: str) -> str:
     """Strip email prefix from author display string.
 
     'email@host.com (Display Name)' → 'Display Name'
+
+    Some podcast feeds store the iTunes RSS owner field which already
+    arrived truncated (paren never closed by upstream pipeline) — e.g.
+    'lockedonpodcasts@gmail.com (LJ Martin, Jake Hatch, Deion Sanders'.
+    Handle that case by extracting whatever follows '(' even when the
+    closing paren is missing, and trimming any dangling comma.
+
     Other formats are returned as-is.
     """
-    m = re.match(r"^[^\s@]+@[^\s@]+\s+\((.+)\)\s*$", author_pseudonym.strip())
+    s = author_pseudonym.strip()
+    # Closed-paren form: "email (Name)"
+    m = re.match(r"^[^\s@]+@[^\s@]+\s+\((.+)\)\s*$", s)
     if m:
         return m.group(1)
+    # Open-paren form (upstream truncated): "email (Name1, Name2"
+    m = re.match(r"^[^\s@]+@[^\s@]+\s+\((.+)$", s)
+    if m:
+        return m.group(1).rstrip(",;: ").rstrip("…") + "…"
     return author_pseudonym
 
 
@@ -373,8 +401,16 @@ def render_the_room_board_html(
             f'<p class="the-room-hero__eyebrow">The Room · {season_year}</p>'
             f'<h1 class="the-room-hero__title">Players in The Room — {season_year}</h1>'
             f'<p class="the-room-hero__dek">'
-            f"{count} {noun} with enough conversation signal to publish a mood card this "
-            f"{scope_word}. Gated at {_floor_copy()}."
+            f"Who fans are actually talking about. Each card shows the player's "
+            f"<strong>Belief score</strong> (where the conversation falls on a "
+            f"−100 → +100 cold/hot scale, derived from a weighted sentiment read "
+            f"across own fans, rivals, national press, and media), the dominant "
+            f"<strong>cohort</strong>, mention volume, and a representative quote "
+            f"from the surrounding coverage."
+            f"</p>"
+            f'<p class="the-room-hero__dek">'
+            f"{count} {noun} cleared the publish floor this {scope_word}. "
+            f"Gated at {_floor_copy()}."
             f"</p>"
             f"</div>"
             f'<section class="the-room-board__grid">{cards}</section>'

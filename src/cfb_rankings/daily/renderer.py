@@ -70,21 +70,60 @@ def _source_pills_html(cited_json: str) -> str:
     return f'<div class="source-pills">{pills}</div>'
 
 
-def _entity_link_html(slug: str, entity_type: str) -> str:
+def _entity_link_html(slug: str, entity_type: str, conn=None) -> str:
     if not slug:
         return ""
     if entity_type == "team":
         href = f"/teams/{slug}.html"
         label = slug.replace("-", " ").title()
     elif entity_type == "player":
-        href = f"/players/{slug}.html"
-        label = slug.replace("-", " ").title()
+        # The daily-take generator has historically written the raw
+        # `player_id` (e.g. "2791") into `primary_entity_slug` instead of
+        # the canonical page slug ("nico-iamaleava-2791"). When we see a
+        # numeric value, resolve to the real page slug via the players
+        # table so the link works. If the lookup fails, suppress the link
+        # rather than emit a 404.
+        resolved = _resolve_player_slug(slug, conn) if slug.isdigit() else slug
+        if not resolved:
+            return ""
+        href = f"/players/{resolved}.html"
+        label = resolved.rsplit("-", 1)[0].replace("-", " ").title() if "-" in resolved else resolved
     elif entity_type == "conference":
         href = f"/conferences/{slug}.html"
         label = slug.upper()
     else:
         return ""
     return f'<a class="entity-link" href="{href}">→ {_esc(label)} page</a>'
+
+
+def _resolve_player_slug(player_id_str: str, conn) -> str | None:
+    """Map raw player_id ("2791") → canonical page slug ("nico-iamaleava-2791").
+
+    Returns None if the player isn't found or no conn is provided.
+    Page slug pattern matches reporting.py: lowercased full_name, dashed,
+    suffixed with the numeric id.
+    """
+    if conn is None:
+        return None
+    try:
+        row = conn.execute(
+            "SELECT full_name, player_id FROM players WHERE player_id = ?",
+            (int(player_id_str),),
+        ).fetchone()
+    except Exception:
+        return None
+    if not row:
+        return None
+    full_name, player_id = row[0], row[1]
+    if not full_name:
+        return None
+    # Mirror reporting.py's slug rule: lowercase, alnum-with-dashes, dropping
+    # consecutive dashes; appended with the player_id.
+    cleaned = "".join(c if c.isalnum() else "-" for c in full_name.lower())
+    while "--" in cleaned:
+        cleaned = cleaned.replace("--", "-")
+    cleaned = cleaned.strip("-")
+    return f"{cleaned}-{player_id}" if cleaned else None
 
 
 def _esc(s: str) -> str:
@@ -96,7 +135,8 @@ def _esc(s: str) -> str:
 
 
 def _take_html(rank: int, headline: str, body: str,
-               cited_json: str, entity_slug: str, entity_type: str) -> str:
+               cited_json: str, entity_slug: str, entity_type: str,
+               conn=None) -> str:
     rank_labels = {1: "Take #1 — Top Story", 2: "Take #2 — Two Reads", 3: "Take #3 — Buried Lede"}
     rank_label = rank_labels.get(rank, f"Take #{rank}")
 
@@ -105,7 +145,7 @@ def _take_html(rank: int, headline: str, body: str,
         body_paras = f"<p>{_esc(body)}</p>"
 
     pills = _source_pills_html(cited_json)
-    entity = _entity_link_html(entity_slug, entity_type)
+    entity = _entity_link_html(entity_slug, entity_type, conn=conn)
 
     return f"""<article class="take">
   <div class="take__rank">
@@ -142,7 +182,7 @@ def _render_one(
     rows = conn.execute(
         """
         SELECT rank_position, headline, body, cited_sources_json,
-               primary_entity_slug, primary_entity_type
+               primary_entity_slug, primary_entity_type, generation_model
         FROM daily_takes
         WHERE edition_date = ?
         ORDER BY rank_position
@@ -154,10 +194,31 @@ def _render_one(
         log.warning("render_one(%s): no takes found in DB", edition_date)
         rows = []
 
+    # Surface a transparent banner when this edition was assembled by the
+    # offline-fallback synthesizer rather than the LLM pipeline. The
+    # editorial audit flagged that fallback days read as templated; rather
+    # than hide that, we tell the reader what they're looking at.
+    fallback_used = any(
+        (r[6] or "").lower() in ("offline-fallback", "stub", "")
+        for r in rows
+    ) if rows else False
+    fallback_banner = (
+        '<div class="daily-fallback-banner" style="margin: 16px 0; padding: 12px 16px; '
+        'border: 1px solid #d0a050; background: #fff8e6; color: #4a3500; '
+        'border-radius: 4px; font-size: 14px;">'
+        '<strong>Editorial note:</strong> The Daily for this edition was '
+        'assembled by the offline-fallback synthesizer (the LLM pipeline was '
+        'unavailable at publish time). Tone and structure may read more '
+        'templated than usual — replaced on the next live run.'
+        '</div>'
+        if fallback_used else ''
+    )
+
     takes_html = "\n".join(
-        _take_html(r[0], r[1], r[2], r[3], r[4] or "", r[5] or "event")
+        _take_html(r[0], r[1], r[2], r[3], r[4] or "", r[5] or "event", conn=conn)
         for r in rows
     )
+    takes_html = fallback_banner + takes_html
 
     tpl = _load_template()
     html = tpl.substitute(

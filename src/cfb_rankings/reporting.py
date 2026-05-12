@@ -5391,6 +5391,29 @@ def _team_link(prefix: str, slug: str | None, label: str, css_class: str = "team
     return f'<span class="{css_class} is-unlinked">{escaped_label}</span>{extra_html}'
 
 
+def _valid_team_slug(slug: Any) -> str | None:
+    """Return slug if a team page exists for it, else None.
+
+    Use this to gate `<a href="../teams/{slug}.html">...</a>` emissions on
+    player / heisman / index pages. Without this guard, ~2000 broken links
+    fire from player pages to small-school teams (NAIA/DIII/Indep) whose
+    team pages never get built because they have no current ranking.
+
+    Returns None when:
+      - slug is empty / falsy
+      - _VALID_TEAM_SLUGS has been populated and slug is not in it
+
+    Callers that already test `if team_slug:` for emission will short-
+    circuit naturally when this returns None.
+    """
+    slug_str = str(slug or "").strip()
+    if not slug_str:
+        return None
+    if _VALID_TEAM_SLUGS and slug_str not in _VALID_TEAM_SLUGS:
+        return None
+    return slug_str
+
+
 def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str]]:
     """Walk the built site and return a list of broken internal href targets.
 
@@ -5398,15 +5421,29 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
     template literals (e.g. ${varName}) do not register as real links. External
     links (http/https/mailto/tel), anchors, and data URIs are skipped; only
     internal .html paths are resolved against the file's location and checked.
+
+    Performance: precomputes a single set of *.html files under the site root
+    so each href is O(1) set lookup instead of a Path.resolve()+exists() pair
+    (which on Windows costs a stat() syscall per call). For a 67k-page site
+    this drops audit wall-clock from ~10 min to ~1 min.
     """
     root = Path(site_dir).resolve()
     if not root.exists():
         return [{"file": str(root), "href": "", "reason": "site directory does not exist"}]
     html_files = list(root.rglob("*.html"))
+    # Build a normalized lookup of every existing .html target as a POSIX-style
+    # path relative to root ("teams/alabama.html", "editions/index.html").
+    valid_targets: set[str] = set()
+    for p in html_files:
+        try:
+            rel = p.relative_to(root).as_posix()
+        except ValueError:
+            continue
+        valid_targets.add(rel)
     broken: list[dict[str, str]] = []
     script_style_re = re.compile(r"<(?:script|style)\b[\s\S]*?</(?:script|style)>", re.IGNORECASE)
     href_re = re.compile(r"""href\s*=\s*["']([^"']+)["']""", re.IGNORECASE)
-    skip_prefixes = ("http://", "https://", "mailto:", "tel:", "javascript:", "data:", "#")
+    skip_prefixes = ("http://", "https://", "//", "mailto:", "tel:", "javascript:", "data:", "#")
     for path in html_files:
         try:
             raw = path.read_text(encoding="utf-8", errors="replace")
@@ -5414,10 +5451,16 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
             broken.append({"file": str(path), "href": "", "reason": f"read error: {exc}"})
             continue
         clean = script_style_re.sub(" ", raw)
+        try:
+            file_rel = path.relative_to(root).as_posix()
+        except ValueError:
+            file_rel = str(path)
+        # Directory of this file inside the site, used to resolve relative hrefs.
+        file_dir_parts = file_rel.split("/")[:-1]
         for match in href_re.finditer(clean):
             raw_href = match.group(1).strip()
             if not raw_href:
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "empty href"})
+                broken.append({"file": file_rel, "href": raw_href, "reason": "empty href"})
                 continue
             if raw_href.startswith(skip_prefixes):
                 continue
@@ -5426,18 +5469,42 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
             if not href:
                 continue
             if re.search(r"/\.html$", href) or href.endswith("/.html"):
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "empty-slug .html"})
+                broken.append({"file": file_rel, "href": raw_href, "reason": "empty-slug .html"})
                 continue
-            if not href.endswith(".html"):
+            # Build target as a POSIX-style path relative to the site root.
+            # Site-absolute ("/foo/bar.html") resolves against root (NOT
+            # filesystem root). Trailing-slash hrefs map to <dir>/index.html
+            # the same way a web server would serve them.
+            if href.startswith("/"):
+                base_parts: list[str] = []
+                rel = href.lstrip("/")
+            else:
+                base_parts = list(file_dir_parts)
+                rel = href
+            if rel.endswith("/"):
+                rel = rel + "index.html"
+            if not rel.endswith(".html"):
                 continue
-            target = (path.parent / href).resolve()
-            try:
-                target.relative_to(root)
-            except ValueError:
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "escapes site root"})
+            # Walk path segments, honoring ".." (parent) and "." (current).
+            parts = base_parts + [p for p in rel.split("/") if p]
+            resolved: list[str] = []
+            escapes = False
+            for segment in parts:
+                if segment == "..":
+                    if not resolved:
+                        escapes = True
+                        break
+                    resolved.pop()
+                elif segment == ".":
+                    continue
+                else:
+                    resolved.append(segment)
+            if escapes:
+                broken.append({"file": file_rel, "href": raw_href, "reason": "escapes site root"})
                 continue
-            if not target.exists():
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "target missing"})
+            target_rel = "/".join(resolved)
+            if target_rel not in valid_targets:
+                broken.append({"file": file_rel, "href": raw_href, "reason": "target missing"})
     return broken
 
 
@@ -16221,10 +16288,14 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     position = str(player.get("position") or primary_team.get("position") or "--")
     class_year = str(player.get("class_year") or primary_team.get("class_year") or "--")
     team_name = str(primary_team.get("team_name") or "Independent file")
-    team_slug = primary_team.get("team_slug")
+    # team_slug used for url-emitting context drops to None when the team page
+    # was never built (NAIA / DIII / unranked). team_theme/team_mark still see
+    # the raw slug so theming holds for the player page itself.
+    raw_team_slug = primary_team.get("team_slug")
+    team_slug = _valid_team_slug(raw_team_slug)
     conference_name = str(primary_team.get("conference_name") or "Team context TBD")
-    team_theme = _team_theme(str(team_slug or player.get("player_slug") or "player"))
-    team_mark = _team_mark(player_name, slug=team_slug)
+    team_theme = _team_theme(str(raw_team_slug or player.get("player_slug") or "player"))
+    team_mark = _team_mark(player_name, slug=raw_team_slug)
     current_rank_text = _display_rank_text(current_snapshot.get("nowcast_rank"))
     forecast_text = _display_rank_text(current_snapshot.get("forecast_rank"))
     best_finish_text = (
@@ -17948,9 +18019,10 @@ def _render_heisman_board_row(row: HeismanRankingRow, include_market: bool = Fal
             row.class_year or "",
         ]
     ).lower()
+    team_slug = _valid_team_slug(row.team_slug)
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(row.team_slug))}.html">{escape(str(row.team_name or ""))}</a>'
-        if row.team_slug
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(str(row.team_name or ""))}</a>'
+        if team_slug
         else escape(str(row.team_name or "--"))
     )
     market_cell = (
@@ -17997,9 +18069,9 @@ def _render_player_directory_row(row: dict[str, Any]) -> str:
         ]
     ).lower()
     team_name = str(row.get("team_name") or row.get("primary_team_name") or "--")
-    team_slug = row.get("team_slug") or row.get("primary_team_slug")
+    team_slug = _valid_team_slug(row.get("team_slug") or row.get("primary_team_slug"))
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)}</a>'
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(team_name)}</a>'
         if team_slug
         else escape(team_name)
     )
@@ -18026,9 +18098,10 @@ def _render_player_directory_row(row: dict[str, Any]) -> str:
 
 
 def _render_player_heisman_year_row(row: dict[str, Any]) -> str:
+    team_slug = _valid_team_slug(row.get("team_slug"))
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(row.get("team_slug") or ""))}.html">{escape(str(row.get("team_name") or ""))}</a>'
-        if row.get("team_slug")
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(str(row.get("team_name") or ""))}</a>'
+        if team_slug
         else escape(str(row.get("team_name") or "--"))
     )
     latest_model_rank = (
@@ -18070,9 +18143,10 @@ def _render_player_heisman_year_row(row: dict[str, Any]) -> str:
 
 
 def _render_player_roster_history_row(row: dict[str, Any]) -> str:
+    team_slug = _valid_team_slug(row.get("team_slug"))
     team_cell = (
-        f'<a class="team-link" href="../teams/{escape(str(row.get("team_slug") or ""))}.html">{escape(str(row.get("team_name") or ""))}</a>'
-        if row.get("team_slug")
+        f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(str(row.get("team_name") or ""))}</a>'
+        if team_slug
         else escape(str(row.get("team_name") or "--"))
     )
     bio_parts = []
@@ -18879,9 +18953,9 @@ def _render_player_season_stat_table(section: dict[str, Any]) -> str:
     rows_html: list[str] = []
     for row in (section.get("rows") or []):
         team_name = str(row.get("team_name") or "--")
-        team_slug = row.get("team_slug")
+        team_slug = _valid_team_slug(row.get("team_slug"))
         team_cell = (
-            f'<a class="team-link" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)}</a>'
+            f'<a class="team-link" href="../teams/{escape(team_slug)}.html">{escape(team_name)}</a>'
             if team_slug
             else f"<strong>{escape(team_name)}</strong>"
         )

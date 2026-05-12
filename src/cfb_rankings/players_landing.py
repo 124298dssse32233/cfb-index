@@ -177,10 +177,15 @@ def render_players_landing_html(payload: dict[str, Any], season_year: int) -> st
     <main class="container players-landing">
       <h1>{escape(title)}</h1>
       <p class="prose-panel">
-        Two lenses on every college-football player worth watching: a
-        headline stat from the Signature Story engine, and a fan-mood
-        card — The Room on [Player] — for anyone whose conversation
-        signal has cleared the floor.
+        Two lenses on every player worth watching. <strong>Signature
+        Stories</strong> are the engine's top statistical case — the
+        single number that makes the strongest argument for that player
+        right now. <strong>The Room</strong> tracks who fans are
+        actually <em>talking about</em> — own fans, rivals, national
+        media — with a belief score that quantifies whether the
+        conversation runs warm or cold. Together they answer two
+        different questions: "who's playing best?" and "who's
+        everyone watching?"
       </p>
       {ss_panel}
       {room_panel}
