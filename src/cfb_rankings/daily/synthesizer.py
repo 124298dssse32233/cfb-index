@@ -135,6 +135,14 @@ def _extract_headline_and_body(text: str) -> tuple[str, str]:
     if not lines:
         return ("Take", text)
     headline = lines[0].strip().lstrip("#").strip()
+    # Strip leading/trailing markdown bold/italic markers so headlines
+    # don't render as literal "**Headline**" — the LLM occasionally wraps
+    # its first line in bold markers when the system prompt suggests
+    # emphasis.
+    while headline.startswith("**") and headline.endswith("**") and len(headline) > 4:
+        headline = headline[2:-2].strip()
+    while headline.startswith("*") and headline.endswith("*") and len(headline) > 2:
+        headline = headline[1:-1].strip()
     body_lines = []
     for line in lines[1:]:
         stripped = line.strip()
