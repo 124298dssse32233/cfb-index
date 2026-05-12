@@ -21046,7 +21046,7 @@ def _render_home_board_row(team_data: dict[str, Any], is_open: bool) -> str:
                 <p>{escape(best_result)}</p>
               </div>
               <div class="result-slab">
-                <span class="result-kicker">Pressure Point</span>
+                <span class="result-kicker">Closest Call</span>
                 <p>{escape(worst_result)}</p>
               </div>
               <div class="result-slab result-slab-wide">
@@ -21082,7 +21082,12 @@ def _render_home_team_accordion(team_pages: list[dict[str, Any]]) -> str:
         efficiency_snapshot = team_data["efficiency_snapshot"]
         history_profile = team_data.get("history_profile") or {}
         trend_points = team_data["trend_points"]
-        schedule = team_data["schedule"][:4]
+        # Pass the full schedule so _compact_recent_form / _best_result_text /
+        # _worst_result_text see the whole season. The prior [:4] slice
+        # silently truncated to the first four games — making "Best signal"
+        # / "Closest call" / "Last 4 games" all derive from weeks 1-4 instead
+        # of the full year. Caught in Octopus delivery review 2026-05-12.
+        schedule = team_data["schedule"]
         conference = _clean_conference_name(str(team.get("conference_name") or f"{ranking.level_code} Independents"))
         wins = int(season_summary.get("wins") or 0)
         losses = int(season_summary.get("losses") or 0)
