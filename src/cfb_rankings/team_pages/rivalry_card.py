@@ -302,13 +302,26 @@ def _render_single_panel(
         attr_text = quote.get("attribution") or ""
     elif posture:
         quote_text = posture.get("body_md") or ""
+    # Suppress empty-quote noise. Rendering `""` with no content reads as a
+    # rendering bug on the live page (cf. Alabama–Auburn rivalry card on the
+    # offseason build where neither side has authored quote copy yet).
+    quote_html = (
+        f'<blockquote class="rivalry-card__panel-quote">&ldquo;{html.escape(quote_text)}&rdquo;</blockquote>'
+        if quote_text.strip()
+        else ''
+    )
+    attr_html = (
+        f'<cite class="rivalry-card__panel-attr">{html.escape(attr_text)}</cite>'
+        if attr_text.strip()
+        else ''
+    )
     return f"""<article class="rivalry-card__panel{' rivalry-card__panel--primary' if is_primary else ''}" style="--panel-accent: {accent}">
       <div class="rivalry-card__panel-head">
         <span class="rivalry-card__panel-name">{html.escape(name)}</span>
         <span class="rivalry-card__panel-posture">{html.escape(posture_tag)}</span>
       </div>
-      <blockquote class="rivalry-card__panel-quote">"{html.escape(quote_text)}"</blockquote>
-      <cite class="rivalry-card__panel-attr">{html.escape(attr_text)}</cite>
+      {quote_html}
+      {attr_html}
     </article>"""
 
 
@@ -322,22 +335,35 @@ def _render_meetings(profile: Profile, opp: str, meetings: list[dict[str, Any]])
     rows_html = []
     for m in meetings:
         year = m.get("season_year") or ""
-        commentary = m.get("commentary_text") or ""
+        commentary = (m.get("commentary_text") or "").strip()
         winner_slug = m.get("winner_slug")
         pill_cls = "rivalry-card__meeting-result"
         pill_text = "—"
+        result_label = ""
         if winner_slug == profile.slug:
             pill_cls += " rivalry-card__meeting-result--win"
             pill_text = "W"
+            result_label = "Win"
         elif winner_slug and winner_slug != "tie":
             pill_cls += " rivalry-card__meeting-result--loss"
             pill_text = "L"
+            result_label = "Loss"
         elif winner_slug == "tie":
             pill_text = "T"
+            result_label = "Tie"
+        # If no commentary copy exists for this season, show a quiet fallback
+        # so the row doesn't appear empty / cut off. Live data may fill it in
+        # later via the commentary backfill.
+        if commentary:
+            body_html = html.escape(commentary)
+        elif year and result_label:
+            body_html = f'<span class="rivalry-card__meeting-body--placeholder">{result_label} on file &mdash; commentary pending.</span>'
+        else:
+            body_html = ''
         rows_html.append(f"""<li class="rivalry-card__meeting">
           <span class="{pill_cls}" aria-label="Result">{html.escape(pill_text)}</span>
           <span class="rivalry-card__meeting-year">{html.escape(str(year))}</span>
-          <span class="rivalry-card__meeting-body">{html.escape(commentary)}</span>
+          <span class="rivalry-card__meeting-body">{body_html}</span>
         </li>""")
     return f"""<div class="rivalry-card__meetings">
       <p class="rivalry-card__section-eyebrow">THE LAST {len(meetings)} · year-by-year</p>

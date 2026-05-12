@@ -147,6 +147,11 @@ def _fetch_sources(db: Database) -> list[dict[str, Any]]:
                   order by run_date desc limit 1) as last_status
         from source_registry sr
         where sr.source_id is not null
+          -- Templates ("athletics_template", "beat_template", etc.) are
+          -- inheritance patterns that per-team sources adopt — they never
+          -- run themselves and render as "no last fetch" noise in the
+          -- public source catalog. Filter them out.
+          and sr.source_id not like '%_template'
         order by sr.tier, sr.source_id
         """
     )
