@@ -498,7 +498,7 @@ def render_index(db, output_dir: Path | str) -> Path:
             try:
                 last_date = _dt.strptime(str(last_raw)[:10], "%Y-%m-%d").date()
                 age_days = (today - last_date).days
-                if age_days >= 21:
+                if age_days >= 14:
                     status = "Dormant"
             except (ValueError, TypeError):
                 pass
