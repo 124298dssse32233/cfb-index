@@ -5,11 +5,10 @@
   "framework": null,
   "cleanUrls": false,
   "trailingSlash": false,
-  "redirects": [
+  "rewrites": [
     {
-      "source": "/:slug([a-z0-9][a-z0-9-]+).html",
-      "destination": "/teams/:slug.html",
-      "permanent": false
+      "source": "/:slug([a-z][a-z0-9-]+).html",
+      "destination": "/teams/:slug.html"
     }
   ]
 }
