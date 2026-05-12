@@ -63,6 +63,11 @@ jobs:
       - name: Bootstrap DB schema (idempotent)
         run: python manage.py init-db
 
+      # Seed editions defensively — the Wire homepage patcher needs the
+      # active edition to exist for the homepage Wire section to render.
+      - name: Seed editions (idempotent)
+        run: python manage.py seed-editions || echo "seed-editions skipped"
+
       - name: Wire — ingest last 7 days of transactions
         run: python manage.py wire-ingest --days 7 --target-count 60
 

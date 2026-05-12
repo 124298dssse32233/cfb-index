@@ -47,6 +47,11 @@ jobs:
           if_no_artifact_found: warn
 
       - run: python manage.py init-db
+      # Seed editions defensively — when this workflow's DB came from a
+      # sibling workflow (mailbag/wire) the editions table may be empty,
+      # which makes render-homepage exit with "no active edition" and
+      # leaves the homepage Daily strip frozen on stale prior-site HTML.
+      - run: python manage.py seed-editions || echo "seed-editions skipped"
       - run: python manage.py generate-daily
       - run: python manage.py render-daily
 
