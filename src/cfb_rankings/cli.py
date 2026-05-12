@@ -1249,6 +1249,45 @@ def build_parser() -> argparse.ArgumentParser:
 
     # END MERGE ZONE — Sprint 15
 
+    # ---- Sprint 12: The Wire CLI surface ----
+    # The wire-daily GitHub Actions workflow references these three commands,
+    # but they were never wired up. Added so the workflow can run as designed.
+    wire_ingest_parser = subparsers.add_parser(
+        "wire-ingest",
+        help="Sprint 12: ingest recent CFBD actions into wire_entries "
+             "(transfers, coaching changes, recruiting commits).",
+    )
+    wire_ingest_parser.add_argument("--days", type=int, default=7,
+        help="Lookback window in days (default: 7).")
+    wire_ingest_parser.add_argument("--target-count", type=int, default=60,
+        help="Approximate target row count after ingest (default: 60).")
+
+    wire_editorial_parser = subparsers.add_parser(
+        "wire-generate-editorial",
+        help="Sprint 12: backfill why_it_matters / impact_label on wire_entries "
+             "rows that don't have them. Existing copy is preserved unless "
+             "--overwrite is passed.",
+    )
+    wire_editorial_parser.add_argument("--days", type=int, default=14,
+        help="Lookback window in days (default: 14).")
+    wire_editorial_parser.add_argument("--overwrite", action="store_true",
+        help="Overwrite existing editorial fields (use with care).")
+
+    render_wire_parser = subparsers.add_parser(
+        "render-wire",
+        help="Sprint 12: render /wire/index.html + monthly archive pages "
+             "and patch the homepage Wire <tbody>.",
+    )
+    render_wire_parser.add_argument("--days", type=int, default=30,
+        help="Days of entries to show on the wire index (default: 30).")
+    render_wire_parser.add_argument("--limit", type=int, default=8,
+        help="Number of entries to patch into the homepage Wire panel "
+             "(default: 8).")
+    render_wire_parser.add_argument("--homepage-path", default=None,
+        help="Override homepage path (default: output/site/index.html).")
+    render_wire_parser.add_argument("--skip-homepage", action="store_true",
+        help="Skip the homepage Wire <tbody> patch — render /wire/ only.")
+
     # ---- Sprint 8.5: Pulse follow-ups ----
     prepare_pulse_parser = subparsers.add_parser(
         "prepare-pulse",
@@ -4205,6 +4244,42 @@ def main() -> None:
         return
 
     # END MERGE ZONE — Sprint 15
+
+    # ---- Sprint 12: The Wire dispatch ----
+    if args.command == "wire-ingest":
+        from cfb_rankings.wire.ingestion import collect_recent_actions, upsert_actions
+        actions = collect_recent_actions(
+            db, days=args.days, target_count=args.target_count,
+        )
+        stats = upsert_actions(db, actions)
+        print(json.dumps(
+            {"collected": len(actions), **stats},
+            indent=2,
+        ), flush=True)
+        return
+
+    if args.command == "wire-generate-editorial":
+        from cfb_rankings.wire.editorial import generate_editorial_for_pending
+        stats = generate_editorial_for_pending(
+            db, days=args.days, overwrite=args.overwrite,
+        )
+        print(json.dumps(stats, indent=2), flush=True)
+        return
+
+    if args.command == "render-wire":
+        from cfb_rankings.wire.renderer import render_all as render_wire_all
+        from cfb_rankings.wire.homepage_integration import refresh_homepage_wire_block
+        result = render_wire_all(db, days=args.days)
+        if not args.skip_homepage:
+            homepage_path = (
+                Path(args.homepage_path) if args.homepage_path else None
+            )
+            patch_stats = refresh_homepage_wire_block(
+                db, homepage_path=homepage_path, limit=args.limit,
+            )
+            result["homepage_patch"] = patch_stats
+        print(json.dumps(result, indent=2, default=str), flush=True)
+        return
 
     # ---- Sprint 8.5: Pulse follow-ups ----
     if args.command == "prepare-pulse":

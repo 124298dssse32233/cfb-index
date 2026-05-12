@@ -9,13 +9,11 @@ name: Publish Weekly Edition
 
 on:
   workflow_dispatch:
-  # Uncomment when ready:
-  # schedule:
-  #   - cron: '0 10 * * 6'   # Saturdays 06:00 ET = 10:00 UTC
+  schedule:
+    - cron: '0 10 * * 6'   # Saturdays 06:00 ET = 10:00 UTC
 
 jobs:
   publish:
-    if: false  # Disabled by default; remove when ready to go live.
     runs-on: ubuntu-latest
     permissions:
       contents: write

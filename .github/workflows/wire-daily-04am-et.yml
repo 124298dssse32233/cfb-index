@@ -30,13 +30,12 @@ name: wire-daily-04am-et
 #   * Change `if: false` on the job to `if: true` (or delete the line).
 
 on:
-  # schedule:
-  #   - cron: "0 9 * * *"   # 04:00 ET (EDT) / 03:00 ET (EST) — accepted DST drift
+  schedule:
+    - cron: "0 9 * * *"   # 04:00 ET (EDT) / 03:00 ET (EST) — accepted DST drift
   workflow_dispatch:
 
 jobs:
   refresh:
-    if: false   # disabled per Sprint 12 spec; flip to enable.
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
