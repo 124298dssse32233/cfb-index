@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editions Archive · CFB Index</title>
+  <meta name="description" content="Every weekly issue of the CFB Index — cover essays, features, and voices, archived in one place.">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --ink: #1a1a1a;
+  --paper: #f6f1e6;
+  --paper-dim: #ece6d6;
+  --rule: #1a1a1a;
+  --rule-soft: rgba(26, 26, 26, 0.18);
+  --gold: #c9a24a;
+  --navy: #1f2c4d;
+  --muted: #7a7a7a;
+  --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
+  --sans: 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+}
+html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--serif); font-size: 17px; line-height: 1.65; }
+.page { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+hr.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
+hr.rule.gold { background: var(--gold); height: 3px; }
+hr.rule.soft { background: var(--rule-soft); }
+
+/* Masthead */
+.masthead { padding: 32px 0 16px; }
+.masthead .chrome { display: flex; justify-content: space-between;
+  font-family: var(--sans); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink);
+  padding-bottom: 16px; }
+.masthead .brand-row { display: flex; align-items: baseline;
+  padding: 28px 0; gap: 48px; }
+.masthead .brand { font-family: var(--serif); font-size: 56px; font-weight: 700;
+  letter-spacing: -0.02em; }
+.masthead .brand .slash { color: var(--gold); margin: 0 2px; }
+.masthead .nav { margin-left: auto; display: flex; gap: 28px;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; }
+.masthead .nav a { color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid transparent; padding-bottom: 2px; }
+.masthead .nav a:hover { border-bottom-color: var(--gold); }
+.masthead .nav a.current { border-bottom-color: var(--gold); color: var(--ink); }
+
+/* Hero */
+.hero { padding: 56px 0 32px; }
+.hero .eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 12px; }
+.hero h1 { font-family: var(--serif); font-size: 88px; line-height: 1;
+  font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+.hero p.lede { font-family: var(--serif); font-size: 22px; font-style: italic;
+  line-height: 1.45; max-width: 720px; margin: 24px 0 0; color: var(--ink); }
+
+/* Issue grid */
+.issues { padding: 48px 0 96px; display: grid; gap: 64px; }
+.issue { display: grid; grid-template-columns: 220px 1fr; gap: 48px;
+  align-items: start; border-top: 1px solid var(--rule);
+  padding-top: 40px; }
+.issue:first-of-type { border-top: 3px solid var(--gold); padding-top: 32px; }
+.issue .roman-col { text-align: center; }
+.issue .roman-col .roman { font-family: var(--serif); font-size: 96px;
+  font-weight: 600; line-height: 1; color: var(--ink); }
+.issue .roman-col .vol { font-family: var(--sans); font-size: 11px;
+  font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-top: 12px; display: block; }
+.issue .roman-col .date { font-family: var(--sans); font-size: 11px;
+  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink); margin-top: 6px; display: block; }
+.issue .roman-col .status-draft { display: inline-block; margin-top: 12px;
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--paper);
+  background: var(--muted); padding: 3px 8px; }
+
+.issue .body-col h2 { font-family: var(--serif); font-size: 44px;
+  font-weight: 700; line-height: 1.1; margin: 0 0 16px; }
+.issue .body-col h2 a { color: var(--ink); text-decoration: none; }
+.issue .body-col h2 a:hover { color: var(--navy); }
+.issue .body-col .dek { font-family: var(--serif); font-size: 20px;
+  font-style: italic; line-height: 1.5; margin: 0 0 24px; color: var(--ink); }
+.issue .body-col .cta { display: inline-block; font-family: var(--sans);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+  border-bottom: 2px solid var(--gold); padding-bottom: 4px;
+  margin-bottom: 28px; text-decoration: none; }
+.issue .body-col .also-label { font-family: var(--sans); font-size: 10px;
+  font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin: 24px 0 12px; }
+.issue .body-col ul.features { list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 8px; }
+.issue .body-col ul.features li { display: grid;
+  grid-template-columns: 32px 1fr; gap: 12px; align-items: baseline;
+  padding: 10px 0; border-top: 1px solid var(--rule-soft); }
+.issue .body-col ul.features li:first-of-type { border-top: 0; }
+.issue .body-col ul.features .num { font-family: var(--serif); font-size: 16px;
+  font-weight: 600; color: var(--gold); }
+.issue .body-col ul.features .title { font-family: var(--serif); font-size: 16px;
+  font-weight: 600; line-height: 1.35; }
+.issue .body-col ul.features .title a { color: var(--ink); text-decoration: none; }
+.issue .body-col ul.features .title a:hover { text-decoration: underline; }
+.issue .body-col ul.features .kind { font-family: var(--sans); font-size: 10px;
+  font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin-left: 8px; }
+
+/* Empty state */
+.empty { padding: 96px 0; text-align: center; color: var(--muted); }
+.empty h2 { font-family: var(--serif); font-size: 32px; color: var(--ink);
+  margin-bottom: 16px; }
+
+/* Footer */
+.footer { background: var(--ink); color: var(--paper); padding: 64px 0 48px;
+  margin-top: 32px; }
+.footer .chrome { display: flex; justify-content: space-between;
+  font-family: var(--sans); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--paper);
+  border-bottom: 1px solid var(--paper); padding-bottom: 24px;
+  margin-bottom: 32px; }
+.footer a { color: var(--paper); }
+.footer .bottom { font-family: var(--sans); font-size: 10px;
+  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--paper); margin-top: 24px; }
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 56px; }
+  .issue { grid-template-columns: 1fr; gap: 16px; }
+  .issue .roman-col { display: flex; align-items: baseline; gap: 16px;
+    text-align: left; }
+  .issue .roman-col .roman { font-size: 48px; }
+  .issue .body-col h2 { font-size: 32px; }
+  .masthead .brand-row { flex-wrap: wrap; gap: 16px; }
+  .masthead .nav { width: 100%; flex-wrap: wrap; gap: 16px; margin-left: 0; }
+}
+</style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="page">
+      <div class="chrome">
+        <span>THE EDITIONS ARCHIVE</span>
+        <span>CFB · INDEX</span>
+        <span>4 ISSUES</span>
+      </div>
+      <hr class="rule">
+      <div class="brand-row">
+        <div class="brand">CFB<span class="slash">/</span>INDEX</div>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/rankings/">Rankings</a>
+          <a href="/daily/">Daily</a>
+          <a href="/wire/">Wire</a>
+          <a href="/mailbag/">Mailbag</a>
+          <a class="current" href="/editions/">Editions</a>
+          <a href="/methodology/">Methodology</a>
+        </nav>
+      </div>
+      <hr class="rule">
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="page">
+      <div class="eyebrow">THE ARCHIVE</div>
+      <h1>Every issue.</h1>
+      <p class="lede">The CFB Index publishes a new edition every Monday — a
+        cover essay, a cover viz, and five secondary features built around a
+        single theme. Past issues live here in full.</p>
+    </div>
+  </section>
+
+  <div class="page">
+    <section class="issues">
+  <article class="issue">
+    <div class="roman-col">
+      <div class="roman">XVII</div>
+      <span class="vol">Vol. I · No. 17</span>
+      <span class="date">April 25, 2026</span>
+      
+    </div>
+    <div class="body-col">
+      <h2><a href="/editions/2026-w17/after-the-bracket-three-conversations/">After the Bracket</a></h2>
+      <p class="dek">The first 12-team field is in the books. Every program now lives inside one of three conversations — and the gap between them is the story of the offseason.</p>
+      <a class="cta" href="/editions/2026-w17/after-the-bracket-three-conversations/">Read the cover essay →</a>
+      
+      <div class="also-label">Also in this issue</div>
+      <ul class="features">
+        <li>
+          <span class="num">1.</span>
+          <span class="title">
+            <a href="/editions/2026-w17/iowa-s-spring-doesn-t-feel-like-iowa/">Iowa&#x27;s Spring Doesn&#x27;t Feel Like Iowa</a>
+            <span class="kind">FEATURE</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">2.</span>
+          <span class="title">
+            <a href="/editions/2026-w17/the-boise-prediction-aged-well/">The Boise Prediction Aged Well</a>
+            <span class="kind">RECEIPT</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">3.</span>
+          <span class="title">
+            <a href="/editions/2026-w17/the-2026-texas-spring-looks-like-the-2008-texas-spring/">The 2026 Texas Spring Looks Like the 2008 Texas Spring</a>
+            <span class="kind">CONNECTION</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">4.</span>
+          <span class="title">
+            <a href="/editions/2026-w17/where-the-stat-folks-and-the-regular-fans-disagree-about-the-big-12/">Where the Stat Folks and the Regular Fans Disagree About the Big 12</a>
+            <span class="kind">DISAGREEMENT</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">5.</span>
+          <span class="title">
+            <a href="/editions/2026-w17/what-it-feels-like-to-root-for-the-team-that-lost-the-first-round/">What It Feels Like to Root for the Team That Lost the First Round</a>
+            <span class="kind">FAN VOICE</span>
+          </span>
+        </li></ul>
+    </div>
+  </article>
+  <article class="issue">
+    <div class="roman-col">
+      <div class="roman">XVI</div>
+      <span class="vol">Vol. I · No. 16</span>
+      <span class="date">April 18, 2026</span>
+      
+    </div>
+    <div class="body-col">
+      <h2><a href="/editions/2026-w16/the-draft-pulled-the-roster-curtain-back/">The Post-Draft Reset</a></h2>
+      <p class="dek">Twenty-three first-round picks left college football in 72 hours. What got drafted was the last residue of the playoff-era roster build.</p>
+      <a class="cta" href="/editions/2026-w16/the-draft-pulled-the-roster-curtain-back/">Read the cover essay →</a>
+      
+      <div class="also-label">Also in this issue</div>
+      <ul class="features">
+        <li>
+          <span class="num">1.</span>
+          <span class="title">
+            <a href="/editions/2026-w16/what-texas-has-left-after-four-picks/">What Texas Has Left After Four Picks</a>
+            <span class="kind">FEATURE</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">2.</span>
+          <span class="title">
+            <a href="/editions/2026-w16/boise-s-zero-loss-roster-echoes-cincinnati-2021/">Boise&#x27;s Zero-Loss Roster Echoes Cincinnati 2021</a>
+            <span class="kind">CONNECTION</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">3.</span>
+          <span class="title">
+            <a href="/editions/2026-w16/the-texas-will-drop-three-spots-prediction/">The Texas-Will-Drop-Three-Spots Prediction</a>
+            <span class="kind">RECEIPT</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">4.</span>
+          <span class="title">
+            <a href="/editions/2026-w16/a-boise-subreddit-comment-that-said-the-quiet-part/">A Boise Subreddit Comment that Said the Quiet Part</a>
+            <span class="kind">FAN VOICE</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">5.</span>
+          <span class="title">
+            <a href="/editions/2026-w16/the-notre-dame-climbed-two-spots-disagreement/">The &#x27;Notre Dame Climbed Two Spots&#x27; Disagreement</a>
+            <span class="kind">DISAGREEMENT</span>
+          </span>
+        </li></ul>
+    </div>
+  </article>
+  <article class="issue">
+    <div class="roman-col">
+      <div class="roman">XV</div>
+      <span class="vol">Vol. I · No. 15</span>
+      <span class="date">April 11, 2026</span>
+      
+    </div>
+    <div class="body-col">
+      <h2><a href="/editions/2026-w15/the-quiet-window-was-the-important-window/">Portal Two, Quietly</a></h2>
+      <p class="dek">The second window closed on a Wednesday. Nobody noticed because the draft was Thursday — but the rosters that won the spring just got rewritten.</p>
+      <a class="cta" href="/editions/2026-w15/the-quiet-window-was-the-important-window/">Read the cover essay →</a>
+      
+      <div class="also-label">Also in this issue</div>
+      <ul class="features">
+        <li>
+          <span class="num">1.</span>
+          <span class="title">
+            <a href="/editions/2026-w15/the-three-schools-that-won-the-window-quietly/">The Three Schools That Won the Window Quietly</a>
+            <span class="kind">FEATURE</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">2.</span>
+          <span class="title">
+            <a href="/editions/2026-w15/stat-folks-vs-boards-on-the-acc-bleed/">Stat Folks vs. Boards on the ACC Bleed</a>
+            <span class="kind">DISAGREEMENT</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">3.</span>
+          <span class="title">
+            <a href="/editions/2026-w15/a-floridastate-subreddit-comment-that-said-it/">A FloridaState Subreddit Comment that Said It</a>
+            <span class="kind">FAN VOICE</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">4.</span>
+          <span class="title">
+            <a href="/editions/2026-w15/the-indiana-pickup-echoes-the-2023-indiana-pickup/">The Indiana Pickup Echoes the 2023 Indiana Pickup</a>
+            <span class="kind">CONNECTION</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">5.</span>
+          <span class="title">
+            <a href="/editions/2026-w15/the-window-will-be-quiet-prediction/">The Window-Will-Be-Quiet Prediction</a>
+            <span class="kind">RECEIPT</span>
+          </span>
+        </li></ul>
+    </div>
+  </article>
+  <article class="issue">
+    <div class="roman-col">
+      <div class="roman">XIV</div>
+      <span class="vol">Vol. I · No. 14</span>
+      <span class="date">April 4, 2026</span>
+      
+    </div>
+    <div class="body-col">
+      <h2><a href="/editions/2026-w14/the-spring-game-tells-us-who-is-awake/">The Spring-Game Issue</a></h2>
+      <p class="dek">Eight stadiums opened their gates in April. The fans who showed up told us more about where this season points than any depth chart will.</p>
+      <a class="cta" href="/editions/2026-w14/the-spring-game-tells-us-who-is-awake/">Read the cover essay →</a>
+      
+      <div class="also-label">Also in this issue</div>
+      <ul class="features">
+        <li>
+          <span class="num">1.</span>
+          <span class="title">
+            <a href="/editions/2026-w14/penn-state-s-tempo-tells/">Penn State&#x27;s Tempo Tells</a>
+            <span class="kind">FEATURE</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">2.</span>
+          <span class="title">
+            <a href="/editions/2026-w14/the-tennessee-spring-looks-like-2015/">The Tennessee Spring Looks Like 2015</a>
+            <span class="kind">CONNECTION</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">3.</span>
+          <span class="title">
+            <a href="/editions/2026-w14/a-tweet-from-a-texas-fan-in-section-27/">A Tweet from a Texas Fan in Section 27</a>
+            <span class="kind">FAN VOICE</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">4.</span>
+          <span class="title">
+            <a href="/editions/2026-w14/auburn-fine-or-not-fine/">Auburn: Fine or Not Fine?</a>
+            <span class="kind">DISAGREEMENT</span>
+          </span>
+        </li>
+        <li>
+          <span class="num">5.</span>
+          <span class="title">
+            <a href="/editions/2026-w14/the-auburn-tonal-shift-prediction/">The Auburn Tonal-Shift Prediction</a>
+            <span class="kind">RECEIPT</span>
+          </span>
+        </li></ul>
+    </div>
+  </article></section></div>
+
+  <footer class="footer">
+    <div class="page">
+      <div class="chrome">
+        <span>CFB · INDEX</span>
+        <span>Editions Archive</span>
+        <span>Generated 2026-05-12 20:30 UTC</span>
+      </div>
+      <div class="bottom">
+        <a href="/">Home</a> &nbsp;·&nbsp;
+        <a href="/methodology/">Methodology</a> &nbsp;·&nbsp;
+        <a href="/about-model/">How it works</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

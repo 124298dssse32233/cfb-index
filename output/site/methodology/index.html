@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Methodology | CFB Index</title>
+  <style>
+    body { font: 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+           color: #1a1a1a; max-width: 880px; margin: 2rem auto; padding: 0 1rem; }
+    nav a { color: #0969da; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+    .subtitle { color: #555; margin-top: 0.25rem; margin-bottom: 2rem; }
+    .page { border: 1px solid #e6e6e6; border-radius: 10px; padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0; background: #fafafa; }
+    .page h2 { margin: 0 0 0.5rem 0; font-size: 1.25rem; }
+    .page h2 a { color: #1a1a1a; text-decoration: none; }
+    .page h2 a:hover { text-decoration: underline; }
+    .page p { margin: 0.5rem 0; }
+    .page .meta { color: #777; font-size: 13px; }
+    footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee;
+             padding-top: 1rem; }
+    footer a { color: #0969da; }
+  </style>
+</head>
+<body>
+  <nav><a href="../">← CFB Index</a></nav>
+  <h1>Methodology</h1>
+  <p class="subtitle">How the CFB Index actually works — sources, tiers, sample-size
+     rules, and which pipelines ran most recently.</p>
+
+  <div class="page">
+    <h2><a href="fan-intelligence.html">Fan Intelligence methodology</a></h2>
+    <p>The full doctrine behind every number on a player or team page: the
+       four-tier confidence model (A / B / C / D), the effective-sample-size
+       floor, the cohort weight matrix, known coverage gaps, the glossary
+       backing every <code>?</code> popover, and the source catalog grouped
+       by tier.</p>
+    <p class="meta">Auto-generated from <code>source_registry</code> &middot;
+       last built 2026-05-12 20:30 UTC</p>
+  </div>
+
+  <div class="page">
+    <h2><a href="freshness.html">Data source freshness</a></h2>
+    <p>Last successful run per registered source, with status and rows
+       inserted. Refreshed by the weekly cron. Useful for diagnosing why a
+       cohort cell is showing &ldquo;Awaiting Signal&rdquo; — usually it&rsquo;s
+       an ingest that hasn&rsquo;t run, not a real data gap.</p>
+    <p class="meta">Last built 2026-05-12 20:30 UTC</p>
+  </div>
+
+  <footer>
+    Methodology index &middot; generated 2026-05-12 20:30 UTC &middot;
+    source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> in the repo.
+  </footer>
+</body>
+</html>
