@@ -298,6 +298,34 @@ def render_wire_index(
     if not archive_links:
         archive_links = "<li class=\"eyebrow muted\">No archive months yet.</li>"
 
+    # Build an honest lede. The default "Last 30 days, N entries" copy
+    # lies when the entries are synthetic offseason recruit commits with
+    # fake May-2026 timestamps. Detect mode from source_kind composition:
+    #
+    #   - all/most rows are cfbd-recruit: show recruiting-class framing
+    #   - mixed or real: show the standard window-based lede
+    #   - zero rows: explicit offseason-quiet message
+    recruit_count = sum(1 for r in rows if (r.get("source_kind") or "").endswith("recruit"))
+    real_count = len(rows) - recruit_count
+    if not rows:
+        wire_lede = (
+            "Offseason quiet — no fresh transactions in the window. "
+            "The Wire will repopulate when portal moves, coaching changes, "
+            "or commits land."
+        )
+    elif real_count == 0 and recruit_count > 0:
+        wire_lede = (
+            f"{len(rows)} active-class commits. Spring period — light "
+            f"news. Captions tell you what each commit means for the "
+            f"program. Dates approximate; CFBD doesn't expose commit-day."
+        )
+    else:
+        wire_lede = (
+            f"Last {days} days, {len(rows)} entries. Each one gets a "
+            f"fan-voice caption — what happened, and why it matters to "
+            f"the people watching."
+        )
+
     template = _load_template("wire.html")
     rendered = _substitute(template, {
         "TITLE": "The Wire",
@@ -307,6 +335,7 @@ def render_wire_index(
         "ARCHIVE_LINKS": archive_links,
         "ENTRY_COUNT": str(len(rows)),
         "WINDOW_DAYS": str(days),
+        "WIRE_LEDE": wire_lede,
     })
 
     out_path = output_dir / "index.html"

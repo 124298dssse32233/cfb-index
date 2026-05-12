@@ -4248,12 +4248,41 @@ def main() -> None:
     # ---- Sprint 12: The Wire dispatch ----
     if args.command == "wire-ingest":
         from cfb_rankings.wire.ingestion import collect_recent_actions, upsert_actions
+        # Cleanup pass: remove stale cfbd-recruit wire entries that
+        # reference graduated classes. The recruit source used to be
+        # unfiltered and seeded with a static rng (see PR #9 / #11), so
+        # the table accumulated 2016-2019 commits with fake May-2026
+        # timestamps. Now we sweep them before each ingest so the page
+        # only shows the actively-recruiting class.
+        from datetime import datetime as _dt
+        current_year = _dt.utcnow().year
+        # Delete recruit entries where the action text references a
+        # class year older than current_year. Action text format is
+        # f"... commits {season_year}" so we match on " commits 20XX".
+        purged = 0
+        for stale_year in range(2010, current_year):
+            cursor = db.execute(
+                """
+                delete from wire_entries
+                where source_kind = 'cfbd-recruit'
+                  and action like :pattern
+                """,
+                {"pattern": f"% commits {stale_year}"},
+            )
+            try:
+                purged += cursor.rowcount or 0
+            except Exception:
+                pass
+        if purged:
+            print(f"wire-ingest: purged {purged} stale recruit entries "
+                  f"(class < {current_year})", flush=True)
+
         actions = collect_recent_actions(
             db, days=args.days, target_count=args.target_count,
         )
         stats = upsert_actions(db, actions)
         print(json.dumps(
-            {"collected": len(actions), **stats},
+            {"collected": len(actions), "purged_stale": purged, **stats},
             indent=2,
         ), flush=True)
         return
