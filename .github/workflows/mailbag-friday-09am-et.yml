@@ -42,6 +42,8 @@ jobs:
           if_no_artifact_found: warn
 
       - run: python manage.py init-db
+      # Seed editions defensively — see the-daily-06am-et.yml for context.
+      - run: python manage.py seed-editions || echo "seed-editions skipped"
 
       - name: Generate + render mailbag
         run: |
