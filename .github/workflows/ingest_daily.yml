@@ -15,6 +15,9 @@ jobs:
   run:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: read  # cross-workflow artifact download via dawidd6 action
     env:
       YOUTUBE_API_KEY:       ${{ secrets.YOUTUBE_API_KEY }}
       SEATGEEK_CLIENT_ID:    ${{ secrets.SEATGEEK_CLIENT_ID }}

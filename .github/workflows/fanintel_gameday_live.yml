@@ -20,6 +20,9 @@ jobs:
   poll:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read  # cross-workflow artifact download via dawidd6 action
     env:
       CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
     steps:

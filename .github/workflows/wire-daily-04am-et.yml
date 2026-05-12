@@ -25,6 +25,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read  # cross-workflow artifact download via dawidd6 action
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}

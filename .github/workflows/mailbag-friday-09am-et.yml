@@ -15,6 +15,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read  # cross-workflow artifact download via dawidd6 action
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

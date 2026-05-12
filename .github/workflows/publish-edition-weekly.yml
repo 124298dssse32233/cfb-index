@@ -18,6 +18,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
+      actions: read  # cross-workflow artifact download via dawidd6 action
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
