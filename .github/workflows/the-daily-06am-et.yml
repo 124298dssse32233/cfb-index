@@ -34,12 +34,20 @@ jobs:
       # standalone from daily_takes; the homepage Daily strip is hydrated
       # by the next publish-site or weekly_deep run that has the full DB.
 
-      - run: |
-          git config user.name "daily-cron"
-          git config user.email "daily-cron@cfbindex.local"
-          git add output/site/daily/
-          git diff --cached --quiet || git commit -m "daily: $(date -u +%Y-%m-%d)"
-          git push origin master
+      - name: Upload daily artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-daily-${{ github.run_number }}
+          path: output/site/daily/
+          retention-days: 14
+          overwrite: true
+      # The /daily/ HTML is intentionally NOT committed back to git —
+      # output/ is gitignored and pushing 67k generated files to master
+      # was the original Sprint-14 mistake. Instead we ship the daily as
+      # a GitHub Actions artifact; a downstream deploy step (Vercel via
+      # `vercel deploy --prod` in publish-site, or a separate
+      # daily-publish step) pulls the artifact and ships it.
 
       - name: Upload DB artifact
         if: always()

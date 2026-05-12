@@ -33,12 +33,14 @@ jobs:
           # /mailbag/ renders standalone; site-wide cross-links rehydrate
           # on the next publish-site / weekly_deep cycle.
 
-      - run: |
-          git config user.name "mailbag-cron"
-          git config user.email "mailbag-cron@cfbindex.local"
-          git add output/site/mailbag/
-          git diff --cached --quiet || git commit -m "mailbag: $(date -u +%Y-w%V)"
-          git push origin master
+      - name: Upload mailbag artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-mailbag-${{ github.run_number }}
+          path: output/site/mailbag/
+          retention-days: 14
+          overwrite: true
 
       - name: Upload DB artifact
         if: always()
