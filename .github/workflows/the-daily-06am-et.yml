@@ -99,6 +99,10 @@ jobs:
           # Re-patch the Wire <tbody> on the homepage with the freshest
           # rows + honest UPDATED label (homepage patch is on by default).
           python manage.py render-wire || true
+          # Re-render storylines index so the Active/Dormant status pills
+          # roll forward as last_chapter_at ages. Without this, threads
+          # last touched in April keep their "Active" pill into May.
+          python manage.py render-storylines || true
           echo "Merged. Total deployable files: $(find output/site -type f | wc -l)"
 
       # ---- Vercel deploy ----

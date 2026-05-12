@@ -99,6 +99,16 @@ jobs:
           python manage.py build-editions-archive
           echo "done"
 
+      # Re-render storylines (re-seeds from seeds/ + writes thread pages
+      # + index.html). build-site doesn't regenerate the storylines
+      # surface, so without this the storylines index drifts from the
+      # current renderer logic (e.g. the Dormant pill for stale threads).
+      - name: Refresh storylines index
+        run: |
+          set +e
+          python manage.py render-storylines
+          echo "done"
+
       - name: Upload site artifact
         if: always()
         uses: actions/upload-artifact@v4
