@@ -238,12 +238,16 @@ def render_nav(
     site_prefix: str = "../",
     retro: bool = False,
 ) -> str:
+    # We don't yet have a stable URL scheme for prev/next hub issues — the
+    # main hub is /hub/index.html and historical issues live under retro/.
+    # Render the chevrons as inert spans so we don't ship dead href="#"
+    # links to the live site. When the routing exists, swap back to <a>.
     prev_html = (
-        f'<a class="hub-nav-chevron" href="#">&larr; {escape(prev_issue)}</a>'
+        f'<span class="hub-nav-chevron hub-nav-chevron--inert">&larr; {escape(prev_issue)}</span>'
         if prev_issue else ""
     )
     next_html = (
-        f'<a class="hub-nav-chevron" href="#">{escape(next_issue)} preview &rarr;</a>'
+        f'<span class="hub-nav-chevron hub-nav-chevron--inert">{escape(next_issue)} preview &rarr;</span>'
         if next_issue else ""
     )
     retro_html = '<a href="./">Retro Archive</a>' if retro else ""
@@ -1691,6 +1695,7 @@ def _hub_css() -> str:
     .hub-nav-active { border-bottom: 2px solid var(--gold); padding-bottom: 4px; }
     .hub-nav-subscribe { text-decoration: underline; text-underline-offset: 3px; }
     .hub-nav-chevron { font-family: 'IBM Plex Mono', monospace; font-size: .825rem; }
+    .hub-nav-chevron--inert { color: var(--ink-muted, #888); cursor: default; }
     @media (max-width: 900px) { .hub-nav-menu { display: none; } }
 
     .hub-retro-banner {
