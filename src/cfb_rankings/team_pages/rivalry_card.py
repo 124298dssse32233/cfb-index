@@ -186,8 +186,12 @@ def _render_meta_strip(
         cd_str = next_meeting["game_date"]
         cd_sub = f"{next_meeting.get('venue') or 'venue TBD'}"
     else:
-        cd_str = "Next meeting TBD"
-        cd_sub = "schedule pending"
+        # "TBD · schedule pending" reads oddly during offseason. Annual
+        # rivalries don't have a real "pending" status — the game is
+        # going to happen in the fall. Be specific about what's actually
+        # unknown (the date) and reassuring about what's not (the game).
+        cd_str = f"{_season_label().split('-')[0]} season"
+        cd_sub = "date set by conference"
 
     tiles = [
         ("ALL-TIME", record_str, record_sub),

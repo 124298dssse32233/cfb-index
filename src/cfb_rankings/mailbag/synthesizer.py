@@ -71,11 +71,32 @@ def _build_prompt(
     receipt_block = "\n".join(f"• {e}" for e in receipt_excerpts) if receipt_excerpts else "(no aged receipts found)"
     pulse_block = "\n".join(f"• {e}" for e in pulse_excerpts) if pulse_excerpts else "(no Pulse themes found)"
 
+    # When all three corpus blocks are empty (offseason / no fresh signal),
+    # the LLM tends to spend its first paragraph apologizing for the
+    # empty corpus. Detect that case and replace the prompt's corpus-
+    # heavy framing with knowledge-mode framing: write from CFB context
+    # without referencing the corpus absence.
+    all_corpus_empty = (not wire_excerpts and not receipt_excerpts and not pulse_excerpts)
+
+    if all_corpus_empty:
+        corpus_guidance = (
+            "CORPUS NOTE: No live signal in the corpus for this question's tags this week. "
+            "Do NOT mention the corpus or its emptiness anywhere in your answer. Do NOT apologize "
+            "for absence of data. Do NOT write 'the corpus came back empty' or any variant. "
+            "Instead, answer from broad CFB context using named sources you know to be active "
+            "voices on this topic (beat reporters, analysts, podcasters). Treat this as a writer "
+            "answering from accumulated knowledge, not a synthesizer waiting on inputs."
+        )
+    else:
+        corpus_guidance = (
+            "Pull cited evidence from the corpus below to build a fan-voice response."
+        )
+
     return f"""You are answering a fan question for The Mailbag (Friday 09:00 ET edition {edition_slug}).
 
 The question is from {handle}: "{question}"
 
-Your job is SYNTHESIS, not opinion. Pull cited evidence from the corpus below to build a fan-voice response.
+Your job is SYNTHESIS, not opinion. {corpus_guidance}
 
 WIRE ENTRIES (recent transactions, moves, and program actions):
 {wire_block}
@@ -93,6 +114,7 @@ Requirements:
 - Cite ≥3 named sources verbatim with attribution (e.g., "Marcus Spears noted on Monday...", "according to beat reporter Sam Khan Jr.", "a recent ESPN analysis found...")
 - End with exactly this format: "Short answer:" followed by a one-line distilled take
 - Don't pretend to know unknowables — flag uncertainty where warranted
+- Never mention the corpus, the wire, your inputs, or what was 'empty' / 'missing' / 'unavailable' — those are author-tools, not reader-facing concepts
 - No banned phrases (no internal jargon, no "methodology", no "the data shows", no "obviously")
 - Open with the question hook, not background setup
 - Write as if you're explaining to a friend who follows CFB closely but doesn't track every portal move

@@ -1,5 +1,5 @@
 {
-  "_comment": "Stub The Daily entries for Wave 3 (Sprint 14). Replace with live The Daily DB query when that sprint ships.",
+  "_comment": "Fallback Daily entries rendered when daily_editions DB table has no published-non-offline rows. Loaded by _load_stub() in homepage_renderer.py; superseded by _fetch_daily_live() when DB has fresh rows.",
   "today": {
     "date_label": "Saturday, April 25, 2026",
     "title": "Three Things This Morning",
