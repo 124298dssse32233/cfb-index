@@ -5054,6 +5054,15 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     historical_rows_by_team: dict[int, list[dict[str, Any]]] = {}
     for row in historical_season_ledger:
         historical_rows_by_team.setdefault(int(row["team_id"]), []).append(row)
+    # Pre-populate _VALID_TEAM_SLUGS from rankings so downstream renderers
+    # (build_history_hub → build_history_explorer_rows → season_url guard)
+    # can call _valid_team_slug() and have it actually filter, rather than
+    # falling through the "set is empty, treat all slugs as valid" branch.
+    # The later assignment from team_pages.keys() (~line 5065) writes the
+    # same content — those two sets are identical since team_pages is
+    # `{row.slug: ... for row in rankings}`.
+    global _VALID_TEAM_SLUGS
+    _VALID_TEAM_SLUGS = {str(row.slug) for row in rankings}
     history_hub = build_history_hub(historical_season_ledger)
     current_rankings_by_team = {row.team_id: row for row in rankings}
     _report_progress("Building team pages...")
