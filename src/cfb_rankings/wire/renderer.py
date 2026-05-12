@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import html
 import logging
+import re
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -185,11 +186,28 @@ def _program_link(slug: str | None, display: str) -> str:
     return safe_display
 
 
+_WIRE_BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+_WIRE_ITALIC_RE = re.compile(r"(?<![*\w])\*([^*\n]+?)\*(?!\w)")
+
+
+def _esc_emphasis(text: str) -> str:
+    """html.escape + render *foo*/**foo** as <em>/<strong>.
+
+    LLM-generated wire captions sometimes use markdown emphasis. Without
+    conversion, asterisks leak as literal characters into the rendered
+    table.
+    """
+    escaped = html.escape(text or "")
+    escaped = _WIRE_BOLD_RE.sub(r"<strong>\1</strong>", escaped)
+    escaped = _WIRE_ITALIC_RE.sub(r"<em>\1</em>", escaped)
+    return escaped
+
+
 def _row_html(row: dict[str, Any], *, now: datetime | None = None) -> str:
     when = html.escape(_format_when(str(row.get("occurred_at", "")), now=now))
     program = _program_link(row.get("program_slug"), row.get("program_display") or "")
     action = html.escape(row.get("action") or "")
-    why = html.escape(row.get("why_it_matters") or "")
+    why = _esc_emphasis(row.get("why_it_matters") or "")
     historical = row.get("historical_comp")
     if historical:
         why += f'<span class="hist-comp">{html.escape(historical)}</span>'

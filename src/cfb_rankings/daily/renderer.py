@@ -134,15 +134,32 @@ def _esc(s: str) -> str:
             .replace('"', "&quot;"))
 
 
+# Markdown emphasis runs AFTER _esc so user content stays HTML-safe.
+# LLM outputs sometimes use *foo* / **foo** for emphasis; without this
+# they leak as literal asterisks into the rendered page (the user saw
+# this on /daily/ headlines + bodies — fixed in headlines, this is
+# the body-side fix).
+import re as _re_md
+_DAILY_BOLD_RE = _re_md.compile(r"\*\*(.+?)\*\*")
+_DAILY_ITALIC_RE = _re_md.compile(r"(?<![*\w])\*([^*\n]+?)\*(?!\w)")
+
+
+def _esc_emphasis(s: str) -> str:
+    escaped = _esc(s or "")
+    escaped = _DAILY_BOLD_RE.sub(r"<strong>\1</strong>", escaped)
+    escaped = _DAILY_ITALIC_RE.sub(r"<em>\1</em>", escaped)
+    return escaped
+
+
 def _take_html(rank: int, headline: str, body: str,
                cited_json: str, entity_slug: str, entity_type: str,
                conn=None) -> str:
     rank_labels = {1: "Take #1 — Top Story", 2: "Take #2 — Two Reads", 3: "Take #3 — Buried Lede"}
     rank_label = rank_labels.get(rank, f"Take #{rank}")
 
-    body_paras = "".join(f"<p>{_esc(p.strip())}</p>" for p in body.split("\n") if p.strip())
+    body_paras = "".join(f"<p>{_esc_emphasis(p.strip())}</p>" for p in body.split("\n") if p.strip())
     if not body_paras:
-        body_paras = f"<p>{_esc(body)}</p>"
+        body_paras = f"<p>{_esc_emphasis(body)}</p>"
 
     pills = _source_pills_html(cited_json)
     entity = _entity_link_html(entity_slug, entity_type, conn=conn)
