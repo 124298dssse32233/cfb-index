@@ -980,6 +980,7 @@ def _render_footer(edition: Edition) -> str:
           <li><a href="/editions/">Editions Archive</a></li>
           <li><a href="/daily/">The Daily</a></li>
           <li><a href="/wire/">The Wire</a></li>
+          <li><a href="/mailbag/">The Mailbag</a></li>
           <li><a href="/storylines/">Storyline Threads</a></li>
           <li><a href="/canon/">The Canon</a></li>
         </ul>
