@@ -41,7 +41,9 @@ jobs:
           path: .
 
       - name: Apply migrations (idempotent)
-        run: python manage.py apply-migrations
+        run: |
+          python manage.py init-db
+          python manage.py apply-migrations
 
       - name: Poll live games
         run: python -c "from cfb_rankings.db import Database; from cfb_rankings.config import AppConfig; from cfb_rankings.ingest.sources.cfbd_live_game import run_poll; import json; print(json.dumps(run_poll(Database(AppConfig.from_env().database_url)), indent=2))"
