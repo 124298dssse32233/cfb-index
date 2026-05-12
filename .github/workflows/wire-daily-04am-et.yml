@@ -44,12 +44,17 @@ jobs:
           python -m pip install -U pip
           python -m pip install -e .
 
+      # actions/download-artifact@v4 only searches the current run by
+      # default. Use the cross-workflow third-party action so the DB
+      # carries forward across daily / wire / mailbag / hourly-ingest.
       - name: Download prior DB artifact
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v6
         continue-on-error: true
         with:
           name: cfb-rankings-db
           path: .
+          search_artifacts: true
+          if_no_artifact_found: warn
 
       - name: Bootstrap DB schema (idempotent)
         run: python manage.py init-db
@@ -63,9 +68,13 @@ jobs:
       # ---- Rolling site-state assembly ----
       - name: Download prior site state
         id: dl_site
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v6
         continue-on-error: true
-        with: { name: cfb-rankings-site, path: prior-site/ }
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          search_artifacts: true
+          if_no_artifact_found: warn
 
       - name: Bootstrap site state from release if no artifact
         if: steps.dl_site.outcome != 'success'

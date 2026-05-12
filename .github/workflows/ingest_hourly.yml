@@ -36,15 +36,18 @@ jobs:
           python -m pip install -U pip
           python -m pip install pyyaml
 
-      # Bootstrap-safe: on the very first run the artifact doesn't exist
-      # yet, so continue-on-error and apply-migrations together produce a
-      # fresh DB consistent with the latest schema.
+      # Cross-workflow DB share. actions/download-artifact@v4 only finds
+      # artifacts from the current run by default, which silos each
+      # workflow's DB. Use the third-party action to pull the most-recent
+      # cfb-rankings-db from ANY sibling workflow (daily / wire / mailbag).
       - name: Download prior DB artifact
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v6
         continue-on-error: true
         with:
           name: cfb-rankings-db
           path: .
+          search_artifacts: true
+          if_no_artifact_found: warn
 
       - name: Apply migrations + seed (idempotent)
         run: |
