@@ -222,22 +222,36 @@ def synthesize_takes(bundle: DailyInputBundle) -> list[TakeResult]:
         prompt = _take_prompt(rank, bundle.edition_date, bundle)
 
         if generate_with_voice_check is not None:
-            llm_result = generate_with_voice_check(
-                prompt=prompt,
-                model=model,
-                max_tokens=500,
-                max_retries=1,
-                fallback_to_offline=True,
-            )
-            text = llm_result.get("text") or ""
-            vv_passed = bool(llm_result.get("voice_validator_passed", False))
-            model_used = llm_result.get("model_used", model)
-            log.info(
-                "take %d/%s: voice_validator_passed=%s attempts=%d tokens=%s",
-                rank, bundle.edition_date, vv_passed,
-                llm_result.get("attempts", 1),
-                llm_result.get("tokens_used", {}),
-            )
+            # Wrap in try/except so transient API errors (Overloaded,
+            # rate limit exhaustion, network) fall back to offline-stub
+            # for THIS take rather than crashing the whole workflow.
+            # Without this, an Anthropic 529 takes down the daily cron
+            # and the homepage stays stale until manual intervention.
+            try:
+                llm_result = generate_with_voice_check(
+                    prompt=prompt,
+                    model=model,
+                    max_tokens=500,
+                    max_retries=1,
+                    fallback_to_offline=True,
+                )
+                text = llm_result.get("text") or ""
+                vv_passed = bool(llm_result.get("voice_validator_passed", False))
+                model_used = llm_result.get("model_used", model)
+                log.info(
+                    "take %d/%s: voice_validator_passed=%s attempts=%d tokens=%s",
+                    rank, bundle.edition_date, vv_passed,
+                    llm_result.get("attempts", 1),
+                    llm_result.get("tokens_used", {}),
+                )
+            except Exception as exc:
+                log.warning(
+                    "take %d/%s: LLM call failed (%s: %s); using offline-stub",
+                    rank, bundle.edition_date, type(exc).__name__, exc,
+                )
+                text = ""
+                vv_passed = False
+                model_used = "offline-stub"
         else:
             text = _offline_take(rank, bundle)
             vv_passed = True
