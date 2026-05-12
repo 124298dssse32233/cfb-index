@@ -209,12 +209,17 @@ def fetch_next_meeting(
     program_b_slug: str,
 ) -> dict[str, Any] | None:
     a_slug, b_slug = _canonical_pair(program_a_slug, program_b_slug)
+    # Require game_date to be in the future (or unknown). Without this,
+    # any past meeting still flagged is_complete=0 — postponed, vacated,
+    # or never status-flipped to Final — would surface as "next meeting."
+    # During offseason this routinely picked stale rows from prior years.
     rows = db.query_all(
         """
         select season_year, week, game_date, home_slug, venue
         from team_rivalry_meetings
         where program_a_slug = :a and program_b_slug = :b
           and is_complete = 0
+          and (game_date is null or game_date >= date('now'))
         order by coalesce(game_date, '9999') asc
         limit 1
         """,

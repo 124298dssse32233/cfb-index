@@ -96,7 +96,12 @@ def _latest_season_with_games(db, team_id: int) -> int:
         """,
         {"tid": team_id},
     )
-    return int(row["y"]) if row and row["y"] else 2025
+    # Fall back to the current calendar year rather than a hardcoded
+    # literal. Previously this returned 2025 unconditionally on missing-
+    # game teams, which silently froze a team's "current snapshot" at
+    # 2025 once the calendar rolled into 2026.
+    from datetime import datetime as _dt
+    return int(row["y"]) if row and row["y"] else _dt.utcnow().year
 
 
 def fetch_team_snapshot(db, slug: str, season_year: int | None = None) -> TeamSnapshot:

@@ -18,9 +18,25 @@ Six sub-components:
 from __future__ import annotations
 
 import html
+from datetime import datetime
 from typing import Any
 
 from .profile_loader import Profile, PROFILED_SLUGS
+
+
+def _season_label() -> str:
+    """Return the YYYY-YY label for the upcoming/current CFB season.
+
+    May-July: upcoming season (e.g. May 2026 → "2026-27").
+    Aug-Dec: in-season (year-(year+1)).
+    Jan-April: current bowl/CFP slate (uses prior-year start).
+    Replaces the hardcoded "2025-26 season approaches" string that
+    every profiled-team rivalry card was rendering regardless of date.
+    """
+    now = datetime.utcnow()
+    start_year = now.year if now.month >= 5 else now.year - 1
+    end_short = (start_year + 1) % 100
+    return f"{start_year}-{end_short:02d}"
 
 
 _SLUG_DISPLAY: dict[str, str] = {
@@ -260,7 +276,7 @@ def _render_trajectory(profile: Profile, opp: str, opponent_profiled: bool) -> s
       <text x="272" y="138" fill="#9ca3af" font-size="10" font-family="system-ui">kickoff</text>
     </svg>
     <p class="rivalry-card__trajectory-note">
-      Signal accumulating · per-rivalry weekly fan-intel feeding in as the 2025-26 season approaches.
+      Signal accumulating · per-rivalry weekly fan-intel feeding in as the {_season_label()} season approaches.
     </p>
   </div>"""
 

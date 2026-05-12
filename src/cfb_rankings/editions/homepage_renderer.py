@@ -18,12 +18,18 @@ Roman-numeral department layout:
     II   Cover essay TEASE
     III  Feature TOC (with numbered IV-VIII row entries)
     --   "The Running Departments" divider
-    IX   The Daily strip          (stub data until Sprint 14)
-    X    The Wire                 (stub data until Sprint 12)
-    XI   Active Threads           (stub data until Sprint 10)
-    XII  The Canon entry          (stub data until Sprint 11)
+    IX   The Daily strip          (live: daily_editions; fallback: daily_seed.json)
+    X    The Wire                 (live: wire_entries; fallback: wire_seed.json)
+    XI   Active Threads           (live: storyline_threads; fallback: threads.json)
+    XII  The Canon entry          (live: canon_entries; fallback: canon_featured.json)
     XIII Voices behind this edition
     Footer
+
+Each running department uses a `_fetch_*_live(db)` function that returns
+None when the source table is empty; the caller then falls back to a
+stub JSON in `stub_data/`. The is_live flag is passed to the render
+function so badges ("LIVE" / "ARCHIVE VIEW") stay honest about which
+mode is active.
 """
 from __future__ import annotations
 
@@ -138,9 +144,19 @@ def _fetch_canon_live(db: Database) -> dict[str, Any] | None:
     e = rows[0]
     kind = e["entity_kind"] or "player"
     category = kind.replace("_", " ").title()
+    # The CTA template renders /canon/{slug}.html — canon entries on
+    # disk live at /canon/<list_slug>/<entity_slug>.html, so we compose
+    # the full relative slug here. Previously this returned just
+    # entity_slug, which produced a 404 link on the homepage CTA.
+    list_slug = e["list_slug"] or ""
+    entity_slug = e["entity_slug"] or ""
+    if list_slug and entity_slug:
+        href_slug = f"{list_slug}/{entity_slug}"
+    else:
+        href_slug = entity_slug or list_slug
     return {
         "entry": {
-            "slug": e["entity_slug"] or "",
+            "slug": href_slug,
             "title": e["entity_display_name"] or "",
             "category": category,
             "era": e["era_label"] or "",
@@ -901,7 +917,7 @@ def _render_the_canon(canon: dict[str, Any], is_live: bool = False) -> str:
         <div class="era">{html.escape(e.get('era', ''))}</div>
         <h3>{html.escape(e.get('title', ''))}</h3>
         <p class="summary">{html.escape(e.get('summary', ''))}</p>
-        <a class="cta" href="/canon/{html.escape(e.get('slug', ''))}/">OPEN CANON ENTRY →</a>
+        <a class="cta" href="/canon/{html.escape(e.get('slug', ''))}.html">OPEN CANON ENTRY →</a>
       </article>
       <aside class="canon-divergence">
         <div class="divergence-eyebrow">WHERE THE STAT FOLKS AND REGULAR FANS RANK</div>

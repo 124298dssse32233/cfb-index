@@ -21,8 +21,10 @@ jobs:
     permissions:
       contents: write   # pushes to `published` branch
       actions: read     # cross-workflow artifact download via dawidd6 action
-    env:
-      CURRENT_CFB_SEASON: "2026"
+    # CURRENT_CFB_SEASON intentionally NOT pinned: the inline Python
+    # below derives season from today.year so the workflow self-rolls.
+    # Previously this was env: CURRENT_CFB_SEASON: "2026" which silently
+    # froze the publish at 2026 once the calendar advanced.
     steps:
       - name: Checkout
         uses: actions/checkout@v4
