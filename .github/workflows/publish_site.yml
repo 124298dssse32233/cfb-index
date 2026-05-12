@@ -56,6 +56,40 @@ jobs:
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
 
+      # Start from the last healthy site state. If build-site fails
+      # (FK constraint, etc.), this preserves all the team / player /
+      # rankings pages from the prior healthy artifact. The
+      # methodology, editions, and storylines refresh steps below
+      # overlay their slices on top, so publish-site behaves like
+      # daily/wire/mailbag: incremental update, not from-scratch wipe.
+      - name: Download prior site state
+        id: dl_site
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Bootstrap site state from release if no artifact
+        if: steps.dl_site.outcome != 'success'
+        run: |
+          set -e
+          mkdir -p prior-site
+          gh release download deploy-state-v1 --pattern site-state-bootstrap.tar.gz --output /tmp/seed.tar.gz
+          tar -xzf /tmp/seed.tar.gz -C prior-site
+          echo "Bootstrapped $(find prior-site -type f | wc -l) files from release."
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+
+      - name: Seed output/site from prior state
+        run: |
+          set -e
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          echo "Seeded output/site with $(find output/site -type f | wc -l) files from prior state"
+
       - name: Build or incrementally sync
         run: |
           set +e
