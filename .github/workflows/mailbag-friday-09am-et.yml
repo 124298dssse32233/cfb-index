@@ -5,6 +5,12 @@ on:
     - cron: '0 13 * * 5'  # 09:00 ET Friday = 13:00 UTC
   workflow_dispatch: {}
 
+# Serialize with other site-state-touching workflows. See note in
+# the-daily-06am-et.yml for the race-condition this prevents.
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest

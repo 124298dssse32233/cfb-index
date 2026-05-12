@@ -5,6 +5,15 @@ on:
     - cron: '0 10 * * 1-5'  # 06:00 ET = 10:00 UTC (no DST handling for now)
   workflow_dispatch: {}
 
+# Serialize site-state-touching workflows. The rolling cfb-rankings-site
+# artifact pattern is not parallel-safe: workflows that run concurrently each
+# download the same snapshot, overlay their slice, and the last to deploy
+# overwrites whichever sibling already deployed. Sharing one concurrency
+# group across daily/wire/mailbag forces a strict serial order.
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest
