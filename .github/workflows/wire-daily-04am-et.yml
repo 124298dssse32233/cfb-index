@@ -15,6 +15,12 @@ on:
     - cron: "0 9 * * *"   # 04:00 ET (EDT) / 03:00 ET (EST) — accepted DST drift
   workflow_dispatch:
 
+# Serialize with other site-state-touching workflows. See note in
+# the-daily-06am-et.yml for the race-condition this prevents.
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
