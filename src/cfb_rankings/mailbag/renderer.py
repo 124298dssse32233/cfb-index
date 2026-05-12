@@ -14,9 +14,23 @@ from __future__ import annotations
 import html
 import json
 import logging
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+
+# Markdown emphasis stripping/rendering. LLM answers occasionally emit
+# *foo* or **foo** for emphasis; without conversion they leak as literal
+# asterisks. Applied AFTER html.escape so user content stays safe.
+_MAILBAG_BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+_MAILBAG_ITALIC_RE = re.compile(r"(?<![*\w])\*([^*\n]+?)\*(?!\w)")
+
+
+def _esc_emphasis(text: str) -> str:
+    escaped = html.escape(text or "")
+    escaped = _MAILBAG_BOLD_RE.sub(r"<strong>\1</strong>", escaped)
+    escaped = _MAILBAG_ITALIC_RE.sub(r"<em>\1</em>", escaped)
+    return escaped
 
 from .data import (
     db_conn,
@@ -257,9 +271,9 @@ def _answer_card_html(rank: int, answer: dict[str, Any]) -> str:
             body_lines.append(line)
 
     body_paragraphs = "\n".join(body_lines).strip()
-    # Wrap each paragraph in <p>
+    # Wrap each paragraph in <p>, converting markdown emphasis after escape.
     paras = [p.strip() for p in body_paragraphs.split("\n\n") if p.strip()]
-    body_html = "\n".join(f"<p>{html.escape(p)}</p>" for p in paras) if paras else f"<p>{html.escape(body_raw)}</p>"
+    body_html = "\n".join(f"<p>{_esc_emphasis(p)}</p>" for p in paras) if paras else f"<p>{_esc_emphasis(body_raw)}</p>"
 
     # Source pills
     cited_raw = answer.get("cited_sources_json") or "[]"

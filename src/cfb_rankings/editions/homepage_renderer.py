@@ -737,7 +737,7 @@ def _render_the_daily(daily: dict[str, Any], is_live: bool = False) -> str:
     takes_html = "".join(
         f"""<li><div></div><div>
           <h3>{html.escape(t.get('headline', ''))}</h3>
-          <p>{html.escape(t.get('body', ''))}</p>
+          <p>{_inline_emphasis(t.get('body', ''))}</p>
         </div></li>"""
         for t in (today.get("takes") or [])
     )
