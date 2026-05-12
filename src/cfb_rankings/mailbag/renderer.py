@@ -190,10 +190,13 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 def _nav_html() -> str:
     return (
         '<nav class="nav">'
-        '<a href="/">Rankings</a>'
+        '<a href="/">Home</a>'
+        '<a href="/rankings/">Rankings</a>'
+        '<a href="/daily/">Daily</a>'
         '<a href="/wire/">Wire</a>'
-        '<a href="/editions/">Edition</a>'
         '<a href="/mailbag/">Mailbag</a>'
+        '<a href="/editions/">Editions</a>'
+        '<a href="/methodology/">Methodology</a>'
         '</nav>'
     )
 

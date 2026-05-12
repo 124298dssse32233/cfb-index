@@ -315,10 +315,13 @@ def render_editions_archive_html(db: Database) -> str:
       <div class="brand-row">
         <div class="brand">CFB<span class="slash">/</span>INDEX</div>
         <nav class="nav">
+          <a href="/">Home</a>
           <a href="/rankings/">Rankings</a>
-          <a href="/teams/">Teams</a>
+          <a href="/daily/">Daily</a>
+          <a href="/wire/">Wire</a>
+          <a href="/mailbag/">Mailbag</a>
           <a class="current" href="/editions/">Editions</a>
-          <a href="/about-model/">How It Works</a>
+          <a href="/methodology/">Methodology</a>
         </nav>
       </div>
       <hr class="rule">
