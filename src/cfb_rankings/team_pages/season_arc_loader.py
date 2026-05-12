@@ -141,7 +141,14 @@ CFP_HISTORY: dict[str, dict[int, dict[str, bool]]] = {
 
 
 SEASON_MIN = 2014
-SEASON_MAX = 2025
+# Roll forward automatically: in May-July the upcoming season hasn't
+# kicked off yet so cap at the current calendar year. In Aug+ when the
+# new season is underway, callers can override via the latest_season
+# arg, but the safe default still includes the in-progress year.
+# Previously hardcoded `SEASON_MAX = 2025` which silently dropped the
+# 2026 season once the calendar rolled over.
+from datetime import datetime as _datetime
+SEASON_MAX = _datetime.utcnow().year
 
 
 # Regular-season game counts per CFP-era year, used for partial-data detection.

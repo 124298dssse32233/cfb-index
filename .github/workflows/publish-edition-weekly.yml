@@ -1,10 +1,9 @@
 # Weekly Edition publish — Sprint 9.
-# Status: configured but DISABLED. Kevin enables when ready by removing
-# the `if: false` guard and uncommenting the schedule trigger.
-#
-# When enabled: runs every Saturday 06:00 ET (10:00 UTC). Generates the
-# upcoming-Saturday edition slug, calls publish-edition, then
-# render-edition, then commits the rendered HTML to the branch.
+# Status: ACTIVE — Saturdays 06:00 ET (10:00 UTC). When the slug for
+# the upcoming Saturday has no seed payload in seeds.py (offseason),
+# publish-edition gracefully no-ops with a log line and exits 0; the
+# workflow stays green and no notifications fire. To author a new
+# edition, add its payload to src/cfb_rankings/editions/seeds.py.
 name: Publish Weekly Edition
 
 on:

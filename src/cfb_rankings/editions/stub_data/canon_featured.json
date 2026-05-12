@@ -1,7 +1,7 @@
 {
-  "_comment": "Stub Canon entry for Wave 2 (Sprint 11). Replace with canon DB query when that sprint ships.",
+  "_comment": "Fallback Canon entry rendered when canon_entries DB table is empty. Loaded by _load_stub() in homepage_renderer.py; superseded by _fetch_canon_live() when available. Slug is composed as <list_slug>/<entity_slug> so the homepage CTA /canon/<slug>.html resolves to a real file on disk.",
   "entry": {
-    "slug": "caleb-williams-2024",
+    "slug": "the-100-best-players-cfp-era/caleb-williams",
     "title": "Caleb Williams: The 2024 Heisman That Wasn't",
     "category": "Player Arc",
     "era": "2022-2024",

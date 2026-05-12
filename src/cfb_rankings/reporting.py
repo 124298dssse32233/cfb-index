@@ -6279,7 +6279,12 @@ def build_player_page_data_map(
     # every player page renders the Awaiting Signal shell until player-scope
     # extraction starts populating the aggregate.
     from cfb_rankings.fan_intelligence import compute_player_mood_index
-    the_room_week = int(summary.get("week") or 0) or 1
+    # Pass the actual current week — week=0 in offseason. The downstream
+    # compute_player_mood_index has fallback_to_season_rollup=True so
+    # week=0 cleanly hits the season rollup. The previous `or 1` fallback
+    # silently re-queried week 1 which is empty in offseason → every
+    # player page rendered Awaiting-Signal even when season totals existed.
+    the_room_week = int(summary.get("week") or 0)
     try:
         player_mood_index = compute_player_mood_index(db, current_season, the_room_week)
     except Exception as exc:  # pragma: no cover
