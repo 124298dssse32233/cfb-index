@@ -17,7 +17,7 @@ _End-to-end CFB Index audit run as a four-phase Double Diamond. Surgical fixes s
 
 **The site is in much better shape than the 2026-04-22 audit suggested.** The Fan Intelligence layer is live (`/hub/` is fully populated), the homepage is no longer 5MB, the Mendoza Heisman contradiction is fixed, "Player Card Blueprint" / "Offensive Reminiscence" / "72 NCAA-eligible team records" / "v0.1.0" are all gone. The two highest-priority remaining issues are:
 
-1. **🔥 Fan-intel entity matching is broken at the player-page level.** Mendoza's "Own fans" top quote is from a Penn State podcast about Mississippi NIL law and Indiana recruiting under Cignetti — not about Mendoza. The pipeline is treating team-level Indiana sentiment as player-personal sentiment. **Single most credibility-damaging issue on the site.** Deferred from this pass; needs dedicated work in `src/cfb_rankings/fan_intelligence.py`.
+1. **🟡 Fan-intel entity matching is partially mitigated — needs a real fix.** Mendoza's "Own fans" top quote was a Penn State podcast about Mississippi NIL law. As of commit `ad68844` (Codex delivery-review followup), `_player_top_quote` now filters quotes against the player's first/last name tokens — off-topic quotes drop to `None` rather than surface as the player's voice. This is a defensive guard, not a real entity-resolution fix; robust NER + alias lookup still belongs in the fan-intel pipeline (M-1). For the immediate question "will Mendoza's page still show the wrong quote?" — after rebuild, no.
 
 2. **🟡 Heisman page is 14.99 MB with ~15,363 unvirtualized rows.** Phone-killer. Deferred from this pass; needs pagination/virtualization work.
 
@@ -30,6 +30,7 @@ This Octopus pass shipped 8 surgical fixes addressing the rest of the active bac
 | `25ccf6c` | S-2 (Stress point → Closest call, 9 sites), S-3 (W15 W18 W20 W21 → "3-1 over the last 4 (W15 ...)" readable summary), S-4 (Heisman placeholder → five-lens legend), S-5 (illinois-college 404 guard), S-8 (effective-N floor jargon → fan copy) | Five user-visible content/copy fixes flagged by the prior audit and Codex's Phase 1 adversarial pass |
 | `aea0c43` | S-6 (CLAUDE.md drift fix — line counts, profiled count, dropped stale line refs), S-7 (CFB_INDEX_AUDIT.md marked superseded) | Documentation hygiene — every future agent reads CLAUDE.md, and it was meaningfully stale |
 | `b56c624` | S-5 regression fix — `_VALID_TEAM_SLUGS` pre-population ordering | Self-caught: my initial S-5 guard was a no-op because the set wasn't populated until after its first consumer ran. Fixed before review-pass close. |
+| `ad68844` | Three Codex delivery-review findings: "Pressure Point" semantic cousin to Stress point (line 21049, renamed to "Closest Call"); `schedule[:4]` slice that made "Last four games" copy factually wrong on homepage accordions (now uses full schedule); defensive entity-match guard on `_player_top_quote` so off-topic quotes (e.g. Mississippi NIL law copy attributed to Mendoza) get dropped instead of surfaced | Closes the three real regression risks Codex caught + lands a session-sized partial fix for M-1 (the Mendoza wrong-quote issue) |
 
 ## Deferred — out of scope for this pass, named explicitly
 

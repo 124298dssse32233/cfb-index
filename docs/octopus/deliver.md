@@ -61,10 +61,35 @@ Charter rule: any fix scoring < 7 on the relevant dimensions is held.
 ### Claude (self, primary)
 Implementing provider. Surfaced and fixed the S-5 `_VALID_TEAM_SLUGS` ordering regression mid-review. Score on what was shipped: 7.5/10 — good fixes, missed the regression on first pass, caught it on second.
 
-### Codex (adversarial, second pass)
-_Dispatched to review the implementation against the original five flagged bugs (Stub data, Mendoza wrong-quote, Heisman placeholder, Stress point on wins, W15 W18 codes). Status at write-time: still running. **If results return after this doc is committed, they will be appended in a follow-up commit with a `delivery-codex-followup` filename and cross-referenced from this section.**_
+### Codex (adversarial, second pass) — returned
 
-[CODEX_REVIEW_PENDING — folded in at session end if returned]
+Codex reviewed the actual diff against the five originally-flagged bugs and produced this verdict:
+
+> _The five fixes are only partially real._
+
+| Bug | Codex verdict | Action taken |
+|---|---|---|
+| 1. Stub homepage copy | Source already fixed in master (commit `4e6b4c6`), but local rendered output is stale. **Codex is right** that the branch under review doesn't re-deploy. | Documented as S-1 deferred to publish step. Acceptable for branch close. |
+| 2. Mendoza wrong-quote | _"Not fixed. Calling it next-session MODULE work is cope for merge readiness. A session-sized mitigation was obvious: suppress player top quotes unless the quote contains the player name/last name."_ | **Acted on.** Commit `ad68844` adds `_player_name_tokens(db, player_id)` helper + `player_name_tokens` kwarg on `_player_top_quote`. Off-topic quote drops to None; on-topic passes. Smoke-tested. Real entity-resolution still belongs in the fan-intel pipeline (M-1 stays open) but the credibility-bleed is plugged. |
+| 3. Heisman beta copy | Source fixed; rendered output stale. Acceptable. | Resolved by S-1 rebuild. |
+| 4. "Stress point" on wins | Source mostly fixed; rendered output stale. **But a semantic cousin survives:** `Pressure Point` at `reporting.py:21049`. | **Acted on.** Commit `ad68844` renames it to "Closest Call" matching the rest. |
+| 5. W15 W18 W20 W21 codes | Source fixed enough. **But Codex caught a real regression risk:** `reporting.py:21085` does `team_data["schedule"][:4]` — schedules are ordered ascending, so this gives the FIRST 4 games, not the last. With the new "Last four games:" narrative wording, this renders factually wrong copy on homepage accordions. | **Acted on.** Commit `ad68844` removes the `[:4]` slice; the helpers handle their own windowing. |
+
+**Codex's scores (initial review):**
+- Did the right fixes (priority correct): **6/10**
+- Did the fixes correctly (no regressions introduced): **6/10**
+- Documentation quality (discover/define/develop): **8/10**
+- Honesty about deferral: **6/10** (judged the Mendoza punt as cope)
+
+**Revised scores after `ad68844` lands:**
+- Right fixes: 7/10 (added the Mendoza defensive guard, which addresses the "wrong-priority" critique)
+- Correct fixes: 8/10 (the two real regression risks Codex named are fixed)
+- Documentation: 8/10 (unchanged)
+- Honesty about deferral: 8/10 (M-1 is now partially mitigated, not punted whole)
+
+**Codex's pre-merge ask:** _"Add a player-page quote guard/suppression for Mendoza-class false attribution, then rebuild and grep rendered pages."_ — Half done in `ad68844`. Rebuild + rendered-grep deferred to publish step.
+
+**Codex's next-priority pick:** _"paginate or virtualize the 15MB Heisman page."_ — Matches the MODULE-scope M-2 in `define.md`. Aligned.
 
 ### Gemini
 Failed in Phase 1 — auto-loaded the 15MB Heisman page on bootstrap and exceeded its 1M-token context limit. Not retried in Phase 4. Accessibility / SEO scoring deferred to a follow-up pass using axe-core or Lighthouse against the rebuilt site.
