@@ -189,7 +189,95 @@ def _fetch_wire_live(db: Database) -> dict[str, Any] | None:
         }
         for r in rows
     ]
-    return {"entries": entries}
+    # Surface the freshest occurred_at so the homepage badge can be honest
+    # about how recent the wire actually is.
+    latest = max((r.get("occurred_at") for r in rows if r.get("occurred_at")), default="")
+    return {"entries": entries, "latest_occurred_at": latest}
+
+
+def _fetch_daily_live(db: Database) -> dict[str, Any] | None:
+    """Query daily_editions + daily_takes for The Daily homepage strip.
+
+    Returns the freshest 'published' edition plus the last few archive
+    leads. Returns None if no published edition exists (caller falls
+    back to the seed stub). Offline-stub editions are excluded so the
+    homepage never advertises hardcoded fallback prose as today's take.
+    """
+    # Filter out offline-stub editions even if they were historically
+    # written with status='published' before the synthesizer fix landed.
+    # The Alabama / Georgia / OL fallback prose is hardcoded and would
+    # otherwise look like today's "real" three takes on the homepage.
+    editions = db.query_all(
+        "SELECT edition_date, generated_at_utc FROM daily_editions "
+        "WHERE status = 'published' "
+        "  AND coalesce(generation_model, '') NOT LIKE '%offline%' "
+        "ORDER BY edition_date DESC LIMIT 6"
+    )
+    if not editions:
+        return None
+    today_row = editions[0]
+    today_takes = db.query_all(
+        "SELECT rank_position, headline, body FROM daily_takes "
+        "WHERE edition_date = :date ORDER BY rank_position",
+        {"date": today_row["edition_date"]},
+    )
+    if not today_takes:
+        return None
+
+    def _summarize(body: str, max_len: int) -> str:
+        body = (body or "").strip()
+        if len(body) <= max_len:
+            return body
+        return body[:max_len].rsplit(" ", 1)[0] + "…"
+
+    try:
+        d = datetime.strptime(today_row["edition_date"][:10], "%Y-%m-%d").date()
+        try:
+            today_label = d.strftime("%A, %B %#d, %Y")
+        except ValueError:
+            today_label = d.strftime("%A, %B %-d, %Y")
+    except Exception:
+        today_label = today_row["edition_date"]
+
+    today_block = {
+        "date_label": today_label,
+        "title": "Three Things This Morning",
+        "takes": [
+            {"n": t["rank_position"], "headline": t["headline"],
+             "body": _summarize(t["body"], max_len=240)}
+            for t in today_takes
+        ],
+    }
+
+    archive: list[dict[str, str]] = []
+    for ed in editions[1:6]:
+        leads = db.query_all(
+            "SELECT headline, body FROM daily_takes "
+            "WHERE edition_date = :date ORDER BY rank_position LIMIT 1",
+            {"date": ed["edition_date"]},
+        )
+        if not leads:
+            continue
+        try:
+            ad = datetime.strptime(ed["edition_date"][:10], "%Y-%m-%d").date()
+            try:
+                arc_label = ad.strftime("%b %#d")
+            except ValueError:
+                arc_label = ad.strftime("%b %-d")
+        except Exception:
+            arc_label = ed["edition_date"][:10]
+        lead = leads[0]
+        archive.append({
+            "date_label": arc_label,
+            "title": lead["headline"],
+            "summary": _summarize(lead["body"], max_len=140),
+        })
+
+    return {
+        "today": today_block,
+        "archive": archive,
+        "latest_edition_date": today_row["edition_date"][:10],
+    }
 
 
 def render_homepage(db: Database, output_path: Path | None = None) -> Path | None:
@@ -218,15 +306,24 @@ def _render_document(edition: Edition, features: list[EditionFeature],
     cover_essay = next((f for f in features if f.feature_kind == "cover_essay"), None)
     secondary = [f for f in features if f.feature_kind != "cover_essay"]
 
+    # Track whether each surface is using live or stub data so badges
+    # can stop lying about freshness when the homepage was assembled
+    # from cached seed JSON instead of the DB.
     if db is not None:
-        threads_data = _fetch_threads_live(db) or _load_stub("threads.json")
-        canon_data = _fetch_canon_live(db) or _load_stub("canon_featured.json")
-        wire_data = _fetch_wire_live(db) or _load_stub("wire_seed.json")
+        threads_live = _fetch_threads_live(db)
+        canon_live = _fetch_canon_live(db)
+        wire_live = _fetch_wire_live(db)
+        daily_live = _fetch_daily_live(db)
     else:
-        threads_data = _load_stub("threads.json")
-        canon_data = _load_stub("canon_featured.json")
-        wire_data = _load_stub("wire_seed.json")
-    daily_data = _load_stub("daily_seed.json")  # Sprint 14 live source not yet available
+        threads_live = canon_live = wire_live = daily_live = None
+    threads_data = threads_live or _load_stub("threads.json")
+    canon_data = canon_live or _load_stub("canon_featured.json")
+    wire_data = wire_live or _load_stub("wire_seed.json")
+    daily_data = daily_live or _load_stub("daily_seed.json")
+    threads_is_live = threads_live is not None
+    canon_is_live = canon_live is not None
+    wire_is_live = wire_live is not None
+    daily_is_live = daily_live is not None
 
     publish_dt = datetime.combine(edition.publish_date, datetime.min.time())
     # Windows-safe date formatting (no %-d on win32):
@@ -245,8 +342,8 @@ def _render_document(edition: Edition, features: list[EditionFeature],
         parts.append(_render_cover_essay_tease(edition, cover_essay))
     parts.append(_render_feature_toc(secondary))
     parts.append(_render_running_departments_divider())
-    parts.append(_render_the_daily(daily_data))
-    parts.append(_render_the_wire(wire_data))
+    parts.append(_render_the_daily(daily_data, is_live=daily_is_live))
+    parts.append(_render_the_wire(wire_data, is_live=wire_is_live))
     parts.append(_render_active_threads(threads_data))
     parts.append(_render_the_canon(canon_data))
     parts.append(_render_voices(voices))
@@ -634,7 +731,7 @@ def _render_running_departments_divider() -> str:
 </section>"""
 
 
-def _render_the_daily(daily: dict[str, Any]) -> str:
+def _render_the_daily(daily: dict[str, Any], is_live: bool = False) -> str:
     today = daily.get("today") or {}
     archive = daily.get("archive") or []
     takes_html = "".join(
@@ -654,13 +751,19 @@ def _render_the_daily(daily: dict[str, Any]) -> str:
         </div>"""
         for a in archive
     )
+    badge_html = '<span class="badge-live">LIVE</span>' if is_live else ''
+    footer_html = (
+        ''
+        if is_live
+        else '<p class="eyebrow muted" style="margin-top:32px;">Archive view — no published edition for today yet.</p>'
+    )
     return f"""
 <section class="dept">
   <div class="page">
     <div class="dept-head">
       <span class="roman">IX.</span>
       <span class="label">THE DAILY</span>
-      <span class="badge-live">LIVE</span>
+      {badge_html}
       <span class="meta">{html.escape(today.get('date_label', ''))}</span>
     </div>
     <div class="daily-grid">
@@ -673,14 +776,12 @@ def _render_the_daily(daily: dict[str, Any]) -> str:
         {archive_html}
       </aside>
     </div>
-    <p class="eyebrow muted" style="margin-top:32px;">
-      Stub data until Sprint 14 ships <em>The Daily</em>'s live pipeline.
-    </p>
+    {footer_html}
   </div>
 </section>"""
 
 
-def _render_the_wire(wire: dict[str, Any]) -> str:
+def _render_the_wire(wire: dict[str, Any], is_live: bool = False) -> str:
     rows = "".join(
         f"""<tr>
           <td class="when">{html.escape(e.get('when', ''))}</td>
@@ -691,13 +792,31 @@ def _render_the_wire(wire: dict[str, Any]) -> str:
         </tr>"""
         for e in (wire.get("entries") or [])
     )
+    # Honest freshness label: derive from the freshest occurred_at in the
+    # rows actually rendered. Falls back to a static label only when no
+    # data is available (stub mode).
+    meta = "ARCHIVE VIEW"
+    if is_live:
+        latest = (wire.get("latest_occurred_at") or "")[:10]
+        if latest:
+            try:
+                d = datetime.strptime(latest, "%Y-%m-%d").date()
+                age_days = (date.today() - d).days
+                if age_days <= 1:
+                    meta = f"UPDATED {latest} · LIVE"
+                elif age_days <= 7:
+                    meta = f"LATEST ENTRY {latest} · {age_days}d AGO"
+                else:
+                    meta = f"LATEST ENTRY {latest} · ARCHIVE VIEW"
+            except Exception:
+                meta = f"UPDATED {latest}"
     return f"""
 <section class="dept">
   <div class="page">
     <div class="dept-head">
       <span class="roman">X.</span>
       <span class="label">THE WIRE</span>
-      <span class="meta">UPDATED CONTINUOUSLY · LIVE</span>
+      <span class="meta">{html.escape(meta)}</span>
     </div>
     <table class="wire-table">
       <thead><tr>

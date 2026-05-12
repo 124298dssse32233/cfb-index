@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import logging
 import re
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 
 from cfb_rankings.db import Database
@@ -93,8 +93,31 @@ def refresh_homepage_wire_block(
 
     rendered_rows = "\n".join(render_row_html(r, now=now) for r in rows)
 
+    # Derive an honest freshness label from the freshest occurred_at in the
+    # rows we're actually rendering. The page used to say "UPDATED
+    # CONTINUOUSLY · LIVE · <now>" even when the most recent entry was
+    # weeks old — that's a lie the user noticed in the May audit.
+    latest_raw = ""
+    for r in rows:
+        ts = (r.get("occurred_at") or "")
+        if ts and ts > latest_raw:
+            latest_raw = ts
+    latest_iso = latest_raw[:10]
     now_str = (now or datetime.utcnow()).strftime("%Y-%m-%d %H:%M UTC")
-    meta_text = f"UPDATED CONTINUOUSLY · LIVE · {now_str}"
+    if latest_iso:
+        try:
+            d = datetime.strptime(latest_iso, "%Y-%m-%d").date()
+            age_days = (date.today() - d).days
+            if age_days <= 1:
+                meta_text = f"UPDATED {latest_iso} · LIVE"
+            elif age_days <= 7:
+                meta_text = f"LATEST ENTRY {latest_iso} · {age_days}d AGO"
+            else:
+                meta_text = f"LATEST ENTRY {latest_iso} · ARCHIVE VIEW"
+        except Exception:
+            meta_text = f"UPDATED {now_str}"
+    else:
+        meta_text = f"UPDATED {now_str}"
 
     new_html = (
         match.group(1)

@@ -85,6 +85,15 @@ jobs:
           # see the new daily takes. (render-daily already ran above; this
           # ensures it sits in the correct merged tree.)
           python manage.py render-daily
+          # Re-render the homepage so the Daily strip on / picks up today's
+          # published takes (the homepage's _fetch_daily_live reads from
+          # daily_editions WHERE status='published'). Without this, the
+          # homepage keeps showing yesterday's takes even when today's are
+          # live at /daily/.
+          python manage.py render-homepage || echo "render-homepage skipped (no active edition)"
+          # Re-patch the Wire <tbody> on the homepage with the freshest
+          # rows + honest UPDATED label (homepage patch is on by default).
+          python manage.py render-wire || true
           echo "Merged. Total deployable files: $(find output/site -type f | wc -l)"
 
       # ---- Vercel deploy ----

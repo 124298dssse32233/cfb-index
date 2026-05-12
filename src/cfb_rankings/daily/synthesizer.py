@@ -311,13 +311,22 @@ def persist_edition(conn, bundle: DailyInputBundle, takes: list[TakeResult]) -> 
     all_passed = all(t.voice_validator_passed for t in takes)
     models_used = ", ".join(sorted({t.generation_model for t in takes}))
 
+    # If every take came from the offline-stub fallback (deterministic
+    # hardcoded Alabama/Georgia/OL paragraphs), this isn't a real edition.
+    # Persist it as 'offline-draft' so the renderer + homepage's
+    # _fetch_daily_live can filter it out instead of publishing fake
+    # April content as today's take.
+    offline_modes = {"offline-stub", "offline-fallback"}
+    all_offline = all(t.generation_model in offline_modes for t in takes) if takes else True
+    status = "offline-draft" if all_offline else "published"
+
     conn.execute(
         """
         INSERT OR REPLACE INTO daily_editions
           (edition_date, generated_at_utc, status, voice_validator_passed, generation_model)
-        VALUES (?, datetime('now'), 'published', ?, ?)
+        VALUES (?, datetime('now'), ?, ?, ?)
         """,
-        (bundle.edition_date, int(all_passed), models_used),
+        (bundle.edition_date, status, int(all_passed), models_used),
     )
 
     for take in takes:
