@@ -29,6 +29,7 @@ from cfb_rankings.fan_intelligence import compute_player_mood_index
 # ---------------------------------------------------------------------------
 
 def clean_truncate(text: str, max_chars: int = 240) -> str:
+    text = _strip_reddit_escapes(text)
     if len(text) <= max_chars:
         return text
     truncated = text[:max_chars]
@@ -38,15 +39,42 @@ def clean_truncate(text: str, max_chars: int = 240) -> str:
     return truncated.rstrip(".,;:") + "…"
 
 
+# Reddit-flavored markdown escapes the characters # > * _ ~ ` to prevent
+# autolinks / formatting. When we display the raw text those literal
+# backslashes look like a rendering bug ("\#18 Michigan" instead of
+# "#18 Michigan"). Strip them; we're not doing reddit-side formatting
+# either way.
+_REDDIT_ESCAPE_RE = __import__("re").compile(r"\\([#>*_~`\[\](){}.!|+\\-])")
+
+
+def _strip_reddit_escapes(text: str) -> str:
+    if not text or "\\" not in text:
+        return text
+    return _REDDIT_ESCAPE_RE.sub(r"\1", text)
+
+
 def _clean_attribution(author_pseudonym: str) -> str:
     """Strip email prefix from author display string.
 
     'email@host.com (Display Name)' → 'Display Name'
+
+    Some podcast feeds store the iTunes RSS owner field which already
+    arrived truncated (paren never closed by upstream pipeline) — e.g.
+    'lockedonpodcasts@gmail.com (LJ Martin, Jake Hatch, Deion Sanders'.
+    Handle that case by extracting whatever follows '(' even when the
+    closing paren is missing, and trimming any dangling comma.
+
     Other formats are returned as-is.
     """
-    m = re.match(r"^[^\s@]+@[^\s@]+\s+\((.+)\)\s*$", author_pseudonym.strip())
+    s = author_pseudonym.strip()
+    # Closed-paren form: "email (Name)"
+    m = re.match(r"^[^\s@]+@[^\s@]+\s+\((.+)\)\s*$", s)
     if m:
         return m.group(1)
+    # Open-paren form (upstream truncated): "email (Name1, Name2"
+    m = re.match(r"^[^\s@]+@[^\s@]+\s+\((.+)$", s)
+    if m:
+        return m.group(1).rstrip(",;: ").rstrip("…") + "…"
     return author_pseudonym
 
 
