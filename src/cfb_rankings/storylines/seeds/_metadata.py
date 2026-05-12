@@ -99,7 +99,13 @@ THREADS: list[dict] = [
         ),
         "accent_hex": "#d97706",
         "status": "active",
-        "started_at": "2026-09-01",
+        # 2025-09 is when the thread actually started chronologically
+        # (chapters dated Nov 5 2025, Dec 2 2025, Jan 18 2026, Apr 23
+        # 2026). Previous value "2026-09-01" was incorrectly the
+        # season-label parsed from the slug "carousel-2026-27", which
+        # produced an impossible "Started Sep 2026" pill while showing
+        # 2025-dated chapters.
+        "started_at": "2025-09-01",
         "primary_program_slugs": [],
         "primary_conference_slug": None,
         "voice_register_source": "editor-desk",
