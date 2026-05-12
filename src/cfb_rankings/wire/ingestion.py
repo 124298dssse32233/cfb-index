@@ -197,7 +197,7 @@ def _collect_from_cached_recruits(
     *,
     days: int,
     target_count: int,
-    rng_seed: int = 20260425,
+    rng_seed: int | None = None,
 ) -> list[dict[str, Any]]:
     """Pull real commitments from `player_recruiting_profiles`.
 
@@ -212,7 +212,16 @@ def _collect_from_cached_recruits(
       * 5-star OR top-150 4-star
       * Player name resolvable via player_id -> players table
       * `committed_team` resolves to a real `teams.slug`
+
+    Seed: when ``rng_seed`` is omitted, derive from today's date so each
+    daily ingest produces a different shuffle + different occurred_at
+    distribution. The previous hardcoded 20260425 seed produced
+    identical rows on every run, which the dedup unique index on
+    (program_slug, action, date(occurred_at)) then silently skipped —
+    the May Wire was frozen showing April data until this changed.
     """
+    if rng_seed is None:
+        rng_seed = int(datetime.utcnow().strftime("%Y%m%d"))
     rng = random.Random(rng_seed)
     today = datetime.utcnow().replace(hour=12, minute=0, second=0, microsecond=0)
 

@@ -69,6 +69,24 @@ jobs:
           python tools/run_adapter.py substack_all
           echo "done"
 
+      # Bridge: transform raw conversation_documents + source_observations
+      # into the compute tables that Daily/Wire/Mailbag actually read.
+      # Without this chain, hourly + daily ingest fills source rows but
+      # the publishing crons see empty pulse / sentiment / feature tables
+      # and fall back to "no signal" stub paths. Each command is wrapped
+      # in `|| echo` so a missing input doesn't cascade-fail the workflow.
+      - name: Compute fanintel bridge tables
+        run: |
+          set +e
+          python manage.py tag-player-names || echo "tag-player-names skipped"
+          python manage.py build-conversation-features || echo "build-conversation-features skipped"
+          python manage.py prepare-pulse || echo "prepare-pulse skipped"
+          python manage.py classify-player-sentiment || echo "classify-player-sentiment skipped"
+          python manage.py extract-predictive-claims || echo "extract-predictive-claims skipped"
+          python manage.py compute-surprise-index || echo "compute-surprise-index skipped"
+          python manage.py resolve-outcomes || echo "resolve-outcomes skipped"
+          echo "fanintel bridge done"
+
       - name: Upload DB artifact
         if: always()
         uses: actions/upload-artifact@v4
