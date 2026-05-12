@@ -37,6 +37,7 @@ jobs:
         with:
           name: cfb-rankings-db
           path: .
+          workflow_search: true
           search_artifacts: true
           if_no_artifact_found: warn
 
@@ -57,6 +58,7 @@ jobs:
         with:
           name: cfb-rankings-site
           path: prior-site/
+          workflow_search: true
           search_artifacts: true
           if_no_artifact_found: warn
 
