@@ -1,5 +1,5 @@
 {
-  "_comment": "Stub Storyline Threads for Wave 2 (Sprint 10). Replace with live storylines DB query when that sprint ships.",
+  "_comment": "Fallback Storyline Threads rendered when storyline_threads DB table is empty. Loaded by _load_stub() in homepage_renderer.py; superseded by _fetch_threads_live() when DB has rows. The last_updated dates here display as 'ARCHIVE' rather than literal April dates when in stub mode (is_live=False).",
   "featured": {
     "slug": "after-the-bracket-2026",
     "title": "After the Bracket: Three Conversations",

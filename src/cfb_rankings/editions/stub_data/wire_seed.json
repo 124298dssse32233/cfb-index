@@ -1,5 +1,5 @@
 {
-  "_comment": "Stub Wire entries for Wave 2 (Sprint 12). Replace with live transactions table when that sprint ships.",
+  "_comment": "Fallback Wire entries rendered when wire_entries DB table is empty. Loaded by _load_stub() in homepage_renderer.py; superseded by _fetch_wire_live() when DB has rows.",
   "entries": [
     {"when": "10:14 ET",  "program": "Texas",       "action": "OL transfer commits", "why": "Replaces a draft pick at LT; Sark gets continuity",                "impact": "+0.4 win"},
     {"when": "08:42 ET",  "program": "Auburn",      "action": "DC promotion",        "why": "Internal hire signals Hugh keeping the staff intact",              "impact": "+0.1 win"},

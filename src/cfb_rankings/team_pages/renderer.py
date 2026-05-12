@@ -662,7 +662,26 @@ def _render_pulse(
     )
 
     live_dot_cls = "pulse__live-dot" if show_live else "pulse__live-dot pulse__live-dot--quiet"
-    live_label = "LIVE" if show_live else "QUIET"
+    # The "LIVE" label is only honest when the latest_week is from the
+    # current calendar year. If we're surfacing mentions from a prior
+    # season (e.g. 2025-30 on a page rendered in May 2026), say
+    # "ARCHIVE" so the label doesn't lie about being real-time.
+    is_archive_week = False
+    if show_live:
+        wk_str = str(mood.get("latest_week") or "")
+        if wk_str:
+            try:
+                wk_year = int(wk_str.split("-")[0])
+                from datetime import datetime as _dt_pulse
+                is_archive_week = wk_year < _dt_pulse.utcnow().year
+            except (ValueError, IndexError):
+                is_archive_week = False
+    if not show_live:
+        live_label = "QUIET"
+    elif is_archive_week:
+        live_label = "ARCHIVE"
+    else:
+        live_label = "LIVE"
     meta_text = _pulse_meta(mood, state, snap)
 
     event_log_html = _render_event_log(snap, state, profile)

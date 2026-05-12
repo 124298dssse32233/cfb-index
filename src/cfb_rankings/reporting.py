@@ -30,6 +30,46 @@ from cfb_rankings.utils import (
 )
 
 
+def _rankings_freshness_lede(season_year: int, ranked_week, local_week) -> str:
+    """Honest lede copy for the /rankings/ hero.
+
+    The rankings page is reused across the calendar year; the same
+    "current published run is through week X" copy reads as live during
+    the season but lies in offseason — by May the listed week is from
+    the prior season's postseason, not "current". Branch on calendar
+    position relative to season_year:
+
+        - in-season (Aug-Jan, year == season_year + 1 if Jan):
+            "current published run" copy stands
+        - offseason (Feb-July, year > season_year):
+            label the page as FINAL rankings for season_year
+        - upcoming (year == season_year, before season starts):
+            label as projected / preseason
+    """
+    from datetime import datetime as _dt
+    today = _dt.utcnow().date()
+    # Map current calendar to relevant season:
+    #   Aug-Dec → calendar year is the in-season year
+    #   Jan-July → in-season year was previous calendar year
+    in_season_year = today.year if today.month >= 8 else today.year - 1
+    is_archive = season_year < in_season_year or (
+        season_year == in_season_year and today.month in (2, 3, 4, 5, 6, 7)
+    )
+    if is_archive:
+        return (
+            f"Final {season_year} rankings: power and resume side by side, "
+            f"published through week {ranked_week}. "
+            f"The {season_year + 1} season begins in August — rankings will "
+            f"refresh weekly once games kick off."
+        )
+    return (
+        f"Predictive power and season resume are shown side by side. "
+        f"The current published run is through week {ranked_week}, "
+        f"while your local game database is currently populated "
+        f"through week {local_week}."
+    )
+
+
 @dataclass
 class RankingRow:
     rank: int
@@ -13919,8 +13959,7 @@ def render_rankings_page_html(
           <p class="eyebrow">Power Rankings</p>
           <h1>{escape(season_name)} across every level.</h1>
           <p class="lede">
-            Predictive power and season resume are shown side by side. The current published run is through week {escape(str(summary["week"]))},
-            while your local game database is currently populated through week {latest_local_week}.
+            {_rankings_freshness_lede(season_year_value, summary["week"], latest_local_week)}
           </p>
           <p class="section-note">
             The list is meant to read like a clean selection-room board: how strong teams look right now, and what they have actually earned.

@@ -476,15 +476,32 @@ def render_thread(db, slug: str, output_dir: Path | str) -> Path:
 def render_index(db, output_dir: Path | str) -> Path:
     threads = _fetch_all_threads(db)
     cards: list[str] = []
+    # Threads that haven't gotten a new chapter in 21+ days get a
+    # "Dormant" status badge instead of "Active". The seed deks say
+    # things like "mapped chapter by chapter as it happens" which read
+    # as a contradiction when paired with an April last-chapter date in
+    # mid-May. Downgrade the badge so the page is honest about cadence.
+    from datetime import date as _date, datetime as _dt
+    today = _dt.utcnow().date()
     for t in threads:
         title = html.escape(t["title"], quote=False)
         dek = html.escape(t["dek"], quote=False)
         accent = t.get("accent_hex") or "#c5b358"
         slug = t["thread_slug"]
         ch_count = t.get("chapter_count") or 0
-        last = rh.humanize_date_short(t["last_chapter_at"]) if t.get("last_chapter_at") else "—"
+        last_raw = t.get("last_chapter_at")
+        last = rh.humanize_date_short(last_raw) if last_raw else "—"
         started = _short_year_month(t["started_at"])
         status = rh.status_label(t.get("status"))
+        # Downgrade the status pill when the last chapter is stale.
+        if last_raw and status.lower() == "active":
+            try:
+                last_date = _dt.strptime(str(last_raw)[:10], "%Y-%m-%d").date()
+                age_days = (today - last_date).days
+                if age_days >= 21:
+                    status = "Dormant"
+            except (ValueError, TypeError):
+                pass
         cards.append(
             f'<a class="index-card" href="/storylines/{slug}.html">'
             f'<span class="ic-bar" style="background: {accent};"></span>'
