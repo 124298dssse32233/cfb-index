@@ -8,19 +8,40 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: '3.11' }
+        with: { python-version: '3.12' }   # pyproject.toml requires >=3.12
       - run: pip install -e .
-      - run: python manage.py apply-migrations
+
+      # Pull the canonical DB artifact produced by publish-site or the
+      # weekly ingest. If none exists yet, init-db creates a fresh schema
+      # (idempotent — CREATE TABLE IF NOT EXISTS throughout).
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with: { name: cfb-rankings-db, path: . }
+
+      - run: python manage.py init-db
       - run: python manage.py generate-daily
       - run: python manage.py render-daily
       - run: python manage.py build-site
-        env: { ANTHROPIC_API_KEY: '${{ secrets.ANTHROPIC_API_KEY }}' }
+
       - run: |
           git config user.name "daily-cron"
           git config user.email "daily-cron@cfbindex.local"
-          git add output/site/daily/
+          git add output/site/daily/ output/site/index.html
           git diff --cached --quiet || git commit -m "daily: $(date -u +%Y-%m-%d)"
           git push origin master
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true

@@ -15,15 +15,18 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -37,8 +40,13 @@ jobs:
           SLUG=$(python -c "from datetime import date; t=date.today(); y,w,_=t.isocalendar(); print(f'{y}-w{w:02d}')")
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
 
-      - name: Apply migrations
-        run: python manage.py apply-migrations
+      - name: Download prior DB artifact
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with: { name: cfb-rankings-db, path: . }
+
+      - name: Bootstrap DB schema
+        run: python manage.py init-db
 
       - name: Publish edition (idempotent)
         run: python manage.py publish-edition --slug ${{ steps.slug.outputs.slug }}
