@@ -121,16 +121,20 @@ def slugify(value: str) -> str:
 
 def normalize_name(value: str) -> str:
     value = value.lower().strip()
-    replacements = {
-        "&": "and",
-        "st.": "state",
-        "st ": "state ",
-        "university": "",
-        "college": "",
-        "  ": " ",
-    }
-    for old, new in replacements.items():
-        value = value.replace(old, new)
+    # Plain string replacements (no word-boundary risk).
+    value = value.replace("&", "and")
+    value = value.replace("university", "")
+    value = value.replace("college", "")
+    # "St." / "St" -> "state" requires WORD-BOUNDARY regex. The previous
+    # implementation did `value.replace("st ", "state ")` which mangled
+    # any token containing the literal substring "st ": "east tennessee
+    # state" became "eastate tennessee state", "west georgia" became
+    # "westate georgia", "southeast missouri" became "southeastate
+    # missouri", and so on — hundreds of team slugs went out wrong.
+    # Using \bst\b ensures only the actual "St."/"St" abbreviation
+    # (as a standalone word) gets expanded.
+    value = re.sub(r"\bst\.\s*", "state ", value)
+    value = re.sub(r"\bst\b(?!\.)", "state", value)
     return re.sub(r"\s+", " ", value).strip()
 
 
