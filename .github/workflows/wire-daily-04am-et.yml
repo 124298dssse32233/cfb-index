@@ -1,33 +1,14 @@
 name: wire-daily-04am-et
 # Sprint 12 — The Wire daily refresh.
 #
-# Runs every day at 04:00 America/New_York (which is 09:00 UTC during
-# EDT and 09:00 UTC during EST — we use UTC here; the "04am ET" name is
-# the editorial cadence target documented in the sprint brief, with the
-# small DST drift accepted).
-#
-# Pipeline (matches the sprint brief Phase 5):
-#   1. apply-migrations (idempotent)
-#   2. wire-ingest --days 7    -- pull last week's transactions; dedup
-#                                  index absorbs anything already
-#                                  recorded by prior days.
-#   3. wire-generate-editorial -- backfill why_it_matters / impact for
-#                                  any new rows, leaving completed
-#                                  rows untouched (overwrite=False).
-#   4. render-wire             -- writes output/site/wire/index.html,
-#                                  monthly archive pages, and patches
-#                                  the homepage Wire <tbody>.
-#
-# DISABLED by spec — Kevin enables manually after first live cycle.
-# Two layers of disable:
-#   1. The schedule trigger below is commented out (no cron firing).
-#   2. The `if: false` job gate makes any workflow_dispatch run a no-op
-#      until Kevin flips it. Together: this workflow exists, can be
-#      reviewed/edited, but cannot execute under any trigger until the
-#      gate is opened.
-# To enable:
-#   * Uncomment the `schedule:` block below.
-#   * Change `if: false` on the job to `if: true` (or delete the line).
+# Pipeline:
+#   1. init-db (idempotent CREATE TABLE IF NOT EXISTS schema bootstrap)
+#   2. wire-ingest --days 7   — pull last week's transactions; dedup
+#   3. wire-generate-editorial — backfill why_it_matters / impact for
+#                                new rows (overwrite=False).
+#   4. render-wire             — writes output/site/wire/ + patches
+#                                the homepage Wire <tbody>.
+#   5. Merge with rolling site-state artifact + Vercel deploy.
 
 on:
   schedule:
@@ -41,6 +22,9 @@ jobs:
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,9 +45,6 @@ jobs:
           name: cfb-rankings-db
           path: .
 
-      # Use init-db (CREATE TABLE IF NOT EXISTS-based schema bootstrap)
-      # rather than apply-migrations, so the workflow works whether or not
-      # a prior DB artifact existed.
       - name: Bootstrap DB schema (idempotent)
         run: python manage.py init-db
 
@@ -73,16 +54,50 @@ jobs:
       - name: Wire — generate editorial fields for new entries
         run: python manage.py wire-generate-editorial --days 14
 
-      - name: Wire — render pages + patch homepage
-        run: python manage.py render-wire --days 30
+      # ---- Rolling site-state assembly ----
+      - name: Download prior site state
+        id: dl_site
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with: { name: cfb-rankings-site, path: prior-site/ }
 
-      - name: Upload site artifact
+      - name: Bootstrap site state from release if no artifact
+        if: steps.dl_site.outcome != 'success'
+        run: |
+          set -e
+          mkdir -p prior-site
+          gh release download deploy-state-v1 --pattern site-state-bootstrap.tar.gz --output /tmp/seed.tar.gz
+          tar -xzf /tmp/seed.tar.gz -C prior-site
+          echo "Bootstrapped $(find prior-site -type f | wc -l) files from release."
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+
+      - name: Merge wire output into prior site state
+        run: |
+          set -e
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          # Re-render wire on the merged tree so /wire/ + homepage patch
+          # land in the correct context.
+          python manage.py render-wire --days 30
+          echo "Merged. Total deployable files: $(find output/site -type f | wc -l)"
+
+      # ---- Vercel deploy ----
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        run: |
+          vercel deploy --prod --yes --archive=tgz \
+            --token=$VERCEL_TOKEN \
+            --scope=$VERCEL_ORG_ID
+
+      # ---- Maintain artifacts for next cron ----
+      - name: Upload site state for next cron
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cfb-site-wire
-          path: |
-            output/site/wire/
-            output/site/index.html
+          name: cfb-rankings-site
+          path: output/site/
           retention-days: 14
           overwrite: true
 

@@ -11,6 +11,9 @@ jobs:
     timeout-minutes: 30
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,21 +27,56 @@ jobs:
 
       - run: python manage.py init-db
 
-      - run: |
+      - name: Generate + render mailbag
+        run: |
           EDITION=$(python -c "from datetime import date; d=date.today(); w=d.isocalendar().week; print(f'{d.year}-w{w:02d}')")
           python manage.py mailbag-curate-submissions --edition $EDITION
           python manage.py mailbag-generate-answers --edition $EDITION
           python manage.py render-mailbag --edition $EDITION
-          # build-site intentionally NOT called — needs full historical DB.
-          # /mailbag/ renders standalone; site-wide cross-links rehydrate
-          # on the next publish-site / weekly_deep cycle.
 
-      - name: Upload mailbag artifact
+      # ---- Rolling site-state assembly ----
+      - name: Download prior site state
+        id: dl_site
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with: { name: cfb-rankings-site, path: prior-site/ }
+
+      - name: Bootstrap site state from release if no artifact
+        if: steps.dl_site.outcome != 'success'
+        run: |
+          set -e
+          mkdir -p prior-site
+          gh release download deploy-state-v1 --pattern site-state-bootstrap.tar.gz --output /tmp/seed.tar.gz
+          tar -xzf /tmp/seed.tar.gz -C prior-site
+          echo "Bootstrapped $(find prior-site -type f | wc -l) files from release."
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+
+      - name: Merge mailbag output into prior site state
+        run: |
+          set -e
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          EDITION=$(python -c "from datetime import date; d=date.today(); w=d.isocalendar().week; print(f'{d.year}-w{w:02d}')")
+          python manage.py render-mailbag --edition $EDITION
+          echo "Merged. Total deployable files: $(find output/site -type f | wc -l)"
+
+      # ---- Vercel deploy ----
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        run: |
+          vercel deploy --prod --yes --archive=tgz \
+            --token=$VERCEL_TOKEN \
+            --scope=$VERCEL_ORG_ID
+
+      # ---- Maintain artifacts for next cron ----
+      - name: Upload site state for next cron
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cfb-mailbag-${{ github.run_number }}
-          path: output/site/mailbag/
+          name: cfb-rankings-site
+          path: output/site/
           retention-days: 14
           overwrite: true
 
