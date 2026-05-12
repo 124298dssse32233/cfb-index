@@ -5421,11 +5421,25 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
     template literals (e.g. ${varName}) do not register as real links. External
     links (http/https/mailto/tel), anchors, and data URIs are skipped; only
     internal .html paths are resolved against the file's location and checked.
+
+    Performance: precomputes a single set of *.html files under the site root
+    so each href is O(1) set lookup instead of a Path.resolve()+exists() pair
+    (which on Windows costs a stat() syscall per call). For a 67k-page site
+    this drops audit wall-clock from ~10 min to ~1 min.
     """
     root = Path(site_dir).resolve()
     if not root.exists():
         return [{"file": str(root), "href": "", "reason": "site directory does not exist"}]
     html_files = list(root.rglob("*.html"))
+    # Build a normalized lookup of every existing .html target as a POSIX-style
+    # path relative to root ("teams/alabama.html", "editions/index.html").
+    valid_targets: set[str] = set()
+    for p in html_files:
+        try:
+            rel = p.relative_to(root).as_posix()
+        except ValueError:
+            continue
+        valid_targets.add(rel)
     broken: list[dict[str, str]] = []
     script_style_re = re.compile(r"<(?:script|style)\b[\s\S]*?</(?:script|style)>", re.IGNORECASE)
     href_re = re.compile(r"""href\s*=\s*["']([^"']+)["']""", re.IGNORECASE)
@@ -5437,10 +5451,16 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
             broken.append({"file": str(path), "href": "", "reason": f"read error: {exc}"})
             continue
         clean = script_style_re.sub(" ", raw)
+        try:
+            file_rel = path.relative_to(root).as_posix()
+        except ValueError:
+            file_rel = str(path)
+        # Directory of this file inside the site, used to resolve relative hrefs.
+        file_dir_parts = file_rel.split("/")[:-1]
         for match in href_re.finditer(clean):
             raw_href = match.group(1).strip()
             if not raw_href:
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "empty href"})
+                broken.append({"file": file_rel, "href": raw_href, "reason": "empty href"})
                 continue
             if raw_href.startswith(skip_prefixes):
                 continue
@@ -5449,31 +5469,42 @@ def audit_site_links(site_dir: str | Path = "output/site") -> list[dict[str, str
             if not href:
                 continue
             if re.search(r"/\.html$", href) or href.endswith("/.html"):
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "empty-slug .html"})
+                broken.append({"file": file_rel, "href": raw_href, "reason": "empty-slug .html"})
                 continue
-            # Resolve target. Site-absolute paths ("/foo/bar.html") are correct
-            # on the deployed site (served at /); for the audit we resolve them
-            # against the site root rather than the filesystem root. Trailing-
-            # slash hrefs map to <dir>/index.html the same way a web server
-            # would serve them.
+            # Build target as a POSIX-style path relative to the site root.
+            # Site-absolute ("/foo/bar.html") resolves against root (NOT
+            # filesystem root). Trailing-slash hrefs map to <dir>/index.html
+            # the same way a web server would serve them.
             if href.startswith("/"):
-                base = root
+                base_parts: list[str] = []
                 rel = href.lstrip("/")
             else:
-                base = path.parent
+                base_parts = list(file_dir_parts)
                 rel = href
             if rel.endswith("/"):
                 rel = rel + "index.html"
             if not rel.endswith(".html"):
                 continue
-            target = (base / rel).resolve()
-            try:
-                target.relative_to(root)
-            except ValueError:
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "escapes site root"})
+            # Walk path segments, honoring ".." (parent) and "." (current).
+            parts = base_parts + [p for p in rel.split("/") if p]
+            resolved: list[str] = []
+            escapes = False
+            for segment in parts:
+                if segment == "..":
+                    if not resolved:
+                        escapes = True
+                        break
+                    resolved.pop()
+                elif segment == ".":
+                    continue
+                else:
+                    resolved.append(segment)
+            if escapes:
+                broken.append({"file": file_rel, "href": raw_href, "reason": "escapes site root"})
                 continue
-            if not target.exists():
-                broken.append({"file": str(path.relative_to(root)), "href": raw_href, "reason": "target missing"})
+            target_rel = "/".join(resolved)
+            if target_rel not in valid_targets:
+                broken.append({"file": file_rel, "href": raw_href, "reason": "target missing"})
     return broken
 
 

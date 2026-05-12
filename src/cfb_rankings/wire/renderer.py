@@ -174,11 +174,14 @@ def _safe_strftime(d: datetime, fmt: str) -> str:
 
 
 def _program_link(slug: str | None, display: str) -> str:
-    """Render program cell — link to /teams/<slug>/ when we have a slug."""
+    """Render program cell — link to /teams/<slug>.html when we have a slug.
+
+    Team pages are flat ("teams/alabama.html") by design — see CLAUDE.md.
+    """
     safe_display = html.escape(display or "")
     if slug:
         safe_slug = html.escape(slug, quote=True)
-        return f'<a href="/teams/{safe_slug}/">{safe_display}</a>'
+        return f'<a href="/teams/{safe_slug}.html">{safe_display}</a>'
     return safe_display
 
 
