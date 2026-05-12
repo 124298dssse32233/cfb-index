@@ -70,7 +70,20 @@ def render_rivalry_card(
         primary_posture, primary_quote,
         opponent_posture, opponent_quote,
     )
-    meetings_html = _render_meetings(profile, opponent_slug, meetings[:10])
+    # Editorial audit found that 4-7 of the "Last 10" rows on most team
+    # rivalry cards had no commentary text, rendering as bare year+result
+    # without context — readers experienced this as filler/sparse. Show only
+    # the trailing run of meetings that HAVE commentary, falling back to a
+    # smaller window when the older entries are unprosed. This trades
+    # historical completeness for editorial density.
+    commented = [m for m in meetings if (m.get("commentary_text") or "").strip()]
+    if commented:
+        # Keep most-recent contiguous run with commentary, but show up to 10.
+        visible_meetings = commented[:10]
+    else:
+        # No commentary at all — show last 5 with the existing placeholder.
+        visible_meetings = meetings[:5]
+    meetings_html = _render_meetings(profile, opponent_slug, visible_meetings)
     stakes_html = _render_stakes(profile, opponent_slug, opponent_profiled,
                                  primary_stakes, opponent_stakes)
 

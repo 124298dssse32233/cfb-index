@@ -401,8 +401,16 @@ def render_the_room_board_html(
             f'<p class="the-room-hero__eyebrow">The Room · {season_year}</p>'
             f'<h1 class="the-room-hero__title">Players in The Room — {season_year}</h1>'
             f'<p class="the-room-hero__dek">'
-            f"{count} {noun} with enough conversation signal to publish a mood card this "
-            f"{scope_word}. Gated at {_floor_copy()}."
+            f"Who fans are actually talking about. Each card shows the player's "
+            f"<strong>Belief score</strong> (where the conversation falls on a "
+            f"−100 → +100 cold/hot scale, derived from a weighted sentiment read "
+            f"across own fans, rivals, national press, and media), the dominant "
+            f"<strong>cohort</strong>, mention volume, and a representative quote "
+            f"from the surrounding coverage."
+            f"</p>"
+            f'<p class="the-room-hero__dek">'
+            f"{count} {noun} cleared the publish floor this {scope_word}. "
+            f"Gated at {_floor_copy()}."
             f"</p>"
             f"</div>"
             f'<section class="the-room-board__grid">{cards}</section>'

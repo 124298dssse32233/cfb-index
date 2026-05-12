@@ -182,7 +182,7 @@ def _render_one(
     rows = conn.execute(
         """
         SELECT rank_position, headline, body, cited_sources_json,
-               primary_entity_slug, primary_entity_type
+               primary_entity_slug, primary_entity_type, generation_model
         FROM daily_takes
         WHERE edition_date = ?
         ORDER BY rank_position
@@ -194,10 +194,31 @@ def _render_one(
         log.warning("render_one(%s): no takes found in DB", edition_date)
         rows = []
 
+    # Surface a transparent banner when this edition was assembled by the
+    # offline-fallback synthesizer rather than the LLM pipeline. The
+    # editorial audit flagged that fallback days read as templated; rather
+    # than hide that, we tell the reader what they're looking at.
+    fallback_used = any(
+        (r[6] or "").lower() in ("offline-fallback", "stub", "")
+        for r in rows
+    ) if rows else False
+    fallback_banner = (
+        '<div class="daily-fallback-banner" style="margin: 16px 0; padding: 12px 16px; '
+        'border: 1px solid #d0a050; background: #fff8e6; color: #4a3500; '
+        'border-radius: 4px; font-size: 14px;">'
+        '<strong>Editorial note:</strong> The Daily for this edition was '
+        'assembled by the offline-fallback synthesizer (the LLM pipeline was '
+        'unavailable at publish time). Tone and structure may read more '
+        'templated than usual — replaced on the next live run.'
+        '</div>'
+        if fallback_used else ''
+    )
+
     takes_html = "\n".join(
         _take_html(r[0], r[1], r[2], r[3], r[4] or "", r[5] or "event", conn=conn)
         for r in rows
     )
+    takes_html = fallback_banner + takes_html
 
     tpl = _load_template()
     html = tpl.substitute(
