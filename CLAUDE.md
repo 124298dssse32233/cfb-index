@@ -1,14 +1,16 @@
 # CFB Index — Agent Orientation
 
+_Last refreshed 2026-05-12. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
+
 ## What this is
-Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~67k HTML pages in output/site/.
+Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~69k HTML pages in `output/site/`.
 
 ## Do / Don't
-- DO edit src/cfb_rankings/reporting.py (the generator) and fan_intelligence.py.
+- DO edit `src/cfb_rankings/reporting.py` (the generator) and `fan_intelligence.py`.
 - DO use `python manage.py build-site` for fast iteration; `./publish_site.ps1` for full publish.
-- DON'T edit output/site/** directly. Generated.
-- DON'T hand-edit cfb_rankings.db. Write a CLI subcommand in cli.py.
-- DON'T read reporting.py whole — it's 17.5k lines (line numbers shift weekly). Use offset+limit reads, and grep for symbols rather than relying on cached line numbers.
+- DON'T edit `output/site/**` directly. Generated.
+- DON'T hand-edit `cfb_rankings.db`. Write a CLI subcommand in `cli.py`.
+- DON'T read `reporting.py` whole — it's ~25,800 lines as of 2026-05-12 and growing. Use `offset+limit` reads. Line numbers shift weekly — grep for symbols (e.g. `grep -n "_worst_result_text"`) and do not trust historical line numbers in any brief, including this one.
 
 ## Key files
 - src/cfb_rankings/reporting.py — HTML monolith. Grep for symbols; do not trust historical line numbers.
@@ -32,12 +34,14 @@ Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~6
 Sonnet = default. Opus = schema/data decisions, cross-cutting copy. Haiku = verification, renames, grep sweeps (via subagents).
 
 ## Brief / audit
-- CLAUDE_CODE_FIX_PROMPT.md — prioritized fix brief (P0-P3).
-- CFB_INDEX_AUDIT.md — full product+UX audit this brief is derived from.
-- PLAYER_PAGE_WORLD_CLASS_BRIEF.md — QB-first player-page redesign strategy, UX principles, Accolade Lens spec, Figma handoff. Archive trail in research/player-page-worldclass-brainstorm-2026-04-22.md.
+- `docs/octopus/discover.md` — current-state audit dated 2026-05-12. **Read this first.** Supersedes most of `CFB_INDEX_AUDIT.md`, which is now historical.
+- `docs/octopus/define.md` — fix charter derived from discover.md, with surgical/module/architectural triage.
+- `CFB_INDEX_AUDIT.md` — 2026-04-22 audit; most P0 bugs flagged here have been fixed (see `docs/octopus/discover.md` §2 for the delta).
+- `CLAUDE_CODE_FIX_PROMPT.md` — older prioritized fix brief; most items now executed.
+- `PLAYER_PAGE_WORLD_CLASS_BRIEF.md` — QB-first player-page redesign strategy, UX principles, Accolade Lens spec, Figma handoff. Archive trail in `research/player-page-worldclass-brainstorm-2026-04-22.md`.
 
 ## Team Pages module
-World-class team-page renderer at `src/cfb_rankings/team_pages/`. Disjoint from `reporting.py`. Profiled programs = every slug with a file in `profiles/*.md` (discovered at import time as `PROFILED_SLUGS`). During `build-site`, `reporting.py` short-circuits both the delete-sweep and the legacy HTML write for profiled slugs (search reporting.py for `PROFILED_SLUGS`), then after the legacy loop calls `team_pages.render_all_profiled_pages(db, teams_dir)` to emit the world-class pages. Unprofiled programs keep legacy output. Standalone iteration: `python manage.py render-team-pages` (all profiled) or `python manage.py render-team <slug> [<slug> ...]`. Sprint-2 adds Savant + Rivalry modules; see `TEAM_PAGE_WORLD_CLASS_BRIEF.md` and `docs/design-system/12-modules-intel.md`.
+World-class team-page renderer at `src/cfb_rankings/team_pages/`. Disjoint from `reporting.py`. Profiled programs = every slug with a file in `profiles/*.md` (currently 17 slugs as of 2026-05-12: alabama, auburn, florida, georgia, massachusetts, michigan, notre-dame, ohio-state, oklahoma, oregon, penn-state, tennessee, texas, uconn, usc, vanderbilt, washington — discovered at import time as `PROFILED_SLUGS`; `ls profiles/*.md` is the source of truth). During `build-site`, `reporting.py` short-circuits both the delete-sweep and the legacy HTML write for profiled slugs (grep `reporting.py` for `PROFILED_SLUGS`), then after the legacy loop calls `team_pages.render_all_profiled_pages(db, teams_dir)` to emit the world-class pages. Unprofiled programs (~662 slugs) keep legacy output. Standalone iteration: `python manage.py render-team-pages` (all profiled) or `python manage.py render-team <slug> [<slug> ...]`. Sprint-2 adds Savant + Rivalry modules; see `TEAM_PAGE_WORLD_CLASS_BRIEF.md` and `docs/design-system/12-modules-intel.md`.
 
 ## Fan Intelligence system (2026 buildout)
 - FAN_INTEL_SOURCE_STRATEGY.md — canonical source + cohort reference. Read first before any fan-intel work.
