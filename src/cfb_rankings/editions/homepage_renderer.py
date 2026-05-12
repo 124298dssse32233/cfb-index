@@ -344,8 +344,8 @@ def _render_document(edition: Edition, features: list[EditionFeature],
     parts.append(_render_running_departments_divider())
     parts.append(_render_the_daily(daily_data, is_live=daily_is_live))
     parts.append(_render_the_wire(wire_data, is_live=wire_is_live))
-    parts.append(_render_active_threads(threads_data))
-    parts.append(_render_the_canon(canon_data))
+    parts.append(_render_active_threads(threads_data, is_live=threads_is_live))
+    parts.append(_render_the_canon(canon_data, is_live=canon_is_live))
     parts.append(_render_voices(voices))
     parts.append(_render_footer(edition))
     parts.append("</body></html>")
@@ -828,27 +828,37 @@ def _render_the_wire(wire: dict[str, Any], is_live: bool = False) -> str:
 </section>"""
 
 
-def _render_active_threads(threads: dict[str, Any]) -> str:
+def _render_active_threads(threads: dict[str, Any], is_live: bool = False) -> str:
     f = threads.get("featured") or {}
     active = threads.get("active") or []
     total_count = len(active) + (1 if f else 0)
-    list_html = "".join(
-        f"""<div class="thread-row">
-          <div>
-            <div class="thread-name">{html.escape(t.get('title', ''))}</div>
-            <div class="last-updated">UPDATED {html.escape(t.get('last_updated', ''))}</div>
-          </div>
-          <div class="chapters">{t.get('chapters', 0)} CH.</div>
-        </div>"""
-        for t in active
-    )
+    # Drop the per-row "UPDATED <date>" line when running on stub data:
+    # those April dates are hardcoded in threads.json and lie about how
+    # recently the threads were touched.
+    def _row_html(t: dict[str, Any]) -> str:
+        last = (t.get("last_updated") or "").strip()
+        if is_live and last:
+            updated_html = f'<div class="last-updated">UPDATED {html.escape(last)}</div>'
+        else:
+            updated_html = '<div class="last-updated muted">ARCHIVE</div>'
+        return (
+            f'<div class="thread-row">'
+            f'<div>'
+            f'<div class="thread-name">{html.escape(t.get("title", ""))}</div>'
+            f'{updated_html}'
+            f'</div>'
+            f'<div class="chapters">{t.get("chapters", 0)} CH.</div>'
+            f'</div>'
+        )
+    list_html = "".join(_row_html(t) for t in active)
+    meta_label = f"LIVE · {total_count} ACTIVE" if is_live else f"ARCHIVE · {total_count} THREADS"
     return f"""
 <section class="dept">
   <div class="page">
     <div class="dept-head">
       <span class="roman">XI.</span>
       <span class="label">ACTIVE THREADS</span>
-      <span class="meta">LIVE · {total_count} ACTIVE</span>
+      <span class="meta">{meta_label}</span>
     </div>
     <div class="threads-grid">
       <article class="thread-featured">
@@ -870,16 +880,20 @@ def _render_active_threads(threads: dict[str, Any]) -> str:
 </section>"""
 
 
-def _render_the_canon(canon: dict[str, Any]) -> str:
+def _render_the_canon(canon: dict[str, Any], is_live: bool = False) -> str:
     e = canon.get("entry") or {}
     div = e.get("cohort_divergence") or {}
+    # "WEEKLY ROTATION" is accurate when canon_entries is populated (the
+    # _fetch_canon_live function rotates by ISO week). When falling back
+    # to stub_data/canon_featured.json, there's no rotation.
+    meta_label = "WEEKLY ROTATION" if is_live else "FEATURED ENTRY"
     return f"""
 <section class="dept">
   <div class="page">
     <div class="dept-head">
       <span class="roman">XII.</span>
       <span class="label">THE CANON · ENTRY OF THE WEEK</span>
-      <span class="meta">LIVE · WEEKLY ROTATION</span>
+      <span class="meta">{meta_label}</span>
     </div>
     <div class="canon-grid">
       <article class="canon-entry">

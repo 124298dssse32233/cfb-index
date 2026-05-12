@@ -225,9 +225,17 @@ def _collect_from_cached_recruits(
     rng = random.Random(rng_seed)
     today = datetime.utcnow().replace(hour=12, minute=0, second=0, microsecond=0)
 
-    # Pull a generous candidate pool, then we'll pick the top N.
-    # Note: player_id can be null, in which case we fall back to a
-    # generic name. We prefer rows with a real player_id.
+    # Filter to actively-recruiting classes only. The previous query had
+    # no season filter, so the table's 2016-2019 5-star backlog kept
+    # surfacing as today's "wire activity" — the May 2026 wire was
+    # advertising Walker Little (2017) and Shea Patterson (2016) commits
+    # as 07:26 ET ENTRIES, which is a flat-out lie.
+    #
+    # Recruiting cycle: in May 2026 the active class is 2027 (commits
+    # happening now) and the 2026 class is finished signing. So filter
+    # to season_year >= current_year and order by class-year DESC first
+    # so 2027 5-stars surface before 2026 (which itself should be done).
+    current_year = today.year
     candidates = db.query_all(
         """
         select pp.player_id, pp.committed_team, pp.position, pp.stars,
@@ -244,20 +252,28 @@ def _collect_from_cached_recruits(
           and pp.stars >= 4
           and t.level_code = 'FBS'
           and t.is_active = 1
+          and pp.season_year >= :min_year
           and (
               pp.stars = 5
               or (pp.stars = 4 and pp.national_rank is not null and pp.national_rank <= 250)
           )
-        order by pp.stars desc,
-                 case when pp.national_rank is null then 9999 else pp.national_rank end asc,
-                 pp.season_year desc
+        order by pp.season_year desc,
+                 pp.stars desc,
+                 case when pp.national_rank is null then 9999 else pp.national_rank end asc
         limit :pool
         """,
-        {"pool": int(target_count) * 3},  # 3x oversample so we can sub-sample by year
+        {
+            "pool": int(target_count) * 3,
+            "min_year": current_year,
+        },
     )
 
     if not candidates:
-        log.warning("wire.ingestion: no recruiting candidates resolved")
+        log.warning(
+            "wire.ingestion: no recruiting candidates for class >= %d "
+            "(offseason with no actively-recruiting class data)",
+            current_year,
+        )
         return []
 
     rng.shuffle(candidates)
