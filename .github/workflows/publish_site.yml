@@ -18,6 +18,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    permissions:
+      contents: write   # pushes to `published` branch
+      actions: read     # cross-workflow artifact download via dawidd6 action
     env:
       CURRENT_CFB_SEASON: "2026"
     steps:
