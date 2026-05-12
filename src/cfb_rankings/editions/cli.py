@@ -55,7 +55,15 @@ def register_edition_subcommands(subparsers: argparse._SubParsersAction) -> None
 def _cmd_publish_edition(args: argparse.Namespace) -> int:
     from .seeds import seed_edition
     db = _open_db()
-    seed_edition(db, args.slug)
+    try:
+        seed_edition(db, args.slug)
+    except KeyError:
+        # No seed payload exists for this slug yet. This is the expected
+        # offseason path for the Saturday cron — log + exit 0 so the
+        # workflow stays green and doesn't email-spam. When a new edition
+        # is authored, add the seed to seeds.py and re-run.
+        print(f"no seed payload for {args.slug}; skipping (offseason / not yet authored)")
+        return 0
     print(f"published {args.slug}")
     return 0
 
