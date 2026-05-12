@@ -121,9 +121,28 @@ jobs:
             --token=$VERCEL_TOKEN \
             --scope=$VERCEL_ORG_ID
 
+      # Safety gate: don't re-upload a near-empty site state. If we
+      # downloaded a poisoned tiny artifact and overlaid our slice, the
+      # total file count is still tiny — re-uploading would propagate
+      # the poisoning to the next cron's bootstrap. Healthy site has
+      # ~17k+ files; 5000 is a conservative floor that catches obvious
+      # poisoning while still allowing for legitimate ingestion gaps.
+      - name: Sanity-check site before upload
+        id: site_check
+        run: |
+          set +e
+          FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
+          echo "Found $FILE_COUNT files in output/site"
+          if [ "$FILE_COUNT" -lt 5000 ]; then
+            echo "::warning::Refusing to upload site artifact ($FILE_COUNT files < 5000); rolling state stays at last healthy upload"
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+          fi
+
       # ---- Maintain artifacts for next cron ----
       - name: Upload site state for next cron
-        if: always()
+        if: always() && steps.site_check.outputs.healthy == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: cfb-rankings-site

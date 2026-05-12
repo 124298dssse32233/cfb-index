@@ -109,8 +109,35 @@ jobs:
           python manage.py render-storylines
           echo "done"
 
+      # Safety gate: only upload the cfb-rankings-site artifact if the
+      # build produced a full site. If build-site failed silently (it's
+      # wrapped in set +e + check=False), output/site can be near-empty,
+      # and uploading that as cfb-rankings-site POISONS the rolling
+      # state — every subsequent daily/wire/mailbag run downloads the
+      # poisoned tiny artifact and deploys an almost-empty site. That
+      # happened today: publish-site uploaded a 478KB artifact, then
+      # every cron after that deployed the broken state.
+      #
+      # Healthy site is ~17,000+ files (~200MB+). 5000 is a conservative
+      # floor that catches "build-site failed but mailbag/daily/wire
+      # still made it" too — those workflows only emit hundreds of
+      # files, not thousands.
+      - name: Sanity-check site before upload
+        id: site_check
+        run: |
+          set +e
+          FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
+          echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
+          echo "Found $FILE_COUNT files in output/site"
+          if [ "$FILE_COUNT" -lt 5000 ]; then
+            echo "::warning::output/site has only $FILE_COUNT files — refusing to upload poisoned artifact"
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Upload site artifact
-        if: always()
+        if: always() && steps.site_check.outputs.healthy == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: cfb-rankings-site
