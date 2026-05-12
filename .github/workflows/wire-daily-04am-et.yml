@@ -104,6 +104,8 @@ jobs:
           # Re-render wire on the merged tree so /wire/ + homepage patch
           # land in the correct context.
           python manage.py render-wire --days 30
+          # Ensure the custom 404 page ships with every deploy.
+          cp -f static/404.html output/site/404.html || true
           echo "Merged. Total deployable files: $(find output/site -type f | wc -l)"
 
       # ---- Vercel deploy ----

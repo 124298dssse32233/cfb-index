@@ -81,6 +81,8 @@ jobs:
           cp -r prior-site/* output/site/ 2>/dev/null || true
           EDITION=$(python -c "from datetime import date; d=date.today(); w=d.isocalendar().week; print(f'{d.year}-w{w:02d}')")
           python manage.py render-mailbag --edition $EDITION
+          # Ensure the custom 404 page ships with every deploy.
+          cp -f static/404.html output/site/404.html || true
           echo "Merged. Total deployable files: $(find output/site -type f | wc -l)"
 
       # ---- Vercel deploy ----

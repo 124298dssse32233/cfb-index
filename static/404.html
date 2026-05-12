@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Not Found · CFB Index</title>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --paper: #f6f1e6;
+      --paper-dim: #ece6d6;
+      --gold: #c9a24a;
+      --navy: #1f2c4d;
+      --muted: #7a7a7a;
+      --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
+      --sans: 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+      font-family: var(--serif); font-size: 18px; line-height: 1.65; }
+    .page { max-width: 760px; margin: 0 auto; padding: 64px 32px; }
+    .masthead { font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 8px; }
+    .masthead a { color: var(--muted); text-decoration: none; }
+    .masthead a:hover { color: var(--ink); }
+    h1 { font-family: var(--serif); font-size: 96px; line-height: 1; margin: 16px 0 8px;
+      font-weight: 700; }
+    .lede { font-family: var(--serif); font-size: 24px; font-style: italic; line-height: 1.4;
+      margin: 0 0 32px; color: var(--ink); }
+    .url-shown { display: inline-block; font-family: ui-monospace, 'IBM Plex Mono', monospace;
+      font-size: 14px; background: var(--paper-dim); padding: 6px 10px;
+      border: 1px solid rgba(26,26,26,0.18); border-radius: 4px;
+      margin-bottom: 32px; word-break: break-all; }
+    hr { border: 0; height: 1px; background: rgba(26,26,26,0.18); margin: 32px 0; }
+    .section-eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 16px; }
+    .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px;
+      margin-bottom: 32px; }
+    .nav-grid a { display: block; padding: 12px 0; border-top: 1px solid rgba(26,26,26,0.18);
+      color: var(--ink); text-decoration: none; font-family: var(--serif); font-size: 18px; }
+    .nav-grid a:hover { color: var(--navy); }
+    .nav-grid a .note { display: block; font-family: var(--sans); font-size: 11px;
+      font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); margin-top: 2px; }
+    .suggest-block { background: var(--paper-dim); border-left: 3px solid var(--gold);
+      padding: 16px 20px; margin-bottom: 32px; display: none; }
+    .suggest-block.is-shown { display: block; }
+    .suggest-block strong { font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+    .suggest-block a { color: var(--navy); font-weight: 600; }
+    @media (max-width: 600px) {
+      h1 { font-size: 64px; }
+      .lede { font-size: 18px; }
+      .nav-grid { grid-template-columns: 1fr; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="masthead"><a href="/">CFB / INDEX</a> · 404</div>
+    <h1>Wrong snap.</h1>
+    <p class="lede">That page isn't here. Most likely it lived at a different
+       address — or never did.</p>
+
+    <div class="url-shown" id="url-shown">Loading…</div>
+
+    <div class="suggest-block" id="suggest-block">
+      <strong>Did you mean…</strong>
+      <p style="margin: 0;" id="suggest-link-row"></p>
+    </div>
+
+    <hr>
+
+    <div class="section-eyebrow">Try one of these</div>
+    <div class="nav-grid">
+      <a href="/">CFB Index<span class="note">This week&rsquo;s edition</span></a>
+      <a href="/rankings/">Rankings<span class="note">All 668 ranked teams</span></a>
+      <a href="/teams/">Teams<span class="note">Every FBS team page</span></a>
+      <a href="/players/spotlight.html">Players<span class="note">Spotlight + The Room</span></a>
+      <a href="/heisman/">Heisman<span class="note">Live race board</span></a>
+      <a href="/editions/">Editions Archive<span class="note">Every weekly issue</span></a>
+      <a href="/storylines/">Storylines<span class="note">Active threads</span></a>
+      <a href="/methodology/">Methodology<span class="note">How the rankings work</span></a>
+    </div>
+
+    <hr>
+
+    <p style="font-family: var(--sans); font-size: 13px; color: var(--muted);">
+      If you got here from a CFB Index link, that&rsquo;s a bug worth knowing about —
+      include the URL when you tell us.
+    </p>
+  </div>
+
+  <script>
+    // Show the URL the user tried + suggest a redirect when we can guess.
+    (function() {
+      var path = window.location.pathname;
+      var urlEl = document.getElementById('url-shown');
+      urlEl.textContent = path;
+
+      // Smart redirect: bare-slug team pages live under /teams/.
+      // /ohio-state.html -> /teams/ohio-state.html
+      // /alabama -> /teams/alabama.html
+      // We can't FS-check from a static page, but we can offer the most
+      // likely alternative and let the user click. /teams/<slug>.html is
+      // the canonical pattern for ~669 known team pages.
+      var match = path.match(/^\/([a-z0-9][a-z0-9-]*)(\.html)?$/);
+      if (match) {
+        var slug = match[1];
+        // Don't suggest for obvious non-team slugs the site has at root.
+        var rootKnown = ['index', 'about-model', 'archive', 'attributions', 'canon',
+          'compare', 'conferences', 'daily', 'editions', 'heisman', 'history', 'hub',
+          'mailbag', 'matchups', 'methodology', 'players', 'programs', 'rankings',
+          'reactions', 'storylines', 'teams', 'wire', '404'];
+        if (rootKnown.indexOf(slug) === -1) {
+          var suggestEl = document.getElementById('suggest-block');
+          var rowEl = document.getElementById('suggest-link-row');
+          var teamPath = '/teams/' + slug + '.html';
+          var programPath = '/programs/' + slug + '.html';
+          rowEl.innerHTML =
+            'If you were looking for a team: <a href="' + teamPath + '">' + teamPath + '</a>'
+            + ' &nbsp;·&nbsp; '
+            + 'If you were looking for a program: <a href="' + programPath + '">' + programPath + '</a>';
+          suggestEl.classList.add('is-shown');
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
