@@ -97,9 +97,9 @@ def _load_validator() -> Callable[..., tuple[bool, list[str]]]:
 # ---------------------------------------------------------------------------
 
 DEFAULT_MODEL = "claude-sonnet-4-6"
-_RATE_LIMIT_MAX_ATTEMPTS = 5
-_RATE_LIMIT_BASE_SECONDS = 1.0
-_RATE_LIMIT_CAP_SECONDS = 30.0
+_RATE_LIMIT_MAX_ATTEMPTS = 8
+_RATE_LIMIT_BASE_SECONDS = 2.0
+_RATE_LIMIT_CAP_SECONDS = 60.0
 _EMPTY_RESPONSE_MARKER = "__empty_response__"
 
 
