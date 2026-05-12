@@ -83,7 +83,80 @@ def render_articles_for_edition(db: Database, edition_slug: str) -> list[Path]:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(_render_article(edition, f), encoding="utf-8")
         paths.append(target)
+
+    # Also emit an edition-root index.html listing all features. Without
+    # this, visiting /editions/<slug>/ returns 404 (the directory has
+    # subfolders for each article but no index page), which is jarring
+    # for anyone navigating up from an article URL.
+    edition_index = out_dir / "index.html"
+    edition_index.parent.mkdir(parents=True, exist_ok=True)
+    edition_index.write_text(_render_edition_index(edition, features), encoding="utf-8")
+    paths.append(edition_index)
     return paths
+
+
+def _render_edition_index(edition: Edition, features: list[EditionFeature]) -> str:
+    """Render /editions/<slug>/index.html — TOC of every feature."""
+    publish_date = edition.publish_date.strftime("%B %d, %Y") if edition.publish_date else ""
+    try:
+        publish_label = edition.publish_date.strftime("%A · %B %#d · %Y").upper() \
+            if edition.publish_date else ""
+    except (ValueError, AttributeError):
+        publish_label = ""
+
+    # Cover essay surfaces first, then the rest in feature_order.
+    cover = next((f for f in features if f.feature_kind == "cover_essay"), None)
+    others = [f for f in features if f.feature_kind != "cover_essay"]
+    others.sort(key=lambda f: f.feature_order or 0)
+    ordered = ([cover] if cover else []) + others
+
+    feature_list_html = "".join(
+        f"""<li>
+          <a href="/editions/{html.escape(edition.edition_slug)}/{_slugify(f.title)}/">
+            <span class="feature-kind">{html.escape(f.feature_kind.replace('_', ' ').upper())}</span>
+            <span class="feature-title">{html.escape(f.title)}</span>
+            <span class="feature-dek">{html.escape(f.dek or '')}</span>
+          </a>
+        </li>"""
+        for f in ordered
+    )
+
+    return f"""<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(edition.theme_title or edition.edition_slug)} · CFB Index</title>
+<style>{_ARTICLE_CSS}
+.toc-list {{ list-style: none; padding: 0; margin: 0; }}
+.toc-list li {{ margin: 0; padding: 0; border-top: 1px solid var(--rule-soft); }}
+.toc-list li:last-child {{ border-bottom: 1px solid var(--rule-soft); }}
+.toc-list a {{ display: grid; gap: 8px; padding: 24px 0; color: var(--ink); text-decoration: none; }}
+.toc-list a:hover {{ background: var(--paper-dim); padding-left: 16px; padding-right: 16px; }}
+.feature-kind {{ font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--muted); }}
+.feature-title {{ font-family: var(--serif); font-size: 24px; font-weight: 700;
+  line-height: 1.25; }}
+.feature-dek {{ font-family: var(--serif); font-size: 16px; font-style: italic;
+  color: var(--muted); line-height: 1.45; }}
+.edition-hero {{ margin-bottom: 48px; }}
+.edition-hero .vol {{ font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--muted); margin-bottom: 8px; }}
+.edition-hero h1 {{ font-family: var(--serif); font-size: 48px; line-height: 1.1;
+  margin: 0 0 16px; }}
+.edition-hero .theme-dek {{ font-family: var(--serif); font-size: 22px;
+  font-style: italic; line-height: 1.45; color: var(--ink); margin: 0; }}
+</style>
+</head><body>
+<main class="page">
+  <a class="up" href="/editions/">← All editions</a>
+  <header class="edition-hero">
+    <div class="vol">VOLUME {edition.volume or 'I'} · NO. {edition.edition_number or '—'} · {html.escape(publish_date)}</div>
+    <h1>{html.escape(edition.theme_title or '')}</h1>
+    <p class="theme-dek">{html.escape(edition.theme_dek or '')}</p>
+  </header>
+  <ul class="toc-list">{feature_list_html}</ul>
+</main>
+</body></html>
+"""
 
 
 def _render_article(edition: Edition, feature: EditionFeature) -> str:
