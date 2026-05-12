@@ -41,9 +41,13 @@ jobs:
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
 
       - name: Download prior DB artifact
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v6
         continue-on-error: true
-        with: { name: cfb-rankings-db, path: . }
+        with:
+          name: cfb-rankings-db
+          path: .
+          search_artifacts: true
+          if_no_artifact_found: warn
 
       - name: Bootstrap DB schema
         run: python manage.py init-db

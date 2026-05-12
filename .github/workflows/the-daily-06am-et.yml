@@ -29,10 +29,18 @@ jobs:
         with: { python-version: '3.12' }
       - run: pip install -e .
 
+      # actions/download-artifact@v4 only searches the current run by
+      # default. Use the cross-workflow third-party action so we pick up
+      # the most-recent successful upload from ANY sibling workflow
+      # (wire / mailbag / hourly-ingest all share cfb-rankings-db).
       - name: Download prior DB artifact
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v6
         continue-on-error: true
-        with: { name: cfb-rankings-db, path: . }
+        with:
+          name: cfb-rankings-db
+          path: .
+          search_artifacts: true
+          if_no_artifact_found: warn
 
       - run: python manage.py init-db
       - run: python manage.py generate-daily
@@ -44,9 +52,13 @@ jobs:
       # download the cfb-rankings-site artifact maintained by these crons.
       - name: Download prior site state (artifact)
         id: dl_site
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v6
         continue-on-error: true
-        with: { name: cfb-rankings-site, path: prior-site/ }
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          search_artifacts: true
+          if_no_artifact_found: warn
 
       - name: Bootstrap site state from release if no artifact
         if: steps.dl_site.outcome != 'success'
