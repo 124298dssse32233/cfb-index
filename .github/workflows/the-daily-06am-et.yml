@@ -28,12 +28,16 @@ jobs:
       - run: python manage.py init-db
       - run: python manage.py generate-daily
       - run: python manage.py render-daily
-      - run: python manage.py build-site
+      # build-site is intentionally NOT called here. The full site rebuild
+      # needs years of historical data (rankings, programs, players, etc.)
+      # that the daily cron does not carry. /daily/ pages render
+      # standalone from daily_takes; the homepage Daily strip is hydrated
+      # by the next publish-site or weekly_deep run that has the full DB.
 
       - run: |
           git config user.name "daily-cron"
           git config user.email "daily-cron@cfbindex.local"
-          git add output/site/daily/ output/site/index.html
+          git add output/site/daily/
           git diff --cached --quiet || git commit -m "daily: $(date -u +%Y-%m-%d)"
           git push origin master
 

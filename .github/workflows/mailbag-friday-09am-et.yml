@@ -29,7 +29,9 @@ jobs:
           python manage.py mailbag-curate-submissions --edition $EDITION
           python manage.py mailbag-generate-answers --edition $EDITION
           python manage.py render-mailbag --edition $EDITION
-          python manage.py build-site
+          # build-site intentionally NOT called — needs full historical DB.
+          # /mailbag/ renders standalone; site-wide cross-links rehydrate
+          # on the next publish-site / weekly_deep cycle.
 
       - run: |
           git config user.name "mailbag-cron"
