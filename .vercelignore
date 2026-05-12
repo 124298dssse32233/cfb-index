@@ -1,0 +1,41 @@
+# Exclude the 3.7GB of individual player pages — Vercel Hobby tier caps at
+# 100MB per deploy and 5000 source files. Keep the player landing/index
+# pages so /players/ works.
+output/site/players/*.html
+!output/site/players/index.html
+!output/site/players/spotlight.html
+!output/site/players/the-room.html
+!output/site/players/signature-stories.html
+
+# Exclude the per-player OpenGraph SVGs (large set, only used for social cards).
+output/site/players/*-og.svg
+
+# Exclude the per-player season-by-season sub-files too (these live inside
+# players/<slug>/ subdirs if any).
+output/site/players/*/
+
+# Worktree clutter that shouldn't ship with the site
+.claude/
+.claude-octopus/
+.git/
+.github/
+__pycache__/
+*.pyc
+.venv/
+.deps/
+.vendor/
+
+# Large build artifacts that aren't part of the static site
+output/local-health-refresh.*
+output/maintenance-*.json
+output/maintenance-*.md
+output/*.json
+output/*.md
+cfb_rankings.db
+logs/
+
+# Misc dev files
+research/
+docs/
+*.log
+SESSION_LOG.md
