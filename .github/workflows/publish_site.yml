@@ -99,6 +99,20 @@ jobs:
           python manage.py build-editions-archive
           echo "done"
 
+      # Re-render all backfilled editions so /editions/<slug>/index.html
+      # exists for every published edition. Without this, navigating up
+      # from an article URL hits 404. seed-editions makes sure the DB
+      # has the payloads; render-edition writes the index + article
+      # pages for the slug.
+      - name: Refresh backfilled edition pages
+        run: |
+          set +e
+          python manage.py seed-editions || echo "seed-editions skipped"
+          for SLUG in 2026-w14 2026-w15 2026-w16 2026-w17; do
+            python manage.py render-edition --slug "$SLUG" || echo "render-edition $SLUG skipped"
+          done
+          echo "done"
+
       # Re-render storylines (re-seeds from seeds/ + writes thread pages
       # + index.html). build-site doesn't regenerate the storylines
       # surface, so without this the storylines index drifts from the
