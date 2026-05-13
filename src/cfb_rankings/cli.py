@@ -213,6 +213,16 @@ def build_parser() -> argparse.ArgumentParser:
     dh_parser.add_argument("--year-end", type=int, default=2025)
     dh_parser.add_argument("--output-dir", default="output/site")
 
+    # R8 — NFL Pipeline.
+    np_parser = subparsers.add_parser(
+        "build-nfl-pipeline",
+        help="Render /nfl-pipeline/ — twelve years of NFL Draft picks ranked by program.",
+    )
+    np_parser.add_argument("--year-start", type=int, default=2014)
+    np_parser.add_argument("--year-end", type=int, default=2025)
+    np_parser.add_argument("--output-dir", default="output/site")
+    np_parser.add_argument("--top-n", type=int, default=50)
+
     # Signature Bets S1.6 — Live Signal Flow event lifecycle.
     signal_emit_parser = subparsers.add_parser(
         "signal-emit",
@@ -2084,6 +2094,18 @@ def main() -> None:
             year_end=args.year_end,
         )
         print(f"dynasty-heatmap: wrote {len(written)} files")
+        return
+
+    if args.command == "build-nfl-pipeline":
+        from cfb_rankings.nfl_pipeline import build_nfl_pipeline
+        written = build_nfl_pipeline(
+            db,
+            output_dir=args.output_dir,
+            year_start=args.year_start,
+            year_end=args.year_end,
+            top_n=args.top_n,
+        )
+        print(f"nfl-pipeline: wrote {len(written)} files")
         return
 
     if args.command == "build-vibe-shifts":

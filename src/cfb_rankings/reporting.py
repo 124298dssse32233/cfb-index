@@ -5454,6 +5454,16 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Dynasty Heatmap build skipped: {exc}")
 
+    # R8 — The NFL Pipeline. Renders /nfl-pipeline/ — twelve years of the
+    # draft ranked by program, with recent-pace deltas. The closer of the
+    # recruiting → development → NFL loop.
+    try:
+        from cfb_rankings.nfl_pipeline import build_nfl_pipeline
+        written = build_nfl_pipeline(db, output_dir=site_root)
+        _report_progress(f"NFL Pipeline wrote {len(written)} files.")
+    except Exception as exc:
+        _report_progress(f"NFL Pipeline build skipped: {exc}")
+
     # Refresh the methodology page so edits to seeds/fi_glossary.yaml propagate
     # to the /methodology/fan-intelligence.html#glossary-<slug> anchors that
     # the `?` popover fallback links to.
