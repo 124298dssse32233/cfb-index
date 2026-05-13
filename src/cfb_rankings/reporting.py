@@ -5444,6 +5444,16 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Vibe Shifts ledger build skipped: {exc}")
 
+    # R4 — Dynasty Heatmap. Renders /history/heatmap/ (page + standalone SVG).
+    # Programs × years × within-year-percentile. The "fifty years in one
+    # image" first-visit converter from the roadmap.
+    try:
+        from cfb_rankings.dynasty_heatmap import build_dynasty_heatmap
+        written = build_dynasty_heatmap(db, output_dir=site_root)
+        _report_progress(f"Dynasty Heatmap wrote {len(written)} files.")
+    except Exception as exc:
+        _report_progress(f"Dynasty Heatmap build skipped: {exc}")
+
     # Refresh the methodology page so edits to seeds/fi_glossary.yaml propagate
     # to the /methodology/fan-intelligence.html#glossary-<slug> anchors that
     # the `?` popover fallback links to.

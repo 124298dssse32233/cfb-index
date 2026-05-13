@@ -204,6 +204,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="When --week is omitted, how many recent weeks to render (default 4).",
     )
 
+    # R4 — Dynasty Heatmap.
+    dh_parser = subparsers.add_parser(
+        "build-dynasty-heatmap",
+        help="Render /history/heatmap/ — programs x years grid colored by within-year power percentile.",
+    )
+    dh_parser.add_argument("--year-start", type=int, default=2014)
+    dh_parser.add_argument("--year-end", type=int, default=2025)
+    dh_parser.add_argument("--output-dir", default="output/site")
+
     # Signature Bets S1.6 — Live Signal Flow event lifecycle.
     signal_emit_parser = subparsers.add_parser(
         "signal-emit",
@@ -2064,6 +2073,17 @@ def main() -> None:
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         out = write_freshness_page(db)
         print(f"freshness page written: {out}")
+        return
+
+    if args.command == "build-dynasty-heatmap":
+        from cfb_rankings.dynasty_heatmap import build_dynasty_heatmap
+        written = build_dynasty_heatmap(
+            db,
+            output_dir=args.output_dir,
+            year_start=args.year_start,
+            year_end=args.year_end,
+        )
+        print(f"dynasty-heatmap: wrote {len(written)} files")
         return
 
     if args.command == "build-vibe-shifts":
