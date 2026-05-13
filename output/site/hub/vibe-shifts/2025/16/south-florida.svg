@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Vibe Shift card for South Florida week 16">
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#004A36" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#004A36" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg-grad)"/>
+  <!-- Top-left eyebrow -->
+  <text x="80" y="92" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="700"
+        letter-spacing="4" font-family="system-ui, -apple-system, sans-serif">WEEK 16 · 2025 · VIBE SHIFT #4</text>
+  <!-- Team name -->
+  <text x="80" y="200" fill="#FFFFFF" font-size="92" font-weight="900"
+        font-family="system-ui, -apple-system, sans-serif"
+        textLength="650" lengthAdjust="spacingAndGlyphs">South Florida</text>
+  <text x="80" y="244" fill="rgba(255,255,255,0.78)" font-size="24" font-weight="600"
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">AMERICAN ATHLETIC</text>
+  <!-- Delta hero number -->
+  <text x="80" y="380" fill="#ff7575" font-size="160" font-weight="900"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-variant-numeric="tabular-nums">▼ -2.39</text>
+  <text x="80" y="420" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="600"
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">POWER RATING SHIFT &nbsp;&nbsp;8.8 → 6.4</text>
+  <!-- Component chips -->
+  
+        <g>
+          <rect x="80" y="470" width="240" height="80" rx="12"
+                fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="2"/>
+          <text x="200.0" y="500" fill="rgba(255,255,255,0.78)"
+                text-anchor="middle" font-size="20" font-weight="600"
+                font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">OFF</text>
+          <text x="200.0" y="534" fill="#ff7575"
+                text-anchor="middle" font-size="32" font-weight="800"
+                font-family="system-ui, -apple-system, sans-serif"
+                font-variant-numeric="tabular-nums">-2.60</text>
+        </g>
+        
+        <g>
+          <rect x="340" y="470" width="240" height="80" rx="12"
+                fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="2"/>
+          <text x="460.0" y="500" fill="rgba(255,255,255,0.78)"
+                text-anchor="middle" font-size="20" font-weight="600"
+                font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">DEF</text>
+          <text x="460.0" y="534" fill="#7cf3a8"
+                text-anchor="middle" font-size="32" font-weight="800"
+                font-family="system-ui, -apple-system, sans-serif"
+                font-variant-numeric="tabular-nums">+0.03</text>
+        </g>
+        
+        <g>
+          <rect x="600" y="470" width="240" height="80" rx="12"
+                fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="2"/>
+          <text x="720.0" y="500" fill="rgba(255,255,255,0.78)"
+                text-anchor="middle" font-size="20" font-weight="600"
+                font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">ST</text>
+          <text x="720.0" y="534" fill="#ff7575"
+                text-anchor="middle" font-size="32" font-weight="800"
+                font-family="system-ui, -apple-system, sans-serif"
+                font-variant-numeric="tabular-nums">-0.09</text>
+        </g>
+        
+        <g>
+          <rect x="860" y="470" width="240" height="80" rx="12"
+                fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="2"/>
+          <text x="980.0" y="500" fill="rgba(255,255,255,0.78)"
+                text-anchor="middle" font-size="20" font-weight="600"
+                font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">RES</text>
+          <text x="980.0" y="534" fill="#ff7575"
+                text-anchor="middle" font-size="32" font-weight="800"
+                font-family="system-ui, -apple-system, sans-serif"
+                font-variant-numeric="tabular-nums">-0.45</text>
+        </g>
+        
+  <!-- Game context -->
+  <text x="80" y="595" fill="#FFFFFF" font-size="30" font-weight="700"
+        font-family="system-ui, -apple-system, sans-serif">L 10-24 vs Old Dominion</text>
+  <!-- Brand footer -->
+  <text x="80" y="640" fill="#ffd000" font-size="20" font-weight="800"
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="3">CFB INDEX</text>
+  <text x="1120" y="640" fill="rgba(255,255,255,0.78)" font-size="18" font-weight="600"
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1"
+        text-anchor="end">/hub/vibe-shifts/2025/16/</text>
+</svg>
