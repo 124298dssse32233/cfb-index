@@ -5054,6 +5054,15 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     historical_rows_by_team: dict[int, list[dict[str, Any]]] = {}
     for row in historical_season_ledger:
         historical_rows_by_team.setdefault(int(row["team_id"]), []).append(row)
+    # Pre-populate _VALID_TEAM_SLUGS from rankings so downstream renderers
+    # (build_history_hub → build_history_explorer_rows → season_url guard)
+    # can call _valid_team_slug() and have it actually filter, rather than
+    # falling through the "set is empty, treat all slugs as valid" branch.
+    # The later assignment from team_pages.keys() (~line 5065) writes the
+    # same content — those two sets are identical since team_pages is
+    # `{row.slug: ... for row in rankings}`.
+    global _VALID_TEAM_SLUGS
+    _VALID_TEAM_SLUGS = {str(row.slug) for row in rankings}
     history_hub = build_history_hub(historical_season_ledger)
     current_rankings_by_team = {row.team_id: row for row in rankings}
     _report_progress("Building team pages...")
@@ -6036,7 +6045,14 @@ def build_history_explorer_rows(
                 "lens_label": lens_label,
                 "lens_body": lens_body,
                 "program_url": f"../programs/{slug}.html" if slug else None,
-                "season_url": f"../teams/{slug}.html" if slug and season_year == current_season_year else None,
+                # Guard season_url so we never emit links to /teams/{slug}.html for
+                # slugs that don't actually have a current-season team page built
+                # (e.g. Illinois College — D-III, has a program page, no team page).
+                "season_url": (
+                    f"../teams/{slug}.html"
+                    if _valid_team_slug(slug) and season_year == current_season_year
+                    else None
+                ),
             }
         )
 
@@ -11673,7 +11689,7 @@ def _render_matchup_tool(
               <div class="impact-stat"><span>Recent Form</span><strong id="teamARecent">{escape(default_a['recent_form'])}</strong></div>
             </div>
             <p class="team-mini-note" id="teamABest">Best signal: {escape(default_a['best_result'])}</p>
-            <p class="team-mini-note muted-note" id="teamAWorst">Stress point: {escape(default_a['worst_result'])}</p>
+            <p class="team-mini-note muted-note" id="teamAWorst">Closest call: {escape(default_a['worst_result'])}</p>
           </article>
           <article class="team-mini-card">
             <p class="panel-kicker">Team B</p>
@@ -11686,7 +11702,7 @@ def _render_matchup_tool(
               <div class="impact-stat"><span>Recent Form</span><strong id="teamBRecent">{escape(default_b['recent_form'])}</strong></div>
             </div>
             <p class="team-mini-note" id="teamBBest">Best signal: {escape(default_b['best_result'])}</p>
-            <p class="team-mini-note muted-note" id="teamBWorst">Stress point: {escape(default_b['worst_result'])}</p>
+            <p class="team-mini-note muted-note" id="teamBWorst">Closest call: {escape(default_b['worst_result'])}</p>
           </article>
         </div>
       </div>
@@ -12230,7 +12246,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
                 <div class="stat-card"><span>Avg Margin</span><strong id="compareAMargin">{default_a['average_margin']:+.1f}</strong></div>
               </div>
               <p class="team-mini-note" id="compareABest">Best signal: {escape(default_a['best_result'])}</p>
-              <p class="team-mini-note muted-note" id="compareAWorst">Stress point: {escape(default_a['worst_result'])}</p>
+              <p class="team-mini-note muted-note" id="compareAWorst">Closest call: {escape(default_a['worst_result'])}</p>
               <p class="team-mini-note muted-note" id="compareAEfficiency">{escape(default_a['efficiency_note'])}</p>
             </article>
 
@@ -12245,7 +12261,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
                 <div class="stat-card"><span>Avg Margin</span><strong id="compareBMargin">{default_b['average_margin']:+.1f}</strong></div>
               </div>
               <p class="team-mini-note" id="compareBBest">Best signal: {escape(default_b['best_result'])}</p>
-              <p class="team-mini-note muted-note" id="compareBWorst">Stress point: {escape(default_b['worst_result'])}</p>
+              <p class="team-mini-note muted-note" id="compareBWorst">Closest call: {escape(default_b['worst_result'])}</p>
               <p class="team-mini-note muted-note" id="compareBEfficiency">{escape(default_b['efficiency_note'])}</p>
             </article>
           </div>
@@ -12439,7 +12455,7 @@ def _compare_tool_script() -> str:
           if (resume) resume.textContent = formatResume(team.metrics?.resume || 0);
           if (margin) margin.textContent = formatSigned(team.average_margin, 1);
           if (best) best.textContent = `Best signal: ${team.best_result || '--'}`;
-          if (worst) worst.textContent = `Stress point: ${team.worst_result || '--'}`;
+          if (worst) worst.textContent = `Closest call: ${team.worst_result || '--'}`;
           if (efficiency) efficiency.textContent = team.efficiency_note || '--';
         }
 
@@ -14667,7 +14683,7 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
             <h2>Game Impact Board</h2>
           </div>
           {impact_table}
-          <p class="footer-note">Best signal: {escape(best_result)}. Stress point: {escape(worst_result)}</p>
+          <p class="footer-note">Best signal: {escape(best_result)}. Closest call: {escape(worst_result)}</p>
         </aside>
       </section>
 
@@ -15535,8 +15551,11 @@ def render_heisman_page_html(
           where would every player land right now, and how much actual win equity does each candidacy have?
         </p>
         <p class="section-note">
-          The structure is ready for a world-class nowcast and forecast system: position priors, team-success constraints,
-          ballot salience, and official result history all live on the same player record.
+          Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stands right now.
+          <strong>Forecast</strong> &mdash; where we think it ends up.
+          <strong>Win</strong> &mdash; chance to win the trophy.
+          <strong>Finalist</strong> &mdash; chance to be in New York.
+          <strong>Ballot</strong> &mdash; share of voter weight.
         </p>
         <div class="cta-row">
           <a class="button button-primary" href="../players/index.html">Open Player Cards</a>
@@ -17402,12 +17421,12 @@ def _render_team_story_cards(
         (
             "Resume Case",
             f"Resume {_public_resume_text(ranking.resume_display)}",
-            f"Body of work: best signal {best_result}. Stress point {worst_result}. {_public_resume_percentile_label(ranking.resume_display)}.",
+            f"Body of work: best signal {best_result}. Closest call {worst_result}. {_public_resume_percentile_label(ranking.resume_display)}.",
         ),
         (
             "Recent Form",
             recent_form,
-            f"The latest four checkpoints read {recent_form}. {_power_resume_gap_note(ranking.power_percentile, ranking.resume_percentile)}",
+            f"Last four games: {recent_form}. {_power_resume_gap_note(ranking.power_percentile, ranking.resume_percentile)}",
         ),
         (
             "Season Identity",
@@ -21027,7 +21046,7 @@ def _render_home_board_row(team_data: dict[str, Any], is_open: bool) -> str:
                 <p>{escape(best_result)}</p>
               </div>
               <div class="result-slab">
-                <span class="result-kicker">Pressure Point</span>
+                <span class="result-kicker">Closest Call</span>
                 <p>{escape(worst_result)}</p>
               </div>
               <div class="result-slab result-slab-wide">
@@ -21063,7 +21082,12 @@ def _render_home_team_accordion(team_pages: list[dict[str, Any]]) -> str:
         efficiency_snapshot = team_data["efficiency_snapshot"]
         history_profile = team_data.get("history_profile") or {}
         trend_points = team_data["trend_points"]
-        schedule = team_data["schedule"][:4]
+        # Pass the full schedule so _compact_recent_form / _best_result_text /
+        # _worst_result_text see the whole season. The prior [:4] slice
+        # silently truncated to the first four games — making "Best signal"
+        # / "Closest call" / "Last 4 games" all derive from weeks 1-4 instead
+        # of the full year. Caught in Octopus delivery review 2026-05-12.
+        schedule = team_data["schedule"]
         conference = _clean_conference_name(str(team.get("conference_name") or f"{ranking.level_code} Independents"))
         wins = int(season_summary.get("wins") or 0)
         losses = int(season_summary.get("losses") or 0)
@@ -21099,7 +21123,7 @@ def _render_home_team_accordion(team_pages: list[dict[str, Any]]) -> str:
                   <article class="mini-panel">
                     <h3>Best Wins / Bad Losses</h3>
                     <p><strong>Best signal:</strong> {escape(best_result)}</p>
-                    <p><strong>Stress point:</strong> {escape(worst_result)}</p>
+                    <p><strong>Closest call:</strong> {escape(worst_result)}</p>
                   </article>
                   <article class="mini-panel">
                     <h3>Rating Arc</h3>
@@ -21973,12 +21997,31 @@ def _worst_result_text(team_id: int, schedule: list[dict[str, Any]]) -> str:
 
 
 def _compact_recent_form(team_id: int, schedule: list[dict[str, Any]]) -> str:
-    tokens = []
+    """Return a fan-readable summary of the last four results.
+
+    Previously returned space-separated `_result_token` codes like
+    "W15 W18 W20 W21", which shipped to H3 headings and narrative copy where
+    fans had to guess that W=Win and the integer was a week number. Now
+    returns a summary like "4-0 over the last 4" with the week-coded form in
+    parentheses for power users.
+    """
+    tokens: list[str] = []
+    wins = losses = ties = 0
     for row in _preferred_schedule_rows(schedule)[-4:]:
         result = _result_token(team_id, row)
         if result:
             tokens.append(result)
-    return " ".join(tokens) if tokens else "Upcoming schedule still settling."
+            head = result[:1]
+            if head == "W":
+                wins += 1
+            elif head == "L":
+                losses += 1
+            elif head == "T":
+                ties += 1
+    if not tokens:
+        return "Upcoming schedule still settling."
+    record = f"{wins}-{losses}" + (f"-{ties}" if ties else "")
+    return f"{record} over the last {len(tokens)} ({' '.join(tokens)})"
 
 
 def _fraud_watch_reason(ranking: RankingRow, recent_form: str, efficiency_note: str) -> str:
@@ -22547,7 +22590,7 @@ def _matchup_tool_script() -> str:
           if (resume) resume.textContent = formatResume(team.resume_display || 0);
           if (recent) recent.textContent = team.recent_form || '--';
           if (best) best.textContent = `Best signal: ${team.best_result || '--'}`;
-          if (worst) worst.textContent = `Stress point: ${team.worst_result || '--'}`;
+          if (worst) worst.textContent = `Closest call: ${team.worst_result || '--'}`;
         }
 
         function ensureDistinctTeams() {
@@ -22750,10 +22793,10 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
             '<p class="section-sub">How the fan conversation splits across age, lens, and geography cohorts.</p>'
             '</div>'
             '<div class="cohort-panel-empty-body">'
-            '<p><strong>Awaiting Signal.</strong> '
-            'No cohort cell for this team-week cleared the effective-N floor '
-            '(&ge;30 weighted docs). '
-            'See <a href="../methodology/fan-intelligence.html">methodology &raquo; effective sample size</a>.</p>'
+            '<p><strong>Awaiting signal.</strong> '
+            'Not enough fan conversation has cleared this week\'s publish threshold yet '
+            '(we wait for &ge;30 weighted posts before showing a number). '
+            '<a href="../methodology/fan-intelligence.html">How we set the bar &rsaquo;</a></p>'
             '</div>'
             '</section>'
         )

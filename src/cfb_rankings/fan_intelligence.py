@@ -192,7 +192,12 @@ def fetch_player_mood_profile(
 
     # Derive the top_quote from JSON stored on the fan row (preferred) or the
     # media row. Templates render the pseudonym + backlink per Tier B rule.
-    top_quote = _player_top_quote(fan_row, media_row)
+    # Entity-match guard: only surface quotes that actually name the player.
+    # Prevents cohort-level chatter ("Indiana's recruiting under Cignetti")
+    # from being attributed to a specific player ("Fernando Mendoza") who
+    # is not named in the quote text.
+    name_tokens = _player_name_tokens(db, player_id)
+    top_quote = _player_top_quote(fan_row, media_row, player_name_tokens=name_tokens)
 
     return {
         "has_data": True,
@@ -353,9 +358,12 @@ def compute_player_mood_index(
         # the fan bucket was below the gate), then media, then the
         # primary bucket as a last resort so the Room never renders
         # quote-less when a quote exists anywhere in the player's data.
+        # Entity-match guard: only surface quotes that name the player —
+        # see _player_top_quote docstring for the cohort-leak motivation.
+        name_tokens = _player_name_tokens(db, pid)
         top_quote = (
-            _player_top_quote(fan_row_for_quote, media_row)
-            or _player_top_quote(primary_row, None)
+            _player_top_quote(fan_row_for_quote, media_row, player_name_tokens=name_tokens)
+            or _player_top_quote(primary_row, None, player_name_tokens=name_tokens)
         )
         index[pid] = {
             "has_data": True,
@@ -413,8 +421,19 @@ def _better_bucket_row(candidate: dict[str, Any], current: dict[str, Any]) -> bo
 def _player_top_quote(
     primary_row: dict[str, Any] | None,
     fallback_row: dict[str, Any] | None,
+    *,
+    player_name_tokens: tuple[str, ...] = (),
 ) -> dict[str, Any] | None:
-    """Pull one representative quote from the row's top_quote_json, if present."""
+    """Pull one representative quote from the row's top_quote_json, if present.
+
+    Defensive entity-match guard: when ``player_name_tokens`` is supplied,
+    the quote text must contain at least one token (case-insensitive
+    substring match) before we attribute it to the player. This stops
+    cohort-level quotes (e.g. a Locked-On podcast about Mississippi NIL
+    law that happens to be in Indiana's bucket) from being surfaced on a
+    specific player's page as if they were said about him. Empty tuple =
+    legacy behavior, no filter.
+    """
     for row in (primary_row, fallback_row):
         if not row:
             continue
@@ -430,6 +449,12 @@ def _player_top_quote(
         text = str(data.get("text") or "").strip()
         if not text:
             continue
+        if player_name_tokens:
+            haystack = text.lower()
+            if not any(tok and tok in haystack for tok in player_name_tokens):
+                # Quote does not name the player — skip rather than risk
+                # surfacing a team-level take as the player's top quote.
+                continue
         return {
             "text": text,
             "author_pseudonym": str(data.get("author_pseudonym") or "fan"),
@@ -438,6 +463,30 @@ def _player_top_quote(
             "bucket": row.get("audience_bucket"),
         }
     return None
+
+
+def _player_name_tokens(db: Database, player_id: int) -> tuple[str, ...]:
+    """Fetch a small set of name tokens to entity-match a player against quote
+    text. Best-effort: returns lowercased first/last name + any short alias
+    we have on file. Empty tuple means "no filter" (legacy behavior).
+    """
+    try:
+        row = db.query_one(
+            "select first_name, last_name from players where player_id = %(pid)s",
+            params={"pid": int(player_id)},
+        )
+    except Exception:
+        return ()
+    if not row:
+        return ()
+    tokens: list[str] = []
+    for key in ("first_name", "last_name"):
+        v = str(row.get(key) or "").strip().lower()
+        # First names like "A.J." or "T.J." would match too aggressively
+        # against random text; require >= 3 chars for inclusion.
+        if len(v) >= 3:
+            tokens.append(v)
+    return tuple(tokens)
 
 
 def _empty_player_profile(

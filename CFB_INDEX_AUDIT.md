@@ -1,4 +1,6 @@
-# CFB Index — Full Site Audit
+# CFB Index — Full Site Audit (HISTORICAL — 2026-04-22)
+
+> ⚠️ **Superseded by `docs/octopus/discover.md` (dated 2026-05-12).** As of the May audit, 12 of the 14 named P0 bugs below have been fixed (Stub homepage, "Reminiscence" → "Comp", `power-resume-v0.1.0` removed, Mendoza Heisman contradiction resolved, "Player Card Blueprint" deleted, empty-slug history link, "Week 38" label, Mood Card collapsed from 7 tiles to one graceful placeholder, fan-intel hub live at `/hub/`, etc.). Read `docs/octopus/discover.md` for the current backlog. This document is preserved for archeological context only.
 
 _Done against the local build at `output/site/` on 2026-04-22 (Model Week 21, power-resume-v0.1.0). I audited the homepage, rankings, Heisman board, 6 player pages (Mendoza, Love, Brown, Curry, Manning, Smith), 6 team pages (Indiana, Alabama, Ohio State, James Madison, Montana State, Notre Dame), matchups, compare, conferences, archive, history, about-model, and programs pages — 35+ pages total — plus the site's smoke screenshots. The Chrome extension can't drive `file://` URLs, so I did this as a structural / copy / data audit with the rendered screenshots as visual reference. That actually catches a category of bugs a browser walkthrough can't (unrendered template leaks, copy contradictions, IA mismatches)._
 
