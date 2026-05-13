@@ -5013,8 +5013,24 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     _write_attributions_page(site_root, db=db)
 
     if summary is None or not rankings:
-        (site_root / "index.html").write_text("<html><body><h1>No model runs found.</h1></body></html>", encoding="utf-8")
-        _report_progress("No model runs found for static site.")
+        # Do NOT stub-overwrite a healthy index.html — when running in CI
+        # against a partially-seeded DB artifact, the publish-site
+        # workflow has already seeded output/site/ from the prior good
+        # artifact (~17k files). Stomping the homepage with a "No model
+        # runs found" stub would replace a working hero with a debug
+        # message. Only write the stub when output/site/index.html is
+        # genuinely absent (true cold-start case).
+        index_path = site_root / "index.html"
+        if not index_path.exists() or index_path.stat().st_size < 1024:
+            index_path.write_text(
+                "<html><body><h1>No model runs found.</h1></body></html>",
+                encoding="utf-8",
+            )
+        _report_progress(
+            "No model runs found for static site — preserving prior site/index.html."
+            if index_path.exists() and index_path.stat().st_size >= 1024
+            else "No model runs found for static site."
+        )
         return site_root
 
     latest_local_week = _latest_local_week(db, int(summary["season_year"]))

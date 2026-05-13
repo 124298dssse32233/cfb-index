@@ -190,10 +190,16 @@ def build_retro_pages(
     _ensure_retro_seeded(db)
     fp = _fingerprint() if bust_cache else {"run_id": "", "git_sha": "", "fingerprint": ""}
     cache_token = fp["fingerprint"] if bust_cache else None
-    paths = [
-        render_offseason_week(db, issue_key, output_dir, cache_token=cache_token)
-        for issue_key in sorted(RETRO_ISSUES)
-    ]
+    # Render each retro page defensively: if one page's data is missing
+    # (empty DB / partial seed) we'd rather skip that page than blow up
+    # the whole build pipeline. The publish-site workflow's "seed from
+    # prior artifact" step preserves the last good version of each page.
+    paths: list[Path] = []
+    for issue_key in sorted(RETRO_ISSUES):
+        try:
+            paths.append(render_offseason_week(db, issue_key, output_dir, cache_token=cache_token))
+        except Exception as exc:
+            print(f"[retro] {issue_key} render skipped ({type(exc).__name__}): {exc}")
     retro_dir = Path(output_dir) / "hub" / "retro"
     archive_path = retro_dir / "index.html"
     archive_path.write_text(_archive_html(cache_token), encoding="utf-8")
@@ -211,12 +217,36 @@ def build_retro_pages(
 
 
 def _ensure_retro_seeded(db: Database) -> None:
-    seed_offseason_week_map(db)
-    for issue_key, issue in RETRO_ISSUES.items():
-        row = db.query_one(
-            "select hub_issue_id, methodology_row_json from hub_issue_metadata where issue_number = %(issue)s limit 1",
-            {"issue": issue["issue_number"]},
-        )
-        methodology = str((row or {}).get("methodology_row_json") or "").strip()
-        if not row or methodology in {"", "{}"}:
-            seed_retro_issue(db, issue_key)
+    """Seed the retro tables required by the offseason-week pages.
+
+    Tolerant of partial-DB state: when the source DB is missing upstream
+    rows (e.g. CI runs against a downloaded artifact that doesn't have
+    the model_runs / seasons / weeks scaffolding yet), the upserts here
+    can raise ``sqlite3.IntegrityError: FOREIGN KEY constraint failed``.
+    In that case we log a warning and return — the retro pages just
+    won't be generated this run, which is preferable to crashing the
+    whole ``build-site`` pipeline. The deploy then falls back to the
+    prior site artifact for retro content via the publish-site
+    workflow's seed-from-prior step.
+    """
+    import sqlite3
+    try:
+        seed_offseason_week_map(db)
+        for issue_key, issue in RETRO_ISSUES.items():
+            row = db.query_one(
+                "select hub_issue_id, methodology_row_json from hub_issue_metadata where issue_number = %(issue)s limit 1",
+                {"issue": issue["issue_number"]},
+            )
+            methodology = str((row or {}).get("methodology_row_json") or "").strip()
+            if not row or methodology in {"", "{}"}:
+                seed_retro_issue(db, issue_key)
+    except sqlite3.IntegrityError as exc:
+        # FK constraint failure usually means the DB artifact this build
+        # is running against doesn't have the upstream rows the retro
+        # tables reference. Log + continue; downstream renderers will
+        # either reuse prior artifact or skip retro cleanly.
+        print(f"[retro] retro seeding skipped (FK constraint failure): {exc}")
+    except Exception as exc:
+        # Catch-all defensive: don't let retro seeding crash the site
+        # build. Retro is a section, not the spine.
+        print(f"[retro] retro seeding skipped ({type(exc).__name__}): {exc}")
