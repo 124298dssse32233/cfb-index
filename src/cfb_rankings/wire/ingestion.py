@@ -527,6 +527,14 @@ def collect_recent_actions(
         "wire.ingestion: collected %d real rows (target=%d)",
         len(out), target_count,
     )
+
+    # OFFSEASON FALLBACK: If no real rows available, use sample data
+    # to give users a sense of what the Wire will look like during the season.
+    if not out:
+        log.info("wire.ingestion: no real rows available, using offseason fallback sample data")
+        from cfb_rankings.wire.offseason_fallback import get_offseason_fallback_entries
+        out = get_offseason_fallback_entries()[:target_count]
+
     return out
 
 
