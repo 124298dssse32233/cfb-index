@@ -40,6 +40,7 @@ from pathlib import Path
 from typing import Any
 
 from cfb_rankings.db import Database
+from cfb_rankings.nav import render_global_nav
 
 from . import viz_templates
 from .data import (
@@ -350,7 +351,7 @@ def _render_document(edition: Edition, features: list[EditionFeature],
 
     parts: list[str] = []
     parts.append(_render_head(edition))
-    parts.append("<body>")
+    parts.append(f'<main id="main-content">')
     parts.append(_render_masthead(edition, publish_label))
     parts.append(_render_hero(edition))
     parts.append(_render_cover_viz(edition))
@@ -364,7 +365,7 @@ def _render_document(edition: Edition, features: list[EditionFeature],
     parts.append(_render_the_canon(canon_data, is_live=canon_is_live))
     parts.append(_render_voices(voices))
     parts.append(_render_footer(edition))
-    parts.append("</body></html>")
+    parts.append("</main></body></html>")
     return "".join(parts)
 
 
@@ -386,7 +387,7 @@ _INLINE_CSS = """
 }
 html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
   font-family: var(--serif); font-size: 17px; line-height: 1.55; }
-.page { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+.page { max-width: 1280px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
 .eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 600;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
 .eyebrow.muted { color: var(--muted); }
@@ -394,6 +395,7 @@ html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
 .rule.soft { background: var(--rule-soft); }
 .rule.gold { background: var(--gold); height: 4px; width: 60px; border: 0; }
 a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 a.cta { font-family: var(--sans); font-size: 12px; font-weight: 700;
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
   border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
@@ -614,7 +616,8 @@ a.text-link { border-bottom: 1px dotted currentColor; }
   .voices-grid { grid-template-columns: 1fr; gap: 32px; }
   .footer-cols { grid-template-columns: repeat(2, 1fr); }
   .wire-table th:nth-child(4), .wire-table td:nth-child(4) { display: none; }
-  .nav { display: none; }
+  .nav { font-size: 10px; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .nav a { margin-left: 0; margin-right: 8px; margin-bottom: 8px; }
   .dept .roman { width: 48px; font-size: 24px; }
   .dept .meta { display: none; }
 }
@@ -630,14 +633,21 @@ def _render_head(edition: Edition) -> str:
 <title>{title}</title>
 <meta name="description" content="{html.escape(edition.theme_dek)}">
 <style>{_INLINE_CSS}</style>
-</head>"""
+</head><body>
+<a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>"""
 
 
 # ----------------------- Sections -----------------------
 
 def _render_masthead(edition: Edition, publish_label: str) -> str:
+    from cfb_rankings.nav import render_global_nav
+
     vol = _ROMAN[edition.volume] if edition.volume < len(_ROMAN) else str(edition.volume)
     publish_time = (edition.published_at_utc or "").split(" ")[1][:5] if edition.published_at_utc else "06:00"
+
+    # Use shared navigation component for consistency across all pages
+    nav_html = render_global_nav(current_page="/", variant="desktop")
+
     return f"""
 <header class="masthead">
   <div class="page">
@@ -649,16 +659,39 @@ def _render_masthead(edition: Edition, publish_label: str) -> str:
     <hr class="rule">
     <div class="brand-row">
       <div class="brand">CFB<span class="slash">/</span>INDEX</div>
-      <nav class="nav">
-        <a href="/rankings/">Rankings</a>
-        <a href="/teams/">Teams</a>
-        <a href="/editions/">Editions</a>
-        <a href="/about-model/">How It Works</a>
-      </nav>
+      {nav_html}
     </div>
     <hr class="rule">
   </div>
-</header>"""
+</header>
+
+<script>
+// Mobile navigation toggle - ensures accessibility and proper ARIA states
+(function() {{
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (toggle && navLinks) {{
+    toggle.addEventListener('click', function() {{
+      const isOpen = navLinks.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }});
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {{
+      if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {{
+        navLinks.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }}
+    }});
+    // Close menu on window resize to desktop
+    window.addEventListener('resize', function() {{
+      if (window.innerWidth >= 860) {{
+        navLinks.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }}
+    }});
+  }}
+}})();
+</script>"""
 
 
 def _render_hero(edition: Edition) -> str:
@@ -771,7 +804,7 @@ def _render_the_daily(daily: dict[str, Any], is_live: bool = False) -> str:
     footer_html = (
         ''
         if is_live
-        else '<p class="eyebrow muted" style="margin-top:32px;">Archive view — no published edition for today yet.</p>'
+        else '<p class="eyebrow muted" style="margin-top:32px;">Today\'s edition will be published later. Check back for fresh takes.</p>'
     )
     return f"""
 <section class="dept">
