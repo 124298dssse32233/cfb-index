@@ -16658,7 +16658,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <div class="team-hero-actions">
             <a class="button button-primary" href="../heisman/index.html">Heisman Board</a>
             <a class="button button-secondary" href="../players/index.html">All Player Cards</a>
-            {f'<a class="button button-secondary" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)} team page</a>' if team_slug else ''}
+            {f'<a class="button button-secondary" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)} team page</a>' if _valid_team_slug(team_slug) else ''}
           </div>
         </section>
       </section>
@@ -17394,16 +17394,21 @@ def _render_team_compare_shortcuts(current_slug: str, peers: list[tuple[str, dic
 def _render_peer_item(label: str, peer: dict[str, Any] | None) -> str:
     if not peer:
         return ""
-    return f"""
-      <a class="peer-item" href="../teams/{escape(str(peer['slug']))}.html">
+    # Guard the peer-item team link: when the peer team's slug isn't in
+    # _VALID_TEAM_SLUGS (small-school NAIA/DIII teams without built pages),
+    # render the item as a non-linked div instead of a broken anchor.
+    peer_slug = _valid_team_slug(peer.get("slug"))
+    inner = f"""
         <div class="peer-item-top">
           <span class="peer-kicker">{escape(label)}</span>
           <span class="peer-gap-line">Power {escape(_public_power_text(peer.get('power_gap')))} | Resume {escape(_signed_integer_text(peer.get('resume_gap')))}</span>
         </div>
         <strong>#{int(peer['rank'])} {escape(str(peer['team_name']))}</strong>
         <span class="submetric">{escape(str(peer['level_code']))} | {escape(str(peer['conference']))}</span>
-      </a>
     """
+    if peer_slug:
+        return f'<a class="peer-item" href="../teams/{escape(peer_slug)}.html">{inner}</a>'
+    return f'<div class="peer-item peer-item--unlinked">{inner}</div>'
 
 
 def _render_team_story_cards(
