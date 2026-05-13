@@ -5433,6 +5433,17 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Players landing build skipped: {exc}")
 
+    # R1 — Sunday Vibe Shift Ledger. Renders /hub/vibe-shifts/<season>/<week>/
+    # for the latest few qualifying weeks. Per-team SVG share cards also land
+    # under that directory for social distribution. See
+    # docs/octopus/next-roadmap.md §R1 for the feature spec.
+    try:
+        from cfb_rankings.vibe_shifts import build_vibe_shifts_section
+        written = build_vibe_shifts_section(db, output_dir=site_root)
+        _report_progress(f"Vibe Shifts ledger wrote {len(written)} files.")
+    except Exception as exc:
+        _report_progress(f"Vibe Shifts ledger build skipped: {exc}")
+
     # Refresh the methodology page so edits to seeds/fi_glossary.yaml propagate
     # to the /methodology/fan-intelligence.html#glossary-<slug> anchors that
     # the `?` popover fallback links to.
