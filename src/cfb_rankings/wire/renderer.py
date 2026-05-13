@@ -228,7 +228,15 @@ def _row_html(row: dict[str, Any], *, now: datetime | None = None) -> str:
 
 
 def _entries_tbody(rows: Iterable[dict[str, Any]], *, now: datetime | None = None) -> str:
-    return "\n".join(_row_html(r, now=now) for r in rows)
+    """Render table body rows. Returns helpful message when empty."""
+    rows_list = list(rows)
+    if not rows_list:
+        return ('<tr><td colspan="5" style="text-align:center; padding: 48px 16px; '
+                'color: var(--muted); font-size: 16px; font-style: italic;">'
+                'No transactions in this window. '
+                'The Wire updates when portal moves, coaching changes happen, or commits land.'
+                '</td></tr>')
+    return "\n".join(_row_html(r, now=now) for r in rows_list)
 
 
 def _substitute(template: str, tokens: dict[str, str]) -> str:
@@ -381,6 +389,7 @@ def render_archive_month(
     rendered = _substitute(template, {
         "TITLE": f"The Wire — {label}",
         "HEAD_STYLE": _BASE_STYLE,
+        "GLOBAL_NAV": render_global_nav(current_page="/wire/", variant="desktop"),
         "MONTH_LABEL": label,
         "ENTRY_COUNT": str(len(rows)),
         "ENTRIES_TBODY": _entries_tbody(rows, now=now),
