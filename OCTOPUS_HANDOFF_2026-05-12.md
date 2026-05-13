@@ -1,14 +1,26 @@
 # Octopus Session Handoff — 2026-05-12
 
-_Written for Kevin returning to the keyboard. Summary of an autonomous 5-hour run that landed three PRs on master and produced an 8-week feature roadmap._
+_Written for Kevin returning to the keyboard. Summary of an autonomous 5-hour run that landed **five PRs** on master, produced an 8-week feature roadmap, and surfaced a pre-existing CI deploy issue that needs your attention._
 
-## Three PRs merged
+## 🚨 Important — read this first
+
+**The CI `publish-site` workflow has been silently failing the actual build step for at least the duration of this session, and probably longer.** The failure: `[publish][02:14:49] No model runs found for static site.` followed by a Traceback in `retro_render.py:190 _ensure_retro_seeded`. The workflow wraps `python -u manage.py build-site` in `set +e + check=False`, so the failure is swallowed, the script proceeds, and the prior site artifact gets re-uploaded as if the build succeeded.
+
+**Net effect:** the source code on master has all 5 of this session's PRs, but **the deployed (Vercel) site does NOT reflect them** — it's serving from a frozen build artifact. Until the CI build step starts succeeding, no source change to master will visibly ship.
+
+To verify after fixing CI: hit the deployed Vercel URL and look for "Closest call" replacing "Stress point" on `teams/indiana.html`.
+
+The CI fix probably requires either (a) the DB artifact upstream of publish-site is missing model runs and needs a fresh `run-models --season 2025` run before publish-site runs, or (b) `_ensure_retro_seeded` should tolerate empty-model-runs state and seed a placeholder. **I am not touching this autonomously** — it's a pipeline question, not a content question.
+
+## Five PRs merged
 
 | # | Title | Commit | What it does |
 |---|---|---|---|
 | **27** | Octopus audit 2026-05-12 — surgical content fixes + entity-match guard + doc refresh | `8077eac` | 6 surgical fixes (Stress point→Closest call, recent form readable, Heisman five-lens legend, illinois-college 404 guard, fan-intel jargon rewrite, CLAUDE.md drift correction) + Mendoza wrong-quote defensive guard + full Octopus deliverables in `docs/octopus/` |
 | **28** | hotfix: remove redundant global keyword breaking master build | `368b2de` | Master was broken by PR #27 for ~8 min (SyntaxError on a duplicate `global` declaration). Self-caught during `publish_site.ps1` run; patched + merged immediately |
 | **29** | docs(octopus): next-roadmap — 10 features to make CFB Index addictive | `5ad3596` | 8-week feature roadmap synthesized from Codex + Gemini + Claude perspectives. Top 5: Sunday Vibe Shift Ledger, Game Day Cards, Season Doppelganger, Respect Gap Scoreboard, Saturday Watch Board |
+| **30** | docs: session handoff 2026-05-12 | `bcce7d1` | This document (committed mid-session; updated after merge with deploy-issue context — see PR #32 if applicable) |
+| **31** | fix(player-pages): apply _valid_team_slug guard to hero button + peer-item | `31575f2` | Local link audit reported 2,154 broken `players/* -> teams/*` links. Two unguarded emission sites in `render_player_page_html` + `_render_peer_item` patched. PR notes that the audit shows 3 emissions per player and I only found 2 — a third site (likely in achievements/honors/signature-plays helpers) needs grep+sweep follow-up |
 
 ## State of the site as of handoff
 
@@ -31,6 +43,26 @@ _Written for Kevin returning to the keyboard. Summary of an autonomous 5-hour ru
 **Why the local publish hung:** the script does `python -u manage.py build-published` which should stream — but didn't. Likely a buffering issue with the PowerShell wrapper. The GH workflow uses a different runner so it didn't reproduce. Worth investigating: add explicit `flush=True` to `_report_progress` calls in `reporting.py` to make local dev runs visible.
 
 ## What to do when you're back
+
+### 0. Fix CI publish-site (TOP PRIORITY)
+
+Until this is fixed, nothing else ships.
+
+```bash
+# Quick repro of the failure:
+cd "/c/Users/kevin/Downloads/Sports Website"
+python -u manage.py build-site 2>&1 | head -30
+# Expect: "No model runs found for static site." + retro_render.py traceback
+
+# Likely fix paths:
+# (a) Run models against the current DB first, then build-site:
+python -u manage.py run-models --season 2025
+python -u manage.py build-site
+# (b) Or make _ensure_retro_seeded tolerant of empty model-run state
+#     (probably the cleaner long-term fix; see src/cfb_rankings/retro_render.py:214)
+```
+
+If `run-models` fixes it locally, trigger publish-site manually after committing the DB artifact, or set up the workflow to call `run-models` before `build-site`.
 
 ### 1. Verify (3 min)
 
