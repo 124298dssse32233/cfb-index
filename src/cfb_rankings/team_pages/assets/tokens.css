@@ -130,3 +130,300 @@
     --motion-delight: 0ms;
   }
 }
+
+/* ============================================================================
+   WORLD-CLASS RANKINGS PAGE STYLES
+   ============================================================================ */
+
+/* -----  Tiered Row Styling ------ */
+.rankings-row--elite {
+  background: linear-gradient(90deg, var(--tone-navy) 0%, transparent 30%);
+  font-weight: 600;
+}
+
+.rankings-row--elite .rank-cell {
+  font-size: 1.2em;
+  color: var(--tone-navy);
+  font-weight: 700;
+}
+
+.rankings-row--power {
+  background: transparent;
+}
+
+.rankings-row--all {
+  opacity: 0.8;
+  font-size: 0.95em;
+}
+
+/* -----  Rank Change Magnitude ------ */
+.rank-delta--large {
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.rank-delta--large.rank-delta--up {
+  background: var(--belief-bullish);
+  color: var(--bg-0);
+}
+
+.rank-delta--large.rank-delta--down {
+  background: var(--tone-red);
+  color: var(--bg-0);
+}
+
+.rank-delta--medium {
+  font-weight: 600;
+}
+
+/* -----  Movement Dashboard ------ */
+.movement-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  margin: var(--sp-8) 0;
+}
+
+.movement-panel {
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+}
+
+.movement-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-3);
+  color: var(--fg-secondary);
+}
+
+.movement-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+
+.movement-card:last-child {
+  border-bottom: none;
+}
+
+.movement-card__rank {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-metric-sm);
+  color: var(--tone-navy);
+  min-width: 40px;
+}
+
+.movement-card__team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.movement-card__team .team-link {
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+
+.movement-card__team .submetric {
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.movement-card__change {
+  min-width: 60px;
+  text-align: right;
+}
+
+/* -----  Tier Toggles ------ */
+.rankings-tier-toggles {
+  display: flex;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  justify-content: center;
+}
+
+.tier-toggle {
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tier-toggle:hover {
+  background: var(--bg-2);
+  border-color: var(--stroke-strong);
+  color: var(--fg-primary);
+}
+
+.tier-toggle--active {
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  border-color: var(--tone-navy);
+}
+
+/* -----  Quick Filter Chips ------ */
+.rankings-quick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4);
+  background: var(--bg-1);
+  border-radius: var(--radius-lg);
+  justify-content: center;
+}
+
+.filter-chip {
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--bg-2);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-chip:hover {
+  background: var(--bg-0);
+  border-color: var(--tone-navy);
+  color: var(--fg-primary);
+}
+
+.filter-chip--active {
+  background: var(--tone-navy);
+  border-color: var(--tone-navy);
+  color: var(--fg-on-accent);
+}
+
+/* -----  Sparkline Styling ------ */
+.rank-sparkline {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+.rank-change-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* -----  Accessibility ------ */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  padding: var(--sp-2) var(--sp-3);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* -----  Responsive Design ------ */
+@media (max-width: 640px) {
+  .rankings-tier-toggles {
+    flex-wrap: wrap;
+  }
+
+  .tier-toggle {
+    flex: 1 1 calc(50% - var(--sp-2));
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .movement-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .rankings-quick-filters {
+    gap: var(--sp-1);
+  }
+
+  .filter-chip {
+    font-size: 10px;
+    padding: var(--sp-1) var(--sp-2);
+    flex: 1 1 calc(33% - var(--sp-1));
+    text-align: center;
+  }
+
+  .rank-sparkline {
+    width: 60px;
+    height: 18px;
+  }
+
+  /* Transform table rows into cards on mobile */
+  #rankingsTableBody tr {
+    display: block;
+    margin-bottom: var(--sp-4);
+    background: var(--bg-1);
+    border: 1px solid var(--stroke-default);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3);
+  }
+
+  #rankingsTableBody thead {
+    display: none;
+  }
+
+  #rankingsTableBody td {
+    display: block;
+    padding: var(--sp-1) 0;
+    border: none;
+  }
+
+  #rankingsTableBody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: var(--sp-2);
+    color: var(--fg-muted);
+  }
+
+  .movement-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .movement-card__rank {
+    font-size: var(--fs-body);
+  }
+}

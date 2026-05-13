@@ -14003,7 +14003,18 @@ def render_rankings_page_html(
     season_name = season_label(season_year_value)
     featured_team_pages = featured_team_pages or []
     conferences = sorted({_clean_conference_name(str(row.conference_name or f"{row.level_code} Independents")) for row in rankings})
+
+    # Add tier attribute to each row for progressive disclosure
+    for i, row in enumerate(rankings):
+        if i < 25:
+            row.tier = "elite"
+        elif row.level_code == "FBS":
+            row.tier = "power"
+        else:
+            row.tier = "all"
+
     table_rows = "\n".join(_render_rankings_row(row) for row in rankings)
+    movement_dashboard = _render_movement_dashboard(rankings)
     summary_cards = _render_summary_cards(featured_team_pages, prefix="../teams/") if featured_team_pages else ""
     compare_cards = _render_compare_feature_cards(featured_team_pages, prefix="../") if featured_team_pages else ""
     power_resume_plot = _render_power_resume_plot(featured_team_pages, prefix="../") if featured_team_pages else ""
@@ -14021,6 +14032,8 @@ def render_rankings_page_html(
     {_global_link_tags()}
   </head>
   <body>
+    <a class="skip-link" href="#rankingsTableBody">Skip to Rankings</a>
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="rankingsAnnouncer"></div>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="rankings")}
         <section class="hero">
@@ -14038,6 +14051,8 @@ def render_rankings_page_html(
             <a class="button button-secondary" href="../conferences/index.html">Browse Conferences</a>
           </div>
         </section>
+
+        {movement_dashboard}
 
         <section class="section">
           <div class="home-meta-row panel">
@@ -14171,6 +14186,23 @@ def render_rankings_page_html(
         </section>
 
         <section class="section">
+          <article class="panel">
+            <div class="rankings-tier-toggles" data-rankings-tiers role="tablist" aria-label="Ranking tier views">
+              <button class="tier-toggle tier-toggle--active" data-tier="elite" role="tab" aria-selected="true">Top 25</button>
+              <button class="tier-toggle" data-tier="power" role="tab" aria-selected="false">FBS Power</button>
+              <button class="tier-toggle" data-tier="all" role="tab" aria-selected="false">All Teams</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="section">
+          <div class="rankings-quick-filters">
+            <button class="filter-chip" data-filter="risers">Big Risers ↑</button>
+            <button class="filter-chip" data-filter="fallers">Big Fallers ↓</button>
+            <button class="filter-chip" data-filter="fbs">FBS Only</button>
+            <button class="filter-chip" data-filter="power-leaders">Power Leaders</button>
+            <button class="filter-chip" data-filter="resume-leaders">Resume Leaders</button>
+          </div>
           <div class="table-wrap">
             <table>
             <thead>
@@ -19780,16 +19812,93 @@ def _render_rankings_row(row: RankingRow) -> str:
     delta_class = _rank_change_class(row.rank_change)
     delta_text = _rank_change_text(row.rank_change)
     search_blob = escape(f"{row.team_name} {conference} {row.level_code}".lower())
+
+    # Get tier attribute for progressive disclosure
+    tier = getattr(row, 'tier', 'all')
+    tier_class = f"rankings-row--{tier}"
+
+    # Enhanced rank change with magnitude
+    magnitude = _rank_change_magnitude(row.rank_change)
+    direction = "up" if row.rank_change > 0 else "down" if row.rank_change < 0 else "flat"
+    magnitude_class = f"rank-delta--{magnitude}" if magnitude != "small" else ""
+
+    # Division color coding
+    level_color = _level_color(row.level_code)
+
     return f"""
-    <tr data-rank="{row.rank}" data-power="{float(row.power_display or 0.0):.4f}" data-resume="{float(row.resume_display or 0.0):.4f}" data-team="{escape(row.team_name.lower())}" data-level="{escape(row.level_code)}" data-conference="{escape(conference)}" data-search="{search_blob}">
+    <tr class="{tier_class}" data-rank="{row.rank}" data-power="{float(row.power_display or 0.0):.4f}" data-resume="{float(row.resume_display or 0.0):.4f}" data-team="{escape(row.team_name.lower())}" data-level="{escape(row.level_code)}" data-conference="{escape(conference)}" data-search="{search_blob}" data-tier="{tier}" data-rank-change="{row.rank_change}" data-level-color="{level_color}">
       <td class="rank-cell">#{row.rank}</td>
-      <td class="metric-cell"><span class="rank-delta {delta_class}">{escape(delta_text)}</span></td>
+      <td class="metric-cell"><span class="rank-delta {delta_class} {magnitude_class}">{escape(delta_text)}</span></td>
       <td><a class="team-link" href="../teams/{escape(row.slug)}.html">{escape(row.team_name)}</a><span class="submetric">{escape(conference)}</span></td>
       <td><span class="pill level-{escape(row.level_code)}">{escape(row.level_code)}</span></td>
       <td class="metric-cell">{_public_power_text(row.power_display)}</td>
       <td class="metric-cell">{_public_resume_text(row.resume_display)}</td>
     </tr>
     """
+
+
+def _rank_change_magnitude(value: int) -> str:
+    """Categorize rank change by magnitude for visual emphasis."""
+    if abs(value) >= 10:
+        return "large"
+    if abs(value) >= 4:
+        return "medium"
+    return "small"
+
+
+def _level_color(level_code: str) -> str:
+    """Map division level to design token color."""
+    colors = {
+        "FBS": "navy",
+        "FCS": "green",
+        "DII": "amber",
+        "DIII": "gray"
+    }
+    return colors.get(level_code, "gray")
+
+
+def _render_movement_card(row: RankingRow) -> str:
+    """Render a single movement card for risers/fallers dashboard."""
+    delta_class = "rank-delta--up" if row.rank_change > 0 else "rank-delta--down"
+    delta_icon = "↑" if row.rank_change > 0 else "↓"
+    return f"""
+    <div class="movement-card">
+        <div class="movement-card__rank">#{row.rank}</div>
+        <div class="movement-card__team">
+            <a class="team-link" href="../teams/{escape(row.slug)}.html">{escape(row.team_name)}</a>
+            <span class="submetric">{escape(row.level_code)}</span>
+        </div>
+        <div class="movement-card__change">
+            <span class="rank-delta {delta_class}">{delta_icon}{abs(row.rank_change)}</span>
+        </div>
+    </div>
+    """.strip()
+
+
+def _render_movement_dashboard(rows: list[RankingRow]) -> str:
+    """Render hero section dashboard showing top risers/fallers."""
+    # Sort by rank_change, get top 3 risers and fallers
+    risers = sorted([r for r in rows if r.rank_change > 0], key=lambda x: -x.rank_change)[:3]
+    fallers = sorted([r for r in rows if r.rank_change < 0], key=lambda x: x.rank_change)[:3]
+
+    if not risers and not fallers:
+        return ""  # No movement data available
+
+    risers_html = "\n".join(_render_movement_card(r) for r in risers) if risers else '<p class="section-note">No risers this week</p>'
+    fallers_html = "\n".join(_render_movement_card(r) for r in fallers) if fallers else '<p class="section-note">No fallers this week</p>'
+
+    return f"""
+    <div class="movement-dashboard">
+        <div class="movement-panel movement-panel--risers">
+            <h3 class="movement-panel__title">Big Risers</h3>
+            {risers_html}
+        </div>
+        <div class="movement-panel movement-panel--fallers">
+            <h3 class="movement-panel__title">Big Fallers</h3>
+            {fallers_html}
+        </div>
+    </div>
+    """.strip()
 
 
 def _render_schedule_row(team_id: int, row: dict[str, Any]) -> str:
@@ -22391,8 +22500,11 @@ def _rankings_board_script() -> str:
         const chipRow = document.getElementById('rankingsActiveFilterRow');
         const tableBody = document.getElementById('rankingsTableBody');
         const jumpButtons = Array.from(document.querySelectorAll('[data-rankings-limit]'));
+        const announcer = document.getElementById('rankingsAnnouncer');
 
         let limit = 'all';
+        let currentTier = 'elite';
+        let activeQuickFilter = null;
 
         const normalized = (value) => (value || '').toString().trim().toLowerCase();
         const sorters = {
@@ -22401,6 +22513,12 @@ def _rankings_board_script() -> str:
           rank: (a, b) => parseInt(a.dataset.rank, 10) - parseInt(b.dataset.rank, 10),
           team: (a, b) => a.dataset.team.localeCompare(b.dataset.team),
         };
+
+        function announceFilters(visibleCount) {
+          if (announcer) {
+            announcer.textContent = `Showing ${visibleCount} teams`;
+          }
+        }
 
         function renderChips(tokens) {
           chipRow.innerHTML = '';
@@ -22427,7 +22545,36 @@ def _rankings_board_script() -> str:
             const matchesQuery = !query || row.dataset.search.includes(query);
             const matchesLevel = level === 'ALL' || row.dataset.level === level;
             const matchesConference = conference === 'ALL' || row.dataset.conference === conference;
-            return matchesQuery && matchesLevel && matchesConference;
+            const matchesTier = currentTier === 'all' || row.dataset.tier === currentTier || (currentTier === 'power' && (row.dataset.tier === 'elite' || row.dataset.tier === 'power'));
+
+            // Apply quick filter if active
+            let matchesQuickFilter = true;
+            if (activeQuickFilter) {
+              const rankChange = parseInt(row.dataset.rankChange || 0);
+              const power = parseFloat(row.dataset.power || 0);
+              const resume = parseFloat(row.dataset.resume || 0);
+              const rowLevel = row.dataset.level;
+
+              switch(activeQuickFilter) {
+                case 'risers':
+                  matchesQuickFilter = rankChange >= 5;
+                  break;
+                case 'fallers':
+                  matchesQuickFilter = rankChange <= -5;
+                  break;
+                case 'fbs':
+                  matchesQuickFilter = rowLevel === 'FBS';
+                  break;
+                case 'power-leaders':
+                  matchesQuickFilter = power >= 20.0;
+                  break;
+                case 'resume-leaders':
+                  matchesQuickFilter = resume >= 15.0;
+                  break;
+              }
+            }
+
+            return matchesQuery && matchesLevel && matchesConference && matchesTier && matchesQuickFilter;
           });
 
           const sorted = [...filtered].sort(sorter);
@@ -22442,6 +22589,7 @@ def _rankings_board_script() -> str:
           });
 
           countNode.textContent = String(limited.length);
+          announceFilters(limited.length);
 
           const chipTokens = [];
           if (query) chipTokens.push(`Search: ${searchInput.value.trim()}`);
@@ -22449,6 +22597,8 @@ def _rankings_board_script() -> str:
           if (conference !== 'ALL') chipTokens.push(`Conference: ${conference}`);
           chipTokens.push(`Sort: ${sortMode.options[sortMode.selectedIndex].text}`);
           chipTokens.push(limit === 'all' ? 'Range: All teams' : `Range: Top ${limit}`);
+          if (currentTier !== 'all') chipTokens.push(`Tier: ${currentTier === 'elite' ? 'Top 25' : 'FBS Power'}`);
+          if (activeQuickFilter) chipTokens.push(`Filter: ${activeQuickFilter.replace('-', ' ').replace(/\\b\\w/g, l => l.toUpperCase())}`);
           renderChips(chipTokens);
         }
 
@@ -22472,8 +22622,57 @@ def _rankings_board_script() -> str:
           conferenceFilter.value = 'ALL';
           sortMode.value = 'rank';
           limit = 'all';
+          currentTier = 'elite';
+          activeQuickFilter = null;
           jumpButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.rankingsLimit === 'all'));
+          document.querySelectorAll('.tier-toggle').forEach(t => {
+            t.classList.remove('tier-toggle--active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          const eliteButton = document.querySelector('[data-tier="elite"]');
+          if (eliteButton) {
+            eliteButton.classList.add('tier-toggle--active');
+            eliteButton.setAttribute('aria-selected', 'true');
+          }
+          document.querySelectorAll('.filter-chip[data-filter]').forEach(c => c.classList.remove('filter-chip--active'));
           applyBoardState();
+        });
+
+        // Tier toggle functionality
+        document.querySelectorAll('.tier-toggle').forEach(button => {
+          button.addEventListener('click', () => {
+            const tier = button.dataset.tier;
+            currentTier = tier;
+
+            // Update active state
+            document.querySelectorAll('.tier-toggle').forEach(t => {
+              t.classList.remove('tier-toggle--active');
+              t.setAttribute('aria-selected', 'false');
+            });
+            button.classList.add('tier-toggle--active');
+            button.setAttribute('aria-selected', 'true');
+
+            applyBoardState();
+          });
+        });
+
+        // Quick filter chips
+        document.querySelectorAll('.filter-chip[data-filter]').forEach(chip => {
+          chip.addEventListener('click', () => {
+            const filter = chip.dataset.filter;
+
+            // Toggle active state
+            if (activeQuickFilter === filter) {
+              activeQuickFilter = null;
+              chip.classList.remove('filter-chip--active');
+            } else {
+              activeQuickFilter = filter;
+              document.querySelectorAll('.filter-chip[data-filter]').forEach(c => c.classList.remove('filter-chip--active'));
+              chip.classList.add('filter-chip--active');
+            }
+
+            applyBoardState();
+          });
         });
 
         applyBoardState();
