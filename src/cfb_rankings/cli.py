@@ -169,6 +169,41 @@ def build_parser() -> argparse.ArgumentParser:
         help="Render /methodology/freshness.html only — last-run-per-source summary.",
     )
 
+    # R1 — Sunday Vibe Shift Ledger. See docs/octopus/next-roadmap.md.
+    vibe_parser = subparsers.add_parser(
+        "build-vibe-shifts",
+        help="Render /hub/vibe-shifts/<season>/<week>/ ledger pages + per-team SVG share cards.",
+    )
+    vibe_parser.add_argument(
+        "--season",
+        type=int,
+        default=None,
+        help="Season year (omit to use the latest qualifying week's season).",
+    )
+    vibe_parser.add_argument(
+        "--week",
+        type=int,
+        default=None,
+        help="Week number (omit to render the latest few weeks).",
+    )
+    vibe_parser.add_argument(
+        "--output-dir",
+        default="output/site",
+        help="Site root (default: output/site).",
+    )
+    vibe_parser.add_argument(
+        "--limit",
+        type=int,
+        default=10,
+        help="Number of teams ranked per week (default 10).",
+    )
+    vibe_parser.add_argument(
+        "--max-weeks",
+        type=int,
+        default=4,
+        help="When --week is omitted, how many recent weeks to render (default 4).",
+    )
+
     # Signature Bets S1.6 — Live Signal Flow event lifecycle.
     signal_emit_parser = subparsers.add_parser(
         "signal-emit",
@@ -2029,6 +2064,33 @@ def main() -> None:
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         out = write_freshness_page(db)
         print(f"freshness page written: {out}")
+        return
+
+    if args.command == "build-vibe-shifts":
+        from cfb_rankings.vibe_shifts import (
+            build_vibe_shifts_for_week,
+            build_vibe_shifts_section,
+            latest_vibe_shifts_week,
+        )
+        if args.week is not None:
+            season = args.season
+            if season is None:
+                latest = latest_vibe_shifts_week(db)
+                if latest is None:
+                    print("build-vibe-shifts: no qualifying weeks in DB")
+                    return
+                season, _ = latest
+            written = build_vibe_shifts_for_week(
+                db, season, args.week, args.output_dir, limit=args.limit,
+            )
+            print(f"vibe-shifts: wrote {len(written)} files for season {season} week {args.week}")
+        else:
+            written = build_vibe_shifts_section(
+                db,
+                output_dir=args.output_dir,
+                max_weeks=args.max_weeks,
+            )
+            print(f"vibe-shifts: wrote {len(written)} files across latest {args.max_weeks} weeks")
         return
 
     if args.command == "signal-emit":
