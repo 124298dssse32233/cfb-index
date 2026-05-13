@@ -5070,7 +5070,12 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         row.slug: fetch_team_page_data(db, summary, row, historical_rows_by_team.get(row.team_id, []))
         for row in rankings
     }
-    global _VALID_TEAM_SLUGS
+    # _VALID_TEAM_SLUGS was already declared global + assigned a few lines
+    # above (pre-history-hub population). Defensive re-set from the actual
+    # team_pages dict — same content as the earlier {row.slug for row in
+    # rankings}, but keyed off the dict we actually wrote so any future
+    # divergence is caught here. A second `global` keyword would be a
+    # SyntaxError because the name is already bound in this function.
     _VALID_TEAM_SLUGS = {str(slug) for slug in team_pages.keys()}
     _report_progress(f"Built {len(team_pages)} team pages.")
     _report_progress("Building program pages...")
