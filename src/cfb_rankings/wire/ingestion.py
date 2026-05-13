@@ -235,7 +235,12 @@ def _collect_from_cached_recruits(
     # happening now) and the 2026 class is finished signing. So filter
     # to season_year >= current_year and order by class-year DESC first
     # so 2027 5-stars surface before 2026 (which itself should be done).
+    #
+    # OFFSEASON EXPANSION: When current_year has no candidates, include
+    # previous year to show recent commits during the offseason lull.
     current_year = today.year
+    min_year = current_year
+
     candidates = db.query_all(
         """
         select pp.player_id, pp.committed_team, pp.position, pp.stars,
@@ -264,9 +269,50 @@ def _collect_from_cached_recruits(
         """,
         {
             "pool": int(target_count) * 3,
-            "min_year": current_year,
+            "min_year": min_year,
         },
     )
+
+    # OFFSEASON FALLBACK: If current_year has no candidates, try previous year
+    if not candidates and current_year > 2020:
+        log.info(
+            "wire.ingestion: no candidates for %d, expanding window to include %d",
+            current_year, current_year - 1,
+        )
+        min_year = current_year - 1
+        candidates = db.query_all(
+            """
+            select pp.player_id, pp.committed_team, pp.position, pp.stars,
+                   pp.national_rank, pp.school_name, pp.state_province,
+                   pp.season_year,
+                   t.slug as team_slug,
+                   coalesce(t.short_name, t.canonical_name) as team_display,
+                   p.full_name
+            from player_recruiting_profiles pp
+            join teams t on lower(t.canonical_name) = lower(pp.committed_team)
+                         or lower(t.school_name) = lower(pp.committed_team)
+            left join players p on p.player_id = pp.player_id
+            where pp.committed_team is not null
+              and pp.stars >= 4
+              and t.level_code = 'FBS'
+              and t.is_active = 1
+              and pp.season_year >= :min_year
+              and pp.season_year <= :max_year
+              and (
+                  pp.stars = 5
+                  or (pp.stars = 4 and pp.national_rank is not null and pp.national_rank <= 250)
+              )
+            order by pp.season_year desc,
+                     pp.stars desc,
+                     case when pp.national_rank is null then 9999 else pp.national_rank end asc
+            limit :pool
+            """,
+            {
+                "pool": int(target_count) * 3,
+                "min_year": min_year,
+                "max_year": current_year,
+            },
+        )
 
     if not candidates:
         log.warning(
