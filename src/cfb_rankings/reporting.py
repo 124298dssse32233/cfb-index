@@ -14244,6 +14244,15 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
       </section>
 
       <section class="section">
+        <article class="panel" style="padding:24px;border:1px solid var(--border,#d8d8d8);border-radius:14px;">
+          <p class="eyebrow" style="font-size:11px;letter-spacing:2px;color:var(--muted-foreground,#666);font-weight:700;">NEW · 2026-05-12</p>
+          <h2 style="margin:6px 0 4px;">The Dynasty Heatmap</h2>
+          <p style="color:var(--muted-foreground,#555);margin-bottom:12px;">Twelve seasons. Every FBS program. Cells colored by within-year power percentile. The CFP era as a single argument — Alabama at 97th percentile, Stanford as the era's hardest landing, UTSA as the return-to-relevance story.</p>
+          <a class="button button-primary" href="../history/heatmap/">Open the heatmap</a>
+        </article>
+      </section>
+
+      <section class="section">
         <div class="section-head">
           <div>
             <h2>Best By Level</h2>
@@ -19685,24 +19694,33 @@ def _site_nav(prefix: str, current: str) -> str:
         "player": "players",
         "programs": "programs",
         "history": "history",
+        "heatmap": "history",
         "about": "model",
         "team": "teams",
         "compare": "analysis",
         "conferences": "analysis",
         "archive": "archive",
         "matchups": "matchups",
+        "vibe-shifts": "vibe-shifts",
+        "nfl-pipeline": "nfl-pipeline",
     }.get(current, current)
+    # Two new entries (Vibe Shifts + NFL Pipeline) surface the Octopus
+    # roadmap features. Methodology dropped from main nav — it's already
+    # linked from About-Model and the methodology pages cross-link each
+    # other; the top nav slot was higher-value for the new shipped
+    # surfaces. See docs/octopus/next-roadmap.md for the feature specs.
     links = [
         ("rankings", "Power Rankings", f"{prefix}rankings/index.html"),
         ("teams", "Teams", f"{prefix}teams/index.html"),
         ("players", "Players", f"{prefix}players/spotlight.html"),
         ("heisman", "Heisman", f"{prefix}heisman/index.html"),
+        ("vibe-shifts", "Vibe Shifts", f"{prefix}hub/vibe-shifts/index.html"),
         ("programs", "Programs", f"{prefix}programs/index.html"),
         ("history", "History", f"{prefix}history/index.html"),
+        ("nfl-pipeline", "NFL Pipeline", f"{prefix}nfl-pipeline/index.html"),
         ("model", "The Model", f"{prefix}about-model/index.html"),
         ("analysis", "Analysis", f"{prefix}conferences/index.html"),
         ("archive", "Weekly Archive", f"{prefix}archive/index.html"),
-        ("methodology", "Methodology", f"{prefix}methodology/fan-intelligence.html"),
     ]
     rendered = "".join(
         f'<a class="nav-link{" is-current" if key == active_key else ""}" href="{href}">{label}</a>'
