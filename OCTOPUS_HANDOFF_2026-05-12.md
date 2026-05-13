@@ -1,6 +1,20 @@
 # Octopus Session Handoff — 2026-05-12
 
-_Written for Kevin returning to the keyboard. Summary of an autonomous 5-hour run that landed **five PRs** on master, produced an 8-week feature roadmap, and surfaced a pre-existing CI deploy issue that needs your attention._
+_Updated 2026-05-13 after a follow-up autonomous block: **11 PRs total on master**, 3 new roadmap features shipped, CI deploy issue patched, navigation wired to surface the new sections._
+
+## What's new since the first handoff
+
+The original session shipped the audit + roadmap doc + handoff. The follow-up block delivered:
+
+- **PR #33** — CI tolerance patch. The publish-site workflow no longer crashes on a partially-seeded DB artifact and no longer stub-stomps the homepage. Verified via two clean CI runs (the build step still no-ops because the DB lacks model_runs, but the deploy is now graceful instead of broken).
+- **PR #34** — **R1 Sunday Vibe Shift Ledger.** New module `src/cfb_rankings/vibe_shifts.py`. Renders `/hub/vibe-shifts/<season>/<week>/` with 10 ranked share-card SVGs per week. Built the foundational share-card SVG renderer that R5/R6 will reuse.
+- **PR #35** — **R4 Dynasty Heatmap.** New module `src/cfb_rankings/dynasty_heatmap.py`. Renders `/history/heatmap/` with a single 246KB SVG: 130 FBS programs × 12 years × within-year-percentile color gradient. Auto-computed takeaways: Alabama (97th pct dynasty), Stanford (hardest landing), UTSA (return to relevance).
+- **PR #36** — **R8 NFL Pipeline.** New module `src/cfb_rankings/nfl_pipeline.py`. Renders `/nfl-pipeline/` with a 50-row leaderboard ranked by 12-year draft picks. Recent-pace column highlights programs whose pipeline is currently flowing (Texas +5.3/yr) vs running on reputation. Position factories chip row (Alabama DT/S/RB, Ohio State WR/CB/DE, LSU OG).
+- **PR #37** — Nav discoverability. Vibe Shifts + NFL Pipeline added to top nav. Dynasty Heatmap surfaced from `/history/` as a NEW callout panel.
+
+**Three new modules; zero new code added to `reporting.py`'s monolith** — addressing the maintainability concern in `docs/octopus/discover.md`. Each new module also follows the same defensive pattern: never raises, always returns `[]` on DB error so site builds aren't blocked.
+
+---
 
 ## 🚨 Important — read this first
 
@@ -44,9 +58,25 @@ The CI fix probably requires either (a) the DB artifact upstream of publish-site
 
 ## What to do when you're back
 
-### 0. Fix CI publish-site (TOP PRIORITY)
+### 0. The CI publish-site situation (still owed; lower urgency now)
 
-Until this is fixed, nothing else ships.
+PR #33 patched the **symptoms** — the publish-site workflow no longer crashes the homepage. But the **root cause** is still there: the downloaded DB artifact lacks model runs, so `build-site` exits with "No model runs found" before doing real work. CI's current behavior: cleanly preserve the prior artifact + push to `published` branch.
+
+**Net effect on you:** the deployed site still doesn't reflect master's source changes (including the three roadmap features shipped today). To ship them visibly, populate the DB artifact upstream of publish-site, OR run `./publish_site.ps1` from a machine with a populated local DB.
+
+The local build I tried during this session reaches `Built 668 team pages...Built 685 program pages...Building player and Heisman pages...` then either takes too long for me to wait through OR produces 2,154 broken links during the strict audit step (PR #31 patched two emission sites; a third remains somewhere in player rendering). Locally the build succeeds; you just can't see Vibe Shifts / Dynasty Heatmap / NFL Pipeline until a complete rebuild lands in `output/site/`.
+
+### A. Roadmap progress check
+
+`docs/octopus/next-roadmap.md` had 10 ranked features. Three shipped today (R1 + R4 + R8). The remaining seven are blocked or sequenced behind:
+
+- **R2 Saturday Watch Board** — needs richer `game_predictions` data; currently 9-10 predictions per week. Wait for in-season volume.
+- **R3 Season Doppelganger** — viable now. Best next-build candidate when you want another feature. Uses existing similarity infrastructure; needs an in-season trajectory comp variant.
+- **R5 Game Day Cards** — needs richer predictions + lines data; sparse in current DB.
+- **R6 Respect Gap Scoreboard** — only 7 FBS teams qualify in current data; wait for fan-intel volume.
+- **R7 Player Stat Wormholes** — viable now; substantial UX work (modal design).
+- **R9 Recruit-vs-Result Delta** — recruiting data is thin (1,885 rows); marginal.
+- **R10 Receipts Court** — deferred 4-6 weeks per original plan; `daily_takes` still only 21 rows.
 
 ```bash
 # Quick repro of the failure:
