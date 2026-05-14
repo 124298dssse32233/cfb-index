@@ -2300,6 +2300,36 @@ _RANKINGS_CONTROLS_CSS_BLOCK = """
   .rankings-row--power { background: transparent; }
   .rankings-row--all { opacity: 0.85; font-size: 0.95em; }
 
+  /* Team cell: logo + name + conference (in-cell layout) ------- */
+  .team-cell .team-link {
+    vertical-align: middle;
+  }
+  .team-cell .submetric {
+    display: block;
+    font-size: 11px;
+    color: var(--muted-foreground, #777);
+    margin-top: 2px;
+    margin-left: 32px;  /* align under team name, past logo */
+  }
+  .rankings__team-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  @media (max-width: 640px) {
+    .rankings__team-logo {
+      width: 20px;
+      height: 20px;
+      margin-right: 6px;
+    }
+    .team-cell .submetric {
+      margin-left: 26px;
+    }
+  }
+
   /* Rank-change magnitude -------------------------------------- */
   .rank-delta--large {
     font-weight: 700;
@@ -20021,11 +20051,23 @@ def _render_rankings_row(row: RankingRow) -> str:
     # Division color coding
     level_color = _level_color(row.level_code)
 
+    # Team logo for visual identification (graceful: blank if missing).
+    # Rankings page is rendered at output/site/rankings/index.html, so `../`
+    # prefix turns the site-root path returned by team_logo_src into one that
+    # resolves from /rankings/.
+    from cfb_rankings.visual_assets import team_logo_src
+    _logo_path = team_logo_src(row.slug)
+    logo_html = (
+        f'<img class="rankings__team-logo" src="../{_logo_path.lstrip("/")}" '
+        f'alt="" width="24" height="24" loading="lazy" decoding="async" aria-hidden="true">'
+        if _logo_path else ""
+    )
+
     return f"""
     <tr class="{tier_class}" data-rank="{row.rank}" data-power="{float(row.power_display or 0.0):.4f}" data-resume="{float(row.resume_display or 0.0):.4f}" data-team="{escape(row.team_name.lower())}" data-level="{escape(row.level_code)}" data-conference="{escape(conference)}" data-search="{search_blob}" data-tier="{tier}" data-rank-change="{row.rank_change}" data-level-color="{level_color}">
       <td class="rank-cell">#{row.rank}</td>
       <td class="metric-cell"><span class="rank-delta {delta_class} {magnitude_class}">{escape(delta_text)}</span></td>
-      <td><a class="team-link" href="../teams/{escape(row.slug)}.html">{escape(row.team_name)}</a><span class="submetric">{escape(conference)}</span></td>
+      <td class="team-cell">{logo_html}<a class="team-link" href="../teams/{escape(row.slug)}.html">{escape(row.team_name)}</a><span class="submetric">{escape(conference)}</span></td>
       <td><span class="pill level-{escape(row.level_code)}">{escape(row.level_code)}</span></td>
       <td class="metric-cell">{_public_power_text(row.power_display)}</td>
       <td class="metric-cell">{_public_resume_text(row.resume_display)}</td>

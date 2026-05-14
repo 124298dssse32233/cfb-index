@@ -413,6 +413,19 @@ def _render_hero(
 
     eyebrow_text = _eyebrow_text(state, snap)
 
+    # Team logo. Graceful degradation: nothing rendered if logo path unavailable.
+    # `../` prefix mirrors precedent in reporting.py:_render_team_page — both
+    # this module and reporting.py write to output/site/teams/<slug>.html, so
+    # site-root paths returned by team_logo_src need one-level-up adjustment.
+    from cfb_rankings.visual_assets import team_logo_src
+    _logo_path = team_logo_src(profile.slug)
+    logo_html = (
+        f'<img class="hero__logo" src="../{_logo_path.lstrip("/")}" '
+        f'alt="{html.escape(profile.display_name)} logo" '
+        f'width="80" height="80" loading="eager" decoding="async">'
+        if _logo_path else ""
+    )
+
     heritage_html = _render_heritage_strip(profile)
     state_paragraph_html = _render_state_paragraph(state_of_team, profile, state)
     metrics_html = _render_metric_tiles(profile, snap, sp_rating, state)
@@ -421,6 +434,7 @@ def _render_hero(
   <div>
     <div class="hero__eyebrow">{html.escape(eyebrow_text)}</div>
     <div class="hero__identity-bar">
+      {logo_html}
       <h1 id="hero-wordmark" class="hero__wordmark">{html.escape(profile.display_name)}</h1>
       <span class="hero__record" aria-label="Season record">{html.escape(record)}</span>
       {chips_html}
