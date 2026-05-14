@@ -1,7 +1,8 @@
 # worktree-auto-publish.ps1
 # Called by the Claude Code Stop hook in every session.
 # Guards ensure it only acts when running inside a worktree on a claude/* branch
-# that has commits not yet merged to master. Merges those commits and publishes.
+# that has commits not yet merged to master. Merges those commits, pushes master
+# to origin, and triggers the publish_site.yml GitHub Actions workflow.
 
 Set-StrictMode -Off
 $ErrorActionPreference = "Stop"
@@ -29,7 +30,7 @@ if (-not (Test-Path $mainRepo -PathType Container)) { exit 0 }
 
 Push-Location $mainRepo
 try {
-    Write-Host "[auto-publish] Merging $branch -> master and publishing..." -ForegroundColor Cyan
+    Write-Host "[auto-publish] Merging $branch -> master..." -ForegroundColor Cyan
 
     git checkout master 2>&1 | Out-Null
     if ($LASTEXITCODE -ne 0) {
@@ -43,14 +44,20 @@ try {
         exit 0
     }
 
-    Write-Host "[auto-publish] Merge done. Running publish_site.ps1..." -ForegroundColor Cyan
-    & ".\publish_site.ps1"
-    $publishExit = $LASTEXITCODE
+    Write-Host "[auto-publish] Merge done. Pushing master to origin..." -ForegroundColor Cyan
+    git push origin master 2>&1 | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning "[auto-publish] Push to origin failed; check credentials."
+        exit 0
+    }
 
-    if ($publishExit -eq 0) {
-        Write-Host "[auto-publish] Live site updated from $branch." -ForegroundColor Green
+    Write-Host "[auto-publish] Push done. Triggering publish_site.yml workflow..." -ForegroundColor Cyan
+    $ghResult = gh workflow run publish_site.yml --repo 124298dssse32233/cfb-index 2>&1
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "[auto-publish] Live site deployment triggered from $branch." -ForegroundColor Green
     } else {
-        Write-Warning "[auto-publish] publish_site.ps1 exited $publishExit — check output above."
+        Write-Warning "[auto-publish] Workflow trigger failed (gh may not be authenticated): $ghResult"
+        Write-Host "[auto-publish] Master is pushed — run 'gh workflow run publish_site.yml' manually to deploy." -ForegroundColor Yellow
     }
 } finally {
     Pop-Location
