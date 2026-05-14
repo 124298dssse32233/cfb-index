@@ -15,7 +15,9 @@ name: compute-full-pass
 #   - Generate best-calls editorial (AI, 2025 only)
 #
 # Estimated runtime: 30-60 minutes.
-# Lives in site-deploy concurrency group so it won't race publish-site.
+# NOTE: intentionally NOT in site-deploy concurrency group — this workflow
+# only writes DB + site artifacts; it does not push to the published branch.
+# publish-site (triggered at the end) is what actually deploys to Vercel.
 
 on:
   workflow_dispatch:
@@ -33,10 +35,6 @@ on:
         type: boolean
         required: false
         default: false
-
-concurrency:
-  group: site-deploy
-  cancel-in-progress: false
 
 jobs:
   compute:
