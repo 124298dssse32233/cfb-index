@@ -47,17 +47,23 @@ def main():
 
     html = RANKINGS_HTML.read_text(encoding="utf-8")
 
-    # Don't double-inject
-    if "rankings__team-logo" in html:
+    # Don't double-inject. Look for an actual <img class="rankings__team-logo">
+    # tag, not just a class-name mention (the CSS block also references it).
+    if '<img class="rankings__team-logo"' in html:
         print("[inject_logos] logos already present — skipping")
         sys.exit(0)
 
-    # Inject CSS before </head>
-    html = html.replace("</head>", LOGO_CSS + "\n</head>", 1)
+    # Inject CSS before </head> (only if it isn't already there)
+    if ".rankings__team-logo" not in html:
+        html = html.replace("</head>", LOGO_CSS + "\n</head>", 1)
 
-    # Add class="team-cell" to the <td> containing a team link, and inject logo img
-    # Pattern: <td><a class="team-link" href="../teams/{slug}.html">
-    def replace_td(m):
+    # Inject a <img class="rankings__team-logo"> before each <a class="team-link">.
+    # Match both legacy and rebuilt HTML formats:
+    #   legacy:  <td><a class="team-link" href="../teams/{slug}.html">
+    #   rebuilt: <td data-label="Team" class="team-cell"><a class="team-link" href="../teams/{slug}.html">
+    # We anchor on `<a class="team-link" href="../teams/{slug}.html">` and insert
+    # the img immediately before it (still inside the parent <td>).
+    def replace_anchor(m):
         slug = m.group(1)
         logo_path = TEAM_ART_DIR / slug / "logo_primary.png"
         if not logo_path.exists():
@@ -67,10 +73,10 @@ def main():
             f'src="../assets/team-art/{slug}/logo_primary.png" '
             f'alt="{slug}" loading="lazy" onerror="this.style.display=\'none\'">'
         )
-        return f'<td class="team-cell">{img}<a class="team-link" href="../teams/{slug}.html">'
+        return f'{img}<a class="team-link" href="../teams/{slug}.html">'
 
-    pattern = r'<td><a class="team-link" href="\.\./teams/([^"]+)\.html">'
-    new_html, count = re.subn(pattern, replace_td, html)
+    pattern = r'<a class="team-link" href="\.\./teams/([^"]+)\.html">'
+    new_html, count = re.subn(pattern, replace_anchor, html)
 
     RANKINGS_HTML.write_text(new_html, encoding="utf-8")
     print(f"[inject_logos] injected logos into {count} team rows in {RANKINGS_HTML}")
