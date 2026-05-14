@@ -1,0 +1,282 @@
+name: compute-full-pass
+# One-shot comprehensive compute + render pass covering everything that the
+# daily/weekly/publish workflows don't run automatically.
+#
+# Run this after a major DB backfill to fill in:
+#   - NFL draft data (2014-present)
+#   - Historical poll consensus
+#   - Heisman model (each season)
+#   - Rivalry ratios, mirror matches, achievements
+#   - Team brand asset sync
+#   - All site-render commands: dynasty heatmap, NFL pipeline,
+#     players landing, the room board, signature story board,
+#     conference pulse, vibe shifts, historical season pages,
+#     canon pages, receipts
+#   - Generate best-calls editorial (AI, 2025 only)
+#
+# Estimated runtime: 30-60 minutes.
+# Lives in site-deploy concurrency group so it won't race publish-site.
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_season:
+        description: "First season for loops (default: 2014)"
+        required: false
+        default: "2014"
+      end_season:
+        description: "Last completed season (default: 2025)"
+        required: false
+        default: "2025"
+      skip_ai:
+        description: "Skip AI-generated content (generate-best-calls)"
+        type: boolean
+        required: false
+        default: false
+
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      actions: read
+    env:
+      CFBD_API_KEY:       ${{ secrets.CFBD_API_KEY }}
+      CFBD_PATREON_KEY:   ${{ secrets.CFBD_PATREON_KEY }}
+      ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+      YOUTUBE_API_KEY:    ${{ secrets.YOUTUBE_API_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Install deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyyaml
+
+      # ── DB artifact ────────────────────────────────────────────────────
+      - name: Download DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py init-db
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
+      # ── Site artifact (needed by render commands) ──────────────────────
+      - name: Download prior site state
+        id: dl_site
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Bootstrap site from release if no artifact
+        if: steps.dl_site.outcome != 'success'
+        run: |
+          mkdir -p prior-site
+          gh release download deploy-state-v1 --pattern site-state-bootstrap.tar.gz --output /tmp/seed.tar.gz || true
+          tar -xzf /tmp/seed.tar.gz -C prior-site 2>/dev/null || true
+          echo "Bootstrapped $(find prior-site -type f | wc -l) files"
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+
+      - name: Seed output/site from prior state
+        run: |
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          echo "Seeded $(find output/site -type f | wc -l) files"
+
+      # ════════════════════════════════════════════════════════════════════
+      # DATA INGESTION — feeds into compute steps
+      # ════════════════════════════════════════════════════════════════════
+
+      - name: "Ingest — NFL Draft history ${{ github.event.inputs.start_season || '2014' }}-${{ github.event.inputs.end_season || '2025' }}"
+        run: |
+          set +e
+          python -u manage.py ingest-nfl-draft \
+            --start-year "${{ github.event.inputs.start_season || '2014' }}" \
+            --end-year   "${{ github.event.inputs.end_season   || '2025' }}" \
+            || echo "ingest-nfl-draft failed (continuing)"
+
+      - name: "Ingest — Historical consensus (polls, SP+, Vegas)"
+        run: |
+          set +e
+          python -u manage.py load-historical-consensus --kind all \
+            || echo "load-historical-consensus failed (continuing)"
+
+      - name: "Ingest — Sync team brand assets (logos, colors)"
+        run: |
+          set +e
+          python -u manage.py sync-team-brand-assets --classification fbs \
+            || echo "sync-team-brand-assets failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # COMPUTE — derived metrics
+      # ════════════════════════════════════════════════════════════════════
+
+      - name: "Compute — Heisman model (each season)"
+        run: |
+          set +e
+          for SEASON in $(seq "${{ github.event.inputs.start_season || '2014' }}" "${{ github.event.inputs.end_season || '2025' }}"); do
+            echo "── Heisman $SEASON ──"
+            python -u manage.py run-heisman-model \
+              --season      "$SEASON" \
+              --through-week 16 \
+              || echo "heisman $SEASON failed (continuing)"
+          done
+
+      - name: "Compute — Rivalry ratios (current week)"
+        run: |
+          set +e
+          WEEK=$(date -u +%Y-%m-%d)
+          python -u manage.py compute-rivalry-ratios --week "$WEEK" \
+            || echo "compute-rivalry-ratios failed (continuing)"
+
+      - name: "Compute — Mirror matches"
+        run: |
+          set +e
+          python -u manage.py compute-mirror-matches \
+            --season "${{ github.event.inputs.end_season || '2025' }}" \
+            || echo "compute-mirror-matches failed (continuing)"
+
+      - name: "Compute — Player achievements"
+        run: |
+          set +e
+          python -u manage.py compute-achievements \
+            --season "${{ github.event.inputs.end_season || '2025' }}" \
+            || echo "compute-achievements failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # SITE BUILDS — generate HTML pages in output/site/
+      # ════════════════════════════════════════════════════════════════════
+
+      - name: "Build — NFL pipeline (draft tracker pages)"
+        run: |
+          set +e
+          python -u manage.py build-nfl-pipeline \
+            --year-start "${{ github.event.inputs.start_season || '2014' }}" \
+            --year-end   "${{ github.event.inputs.end_season   || '2025' }}" \
+            || echo "build-nfl-pipeline failed (continuing)"
+
+      - name: "Build — Dynasty heatmap"
+        run: |
+          set +e
+          python -u manage.py build-dynasty-heatmap \
+            --year-start "${{ github.event.inputs.start_season || '2014' }}" \
+            --year-end   "${{ github.event.inputs.end_season   || '2025' }}" \
+            || echo "build-dynasty-heatmap failed (continuing)"
+
+      - name: "Build — Players landing page"
+        run: |
+          set +e
+          python -u manage.py build-players-landing \
+            --season "${{ github.event.inputs.end_season || '2025' }}" \
+            || echo "build-players-landing failed (continuing)"
+
+      - name: "Build — The Room board (transfer portal)"
+        run: |
+          set +e
+          python -u manage.py build-the-room-board \
+            --season 2026 \
+            || echo "build-the-room-board failed (continuing)"
+          python -u manage.py render-the-room \
+            || echo "render-the-room failed (continuing)"
+
+      - name: "Build — Signature story board"
+        run: |
+          set +e
+          python -u manage.py build-signature-story-board \
+            --season "${{ github.event.inputs.end_season || '2025' }}" \
+            || echo "build-signature-story-board failed (continuing)"
+
+      - name: "Build — Vibe shifts"
+        run: |
+          set +e
+          python -u manage.py build-vibe-shifts \
+            --season "${{ github.event.inputs.end_season || '2025' }}" \
+            || echo "build-vibe-shifts failed (continuing)"
+
+      - name: "Build — Conference pulse pages"
+        run: |
+          set +e
+          python -u manage.py render-conferences-pulse --all \
+            || echo "render-conferences-pulse failed (continuing)"
+
+      - name: "Build — Historical season pages (all profiled programs)"
+        run: |
+          set +e
+          python -u manage.py generate-historical-seasons \
+            || echo "generate-historical-seasons failed (continuing)"
+          python -u manage.py render-historical-seasons \
+            || echo "render-historical-seasons failed (continuing)"
+
+      - name: "Build — Canon pages"
+        run: |
+          set +e
+          python -u manage.py render-canon-all \
+            || echo "render-canon-all failed (continuing)"
+
+      - name: "Build — Prediction receipts"
+        run: |
+          set +e
+          python -u manage.py render-receipts \
+            || echo "render-receipts failed (continuing)"
+
+      - name: "Build — Best calls editorial (AI, 2025)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-best-calls --year 2025 --n 25 \
+            || echo "generate-best-calls failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # UPLOAD
+      # ════════════════════════════════════════════════════════════════════
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+      - name: Upload site artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site
+          retention-days: 14
+          overwrite: true
+
+      - name: Trigger publish-site to deploy
+        if: always()
+        run: gh workflow run publish_site.yml
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
