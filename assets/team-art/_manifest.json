@@ -1,0 +1,2636 @@
+{
+  "generated_utc": "2026-04-23T04:22:28.531688Z",
+  "teams": {
+    "abilene-christian": {
+      "logo_primary": "/assets/team-art/abilene-christian/logo_primary.png",
+      "logo_dark": "/assets/team-art/abilene-christian/logo_dark.png"
+    },
+    "adams-state": {
+      "logo_primary": "/assets/team-art/adams-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/adams-state/logo_dark.png"
+    },
+    "adrian": {
+      "logo_primary": "/assets/team-art/adrian/logo_primary.png",
+      "logo_dark": "/assets/team-art/adrian/logo_dark.png"
+    },
+    "air-force": {
+      "logo_primary": "/assets/team-art/air-force/logo_primary.png",
+      "logo_dark": "/assets/team-art/air-force/logo_dark.png"
+    },
+    "akron": {
+      "logo_primary": "/assets/team-art/akron/logo_primary.png",
+      "logo_dark": "/assets/team-art/akron/logo_dark.png"
+    },
+    "alabama": {
+      "logo_primary": "/assets/team-art/alabama/logo_primary.png",
+      "logo_dark": "/assets/team-art/alabama/logo_dark.png"
+    },
+    "alabama-aandm": {
+      "logo_primary": "/assets/team-art/alabama-aandm/logo_primary.png",
+      "logo_dark": "/assets/team-art/alabama-aandm/logo_dark.png"
+    },
+    "alabama-state": {
+      "logo_primary": "/assets/team-art/alabama-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/alabama-state/logo_dark.png"
+    },
+    "albany-state-ga": {
+      "logo_primary": "/assets/team-art/albany-state-ga/logo_primary.png",
+      "logo_dark": "/assets/team-art/albany-state-ga/logo_dark.png"
+    },
+    "albion": {
+      "logo_primary": "/assets/team-art/albion/logo_primary.png",
+      "logo_dark": "/assets/team-art/albion/logo_dark.png"
+    },
+    "albright": {
+      "logo_primary": "/assets/team-art/albright/logo_primary.png",
+      "logo_dark": "/assets/team-art/albright/logo_dark.png"
+    },
+    "alcorn-state": {
+      "logo_primary": "/assets/team-art/alcorn-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/alcorn-state/logo_dark.png"
+    },
+    "alderson-broaddus": {
+      "logo_primary": "/assets/team-art/alderson-broaddus/logo_primary.png",
+      "logo_dark": "/assets/team-art/alderson-broaddus/logo_dark.png"
+    },
+    "alfred-state": {
+      "logo_primary": "/assets/team-art/alfred-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/alfred-state/logo_dark.png"
+    },
+    "alfred": {
+      "logo_primary": "/assets/team-art/alfred/logo_primary.png",
+      "logo_dark": "/assets/team-art/alfred/logo_dark.png"
+    },
+    "allegheny": {
+      "logo_primary": "/assets/team-art/allegheny/logo_primary.png",
+      "logo_dark": "/assets/team-art/allegheny/logo_dark.png"
+    },
+    "allen": {
+      "logo_primary": "/assets/team-art/allen/logo_primary.png"
+    },
+    "alma": {
+      "logo_primary": "/assets/team-art/alma/logo_primary.png",
+      "logo_dark": "/assets/team-art/alma/logo_dark.png"
+    },
+    "american-international": {
+      "logo_primary": "/assets/team-art/american-international/logo_primary.png",
+      "logo_dark": "/assets/team-art/american-international/logo_dark.png"
+    },
+    "amherst": {
+      "logo_primary": "/assets/team-art/amherst/logo_primary.png",
+      "logo_dark": "/assets/team-art/amherst/logo_dark.png"
+    },
+    "anderson-in": {
+      "logo_primary": "/assets/team-art/anderson-in/logo_primary.png",
+      "logo_dark": "/assets/team-art/anderson-in/logo_dark.png"
+    },
+    "anderson-sc": {
+      "logo_primary": "/assets/team-art/anderson-sc/logo_primary.png"
+    },
+    "angelo-state": {
+      "logo_primary": "/assets/team-art/angelo-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/angelo-state/logo_dark.png"
+    },
+    "anna-maria": {
+      "logo_primary": "/assets/team-art/anna-maria/logo_primary.png",
+      "logo_dark": "/assets/team-art/anna-maria/logo_dark.png"
+    },
+    "app-state": {
+      "logo_primary": "/assets/team-art/app-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/app-state/logo_dark.png"
+    },
+    "arizona": {
+      "logo_primary": "/assets/team-art/arizona/logo_primary.png",
+      "logo_dark": "/assets/team-art/arizona/logo_dark.png"
+    },
+    "arizona-state": {
+      "logo_primary": "/assets/team-art/arizona-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/arizona-state/logo_dark.png"
+    },
+    "arkansas": {
+      "logo_primary": "/assets/team-art/arkansas/logo_primary.png",
+      "logo_dark": "/assets/team-art/arkansas/logo_dark.png"
+    },
+    "arkansas-monticello": {
+      "logo_primary": "/assets/team-art/arkansas-monticello/logo_primary.png",
+      "logo_dark": "/assets/team-art/arkansas-monticello/logo_dark.png"
+    },
+    "arkansas-pine-bluff": {
+      "logo_primary": "/assets/team-art/arkansas-pine-bluff/logo_primary.png",
+      "logo_dark": "/assets/team-art/arkansas-pine-bluff/logo_dark.png"
+    },
+    "arkansas-state": {
+      "logo_primary": "/assets/team-art/arkansas-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/arkansas-state/logo_dark.png"
+    },
+    "arkansas-tech": {
+      "logo_primary": "/assets/team-art/arkansas-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/arkansas-tech/logo_dark.png"
+    },
+    "army": {
+      "logo_primary": "/assets/team-art/army/logo_primary.png",
+      "logo_dark": "/assets/team-art/army/logo_dark.png"
+    },
+    "ashland": {
+      "logo_primary": "/assets/team-art/ashland/logo_primary.png",
+      "logo_dark": "/assets/team-art/ashland/logo_dark.png"
+    },
+    "assumption": {
+      "logo_primary": "/assets/team-art/assumption/logo_primary.png",
+      "logo_dark": "/assets/team-art/assumption/logo_dark.png"
+    },
+    "auburn": {
+      "logo_primary": "/assets/team-art/auburn/logo_primary.png",
+      "logo_dark": "/assets/team-art/auburn/logo_dark.png"
+    },
+    "augsburg": {
+      "logo_primary": "/assets/team-art/augsburg/logo_primary.png",
+      "logo_dark": "/assets/team-art/augsburg/logo_dark.png"
+    },
+    "augustana-il": {
+      "logo_primary": "/assets/team-art/augustana-il/logo_primary.png",
+      "logo_dark": "/assets/team-art/augustana-il/logo_dark.png"
+    },
+    "augustana-sd": {
+      "logo_primary": "/assets/team-art/augustana-sd/logo_primary.png",
+      "logo_dark": "/assets/team-art/augustana-sd/logo_dark.png"
+    },
+    "aurora": {
+      "logo_primary": "/assets/team-art/aurora/logo_primary.png",
+      "logo_dark": "/assets/team-art/aurora/logo_dark.png"
+    },
+    "austin": {
+      "logo_primary": "/assets/team-art/austin/logo_primary.png",
+      "logo_dark": "/assets/team-art/austin/logo_dark.png"
+    },
+    "austin-peay": {
+      "logo_primary": "/assets/team-art/austin-peay/logo_primary.png",
+      "logo_dark": "/assets/team-art/austin-peay/logo_dark.png"
+    },
+    "averett": {
+      "logo_primary": "/assets/team-art/averett/logo_primary.png",
+      "logo_dark": "/assets/team-art/averett/logo_dark.png"
+    },
+    "baldwin-wallace": {
+      "logo_primary": "/assets/team-art/baldwin-wallace/logo_primary.png",
+      "logo_dark": "/assets/team-art/baldwin-wallace/logo_dark.png"
+    },
+    "ball-state": {
+      "logo_primary": "/assets/team-art/ball-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/ball-state/logo_dark.png"
+    },
+    "bates": {
+      "logo_primary": "/assets/team-art/bates/logo_primary.png",
+      "logo_dark": "/assets/team-art/bates/logo_dark.png"
+    },
+    "baylor": {
+      "logo_primary": "/assets/team-art/baylor/logo_primary.png",
+      "logo_dark": "/assets/team-art/baylor/logo_dark.png"
+    },
+    "beloit": {
+      "logo_primary": "/assets/team-art/beloit/logo_primary.png",
+      "logo_dark": "/assets/team-art/beloit/logo_dark.png"
+    },
+    "bemidji-state": {
+      "logo_primary": "/assets/team-art/bemidji-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/bemidji-state/logo_dark.png"
+    },
+    "benedict": {
+      "logo_primary": "/assets/team-art/benedict/logo_primary.png",
+      "logo_dark": "/assets/team-art/benedict/logo_dark.png"
+    },
+    "benedictine": {
+      "logo_primary": "/assets/team-art/benedictine/logo_primary.png",
+      "logo_dark": "/assets/team-art/benedictine/logo_dark.png"
+    },
+    "bentley": {
+      "logo_primary": "/assets/team-art/bentley/logo_primary.png",
+      "logo_dark": "/assets/team-art/bentley/logo_dark.png"
+    },
+    "berry": {
+      "logo_primary": "/assets/team-art/berry/logo_primary.png",
+      "logo_dark": "/assets/team-art/berry/logo_dark.png"
+    },
+    "bethany-wv": {
+      "logo_primary": "/assets/team-art/bethany-wv/logo_primary.png",
+      "logo_dark": "/assets/team-art/bethany-wv/logo_dark.png"
+    },
+    "bethel-mn": {
+      "logo_primary": "/assets/team-art/bethel-mn/logo_primary.png",
+      "logo_dark": "/assets/team-art/bethel-mn/logo_dark.png"
+    },
+    "bethune-cookman": {
+      "logo_primary": "/assets/team-art/bethune-cookman/logo_primary.png",
+      "logo_dark": "/assets/team-art/bethune-cookman/logo_dark.png"
+    },
+    "biddeford": {
+      "logo_primary": "/assets/team-art/biddeford/logo_primary.png"
+    },
+    "birmingham-southern": {
+      "logo_primary": "/assets/team-art/birmingham-southern/logo_primary.png",
+      "logo_dark": "/assets/team-art/birmingham-southern/logo_dark.png"
+    },
+    "black-hills-state": {
+      "logo_primary": "/assets/team-art/black-hills-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/black-hills-state/logo_dark.png"
+    },
+    "bloomsburg": {
+      "logo_primary": "/assets/team-art/bloomsburg/logo_primary.png",
+      "logo_dark": "/assets/team-art/bloomsburg/logo_dark.png"
+    },
+    "bluefield-state": {
+      "logo_primary": "/assets/team-art/bluefield-state/logo_primary.png"
+    },
+    "bluffton": {
+      "logo_primary": "/assets/team-art/bluffton/logo_primary.png",
+      "logo_dark": "/assets/team-art/bluffton/logo_dark.png"
+    },
+    "boise-state": {
+      "logo_primary": "/assets/team-art/boise-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/boise-state/logo_dark.png"
+    },
+    "boston": {
+      "logo_primary": "/assets/team-art/boston/logo_primary.png",
+      "logo_dark": "/assets/team-art/boston/logo_dark.png"
+    },
+    "bowdoin": {
+      "logo_primary": "/assets/team-art/bowdoin/logo_primary.png",
+      "logo_dark": "/assets/team-art/bowdoin/logo_dark.png"
+    },
+    "bowie-state": {
+      "logo_primary": "/assets/team-art/bowie-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/bowie-state/logo_dark.png"
+    },
+    "bowling-green": {
+      "logo_primary": "/assets/team-art/bowling-green/logo_primary.png",
+      "logo_dark": "/assets/team-art/bowling-green/logo_dark.png"
+    },
+    "brevard": {
+      "logo_primary": "/assets/team-art/brevard/logo_primary.png",
+      "logo_dark": "/assets/team-art/brevard/logo_dark.png"
+    },
+    "bridgewater-state": {
+      "logo_primary": "/assets/team-art/bridgewater-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/bridgewater-state/logo_dark.png"
+    },
+    "bridgewater-va": {
+      "logo_primary": "/assets/team-art/bridgewater-va/logo_primary.png",
+      "logo_dark": "/assets/team-art/bridgewater-va/logo_dark.png"
+    },
+    "brockport": {
+      "logo_primary": "/assets/team-art/brockport/logo_primary.png",
+      "logo_dark": "/assets/team-art/brockport/logo_dark.png"
+    },
+    "brown": {
+      "logo_primary": "/assets/team-art/brown/logo_primary.png",
+      "logo_dark": "/assets/team-art/brown/logo_dark.png"
+    },
+    "bryant": {
+      "logo_primary": "/assets/team-art/bryant/logo_primary.png",
+      "logo_dark": "/assets/team-art/bryant/logo_dark.png"
+    },
+    "bucknell": {
+      "logo_primary": "/assets/team-art/bucknell/logo_primary.png",
+      "logo_dark": "/assets/team-art/bucknell/logo_dark.png"
+    },
+    "buena-vista": {
+      "logo_primary": "/assets/team-art/buena-vista/logo_primary.png",
+      "logo_dark": "/assets/team-art/buena-vista/logo_dark.png"
+    },
+    "buffalo": {
+      "logo_primary": "/assets/team-art/buffalo/logo_primary.png",
+      "logo_dark": "/assets/team-art/buffalo/logo_dark.png"
+    },
+    "buffalo-state": {
+      "logo_primary": "/assets/team-art/buffalo-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/buffalo-state/logo_dark.png"
+    },
+    "butler": {
+      "logo_primary": "/assets/team-art/butler/logo_primary.png",
+      "logo_dark": "/assets/team-art/butler/logo_dark.png"
+    },
+    "byu": {
+      "logo_primary": "/assets/team-art/byu/logo_primary.png",
+      "logo_dark": "/assets/team-art/byu/logo_dark.png"
+    },
+    "california": {
+      "logo_primary": "/assets/team-art/california/logo_primary.png",
+      "logo_dark": "/assets/team-art/california/logo_dark.png"
+    },
+    "california-lutheran": {
+      "logo_primary": "/assets/team-art/california-lutheran/logo_primary.png",
+      "logo_dark": "/assets/team-art/california-lutheran/logo_dark.png"
+    },
+    "cal-poly": {
+      "logo_primary": "/assets/team-art/cal-poly/logo_primary.png",
+      "logo_dark": "/assets/team-art/cal-poly/logo_dark.png"
+    },
+    "campbell": {
+      "logo_primary": "/assets/team-art/campbell/logo_primary.png",
+      "logo_dark": "/assets/team-art/campbell/logo_dark.png"
+    },
+    "capital": {
+      "logo_primary": "/assets/team-art/capital/logo_primary.png",
+      "logo_dark": "/assets/team-art/capital/logo_dark.png"
+    },
+    "carleton": {
+      "logo_primary": "/assets/team-art/carleton/logo_primary.png",
+      "logo_dark": "/assets/team-art/carleton/logo_dark.png"
+    },
+    "carnegie-mellon": {
+      "logo_primary": "/assets/team-art/carnegie-mellon/logo_primary.png",
+      "logo_dark": "/assets/team-art/carnegie-mellon/logo_dark.png"
+    },
+    "carroll-wi": {
+      "logo_primary": "/assets/team-art/carroll-wi/logo_primary.png",
+      "logo_dark": "/assets/team-art/carroll-wi/logo_dark.png"
+    },
+    "carson-newman": {
+      "logo_primary": "/assets/team-art/carson-newman/logo_primary.png",
+      "logo_dark": "/assets/team-art/carson-newman/logo_dark.png"
+    },
+    "carthage": {
+      "logo_primary": "/assets/team-art/carthage/logo_primary.png",
+      "logo_dark": "/assets/team-art/carthage/logo_dark.png"
+    },
+    "case-western-reserve": {
+      "logo_primary": "/assets/team-art/case-western-reserve/logo_primary.png",
+      "logo_dark": "/assets/team-art/case-western-reserve/logo_dark.png"
+    },
+    "castleton": {
+      "logo_primary": "/assets/team-art/castleton/logo_primary.png",
+      "logo_dark": "/assets/team-art/castleton/logo_dark.png"
+    },
+    "catawba": {
+      "logo_primary": "/assets/team-art/catawba/logo_primary.png",
+      "logo_dark": "/assets/team-art/catawba/logo_dark.png"
+    },
+    "catholic": {
+      "logo_primary": "/assets/team-art/catholic/logo_primary.png",
+      "logo_dark": "/assets/team-art/catholic/logo_dark.png"
+    },
+    "central-arkansas": {
+      "logo_primary": "/assets/team-art/central-arkansas/logo_primary.png",
+      "logo_dark": "/assets/team-art/central-arkansas/logo_dark.png"
+    },
+    "central": {
+      "logo_primary": "/assets/team-art/central/logo_primary.png",
+      "logo_dark": "/assets/team-art/central/logo_dark.png"
+    },
+    "central-connecticut": {
+      "logo_primary": "/assets/team-art/central-connecticut/logo_primary.png",
+      "logo_dark": "/assets/team-art/central-connecticut/logo_dark.png"
+    },
+    "central-michigan": {
+      "logo_primary": "/assets/team-art/central-michigan/logo_primary.png",
+      "logo_dark": "/assets/team-art/central-michigan/logo_dark.png"
+    },
+    "central-missouri": {
+      "logo_primary": "/assets/team-art/central-missouri/logo_primary.png",
+      "logo_dark": "/assets/team-art/central-missouri/logo_dark.png"
+    },
+    "central-oklahoma": {
+      "logo_primary": "/assets/team-art/central-oklahoma/logo_primary.png",
+      "logo_dark": "/assets/team-art/central-oklahoma/logo_dark.png"
+    },
+    "central-state-oh": {
+      "logo_primary": "/assets/team-art/central-state-oh/logo_primary.png",
+      "logo_dark": "/assets/team-art/central-state-oh/logo_dark.png"
+    },
+    "central-washington": {
+      "logo_primary": "/assets/team-art/central-washington/logo_primary.png",
+      "logo_dark": "/assets/team-art/central-washington/logo_dark.png"
+    },
+    "centre-kentucky": {
+      "logo_primary": "/assets/team-art/centre-kentucky/logo_primary.png",
+      "logo_dark": "/assets/team-art/centre-kentucky/logo_dark.png"
+    },
+    "chadron-st": {
+      "logo_primary": "/assets/team-art/chadron-st/logo_primary.png",
+      "logo_dark": "/assets/team-art/chadron-st/logo_dark.png"
+    },
+    "chapman": {
+      "logo_primary": "/assets/team-art/chapman/logo_primary.png",
+      "logo_dark": "/assets/team-art/chapman/logo_dark.png"
+    },
+    "charleston-southern": {
+      "logo_primary": "/assets/team-art/charleston-southern/logo_primary.png",
+      "logo_dark": "/assets/team-art/charleston-southern/logo_dark.png"
+    },
+    "charlotte": {
+      "logo_primary": "/assets/team-art/charlotte/logo_primary.png",
+      "logo_dark": "/assets/team-art/charlotte/logo_dark.png"
+    },
+    "chattanooga": {
+      "logo_primary": "/assets/team-art/chattanooga/logo_primary.png",
+      "logo_dark": "/assets/team-art/chattanooga/logo_dark.png"
+    },
+    "chicago": {
+      "logo_primary": "/assets/team-art/chicago/logo_primary.png",
+      "logo_dark": "/assets/team-art/chicago/logo_dark.png"
+    },
+    "christopher-newport": {
+      "logo_primary": "/assets/team-art/christopher-newport/logo_primary.png",
+      "logo_dark": "/assets/team-art/christopher-newport/logo_dark.png"
+    },
+    "cincinnati": {
+      "logo_primary": "/assets/team-art/cincinnati/logo_primary.png",
+      "logo_dark": "/assets/team-art/cincinnati/logo_dark.png"
+    },
+    "claremont-mudd-scripps": {
+      "logo_primary": "/assets/team-art/claremont-mudd-scripps/logo_primary.png",
+      "logo_dark": "/assets/team-art/claremont-mudd-scripps/logo_dark.png"
+    },
+    "clarion": {
+      "logo_primary": "/assets/team-art/clarion/logo_primary.png",
+      "logo_dark": "/assets/team-art/clarion/logo_dark.png"
+    },
+    "clark-atlanta": {
+      "logo_primary": "/assets/team-art/clark-atlanta/logo_primary.png",
+      "logo_dark": "/assets/team-art/clark-atlanta/logo_dark.png"
+    },
+    "clemson": {
+      "logo_primary": "/assets/team-art/clemson/logo_primary.png",
+      "logo_dark": "/assets/team-art/clemson/logo_dark.png"
+    },
+    "coastal-carolina": {
+      "logo_primary": "/assets/team-art/coastal-carolina/logo_primary.png",
+      "logo_dark": "/assets/team-art/coastal-carolina/logo_dark.png"
+    },
+    "coastate-guard": {
+      "logo_primary": "/assets/team-art/coastate-guard/logo_primary.png",
+      "logo_dark": "/assets/team-art/coastate-guard/logo_dark.png"
+    },
+    "coe": {
+      "logo_primary": "/assets/team-art/coe/logo_primary.png",
+      "logo_dark": "/assets/team-art/coe/logo_dark.png"
+    },
+    "colby": {
+      "logo_primary": "/assets/team-art/colby/logo_primary.png",
+      "logo_dark": "/assets/team-art/colby/logo_dark.png"
+    },
+    "colgate": {
+      "logo_primary": "/assets/team-art/colgate/logo_primary.png",
+      "logo_dark": "/assets/team-art/colgate/logo_dark.png"
+    },
+    "of-new-jersey": {
+      "logo_primary": "/assets/team-art/of-new-jersey/logo_primary.png",
+      "logo_dark": "/assets/team-art/of-new-jersey/logo_dark.png"
+    },
+    "colorado": {
+      "logo_primary": "/assets/team-art/colorado/logo_primary.png",
+      "logo_dark": "/assets/team-art/colorado/logo_dark.png"
+    },
+    "colorado-mesa": {
+      "logo_primary": "/assets/team-art/colorado-mesa/logo_primary.png",
+      "logo_dark": "/assets/team-art/colorado-mesa/logo_dark.png"
+    },
+    "colorado-school-of-mines": {
+      "logo_primary": "/assets/team-art/colorado-school-of-mines/logo_primary.png",
+      "logo_dark": "/assets/team-art/colorado-school-of-mines/logo_dark.png"
+    },
+    "colorado-state": {
+      "logo_primary": "/assets/team-art/colorado-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/colorado-state/logo_dark.png"
+    },
+    "columbia": {
+      "logo_primary": "/assets/team-art/columbia/logo_primary.png",
+      "logo_dark": "/assets/team-art/columbia/logo_dark.png"
+    },
+    "concordia-moorhead": {
+      "logo_primary": "/assets/team-art/concordia-moorhead/logo_primary.png",
+      "logo_dark": "/assets/team-art/concordia-moorhead/logo_dark.png"
+    },
+    "concordia-chicago": {
+      "logo_primary": "/assets/team-art/concordia-chicago/logo_primary.png",
+      "logo_dark": "/assets/team-art/concordia-chicago/logo_dark.png"
+    },
+    "concordia-state-paul": {
+      "logo_primary": "/assets/team-art/concordia-state-paul/logo_primary.png",
+      "logo_dark": "/assets/team-art/concordia-state-paul/logo_dark.png"
+    },
+    "concordia-wisconsin": {
+      "logo_primary": "/assets/team-art/concordia-wisconsin/logo_primary.png",
+      "logo_dark": "/assets/team-art/concordia-wisconsin/logo_dark.png"
+    },
+    "concord": {
+      "logo_primary": "/assets/team-art/concord/logo_primary.png",
+      "logo_dark": "/assets/team-art/concord/logo_dark.png"
+    },
+    "cornell": {
+      "logo_primary": "/assets/team-art/cornell/logo_primary.png",
+      "logo_dark": "/assets/team-art/cornell/logo_dark.png"
+    },
+    "cornell-ia": {
+      "logo_primary": "/assets/team-art/cornell-ia/logo_primary.png",
+      "logo_dark": "/assets/team-art/cornell-ia/logo_dark.png"
+    },
+    "cortland": {
+      "logo_primary": "/assets/team-art/cortland/logo_primary.png",
+      "logo_dark": "/assets/team-art/cortland/logo_dark.png"
+    },
+    "crown": {
+      "logo_primary": "/assets/team-art/crown/logo_primary.png",
+      "logo_dark": "/assets/team-art/crown/logo_dark.png"
+    },
+    "csu-pueblo": {
+      "logo_primary": "/assets/team-art/csu-pueblo/logo_primary.png",
+      "logo_dark": "/assets/team-art/csu-pueblo/logo_dark.png"
+    },
+    "curry": {
+      "logo_primary": "/assets/team-art/curry/logo_primary.png",
+      "logo_dark": "/assets/team-art/curry/logo_dark.png"
+    },
+    "dartmouth": {
+      "logo_primary": "/assets/team-art/dartmouth/logo_primary.png",
+      "logo_dark": "/assets/team-art/dartmouth/logo_dark.png"
+    },
+    "davenport": {
+      "logo_primary": "/assets/team-art/davenport/logo_primary.png"
+    },
+    "davidson": {
+      "logo_primary": "/assets/team-art/davidson/logo_primary.png",
+      "logo_dark": "/assets/team-art/davidson/logo_dark.png"
+    },
+    "dayton": {
+      "logo_primary": "/assets/team-art/dayton/logo_primary.png",
+      "logo_dark": "/assets/team-art/dayton/logo_dark.png"
+    },
+    "dean": {
+      "logo_primary": "/assets/team-art/dean/logo_primary.png"
+    },
+    "delaware": {
+      "logo_primary": "/assets/team-art/delaware/logo_primary.png",
+      "logo_dark": "/assets/team-art/delaware/logo_dark.png"
+    },
+    "delaware-state": {
+      "logo_primary": "/assets/team-art/delaware-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/delaware-state/logo_dark.png"
+    },
+    "delaware-valley": {
+      "logo_primary": "/assets/team-art/delaware-valley/logo_primary.png",
+      "logo_dark": "/assets/team-art/delaware-valley/logo_dark.png"
+    },
+    "delta-state": {
+      "logo_primary": "/assets/team-art/delta-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/delta-state/logo_dark.png"
+    },
+    "denison": {
+      "logo_primary": "/assets/team-art/denison/logo_primary.png",
+      "logo_dark": "/assets/team-art/denison/logo_dark.png"
+    },
+    "depauw": {
+      "logo_primary": "/assets/team-art/depauw/logo_primary.png",
+      "logo_dark": "/assets/team-art/depauw/logo_dark.png"
+    },
+    "dickinson-pa": {
+      "logo_primary": "/assets/team-art/dickinson-pa/logo_primary.png",
+      "logo_dark": "/assets/team-art/dickinson-pa/logo_dark.png"
+    },
+    "drake": {
+      "logo_primary": "/assets/team-art/drake/logo_primary.png",
+      "logo_dark": "/assets/team-art/drake/logo_dark.png"
+    },
+    "dubuque": {
+      "logo_primary": "/assets/team-art/dubuque/logo_primary.png",
+      "logo_dark": "/assets/team-art/dubuque/logo_dark.png"
+    },
+    "duke": {
+      "logo_primary": "/assets/team-art/duke/logo_primary.png",
+      "logo_dark": "/assets/team-art/duke/logo_dark.png"
+    },
+    "duquesne": {
+      "logo_primary": "/assets/team-art/duquesne/logo_primary.png",
+      "logo_dark": "/assets/team-art/duquesne/logo_dark.png"
+    },
+    "eastate-carolina": {
+      "logo_primary": "/assets/team-art/eastate-carolina/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastate-carolina/logo_dark.png"
+    },
+    "eastate-central-ok": {
+      "logo_primary": "/assets/team-art/eastate-central-ok/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastate-central-ok/logo_dark.png"
+    },
+    "eastern-illinois": {
+      "logo_primary": "/assets/team-art/eastern-illinois/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastern-illinois/logo_dark.png"
+    },
+    "eastern-kentucky": {
+      "logo_primary": "/assets/team-art/eastern-kentucky/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastern-kentucky/logo_dark.png"
+    },
+    "eastern-michigan": {
+      "logo_primary": "/assets/team-art/eastern-michigan/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastern-michigan/logo_dark.png"
+    },
+    "eastern-new-mexico": {
+      "logo_primary": "/assets/team-art/eastern-new-mexico/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastern-new-mexico/logo_dark.png"
+    },
+    "eastern": {
+      "logo_primary": "/assets/team-art/eastern/logo_primary.png"
+    },
+    "eastern-washington": {
+      "logo_primary": "/assets/team-art/eastern-washington/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastern-washington/logo_dark.png"
+    },
+    "eastate-stroudsburg": {
+      "logo_primary": "/assets/team-art/eastate-stroudsburg/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastate-stroudsburg/logo_dark.png"
+    },
+    "eastate-tennessee-state": {
+      "logo_primary": "/assets/team-art/eastate-tennessee-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastate-tennessee-state/logo_dark.png"
+    },
+    "eastate-texas-aandm": {
+      "logo_primary": "/assets/team-art/eastate-texas-aandm/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastate-texas-aandm/logo_dark.png"
+    },
+    "eastate-texas-baptistate": {
+      "logo_primary": "/assets/team-art/eastate-texas-baptistate/logo_primary.png",
+      "logo_dark": "/assets/team-art/eastate-texas-baptistate/logo_dark.png"
+    },
+    "edinboro": {
+      "logo_primary": "/assets/team-art/edinboro/logo_primary.png",
+      "logo_dark": "/assets/team-art/edinboro/logo_dark.png"
+    },
+    "edward-waters": {
+      "logo_primary": "/assets/team-art/edward-waters/logo_primary.png"
+    },
+    "elizabeth-city-state": {
+      "logo_primary": "/assets/team-art/elizabeth-city-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/elizabeth-city-state/logo_dark.png"
+    },
+    "elmhurst": {
+      "logo_primary": "/assets/team-art/elmhurst/logo_primary.png",
+      "logo_dark": "/assets/team-art/elmhurst/logo_dark.png"
+    },
+    "elon": {
+      "logo_primary": "/assets/team-art/elon/logo_primary.png",
+      "logo_dark": "/assets/team-art/elon/logo_dark.png"
+    },
+    "emory-and-henry": {
+      "logo_primary": "/assets/team-art/emory-and-henry/logo_primary.png",
+      "logo_dark": "/assets/team-art/emory-and-henry/logo_dark.png"
+    },
+    "emporia-state": {
+      "logo_primary": "/assets/team-art/emporia-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/emporia-state/logo_dark.png"
+    },
+    "endicott": {
+      "logo_primary": "/assets/team-art/endicott/logo_primary.png",
+      "logo_dark": "/assets/team-art/endicott/logo_dark.png"
+    },
+    "erskine": {
+      "logo_primary": "/assets/team-art/erskine/logo_primary.png"
+    },
+    "eureka": {
+      "logo_primary": "/assets/team-art/eureka/logo_primary.png",
+      "logo_dark": "/assets/team-art/eureka/logo_dark.png"
+    },
+    "fairmont-state": {
+      "logo_primary": "/assets/team-art/fairmont-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/fairmont-state/logo_dark.png"
+    },
+    "fayetteville-state": {
+      "logo_primary": "/assets/team-art/fayetteville-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/fayetteville-state/logo_dark.png"
+    },
+    "fdu-florham": {
+      "logo_primary": "/assets/team-art/fdu-florham/logo_primary.png",
+      "logo_dark": "/assets/team-art/fdu-florham/logo_dark.png"
+    },
+    "ferris-state": {
+      "logo_primary": "/assets/team-art/ferris-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/ferris-state/logo_dark.png"
+    },
+    "ferrum": {
+      "logo_primary": "/assets/team-art/ferrum/logo_primary.png",
+      "logo_dark": "/assets/team-art/ferrum/logo_dark.png"
+    },
+    "findlay": {
+      "logo_primary": "/assets/team-art/findlay/logo_primary.png",
+      "logo_dark": "/assets/team-art/findlay/logo_dark.png"
+    },
+    "fitchburg-state": {
+      "logo_primary": "/assets/team-art/fitchburg-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/fitchburg-state/logo_dark.png"
+    },
+    "florida": {
+      "logo_primary": "/assets/team-art/florida/logo_primary.png",
+      "logo_dark": "/assets/team-art/florida/logo_dark.png"
+    },
+    "florida-aandm": {
+      "logo_primary": "/assets/team-art/florida-aandm/logo_primary.png",
+      "logo_dark": "/assets/team-art/florida-aandm/logo_dark.png"
+    },
+    "florida-atlantic": {
+      "logo_primary": "/assets/team-art/florida-atlantic/logo_primary.png",
+      "logo_dark": "/assets/team-art/florida-atlantic/logo_dark.png"
+    },
+    "florida-international": {
+      "logo_primary": "/assets/team-art/florida-international/logo_primary.png",
+      "logo_dark": "/assets/team-art/florida-international/logo_dark.png"
+    },
+    "florida-state": {
+      "logo_primary": "/assets/team-art/florida-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/florida-state/logo_dark.png"
+    },
+    "fordham": {
+      "logo_primary": "/assets/team-art/fordham/logo_primary.png",
+      "logo_dark": "/assets/team-art/fordham/logo_dark.png"
+    },
+    "fort-hays-state": {
+      "logo_primary": "/assets/team-art/fort-hays-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/fort-hays-state/logo_dark.png"
+    },
+    "fort-lewis": {
+      "logo_primary": "/assets/team-art/fort-lewis/logo_primary.png",
+      "logo_dark": "/assets/team-art/fort-lewis/logo_dark.png"
+    },
+    "fort-valley-state": {
+      "logo_primary": "/assets/team-art/fort-valley-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/fort-valley-state/logo_dark.png"
+    },
+    "framingham-state": {
+      "logo_primary": "/assets/team-art/framingham-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/framingham-state/logo_dark.png"
+    },
+    "franklin": {
+      "logo_primary": "/assets/team-art/franklin/logo_primary.png",
+      "logo_dark": "/assets/team-art/franklin/logo_dark.png"
+    },
+    "franklin-and-marshall": {
+      "logo_primary": "/assets/team-art/franklin-and-marshall/logo_primary.png",
+      "logo_dark": "/assets/team-art/franklin-and-marshall/logo_dark.png"
+    },
+    "franklin-pierce": {
+      "logo_primary": "/assets/team-art/franklin-pierce/logo_primary.png"
+    },
+    "fresno-state": {
+      "logo_primary": "/assets/team-art/fresno-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/fresno-state/logo_dark.png"
+    },
+    "frostburg-state": {
+      "logo_primary": "/assets/team-art/frostburg-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/frostburg-state/logo_dark.png"
+    },
+    "furman": {
+      "logo_primary": "/assets/team-art/furman/logo_primary.png",
+      "logo_dark": "/assets/team-art/furman/logo_dark.png"
+    },
+    "gallaudet": {
+      "logo_primary": "/assets/team-art/gallaudet/logo_primary.png",
+      "logo_dark": "/assets/team-art/gallaudet/logo_dark.png"
+    },
+    "gannon": {
+      "logo_primary": "/assets/team-art/gannon/logo_primary.png",
+      "logo_dark": "/assets/team-art/gannon/logo_dark.png"
+    },
+    "gardner-webb": {
+      "logo_primary": "/assets/team-art/gardner-webb/logo_primary.png",
+      "logo_dark": "/assets/team-art/gardner-webb/logo_dark.png"
+    },
+    "geneva": {
+      "logo_primary": "/assets/team-art/geneva/logo_primary.png",
+      "logo_dark": "/assets/team-art/geneva/logo_dark.png"
+    },
+    "georgetown": {
+      "logo_primary": "/assets/team-art/georgetown/logo_primary.png",
+      "logo_dark": "/assets/team-art/georgetown/logo_dark.png"
+    },
+    "georgia": {
+      "logo_primary": "/assets/team-art/georgia/logo_primary.png",
+      "logo_dark": "/assets/team-art/georgia/logo_dark.png"
+    },
+    "georgia-southern": {
+      "logo_primary": "/assets/team-art/georgia-southern/logo_primary.png",
+      "logo_dark": "/assets/team-art/georgia-southern/logo_dark.png"
+    },
+    "georgia-state": {
+      "logo_primary": "/assets/team-art/georgia-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/georgia-state/logo_dark.png"
+    },
+    "georgia-tech": {
+      "logo_primary": "/assets/team-art/georgia-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/georgia-tech/logo_dark.png"
+    },
+    "glenville-state": {
+      "logo_primary": "/assets/team-art/glenville-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/glenville-state/logo_dark.png"
+    },
+    "grambling": {
+      "logo_primary": "/assets/team-art/grambling/logo_primary.png",
+      "logo_dark": "/assets/team-art/grambling/logo_dark.png"
+    },
+    "grand-valley-state": {
+      "logo_primary": "/assets/team-art/grand-valley-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/grand-valley-state/logo_dark.png"
+    },
+    "greeneville": {
+      "logo_primary": "/assets/team-art/greeneville/logo_primary.png",
+      "logo_dark": "/assets/team-art/greeneville/logo_dark.png"
+    },
+    "greensboro": {
+      "logo_primary": "/assets/team-art/greensboro/logo_primary.png",
+      "logo_dark": "/assets/team-art/greensboro/logo_dark.png"
+    },
+    "greenville": {
+      "logo_primary": "/assets/team-art/greenville/logo_primary.png",
+      "logo_dark": "/assets/team-art/greenville/logo_dark.png"
+    },
+    "grinnell": {
+      "logo_primary": "/assets/team-art/grinnell/logo_primary.png",
+      "logo_dark": "/assets/team-art/grinnell/logo_dark.png"
+    },
+    "grove-city": {
+      "logo_primary": "/assets/team-art/grove-city/logo_primary.png",
+      "logo_dark": "/assets/team-art/grove-city/logo_dark.png"
+    },
+    "guilford": {
+      "logo_primary": "/assets/team-art/guilford/logo_primary.png",
+      "logo_dark": "/assets/team-art/guilford/logo_dark.png"
+    },
+    "gustavus-adolphus": {
+      "logo_primary": "/assets/team-art/gustavus-adolphus/logo_primary.png",
+      "logo_dark": "/assets/team-art/gustavus-adolphus/logo_dark.png"
+    },
+    "hamilton": {
+      "logo_primary": "/assets/team-art/hamilton/logo_primary.png",
+      "logo_dark": "/assets/team-art/hamilton/logo_dark.png"
+    },
+    "hamline": {
+      "logo_primary": "/assets/team-art/hamline/logo_primary.png",
+      "logo_dark": "/assets/team-art/hamline/logo_dark.png"
+    },
+    "hampden-sydney": {
+      "logo_primary": "/assets/team-art/hampden-sydney/logo_primary.png",
+      "logo_dark": "/assets/team-art/hampden-sydney/logo_dark.png"
+    },
+    "hampton": {
+      "logo_primary": "/assets/team-art/hampton/logo_primary.png",
+      "logo_dark": "/assets/team-art/hampton/logo_dark.png"
+    },
+    "hanover": {
+      "logo_primary": "/assets/team-art/hanover/logo_primary.png",
+      "logo_dark": "/assets/team-art/hanover/logo_dark.png"
+    },
+    "harding": {
+      "logo_primary": "/assets/team-art/harding/logo_primary.png",
+      "logo_dark": "/assets/team-art/harding/logo_dark.png"
+    },
+    "hardin-simmons": {
+      "logo_primary": "/assets/team-art/hardin-simmons/logo_primary.png",
+      "logo_dark": "/assets/team-art/hardin-simmons/logo_dark.png"
+    },
+    "hartwick": {
+      "logo_primary": "/assets/team-art/hartwick/logo_primary.png",
+      "logo_dark": "/assets/team-art/hartwick/logo_dark.png"
+    },
+    "harvard": {
+      "logo_primary": "/assets/team-art/harvard/logo_primary.png",
+      "logo_dark": "/assets/team-art/harvard/logo_dark.png"
+    },
+    "hawai-i": {
+      "logo_primary": "/assets/team-art/hawai-i/logo_primary.png",
+      "logo_dark": "/assets/team-art/hawai-i/logo_dark.png"
+    },
+    "heidelberg": {
+      "logo_primary": "/assets/team-art/heidelberg/logo_primary.png",
+      "logo_dark": "/assets/team-art/heidelberg/logo_dark.png"
+    },
+    "henderson-state": {
+      "logo_primary": "/assets/team-art/henderson-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/henderson-state/logo_dark.png"
+    },
+    "hendrix": {
+      "logo_primary": "/assets/team-art/hendrix/logo_primary.png",
+      "logo_dark": "/assets/team-art/hendrix/logo_dark.png"
+    },
+    "hilbert": {
+      "logo_primary": "/assets/team-art/hilbert/logo_primary.png"
+    },
+    "hillsdale": {
+      "logo_primary": "/assets/team-art/hillsdale/logo_primary.png",
+      "logo_dark": "/assets/team-art/hillsdale/logo_dark.png"
+    },
+    "hiram": {
+      "logo_primary": "/assets/team-art/hiram/logo_primary.png",
+      "logo_dark": "/assets/team-art/hiram/logo_dark.png"
+    },
+    "hobart": {
+      "logo_primary": "/assets/team-art/hobart/logo_primary.png",
+      "logo_dark": "/assets/team-art/hobart/logo_dark.png"
+    },
+    "holy-cross": {
+      "logo_primary": "/assets/team-art/holy-cross/logo_primary.png",
+      "logo_dark": "/assets/team-art/holy-cross/logo_dark.png"
+    },
+    "hope": {
+      "logo_primary": "/assets/team-art/hope/logo_primary.png",
+      "logo_dark": "/assets/team-art/hope/logo_dark.png"
+    },
+    "houston": {
+      "logo_primary": "/assets/team-art/houston/logo_primary.png",
+      "logo_dark": "/assets/team-art/houston/logo_dark.png"
+    },
+    "houston-christian": {
+      "logo_primary": "/assets/team-art/houston-christian/logo_primary.png",
+      "logo_dark": "/assets/team-art/houston-christian/logo_dark.png"
+    },
+    "howard": {
+      "logo_primary": "/assets/team-art/howard/logo_primary.png",
+      "logo_dark": "/assets/team-art/howard/logo_dark.png"
+    },
+    "howard-payne": {
+      "logo_primary": "/assets/team-art/howard-payne/logo_primary.png",
+      "logo_dark": "/assets/team-art/howard-payne/logo_dark.png"
+    },
+    "huntingdon-al": {
+      "logo_primary": "/assets/team-art/huntingdon-al/logo_primary.png",
+      "logo_dark": "/assets/team-art/huntingdon-al/logo_dark.png"
+    },
+    "husson": {
+      "logo_primary": "/assets/team-art/husson/logo_primary.png",
+      "logo_dark": "/assets/team-art/husson/logo_dark.png"
+    },
+    "idaho": {
+      "logo_primary": "/assets/team-art/idaho/logo_primary.png",
+      "logo_dark": "/assets/team-art/idaho/logo_dark.png"
+    },
+    "idaho-state": {
+      "logo_primary": "/assets/team-art/idaho-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/idaho-state/logo_dark.png"
+    },
+    "illinois": {
+      "logo_primary": "/assets/team-art/illinois/logo_primary.png",
+      "logo_dark": "/assets/team-art/illinois/logo_dark.png"
+    },
+    "illinois-college": {
+      "logo_primary": "/assets/team-art/illinois-college/logo_primary.png",
+      "logo_dark": "/assets/team-art/illinois-college/logo_dark.png"
+    },
+    "illinois-state": {
+      "logo_primary": "/assets/team-art/illinois-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/illinois-state/logo_dark.png"
+    },
+    "illinois-wesleyan": {
+      "logo_primary": "/assets/team-art/illinois-wesleyan/logo_primary.png",
+      "logo_dark": "/assets/team-art/illinois-wesleyan/logo_dark.png"
+    },
+    "incarnate-word": {
+      "logo_primary": "/assets/team-art/incarnate-word/logo_primary.png",
+      "logo_dark": "/assets/team-art/incarnate-word/logo_dark.png"
+    },
+    "indiana": {
+      "logo_primary": "/assets/team-art/indiana/logo_primary.png",
+      "logo_dark": "/assets/team-art/indiana/logo_dark.png"
+    },
+    "indiana-pennsylvania": {
+      "logo_primary": "/assets/team-art/indiana-pennsylvania/logo_primary.png",
+      "logo_dark": "/assets/team-art/indiana-pennsylvania/logo_dark.png"
+    },
+    "indianapolis": {
+      "logo_primary": "/assets/team-art/indianapolis/logo_primary.png",
+      "logo_dark": "/assets/team-art/indianapolis/logo_dark.png"
+    },
+    "indiana-state": {
+      "logo_primary": "/assets/team-art/indiana-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/indiana-state/logo_dark.png"
+    },
+    "iowa": {
+      "logo_primary": "/assets/team-art/iowa/logo_primary.png",
+      "logo_dark": "/assets/team-art/iowa/logo_dark.png"
+    },
+    "iowa-state": {
+      "logo_primary": "/assets/team-art/iowa-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/iowa-state/logo_dark.png"
+    },
+    "ithaca": {
+      "logo_primary": "/assets/team-art/ithaca/logo_primary.png",
+      "logo_dark": "/assets/team-art/ithaca/logo_dark.png"
+    },
+    "jackson-state": {
+      "logo_primary": "/assets/team-art/jackson-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/jackson-state/logo_dark.png"
+    },
+    "jacksonville-state": {
+      "logo_primary": "/assets/team-art/jacksonville-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/jacksonville-state/logo_dark.png"
+    },
+    "james-madison": {
+      "logo_primary": "/assets/team-art/james-madison/logo_primary.png",
+      "logo_dark": "/assets/team-art/james-madison/logo_dark.png"
+    },
+    "john-carroll": {
+      "logo_primary": "/assets/team-art/john-carroll/logo_primary.png",
+      "logo_dark": "/assets/team-art/john-carroll/logo_dark.png"
+    },
+    "johns-hopkins": {
+      "logo_primary": "/assets/team-art/johns-hopkins/logo_primary.png",
+      "logo_dark": "/assets/team-art/johns-hopkins/logo_dark.png"
+    },
+    "johnson-c-smith": {
+      "logo_primary": "/assets/team-art/johnson-c-smith/logo_primary.png",
+      "logo_dark": "/assets/team-art/johnson-c-smith/logo_dark.png"
+    },
+    "juniata": {
+      "logo_primary": "/assets/team-art/juniata/logo_primary.png",
+      "logo_dark": "/assets/team-art/juniata/logo_dark.png"
+    },
+    "kalamazoo": {
+      "logo_primary": "/assets/team-art/kalamazoo/logo_primary.png",
+      "logo_dark": "/assets/team-art/kalamazoo/logo_dark.png"
+    },
+    "kansas": {
+      "logo_primary": "/assets/team-art/kansas/logo_primary.png",
+      "logo_dark": "/assets/team-art/kansas/logo_dark.png"
+    },
+    "kansas-state": {
+      "logo_primary": "/assets/team-art/kansas-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/kansas-state/logo_dark.png"
+    },
+    "kennesaw-state": {
+      "logo_primary": "/assets/team-art/kennesaw-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/kennesaw-state/logo_dark.png"
+    },
+    "kent-state": {
+      "logo_primary": "/assets/team-art/kent-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/kent-state/logo_dark.png"
+    },
+    "kentucky": {
+      "logo_primary": "/assets/team-art/kentucky/logo_primary.png",
+      "logo_dark": "/assets/team-art/kentucky/logo_dark.png"
+    },
+    "kentucky-state": {
+      "logo_primary": "/assets/team-art/kentucky-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/kentucky-state/logo_dark.png"
+    },
+    "kentucky-wesleyan": {
+      "logo_primary": "/assets/team-art/kentucky-wesleyan/logo_primary.png",
+      "logo_dark": "/assets/team-art/kentucky-wesleyan/logo_dark.png"
+    },
+    "kenyon": {
+      "logo_primary": "/assets/team-art/kenyon/logo_primary.png",
+      "logo_dark": "/assets/team-art/kenyon/logo_dark.png"
+    },
+    "keystone": {
+      "logo_primary": "/assets/team-art/keystone/logo_primary.png"
+    },
+    "kings-pa": {
+      "logo_primary": "/assets/team-art/kings-pa/logo_primary.png",
+      "logo_dark": "/assets/team-art/kings-pa/logo_dark.png"
+    },
+    "kutztown": {
+      "logo_primary": "/assets/team-art/kutztown/logo_primary.png",
+      "logo_dark": "/assets/team-art/kutztown/logo_dark.png"
+    },
+    "lafayette": {
+      "logo_primary": "/assets/team-art/lafayette/logo_primary.png",
+      "logo_dark": "/assets/team-art/lafayette/logo_dark.png"
+    },
+    "lagrange": {
+      "logo_primary": "/assets/team-art/lagrange/logo_primary.png",
+      "logo_dark": "/assets/team-art/lagrange/logo_dark.png"
+    },
+    "lake-erie": {
+      "logo_primary": "/assets/team-art/lake-erie/logo_primary.png",
+      "logo_dark": "/assets/team-art/lake-erie/logo_dark.png"
+    },
+    "lake-forestate": {
+      "logo_primary": "/assets/team-art/lake-forestate/logo_primary.png",
+      "logo_dark": "/assets/team-art/lake-forestate/logo_dark.png"
+    },
+    "lamar": {
+      "logo_primary": "/assets/team-art/lamar/logo_primary.png",
+      "logo_dark": "/assets/team-art/lamar/logo_dark.png"
+    },
+    "la-verne": {
+      "logo_primary": "/assets/team-art/la-verne/logo_primary.png",
+      "logo_dark": "/assets/team-art/la-verne/logo_dark.png"
+    },
+    "lawrence": {
+      "logo_primary": "/assets/team-art/lawrence/logo_primary.png",
+      "logo_dark": "/assets/team-art/lawrence/logo_dark.png"
+    },
+    "lebanon-valley": {
+      "logo_primary": "/assets/team-art/lebanon-valley/logo_primary.png",
+      "logo_dark": "/assets/team-art/lebanon-valley/logo_dark.png"
+    },
+    "lehigh": {
+      "logo_primary": "/assets/team-art/lehigh/logo_primary.png",
+      "logo_dark": "/assets/team-art/lehigh/logo_dark.png"
+    },
+    "lenoir-rhyne": {
+      "logo_primary": "/assets/team-art/lenoir-rhyne/logo_primary.png",
+      "logo_dark": "/assets/team-art/lenoir-rhyne/logo_dark.png"
+    },
+    "lewis-and-clark": {
+      "logo_primary": "/assets/team-art/lewis-and-clark/logo_primary.png",
+      "logo_dark": "/assets/team-art/lewis-and-clark/logo_dark.png"
+    },
+    "liberty": {
+      "logo_primary": "/assets/team-art/liberty/logo_primary.png",
+      "logo_dark": "/assets/team-art/liberty/logo_dark.png"
+    },
+    "limestone": {
+      "logo_primary": "/assets/team-art/limestone/logo_primary.png",
+      "logo_dark": "/assets/team-art/limestone/logo_dark.png"
+    },
+    "lincoln-mo": {
+      "logo_primary": "/assets/team-art/lincoln-mo/logo_primary.png",
+      "logo_dark": "/assets/team-art/lincoln-mo/logo_dark.png"
+    },
+    "lincoln-pa": {
+      "logo_primary": "/assets/team-art/lincoln-pa/logo_primary.png",
+      "logo_dark": "/assets/team-art/lincoln-pa/logo_dark.png"
+    },
+    "lindenwood": {
+      "logo_primary": "/assets/team-art/lindenwood/logo_primary.png",
+      "logo_dark": "/assets/team-art/lindenwood/logo_dark.png"
+    },
+    "linfield": {
+      "logo_primary": "/assets/team-art/linfield/logo_primary.png",
+      "logo_dark": "/assets/team-art/linfield/logo_dark.png"
+    },
+    "livingstone": {
+      "logo_primary": "/assets/team-art/livingstone/logo_primary.png",
+      "logo_dark": "/assets/team-art/livingstone/logo_dark.png"
+    },
+    "lock-haven": {
+      "logo_primary": "/assets/team-art/lock-haven/logo_primary.png",
+      "logo_dark": "/assets/team-art/lock-haven/logo_dark.png"
+    },
+    "long-island": {
+      "logo_primary": "/assets/team-art/long-island/logo_primary.png"
+    },
+    "louisiana": {
+      "logo_primary": "/assets/team-art/louisiana/logo_primary.png",
+      "logo_dark": "/assets/team-art/louisiana/logo_dark.png"
+    },
+    "louisiana-tech": {
+      "logo_primary": "/assets/team-art/louisiana-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/louisiana-tech/logo_dark.png"
+    },
+    "louisville": {
+      "logo_primary": "/assets/team-art/louisville/logo_primary.png",
+      "logo_dark": "/assets/team-art/louisville/logo_dark.png"
+    },
+    "lsu": {
+      "logo_primary": "/assets/team-art/lsu/logo_primary.png",
+      "logo_dark": "/assets/team-art/lsu/logo_dark.png"
+    },
+    "luther": {
+      "logo_primary": "/assets/team-art/luther/logo_primary.png",
+      "logo_dark": "/assets/team-art/luther/logo_dark.png"
+    },
+    "lycoming": {
+      "logo_primary": "/assets/team-art/lycoming/logo_primary.png",
+      "logo_dark": "/assets/team-art/lycoming/logo_dark.png"
+    },
+    "macalester": {
+      "logo_primary": "/assets/team-art/macalester/logo_primary.png",
+      "logo_dark": "/assets/team-art/macalester/logo_dark.png"
+    },
+    "maine": {
+      "logo_primary": "/assets/team-art/maine/logo_primary.png",
+      "logo_dark": "/assets/team-art/maine/logo_dark.png"
+    },
+    "manchester": {
+      "logo_primary": "/assets/team-art/manchester/logo_primary.png",
+      "logo_dark": "/assets/team-art/manchester/logo_dark.png"
+    },
+    "marietta": {
+      "logo_primary": "/assets/team-art/marietta/logo_primary.png",
+      "logo_dark": "/assets/team-art/marietta/logo_dark.png"
+    },
+    "marist": {
+      "logo_primary": "/assets/team-art/marist/logo_primary.png",
+      "logo_dark": "/assets/team-art/marist/logo_dark.png"
+    },
+    "marshall": {
+      "logo_primary": "/assets/team-art/marshall/logo_primary.png",
+      "logo_dark": "/assets/team-art/marshall/logo_dark.png"
+    },
+    "mars-hill": {
+      "logo_primary": "/assets/team-art/mars-hill/logo_primary.png",
+      "logo_dark": "/assets/team-art/mars-hill/logo_dark.png"
+    },
+    "martin-luther": {
+      "logo_primary": "/assets/team-art/martin-luther/logo_primary.png",
+      "logo_dark": "/assets/team-art/martin-luther/logo_dark.png"
+    },
+    "mary-hardin-baylor": {
+      "logo_primary": "/assets/team-art/mary-hardin-baylor/logo_primary.png",
+      "logo_dark": "/assets/team-art/mary-hardin-baylor/logo_dark.png"
+    },
+    "maryland": {
+      "logo_primary": "/assets/team-art/maryland/logo_primary.png",
+      "logo_dark": "/assets/team-art/maryland/logo_dark.png"
+    },
+    "maryville-tn": {
+      "logo_primary": "/assets/team-art/maryville-tn/logo_primary.png",
+      "logo_dark": "/assets/team-art/maryville-tn/logo_dark.png"
+    },
+    "massachusetts": {
+      "logo_primary": "/assets/team-art/massachusetts/logo_primary.png",
+      "logo_dark": "/assets/team-art/massachusetts/logo_dark.png"
+    },
+    "mass-maritime": {
+      "logo_primary": "/assets/team-art/mass-maritime/logo_primary.png",
+      "logo_dark": "/assets/team-art/mass-maritime/logo_dark.png"
+    },
+    "mcdaniel": {
+      "logo_primary": "/assets/team-art/mcdaniel/logo_primary.png",
+      "logo_dark": "/assets/team-art/mcdaniel/logo_dark.png"
+    },
+    "mcmurry": {
+      "logo_primary": "/assets/team-art/mcmurry/logo_primary.png",
+      "logo_dark": "/assets/team-art/mcmurry/logo_dark.png"
+    },
+    "mcneese": {
+      "logo_primary": "/assets/team-art/mcneese/logo_primary.png",
+      "logo_dark": "/assets/team-art/mcneese/logo_dark.png"
+    },
+    "memphis": {
+      "logo_primary": "/assets/team-art/memphis/logo_primary.png",
+      "logo_dark": "/assets/team-art/memphis/logo_dark.png"
+    },
+    "mercer": {
+      "logo_primary": "/assets/team-art/mercer/logo_primary.png",
+      "logo_dark": "/assets/team-art/mercer/logo_dark.png"
+    },
+    "merchant-marine-academy": {
+      "logo_primary": "/assets/team-art/merchant-marine-academy/logo_primary.png",
+      "logo_dark": "/assets/team-art/merchant-marine-academy/logo_dark.png"
+    },
+    "mercyhurst": {
+      "logo_primary": "/assets/team-art/mercyhurst/logo_primary.png",
+      "logo_dark": "/assets/team-art/mercyhurst/logo_dark.png"
+    },
+    "merrimack": {
+      "logo_primary": "/assets/team-art/merrimack/logo_primary.png",
+      "logo_dark": "/assets/team-art/merrimack/logo_dark.png"
+    },
+    "methodist": {
+      "logo_primary": "/assets/team-art/methodist/logo_primary.png",
+      "logo_dark": "/assets/team-art/methodist/logo_dark.png"
+    },
+    "miami": {
+      "logo_primary": "/assets/team-art/miami/logo_primary.png",
+      "logo_dark": "/assets/team-art/miami/logo_dark.png"
+    },
+    "miami-oh": {
+      "logo_primary": "/assets/team-art/miami-oh/logo_primary.png",
+      "logo_dark": "/assets/team-art/miami-oh/logo_dark.png"
+    },
+    "michigan": {
+      "logo_primary": "/assets/team-art/michigan/logo_primary.png",
+      "logo_dark": "/assets/team-art/michigan/logo_dark.png"
+    },
+    "michigan-state": {
+      "logo_primary": "/assets/team-art/michigan-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/michigan-state/logo_dark.png"
+    },
+    "michigan-tech": {
+      "logo_primary": "/assets/team-art/michigan-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/michigan-tech/logo_dark.png"
+    },
+    "middlebury": {
+      "logo_primary": "/assets/team-art/middlebury/logo_primary.png",
+      "logo_dark": "/assets/team-art/middlebury/logo_dark.png"
+    },
+    "middle-tennessee": {
+      "logo_primary": "/assets/team-art/middle-tennessee/logo_primary.png",
+      "logo_dark": "/assets/team-art/middle-tennessee/logo_dark.png"
+    },
+    "miles": {
+      "logo_primary": "/assets/team-art/miles/logo_primary.png",
+      "logo_dark": "/assets/team-art/miles/logo_dark.png"
+    },
+    "millersville": {
+      "logo_primary": "/assets/team-art/millersville/logo_primary.png",
+      "logo_dark": "/assets/team-art/millersville/logo_dark.png"
+    },
+    "millikin": {
+      "logo_primary": "/assets/team-art/millikin/logo_primary.png",
+      "logo_dark": "/assets/team-art/millikin/logo_dark.png"
+    },
+    "millsaps": {
+      "logo_primary": "/assets/team-art/millsaps/logo_primary.png",
+      "logo_dark": "/assets/team-art/millsaps/logo_dark.png"
+    },
+    "minnesota": {
+      "logo_primary": "/assets/team-art/minnesota/logo_primary.png",
+      "logo_dark": "/assets/team-art/minnesota/logo_dark.png"
+    },
+    "minnesota-duluth": {
+      "logo_primary": "/assets/team-art/minnesota-duluth/logo_primary.png",
+      "logo_dark": "/assets/team-art/minnesota-duluth/logo_dark.png"
+    },
+    "minnesota-morris": {
+      "logo_primary": "/assets/team-art/minnesota-morris/logo_primary.png",
+      "logo_dark": "/assets/team-art/minnesota-morris/logo_dark.png"
+    },
+    "minnesota-state-mankato": {
+      "logo_primary": "/assets/team-art/minnesota-state-mankato/logo_primary.png",
+      "logo_dark": "/assets/team-art/minnesota-state-mankato/logo_dark.png"
+    },
+    "minnesota-state-moorhead": {
+      "logo_primary": "/assets/team-art/minnesota-state-moorhead/logo_primary.png",
+      "logo_dark": "/assets/team-art/minnesota-state-moorhead/logo_dark.png"
+    },
+    "minot-state": {
+      "logo_primary": "/assets/team-art/minot-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/minot-state/logo_dark.png"
+    },
+    "misericordia": {
+      "logo_primary": "/assets/team-art/misericordia/logo_primary.png",
+      "logo_dark": "/assets/team-art/misericordia/logo_dark.png"
+    },
+    "mississippi": {
+      "logo_primary": "/assets/team-art/mississippi/logo_primary.png",
+      "logo_dark": "/assets/team-art/mississippi/logo_dark.png"
+    },
+    "mississippi-state": {
+      "logo_primary": "/assets/team-art/mississippi-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/mississippi-state/logo_dark.png"
+    },
+    "mississippi-valley-state": {
+      "logo_primary": "/assets/team-art/mississippi-valley-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/mississippi-valley-state/logo_dark.png"
+    },
+    "missouri": {
+      "logo_primary": "/assets/team-art/missouri/logo_primary.png",
+      "logo_dark": "/assets/team-art/missouri/logo_dark.png"
+    },
+    "missouri-southern-state": {
+      "logo_primary": "/assets/team-art/missouri-southern-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/missouri-southern-state/logo_dark.png"
+    },
+    "missouri-sandt": {
+      "logo_primary": "/assets/team-art/missouri-sandt/logo_primary.png",
+      "logo_dark": "/assets/team-art/missouri-sandt/logo_dark.png"
+    },
+    "missouri-state": {
+      "logo_primary": "/assets/team-art/missouri-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/missouri-state/logo_dark.png"
+    },
+    "missouri-western": {
+      "logo_primary": "/assets/team-art/missouri-western/logo_primary.png",
+      "logo_dark": "/assets/team-art/missouri-western/logo_dark.png"
+    },
+    "monmouth": {
+      "logo_primary": "/assets/team-art/monmouth/logo_primary.png",
+      "logo_dark": "/assets/team-art/monmouth/logo_dark.png"
+    },
+    "monmouth-il": {
+      "logo_primary": "/assets/team-art/monmouth-il/logo_primary.png",
+      "logo_dark": "/assets/team-art/monmouth-il/logo_dark.png"
+    },
+    "montana": {
+      "logo_primary": "/assets/team-art/montana/logo_primary.png",
+      "logo_dark": "/assets/team-art/montana/logo_dark.png"
+    },
+    "montana-state": {
+      "logo_primary": "/assets/team-art/montana-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/montana-state/logo_dark.png"
+    },
+    "montclair-state": {
+      "logo_primary": "/assets/team-art/montclair-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/montclair-state/logo_dark.png"
+    },
+    "moravian": {
+      "logo_primary": "/assets/team-art/moravian/logo_primary.png",
+      "logo_dark": "/assets/team-art/moravian/logo_dark.png"
+    },
+    "morehead-state": {
+      "logo_primary": "/assets/team-art/morehead-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/morehead-state/logo_dark.png"
+    },
+    "morehouse": {
+      "logo_primary": "/assets/team-art/morehouse/logo_primary.png",
+      "logo_dark": "/assets/team-art/morehouse/logo_dark.png"
+    },
+    "morgan-state": {
+      "logo_primary": "/assets/team-art/morgan-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/morgan-state/logo_dark.png"
+    },
+    "mount-state-joseph": {
+      "logo_primary": "/assets/team-art/mount-state-joseph/logo_primary.png",
+      "logo_dark": "/assets/team-art/mount-state-joseph/logo_dark.png"
+    },
+    "muhlenberg": {
+      "logo_primary": "/assets/team-art/muhlenberg/logo_primary.png",
+      "logo_dark": "/assets/team-art/muhlenberg/logo_dark.png"
+    },
+    "murray-state": {
+      "logo_primary": "/assets/team-art/murray-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/murray-state/logo_dark.png"
+    },
+    "muskingum": {
+      "logo_primary": "/assets/team-art/muskingum/logo_primary.png",
+      "logo_dark": "/assets/team-art/muskingum/logo_dark.png"
+    },
+    "navy": {
+      "logo_primary": "/assets/team-art/navy/logo_primary.png",
+      "logo_dark": "/assets/team-art/navy/logo_dark.png"
+    },
+    "nc-state": {
+      "logo_primary": "/assets/team-art/nc-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/nc-state/logo_dark.png"
+    },
+    "nebraska": {
+      "logo_primary": "/assets/team-art/nebraska/logo_primary.png",
+      "logo_dark": "/assets/team-art/nebraska/logo_dark.png"
+    },
+    "nebraska-kearney": {
+      "logo_primary": "/assets/team-art/nebraska-kearney/logo_primary.png",
+      "logo_dark": "/assets/team-art/nebraska-kearney/logo_dark.png"
+    },
+    "nevada": {
+      "logo_primary": "/assets/team-art/nevada/logo_primary.png",
+      "logo_dark": "/assets/team-art/nevada/logo_dark.png"
+    },
+    "newberg": {
+      "logo_primary": "/assets/team-art/newberg/logo_primary.png",
+      "logo_dark": "/assets/team-art/newberg/logo_dark.png"
+    },
+    "newberry": {
+      "logo_primary": "/assets/team-art/newberry/logo_primary.png",
+      "logo_dark": "/assets/team-art/newberry/logo_dark.png"
+    },
+    "new-hampshire": {
+      "logo_primary": "/assets/team-art/new-hampshire/logo_primary.png",
+      "logo_dark": "/assets/team-art/new-hampshire/logo_dark.png"
+    },
+    "new-haven": {
+      "logo_primary": "/assets/team-art/new-haven/logo_primary.png",
+      "logo_dark": "/assets/team-art/new-haven/logo_dark.png"
+    },
+    "new-mexico": {
+      "logo_primary": "/assets/team-art/new-mexico/logo_primary.png",
+      "logo_dark": "/assets/team-art/new-mexico/logo_dark.png"
+    },
+    "new-mexico-highlands": {
+      "logo_primary": "/assets/team-art/new-mexico-highlands/logo_primary.png",
+      "logo_dark": "/assets/team-art/new-mexico-highlands/logo_dark.png"
+    },
+    "new-mexico-state": {
+      "logo_primary": "/assets/team-art/new-mexico-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/new-mexico-state/logo_dark.png"
+    },
+    "nicholls": {
+      "logo_primary": "/assets/team-art/nicholls/logo_primary.png",
+      "logo_dark": "/assets/team-art/nicholls/logo_dark.png"
+    },
+    "nichols": {
+      "logo_primary": "/assets/team-art/nichols/logo_primary.png",
+      "logo_dark": "/assets/team-art/nichols/logo_dark.png"
+    },
+    "norfolk-state": {
+      "logo_primary": "/assets/team-art/norfolk-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/norfolk-state/logo_dark.png"
+    },
+    "north-alabama": {
+      "logo_primary": "/assets/team-art/north-alabama/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-alabama/logo_dark.png"
+    },
+    "north-carolina": {
+      "logo_primary": "/assets/team-art/north-carolina/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-carolina/logo_dark.png"
+    },
+    "north-carolina-aandt": {
+      "logo_primary": "/assets/team-art/north-carolina-aandt/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-carolina-aandt/logo_dark.png"
+    },
+    "north-carolina-central": {
+      "logo_primary": "/assets/team-art/north-carolina-central/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-carolina-central/logo_dark.png"
+    },
+    "north-carolina-wesleyan": {
+      "logo_primary": "/assets/team-art/north-carolina-wesleyan/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-carolina-wesleyan/logo_dark.png"
+    },
+    "north-central": {
+      "logo_primary": "/assets/team-art/north-central/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-central/logo_dark.png"
+    },
+    "north-dakota": {
+      "logo_primary": "/assets/team-art/north-dakota/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-dakota/logo_dark.png"
+    },
+    "north-dakota-state": {
+      "logo_primary": "/assets/team-art/north-dakota-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-dakota-state/logo_dark.png"
+    },
+    "northeastern-state": {
+      "logo_primary": "/assets/team-art/northeastern-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/northeastern-state/logo_dark.png"
+    },
+    "northern-arizona": {
+      "logo_primary": "/assets/team-art/northern-arizona/logo_primary.png",
+      "logo_dark": "/assets/team-art/northern-arizona/logo_dark.png"
+    },
+    "northern-colorado": {
+      "logo_primary": "/assets/team-art/northern-colorado/logo_primary.png",
+      "logo_dark": "/assets/team-art/northern-colorado/logo_dark.png"
+    },
+    "northern-illinois": {
+      "logo_primary": "/assets/team-art/northern-illinois/logo_primary.png",
+      "logo_dark": "/assets/team-art/northern-illinois/logo_dark.png"
+    },
+    "northern-iowa": {
+      "logo_primary": "/assets/team-art/northern-iowa/logo_primary.png",
+      "logo_dark": "/assets/team-art/northern-iowa/logo_dark.png"
+    },
+    "northern-michigan": {
+      "logo_primary": "/assets/team-art/northern-michigan/logo_primary.png",
+      "logo_dark": "/assets/team-art/northern-michigan/logo_dark.png"
+    },
+    "north-greenville": {
+      "logo_primary": "/assets/team-art/north-greenville/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-greenville/logo_dark.png"
+    },
+    "north-park": {
+      "logo_primary": "/assets/team-art/north-park/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-park/logo_dark.png"
+    },
+    "north-texas": {
+      "logo_primary": "/assets/team-art/north-texas/logo_primary.png",
+      "logo_dark": "/assets/team-art/north-texas/logo_dark.png"
+    },
+    "northwestern": {
+      "logo_primary": "/assets/team-art/northwestern/logo_primary.png",
+      "logo_dark": "/assets/team-art/northwestern/logo_dark.png"
+    },
+    "northwestern-mn": {
+      "logo_primary": "/assets/team-art/northwestern-mn/logo_primary.png",
+      "logo_dark": "/assets/team-art/northwestern-mn/logo_dark.png"
+    },
+    "northwestern-oklahoma-state": {
+      "logo_primary": "/assets/team-art/northwestern-oklahoma-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/northwestern-oklahoma-state/logo_dark.png"
+    },
+    "northwestern-state": {
+      "logo_primary": "/assets/team-art/northwestern-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/northwestern-state/logo_dark.png"
+    },
+    "northwestate-missouri-st": {
+      "logo_primary": "/assets/team-art/northwestate-missouri-st/logo_primary.png",
+      "logo_dark": "/assets/team-art/northwestate-missouri-st/logo_dark.png"
+    },
+    "northwood-mi": {
+      "logo_primary": "/assets/team-art/northwood-mi/logo_primary.png",
+      "logo_dark": "/assets/team-art/northwood-mi/logo_dark.png"
+    },
+    "norwich": {
+      "logo_primary": "/assets/team-art/norwich/logo_primary.png",
+      "logo_dark": "/assets/team-art/norwich/logo_dark.png"
+    },
+    "notre-dame": {
+      "logo_primary": "/assets/team-art/notre-dame/logo_primary.png",
+      "logo_dark": "/assets/team-art/notre-dame/logo_dark.png"
+    },
+    "notre-dame-college": {
+      "logo_primary": "/assets/team-art/notre-dame-college/logo_primary.png",
+      "logo_dark": "/assets/team-art/notre-dame-college/logo_dark.png"
+    },
+    "oberlin": {
+      "logo_primary": "/assets/team-art/oberlin/logo_primary.png",
+      "logo_dark": "/assets/team-art/oberlin/logo_dark.png"
+    },
+    "ohio": {
+      "logo_primary": "/assets/team-art/ohio/logo_primary.png",
+      "logo_dark": "/assets/team-art/ohio/logo_dark.png"
+    },
+    "ohio-dominican": {
+      "logo_primary": "/assets/team-art/ohio-dominican/logo_primary.png"
+    },
+    "ohio-northern": {
+      "logo_primary": "/assets/team-art/ohio-northern/logo_primary.png",
+      "logo_dark": "/assets/team-art/ohio-northern/logo_dark.png"
+    },
+    "ohio-state": {
+      "logo_primary": "/assets/team-art/ohio-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/ohio-state/logo_dark.png"
+    },
+    "ohio-wesleyan": {
+      "logo_primary": "/assets/team-art/ohio-wesleyan/logo_primary.png",
+      "logo_dark": "/assets/team-art/ohio-wesleyan/logo_dark.png"
+    },
+    "oklahoma": {
+      "logo_primary": "/assets/team-art/oklahoma/logo_primary.png",
+      "logo_dark": "/assets/team-art/oklahoma/logo_dark.png"
+    },
+    "oklahoma-baptist": {
+      "logo_primary": "/assets/team-art/oklahoma-baptist/logo_primary.png",
+      "logo_dark": "/assets/team-art/oklahoma-baptist/logo_dark.png"
+    },
+    "oklahoma-state": {
+      "logo_primary": "/assets/team-art/oklahoma-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/oklahoma-state/logo_dark.png"
+    },
+    "old-dominion": {
+      "logo_primary": "/assets/team-art/old-dominion/logo_primary.png",
+      "logo_dark": "/assets/team-art/old-dominion/logo_dark.png"
+    },
+    "ole-miss": {
+      "logo_primary": "/assets/team-art/ole-miss/logo_primary.png",
+      "logo_dark": "/assets/team-art/ole-miss/logo_dark.png"
+    },
+    "olivet": {
+      "logo_primary": "/assets/team-art/olivet/logo_primary.png",
+      "logo_dark": "/assets/team-art/olivet/logo_dark.png"
+    },
+    "oregon": {
+      "logo_primary": "/assets/team-art/oregon/logo_primary.png",
+      "logo_dark": "/assets/team-art/oregon/logo_dark.png"
+    },
+    "oregon-state": {
+      "logo_primary": "/assets/team-art/oregon-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/oregon-state/logo_dark.png"
+    },
+    "otterbein": {
+      "logo_primary": "/assets/team-art/otterbein/logo_primary.png",
+      "logo_dark": "/assets/team-art/otterbein/logo_dark.png"
+    },
+    "ouachita-baptist": {
+      "logo_primary": "/assets/team-art/ouachita-baptist/logo_primary.png",
+      "logo_dark": "/assets/team-art/ouachita-baptist/logo_dark.png"
+    },
+    "pace": {
+      "logo_primary": "/assets/team-art/pace/logo_primary.png",
+      "logo_dark": "/assets/team-art/pace/logo_dark.png"
+    },
+    "pacific-lutheran": {
+      "logo_primary": "/assets/team-art/pacific-lutheran/logo_primary.png",
+      "logo_dark": "/assets/team-art/pacific-lutheran/logo_dark.png"
+    },
+    "pacific-or": {
+      "logo_primary": "/assets/team-art/pacific-or/logo_primary.png",
+      "logo_dark": "/assets/team-art/pacific-or/logo_dark.png"
+    },
+    "penn-state": {
+      "logo_primary": "/assets/team-art/penn-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/penn-state/logo_dark.png"
+    },
+    "pennsylvania": {
+      "logo_primary": "/assets/team-art/pennsylvania/logo_primary.png",
+      "logo_dark": "/assets/team-art/pennsylvania/logo_dark.png"
+    },
+    "pennwestate-california": {
+      "logo_primary": "/assets/team-art/pennwestate-california/logo_primary.png",
+      "logo_dark": "/assets/team-art/pennwestate-california/logo_dark.png"
+    },
+    "pittsburgh": {
+      "logo_primary": "/assets/team-art/pittsburgh/logo_primary.png",
+      "logo_dark": "/assets/team-art/pittsburgh/logo_dark.png"
+    },
+    "pittsburg-st": {
+      "logo_primary": "/assets/team-art/pittsburg-st/logo_primary.png",
+      "logo_dark": "/assets/team-art/pittsburg-st/logo_dark.png"
+    },
+    "plymouth-state": {
+      "logo_primary": "/assets/team-art/plymouth-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/plymouth-state/logo_dark.png"
+    },
+    "pomona-pitzer": {
+      "logo_primary": "/assets/team-art/pomona-pitzer/logo_primary.png",
+      "logo_dark": "/assets/team-art/pomona-pitzer/logo_dark.png"
+    },
+    "portland-state": {
+      "logo_primary": "/assets/team-art/portland-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/portland-state/logo_dark.png"
+    },
+    "postate": {
+      "logo_primary": "/assets/team-art/postate/logo_primary.png"
+    },
+    "prairie-view-aandm": {
+      "logo_primary": "/assets/team-art/prairie-view-aandm/logo_primary.png",
+      "logo_dark": "/assets/team-art/prairie-view-aandm/logo_dark.png"
+    },
+    "presbyterian": {
+      "logo_primary": "/assets/team-art/presbyterian/logo_primary.png",
+      "logo_dark": "/assets/team-art/presbyterian/logo_dark.png"
+    },
+    "princeton": {
+      "logo_primary": "/assets/team-art/princeton/logo_primary.png",
+      "logo_dark": "/assets/team-art/princeton/logo_dark.png"
+    },
+    "puget-sound": {
+      "logo_primary": "/assets/team-art/puget-sound/logo_primary.png",
+      "logo_dark": "/assets/team-art/puget-sound/logo_dark.png"
+    },
+    "purdue": {
+      "logo_primary": "/assets/team-art/purdue/logo_primary.png",
+      "logo_dark": "/assets/team-art/purdue/logo_dark.png"
+    },
+    "quincy": {
+      "logo_primary": "/assets/team-art/quincy/logo_primary.png",
+      "logo_dark": "/assets/team-art/quincy/logo_dark.png"
+    },
+    "randolph-macon": {
+      "logo_primary": "/assets/team-art/randolph-macon/logo_primary.png",
+      "logo_dark": "/assets/team-art/randolph-macon/logo_dark.png"
+    },
+    "reading": {
+      "logo_primary": "/assets/team-art/reading/logo_primary.png"
+    },
+    "redlands": {
+      "logo_primary": "/assets/team-art/redlands/logo_primary.png",
+      "logo_dark": "/assets/team-art/redlands/logo_dark.png"
+    },
+    "rensselaer": {
+      "logo_primary": "/assets/team-art/rensselaer/logo_primary.png",
+      "logo_dark": "/assets/team-art/rensselaer/logo_dark.png"
+    },
+    "rhode-island": {
+      "logo_primary": "/assets/team-art/rhode-island/logo_primary.png",
+      "logo_dark": "/assets/team-art/rhode-island/logo_dark.png"
+    },
+    "rhodes": {
+      "logo_primary": "/assets/team-art/rhodes/logo_primary.png",
+      "logo_dark": "/assets/team-art/rhodes/logo_dark.png"
+    },
+    "rice": {
+      "logo_primary": "/assets/team-art/rice/logo_primary.png",
+      "logo_dark": "/assets/team-art/rice/logo_dark.png"
+    },
+    "richmond": {
+      "logo_primary": "/assets/team-art/richmond/logo_primary.png",
+      "logo_dark": "/assets/team-art/richmond/logo_dark.png"
+    },
+    "ripon": {
+      "logo_primary": "/assets/team-art/ripon/logo_primary.png",
+      "logo_dark": "/assets/team-art/ripon/logo_dark.png"
+    },
+    "robert-morris": {
+      "logo_primary": "/assets/team-art/robert-morris/logo_primary.png",
+      "logo_dark": "/assets/team-art/robert-morris/logo_dark.png"
+    },
+    "rockford": {
+      "logo_primary": "/assets/team-art/rockford/logo_primary.png",
+      "logo_dark": "/assets/team-art/rockford/logo_dark.png"
+    },
+    "rose-hulman": {
+      "logo_primary": "/assets/team-art/rose-hulman/logo_primary.png",
+      "logo_dark": "/assets/team-art/rose-hulman/logo_dark.png"
+    },
+    "rowan": {
+      "logo_primary": "/assets/team-art/rowan/logo_primary.png",
+      "logo_dark": "/assets/team-art/rowan/logo_dark.png"
+    },
+    "rutgers": {
+      "logo_primary": "/assets/team-art/rutgers/logo_primary.png",
+      "logo_dark": "/assets/team-art/rutgers/logo_dark.png"
+    },
+    "sacramento-state": {
+      "logo_primary": "/assets/team-art/sacramento-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/sacramento-state/logo_dark.png"
+    },
+    "sacred-heart": {
+      "logo_primary": "/assets/team-art/sacred-heart/logo_primary.png",
+      "logo_dark": "/assets/team-art/sacred-heart/logo_dark.png"
+    },
+    "saginaw-valley-state": {
+      "logo_primary": "/assets/team-art/saginaw-valley-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/saginaw-valley-state/logo_dark.png"
+    },
+    "saint-john-s-mn": {
+      "logo_primary": "/assets/team-art/saint-john-s-mn/logo_primary.png",
+      "logo_dark": "/assets/team-art/saint-john-s-mn/logo_dark.png"
+    },
+    "saint-vincent": {
+      "logo_primary": "/assets/team-art/saint-vincent/logo_primary.png",
+      "logo_dark": "/assets/team-art/saint-vincent/logo_dark.png"
+    },
+    "salisbury": {
+      "logo_primary": "/assets/team-art/salisbury/logo_primary.png",
+      "logo_dark": "/assets/team-art/salisbury/logo_dark.png"
+    },
+    "salve-regina": {
+      "logo_primary": "/assets/team-art/salve-regina/logo_primary.png",
+      "logo_dark": "/assets/team-art/salve-regina/logo_dark.png"
+    },
+    "samford": {
+      "logo_primary": "/assets/team-art/samford/logo_primary.png",
+      "logo_dark": "/assets/team-art/samford/logo_dark.png"
+    },
+    "sam-houston": {
+      "logo_primary": "/assets/team-art/sam-houston/logo_primary.png",
+      "logo_dark": "/assets/team-art/sam-houston/logo_dark.png"
+    },
+    "san-diego": {
+      "logo_primary": "/assets/team-art/san-diego/logo_primary.png",
+      "logo_dark": "/assets/team-art/san-diego/logo_dark.png"
+    },
+    "san-diego-state": {
+      "logo_primary": "/assets/team-art/san-diego-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/san-diego-state/logo_dark.png"
+    },
+    "san-jos-state": {
+      "logo_primary": "/assets/team-art/san-jos-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/san-jos-state/logo_dark.png"
+    },
+    "savannah-st": {
+      "logo_primary": "/assets/team-art/savannah-st/logo_primary.png",
+      "logo_dark": "/assets/team-art/savannah-st/logo_dark.png"
+    },
+    "se-louisiana": {
+      "logo_primary": "/assets/team-art/se-louisiana/logo_primary.png",
+      "logo_dark": "/assets/team-art/se-louisiana/logo_dark.png"
+    },
+    "seton-hill": {
+      "logo_primary": "/assets/team-art/seton-hill/logo_primary.png",
+      "logo_dark": "/assets/team-art/seton-hill/logo_dark.png"
+    },
+    "sewanee": {
+      "logo_primary": "/assets/team-art/sewanee/logo_primary.png",
+      "logo_dark": "/assets/team-art/sewanee/logo_dark.png"
+    },
+    "shaw": {
+      "logo_primary": "/assets/team-art/shaw/logo_primary.png",
+      "logo_dark": "/assets/team-art/shaw/logo_dark.png"
+    },
+    "shenandoah": {
+      "logo_primary": "/assets/team-art/shenandoah/logo_primary.png",
+      "logo_dark": "/assets/team-art/shenandoah/logo_dark.png"
+    },
+    "shepherd": {
+      "logo_primary": "/assets/team-art/shepherd/logo_primary.png",
+      "logo_dark": "/assets/team-art/shepherd/logo_dark.png"
+    },
+    "shippensburg": {
+      "logo_primary": "/assets/team-art/shippensburg/logo_primary.png",
+      "logo_dark": "/assets/team-art/shippensburg/logo_dark.png"
+    },
+    "simon-fraser": {
+      "logo_primary": "/assets/team-art/simon-fraser/logo_primary.png",
+      "logo_dark": "/assets/team-art/simon-fraser/logo_dark.png"
+    },
+    "simpson-ia": {
+      "logo_primary": "/assets/team-art/simpson-ia/logo_primary.png",
+      "logo_dark": "/assets/team-art/simpson-ia/logo_dark.png"
+    },
+    "slippery-rock": {
+      "logo_primary": "/assets/team-art/slippery-rock/logo_primary.png",
+      "logo_dark": "/assets/team-art/slippery-rock/logo_dark.png"
+    },
+    "smu": {
+      "logo_primary": "/assets/team-art/smu/logo_primary.png",
+      "logo_dark": "/assets/team-art/smu/logo_dark.png"
+    },
+    "south-alabama": {
+      "logo_primary": "/assets/team-art/south-alabama/logo_primary.png",
+      "logo_dark": "/assets/team-art/south-alabama/logo_dark.png"
+    },
+    "south-carolina": {
+      "logo_primary": "/assets/team-art/south-carolina/logo_primary.png",
+      "logo_dark": "/assets/team-art/south-carolina/logo_dark.png"
+    },
+    "south-carolina-state": {
+      "logo_primary": "/assets/team-art/south-carolina-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/south-carolina-state/logo_dark.png"
+    },
+    "south-dakota": {
+      "logo_primary": "/assets/team-art/south-dakota/logo_primary.png",
+      "logo_dark": "/assets/team-art/south-dakota/logo_dark.png"
+    },
+    "south-dakota-mines": {
+      "logo_primary": "/assets/team-art/south-dakota-mines/logo_primary.png",
+      "logo_dark": "/assets/team-art/south-dakota-mines/logo_dark.png"
+    },
+    "south-dakota-state": {
+      "logo_primary": "/assets/team-art/south-dakota-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/south-dakota-state/logo_dark.png"
+    },
+    "southeastern-oklahoma-state": {
+      "logo_primary": "/assets/team-art/southeastern-oklahoma-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/southeastern-oklahoma-state/logo_dark.png"
+    },
+    "southeastate-missouri-state": {
+      "logo_primary": "/assets/team-art/southeastate-missouri-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/southeastate-missouri-state/logo_dark.png"
+    },
+    "southern": {
+      "logo_primary": "/assets/team-art/southern/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern/logo_dark.png"
+    },
+    "southern-arkansas": {
+      "logo_primary": "/assets/team-art/southern-arkansas/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern-arkansas/logo_dark.png"
+    },
+    "southern-connecticut-state": {
+      "logo_primary": "/assets/team-art/southern-connecticut-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern-connecticut-state/logo_dark.png"
+    },
+    "southern-illinois": {
+      "logo_primary": "/assets/team-art/southern-illinois/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern-illinois/logo_dark.png"
+    },
+    "southern-miss": {
+      "logo_primary": "/assets/team-art/southern-miss/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern-miss/logo_dark.png"
+    },
+    "southern-nazarene": {
+      "logo_primary": "/assets/team-art/southern-nazarene/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern-nazarene/logo_dark.png"
+    },
+    "southern-utah": {
+      "logo_primary": "/assets/team-art/southern-utah/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern-utah/logo_dark.png"
+    },
+    "southern-virginia": {
+      "logo_primary": "/assets/team-art/southern-virginia/logo_primary.png",
+      "logo_dark": "/assets/team-art/southern-virginia/logo_dark.png"
+    },
+    "south-florida": {
+      "logo_primary": "/assets/team-art/south-florida/logo_primary.png",
+      "logo_dark": "/assets/team-art/south-florida/logo_dark.png"
+    },
+    "southwestate-baptist": {
+      "logo_primary": "/assets/team-art/southwestate-baptist/logo_primary.png",
+      "logo_dark": "/assets/team-art/southwestate-baptist/logo_dark.png"
+    },
+    "southwestern-oklahoma-state": {
+      "logo_primary": "/assets/team-art/southwestern-oklahoma-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/southwestern-oklahoma-state/logo_dark.png"
+    },
+    "southwestate-minnesota-state": {
+      "logo_primary": "/assets/team-art/southwestate-minnesota-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/southwestate-minnesota-state/logo_dark.png"
+    },
+    "springfield": {
+      "logo_primary": "/assets/team-art/springfield/logo_primary.png",
+      "logo_dark": "/assets/team-art/springfield/logo_dark.png"
+    },
+    "stanford": {
+      "logo_primary": "/assets/team-art/stanford/logo_primary.png",
+      "logo_dark": "/assets/team-art/stanford/logo_dark.png"
+    },
+    "state-anselm": {
+      "logo_primary": "/assets/team-art/state-anselm/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-anselm/logo_dark.png"
+    },
+    "state-augustine-s": {
+      "logo_primary": "/assets/team-art/state-augustine-s/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-augustine-s/logo_dark.png"
+    },
+    "stephen-f-austin": {
+      "logo_primary": "/assets/team-art/stephen-f-austin/logo_primary.png",
+      "logo_dark": "/assets/team-art/stephen-f-austin/logo_dark.png"
+    },
+    "stetson": {
+      "logo_primary": "/assets/team-art/stetson/logo_primary.png",
+      "logo_dark": "/assets/team-art/stetson/logo_dark.png"
+    },
+    "stevenson": {
+      "logo_primary": "/assets/team-art/stevenson/logo_primary.png",
+      "logo_dark": "/assets/team-art/stevenson/logo_dark.png"
+    },
+    "state-francis-pa": {
+      "logo_primary": "/assets/team-art/state-francis-pa/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-francis-pa/logo_dark.png"
+    },
+    "state-john-fisher": {
+      "logo_primary": "/assets/team-art/state-john-fisher/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-john-fisher/logo_dark.png"
+    },
+    "state-lawrence": {
+      "logo_primary": "/assets/team-art/state-lawrence/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-lawrence/logo_dark.png"
+    },
+    "state-norbert": {
+      "logo_primary": "/assets/team-art/state-norbert/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-norbert/logo_dark.png"
+    },
+    "state-olaf": {
+      "logo_primary": "/assets/team-art/state-olaf/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-olaf/logo_dark.png"
+    },
+    "stonehill": {
+      "logo_primary": "/assets/team-art/stonehill/logo_primary.png",
+      "logo_dark": "/assets/team-art/stonehill/logo_dark.png"
+    },
+    "stony-brook": {
+      "logo_primary": "/assets/team-art/stony-brook/logo_primary.png",
+      "logo_dark": "/assets/team-art/stony-brook/logo_dark.png"
+    },
+    "state-scholastica": {
+      "logo_primary": "/assets/team-art/state-scholastica/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-scholastica/logo_dark.png"
+    },
+    "state-thomas-mn": {
+      "logo_primary": "/assets/team-art/state-thomas-mn/logo_primary.png",
+      "logo_dark": "/assets/team-art/state-thomas-mn/logo_dark.png"
+    },
+    "sul-ross-state": {
+      "logo_primary": "/assets/team-art/sul-ross-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/sul-ross-state/logo_dark.png"
+    },
+    "suny-maritime": {
+      "logo_primary": "/assets/team-art/suny-maritime/logo_primary.png",
+      "logo_dark": "/assets/team-art/suny-maritime/logo_dark.png"
+    },
+    "suny-morrisville": {
+      "logo_primary": "/assets/team-art/suny-morrisville/logo_primary.png",
+      "logo_dark": "/assets/team-art/suny-morrisville/logo_dark.png"
+    },
+    "susquehanna": {
+      "logo_primary": "/assets/team-art/susquehanna/logo_primary.png",
+      "logo_dark": "/assets/team-art/susquehanna/logo_dark.png"
+    },
+    "syracuse": {
+      "logo_primary": "/assets/team-art/syracuse/logo_primary.png",
+      "logo_dark": "/assets/team-art/syracuse/logo_dark.png"
+    },
+    "tarleton-state": {
+      "logo_primary": "/assets/team-art/tarleton-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/tarleton-state/logo_dark.png"
+    },
+    "tcu": {
+      "logo_primary": "/assets/team-art/tcu/logo_primary.png",
+      "logo_dark": "/assets/team-art/tcu/logo_dark.png"
+    },
+    "temple": {
+      "logo_primary": "/assets/team-art/temple/logo_primary.png",
+      "logo_dark": "/assets/team-art/temple/logo_dark.png"
+    },
+    "tennessee": {
+      "logo_primary": "/assets/team-art/tennessee/logo_primary.png",
+      "logo_dark": "/assets/team-art/tennessee/logo_dark.png"
+    },
+    "tennessee-state": {
+      "logo_primary": "/assets/team-art/tennessee-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/tennessee-state/logo_dark.png"
+    },
+    "tennessee-tech": {
+      "logo_primary": "/assets/team-art/tennessee-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/tennessee-tech/logo_dark.png"
+    },
+    "texas": {
+      "logo_primary": "/assets/team-art/texas/logo_primary.png",
+      "logo_dark": "/assets/team-art/texas/logo_dark.png"
+    },
+    "texas-aandm": {
+      "logo_primary": "/assets/team-art/texas-aandm/logo_primary.png",
+      "logo_dark": "/assets/team-art/texas-aandm/logo_dark.png"
+    },
+    "texas-aandm-kingsville": {
+      "logo_primary": "/assets/team-art/texas-aandm-kingsville/logo_primary.png",
+      "logo_dark": "/assets/team-art/texas-aandm-kingsville/logo_dark.png"
+    },
+    "texas-lutheran": {
+      "logo_primary": "/assets/team-art/texas-lutheran/logo_primary.png",
+      "logo_dark": "/assets/team-art/texas-lutheran/logo_dark.png"
+    },
+    "texas-southern": {
+      "logo_primary": "/assets/team-art/texas-southern/logo_primary.png",
+      "logo_dark": "/assets/team-art/texas-southern/logo_dark.png"
+    },
+    "texas-state": {
+      "logo_primary": "/assets/team-art/texas-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/texas-state/logo_dark.png"
+    },
+    "texas-tech": {
+      "logo_primary": "/assets/team-art/texas-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/texas-tech/logo_dark.png"
+    },
+    "the-citadel": {
+      "logo_primary": "/assets/team-art/the-citadel/logo_primary.png",
+      "logo_dark": "/assets/team-art/the-citadel/logo_dark.png"
+    },
+    "toledo": {
+      "logo_primary": "/assets/team-art/toledo/logo_primary.png",
+      "logo_dark": "/assets/team-art/toledo/logo_dark.png"
+    },
+    "towson": {
+      "logo_primary": "/assets/team-art/towson/logo_primary.png",
+      "logo_dark": "/assets/team-art/towson/logo_dark.png"
+    },
+    "trine": {
+      "logo_primary": "/assets/team-art/trine/logo_primary.png",
+      "logo_dark": "/assets/team-art/trine/logo_dark.png"
+    },
+    "trinity-ct": {
+      "logo_primary": "/assets/team-art/trinity-ct/logo_primary.png",
+      "logo_dark": "/assets/team-art/trinity-ct/logo_dark.png"
+    },
+    "trinity-tx": {
+      "logo_primary": "/assets/team-art/trinity-tx/logo_primary.png",
+      "logo_dark": "/assets/team-art/trinity-tx/logo_dark.png"
+    },
+    "troy": {
+      "logo_primary": "/assets/team-art/troy/logo_primary.png",
+      "logo_dark": "/assets/team-art/troy/logo_dark.png"
+    },
+    "truman-state": {
+      "logo_primary": "/assets/team-art/truman-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/truman-state/logo_dark.png"
+    },
+    "tufts": {
+      "logo_primary": "/assets/team-art/tufts/logo_primary.png",
+      "logo_dark": "/assets/team-art/tufts/logo_dark.png"
+    },
+    "tulane": {
+      "logo_primary": "/assets/team-art/tulane/logo_primary.png",
+      "logo_dark": "/assets/team-art/tulane/logo_dark.png"
+    },
+    "tulsa": {
+      "logo_primary": "/assets/team-art/tulsa/logo_primary.png",
+      "logo_dark": "/assets/team-art/tulsa/logo_dark.png"
+    },
+    "tuskegee": {
+      "logo_primary": "/assets/team-art/tuskegee/logo_primary.png",
+      "logo_dark": "/assets/team-art/tuskegee/logo_dark.png"
+    },
+    "uab": {
+      "logo_primary": "/assets/team-art/uab/logo_primary.png",
+      "logo_dark": "/assets/team-art/uab/logo_dark.png"
+    },
+    "ualbany": {
+      "logo_primary": "/assets/team-art/ualbany/logo_primary.png",
+      "logo_dark": "/assets/team-art/ualbany/logo_dark.png"
+    },
+    "uc-davis": {
+      "logo_primary": "/assets/team-art/uc-davis/logo_primary.png",
+      "logo_dark": "/assets/team-art/uc-davis/logo_dark.png"
+    },
+    "ucf": {
+      "logo_primary": "/assets/team-art/ucf/logo_primary.png",
+      "logo_dark": "/assets/team-art/ucf/logo_dark.png"
+    },
+    "ucla": {
+      "logo_primary": "/assets/team-art/ucla/logo_primary.png",
+      "logo_dark": "/assets/team-art/ucla/logo_dark.png"
+    },
+    "uconn": {
+      "logo_primary": "/assets/team-art/uconn/logo_primary.png",
+      "logo_dark": "/assets/team-art/uconn/logo_dark.png"
+    },
+    "ul-monroe": {
+      "logo_primary": "/assets/team-art/ul-monroe/logo_primary.png",
+      "logo_dark": "/assets/team-art/ul-monroe/logo_dark.png"
+    },
+    "umass-dartmouth": {
+      "logo_primary": "/assets/team-art/umass-dartmouth/logo_primary.png",
+      "logo_dark": "/assets/team-art/umass-dartmouth/logo_dark.png"
+    },
+    "unc-pembroke": {
+      "logo_primary": "/assets/team-art/unc-pembroke/logo_primary.png",
+      "logo_dark": "/assets/team-art/unc-pembroke/logo_dark.png"
+    },
+    "union-ny": {
+      "logo_primary": "/assets/team-art/union-ny/logo_primary.png",
+      "logo_dark": "/assets/team-art/union-ny/logo_dark.png"
+    },
+    "of-charleston-wv": {
+      "logo_primary": "/assets/team-art/of-charleston-wv/logo_primary.png",
+      "logo_dark": "/assets/team-art/of-charleston-wv/logo_dark.png"
+    },
+    "of-mount-union": {
+      "logo_primary": "/assets/team-art/of-mount-union/logo_primary.png",
+      "logo_dark": "/assets/team-art/of-mount-union/logo_dark.png"
+    },
+    "of-rochester-ny": {
+      "logo_primary": "/assets/team-art/of-rochester-ny/logo_primary.png",
+      "logo_dark": "/assets/team-art/of-rochester-ny/logo_dark.png"
+    },
+    "unlv": {
+      "logo_primary": "/assets/team-art/unlv/logo_primary.png",
+      "logo_dark": "/assets/team-art/unlv/logo_dark.png"
+    },
+    "upper-iowa": {
+      "logo_primary": "/assets/team-art/upper-iowa/logo_primary.png",
+      "logo_dark": "/assets/team-art/upper-iowa/logo_dark.png"
+    },
+    "ursinus": {
+      "logo_primary": "/assets/team-art/ursinus/logo_primary.png",
+      "logo_dark": "/assets/team-art/ursinus/logo_dark.png"
+    },
+    "usc": {
+      "logo_primary": "/assets/team-art/usc/logo_primary.png",
+      "logo_dark": "/assets/team-art/usc/logo_dark.png"
+    },
+    "utah": {
+      "logo_primary": "/assets/team-art/utah/logo_primary.png",
+      "logo_dark": "/assets/team-art/utah/logo_dark.png"
+    },
+    "utah-state": {
+      "logo_primary": "/assets/team-art/utah-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/utah-state/logo_dark.png"
+    },
+    "utah-tech": {
+      "logo_primary": "/assets/team-art/utah-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/utah-tech/logo_dark.png"
+    },
+    "utep": {
+      "logo_primary": "/assets/team-art/utep/logo_primary.png",
+      "logo_dark": "/assets/team-art/utep/logo_dark.png"
+    },
+    "utica": {
+      "logo_primary": "/assets/team-art/utica/logo_primary.png",
+      "logo_dark": "/assets/team-art/utica/logo_dark.png"
+    },
+    "ut-martin": {
+      "logo_primary": "/assets/team-art/ut-martin/logo_primary.png",
+      "logo_dark": "/assets/team-art/ut-martin/logo_dark.png"
+    },
+    "ut-permian-basin": {
+      "logo_primary": "/assets/team-art/ut-permian-basin/logo_primary.png"
+    },
+    "ut-rio-grande-valley": {
+      "logo_primary": "/assets/team-art/ut-rio-grande-valley/logo_primary.png",
+      "logo_dark": "/assets/team-art/ut-rio-grande-valley/logo_dark.png"
+    },
+    "utsa": {
+      "logo_primary": "/assets/team-art/utsa/logo_primary.png",
+      "logo_dark": "/assets/team-art/utsa/logo_dark.png"
+    },
+    "uva-wise": {
+      "logo_primary": "/assets/team-art/uva-wise/logo_primary.png",
+      "logo_dark": "/assets/team-art/uva-wise/logo_dark.png"
+    },
+    "valdosta-state": {
+      "logo_primary": "/assets/team-art/valdosta-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/valdosta-state/logo_dark.png"
+    },
+    "valparaiso": {
+      "logo_primary": "/assets/team-art/valparaiso/logo_primary.png",
+      "logo_dark": "/assets/team-art/valparaiso/logo_dark.png"
+    },
+    "vanderbilt": {
+      "logo_primary": "/assets/team-art/vanderbilt/logo_primary.png",
+      "logo_dark": "/assets/team-art/vanderbilt/logo_dark.png"
+    },
+    "villanova": {
+      "logo_primary": "/assets/team-art/villanova/logo_primary.png",
+      "logo_dark": "/assets/team-art/villanova/logo_dark.png"
+    },
+    "virginia": {
+      "logo_primary": "/assets/team-art/virginia/logo_primary.png",
+      "logo_dark": "/assets/team-art/virginia/logo_dark.png"
+    },
+    "virginia-st": {
+      "logo_primary": "/assets/team-art/virginia-st/logo_primary.png",
+      "logo_dark": "/assets/team-art/virginia-st/logo_dark.png"
+    },
+    "virginia-tech": {
+      "logo_primary": "/assets/team-art/virginia-tech/logo_primary.png",
+      "logo_dark": "/assets/team-art/virginia-tech/logo_dark.png"
+    },
+    "vmi": {
+      "logo_primary": "/assets/team-art/vmi/logo_primary.png",
+      "logo_dark": "/assets/team-art/vmi/logo_dark.png"
+    },
+    "wabash": {
+      "logo_primary": "/assets/team-art/wabash/logo_primary.png",
+      "logo_dark": "/assets/team-art/wabash/logo_dark.png"
+    },
+    "wagner": {
+      "logo_primary": "/assets/team-art/wagner/logo_primary.png",
+      "logo_dark": "/assets/team-art/wagner/logo_dark.png"
+    },
+    "wake-forest": {
+      "logo_primary": "/assets/team-art/wake-forest/logo_primary.png",
+      "logo_dark": "/assets/team-art/wake-forest/logo_dark.png"
+    },
+    "wartburg": {
+      "logo_primary": "/assets/team-art/wartburg/logo_primary.png",
+      "logo_dark": "/assets/team-art/wartburg/logo_dark.png"
+    },
+    "washburn": {
+      "logo_primary": "/assets/team-art/washburn/logo_primary.png",
+      "logo_dark": "/assets/team-art/washburn/logo_dark.png"
+    },
+    "washington": {
+      "logo_primary": "/assets/team-art/washington/logo_primary.png",
+      "logo_dark": "/assets/team-art/washington/logo_dark.png"
+    },
+    "washington-and-lee": {
+      "logo_primary": "/assets/team-art/washington-and-lee/logo_primary.png",
+      "logo_dark": "/assets/team-art/washington-and-lee/logo_dark.png"
+    },
+    "washington-and-jefferson": {
+      "logo_primary": "/assets/team-art/washington-and-jefferson/logo_primary.png",
+      "logo_dark": "/assets/team-art/washington-and-jefferson/logo_dark.png"
+    },
+    "washington-state": {
+      "logo_primary": "/assets/team-art/washington-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/washington-state/logo_dark.png"
+    },
+    "washington-state-louis": {
+      "logo_primary": "/assets/team-art/washington-state-louis/logo_primary.png",
+      "logo_dark": "/assets/team-art/washington-state-louis/logo_dark.png"
+    },
+    "waynesburg": {
+      "logo_primary": "/assets/team-art/waynesburg/logo_primary.png",
+      "logo_dark": "/assets/team-art/waynesburg/logo_dark.png"
+    },
+    "wayne-state-mi": {
+      "logo_primary": "/assets/team-art/wayne-state-mi/logo_primary.png",
+      "logo_dark": "/assets/team-art/wayne-state-mi/logo_dark.png"
+    },
+    "wayne-state-ne": {
+      "logo_primary": "/assets/team-art/wayne-state-ne/logo_primary.png",
+      "logo_dark": "/assets/team-art/wayne-state-ne/logo_dark.png"
+    },
+    "weber-state": {
+      "logo_primary": "/assets/team-art/weber-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/weber-state/logo_dark.png"
+    },
+    "wesleyan-ct": {
+      "logo_primary": "/assets/team-art/wesleyan-ct/logo_primary.png",
+      "logo_dark": "/assets/team-art/wesleyan-ct/logo_dark.png"
+    },
+    "westate-alabama": {
+      "logo_primary": "/assets/team-art/westate-alabama/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-alabama/logo_dark.png"
+    },
+    "westate-chester": {
+      "logo_primary": "/assets/team-art/westate-chester/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-chester/logo_dark.png"
+    },
+    "western-carolina": {
+      "logo_primary": "/assets/team-art/western-carolina/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-carolina/logo_dark.png"
+    },
+    "western-colorado": {
+      "logo_primary": "/assets/team-art/western-colorado/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-colorado/logo_dark.png"
+    },
+    "western-connecticut-st": {
+      "logo_primary": "/assets/team-art/western-connecticut-st/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-connecticut-st/logo_dark.png"
+    },
+    "western-illinois": {
+      "logo_primary": "/assets/team-art/western-illinois/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-illinois/logo_dark.png"
+    },
+    "western-kentucky": {
+      "logo_primary": "/assets/team-art/western-kentucky/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-kentucky/logo_dark.png"
+    },
+    "western-michigan": {
+      "logo_primary": "/assets/team-art/western-michigan/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-michigan/logo_dark.png"
+    },
+    "western-new-england": {
+      "logo_primary": "/assets/team-art/western-new-england/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-new-england/logo_dark.png"
+    },
+    "western-new-mexico": {
+      "logo_primary": "/assets/team-art/western-new-mexico/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-new-mexico/logo_dark.png"
+    },
+    "western-oregon": {
+      "logo_primary": "/assets/team-art/western-oregon/logo_primary.png",
+      "logo_dark": "/assets/team-art/western-oregon/logo_dark.png"
+    },
+    "westfield-state": {
+      "logo_primary": "/assets/team-art/westfield-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/westfield-state/logo_dark.png"
+    },
+    "westate-florida": {
+      "logo_primary": "/assets/team-art/westate-florida/logo_primary.png"
+    },
+    "westate-georgia": {
+      "logo_primary": "/assets/team-art/westate-georgia/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-georgia/logo_dark.png"
+    },
+    "westate-liberty": {
+      "logo_primary": "/assets/team-art/westate-liberty/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-liberty/logo_dark.png"
+    },
+    "westminster-mo": {
+      "logo_primary": "/assets/team-art/westminster-mo/logo_primary.png",
+      "logo_dark": "/assets/team-art/westminster-mo/logo_dark.png"
+    },
+    "westminster-pa": {
+      "logo_primary": "/assets/team-art/westminster-pa/logo_primary.png",
+      "logo_dark": "/assets/team-art/westminster-pa/logo_dark.png"
+    },
+    "westate-texas-aandm": {
+      "logo_primary": "/assets/team-art/westate-texas-aandm/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-texas-aandm/logo_dark.png"
+    },
+    "westate-virginia": {
+      "logo_primary": "/assets/team-art/westate-virginia/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-virginia/logo_dark.png"
+    },
+    "westate-virginia-state": {
+      "logo_primary": "/assets/team-art/westate-virginia-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-virginia-state/logo_dark.png"
+    },
+    "westate-virginia-wesleyan": {
+      "logo_primary": "/assets/team-art/westate-virginia-wesleyan/logo_primary.png",
+      "logo_dark": "/assets/team-art/westate-virginia-wesleyan/logo_dark.png"
+    },
+    "wheaton": {
+      "logo_primary": "/assets/team-art/wheaton/logo_primary.png",
+      "logo_dark": "/assets/team-art/wheaton/logo_dark.png"
+    },
+    "wheeling": {
+      "logo_primary": "/assets/team-art/wheeling/logo_primary.png"
+    },
+    "whittier": {
+      "logo_primary": "/assets/team-art/whittier/logo_primary.png",
+      "logo_dark": "/assets/team-art/whittier/logo_dark.png"
+    },
+    "whitworth": {
+      "logo_primary": "/assets/team-art/whitworth/logo_primary.png",
+      "logo_dark": "/assets/team-art/whitworth/logo_dark.png"
+    },
+    "widener": {
+      "logo_primary": "/assets/team-art/widener/logo_primary.png",
+      "logo_dark": "/assets/team-art/widener/logo_dark.png"
+    },
+    "wilkes": {
+      "logo_primary": "/assets/team-art/wilkes/logo_primary.png",
+      "logo_dark": "/assets/team-art/wilkes/logo_dark.png"
+    },
+    "willamette": {
+      "logo_primary": "/assets/team-art/willamette/logo_primary.png",
+      "logo_dark": "/assets/team-art/willamette/logo_dark.png"
+    },
+    "william-jewell": {
+      "logo_primary": "/assets/team-art/william-jewell/logo_primary.png",
+      "logo_dark": "/assets/team-art/william-jewell/logo_dark.png"
+    },
+    "william-and-mary": {
+      "logo_primary": "/assets/team-art/william-and-mary/logo_primary.png",
+      "logo_dark": "/assets/team-art/william-and-mary/logo_dark.png"
+    },
+    "william-paterson": {
+      "logo_primary": "/assets/team-art/william-paterson/logo_primary.png",
+      "logo_dark": "/assets/team-art/william-paterson/logo_dark.png"
+    },
+    "williams": {
+      "logo_primary": "/assets/team-art/williams/logo_primary.png",
+      "logo_dark": "/assets/team-art/williams/logo_dark.png"
+    },
+    "wilmington-oh": {
+      "logo_primary": "/assets/team-art/wilmington-oh/logo_primary.png",
+      "logo_dark": "/assets/team-art/wilmington-oh/logo_dark.png"
+    },
+    "wilson": {
+      "logo_primary": "/assets/team-art/wilson/logo_primary.png"
+    },
+    "wingate": {
+      "logo_primary": "/assets/team-art/wingate/logo_primary.png",
+      "logo_dark": "/assets/team-art/wingate/logo_dark.png"
+    },
+    "winona-state": {
+      "logo_primary": "/assets/team-art/winona-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/winona-state/logo_dark.png"
+    },
+    "winston-salem": {
+      "logo_primary": "/assets/team-art/winston-salem/logo_primary.png",
+      "logo_dark": "/assets/team-art/winston-salem/logo_dark.png"
+    },
+    "wisconsin": {
+      "logo_primary": "/assets/team-art/wisconsin/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin/logo_dark.png"
+    },
+    "wisconsin-eau-claire": {
+      "logo_primary": "/assets/team-art/wisconsin-eau-claire/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-eau-claire/logo_dark.png"
+    },
+    "wisconsin-lacrosse": {
+      "logo_primary": "/assets/team-art/wisconsin-lacrosse/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-lacrosse/logo_dark.png"
+    },
+    "wisconsin-lutheran": {
+      "logo_primary": "/assets/team-art/wisconsin-lutheran/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-lutheran/logo_dark.png"
+    },
+    "wisconsin-oshkosh": {
+      "logo_primary": "/assets/team-art/wisconsin-oshkosh/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-oshkosh/logo_dark.png"
+    },
+    "wisconsin-platteville": {
+      "logo_primary": "/assets/team-art/wisconsin-platteville/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-platteville/logo_dark.png"
+    },
+    "wisconsin-river-falls": {
+      "logo_primary": "/assets/team-art/wisconsin-river-falls/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-river-falls/logo_dark.png"
+    },
+    "wisconsin-stevens-pt": {
+      "logo_primary": "/assets/team-art/wisconsin-stevens-pt/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-stevens-pt/logo_dark.png"
+    },
+    "wisconsin-stout": {
+      "logo_primary": "/assets/team-art/wisconsin-stout/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-stout/logo_dark.png"
+    },
+    "wisconsin-whitewater": {
+      "logo_primary": "/assets/team-art/wisconsin-whitewater/logo_primary.png",
+      "logo_dark": "/assets/team-art/wisconsin-whitewater/logo_dark.png"
+    },
+    "wittenberg": {
+      "logo_primary": "/assets/team-art/wittenberg/logo_primary.png",
+      "logo_dark": "/assets/team-art/wittenberg/logo_dark.png"
+    },
+    "wofford": {
+      "logo_primary": "/assets/team-art/wofford/logo_primary.png",
+      "logo_dark": "/assets/team-art/wofford/logo_dark.png"
+    },
+    "wooster": {
+      "logo_primary": "/assets/team-art/wooster/logo_primary.png",
+      "logo_dark": "/assets/team-art/wooster/logo_dark.png"
+    },
+    "worcester-polytechnic-institute": {
+      "logo_primary": "/assets/team-art/worcester-polytechnic-institute/logo_primary.png",
+      "logo_dark": "/assets/team-art/worcester-polytechnic-institute/logo_dark.png"
+    },
+    "worcester-st": {
+      "logo_primary": "/assets/team-art/worcester-st/logo_primary.png",
+      "logo_dark": "/assets/team-art/worcester-st/logo_dark.png"
+    },
+    "wyoming": {
+      "logo_primary": "/assets/team-art/wyoming/logo_primary.png",
+      "logo_dark": "/assets/team-art/wyoming/logo_dark.png"
+    },
+    "yale": {
+      "logo_primary": "/assets/team-art/yale/logo_primary.png",
+      "logo_dark": "/assets/team-art/yale/logo_dark.png"
+    },
+    "youngstown-state": {
+      "logo_primary": "/assets/team-art/youngstown-state/logo_primary.png",
+      "logo_dark": "/assets/team-art/youngstown-state/logo_dark.png"
+    },
+    "belhaven": {
+      "logo_primary": "/assets/team-art/belhaven/logo_primary.png",
+      "logo_dark": "/assets/team-art/belhaven/logo_dark.png"
+    },
+    "chowan": {
+      "logo_primary": "/assets/team-art/chowan/logo_primary.png",
+      "logo_dark": "/assets/team-art/chowan/logo_dark.png"
+    },
+    "finlandia": {
+      "logo_primary": "/assets/team-art/finlandia/logo_primary.png"
+    },
+    "kean": {
+      "logo_primary": "/assets/team-art/kean/logo_primary.png",
+      "logo_dark": "/assets/team-art/kean/logo_dark.png"
+    },
+    "knox": {
+      "logo_primary": "/assets/team-art/knox/logo_primary.png",
+      "logo_dark": "/assets/team-art/knox/logo_dark.png"
+    },
+    "lakeland": {
+      "logo_primary": "/assets/team-art/lakeland/logo_primary.png",
+      "logo_dark": "/assets/team-art/lakeland/logo_dark.png"
+    },
+    "lane": {
+      "logo_primary": "/assets/team-art/lane/logo_primary.png",
+      "logo_dark": "/assets/team-art/lane/logo_dark.png"
+    },
+    "loras": {
+      "logo_primary": "/assets/team-art/loras/logo_primary.png",
+      "logo_dark": "/assets/team-art/loras/logo_dark.png"
+    },
+    "mckendree": {
+      "logo_primary": "/assets/team-art/mckendree/logo_primary.png",
+      "logo_dark": "/assets/team-art/mckendree/logo_dark.png"
+    },
+    "mit": {
+      "logo_primary": "/assets/team-art/mit/logo_primary.png",
+      "logo_dark": "/assets/team-art/mit/logo_dark.png"
+    },
+    "nebraska-wesleyan": {
+      "logo_primary": "/assets/team-art/nebraska-wesleyan/logo_primary.png",
+      "logo_dark": "/assets/team-art/nebraska-wesleyan/logo_dark.png"
+    },
+    "shorter": {
+      "logo_primary": "/assets/team-art/shorter/logo_primary.png",
+      "logo_dark": "/assets/team-art/shorter/logo_dark.png"
+    },
+    "sioux-falls": {
+      "logo_primary": "/assets/team-art/sioux-falls/logo_primary.png",
+      "logo_dark": "/assets/team-art/sioux-falls/logo_dark.png"
+    },
+    "southwestern": {
+      "logo_primary": "/assets/team-art/southwestern/logo_primary.png",
+      "logo_dark": "/assets/team-art/southwestern/logo_dark.png"
+    },
+    "thiel": {
+      "logo_primary": "/assets/team-art/thiel/logo_primary.png",
+      "logo_dark": "/assets/team-art/thiel/logo_dark.png"
+    },
+    "tiffin": {
+      "logo_primary": "/assets/team-art/tiffin/logo_primary.png",
+      "logo_dark": "/assets/team-art/tiffin/logo_dark.png"
+    },
+    "of-mary": {
+      "logo_primary": "/assets/team-art/of-mary/logo_primary.png",
+      "logo_dark": "/assets/team-art/of-mary/logo_dark.png"
+    },
+    "virginia-union": {
+      "logo_primary": "/assets/team-art/virginia-union/logo_primary.png",
+      "logo_dark": "/assets/team-art/virginia-union/logo_dark.png"
+    }
+  }
+}
