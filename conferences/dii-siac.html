@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIAC | 2025 Season</title>
+    <link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/alpine.min.js" defer></script>
+  </head>
+  <body>
+    <main class="site-shell" id="main-content">
+      <a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../about-model/index.html">The Model</a><a class="nav-link is-current" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a><a class="nav-link" href="../methodology/fan-intelligence.html">Methodology</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+      <section class="hero">
+        <p class="eyebrow">DII Conference</p>
+        <h1>SIAC</h1>
+        <p class="lede">SIAC is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+        <div class="chip-row season-chip-row">
+          <span class="mini-chip">#26 overall</span>
+          <span class="mini-chip">#1 in DII</span>
+          <span class="mini-chip">RR50 +0.4</span>
+          <span class="mini-chip">Upper strength +2.5</span>
+          <span class="mini-chip">13 teams</span>
+          <span class="mini-chip">Top 25 teams 0</span>
+        </div>
+      </section>
+
+      <section class="section two-up">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Conference Snapshot</h2>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card"><span>RR50</span><strong>+0.4</strong></div>
+            <div class="stat-card"><span>Upper Strength</span><strong>+2.5</strong></div>
+            <div class="stat-card"><span>Median Power</span><strong>-0.2</strong></div>
+            <div class="stat-card"><span>Resume Pulse</span><strong>40.0</strong></div>
+            <div class="stat-card"><span>Avg ATS</span><strong>--</strong></div>
+            <div class="stat-card"><span>Wins vs Market</span><strong>+0.00</strong></div>
+            <div class="stat-card"><span>Top-to-Middle Gap</span><strong>4.9</strong></div>
+            <div class="stat-card"><span>Combined Record</span><strong>66-76</strong></div>
+          </div>
+          <p class="footer-note">`RR50`, `Upper Strength`, and `Median Power` are shown on the same public power scale as the rest of the site: points on a neutral field versus the average all-level NCAA team. Very small affiliations are gently regressed toward their subdivision baseline so a one-team outlier does not hijack the entire conference board.</p>
+        </article>
+        <article class="panel">
+          <div class="section-head">
+            <h2>League Drivers</h2>
+          </div>
+          <div class="conference-driver-list">
+            <a class="conference-driver" href="../teams/albany-state-ga.html">
+              <span class="feature-rank">Power leader</span>
+              <strong>Albany State GA</strong>
+              <span class="submetric">#244 overall | +5.1 pts vs avg</span>
+            </a>
+            <a class="conference-driver" href="../teams/albany-state-ga.html">
+              <span class="feature-rank">Resume leader</span>
+              <strong>Albany State GA</strong>
+              <span class="submetric">#244 overall | 90 / 100 resume</span>
+            </a>
+            
+            
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>SIAC Team Board</h2>
+            <p class="section-note">The league stack, sorted by predictive strength. Power is shown as neutral-field points versus the all-level average team, while resume is shown on a 0-100 season score.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Team</th>
+                <th>Record</th>
+                <th>Power</th>
+                <th>Resume</th>
+                <th>ATS</th>
+                <th>Wins vs Market</th>
+                <th>Recent Form</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+    <tr>
+      <td class="rank-cell">#244</td>
+      <td><a class="team-link" href="../teams/albany-state-ga.html">Albany State GA</a></td>
+      <td class="metric-cell">12-2</td>
+      <td class="metric-cell">+5.1</td>
+      <td class="metric-cell">90</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W12 W13 W14 L15</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#258</td>
+      <td><a class="team-link" href="../teams/kentucky-state.html">Kentucky State</a></td>
+      <td class="metric-cell">9-3</td>
+      <td class="metric-cell">+4.2</td>
+      <td class="metric-cell">75</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W11 W12 W12 L13</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#266</td>
+      <td><a class="team-link" href="../teams/benedict.html">Benedict College</a></td>
+      <td class="metric-cell">10-3</td>
+      <td class="metric-cell">+3.6</td>
+      <td class="metric-cell">80</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W11 L12 W13 L14</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#276</td>
+      <td><a class="team-link" href="../teams/allen.html">Allen</a></td>
+      <td class="metric-cell">6-5</td>
+      <td class="metric-cell">+2.5</td>
+      <td class="metric-cell">50</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W9 W10 W11 W12</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#292</td>
+      <td><a class="team-link" href="../teams/savannah-st.html">Savannah St</a></td>
+      <td class="metric-cell">4-6</td>
+      <td class="metric-cell">+1.3</td>
+      <td class="metric-cell">37</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>L8 W9 L10 L11</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#295</td>
+      <td><a class="team-link" href="../teams/tuskegee.html">Tuskegee</a></td>
+      <td class="metric-cell">4-7</td>
+      <td class="metric-cell">+0.9</td>
+      <td class="metric-cell">23</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>L9 W10 W11 L14</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#310</td>
+      <td><a class="team-link" href="../teams/miles.html">Miles College</a></td>
+      <td class="metric-cell">3-8</td>
+      <td class="metric-cell">+0.3</td>
+      <td class="metric-cell">18</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W8 W9 L10 L11</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#319</td>
+      <td><a class="team-link" href="../teams/edward-waters.html">Edward Waters</a></td>
+      <td class="metric-cell">5-5</td>
+      <td class="metric-cell">+0.0</td>
+      <td class="metric-cell">33</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>L8 W9 L10 L11</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#321</td>
+      <td><a class="team-link" href="../teams/fort-valley-state.html">Fort Valley State</a></td>
+      <td class="metric-cell">4-6</td>
+      <td class="metric-cell">-0.1</td>
+      <td class="metric-cell">38</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W8 W9 W10 L11</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#327</td>
+      <td><a class="team-link" href="../teams/central-state-oh.html">Central State (OH)</a></td>
+      <td class="metric-cell">3-7</td>
+      <td class="metric-cell">-0.3</td>
+      <td class="metric-cell">28</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W6 L7 L9 W10</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#328</td>
+      <td><a class="team-link" href="../teams/morehouse.html">Morehouse College</a></td>
+      <td class="metric-cell">3-7</td>
+      <td class="metric-cell">-0.4</td>
+      <td class="metric-cell">28</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>W8 L9 L10 L11</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#332</td>
+      <td><a class="team-link" href="../teams/clark-atlanta.html">Clark Atlanta</a></td>
+      <td class="metric-cell">3-7</td>
+      <td class="metric-cell">-0.6</td>
+      <td class="metric-cell">16</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>L8 L9 L10 W11</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#368</td>
+      <td><a class="team-link" href="../teams/lane.html">Lane College</a></td>
+      <td class="metric-cell">0-10</td>
+      <td class="metric-cell">-2.9</td>
+      <td class="metric-cell">5</td>
+      <td class="metric-cell">--</td>
+      <td class="metric-cell">+0.00</td>
+      <td>L8 L9 L10 L11</td>
+    </tr>
+    
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+    </main>
+  </body>
+</html>

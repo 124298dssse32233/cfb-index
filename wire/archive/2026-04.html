@@ -1,0 +1,160 @@
+<!--
+  Wire monthly archive template (see cfb_rankings.wire.renderer for
+  token list). Substituted at render time.
+-->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wire — April 2026 CFB Index</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --ink: #1a1a1a;
+  --paper: #f6f1e6;
+  --paper-dim: #ece6d6;
+  --rule: #1a1a1a;
+  --rule-soft: rgba(26,26,26,0.18);
+  --gold: #c9a24a;
+  --navy: #1f2c4d;
+  --muted: #7a7a7a;
+  --amber: #b8842c;
+  --green: #2d6f3a;
+  --red: #a23232;
+  --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
+  --sans: 'Inter', 'Helvetica Neue', -apple-system, system-ui, sans-serif;
+}
+html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--serif); font-size: 17px; line-height: 1.55; }
+.page { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+@media (max-width: 720px) { .page { padding: 0 24px; } }
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
+.eyebrow.muted { color: var(--muted); }
+.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
+.rule.soft { background: var(--rule-soft); }
+a { color: inherit; text-decoration: none; }
+a.text-link { border-bottom: 1px dotted currentColor; }
+
+.chrome { font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  display: flex; justify-content: space-between; padding: 12px 0; }
+.brand-row { display: flex; align-items: baseline; justify-content: space-between;
+  padding: 24px 0; }
+.brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
+  letter-spacing: 0.04em; }
+.brand .slash { color: var(--gold); margin: 0 6px; }
+.nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; }
+.nav a { margin-left: 28px; color: var(--ink); }
+.nav a:hover { color: var(--gold); }
+
+.hero { padding: 72px 0 48px; }
+.hero-wire .roman-big { font-family: var(--serif); font-size: 64px; line-height: 1;
+  font-weight: 600; color: var(--ink); margin: 12px 0 16px; }
+.hero-wire .lede { font-family: var(--serif); font-size: 22px; font-style: italic;
+  line-height: 1.4; max-width: 720px; color: var(--ink); margin: 16px 0 0; }
+.archive-nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  margin-top: 24px; }
+.archive-nav a { color: var(--ink); border-bottom: 1px dotted currentColor; }
+
+.dept { padding: 32px 0; }
+.dept-head { display: flex; gap: 24px; align-items: baseline; padding-bottom: 16px; }
+.dept-head .roman { font-family: var(--serif); font-size: 32px; color: var(--gold); }
+.dept-head .label { font-family: var(--sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; }
+.dept-head .meta { font-family: var(--sans); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.16em; text-transform: uppercase; }
+
+.wire-table { width: 100%; border-collapse: collapse; font-family: var(--sans);
+  font-size: 14px; }
+.wire-table th { text-align: left; padding: 12px 16px 12px 0; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; font-size: 11px;
+  color: var(--muted); border-bottom: 1px solid var(--rule); }
+.wire-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top; }
+.wire-table td.when { color: var(--muted); font-variant-numeric: tabular-nums;
+  white-space: nowrap; width: 92px; }
+.wire-table td.program { font-weight: 700; width: 168px; }
+.wire-table td.program a { border-bottom: 1px dotted currentColor; }
+.wire-table td.action { width: 240px; }
+.wire-table td.why { font-family: var(--serif); font-size: 16px; line-height: 1.4;
+  color: var(--ink); }
+.wire-table td.why .hist-comp { display: block; margin-top: 4px;
+  color: var(--muted); font-size: 14px; font-style: italic; }
+.wire-table td.impact { width: 132px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; font-size: 11px; }
+.wire-table td.impact.amber { color: var(--amber); }
+.wire-table td.impact.muted { color: var(--muted); }
+.wire-table td.impact.green { color: var(--green); }
+.wire-table td.impact.red   { color: var(--red); }
+
+.archive-list { list-style: none; padding: 0; margin: 0; columns: 2;
+  font-family: var(--sans); font-size: 14px; }
+.archive-list li { padding: 8px 0; }
+.archive-list a { border-bottom: 1px dotted currentColor; }
+
+.footer { padding: 64px 0 48px; }
+
+@media (max-width: 720px) {
+  .hero { padding: 48px 0 24px; }
+  .hero-wire .roman-big { font-size: 44px; }
+  .hero-wire .lede { font-size: 18px; }
+  .wire-table { font-size: 13px; }
+  .wire-table td.action { width: auto; }
+  .wire-table td.program { width: 110px; }
+  .wire-table td.when { width: 64px; }
+  .wire-table td.why { font-size: 15px; }
+}
+</style>
+</head><body>
+<div class="page">
+  <div class="chrome">
+    <span><a href="/">CFB INDEX</a></span>
+    <span><a href="/wire/">Back to Wire</a></span>
+  </div>
+  <div class="brand-row">
+    <div class="brand">CFB <span class="slash">/</span> INDEX</div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/wire/">Wire</a>
+    </nav>
+  </div>
+  <hr class="rule">
+  <header class="hero hero-wire">
+    <div class="eyebrow">WIRE ARCHIVE</div>
+    <h1 class="roman-big">April 2026</h1>
+    <p class="lede">16 entries from April 2026. Every move, captioned.</p>
+    <p class="archive-nav"><a href="/wire/archive/2026-03.html">← March 2026</a> &nbsp; <a href="/wire/archive/2026-05.html">May 2026 →</a></p>
+  </header>
+  <hr class="rule soft">
+  <section class="dept">
+    <table class="wire-table">
+      <thead>
+        <tr><th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th></tr>
+      </thead>
+      <tbody><tr><td class="when">Apr 30</td><td class="program"><a href="/teams/north-carolina.html">North Carolina</a></td><td class="action">Five-star OT Zach Rice commits 2022</td><td class="why">North Carolina: Five-star OT Zach Rice commits 2022.</td><td class="impact amber">MOVES ACC</td></tr>
+<tr><td class="when">Apr 29</td><td class="program"><a href="/teams/middle-tennessee.html">Middle Tennessee</a></td><td class="action">IOL Brennan Smith transfer commits from Mississippi State</td><td class="why">Middle Tennessee: IOL Brennan Smith transfer commits from Mississippi State.</td><td class="impact red">WATCH</td></tr>
+<tr><td class="when">Apr 28</td><td class="program"><a href="/teams/texas-aandm.html">Texas A&amp;M</a></td><td class="action">Five-star PRO Kyle Allen commits 2014</td><td class="why">Texas A&amp;M: Five-star PRO Kyle Allen commits 2014.</td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Apr 27</td><td class="program"><a href="/teams/usc.html">USC</a></td><td class="action">Five-star DL Korey Foreman commits 2021</td><td class="why">USC: Five-star DL Korey Foreman commits 2021.</td><td class="impact amber">MOVES BIG TEN</td></tr>
+<tr><td class="when">Apr 27</td><td class="program"><a href="/teams/georgia.html">Georgia</a></td><td class="action">Five-star LB Justin Williams commits 2024</td><td class="why">Georgia: Five-star LB Justin Williams commits 2024.</td><td class="impact amber">MOVES SEC</td></tr>
+<tr><td class="when">Apr 27</td><td class="program"><a href="/teams/ohio-state.html">Ohio State</a></td><td class="action">Five-star DL J.T. Tuimoloau commits 2021</td><td class="why">Ohio State: Five-star DL J.T. Tuimoloau commits 2021.</td><td class="impact amber">MOVES BIG TEN</td></tr>
+<tr><td class="when">Apr 25</td><td class="program"><a href="/teams/mississippi-state.html">Mississippi State</a></td><td class="action">S Terrance Love transfer commits from Colorado</td><td class="why">Mississippi State: S Terrance Love transfer commits from Colorado.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Apr 25</td><td class="program"><a href="/teams/mississippi-state.html">Mississippi State</a></td><td class="action">IOL Jamari Freeman transfer commits from Mercer</td><td class="why">Mississippi State: IOL Jamari Freeman transfer commits from Mercer.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Apr 24</td><td class="program"><a href="/teams/oklahoma.html">Oklahoma</a></td><td class="action">Five-star WR Jadon Haselwood commits 2019</td><td class="why">Oklahoma: Five-star WR Jadon Haselwood commits 2019.</td><td class="impact amber">MOVES SEC</td></tr>
+<tr><td class="when">Apr 23</td><td class="program"><a href="/teams/east-carolina.html">East Carolina</a></td><td class="action">IOL Niko Paic transfer commits from Valparaiso</td><td class="why">FCS interior body — ECU keeps stacking developmental linemen, the kind of move that compounds over years.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Apr 22</td><td class="program"><a href="/teams/clemson.html">Clemson</a></td><td class="action">Five-star PRO DJ Uiagalelei commits 2020</td><td class="why">Clemson: Five-star PRO DJ Uiagalelei commits 2020.</td><td class="impact amber">MOVES ACC</td></tr>
+<tr><td class="when">Apr 21</td><td class="program"><a href="/teams/georgia.html">Georgia</a></td><td class="action">Five-star OG Jamaree Salyer commits 2018</td><td class="why">Georgia: Five-star OG Jamaree Salyer commits 2018.</td><td class="impact amber">MOVES SEC</td></tr>
+<tr><td class="when">Apr 17</td><td class="program"><a href="/teams/texas.html">Texas</a></td><td class="action">CB Nick Hudson transfer commits from Brown</td><td class="why">Ivy League cornerback to Texas — graduate transfer with three years of Patriot League starts.<span class="hist-comp">Texas mining the Ivy is unusual; Sark&#x27;s defensive staff is reading the market differently than peers.</span></td><td class="impact amber">MAJOR</td></tr>
+<tr><td class="when">Apr 16</td><td class="program"><a href="/teams/texas.html">Texas</a></td><td class="action">LB Darius Snow transfer commits from Michigan State</td><td class="why">Big Ten linebacker to the SEC — Snow is the kind of veteran piece that decides November games.</td><td class="impact amber">MOVES SEC</td></tr>
+<tr><td class="when">Apr 7</td><td class="program"><a href="/teams/marshall.html">Marshall</a></td><td class="action">RB Josiah McLaurin transfer commits from Maryland</td><td class="why">Big Ten running back to the Sun Belt — McLaurin&#x27;s carries vanished in College Park, gets a feature look here.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">Apr 5</td><td class="program"><a href="/teams/oregon-state.html">Oregon State</a></td><td class="action">OT Broderick Shull transfer commits from Auburn</td><td class="why">SEC tackle drops to PNW — Beavers&#x27; line was the offseason&#x27;s biggest open question.</td><td class="impact red">WATCH</td></tr></tbody>
+    </table>
+  </section>
+  <footer class="footer">
+    <hr class="rule soft">
+    <p class="eyebrow muted">CFB INDEX · 2026-05-12 03:56 UTC</p>
+  </footer>
+</div>
+</body></html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2018 Big Ten Championship · Ohio State 45, Northwestern 24 · #43 · The 50 Most Defining Games of the CFP Era · The Canon</title>
+<meta name="description" content="Meyer&#x27;s last conference championship and the Haskins-499-yard passing performance that capped the Buckeye single-season passing record.">
+<style>/* The Canon — design tokens (mirrors team_pages/assets/tokens.css ethos:
+ * dark-mode default, Inter Display + serif editorial pairing, OKLCH
+ * percentile ramp, 44px touch targets). Self-contained — every page
+ * inlines this stylesheet so no external asset fetch is needed.
+ */
+
+:root {
+  /* color */
+  --bg-0:       #0b0d12;
+  --bg-1:       #12151d;
+  --bg-card:    #171b24;
+  --bg-card-2:  #1e2330;
+  --fg-0:       #f5f6fa;
+  --fg-1:       #c6cad6;
+  --fg-2:       #8a90a1;
+  --fg-3:       #5c6172;
+  --line:       rgba(255, 255, 255, 0.08);
+  --line-2:     rgba(255, 255, 255, 0.05);
+  --accent:     #c5b358;          /* canonical gold */
+  --accent-2:   #084c24;
+  --tone-up:    #3ea073;
+  --tone-down:  #c04a4a;
+  --tone-flat:  #8a90a1;
+  --tone-new:   #c5b358;
+
+  /* type */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif:   "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono:    "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  /* size scale */
+  --fs-eyebrow:    11px;
+  --fs-label:      12px;
+  --fs-body:       16px;
+  --fs-body-lg:    18px;
+  --fs-h3:         22px;
+  --fs-h2:         clamp(24px, 2vw + 12px, 34px);
+  --fs-h1:         clamp(34px, 4vw + 16px, 64px);
+  --fs-rank-xl:    clamp(54px, 6vw + 18px, 96px);
+
+  /* spacing */
+  --gap-1:  4px;
+  --gap-2:  8px;
+  --gap-3:  12px;
+  --gap-4:  16px;
+  --gap-5:  24px;
+  --gap-6:  32px;
+  --gap-7:  48px;
+  --gap-8:  64px;
+
+  /* radius */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+a:hover { color: var(--fg-0); }
+
+/* ----- masthead ---------- */
+.canon-masthead {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.canon-masthead__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-4) var(--gap-5);
+  display: flex; align-items: center; gap: var(--gap-6);
+}
+.canon-masthead__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--fg-0);
+}
+.canon-masthead__nav { display: flex; gap: var(--gap-5); margin-left: auto; }
+.canon-masthead__nav a {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-masthead__nav a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ----- main wrap ---------- */
+.canon-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--gap-6) var(--gap-5) var(--gap-8);
+}
+
+/* ----- index hero & list grid ---------- */
+.canon-hero { margin: var(--gap-7) 0 var(--gap-6); }
+.canon-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0;
+}
+
+.canon-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-5);
+  margin: var(--gap-7) 0;
+}
+@media (min-width: 720px) {
+  .canon-list-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.canon-list-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--gap-5);
+  display: flex; flex-direction: column;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.canon-list-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.canon-list-card__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-card__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.18;
+  margin: 0 0 var(--gap-3);
+  color: var(--fg-0);
+}
+.canon-list-card__dek {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-4);
+  flex: 1;
+}
+.canon-list-card__meta {
+  font-size: 12px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; gap: var(--gap-3);
+}
+
+/* ----- list-page hero ---------- */
+.canon-list-hero { margin: var(--gap-6) 0; }
+.canon-list-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-list-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0 0 var(--gap-4);
+}
+.canon-list-hero__meta {
+  font-size: 13px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-3);
+}
+.canon-list-hero__meta-divider { color: var(--fg-3); }
+
+/* ----- stat strip ---------- */
+.canon-stat-strip {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  margin: var(--gap-5) 0 var(--gap-6);
+}
+.canon-stat-strip__inner { padding: var(--gap-4) var(--gap-5); }
+.canon-stat-strip__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-4);
+  margin: 0;
+}
+@media (min-width: 720px) {
+  .canon-stat-strip__items { grid-template-columns: repeat(4, 1fr); }
+}
+.canon-stat-strip__item dt {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-stat-strip__item dd {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--fg-0);
+  letter-spacing: -0.01em;
+}
+
+/* ----- top entries (ranks 1-N with full editorial paragraphs) ---------- */
+.canon-top-entries { margin: var(--gap-6) 0; }
+.canon-top-entry {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--gap-5);
+  padding: var(--gap-6) 0;
+  border-top: 1px solid var(--line);
+}
+.canon-top-entry:first-child { border-top: none; }
+.canon-top-entry__rank {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+.canon-top-entry__body { display: flex; flex-direction: column; gap: var(--gap-3); }
+.canon-top-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+  margin: 0;
+  color: var(--fg-0);
+}
+.canon-top-entry__title a { color: inherit; }
+.canon-top-entry__title a:hover { color: var(--accent); }
+.canon-top-entry__chips {
+  display: flex; flex-wrap: wrap; gap: var(--gap-2);
+}
+.canon-chip {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-1);
+  font-weight: 500;
+}
+.canon-chip--era { color: var(--accent); }
+.canon-top-entry__statline {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+.canon-top-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* mini-viz: stat-vs-casual rank divergence */
+.canon-mini-viz {
+  display: flex; align-items: center; gap: var(--gap-3);
+  margin: var(--gap-2) 0 0;
+  padding: var(--gap-3) var(--gap-4);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-mini-viz__label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+}
+.canon-mini-viz__rank {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+.canon-mini-viz__rank--stat { color: #5a9dd1; }
+.canon-mini-viz__rank--casual { color: #d9845e; }
+.canon-mini-viz__divider { color: var(--fg-3); font-family: var(--font-mono); }
+.canon-mini-viz__verdict {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+}
+.canon-mini-viz__verdict--consensus { background: rgba(62,160,115,0.15); color: var(--tone-up); }
+.canon-mini-viz__verdict--slight    { background: rgba(217,165,94,0.15); color: #d9a55e; }
+.canon-mini-viz__verdict--wide      { background: rgba(192,74,74,0.15);  color: var(--tone-down); }
+
+.canon-rank-delta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-2);
+}
+.canon-rank-delta--up   { color: var(--tone-up); }
+.canon-rank-delta--down { color: var(--tone-down); }
+.canon-rank-delta--flat { color: var(--tone-flat); }
+.canon-rank-delta--new  { color: var(--tone-new); }
+
+/* ----- mid entries (ranks 6-25 compact rows) ---------- */
+.canon-mid-entries { margin: var(--gap-7) 0; }
+.canon-mid-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-mid-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; flex-direction: column;
+}
+.canon-mid-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: var(--gap-4);
+  align-items: center;
+  padding: var(--gap-4) 0;
+  border-top: 1px solid var(--line-2);
+}
+.canon-mid-entry:first-child { border-top: 1px solid var(--line); }
+.canon-mid-entry__rank {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--fg-2);
+  letter-spacing: -0.02em;
+}
+.canon-mid-entry__body { display: flex; flex-direction: column; gap: var(--gap-1); }
+.canon-mid-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  margin: 0;
+  font-weight: 500;
+}
+.canon-mid-entry__title a { color: var(--fg-0); }
+.canon-mid-entry__title a:hover { color: var(--accent); }
+.canon-mid-entry__summary {
+  font-size: 14px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- footer entries (ranks 26-100 compact list) ---------- */
+.canon-footer-entries { margin: var(--gap-7) 0; }
+.canon-footer-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-footer-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.canon-footer-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--gap-4);
+  align-items: baseline;
+  padding: var(--gap-3) 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.canon-footer-entry__rank {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.canon-footer-entry__line {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-footer-entry__line a { color: var(--fg-0); font-weight: 500; }
+.canon-footer-entry__line a:hover { color: var(--accent); }
+.canon-footer-entry__line--summary { color: var(--fg-2); }
+
+/* ----- receipts panel ---------- */
+.canon-receipts {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.canon-receipts__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-receipts__body {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-3);
+}
+.canon-receipts__legend {
+  display: inline-flex; flex-wrap: wrap; gap: var(--gap-3);
+  margin-left: var(--gap-3);
+  align-items: center;
+  font-size: 12px;
+  color: var(--fg-2);
+}
+.canon-receipts__chip {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--r-sm);
+  margin-right: 2px;
+}
+.canon-receipts__chip--up   { color: var(--tone-up); background: rgba(62,160,115,0.15); }
+.canon-receipts__chip--down { color: var(--tone-down); background: rgba(192,74,74,0.15); }
+.canon-receipts__chip--flat { color: var(--tone-flat); background: rgba(138,144,161,0.10); }
+.canon-receipts__chip--new  { color: var(--tone-new); background: rgba(197,179,88,0.15); }
+.canon-receipts__note {
+  font-size: 12px;
+  color: var(--fg-2);
+  margin: var(--gap-3) 0 0;
+}
+
+/* ----- methodology block (list page + index) ---------- */
+.canon-methodology {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  border-top: 1px solid var(--line);
+}
+.canon-methodology__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-methodology__body {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+  max-width: 70ch;
+}
+
+/* ----- footer ---------- */
+.canon-footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-1);
+  margin-top: var(--gap-8);
+}
+.canon-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-5);
+}
+.canon-footer__line {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- per-entry page ---------- */
+.canon-breadcrumb {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: var(--gap-4) 0 var(--gap-5);
+  display: flex; flex-wrap: wrap; gap: var(--gap-2); align-items: center;
+}
+.canon-breadcrumb__sep { color: var(--fg-3); }
+
+.canon-entry { display: flex; flex-direction: column; gap: var(--gap-6); }
+.canon-entry__header {
+  padding: var(--gap-6) 0;
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: var(--gap-3);
+}
+.canon-entry__rank-badge {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.canon-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.canon-entry__summary {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__statline {
+  padding: var(--gap-4) var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__statline-text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-0);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 64ch;
+}
+
+.canon-entry__cohort, .canon-entry__delta {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-entry__cohort-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-4);
+}
+.canon-entry__cohort-item--span { grid-column: 1 / -1; }
+.canon-entry__cohort-label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-entry__cohort-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.canon-entry__cohort-value--consensus       { color: var(--tone-up); }
+.canon-entry__cohort-value--slight-divergence { color: #d9a55e; }
+.canon-entry__cohort-value--wide-divergence { color: var(--tone-down); }
+
+.canon-entry__delta-text {
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__cross-references {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__cross-references ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--gap-2);
+}
+.canon-entry__cross-references li {
+  font-size: 14px; color: var(--fg-1);
+}
+</style>
+</head>
+<body class="canon-page canon-entry-page">
+<header class="canon-masthead">
+  <div class="canon-masthead__inner">
+    <a class="canon-masthead__brand" href="/">CFB Index</a>
+    <nav class="canon-masthead__nav" aria-label="primary">
+      <a href="/teams/">Teams</a>
+      <a href="/canon/">The Canon</a>
+    </nav>
+  </div>
+</header>
+
+<main class="canon-main">
+  <nav class="canon-breadcrumb" aria-label="breadcrumb">
+    <a href="/canon/">The Canon</a>
+    <span class="canon-breadcrumb__sep" aria-hidden="true">›</span>
+    <a href="/canon/the-50-most-defining-games-cfp-era.html">The 50 Most Defining Games of the CFP Era</a>
+    <span class="canon-breadcrumb__sep" aria-hidden="true">›</span>
+    <span aria-current="page">#43 2018 Big Ten Championship · Ohio State 45, Northwestern 24</span>
+  </nav>
+
+  <article class="canon-entry">
+    <header class="canon-entry__header">
+      <p class="canon-entry__rank-badge">#43</p>
+      <h1 class="canon-entry__title">2018 Big Ten Championship · Ohio State 45, Northwestern 24</h1>
+      <span class="canon-chip canon-chip--program">Ohio State vs. Northwestern</span>
+      <span class="canon-chip canon-chip--era">December 1, 2018</span>
+      <p class="canon-entry__summary">Meyer&#x27;s last conference championship and the Haskins-499-yard passing performance that capped the Buckeye single-season passing record.</p>
+    </header>
+
+    <section class="canon-entry__statline" aria-label="Statline">
+      <p class="canon-entry__statline-text">Haskins 499 pass · OSU 12-1 · Meyer&#x27;s last conf title</p>
+    </section>
+
+    
+
+    <section class="canon-entry__cohort" aria-label="Cohort divergence">
+      <h2 class="canon-entry__section-title">Cohort divergence</h2>
+      <div class="canon-entry__cohort-grid">
+        <div class="canon-entry__cohort-item">
+          <p class="canon-entry__cohort-label">Stat-folks rank</p>
+          <p class="canon-entry__cohort-value">#43</p>
+        </div>
+        <div class="canon-entry__cohort-item">
+          <p class="canon-entry__cohort-label">Casual-fans rank</p>
+          <p class="canon-entry__cohort-value">#43</p>
+        </div>
+        <div class="canon-entry__cohort-item canon-entry__cohort-item--span">
+          <p class="canon-entry__cohort-label">Read</p>
+          <p class="canon-entry__cohort-value canon-entry__cohort-value--consensus">consensus</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="canon-entry__delta" aria-label="Year-over-year delta">
+      <h2 class="canon-entry__section-title">Year-over-year</h2>
+      <p class="canon-entry__delta-text">
+        Prior edition rank: <strong>—</strong> ·
+        Movement: <strong>↑ NEW</strong>
+      </p>
+    </section>
+
+    <section class="canon-entry__cross-references" aria-label="Cross-references"><h2 class="canon-entry__section-title">Related</h2><ul><li><a href="/canon/the-50-most-defining-games-cfp-era.html">Back to The 50 Most Defining Games of the CFP Era →</a></li></ul></section>
+  </article>
+</main>
+
+<footer class="canon-footer">
+  <div class="canon-footer__inner">
+    <p class="canon-footer__line">
+      The Canon is published annually by CFB Index. Next revision: 2027.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

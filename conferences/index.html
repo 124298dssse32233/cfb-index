@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2025 Season Conferences</title>
+    <link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/alpine.min.js" defer></script>
+  </head>
+  <body>
+    <main class="site-shell" id="main-content">
+      <a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../about-model/index.html">The Model</a><a class="nav-link is-current" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a><a class="nav-link" href="../methodology/fan-intelligence.html">Methodology</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+      <section class="hero">
+        <p class="eyebrow">Conferences</p>
+        <h1>The sport gets more interesting when leagues have identity.</h1>
+        <p class="lede">
+          Conference pages turn the board from a list of teams into a map of ecosystems: top-end strength, week-to-week density, and who actually drives each league.
+          The current local load covers 72 active conferences.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Conference Spotlight</h2>
+            <p class="section-note">The main sort is now round-robin strength: the neutral-field rating a hypothetical team would need to go .500 through that league.</p>
+          </div>
+        </div>
+        <div class="conference-card-grid">
+          
+            <a class="conference-card" href="fbs-sec.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>SEC</h3>
+              <p class="conference-note">SEC carries real selection-room weight with 5 teams inside the top 25 and Ole Miss driving a legitimate national ceiling.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+14.5</strong></span>
+                <span>Upper Strength <strong>+16.9</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Ole Miss</strong></span>
+                <span>Best Resume <strong>Ole Miss</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-big-ten.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>Big Ten</h3>
+              <p class="conference-note">Big Ten carries real selection-room weight with 6 teams inside the top 25 and Indiana driving a legitimate national ceiling.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+14.1</strong></span>
+                <span>Upper Strength <strong>+18.1</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Indiana</strong></span>
+                <span>Best Resume <strong>Indiana</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-acc.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>ACC</h3>
+              <p class="conference-note">ACC has real upper-tier density. The top of the board raises the conference ceiling without the rest of the league completely falling away.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+13.4</strong></span>
+                <span>Upper Strength <strong>+16.3</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Miami</strong></span>
+                <span>Best Resume <strong>Miami</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-big-12.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>Big 12</h3>
+              <p class="conference-note">Big 12 has real upper-tier density. The top of the board raises the conference ceiling without the rest of the league completely falling away.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+13.3</strong></span>
+                <span>Upper Strength <strong>+16.3</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Texas Tech</strong></span>
+                <span>Best Resume <strong>BYU</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-american-athletic.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>American Athletic</h3>
+              <p class="conference-note">American Athletic is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+12.3</strong></span>
+                <span>Upper Strength <strong>+15.9</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>UTSA</strong></span>
+                <span>Best Resume <strong>North Texas</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-sun-belt.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>Sun Belt</h3>
+              <p class="conference-note">Sun Belt is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+11.9</strong></span>
+                <span>Upper Strength <strong>+15.2</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>James Madison</strong></span>
+                <span>Best Resume <strong>James Madison</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-mountain-west.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>Mountain West</h3>
+              <p class="conference-note">Mountain West is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+11.5</strong></span>
+                <span>Upper Strength <strong>+13.9</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Fresno State</strong></span>
+                <span>Best Resume <strong>UNLV</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-mid-american.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>Mid-American</h3>
+              <p class="conference-note">Mid-American is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+10.8</strong></span>
+                <span>Upper Strength <strong>+14.1</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Toledo</strong></span>
+                <span>Best Resume <strong>Western Michigan</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fbs-conference-usa.html">
+              <span class="conference-level pill level-FBS">FBS</span>
+              <h3>Conference USA</h3>
+              <p class="conference-note">Conference USA reads like a weekly gauntlet. The middle of the league is strong enough that contenders do not get many breathers.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+10.8</strong></span>
+                <span>Upper Strength <strong>+12.9</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Jacksonville State</strong></span>
+                <span>Best Resume <strong>Kennesaw State</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fcs-mvfc.html">
+              <span class="conference-level pill level-FCS">FCS</span>
+              <h3>MVFC</h3>
+              <p class="conference-note">MVFC is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+9.8</strong></span>
+                <span>Upper Strength <strong>+12.9</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>North Dakota State</strong></span>
+                <span>Best Resume <strong>North Dakota State</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fcs-big-sky.html">
+              <span class="conference-level pill level-FCS">FCS</span>
+              <h3>Big Sky</h3>
+              <p class="conference-note">Big Sky is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+9.5</strong></span>
+                <span>Upper Strength <strong>+12.3</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Montana State</strong></span>
+                <span>Best Resume <strong>Montana State</strong></span>
+              </div>
+            </a>
+            
+            <a class="conference-card" href="fcs-uac.html">
+              <span class="conference-level pill level-FCS">FCS</span>
+              <h3>UAC</h3>
+              <p class="conference-note">UAC is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+              <div class="conference-stat-line">
+                <span>RR50 <strong>+9.3</strong></span>
+                <span>Upper Strength <strong>+11.9</strong></span>
+              </div>
+              <div class="conference-stat-line">
+                <span>Top Team <strong>Tarleton State</strong></span>
+                <span>Best Resume <strong>Tarleton State</strong></span>
+              </div>
+            </a>
+            
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>All Conferences</h2>
+            <p class="section-note">Sorted by KenPom-style `RR50` strength first, then by middle-class power and upper-tier quality. Very small affiliations are lightly regressed toward their subdivision baseline so one-team groups do not break the board.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Conference</th>
+                <th>Level</th>
+                <th>Teams</th>
+                <th>RR50</th>
+                <th>Upper Strength</th>
+                <th>Median Power</th>
+                <th>Resume Pulse</th>
+                <th>Top Team</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+    <tr>
+      <td><a class="team-link" href="fbs-sec.html">SEC</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">16</td>
+      <td class="metric-cell">2.30</td>
+      <td class="metric-cell">4.63</td>
+      <td class="metric-cell">2.10</td>
+      <td class="metric-cell">86.2</td>
+      <td><a class="text-link" href="../teams/ole-miss.html">Ole Miss</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-big-ten.html">Big Ten</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">18</td>
+      <td class="metric-cell">1.88</td>
+      <td class="metric-cell">5.84</td>
+      <td class="metric-cell">1.50</td>
+      <td class="metric-cell">80.9</td>
+      <td><a class="text-link" href="../teams/indiana.html">Indiana</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-fbs-independents.html">FBS Independents</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">2</td>
+      <td class="metric-cell">1.51</td>
+      <td class="metric-cell">5.19</td>
+      <td class="metric-cell">1.44</td>
+      <td class="metric-cell">92.9</td>
+      <td><a class="text-link" href="../teams/notre-dame.html">Notre Dame</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-acc.html">ACC</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">17</td>
+      <td class="metric-cell">1.13</td>
+      <td class="metric-cell">4.04</td>
+      <td class="metric-cell">1.31</td>
+      <td class="metric-cell">77.5</td>
+      <td><a class="text-link" href="../teams/miami.html">Miami</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-big-12.html">Big 12</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">16</td>
+      <td class="metric-cell">1.08</td>
+      <td class="metric-cell">4.06</td>
+      <td class="metric-cell">1.28</td>
+      <td class="metric-cell">79.7</td>
+      <td><a class="text-link" href="../teams/texas-tech.html">Texas Tech</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-american-athletic.html">American Athletic</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">14</td>
+      <td class="metric-cell">0.12</td>
+      <td class="metric-cell">3.64</td>
+      <td class="metric-cell">0.68</td>
+      <td class="metric-cell">72.1</td>
+      <td><a class="text-link" href="../teams/utsa.html">UTSA</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-pac-12.html">Pac-12</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">2</td>
+      <td class="metric-cell">-0.14</td>
+      <td class="metric-cell">2.78</td>
+      <td class="metric-cell">-0.21</td>
+      <td class="metric-cell">55.9</td>
+      <td><a class="text-link" href="../teams/washington-state.html">Washington State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-sun-belt.html">Sun Belt</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">14</td>
+      <td class="metric-cell">-0.32</td>
+      <td class="metric-cell">3.01</td>
+      <td class="metric-cell">-1.28</td>
+      <td class="metric-cell">66.8</td>
+      <td><a class="text-link" href="../teams/james-madison.html">James Madison</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-mountain-west.html">Mountain West</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">12</td>
+      <td class="metric-cell">-0.74</td>
+      <td class="metric-cell">1.69</td>
+      <td class="metric-cell">-1.15</td>
+      <td class="metric-cell">67.2</td>
+      <td><a class="text-link" href="../teams/fresno-state.html">Fresno State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-mid-american.html">Mid-American</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">13</td>
+      <td class="metric-cell">-1.39</td>
+      <td class="metric-cell">1.91</td>
+      <td class="metric-cell">-1.97</td>
+      <td class="metric-cell">57.7</td>
+      <td><a class="text-link" href="../teams/toledo.html">Toledo</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fbs-conference-usa.html">Conference USA</a></td>
+      <td><span class="pill level-FBS">FBS</span></td>
+      <td class="metric-cell">12</td>
+      <td class="metric-cell">-1.43</td>
+      <td class="metric-cell">0.69</td>
+      <td class="metric-cell">-1.50</td>
+      <td class="metric-cell">62.2</td>
+      <td><a class="text-link" href="../teams/jacksonville-state.html">Jacksonville State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-mvfc.html">MVFC</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-2.39</td>
+      <td class="metric-cell">0.70</td>
+      <td class="metric-cell">-1.35</td>
+      <td class="metric-cell">69.6</td>
+      <td><a class="text-link" href="../teams/north-dakota-state.html">North Dakota State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-big-sky.html">Big Sky</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">12</td>
+      <td class="metric-cell">-2.72</td>
+      <td class="metric-cell">0.05</td>
+      <td class="metric-cell">-3.17</td>
+      <td class="metric-cell">61.8</td>
+      <td><a class="text-link" href="../teams/montana-state.html">Montana State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-uac.html">UAC</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-2.94</td>
+      <td class="metric-cell">-0.35</td>
+      <td class="metric-cell">-3.09</td>
+      <td class="metric-cell">62.5</td>
+      <td><a class="text-link" href="../teams/tarleton-state.html">Tarleton State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-southland.html">Southland</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-3.50</td>
+      <td class="metric-cell">-0.59</td>
+      <td class="metric-cell">-3.37</td>
+      <td class="metric-cell">55.6</td>
+      <td><a class="text-link" href="../teams/stephen-f-austin.html">Stephen F. Austin</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-meac.html">MEAC</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">6</td>
+      <td class="metric-cell">-3.53</td>
+      <td class="metric-cell">-1.34</td>
+      <td class="metric-cell">-3.38</td>
+      <td class="metric-cell">58.1</td>
+      <td><a class="text-link" href="../teams/north-carolina-central.html">North Carolina Central</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-swac.html">SWAC</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">12</td>
+      <td class="metric-cell">-3.62</td>
+      <td class="metric-cell">-0.84</td>
+      <td class="metric-cell">-3.91</td>
+      <td class="metric-cell">51.2</td>
+      <td><a class="text-link" href="../teams/alabama-state.html">Alabama State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-caa.html">CAA</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">14</td>
+      <td class="metric-cell">-3.86</td>
+      <td class="metric-cell">-1.49</td>
+      <td class="metric-cell">-3.02</td>
+      <td class="metric-cell">56.9</td>
+      <td><a class="text-link" href="../teams/rhode-island.html">Rhode Island</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-fcs-independents.html">FCS Independents</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">2</td>
+      <td class="metric-cell">-3.94</td>
+      <td class="metric-cell">-2.05</td>
+      <td class="metric-cell">-3.81</td>
+      <td class="metric-cell">49.1</td>
+      <td><a class="text-link" href="../teams/sacred-heart.html">Sacred Heart</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-southern.html">Southern</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-3.99</td>
+      <td class="metric-cell">-1.74</td>
+      <td class="metric-cell">-3.75</td>
+      <td class="metric-cell">51.2</td>
+      <td><a class="text-link" href="../teams/mercer.html">Mercer</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-big-south-ovc.html">Big South-OVC</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-4.18</td>
+      <td class="metric-cell">-2.05</td>
+      <td class="metric-cell">-4.83</td>
+      <td class="metric-cell">47.1</td>
+      <td><a class="text-link" href="../teams/tennessee-tech.html">Tennessee Tech</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-pioneer.html">Pioneer</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">11</td>
+      <td class="metric-cell">-4.20</td>
+      <td class="metric-cell">-1.69</td>
+      <td class="metric-cell">-3.56</td>
+      <td class="metric-cell">52.5</td>
+      <td><a class="text-link" href="../teams/presbyterian.html">Presbyterian</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-patriot.html">Patriot</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-4.23</td>
+      <td class="metric-cell">-1.87</td>
+      <td class="metric-cell">-4.24</td>
+      <td class="metric-cell">53.7</td>
+      <td><a class="text-link" href="../teams/lehigh.html">Lehigh</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-nec.html">NEC</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-4.67</td>
+      <td class="metric-cell">-2.70</td>
+      <td class="metric-cell">-5.08</td>
+      <td class="metric-cell">39.5</td>
+      <td><a class="text-link" href="../teams/central-connecticut.html">Central Connecticut</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="fcs-ivy.html">Ivy</a></td>
+      <td><span class="pill level-FCS">FCS</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-5.31</td>
+      <td class="metric-cell">-3.43</td>
+      <td class="metric-cell">-5.81</td>
+      <td class="metric-cell">58.2</td>
+      <td><a class="text-link" href="../teams/yale.html">Yale</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-siac.html">SIAC</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">13</td>
+      <td class="metric-cell">-11.84</td>
+      <td class="metric-cell">-9.73</td>
+      <td class="metric-cell">-12.45</td>
+      <td class="metric-cell">40.0</td>
+      <td><a class="text-link" href="../teams/albany-state-ga.html">Albany State GA</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-gliac.html">GLIAC</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-12.12</td>
+      <td class="metric-cell">-8.65</td>
+      <td class="metric-cell">-11.96</td>
+      <td class="metric-cell">47.9</td>
+      <td><a class="text-link" href="../teams/ferris-state.html">Ferris State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-gulf-south.html">Gulf South</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">4</td>
+      <td class="metric-cell">-12.67</td>
+      <td class="metric-cell">-10.65</td>
+      <td class="metric-cell">-12.61</td>
+      <td class="metric-cell">61.0</td>
+      <td><a class="text-link" href="../teams/valdosta-state.html">Valdosta State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-great-lakes.html">Great Lakes</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-12.96</td>
+      <td class="metric-cell">-10.16</td>
+      <td class="metric-cell">-13.88</td>
+      <td class="metric-cell">43.3</td>
+      <td><a class="text-link" href="../teams/indianapolis.html">Indianapolis</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-south-atlantic.html">South Atlantic</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-13.05</td>
+      <td class="metric-cell">-10.91</td>
+      <td class="metric-cell">-12.59</td>
+      <td class="metric-cell">49.9</td>
+      <td><a class="text-link" href="../teams/newberry.html">Newberry</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-ciaa.html">CIAA</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">11</td>
+      <td class="metric-cell">-13.11</td>
+      <td class="metric-cell">-10.90</td>
+      <td class="metric-cell">-12.63</td>
+      <td class="metric-cell">40.0</td>
+      <td><a class="text-link" href="../teams/johnson-c-smith.html">Johnson C Smith</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-lone-star.html">Lone Star</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-13.44</td>
+      <td class="metric-cell">-10.73</td>
+      <td class="metric-cell">-13.55</td>
+      <td class="metric-cell">41.4</td>
+      <td><a class="text-link" href="../teams/central-washington.html">Central Washington</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-rocky-mountain.html">Rocky Mountain</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-13.74</td>
+      <td class="metric-cell">-11.42</td>
+      <td class="metric-cell">-13.50</td>
+      <td class="metric-cell">40.3</td>
+      <td><a class="text-link" href="../teams/western-colorado.html">Western Colorado</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-northeast-10.html">Northeast 10</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-13.90</td>
+      <td class="metric-cell">-12.00</td>
+      <td class="metric-cell">-14.17</td>
+      <td class="metric-cell">36.2</td>
+      <td><a class="text-link" href="../teams/assumption.html">Assumption</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-northern-sun.html">Northern Sun</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">14</td>
+      <td class="metric-cell">-13.93</td>
+      <td class="metric-cell">-12.04</td>
+      <td class="metric-cell">-14.03</td>
+      <td class="metric-cell">41.9</td>
+      <td><a class="text-link" href="../teams/minnesota-state-mankato.html">Minnesota State Mankato</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-great-midwest-athletic.html">Great Midwest Athletic</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-14.26</td>
+      <td class="metric-cell">-12.07</td>
+      <td class="metric-cell">-14.04</td>
+      <td class="metric-cell">44.2</td>
+      <td><a class="text-link" href="../teams/ashland.html">Ashland</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-independent-dii.html">Independent DII</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">3</td>
+      <td class="metric-cell">-14.48</td>
+      <td class="metric-cell">-11.50</td>
+      <td class="metric-cell">-14.49</td>
+      <td class="metric-cell">54.8</td>
+      <td><a class="text-link" href="../teams/northeastern-state.html">Northeastern State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-carolinas.html">Carolinas</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">7</td>
+      <td class="metric-cell">-14.53</td>
+      <td class="metric-cell">-12.02</td>
+      <td class="metric-cell">-14.84</td>
+      <td class="metric-cell">28.9</td>
+      <td><a class="text-link" href="../teams/unc-pembroke.html">UNC Pembroke</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-mountain-east.html">Mountain East</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-14.75</td>
+      <td class="metric-cell">-12.86</td>
+      <td class="metric-cell">-14.94</td>
+      <td class="metric-cell">38.7</td>
+      <td><a class="text-link" href="../teams/of-charleston-wv.html">University Of Charleston (WV)</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-mid-america.html">Mid America</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-15.05</td>
+      <td class="metric-cell">-13.41</td>
+      <td class="metric-cell">-15.16</td>
+      <td class="metric-cell">37.1</td>
+      <td><a class="text-link" href="../teams/central-oklahoma.html">Central Oklahoma</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-pennsylvania-state-athletic.html">Pennsylvania State Athletic</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">15</td>
+      <td class="metric-cell">-15.94</td>
+      <td class="metric-cell">-14.18</td>
+      <td class="metric-cell">-16.22</td>
+      <td class="metric-cell">41.7</td>
+      <td><a class="text-link" href="../teams/kutztown.html">Kutztown University</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="dii-great-american.html">Great American</a></td>
+      <td><span class="pill level-DII">DII</span></td>
+      <td class="metric-cell">12</td>
+      <td class="metric-cell">-16.41</td>
+      <td class="metric-cell">-14.29</td>
+      <td class="metric-cell">-16.58</td>
+      <td class="metric-cell">40.0</td>
+      <td><a class="text-link" href="../teams/harding.html">Harding University</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-wisconsin.html">Wisconsin</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-19.13</td>
+      <td class="metric-cell">-16.17</td>
+      <td class="metric-cell">-19.21</td>
+      <td class="metric-cell">45.7</td>
+      <td><a class="text-link" href="../teams/wisconsin-river-falls.html">Wisconsin-River Falls</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-american-southwest.html">American Southwest</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">4</td>
+      <td class="metric-cell">-19.34</td>
+      <td class="metric-cell">-16.11</td>
+      <td class="metric-cell">-19.82</td>
+      <td class="metric-cell">39.8</td>
+      <td><a class="text-link" href="../teams/hardin-simmons.html">Hardin-Simmons</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-old-dominion.html">Old Dominion</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-20.40</td>
+      <td class="metric-cell">-17.68</td>
+      <td class="metric-cell">-19.97</td>
+      <td class="metric-cell">41.3</td>
+      <td><a class="text-link" href="../teams/randolph-macon.html">Randolph-Macon</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-commonwealth-coast.html">Commonwealth Coast</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">7</td>
+      <td class="metric-cell">-20.47</td>
+      <td class="metric-cell">-17.44</td>
+      <td class="metric-cell">-19.96</td>
+      <td class="metric-cell">41.1</td>
+      <td><a class="text-link" href="../teams/endicott.html">Endicott College</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-northwest.html">Northwest</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-20.87</td>
+      <td class="metric-cell">-18.07</td>
+      <td class="metric-cell">-21.24</td>
+      <td class="metric-cell">38.4</td>
+      <td><a class="text-link" href="../teams/whitworth.html">Whitworth</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-usa-south.html">USA South</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-20.89</td>
+      <td class="metric-cell">-18.25</td>
+      <td class="metric-cell">-21.74</td>
+      <td class="metric-cell">38.0</td>
+      <td><a class="text-link" href="../teams/brevard.html">Brevard College</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-michigan.html">Michigan</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-21.06</td>
+      <td class="metric-cell">-18.22</td>
+      <td class="metric-cell">-22.29</td>
+      <td class="metric-cell">45.4</td>
+      <td><a class="text-link" href="../teams/hope.html">Hope College</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-minnesota.html">Minnesota</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-21.71</td>
+      <td class="metric-cell">-18.82</td>
+      <td class="metric-cell">-21.93</td>
+      <td class="metric-cell">37.8</td>
+      <td><a class="text-link" href="../teams/bethel-mn.html">Bethel (MN)</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-midwest.html">Midwest</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-22.01</td>
+      <td class="metric-cell">-19.76</td>
+      <td class="metric-cell">-22.25</td>
+      <td class="metric-cell">38.8</td>
+      <td><a class="text-link" href="../teams/monmouth-il.html">Monmouth (IL)</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-heartland.html">Heartland</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">7</td>
+      <td class="metric-cell">-22.30</td>
+      <td class="metric-cell">-19.50</td>
+      <td class="metric-cell">-22.81</td>
+      <td class="metric-cell">29.3</td>
+      <td><a class="text-link" href="../teams/hanover.html">Hanover College</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-american-rivers.html">American Rivers</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-22.39</td>
+      <td class="metric-cell">-19.94</td>
+      <td class="metric-cell">-23.24</td>
+      <td class="metric-cell">38.9</td>
+      <td><a class="text-link" href="../teams/wartburg.html">Wartburg</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-southern-athletic.html">Southern Athletic</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-22.41</td>
+      <td class="metric-cell">-19.64</td>
+      <td class="metric-cell">-23.23</td>
+      <td class="metric-cell">44.0</td>
+      <td><a class="text-link" href="../teams/trinity-tx.html">Trinity University TX</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-newmac.html">NEWMAC</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-22.66</td>
+      <td class="metric-cell">-20.32</td>
+      <td class="metric-cell">-22.81</td>
+      <td class="metric-cell">42.7</td>
+      <td><a class="text-link" href="../teams/springfield.html">Springfield</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-southern-collegiate-athletic.html">Southern Collegiate Athletic</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">5</td>
+      <td class="metric-cell">-22.75</td>
+      <td class="metric-cell">-20.17</td>
+      <td class="metric-cell">-22.84</td>
+      <td class="metric-cell">34.7</td>
+      <td><a class="text-link" href="../teams/texas-lutheran.html">Texas Lutheran</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-mscac.html">MSCAC</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-23.05</td>
+      <td class="metric-cell">-21.25</td>
+      <td class="metric-cell">-23.08</td>
+      <td class="metric-cell">40.7</td>
+      <td><a class="text-link" href="../teams/plymouth-state.html">Plymouth State</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-cciw.html">CCIW</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-23.10</td>
+      <td class="metric-cell">-19.93</td>
+      <td class="metric-cell">-24.14</td>
+      <td class="metric-cell">38.8</td>
+      <td><a class="text-link" href="../teams/north-central.html">North Central College</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-landmark-conference.html">Landmark Conference</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">7</td>
+      <td class="metric-cell">-23.28</td>
+      <td class="metric-cell">-20.59</td>
+      <td class="metric-cell">-23.14</td>
+      <td class="metric-cell">29.9</td>
+      <td><a class="text-link" href="../teams/susquehanna.html">Susquehanna</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-so-cal.html">So. Cal.</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">6</td>
+      <td class="metric-cell">-23.44</td>
+      <td class="metric-cell">-21.25</td>
+      <td class="metric-cell">-24.00</td>
+      <td class="metric-cell">39.7</td>
+      <td><a class="text-link" href="../teams/chapman.html">Chapman</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-upper-midwest.html">Upper Midwest</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">6</td>
+      <td class="metric-cell">-23.59</td>
+      <td class="metric-cell">-22.07</td>
+      <td class="metric-cell">-23.78</td>
+      <td class="metric-cell">32.9</td>
+      <td><a class="text-link" href="../teams/greenville.html">Greenville</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-liberty-league.html">Liberty League</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">7</td>
+      <td class="metric-cell">-23.62</td>
+      <td class="metric-cell">-21.87</td>
+      <td class="metric-cell">-23.73</td>
+      <td class="metric-cell">44.7</td>
+      <td><a class="text-link" href="../teams/rensselaer.html">Rensselaer</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-centennial.html">Centennial</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">7</td>
+      <td class="metric-cell">-23.77</td>
+      <td class="metric-cell">-21.47</td>
+      <td class="metric-cell">-24.06</td>
+      <td class="metric-cell">43.0</td>
+      <td><a class="text-link" href="../teams/johns-hopkins.html">Johns Hopkins University</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-north-coast.html">North Coast</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-23.87</td>
+      <td class="metric-cell">-21.37</td>
+      <td class="metric-cell">-24.11</td>
+      <td class="metric-cell">34.1</td>
+      <td><a class="text-link" href="../teams/depauw.html">Depauw</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-ohio.html">Ohio</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-24.16</td>
+      <td class="metric-cell">-21.75</td>
+      <td class="metric-cell">-24.80</td>
+      <td class="metric-cell">44.7</td>
+      <td><a class="text-link" href="../teams/john-carroll.html">John Carroll University</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-new-jersey.html">New Jersey</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">8</td>
+      <td class="metric-cell">-24.18</td>
+      <td class="metric-cell">-21.91</td>
+      <td class="metric-cell">-25.07</td>
+      <td class="metric-cell">43.9</td>
+      <td><a class="text-link" href="../teams/salisbury.html">Salisbury</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-independent-diii.html">Independent DIII</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">2</td>
+      <td class="metric-cell">-24.45</td>
+      <td class="metric-cell">-22.25</td>
+      <td class="metric-cell">-24.96</td>
+      <td class="metric-cell">53.1</td>
+      <td><a class="text-link" href="../teams/keystone.html">Keystone</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-empire-8.html">Empire 8</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-24.47</td>
+      <td class="metric-cell">-22.60</td>
+      <td class="metric-cell">-24.94</td>
+      <td class="metric-cell">33.8</td>
+      <td><a class="text-link" href="../teams/cortland.html">Cortland</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-mid-atlantic.html">Mid Atlantic</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-24.51</td>
+      <td class="metric-cell">-22.73</td>
+      <td class="metric-cell">-24.70</td>
+      <td class="metric-cell">39.7</td>
+      <td><a class="text-link" href="../teams/delaware-valley.html">Delaware Valley</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-presidents.html">Presidents&#x27;</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">12</td>
+      <td class="metric-cell">-24.53</td>
+      <td class="metric-cell">-22.20</td>
+      <td class="metric-cell">-25.31</td>
+      <td class="metric-cell">38.2</td>
+      <td><a class="text-link" href="../teams/washington-and-jefferson.html">Washington &amp; Jefferson</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-nacc.html">NACC</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">9</td>
+      <td class="metric-cell">-24.63</td>
+      <td class="metric-cell">-22.83</td>
+      <td class="metric-cell">-24.58</td>
+      <td class="metric-cell">40.2</td>
+      <td><a class="text-link" href="../teams/aurora.html">Aurora</a></td>
+    </tr>
+    
+
+    <tr>
+      <td><a class="team-link" href="diii-nescac.html">NESCAC</a></td>
+      <td><span class="pill level-DIII">DIII</span></td>
+      <td class="metric-cell">10</td>
+      <td class="metric-cell">-25.42</td>
+      <td class="metric-cell">-24.11</td>
+      <td class="metric-cell">-25.57</td>
+      <td class="metric-cell">40.0</td>
+      <td><a class="text-link" href="../teams/trinity-ct.html">Trinity (CT)</a></td>
+    </tr>
+    
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

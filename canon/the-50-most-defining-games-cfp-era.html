@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The 50 Most Defining Games of the CFP Era · 2026 · The Canon</title>
+<meta name="description" content="Fifty games from 2014–2025 that decided more than their scoreboard. The list isn&#x27;t &#x27;most exciting&#x27; or &#x27;highest quality of play&#x27; — it&#x27;s games that changed the era&#x27;s trajectory: titles, coaching seats, conference balance, the Playoff format itself.">
+<style>/* The Canon — design tokens (mirrors team_pages/assets/tokens.css ethos:
+ * dark-mode default, Inter Display + serif editorial pairing, OKLCH
+ * percentile ramp, 44px touch targets). Self-contained — every page
+ * inlines this stylesheet so no external asset fetch is needed.
+ */
+
+:root {
+  /* color */
+  --bg-0:       #0b0d12;
+  --bg-1:       #12151d;
+  --bg-card:    #171b24;
+  --bg-card-2:  #1e2330;
+  --fg-0:       #f5f6fa;
+  --fg-1:       #c6cad6;
+  --fg-2:       #8a90a1;
+  --fg-3:       #5c6172;
+  --line:       rgba(255, 255, 255, 0.08);
+  --line-2:     rgba(255, 255, 255, 0.05);
+  --accent:     #c5b358;          /* canonical gold */
+  --accent-2:   #084c24;
+  --tone-up:    #3ea073;
+  --tone-down:  #c04a4a;
+  --tone-flat:  #8a90a1;
+  --tone-new:   #c5b358;
+
+  /* type */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif:   "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono:    "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  /* size scale */
+  --fs-eyebrow:    11px;
+  --fs-label:      12px;
+  --fs-body:       16px;
+  --fs-body-lg:    18px;
+  --fs-h3:         22px;
+  --fs-h2:         clamp(24px, 2vw + 12px, 34px);
+  --fs-h1:         clamp(34px, 4vw + 16px, 64px);
+  --fs-rank-xl:    clamp(54px, 6vw + 18px, 96px);
+
+  /* spacing */
+  --gap-1:  4px;
+  --gap-2:  8px;
+  --gap-3:  12px;
+  --gap-4:  16px;
+  --gap-5:  24px;
+  --gap-6:  32px;
+  --gap-7:  48px;
+  --gap-8:  64px;
+
+  /* radius */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+a:hover { color: var(--fg-0); }
+
+/* ----- masthead ---------- */
+.canon-masthead {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.canon-masthead__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-4) var(--gap-5);
+  display: flex; align-items: center; gap: var(--gap-6);
+}
+.canon-masthead__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--fg-0);
+}
+.canon-masthead__nav { display: flex; gap: var(--gap-5); margin-left: auto; }
+.canon-masthead__nav a {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-masthead__nav a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ----- main wrap ---------- */
+.canon-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--gap-6) var(--gap-5) var(--gap-8);
+}
+
+/* ----- index hero & list grid ---------- */
+.canon-hero { margin: var(--gap-7) 0 var(--gap-6); }
+.canon-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0;
+}
+
+.canon-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-5);
+  margin: var(--gap-7) 0;
+}
+@media (min-width: 720px) {
+  .canon-list-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.canon-list-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--gap-5);
+  display: flex; flex-direction: column;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.canon-list-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.canon-list-card__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-card__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.18;
+  margin: 0 0 var(--gap-3);
+  color: var(--fg-0);
+}
+.canon-list-card__dek {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-4);
+  flex: 1;
+}
+.canon-list-card__meta {
+  font-size: 12px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; gap: var(--gap-3);
+}
+
+/* ----- list-page hero ---------- */
+.canon-list-hero { margin: var(--gap-6) 0; }
+.canon-list-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-list-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0 0 var(--gap-4);
+}
+.canon-list-hero__meta {
+  font-size: 13px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-3);
+}
+.canon-list-hero__meta-divider { color: var(--fg-3); }
+
+/* ----- stat strip ---------- */
+.canon-stat-strip {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  margin: var(--gap-5) 0 var(--gap-6);
+}
+.canon-stat-strip__inner { padding: var(--gap-4) var(--gap-5); }
+.canon-stat-strip__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-4);
+  margin: 0;
+}
+@media (min-width: 720px) {
+  .canon-stat-strip__items { grid-template-columns: repeat(4, 1fr); }
+}
+.canon-stat-strip__item dt {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-stat-strip__item dd {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--fg-0);
+  letter-spacing: -0.01em;
+}
+
+/* ----- top entries (ranks 1-N with full editorial paragraphs) ---------- */
+.canon-top-entries { margin: var(--gap-6) 0; }
+.canon-top-entry {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--gap-5);
+  padding: var(--gap-6) 0;
+  border-top: 1px solid var(--line);
+}
+.canon-top-entry:first-child { border-top: none; }
+.canon-top-entry__rank {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+.canon-top-entry__body { display: flex; flex-direction: column; gap: var(--gap-3); }
+.canon-top-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+  margin: 0;
+  color: var(--fg-0);
+}
+.canon-top-entry__title a { color: inherit; }
+.canon-top-entry__title a:hover { color: var(--accent); }
+.canon-top-entry__chips {
+  display: flex; flex-wrap: wrap; gap: var(--gap-2);
+}
+.canon-chip {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-1);
+  font-weight: 500;
+}
+.canon-chip--era { color: var(--accent); }
+.canon-top-entry__statline {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+.canon-top-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* mini-viz: stat-vs-casual rank divergence */
+.canon-mini-viz {
+  display: flex; align-items: center; gap: var(--gap-3);
+  margin: var(--gap-2) 0 0;
+  padding: var(--gap-3) var(--gap-4);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-mini-viz__label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+}
+.canon-mini-viz__rank {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+.canon-mini-viz__rank--stat { color: #5a9dd1; }
+.canon-mini-viz__rank--casual { color: #d9845e; }
+.canon-mini-viz__divider { color: var(--fg-3); font-family: var(--font-mono); }
+.canon-mini-viz__verdict {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+}
+.canon-mini-viz__verdict--consensus { background: rgba(62,160,115,0.15); color: var(--tone-up); }
+.canon-mini-viz__verdict--slight    { background: rgba(217,165,94,0.15); color: #d9a55e; }
+.canon-mini-viz__verdict--wide      { background: rgba(192,74,74,0.15);  color: var(--tone-down); }
+
+.canon-rank-delta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-2);
+}
+.canon-rank-delta--up   { color: var(--tone-up); }
+.canon-rank-delta--down { color: var(--tone-down); }
+.canon-rank-delta--flat { color: var(--tone-flat); }
+.canon-rank-delta--new  { color: var(--tone-new); }
+
+/* ----- mid entries (ranks 6-25 compact rows) ---------- */
+.canon-mid-entries { margin: var(--gap-7) 0; }
+.canon-mid-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-mid-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; flex-direction: column;
+}
+.canon-mid-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: var(--gap-4);
+  align-items: center;
+  padding: var(--gap-4) 0;
+  border-top: 1px solid var(--line-2);
+}
+.canon-mid-entry:first-child { border-top: 1px solid var(--line); }
+.canon-mid-entry__rank {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--fg-2);
+  letter-spacing: -0.02em;
+}
+.canon-mid-entry__body { display: flex; flex-direction: column; gap: var(--gap-1); }
+.canon-mid-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  margin: 0;
+  font-weight: 500;
+}
+.canon-mid-entry__title a { color: var(--fg-0); }
+.canon-mid-entry__title a:hover { color: var(--accent); }
+.canon-mid-entry__summary {
+  font-size: 14px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- footer entries (ranks 26-100 compact list) ---------- */
+.canon-footer-entries { margin: var(--gap-7) 0; }
+.canon-footer-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-footer-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.canon-footer-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--gap-4);
+  align-items: baseline;
+  padding: var(--gap-3) 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.canon-footer-entry__rank {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.canon-footer-entry__line {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-footer-entry__line a { color: var(--fg-0); font-weight: 500; }
+.canon-footer-entry__line a:hover { color: var(--accent); }
+.canon-footer-entry__line--summary { color: var(--fg-2); }
+
+/* ----- receipts panel ---------- */
+.canon-receipts {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.canon-receipts__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-receipts__body {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-3);
+}
+.canon-receipts__legend {
+  display: inline-flex; flex-wrap: wrap; gap: var(--gap-3);
+  margin-left: var(--gap-3);
+  align-items: center;
+  font-size: 12px;
+  color: var(--fg-2);
+}
+.canon-receipts__chip {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--r-sm);
+  margin-right: 2px;
+}
+.canon-receipts__chip--up   { color: var(--tone-up); background: rgba(62,160,115,0.15); }
+.canon-receipts__chip--down { color: var(--tone-down); background: rgba(192,74,74,0.15); }
+.canon-receipts__chip--flat { color: var(--tone-flat); background: rgba(138,144,161,0.10); }
+.canon-receipts__chip--new  { color: var(--tone-new); background: rgba(197,179,88,0.15); }
+.canon-receipts__note {
+  font-size: 12px;
+  color: var(--fg-2);
+  margin: var(--gap-3) 0 0;
+}
+
+/* ----- methodology block (list page + index) ---------- */
+.canon-methodology {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  border-top: 1px solid var(--line);
+}
+.canon-methodology__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-methodology__body {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+  max-width: 70ch;
+}
+
+/* ----- footer ---------- */
+.canon-footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-1);
+  margin-top: var(--gap-8);
+}
+.canon-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-5);
+}
+.canon-footer__line {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- per-entry page ---------- */
+.canon-breadcrumb {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: var(--gap-4) 0 var(--gap-5);
+  display: flex; flex-wrap: wrap; gap: var(--gap-2); align-items: center;
+}
+.canon-breadcrumb__sep { color: var(--fg-3); }
+
+.canon-entry { display: flex; flex-direction: column; gap: var(--gap-6); }
+.canon-entry__header {
+  padding: var(--gap-6) 0;
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: var(--gap-3);
+}
+.canon-entry__rank-badge {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.canon-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.canon-entry__summary {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__statline {
+  padding: var(--gap-4) var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__statline-text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-0);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 64ch;
+}
+
+.canon-entry__cohort, .canon-entry__delta {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-entry__cohort-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-4);
+}
+.canon-entry__cohort-item--span { grid-column: 1 / -1; }
+.canon-entry__cohort-label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-entry__cohort-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.canon-entry__cohort-value--consensus       { color: var(--tone-up); }
+.canon-entry__cohort-value--slight-divergence { color: #d9a55e; }
+.canon-entry__cohort-value--wide-divergence { color: var(--tone-down); }
+
+.canon-entry__delta-text {
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__cross-references {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__cross-references ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--gap-2);
+}
+.canon-entry__cross-references li {
+  font-size: 14px; color: var(--fg-1);
+}
+</style>
+</head>
+<body class="canon-page canon-list-page">
+<header class="canon-masthead">
+  <div class="canon-masthead__inner">
+    <a class="canon-masthead__brand" href="/">CFB Index</a>
+    <nav class="canon-masthead__nav" aria-label="primary">
+      <a href="/teams/">Teams</a>
+      <a href="/canon/">The Canon</a>
+    </nav>
+  </div>
+</header>
+
+<main class="canon-main">
+  <section class="canon-list-hero">
+    <p class="canon-list-hero__eyebrow">The Canon · 2026 edition</p>
+    <h1 class="canon-list-hero__title">The 50 Most Defining Games of the CFP Era</h1>
+    <p class="canon-list-hero__dek">Fifty games from 2014–2025 that decided more than their scoreboard. The list isn&#x27;t &#x27;most exciting&#x27; or &#x27;highest quality of play&#x27; — it&#x27;s games that changed the era&#x27;s trajectory: titles, coaching seats, conference balance, the Playoff format itself.</p>
+    <div class="canon-list-hero__meta">
+      <span class="canon-list-hero__meta-item">50 entries</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Published 2026-04-25</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Next revision 2027</span>
+    </div>
+  </section>
+
+  <section class="canon-stat-strip" aria-label="Cohort-divergence summary">
+    <div class="canon-stat-strip__inner">
+      <dl class="canon-stat-strip__items">
+        <div class="canon-stat-strip__item">
+          <dt>Consensus</dt>
+          <dd>50</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Slight divergence</dt>
+          <dd>0</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Wide divergence</dt>
+          <dd>0</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Top-25 mean delta</dt>
+          <dd>— (v1 edition)</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="canon-top-entries" aria-label="Top entries">
+    <article class="canon-top-entry"><div class="canon-top-entry__rank">1</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2018-ncg-alabama-georgia.html">2018 NCG · Alabama 26, Georgia 23 (OT)</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Alabama vs. Georgia</span><span class="canon-chip canon-chip--era">January 8, 2018 · Mercedes-Benz Stadium · Atlanta</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Tua relieves Hurts at half · 2nd-and-26 to Smith for the title</p><p class="canon-top-entry__paragraph">Down 13-0 at halftime to a Kirby Smart Georgia team in Atlanta, Saban benched the starter who had taken the program to back-to-back national title games and went to Tua. The second-half line — 166 passing yards, three touchdowns, the second-and-26 deep ball to DeVonta Smith in overtime — is the founding text of the modern Alabama passing-game identity. Saban&#x27;s record after halftime Heisman-vote-worthy quarterback decisions sat at one-of-one for the rest of his Tuscaloosa career. Georgia would spend the next four seasons rebuilding the defense around the loss; Alabama would spend the next two recruiting cycles drafting receivers Tua could throw to. Every CFP-era statement about offensive arms-races in the SEC starts here.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #1</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #1</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">2</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2014-ncg-ohio-state-oregon.html">2014 NCG · Ohio State 42, Oregon 20</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Ohio State vs. Oregon</span><span class="canon-chip canon-chip--era">January 12, 2015 · AT&amp;T Stadium · Arlington</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Cardale Jones · Elliott 246 rush yds · inaugural-Playoff title</p><p class="canon-top-entry__paragraph">Cardale Jones — Ohio State&#x27;s third-string quarterback behind Braxton Miller and J.T. Barrett, both lost to injury before December — started his third career game in Arlington against Mariota&#x27;s Oregon and won the inaugural Playoff title 42-20. The Elliott line (246 rushing, four touchdowns) was the closing argument for the bracket&#x27;s legitimacy: a team that hadn&#x27;t been the obvious title-game pick in October ran through Wisconsin, Alabama, and Oregon in five weeks because the format made it possible. The four-team bracket would last another nine seasons because of this game.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #2</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #2</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">3</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2024-ncg-michigan-washington.html">2024 NCG · Michigan 34, Washington 13</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Michigan vs. Washington</span><span class="canon-chip canon-chip--era">January 8, 2024 · NRG Stadium · Houston</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Michigan 15-0 · McCarthy 140 pass yds · Edwards 2 TD · Corum 134 rush</p><p class="canon-top-entry__paragraph">Michigan finished 15-0, the first 15-win season in program history, and won the national title against the Pac-12-final-champion Washington Huskies in the four-team bracket&#x27;s farewell. Harbaugh would leave for the Chargers within weeks; Connor Stalions and the sign-stealing investigation would haunt the legacy; the actual football — Corum&#x27;s 134 yards, Edwards&#x27; two long touchdowns, McCarthy&#x27;s 140 efficient passing yards — ran on the program&#x27;s old identity. Michigan won the title with the most run-heavy script of any CFP champion, and the historical record will note that the twelve-team bracket arrived the next September.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #3</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #3</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">4</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2017-ncg-clemson-alabama.html">2016 NCG · Clemson 35, Alabama 31</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Clemson vs. Alabama</span><span class="canon-chip canon-chip--era">January 9, 2017 · Raymond James Stadium · Tampa</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Watson to Renfrow · 1 second left · Clemson&#x27;s first title since &#x27;81</p><p class="canon-top-entry__paragraph">Clemson trailed 31-28 with 2:07 to play and 68 yards to the end zone. Watson took the offense the length of the field, two-yard score to Renfrow with one second on the clock, and a national title that broke a 35-year drought for the program. Alabama was favored by 6.5; Saban was going for back-to-back titles; Swinney&#x27;s decade-long rebuild of the Clemson program crested in this hour. The two programs would meet in the next year&#x27;s title game (Alabama won), the year after&#x27;s semifinal (Alabama won), and the year after&#x27;s title game (Clemson won 44-16). No two-program-rivalry in the era produced more title-game appearances.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #4</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #4</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">5</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2024-cfp-quarter-michigan-alabama-rose.html">2024 Rose Bowl semifinal · Michigan 27, Alabama 20 (OT)</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Michigan vs. Alabama</span><span class="canon-chip canon-chip--era">January 1, 2024 · Rose Bowl · Pasadena</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Milroe stop on 4th-and-3 · Saban&#x27;s last game</p><p class="canon-top-entry__paragraph">Alabama trailed 27-20 in overtime, faced fourth-and-goal from the three, and Jalen Milroe was stopped short on a quarterback-power that the entire stadium expected and the Michigan defense had practiced for. Saban announced his retirement seven days later. The Process era — six national titles, eight Playoff appearances, the most consequential coaching tenure in college football since Bear Bryant — ended on one yard. Michigan would finish the title run a week later in Houston. Alabama would hire DeBoer the following week.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #5</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #5</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article>
+  </section>
+
+  <section class="canon-mid-entries" aria-label="Ranks 6–15">
+    <h2 class="canon-mid-entries__title">Ranks 6–15</h2>
+    <ol class="canon-mid-entries__list" start="6">
+      <li class="canon-mid-entry"><div class="canon-mid-entry__rank">6</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2019-ncg-lsu-clemson.html">2019 NCG · LSU 42, Clemson 25</a></p><p class="canon-mid-entry__summary">Burrow&#x27;s coronation, LSU 15-0, and the closing image of the most decorated single quarterback season in the modern game.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">7</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2022-ncg-georgia-tcu.html">2022 NCG · Georgia 65, TCU 7</a></p><p class="canon-mid-entry__summary">Georgia&#x27;s back-to-back title — and the largest title-game margin of victory in the modern history of the sport.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">8</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2017-iron-bowl-auburn-alabama.html">2017 Iron Bowl · Auburn 26, Alabama 14</a></p><p class="canon-mid-entry__summary">The regular-season game that should have ended Alabama&#x27;s playoff hopes — and the season that proved the committee was going to weight the SEC heavier than the math said.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">9</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2024-cfp-final-osu-notre-dame.html">2024 NCG · Ohio State 34, Notre Dame 23</a></p><p class="canon-mid-entry__summary">The first national title decided by the 12-team bracket — and the first Notre Dame appearance in a CFP final.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">10</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2018-ncg-clemson-alabama-rematch.html">2018 NCG · Clemson 44, Alabama 16</a></p><p class="canon-mid-entry__summary">The Lawrence-as-true-freshman national title — a 28-point win over Saban&#x27;s Alabama that closed the Clemson program&#x27;s back-to-back-titles era and reset the rivalry&#x27;s terms.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">11</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2018-rose-bowl-georgia-oklahoma.html">2018 Rose Bowl semifinal · Georgia 54, Oklahoma 48 (2OT)</a></p><p class="canon-mid-entry__summary">The Rose Bowl game that put Georgia in the title for the first time in 35 years — and ended Mayfield&#x27;s Heisman victory lap a quarter shy.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">12</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2021-cocktail-party-georgia-florida.html">2021 Cocktail Party · Georgia 34, Florida 7</a></p><p class="canon-mid-entry__summary">The 27-point neutral-site rout that made the 2021 Georgia regular season unbeatable — and Florida&#x27;s Mullen window unrecoverable.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">13</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2024-osu-michigan-rivalry-fight.html">2024 OSU-Michigan · Michigan 13, Ohio State 10</a></p><p class="canon-mid-entry__summary">Michigan&#x27;s fourth straight win over Ohio State — and the postgame flag-plant brawl that became the rivalry&#x27;s defining 21st-century image.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">14</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2018-ncg-alabama-georgia-revisited.html">2018 SEC Championship · Alabama 35, Georgia 28</a></p><p class="canon-mid-entry__summary">Hurts in relief of an injured Tua — and the second Atlanta-CFP-impact game that made the 2018 Alabama-Georgia rivalry the era&#x27;s most overheated.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">15</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-50-most-defining-games-cfp-era/2022-osu-michigan-the-game.html">2022 The Game · Michigan 45, Ohio State 23</a></p><p class="canon-mid-entry__summary">Michigan&#x27;s back-to-back over Ohio State at Ohio Stadium — the rivalry&#x27;s pivot from Day-era dominance to Wolverine ascendance.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li>
+    </ol>
+  </section>
+
+  <section class="canon-footer-entries" aria-label="Ranks 16–50"><h2 class="canon-footer-entries__title">Ranks 16–50</h2><ol class="canon-footer-entries__list" start="16"><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#16</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2018-iron-bowl.html">2018 Iron Bowl · Alabama 52, Auburn 21</a><span class="canon-footer-entry__line--summary"> — The 31-point Iron Bowl rout that Alabama posted on the way to the SEC title game — and the season-defining evidence that Tua&#x27;s offense was the era&#x27;s best.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#17</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2014-iron-bowl.html">2014 Iron Bowl · Alabama 55, Auburn 44</a><span class="canon-footer-entry__line--summary"> — The shootout that put Alabama in the inaugural Playoff and gave Henry the November tape that pushed his 2015 Heisman.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#18</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2018-army-oklahoma.html">2018 Army at Oklahoma · OU 28-21 (OT)</a><span class="canon-footer-entry__line--summary"> — The Army-Oklahoma overtime that nearly cost Murray a Heisman season — the regular season&#x27;s most overlooked Playoff-implication game.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#19</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2019-rose-bowl-osu-washington.html">2019 Rose Bowl · Ohio State 28, Washington 23</a><span class="canon-footer-entry__line--summary"> — Meyer&#x27;s farewell game and Haskins&#x27; Heisman-finalist exit — the closing image of the Buckeye coach who preceded Day.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#20</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2024-pac-12-final-washington-oregon.html">2024 Pac-12 final · Washington 34, Oregon 31</a><span class="canon-footer-entry__line--summary"> — The last Pac-12 Championship — and the conference&#x27;s closing argument before the Big Ten / SEC / Big-12 / ACC absorption.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#21</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2024-12-team-bracket-debut-indiana.html">2024 12-team CFP first-round · Notre Dame 27, Indiana 17</a><span class="canon-footer-entry__line--summary"> — The first game ever played in the 12-team Playoff format — Notre Dame Stadium, Cignetti&#x27;s Indiana the visiting underdog.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#22</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2017-rose-bowl-usc-penn-state.html">2017 Rose Bowl · USC 52, Penn State 49</a><span class="canon-footer-entry__line--summary"> — The 101-point Rose Bowl that announced Sam Darnold&#x27;s USC career and gave Penn State the only blemish of its 11-2 Big-Ten-title season.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#23</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2023-michigan-ohio-state-the-game.html">2023 The Game · Michigan 30, Ohio State 24</a><span class="canon-footer-entry__line--summary"> — Michigan&#x27;s third straight over Ohio State — with Harbaugh suspended and Moore as acting head coach for the win.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#24</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2025-cfp-final-osu-notre-dame-rematch-placeholder.html">2025 SEC Championship · Texas 27, Georgia 24</a><span class="canon-footer-entry__line--summary"> — Texas in its first SEC Championship after the conference move — and Ewers&#x27; last college game before declaring.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#25</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2018-cfp-semi-clemson-notre-dame.html">2018 Cotton Bowl semifinal · Clemson 30, Notre Dame 3</a><span class="canon-footer-entry__line--summary"> — The Cotton Bowl semifinal that ended Notre Dame&#x27;s perfect season and validated Lawrence&#x27;s freshman year as more than novelty.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#26</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2019-fiesta-bowl-clemson-osu.html">2019 Fiesta Bowl · Clemson 29, Ohio State 23</a><span class="canon-footer-entry__line--summary"> — The Fiesta Bowl semifinal that turned on a controversial targeting reversal — and produced one of the era&#x27;s most argued officiating sequences.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#27</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2014-sugar-bowl-osu-alabama.html">2014 Sugar Bowl semifinal · Ohio State 42, Alabama 35</a><span class="canon-footer-entry__line--summary"> — Ohio State&#x27;s Sugar Bowl semifinal upset of Alabama — and the inaugural-Playoff bracket&#x27;s first true upset by third-seed-line standards.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#28</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2023-georgia-tcu-rose-bowl-no-its-different.html">2022 Fiesta Bowl semifinal · TCU 51, Michigan 45</a><span class="canon-footer-entry__line--summary"> — The Fiesta Bowl semifinal that put TCU in the title game and ended Michigan&#x27;s 13-0 season — the era&#x27;s biggest Playoff upset by Vegas spread.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#29</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2018-okc-army.html">2017 Sugar Bowl semifinal · Alabama 24, Clemson 6</a><span class="canon-footer-entry__line--summary"> — The third Alabama-Clemson Playoff meeting — and the defensive shutout that proved Saban&#x27;s 2017 program was the era&#x27;s deepest.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#30</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2024-cotton-bowl-semi-texas-osu.html">2024 Cotton Bowl semifinal · Ohio State 28, Texas 14</a><span class="canon-footer-entry__line--summary"> — The Cotton Bowl semifinal that ended Texas&#x27;s first-year SEC run and delivered Ohio State to the first 12-team national title.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#31</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2024-orange-bowl-cfp-quarter.html">2024 Orange Bowl quarter · Notre Dame 23, Penn State 10</a><span class="canon-footer-entry__line--summary"> — The Orange Bowl quarter that gave Marcus Freeman his first national-title-game appearance and put Notre Dame back in the final for the first time since 2012.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#32</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2017-sugar-bowl-ucla-not.html">2018 Peach Bowl · UCF 34, Auburn 27</a><span class="canon-footer-entry__line--summary"> — UCF&#x27;s Peach Bowl win that completed a 13-0 season and fueled the most consequential &#x27;self-declared&#x27; national championship of the modern era.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#33</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2022-tennessee-alabama-third-saturday-october.html">2022 Third Saturday in October · Tennessee 52, Alabama 49</a><span class="canon-footer-entry__line--summary"> — Tennessee&#x27;s first win over Alabama since 2006 — McGrady&#x27;s walk-off field goal, the goalpost-into-the-Tennessee River postgame, and Heupel&#x27;s program reset.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#34</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2018-okstate-no-wait.html">2014 SEC Championship · Alabama 42, Missouri 13</a><span class="canon-footer-entry__line--summary"> — The SEC Championship that gave Alabama the second seed in the inaugural Playoff — and the bracket-positioning model that the next decade refined.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#35</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2020-cotton-bowl-alabama-cincinnati.html">2021 Cotton Bowl semifinal · Alabama 27, Cincinnati 6</a><span class="canon-footer-entry__line--summary"> — The Cotton Bowl semifinal that finally put a Group-of-Five team in the four-team Playoff — and the score that ended the experiment.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#36</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2019-bowling-green.html">2017 Iron Bowl rematch (SEC title) · Georgia 28, Auburn 7</a><span class="canon-footer-entry__line--summary"> — The SEC Championship rout of Auburn that put Smart&#x27;s Georgia in the Playoff for the first time and produced the Rose Bowl semifinal of January 1.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#37</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2018-rose-bowl-georgia-osu.html">2024 Big Ten Championship · Oregon 45, Penn State 37</a><span class="canon-footer-entry__line--summary"> — Oregon&#x27;s first Big Ten Championship in its conference-transition year — and the Lanning operation&#x27;s first championship-game win.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#38</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2017-pac-12-mariota-no-different.html">2014 Pac-12 Championship · Oregon 51, Arizona 13</a><span class="canon-footer-entry__line--summary"> — The Pac-12 Championship that put Mariota&#x27;s Oregon in the inaugural Playoff — the spread offense&#x27;s first championship-game appearance of the era.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#39</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2017-rose-bowl-2.html">2014 Big Ten Championship · Ohio State 59, Wisconsin 0</a><span class="canon-footer-entry__line--summary"> — The Big Ten Championship rout that put Ohio State in the inaugural Playoff with a third-string quarterback starting his first game.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#40</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2019-osu-michigan.html">2019 The Game · Ohio State 56, Michigan 27</a><span class="canon-footer-entry__line--summary"> — Day&#x27;s first matchup against Michigan — a 56-27 rout that set the rivalry&#x27;s pre-Stalions-era expectation.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#41</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2024-conference-championships.html">2025 SEC Championship rematch · Georgia 23, Texas 21</a><span class="canon-footer-entry__line--summary"> — Smart&#x27;s fourth SEC title and the second-iteration Texas-Georgia game that decided 12-team bracket positioning at the conference title level.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#42</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2017-cardale-jones-no-different.html">2017 Pac-12 Championship · USC 31, Stanford 28</a><span class="canon-footer-entry__line--summary"> — USC&#x27;s Pac-12 title win over Stanford — the program&#x27;s last conference championship before the Lincoln Riley rebuild and the Big Ten move.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#43</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2022-tcu-georgia-iron-bowl-no.html">2018 Big Ten Championship · Ohio State 45, Northwestern 24</a><span class="canon-footer-entry__line--summary"> — Meyer&#x27;s last conference championship and the Haskins-499-yard passing performance that capped the Buckeye single-season passing record.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#44</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2023-conference-changes.html">2023 Big-12 Championship · Texas 49, Oklahoma State 21</a><span class="canon-footer-entry__line--summary"> — Texas&#x27;s last Big-12 title before the SEC move — Sarkisian&#x27;s first championship as the Longhorn head coach.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#45</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2017-georgia-notre-dame.html">2017 Georgia at Notre Dame · UGA 20, ND 19</a><span class="canon-footer-entry__line--summary"> — The September road win at Notre Dame Stadium that anchored Smart&#x27;s first 13-2 season and the Rose Bowl semifinal that followed.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#46</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2022-clemson-loss-to-notre-dame.html">2020 Clemson at Notre Dame · ND 47, CU 40 (2OT)</a><span class="canon-footer-entry__line--summary"> — Notre Dame&#x27;s first win over Clemson in 41 years — Lawrence COVID-positive on the sideline, ND ranked #4, the COVID season&#x27;s most-talked-about result.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#47</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2014-cfp-decision-day.html">2014 CFP selection · Ohio State #4 over TCU and Baylor</a><span class="canon-footer-entry__line--summary"> — The inaugural CFP selection — Ohio State picked over TCU and Baylor on the strength of the Big Ten title rout and the era&#x27;s first &#x27;committee debate&#x27; Sunday.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#48</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2018-uc-cincinnati.html">2024 Big Ten · Indiana 11-0 (regular season)</a><span class="canon-footer-entry__line--summary"> — The Cignetti-era Indiana season — 11-0 in the regular year, conference-title-game appearance, the most consequential first-year hire of the 2020s coaching market.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#49</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2020-covid-season.html">2020 SEC-only schedule · LSU 53, Vanderbilt 0</a><span class="canon-footer-entry__line--summary"> — The Vanderbilt-LSU game that featured Sarah Fuller&#x27;s PAT — first woman to play in a Power-5 conference FBS game, the COVID-season&#x27;s signature non-football moment.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#50</div><div class="canon-footer-entry__line"><a href="/canon/the-50-most-defining-games-cfp-era/2023-cfp-final-georgia-michigan-no-it-didnt-happen.html">2024 12-team CFP first-round · Penn State 38, SMU 10</a><span class="canon-footer-entry__line--summary"> — The first 12-team home Playoff game played at Beaver Stadium — Penn State&#x27;s first CFP win in the new format.</span></div></li></ol></section>
+
+  <section class="canon-receipts" aria-label="Receipts panel">
+    <h2 class="canon-receipts__title">Revision receipts</h2>
+    <p class="canon-receipts__body">
+      Every rank in this edition is tracked against last year's slot.
+      <span class="canon-receipts__legend">
+        <span class="canon-receipts__chip canon-receipts__chip--up">\u2191</span> moved up
+        <span class="canon-receipts__chip canon-receipts__chip--down">\u2193</span> moved down
+        <span class="canon-receipts__chip canon-receipts__chip--flat">→</span> held
+        <span class="canon-receipts__chip canon-receipts__chip--new">NEW</span> first edition
+      </span>
+    </p>
+    <p class="canon-receipts__note">
+      v1 edition — prior-year ranks are NEW across the board. The 2027
+      edition is the first one where the deltas read movement.
+    </p>
+  </section>
+
+  <section class="canon-methodology">
+    <h2 class="canon-methodology__title">How this list was put together</h2>
+    <p class="canon-methodology__body">Scope: regular season, conference championship, and postseason games from the 2014 season through the 2025 season. Ranking weighs (a) decision weight on the season&#x27;s title, (b) program-trajectory consequence, (c) instruction value to the era&#x27;s future — which moments become reference points the next ten years&#x27; beat writers use to explain what just happened.</p>
+  </section>
+</main>
+
+<footer class="canon-footer">
+  <div class="canon-footer__inner">
+    <p class="canon-footer__line">
+      Argue at the rankings, not the players — every entry below earned its way onto
+      the list, and the rank is the read, not the verdict. Next revision: 2027.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

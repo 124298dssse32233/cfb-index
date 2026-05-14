@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The 12-Team Playoff Settling · CFB Index Storyline Threads</title>
+    <meta name="description" content="Two cycles into the bracket. The regular season is reshaping in ways the format's architects didn't fully predict — and the discourse around it has gone exactly where it always goes.">
+    <style>/* Storyline Threads — embedded stylesheet.
+ *
+ * Aligned to Figma node 62:2 (file eGIVOKDIFSmo1yM1LShLQx) on Sprint 10.
+ * Single-column flow, sans typography (Inter/system-ui), inline chapter
+ * index + related + receipts panels. Color tokens match Figma's dark
+ * editorial palette. */
+
+:root {
+    --bg: #0b0d12;
+    --bg-card: #12151d;
+    --bg-card-2: #171b24;
+    --bg-card-hover: #1e2330;
+    --text: #f5f6fa;
+    --text-dim: #c6cad6;
+    --text-faint: #8a90a1;
+    --text-muted: #5c6172;
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --accent: #c5b358; /* overridden inline per thread */
+    --accent-soft: rgba(197, 179, 88, 0.18);
+    --good: #3ea073;
+    --bad: #c04a4a;
+    --bad-soft: rgba(192, 74, 74, 0.18);
+    --good-soft: rgba(62, 160, 115, 0.18);
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
+
+/* ---------- shell ---------- */
+.shell { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+.site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.site-header .shell { display: flex; align-items: center; justify-content: space-between; }
+.site-header .brand { color: var(--text); font-weight: 700; }
+.site-header nav a { color: var(--text-faint); margin-left: 22px; font-weight: 600; }
+.site-header nav a:hover { color: var(--text); }
+
+/* ---------- thread page wrapper ---------- */
+.thread-card-wrap {
+    max-width: 1040px;
+    margin: 32px auto 48px;
+    padding: 0 28px;
+}
+.thread-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+@media (max-width: 720px) {
+    .thread-card { padding: 28px 22px; gap: 24px; }
+    .thread-card-wrap { padding: 0 12px; margin: 16px auto 32px; }
+}
+
+/* ---------- thread header ---------- */
+.thread-header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.breadcrumb {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.breadcrumb .seg { color: var(--text-faint); font-weight: 600; }
+.breadcrumb .sep { color: var(--text-muted); font-weight: 400; padding: 0 2px; }
+.breadcrumb .current { color: var(--accent); font-weight: 600; }
+
+.thread-title {
+    font-size: 56px;
+    line-height: 1.14;
+    letter-spacing: -0.5px;
+    margin: 0;
+    font-weight: 400;
+    color: var(--text);
+}
+.thread-dek {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 880px;
+}
+@media (max-width: 720px) {
+    .thread-title { font-size: 36px; line-height: 1.1; }
+    .thread-dek { font-size: 17px; }
+}
+
+.meta-strip {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 8px;
+    flex-wrap: wrap;
+}
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.meta-item .label {
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.meta-item .value {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+.meta-item .value.status-active { color: var(--good); }
+.meta-item .value.value-accent { color: var(--accent); }
+.meta-strip .meta-dot {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.subscribe-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 4px;
+    flex-wrap: wrap;
+}
+.follow-cta {
+    background: var(--accent);
+    color: #0b0d12;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-family: inherit;
+}
+.follow-cta .plus { font-size: 13px; }
+.follow-cta:hover { filter: brightness(1.1); color: #0b0d12; }
+.subscribe-row .microcopy {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ---------- nav-rail (chapter index, inline) ---------- */
+.nav-rail {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 16px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.nav-rail-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.chapter-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 8px 0;
+}
+.chapter-num {
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--bg-card-hover);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.chapter-row.current .chapter-num {
+    background: var(--accent);
+    color: #0b0d12;
+}
+.chapter-row .ct {
+    flex: 1;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.chapter-row.current .ct {
+    color: var(--text);
+    font-weight: 600;
+}
+.chapter-row .cd {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.nav-rail-more {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* ---------- current chapter ---------- */
+.current-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.chapter-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.chapter-eyebrow .accent { color: var(--accent); }
+.chapter-eyebrow .meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--text-muted);
+    display: inline-block;
+}
+.chapter-eyebrow .meta-text {
+    color: var(--text-faint);
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 500;
+}
+.chapter-title {
+    font-size: 36px;
+    line-height: 1.22;
+    margin: 0;
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: -0.3px;
+}
+.chapter-dek {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 760px;
+}
+@media (max-width: 720px) {
+    .chapter-title { font-size: 26px; }
+    .chapter-dek { font-size: 15px; }
+}
+
+.chapter-body {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.65;
+}
+.chapter-body p { margin: 0; }
+.chapter-body em { font-style: italic; color: var(--text-dim); }
+.chapter-body strong { font-weight: 700; color: var(--text); }
+.chapter-body a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(197, 179, 88, 0.4);
+}
+.chapter-body a:hover { border-bottom-color: var(--accent); }
+.chapter-body blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 0;
+    padding: 4px 0 4px 18px;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.pull-quote {
+    margin: 4px 0;
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1.45;
+    font-weight: 500;
+    font-style: italic;
+    max-width: 760px;
+}
+.pull-quote-attribution {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: -8px;
+    text-transform: none;
+}
+
+.ref-callout {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 760px;
+}
+.ref-callout .label {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.ref-callout .ref-row { font-size: 14px; line-height: 1.5; }
+.ref-callout .ref-num {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-right: 8px;
+}
+.ref-callout .ref-row a { color: var(--text-dim); }
+.ref-callout .ref-row a:hover { color: var(--accent); }
+
+/* ---------- sources panel (inline) ---------- */
+.sources-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.sources-panel .panel-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.source-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--border);
+}
+.source-row:first-of-type { border-top: none; padding-top: 0; }
+.source-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.source-row-top .left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.source-row .src-name {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+}
+.source-row .src-publisher {
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+}
+.source-row .src-dot {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+.source-row .src-date {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.source-row .src-quote {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ---------- related threads (3-up inline) ---------- */
+.related-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.related-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+@media (max-width: 720px) {
+    .related-grid { grid-template-columns: 1fr; }
+}
+.related-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.15s;
+}
+.related-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.related-card .accent-bar {
+    width: 32px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent); /* overridden inline per card */
+}
+.related-card .rel-title {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.36;
+    font-weight: 400;
+}
+.related-card .rel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+.related-card .rel-meta .rel-chapters {
+    color: var(--text-faint);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.related-card .rel-meta .rel-date {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ---------- receipts panel ---------- */
+.receipts-panel {
+    background: var(--bg-card);
+    border: 1px solid rgba(197, 179, 88, 0.4);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.receipts-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.receipts-header .stub-tag {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    font-weight: 500;
+    font-style: italic;
+}
+.receipt-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--border);
+}
+.receipt-row:first-of-type { border-top: none; padding-top: 0; }
+.receipt-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+.receipt-row .receipt-quote {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    flex: 1;
+}
+.verdict-pill {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.verdict-pill.aged-poorly {
+    background: var(--bad-soft);
+    color: var(--bad);
+}
+.verdict-pill.vindicated {
+    background: var(--good-soft);
+    color: var(--good);
+}
+.verdict-pill.premature {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+.receipt-attribution {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+/* ---------- footer ---------- */
+.thread-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+.thread-footer .footer-left {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    padding-top: 14px;
+}
+.thread-footer .footer-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 14px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+.thread-footer .footer-right a { color: var(--text-faint); }
+.thread-footer .footer-right a.email { color: var(--accent); }
+.thread-footer .footer-right a:hover { color: var(--text); }
+.thread-footer .footer-right a.email:hover { color: var(--accent); filter: brightness(1.2); }
+
+/* ---------- index page ---------- */
+.index-hero {
+    padding: 24px 0 40px;
+    border-bottom: 1px solid var(--border);
+}
+.index-hero h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    margin: 0 0 14px 0;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+}
+.index-hero .dek {
+    color: var(--text-dim);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0;
+}
+.index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    padding: 36px 0 60px;
+}
+.index-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.15s;
+}
+.index-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.index-card .ic-bar {
+    width: 36px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+}
+.index-card .ic-eyebrow {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.index-card .ic-title {
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.22;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin: 0;
+}
+.index-card .ic-dek {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    flex-grow: 1;
+}
+.index-card .ic-foot {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+}
+.index-card .ic-foot strong { color: var(--text-dim); font-weight: 700; }
+
+/* ---------- site footer (separate from per-thread footer) ---------- */
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0 48px;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+.site-footer .shell { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.site-footer a { color: var(--text-faint); }
+.site-footer a:hover { color: var(--text); }
+</style>
+    <style>:root { --accent: #c9a544; --accent-soft: rgba(201, 165, 68, 0.18); }</style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell">
+            <a href="/" class="brand">CFB Index</a>
+            <nav>
+                <a href="/storylines/">Storylines</a>
+                <a href="/teams/">Teams</a>
+                <a href="/conferences/">Conferences</a>
+                <a href="/editions/">The Edition</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="thread-card-wrap">
+        <article class="thread-card" data-thread-slug="12-team-playoff-settling">
+
+            <header class="thread-header">
+                <div class="breadcrumb">
+                    <span class="seg"><a href="/storylines/">Storylines</a></span>
+                    <span class="sep">/</span>
+                    <span class="seg">Active Threads</span>
+                    <span class="sep">/</span>
+                    <span class="current">THE 12-TEAM PLAYOFF SETTLING</span>
+                </div>
+                <h1 class="thread-title">The 12-Team Playoff Settling</h1>
+                <p class="thread-dek">Two cycles into the bracket. The regular season is reshaping in ways the format's architects didn't fully predict — and the discourse around it has gone exactly where it always goes.</p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <div class="label">Status</div>
+                        <div class="value status-active">Active</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Chapters</div>
+                        <div class="value">4</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Started</div>
+                        <div class="value">Aug 2024</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Last Update</div>
+                        <div class="value">3 weeks ago</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Following</div>
+                        <div class="value value-accent">—</div>
+                    </div>
+                </div>
+                <div class="subscribe-row">
+                    <button class="follow-cta" type="button" data-thread-slug="12-team-playoff-settling">
+                        <span class="plus">+</span>
+                        <span>Follow this thread</span>
+                    </button>
+                    <span class="microcopy">get notified when new chapters land · no spam, ~weekly</span>
+                </div>
+            </header>
+
+            <section class="nav-rail" aria-label="Chapter index">
+                <div class="nav-rail-header">Chapter Index · Newest First</div>
+                <div class="chapter-row current"><span class="chapter-num">04</span><a class="ct" href="#chapter-4">Two Cycles In: The November That No Longer Eliminates</a><span class="cd">Apr 23</span></div>
+<div class="chapter-row"><span class="chapter-num">03</span><a class="ct" href="#chapter-3">After the Trophy: What the Bracket Actually Produced</a><span class="cd">Jan 25</span></div>
+<div class="chapter-row"><span class="chapter-num">02</span><a class="ct" href="#chapter-2">The First Field, and the Argument That Was Supposed to End</a><span class="cd">Dec 12</span></div>
+<div class="chapter-row"><span class="chapter-num">01</span><a class="ct" href="#chapter-1">The Bracket Arrives, and the Schedule Math Goes With It</a><span class="cd">Aug 12</span></div>
+                
+            </section>
+
+            <section class="current-chapter">
+                <div class="chapter-eyebrow">
+                    <span><span class="accent">CHAPTER 04</span> · CURRENT</span>
+                    <span class="meta-dot"></span>
+                    <span class="meta-text">Apr 23, 2026 · 7 min read</span>
+                </div>
+                <h2 class="chapter-title">Two Cycles In: The November That No Longer Eliminates</h2>
+                <p class="chapter-dek">After two seasons of the 12-team bracket, the regular season has settled into a new rhythm — and the part the architects didn't fully predict is what the rhythm has done to October.</p>
+                <div class="ref-callout"><div class="label">Builds on prior chapters</div><div class="ref-row"><span class="ref-num">CH 01</span><a href="#chapter-1">The Bracket Arrives, and the Schedule Math Goes With It</a></div><div class="ref-row"><span class="ref-num">CH 02</span><a href="#chapter-2">The First Field, and the Argument That Was Supposed to End</a></div><div class="ref-row"><span class="ref-num">CH 03</span><a href="#chapter-3">After the Trophy: What the Bracket Actually Produced</a></div></div>
+                <div class="chapter-body" id="chapter-04"><p>We are 16 months past the first 12-team field and eight months past the second one, and the early read on the format is this: the regular season has not died, as the pessimists feared, but it has changed shape. The November that used to eliminate now seeds. The October that used to be a tune-up has quietly become the most consequential month on the calendar. And the place where the format has produced the cleanest dividends — the place even the format's critics now grant something to — is the bottom half of the bracket.</p>
+<p>The October-as-the-new-November read is the one we want to defend with evidence. In <a href="#chapter-3">Chapter 3</a> we noted that Ohio State, the eventual champion, lost in November and used the bracket to relitigate the loss across three road games. What we did not yet have was the second-cycle data. The second cycle confirms the pattern. Texas, the 2025-season champion, lost their lone regular-season game in early October to Georgia. They did not lose again. They were a five seed because of that one loss. They won the bracket. They did not win the SEC. They won the format that the SEC's loudest voices spent eighteen months arguing the format would devalue them within.</p>
+<p class="pull-quote">“We used to play to win in November. We now play to lock by November. There's a difference.”</p><p class="pull-quote-attribution">— Cover 3, Episode 412 (Pete Thamel)</p>
+<p>This is the surprising piece. The format's critics — Forde most consistently, Finebaum at every available volume — have spent two cycles arguing that the bracket's expansion would weaken the regular season. The two-cycle evidence says: the regular season's <em>Saturdays in November</em> have weakened, but the regular season's <em>Saturdays in October</em> have strengthened. October has become the month where seeding gets locked. October losses now matter more, not less, because they're the losses you can't recover from in time to climb back to a top-four seed and a bye. November losses you can absorb and still get a bye if you started the month at 8-0. October losses, if you started the month at 4-0 and lose your headline game, knock you down a tier the bracket then makes very hard to climb back from.</p>
+<p>Pete Thamel made this case on the Cover 3 pod two weeks ago (<em>ep 412, April 9</em>): <em>"The new emotional center of the regular season is the Red River game, the Iron Bowl-in-its-late-October-window, the Michigan-Ohio State, the Oregon-Washington — the games that historically drove November now drive October because they ended up scheduled in the second weekend of October in a few of these conferences and because their losers can no longer count on running the table to climb back. The bye is the prize. The bye gets locked by mid-November. The work to lock it gets done in October."</em></p>
+<p>The boards have, as ever, gotten there before the columns. A long thread on 11Warriors in late October 2025 by user TressBall titled <em>"October is the new November"</em> ran 540 replies and worked through every Big Ten contender's path. The dominant conclusion was that the conference had structurally devalued its November slate by front-loading marquee matchups in the schedule's middle. <em>"We used to play to win in November,"</em> one reply read. <em>"We now play to lock by November. There's a difference. The Big Ten is going to have to think about whether the difference is actually what it wanted."</em></p>
+<p>The bottom-of-the-bracket dividend, meanwhile, is the place where even the critics are starting to give the format credit. As we noted in <a href="#chapter-1">Chapter 1</a> — the Saturdays nobody used to talk about — the Group of Five champion's path now matters in ways it didn't before. Two consecutive G5 champs (Boise State '24, Tulane '25) made the bracket. Both lost in the first round, but the wider story is the one Andy Staples flagged in his On3 column last month: <em>"The G5 final-month conference races are the only races in the country whose stakes have been clearly improved by the format. A 9-3 Mountain West co-leader has more national stakes in November than they have ever had. The auto-bid did that. The format did that."</em> The G5 ranks are not pretending the bracket has equalized them. They are noting that the bracket has surfaced them.</p>
+<p>What hasn't worked, two cycles in: the bowl middle, as we flagged in <a href="#chapter-3">Chapter 3</a>, is a problem and the bowl middle's problem is getting worse. The Citrus Bowl drew its lowest viewership in 14 years this past December. The Outback drew a number it hasn't drawn since the early 2000s. The Sugar and Orange (still quarterfinal hosts) printed money. The CFP earnings have grown roughly 38% under the new format; bowl-pool earnings (ex-CFP rounds) are down 21%. The athletic directors at programs whose bowl tie-ins land them in the middle pool are quietly furious. The next collective bargain on bowl rights, due in 2027, is going to be ugly.</p>
+<p>What the second-cycle verdict on the format actually is: a tournament that produces better football, a regular season that has rebalanced toward October without losing its season-long structure, a bowl ecosystem that the format is materially weakening, and a conversation around the format that — in TideRollerSC's TideFans line from last week — <em>"is finally starting to ask the questions that two seasons in look like the right questions, even if they're harder to answer than the first-cycle questions were."</em></p>
+<p>This thread continues. Chapter 5 picks up after the spring meetings, when the conferences are scheduled to formally raise the bowl-revenue question for the first time. Whether they raise it loud enough to matter is the next thing we will be tracking.</p></div>
+            </section>
+
+            <section class="sources-panel">
+                <div class="panel-header">Sources + Evidence This Chapter</div>
+                <div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Cover 3</span><span class="src-dot">·</span><span class="src-publisher">Episode 412 (Pete Thamel)</span></div><span class="src-date">Apr 9</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Andy Staples</span><span class="src-dot">·</span><span class="src-publisher">On3 column</span></div><span class="src-date">Mar 18</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">TressBall</span><span class="src-dot">·</span><span class="src-publisher">11Warriors thread</span></div><span class="src-date">Oct 28</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">TideRollerSC</span><span class="src-dot">·</span><span class="src-publisher">TideFans reply</span></div><span class="src-date">Apr 17</span></div></div>
+            </section>
+
+            <section class="related-block">
+                <div class="related-header">Related Threads</div>
+                <div class="related-grid"><a class="related-card" href="/storylines/vandy-renaissance.html"><span class="accent-bar" style="background: #cfae70;"></span><span class="rel-title">The Vandy Renaissance</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/coaching-carousel-2026-27.html"><span class="accent-bar" style="background: #d97706;"></span><span class="rel-title">Coaching Carousel · 2026-27</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/big-ten-reasserting.html"><span class="accent-bar" style="background: #003c7e;"></span><span class="rel-title">The Big Ten Reasserting</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a></div>
+            </section>
+
+            <section class="receipts-panel">
+                <div class="receipts-header">
+                    <span>Receipts · Takes From This Thread, Aged</span>
+                    <span class="stub-tag">placeholder · Sprint 13 ships the live ledger</span>
+                </div>
+                <div class="receipt-row"><div class="receipt-row-top"><p class="receipt-quote">“Receipts on this thread's prior takes will appear here.”</p><span class="verdict-pill premature">AWAITING</span></div><p class="receipt-attribution">— Sprint 13 (Receipts) ships the live ledger.</p></div>
+            </section>
+
+            <footer class="thread-footer">
+                <div class="footer-left">4 chapters · 3.5k words · started Aug 1, 2024</div>
+                <div class="footer-right">
+                    <span class="muted" aria-disabled="true" title="Coming in a follow-on sprint">↗ Archive PDF</span>
+                    <span class="muted" aria-disabled="true" title="Coming in a follow-on sprint">↗ RSS</span>
+                    <a class="email" href="#follow" data-thread-slug="12-team-playoff-settling">↗ Email on new chapter</a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <footer class="site-footer">
+        <div class="shell">
+            <div>CFB Index · Storyline Threads · 2026</div>
+            <div>Department bylines indicate institutional editorial work. <a href="/methodology/">How we do this</a></div>
+        </div>
+    </footer>
+</body>
+</html>

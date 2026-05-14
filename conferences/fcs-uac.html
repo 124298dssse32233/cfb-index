@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UAC | 2025 Season</title>
+    <link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/alpine.min.js" defer></script>
+  </head>
+  <body>
+    <main class="site-shell" id="main-content">
+      <a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../about-model/index.html">The Model</a><a class="nav-link is-current" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a><a class="nav-link" href="../methodology/fan-intelligence.html">Methodology</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+      <section class="hero">
+        <p class="eyebrow">FCS Conference</p>
+        <h1>UAC</h1>
+        <p class="lede">UAC is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+        <div class="chip-row season-chip-row">
+          <span class="mini-chip">#14 overall</span>
+          <span class="mini-chip">#3 in FCS</span>
+          <span class="mini-chip">RR50 +9.3</span>
+          <span class="mini-chip">Upper strength +11.9</span>
+          <span class="mini-chip">9 teams</span>
+          <span class="mini-chip">Top 25 teams 0</span>
+        </div>
+      </section>
+
+      <section class="section two-up">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Conference Snapshot</h2>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card"><span>RR50</span><strong>+9.3</strong></div>
+            <div class="stat-card"><span>Upper Strength</span><strong>+11.9</strong></div>
+            <div class="stat-card"><span>Median Power</span><strong>+9.1</strong></div>
+            <div class="stat-card"><span>Resume Pulse</span><strong>62.5</strong></div>
+            <div class="stat-card"><span>Avg ATS</span><strong>54.5%</strong></div>
+            <div class="stat-card"><span>Wins vs Market</span><strong>+0.15</strong></div>
+            <div class="stat-card"><span>Top-to-Middle Gap</span><strong>5.7</strong></div>
+            <div class="stat-card"><span>Combined Record</span><strong>55-56</strong></div>
+          </div>
+          <p class="footer-note">`RR50`, `Upper Strength`, and `Median Power` are shown on the same public power scale as the rest of the site: points on a neutral field versus the average all-level NCAA team. Very small affiliations are gently regressed toward their subdivision baseline so a one-team outlier does not hijack the entire conference board.</p>
+        </article>
+        <article class="panel">
+          <div class="section-head">
+            <h2>League Drivers</h2>
+          </div>
+          <div class="conference-driver-list">
+            <a class="conference-driver" href="../teams/tarleton-state.html">
+              <span class="feature-rank">Power leader</span>
+              <strong>Tarleton State</strong>
+              <span class="submetric">#36 overall | +15.0 pts vs avg</span>
+            </a>
+            <a class="conference-driver" href="../teams/tarleton-state.html">
+              <span class="feature-rank">Resume leader</span>
+              <strong>Tarleton State</strong>
+              <span class="submetric">#36 overall | 97 / 100 resume</span>
+            </a>
+            
+            <a class="conference-driver" href="../teams/abilene-christian.html">
+              <span class="feature-rank">ATS leader</span>
+              <strong>Abilene Christian</strong>
+              <span class="submetric">69.2% cover rate</span>
+            </a>
+            
+            
+            <a class="conference-driver" href="../teams/westate-georgia.html">
+              <span class="feature-rank">Beat expectation</span>
+              <strong>West Georgia</strong>
+              <span class="submetric">+2.54 wins vs market</span>
+            </a>
+            
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>UAC Team Board</h2>
+            <p class="section-note">The league stack, sorted by predictive strength. Power is shown as neutral-field points versus the all-level average team, while resume is shown on a 0-100 season score.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Team</th>
+                <th>Record</th>
+                <th>Power</th>
+                <th>Resume</th>
+                <th>ATS</th>
+                <th>Wins vs Market</th>
+                <th>Recent Form</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+    <tr>
+      <td class="rank-cell">#36</td>
+      <td><a class="team-link" href="../teams/tarleton-state.html">Tarleton State</a></td>
+      <td class="metric-cell">12-2</td>
+      <td class="metric-cell">+15.0</td>
+      <td class="metric-cell">97</td>
+      <td class="metric-cell">7-5</td>
+      <td class="metric-cell">-0.14</td>
+      <td>W12 W13 W15 L16</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#92</td>
+      <td><a class="team-link" href="../teams/abilene-christian.html">Abilene Christian</a></td>
+      <td class="metric-cell">9-5</td>
+      <td class="metric-cell">+12.0</td>
+      <td class="metric-cell">86</td>
+      <td class="metric-cell">9-4</td>
+      <td class="metric-cell">+2.10</td>
+      <td>W12 W13 W14 L15</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#105</td>
+      <td><a class="team-link" href="../teams/austin-peay.html">Austin Peay</a></td>
+      <td class="metric-cell">7-5</td>
+      <td class="metric-cell">+11.5</td>
+      <td class="metric-cell">75</td>
+      <td class="metric-cell">6-5</td>
+      <td class="metric-cell">-0.61</td>
+      <td>L10 W11 W12 L13</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#119</td>
+      <td><a class="team-link" href="../teams/southern-utah.html">Southern Utah</a></td>
+      <td class="metric-cell">7-5</td>
+      <td class="metric-cell">+10.7</td>
+      <td class="metric-cell">82</td>
+      <td class="metric-cell">7-5</td>
+      <td class="metric-cell">+0.18</td>
+      <td>W10 W11 W12 W13</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#164</td>
+      <td><a class="team-link" href="../teams/eastern-kentucky.html">Eastern Kentucky</a></td>
+      <td class="metric-cell">5-7</td>
+      <td class="metric-cell">+9.3</td>
+      <td class="metric-cell">42</td>
+      <td class="metric-cell">6-5</td>
+      <td class="metric-cell">+0.42</td>
+      <td>W10 L11 L12 W13</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#179</td>
+      <td><a class="team-link" href="../teams/westate-georgia.html">West Georgia</a></td>
+      <td class="metric-cell">8-3</td>
+      <td class="metric-cell">+8.8</td>
+      <td class="metric-cell">90</td>
+      <td class="metric-cell">5-5</td>
+      <td class="metric-cell">+2.54</td>
+      <td>L8 W9 W11 W12</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#207</td>
+      <td><a class="team-link" href="../teams/central-arkansas.html">Central Arkansas</a></td>
+      <td class="metric-cell">3-9</td>
+      <td class="metric-cell">+7.5</td>
+      <td class="metric-cell">37</td>
+      <td class="metric-cell">5-6</td>
+      <td class="metric-cell">-1.89</td>
+      <td>L10 L11 L12 L13</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#219</td>
+      <td><a class="team-link" href="../teams/north-alabama.html">North Alabama</a></td>
+      <td class="metric-cell">2-10</td>
+      <td class="metric-cell">+6.8</td>
+      <td class="metric-cell">31</td>
+      <td class="metric-cell">6-5</td>
+      <td class="metric-cell">-1.02</td>
+      <td>L10 L11 L12 L13</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#243</td>
+      <td><a class="team-link" href="../teams/utah-tech.html">Utah Tech</a></td>
+      <td class="metric-cell">2-10</td>
+      <td class="metric-cell">+5.2</td>
+      <td class="metric-cell">23</td>
+      <td class="metric-cell">5-6</td>
+      <td class="metric-cell">-0.23</td>
+      <td>W10 L11 L12 L13</td>
+    </tr>
+    
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+    </main>
+  </body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The 100 Best Players of the CFP Era · 2026 · The Canon</title>
+<meta name="description" content="The 100 most consequential players of the College Football Playoff era — 2014 through 2025. The era starts with Marcus Mariota&#x27;s Heisman, runs through the four-team format, and lands in the twelve-team present. The list is settled, the ranks are arguable, and arguments are the point.">
+<style>/* The Canon — design tokens (mirrors team_pages/assets/tokens.css ethos:
+ * dark-mode default, Inter Display + serif editorial pairing, OKLCH
+ * percentile ramp, 44px touch targets). Self-contained — every page
+ * inlines this stylesheet so no external asset fetch is needed.
+ */
+
+:root {
+  /* color */
+  --bg-0:       #0b0d12;
+  --bg-1:       #12151d;
+  --bg-card:    #171b24;
+  --bg-card-2:  #1e2330;
+  --fg-0:       #f5f6fa;
+  --fg-1:       #c6cad6;
+  --fg-2:       #8a90a1;
+  --fg-3:       #5c6172;
+  --line:       rgba(255, 255, 255, 0.08);
+  --line-2:     rgba(255, 255, 255, 0.05);
+  --accent:     #c5b358;          /* canonical gold */
+  --accent-2:   #084c24;
+  --tone-up:    #3ea073;
+  --tone-down:  #c04a4a;
+  --tone-flat:  #8a90a1;
+  --tone-new:   #c5b358;
+
+  /* type */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif:   "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono:    "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  /* size scale */
+  --fs-eyebrow:    11px;
+  --fs-label:      12px;
+  --fs-body:       16px;
+  --fs-body-lg:    18px;
+  --fs-h3:         22px;
+  --fs-h2:         clamp(24px, 2vw + 12px, 34px);
+  --fs-h1:         clamp(34px, 4vw + 16px, 64px);
+  --fs-rank-xl:    clamp(54px, 6vw + 18px, 96px);
+
+  /* spacing */
+  --gap-1:  4px;
+  --gap-2:  8px;
+  --gap-3:  12px;
+  --gap-4:  16px;
+  --gap-5:  24px;
+  --gap-6:  32px;
+  --gap-7:  48px;
+  --gap-8:  64px;
+
+  /* radius */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+a:hover { color: var(--fg-0); }
+
+/* ----- masthead ---------- */
+.canon-masthead {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.canon-masthead__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-4) var(--gap-5);
+  display: flex; align-items: center; gap: var(--gap-6);
+}
+.canon-masthead__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--fg-0);
+}
+.canon-masthead__nav { display: flex; gap: var(--gap-5); margin-left: auto; }
+.canon-masthead__nav a {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-masthead__nav a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ----- main wrap ---------- */
+.canon-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--gap-6) var(--gap-5) var(--gap-8);
+}
+
+/* ----- index hero & list grid ---------- */
+.canon-hero { margin: var(--gap-7) 0 var(--gap-6); }
+.canon-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0;
+}
+
+.canon-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-5);
+  margin: var(--gap-7) 0;
+}
+@media (min-width: 720px) {
+  .canon-list-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.canon-list-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--gap-5);
+  display: flex; flex-direction: column;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.canon-list-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.canon-list-card__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-card__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.18;
+  margin: 0 0 var(--gap-3);
+  color: var(--fg-0);
+}
+.canon-list-card__dek {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-4);
+  flex: 1;
+}
+.canon-list-card__meta {
+  font-size: 12px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; gap: var(--gap-3);
+}
+
+/* ----- list-page hero ---------- */
+.canon-list-hero { margin: var(--gap-6) 0; }
+.canon-list-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-list-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0 0 var(--gap-4);
+}
+.canon-list-hero__meta {
+  font-size: 13px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-3);
+}
+.canon-list-hero__meta-divider { color: var(--fg-3); }
+
+/* ----- stat strip ---------- */
+.canon-stat-strip {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  margin: var(--gap-5) 0 var(--gap-6);
+}
+.canon-stat-strip__inner { padding: var(--gap-4) var(--gap-5); }
+.canon-stat-strip__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-4);
+  margin: 0;
+}
+@media (min-width: 720px) {
+  .canon-stat-strip__items { grid-template-columns: repeat(4, 1fr); }
+}
+.canon-stat-strip__item dt {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-stat-strip__item dd {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--fg-0);
+  letter-spacing: -0.01em;
+}
+
+/* ----- top entries (ranks 1-N with full editorial paragraphs) ---------- */
+.canon-top-entries { margin: var(--gap-6) 0; }
+.canon-top-entry {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--gap-5);
+  padding: var(--gap-6) 0;
+  border-top: 1px solid var(--line);
+}
+.canon-top-entry:first-child { border-top: none; }
+.canon-top-entry__rank {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+.canon-top-entry__body { display: flex; flex-direction: column; gap: var(--gap-3); }
+.canon-top-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+  margin: 0;
+  color: var(--fg-0);
+}
+.canon-top-entry__title a { color: inherit; }
+.canon-top-entry__title a:hover { color: var(--accent); }
+.canon-top-entry__chips {
+  display: flex; flex-wrap: wrap; gap: var(--gap-2);
+}
+.canon-chip {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-1);
+  font-weight: 500;
+}
+.canon-chip--era { color: var(--accent); }
+.canon-top-entry__statline {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+.canon-top-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* mini-viz: stat-vs-casual rank divergence */
+.canon-mini-viz {
+  display: flex; align-items: center; gap: var(--gap-3);
+  margin: var(--gap-2) 0 0;
+  padding: var(--gap-3) var(--gap-4);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-mini-viz__label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+}
+.canon-mini-viz__rank {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+.canon-mini-viz__rank--stat { color: #5a9dd1; }
+.canon-mini-viz__rank--casual { color: #d9845e; }
+.canon-mini-viz__divider { color: var(--fg-3); font-family: var(--font-mono); }
+.canon-mini-viz__verdict {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+}
+.canon-mini-viz__verdict--consensus { background: rgba(62,160,115,0.15); color: var(--tone-up); }
+.canon-mini-viz__verdict--slight    { background: rgba(217,165,94,0.15); color: #d9a55e; }
+.canon-mini-viz__verdict--wide      { background: rgba(192,74,74,0.15);  color: var(--tone-down); }
+
+.canon-rank-delta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-2);
+}
+.canon-rank-delta--up   { color: var(--tone-up); }
+.canon-rank-delta--down { color: var(--tone-down); }
+.canon-rank-delta--flat { color: var(--tone-flat); }
+.canon-rank-delta--new  { color: var(--tone-new); }
+
+/* ----- mid entries (ranks 6-25 compact rows) ---------- */
+.canon-mid-entries { margin: var(--gap-7) 0; }
+.canon-mid-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-mid-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; flex-direction: column;
+}
+.canon-mid-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: var(--gap-4);
+  align-items: center;
+  padding: var(--gap-4) 0;
+  border-top: 1px solid var(--line-2);
+}
+.canon-mid-entry:first-child { border-top: 1px solid var(--line); }
+.canon-mid-entry__rank {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--fg-2);
+  letter-spacing: -0.02em;
+}
+.canon-mid-entry__body { display: flex; flex-direction: column; gap: var(--gap-1); }
+.canon-mid-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  margin: 0;
+  font-weight: 500;
+}
+.canon-mid-entry__title a { color: var(--fg-0); }
+.canon-mid-entry__title a:hover { color: var(--accent); }
+.canon-mid-entry__summary {
+  font-size: 14px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- footer entries (ranks 26-100 compact list) ---------- */
+.canon-footer-entries { margin: var(--gap-7) 0; }
+.canon-footer-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-footer-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.canon-footer-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--gap-4);
+  align-items: baseline;
+  padding: var(--gap-3) 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.canon-footer-entry__rank {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.canon-footer-entry__line {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-footer-entry__line a { color: var(--fg-0); font-weight: 500; }
+.canon-footer-entry__line a:hover { color: var(--accent); }
+.canon-footer-entry__line--summary { color: var(--fg-2); }
+
+/* ----- receipts panel ---------- */
+.canon-receipts {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.canon-receipts__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-receipts__body {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-3);
+}
+.canon-receipts__legend {
+  display: inline-flex; flex-wrap: wrap; gap: var(--gap-3);
+  margin-left: var(--gap-3);
+  align-items: center;
+  font-size: 12px;
+  color: var(--fg-2);
+}
+.canon-receipts__chip {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--r-sm);
+  margin-right: 2px;
+}
+.canon-receipts__chip--up   { color: var(--tone-up); background: rgba(62,160,115,0.15); }
+.canon-receipts__chip--down { color: var(--tone-down); background: rgba(192,74,74,0.15); }
+.canon-receipts__chip--flat { color: var(--tone-flat); background: rgba(138,144,161,0.10); }
+.canon-receipts__chip--new  { color: var(--tone-new); background: rgba(197,179,88,0.15); }
+.canon-receipts__note {
+  font-size: 12px;
+  color: var(--fg-2);
+  margin: var(--gap-3) 0 0;
+}
+
+/* ----- methodology block (list page + index) ---------- */
+.canon-methodology {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  border-top: 1px solid var(--line);
+}
+.canon-methodology__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-methodology__body {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+  max-width: 70ch;
+}
+
+/* ----- footer ---------- */
+.canon-footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-1);
+  margin-top: var(--gap-8);
+}
+.canon-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-5);
+}
+.canon-footer__line {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- per-entry page ---------- */
+.canon-breadcrumb {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: var(--gap-4) 0 var(--gap-5);
+  display: flex; flex-wrap: wrap; gap: var(--gap-2); align-items: center;
+}
+.canon-breadcrumb__sep { color: var(--fg-3); }
+
+.canon-entry { display: flex; flex-direction: column; gap: var(--gap-6); }
+.canon-entry__header {
+  padding: var(--gap-6) 0;
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: var(--gap-3);
+}
+.canon-entry__rank-badge {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.canon-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.canon-entry__summary {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__statline {
+  padding: var(--gap-4) var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__statline-text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-0);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 64ch;
+}
+
+.canon-entry__cohort, .canon-entry__delta {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-entry__cohort-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-4);
+}
+.canon-entry__cohort-item--span { grid-column: 1 / -1; }
+.canon-entry__cohort-label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-entry__cohort-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.canon-entry__cohort-value--consensus       { color: var(--tone-up); }
+.canon-entry__cohort-value--slight-divergence { color: #d9a55e; }
+.canon-entry__cohort-value--wide-divergence { color: var(--tone-down); }
+
+.canon-entry__delta-text {
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__cross-references {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__cross-references ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--gap-2);
+}
+.canon-entry__cross-references li {
+  font-size: 14px; color: var(--fg-1);
+}
+</style>
+</head>
+<body class="canon-page canon-list-page">
+<header class="canon-masthead">
+  <div class="canon-masthead__inner">
+    <a class="canon-masthead__brand" href="/">CFB Index</a>
+    <nav class="canon-masthead__nav" aria-label="primary">
+      <a href="/teams/">Teams</a>
+      <a href="/canon/">The Canon</a>
+    </nav>
+  </div>
+</header>
+
+<main class="canon-main">
+  <section class="canon-list-hero">
+    <p class="canon-list-hero__eyebrow">The Canon · 2026 edition</p>
+    <h1 class="canon-list-hero__title">The 100 Best Players of the CFP Era</h1>
+    <p class="canon-list-hero__dek">The 100 most consequential players of the College Football Playoff era — 2014 through 2025. The era starts with Marcus Mariota&#x27;s Heisman, runs through the four-team format, and lands in the twelve-team present. The list is settled, the ranks are arguable, and arguments are the point.</p>
+    <div class="canon-list-hero__meta">
+      <span class="canon-list-hero__meta-item">100 entries</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Published 2026-04-25</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Next revision 2027</span>
+    </div>
+  </section>
+
+  <section class="canon-stat-strip" aria-label="Cohort-divergence summary">
+    <div class="canon-stat-strip__inner">
+      <dl class="canon-stat-strip__items">
+        <div class="canon-stat-strip__item">
+          <dt>Consensus</dt>
+          <dd>66</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Slight divergence</dt>
+          <dd>0</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Wide divergence</dt>
+          <dd>34</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Top-25 mean delta</dt>
+          <dd>— (v1 edition)</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="canon-top-entries" aria-label="Top entries">
+    <article class="canon-top-entry"><div class="canon-top-entry__rank">1</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-100-best-players-cfp-era/joe-burrow.html">Joe Burrow</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">LSU</span><span class="canon-chip canon-chip--era">2018–2019</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">60 TD · 6 INT in 2019 · 76.3% completion · 8.9 yards/attempt</p><p class="canon-top-entry__paragraph">Burrow&#x27;s 2019 is the season the rest of the era keeps trying to remember. He arrived at LSU as a transfer from Ohio State who had thrown 287 passes there across three years, took a year to settle, and then produced what is, by any honest reading, the best statistical quarterback season ever played: 5,671 passing yards, 60 touchdowns, six interceptions, and a national title in New Orleans against a Clemson team that had won the previous two Playoff games it played. The coronation was the Heisman speech, the cigar in the locker room, and the calm in every fourth quarter. The number that still does the work for him is the completion percentage on third down against pressure — better than every quarterback in Power-5 football that year by a margin no other season has touched. He left as the most decorated player of the era and the easiest first-overall pick in a decade.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #43</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #43</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">2</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-100-best-players-cfp-era/tua-tagovailoa.html">Tua Tagovailoa</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Alabama</span><span class="canon-chip canon-chip--era">Saban Era · 2017–2019</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">186.6 RTGN as a starter · 87 TD · 11 INT · 69% completion</p><p class="canon-top-entry__paragraph">Tua&#x27;s place is fixed by a single throw — second-and-26, DeVonta Smith down the seam, January 8 2018, the half Alabama needed to keep Saban&#x27;s empire from ceding to a Hurts-led plateau — but the rank is for the three years around it. The 2018 season was a 199.4 passer rating before the SEC Championship hip injury, the kind of efficiency line that made every analytic departments&#x27; model think it was a printing error. The 2019 season was incomplete and luminous: he was the Heisman favorite until the Mississippi State hit, and the surgery that followed reset the trajectory of the Miami franchise but did not retroactively undo what the Alabama years were. Inside the Saban operation he is the quarterback who let the offense breathe — the pivot from ground-and-pound to the spread-passing identity that powered six straight Playoff appearances. Smith, Jeudy, Ruggs, Waddle: every one of them has a top-twenty NFL draft year because Tua&#x27;s floor was that high.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #3</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #13</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--wide">wide divergence</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">3</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-100-best-players-cfp-era/bryce-young.html">Bryce Young</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Alabama</span><span class="canon-chip canon-chip--era">Saban Era · 2021</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">2021 Heisman · 4,872 yards · 47 TD · 7 INT · 167.5 RTGN</p><p class="canon-top-entry__paragraph">Bryce Young won the Heisman at 5&#x27;10&quot; and 194 pounds with a margin of 1,242 first-place votes — the largest margin in eight years — and he did it by locating throws no one else on Alabama&#x27;s roster was capable of locating. The 2021 SEC Championship against Georgia is the master tape: 421 yards, three touchdowns, the Saban-Smart rivalry&#x27;s first proof that the chair could move under pressure. The only reason 2021 isn&#x27;t a national title is the rematch in Indianapolis a month later, when the Georgia defense — finally healthy and with the run-game in starting form — flipped the geometry. The 2022 season added arrhythmia to the legend: a sprained shoulder he played through, a Tennessee game he lost on the road for the first time, and the lingering question of whether the frame could survive the NFL. The frame question belongs to Carolina now. The Alabama record stands.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #4</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #14</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--wide">wide divergence</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">4</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-100-best-players-cfp-era/caleb-williams.html">Caleb Williams</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">USC</span><span class="canon-chip canon-chip--era">Riley Era · 2022–2023</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">2022 Heisman · 10,082 career passing yards · 93 TD · 14 INT</p><p class="canon-top-entry__paragraph">Williams is the Riley-era avatar — the 2022 Heisman winner whose campaign was the cleanest single-year argument the trophy has seen since Mayfield. He moved from Norman to Los Angeles inside Riley&#x27;s portal exit and immediately won 11 games for a USC program that had been irrelevant in its conference since the BCS years. The line that does the work: 4,537 yards and 42 touchdowns against ten interceptions in a Pac-12 schedule that asked him to throw 60 times some weeks. The 2023 season — Pac-12 in dissolution, the offensive-line unraveling, his receiver corps thin after Addison&#x27;s departure — was where the criticism started, mostly unfair, and where the Bears decided he was their first-overall pick. He is the era&#x27;s portrait of quarterback as roster-architect, the player a program is built around rather than the player a program produces.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #68</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #68</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">5</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-100-best-players-cfp-era/devonta-smith.html">DeVonta Smith</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Alabama</span><span class="canon-chip canon-chip--era">Saban Era · 2018–2020</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">2020 Heisman (1st WR since &#x27;91) · 3,965 career rec yds · 46 TD</p><p class="canon-top-entry__paragraph">Smith&#x27;s 2020 — 1,856 receiving yards, 23 touchdowns, the Heisman, the title, the Mac Jones partnership that made the season look easier than it was — was the natural endpoint of an arc that began on second-and-26. He was 117 pounds when he committed to Alabama and 175 the week he won the trophy; the frame was always the argument against, the route-running was always the answer. The Slim Reaper nickname doesn&#x27;t capture how much of the game was won at the line of scrimmage on releases against press, against bracket, against safeties who knew the ball was coming. He is the receiver every modern coordinator now tries to draft — the one who wins separation before the snap is fully arrived.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #5</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #15</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--wide">wide divergence</span></div></div></article>
+  </section>
+
+  <section class="canon-mid-entries" aria-label="Ranks 6–25">
+    <h2 class="canon-mid-entries__title">Ranks 6–25</h2>
+    <ol class="canon-mid-entries__list" start="6">
+      <li class="canon-mid-entry"><div class="canon-mid-entry__rank">6</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/lamar-jackson.html">Lamar Jackson</a></p><p class="canon-mid-entry__summary">Reinvented the quarterback position so completely that the rest of the era is still arguing about how to grade it.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">7</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/jayden-daniels.html">Jayden Daniels</a></p><p class="canon-mid-entry__summary">The 2023 Heisman season&#x27;s efficiency was so extreme it broke the comparative shelf — only Burrow&#x27;s 2019 sits near it.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">8</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/derrick-henry.html">Derrick Henry</a></p><p class="canon-mid-entry__summary">The last Heisman won by a back who carried it 395 times and the closing argument for the throwback bell-cow.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">9</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/trevor-lawrence.html">Trevor Lawrence</a></p><p class="canon-mid-entry__summary">True-freshman national title in the Santa Clara rout and three full seasons as the most-anticipated NFL first overall in a decade.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">10</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/will-anderson-jr.html">Will Anderson Jr.</a></p><p class="canon-mid-entry__summary">The most decorated defender of the era and the closest thing the modern game has produced to a Suh-level non-secondary disruptor.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">11</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/kyler-murray.html">Kyler Murray</a></p><p class="canon-mid-entry__summary">The Heisman-and-MLB-first-rounder year — the cleanest single-season case the position has produced in the spread era.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">12</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/baker-mayfield.html">Baker Mayfield</a></p><p class="canon-mid-entry__summary">Walked on at Texas Tech, transferred to Oklahoma, won the 2017 Heisman, and gave the era its first Big-12-quarterback-as-portrait.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">13</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/jalen-hurts.html">Jalen Hurts</a></p><p class="canon-mid-entry__summary">Two SEC titles at Alabama, a Heisman runner-up at Oklahoma after the transfer, and the era&#x27;s portrait of the quarterback who outgrew his benching.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">14</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/quinnen-williams.html">Quinnen Williams</a></p><p class="canon-mid-entry__summary">The era&#x27;s purest interior-line season — 19.5 tackles for loss from the three-technique, no NFL career has yet eclipsed the college version.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">15</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/jameis-winston.html">Jameis Winston</a></p><p class="canon-mid-entry__summary">The 2013 Heisman, the BCS title in Pasadena, and the starting point for everything Florida State spent the next decade trying to recover.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">16</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/bo-nix.html">Bo Nix</a></p><p class="canon-mid-entry__summary">The portal-era&#x27;s most successful arc — Auburn freshman to Heisman finalist at Oregon — and the proof of concept for the Lanning rebuild.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">17</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/mac-jones.html">Mac Jones</a></p><p class="canon-mid-entry__summary">The 2020 Alabama-undefeated season — and the cleanest supporting-cast quarterback year of the era.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">18</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/ed-oliver.html">Ed Oliver</a></p><p class="canon-mid-entry__summary">The era&#x27;s defining Group-of-Five player — and an argument for why the playoff bracket should never have been four teams.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">19</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/ezekiel-elliott.html">Ezekiel Elliott</a></p><p class="canon-mid-entry__summary">The 2014 inaugural-Playoff MVP and the back who turned the bracket from speculation to canon.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">20</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/cj-stroud.html">C.J. Stroud</a></p><p class="canon-mid-entry__summary">The Day-era Buckeye who ran the offense at the highest yards-per-attempt of any Power-5 starter in 2022.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">21</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/leonard-fournette.html">Leonard Fournette</a></p><p class="canon-mid-entry__summary">The 2015 SEC season that made the recruiting service industry believe its own pre-draft hype on a back.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">22</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/myles-garrett.html">Myles Garrett</a></p><p class="canon-mid-entry__summary">The first-overall pick whose three-year College Station run produced the era&#x27;s most consistent edge tape.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">23</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/travis-hunter.html">Travis Hunter</a></p><p class="canon-mid-entry__summary">The first two-way Heisman in 27 years and the closest thing the modern era has produced to a player playing the wrong sport.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">24</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/marvin-harrison-jr.html">Marvin Harrison Jr.</a></p><p class="canon-mid-entry__summary">The era&#x27;s most credentialed receiver — Biletnikoff and fourth-overall pick — and the Day-era Buckeye visual identity.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">25</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-100-best-players-cfp-era/aidan-hutchinson.html">Aidan Hutchinson</a></p><p class="canon-mid-entry__summary">Heisman runner-up as an edge defender, the first Michigan-Ohio State win in eight years, and the captain of the program&#x27;s CFP-era turning point.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li>
+    </ol>
+  </section>
+
+  <section class="canon-footer-entries" aria-label="Ranks 26–100"><h2 class="canon-footer-entries__title">Ranks 26–100</h2><ol class="canon-footer-entries__list" start="26"><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#26</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/dak-prescott.html">Dak Prescott</a><span class="canon-footer-entry__line--summary"> — The 2014 Mississippi State season that briefly held the AP number-one ranking — and the SEC West&#x27;s first portrait of the dual-threat era arriving.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#27</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/josh-allen-quarterback.html">Josh Allen</a><span class="canon-footer-entry__line--summary"> — The Mountain-West quarterback whose Wyoming tape made the Bills draft him seventh overall and gave the era its loudest small-school NFL outcome.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#28</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/josh-allen-edge.html">Josh Allen (edge)</a><span class="canon-footer-entry__line--summary"> — The 2018 Kentucky senior who won the Bednarik and the Nagurski as the only player in history to win both in the same season.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#29</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/amari-cooper.html">Amari Cooper</a><span class="canon-footer-entry__line--summary"> — The Saban-era receiver template — the 2014 Biletnikoff season that retroactively explains every five-star wideout Tuscaloosa has signed since.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#30</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/josh-jacobs.html">Josh Jacobs</a><span class="canon-footer-entry__line--summary"> — The third-down back nobody outside the Alabama building knew was carrying the offense until the Raiders made him a first-rounder in 2019.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#31</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/cam-akers.html">Cam Akers</a><span class="canon-footer-entry__line--summary"> — The Florida-State-in-decline back who carried the offense across three coaching staffs and made the Rams second-round investment look like a steal.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#32</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/dwayne-haskins.html">Dwayne Haskins</a><span class="canon-footer-entry__line--summary"> — The 2018 single-season passing record at Ohio State — and the Heisman finalist whose post-college trajectory cannot be allowed to retroactively diminish what the year was.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#33</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/nick-bosa.html">Nick Bosa</a><span class="canon-footer-entry__line--summary"> — The Bosa-line-of-Ohio-State edge tradition continued — and the 2018 injury that cost the Buckeyes a Playoff trip ended his college career too early.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#34</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/quinn-ewers.html">Quinn Ewers</a><span class="canon-footer-entry__line--summary"> — The portal-era five-star who ran the Sarkisian Texas rebuild, lost the Heisman race twice, and bridged the program&#x27;s Big-12-to-SEC pivot.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#35</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/bijan-robinson.html">Bijan Robinson</a><span class="canon-footer-entry__line--summary"> — The Texas rebuild&#x27;s bridge back — the running-back season that retroactively justified the recruiting apparatus the Sarkisian regime inherited.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#36</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/kenny-pickett.html">Kenny Pickett</a><span class="canon-footer-entry__line--summary"> — The 2021 Pittsburgh season where the program won an ACC title nobody had picked them for — and the era&#x27;s purest fifth-year-senior breakout.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#37</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/kenneth-walker-iii.html">Kenneth Walker III</a><span class="canon-footer-entry__line--summary"> — The Wake Forest transfer who made Michigan State an unranked-to-ranked-eleven story in November 2021 and won the Doak doing it.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#38</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/jonathan-taylor.html">Jonathan Taylor</a><span class="canon-footer-entry__line--summary"> — The Wisconsin three-year run that put back-to-back Doak Walkers on the same back and made the early-2010s Big-Ten-power-back identity portable into the late decade.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#39</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/ja-marr-chase.html">Ja&#x27;Marr Chase</a><span class="canon-footer-entry__line--summary"> — The 2019 LSU number-one — Burrow&#x27;s deepest target, Biletnikoff winner, and the receiver the rest of the decade&#x27;s wideout tape gets compared against.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#40</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/justin-jefferson.html">Justin Jefferson</a><span class="canon-footer-entry__line--summary"> — The 2019 LSU slot — the receiver Burrow trusted on every third down, the player who slipped to 22nd overall, and the NFL&#x27;s current best route-runner.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#41</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/cam-taylor-britt.html">Sam Hubbard</a><span class="canon-footer-entry__line--summary"> — The Ohio State edge whose four-year body of work produced the 2017 sack title — and the cleanest Big Ten edge-defender film of the late-2010s.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#42</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/tre-davious-white.html">Tre&#x27;Davious White</a><span class="canon-footer-entry__line--summary"> — The LSU corner who anchored the secondary across the Miles-to-Orgeron transition and went 27th overall to the Bills.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#43</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/brian-burns.html">Brian Burns</a><span class="canon-footer-entry__line--summary"> — The Florida State edge whose three-year sack production continued through the Fisher-to-Taggart transition and got the Panthers a building-block defender.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#44</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/trey-hendrickson.html">Reese&#x27;s Senior Bowl invitee · Trey Hendrickson</a><span class="canon-footer-entry__line--summary"> — The Group-of-Five edge tape that went third-round but vindicated the projection — the Bengals are still the beneficiaries.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#45</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/andrew-thomas.html">Andrew Thomas</a><span class="canon-footer-entry__line--summary"> — The Georgia tackle whose three-year run as the Smart regime&#x27;s left-tackle anchor produced the cleanest first-round pass-protection résumé of the era.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#46</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/jalen-carter.html">Jalen Carter</a><span class="canon-footer-entry__line--summary"> — The interior defender who rotated through the back-to-back Georgia title teams and went ninth overall as the most obvious draft-day argument of the 2023 class.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#47</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/jamaree-salyer.html">Stetson Bennett</a><span class="canon-footer-entry__line--summary"> — The walk-on who started the back-to-back Georgia title runs, won SEC Player of the Year in &#x27;22, and made the Smart program&#x27;s identity legible to a national audience.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#48</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/brock-bowers.html">Brock Bowers</a><span class="canon-footer-entry__line--summary"> — The 2023 Mackey winner who reset the era&#x27;s tight-end evaluation — the Raiders took him 13th overall and regretted nothing.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#49</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/rashan-gary.html">Rashan Gary</a><span class="canon-footer-entry__line--summary"> — The Michigan five-star who never put up the headline sack totals but whose three-year tape was the most consistent edge film the early-Harbaugh era produced.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#50</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/reggie-white-namesake.html">Roquan Smith</a><span class="canon-footer-entry__line--summary"> — The 2017 Butkus winner who anchored the 13-2 Georgia run to the national title game and went eighth overall to the Bears as the era&#x27;s prototype off-ball linebacker.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#51</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/ryan-finley.html">Sam Darnold</a><span class="canon-footer-entry__line--summary"> — The USC quarterback whose 2017 Rose Bowl overtime win was the program&#x27;s CFP-era high-water mark before the Riley arrival.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#52</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/jalen-mills.html">J.J. McCarthy</a><span class="canon-footer-entry__line--summary"> — The Michigan starter who finished the back-to-back-to-back Big Ten title run with a national championship and got the Vikings to take him 10th overall.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#53</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/penei-sewell.html">Penei Sewell</a><span class="canon-footer-entry__line--summary"> — The Oregon left tackle whose 2019 Outland season was the cleanest pass-protection film a college tackle has produced in the era.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#54</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/deebo-samuel.html">Deebo Samuel</a><span class="canon-footer-entry__line--summary"> — The South Carolina receiver whose injury-shortened senior year still produced the tape that made him a second-round pick and a Niners&#x27; All-Pro.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#55</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/rondale-moore.html">Rondale Moore</a><span class="canon-footer-entry__line--summary"> — The Purdue freshman whose 2018 season briefly made the program a top-15 conversation and produced the Ohio State upset that year.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#56</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/garrett-wilson.html">Garrett Wilson</a><span class="canon-footer-entry__line--summary"> — The Buckeye receiver whose three-year run produced the cleanest separation tape of the Day era and the Jets&#x27; rookie-of-the-year season.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#57</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/chris-olave.html">Chris Olave</a><span class="canon-footer-entry__line--summary"> — The Buckeye receiver whose four-year run made Ohio State&#x27;s wideout room the era&#x27;s best — Saints first-round pick in 2022.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#58</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/jaxson-dart.html">Jaxson Dart</a><span class="canon-footer-entry__line--summary"> — The Kiffin Era&#x27;s quarterback — the USC transfer who ran the Ole Miss offense for three years and gave the program its most coherent stretch since Eli.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#59</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/evan-engram.html">Evan Engram</a><span class="canon-footer-entry__line--summary"> — The Mackey-winning tight end who anchored the Freeze-era Ole Miss offense and made the Giants take him in the first round.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#60</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/tony-pollard.html">A.J. Brown</a><span class="canon-footer-entry__line--summary"> — The Ole Miss receiver who outproduced D.K. Metcalf in the same room — Titans second-rounder, Eagles All-Pro.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#61</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/dk-metcalf.html">D.K. Metcalf</a><span class="canon-footer-entry__line--summary"> — The injury-shortened Ole Miss career that produced the Combine performance that made him a Seahawk and a Steelers&#x27; building block.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#62</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/micah-parsons.html">Micah Parsons</a><span class="canon-footer-entry__line--summary"> — The Penn State linebacker whose 2019 sophomore year was the era&#x27;s best pre-NFL film at the position — opted out of 2020 and went 12th overall regardless.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#63</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/travon-walker.html">Travon Walker</a><span class="canon-footer-entry__line--summary"> — The Georgia edge whose three-year rotation through the championship roster produced the first-overall NFL pick the tape didn&#x27;t quite predict.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#64</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/kelee-ringo.html">Kelee Ringo</a><span class="canon-footer-entry__line--summary"> — The Georgia corner whose 79-yard pick-six iced the 2021 national title game — and made him the closing image of the back-to-back run.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#65</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/zach-charbonnet.html">Donovan Edwards</a><span class="canon-footer-entry__line--summary"> — The Michigan back whose two-touchdown explosion in the 2023 national title game closed the Harbaugh-era loop.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#66</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/blake-corum.html">Blake Corum</a><span class="canon-footer-entry__line--summary"> — The Michigan back whose three-year run produced the Doak Walker, the school&#x27;s all-time TD record, and the bracket the Wolverines went 15-0 through.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#67</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/hendon-hooker.html">Hendon Hooker</a><span class="canon-footer-entry__line--summary"> — The Heupel-era Tennessee quarterback whose 2022 season ran the Vols to 11-2 and made the program a top-five conversation for the first time in fifteen years.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#68</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/aaron-donald-namesake.html">Vita Vea</a><span class="canon-footer-entry__line--summary"> — The Washington nose tackle whose interior tape made him a top-12 pick and anchored the Petersen-era Pac-12 Championship runs.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#69</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/patrick-surtain-ii.html">Patrick Surtain II</a><span class="canon-footer-entry__line--summary"> — The Alabama corner whose 2020 season was a Jim Thorpe winner — the cleanest single-season corner tape of the Saban era.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#70</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/minkah-fitzpatrick.html">Minkah Fitzpatrick</a><span class="canon-footer-entry__line--summary"> — The Alabama secondary&#x27;s hybrid — three-year starter, Bednarik and Thorpe winner in &#x27;17, and the closing image of the Saban-era safety blueprint.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#71</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/reuben-foster.html">Reuben Foster</a><span class="canon-footer-entry__line--summary"> — The Butkus-winning Alabama linebacker whose 2016 season anchored the SEC West run — pre-NFL the cleanest off-ball film of the Saban-era roster.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#72</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/da-ron-payne.html">Da&#x27;Ron Payne</a><span class="canon-footer-entry__line--summary"> — The Alabama nose tackle whose 2018 national title MVP performance against Georgia was the closing argument for the program&#x27;s interior-line dominance.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#73</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/rashawn-slater.html">Rashawn Slater</a><span class="canon-footer-entry__line--summary"> — The Northwestern tackle whose tape-vs-the-Big-Ten consistency made the Chargers reach for him at 13 — the right call.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#74</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/evan-neal.html">Evan Neal</a><span class="canon-footer-entry__line--summary"> — The Alabama tackle whose three-position starting record in three years was the era&#x27;s most flexible offensive-line résumé.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#75</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/rashee-rice.html">Christian Wilkins</a><span class="canon-footer-entry__line--summary"> — The four-year Clemson interior defender who anchored the back-to-back Playoff title runs and went 13th overall to the Dolphins.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#76</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/dexter-lawrence-namesake.html">Dexter Lawrence</a><span class="canon-footer-entry__line--summary"> — The Clemson nose tackle whose three-year run anchored the Playoff defenses that beat Alabama twice and went 17th overall to the Giants.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#77</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/hunter-renfrow.html">Hunter Renfrow</a><span class="canon-footer-entry__line--summary"> — The walk-on receiver who caught the 2016 national title game-winner from Watson with one second left — Clemson&#x27;s closing image.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#78</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/deshaun-watson.html">Deshaun Watson</a><span class="canon-footer-entry__line--summary"> — The Clemson quarterback whose 2016 national title win over Alabama and back-to-back Heisman runner-up votes anchored the program&#x27;s first BCS/CFP-era title.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#79</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/mike-williams.html">Mike Williams</a><span class="canon-footer-entry__line--summary"> — The Clemson receiver whose two-year run with Watson — interrupted by a neck injury in &#x27;15 — produced the seventh-overall pick in &#x27;17.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#80</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/malik-willis.html">Will Anderson predecessor · Reuben Foster — see #71</a><span class="canon-footer-entry__line--summary"> — The Liberty quarterback (Malik Willis) whose dual-threat tape made the program a national conversation under Freeze and got him drafted in the third round.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#81</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/malik-willis-real.html">Malik Willis</a><span class="canon-footer-entry__line--summary"> — The Group-of-Five quarterback whose two-year Liberty run produced the dual-threat tape that made him a top-100 draft pick.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#82</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/ej-perry.html">Joey Bosa namesake</a><span class="canon-footer-entry__line--summary"> — The Ohio State edge whose two-year tape anchored the 2014 Playoff defense and went third overall to the Chargers.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#83</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/von-bell.html">Vonn Bell</a><span class="canon-footer-entry__line--summary"> — The Ohio State safety whose 2014 Playoff interception against Alabama in the Sugar Bowl semifinal was the era&#x27;s first signature defensive moment.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#84</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/cameron-heyward-namesake.html">Tyler Boyd</a><span class="canon-footer-entry__line--summary"> — The Pitt receiver whose three-year run produced the school all-time receptions record and a Bengals second-round draft slot.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#85</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/laviska-shenault.html">Laviska Shenault Jr.</a><span class="canon-footer-entry__line--summary"> — The Colorado utility receiver whose 2018 season — six different position groups in one game — was the era&#x27;s most novel offensive-skill film.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#86</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/jordan-davis.html">Jordan Davis</a><span class="canon-footer-entry__line--summary"> — The 341-pound Georgia nose tackle whose 2021 awards sweep and 4.78 Combine 40 made him the era&#x27;s most physically improbable first-rounder.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#87</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/brian-thomas-jr.html">Brian Thomas Jr.</a><span class="canon-footer-entry__line--summary"> — The LSU receiver whose 2023 partnership with Daniels produced the era&#x27;s best deep-target tape and got the Jaguars a Pro Bowl rookie.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#88</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/malik-nabers.html">Malik Nabers</a><span class="canon-footer-entry__line--summary"> — The LSU number-one for Daniels in 2023 — Biletnikoff finalist, sixth overall to the Giants, the era&#x27;s second-best LSU receiver season after Chase.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#89</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/terrion-arnold.html">Terrion Arnold</a><span class="canon-footer-entry__line--summary"> — The Alabama corner whose two-year starting run produced the cleanest cover tape of the Saban era&#x27;s final two seasons.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#90</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/dallas-turner.html">Dallas Turner</a><span class="canon-footer-entry__line--summary"> — The Alabama edge whose three-year sack production made him the SEC DPOY in &#x27;23 and the Vikings&#x27; first-round investment in &#x27;24.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#91</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/laiatu-latu.html">Laiatu Latu</a><span class="canon-footer-entry__line--summary"> — The Washington medical-retiree turned UCLA edge — &#x27;23 Lombardi winner and the only player to come back from a career-ending diagnosis to be a top-15 pick in the era.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#92</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/will-levis.html">Will Levis</a><span class="canon-footer-entry__line--summary"> — The Kentucky two-year starter whose dual-threat tape made him a draft-night fall and a Titans starter.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#93</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/bryce-parr.html">Anthony Richardson</a><span class="canon-footer-entry__line--summary"> — The Florida one-year starter whose Combine performance made him the fourth-overall pick on the rawest tape of any quarterback ever taken in the top-five.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#94</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/kyle-pitts.html">Kyle Pitts</a><span class="canon-footer-entry__line--summary"> — The Florida tight end whose 2020 season — Mackey winner, Heisman finalist as a TE — made him the highest TE pick since 1973 (4th overall to Atlanta).</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#95</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/kadarius-toney.html">Treylon Burks</a><span class="canon-footer-entry__line--summary"> — The Arkansas receiver whose three-year SEC tape made him the Titans&#x27; replacement plan for A.J. Brown and a first-round pick.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#96</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/jared-goff-namesake.html">Jared Goff</a><span class="canon-footer-entry__line--summary"> — The Cal quarterback whose 2015 Pac-12 production made him the first-overall pick in 2016 and the closing image of the late-Dykes Cal program.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#97</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/dak-cousins-namesake.html">Marcus Mariota</a><span class="canon-footer-entry__line--summary"> — The Oregon quarterback whose 2014 Heisman season delivered the first inaugural-Playoff title-game appearance and made the spread-pass identity portable.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#98</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/t-harris.html">Najee Harris</a><span class="canon-footer-entry__line--summary"> — The four-year Alabama back whose senior season anchored the 2020 13-0 title run and went late-first to the Steelers.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#99</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/leighton-vander-esch-namesake.html">Tank Bigsby</a><span class="canon-footer-entry__line--summary"> — The Auburn back whose three-year run carried a program across two coaching changes and made him a top-100 draft pick.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#100</div><div class="canon-footer-entry__line"><a href="/canon/the-100-best-players-cfp-era/dont-a-hightower-namesake.html">Christian McCaffrey</a><span class="canon-footer-entry__line--summary"> — The Stanford all-purpose back whose 2015 single-season all-purpose yards record (3,864) closed the BCS-to-CFP transition and made him a top-10 NFL pick.</span></div></li></ol></section>
+
+  <section class="canon-receipts" aria-label="Receipts panel">
+    <h2 class="canon-receipts__title">Revision receipts</h2>
+    <p class="canon-receipts__body">
+      Every rank in this edition is tracked against last year's slot.
+      <span class="canon-receipts__legend">
+        <span class="canon-receipts__chip canon-receipts__chip--up">\u2191</span> moved up
+        <span class="canon-receipts__chip canon-receipts__chip--down">\u2193</span> moved down
+        <span class="canon-receipts__chip canon-receipts__chip--flat">→</span> held
+        <span class="canon-receipts__chip canon-receipts__chip--new">NEW</span> first edition
+      </span>
+    </p>
+    <p class="canon-receipts__note">
+      v1 edition — prior-year ranks are NEW across the board. The 2027
+      edition is the first one where the deltas read movement.
+    </p>
+  </section>
+
+  <section class="canon-methodology">
+    <h2 class="canon-methodology__title">How this list was put together</h2>
+    <p class="canon-methodology__body">Scope: 2014–2025 inclusive. Eligibility requires at least one full season as a starter or featured contributor in that window. Ranking weighs peak season, durability across seasons, postseason work in the CFP bracket, and the weight of what the player meant to the program. NFL-draft outcome is signal, not verdict — Tua&#x27;s injury costs him nothing here. Cohort split (where computed) reads stat-folk signal — analytics, gambling, recruiting — against casual-fan signal — national narrative, vibes-class, generational recall.</p>
+  </section>
+</main>
+
+<footer class="canon-footer">
+  <div class="canon-footer__inner">
+    <p class="canon-footer__line">
+      Argue at the rankings, not the players — every entry below earned its way onto
+      the list, and the rank is the read, not the verdict. Next revision: 2027.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

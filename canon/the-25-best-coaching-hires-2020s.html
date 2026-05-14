@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The 25 Best Coaching Hires of the 2020s · 2026 · The Canon</title>
+<meta name="description" content="Twenty-five hires from 2020 through 2025 that aged best — or showed enough through the early returns that the judgment is settling. Some are championship outcomes already. Some are bets the program has not yet collected on but the early evidence vindicates.">
+<style>/* The Canon — design tokens (mirrors team_pages/assets/tokens.css ethos:
+ * dark-mode default, Inter Display + serif editorial pairing, OKLCH
+ * percentile ramp, 44px touch targets). Self-contained — every page
+ * inlines this stylesheet so no external asset fetch is needed.
+ */
+
+:root {
+  /* color */
+  --bg-0:       #0b0d12;
+  --bg-1:       #12151d;
+  --bg-card:    #171b24;
+  --bg-card-2:  #1e2330;
+  --fg-0:       #f5f6fa;
+  --fg-1:       #c6cad6;
+  --fg-2:       #8a90a1;
+  --fg-3:       #5c6172;
+  --line:       rgba(255, 255, 255, 0.08);
+  --line-2:     rgba(255, 255, 255, 0.05);
+  --accent:     #c5b358;          /* canonical gold */
+  --accent-2:   #084c24;
+  --tone-up:    #3ea073;
+  --tone-down:  #c04a4a;
+  --tone-flat:  #8a90a1;
+  --tone-new:   #c5b358;
+
+  /* type */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif:   "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono:    "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  /* size scale */
+  --fs-eyebrow:    11px;
+  --fs-label:      12px;
+  --fs-body:       16px;
+  --fs-body-lg:    18px;
+  --fs-h3:         22px;
+  --fs-h2:         clamp(24px, 2vw + 12px, 34px);
+  --fs-h1:         clamp(34px, 4vw + 16px, 64px);
+  --fs-rank-xl:    clamp(54px, 6vw + 18px, 96px);
+
+  /* spacing */
+  --gap-1:  4px;
+  --gap-2:  8px;
+  --gap-3:  12px;
+  --gap-4:  16px;
+  --gap-5:  24px;
+  --gap-6:  32px;
+  --gap-7:  48px;
+  --gap-8:  64px;
+
+  /* radius */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+a:hover { color: var(--fg-0); }
+
+/* ----- masthead ---------- */
+.canon-masthead {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.canon-masthead__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-4) var(--gap-5);
+  display: flex; align-items: center; gap: var(--gap-6);
+}
+.canon-masthead__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--fg-0);
+}
+.canon-masthead__nav { display: flex; gap: var(--gap-5); margin-left: auto; }
+.canon-masthead__nav a {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-masthead__nav a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ----- main wrap ---------- */
+.canon-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--gap-6) var(--gap-5) var(--gap-8);
+}
+
+/* ----- index hero & list grid ---------- */
+.canon-hero { margin: var(--gap-7) 0 var(--gap-6); }
+.canon-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0;
+}
+
+.canon-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-5);
+  margin: var(--gap-7) 0;
+}
+@media (min-width: 720px) {
+  .canon-list-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.canon-list-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--gap-5);
+  display: flex; flex-direction: column;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.canon-list-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.canon-list-card__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-card__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.18;
+  margin: 0 0 var(--gap-3);
+  color: var(--fg-0);
+}
+.canon-list-card__dek {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-4);
+  flex: 1;
+}
+.canon-list-card__meta {
+  font-size: 12px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; gap: var(--gap-3);
+}
+
+/* ----- list-page hero ---------- */
+.canon-list-hero { margin: var(--gap-6) 0; }
+.canon-list-hero__eyebrow {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 var(--gap-3);
+}
+.canon-list-hero__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0 0 var(--gap-4);
+  letter-spacing: -0.02em;
+}
+.canon-list-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  max-width: 64ch;
+  margin: 0 0 var(--gap-4);
+}
+.canon-list-hero__meta {
+  font-size: 13px;
+  color: var(--fg-2);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-3);
+}
+.canon-list-hero__meta-divider { color: var(--fg-3); }
+
+/* ----- stat strip ---------- */
+.canon-stat-strip {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  margin: var(--gap-5) 0 var(--gap-6);
+}
+.canon-stat-strip__inner { padding: var(--gap-4) var(--gap-5); }
+.canon-stat-strip__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-4);
+  margin: 0;
+}
+@media (min-width: 720px) {
+  .canon-stat-strip__items { grid-template-columns: repeat(4, 1fr); }
+}
+.canon-stat-strip__item dt {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-stat-strip__item dd {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--fg-0);
+  letter-spacing: -0.01em;
+}
+
+/* ----- top entries (ranks 1-N with full editorial paragraphs) ---------- */
+.canon-top-entries { margin: var(--gap-6) 0; }
+.canon-top-entry {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--gap-5);
+  padding: var(--gap-6) 0;
+  border-top: 1px solid var(--line);
+}
+.canon-top-entry:first-child { border-top: none; }
+.canon-top-entry__rank {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+.canon-top-entry__body { display: flex; flex-direction: column; gap: var(--gap-3); }
+.canon-top-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+  margin: 0;
+  color: var(--fg-0);
+}
+.canon-top-entry__title a { color: inherit; }
+.canon-top-entry__title a:hover { color: var(--accent); }
+.canon-top-entry__chips {
+  display: flex; flex-wrap: wrap; gap: var(--gap-2);
+}
+.canon-chip {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-1);
+  font-weight: 500;
+}
+.canon-chip--era { color: var(--accent); }
+.canon-top-entry__statline {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+.canon-top-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* mini-viz: stat-vs-casual rank divergence */
+.canon-mini-viz {
+  display: flex; align-items: center; gap: var(--gap-3);
+  margin: var(--gap-2) 0 0;
+  padding: var(--gap-3) var(--gap-4);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-mini-viz__label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+}
+.canon-mini-viz__rank {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+.canon-mini-viz__rank--stat { color: #5a9dd1; }
+.canon-mini-viz__rank--casual { color: #d9845e; }
+.canon-mini-viz__divider { color: var(--fg-3); font-family: var(--font-mono); }
+.canon-mini-viz__verdict {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+}
+.canon-mini-viz__verdict--consensus { background: rgba(62,160,115,0.15); color: var(--tone-up); }
+.canon-mini-viz__verdict--slight    { background: rgba(217,165,94,0.15); color: #d9a55e; }
+.canon-mini-viz__verdict--wide      { background: rgba(192,74,74,0.15);  color: var(--tone-down); }
+
+.canon-rank-delta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--bg-card-2);
+  color: var(--fg-2);
+}
+.canon-rank-delta--up   { color: var(--tone-up); }
+.canon-rank-delta--down { color: var(--tone-down); }
+.canon-rank-delta--flat { color: var(--tone-flat); }
+.canon-rank-delta--new  { color: var(--tone-new); }
+
+/* ----- mid entries (ranks 6-25 compact rows) ---------- */
+.canon-mid-entries { margin: var(--gap-7) 0; }
+.canon-mid-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-mid-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; flex-direction: column;
+}
+.canon-mid-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: var(--gap-4);
+  align-items: center;
+  padding: var(--gap-4) 0;
+  border-top: 1px solid var(--line-2);
+}
+.canon-mid-entry:first-child { border-top: 1px solid var(--line); }
+.canon-mid-entry__rank {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--fg-2);
+  letter-spacing: -0.02em;
+}
+.canon-mid-entry__body { display: flex; flex-direction: column; gap: var(--gap-1); }
+.canon-mid-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  margin: 0;
+  font-weight: 500;
+}
+.canon-mid-entry__title a { color: var(--fg-0); }
+.canon-mid-entry__title a:hover { color: var(--accent); }
+.canon-mid-entry__summary {
+  font-size: 14px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- footer entries (ranks 26-100 compact list) ---------- */
+.canon-footer-entries { margin: var(--gap-7) 0; }
+.canon-footer-entries__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-footer-entries__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.canon-footer-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--gap-4);
+  align-items: baseline;
+  padding: var(--gap-3) 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.canon-footer-entry__rank {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.canon-footer-entry__line {
+  font-size: 14px;
+  color: var(--fg-1);
+}
+.canon-footer-entry__line a { color: var(--fg-0); font-weight: 500; }
+.canon-footer-entry__line a:hover { color: var(--accent); }
+.canon-footer-entry__line--summary { color: var(--fg-2); }
+
+/* ----- receipts panel ---------- */
+.canon-receipts {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.canon-receipts__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-receipts__body {
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 var(--gap-3);
+}
+.canon-receipts__legend {
+  display: inline-flex; flex-wrap: wrap; gap: var(--gap-3);
+  margin-left: var(--gap-3);
+  align-items: center;
+  font-size: 12px;
+  color: var(--fg-2);
+}
+.canon-receipts__chip {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--r-sm);
+  margin-right: 2px;
+}
+.canon-receipts__chip--up   { color: var(--tone-up); background: rgba(62,160,115,0.15); }
+.canon-receipts__chip--down { color: var(--tone-down); background: rgba(192,74,74,0.15); }
+.canon-receipts__chip--flat { color: var(--tone-flat); background: rgba(138,144,161,0.10); }
+.canon-receipts__chip--new  { color: var(--tone-new); background: rgba(197,179,88,0.15); }
+.canon-receipts__note {
+  font-size: 12px;
+  color: var(--fg-2);
+  margin: var(--gap-3) 0 0;
+}
+
+/* ----- methodology block (list page + index) ---------- */
+.canon-methodology {
+  margin: var(--gap-7) 0;
+  padding: var(--gap-5);
+  border-top: 1px solid var(--line);
+}
+.canon-methodology__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-3);
+  font-weight: 600;
+}
+.canon-methodology__body {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+  max-width: 70ch;
+}
+
+/* ----- footer ---------- */
+.canon-footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-1);
+  margin-top: var(--gap-8);
+}
+.canon-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-5);
+}
+.canon-footer__line {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+/* ----- per-entry page ---------- */
+.canon-breadcrumb {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: var(--gap-4) 0 var(--gap-5);
+  display: flex; flex-wrap: wrap; gap: var(--gap-2); align-items: center;
+}
+.canon-breadcrumb__sep { color: var(--fg-3); }
+
+.canon-entry { display: flex; flex-direction: column; gap: var(--gap-6); }
+.canon-entry__header {
+  padding: var(--gap-6) 0;
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: var(--gap-3);
+}
+.canon-entry__rank-badge {
+  font-family: var(--font-display);
+  font-size: var(--fs-rank-xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.canon-entry__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.canon-entry__summary {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__statline {
+  padding: var(--gap-4) var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__statline-text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__paragraph {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--fg-0);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 64ch;
+}
+
+.canon-entry__cohort, .canon-entry__delta {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 var(--gap-4);
+  font-weight: 600;
+}
+.canon-entry__cohort-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-4);
+}
+.canon-entry__cohort-item--span { grid-column: 1 / -1; }
+.canon-entry__cohort-label {
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--fg-2);
+  margin: 0 0 var(--gap-1);
+}
+.canon-entry__cohort-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.canon-entry__cohort-value--consensus       { color: var(--tone-up); }
+.canon-entry__cohort-value--slight-divergence { color: #d9a55e; }
+.canon-entry__cohort-value--wide-divergence { color: var(--tone-down); }
+
+.canon-entry__delta-text {
+  font-size: var(--fs-body);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.canon-entry__cross-references {
+  padding: var(--gap-5);
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.canon-entry__cross-references ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--gap-2);
+}
+.canon-entry__cross-references li {
+  font-size: 14px; color: var(--fg-1);
+}
+</style>
+</head>
+<body class="canon-page canon-list-page">
+<header class="canon-masthead">
+  <div class="canon-masthead__inner">
+    <a class="canon-masthead__brand" href="/">CFB Index</a>
+    <nav class="canon-masthead__nav" aria-label="primary">
+      <a href="/teams/">Teams</a>
+      <a href="/canon/">The Canon</a>
+    </nav>
+  </div>
+</header>
+
+<main class="canon-main">
+  <section class="canon-list-hero">
+    <p class="canon-list-hero__eyebrow">The Canon · 2026 edition</p>
+    <h1 class="canon-list-hero__title">The 25 Best Coaching Hires of the 2020s</h1>
+    <p class="canon-list-hero__dek">Twenty-five hires from 2020 through 2025 that aged best — or showed enough through the early returns that the judgment is settling. Some are championship outcomes already. Some are bets the program has not yet collected on but the early evidence vindicates.</p>
+    <div class="canon-list-hero__meta">
+      <span class="canon-list-hero__meta-item">25 entries</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Published 2026-04-25</span>
+      <span class="canon-list-hero__meta-divider" aria-hidden="true">·</span>
+      <span class="canon-list-hero__meta-item">Next revision 2027</span>
+    </div>
+  </section>
+
+  <section class="canon-stat-strip" aria-label="Cohort-divergence summary">
+    <div class="canon-stat-strip__inner">
+      <dl class="canon-stat-strip__items">
+        <div class="canon-stat-strip__item">
+          <dt>Consensus</dt>
+          <dd>25</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Slight divergence</dt>
+          <dd>0</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Wide divergence</dt>
+          <dd>0</dd>
+        </div>
+        <div class="canon-stat-strip__item">
+          <dt>Top-25 mean delta</dt>
+          <dd>— (v1 edition)</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="canon-top-entries" aria-label="Top entries">
+    <article class="canon-top-entry"><div class="canon-top-entry__rank">1</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/curt-cignetti-indiana-2024.html">Curt Cignetti — Indiana, December 2023</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Indiana</span><span class="canon-chip canon-chip--era">2024–</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Year-1: 11-1 regular season · CFP appearance · won Big Ten East games</p><p class="canon-top-entry__paragraph">Cignetti&#x27;s December 2023 hire from James Madison cost Indiana the smallest price tag of any 2024 CFP-team head coach (~$3.4M base) and produced the largest immediate return: 11 wins in 11 starts, a Big Ten East schedule navigated, a CFP appearance in year one. He brought the JMU defensive coordinator and a portal class so deliberate that the season&#x27;s roster turnover became the new template for how a Group-of-Five-trained coach lifts a Power-5 program. The market response was immediate — every December 2024 search for a long-tenured Group-of-Five winner started with the Cignetti precedent. The 2025 season will be the credibility test; the 2024 evidence stands as the decade&#x27;s signal hire.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #17</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #17</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">2</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/lincoln-riley-usc-2022.html">Lincoln Riley — USC, November 2021</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">USC</span><span class="canon-chip canon-chip--era">2022–</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Year-1: 11-3 · 2022 Heisman (Williams) · Big Ten move executed</p><p class="canon-top-entry__paragraph">Riley left Norman for Los Angeles in November 2021 after a Big-12 era that was ending; USC made him the highest-paid coach in the conference and gave him a complete portal-and-roster reset. Year one — 11-3, Caleb Williams&#x27; Heisman, the closest thing to a USC title contention since the Pete Carroll era — vindicated the bet. The 2023 and 2024 seasons (8-5, 7-6) cooled the conversation; the Big Ten move&#x27;s early returns are still being graded. The hire&#x27;s structural impact — USC and UCLA leaving the Pac-12, the conference&#x27;s subsequent dissolution — is the long-tail outcome that places it second.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #12</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #12</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">3</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/kalen-deboer-alabama-2024.html">Kalen DeBoer — Alabama, January 2024</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Alabama</span><span class="canon-chip canon-chip--era">2024–</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Year-1: 9-4 · first non-CFP year for UA since 2007 · 2025 pending</p><p class="canon-top-entry__paragraph">DeBoer arrived in Tuscaloosa from a 14-1 Washington season and inherited the most institutionalized roster in college football. Year one (9-4, no SEC title game, outside the CFP) was Alabama&#x27;s first November-loss season since 2007 — the data point that placed him third on this list rather than first or second is the outcome relative to the inheritance. The bet was obvious at the moment of hire: a coach with a national-title-game appearance, a portal-savvy operation, and a personality compatible with the Tuscaloosa register. The 2025 evidence will recalibrate the rank — the delta column reads ``→`` provisionally.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #2</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #2</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">4</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/marcus-freeman-notre-dame-2022.html">Marcus Freeman — Notre Dame, December 2021</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Notre Dame</span><span class="canon-chip canon-chip--era">2022–</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Year-3: 14-2 · 2024 NCG appearance · 2nd youngest NCG HC since &#x27;70</p><p class="canon-top-entry__paragraph">Brian Kelly left for LSU in November 2021; Freeman, the first-year defensive coordinator, was promoted within a week. The 2022 season opened with a Marshall loss at home and the conversation curdled briefly; 2023 (10-3) stabilized the program; 2024 (14-2, the NCG appearance against Ohio State) ratified the bet. Freeman is the rare Notre Dame head coach the alumni-network has embraced without reservation, and the program&#x27;s recruiting cycle since 2022 has been the strongest since the Holtz years.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #9</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #9</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article><article class="canon-top-entry"><div class="canon-top-entry__rank">5</div><div class="canon-top-entry__body"><h2 class="canon-top-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/dan-lanning-oregon-2022.html">Dan Lanning — Oregon, December 2021</a></h2><div class="canon-top-entry__chips"><span class="canon-chip canon-chip--program">Oregon</span><span class="canon-chip canon-chip--era">2022–</span><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div><p class="canon-top-entry__statline">Year-1: 10-3 · Year-3: 13-1 · Big Ten transition&#x27;s smoothest landing</p><p class="canon-top-entry__paragraph">Lanning arrived from Smart&#x27;s Georgia in December 2021 and produced 10-3 in year one, 12-2 in year two, 13-1 with the first Big Ten Championship in year three — the smoothest conference-transition landing of the Pac-12 dissolution. The 2024 Big Ten Championship win over Penn State was the program&#x27;s first conference title outside the Pac-12 in its history. The Lanning operation (portal-aggressive, defense-first, Florida-recruiting) is the early read on Big Ten&#x27;s new west-coast power.</p><div class="canon-mini-viz" aria-label="Cohort divergence"><span class="canon-mini-viz__label">Cohort split</span><span class="canon-mini-viz__rank canon-mini-viz__rank--stat">stat #5</span><span class="canon-mini-viz__divider">|</span><span class="canon-mini-viz__rank canon-mini-viz__rank--casual">casual #5</span><span class="canon-mini-viz__verdict canon-mini-viz__verdict--consensus">consensus</span></div></div></article>
+  </section>
+
+  <section class="canon-mid-entries" aria-label="Ranks 6–15">
+    <h2 class="canon-mid-entries__title">Ranks 6–15</h2>
+    <ol class="canon-mid-entries__list" start="6">
+      <li class="canon-mid-entry"><div class="canon-mid-entry__rank">6</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/mike-elko-texas-am-2024.html">Mike Elko — Texas A&amp;M, December 2023</a></p><p class="canon-mid-entry__summary">The Duke defensive coordinator who took the Texas A&amp;M job nobody outside the search committee thought he&#x27;d take — and stabilized the program in nine months.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">7</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/josh-heupel-tennessee-2021.html">Josh Heupel — Tennessee, January 2021</a></p><p class="canon-mid-entry__summary">The UCF tempo-offense coach who gave Tennessee its first 11-win season since 2001 — and the Hooker partnership that briefly made Knoxville a top-five conversation.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">8</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/steve-sarkisian-texas-2021.html">Steve Sarkisian — Texas, January 2021</a></p><p class="canon-mid-entry__summary">The Alabama OC whose third year produced the program&#x27;s first Big-12 title in the CFP era — and whose fourth year ran the SEC move&#x27;s first season to a CFP semifinal.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">9</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/brent-venables-oklahoma-2022.html">Brent Venables — Oklahoma, December 2021</a></p><p class="canon-mid-entry__summary">The Clemson DC whose first year was a 6-7 disaster — and whose third-year 10-3 finish vindicated the Oklahoma program&#x27;s most-criticized 2020s decision.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">10</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/lance-leipold-kansas-2021.html">Lance Leipold — Kansas, May 2021</a></p><p class="canon-mid-entry__summary">The Buffalo coach who took the Kansas job in May with no spring practice — and produced the program&#x27;s first bowl game in 14 years by year two.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">11</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/kalen-deboer-washington-2022.html">Kalen DeBoer — Washington, November 2021</a></p><p class="canon-mid-entry__summary">The Fresno State coach whose two-year Washington run produced the program&#x27;s first national-title-game appearance since 1991.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">12</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/mike-norvell-fsu-2020.html">Mike Norvell — Florida State, December 2019</a></p><p class="canon-mid-entry__summary">The Memphis coach who rebuilt FSU to 13-1 — and then watched the snub-and-collapse of the next year&#x27;s season.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">13</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/jonathan-smith-michigan-state-2024.html">Jonathan Smith — Michigan State, November 2023</a></p><p class="canon-mid-entry__summary">The Oregon State coach who came home to East Lansing — and is rebuilding the program from the post-Tucker-scandal floor.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">14</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/sherrone-moore-michigan-2024.html">Sherrone Moore — Michigan, January 2024</a></p><p class="canon-mid-entry__summary">The Harbaugh OC who became the head coach within weeks of the national title — and beat Ohio State again in his first November.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li><li class="canon-mid-entry"><div class="canon-mid-entry__rank">15</div><div class="canon-mid-entry__body"><p class="canon-mid-entry__title"><a href="/canon/the-25-best-coaching-hires-2020s/hugh-freeze-auburn-2023.html">Hugh Freeze — Auburn, November 2022</a></p><p class="canon-mid-entry__summary">The Liberty coach whose two-year Auburn record (11-14) doesn&#x27;t yet justify the ranking — but the SEC West schedule and the Iron Bowl evidence lean positive.</p></div><div class="canon-mid-entry__delta"><span class="canon-rank-delta canon-rank-delta--new">↑ NEW</span></div></li>
+    </ol>
+  </section>
+
+  <section class="canon-footer-entries" aria-label="Ranks 16–25"><h2 class="canon-footer-entries__title">Ranks 16–25</h2><ol class="canon-footer-entries__list" start="16"><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#16</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/brian-kelly-lsu-2022.html">Brian Kelly — LSU, November 2021</a><span class="canon-footer-entry__line--summary"> — The Notre Dame coach whose Baton Rouge transition produced Daniels&#x27; Heisman in year two — and whose fourth year is the test.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#17</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/eli-drinkwitz-missouri-2020.html">Eliah Drinkwitz — Missouri, December 2019</a><span class="canon-footer-entry__line--summary"> — The Appalachian State coach who took the Missouri job the week of the Sun Belt Championship — and produced the program&#x27;s first 11-win season since 2014.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#18</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/sam-pittman-arkansas-2020.html">Sam Pittman — Arkansas, December 2019</a><span class="canon-footer-entry__line--summary"> — The Georgia OL coach whose third year (9-4) gave Arkansas its first ranked finish since 2011 — and the stability the Bret Bielema era hadn&#x27;t produced.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#19</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/brent-pry-virginia-tech-2022.html">Brent Pry — Virginia Tech, December 2021</a><span class="canon-footer-entry__line--summary"> — The Penn State DC who took the post-Fuente Virginia Tech job — and is two seasons into a multi-year rebuild whose verdict isn&#x27;t yet.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#20</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/willie-fritz-houston-2024.html">Willie Fritz — Houston, December 2023</a><span class="canon-footer-entry__line--summary"> — The Tulane coach whose Houston hire is the Big-12 expansion&#x27;s most substantial bet — year-one returns are mid-rebuild.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#21</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/bret-bielema-illinois-2021.html">Bret Bielema — Illinois, December 2020</a><span class="canon-footer-entry__line--summary"> — The post-Wisconsin Bielema return that took four years to compound — the 2024 Citrus Bowl winner and the Illini&#x27;s strongest season since 2007.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#22</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/luke-fickell-wisconsin-2023.html">Luke Fickell — Wisconsin, November 2022</a><span class="canon-footer-entry__line--summary"> — The Cincinnati Group-of-Five superstar whose Wisconsin tenure has not produced the early returns the Madison committee paid for.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#23</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/billy-napier-florida-2022.html">Billy Napier — Florida, December 2021</a><span class="canon-footer-entry__line--summary"> — The Louisiana coach whose three-year Florida run has been mid-tier SEC stable — and whose fourth year is the make-or-break.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#24</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/jeff-brohm-louisville-2023.html">Jeff Brohm — Louisville, December 2022</a><span class="canon-footer-entry__line--summary"> — The hometown coach whose two-year Louisville return has produced the program&#x27;s strongest ACC run since the Petrino-Jackson years.</span></div></li><li class="canon-footer-entry"><div class="canon-footer-entry__rank">#25</div><div class="canon-footer-entry__line"><a href="/canon/the-25-best-coaching-hires-2020s/dabo-swinney-extension-2023.html">Dabo Swinney — Clemson extension, January 2023</a><span class="canon-footer-entry__line--summary"> — The 10-year, $115M extension that re-cemented Swinney in Clemson — and the post-extension years that have stabilized the program after the post-Lawrence dip.</span></div></li></ol></section>
+
+  <section class="canon-receipts" aria-label="Receipts panel">
+    <h2 class="canon-receipts__title">Revision receipts</h2>
+    <p class="canon-receipts__body">
+      Every rank in this edition is tracked against last year's slot.
+      <span class="canon-receipts__legend">
+        <span class="canon-receipts__chip canon-receipts__chip--up">\u2191</span> moved up
+        <span class="canon-receipts__chip canon-receipts__chip--down">\u2193</span> moved down
+        <span class="canon-receipts__chip canon-receipts__chip--flat">→</span> held
+        <span class="canon-receipts__chip canon-receipts__chip--new">NEW</span> first edition
+      </span>
+    </p>
+    <p class="canon-receipts__note">
+      v1 edition — prior-year ranks are NEW across the board. The 2027
+      edition is the first one where the deltas read movement.
+    </p>
+  </section>
+
+  <section class="canon-methodology">
+    <h2 class="canon-methodology__title">How this list was put together</h2>
+    <p class="canon-methodology__body">Hires made between January 2020 and December 2025 inclusive. Ranking weighs: outcome at the program (titles, trajectory, recruiting compounding), fit at the moment of the hire (how good the bet looked at the time vs. how it played), and ripple effect on the coaching market. Where data is thin (hires made in 2024 or 2025 with one season&#x27;s evidence) the rank is held provisionally — see rank-delta column for revision posture.</p>
+  </section>
+</main>
+
+<footer class="canon-footer">
+  <div class="canon-footer__inner">
+    <p class="canon-footer__line">
+      Argue at the rankings, not the players — every entry below earned its way onto
+      the list, and the rank is the read, not the verdict. Next revision: 2027.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

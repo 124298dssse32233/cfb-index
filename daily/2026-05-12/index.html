@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily — Tuesday, May 12th, 2026</title>
+<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
+<style>
+/* ---- Design tokens (matches Edition / team-page system) ---- */
+:root {
+  --ink:      #1a1a2e;
+  --paper:    #f8f6f0;
+  --gold:     #c9a84c;
+  --navy:     #0f2044;
+  --slate:    #4a5568;
+  --rule:     #e2ddd5;
+  --accent:   #c53030;
+  --serif:    'Georgia', 'Times New Roman', serif;
+  --sans:     'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--serif);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+/* ---- Masthead ---- */
+.masthead {
+  border-bottom: 3px double var(--gold);
+  padding: 2rem 0 1rem;
+  text-align: center;
+  background: var(--navy);
+  color: #fff;
+}
+.masthead__flag {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.masthead__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #fff;
+}
+.masthead__date {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Layout ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr min(680px, 100%) 280px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+.takes-col { grid-column: 2; }
+.sidebar { grid-column: 3; padding-left: 2rem; }
+
+/* ---- Take cards ---- */
+.take {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+.take:last-child { border-bottom: none; }
+
+.take__rank {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.take__numeral {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+.take__headline {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy);
+  margin: 0.75rem 0 1rem;
+}
+.take__body {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+.take__body p { margin-bottom: 0.75rem; }
+
+/* ---- Source pills ---- */
+.source-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.source-pill {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--gold);
+  color: var(--navy);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* ---- Entity link ---- */
+.entity-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--slate);
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+.entity-link:hover { color: var(--navy); text-decoration: underline; }
+
+/* ---- Sidebar ---- */
+.sidebar__section {
+  margin-bottom: 2rem;
+}
+.sidebar__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.sidebar__item {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--slate);
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule);
+  line-height: 1.4;
+}
+.sidebar__item:last-child { border-bottom: none; }
+
+/* ---- Archive footer ---- */
+.archive-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+.archive-footer__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.archive-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.archive-footer__link {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+}
+.archive-footer__link:hover { color: var(--gold); }
+.archive-all {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.archive-all:hover { color: var(--gold); }
+
+/* ---- Nav ---- */
+.site-nav {
+  background: var(--navy);
+  padding: 0.6rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+.site-nav a { color: rgba(255,255,255,0.65); text-decoration: none; margin-right: 1.2rem; }
+.site-nav a:hover { color: var(--gold); }
+</style>
+</head>
+<body class="daily__page">
+
+<nav class="site-nav daily__nav">
+  <a href="/">Home</a>
+  <a href="/rankings/">Rankings</a>
+  <a href="/daily/">Daily</a>
+  <a href="/wire/">Wire</a>
+  <a href="/mailbag/">Mailbag</a>
+  <a href="/editions/">Editions</a>
+  <a href="/methodology/">Methodology</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead__flag">CFB Index · Morning Digest</div>
+  <div class="masthead__title">The Daily</div>
+  <div class="masthead__date">Tuesday, May 12th, 2026 &nbsp;·&nbsp; Published 06:00 ET</div>
+</header>
+
+<div class="layout">
+  <main class="takes-col">
+    <article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">1</span>Take #1 — Top Story
+  </div>
+  <h2 class="take__headline">No Inputs, No Problem — Except Actually That's a Problem</h2>
+  <div class="take__body"><p>Look, we're going to be straight with you: the wire came in empty. No pulse spikes, no resolved receipts, no thread chapters firing overnight. In a normal news cycle that means either nothing happened or everything is about to. In college football in mid-May, it almost certainly means the sport is doing that thing it does — holding its breath between spring games and the first wave of summer portal chaos.</p><p>Stewart Mandel has noted before that the dead-calendar weeks are when programs quietly do their most consequential roster work, away from the noise. And Pete Thamel has consistently flagged May as the underrated month for under-the-radar commitments that reshape fall depth charts before anyone is paying attention.</p><p>So here's what that means for you right now: stop sleeping on the offer trackers. The boards that look quiet are the ones that are actually moving.</p><p>Watch the mid-major portal wires today — specifically any skill-position movement — and check which Power Four programs are suddenly showing up in commit announcements nobody telegraphed. That's where Tuesday lives.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">ESPN</span></div>
+  
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">2</span>Take #2 — Two Reads
+  </div>
+  <h2 class="take__headline">The Offseason Depth Chart Discourse Is Splitting Along Predictable Lines — And Both Sides Are Right</h2>
+  <div class="take__body"><p>College football's dead period is doing what it always does: manufacturing certainty out of nothing. Right now the fault line isn't between fanbases — it's between the stat-heads and the die-hards inside the same fanbases, arguing over what spring actually means.</p><p>The numbers crowd wants context. They're pointing to snap counts, PFF grades, and efficiency splits before drawing any conclusions about depth chart shuffles. The film guys want none of it. They watched practice clips on team social accounts and have already decided who the starters are.</p><p>Here's the absurd truth: both readings are partially correct and completely unfalsifiable until September. Stewart Mandel noted in The Athletic that spring evaluations &quot;rarely survive contact with a real defense,&quot; which is the most honest thing anyone says about this sport in May. Pete Thamel at ESPN flagged separately that portal eligibility windows are still creating roster volatility that makes any current depth chart basically speculative fiction.</p><p>Watch the transfer portal pulse this week. Second windows close soon, and the next wave of movement will tell you more than any spring game snap ever could.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">ESPN flagged</span><span class="source-pill">PFF</span><span class="source-pill">Stewart Mandel</span></div>
+  
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">3</span>Take #3 — Buried Lede
+  </div>
+  <h2 class="take__headline">The Offseason Noise Machine Is Running Hot — And There's Nothing to Actually Report</h2>
+  <div class="take__body"><p>Here's the buried lede when the wire goes quiet in mid-May: the silence itself is the story. No pulse spikes, no portal bombs, no surprise receipts — and yet the message boards are absolutely cooking, because that's what they do when there's nothing to metabolize. Fans are pattern-matching on nothing. It's beautiful and deranged.</p><p>This is exactly the window Stewart Mandel has written about in The Athletic — the late-spring dead zone where programs quietly lock in summer depth-chart decisions before anyone's paying attention. The casual reader is scrolling past this moment. The obsessive is watching every commit's social media like it's the Zapruder film.</p><p>Pete Thamel at ESPN flagged earlier this spring that several Power Four programs were holding scholarship room deliberately — not indecision, strategy. That patience is about to get tested as June 15 official visit windows open and recruits start forcing hands.</p><p>Watch this week for which programs actually burn that scholarship room on portal adds versus holding for the recruiting cycle. The gap between those two choices tells you everything about where a staff's confidence actually sits.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic — the late</span><span class="source-pill">ESPN flagged</span></div>
+  
+</article>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__label">What We're Watching</div>
+      <div class="sidebar__item">Spring practice reports — portal decisions follow coaching feedback</div><div class="sidebar__item">Transfer portal deadline windows — commitment trackers update daily</div><div class="sidebar__item">Draft advisory declarations — underclassmen decisions shape fall depth</div>
+    </div>
+  </aside>
+</div>
+
+<footer class="archive-footer">
+  <div class="archive-footer__label">Yesterday's Takes</div>
+  <div class="archive-footer__links">
+    <a class="archive-footer__link" href="/daily/2026-05-12/">Tuesday, May 12th, 2026</a>
+  </div>
+  <a class="archive-all" href="/daily/archive.html">View full archive →</a>
+</footer>
+
+</body>
+</html>

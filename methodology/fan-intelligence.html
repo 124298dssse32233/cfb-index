@@ -38,20 +38,33 @@ footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #
 </style>
 </head><body>
 <h1>Fan Intelligence — Methodology</h1>
-<p class='subtitle'>Auto-generated from <code>source_registry</code>. Last build: 2026-05-12 20:30 UTC. 72 active sources across 72 registered.</p>
+<p class='subtitle'>Auto-generated from <code>source_registry</code>. Last build: 2026-05-14 16:22 UTC. 72 active sources across 72 registered.</p>
 <p class='subtitle'><a href='freshness.html'>→ Data freshness (last-run-per-source)</a></p>
 <h2>0. Current coverage</h2>
 <p>Live counts from the production DB, refreshed on every methodology build.</p>
-<ul class='coverage-stats'><li><strong>0</strong> conversation_documents landed under the fan-intel schema</li><li><strong>10</strong> source_observations (Tier A numeric)</li><li><strong>0</strong> team_cohort_week cells</li><li><strong>0</strong> team-week divergence rows</li></ul>
+<ul class='coverage-stats'><li><strong>144</strong> conversation_documents landed under the fan-intel schema</li><li><strong>150</strong> source_observations (Tier A numeric)</li><li><strong>0</strong> team_cohort_week cells</li><li><strong>0</strong> team-week divergence rows</li></ul>
 <h3>Sources with runs in the last 7 days</h3>
 <table class='source-activity'><thead><tr><th>source_id</th><th>runs</th><th>rows (ok)</th><th>latest run</th></tr></thead><tbody>
-<tr><td><code>polymarket</code></td><td>1</td><td>10</td><td>2026-05-12</td></tr>
-<tr><td><code>bluesky_curated</code></td><td>1</td><td>0</td><td>2026-05-12</td></tr>
-<tr><td><code>bluesky_feeds</code></td><td>1</td><td>0</td><td>2026-05-12</td></tr>
-<tr><td><code>gdelt_volume</code></td><td>1</td><td>0</td><td>2026-05-12</td></tr>
-<tr><td><code>kalshi</code></td><td>1</td><td>0</td><td>2026-05-12</td></tr>
-<tr><td><code>seatgeek</code></td><td>1</td><td>0</td><td>2026-05-12</td></tr>
-<tr><td><code>youtube_meta</code></td><td>1</td><td>0</td><td>2026-05-12</td></tr>
+<tr><td><code>substack_recruits</code></td><td>2</td><td>60</td><td>2026-05-14</td></tr>
+<tr><td><code>substack_gameday</code></td><td>2</td><td>53</td><td>2026-05-14</td></tr>
+<tr><td><code>polymarket</code></td><td>3</td><td>30</td><td>2026-05-14</td></tr>
+<tr><td><code>substack_long</code></td><td>2</td><td>20</td><td>2026-05-14</td></tr>
+<tr><td><code>substack_tradition</code></td><td>2</td><td>12</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_alabama_al_com_alabama</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_alabama_roll_bama_roll</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_articles</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_clemson_shakin_the_southland</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_florida-state_tomahawk_nation</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_jackson-state_hbcu_gameday_jackson_state</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_kansas-state_bring_on_the_cats</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_memphis_underdog_dynasty_memphis</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_michigan_maize_n_brew</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_ohio-state_land_grant_holy_land</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_tennessee_rocky_top_insider</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>beat_texas-tech_wreck_em_red</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>bluesky_curated</code></td><td>3</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>bluesky_feeds</code></td><td>3</td><td>0</td><td>2026-05-14</td></tr>
+<tr><td><code>bluesky_firehose</code></td><td>2</td><td>0</td><td>2026-05-14</td></tr>
 </tbody></table>
 <h2>1. What we publish, and how we label it</h2>
 <p>Every number on the CFB Index's fan-intelligence pages is tagged with a <strong>confidence tier</strong> — A, B, C, or D — determined by its <em>worst-tier contributing source</em>. The tier controls how the number can be shown.</p>
@@ -85,23 +98,23 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <p class='tier-explainer'>Numeric publication OK — raw values like pageviews, get-in price, volume are displayed directly.</p>
 <table class='sources'><thead><tr>
 <th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
-<tr><td><code>cfbd</code></td><td>College Football Data API (Patreon tier)</td><td>api_official</td><td>Patreon-$10/mo</td><td>numeric</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>cfbd</code></td><td>College Football Data API (Patreon tier)</td><td>api_official</td><td>Patreon-$10/mo</td><td>numeric</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> CFBD lines/volume data is analytics- and gambling-tilted by nature; audience is media + bettors, per Pew 2023 sports-bettor demographics.</td></tr>
-<tr><td><code>gdelt_volume</code></td><td>GDELT 2.0 article counts per entity</td><td>api_official</td><td>GDELT-free-research</td><td>numeric</td><td>2026-05-12 <span class='status warn'>(empty)</span></td></tr>
+<tr><td><code>gdelt_volume</code></td><td>GDELT 2.0 article counts per entity</td><td>api_official</td><td>GDELT-free-research</td><td>numeric</td><td>2026-05-14 <span class='status warn'>(empty)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Global news article volume — national_narrative-heavy, media_class adjacent. Volume only; tone lives in Tier C gdelt_tone.</td></tr>
-<tr><td><code>kalshi</code></td><td>Kalshi CFB contract prices + volume</td><td>api_official</td><td>Kalshi-API-free</td><td>numeric</td><td>2026-05-12 <span class='status warn'>(empty)</span></td></tr>
+<tr><td><code>kalshi</code></td><td>Kalshi CFB contract prices + volume</td><td>api_official</td><td>Kalshi-API-free</td><td>numeric</td><td>2026-05-14 <span class='status warn'>(empty)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Regulated prediction market, heavily analytics + gambling. Per Kalshi public demographic disclosures, user base millennial-dominated.</td></tr>
-<tr><td><code>polymarket</code></td><td>Polymarket CFB contract prices + volume</td><td>api_official</td><td>Polymarket-API-free</td><td>numeric</td><td>2026-05-12 <span class='status ok'>(ok)</span></td></tr>
+<tr><td><code>polymarket</code></td><td>Polymarket CFB contract prices + volume</td><td>api_official</td><td>Polymarket-API-free</td><td>numeric</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Polymarket skews slightly younger and more crypto-native than Kalshi but same analytics + gambling dominance.</td></tr>
-<tr><td><code>seatgeek</code></td><td>SeatGeek get-in price + listing counts</td><td>api_official</td><td>SeatGeek-partner-free-tier</td><td>numeric</td><td>2026-05-12 <span class='status warn'>(empty)</span></td></tr>
+<tr><td><code>seatgeek</code></td><td>SeatGeek get-in price + listing counts</td><td>api_official</td><td>SeatGeek-partner-free-tier</td><td>numeric</td><td>2026-05-14 <span class='status warn'>(empty)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Secondary ticket market is strongly local + die-hard; national narrative only for marquee matchups. Casual buyers lift casual_vibes slightly.</td></tr>
-<tr><td><code>spotify_charts</code></td><td>Spotify podcast chart ranks (CFB category)</td><td>api_official</td><td>Spotify-public-charts</td><td>numeric</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>spotify_charts</code></td><td>Spotify podcast chart ranks (CFB category)</td><td>api_official</td><td>Spotify-public-charts</td><td>numeric</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Podcast chart ranks reflect primarily millennial listeners per Edison Podcast Consumer 2023; gen_z entering. Die-hard listener lift.</td></tr>
-<tr><td><code>wiki_edits</code></td><td>Wikipedia edit activity (en)</td><td>api_official</td><td>CC-BY-SA-3.0</td><td>numeric</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>wiki_edits</code></td><td>Wikipedia edit activity (en)</td><td>api_official</td><td>CC-BY-SA-3.0</td><td>numeric</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Active editors are a small, highly-engaged subset — die-hard + media- adjacent skew. Mirrors wiki_pv cohorts but with a die_hard boost.</td></tr>
-<tr><td><code>wiki_pv</code></td><td>Wikipedia pageviews (en)</td><td>api_official</td><td>CC-BY-SA-3.0</td><td>numeric</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>wiki_pv</code></td><td>Wikipedia pageviews (en)</td><td>api_official</td><td>CC-BY-SA-3.0</td><td>numeric</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Pageview surges reflect general attention, lightly analytics-tilted (Wikipedia skews male/educated per GWI 2023); weak cohort signal.</td></tr>
-<tr><td><code>youtube_meta</code></td><td>YouTube video metadata (tracked channels)</td><td>api_official</td><td>YouTube-API-free-quota</td><td>numeric</td><td>2026-05-12 <span class='status warn'>(empty)</span></td></tr>
+<tr><td><code>youtube_meta</code></td><td>YouTube video metadata (tracked channels)</td><td>api_official</td><td>YouTube-API-free-quota</td><td>numeric</td><td>2026-05-14 <span class='status warn'>(empty)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> View counts on team + national pod channels — broad cohort coverage leaning millennial/gen_z, die-hard-tilted. Numeric views are clean.</td></tr>
 </tbody></table></section>
 <section id="tier-b">
@@ -109,93 +122,93 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <p class='tier-explainer'>Aggregated signal only — sample size and effective-N are always shown; individual posts appear as pseudonymous citations.</p>
 <table class='sources'><thead><tr>
 <th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
-<tr><td><code>beat_alabama_al_com_alabama</code></td><td>beat — alabama / al_com_alabama</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_alabama_al_com_alabama</code></td><td>beat — alabama / al_com_alabama</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.al.com/arc/outboundfeeds/rss/category/sports/alabama-football/</td></tr>
-<tr><td><code>beat_alabama_roll_bama_roll</code></td><td>beat — alabama / roll_bama_roll</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_alabama_roll_bama_roll</code></td><td>beat — alabama / roll_bama_roll</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.rollbamaroll.com/rss/index.xml</td></tr>
-<tr><td><code>beat_clemson_shakin_the_southland</code></td><td>beat — clemson / shakin_the_southland</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_clemson_shakin_the_southland</code></td><td>beat — clemson / shakin_the_southland</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.shakinthesouthland.com/rss/index.xml</td></tr>
-<tr><td><code>beat_florida-state_tomahawk_nation</code></td><td>beat — florida-state / tomahawk_nation</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_florida-state_tomahawk_nation</code></td><td>beat — florida-state / tomahawk_nation</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.tomahawknation.com/rss/index.xml</td></tr>
-<tr><td><code>beat_jackson-state_hbcu_gameday_jackson_state</code></td><td>beat — jackson-state / hbcu_gameday_jackson_state</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_jackson-state_hbcu_gameday_jackson_state</code></td><td>beat — jackson-state / hbcu_gameday_jackson_state</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://hbcugameday.com/tag/jackson-state/feed/</td></tr>
-<tr><td><code>beat_kansas-state_bring_on_the_cats</code></td><td>beat — kansas-state / bring_on_the_cats</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_kansas-state_bring_on_the_cats</code></td><td>beat — kansas-state / bring_on_the_cats</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.bringonthecats.com/rss/index.xml</td></tr>
-<tr><td><code>beat_memphis_underdog_dynasty_memphis</code></td><td>beat — memphis / underdog_dynasty_memphis</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_memphis_underdog_dynasty_memphis</code></td><td>beat — memphis / underdog_dynasty_memphis</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.underdogdynasty.com/rss/index.xml</td></tr>
-<tr><td><code>beat_michigan_maize_n_brew</code></td><td>beat — michigan / maize_n_brew</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_michigan_maize_n_brew</code></td><td>beat — michigan / maize_n_brew</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.maizenbrew.com/rss/index.xml</td></tr>
-<tr><td><code>beat_ohio-state_land_grant_holy_land</code></td><td>beat — ohio-state / land_grant_holy_land</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_ohio-state_land_grant_holy_land</code></td><td>beat — ohio-state / land_grant_holy_land</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.landgrantholyland.com/rss/index.xml</td></tr>
-<tr><td><code>beat_tennessee_rocky_top_insider</code></td><td>beat — tennessee / rocky_top_insider</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_tennessee_rocky_top_insider</code></td><td>beat — tennessee / rocky_top_insider</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.rockytopinsider.com/feed/</td></tr>
-<tr><td><code>beat_texas-tech_wreck_em_red</code></td><td>beat — texas-tech / wreck_em_red</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_texas-tech_wreck_em_red</code></td><td>beat — texas-tech / wreck_em_red</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://wreckemred.com/feed</td></tr>
-<tr><td><code>bluesky_curated</code></td><td>Bluesky curated handles (~600 per team graph)</td><td>api_official</td><td>Bluesky-AppView</td><td>aggregate</td><td>2026-05-12 <span class='status warn'>(empty)</span></td></tr>
+<tr><td><code>bluesky_curated</code></td><td>Bluesky curated handles (~600 per team graph)</td><td>api_official</td><td>Bluesky-AppView</td><td>aggregate</td><td>2026-05-14 <span class='status warn'>(empty)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix; media-adjacent lift.</td></tr>
-<tr><td><code>bluesky_feeds</code></td><td>Bluesky public CFB custom feeds via AppView</td><td>api_official</td><td>Bluesky-AppView</td><td>aggregate</td><td>2026-05-12 <span class='status warn'>(empty)</span></td></tr>
+<tr><td><code>bluesky_feeds</code></td><td>Bluesky public CFB custom feeds via AppView</td><td>api_official</td><td>Bluesky-AppView</td><td>aggregate</td><td>2026-05-14 <span class='status warn'>(empty)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Similar to bluesky_curated but broader reach; softer weights.</td></tr>
-<tr><td><code>bluesky_firehose</code></td><td>Bluesky Jetstream, keyword + handle filtered</td><td>firehose</td><td>Bluesky-public-firehose</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>bluesky_firehose</code></td><td>Bluesky Jetstream, keyword + handle filtered</td><td>firehose</td><td>Bluesky-public-firehose</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix.</td></tr>
-<tr><td><code>bluesky_starterpack</code></td><td>Bluesky starter-pack-harvested handles</td><td>api_official</td><td>Bluesky-public</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>bluesky_starterpack</code></td><td>Bluesky starter-pack-harvested handles</td><td>api_official</td><td>Bluesky-public</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Expansion of curated list; inherit bluesky_curated weights.</td></tr>
-<tr><td><code>board_247_free</code></td><td>247Sports/On3/Rivals free-tier threads (template)</td><td>cowork_manual</td><td>free-tier-only</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>board_247_free</code></td><td>247Sports/On3/Rivals free-tier threads (template)</td><td>cowork_manual</td><td>free-tier-only</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix — recruiting-heavy.</td></tr>
-<tr><td><code>podcast_finebaum_rss</code></td><td>podcast — finebaum_rss</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_finebaum_rss</code></td><td>podcast — finebaum_rss</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.megaphone.fm/ESP1569616864</td></tr>
-<tr><td><code>podcast_locked_on_alabama</code></td><td>podcast — locked_on_alabama</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_locked_on_alabama</code></td><td>podcast — locked_on_alabama</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.simplecast.com/w5B7c1tY</td></tr>
-<tr><td><code>podcast_locked_on_buckeyes</code></td><td>podcast — locked_on_buckeyes</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_locked_on_buckeyes</code></td><td>podcast — locked_on_buckeyes</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.simplecast.com/SBG23EyJ</td></tr>
-<tr><td><code>podcast_locked_on_college_football</code></td><td>podcast — locked_on_college_football</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_locked_on_college_football</code></td><td>podcast — locked_on_college_football</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.simplecast.com/ktLwutiF</td></tr>
-<tr><td><code>podcast_locked_on_ducks</code></td><td>podcast — locked_on_ducks</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_locked_on_ducks</code></td><td>podcast — locked_on_ducks</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.simplecast.com/AqYl4jTm</td></tr>
-<tr><td><code>podcast_locked_on_georgia</code></td><td>podcast — locked_on_georgia</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_locked_on_georgia</code></td><td>podcast — locked_on_georgia</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.simplecast.com/_NxJ3Otx</td></tr>
-<tr><td><code>podcast_locked_on_lsu</code></td><td>podcast — locked_on_lsu</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_locked_on_lsu</code></td><td>podcast — locked_on_lsu</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.simplecast.com/4q9SasrY</td></tr>
-<tr><td><code>podcast_locked_on_wolverines</code></td><td>podcast — locked_on_wolverines</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_locked_on_wolverines</code></td><td>podcast — locked_on_wolverines</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.simplecast.com/nWPZmiJH</td></tr>
-<tr><td><code>podcast_saturday_down_south_podcast</code></td><td>podcast — saturday_down_south_podcast</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_saturday_down_south_podcast</code></td><td>podcast — saturday_down_south_podcast</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.megaphone.fm/sdsnetwork</td></tr>
-<tr><td><code>podcast_split_zone_duo</code></td><td>podcast — split_zone_duo</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_split_zone_duo</code></td><td>podcast — split_zone_duo</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://api.substack.com/feed/podcast/2043967.rss</td></tr>
-<tr><td><code>podcast_the_audible</code></td><td>podcast — the_audible</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_the_audible</code></td><td>podcast — the_audible</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://feeds.acast.com/public/shows/681ccd385acb8b715f1f94f4</td></tr>
-<tr><td><code>podcast_the_solid_verbal</code></td><td>podcast — the_solid_verbal</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>podcast_the_solid_verbal</code></td><td>podcast — the_solid_verbal</td><td>rss</td><td>public-RSS-metadata</td><td>aggregate</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from locked_on_template. Feed URL: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/21437ee1-47d9-4b16-8696-b30d011a2c26/51c7e0eb-425c-4d93-b5a8-b30d011a2c46/podcast.rss</td></tr>
-<tr><td><code>reddit_alumni</code></td><td>Per-team alumni subreddit</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>reddit_alumni</code></td><td>Per-team alumni subreddit</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix; alumni_diaspora weighted.</td></tr>
-<tr><td><code>reddit_cfb</code></td><td>r/CFB submissions + comment trees</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>reddit_cfb</code></td><td>r/CFB submissions + comment trees</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix.</td></tr>
-<tr><td><code>reddit_city</code></td><td>Per-team city subreddit</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>reddit_city</code></td><td>Per-team city subreddit</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix; local_market-dominated.</td></tr>
-<tr><td><code>reddit_team</code></td><td>Per-team subreddit</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>reddit_team</code></td><td>Per-team subreddit</td><td>api_official</td><td>Reddit-Data-API</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix.</td></tr>
-<tr><td><code>substack_bud_elliott</code></td><td>substack — bud_elliott</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_bud_elliott</code></td><td>substack — bud_elliott</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://247sports.com/author/bud-elliott/feed/</td></tr>
-<tr><td><code>substack_extra_points</code></td><td>substack — extra_points</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_extra_points</code></td><td>substack — extra_points</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://extrapoints.substack.com/feed</td></tr>
-<tr><td><code>substack_go_long</code></td><td>substack — go_long</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_go_long</code></td><td>substack — go_long</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://www.golongtd.com/feed</td></tr>
-<tr><td><code>substack_hbcu_gameday</code></td><td>substack — hbcu_gameday</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_hbcu_gameday</code></td><td>substack — hbcu_gameday</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://hbcugameday.com/feed</td></tr>
-<tr><td><code>substack_on3_recruits</code></td><td>substack — on3_recruits</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_on3_recruits</code></td><td>substack — on3_recruits</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://www.on3.com/feed/</td></tr>
-<tr><td><code>substack_saturday_road</code></td><td>substack — saturday_road</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_saturday_road</code></td><td>substack — saturday_road</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://saturdayroad.substack.com/feed</td></tr>
-<tr><td><code>substack_saturday_tradition</code></td><td>substack — saturday_tradition</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_saturday_tradition</code></td><td>substack — saturday_tradition</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://saturdaytradition.com/feed</td></tr>
-<tr><td><code>substack_split_zone_duo</code></td><td>substack — split_zone_duo</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_split_zone_duo</code></td><td>substack — split_zone_duo</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://splitzoneduo.substack.com/feed</td></tr>
-<tr><td><code>substack_the_solid_verbal</code></td><td>substack — the_solid_verbal</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>substack_the_solid_verbal</code></td><td>substack — the_solid_verbal</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from substack_template. Feed URL: https://www.thesolidverbal.com/feed</td></tr>
-<tr><td><code>twitch_chat</code></td><td>Twitch chat on CFB game-day channels</td><td>api_official</td><td>Twitch-IRC-public</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>twitch_chat</code></td><td>Twitch chat on CFB game-day channels</td><td>api_official</td><td>Twitch-IRC-public</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix.</td></tr>
-<tr><td><code>youtube_comments_nat</code></td><td>National CFB pod channel comments</td><td>api_official</td><td>YouTube-API-free-quota</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>youtube_comments_nat</code></td><td>National CFB pod channel comments</td><td>api_official</td><td>YouTube-API-free-quota</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix.</td></tr>
-<tr><td><code>youtube_comments_team</code></td><td>Team-channel comment streams</td><td>api_official</td><td>YouTube-API-free-quota</td><td>aggregate</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>youtube_comments_team</code></td><td>Team-channel comment streams</td><td>api_official</td><td>YouTube-API-free-quota</td><td>aggregate</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix.</td></tr>
 </tbody></table></section>
 <section id="tier-c">
@@ -203,13 +216,13 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <p class='tier-explainer'>Rank or trend only — we publish where a source ranks relative to itself or others, never the raw number.</p>
 <table class='sources'><thead><tr>
 <th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
-<tr><td><code>gdelt_tone</code></td><td>GDELT tone score (weekly aggregate only)</td><td>api_official</td><td>GDELT-free-research</td><td>rank</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>gdelt_tone</code></td><td>GDELT tone score (weekly aggregate only)</td><td>api_official</td><td>GDELT-free-research</td><td>rank</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits gdelt_volume; tone is noisy, rank-only per STRATEGY §6.</td></tr>
-<tr><td><code>google_trends_dma</code></td><td>Google Trends DMA-level regional rank (Cowork export)</td><td>cowork_manual</td><td>Google-Trends-public</td><td>rank</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>google_trends_dma</code></td><td>Google Trends DMA-level regional rank (Cowork export)</td><td>cowork_manual</td><td>Google-Trends-public</td><td>rank</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Aggregate search interest — soft cohort signal.</td></tr>
-<tr><td><code>predict_thin</code></td><td>Kalshi/Polymarket thin contracts (&lt;$1k volume)</td><td>api_official</td><td>API-free</td><td>rank</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>predict_thin</code></td><td>Kalshi/Polymarket thin contracts (&lt;$1k volume)</td><td>api_official</td><td>API-free</td><td>rank</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits predict-market cohorts; low-volume noise → rank only.</td></tr>
-<tr><td><code>tiktok_observed</code></td><td>30 CFB creators — weekly manual observation</td><td>cowork_manual</td><td>public-profile-observation</td><td>rank</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>tiktok_observed</code></td><td>30 CFB creators — weekly manual observation</td><td>cowork_manual</td><td>public-profile-observation</td><td>rank</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix — gen_z + college_age dominant.</td></tr>
 </tbody></table></section>
 <section id="tier-d">
@@ -217,35 +230,35 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <p class='tier-explainer'>Editorial citation only — quoted text with a backlink, never included in numeric aggregates.</p>
 <table class='sources'><thead><tr>
 <th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
-<tr><td><code>beat_articles</code></td><td>Beat-writer article quotes via RSS</td><td>rss</td><td>fair-use-quote</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>beat_articles</code></td><td>Beat-writer article quotes via RSS</td><td>rss</td><td>fair-use-quote</td><td>citation</td><td>2026-05-14 <span class='status muted'>(skipped)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits beat_template; citation-only form.</td></tr>
-<tr><td><code>board_quotes</code></td><td>Message-board pull-quotes (pseudonym + backlink)</td><td>cowork_manual</td><td>fair-use-quote</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>board_quotes</code></td><td>Message-board pull-quotes (pseudonym + backlink)</td><td>cowork_manual</td><td>fair-use-quote</td><td>citation</td><td>2026-05-14 <span class='status muted'>(skipped)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits board_template; citation-only form.</td></tr>
-<tr><td><code>facebook_alumni_glance</code></td><td>Facebook public alumni Pages — manual observation</td><td>cowork_manual</td><td>public-page-observation</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>facebook_alumni_glance</code></td><td>Facebook public alumni Pages — manual observation</td><td>cowork_manual</td><td>public-page-observation</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix — boomer + alumni.</td></tr>
-<tr><td><code>finebaum_rss</code></td><td>Paul Finebaum Show — ESPN episode metadata + selective ASR</td><td>rss</td><td>public-RSS-metadata</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>finebaum_rss</code></td><td>Paul Finebaum Show — ESPN episode metadata + selective ASR</td><td>rss</td><td>public-RSS-metadata</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> STRATEGY §4 starting matrix — boomer-dominant, SEC-local.</td></tr>
-<tr><td><code>press_releases</code></td><td>School athletic press release quotes</td><td>rss</td><td>public-press-release</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>press_releases</code></td><td>School athletic press release quotes</td><td>rss</td><td>public-press-release</td><td>citation</td><td>2026-05-14 <span class='status muted'>(skipped)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Institutional voice — local, media-adjacent.</td></tr>
-<tr><td><code>radio_radio_ann_arbor_971</code></td><td>radio — radio_ann_arbor_971</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_ann_arbor_971</code></td><td>radio — radio_ann_arbor_971</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://www.971theticket.com/feed</td></tr>
-<tr><td><code>radio_radio_atlanta_929</code></td><td>radio — radio_atlanta_929</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_atlanta_929</code></td><td>radio — radio_atlanta_929</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://www.929thegame.com/feed</td></tr>
-<tr><td><code>radio_radio_baton_rouge_wbrp</code></td><td>radio — radio_baton_rouge_wbrp</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_baton_rouge_wbrp</code></td><td>radio — radio_baton_rouge_wbrp</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://www.eagle981.com/feed</td></tr>
-<tr><td><code>radio_radio_birmingham_wjox</code></td><td>radio — radio_birmingham_wjox</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_birmingham_wjox</code></td><td>radio — radio_birmingham_wjox</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://omny.fm/shows/the-roundtable/playlists/podcast.rss</td></tr>
-<tr><td><code>radio_radio_columbus_9710</code></td><td>radio — radio_columbus_9710</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_columbus_9710</code></td><td>radio — radio_columbus_9710</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://www.97one.com/feed</td></tr>
-<tr><td><code>radio_radio_dallas_1053</code></td><td>radio — radio_dallas_1053</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_dallas_1053</code></td><td>radio — radio_dallas_1053</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://www.thefan1053.com/feed</td></tr>
-<tr><td><code>radio_radio_jackson_wjdx</code></td><td>radio — radio_jackson_wjdx</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_jackson_wjdx</code></td><td>radio — radio_jackson_wjdx</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://supertalk.fm/feed</td></tr>
-<tr><td><code>radio_radio_knoxville_wnml</code></td><td>radio — radio_knoxville_wnml</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_knoxville_wnml</code></td><td>radio — radio_knoxville_wnml</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status err'>(error)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://www.sportsradiownml.com/feed</td></tr>
-<tr><td><code>radio_radio_portland_1080</code></td><td>radio — radio_portland_1080</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_portland_1080</code></td><td>radio — radio_portland_1080</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://www.1080thefan.com/feed</td></tr>
-<tr><td><code>radio_radio_salt_lake_ksl</code></td><td>radio — radio_salt_lake_ksl</td><td>rss</td><td>public-RSS</td><td>citation</td><td>— <span class='status muted'>(—)</span></td></tr>
+<tr><td><code>radio_radio_salt_lake_ksl</code></td><td>radio — radio_salt_lake_ksl</td><td>rss</td><td>public-RSS</td><td>citation</td><td>2026-05-14 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from radio_template. Feed URL: https://kslnewsradio.com/feed</td></tr>
 </tbody></table></section>
 <h2>4. Cohort weight matrix</h2>
@@ -1246,5 +1259,5 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <p>Swing is the signed change in a cohort&#x27;s Fan Pulse from the prior publication window. Large positive swings flag breakout moments; large negative swings flag backlash. We publish swing alongside the current Pulse so a reader can see both the level and the trajectory without chart-reading, and we floor-rule both independently.</p>
 <p><em>Example &middot;</em> Swing +18 after the Texas A&amp;M game — the inflection point that turned a question-mark QB into a starter.</p>
 <p class='tier-explainer'>See also &middot; <a href='#glossary-fan-pulse'>Fan Pulse</a> &middot; <a href='#glossary-belief-dial'>Belief Dial</a> &middot; <a href='#glossary-main-character'>Main Character</a></p>
-<footer>Fan Intelligence methodology page — generated at 2026-05-12 20:30 UTC — source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> + <code>source_registry</code>.</footer>
+<footer>Fan Intelligence methodology page — generated at 2026-05-14 16:22 UTC — source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> + <code>source_registry</code>.</footer>
 </body></html>

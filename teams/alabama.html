@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Alabama — CFB Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Alabama — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.">
+<meta name="theme-color" content="#9E1B32">
+<style>
+/* Team-Pages Design Tokens
+ * -------------------------------------------------------------------------
+ * Shared-across-all-teams foundation. Per-team accent colors are injected
+ * via inline custom-properties on the <body> element at render time.
+ *
+ * Inherit / extends the player-page design language (Iteration Log §15.1):
+ *   - Dark-mode default (iMessage-native)
+ *   - Inter Display / serif editorial pairing
+ *   - OKLCH percentile + belief ramps
+ *   - 44px touch targets, mobile-first spacing rhythm
+ */
+
+:root {
+  /* -----  Color system (dark-mode default) ------ */
+  --bg-0: #0b0d12;
+  --bg-1: #12151d;
+  --bg-2: #1a1f2b;
+  --bg-card: #171b24;
+  --bg-card-raised: #1e2330;
+  --bg-overlay: rgba(11, 13, 18, 0.72);
+
+  --fg-primary: #f5f6fa;
+  --fg-secondary: #c6cad6;
+  --fg-muted: #8a90a1;
+  --fg-subtle: #5c6172;
+  --fg-on-accent: #0b0d12;
+
+  --stroke-default: rgba(255, 255, 255, 0.08);
+  --stroke-subtle: rgba(255, 255, 255, 0.05);
+  --stroke-strong: rgba(255, 255, 255, 0.14);
+
+  /* -----  Accent (overridden per-team via inline style) ------ */
+  --accent-primary: #c5b358;
+  --accent-secondary: #084c24;
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  --accent-on: #0b0d12;
+
+  /* -----  Percentile / belief ramps ------ */
+  --pct-low: #c04a4a;
+  --pct-mid-low: #d9845e;
+  --pct-mid: #8a90a1;
+  --pct-mid-high: #5a9dd1;
+  --pct-high: #3570b5;
+
+  --belief-doom: #c04a4a;
+  --belief-mixed: #8a90a1;
+  --belief-bullish: #3ea073;
+
+  --accolade-gold: #c5b358;
+
+  /* -----  Emotional-key accents (seasonal sentience) ------ */
+  --tone-red: #c04a4a;
+  --tone-amber: #d9a55e;
+  --tone-navy: #3570b5;
+  --tone-gray: #8a90a1;
+  --tone-coral: #d95e7c;
+  --tone-green: #3ea073;
+
+  /* -----  Typography ------ */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  --fs-label: clamp(10px, 0.72vw + 8px, 12px);
+  --fs-metric-sm: clamp(14px, 1vw + 10px, 16px);
+  --fs-body: clamp(14px, 0.8vw + 10px, 16px);
+  --fs-body-lg: clamp(15px, 0.9vw + 11px, 18px);
+  --fs-headline-sm: clamp(18px, 1.2vw + 12px, 22px);
+  --fs-headline: clamp(22px, 1.8vw + 14px, 30px);
+  --fs-hero: clamp(32px, 3.5vw + 16px, 56px);
+  --fs-serif-body: clamp(16px, 0.8vw + 12px, 19px);
+  --fs-metric: clamp(24px, 2vw + 12px, 36px);
+
+  --lh-tight: 1.12;
+  --lh-snug: 1.28;
+  --lh-normal: 1.48;
+  --lh-relaxed: 1.65;
+
+  --ls-tight: -0.02em;
+  --ls-normal: 0em;
+  --ls-wide: 0.04em;
+  --ls-label: 0.08em;
+
+  /* -----  Spacing rhythm ------ */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+  --sp-10: 80px;
+
+  /* -----  Radii ------ */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* -----  Elevation ------ */
+  --elev-card: 0 1px 2px rgba(0,0,0,0.38), 0 4px 12px rgba(0,0,0,0.25);
+  --elev-raised: 0 2px 4px rgba(0,0,0,0.42), 0 12px 36px rgba(0,0,0,0.30);
+
+  /* -----  Motion ------ */
+  --motion-reveal: 240ms cubic-bezier(.2,.7,.25,1);
+  --motion-state: 180ms cubic-bezier(.2,.7,.25,1);
+  --motion-data: 420ms cubic-bezier(.2,.7,.25,1);
+  --motion-delight: 800ms cubic-bezier(.2,.7,.25,1);
+
+  /* -----  Touch targets ------ */
+  --touch-min: 44px;
+  --touch-medium: 48px;
+  --touch-large: 60px;
+
+  /* -----  Layout ------ */
+  --content-max-w: 1100px;
+  --content-side-pad: clamp(16px, 4vw, 32px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-reveal: 0ms;
+    --motion-state: 0ms;
+    --motion-data: 0ms;
+    --motion-delight: 0ms;
+  }
+}
+
+
+body {
+  --accent-primary: #9E1B32;
+  --accent-secondary: #FFFFFF;
+  --accent-gradient: linear-gradient(135deg, #9E1B32, #FFFFFF);
+}
+
+/* Team-Pages Component Styles
+ * -------------------------------------------------------------------------
+ * Reads from tokens.css. No raw color or size values here — everything
+ * through custom properties so per-team theming works by swapping tokens.
+ */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-0);
+  color: var(--fg-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.team-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 10% -10%,
+      color-mix(in oklab, var(--accent-primary) 18%, transparent) 0%,
+      transparent 60%),
+    radial-gradient(900px 500px at 90% 0%,
+      color-mix(in oklab, var(--accent-secondary) 14%, transparent) 0%,
+      transparent 55%),
+    var(--bg-0);
+}
+
+.content {
+  max-width: var(--content-max-w);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--content-side-pad) var(--sp-10);
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  display: grid;
+  gap: var(--sp-6);
+  padding: var(--sp-8) 0 var(--sp-7);
+  border-bottom: 1px solid var(--stroke-default);
+}
+
+.hero__identity-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  row-gap: var(--sp-3);
+}
+
+.hero__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+
+.hero__record {
+  font-family: var(--font-mono);
+  font-size: var(--fs-headline-sm);
+  color: var(--fg-secondary);
+  padding: var(--sp-1) var(--sp-3);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-pill);
+  background: var(--bg-card);
+  letter-spacing: var(--ls-wide);
+}
+
+.hero__rank-chip {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-pill);
+  color: var(--fg-primary);
+  border: 1px solid var(--stroke-strong);
+  background: var(--bg-card-raised);
+}
+
+.hero__rank-chip--cfp { color: var(--accolade-gold); border-color: var(--accolade-gold); }
+
+.hero__eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.hero__heritage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-5);
+  padding: var(--sp-3) 0;
+  color: var(--fg-secondary);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  border-top: 1px solid var(--stroke-subtle);
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+.hero__heritage span { white-space: nowrap; }
+.hero__heritage strong {
+  color: var(--fg-primary);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: var(--ls-normal);
+}
+
+.hero__state {
+  font-family: var(--font-serif);
+  font-size: var(--fs-serif-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-primary);
+  max-width: 62ch;
+  margin: 0;
+}
+
+.hero__state strong {
+  color: var(--fg-primary);
+  font-weight: 600;
+}
+
+.hero__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+
+@media (min-width: 760px) {
+  .hero__metrics {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.metric-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-4);
+  display: grid;
+  gap: var(--sp-2);
+  min-height: var(--touch-large);
+}
+
+.metric-tile__label {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.metric-tile__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-metric);
+  font-weight: 700;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  color: var(--fg-primary);
+}
+
+.metric-tile__value--accent { color: var(--accent-primary); }
+
+.metric-tile__delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-secondary);
+}
+.metric-tile__delta--up { color: var(--tone-green); }
+.metric-tile__delta--down { color: var(--tone-red); }
+
+/* ------------------------------------------------------------------ */
+/* Pulse module                                                        */
+/* ------------------------------------------------------------------ */
+
+.pulse {
+  margin-top: var(--sp-8);
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6);
+  display: grid;
+  gap: var(--sp-5);
+  box-shadow: var(--elev-card);
+}
+
+.pulse__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.pulse__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-headline-sm);
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-primary);
+  margin: 0;
+}
+
+.pulse__live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--tone-green);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--tone-green) 20%, transparent);
+  animation: pulse-dot 2s infinite;
+}
+
+.pulse__live-dot--quiet { background: var(--fg-muted); box-shadow: none; animation: none; }
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--tone-green) 35%, transparent); }
+  70% { box-shadow: 0 0 0 8px color-mix(in oklab, var(--tone-green) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--tone-green) 0%, transparent); }
+}
+
+.pulse__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  letter-spacing: var(--ls-wide);
+}
+
+.pulse__grid {
+  display: grid;
+  gap: var(--sp-5);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .pulse__grid {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.pulse__mood-card {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.pulse__mood-number {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5vw + 16px, 84px);
+  font-weight: 800;
+  letter-spacing: var(--ls-tight);
+  line-height: 1;
+  color: var(--accent-primary);
+}
+
+.pulse__mood-delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  color: var(--fg-secondary);
+}
+
+.pulse__trajectory {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 48px;
+  padding: var(--sp-2) 0;
+}
+
+.pulse__trajectory-bar {
+  flex: 1;
+  min-width: 6px;
+  background: color-mix(in oklab, var(--accent-primary) 28%, var(--bg-1) 72%);
+  border-radius: 2px 2px 0 0;
+}
+
+.pulse__trajectory-bar--current {
+  background: var(--accent-primary);
+}
+
+.pulse__event-log {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--bg-card-raised);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--stroke-default);
+}
+
+.pulse__event-log-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.pulse__event {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  gap: var(--sp-3);
+  align-items: baseline;
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+.pulse__event:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.pulse__event-time {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  letter-spacing: var(--ls-wide);
+}
+
+.pulse__event-text {
+  font-size: var(--fs-body);
+  color: var(--fg-primary);
+  line-height: var(--lh-snug);
+}
+
+.pulse__event-delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 600;
+}
+.pulse__event-delta--up { color: var(--tone-green); }
+.pulse__event-delta--down { color: var(--tone-red); }
+
+.pulse__top-take {
+  padding: var(--sp-4);
+  background: var(--bg-card-raised);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--stroke-default);
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-secondary);
+}
+
+.pulse__top-take-attr {
+  display: block;
+  margin-top: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-style: normal;
+}
+
+.pulse__velocity {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+.pulse__velocity-number {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  font-weight: 700;
+  color: var(--fg-primary);
+}
+.pulse__velocity-context {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.pulse__badge-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--sp-3);
+}
+.pulse__badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-default);
+  background: var(--bg-card-raised);
+}
+.pulse__badge--awaiting { color: var(--fg-muted); }
+.pulse__badge--growing  { color: var(--fg-secondary); }
+
+/* ------------------------------------------------------------------ */
+/* Chronicle cards (compact render)                                    */
+/* ------------------------------------------------------------------ */
+
+.chronicle {
+  margin-top: var(--sp-8);
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.chronicle__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  border-bottom: 1px solid var(--stroke-default);
+  padding-bottom: var(--sp-3);
+}
+
+.chronicle__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  font-weight: 700;
+  margin: 0;
+}
+
+.chronicle__grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .chronicle__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chronicle-card {
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  padding: var(--sp-5);
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.chronicle-card--anomaly { border-left-color: var(--tone-amber); }
+.chronicle-card--moment { border-left-color: var(--tone-coral); }
+.chronicle-card--flashpoint { border-left-color: var(--tone-navy); }
+.chronicle-card--echo { border-left-color: var(--tone-gray); }
+.chronicle-card--retroactive { border-left-color: #a07ccf; }
+.chronicle-card--player_arc { border-left-color: #5ec9c4; }
+
+.chronicle-card__type {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.chronicle-card__headline {
+  font-family: var(--font-display);
+  font-size: var(--fs-body-lg);
+  font-weight: 700;
+  color: var(--fg-primary);
+  margin: 0;
+  line-height: var(--lh-snug);
+}
+
+.chronicle-card__body {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-secondary);
+  margin: 0;
+}
+
+.chronicle-card__source {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-subtle);
+  letter-spacing: var(--ls-wide);
+}
+
+/* ------------------------------------------------------------------ */
+/* Page footer + subnav                                                */
+/* ------------------------------------------------------------------ */
+
+.page-footer {
+  margin-top: var(--sp-10);
+  padding: var(--sp-6) 0;
+  border-top: 1px solid var(--stroke-default);
+  color: var(--fg-muted);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.page-footer__mantra {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--fg-secondary);
+  text-transform: none;
+  letter-spacing: var(--ls-normal);
+  font-size: var(--fs-body);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive tweaks                                                   */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+  .hero { padding: var(--sp-6) 0; }
+  .hero__wordmark { letter-spacing: var(--ls-tight); }
+  .pulse { padding: var(--sp-5); }
+  .pulse__mood-number { font-size: clamp(40px, 12vw, 64px); }
+  .chronicle-card { padding: var(--sp-4); }
+}
+
+/* Savant Card — 13-metric percentile grid with peer-set toggle.
+   Tokens live in tokens.css; this file composes cards from those tokens. */
+
+.savant-card {
+  background: var(--surface-card, #fff);
+  border: 1px solid var(--line-subtle, #e6e6e6);
+  border-top: 3px solid var(--accent-primary, #0C2340);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  margin-top: var(--sp-5, 24px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color: var(--text-primary, #111);
+}
+
+.savant-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3, 12px);
+}
+
+.savant-card__eyebrow {
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+}
+
+.savant-card__toggle {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--surface-muted, #f2f2f2);
+  border-radius: 999px;
+  padding: 3px;
+}
+.savant-card__chip {
+  background: transparent;
+  border: none;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted, #555);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.savant-card__chip:hover { color: var(--text-primary, #111); }
+.savant-card__chip--active {
+  background: var(--accent-primary, #0C2340);
+  color: #fff;
+}
+
+.savant-card__narrative {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--text-primary, #111);
+  margin: 0 0 var(--sp-4, 16px) 0;
+  padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+  border-left: 3px solid var(--accent-primary, #0C2340);
+}
+.savant-card__narrative--fallback {
+  color: var(--text-muted, #555);
+  font-style: italic;
+}
+
+.savant-card__section {
+  padding: var(--sp-3, 12px) 0;
+  border-top: 1px solid var(--line-subtle, #e6e6e6);
+}
+.savant-card__section:first-of-type { border-top: none; }
+.savant-card__section-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+  margin: 0 0 var(--sp-3, 12px) 0;
+}
+
+/* Bar layout: label | track | value  */
+.savant-bar {
+  display: grid;
+  grid-template-columns: 160px 1fr 56px;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+  padding: 6px 0;
+  transition: background 120ms ease;
+}
+.savant-bar:hover { background: rgba(0,0,0,0.02); }
+
+.savant-bar__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.savant-bar__label-text {
+  font-size: 0.86rem;
+  color: var(--text-primary, #111);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.savant-bar__raw {
+  font-size: 0.68rem;
+  color: var(--text-muted, #888);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.savant-bar__track {
+  position: relative;
+  background: var(--surface-muted, #f2f2f2);
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.savant-bar__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 260ms cubic-bezier(.2,.8,.3,1), background 260ms ease;
+  background: var(--band-color, #9aa0a6);
+}
+.savant-bar__midline {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0,0,0,0.08);
+}
+.savant-bar__value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text-primary, #111);
+  text-align: right;
+  font-size: 0.98rem;
+}
+.savant-bar__pct-sup {
+  font-size: 0.6em;
+  vertical-align: super;
+  color: var(--text-muted, #888);
+  font-weight: 500;
+  margin-left: 1px;
+}
+
+/* Band colors — encoded via data-band so the peer toggle can swap them
+   without rewriting inline styles. */
+.savant-bar[data-band="elite"]    .savant-bar__fill { background: #22c55e; }
+.savant-bar[data-band="strong"]   .savant-bar__fill { background: #65a30d; }
+.savant-bar[data-band="average"]  .savant-bar__fill { background: #a3a3a3; }
+.savant-bar[data-band="concern"]  .savant-bar__fill { background: #f59e0b; }
+.savant-bar[data-band="bottom"]   .savant-bar__fill { background: #dc2626; }
+.savant-bar[data-band="missing"]  .savant-bar__fill { background: transparent; }
+.savant-bar[data-band="missing"]  .savant-bar__value .savant-bar__pct { color: var(--text-muted, #999); }
+
+.savant-card__echo {
+  margin-top: var(--sp-3, 12px);
+  padding: var(--sp-3, 12px) var(--sp-4, 14px);
+  background: var(--surface-muted, #f2f2f2);
+  border-left: 2px solid #6b7280;
+  border-radius: 4px;
+}
+.savant-card__echo-eyebrow {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted, #666);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.savant-card__echo-body {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-primary, #222);
+}
+.savant-card__echo-body strong { font-weight: 600; }
+
+.savant-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--sp-3, 12px) 0 0 0;
+  padding-top: var(--sp-3, 12px);
+  border-top: 1px dashed var(--line-subtle, #e6e6e6);
+}
+.savant-card__legend-chip {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 3px;
+  color: #fff;
+}
+.savant-card__legend-chip--elite    { background: #22c55e; }
+.savant-card__legend-chip--strong   { background: #65a30d; }
+.savant-card__legend-chip--average  { background: #a3a3a3; }
+.savant-card__legend-chip--concern  { background: #f59e0b; }
+.savant-card__legend-chip--bottom   { background: #dc2626; }
+
+.savant-card__source {
+  margin-top: var(--sp-3, 12px);
+  padding-top: var(--sp-3, 10px);
+  border-top: 1px solid var(--line-subtle, #eee);
+  font-size: 0.7rem;
+  color: var(--text-muted, #888);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .savant-bar {
+    grid-template-columns: 104px 1fr 44px;
+    gap: 8px;
+  }
+  .savant-bar__label-text { font-size: 0.78rem; }
+  .savant-bar__value { font-size: 0.86rem; }
+  .savant-card__header { gap: 10px; }
+  .savant-card__toggle { flex-wrap: wrap; }
+  .savant-card__chip { padding: 5px 9px; font-size: 0.64rem; }
+}
+
+/* Rivalry Card — mythic header + meta strip + trajectory + panels + meetings + stakes. */
+
+.rivalry-card {
+  background: var(--surface-card, #fff);
+  border: 1px solid var(--line-subtle, #e6e6e6);
+  border-top: 3px solid var(--accent-primary, #0C2340);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--sp-4, 18px) var(--sp-5, 24px);
+  margin-top: var(--sp-5, 24px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color: var(--text-primary, #111);
+}
+
+/* ---------- Header ---------- */
+.rivalry-card__header {
+  text-align: center;
+  padding-bottom: var(--sp-4, 16px);
+  margin-bottom: var(--sp-4, 18px);
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--text-muted, #666);
+  margin-bottom: 8px;
+}
+.rivalry-card__title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  line-height: 1.15;
+  margin: 0 0 6px 0;
+  color: var(--text-primary, #111);
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+.rivalry-card__trophy {
+  display: inline-block;
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: italic;
+  color: var(--accent-primary, #0C2340);
+  font-size: 1.02rem;
+  margin-bottom: 6px;
+}
+.rivalry-card__lineage {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted, #666);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Meta strip ---------- */
+.rivalry-card__meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__meta-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  border-left: 2px solid var(--accent-primary, #0C2340);
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+}
+.rivalry-card__meta-label {
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #777);
+  font-weight: 600;
+}
+.rivalry-card__meta-value {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--text-primary, #111);
+  font-variant-numeric: tabular-nums;
+}
+.rivalry-card__meta-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted, #888);
+}
+
+/* ---------- Trajectory ---------- */
+.rivalry-card__trajectory {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__trajectory-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.rivalry-card__section-eyebrow {
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+}
+.rivalry-card__gap {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.95rem;
+  color: var(--accent-primary, #0C2340);
+  font-variant-numeric: tabular-nums;
+  font-style: italic;
+}
+.rivalry-card__trajectory-svg {
+  width: 100%;
+  height: 140px;
+  display: block;
+}
+.rivalry-card__trajectory-note {
+  font-size: 0.72rem;
+  color: var(--text-muted, #999);
+  margin: 6px 0 0 0;
+  font-style: italic;
+}
+
+/* ---------- Panels ---------- */
+.rivalry-card__panels {
+  display: grid;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__panels--dual { grid-template-columns: 1fr 1fr; }
+.rivalry-card__panels--single { grid-template-columns: 1fr; }
+.rivalry-card__panel {
+  border: 1px solid var(--line-subtle, #eee);
+  border-top: 3px solid var(--panel-accent, #111);
+  border-radius: 6px;
+  padding: 14px 16px;
+  background: var(--surface-muted, #fafafa);
+}
+.rivalry-card__panel--primary {
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+}
+.rivalry-card__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.rivalry-card__panel-name {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.04rem;
+  color: var(--panel-accent, #111);
+  font-weight: 500;
+}
+.rivalry-card__panel-posture {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  font-style: italic;
+  color: var(--text-muted, #555);
+  font-weight: 500;
+}
+.rivalry-card__panel-quote {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+  color: var(--text-primary, #222);
+}
+.rivalry-card__panel-attr {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted, #777);
+  font-style: normal;
+}
+
+/* ---------- Meetings ---------- */
+.rivalry-card__meetings {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__meetings-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rivalry-card__meeting {
+  display: grid;
+  grid-template-columns: 30px 48px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line-subtle, #f0f0f0);
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+.rivalry-card__meeting:last-child { border-bottom: none; }
+.rivalry-card__meeting-result {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--text-muted, #888);
+  background: var(--surface-muted, #f3f3f3);
+}
+.rivalry-card__meeting-result--win  { background: #22c55e; color: #fff; }
+.rivalry-card__meeting-result--loss { background: #dc2626; color: #fff; }
+.rivalry-card__meeting-year {
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-muted, #666);
+  font-variant-numeric: tabular-nums;
+}
+.rivalry-card__meeting-body {
+  color: var(--text-primary, #222);
+}
+.rivalry-card__meeting-body--placeholder {
+  color: var(--text-muted, #888);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* ---------- Stakes ---------- */
+.rivalry-card__stakes {
+  padding: 16px 0 4px 0;
+}
+.rivalry-card__stakes-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+.rivalry-card__stakes--dual .rivalry-card__stakes-grid {
+  grid-template-columns: 1fr 1fr;
+}
+.rivalry-card__stake {
+  padding: 12px 14px;
+  background: var(--surface-muted, #fafafa);
+  border-left: 2px solid var(--accent-primary, #0C2340);
+  border-radius: 4px;
+}
+.rivalry-card__stake-label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.rivalry-card__stake-text {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--text-primary, #222);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .rivalry-card { padding: 14px 16px; }
+  .rivalry-card__meta-strip { grid-template-columns: repeat(2, 1fr); }
+  .rivalry-card__panels--dual { grid-template-columns: 1fr; }
+  .rivalry-card__stakes--dual .rivalry-card__stakes-grid { grid-template-columns: 1fr; }
+  .rivalry-card__meeting { grid-template-columns: 24px 40px 1fr; gap: 8px; font-size: 0.86rem; }
+}
+
+/* CFPEraView — zoomed-out 2014+ trajectory + brick chapter index. */
+
+.arc-card {
+  background: var(--surface-card, #fff);
+  border: 1px solid var(--line-subtle, #e6e6e6);
+  border-top: 3px solid var(--accent-primary, #0C2340);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--sp-4, 18px) var(--sp-5, 24px);
+  margin-top: var(--sp-5, 24px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color: var(--text-primary, #111);
+}
+
+/* ---------- Header ---------- */
+.arc-card__header {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__eyebrow,
+.arc-card__section-eyebrow {
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+}
+.arc-card__title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  line-height: 1.1;
+  margin: 6px 0 8px 0;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text-primary, #111);
+}
+.arc-card__thesis {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-primary, #222);
+  margin: 0;
+  max-width: 68ch;
+}
+.arc-card__thesis--fallback {
+  color: var(--text-muted, #555);
+  font-style: italic;
+}
+
+/* ---------- Meta strip (5-col) ---------- */
+.arc-card__meta-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__meta-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  border-left: 2px solid var(--accent-primary, #0C2340);
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+}
+.arc-card__meta-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #777);
+  font-weight: 600;
+}
+.arc-card__meta-value {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary, #111);
+  font-variant-numeric: tabular-nums;
+}
+.arc-card__meta-sub {
+  font-size: 0.68rem;
+  color: var(--text-muted, #888);
+}
+
+/* ---------- Chart ---------- */
+.arc-card__chart-frame {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.arc-card__legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.arc-card__legend-item {
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted, #666);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.arc-card__legend-item::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 2px;
+  background: var(--legend-color, #111);
+  border-radius: 1px;
+}
+.arc-card__legend-item--quality::before { height: 2.5px; }
+.arc-card__legend-item--ap::before {
+  background: #6b7280;
+  border-top: 1.5px dotted #6b7280;
+  background-color: transparent;
+  height: 0;
+}
+.arc-card__legend-item--cfp::before {
+  background: #d97706;
+  width: 2px;
+  height: 14px;
+}
+.arc-card__chart {
+  width: 100%;
+  height: 180px;
+  display: block;
+}
+.arc-chart__grid { stroke: #e5e7eb; stroke-width: 1; }
+.arc-chart__quality {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  opacity: 0.95;
+}
+.arc-chart__ap {
+  fill: none;
+  stroke: #6b7280;
+  stroke-width: 1.3;
+  stroke-dasharray: 3 3;
+  stroke-linejoin: round;
+  opacity: 0.7;
+}
+.arc-chart__ap-dot {
+  fill: #6b7280;
+  opacity: 0.85;
+}
+.arc-chart__cfp {
+  stroke: #d97706;
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+  opacity: 0.55;
+}
+.arc-chart__cfp--title {
+  stroke-width: 1.4;
+  stroke-dasharray: none;
+  opacity: 0.75;
+}
+.arc-chart__cfp-dot {
+  fill: #d97706;
+  stroke: #fff;
+  stroke-width: 1;
+}
+.arc-chart__cfp-eyebrow {
+  fill: #b45309;
+  font-size: 9px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.arc-chart__cfp-label {
+  fill: #d97706;
+  font-size: 10px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 600;
+}
+.arc-chart__cfp-label--won {
+  font-weight: 700;
+  fill: #b45309;
+}
+.arc-chart__xlabel {
+  fill: #9ca3af;
+  font-size: 10px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 500;
+}
+.arc-chart__xlabel--now {
+  fill: var(--accent-primary, #0C2340);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.arc-chart__ribbon-band {
+  /* fill + opacity set inline per-band */
+}
+.arc-chart__ribbon-label {
+  fill: #ffffff;
+  font-size: 9px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  paint-order: stroke;
+  stroke: rgba(0,0,0,0.35);
+  stroke-width: 0.3;
+}
+.arc-chart__annotation {
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: italic;
+  font-size: 10px;
+  /* fill set inline per annotation */
+}
+.arc-chart__annot-leader {
+  stroke-width: 0.75;
+  stroke-dasharray: 2 1.5;
+  opacity: 0.7;
+  fill: none;
+}
+
+/* ---------- Chapter bricks ---------- */
+.arc-card__chapters {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.season-brick {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 8px 8px 8px;
+  border: 1px solid var(--line-subtle, #ddd);
+  border-radius: 5px;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  background: #fff;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  position: relative;
+}
+.season-brick:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.season-brick__year {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.95rem;
+  color: var(--text-primary, #111);
+  font-variant-numeric: tabular-nums;
+}
+.season-brick__record {
+  font-size: 0.74rem;
+  color: var(--text-muted, #555);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.season-brick__badge {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 0.7rem;
+  color: #d97706;
+  line-height: 1;
+}
+
+.season-brick--winning   { background: rgba(15, 23, 42, 0.04); border-color: rgba(15, 23, 42, 0.2); }
+.season-brick--peak      { background: rgba(217, 119, 6, 0.12); border-color: rgba(217, 119, 6, 0.45); }
+.season-brick--title-era { background: rgba(217, 119, 6, 0.22); border-color: rgba(217, 119, 6, 0.7); }
+.season-brick--title-era .season-brick__year { font-weight: 600; }
+.season-brick--crisis    { background: rgba(220, 38, 38, 0.1); border-color: rgba(220, 38, 38, 0.35); }
+.season-brick--current   { background: transparent; border: 1.5px solid var(--text-primary, #111); }
+.season-brick--baseline  { background: #fff; }
+.season-brick--data-gap {
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 4px, #eee 4px, #eee 8px);
+  border-color: #ddd;
+  color: var(--text-muted, #999);
+  font-style: italic;
+}
+.season-brick--partial-data {
+  background: #fff;
+  border-color: var(--line-subtle, #d8d8d8);
+}
+.season-brick--partial-data .season-brick__record,
+.season-brick--is-partial .season-brick__record {
+  color: #aaa;
+  font-style: italic;
+}
+.season-brick--partial-data .season-brick__year {
+  color: var(--text-muted, #777);
+}
+
+/* ---------- Closing + peer footer ---------- */
+.arc-card__closing {
+  padding: 16px 0 4px 0;
+}
+.arc-card__closing-text {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-primary, #222);
+  margin: 0 0 14px 0;
+  max-width: 72ch;
+}
+.arc-card__peer-footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line-subtle, #eee);
+}
+.arc-card__peer-footer > div { display: flex; flex-direction: column; gap: 2px; }
+.arc-card__peer-footer dt {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #777);
+  font-weight: 600;
+  margin: 0;
+}
+.arc-card__peer-footer dd {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.15rem;
+  color: var(--text-primary, #111);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .arc-card { padding: 14px 16px; }
+  .arc-card__meta-strip { grid-template-columns: repeat(2, 1fr); }
+  .arc-card__meta-value { font-size: 1.2rem; }
+  .arc-card__peer-footer { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<main class="team-page">
+  <div class="content">
+    <section class="hero" aria-labelledby="hero-wordmark">
+  <div>
+    <div class="hero__eyebrow">MAY 11, 2026 · DEAD PERIOD · HERITAGE WINDOW · 2025 SEASON</div>
+    <div class="hero__identity-bar">
+      <h1 id="hero-wordmark" class="hero__wordmark">Alabama</h1>
+      <span class="hero__record" aria-label="Season record">11-4</span>
+      <span class="hero__rank-chip">AP #11</span><span class="hero__rank-chip">COACHES #11</span><span class="hero__rank-chip hero__rank-chip--cfp">CFP #9</span>
+    </div>
+  </div>
+  <div class="hero__heritage"><span>Founded <strong>1892</strong></span><span>Titles <strong>18</strong></span><span>Conf titles <strong>33</strong></span><span>Heismans <strong>4</strong></span><span>CFP <strong>8</strong></span><span>Bowls <strong>79</strong></span><span>Conference <strong>SEC</strong></span><span>Stadium <strong>Bryant-Denny Stadium (100,077)</strong></span><span>Legacy <strong>Paul W. &#x27;Bear&#x27; Bryant</strong></span></div>
+  <p class="hero__state">Alabama is the program the rest of college football measures itself against. The 2025 book has closed at 11-4. The AP has them at #11; the committee at #9. Week 18 was the loss they will spend the offseason answering for — 3-38 to Indiana on the road. The process does not flinch at rankings or at results in isolation; it measures the program against its own standard first and everyone else&#x27;s a distant second. Spring ball and the portal window are where the next version of this team is actually being built. Roll Tide.</p>
+  <div class="hero__metrics"><div class="metric-tile">
+  <div class="metric-tile__label">RECORD</div>
+  <div class="metric-tile__value metric-tile__value--accent">11-4</div>
+  <div class="metric-tile__delta">win% .733</div>
+</div><div class="metric-tile">
+  <div class="metric-tile__label">AP</div>
+  <div class="metric-tile__value">#11</div>
+  <div class="metric-tile__delta">top-25</div>
+</div><div class="metric-tile">
+  <div class="metric-tile__label">SP+</div>
+  <div class="metric-tile__value">+3.6</div>
+  
+</div><div class="metric-tile">
+  <div class="metric-tile__label">CFP STANDING</div>
+  <div class="metric-tile__value">#9</div>
+  
+</div></div>
+</section>
+
+    <section class="pulse" aria-labelledby="pulse-title">
+  <div class="pulse__header">
+    <span class="pulse__live-dot" aria-hidden="true"></span>
+    <h2 id="pulse-title" class="pulse__title">The Pulse on Alabama</h2>
+    <span class="pulse__meta">LIVE · Wk 2025-30 · 1,308 mentions · medium confidence</span>
+  </div>
+  <div class="pulse__grid">
+    <div class="pulse__mood-card">
+      <div class="pulse__mood-number">57</div>
+      <div class="pulse__mood-delta">Δ +0.0 vs last wk</div>
+      <div class="pulse__trajectory" aria-label="7-week mood trajectory"><div class="pulse__trajectory-bar" style="height: 54%" title="Wk 2025-23"></div><div class="pulse__trajectory-bar" style="height: 54%" title="Wk 2025-24"></div><div class="pulse__trajectory-bar" style="height: 59%" title="Wk 2025-25"></div><div class="pulse__trajectory-bar" style="height: 63%" title="Wk 2025-26"></div><div class="pulse__trajectory-bar" style="height: 71%" title="Wk 2025-27"></div><div class="pulse__trajectory-bar" style="height: 59%" title="Wk 2025-28"></div><div class="pulse__trajectory-bar" style="height: 57%" title="Wk 2025-30"></div><div class="pulse__trajectory-bar pulse__trajectory-bar--current" style="height: 84%" title="Wk 2025-31"></div></div>
+      <div class="pulse__velocity">
+    <span class="pulse__velocity-number">1,308</span>
+    <span class="pulse__velocity-context">mentions this week · conversation velocity</span>
+  </div>
+    </div>
+    <div>
+      <div class="pulse__event-log">
+    <p class="pulse__event-log-title">What moved it — offseason · last 30 days</p>
+    <div class="pulse__event">
+      <span class="pulse__event-time">June</span>
+      <span class="pulse__event-text">Dead-period quiet — official-visit + heritage window</span>
+      <span class="pulse__event-delta ">—</span>
+    </div><div class="pulse__event">
+      <span class="pulse__event-time">Camp</span>
+      <span class="pulse__event-text">Fall camp ~82 days out</span>
+      <span class="pulse__event-delta"></span>
+    </div>
+  </div>
+      <div class="pulse__top-take" style="margin-top: var(--sp-4);">
+        <em>"Roll Tide is not a cheer; it is a statement of identity."</em>
+        <span class="pulse__top-take-attr">— Alabama fanbase · recurring line</span>
+      </div>
+    </div>
+  </div>
+  
+</section>
+    <section class="chronicle" aria-labelledby="chronicle-title">
+  <div class="chronicle__header">
+    <h2 id="chronicle-title" class="chronicle__title">The Chronicle</h2>
+    <span class="pulse__meta">2025 season · editorial observations</span>
+  </div>
+  <div class="chronicle__grid">
+    <article class="chronicle-card chronicle-card--player_arc">
+  <span class="chronicle-card__type">PLAYER_ARC</span>
+  <h3 class="chronicle-card__headline">Kevin Riley&#x27;s nine-week run in the Alabama backfield conversation</h3>
+  <p class="chronicle-card__body">Kevin Riley carried the Alabama backfield conversation for nine weeks in 2025, peaking at 7.14 attention despite just 51 rushing plays. The last time a Tide running back generated that much talk with so little production was the stutter-step depth seasons of the early post-Saban transition. Riley hasn&#x27;t been mentioned in Tuscaloosa since week 30.</p>
+  <span class="chronicle-card__source">gamelog + roster archive · Kevin Riley · 2025</span>
+</article><article class="chronicle-card chronicle-card--player_arc">
+  <span class="chronicle-card__type">PLAYER_ARC</span>
+  <h3 class="chronicle-card__headline">Richard Young spent 15 weeks in the backfield conversation this season</h3>
+  <p class="chronicle-card__body">Young carried conversation presence across 15 weeks, peaking at 7.01 attention in Week 30 with 66 total mentions. Only one running back in Alabama&#x27;s recent roster archives has sustained a longer weekly stretch, which places this season in the context of the position group&#x27;s competitive standard.</p>
+  <span class="chronicle-card__source">gamelog + roster archive · Richard Young · 2025</span>
+</article><article class="chronicle-card chronicle-card--moment">
+  <span class="chronicle-card__type">MOMENT</span>
+  <h3 class="chronicle-card__headline">Alabama posts 73-0 shutout over UL Monroe in Week 2</h3>
+  <p class="chronicle-card__body">The 73-point margin runs well beyond what the Tide typically produces by nearly ten touchdowns. The DeBoer Era announced itself in Bryant-Denny with a shutout that hasn&#x27;t happened in Tuscaloosa since the opening month of 2021.</p>
+  <span class="chronicle-card__source">gamelog · 2025 season · wk 2</span>
+</article><article class="chronicle-card chronicle-card--anomaly">
+  <span class="chronicle-card__type">ANOMALY</span>
+  <h3 class="chronicle-card__headline">DeBoer&#x27;s defense carries the standard Alabama built on</h3>
+  <p class="chronicle-card__body">The 2024 defense surrendered EPA per play at the 96.7th percentile nationally — the kind of number Alabama built its dynasty on. Saban&#x27;s final three teams never hit that mark. The process finds its footing.</p>
+  <span class="chronicle-card__source">Savant card · 2024 season through postseason</span>
+</article>
+  </div>
+</section>
+    <section class="savant-card" aria-labelledby="savant-title">
+  <header class="savant-card__header">
+    <span class="savant-card__eyebrow">THE SAVANT CARD · Alabama · 2025</span>
+    <div class="savant-card__toggle" role="tablist" aria-label="Peer set"><button type="button" class="savant-card__chip savant-card__chip--active" data-peer="fbs" aria-pressed="true">FBS</button><button type="button" class="savant-card__chip" data-peer="p4" aria-pressed="false">Power-4</button><button type="button" class="savant-card__chip" data-peer="conf" aria-pressed="false">Conference</button><button type="button" class="savant-card__chip" data-peer="alltime" aria-pressed="false">Program 2014+</button></div>
+  </header>
+  <p class="savant-card__narrative savant-card__narrative--fallback">Alabama reads strongest in red-zone finish (top 9%) and passing epa (top 13%); the crux lives in rushing epa, where Alabama sits at the 7th percentile.</p>
+  <div class="savant-card__section">
+    <p class="savant-card__section-eyebrow">offense · strengths lead</p>
+    <div class="savant-bar" data-band="strong"
+      data-pct-fbs="72.5"
+      data-pct-p4="59.8"
+      data-pct-conf="39.3"
+      data-pct-alltime="25.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">EPA / play</span>
+        <span class="savant-bar__raw">+0.27</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 72.5%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">72</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="average"
+      data-pct-fbs="41.5"
+      data-pct-p4="18.8"
+      data-pct-conf="10.7"
+      data-pct-alltime="5.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Success Rate</span>
+        <span class="savant-bar__raw">+0.42</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 41.5%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">41</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="strong"
+      data-pct-fbs="85.7"
+      data-pct-p4="90.2"
+      data-pct-conf="89.3"
+      data-pct-alltime="95.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Explosive Plays</span>
+        <span class="savant-bar__raw">+1.43</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 85.7%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">86</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="bottom"
+      data-pct-fbs="7.4"
+      data-pct-p4="6.2"
+      data-pct-conf="3.6"
+      data-pct-alltime="5.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Rushing EPA</span>
+        <span class="savant-bar__raw">-0.07</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 7.4%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">7</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="elite"
+      data-pct-fbs="91.1"
+      data-pct-p4="93.8"
+      data-pct-conf="89.3"
+      data-pct-alltime="91.7">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Red-Zone Finish</span>
+        <span class="savant-bar__raw">+4.10</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 91.1%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">91</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div>
+    
+  </div>
+  <div class="savant-card__section">
+    <p class="savant-card__section-eyebrow">defense · higher bar = harder to play against</p>
+    <div class="savant-bar" data-band="average"
+      data-pct-fbs="49.2"
+      data-pct-p4="38.4"
+      data-pct-conf="32.1"
+      data-pct-alltime="5.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">EPA Allowed</span>
+        <span class="savant-bar__raw">+0.12</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 49.2%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">49</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="average"
+      data-pct-fbs="57.8"
+      data-pct-p4="49.1"
+      data-pct-conf="53.6"
+      data-pct-alltime="5.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Success Rate Allowed</span>
+        <span class="savant-bar__raw">+0.38</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 57.8%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">58</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="concern"
+      data-pct-fbs="28.3"
+      data-pct-p4="27.7"
+      data-pct-conf="25.0"
+      data-pct-alltime="25.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Explosive Plays Allowed</span>
+        <span class="savant-bar__raw">+1.34</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 28.3%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">28</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="concern"
+      data-pct-fbs="25.2"
+      data-pct-p4="22.3"
+      data-pct-conf="17.9"
+      data-pct-alltime="5.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Passing EPA Allowed</span>
+        <span class="savant-bar__raw">+0.32</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 25.2%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">25</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="strong"
+      data-pct-fbs="87.2"
+      data-pct-p4="79.5"
+      data-pct-conf="82.1"
+      data-pct-alltime="91.7">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Red-Zone Defense</span>
+        <span class="savant-bar__raw">+1.15</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 87.2%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">87</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div>
+    
+  </div>
+  <div class="savant-card__section">
+    <p class="savant-card__section-eyebrow">hidden math · special situations</p>
+    <div class="savant-bar" data-band="average"
+      data-pct-fbs="46.1"
+      data-pct-p4="33.0"
+      data-pct-conf="53.6"
+      data-pct-alltime="8.3">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Field Position (O)</span>
+        <span class="savant-bar__raw">+29.42</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 46.1%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">46</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="strong"
+      data-pct-fbs="88.0"
+      data-pct-p4="81.2"
+      data-pct-conf="75.0"
+      data-pct-alltime="75.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Passing EPA</span>
+        <span class="savant-bar__raw">+0.50</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 88.0%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">88</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div><div class="savant-bar" data-band="average"
+      data-pct-fbs="54.7"
+      data-pct-p4="34.8"
+      data-pct-conf="25.0"
+      data-pct-alltime="35.0">
+      <div class="savant-bar__label">
+        <span class="savant-bar__label-text">Rushing EPA Allowed</span>
+        <span class="savant-bar__raw">+0.03</span>
+      </div>
+      <div class="savant-bar__track">
+        <div class="savant-bar__fill" style="width: 54.7%"></div>
+        <div class="savant-bar__midline" aria-hidden="true"></div>
+      </div>
+      <div class="savant-bar__value" aria-label="Percentile">
+        <span class="savant-bar__pct">55</span><span class="savant-bar__pct-sup">th</span>
+      </div>
+    </div>
+    
+  </div>
+  <div class="savant-card__legend"><span class="savant-card__legend-chip savant-card__legend-chip--elite">ELITE · 90+</span><span class="savant-card__legend-chip savant-card__legend-chip--strong">STRONG · 70+</span><span class="savant-card__legend-chip savant-card__legend-chip--average">AVERAGE · 40-70</span><span class="savant-card__legend-chip savant-card__legend-chip--concern">CONCERN · 10-40</span><span class="savant-card__legend-chip savant-card__legend-chip--bottom">BOTTOM · &lt;10</span></div>
+  <footer class="savant-card__source">
+    <span>Sources · CFBD tier-2 advanced stats · opponent-adjusted · 5 games this season · percentiles vs. up to 129 FBS peers</span>
+  </footer>
+</section>
+<script>
+(function(){
+  var cards = document.querySelectorAll('.savant-card');
+  cards.forEach(function(card){
+    var chips = card.querySelectorAll('.savant-card__chip');
+    var bars = card.querySelectorAll('.savant-bar');
+    function applyPeer(peer){
+      bars.forEach(function(bar){
+        var v = bar.getAttribute('data-pct-' + peer);
+        var fill = bar.querySelector('.savant-bar__fill');
+        var pct = bar.querySelector('.savant-bar__pct');
+        var num = v && v.length ? parseFloat(v) : null;
+        if (num === null || isNaN(num)) {
+          if (fill) fill.style.width = '0%';
+          if (pct) pct.textContent = '—';
+          bar.setAttribute('data-band','missing');
+        } else {
+          if (fill) fill.style.width = num.toFixed(1) + '%';
+          if (pct) pct.textContent = Math.round(num);
+          var band = num >= 90 ? 'elite' : num >= 70 ? 'strong' : num >= 40 ? 'average' : num >= 10 ? 'concern' : 'bottom';
+          bar.setAttribute('data-band', band);
+        }
+      });
+    }
+    chips.forEach(function(chip){
+      chip.addEventListener('click', function(){
+        chips.forEach(function(c){
+          c.classList.remove('savant-card__chip--active');
+          c.setAttribute('aria-pressed','false');
+        });
+        chip.classList.add('savant-card__chip--active');
+        chip.setAttribute('aria-pressed','true');
+        applyPeer(chip.getAttribute('data-peer'));
+      });
+    });
+  });
+})();
+</script>
+
+    <section class="rivalry-card" aria-labelledby="rivalry-title">
+  <header class="rivalry-card__header">
+    <span class="rivalry-card__eyebrow">THE RIVALRY · ALABAMA × AUBURN</span>
+    <h2 id="rivalry-title" class="rivalry-card__title">The Iron Bowl</h2>
+    <span class="rivalry-card__trophy">Iron Bowl</span>
+    <span class="rivalry-card__lineage">12 meetings since 2014</span>
+  </header>
+  <div class="rivalry-card__meta-strip"><div class="rivalry-card__meta-tile">
+          <span class="rivalry-card__meta-label">ALL-TIME</span>
+          <span class="rivalry-card__meta-value">10-2</span>
+          <span class="rivalry-card__meta-sub">since 2014 · .833 win rate</span>
+        </div><div class="rivalry-card__meta-tile">
+          <span class="rivalry-card__meta-label">STREAK</span>
+          <span class="rivalry-card__meta-value">W6</span>
+          <span class="rivalry-card__meta-sub">Alabama rolling</span>
+        </div><div class="rivalry-card__meta-tile">
+          <span class="rivalry-card__meta-label">TROPHY</span>
+          <span class="rivalry-card__meta-value">Iron Bowl</span>
+          <span class="rivalry-card__meta-sub">In play each fall</span>
+        </div><div class="rivalry-card__meta-tile">
+          <span class="rivalry-card__meta-label">NEXT</span>
+          <span class="rivalry-card__meta-value">Next meeting TBD</span>
+          <span class="rivalry-card__meta-sub">schedule pending</span>
+        </div></div>
+  <div class="rivalry-card__trajectory">
+    <div class="rivalry-card__trajectory-header">
+      <span class="rivalry-card__section-eyebrow">HEAT TRAJECTORY · four weeks to kickoff</span>
+      <span class="rivalry-card__gap">gap +16 pts</span>
+    </div>
+    <svg class="rivalry-card__trajectory-svg" viewBox="0 0 340 140" role="img" aria-label="Rivalry heat trajectory placeholder">
+      <defs>
+        <linearGradient id="rt-grad-alabama" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#9E1B32" stop-opacity="0.22" />
+          <stop offset="100%" stop-color="#9E1B32" stop-opacity="0.0" />
+        </linearGradient>
+      </defs>
+      <g stroke="#e5e7eb" stroke-width="1">
+        <line x1="20" y1="30" x2="290" y2="30" />
+        <line x1="20" y1="75" x2="290" y2="75" />
+        <line x1="20" y1="120" x2="290" y2="120" />
+      </g>
+      <polyline fill="none" stroke="#9E1B32" stroke-width="2.5" stroke-linejoin="round" points="20,89.4 110,76.8 200,65.1 290,55.2" />
+      <polygon fill="url(#rt-grad-alabama)" points="20,89.4 110,76.8 200,65.1 290,55.2 290,120 20,120" />
+      <circle cx="290" cy="55.2" r="4.5" fill="#9E1B32" />
+      <text x="300" y="59.2" fill="#9E1B32" font-size="11" font-family="system-ui" font-weight="600">Alabama</text>
+      
+      <polyline fill="none" stroke="#6b7280" stroke-width="2" stroke-linejoin="round" points="20,85.8 110,81.3 200,75.0 290,69.6" opacity="0.85" />
+      <circle cx="290" cy="69.6" r="4" fill="#6b7280" />
+      <text x="300" y="73.6" fill="#6b7280" font-size="11" font-family="system-ui">Auburn</text>
+      <text x="20" y="138" fill="#9ca3af" font-size="10" font-family="system-ui">wk −4</text>
+      <text x="148" y="138" fill="#9ca3af" font-size="10" font-family="system-ui">wk −2</text>
+      <text x="272" y="138" fill="#9ca3af" font-size="10" font-family="system-ui">kickoff</text>
+    </svg>
+    <p class="rivalry-card__trajectory-note">
+      Signal accumulating · per-rivalry weekly fan-intel feeding in as the 2025-26 season approaches.
+    </p>
+  </div>
+  <div class="rivalry-card__panels rivalry-card__panels--dual">
+    <article class="rivalry-card__panel rivalry-card__panel--primary" style="--panel-accent: #9E1B32">
+      <div class="rivalry-card__panel-head">
+        <span class="rivalry-card__panel-name">Alabama</span>
+        <span class="rivalry-card__panel-posture">—</span>
+      </div>
+      
+      
+    </article>
+    <article class="rivalry-card__panel" style="--panel-accent: #6b7280">
+      <div class="rivalry-card__panel-head">
+        <span class="rivalry-card__panel-name">Auburn</span>
+        <span class="rivalry-card__panel-posture">—</span>
+      </div>
+      
+      
+    </article>
+  </div>
+  <div class="rivalry-card__meetings">
+      <p class="rivalry-card__section-eyebrow">THE LAST 6 · year-by-year</p>
+      <ol class="rivalry-card__meetings-list">
+        <li class="rivalry-card__meeting">
+          <span class="rivalry-card__meeting-result rivalry-card__meeting-result--win" aria-label="Result">W</span>
+          <span class="rivalry-card__meeting-year">2025</span>
+          <span class="rivalry-card__meeting-body">The 27-20 victory in Tuscaloosa gave Kalen DeBoer his second straight Iron Bowl win.</span>
+        </li><li class="rivalry-card__meeting">
+          <span class="rivalry-card__meeting-result rivalry-card__meeting-result--win" aria-label="Result">W</span>
+          <span class="rivalry-card__meeting-year">2024</span>
+          <span class="rivalry-card__meeting-body">Kalen DeBoer&#x27;s first Iron Bowl resulted in a 28-14 Alabama victory that maintained the program&#x27;s grip on the rivalry.</span>
+        </li><li class="rivalry-card__meeting">
+          <span class="rivalry-card__meeting-result rivalry-card__meeting-result--win" aria-label="Result">W</span>
+          <span class="rivalry-card__meeting-year">2023</span>
+          <span class="rivalry-card__meeting-body">Alabama escaped the Plains with a 27-24 victory in Nick Saban&#x27;s final Iron Bowl.</span>
+        </li><li class="rivalry-card__meeting">
+          <span class="rivalry-card__meeting-result rivalry-card__meeting-result--win" aria-label="Result">W</span>
+          <span class="rivalry-card__meeting-year">2022</span>
+          <span class="rivalry-card__meeting-body">Nick Saban&#x27;s Alabama dispatched Auburn 49-27 in the 2022 Iron Bowl, underscoring the widening competitive gap during Bryan Harsin&#x27;s tumultuous tenure on the Plains.</span>
+        </li><li class="rivalry-card__meeting">
+          <span class="rivalry-card__meeting-result rivalry-card__meeting-result--win" aria-label="Result">W</span>
+          <span class="rivalry-card__meeting-year">2021</span>
+          <span class="rivalry-card__meeting-body">Alabama survived Auburn 24-22 in the 2021 Iron Bowl, a two-point margin in Bryan Harsin&#x27;s first season on the Plains.</span>
+        </li><li class="rivalry-card__meeting">
+          <span class="rivalry-card__meeting-result rivalry-card__meeting-result--win" aria-label="Result">W</span>
+          <span class="rivalry-card__meeting-year">2020</span>
+          <span class="rivalry-card__meeting-body">Nick Saban&#x27;s Alabama clinched a playoff berth with a 42-13 dismantling of Gus Malzahn&#x27;s Tigers.</span>
+        </li>
+      </ol>
+    </div>
+  
+</section>
+    <section class="arc-card" aria-labelledby="arc-title">
+  <header class="arc-card__header">
+    <span class="arc-card__eyebrow">THE ERA · 2014 THROUGH 2025</span>
+    <h2 id="arc-title" class="arc-card__title">The CFP Era</h2>
+    <p class="arc-card__thesis">The Process era defined the CFP era. Six title games, three national championships, a standard the rest of the sport had to answer or be answered by. The Saban half has closed; the DeBoer half is being written.</p>
+  </header>
+  <div class="arc-card__meta-strip"><div class="arc-card__meta-tile">
+          <span class="arc-card__meta-label">ERA RECORD</span>
+          <span class="arc-card__meta-value">147-22</span>
+          <span class="arc-card__meta-sub">12 seasons</span>
+        </div><div class="arc-card__meta-tile">
+          <span class="arc-card__meta-label">CFP BIDS</span>
+          <span class="arc-card__meta-value">8</span>
+          <span class="arc-card__meta-sub">8/12 seasons</span>
+        </div><div class="arc-card__meta-tile">
+          <span class="arc-card__meta-label">TITLE GAMES</span>
+          <span class="arc-card__meta-value">6</span>
+          <span class="arc-card__meta-sub">6 appearances</span>
+        </div><div class="arc-card__meta-tile">
+          <span class="arc-card__meta-label">TOP-10 FINISHES</span>
+          <span class="arc-card__meta-value">10</span>
+          <span class="arc-card__meta-sub">AP polled only</span>
+        </div><div class="arc-card__meta-tile">
+          <span class="arc-card__meta-label">TITLES</span>
+          <span class="arc-card__meta-value">3</span>
+          <span class="arc-card__meta-sub">national champions</span>
+        </div></div>
+  <div class="arc-card__chart-frame">
+    <div class="arc-card__chart-header">
+      <span class="arc-card__section-eyebrow">TRAJECTORY · quality-score line · AP rank dotted · CFP bids marked · coach regimes ribboned</span>
+      <div class="arc-card__legend">
+        <span class="arc-card__legend-item arc-card__legend-item--quality" style="--legend-color: #9E1B32;">Program Quality</span>
+        <span class="arc-card__legend-item arc-card__legend-item--ap">AP Rank (inverted)</span>
+        <span class="arc-card__legend-item arc-card__legend-item--cfp">CFP Appearance</span>
+      </div>
+    </div>
+    <svg class="arc-card__chart" viewBox="0 0 640 210" role="img" aria-label="Alabama 2014+ trajectory">
+      <line class="arc-chart__grid" x1="40" y1="117.5" x2="600" y2="117.5" />
+<line class="arc-chart__grid" x1="40" y1="85.0" x2="600" y2="85.0" />
+<line class="arc-chart__grid" x1="40" y1="52.5" x2="600" y2="52.5" />
+      <line class="arc-chart__cfp" x1="40.0" y1="18" x2="40.0" y2="150" /><circle class="arc-chart__cfp-dot" cx="40.0" cy="18" r="3.5" /><text x="40.0" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text><line class="arc-chart__cfp arc-chart__cfp--title" x1="90.9" y1="18" x2="90.9" y2="150" /><circle class="arc-chart__cfp-dot" cx="90.9" cy="18" r="3.5" /><text x="90.9" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text><text x="90.9" y="30" text-anchor="middle" class="arc-chart__cfp-label arc-chart__cfp-label--won">★ 2015</text><line class="arc-chart__cfp" x1="141.8" y1="18" x2="141.8" y2="150" /><circle class="arc-chart__cfp-dot" cx="141.8" cy="18" r="3.5" /><text x="141.8" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text><text x="141.8" y="30" text-anchor="middle" class="arc-chart__cfp-label">☆ 2016</text><line class="arc-chart__cfp arc-chart__cfp--title" x1="192.7" y1="18" x2="192.7" y2="150" /><circle class="arc-chart__cfp-dot" cx="192.7" cy="18" r="3.5" /><text x="192.7" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text><text x="192.7" y="30" text-anchor="middle" class="arc-chart__cfp-label arc-chart__cfp-label--won">★ 2017</text><line class="arc-chart__cfp" x1="243.6" y1="18" x2="243.6" y2="150" /><circle class="arc-chart__cfp-dot" cx="243.6" cy="18" r="3.5" /><text x="243.6" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text><text x="243.6" y="30" text-anchor="middle" class="arc-chart__cfp-label">☆ 2018</text><line class="arc-chart__cfp arc-chart__cfp--title" x1="345.5" y1="18" x2="345.5" y2="150" /><circle class="arc-chart__cfp-dot" cx="345.5" cy="18" r="3.5" /><text x="345.5" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text><text x="345.5" y="30" text-anchor="middle" class="arc-chart__cfp-label arc-chart__cfp-label--won">★ 2020</text><line class="arc-chart__cfp" x1="396.4" y1="18" x2="396.4" y2="150" /><circle class="arc-chart__cfp-dot" cx="396.4" cy="18" r="3.5" /><text x="396.4" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text><text x="396.4" y="30" text-anchor="middle" class="arc-chart__cfp-label">☆ 2021</text><line class="arc-chart__cfp" x1="498.2" y1="18" x2="498.2" y2="150" /><circle class="arc-chart__cfp-dot" cx="498.2" cy="18" r="3.5" /><text x="498.2" y="12" text-anchor="middle" class="arc-chart__cfp-eyebrow">CFP</text>
+      
+      <polyline class="arc-chart__quality" points="40.0,50.0 90.9,39.0 141.8,35.5 192.7,40.7 243.6,32.4 294.5,53.4 345.5,37.4 396.4,45.1 447.3,51.3 498.2,51.3 549.1,73.8 600.0,72.4" style="stroke: #9E1B32;" />
+      
+      <polyline class="arc-chart__ap" points="40.0,39.0 90.9,29.0 141.8,24.0 192.7,39.0 243.6,24.0 294.5,64.0 345.5,24.0 396.4,24.0 447.3,44.0 498.2,44.0 549.1,74.0 600.0,74.0" />
+      
+      <circle cx="40.0" cy="39.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="90.9" cy="29.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="141.8" cy="24.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="192.7" cy="39.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="243.6" cy="24.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="294.5" cy="64.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="345.5" cy="24.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="396.4" cy="24.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="447.3" cy="44.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="498.2" cy="44.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="549.1" cy="74.0" r="2.5" class="arc-chart__ap-dot" />
+      <circle cx="600.0" cy="74.0" r="2.5" class="arc-chart__ap-dot" />
+      
+      <circle cx="40.0" cy="50.0" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="90.9" cy="39.0" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="141.8" cy="35.5" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="192.7" cy="40.7" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="243.6" cy="32.4" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="294.5" cy="53.4" r="4" fill="#9E1B32" stroke="#fff" stroke-width="1.5" />
+      <circle cx="345.5" cy="37.4" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="396.4" cy="45.1" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="447.3" cy="51.3" r="4" fill="#9E1B32" stroke="#fff" stroke-width="1.5" />
+      <circle cx="498.2" cy="51.3" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5" />
+      <circle cx="549.1" cy="73.8" r="4" fill="#9E1B32" stroke="#fff" stroke-width="1.5" />
+      <circle cx="600.0" cy="72.4" r="4" fill="#9E1B32" stroke="#fff" stroke-width="1.5" />
+      <line class="arc-chart__annot-leader" x1="90.9" y1="39.0" x2="90.9" y2="51.0" stroke="#a16207" />
+      <text x="90.9" y="55.0" text-anchor="middle" class="arc-chart__annotation" fill="#a16207">Title #4 of the Process</text>
+      <line class="arc-chart__annot-leader" x1="345.5" y1="24.0" x2="345.5" y2="36.0" stroke="#a16207" />
+      <text x="345.5" y="40.0" text-anchor="middle" class="arc-chart__annotation" fill="#a16207">13-0 · Title #6</text>
+      <line class="arc-chart__annot-leader" x1="396.4" y1="45.1" x2="396.4" y2="57.1" stroke="#b91c1c" />
+      <text x="396.4" y="61.1" text-anchor="middle" class="arc-chart__annotation" fill="#b91c1c">Lost title to Georgia</text>
+      <line class="arc-chart__annot-leader" x1="549.1" y1="73.8" x2="549.1" y2="85.8" stroke="#b45309" />
+      <text x="549.1" y="89.8" text-anchor="middle" class="arc-chart__annotation" fill="#b45309">First miss since 2007</text>
+      <rect class="arc-chart__ribbon-band" x="40.0" y="186.0" width="508.6" height="14.0" fill="#9E1B32" opacity="0.28" />
+      <text x="44.0" y="196.0" class="arc-chart__ribbon-label">SABAN</text>
+      <rect class="arc-chart__ribbon-band" x="549.1" y="186.0" width="56.9" height="14.0" fill="#9E1B32" opacity="0.4" />
+      <text x="553.1" y="196.0" class="arc-chart__ribbon-label">DEBOER</text>
+      <text x="40.0" y="205.0" text-anchor="middle" class="arc-chart__xlabel">'14</text><text x="141.8" y="205.0" text-anchor="middle" class="arc-chart__xlabel">'16</text><text x="243.6" y="205.0" text-anchor="middle" class="arc-chart__xlabel">'18</text><text x="345.5" y="205.0" text-anchor="middle" class="arc-chart__xlabel">'20</text><text x="447.3" y="205.0" text-anchor="middle" class="arc-chart__xlabel">'22</text><text x="549.1" y="205.0" text-anchor="middle" class="arc-chart__xlabel">'24</text><text x="600.0" y="205.0" text-anchor="middle" class="arc-chart__xlabel arc-chart__xlabel--now">NOW</text>
+    </svg>
+  </div>
+  <section class="arc-card__chapters">
+    <span class="arc-card__section-eyebrow">CHAPTERS · 12 seasons · tap to open the archive</span>
+    <div class="arc-card__chapter-grid">
+      <a href="/teams/alabama/seasons/2014.html" class="season-brick season-brick--peak"
+              title="2014 · 12-2 · AP #4">
+            <span class="season-brick__year">'14</span>
+            <span class="season-brick__record">12-2</span>
+            <span class="season-brick__badge">◆</span>
+          </a><a href="/teams/alabama/seasons/2015.html" class="season-brick season-brick--title-era"
+              title="2015 · 14-1 · AP #2">
+            <span class="season-brick__year">'15</span>
+            <span class="season-brick__record">14-1</span>
+            <span class="season-brick__badge">★</span>
+          </a><a href="/teams/alabama/seasons/2016.html" class="season-brick season-brick--title-era"
+              title="2016 · 14-1 · AP #1">
+            <span class="season-brick__year">'16</span>
+            <span class="season-brick__record">14-1</span>
+            <span class="season-brick__badge">☆</span>
+          </a><a href="/teams/alabama/seasons/2017.html" class="season-brick season-brick--title-era"
+              title="2017 · 13-1 · AP #4">
+            <span class="season-brick__year">'17</span>
+            <span class="season-brick__record">13-1</span>
+            <span class="season-brick__badge">★</span>
+          </a><a href="/teams/alabama/seasons/2018.html" class="season-brick season-brick--title-era"
+              title="2018 · 14-1 · AP #1">
+            <span class="season-brick__year">'18</span>
+            <span class="season-brick__record">14-1</span>
+            <span class="season-brick__badge">☆</span>
+          </a><a href="/teams/alabama/seasons/2019.html" class="season-brick season-brick--winning"
+              title="2019 · 11-2 · AP #9">
+            <span class="season-brick__year">'19</span>
+            <span class="season-brick__record">11-2</span>
+            <span class="season-brick__badge"></span>
+          </a><a href="/teams/alabama/seasons/2020.html" class="season-brick season-brick--title-era"
+              title="2020 · 13-0 · AP #1">
+            <span class="season-brick__year">'20</span>
+            <span class="season-brick__record">13-0</span>
+            <span class="season-brick__badge">★</span>
+          </a><a href="/teams/alabama/seasons/2021.html" class="season-brick season-brick--title-era"
+              title="2021 · 13-2 · AP #1">
+            <span class="season-brick__year">'21</span>
+            <span class="season-brick__record">13-2</span>
+            <span class="season-brick__badge">☆</span>
+          </a><a href="/teams/alabama/seasons/2022.html" class="season-brick season-brick--winning"
+              title="2022 · 11-2 · AP #5">
+            <span class="season-brick__year">'22</span>
+            <span class="season-brick__record">11-2</span>
+            <span class="season-brick__badge"></span>
+          </a><a href="/teams/alabama/seasons/2023.html" class="season-brick season-brick--peak"
+              title="2023 · 12-2 · AP #5">
+            <span class="season-brick__year">'23</span>
+            <span class="season-brick__record">12-2</span>
+            <span class="season-brick__badge">◆</span>
+          </a><a href="/teams/alabama/seasons/2024.html" class="season-brick season-brick--winning"
+              title="2024 · 9-4 · AP #11">
+            <span class="season-brick__year">'24</span>
+            <span class="season-brick__record">9-4</span>
+            <span class="season-brick__badge"></span>
+          </a><a href="/teams/alabama/seasons/2025.html" class="season-brick season-brick--current"
+              title="2025 · 11-4 · AP #11">
+            <span class="season-brick__year">'25</span>
+            <span class="season-brick__record">11-4</span>
+            <span class="season-brick__badge"></span>
+          </a>
+    </div>
+  </section>
+  <div class="arc-card__closing">
+    <p class="arc-card__closing-text">Nobody else won three titles inside the era. Nobody else appeared in seven national championships. The data reads what history will say: the CFP era was Alabama&#x27;s era, and every other program spent twelve years being measured against it.</p>
+    <dl class="arc-card__peer-footer">
+      <div>
+        <dt>ERA WIN %</dt>
+        <dd>.869</dd>
+      </div>
+      <div>
+        <dt>RANKED SEASONS (AP)</dt>
+        <dd>12/12</dd>
+      </div>
+      <div>
+        <dt>BEST AP FINISH</dt>
+        <dd>#1</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+    <footer class="page-footer">
+  <span>CFB Index · team-pages v1.0 · sentience dead-period-summer</span>
+  <span class="page-footer__mantra">“Roll Tide.”</span>
+</footer>
+  </div>
+</main>
+</body>
+</html>

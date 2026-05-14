@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About The Model</title>
+    <link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/alpine.min.js" defer></script>
+  </head>
+  <body>
+    <main class="site-shell" id="main-content">
+      <a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link is-current" href="../about-model/index.html">The Model</a><a class="nav-link" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a><a class="nav-link" href="../methodology/fan-intelligence.html">Methodology</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+      <section class="hero">
+        <p class="eyebrow">Methodology</p>
+        <h1>Two models, one football universe.</h1>
+        <p class="lede">
+          The predictive power model asks how strong a team is right now. The resume model asks what that team has earned so far.
+          Both are anchored to the same 2025 Season identity, even when postseason games are played in the next calendar year.
+        </p>
+      </section>
+
+      <section class="section two-up">
+        <article class="panel prose-panel">
+          <h2>Power Model</h2>
+          <p>Power is forward-looking. It is meant to estimate team quality and inform expected margins in the next game.</p>
+          <p>The long-term target is the same broad direction used by the best public college-football systems: opponent-adjusted efficiency, possession quality, time decay, and diminishing returns on blowouts.</p>
+          <p>The current local build now blends score results, schedule structure, preseason priors, and opponent-adjusted advanced game stats plus play and drive data where CFBD coverage is available.</p>
+        </article>
+
+        <article class="panel prose-panel">
+          <h2>Resume Model</h2>
+          <p>Resume is backward-looking. It cares about who you played, what happened, and how your results compare to expectation.</p>
+          <p>This is the side that makes a season feel fairer for fans, because it separates “best team right now” from “best body of work so far.”</p>
+          <p>The project intentionally keeps power and resume separate because that mirrors one of the most useful distinctions in serious college-football analytics.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel prose-panel">
+          <h2>How Teams Start A New Season</h2>
+          <p>The site does not reset every team to zero in August. Preseason priors blend the previous season's closing power, recent program history, returning production, quarterback continuity, talent/recruiting signals, and roster carryover where that context exists.</p>
+          <p>The goal is not to hard-code destiny. It is to start with memory, then let fresh results steadily overpower that memory as the real season unfolds.</p>
+          <p>That is the same broad logic used by the best public football systems: strong priors early, much more humility once enough new-game evidence arrives.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel prose-panel">
+          <h2>Season Identity Rules</h2>
+          <p>The site defines a season by the year the competition begins. So if a playoff or bowl tied to the 2025 competitive cycle is played in January 2026, it still belongs to the 2025 season.</p>
+          <p>That keeps archives clean, keeps final rankings attached to the season they decide, and prevents offseason transfers or coaching changes in early 2026 from rewriting the 2025 final story.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel prose-panel">
+          <h2>Research Principles</h2>
+          <p>The predictive side of the project is being shaped by established college-football ideas from systems like SP+, FEI, and Massey: tempo and possession efficiency, opponent adjustment, time weighting, and capped value for extreme blowouts.</p>
+          <p>The resume side also borrows a useful lesson from systems like Colley and the merit-oriented parts of Massey: a credible body-of-work ranking should not simply be a second copy of the predictive model.</p>
+          <p>Because this site combines FBS, FCS, Division II, and Division III into one universe, the model has to calibrate carefully across uneven schedules, bridge games, and different levels of data richness without pretending every comparison is equally easy.</p>
+        </article>
+      </section>
+
+      <section class="section two-up">
+        <article class="panel prose-panel">
+          <h2>Data Stack</h2>
+          <p>CFBD is the football spine of the project: schedules, scores, advanced stats, drive and play detail, rosters, recruiting, returning production, betting context, and weather.</p>
+          <p>SportsDB stays in the architecture for the parts CFBD is not trying to optimize for, like identity metadata, presentation enrichment, venue details, and artwork-friendly fields.</p>
+          <p>The current local build is surfacing 668 team records, 72 conferences across FBS/FCS/D-II/D-III, and 3,828 completed games in the working season archive.</p>
+        </article>
+
+        <article class="panel prose-panel">
+          <h2>Projection Defaults</h2>
+          <p>The matchup surfaces are powered by the predictive layer only, so projected scores stay tied to team quality instead of drifting toward resume sentiment.</p>
+          <p>Today the live projection defaults use roughly 26.8 base points per team and a 2.3-point home edge when a sideline advantage is applied.</p>
+          <p>That makes the site's matchup studio useful for both playoff-style debates and lower-division bridge questions without turning the resume board into a fake point spread model.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel prose-panel">
+          <h2>Program Count Reference</h2>
+          <p>As of April 20, 2026, our current reference numbers are:
+          FBS 134 active/full members, 136 including transitioners;
+          FCS 128 active/full members, 129 on the broader NCAA sponsorship listing;
+          Division II 161;
+          Division III 239.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

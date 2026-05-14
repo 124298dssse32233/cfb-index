@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Vandy Renaissance · CFB Index Storyline Threads</title>
+    <meta name="description" content="Vanderbilt isn't supposed to do this. Clark Lea, Diego Pavia, and the slow rise of the program nobody saw coming — except, apparently, the people in Nashville who never stopped watching.">
+    <style>/* Storyline Threads — embedded stylesheet.
+ *
+ * Aligned to Figma node 62:2 (file eGIVOKDIFSmo1yM1LShLQx) on Sprint 10.
+ * Single-column flow, sans typography (Inter/system-ui), inline chapter
+ * index + related + receipts panels. Color tokens match Figma's dark
+ * editorial palette. */
+
+:root {
+    --bg: #0b0d12;
+    --bg-card: #12151d;
+    --bg-card-2: #171b24;
+    --bg-card-hover: #1e2330;
+    --text: #f5f6fa;
+    --text-dim: #c6cad6;
+    --text-faint: #8a90a1;
+    --text-muted: #5c6172;
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --accent: #c5b358; /* overridden inline per thread */
+    --accent-soft: rgba(197, 179, 88, 0.18);
+    --good: #3ea073;
+    --bad: #c04a4a;
+    --bad-soft: rgba(192, 74, 74, 0.18);
+    --good-soft: rgba(62, 160, 115, 0.18);
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
+
+/* ---------- shell ---------- */
+.shell { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+.site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.site-header .shell { display: flex; align-items: center; justify-content: space-between; }
+.site-header .brand { color: var(--text); font-weight: 700; }
+.site-header nav a { color: var(--text-faint); margin-left: 22px; font-weight: 600; }
+.site-header nav a:hover { color: var(--text); }
+
+/* ---------- thread page wrapper ---------- */
+.thread-card-wrap {
+    max-width: 1040px;
+    margin: 32px auto 48px;
+    padding: 0 28px;
+}
+.thread-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+@media (max-width: 720px) {
+    .thread-card { padding: 28px 22px; gap: 24px; }
+    .thread-card-wrap { padding: 0 12px; margin: 16px auto 32px; }
+}
+
+/* ---------- thread header ---------- */
+.thread-header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.breadcrumb {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.breadcrumb .seg { color: var(--text-faint); font-weight: 600; }
+.breadcrumb .sep { color: var(--text-muted); font-weight: 400; padding: 0 2px; }
+.breadcrumb .current { color: var(--accent); font-weight: 600; }
+
+.thread-title {
+    font-size: 56px;
+    line-height: 1.14;
+    letter-spacing: -0.5px;
+    margin: 0;
+    font-weight: 400;
+    color: var(--text);
+}
+.thread-dek {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 880px;
+}
+@media (max-width: 720px) {
+    .thread-title { font-size: 36px; line-height: 1.1; }
+    .thread-dek { font-size: 17px; }
+}
+
+.meta-strip {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 8px;
+    flex-wrap: wrap;
+}
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.meta-item .label {
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.meta-item .value {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+.meta-item .value.status-active { color: var(--good); }
+.meta-item .value.value-accent { color: var(--accent); }
+.meta-strip .meta-dot {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.subscribe-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 4px;
+    flex-wrap: wrap;
+}
+.follow-cta {
+    background: var(--accent);
+    color: #0b0d12;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-family: inherit;
+}
+.follow-cta .plus { font-size: 13px; }
+.follow-cta:hover { filter: brightness(1.1); color: #0b0d12; }
+.subscribe-row .microcopy {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ---------- nav-rail (chapter index, inline) ---------- */
+.nav-rail {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 16px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.nav-rail-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.chapter-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 8px 0;
+}
+.chapter-num {
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--bg-card-hover);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.chapter-row.current .chapter-num {
+    background: var(--accent);
+    color: #0b0d12;
+}
+.chapter-row .ct {
+    flex: 1;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.chapter-row.current .ct {
+    color: var(--text);
+    font-weight: 600;
+}
+.chapter-row .cd {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.nav-rail-more {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* ---------- current chapter ---------- */
+.current-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.chapter-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.chapter-eyebrow .accent { color: var(--accent); }
+.chapter-eyebrow .meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--text-muted);
+    display: inline-block;
+}
+.chapter-eyebrow .meta-text {
+    color: var(--text-faint);
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 500;
+}
+.chapter-title {
+    font-size: 36px;
+    line-height: 1.22;
+    margin: 0;
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: -0.3px;
+}
+.chapter-dek {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0;
+    font-weight: 500;
+    max-width: 760px;
+}
+@media (max-width: 720px) {
+    .chapter-title { font-size: 26px; }
+    .chapter-dek { font-size: 15px; }
+}
+
+.chapter-body {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.65;
+}
+.chapter-body p { margin: 0; }
+.chapter-body em { font-style: italic; color: var(--text-dim); }
+.chapter-body strong { font-weight: 700; color: var(--text); }
+.chapter-body a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(197, 179, 88, 0.4);
+}
+.chapter-body a:hover { border-bottom-color: var(--accent); }
+.chapter-body blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 0;
+    padding: 4px 0 4px 18px;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.pull-quote {
+    margin: 4px 0;
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1.45;
+    font-weight: 500;
+    font-style: italic;
+    max-width: 760px;
+}
+.pull-quote-attribution {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: -8px;
+    text-transform: none;
+}
+
+.ref-callout {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 760px;
+}
+.ref-callout .label {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.ref-callout .ref-row { font-size: 14px; line-height: 1.5; }
+.ref-callout .ref-num {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-right: 8px;
+}
+.ref-callout .ref-row a { color: var(--text-dim); }
+.ref-callout .ref-row a:hover { color: var(--accent); }
+
+/* ---------- sources panel (inline) ---------- */
+.sources-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.sources-panel .panel-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.source-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--border);
+}
+.source-row:first-of-type { border-top: none; padding-top: 0; }
+.source-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.source-row-top .left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.source-row .src-name {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+}
+.source-row .src-publisher {
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+}
+.source-row .src-dot {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+.source-row .src-date {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.source-row .src-quote {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ---------- related threads (3-up inline) ---------- */
+.related-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.related-header {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+@media (max-width: 720px) {
+    .related-grid { grid-template-columns: 1fr; }
+}
+.related-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.15s;
+}
+.related-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.related-card .accent-bar {
+    width: 32px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent); /* overridden inline per card */
+}
+.related-card .rel-title {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.36;
+    font-weight: 400;
+}
+.related-card .rel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+.related-card .rel-meta .rel-chapters {
+    color: var(--text-faint);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.related-card .rel-meta .rel-date {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ---------- receipts panel ---------- */
+.receipts-panel {
+    background: var(--bg-card);
+    border: 1px solid rgba(197, 179, 88, 0.4);
+    border-radius: 10px;
+    padding: 18px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.receipts-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.receipts-header .stub-tag {
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    font-weight: 500;
+    font-style: italic;
+}
+.receipt-row {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--border);
+}
+.receipt-row:first-of-type { border-top: none; padding-top: 0; }
+.receipt-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+.receipt-row .receipt-quote {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    flex: 1;
+}
+.verdict-pill {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.verdict-pill.aged-poorly {
+    background: var(--bad-soft);
+    color: var(--bad);
+}
+.verdict-pill.vindicated {
+    background: var(--good-soft);
+    color: var(--good);
+}
+.verdict-pill.premature {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+.receipt-attribution {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+/* ---------- footer ---------- */
+.thread-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+.thread-footer .footer-left {
+    color: var(--text-faint);
+    font-size: 11px;
+    font-weight: 500;
+    padding-top: 14px;
+}
+.thread-footer .footer-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 14px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+.thread-footer .footer-right a { color: var(--text-faint); }
+.thread-footer .footer-right a.email { color: var(--accent); }
+.thread-footer .footer-right a:hover { color: var(--text); }
+.thread-footer .footer-right a.email:hover { color: var(--accent); filter: brightness(1.2); }
+
+/* ---------- index page ---------- */
+.index-hero {
+    padding: 24px 0 40px;
+    border-bottom: 1px solid var(--border);
+}
+.index-hero h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    margin: 0 0 14px 0;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+}
+.index-hero .dek {
+    color: var(--text-dim);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0;
+}
+.index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    padding: 36px 0 60px;
+}
+.index-card {
+    background: var(--bg-card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.15s;
+}
+.index-card:hover { background: var(--bg-card-hover); color: var(--text); }
+.index-card .ic-bar {
+    width: 36px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+}
+.index-card .ic-eyebrow {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.index-card .ic-title {
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.22;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin: 0;
+}
+.index-card .ic-dek {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    flex-grow: 1;
+}
+.index-card .ic-foot {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+}
+.index-card .ic-foot strong { color: var(--text-dim); font-weight: 700; }
+
+/* ---------- site footer (separate from per-thread footer) ---------- */
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0 48px;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+.site-footer .shell { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.site-footer a { color: var(--text-faint); }
+.site-footer a:hover { color: var(--text); }
+</style>
+    <style>:root { --accent: #cfae70; --accent-soft: rgba(207, 174, 112, 0.18); }</style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell">
+            <a href="/" class="brand">CFB Index</a>
+            <nav>
+                <a href="/storylines/">Storylines</a>
+                <a href="/teams/">Teams</a>
+                <a href="/conferences/">Conferences</a>
+                <a href="/editions/">The Edition</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="thread-card-wrap">
+        <article class="thread-card" data-thread-slug="vandy-renaissance">
+
+            <header class="thread-header">
+                <div class="breadcrumb">
+                    <span class="seg"><a href="/storylines/">Storylines</a></span>
+                    <span class="sep">/</span>
+                    <span class="seg">Active Threads</span>
+                    <span class="sep">/</span>
+                    <span class="current">THE VANDY RENAISSANCE</span>
+                </div>
+                <h1 class="thread-title">The Vandy Renaissance</h1>
+                <p class="thread-dek">Vanderbilt isn't supposed to do this. Clark Lea, Diego Pavia, and the slow rise of the program nobody saw coming — except, apparently, the people in Nashville who never stopped watching.</p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <div class="label">Status</div>
+                        <div class="value status-active">Active</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Chapters</div>
+                        <div class="value">4</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Started</div>
+                        <div class="value">Oct 2024</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Last Update</div>
+                        <div class="value">3 weeks ago</div>
+                    </div>
+                    <span class="meta-dot">·</span>
+                    <div class="meta-item">
+                        <div class="label">Following</div>
+                        <div class="value value-accent">—</div>
+                    </div>
+                </div>
+                <div class="subscribe-row">
+                    <button class="follow-cta" type="button" data-thread-slug="vandy-renaissance">
+                        <span class="plus">+</span>
+                        <span>Follow this thread</span>
+                    </button>
+                    <span class="microcopy">get notified when new chapters land · no spam, ~weekly</span>
+                </div>
+            </header>
+
+            <section class="nav-rail" aria-label="Chapter index">
+                <div class="nav-rail-header">Chapter Index · Newest First</div>
+                <div class="chapter-row current"><span class="chapter-num">04</span><a class="ct" href="#chapter-4">Spring 2026: Lea's Third Class, the Post-Pavia Quarterback, and the Renaissance's Structural Test</a><span class="cd">Apr 23</span></div>
+<div class="chapter-row"><span class="chapter-num">03</span><a class="ct" href="#chapter-3">December 2025: 8-4 and the It-Wasn't-a-Fluke Argument Wins</a><span class="cd">Dec 22</span></div>
+<div class="chapter-row"><span class="chapter-num">02</span><a class="ct" href="#chapter-2">January: 7-6 in the Birmingham Bowl, and the First Real Postseason in a Generation</a><span class="cd">Jan 12</span></div>
+<div class="chapter-row"><span class="chapter-num">01</span><a class="ct" href="#chapter-1">October 5, 2024: 40-35 in Nashville, and the Goalposts in the Cumberland</a><span class="cd">Oct 8</span></div>
+                
+            </section>
+
+            <section class="current-chapter">
+                <div class="chapter-eyebrow">
+                    <span><span class="accent">CHAPTER 04</span> · CURRENT</span>
+                    <span class="meta-dot"></span>
+                    <span class="meta-text">Apr 23, 2026 · 8 min read</span>
+                </div>
+                <h2 class="chapter-title">Spring 2026: Lea's Third Class, the Post-Pavia Quarterback, and the Renaissance's Structural Test</h2>
+                <p class="chapter-dek">The Pavia era has closed. The next era's quarterback is being built in spring practice. The 2026 season is the first one in three years where the program's success is not contingent on a single transfer's chip on his shoulder.</p>
+                <div class="ref-callout"><div class="label">Builds on prior chapters</div><div class="ref-row"><span class="ref-num">CH 01</span><a href="#chapter-1">October 5, 2024: 40-35 in Nashville, and the Goalposts in the Cumberland</a></div><div class="ref-row"><span class="ref-num">CH 02</span><a href="#chapter-2">January: 7-6 in the Birmingham Bowl, and the First Real Postseason in a Generation</a></div><div class="ref-row"><span class="ref-num">CH 03</span><a href="#chapter-3">December 2025: 8-4 and the It-Wasn't-a-Fluke Argument Wins</a></div></div>
+                <div class="chapter-body" id="chapter-04"><p>Spring 2026 finds the Vanderbilt program in the position the previous chapters have been building toward — the position where the renaissance that started with the Alabama upset in <a href="#chapter-1">Chapter 1</a> and accelerated through the 7-6 and 8-4 seasons of <a href="#chapter-2">Chapter 2</a> and <a href="#chapter-3">Chapter 3</a> has to demonstrate that it can survive the departure of the institutional center of gravity that Diego Pavia became in three seasons. Pavia's eligibility ran out at the end of 2025. Pavia is, as of the spring, evaluating his NFL options (the consensus draft projection is a fourth-to-fifth-round pick, with the upside of a third-round selection if his pro day shows the arm strength scouts have questioned). The post-Pavia chapter is the structural chapter the program has to write. The work of writing it began the morning after the Liberty Bowl in December and is, in the spring of 2026, the only thing the program is talking about.</p>
+<p>The post-Pavia quarterback is, as of mid-April, an open competition between Brendon Holt (the four-star freshman we wrote up in <a href="#chapter-3">Chapter 3</a> as the centerpiece of Lea's signing-day class) and Drake McCutcheon, a graduate-transfer quarterback Lea added in the spring portal window from Air Force. Holt is the long-arc bet — the kind of high-school quarterback Vanderbilt has not previously been able to recruit, and the QB whose ceiling, if developed, is what justifies the program's structural investment in the position. McCutcheon is the year-one bridge — a fifth-year senior with two years of starting experience at the FBS level, with the kind of veteran composure that can sustain a SEC schedule while Holt is developed. Tim Beck, the offensive coordinator who has now built three different offensive identities at Vanderbilt, has been clear in his media availabilities that the spring's work is to determine which path the program takes. <em>"We are going to give them both the work,"</em> Beck told Aria Gerson in early March. <em>"The decision will be made in August. The decision will be made on what gives the program the best chance to win SEC games in 2026. We have institutional flexibility on this. We have not always had that flexibility. We are going to use it."</em></p>
+<p class="pull-quote">“We are no longer hoping to be a real program. We are a real program.”</p><p class="pull-quote-attribution">— Aria Gerson, The Tennessean (Beck quotes)</p>
+<p>The recruiting class for 2026 — which we noted in <a href="#chapter-3">Chapter 3</a> was the program's most-significant signing class in a generation — has finished installing through the spring with the kind of incremental, mostly-positive evidence that early-spring practice produces. The four-star OL trio (Marcus Thornton, Davaughn Williams, Brock Maxwell) has been the practice-report sensation of the spring, with all three reportedly competing for two-deep snaps in the OL rotation. The DB additions (Tre Carter and Brandon Wright) have been less visible but have not been negative. The Holt-vs-McCutcheon competition has been the institutional question; the OL development has been the institutional gain.</p>
+<p>The portal complement to the high-school class has been smaller than Lea's previous portal cycles, which is the structural data point that signals what we noted in the Saban-to-DeBoer thread about portal philosophy: a coach using the portal sparingly is a coach whose roster is now mature enough that the portal is a precision tool rather than a roster-building strategy. Lea took five players in the spring 2026 window. The Air Force quarterback (McCutcheon) was one. A wide receiver from a G5 program (Gabe Ford from Toledo) was a second. Three were depth-position OL and DB additions whose impact will be measurable mostly through their availability for special teams in 2026. <em>"Lea is now portal-ing like Vanderbilt is a destination program,"</em> Joe Rexrode wrote in his March 30 column. <em>"That is a different posture than the previous three cycles. The previous cycles were portal cycles where Vanderbilt was reaching for higher-ceiling players who would not have come without specific institutional commitments. The 2026 cycle is a portal cycle where Vanderbilt is filling exact roster needs at exact roster levels. The shift is structural. The shift is what programs that have built themselves into something do with their portal allocations."</em></p>
+<p>The boards' processing of the spring has been, in the AnchorOfGold thread by GoldenAnchor11 titled <em>"Year four under Lea"</em>, a more confident register than the boards have ever sustained for this long without an upset to anchor it. The thread ran 850 replies through the spring and the dominant tone was institutional patience with an undercurrent of structural confidence. <em>"We are no longer hoping to be a real program,"</em> one reply read. <em>"We are a real program. The work of the spring is the work of any real program: develop the QB, install the new pieces, get healthy, sign the next class. We are doing the work that real programs do. We are doing it as Vanderbilt. We are doing it without pretending we are not Vanderbilt. The work is its own kind of validation. Anchor Down."</em></p>
+<p>The institutional voice that Aria Gerson described in <a href="#chapter-1">Chapter 1</a> as <em>"recalibrating in real time"</em> has, by the spring of 2026, completed the recalibration. The voice is now the voice of a program that wins more than it loses, that competes in the SEC's middle tier, that recruits at a level the program had not previously recruited at, and that does all of those things while remaining recognizably Vanderbilt — academically demanding, institutionally distinct, slightly self-deprecating, slightly proud, fundamentally honest about what the program is and is not. The voice is what the renaissance has produced as much as the wins are. The voice is what makes the program's chapter different from the structural chapters of the SEC's other historically-bottom-tier programs that have had brief upcycles and reverted.</p>
+<p>What we are tracking, going forward, is whether the structural conditions that produced the 2024 and 2025 seasons — Lea's coaching, the portal-architecture work, the institutional commitment from the university, the Pavia-era roster construction — translate into the post-Pavia era. The 2026 season is the first cycle of that translation. The verdict on the renaissance, as a structural condition rather than a one-quarterback phenomenon, will be the verdict that 2026 produces.</p>
+<p>We pick this up after the 2026 season's first month, when we have the early evidence on whether Holt or McCutcheon is the QB and whether the program is going to sustain the institutional voice the renaissance has built. Anchor Down. The work continues.</p></div>
+            </section>
+
+            <section class="sources-panel">
+                <div class="panel-header">Sources + Evidence This Chapter</div>
+                <div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Aria Gerson</span><span class="src-dot">·</span><span class="src-publisher">The Tennessean (Beck quotes)</span></div><span class="src-date">Mar 8</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">Joe Rexrode</span><span class="src-dot">·</span><span class="src-publisher">The Athletic March column</span></div><span class="src-date">Mar 30</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">GoldenAnchor11</span><span class="src-dot">·</span><span class="src-publisher">AnchorOfGold 'Year four under Lea'</span></div><span class="src-date">Mar 15</span></div></div>
+<div class="source-row"><div class="source-row-top"><div class="left"><span class="src-name">VandyMania</span><span class="src-dot">·</span><span class="src-publisher">Spring practice update</span></div><span class="src-date">Apr 12</span></div></div>
+            </section>
+
+            <section class="related-block">
+                <div class="related-header">Related Threads</div>
+                <div class="related-grid"><a class="related-card" href="/storylines/coaching-carousel-2026-27.html"><span class="accent-bar" style="background: #d97706;"></span><span class="rel-title">Coaching Carousel · 2026-27</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/big-ten-reasserting.html"><span class="accent-bar" style="background: #003c7e;"></span><span class="rel-title">The Big Ten Reasserting</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a>
+<a class="related-card" href="/storylines/12-team-playoff-settling.html"><span class="accent-bar" style="background: #c9a544;"></span><span class="rel-title">The 12-Team Playoff Settling</span><span class="rel-meta"><span class="rel-chapters">4 chapters</span><span class="rel-date">Apr 23</span></span></a></div>
+            </section>
+
+            <section class="receipts-panel">
+                <div class="receipts-header">
+                    <span>Receipts · Takes From This Thread, Aged</span>
+                    <span class="stub-tag">placeholder · Sprint 13 ships the live ledger</span>
+                </div>
+                <div class="receipt-row"><div class="receipt-row-top"><p class="receipt-quote">“Receipts on this thread's prior takes will appear here.”</p><span class="verdict-pill premature">AWAITING</span></div><p class="receipt-attribution">— Sprint 13 (Receipts) ships the live ledger.</p></div>
+            </section>
+
+            <footer class="thread-footer">
+                <div class="footer-left">4 chapters · 4.4k words · started Oct 1, 2024</div>
+                <div class="footer-right">
+                    <span class="muted" aria-disabled="true" title="Coming in a follow-on sprint">↗ Archive PDF</span>
+                    <span class="muted" aria-disabled="true" title="Coming in a follow-on sprint">↗ RSS</span>
+                    <a class="email" href="#follow" data-thread-slug="vandy-renaissance">↗ Email on new chapter</a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+    <footer class="site-footer">
+        <div class="shell">
+            <div>CFB Index · Storyline Threads · 2026</div>
+            <div>Department bylines indicate institutional editorial work. <a href="/methodology/">How we do this</a></div>
+        </div>
+    </footer>
+</body>
+</html>

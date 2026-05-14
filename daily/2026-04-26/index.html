@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily — Sunday, April 26th, 2026</title>
+<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
+<style>
+/* ---- Design tokens (matches Edition / team-page system) ---- */
+:root {
+  --ink:      #1a1a2e;
+  --paper:    #f8f6f0;
+  --gold:     #c9a84c;
+  --navy:     #0f2044;
+  --slate:    #4a5568;
+  --rule:     #e2ddd5;
+  --accent:   #c53030;
+  --serif:    'Georgia', 'Times New Roman', serif;
+  --sans:     'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--serif);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+/* ---- Masthead ---- */
+.masthead {
+  border-bottom: 3px double var(--gold);
+  padding: 2rem 0 1rem;
+  text-align: center;
+  background: var(--navy);
+  color: #fff;
+}
+.masthead__flag {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.masthead__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #fff;
+}
+.masthead__date {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Layout ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr min(680px, 100%) 280px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+.takes-col { grid-column: 2; }
+.sidebar { grid-column: 3; padding-left: 2rem; }
+
+/* ---- Take cards ---- */
+.take {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+.take:last-child { border-bottom: none; }
+
+.take__rank {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.take__numeral {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+.take__headline {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy);
+  margin: 0.75rem 0 1rem;
+}
+.take__body {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+.take__body p { margin-bottom: 0.75rem; }
+
+/* ---- Source pills ---- */
+.source-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.source-pill {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--gold);
+  color: var(--navy);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* ---- Entity link ---- */
+.entity-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--slate);
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+.entity-link:hover { color: var(--navy); text-decoration: underline; }
+
+/* ---- Sidebar ---- */
+.sidebar__section {
+  margin-bottom: 2rem;
+}
+.sidebar__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.sidebar__item {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--slate);
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule);
+  line-height: 1.4;
+}
+.sidebar__item:last-child { border-bottom: none; }
+
+/* ---- Archive footer ---- */
+.archive-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+.archive-footer__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.archive-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.archive-footer__link {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+}
+.archive-footer__link:hover { color: var(--gold); }
+.archive-all {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.archive-all:hover { color: var(--gold); }
+
+/* ---- Nav ---- */
+.site-nav {
+  background: var(--navy);
+  padding: 0.6rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+.site-nav a { color: rgba(255,255,255,0.65); text-decoration: none; margin-right: 1.2rem; }
+.site-nav a:hover { color: var(--gold); }
+</style>
+</head>
+<body class="daily__page">
+
+<nav class="site-nav daily__nav">
+  <a href="/">CFB Index</a>
+  <a href="/daily/">The Daily</a>
+  <a href="/daily/archive.html">Archive</a>
+  <a href="/wire/">Wire</a>
+  <a href="/storylines/">Storylines</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead__flag">CFB Index · Morning Digest</div>
+  <div class="masthead__title">The Daily</div>
+  <div class="masthead__date">Sunday, April 26th, 2026 &nbsp;·&nbsp; Published 06:00 ET</div>
+</header>
+
+<div class="layout">
+  <main class="takes-col">
+    <article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">1</span>Take #1 — Top Story
+  </div>
+  <h2 class="take__headline">Tennessee's QB Contract Standoff Is the NIL Era's Ugliest Mirror Yet</h2>
+  <div class="take__body"><p>When your franchise quarterback ghosts spring practice over a contract dispute, you've stopped having a football problem and started having a business problem — and right now Tennessee is the cautionary tale every AD in the SEC is texting their lawyer about. The Vols built a roster around a guy, handed him the keys, and apparently forgot to check whether the paperwork actually matched the promise. Classic.</p><p>The broader CFB internet didn't sleep on this one. Stewart Mandel noted at The Athletic that the NIL collective structure was always going to produce exactly this kind of standoff — eventually, the leverage flows both ways. Pete Thamel at ESPN flagged that Tennessee's situation isn't isolated; at least three other programs are managing similar quiet disputes that haven't gone public yet.</p><p>And that's the uncomfortable punchline: this is the system everyone chose. Spring depth charts are now essentially hostage negotiations with grass fields as the backdrop.</p><p>Watch whether Tennessee's coaching staff says anything substantive this week during post-practice availability. Silence will tell you everything the official statements won't.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">ESPN flagged</span><span class="source-pill">Stewart Mandel</span></div>
+  
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">2</span>Take #2 — Two Reads
+  </div>
+  <h2 class="take__headline">Milroe's Redemption Arc Is Real — But Stat Twitter and the Film Room Are Still Arguing About What It Means</h2>
+  <div class="take__body"><p>The &quot;I believed in him all along&quot; crowd is out in full force, and honestly, Jalen Milroe earned every bit of that revisionist history. But here's where it gets interesting: the people reading box scores and the people watching cut-ups are landing in completely different places. Stat-side, Milroe's efficiency numbers tell a clean story — completion percentage trending up, turnover-worthy throw rate down. Film-side, the old-school die-hards are more cautious, pointing out that schedule context matters enormously before anyone starts printing legacy takes.</p><p>Stewart Mandel noted at The Athletic that Alabama's offensive rhythm under Milroe showed genuine late-season growth, but flagged that the degree of difficulty question doesn't disappear just because the results looked good. Meanwhile, Solid Verbal's Ty Hildenbrandt has been making the case that the *process* change is what separates a hot streak from an actual quarterback evolution.</p><p>Both reads are probably partially right, which is the most college football answer imaginable.</p><p>Watch how Milroe's spring workload gets characterized when Alabama's depth chart drops this week — that'll tell you which camp the coaching staff is actually in.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">Solid Verbal</span><span class="source-pill">Stewart Mandel</span></div>
+  
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">3</span>Take #3 — Buried Lede
+  </div>
+  <h2 class="take__headline">The Julian Sayin Mystery Is Still Unsolved — And That's the Whole Problem</h2>
+  <div class="take__body"><p>Nobody has a clean answer. That's what makes this one linger. Six months after Julian Sayin walked away from Alabama, the message boards are still churning, the &quot;inside sources&quot; are still contradicting each other, and the program that was supposed to be immune to this kind of chaos is left looking like it missed something fundamental. Which, in the NIL era, might just mean the money math didn't work out — except nobody will say that on the record.</p><p>Stewart Mandel noted at The Athletic that Alabama's offseason roster management has faced &quot;more scrutiny than any recent cycle,&quot; and that's before you factor in what a high-profile departure at quarterback does to recruiting perception downstream. Ross Dellenger at Yahoo Sports has flagged the SEC's broader transfer instability as a structural issue, not a one-program story.</p><p>Here's the actual buried lede: if Sayin's exit was contract-adjacent, Alabama doesn't have a talent problem — it has a precedent problem. Every four-star watching this knows it now.</p><p>Watch whether Sayin's next destination surfaces this week. That landing spot will tell you everything the official statements won't.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">Stewart Mandel</span></div>
+  <a class="entity-link" href="/players/nico-iamaleava-2791.html">→ Nico Iamaleava page</a>
+</article>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__label">What We're Watching</div>
+      <div class="sidebar__item">Spring practice reports — portal decisions follow coaching feedback</div><div class="sidebar__item">Transfer portal deadline windows — commitment trackers update daily</div><div class="sidebar__item">Draft advisory declarations — underclassmen decisions shape fall depth</div>
+    </div>
+  </aside>
+</div>
+
+<footer class="archive-footer">
+  <div class="archive-footer__label">Yesterday's Takes</div>
+  <div class="archive-footer__links">
+    <a class="archive-footer__link" href="/daily/2026-04-26/">Sunday, April 26th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-04-25/">Saturday, April 25th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-04-24/">Friday, April 24th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-04-23/">Thursday, April 23rd, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-04-22/">Wednesday, April 22nd, 2026</a>
+  </div>
+  <a class="archive-all" href="/daily/archive.html">View full archive →</a>
+</footer>
+
+</body>
+</html>

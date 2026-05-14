@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Mailbag — 2026-w20 — CFB Index</title>
+<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --ink: #1a1a1a;
+  --paper: #f6f1e6;
+  --paper-dim: #ece6d6;
+  --rule: #1a1a1a;
+  --rule-soft: rgba(26,26,26,0.18);
+  --gold: #c9a24a;
+  --navy: #1f2c4d;
+  --muted: #7a7a7a;
+  --amber: #b8842c;
+  --green: #2d6f3a;
+  --red: #a23232;
+  --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
+  --sans: 'Inter', 'Helvetica Neue', -apple-system, system-ui, sans-serif;
+}
+html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--serif); font-size: 17px; line-height: 1.6; }
+.page { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+@media (max-width: 720px) { .page { padding: 0 24px; } }
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
+.eyebrow.muted { color: var(--muted); }
+.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
+.rule.soft { background: var(--rule-soft); }
+a { color: inherit; text-decoration: none; }
+a.text-link { border-bottom: 1px dotted currentColor; }
+
+.chrome { font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  display: flex; justify-content: space-between; padding: 12px 0; }
+.brand-row { display: flex; align-items: baseline; justify-content: space-between;
+  padding: 24px 0; }
+.brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
+  letter-spacing: 0.04em; }
+.brand .slash { color: var(--gold); margin: 0 6px; }
+.nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; }
+.nav a { margin-left: 28px; color: var(--ink); }
+.nav a:hover { color: var(--gold); }
+
+/* Hero */
+.hero { padding: 72px 0 48px; }
+.hero .kicker { font-family: var(--sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 12px; }
+.hero .masthead { font-family: var(--serif); font-size: 52px; font-weight: 700;
+  line-height: 1.05; margin: 0 0 12px; }
+.hero .deck { font-family: var(--serif); font-size: 20px; font-style: italic;
+  line-height: 1.45; max-width: 680px; color: var(--ink); margin: 0 0 24px; }
+.hero .meta { font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+/* Layout: two-column on desktop */
+.content-grid { display: grid; grid-template-columns: 1fr 260px; gap: 64px;
+  padding: 48px 0 64px; align-items: start; }
+@media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Answer cards */
+.answer-card { padding: 40px 0; border-top: 1px solid var(--rule); }
+.answer-card:first-child { border-top: 2px solid var(--rule); }
+.answer-num { font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.answer-question { font-family: var(--serif); font-size: 24px; font-style: italic;
+  font-weight: 600; line-height: 1.3; margin: 0 0 6px; color: var(--ink); }
+.answer-byline { font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  margin: 0 0 24px; }
+.answer-body { font-size: 17px; line-height: 1.65; max-width: 720px; }
+.answer-body p { margin: 0 0 1em; }
+.short-answer { display: inline-block; margin-top: 20px; padding: 10px 16px;
+  background: var(--navy); color: #fff; font-family: var(--sans);
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; border-radius: 3px; }
+.short-answer .label { text-transform: uppercase; letter-spacing: 0.18em;
+  font-size: 10px; opacity: 0.7; margin-right: 6px; }
+
+/* Source pills */
+.source-pills { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;
+  border: 1px solid var(--rule-soft); border-radius: 2px; color: var(--muted); }
+
+/* Sidebar */
+.sidebar { font-family: var(--sans); font-size: 13px; }
+.sidebar-head { font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted); padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+.sidebar-edition { padding: 10px 0; border-bottom: 1px solid var(--rule-soft); }
+.sidebar-edition a { font-weight: 600; color: var(--ink); }
+.sidebar-edition a:hover { color: var(--gold); }
+.sidebar-edition .date { display: block; font-size: 11px; color: var(--muted);
+  margin-top: 2px; }
+.sidebar-cta { margin-top: 24px; padding: 20px; background: var(--paper-dim);
+  border-top: 2px solid var(--gold); }
+.sidebar-cta p { margin: 0 0 12px; line-height: 1.45; }
+.sidebar-cta a { font-weight: 700; border-bottom: 1px solid var(--gold); color: var(--gold); }
+
+/* Archive page */
+.archive-list { list-style: none; padding: 0; margin: 0; }
+.archive-item { padding: 16px 0; border-bottom: 1px solid var(--rule-soft);
+  display: flex; align-items: baseline; gap: 20px; }
+.archive-item .slug { font-family: var(--sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; width: 100px; flex-shrink: 0; }
+.archive-item .date { font-family: var(--sans); font-size: 12px; color: var(--muted);
+  width: 100px; flex-shrink: 0; }
+.archive-item .status { font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); }
+.archive-item .status.draft { color: var(--amber); }
+
+/* Submit form */
+.submit-form { max-width: 560px; }
+.form-group { margin-bottom: 28px; }
+.form-group label { display: block; font-family: var(--sans); font-size: 12px;
+  font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 8px; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 12px 14px; background: #fff; border: 1px solid var(--rule-soft);
+  font-family: var(--serif); font-size: 16px; line-height: 1.5; color: var(--ink);
+  border-radius: 2px; outline: none; }
+.form-group input:focus, .form-group textarea:focus {
+  border-color: var(--gold); }
+.form-group textarea { height: 160px; resize: vertical; }
+.form-note { font-size: 13px; color: var(--muted); margin-top: 6px; font-style: italic; }
+.btn-submit { display: inline-block; padding: 12px 28px; background: var(--navy);
+  color: #fff; font-family: var(--sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; border: none;
+  cursor: pointer; border-radius: 2px; }
+.btn-submit:hover { background: var(--gold); }
+.mailto-note { margin-top: 16px; font-family: var(--sans); font-size: 12px;
+  color: var(--muted); font-style: italic; }
+
+.footer { padding: 64px 0 48px; font-family: var(--sans); font-size: 12px;
+  color: var(--muted); border-top: 1px solid var(--rule-soft); margin-top: 32px; }
+</style>
+</head>
+<body class="mailbag__page">
+<div class="page">
+<div class="chrome"><span class="eyebrow">CFB Index</span><span class="eyebrow muted">The Mailbag — 2026-w20</span></div>
+<div class="brand-row"><div class="brand">CFB<span class="slash">/</span>Index</div><nav class="nav"><a href="/">Home</a><a href="/rankings/">Rankings</a><a href="/daily/">Daily</a><a href="/wire/">Wire</a><a href="/mailbag/">Mailbag</a><a href="/editions/">Editions</a><a href="/methodology/">Methodology</a></nav></div><hr class="rule" />
+<header class="hero"><div class="kicker">The Mailbag</div><h1 class="masthead">The Mailbag</h1><p class="deck">Edition 2026-w20 — published Friday 2026-05-15</p><div class="meta">Your questions. The corpus answers.</div></header><hr class="rule soft" /><div class="content-grid"><main><div class="answer-card"><div class="answer-num">Question 1</div><blockquote class="answer-question">&ldquo;What does a &#x27;rebuilding year&#x27; actually mean for the programs recruiting at the highest level? Is there really such a thing anymore when the transfer portal means a team can reload in January?&rdquo;</blockquote><div class="answer-byline">— Patrick from Knoxville</div><div class="answer-body"><p>Patrick, you&#x27;ve basically diagnosed the most interesting tension in modern college football — and the answer is genuinely complicated depending on where in the food chain you&#x27;re sitting.</p>
+<p>For the true blue-bloods, the traditional &quot;rebuilding year&quot; is largely a myth now, and people in the industry have said as much directly. Pete Thamel, covering the portal era closely for ESPN, has written repeatedly about how January has essentially become a second signing day that can paper over depth chart disasters almost overnight. A program like Georgia or Ohio State isn&#x27;t really rebuilding anymore — they&#x27;re <em>resetting at a still-elite level.</em> There&#x27;s a difference.</p>
+<p>That said, Marcus Spears has made a point worth sitting with on various ESPN platforms: the portal creates the <em>illusion</em> of reload more than the reality of it. You can collect talent in January, but you can&#x27;t collect chemistry, you can&#x27;t collect a two-deep that understands the system, and you absolutely cannot buy back the 10 months of spring ball and fall camp reps that an incumbent roster had. Spears&#x27; framing — roughly that &quot;you can get the bodies, but the program still takes a hit&quot; — feels pretty durable.</p>
+<p>Where this really gets thorny is the mid-major level. Bruce Feldman, who tracks recruiting and roster movement as well as anyone working the beat, has flagged that the portal actually <em>accelerates</em> decline for programs outside the top tier. Their players leave upward, replacement talent arrives from below, and the net result can be a genuine rebuilding year that just looks different than it used to — less gradual erosion, more acute roster disruption.</p>
+<p>So the honest synthesis: for the top 10-15 programs, a &quot;rebuilding year&quot; now means something like a 9-win season instead of 12. For everyone else, the portal hasn&#x27;t eliminated rebuilding — it&#x27;s just made it faster and more chaotic. The floor rose for the elite, the volatility increased for everyone else. And whether a January portal class actually <em>works</em> by September is something nobody can know with certainty until the games kick off.</p>
+<p>The old two-to-three year rebuild narrative is dead at Alabama. It&#x27;s very much alive at Kansas State if the wrong three starters leave in December.</p>
+<p><strong>Short answer:</strong> For the elite, &quot;rebuilding year&quot; now means a brief step back, not a fall; for everyone else, the portal made rebuilding faster and messier, not extinct.</p></div></div>
+<div class="answer-card"><div class="answer-num">Question 2</div><blockquote class="answer-question">&ldquo;Summer camp season is about to start. Beyond the obvious blue-bloods, which mid-major is doing something interesting on the recruiting trail that deserves more national attention?&rdquo;</blockquote><div class="answer-byline">— Amara from Gainesville</div><div class="answer-body"><p>Amara, you&#x27;re asking exactly the right question at exactly the right time — because while everyone is watching the Georgias and Alabamas of the world, a handful of mid-majors are quietly building something that&#x27;s going to make people feel foolish for sleeping on them.</p>
+<p>The program that keeps coming up in conversations among people who track this stuff closely is <strong>James Madison</strong>. The Dukes have used the transfer portal with a sophistication that rivals programs two tiers above them. Beat reporter <strong>Curt Weiler</strong>, who covers the Sun Belt closely, has noted repeatedly that JMU&#x27;s staff has developed genuine credibility with Power Four transfers who want real playing time and a path to the NFL without disappearing into a depth chart. That&#x27;s a pitch that works, and JMU is working it.</p>
+<p><strong>Troy</strong> also deserves a mention here. <strong>Paul Finebaum has pointed to the Sun Belt broadly</strong> as a league where the recruiting infrastructure has matured faster than people expected post-realignment chaos, and Troy sits at an interesting crossroads — Southern enough to recruit the Southeast, confident enough to go get kids who might otherwise settle for a G5 offer from a bigger brand.</p>
+<p>And then there&#x27;s <strong>Liberty</strong>. College football analyst <strong>Bruce Feldman</strong>, who has probably done more shoe-leather reporting on mid-major programs than anyone in the business, has flagged Liberty&#x27;s recruiting operation as punching well above its weight for years now. The Flames recruit with a genuine identity — the faith-based mission matters to a specific slice of recruits, and that authenticity beats a generic pitch every time.</p>
+<p>None of this is certain — mid-major recruiting is volatile and what looks promising in May can unravel by August — but the thread connecting all three programs is <em>clarity of pitch</em>. They know who they are and who they&#x27;re talking to, which is more than you can say for a lot of programs with far bigger budgets.</p>
+<p>Camp season is when those pitches get pressure-tested in person, and that&#x27;s what makes the next six weeks genuinely interesting to watch.</p>
+<p><strong>Short answer:</strong> James Madison is probably the mid-major doing the most sophisticated portal and recruiting work right now, but Liberty and Troy are right there with real, identity-driven pitches that a specific pool of prospects find more compelling than a Power Four afterthought offer.</p></div></div>
+<div class="answer-card"><div class="answer-num">Question 3</div><blockquote class="answer-question">&ldquo;Notre Dame&#x27;s QB room going into next season — is it actually settled, or is the staff just letting the spring battle play out without saying so? The depth chart whispers don&#x27;t match what the coordinator&#x27;s saying publicly.&rdquo;</blockquote><div class="answer-byline">— Brendan from South Bend</div><div class="answer-body"><p>Brendan, the gap between what coordinators say in May and what the depth chart actually reflects in August is one of CFB&#x27;s most reliable recurring dramas — and Notre Dame&#x27;s QB room right now is a textbook example of that tension.</p>
+<p>Here&#x27;s what makes this interesting: the public-facing &quot;competition is healthy, everyone&#x27;s pushing each other&quot; language from the Irish staff is standard spring-ball boilerplate, but the <em>specificity</em> of the whispers you&#x27;re describing usually means something. When coordinators are vague and beat reporters are specific, trust the beat reporters.</p>
+<p>Pete Sampson at The Athletic has been the most granular voice on Notre Dame&#x27;s internal roster dynamics, and his reporting has consistently flagged that the staff has a preferred direction even when they won&#x27;t publicly commit to one. That&#x27;s not deception — that&#x27;s just program management. You don&#x27;t hand a starter a clean coronation in April if you still need the backup engaged and competing through summer camp.</p>
+<p>On a broader structural level, Ross Dellenger at Yahoo Sports has written about how post-transfer-portal programs handle QB battles differently than they used to — the staff almost always knows more than they&#x27;re saying because the portal is live and a public declaration can either trigger a departure or invite outside recruiting pressure.</p>
+<p>Matt Fortuna, who has covered Notre Dame closely over the years, has noted that the Irish staff under Marcus Freeman has generally preferred to let competitions breathe publicly even when internal reps distribution tells a clearer story to anyone paying attention during practice access windows.</p>
+<p>The honest caveat here: without knowing exactly which whispers you&#x27;re tracking versus what the coordinator&#x27;s public line is, it&#x27;s hard to say definitively whether this is a genuine 50/50 competition or a managed rollout. But the pattern — coordinator hedges, depth chart signals lean — almost always resolves toward the direction the depth chart was already pointing. Staffs rarely let practice reps lie.</p>
+<p>If the whispers are pointing to one guy and the coordinator is calling it open, give it until late July. The first depth chart release will either confirm or embarrass one of those sources.</p></div><div class="short-answer"><span class="label">Short answer</span>When coordinators say &quot;open competition&quot; and beat reporters say otherwise, bet on the beat reporters — the Irish staff likely knows where this is going, they&#x27;re just not done managing the process yet.</div></div>
+<div class="answer-card"><div class="answer-num">Question 4</div><blockquote class="answer-question">&ldquo;What does it actually take to be a &#x27;Big Ten team&#x27; in the new alignment era? Oregon, Washington, USC, UCLA — are they fully assimilated yet, or is there still a Pac-12 hangover working its way through the rosters?&rdquo;</blockquote><div class="answer-byline">— Reese from Eugene</div><div class="answer-body"><p>Reese, this is the question I keep circling back to, because &quot;assimilation&quot; is doing a lot of work in your framing — and I think you&#x27;re right to be skeptical that one season makes it complete.</p>
+<p>The honest read, almost two years in: Oregon looks the most Big Ten-coded of the four. Dan Lanning&#x27;s roster construction — heavy on portal interior linemen, NFL-bodied safeties, a transition away from the Pac-12 spread-and-survive identity — was already trending that way before the move. Pete Thamel has pointed out repeatedly that Oregon&#x27;s recruiting board basically merged with the Midwest&#x27;s a year early, and that Phil Knight money doesn&#x27;t care what time zone the road game&#x27;s in. They travel like a blueblood because they essentially are one now.</p>
+<p>USC is the murkier case. Ryan Day&#x27;s team beat them last year and the conversation around Lincoln Riley on Joel Klatt&#x27;s pod has been pretty consistent: the offense translates, the defense was built for a league that doesn&#x27;t exist anymore. Klatt made the point this winter that USC&#x27;s trench investment under D&#x27;Anton Lynn is the actual test of whether they&#x27;ve adjusted — and that&#x27;s a multi-cycle project, not a one-portal-window fix.</p>
+<p>Washington is rebuilding in real time after the Kalen DeBoer/Michael Penix exodus, so judging their &quot;Big Ten-ness&quot; right now is almost unfair. Jedd Fisch is essentially running a startup. And UCLA — Bruce Feldman has written about the budget gap there pretty bluntly, and the travel toll on Olympic sports has been a recurring beat for Ross Dellenger at Yahoo. The football roster can adapt; the institutional infrastructure is the harder retrofit.</p>
+<p>The &quot;Pac-12 hangover&quot; part of your question is real but probably mislabeled. It&#x27;s less about playing style — the Big Ten itself is more spread and tempo-friendly than the 2014 stereotype — and more about depth, weather-game habits, and November road trips to places where the locker room heat doesn&#x27;t work. That stuff takes three or four recruiting classes to fully bake in.</p></div><div class="short-answer"><span class="label">Short answer</span>Oregon&#x27;s basically assimilated, USC&#x27;s halfway, Washington and UCLA are still very much wearing the old conference&#x27;s shoes.</div></div>
+<div class="answer-card"><div class="answer-num">Question 5</div><blockquote class="answer-question">&ldquo;NIL collectives one year into the official era — which program clearly figured out the operational side, and which one is still treating it like a press release? I&#x27;m watching collective hires more than coordinator hires.&rdquo;</blockquote><div class="answer-byline">— Drew from Lubbock</div><div class="answer-body"><p>Drew, you are watching the <em>right</em> thing. Coordinator hires get the TV hits; collective hires tell you whether a program actually understands the era it&#x27;s operating in.</p>
+<p>The operational leaders that most analysts keep circling back to are Georgia and Ohio State — not because they have the biggest budgets (though they do), but because they built infrastructure. As Ross Dellenger of Yahoo Sports has reported repeatedly over the past 18 months, the programs winning the NIL transition aren&#x27;t necessarily the ones writing the biggest checks; they&#x27;re the ones who hired people with private equity and sports marketing backgrounds to run the collectives as actual businesses, with compliance frameworks baked in from the start rather than retrofitted after an NCAA scare. Georgia&#x27;s collective structure, in particular, gets cited as a model for communication between the collective leadership and the football operations staff — which sounds boring until you realize that&#x27;s exactly what prevents a recruit from getting a number from one person and a different number from a booster two weeks later.</p>
+<p>On the other end, Pete Nakos at On3 has been pretty consistent in noting that several programs in the SEC&#x27;s second tier and across the Big 12 are still running collectives that function more like fan fundraising clubs with a logo slap — reactive to portal windows, slow to structure deals, and genuinely surprised when players treat an undocumented handshake arrangement as exactly that: undocumented. The gap between those programs and the operational leaders is widening, not closing.</p>
+<p>Bruce Feldman at The Athletic has flagged something worth watching here too: the programs getting caught flat-footed are often ones where the head coach is still the de facto NIL salesman on the recruiting trail, which creates bottlenecks and, frankly, credibility problems when the check doesn&#x27;t materialize on the promised timeline.</p>
+<p>I&#x27;d flag some uncertainty on specific dollar figures that get thrown around — collective revenue reporting is still murky enough that anyone quoting precise rankings should be treated skeptically. But the operational sophistication gap? That part is pretty legible if you track the hires the way you&#x27;re doing.</p></div><div class="short-answer"><span class="label">Short answer</span>Georgia and Ohio State built collectives like businesses; too many programs are still running them like alumni newsletters with a Venmo account.</div></div></main><aside class="sidebar"><div class="sidebar-head">Recent Editions</div><div class="sidebar-edition"><a href="/mailbag/2026-w20/" style="color:var(--gold);">2026-w20</a><span class="date">2026-05-15</span></div><div class="sidebar-cta"><p>Got a question about CFB? We read everything.</p><a href="/mailbag/submit/">Submit a question &rarr;</a></div></aside></div>
+<footer class="footer"><p>CFB Index — college football rankings &amp; intelligence. <a href="/mailbag/submit/" class="text-link">Submit a question</a> · <a href="/mailbag/archive.html" class="text-link">Archive</a> · <a href="/about-model/" class="text-link">About</a></p></footer>
+</div>
+</body>
+</html>
