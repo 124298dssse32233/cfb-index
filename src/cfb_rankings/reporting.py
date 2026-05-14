@@ -2301,8 +2301,15 @@ _RANKINGS_CONTROLS_CSS_BLOCK = """
   .rankings-row--all { opacity: 0.85; font-size: 0.95em; }
 
   /* Team cell: logo + name + conference (in-cell layout) ------- */
-  .team-cell {
-    white-space: nowrap;
+  .team-cell .team-link {
+    vertical-align: middle;
+  }
+  .team-cell .submetric {
+    display: block;
+    font-size: 11px;
+    color: var(--muted-foreground, #777);
+    margin-top: 2px;
+    margin-left: 32px;  /* align under team name, past logo */
   }
   .rankings__team-logo {
     width: 24px;
@@ -2317,6 +2324,9 @@ _RANKINGS_CONTROLS_CSS_BLOCK = """
       width: 20px;
       height: 20px;
       margin-right: 6px;
+    }
+    .team-cell .submetric {
+      margin-left: 26px;
     }
   }
 
