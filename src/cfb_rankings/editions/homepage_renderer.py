@@ -117,7 +117,23 @@ def _fetch_threads_live(db: Database) -> dict[str, Any] | None:
         }
         for r in rows[1:]
     ]
-    return {"featured": featured, "active": active}
+    # Surface whether the corpus is actually fresh. _render_active_threads
+    # uses this to decide "LIVE · N ACTIVE" vs "ARCHIVE · N THREADS".
+    # Without it, populating the DB with threads whose last chapter is
+    # April-old falsely flipped the homepage from "ARCHIVE" to "LIVE".
+    latest = ""
+    for r in rows:
+        when = (r["last_chapter_at"] or "")[:10]
+        if when and when > latest:
+            latest = when
+    is_fresh = False
+    if latest:
+        try:
+            d = datetime.strptime(latest, "%Y-%m-%d").date()
+            is_fresh = (date.today() - d).days <= 14
+        except ValueError:
+            is_fresh = False
+    return {"featured": featured, "active": active, "is_fresh": is_fresh}
 
 
 def _fetch_canon_live(db: Database) -> dict[str, Any] | None:
@@ -848,12 +864,17 @@ def _render_active_threads(threads: dict[str, Any], is_live: bool = False) -> st
     f = threads.get("featured") or {}
     active = threads.get("active") or []
     total_count = len(active) + (1 if f else 0)
-    # Drop the per-row "UPDATED <date>" line when running on stub data:
-    # those April dates are hardcoded in threads.json and lie about how
-    # recently the threads were touched.
+    # "is_fresh" comes from _fetch_threads_live: at least one chapter
+    # within the last 14 days. The DB being populated with stale data
+    # (all chapters from April) was flipping the badge from "ARCHIVE"
+    # back to "LIVE" — fresh-corpus check fixes that.
+    is_fresh = bool(threads.get("is_fresh"))
+    # Drop the per-row "UPDATED <date>" line when the corpus is stale
+    # or stubbed — preserves real dates only when they actually mean
+    # "recently updated."
     def _row_html(t: dict[str, Any]) -> str:
         last = (t.get("last_updated") or "").strip()
-        if is_live and last:
+        if is_live and is_fresh and last:
             updated_html = f'<div class="last-updated">UPDATED {html.escape(last)}</div>'
         else:
             updated_html = '<div class="last-updated muted">ARCHIVE</div>'
@@ -867,7 +888,10 @@ def _render_active_threads(threads: dict[str, Any], is_live: bool = False) -> st
             f'</div>'
         )
     list_html = "".join(_row_html(t) for t in active)
-    meta_label = f"LIVE · {total_count} ACTIVE" if is_live else f"ARCHIVE · {total_count} THREADS"
+    if is_live and is_fresh:
+        meta_label = f"LIVE · {total_count} ACTIVE"
+    else:
+        meta_label = f"ARCHIVE · {total_count} THREADS"
     return f"""
 <section class="dept">
   <div class="page">
