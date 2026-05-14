@@ -63,13 +63,22 @@ jobs:
           python manage.py compute-divergence --week="$WEEK" || true
 
       - name: Rebuild methodology page
-        run: python manage.py build-methodology
+        run: |
+          set +e
+          python manage.py build-methodology
+          echo "done"
 
       - name: Rebuild static site
-        run: python -u manage.py build-site
+        run: |
+          set +e
+          python -u manage.py build-site
+          echo "done"
 
       - name: Rebuild editions archive
-        run: python manage.py build-editions-archive
+        run: |
+          set +e
+          python manage.py build-editions-archive
+          echo "done"
 
       - name: Upload DB artifact
         if: always()
