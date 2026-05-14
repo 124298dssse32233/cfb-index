@@ -62,6 +62,14 @@ jobs:
           python manage.py compute-cohort-week --week="$WEEK" || true
           python manage.py compute-divergence --week="$WEEK" || true
 
+      - name: Compute rivalry ratios (weekly refresh)
+        run: |
+          set +e
+          WEEK=$(date -u +%Y-%m-%d)
+          python manage.py compute-rivalry-ratios --week "$WEEK" || echo "compute-rivalry-ratios skipped"
+          python manage.py compute-mirror-matches --season 2025 || echo "compute-mirror-matches skipped"
+          echo "done"
+
       - name: Rebuild methodology page
         run: |
           set +e

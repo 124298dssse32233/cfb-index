@@ -87,6 +87,21 @@ jobs:
           python manage.py resolve-outcomes || echo "resolve-outcomes skipped"
           echo "fanintel bridge done"
 
+      - name: Compute player week mood (current ISO week)
+        run: |
+          set +e
+          python <<'PY'
+          import subprocess
+          from datetime import date
+          today = date.today()
+          iso_d = today.isocalendar()
+          week_key = f"{iso_d[0]}-{iso_d[1]:02d}"
+          cmd = ["python", "-u", "manage.py", "compute-player-week-mood", "--week", week_key]
+          result = subprocess.run(cmd, check=False)
+          print(f"compute-player-week-mood {week_key}: exit={result.returncode}")
+          PY
+          echo "done"
+
       - name: Upload DB artifact
         if: always()
         uses: actions/upload-artifact@v4

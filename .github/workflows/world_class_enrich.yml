@@ -1,0 +1,500 @@
+name: world-class-enrich
+# Comprehensive AI enrichment + site-render pass covering every content
+# surface that the daily/weekly crons don't generate from scratch.
+#
+# Run once after backfill-full-history completes to prime the site with
+# rich content. After that, the crons keep things current.
+#
+# What this covers (beyond compute_full_pass):
+#   - Wire: ingest → editorial → render
+#   - Daily edition: generate + render
+#   - Mailbag: seed → curate → generate answers → render
+#   - Reactions: check triggers + auto-generate + render
+#   - Team page AI: narratives, chronicle, savant, season-arc, rivalry
+#   - render-team-pages (all 17 profiled programs)
+#   - Retro offseason pages
+#   - Player mood: weekly (8 weeks) + season rollup
+#   - Wiki awards scrape + import (2014-2025)
+#   - Canon lists: seed → generate all 3 → render
+#   - Hub evidence + prepare-pulse
+#   - Storylines index refresh
+#   - Editions archive refresh
+#   - Homepage render
+#   - Full post-process layer + push to published branch
+#
+# Estimated runtime: 2-4 hours.
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Current CFB season year (default: 2025)"
+        required: false
+        default: "2025"
+      skip_ai:
+        description: "Skip AI content generation (narratives, chronicle, canon, mailbag, reactions)"
+        type: boolean
+        required: false
+        default: false
+
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: write   # pushes to `published` branch
+      actions: read     # cross-workflow artifact download via dawidd6 action
+    env:
+      ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+      CFBD_API_KEY:       ${{ secrets.CFBD_API_KEY }}
+      CFBD_PATREON_KEY:   ${{ secrets.CFBD_PATREON_KEY }}
+      YOUTUBE_API_KEY:    ${{ secrets.YOUTUBE_API_KEY }}
+      SEATGEEK_CLIENT_ID: ${{ secrets.SEATGEEK_CLIENT_ID }}
+      SPOTIFY_CLIENT_ID:  ${{ secrets.SPOTIFY_CLIENT_ID }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Install deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyyaml
+
+      # ── DB artifact ────────────────────────────────────────────────────
+      - name: Download DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py init-db
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
+      # ── Site artifact ──────────────────────────────────────────────────
+      - name: Download prior site state
+        id: dl_site
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Bootstrap site from release if no artifact
+        if: steps.dl_site.outcome != 'success'
+        run: |
+          mkdir -p prior-site
+          gh release download deploy-state-v1 --pattern site-state-bootstrap.tar.gz --output /tmp/seed.tar.gz || true
+          tar -xzf /tmp/seed.tar.gz -C prior-site 2>/dev/null || true
+          echo "Bootstrapped $(find prior-site -type f | wc -l) files"
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+
+      - name: Seed output/site from prior state
+        run: |
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          echo "Seeded $(find output/site -type f | wc -l) files"
+
+      # ════════════════════════════════════════════════════════════════════
+      # WIRE — ingest → editorial → render
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Wire — ingest recent entries (7-day window)"
+        run: |
+          set +e
+          python -u manage.py wire-ingest --days 7 \
+            || echo "wire-ingest failed (continuing)"
+
+      - name: "Wire — generate editorial copy (14-day window)"
+        run: |
+          set +e
+          python -u manage.py wire-generate-editorial --days 14 \
+            || echo "wire-generate-editorial failed (continuing)"
+
+      - name: "Wire — render /wire/ index + archive pages"
+        run: |
+          set +e
+          python -u manage.py render-wire \
+            || echo "render-wire failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # DAILY EDITION — seed → generate → render
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Daily — seed editions (idempotent)"
+        run: |
+          set +e
+          python -u manage.py seed-editions \
+            || echo "seed-editions failed (continuing)"
+
+      - name: "Daily — generate today's edition (AI)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-daily \
+            || echo "generate-daily failed (continuing)"
+
+      - name: "Daily — render edition HTML"
+        run: |
+          set +e
+          python -u manage.py render-daily \
+            || echo "render-daily failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # MAILBAG — seed → curate → generate → render
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Mailbag — seed sample submissions"
+        run: |
+          set +e
+          python -u manage.py mailbag-seed-submissions --n 5 \
+            || echo "mailbag-seed-submissions failed (continuing)"
+
+      - name: "Mailbag — curate submissions for current edition"
+        run: |
+          set +e
+          python -u manage.py mailbag-curate-submissions \
+            || echo "mailbag-curate-submissions failed (continuing)"
+
+      - name: "Mailbag — generate answers (AI)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py mailbag-generate-answers \
+            || echo "mailbag-generate-answers failed (continuing)"
+
+      - name: "Mailbag — render HTML pages"
+        run: |
+          set +e
+          python -u manage.py render-mailbag \
+            || echo "render-mailbag failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # REACTIONS — check triggers → auto-generate → render
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Reactions — check triggers + auto-generate (7-day window, AI)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py reactions-check-triggers --hours 168 --auto \
+            || echo "reactions-check-triggers failed (continuing)"
+
+      - name: "Reactions — render all reaction story pages"
+        run: |
+          set +e
+          python -u manage.py render-reactions \
+            || echo "render-reactions failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # TEAM PAGE AI ENRICHMENT
+      # Runs: load-profiles → narratives → chronicle → savant → arc →
+      #        rivalry → render-team-pages
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Team pages — load profiles into DB"
+        run: |
+          set +e
+          python -u manage.py load-team-profiles \
+            || echo "load-team-profiles failed (continuing)"
+
+      - name: "Team pages — generate AI narratives (all profiled programs)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-narratives --llm claude \
+            || echo "generate-narratives failed (continuing)"
+
+      - name: "Team pages — generate Chronicle cards (all profiled programs)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-chronicle --workers 3 \
+            || echo "generate-chronicle failed (continuing)"
+
+      - name: "Team pages — refresh Savant percentiles"
+        run: |
+          set +e
+          python -u manage.py refresh-savant \
+            --season "${{ github.event.inputs.season || '2025' }}" \
+            || echo "refresh-savant failed (continuing)"
+
+      - name: "Team pages — refresh season arc (2014-present)"
+        run: |
+          set +e
+          python -u manage.py refresh-season-arc \
+            --latest-season "${{ github.event.inputs.season || '2025' }}" \
+            || echo "refresh-season-arc failed (continuing)"
+
+      - name: "Team pages — refresh rivalry head-to-head data"
+        run: |
+          set +e
+          python -u manage.py refresh-rivalry \
+            || echo "refresh-rivalry failed (continuing)"
+
+      - name: "Team pages — render all profiled programs"
+        run: |
+          set +e
+          python -u manage.py render-team-pages \
+            || echo "render-team-pages failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # RETRO OFFSEASON PAGES
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Retro — seed all retro issues (idempotent)"
+        run: |
+          set +e
+          python -u manage.py seed-retro-all \
+            || echo "seed-retro-all failed (continuing)"
+
+      - name: "Retro — build retro page HTML"
+        run: |
+          set +e
+          python -u manage.py build-retro-pages \
+            || echo "build-retro-pages failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # PLAYER MOOD — weekly compute (8 weeks) + season rollup
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Player mood — compute weekly (last 8 weeks)"
+        run: |
+          set +e
+          python <<'PY'
+          import subprocess
+          from datetime import date, timedelta
+          today = date.today()
+          for i in range(8):
+              d = today - timedelta(weeks=i)
+              iso_d = d.isocalendar()
+              week_key = f"{iso_d[0]}-{iso_d[1]:02d}"
+              cmd = ["python", "-u", "manage.py", "compute-player-week-mood",
+                     "--week", week_key]
+              result = subprocess.run(cmd, check=False)
+              print(f"compute-player-week-mood {week_key}: exit={result.returncode}")
+          PY
+          echo "Player weekly mood done"
+
+      - name: "Player mood — season rollup"
+        run: |
+          set +e
+          python -u manage.py compute-player-season-mood \
+            --season "${{ github.event.inputs.season || '2025' }}" \
+            || echo "compute-player-season-mood failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # WIKI AWARDS — scrape + auto-import (2014-present)
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Awards — scrape Wikipedia honors + import"
+        run: |
+          set +e
+          python -u manage.py scrape-wiki-awards \
+            --start-year 2014 \
+            --end-year "${{ github.event.inputs.season || '2025' }}" \
+            --auto-import \
+            || echo "scrape-wiki-awards failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # CANON LISTS — seed → generate all 3 → render
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Canon — seed list metadata (idempotent)"
+        run: |
+          set +e
+          python -u manage.py seed-canon-metadata \
+            || echo "seed-canon-metadata failed (continuing)"
+
+      - name: "Canon — generate: 100 Best Players (CFP era, AI)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-canon-list \
+            --list the-100-best-players-cfp-era \
+            --year 2026 \
+            || echo "generate-canon-list (players) failed (continuing)"
+
+      - name: "Canon — generate: 50 Most Defining Games (CFP era, AI)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-canon-list \
+            --list the-50-most-defining-games-cfp-era \
+            --year 2026 \
+            || echo "generate-canon-list (games) failed (continuing)"
+
+      - name: "Canon — generate: 25 Best Coaching Hires (2020s, AI)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-canon-list \
+            --list the-25-best-coaching-hires-2020s \
+            --year 2026 \
+            || echo "generate-canon-list (coaches) failed (continuing)"
+
+      - name: "Canon — render all list + entry pages"
+        run: |
+          set +e
+          python -u manage.py render-canon-all \
+            || echo "render-canon-all failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # HUB INTELLIGENCE
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Hub — compute evidence report"
+        run: |
+          set +e
+          python -u manage.py hub-computed-evidence \
+            || echo "hub-computed-evidence failed (continuing)"
+
+      - name: "Hub — prepare pulse themes + ledes"
+        run: |
+          set +e
+          python -u manage.py prepare-pulse \
+            || echo "prepare-pulse failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # SITE SURFACE REFRESH
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Site — refresh storylines index"
+        run: |
+          set +e
+          python -u manage.py render-storylines \
+            || echo "render-storylines failed (continuing)"
+
+      - name: "Site — refresh editions archive"
+        run: |
+          set +e
+          python -u manage.py build-editions-archive \
+            || echo "build-editions-archive failed (continuing)"
+
+      - name: "Site — refresh methodology pages"
+        run: |
+          set +e
+          python -u manage.py build-methodology \
+            || echo "build-methodology failed (continuing)"
+
+      - name: "Site — render homepage from active edition"
+        run: |
+          set +e
+          python -u manage.py render-homepage \
+            || echo "render-homepage failed (no active edition, continuing)"
+
+      - name: "Site — patch homepage Wire panel"
+        run: |
+          set +e
+          python -u manage.py render-wire \
+            || echo "render-wire (homepage patch) failed (continuing)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # POST-PROCESS LAYER — must run AFTER all renderers
+      # ════════════════════════════════════════════════════════════════════
+      - name: Inject team logos into rankings
+        run: python tools/inject_rankings_logos.py
+
+      - name: Decorate rankings table for mobile card-view
+        run: python tools/wcfb_enhancements/decorate_rankings_table.py
+
+      - name: Build /compare/ landing page
+        run: |
+          set +e
+          python tools/wcfb_enhancements/build_compare.py
+          echo "done"
+
+      - name: Install World-Class enhancement layer (CSS+JS+HTML inject)
+        run: python tools/wcfb_enhancements/install.py
+
+      - name: Write .vercelignore for published branch
+        run: python tools/write_published_vercelignore.py
+
+      # ════════════════════════════════════════════════════════════════════
+      # SAFETY GATE + UPLOAD + PUBLISH
+      # ════════════════════════════════════════════════════════════════════
+      - name: Sanity-check site before upload
+        id: site_check
+        run: |
+          set +e
+          FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
+          echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
+          echo "Found $FILE_COUNT files in output/site"
+          if [ "$FILE_COUNT" -lt 5000 ]; then
+            echo "::warning::output/site has only $FILE_COUNT files — refusing to upload poisoned artifact"
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+      - name: Upload site artifact
+        if: always() && steps.site_check.outputs.healthy == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site
+          retention-days: 14
+          overwrite: true
+
+      - name: Push to published branch
+        if: always() && steps.site_check.outputs.healthy == 'true'
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Stage the built site outside the working tree so the branch
+          # switch doesn't fail on dirty working-dir.
+          SITE_TMP="$(mktemp -d)"
+          cp -a output/site/. "$SITE_TMP/"
+
+          # Embed a self-contained vercel.json on the published branch.
+          echo '{"$schema":"https://openapi.vercel.sh/vercel.json","buildCommand":null,"outputDirectory":".","framework":null,"cleanUrls":false,"trailingSlash":true,"rewrites":[{"source":"/:slug([a-z][a-z0-9-]+).html","destination":"/teams/:slug.html"}]}' > "$SITE_TMP/vercel.json"
+
+          git reset --hard HEAD
+          git clean -fdx
+
+          git fetch origin published || true
+          if git show-ref --verify --quiet refs/remotes/origin/published; then
+            git checkout -B published origin/published
+          else
+            git checkout --orphan published
+            git rm -rf . 2>/dev/null || true
+          fi
+
+          rm -rf ./assets ./rankings ./teams ./players ./heisman ./hub ./methodology ./editions ./archive ./programs ./history ./conferences ./compare ./matchups ./about-model ./output || true
+          cp -a "$SITE_TMP"/. ./
+          rm -rf "$SITE_TMP"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "nothing to commit — published is already up to date"
+            exit 0
+          fi
+          git commit -m "enrich: world-class pass $(date -u +%Y-%m-%dT%H:%MZ)"
+
+          if ! git push origin published --force-with-lease; then
+            echo "::error::failed to push to published branch — check GITHUB_TOKEN contents:write permission"
+            exit 1
+          fi
+          echo "✓ pushed $(git rev-parse --short HEAD) to origin/published"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
