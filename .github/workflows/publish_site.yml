@@ -167,6 +167,9 @@ jobs:
       - name: Inject team logos into rankings
         run: python tools/inject_rankings_logos.py
 
+      - name: Decorate rankings table for mobile card-view
+        run: python tools/wcfb_enhancements/decorate_rankings_table.py
+
       - name: Build /compare/ landing page (World-Class plan Phase 3.2)
         run: |
           set +e

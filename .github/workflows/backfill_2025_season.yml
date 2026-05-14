@@ -1,0 +1,157 @@
+name: backfill-2025-season
+# One-off backfill — runs sync-site-incremental against CFBD for the
+# 2025 season weeks 1-16, then runs models and rebuilds the site.
+# Goal: populate the empty cfb-rankings-db artifact with real teams +
+# games + model_runs data so Phase 2 + Phase 7 of the World-Class plan
+# can actually surface content on the live site.
+#
+# Manual trigger only. Safe to re-run: sync-site-incremental is
+# incremental by design (upsert semantics).
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "CFB season year (default: 2025)"
+        required: false
+        default: "2025"
+      through_week:
+        description: "Last week to ingest (default: 16)"
+        required: false
+        default: "16"
+      include_play_level:
+        description: "Include drives + plays (slow, full data)"
+        type: boolean
+        required: false
+        default: false
+
+# Serialize with daily/hourly so we don't double-write the rolling artifact
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      actions: read
+    env:
+      CFBD_API_KEY:       ${{ secrets.CFBD_API_KEY }}
+      CFBD_PATREON_KEY:   ${{ secrets.CFBD_PATREON_KEY }}
+      YOUTUBE_API_KEY:    ${{ secrets.YOUTUBE_API_KEY }}
+      SEATGEEK_CLIENT_ID: ${{ secrets.SEATGEEK_CLIENT_ID }}
+      SPOTIFY_CLIENT_ID:  ${{ secrets.SPOTIFY_CLIENT_ID }}
+      ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyyaml
+
+      - name: Download prior DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py init-db
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
+      - name: Verify CFBD API key works
+        run: |
+          set +e
+          python <<'PY'
+          import os, urllib.request, urllib.error
+          key = os.environ.get("CFBD_API_KEY", "")
+          if not key:
+              print("::error::CFBD_API_KEY secret is empty")
+              raise SystemExit(1)
+          req = urllib.request.Request(
+              "https://apinext.collegefootballdata.com/teams/fbs?year=2025",
+              headers={"Authorization": f"Bearer {key}"},
+          )
+          try:
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  status = r.status
+                  body_len = len(r.read())
+              print(f"CFBD API OK: HTTP {status}, {body_len} bytes")
+          except urllib.error.HTTPError as e:
+              print(f"::error::CFBD API HTTP {e.code}: {e.reason}")
+              raise SystemExit(1)
+          except Exception as e:
+              print(f"::error::CFBD API error: {e}")
+              raise SystemExit(1)
+          PY
+
+      - name: Backfill preseason (teams + rosters)
+        run: |
+          set +e
+          python -u manage.py ingest-cfbd-preseason \
+            --season "${{ github.event.inputs.season }}" \
+            --classification fbs || echo "preseason fbs failed (continuing)"
+          python -u manage.py ingest-cfbd-preseason \
+            --season "${{ github.event.inputs.season }}" \
+            --classification fcs || echo "preseason fcs failed (continuing)"
+          echo "preseason done"
+
+      - name: Backfill 2025 season — sync-site-incremental
+        run: |
+          set +e
+          SKIP_PLAY=""
+          if [ "${{ github.event.inputs.include_play_level }}" != "true" ]; then
+            SKIP_PLAY="--skip-play-level"
+          fi
+          python -u manage.py sync-site-incremental \
+            --season "${{ github.event.inputs.season }}" \
+            --through-week "${{ github.event.inputs.through_week }}" \
+            --skip-heisman \
+            --skip-connectivity-check \
+            $SKIP_PLAY || echo "sync-site-incremental exited non-zero (continuing)"
+          echo "sync done"
+
+      - name: DB inventory after backfill
+        run: |
+          set +e
+          python <<'PY'
+          import sqlite3
+          db = sqlite3.connect("cfb_rankings.db")
+          cur = db.cursor()
+          tables = [r[0] for r in cur.execute("select name from sqlite_master where type='table' order by name").fetchall()]
+          key = ['teams', 'games', 'players', 'model_runs', 'power_ratings_weekly',
+                 'fanbase_mood_weekly', 'storyline_threads', 'editions',
+                 'conversation_documents', 'source_observations', 'team_brand_assets',
+                 'player_honors']
+          print(f"Total tables: {len(tables)}")
+          for t in key:
+              try:
+                  n = cur.execute(f"select count(*) from {t}").fetchone()[0]
+                  print(f"  {t:35s} = {n:>10,}")
+              except Exception as e:
+                  print(f"  {t:35s} = (error: {e})")
+          PY
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
