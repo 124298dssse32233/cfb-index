@@ -1,0 +1,1 @@
+{"$schema":"https://openapi.vercel.sh/vercel.json","buildCommand":null,"outputDirectory":".","framework":null,"cleanUrls":false,"trailingSlash":true,"rewrites":[{"source":"/:slug([a-z][a-z0-9-]+).html","destination":"/teams/:slug.html"}]}
