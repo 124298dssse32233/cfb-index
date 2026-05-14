@@ -124,6 +124,9 @@ jobs:
       - name: Inject team logos into rankings
         run: python tools/inject_rankings_logos.py
 
+      - name: Write .vercelignore for published branch
+        run: python tools/write_published_vercelignore.py
+
       - name: Refresh methodology + freshness pages
         run: |
           set +e
