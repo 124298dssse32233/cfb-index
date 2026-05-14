@@ -2155,6 +2155,200 @@ _FIGMA_V5_TOKENS_CSS_BLOCK = """
 """
 
 
+# World-class rankings page (commit 255aeb4): tier toggles, quick-filter chips,
+# movement dashboard, tiered row styling, rank-delta magnitude. Original rules
+# lived in src/cfb_rankings/team_pages/assets/tokens.css, which only ships to
+# team pages — so the rankings page rendered unstyled. Ported here using global
+# stylesheet variable names (--primary, --card, --border, etc.) with fallbacks.
+_RANKINGS_CONTROLS_CSS_BLOCK = """
+@layer components {
+  /* Tier toggles ------------------------------------------------ */
+  .rankings-tier-toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 24px 0 12px;
+    justify-content: center;
+  }
+  .tier-toggle {
+    padding: 8px 16px;
+    background: var(--card, #fff);
+    border: 1px solid var(--border, rgba(0,0,0,0.12));
+    border-radius: var(--radius-md, 10px);
+    font-family: var(--font-display, "Inter Display", "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted-foreground, #555);
+    cursor: pointer;
+    transition: all var(--motion-state, 180ms cubic-bezier(.2,.7,.25,1));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tier-toggle:hover {
+    background: var(--muted, #f5f5f7);
+    border-color: var(--border-strong, rgba(0,0,0,0.2));
+    color: var(--foreground, #111);
+  }
+  .tier-toggle--active {
+    background: var(--primary, #3570b5);
+    color: var(--primary-foreground, #fff);
+    border-color: var(--primary, #3570b5);
+  }
+
+  /* Quick-filter chips ----------------------------------------- */
+  .rankings-quick-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 24px;
+    padding: 12px 16px;
+    background: var(--muted, #fafafa);
+    border: 1px solid var(--border, rgba(0,0,0,0.06));
+    border-radius: var(--radius-lg, 14px);
+    justify-content: center;
+  }
+  .filter-chip {
+    padding: 6px 12px;
+    background: var(--card, #fff);
+    border: 1px solid var(--border, rgba(0,0,0,0.12));
+    border-radius: var(--radius-md, 10px);
+    font-family: var(--font-display, "Inter Display", "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted-foreground, #555);
+    cursor: pointer;
+    transition: all var(--motion-state, 180ms cubic-bezier(.2,.7,.25,1));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .filter-chip:hover {
+    background: var(--background, #fff);
+    border-color: var(--primary, #3570b5);
+    color: var(--foreground, #111);
+  }
+  .filter-chip--active {
+    background: var(--primary, #3570b5);
+    border-color: var(--primary, #3570b5);
+    color: var(--primary-foreground, #fff);
+  }
+
+  /* Movement dashboard ----------------------------------------- */
+  .movement-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .movement-panel {
+    background: var(--card, #fff);
+    border: 1px solid var(--border, rgba(0,0,0,0.08));
+    border-radius: var(--radius-lg, 14px);
+    padding: 16px;
+  }
+  .movement-panel__title {
+    font-family: var(--font-display, "Inter Display", "Inter", sans-serif);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 12px;
+    color: var(--muted-foreground, #555);
+  }
+  .movement-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border, rgba(0,0,0,0.06));
+  }
+  .movement-card:last-child { border-bottom: none; }
+  .movement-card__rank {
+    font-family: var(--font-display, "Inter Display", "Inter", sans-serif);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--primary, #3570b5);
+    min-width: 40px;
+  }
+  .movement-card__team {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .movement-card__team .team-link {
+    font-weight: 600;
+    color: var(--foreground, #111);
+  }
+  .movement-card__team .submetric {
+    font-size: 11px;
+    color: var(--muted-foreground, #777);
+  }
+  .movement-card__change {
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* Tiered row styling ----------------------------------------- */
+  .rankings-row--elite {
+    background: linear-gradient(90deg, rgba(53,112,181,0.10) 0%, transparent 30%);
+    font-weight: 600;
+  }
+  .rankings-row--elite .rank-cell {
+    font-size: 1.15em;
+    color: var(--primary, #3570b5);
+    font-weight: 700;
+  }
+  .rankings-row--power { background: transparent; }
+  .rankings-row--all { opacity: 0.85; font-size: 0.95em; }
+
+  /* Rank-change magnitude -------------------------------------- */
+  .rank-delta--large {
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .rank-delta--large.rank-delta--up {
+    background: #3ea073;
+    color: #fff;
+  }
+  .rank-delta--large.rank-delta--down {
+    background: #c04a4a;
+    color: #fff;
+  }
+  .rank-delta--medium { font-weight: 600; }
+
+  .rank-sparkline {
+    display: block;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+  .rank-change-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .rankings-tier-toggles { flex-wrap: wrap; }
+  .tier-toggle {
+    flex: 1 1 calc(50% - 8px);
+    text-align: center;
+    min-width: 100px;
+  }
+  .movement-dashboard { grid-template-columns: 1fr; }
+  .rankings-quick-filters { gap: 4px; padding: 8px; }
+  .filter-chip {
+    font-size: 10px;
+    padding: 4px 8px;
+    flex: 1 1 calc(33% - 4px);
+    text-align: center;
+  }
+  .rank-sparkline { width: 60px; height: 18px; }
+}
+"""
+
+
 # Dark-mode override (S.1, refined for Figma canon in S.2). OKLCH values
 # from figma-reference/player-page/src/styles/theme.css `.dark` block —
 # subtle blue cast (oklch(0.18 0.01 250) for surface, 0.22 for muted,
@@ -4861,6 +5055,8 @@ def _compose_global_css() -> str:
         + _GILDED_SECTION_CSS_BLOCK
         + "\n/* === Right-click context menu (S4.12) === */\n"
         + _CONTEXT_MENU_CSS_BLOCK
+        + "\n/* === World-class rankings controls (tier toggles, quick filters, movement dashboard) === */\n"
+        + _RANKINGS_CONTROLS_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
