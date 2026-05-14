@@ -37,23 +37,18 @@ backups/
 # Documentation
 CLAUDE*.md
 OCTOPUS*.md
-*.md
 
-# Screenshots
-*.png
-*.jpg
-*.jpeg
+# Note: do NOT exclude *.png / *.jpg / *.jpeg here — team logos,
+# OG images, and similar assets are PNG/JPG and live under
+# assets/team-art/ and assets/. Excluding them broke logo rendering
+# on the live site for ~24h (2026-05-14). Use precise paths if any
+# specific screenshot needs excluding.
 
 # Test files
 tests/
 tmp_*.db
 
-# Large directories
+# Large source-only directories (not under output/site, but safety)
 research/
 design-ref/
 _fig*/
-
-# Output cache
-output/_logs/
-output/.gitignore
-output/vercel.json
