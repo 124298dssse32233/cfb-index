@@ -121,22 +121,6 @@ jobs:
               )
           PY
 
-      - name: Inject team logos into rankings
-        run: python tools/inject_rankings_logos.py
-
-      - name: Build /compare/ landing page (World-Class plan Phase 3.2)
-        run: |
-          set +e
-          python -m pip install pyyaml --quiet 2>&1 | tail -3
-          python tools/wcfb_enhancements/build_compare.py
-          echo "done"
-
-      - name: Install World-Class enhancement layer (CSS+JS+HTML inject)
-        run: python tools/wcfb_enhancements/install.py
-
-      - name: Write .vercelignore for published branch
-        run: python tools/write_published_vercelignore.py
-
       - name: Refresh methodology + freshness pages
         run: |
           set +e
@@ -153,7 +137,8 @@ jobs:
       # exists for every published edition. Without this, navigating up
       # from an article URL hits 404. seed-editions makes sure the DB
       # has the payloads; render-edition writes the index + article
-      # pages for the slug.
+      # pages for the slug. NOTE: render-edition rewrites output/site/
+      # index.html, so it MUST run before the wcfb post-process steps.
       - name: Refresh backfilled edition pages
         run: |
           set +e
@@ -172,6 +157,28 @@ jobs:
           set +e
           python manage.py render-storylines
           echo "done"
+
+      # ====================================================================
+      # POST-PROCESS LAYER — must run AFTER all renderers that write
+      # files in output/site/, otherwise their writes will erase the
+      # injected wcfb markers, logo IMG tags, etc.
+      # ====================================================================
+
+      - name: Inject team logos into rankings
+        run: python tools/inject_rankings_logos.py
+
+      - name: Build /compare/ landing page (World-Class plan Phase 3.2)
+        run: |
+          set +e
+          python -m pip install pyyaml --quiet 2>&1 | tail -3
+          python tools/wcfb_enhancements/build_compare.py
+          echo "done"
+
+      - name: Install World-Class enhancement layer (CSS+JS+HTML inject)
+        run: python tools/wcfb_enhancements/install.py
+
+      - name: Write .vercelignore for published branch
+        run: python tools/write_published_vercelignore.py
 
       # Safety gate: only upload the cfb-rankings-site artifact if the
       # build produced a full site. If build-site failed silently (it's
