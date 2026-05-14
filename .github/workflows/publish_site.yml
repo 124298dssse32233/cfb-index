@@ -228,19 +228,7 @@ jobs:
           # always serves from root (outputDirectory: ".") regardless of
           # what the Vercel project-level setting says. Without this,
           # Vercel falls back to the project setting which may be wrong.
-          cat > "$SITE_TMP/vercel.json" << 'JSON'
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null,
-  "cleanUrls": false,
-  "trailingSlash": true,
-  "rewrites": [
-    {"source": "/:slug([a-z][a-z0-9-]+).html", "destination": "/teams/:slug.html"}
-  ]
-}
-JSON
+          echo '{"$schema":"https://openapi.vercel.sh/vercel.json","buildCommand":null,"outputDirectory":".","framework":null,"cleanUrls":false,"trailingSlash":true,"rewrites":[{"source":"/:slug([a-z][a-z0-9-]+).html","destination":"/teams/:slug.html"}]}' > "$SITE_TMP/vercel.json"
 
           # Discard build artifacts so checkout proceeds cleanly. The
           # source-of-truth is master; nothing here is worth saving.
