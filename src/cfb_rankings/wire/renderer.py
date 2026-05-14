@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from cfb_rankings.db import Database
+from cfb_rankings.nav import render_global_nav
 
 log = logging.getLogger(__name__)
 
@@ -47,7 +48,7 @@ _BASE_STYLE = """
 }
 html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
   font-family: var(--serif); font-size: 17px; line-height: 1.55; }
-.page { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+.page { max-width: 1280px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
 @media (max-width: 720px) { .page { padding: 0 24px; } }
 .eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 600;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
@@ -55,6 +56,7 @@ html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
 .rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
 .rule.soft { background: var(--rule-soft); }
 a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 a.text-link { border-bottom: 1px dotted currentColor; }
 
 .chrome { font-family: var(--sans); font-size: 11px; font-weight: 600;
@@ -357,6 +359,7 @@ def render_wire_index(
         "TITLE": "The Wire",
         "UPDATED_AT": (now or datetime.utcnow()).strftime("%Y-%m-%d %H:%M UTC"),
         "HEAD_STYLE": _BASE_STYLE,
+        "GLOBAL_NAV": render_global_nav(current_page="/wire/", variant="desktop"),
         "ENTRIES_TBODY": _entries_tbody(rows, now=now),
         "ARCHIVE_LINKS": archive_links,
         "ENTRY_COUNT": str(len(rows)),
