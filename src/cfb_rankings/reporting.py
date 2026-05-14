@@ -5215,7 +5215,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         # artifact (~17k files). Stomping the homepage with a "No model
         # runs found" stub would replace a working hero with a debug
         # message. Only write the stub when output/site/index.html is
-        # genuinely absent (true cold-start case).
+        # genuinely absent OR is the tiny stub from a prior poisoned run.
         index_path = site_root / "index.html"
         if not index_path.exists() or index_path.stat().st_size < 1024:
             index_path.write_text(
