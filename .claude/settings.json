@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$g = try { Get-Content '.git' -Raw -ErrorAction Stop } catch { '' }; if ($g -match 'gitdir:\\s*(.+)') { $s = [IO.Path]::GetFullPath([IO.Path]::Combine($matches[1].Trim(), '../../../.claude/hooks/worktree-auto-publish.ps1')); if (Test-Path $s) { & $s } }",
+            "async": true,
+            "statusMessage": "Auto-publishing worktree changes to live site..."
+          }
+        ]
+      }
+    ]
+  }
+}
