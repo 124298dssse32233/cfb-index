@@ -1,0 +1,59 @@
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dependencies
+.deps/
+.vendor/
+.virtualenv/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+tmp_*/
+*.tmp
+
+# Development files
+.claude/
+.worktrees/
+.env
+.env.*
+
+# Backups
+backups/
+*.bak
+*.backup
+
+# Documentation
+CLAUDE*.md
+OCTOPUS*.md
+*.md
+
+# Screenshots
+*.png
+*.jpg
+*.jpeg
+
+# Test files
+tests/
+tmp_*.db
+
+# Large directories
+research/
+design-ref/
+_fig*/
+
+# Output cache
+output/_logs/
+output/.gitignore
+output/vercel.json
