@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heisman Tracker | 2025 Season</title>
+    <meta name="description" content="A full-board Heisman model for 2025 Season. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — including the best non-QB, best G5, and best defensive case."><meta property="og:site_name" content="THE CFB INDEX"><meta property="og:type" content="website"><meta property="og:title" content="Heisman Tracker | 2025 Season"><meta property="og:description" content="A full-board Heisman model for 2025 Season. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — including the best non-QB, best G5, and best defensive case."><meta property="og:image" content="../og-image.svg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Heisman Tracker | 2025 Season"><meta name="twitter:description" content="A full-board Heisman model for 2025 Season. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — including the best non-QB, best G5, and best defensive case."><meta name="twitter:image" content="../og-image.svg">
+    <link rel="stylesheet" href="/assets/cfb-index.9e9f1251c4c0.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/alpine.min.js" defer></script>
+  
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+  <body>
+    <main class="site-shell" id="main-content">
+      <a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link is-current" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../hub/vibe-shifts/index.html">Vibe Shifts</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../nfl-pipeline/index.html">NFL Pipeline</a><a class="nav-link" href="../about-model/index.html">The Model</a><a class="nav-link" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+      <section class="hero">
+        <p class="eyebrow">Heisman Tracker</p>
+        <h1>A full-board Heisman model, not just a top-three list.</h1>
+        <p class="lede">
+          This page is built to support the stronger interpretation of the award: if every voter had to rank the full FBS universe,
+          where would every player land right now, and how much actual win equity does each candidacy have?
+        </p>
+        <p class="section-note">
+          Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stands right now.
+          <strong>Forecast</strong> &mdash; where we think it ends up.
+          <strong>Win</strong> &mdash; chance to win the trophy.
+          <strong>Finalist</strong> &mdash; chance to be in New York.
+          <strong>Ballot</strong> &mdash; share of voter weight.
+        </p>
+        <div class="cta-row">
+          <a class="button button-primary" href="../players/index.html">Open Player Cards</a>
+          <a class="button button-secondary" href="../rankings/index.html">Team Rankings</a>
+          <a class="button button-secondary" href="../about-model/index.html">Model Notes</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="home-meta-row panel">
+          <div class="meta-pill"><span>Season</span><strong>2025 Season</strong></div>
+          <div class="meta-pill"><span>Latest Heisman week</span><strong>--</strong></div>
+          <div class="meta-pill"><span>Vote-eligible inputs</span><strong>--</strong></div>
+          <div class="meta-pill"><span>Ranked players</span><strong>0</strong></div>
+          <div class="meta-pill"><span>Player cards</span><strong>0</strong></div>
+          <div class="meta-pill"><span>Current candidates with pages</span><strong>0</strong></div>
+          <div class="meta-pill"><span>Market prior</span><strong>Not loaded</strong></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Fast Read</h2>
+              <p class="section-note">A premium awards board should surface the real shape of the race immediately: the favorite, the best non-quarterback, the strongest Group of Five case, and whether any defender is even threatening the historical bias.</p>
+            </div>
+            <a class="text-link" href="../players/index.html">Browse every player card</a>
+          </div>
+          <div class="feature-grid scenario-grid">
+            <p class="footer-note">Once Heisman rows are loaded, this section will spotlight the favorite, the best non-quarterback, the strongest Group of Five candidacy, and any credible defensive outlier.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Board Controls</h2>
+              <p class="section-note">Search the full board by player, team, conference, or position, then flip between raw order and probability views.</p>
+            </div>
+          </div>
+          <p class="section-note">No external Heisman futures prior is loaded for this snapshot. CFBD currently exposes game betting lines, not award futures.</p>
+          <p class="section-note">The probabilities reflect the live vote-eligible data horizon for this week.</p>
+          <div class="board-utility">
+            <div class="board-controls">
+              <label class="board-control board-control-wide board-search">
+                <span>Search Players</span>
+                <input id="heismanSearch" type="search" placeholder="Search player, team, conference, or position">
+              </label>
+              <label class="board-control">
+                <span>Team</span>
+                <select id="heismanTeamFilter">
+                  <option value="ALL">All teams</option>
+                  
+                </select>
+              </label>
+              <label class="board-control">
+                <span>Conference</span>
+                <select id="heismanConferenceFilter">
+                  <option value="ALL">All conferences</option>
+                  
+                </select>
+              </label>
+              <label class="board-control">
+                <span>Position</span>
+                <select id="heismanPositionFilter">
+                  <option value="ALL">All positions</option>
+                  <option value="QB">QB</option>
+                  <option value="RB">RB</option>
+                  <option value="WR">WR</option>
+                  <option value="TE">TE</option>
+                  <option value="DEF">Defense</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </label>
+              <label class="board-control">
+                <span>Sort</span>
+                <select id="heismanSortMode">
+                  <option value="rank">Current rank</option>
+                  <option value="win">Win probability</option>
+                  <option value="finalist">Finalist probability</option>
+                  <option value="ballot">Ballot share</option>
+                  <option value="player">Player A-Z</option>
+                </select>
+              </label>
+            </div>
+              <div class="board-toolbar">
+                <div class="jump-group" role="group" aria-label="Quick Heisman range">
+                  <button type="button" class="jump-chip" data-heisman-limit="10">Top 10</button>
+                  <button type="button" class="jump-chip" data-heisman-limit="25">Top 25</button>
+                  <button type="button" class="jump-chip" data-heisman-limit="100">Top 100</button>
+                <button type="button" class="jump-chip is-active" data-heisman-limit="all">All players</button>
+              </div>
+              <div class="board-status">
+                <strong id="heismanVisibleCount">0</strong>
+                <span>players visible</span>
+                </div>
+                <button type="button" class="clear-filters" id="clearHeismanFilters">Clear filters</button>
+              </div>
+              <div class="active-filter-row" id="heismanActiveFilterRow" hidden></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Player</th>
+                  <th>Team</th>
+                  <th>Pos</th>
+                  <th>Nowcast</th>
+                  <th>Forecast</th>
+                  
+                  <th>Win</th>
+                  <th>Finalist</th>
+                  <th>Ballot</th>
+                </tr>
+              </thead>
+              <tbody id="heismanBoardBody">
+                <tr><td colspan="9">Heisman model rows have not been loaded yet for this season.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script>
+      (() => {
+        const rows = Array.from(document.querySelectorAll('#heismanBoardBody tr.heisman-row'));
+        if (!rows.length) return;
+
+        const searchInput = document.getElementById('heismanSearch');
+        const teamFilter = document.getElementById('heismanTeamFilter');
+        const conferenceFilter = document.getElementById('heismanConferenceFilter');
+        const positionFilter = document.getElementById('heismanPositionFilter');
+        const sortMode = document.getElementById('heismanSortMode');
+        const clearButton = document.getElementById('clearHeismanFilters');
+        const countNode = document.getElementById('heismanVisibleCount');
+        const chipRow = document.getElementById('heismanActiveFilterRow');
+        const tableBody = document.getElementById('heismanBoardBody');
+        const jumpButtons = Array.from(document.querySelectorAll('[data-heisman-limit]'));
+        let limit = 'all';
+
+        const normalized = (value) => (value || '').toString().trim().toLowerCase();
+        const numericValue = (row, key, fallback = Number.NEGATIVE_INFINITY) => {
+          const raw = row.dataset[key];
+          if (raw === undefined || raw === null || raw === '') return fallback;
+          const parsed = Number(raw);
+          return Number.isFinite(parsed) ? parsed : fallback;
+        };
+        const playerName = (row) => {
+          const anchor = row.querySelector('.team-link');
+          return anchor ? anchor.textContent.trim() : '';
+        };
+        const sortedUniquePairs = (pairs) => Array.from(
+          new Map(
+            pairs.filter(([value, label]) => value && label).map(([value, label]) => [value, label])
+          ).entries()
+        ).sort((a, b) => a[1].localeCompare(b[1]));
+        const sorters = {
+          rank: (a, b) => numericValue(a, 'rank', Number.POSITIVE_INFINITY) - numericValue(b, 'rank', Number.POSITIVE_INFINITY) || playerName(a).localeCompare(playerName(b)),
+          win: (a, b) => numericValue(b, 'win') - numericValue(a, 'win') || numericValue(a, 'rank', Number.POSITIVE_INFINITY) - numericValue(b, 'rank', Number.POSITIVE_INFINITY),
+          finalist: (a, b) => numericValue(b, 'finalist') - numericValue(a, 'finalist') || numericValue(a, 'rank', Number.POSITIVE_INFINITY) - numericValue(b, 'rank', Number.POSITIVE_INFINITY),
+          ballot: (a, b) => numericValue(b, 'ballot') - numericValue(a, 'ballot') || numericValue(a, 'rank', Number.POSITIVE_INFINITY) - numericValue(b, 'rank', Number.POSITIVE_INFINITY),
+          player: (a, b) => playerName(a).localeCompare(playerName(b)),
+        };
+
+        function renderChips(tokens) {
+          if (!chipRow) return;
+          chipRow.innerHTML = '';
+          if (!tokens.length) {
+            chipRow.hidden = true;
+            return;
+          }
+          chipRow.hidden = false;
+          tokens.forEach((token) => {
+            const chip = document.createElement('span');
+            chip.className = 'filter-chip';
+            chip.textContent = token;
+            chipRow.appendChild(chip);
+          });
+        }
+
+        function rebuildTeamOptions() {
+          if (!teamFilter) return;
+          const selectedConference = conferenceFilter?.value || 'ALL';
+          const previousTeam = teamFilter.value || 'ALL';
+          const options = sortedUniquePairs(
+            rows
+              .filter((row) => selectedConference === 'ALL' || row.dataset.conferenceFilter === selectedConference)
+              .map((row) => [row.dataset.teamFilter || '', row.dataset.teamLabel || ''])
+          );
+
+          teamFilter.innerHTML = '';
+          teamFilter.add(new Option('All teams', 'ALL'));
+          options.forEach(([value, label]) => {
+            teamFilter.add(new Option(label, value));
+          });
+          teamFilter.value = options.some(([value]) => value === previousTeam) ? previousTeam : 'ALL';
+        }
+
+        function applyState() {
+          const query = normalized(searchInput?.value);
+          const team = teamFilter?.value || 'ALL';
+          const conference = conferenceFilter?.value || 'ALL';
+          const position = positionFilter?.value || 'ALL';
+          const sorter = sorters[sortMode?.value] || sorters.rank;
+
+          const filtered = rows.filter((row) => {
+            const matchesQuery = !query || (row.dataset.search || '').includes(query);
+            const matchesTeam = team === 'ALL' || row.dataset.teamFilter === team;
+            const matchesConference = conference === 'ALL' || row.dataset.conferenceFilter === conference;
+            const matchesPosition = position === 'ALL' || row.dataset.positionGroup === position;
+            return matchesQuery && matchesTeam && matchesConference && matchesPosition;
+          }).sort(sorter);
+
+          filtered.forEach((row) => tableBody.appendChild(row));
+          const visibleRows = limit === 'all' ? filtered : filtered.slice(0, limit);
+          const visibleSet = new Set(visibleRows);
+          rows.forEach((row) => {
+            row.hidden = !visibleSet.has(row);
+          });
+          if (countNode) countNode.textContent = String(visibleRows.length);
+
+          const chipTokens = [];
+          if (query) chipTokens.push(`Search: ${searchInput.value.trim()}`);
+          if (team !== 'ALL' && teamFilter) chipTokens.push(`Team: ${teamFilter.options[teamFilter.selectedIndex].text}`);
+          if (conference !== 'ALL' && conferenceFilter) chipTokens.push(`Conference: ${conferenceFilter.options[conferenceFilter.selectedIndex].text}`);
+          if (position !== 'ALL' && positionFilter) chipTokens.push(`Position: ${positionFilter.options[positionFilter.selectedIndex].text}`);
+          if (sortMode) chipTokens.push(`Sort: ${sortMode.options[sortMode.selectedIndex].text}`);
+          chipTokens.push(limit === 'all' ? 'Range: All players' : `Range: Top ${limit}`);
+          renderChips(chipTokens);
+        }
+
+        [searchInput, teamFilter, positionFilter, sortMode].forEach((node) => {
+          if (!node) return;
+          node.addEventListener('input', applyState);
+          node.addEventListener('change', applyState);
+        });
+        if (conferenceFilter) {
+          conferenceFilter.addEventListener('input', () => {
+            rebuildTeamOptions();
+            applyState();
+          });
+          conferenceFilter.addEventListener('change', () => {
+            rebuildTeamOptions();
+            applyState();
+          });
+        }
+
+        if (clearButton) {
+          clearButton.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            if (conferenceFilter) conferenceFilter.value = 'ALL';
+            rebuildTeamOptions();
+            if (teamFilter) teamFilter.value = 'ALL';
+            if (positionFilter) positionFilter.value = 'ALL';
+            if (sortMode) sortMode.value = 'rank';
+            limit = 'all';
+            jumpButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.heismanLimit === 'all'));
+            applyState();
+          });
+        }
+
+        jumpButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            jumpButtons.forEach((candidate) => candidate.classList.remove('is-active'));
+            button.classList.add('is-active');
+            limit = button.dataset.heismanLimit === 'all' ? 'all' : parseInt(button.dataset.heismanLimit, 10);
+            applyState();
+          });
+        });
+
+        rebuildTeamOptions();
+        applyState();
+      })();
+    </script>
+  </body>
+</html>

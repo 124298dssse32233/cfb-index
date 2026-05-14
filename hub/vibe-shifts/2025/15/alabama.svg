@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Vibe Shift card for Alabama week 15">
   <defs>
     <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#9e1632" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#9e1632" stop-opacity="0.82"/>
+      <stop offset="0%" stop-color="#1a1a1a" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.82"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="675" fill="url(#bg-grad)"/>
   <!-- Top-left eyebrow -->
   <text x="80" y="92" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="700"
-        letter-spacing="4" font-family="system-ui, -apple-system, sans-serif">WEEK 15 · 2025 · VIBE SHIFT #2</text>
+        letter-spacing="4" font-family="system-ui, -apple-system, sans-serif">WEEK 15 · 2025 · VIBE SHIFT #1</text>
   <!-- Team name -->
   <text x="80" y="200" fill="#FFFFFF" font-size="92" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"
@@ -18,9 +18,9 @@
   <!-- Delta hero number -->
   <text x="80" y="380" fill="#ff7575" font-size="160" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"
-        font-variant-numeric="tabular-nums">▼ -1.40</text>
+        font-variant-numeric="tabular-nums">▼ -1.68</text>
   <text x="80" y="420" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="600"
-        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">POWER RATING SHIFT &nbsp;&nbsp;7.8 → 6.4</text>
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">POWER RATING SHIFT &nbsp;&nbsp;6.4 → 4.7</text>
   <!-- Component chips -->
   
         <g>
@@ -32,7 +32,7 @@
           <text x="200.0" y="534" fill="#ff7575"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">-1.71</text>
+                font-variant-numeric="tabular-nums">-1.72</text>
         </g>
         
         <g>
@@ -44,7 +44,7 @@
           <text x="460.0" y="534" fill="#ff7575"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">-0.52</text>
+                font-variant-numeric="tabular-nums">-0.53</text>
         </g>
         
         <g>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Players in The Room — 2025 | CFB Index</title>
+<link rel="stylesheet" href="/assets/cfb-index.f3924a06eced.css">
+<style>
+/* The Room board — page-scoped styles */
+.the-room-page { max-width: 1160px; margin: 0 auto; padding: 40px 20px 96px; }
+.the-room-hero { margin-bottom: 40px; }
+.the-room-hero__eyebrow {
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted-foreground, #8a90a1); margin-bottom: 8px;
+}
+.the-room-hero__title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(28px, 5vw, 44px); font-weight: 700;
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--foreground, #f5f6fa); margin: 0 0 12px;
+}
+.the-room-hero__dek {
+  color: var(--muted-foreground, #8a90a1); font-size: 15px;
+  line-height: 1.6; max-width: 60ch; margin: 0;
+}
+.the-room-board__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 860px) {
+  .the-room-board__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .the-room-board__grid { grid-template-columns: 1fr; }
+  .the-room-page { padding: 24px 16px 64px; }
+}
+
+.the-room-board__card {
+  background: var(--card, #171b24);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  padding: 20px 20px 16px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color 0.15s;
+}
+.the-room-board__card:hover {
+  border-color: rgba(255,255,255,0.18);
+}
+
+.the-room-board__header { display: flex; flex-direction: column; gap: 4px; }
+.the-room-board__header h2 {
+  font-size: 18px; font-weight: 700; margin: 0;
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: var(--foreground, #f5f6fa);
+  line-height: 1.2;
+}
+.the-room-board__header h2 a {
+  color: inherit; text-decoration: none;
+}
+.the-room-board__header h2 a:hover { text-decoration: underline; }
+.the-room-board__meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted-foreground, #8a90a1);
+}
+
+.the-room-board__figures {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  padding: 12px 0; border-top: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
+}
+.the-room-board__figures > div {
+  display: flex; flex-direction: column; gap: 1px;
+}
+.the-room-board__figures span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted-foreground, #8a90a1);
+}
+.the-room-board__figures strong {
+  font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;
+  color: var(--foreground, #f5f6fa);
+}
+.the-room-board__figures > div:first-child strong {
+  font-size: 22px; color: var(--accent, #3ea073);
+}
+
+.the-room-board__quote {
+  margin: 0; padding: 0; flex: 1;
+}
+.the-room-board__quote p {
+  font-style: italic; font-size: 14px; line-height: 1.55;
+  color: var(--muted-foreground, #8a90a1); margin: 0 0 8px;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+.the-room-board__quote cite {
+  font-size: 11px; font-style: normal;
+  color: var(--muted-foreground, #8a90a1); opacity: 0.7;
+}
+.the-room-board__quote cite a {
+  color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor;
+}
+.the-room-board__quote cite a:hover { opacity: 1; }
+</style>
+
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+<body>
+<main class="site-shell" id="main-content">
+<a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link is-current" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../about-model/index.html">The Model</a><a class="nav-link" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a><a class="nav-link" href="../methodology/fan-intelligence.html">Methodology</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) { close(); }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) { close(); }
+              });
+            });
+          })();
+        </script>
+<div class="the-room-page">
+<section class="panel the-room-board the-room-board--empty"><p>No player in this season has cleared the mention floor yet. We’ll publish cards as soon as corpus density picks up — for in-season data, that usually means Monday mornings after Week 1.</p></section>
+</div>
+</main>
+</body>
+</html>

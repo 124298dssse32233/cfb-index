@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vanderbilt Program History</title>
+    <link rel="stylesheet" href="/assets/cfb-index.9e9f1251c4c0.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/alpine.min.js" defer></script>
+  
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+  <body>
+    <main class="site-shell" id="main-content">
+      <a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../hub/vibe-shifts/index.html">Vibe Shifts</a><a class="nav-link is-current" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../nfl-pipeline/index.html">NFL Pipeline</a><a class="nav-link" href="../about-model/index.html">The Model</a><a class="nav-link" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+      <section class="team-shell" style="--team-accent:#866D4B; --team-accent-soft:#b98343;">
+        <div class="team-breadcrumbs">
+          <a href="../programs/index.html">Programs</a>
+          <span>/</span>
+          <a href="../history/index.html">History</a>
+          <span>/</span>
+          <strong>Vanderbilt</strong>
+        </div>
+        <section class="hero team-hero premium-team-hero">
+          <div class="team-hero-top">
+            <div>
+              <h1>Vanderbilt</h1>
+              <p class="team-hero-sub">FBS program | latest conference era: SEC</p>
+            </div>
+            <div class="team-rank-chip">Program Explorer</div>
+          </div>
+          <div class="team-stat-ribbon">
+            <article class="team-stat-tile">
+              <div class="team-mark">VAN</div>
+              <div>
+                <span>Loaded Seasons</span>
+                <strong>1</strong>
+              </div>
+            </article>
+            <article class="team-stat-tile">
+              <div class="team-mark">VAN</div>
+              <div>
+                <span>Latest Season</span>
+                <strong>2025</strong>
+              </div>
+            </article>
+            <article class="team-stat-tile">
+              <div class="team-mark">VAN</div>
+              <div>
+                <span>Peak Loaded Season</span>
+                <strong>2025 | +19.1</strong>
+              </div>
+            </article>
+            <article class="team-stat-tile">
+              <div class="team-mark">VAN</div>
+              <div>
+                <span>Best Finish</span>
+                <strong>#17 in 2025</strong>
+              </div>
+            </article>
+          </div>
+          <div class="team-hero-actions">
+            <a class="button button-primary" href="../teams/vanderbilt.html">2025 Season Season Page</a>
+            <a class="button button-secondary" href="../rankings/index.html">Current Rankings</a>
+            <a class="button button-secondary" href="../history/index.html">History Hub</a>
+          </div>
+          
+    <div class="player-page-subnav-shell">
+      <nav class="player-page-subnav" aria-label="Player page sections">
+        <a class="player-page-subnav-link is-active" href="#program-arc" data-player-nav-target="program-arc">Arc</a><a class="player-page-subnav-link" href="#historical-snapshot" data-player-nav-target="historical-snapshot">Snapshot</a><a class="player-page-subnav-link" href="#current-context" data-player-nav-target="current-context">Context</a><a class="player-page-subnav-link" href="#program-signals" data-player-nav-target="program-signals">Signals</a><a class="player-page-subnav-link" href="#season-explorer" data-player-nav-target="season-explorer">Seasons</a>
+      </nav>
+    </div>
+    
+        </section>
+      </section>
+
+      <section class="section premium-team-grid player-anchor-section" id="program-arc">
+        <article class="panel narrative-panel">
+          <div class="section-head">
+            <h2>Program Arc</h2>
+            <p class="section-note">Win rate shows the results layer. End-of-season power shows the strength layer. A serious history page needs both.</p>
+          </div>
+          
+    <div class="history-chart-wrap">
+      <div class="phase-pill-row">
+        <span class="mini-chip">Bars: win rate</span>
+        <span class="mini-chip">Line: public power vs average team</span>
+      </div>
+      <svg class="history-svg" viewBox="0 0 560 260" role="img" aria-label="Program history chart">
+        <defs>
+          <linearGradient id="historyGradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#8f2330"></stop>
+            <stop offset="100%" stop-color="#d48678"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="560" height="260" rx="24" fill="rgba(255,255,255,0.45)"></rect>
+        <line x1="36" y1="222" x2="528" y2="222" stroke="rgba(17,17,17,0.18)"></line>
+        <line x1="36" y1="124.0" x2="528" y2="124.0" stroke="rgba(17,17,17,0.10)" stroke-dasharray="3 4"></line>
+        <line x1="36" y1="26.0" x2="528" y2="26.0" stroke="rgba(17,17,17,0.07)" stroke-dasharray="3 4"></line>
+        <text x="8" y="30.0" font-size="11" font-family="Arial" fill="#625b52">100%</text>
+        <text x="10" y="128.0" font-size="11" font-family="Arial" fill="#625b52">50%</text>
+        <text x="16" y="226.0" font-size="11" font-family="Arial" fill="#625b52">0%</text>
+        <text x="536" y="30.0" text-anchor="end" font-size="11" font-family="Arial" fill="#0f2742">PWR +20.1</text>
+        <text x="536" y="226.0" text-anchor="end" font-size="11" font-family="Arial" fill="#0f2742">PWR +18.1</text>
+        <g><title>2025: 10-3, margin +203, power +19.1, resume 97 / 100, final rank #17</title><rect x="124.6" y="71.2" width="314.9" height="150.8" rx="10" fill="url(#historyGradient)"></rect></g>
+        
+        <g><title>2025: 10-3, margin +203, power +19.1, resume 97 / 100, final rank #17</title><circle cx="282.0" cy="124.0" r="4.5" fill="#0f2742" stroke="white" stroke-width="2"></circle></g><text x="282.0" y="114.0" text-anchor="middle" font-size="10" font-family="Arial" fill="#0f2742">+19.1</text>
+        <text x="282.0" y="240.0" text-anchor="middle" font-size="11" font-family="Arial" fill="#625b52">2025</text><text x="282.0" y="65.2" text-anchor="middle" font-size="11" font-family="Arial" fill="#111111">10-3</text>
+      </svg>
+    </div>
+    
+        </article>
+
+        <aside class="panel">
+          <div class="section-head">
+            <h2>Conference Journey</h2>
+            <p class="section-note">These eras follow the actual season-specific conference membership stored for each loaded year, not today's alignment.</p>
+          </div>
+          
+    <div class="phase-pill-row">
+      <span class="mini-chip">Conference eras 1</span>
+      <span class="mini-chip">Realignments 0</span>
+    </div>
+    <div class="feature-grid conference-timeline-grid">
+      
+            <article class="feature-card story-card conference-era-card">
+              <span class="feature-rank">FBS</span>
+              <h3>SEC</h3>
+              <p>2025</p>
+              <p class="story-tail">1 seasons</p>
+            </article>
+            
+    </div>
+    
+        </aside>
+      </section>
+
+      <section class="section player-anchor-section" id="historical-snapshot">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Historical Snapshot</h2>
+            <p class="section-note">A fast read on what this program usually is, what its peak looks like, and how the latest season compares.</p>
+          </div>
+          <div class="stat-grid history-snapshot-grid">
+            <article class="stat-card history-snapshot-card">
+              <span>Loaded Seasons</span>
+              <strong>1</strong>
+              <p class="submetric">The number of fully modeled seasons currently attached to this program.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Program Baseline</span>
+              <strong>+19.1</strong>
+              <p class="submetric">A recent multi-year closing-power average. This is the kind of anchor that should matter in preseason priors.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Current Vs. Baseline</span>
+              <strong>+0.0</strong>
+              <p class="submetric">How the current season&#x27;s closing power stacks up against the program&#x27;s recent standard.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Gap To Peak</span>
+              <strong>0.0</strong>
+              <p class="submetric">How far the current season finished below the strongest loaded team in program history.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Peak Loaded Season</span>
+              <strong>2025 | +19.1</strong>
+              <p class="submetric">The strongest closing power this program has posted in the loaded archive.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Best Power Since</span>
+              <strong>Best loaded season</strong>
+              <p class="submetric">No earlier loaded season beat the current closing power.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Best Resume Since</span>
+              <strong>Best loaded season</strong>
+              <p class="submetric">No earlier loaded season beat the current resume.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Best Finish</span>
+              <strong>2025 | #17</strong>
+              <p class="submetric">The highest loaded all-level board finish currently attached to this program.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Best Resume Season</span>
+              <strong>2025 | 97 / 100</strong>
+              <p class="submetric">The strongest body-of-work season currently attached to this program in the loaded archive.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Current Season Standing</span>
+              <strong>Resume #1 | Power #1</strong>
+              <p class="submetric">Where the current season sits inside this program&#x27;s loaded history on the two main scales.</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Program Percentile</span>
+              <strong>Resume 100th | Power 100th</strong>
+              <p class="submetric">A cleaner fan-facing answer to the question: is this near the top of the program&#x27;s arc or just another solid year?</p>
+            </article>
+            
+            <article class="stat-card history-snapshot-card">
+              <span>Best Record</span>
+              <strong>2025 | 10-3</strong>
+              <p class="submetric">The cleanest results season in the loaded archive, regardless of whether it was also the strongest by power.</p>
+            </article>
+            </div>
+        </article>
+      </section>
+
+      <section class="section player-anchor-section" id="current-context">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Current Context</h2>
+            <p class="section-note">The premium fan question is not only "how good is this team?" It is "how good is this season relative to the program I know?"</p>
+          </div>
+          
+    <div class="feature-grid history-snapshot-grid">
+      <article class="stat-card">
+        <span>Current board</span>
+        <strong>#17</strong>
+        <span class="submetric">Where the latest loaded season sits on today's all-level board.</span>
+      </article>
+      <article class="stat-card">
+        <span>Latest season</span>
+        <strong>2025</strong>
+        <span class="submetric">10-3</span>
+      </article>
+      <article class="stat-card">
+        <span>Program baseline</span>
+        <strong>+19.1</strong>
+        <span class="submetric">Recent multi-year closing-power standard.</span>
+      </article>
+      <article class="stat-card">
+        <span>Gap to peak</span>
+        <strong>0.0</strong>
+        <span class="submetric">How far the latest season sits below the program's strongest loaded team.</span>
+      </article>
+    </div>
+    
+        </article>
+      </section>
+
+      <section class="section player-anchor-section" id="program-signals">
+        <div class="section-head">
+          <h2>Program Signals</h2>
+          <p class="section-note">The clearest historical takeaways, written for scan speed.</p>
+        </div>
+        <div class="feature-grid team-story-grid">
+          
+            <article class="feature-card story-card">
+              <span class="feature-rank">Strongest Loaded Team</span>
+              <h3>2025 Season</h3>
+              <p>Ended at power +19.1, record 10-3, and final loaded-board rank #17.</p>
+            </article>
+            
+            <article class="feature-card story-card">
+              <span class="feature-rank">Best Loaded Resume</span>
+              <h3>2025 Season</h3>
+              <p>Resume 97 / 100 with 10 wins and a 77% win rate.</p>
+            </article>
+            
+            <article class="feature-card story-card">
+              <span class="feature-rank">Best Record</span>
+              <h3>10-3</h3>
+              <p>The cleanest loaded season by results came in 2025, with a margin of +203.</p>
+            </article>
+            
+            <article class="feature-card story-card">
+              <span class="feature-rank">Roughest Loaded Season</span>
+              <h3>2025 Season</h3>
+              <p>10-3 with power +19.1 and margin +203.</p>
+            </article>
+            
+        </div>
+      </section>
+
+      <section class="section two-up">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Best Resume Season</h2>
+          </div>
+          <p class="lede" style="margin:0;">2025 | 97 / 100</p>
+          <p class="footer-note">The strongest body-of-work season in the loaded archive for this program.</p>
+        </article>
+
+        <article class="panel">
+          <div class="section-head">
+            <h2>Latest Vs. Standard</h2>
+          </div>
+          <p class="lede" style="margin:0;">+0.0</p>
+          <p class="footer-note">Positive means the latest season closed above the program's recent baseline. Negative means it finished below the standard.</p>
+        </article>
+      </section>
+
+      <section class="section player-anchor-section" id="season-explorer">
+        <div class="section-head">
+          <h2>Season Explorer</h2>
+          <p class="section-note">Every loaded season, with conference era attached to the correct year and filters built for the questions fans actually ask.</p>
+        </div>
+        <div class="board-utility">
+          <div class="board-controls">
+            <label class="board-control board-search">
+              <span>Search Seasons</span>
+              <input id="programSeasonSearch" type="search" placeholder="Search season, lens, conference, or level">
+            </label>
+            <label class="board-control">
+              <span>Conference</span>
+              <select id="programSeasonConferenceFilter">
+                <option value="ALL">All conferences</option>
+                <option value="SEC">SEC</option>
+              </select>
+            </label>
+            <label class="board-control">
+              <span>Lens</span>
+              <select id="programSeasonLensFilter">
+                <option value="ALL">All lenses</option>
+                <option value="Current">Current</option>
+                <option value="Peak power">Peak power</option>
+                <option value="Best resume">Best resume</option>
+                <option value="Best finish">Best finish</option>
+                <option value="Best record">Best record</option>
+                <option value="Above standard">Above standard</option>
+                <option value="Down year">Down year</option>
+                <option value="In range">In range</option>
+              </select>
+            </label>
+            <label class="board-control">
+              <span>Sort</span>
+              <select id="programSeasonSort">
+                <option value="season-desc">Newest seasons</option>
+                <option value="power-desc">Strongest power</option>
+                <option value="resume-desc">Best resume</option>
+                <option value="rank-asc">Best finish</option>
+                <option value="margin-desc">Best margin</option>
+                <option value="wins-desc">Most wins</option>
+              </select>
+            </label>
+          </div>
+          <div class="board-toolbar">
+            <div class="board-status">
+              <strong id="programSeasonVisibleCount">1</strong>
+              <span>seasons visible</span>
+            </div>
+            <button type="button" class="clear-filters" id="clearProgramSeasonFilters">Clear filters</button>
+          </div>
+          <div class="active-filter-row" id="programSeasonActiveFilterRow" hidden></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Season</th>
+                <th>Conference</th>
+                <th>Lens</th>
+                <th>Record</th>
+                <th>Final Rank</th>
+                <th>End Power</th>
+                <th>End Resume</th>
+                <th>Margin</th>
+                <th>Season Page</th>
+              </tr>
+            </thead>
+            <tbody id="programSeasonExplorerBody">
+              
+    <tr
+      class="program-season-row"
+      data-search="2025 sec fbs current this season anchors the current board."
+      data-season="2025"
+      data-conference="SEC"
+      data-lens="Current"
+      data-power="19.0567"
+      data-resume="96.7016"
+      data-rank="17"
+      data-margin="203"
+      data-wins="10"
+    >
+      <td>2025</td>
+      <td>SEC<span class="submetric">FBS</span></td>
+      <td>Current<span class="submetric">This season anchors the current board.</span></td>
+      <td>10-3</td>
+      <td>#17</td>
+      <td>+19.1</td>
+      <td>97</td>
+      <td>+203</td>
+      <td><a class="text-link" href="../teams/vanderbilt.html">Open season page</a></td>
+    </tr>
+    
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script>
+      (() => {
+        const navLinks = Array.from(document.querySelectorAll('[data-player-nav-target]'));
+        const sections = Array.from(document.querySelectorAll('.player-anchor-section[id]'));
+        if (navLinks.length && sections.length) {
+          const setActive = (id) => {
+            navLinks.forEach((link) => {
+              link.classList.toggle('is-active', link.dataset.playerNavTarget === id);
+            });
+          };
+          const observer = new IntersectionObserver((entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible?.target?.id) setActive(visible.target.id);
+          }, { rootMargin: '-20% 0px -55% 0px', threshold: [0.15, 0.35, 0.6] });
+          sections.forEach((section) => observer.observe(section));
+          navLinks.forEach((link) => {
+            link.addEventListener('click', () => setActive(link.dataset.playerNavTarget || ''));
+          });
+        }
+
+        const rows = Array.from(document.querySelectorAll('#programSeasonExplorerBody tr.program-season-row'));
+        if (!rows.length) return;
+
+        const searchInput = document.getElementById('programSeasonSearch');
+        const conferenceFilter = document.getElementById('programSeasonConferenceFilter');
+        const lensFilter = document.getElementById('programSeasonLensFilter');
+        const sortMode = document.getElementById('programSeasonSort');
+        const clearButton = document.getElementById('clearProgramSeasonFilters');
+        const countNode = document.getElementById('programSeasonVisibleCount');
+        const chipRow = document.getElementById('programSeasonActiveFilterRow');
+        const tableBody = document.getElementById('programSeasonExplorerBody');
+
+        const normalized = (value) => (value || '').toString().trim().toLowerCase();
+        const numericValue = (row, key, fallback) => {
+          const raw = row.dataset[key];
+          if (raw === undefined || raw === null || raw === '') return fallback;
+          const parsed = Number(raw);
+          return Number.isFinite(parsed) ? parsed : fallback;
+        };
+        const sorters = {
+          'season-desc': (a, b) => numericValue(b, 'season', 0) - numericValue(a, 'season', 0),
+          'power-desc': (a, b) => numericValue(b, 'power', Number.NEGATIVE_INFINITY) - numericValue(a, 'power', Number.NEGATIVE_INFINITY) || numericValue(b, 'season', 0) - numericValue(a, 'season', 0),
+          'resume-desc': (a, b) => numericValue(b, 'resume', Number.NEGATIVE_INFINITY) - numericValue(a, 'resume', Number.NEGATIVE_INFINITY) || numericValue(b, 'season', 0) - numericValue(a, 'season', 0),
+          'rank-asc': (a, b) => numericValue(a, 'rank', Number.POSITIVE_INFINITY) - numericValue(b, 'rank', Number.POSITIVE_INFINITY) || numericValue(b, 'season', 0) - numericValue(a, 'season', 0),
+          'margin-desc': (a, b) => numericValue(b, 'margin', Number.NEGATIVE_INFINITY) - numericValue(a, 'margin', Number.NEGATIVE_INFINITY) || numericValue(b, 'season', 0) - numericValue(a, 'season', 0),
+          'wins-desc': (a, b) => numericValue(b, 'wins', Number.NEGATIVE_INFINITY) - numericValue(a, 'wins', Number.NEGATIVE_INFINITY) || numericValue(b, 'season', 0) - numericValue(a, 'season', 0),
+        };
+
+        function renderChips(tokens) {
+          if (!chipRow) return;
+          chipRow.innerHTML = '';
+          chipRow.hidden = !tokens.length;
+          tokens.forEach((token) => {
+            const chip = document.createElement('span');
+            chip.className = 'filter-chip';
+            chip.textContent = token;
+            chipRow.appendChild(chip);
+          });
+        }
+
+        function applyState() {
+          const query = normalized(searchInput?.value);
+          const conference = conferenceFilter?.value || 'ALL';
+          const lens = lensFilter?.value || 'ALL';
+          const sorter = sorters[sortMode?.value] || sorters['season-desc'];
+
+          const filtered = rows.filter((row) => {
+            const matchesQuery = !query || (row.dataset.search || '').includes(query);
+            const matchesConference = conference === 'ALL' || row.dataset.conference === conference;
+            const matchesLens = lens === 'ALL' || row.dataset.lens === lens;
+            return matchesQuery && matchesConference && matchesLens;
+          }).sort(sorter);
+
+          filtered.forEach((row) => tableBody.appendChild(row));
+          const visible = new Set(filtered);
+          rows.forEach((row) => {
+            row.hidden = !visible.has(row);
+          });
+          if (countNode) countNode.textContent = String(filtered.length);
+
+          const chips = [];
+          if (query) chips.push(`Search: ${searchInput.value.trim()}`);
+          if (conference !== 'ALL') chips.push(`Conference: ${conference}`);
+          if (lens !== 'ALL') chips.push(`Lens: ${lens}`);
+          if (sortMode?.value && sortMode.value !== 'season-desc') {
+            const option = sortMode.options[sortMode.selectedIndex];
+            if (option?.textContent) chips.push(`Sort: ${option.textContent}`);
+          }
+          renderChips(chips);
+        }
+
+        [searchInput, conferenceFilter, lensFilter, sortMode].forEach((node) => {
+          if (!node) return;
+          node.addEventListener('input', applyState);
+          node.addEventListener('change', applyState);
+        });
+
+        if (clearButton) {
+          clearButton.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            if (conferenceFilter) conferenceFilter.value = 'ALL';
+            if (lensFilter) lensFilter.value = 'ALL';
+            if (sortMode) sortMode.value = 'season-desc';
+            applyState();
+          });
+        }
+
+        applyState();
+      })();
+    </script>
+  </body>
+</html>

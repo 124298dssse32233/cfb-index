@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Big 12 | 2025 Season</title>
+    <link rel="stylesheet" href="/assets/cfb-index.9e9f1251c4c0.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/alpine.min.js" defer></script>
+  
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+  <body>
+    <main class="site-shell" id="main-content">
+      <a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html">THE CFB INDEX</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../hub/vibe-shifts/index.html">Vibe Shifts</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../nfl-pipeline/index.html">NFL Pipeline</a><a class="nav-link" href="../about-model/index.html">The Model</a><a class="nav-link is-current" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+      <section class="hero">
+        <p class="eyebrow">FBS Conference</p>
+        <h1>Big 12</h1>
+        <p class="lede">Big 12 is outperforming its raw power profile. The league body of work is stronger than the market would expect.</p>
+        <div class="chip-row season-chip-row">
+          <span class="mini-chip">#5 overall</span>
+          <span class="mini-chip">#5 in FBS</span>
+          <span class="mini-chip">RR50 +15.3</span>
+          <span class="mini-chip">Upper strength +18.3</span>
+          <span class="mini-chip">16 teams</span>
+          <span class="mini-chip">Top 25 teams 2</span>
+        </div>
+      </section>
+
+      <section class="section two-up">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Conference Snapshot</h2>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card"><span>RR50</span><strong>+15.3</strong></div>
+            <div class="stat-card"><span>Upper Strength</span><strong>+18.3</strong></div>
+            <div class="stat-card"><span>Median Power</span><strong>+15.3</strong></div>
+            <div class="stat-card"><span>Resume Pulse</span><strong>79.3</strong></div>
+            <div class="stat-card"><span>Avg ATS</span><strong>51.5%</strong></div>
+            <div class="stat-card"><span>Wins vs Market</span><strong>-0.18</strong></div>
+            <div class="stat-card"><span>Top-to-Middle Gap</span><strong>7.1</strong></div>
+            <div class="stat-card"><span>Combined Record</span><strong>115-87</strong></div>
+          </div>
+          <p class="footer-note">`RR50`, `Upper Strength`, and `Median Power` are shown on the same public power scale as the rest of the site: points on a neutral field versus the average all-level NCAA team. Very small affiliations are gently regressed toward their subdivision baseline so a one-team outlier does not hijack the entire conference board.</p>
+        </article>
+        <article class="panel">
+          <div class="section-head">
+            <h2>League Drivers</h2>
+          </div>
+          <div class="conference-driver-list">
+            <a class="conference-driver" href="../teams/texas-tech.html">
+              <span class="feature-rank">Power leader</span>
+              <strong>Texas Tech</strong>
+              <span class="submetric">#5 overall | +22.5 pts vs avg</span>
+            </a>
+            <a class="conference-driver" href="../teams/byu.html">
+              <span class="feature-rank">Resume leader</span>
+              <strong>BYU</strong>
+              <span class="submetric">#27 overall | 99 / 100 resume</span>
+            </a>
+            
+            <a class="conference-driver" href="../teams/texas-tech.html">
+              <span class="feature-rank">ATS leader</span>
+              <strong>Texas Tech</strong>
+              <span class="submetric">85.7% cover rate</span>
+            </a>
+            
+            
+            <a class="conference-driver" href="../teams/byu.html">
+              <span class="feature-rank">Beat expectation</span>
+              <strong>BYU</strong>
+              <span class="submetric">+3.06 wins vs market</span>
+            </a>
+            
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Big 12 Team Board</h2>
+            <p class="section-note">The league stack, sorted by predictive strength. Power is shown as neutral-field points versus the all-level average team, while resume is shown on a 0-100 season score.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Team</th>
+                <th>Record</th>
+                <th>Power</th>
+                <th>Resume</th>
+                <th>ATS</th>
+                <th>Wins vs Market</th>
+                <th>Recent Form</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+    <tr>
+      <td class="rank-cell">#5</td>
+      <td><a class="team-link" href="../teams/texas-tech.html">Texas Tech</a></td>
+      <td class="metric-cell">12-2</td>
+      <td class="metric-cell">+22.5</td>
+      <td class="metric-cell">99</td>
+      <td class="metric-cell">12-2</td>
+      <td class="metric-cell">+0.32</td>
+      <td>3-1 over the last 4 (W12 W14 W15 L18)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#8</td>
+      <td><a class="team-link" href="../teams/utah.html">Utah</a></td>
+      <td class="metric-cell">11-2</td>
+      <td class="metric-cell">+21.1</td>
+      <td class="metric-cell">98</td>
+      <td class="metric-cell">9-3</td>
+      <td class="metric-cell">+1.11</td>
+      <td>4-0 over the last 4 (W12 W13 W14 W18)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#26</td>
+      <td><a class="team-link" href="../teams/arizona.html">Arizona</a></td>
+      <td class="metric-cell">9-4</td>
+      <td class="metric-cell">+18.1</td>
+      <td class="metric-cell">94</td>
+      <td class="metric-cell">8-5</td>
+      <td class="metric-cell">+0.91</td>
+      <td>3-1 over the last 4 (W12 W13 W14 L19)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#27</td>
+      <td><a class="team-link" href="../teams/byu.html">BYU</a></td>
+      <td class="metric-cell">12-2</td>
+      <td class="metric-cell">+18.1</td>
+      <td class="metric-cell">99</td>
+      <td class="metric-cell">10-4</td>
+      <td class="metric-cell">+3.06</td>
+      <td>3-1 over the last 4 (W13 W14 L15 W18)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#48</td>
+      <td><a class="team-link" href="../teams/iowa-state.html">Iowa State</a></td>
+      <td class="metric-cell">8-4</td>
+      <td class="metric-cell">+16.5</td>
+      <td class="metric-cell">92</td>
+      <td class="metric-cell">5-7</td>
+      <td class="metric-cell">+0.31</td>
+      <td>3-1 over the last 4 (L10 W11 W13 W14)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#49</td>
+      <td><a class="team-link" href="../teams/kansas-state.html">Kansas State</a></td>
+      <td class="metric-cell">6-6</td>
+      <td class="metric-cell">+16.5</td>
+      <td class="metric-cell">85</td>
+      <td class="metric-cell">5-7</td>
+      <td class="metric-cell">-1.21</td>
+      <td>2-2 over the last 4 (L10 W12 L13 W14)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#52</td>
+      <td><a class="team-link" href="../teams/tcu.html">TCU</a></td>
+      <td class="metric-cell">9-4</td>
+      <td class="metric-cell">+16.4</td>
+      <td class="metric-cell">94</td>
+      <td class="metric-cell">6-6</td>
+      <td class="metric-cell">+0.66</td>
+      <td>3-1 over the last 4 (L12 W13 W14 W18)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#60</td>
+      <td><a class="team-link" href="../teams/houston.html">Houston</a></td>
+      <td class="metric-cell">10-3</td>
+      <td class="metric-cell">+15.6</td>
+      <td class="metric-cell">96</td>
+      <td class="metric-cell">9-4</td>
+      <td class="metric-cell">+1.95</td>
+      <td>3-1 over the last 4 (W11 L13 W14 W18)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#65</td>
+      <td><a class="team-link" href="../teams/arizona-state.html">Arizona State</a></td>
+      <td class="metric-cell">8-5</td>
+      <td class="metric-cell">+15.2</td>
+      <td class="metric-cell">91</td>
+      <td class="metric-cell">6-6</td>
+      <td class="metric-cell">+0.35</td>
+      <td>2-2 over the last 4 (W12 W13 L14 L18)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#98</td>
+      <td><a class="team-link" href="../teams/kansas.html">Kansas</a></td>
+      <td class="metric-cell">5-7</td>
+      <td class="metric-cell">+13.5</td>
+      <td class="metric-cell">72</td>
+      <td class="metric-cell">4-7</td>
+      <td class="metric-cell">-2.11</td>
+      <td>1-3 over the last 4 (W10 L11 L13 L14)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#104</td>
+      <td><a class="team-link" href="../teams/baylor.html">Baylor</a></td>
+      <td class="metric-cell">5-7</td>
+      <td class="metric-cell">+13.2</td>
+      <td class="metric-cell">70</td>
+      <td class="metric-cell">2-10</td>
+      <td class="metric-cell">-1.87</td>
+      <td>1-3 over the last 4 (W10 L12 L13 L14)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#105</td>
+      <td><a class="team-link" href="../teams/cincinnati.html">Cincinnati</a></td>
+      <td class="metric-cell">7-6</td>
+      <td class="metric-cell">+13.2</td>
+      <td class="metric-cell">82</td>
+      <td class="metric-cell">6-7</td>
+      <td class="metric-cell">-0.80</td>
+      <td>0-4 over the last 4 (L12 L13 L14 L18)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#115</td>
+      <td><a class="team-link" href="../teams/ucf.html">UCF</a></td>
+      <td class="metric-cell">5-7</td>
+      <td class="metric-cell">+12.8</td>
+      <td class="metric-cell">62</td>
+      <td class="metric-cell">4-8</td>
+      <td class="metric-cell">-1.61</td>
+      <td>1-3 over the last 4 (L11 L12 W13 L14)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#128</td>
+      <td><a class="team-link" href="../teams/west-virginia.html">West Virginia</a></td>
+      <td class="metric-cell">4-8</td>
+      <td class="metric-cell">+12.1</td>
+      <td class="metric-cell">58</td>
+      <td class="metric-cell">6-6</td>
+      <td class="metric-cell">-0.20</td>
+      <td>2-2 over the last 4 (W10 W11 L12 L14)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#145</td>
+      <td><a class="team-link" href="../teams/colorado.html">Colorado</a></td>
+      <td class="metric-cell">3-9</td>
+      <td class="metric-cell">+11.4</td>
+      <td class="metric-cell">52</td>
+      <td class="metric-cell">6-6</td>
+      <td class="metric-cell">-1.92</td>
+      <td>0-4 over the last 4 (L10 L11 L13 L14)</td>
+    </tr>
+    
+
+    <tr>
+      <td class="rank-cell">#186</td>
+      <td><a class="team-link" href="../teams/oklahoma-state.html">Oklahoma State</a></td>
+      <td class="metric-cell">1-11</td>
+      <td class="metric-cell">+9.6</td>
+      <td class="metric-cell">26</td>
+      <td class="metric-cell">5-6</td>
+      <td class="metric-cell">-1.87</td>
+      <td>0-4 over the last 4 (L10 L12 L13 L14)</td>
+    </tr>
+    
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+      <section class="section two-up">
+        <article class="panel">
+          <div class="section-head"><h2>Biggest Risers</h2><p class="section-note">Week-over-week rank change inside the board.</p></div>
+          <div class="feature-grid scenario-grid"><p class="footer-note">No meaningful risers this week.</p></div>
+        </article>
+        <article class="panel">
+          <div class="section-head"><h2>Biggest Faders</h2><p class="section-note">Teams whose stock dropped most against the board this week.</p></div>
+          <div class="feature-grid scenario-grid"><p class="footer-note">No meaningful faders this week.</p></div>
+        </article>
+      </section>
+    
+      <section class="section two-up">
+        <article class="panel">
+          <div class="section-head"><h2>ATS Leaders</h2><p class="section-note">Who beat the number most often this season.</p></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Team</th><th>Cover Rate</th><th>Record</th></tr></thead>
+              <tbody><tr><td><a class="team-link" href="../teams/texas-tech.html">Texas Tech</a></td><td class="metric-cell">85.7%</td><td><span class="submetric">12-2 ATS</span></td></tr><tr><td><a class="team-link" href="../teams/utah.html">Utah</a></td><td class="metric-cell">75.0%</td><td><span class="submetric">9-3 ATS</span></td></tr><tr><td><a class="team-link" href="../teams/byu.html">BYU</a></td><td class="metric-cell">71.4%</td><td><span class="submetric">10-4 ATS</span></td></tr><tr><td><a class="team-link" href="../teams/houston.html">Houston</a></td><td class="metric-cell">69.2%</td><td><span class="submetric">9-4 ATS</span></td></tr><tr><td><a class="team-link" href="../teams/arizona.html">Arizona</a></td><td class="metric-cell">61.5%</td><td><span class="submetric">8-5 ATS</span></td></tr></tbody>
+            </table>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="section-head"><h2>Wins vs Market</h2><p class="section-note">Win total minus the market's implied expectation, by team.</p></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Team</th><th>Wins vs Market</th><th>Sample</th></tr></thead>
+              <tbody><tr><td><a class="team-link" href="../teams/byu.html">BYU</a></td><td class="metric-cell">+3.06</td><td><span class="submetric">14 lined games</span></td></tr><tr><td><a class="team-link" href="../teams/houston.html">Houston</a></td><td class="metric-cell">+1.95</td><td><span class="submetric">13 lined games</span></td></tr><tr><td><a class="team-link" href="../teams/utah.html">Utah</a></td><td class="metric-cell">+1.11</td><td><span class="submetric">13 lined games</span></td></tr><tr><td><a class="team-link" href="../teams/arizona.html">Arizona</a></td><td class="metric-cell">+0.91</td><td><span class="submetric">13 lined games</span></td></tr><tr><td><a class="team-link" href="../teams/tcu.html">TCU</a></td><td class="metric-cell">+0.66</td><td><span class="submetric">13 lined games</span></td></tr></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Depth &amp; Parity</h2>
+              <p class="section-note">How wide the league's power spread runs from top to bottom.</p>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card"><span>Top Rank</span><strong>#5 Texas Tech</strong></div>
+            <div class="stat-card"><span>Bottom Rank</span><strong>#186 Oklahoma State</strong></div>
+            <div class="stat-card"><span>Top-to-Middle Gap</span><strong>7.1</strong></div>
+            <div class="stat-card"><span>Power Spread</span><strong>3.4</strong></div>
+            <div class="stat-card"><span>Top 25 Teams</span><strong>2</strong></div>
+            <div class="stat-card"><span>Top 100 Teams</span><strong>10</strong></div>
+          </div>
+          <p class="footer-note">Moderately layered — the league has real tiers but no runaway gap between them. Power Spread is the standard deviation of neutral-field power across league members.</p>
+        </article>
+      </section>
+    
+    </main>
+  </body>
+</html>

@@ -1,26 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Vibe Shift card for Old Dominion week 16">
   <defs>
     <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00507d" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#00507d" stop-opacity="0.82"/>
+      <stop offset="0%" stop-color="#1a1a1a" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.82"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="675" fill="url(#bg-grad)"/>
   <!-- Top-left eyebrow -->
   <text x="80" y="92" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="700"
-        letter-spacing="4" font-family="system-ui, -apple-system, sans-serif">WEEK 16 · 2025 · VIBE SHIFT #7</text>
+        letter-spacing="4" font-family="system-ui, -apple-system, sans-serif">WEEK 16 · 2025 · VIBE SHIFT #8</text>
   <!-- Team name -->
   <text x="80" y="200" fill="#FFFFFF" font-size="92" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"
         textLength="600" lengthAdjust="spacingAndGlyphs">Old Dominion</text>
   <text x="80" y="244" fill="rgba(255,255,255,0.78)" font-size="24" font-weight="600"
-        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">CONFERENCE USA</text>
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">SUN BELT</text>
   <!-- Delta hero number -->
   <text x="80" y="380" fill="#7cf3a8" font-size="160" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"
-        font-variant-numeric="tabular-nums">▲ +1.19</text>
+        font-variant-numeric="tabular-nums">▲ +1.15</text>
   <text x="80" y="420" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="600"
-        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">POWER RATING SHIFT &nbsp;&nbsp;6.0 → 7.2</text>
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">POWER RATING SHIFT &nbsp;&nbsp;5.9 → 7.1</text>
   <!-- Component chips -->
   
         <g>
@@ -32,7 +32,7 @@
           <text x="200.0" y="534" fill="#ff7575"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">-0.34</text>
+                font-variant-numeric="tabular-nums">-0.40</text>
         </g>
         
         <g>
@@ -44,7 +44,7 @@
           <text x="460.0" y="534" fill="#7cf3a8"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">+1.82</text>
+                font-variant-numeric="tabular-nums">+1.75</text>
         </g>
         
         <g>
@@ -53,10 +53,10 @@
           <text x="720.0" y="500" fill="rgba(255,255,255,0.78)"
                 text-anchor="middle" font-size="20" font-weight="600"
                 font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">ST</text>
-          <text x="720.0" y="534" fill="#ff7575"
+          <text x="720.0" y="534" fill="rgba(255,255,255,0.78)"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">-0.04</text>
+                font-variant-numeric="tabular-nums">+0.00</text>
         </g>
         
         <g>
@@ -68,7 +68,7 @@
           <text x="980.0" y="534" fill="#7cf3a8"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">+0.38</text>
+                font-variant-numeric="tabular-nums">+0.42</text>
         </g>
         
   <!-- Game context -->

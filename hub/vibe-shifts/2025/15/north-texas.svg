@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Vibe Shift card for North Texas week 15">
   <defs>
     <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00853E" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#00853E" stop-opacity="0.82"/>
+      <stop offset="0%" stop-color="#1a1a1a" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.82"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="675" fill="url(#bg-grad)"/>
@@ -14,13 +14,13 @@
         font-family="system-ui, -apple-system, sans-serif"
         textLength="550" lengthAdjust="spacingAndGlyphs">North Texas</text>
   <text x="80" y="244" fill="rgba(255,255,255,0.78)" font-size="24" font-weight="600"
-        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">CONFERENCE USA</text>
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">AMERICAN ATHLETIC</text>
   <!-- Delta hero number -->
   <text x="80" y="380" fill="#ff7575" font-size="160" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"
-        font-variant-numeric="tabular-nums">▼ -1.29</text>
+        font-variant-numeric="tabular-nums">▼ -1.39</text>
   <text x="80" y="420" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="600"
-        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">POWER RATING SHIFT &nbsp;&nbsp;7.8 → 6.5</text>
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">POWER RATING SHIFT &nbsp;&nbsp;8.7 → 7.3</text>
   <!-- Component chips -->
   
         <g>
@@ -32,7 +32,7 @@
           <text x="200.0" y="534" fill="#ff7575"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">-1.63</text>
+                font-variant-numeric="tabular-nums">-1.62</text>
         </g>
         
         <g>
@@ -44,7 +44,7 @@
           <text x="460.0" y="534" fill="#ff7575"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">-0.38</text>
+                font-variant-numeric="tabular-nums">-0.37</text>
         </g>
         
         <g>
@@ -68,7 +68,7 @@
           <text x="980.0" y="534" fill="#ff7575"
                 text-anchor="middle" font-size="32" font-weight="800"
                 font-family="system-ui, -apple-system, sans-serif"
-                font-variant-numeric="tabular-nums">-0.76</text>
+                font-variant-numeric="tabular-nums">-0.73</text>
         </g>
         
   <!-- Game context -->
