@@ -121,6 +121,9 @@ jobs:
               )
           PY
 
+      - name: Inject team logos into rankings
+        run: python tools/inject_rankings_logos.py
+
       - name: Refresh methodology + freshness pages
         run: |
           set +e
