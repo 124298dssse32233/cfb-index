@@ -124,6 +124,16 @@ jobs:
       - name: Inject team logos into rankings
         run: python tools/inject_rankings_logos.py
 
+      - name: Build /compare/ landing page (World-Class plan Phase 3.2)
+        run: |
+          set +e
+          python -m pip install pyyaml --quiet 2>&1 | tail -3
+          python tools/wcfb_enhancements/build_compare.py
+          echo "done"
+
+      - name: Install World-Class enhancement layer (CSS+JS+HTML inject)
+        run: python tools/wcfb_enhancements/install.py
+
       - name: Write .vercelignore for published branch
         run: python tools/write_published_vercelignore.py
 

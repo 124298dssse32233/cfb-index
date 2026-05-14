@@ -1,0 +1,556 @@
+/* ============================================================================
+ * wcfb-enhancements.css — World-Class CFB Index visual layer
+ * Loaded site-wide. ALL selectors namespaced with `wcfb-` or scoped under
+ * `[data-wcfb-page]`/data attrs so they cannot collide with existing styles.
+ *
+ * Adapts to both the light (newspaper) home/rankings theme and the dark
+ * (iMessage-native) team/player theme via media queries + CSS variable
+ * detection of an existing dark surface.
+ *
+ * Generated 2026-05-14 — see WORLD_CLASS_CFB_INDEX_MASTER_PLAN.md
+ * ========================================================================= */
+
+/* -------- Theme detection ------------------------------------------------ */
+/* Default: light/newspaper context. Dark context overrides below. */
+:root {
+  --wcfb-accent: #c9a24a;
+  --wcfb-accent-strong: #a8852f;
+  --wcfb-rise: #2f8d4d;
+  --wcfb-fall: #c04a4a;
+  --wcfb-elite: #c9a24a;
+  --wcfb-concern: #d9845e;
+  --wcfb-bg-card: #ffffff;
+  --wcfb-bg-card-raised: #fafaf6;
+  --wcfb-fg-primary: #1a1a1a;
+  --wcfb-fg-muted: #7a7a7a;
+  --wcfb-stroke: rgba(26, 26, 26, 0.14);
+  --wcfb-stroke-strong: rgba(26, 26, 26, 0.32);
+  --wcfb-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --wcfb-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.10);
+  --wcfb-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.16);
+  --wcfb-radius-sm: 6px;
+  --wcfb-radius-md: 10px;
+  --wcfb-radius-lg: 16px;
+  --wcfb-tx-fast: 120ms cubic-bezier(.2,.6,.2,1);
+  --wcfb-tx-med: 240ms cubic-bezier(.2,.6,.2,1);
+  --wcfb-tx-slow: 480ms cubic-bezier(.2,.6,.2,1);
+}
+
+/* Dark theme detection — team & player pages set --bg-0 to a dark hex */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --wcfb-bg-card: #171b24;
+    --wcfb-bg-card-raised: #1e2330;
+    --wcfb-fg-primary: #f5f6fa;
+    --wcfb-fg-muted: #8a90a1;
+    --wcfb-stroke: rgba(255, 255, 255, 0.08);
+    --wcfb-stroke-strong: rgba(255, 255, 255, 0.18);
+    --wcfb-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45);
+    --wcfb-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.55);
+    --wcfb-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.65);
+  }
+}
+
+/* Hard override when a page declares it's a dark page (team/player) */
+html[data-wcfb-theme="dark"] {
+  --wcfb-bg-card: #171b24;
+  --wcfb-bg-card-raised: #1e2330;
+  --wcfb-fg-primary: #f5f6fa;
+  --wcfb-fg-muted: #8a90a1;
+  --wcfb-stroke: rgba(255, 255, 255, 0.08);
+  --wcfb-stroke-strong: rgba(255, 255, 255, 0.18);
+}
+
+/* -------- 1.2 Progressive disclosure -------------------------------------- */
+/* Improve native <details>/<summary> across the site without altering markup */
+details.wcfb-disclosure,
+.wcfb-progressive details {
+  border: 1px solid var(--wcfb-stroke);
+  border-radius: var(--wcfb-radius-md);
+  padding: 0;
+  margin: 16px 0;
+  background: var(--wcfb-bg-card);
+  overflow: hidden;
+  transition: box-shadow var(--wcfb-tx-fast);
+}
+details.wcfb-disclosure[open],
+.wcfb-progressive details[open] {
+  box-shadow: var(--wcfb-shadow-md);
+}
+details.wcfb-disclosure > summary,
+.wcfb-progressive details > summary {
+  padding: 14px 18px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+}
+details.wcfb-disclosure > summary::-webkit-details-marker,
+.wcfb-progressive details > summary::-webkit-details-marker { display: none; }
+details.wcfb-disclosure > summary::after,
+.wcfb-progressive details > summary::after {
+  content: "▾";
+  font-size: 11px;
+  color: var(--wcfb-fg-muted);
+  transition: transform var(--wcfb-tx-fast);
+}
+details.wcfb-disclosure[open] > summary::after,
+.wcfb-progressive details[open] > summary::after {
+  transform: rotate(180deg);
+}
+details.wcfb-disclosure > *:not(summary),
+.wcfb-progressive details > *:not(summary) {
+  padding: 0 18px 18px;
+}
+
+/* Stat tile cluster (5-second-scan) */
+.wcfb-stat-cluster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.wcfb-stat-tile {
+  background: var(--wcfb-bg-card);
+  border: 1px solid var(--wcfb-stroke);
+  border-radius: var(--wcfb-radius-md);
+  padding: 14px 16px;
+  text-align: left;
+  transition: transform var(--wcfb-tx-fast), box-shadow var(--wcfb-tx-fast);
+}
+.wcfb-stat-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--wcfb-shadow-md);
+}
+.wcfb-stat-tile__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wcfb-fg-muted);
+}
+.wcfb-stat-tile__value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 4px;
+  color: var(--wcfb-fg-primary);
+}
+.wcfb-stat-tile__delta {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.wcfb-stat-tile__delta--up   { color: var(--wcfb-rise); }
+.wcfb-stat-tile__delta--down { color: var(--wcfb-fall); }
+
+/* -------- 1.3 Emoji & icon signposts -------------------------------------- */
+/* JS adds these classes to spans wrapping deltas, "elite", etc.            */
+.wcfb-sign-up::before    { content: "📈 "; }
+.wcfb-sign-down::before  { content: "📉 "; }
+.wcfb-sign-elite::before { content: "🌟 "; }
+.wcfb-sign-warn::before  { content: "⚠️ "; }
+.wcfb-sign-fire::before  { content: "🔥 "; }
+.wcfb-sign-cold::before  { content: "🥶 "; }
+.wcfb-sign-clutch::before { content: "🎯 "; }
+
+/* Subtle inline-only decoration: don't crowd dense tables */
+.wcfb-sign-up, .wcfb-sign-down, .wcfb-sign-elite,
+.wcfb-sign-warn, .wcfb-sign-fire, .wcfb-sign-cold, .wcfb-sign-clutch {
+  white-space: nowrap;
+}
+
+/* -------- 3.1 Interactive tooltip ----------------------------------------- */
+/* JS wraps glossary terms / metrics with [data-wcfb-tip]; CSS does the work */
+[data-wcfb-tip] {
+  position: relative;
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+}
+[data-wcfb-tip]:focus-visible {
+  outline: 2px solid var(--wcfb-accent);
+  outline-offset: 2px;
+}
+.wcfb-tip-pop {
+  position: absolute;
+  z-index: 1000;
+  max-width: min(320px, 90vw);
+  background: var(--wcfb-fg-primary);
+  color: var(--wcfb-bg-card);
+  padding: 10px 12px;
+  border-radius: var(--wcfb-radius-sm);
+  font-size: 13px;
+  line-height: 1.45;
+  box-shadow: var(--wcfb-shadow-lg);
+  font-family: var(--sans, 'Inter', system-ui, sans-serif);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--wcfb-tx-fast), transform var(--wcfb-tx-fast);
+}
+.wcfb-tip-pop[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.wcfb-tip-pop::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 16px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid var(--wcfb-fg-primary);
+}
+
+/* -------- 4.1 Skeleton screens (loading) ---------------------------------- */
+.wcfb-skeleton {
+  background: linear-gradient(90deg,
+    var(--wcfb-stroke) 0%,
+    var(--wcfb-stroke-strong) 50%,
+    var(--wcfb-stroke) 100%);
+  background-size: 200% 100%;
+  animation: wcfb-shimmer 1.4s infinite linear;
+  border-radius: var(--wcfb-radius-sm);
+  display: inline-block;
+}
+@keyframes wcfb-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* -------- 4.2 Micro-interactions ------------------------------------------ */
+/* Card lift on hover for any element marked with .wcfb-lift */
+.wcfb-lift {
+  transition: transform var(--wcfb-tx-med), box-shadow var(--wcfb-tx-med);
+}
+.wcfb-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--wcfb-shadow-lg);
+}
+
+/* Subtle button press for any element marked .wcfb-press */
+.wcfb-press:active { transform: scale(0.97); }
+
+/* Link underline grow (Phase 4.2) */
+a.wcfb-link {
+  position: relative;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--wcfb-tx-med);
+}
+a.wcfb-link:hover { background-size: 100% 2px; }
+
+/* Existing site links — opt-in via attribute on container */
+[data-wcfb-links="grow"] a:not([class]) {
+  position: relative;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  text-decoration: none;
+  transition: background-size var(--wcfb-tx-med);
+}
+[data-wcfb-links="grow"] a:not([class]):hover { background-size: 100% 1px; }
+
+/* -------- 4.3 Scroll-based reveals ---------------------------------------- */
+.wcfb-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--wcfb-tx-slow), transform var(--wcfb-tx-slow);
+  will-change: opacity, transform;
+}
+.wcfb-reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wcfb-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* -------- 6.1 Mobile bottom navigation ------------------------------------ */
+/* Hidden by default; shown only on narrow viewports                         */
+.wcfb-bottom-nav {
+  display: none;
+}
+@media (max-width: 720px) {
+  .wcfb-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--wcfb-bg-card);
+    border-top: 1px solid var(--wcfb-stroke);
+    padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
+    justify-content: space-around;
+    align-items: stretch;
+    font-family: 'Inter', system-ui, sans-serif;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  }
+  .wcfb-bottom-nav a {
+    flex: 1;
+    text-align: center;
+    color: var(--wcfb-fg-muted);
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-height: 44px;
+    transition: color var(--wcfb-tx-fast);
+  }
+  .wcfb-bottom-nav a[aria-current="page"] { color: var(--wcfb-fg-primary); }
+  .wcfb-bottom-nav a:hover { color: var(--wcfb-accent); }
+  .wcfb-bottom-nav__icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+  /* Reserve bottom space so fixed nav doesn't cover content */
+  body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+}
+
+/* -------- 6.2 Table → Card transformation on mobile ----------------------- */
+/* Opt-in: any <table data-wcfb-card-mobile> becomes stacked cards <720px    */
+@media (max-width: 720px) {
+  table[data-wcfb-card-mobile] thead { display: none; }
+  table[data-wcfb-card-mobile],
+  table[data-wcfb-card-mobile] tbody,
+  table[data-wcfb-card-mobile] tr,
+  table[data-wcfb-card-mobile] td {
+    display: block;
+    width: 100%;
+  }
+  table[data-wcfb-card-mobile] tr {
+    background: var(--wcfb-bg-card);
+    border: 1px solid var(--wcfb-stroke);
+    border-radius: var(--wcfb-radius-md);
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    box-shadow: var(--wcfb-shadow-sm);
+  }
+  table[data-wcfb-card-mobile] td {
+    padding: 4px 0;
+    border: none;
+    text-align: left;
+  }
+  table[data-wcfb-card-mobile] td[data-label]::before {
+    content: attr(data-label) ": ";
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--wcfb-fg-muted);
+    display: inline-block;
+    min-width: 90px;
+  }
+}
+
+/* -------- 6.x Touch target + readability fixes (mobile) ------------------- */
+@media (max-width: 720px) {
+  .wcfb-touch a,
+  .wcfb-touch button,
+  .wcfb-touch [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* -------- 7.4 Probability dials ------------------------------------------- */
+/* Inline conic-gradient ring driven by --p (0..100)                         */
+.wcfb-dial {
+  --p: 50;
+  --dial-size: 64px;
+  --dial-track: var(--wcfb-stroke);
+  --dial-color: var(--wcfb-accent);
+  width: var(--dial-size);
+  height: var(--dial-size);
+  border-radius: 50%;
+  background: conic-gradient(var(--dial-color) calc(var(--p) * 1%), var(--dial-track) 0);
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.wcfb-dial::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--wcfb-bg-card);
+}
+.wcfb-dial__label {
+  position: relative;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--wcfb-fg-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.wcfb-dial--lg { --dial-size: 96px; }
+.wcfb-dial--lg .wcfb-dial__label { font-size: 18px; }
+
+/* Color-by-probability bins */
+.wcfb-dial[data-band="low"]    { --dial-color: var(--wcfb-fall); }
+.wcfb-dial[data-band="medium"] { --dial-color: #d9845e; }
+.wcfb-dial[data-band="high"]   { --dial-color: var(--wcfb-rise); }
+
+/* -------- /compare/ page styling ------------------------------------------ */
+.wcfb-compare {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--wcfb-fg-primary);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.wcfb-compare__title {
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+.wcfb-compare__lede {
+  font-size: 16px;
+  color: var(--wcfb-fg-muted);
+  margin: 0 0 32px;
+  max-width: 60ch;
+}
+.wcfb-compare__pickers {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.wcfb-compare__vs {
+  font-family: 'Source Serif Pro', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--wcfb-fg-muted);
+  letter-spacing: 0.04em;
+}
+.wcfb-compare__picker {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--wcfb-bg-card);
+  border: 1px solid var(--wcfb-stroke);
+  border-radius: var(--wcfb-radius-md);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--wcfb-fg-primary);
+  appearance: none;
+  cursor: pointer;
+}
+.wcfb-compare__picker:focus-visible {
+  outline: 2px solid var(--wcfb-accent);
+  outline-offset: 2px;
+}
+.wcfb-compare__panes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 720px) {
+  .wcfb-compare__pickers { grid-template-columns: 1fr; }
+  .wcfb-compare__panes   { grid-template-columns: 1fr; }
+  .wcfb-compare__vs      { display: none; }
+}
+.wcfb-compare__pane {
+  background: var(--wcfb-bg-card);
+  border: 1px solid var(--wcfb-stroke);
+  border-radius: var(--wcfb-radius-lg);
+  padding: 24px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.wcfb-compare__pane-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--wcfb-stroke);
+}
+.wcfb-compare__pane-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.wcfb-compare__pane-name {
+  font-family: 'Source Serif Pro', serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+.wcfb-compare__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--wcfb-stroke);
+}
+.wcfb-compare__row-label {
+  color: var(--wcfb-fg-muted);
+  font-weight: 500;
+}
+.wcfb-compare__row-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.wcfb-compare__empty {
+  text-align: center;
+  color: var(--wcfb-fg-muted);
+  padding: 60px 20px;
+  font-style: italic;
+}
+
+/* -------- Toolbar / "Floating-bottom" CTA --------------------------------- */
+.wcfb-cta-fab {
+  position: fixed;
+  bottom: 90px;
+  right: 16px;
+  z-index: 90;
+  background: var(--wcfb-accent);
+  color: #1a1a1a;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: var(--wcfb-shadow-lg);
+  transition: transform var(--wcfb-tx-fast);
+}
+.wcfb-cta-fab:hover { transform: translateY(-2px); }
+@media (min-width: 721px) {
+  .wcfb-cta-fab { bottom: 24px; }
+}
+
+/* -------- Helpers --------------------------------------------------------- */
+.wcfb-sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
