@@ -208,9 +208,27 @@ jobs:
       - name: Push to published branch
         if: success()
         run: |
-          set +e
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Stage the built site outside the working tree so the branch
+          # switch doesn't fail on dirty working-dir. Historical bug
+          # (fixed 2026-05-14): `git checkout -B published origin/published`
+          # would silently fail because output/site/** has uncommitted
+          # changes from the build step, the commit would land on master
+          # locally, and `git push origin published --force-with-lease`
+          # would then fail (because local published was untouched) —
+          # the failure was swallowed by `|| echo "publish push failed"`,
+          # so the workflow reported success while no deploy happened.
+          SITE_TMP="$(mktemp -d)"
+          cp -a output/site/. "$SITE_TMP/"
+
+          # Discard build artifacts so checkout proceeds cleanly. The
+          # source-of-truth is master; nothing here is worth saving.
+          git reset --hard HEAD
+          git clean -fdx
+
           git fetch origin published || true
           if git show-ref --verify --quiet refs/remotes/origin/published; then
             git checkout -B published origin/published
@@ -218,9 +236,24 @@ jobs:
             git checkout --orphan published
             git rm -rf . 2>/dev/null || true
           fi
-          mkdir -p ./
-          rm -rf ./assets ./rankings ./teams ./players ./heisman ./hub ./methodology ./editions ./archive ./programs ./history ./conferences ./compare ./matchups ./about-model || true
-          cp -r output/site/* ./
+
+          # Replace the deploy tree with the freshly-built site.
+          rm -rf ./assets ./rankings ./teams ./players ./heisman ./hub ./methodology ./editions ./archive ./programs ./history ./conferences ./compare ./matchups ./about-model ./output || true
+          cp -a "$SITE_TMP"/. ./
+          rm -rf "$SITE_TMP"
+
           git add -A
-          git commit -m "publish: weekly rebuild $(date -u +%Y-%m-%dT%H:%MZ)" || echo "nothing to commit"
-          git push origin published --force-with-lease || echo "publish push failed (token perms?)"
+          if git diff --cached --quiet; then
+            echo "nothing to commit — published is already up to date"
+            exit 0
+          fi
+          git commit -m "publish: weekly rebuild $(date -u +%Y-%m-%dT%H:%MZ)"
+
+          # Push and verify. Hard-fail on push errors so we never again
+          # report a successful workflow while the deploy quietly fell
+          # on the floor.
+          if ! git push origin published --force-with-lease; then
+            echo "::error::failed to push to published branch — check GITHUB_TOKEN contents:write permission"
+            exit 1
+          fi
+          echo "✓ pushed $(git rev-parse --short HEAD) to origin/published"
