@@ -25249,7 +25249,7 @@ def _site_css() -> str:
       .defense .efficiency-fill { background: var(--team-red); }
 
       /* Profile bars (compare) */
-      .profile-bars { display: flex; flex-direction: column; gap: 12px; }
+      .profile-bars { display: flex; flex-direction: column; gap: 6px; }
       .profile-row { display: grid; grid-template-columns: 110px 1fr 60px; gap: 10px; align-items: center; font-size: 13px; }
       .profile-label { color: var(--muted-foreground); text-transform: uppercase; font-size: 11px; letter-spacing: 0.08em; }
       .profile-self, .profile-comp {
@@ -25259,6 +25259,14 @@ def _site_css() -> str:
         background: var(--primary);
       }
       .profile-comp { background: var(--team-blue); }
+      .bar-self, .bar-comp {
+        display: block;
+        height: 8px;
+        min-width: 2px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+      .bar-comp { background: var(--team-blue); opacity: 0.85; }
       .profile-legend { display: flex; gap: 16px; font-size: 12px; color: var(--muted-foreground); }
       .profile-legend span::before {
         content: '';
@@ -25405,7 +25413,54 @@ def _site_css() -> str:
         border-radius: 50%;
         background: currentColor;
       }
-      .journey-marker-layer { pointer-events: none; }
+      .journey-marker-layer { pointer-events: none; position: absolute; inset: 0; }
+      .journey-point {
+        position: absolute;
+        width: var(--point-size, 14px);
+        height: var(--point-size, 14px);
+        padding: 0;
+        margin: 0;
+        border-radius: 50%;
+        background: var(--muted-foreground);
+        border: 2px solid var(--card);
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        pointer-events: auto;
+        appearance: none;
+        -webkit-appearance: none;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+        transition: transform 120ms ease, box-shadow 120ms ease;
+      }
+      .journey-point.up    { background: #2f9e5a; }
+      .journey-point.down  { background: #c43d2a; }
+      .journey-point.flat  { background: #9aa0a6; }
+      .journey-point.start { background: var(--foreground); }
+      .journey-point.opp-FBS  { border-color: var(--team-blue); }
+      .journey-point.opp-FCS  { border-color: var(--team-green); }
+      .journey-point.opp-DII  { border-color: var(--team-orange); }
+      .journey-point.opp-DIII { border-color: var(--team-purple); }
+      .journey-point.opp-NA   { border-color: var(--card); }
+      .journey-point:hover,
+      .journey-point:focus-visible {
+        transform: translate(-50%, -50%) scale(1.25);
+        outline: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+        z-index: 4;
+      }
+      .journey-point.is-selected {
+        transform: translate(-50%, -50%) scale(1.35);
+        box-shadow: 0 0 0 2px var(--foreground), 0 2px 8px rgba(0,0,0,0.3);
+        z-index: 5;
+      }
+      .journey-swatch.up    { background: #2f9e5a; }
+      .journey-swatch.down  { background: #c43d2a; }
+      .journey-swatch.flat  { background: #9aa0a6; }
+      .journey-swatch.ring  {
+        background: transparent;
+        border: 2px solid var(--team-blue);
+        width: 12px; height: 12px;
+      }
+
       .journey-tooltip {
         position: absolute;
         background: var(--card);
@@ -25415,7 +25470,11 @@ def _site_css() -> str:
         box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         font-size: 12px;
         pointer-events: none;
+        transform: translate(-50%, -100%);
+        max-width: 260px;
+        z-index: 6;
       }
+      .journey-tooltip[data-place="below"] { transform: translate(-50%, 0); }
       .journey-tooltip-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-foreground); }
       .journey-tooltip-grid {
         display: grid;
@@ -25442,6 +25501,47 @@ def _site_css() -> str:
         color: var(--muted-foreground);
       }
       .journey-highlight-meta { font-size: 12px; color: var(--muted-foreground); margin-top: 4px; }
+
+      /* Weekly delta chart */
+      .delta-grid {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        padding: 12px 4px 4px;
+        overflow-x: auto;
+      }
+      .delta-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        min-width: 38px;
+        flex: 0 0 auto;
+      }
+      .delta-bar {
+        width: 22px;
+        border-radius: 6px 6px 2px 2px;
+        background: var(--muted-foreground);
+        transition: filter 120ms ease;
+      }
+      .delta-bar.positive { background: #2f9e5a; }
+      .delta-bar.negative { background: #c43d2a; }
+      .delta-bar.missing  {
+        background: repeating-linear-gradient(45deg, var(--border) 0 4px, var(--secondary) 4px 8px);
+        border: 1px dashed var(--border-strong);
+      }
+      .delta-bar:hover { filter: brightness(1.08); }
+      .delta-week {
+        font: 600 11px/1 var(--font-sans);
+        color: var(--muted-foreground);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .delta-label {
+        font-size: 11px;
+        color: var(--foreground);
+        font-variant-numeric: tabular-nums;
+      }
 
       /* Power vs Resume plot */
       .power-resume-module {
@@ -25522,6 +25622,41 @@ def _site_css() -> str:
       .power-resume-legend-point.level-DII { background: var(--team-orange); }
       .power-resume-legend-point.level-DIII { background: var(--team-purple); }
 
+      .power-resume-point {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        margin: 0;
+        border: 1.5px solid rgba(255,255,255,0.85);
+        border-radius: 50%;
+        background: var(--team-blue);
+        transform: translate(-50%, 50%);
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.18);
+        transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      .power-resume-point.level-FBS { background: var(--team-blue); }
+      .power-resume-point.level-FCS { background: var(--team-green); }
+      .power-resume-point.level-DII { background: var(--team-orange); }
+      .power-resume-point.level-DIII { background: var(--team-purple); }
+      .power-resume-point:hover,
+      .power-resume-point:focus-visible {
+        transform: translate(-50%, 50%) scale(1.6);
+        z-index: 4;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.28);
+      }
+      .power-resume-point.is-selected {
+        transform: translate(-50%, 50%) scale(1.8);
+        z-index: 5;
+        border-color: var(--foreground);
+        box-shadow: 0 0 0 2px var(--card), 0 2px 8px rgba(0,0,0,0.3);
+      }
+      .power-resume-point.is-muted { opacity: 0.18; }
+
       .power-resume-layout {
         display: grid;
         grid-template-columns: 1fr;
@@ -25594,7 +25729,11 @@ def _site_css() -> str:
         font-size: 11px;
         pointer-events: none;
         white-space: nowrap;
+        transform: translate(-50%, calc(100% + 14px));
       }
+      .power-resume-tag.is-left { transform: translate(-100%, calc(100% + 14px)); }
+      .power-resume-tag.is-low { transform: translate(-50%, -14px); }
+      .power-resume-tag.is-left.is-low { transform: translate(-100%, -14px); }
       .power-resume-axis-footer {
         display: flex;
         justify-content: space-between;
