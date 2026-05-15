@@ -23,16 +23,33 @@ def _table_exists(db: Database, table: str) -> bool:
 def apply_sql_migrations(db: Database) -> list[str]:
     """Apply every .sql file in the migrations/ directory, idempotently.
 
-    Tracked in `schema_migrations` once created by the earliest file.
-    Files must be CREATE IF NOT EXISTS / CREATE INDEX IF NOT EXISTS style —
-    column additions on existing tables belong in ``apply_runtime_migrations``
-    because SQLite ALTER TABLE is not idempotent.
+    Tracked in `schema_migrations` once created by the earliest file. Files
+    recorded in `schema_migrations` are skipped on subsequent runs so that
+    non-idempotent statements (e.g. ``ALTER TABLE ... ADD COLUMN``) are safe
+    to land in .sql files for v5-1 onwards. Historically the rule was that
+    files had to be CREATE IF NOT EXISTS only and column additions had to
+    move into ``apply_runtime_migrations``; both patterns are now supported.
+
+    Returns the list of file names that were applied this invocation (i.e.
+    excludes those already recorded in ``schema_migrations``).
     """
     if not _MIGRATIONS_DIR.exists():
         return []
     applied: list[str] = []
     files = sorted(p for p in _MIGRATIONS_DIR.glob("*.sql") if p.is_file())
     for path in files:
+        # Skip files already recorded in schema_migrations (table created by
+        # the earliest migration). On the first ever run schema_migrations
+        # does not yet exist, so the check short-circuits and every file
+        # runs once. After the first apply, this guard keeps non-idempotent
+        # statements from re-executing.
+        if _table_exists(db, "schema_migrations"):
+            row = db.query_one(
+                "select 1 from schema_migrations where migration_id = :mid",
+                {"mid": path.name},
+            )
+            if row is not None:
+                continue
         db.apply_sql_file(path)
         if _table_exists(db, "schema_migrations"):
             db.execute(
