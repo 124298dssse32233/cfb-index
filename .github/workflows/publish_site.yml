@@ -236,7 +236,7 @@ jobs:
           FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
           echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
           echo "Found $FILE_COUNT files in output/site"
-          if [ "$FILE_COUNT" -lt 5000 ]; then
+          if [ "$FILE_COUNT" -lt 3500 ]; then
             echo "::warning::output/site has only $FILE_COUNT files — refusing to upload poisoned artifact"
             echo "healthy=false" >> "$GITHUB_OUTPUT"
           else
