@@ -42,6 +42,233 @@ from typing import Any, Callable
 
 log = logging.getLogger(__name__)
 _telemetry_log = logging.getLogger("cfb_rankings.llm_runtime.telemetry")
+_cost_log = logging.getLogger("cfb_rankings.llm_runtime.cost")
+
+
+# ---------------------------------------------------------------------------
+# Cost model — per-model rates + CostMeter for per-workflow ceiling
+# ---------------------------------------------------------------------------
+
+# Anthropic pricing as of May 2026. ``cache_write_5m`` is the default
+# ephemeral cache rate; ``cache_write_1h`` is the 1-hour TTL released
+# Jan 2026. Rates are USD per token (price-per-million divided by 1M).
+MODEL_RATES: dict[str, dict[str, float]] = {
+    "claude-opus-4-7": {
+        "input": 15.00 / 1_000_000,
+        "output": 75.00 / 1_000_000,
+        "cache_read": 1.50 / 1_000_000,
+        "cache_write_5m": 18.75 / 1_000_000,
+        "cache_write_1h": 30.00 / 1_000_000,
+    },
+    "claude-sonnet-4-6": {
+        "input": 3.00 / 1_000_000,
+        "output": 15.00 / 1_000_000,
+        "cache_read": 0.30 / 1_000_000,
+        "cache_write_5m": 3.75 / 1_000_000,
+        "cache_write_1h": 6.00 / 1_000_000,
+    },
+    "claude-haiku-4-5": {
+        "input": 1.00 / 1_000_000,
+        "output": 5.00 / 1_000_000,
+        "cache_read": 0.10 / 1_000_000,
+        "cache_write_5m": 1.25 / 1_000_000,
+        "cache_write_1h": 2.00 / 1_000_000,
+    },
+}
+# Match the date-suffixed variant some surfaces request.
+MODEL_RATES["claude-haiku-4-5-20251001"] = MODEL_RATES["claude-haiku-4-5"]
+
+
+# Batch API discount: 50% off both input and output tokens. Cache rates
+# (read + write) are NOT additionally discounted by the Batch API per
+# Anthropic's published pricing — only the non-cached input + output.
+BATCH_DISCOUNT = 0.50
+
+
+class CostCeilingExceeded(RuntimeError):
+    """Raised by ``CostMeter.record`` when the running total exceeds the
+    configured ceiling. Caller should let this propagate to halt the
+    workflow rather than swallowing it — racing past a budget cap is
+    the GitHub #37686 horror story we're trying to prevent."""
+
+
+class CostMeter:
+    """Per-workflow-run cost ceiling. Hard-fails if exceeded.
+
+    Prevents runaway critique-loop bugs from racking up unintended bills.
+    Wire one instance per workflow entry point::
+
+        meter = CostMeter(ceiling_usd=15.0, label='world_class_enrich')
+        # then on every generate call:
+        cost = meter.record(model_id, usage, is_batch=False)
+
+    ``usage`` accepts:
+      - an Anthropic SDK ``response.usage`` attribute object, OR
+      - any object/dict with attrs/keys: ``input_tokens``, ``output_tokens``,
+        ``cache_creation_input_tokens``, ``cache_read_input_tokens``.
+
+    Pass ``cache_ttl='1h'`` to bill cache-creation at the 1-hour rate
+    rather than the default 5-minute rate.
+
+    Telemetry: emits to ``cfb_rankings.llm_runtime.cost.<label>`` on
+    every record() call AND on ceiling breach.
+    """
+
+    def __init__(
+        self,
+        *,
+        ceiling_usd: float,
+        label: str,
+        cache_ttl: str = "5m",
+        warn_at_fraction: float = 0.80,
+    ) -> None:
+        if ceiling_usd <= 0:
+            raise ValueError(f"ceiling_usd must be positive; got {ceiling_usd}")
+        if cache_ttl not in ("5m", "1h"):
+            raise ValueError(f"cache_ttl must be '5m' or '1h'; got {cache_ttl!r}")
+        self.ceiling_usd = float(ceiling_usd)
+        self.label = label
+        self.cache_ttl = cache_ttl
+        self.warn_at_fraction = warn_at_fraction
+        self.spent_usd: float = 0.0
+        self.records: list[dict[str, Any]] = []
+        self._warned = False
+
+    # ------------------------------------------------------------------
+    # Cost computation
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _read_field(usage: Any, name: str) -> int:
+        if usage is None:
+            return 0
+        if isinstance(usage, dict):
+            return int(usage.get(name, 0) or 0)
+        return int(getattr(usage, name, 0) or 0)
+
+    def compute_cost(
+        self,
+        model_id: str,
+        usage: Any,
+        *,
+        is_batch: bool = False,
+        cache_ttl: str | None = None,
+    ) -> float:
+        """Compute USD cost for one call WITHOUT recording it. Pure func."""
+        rates = MODEL_RATES.get(model_id)
+        if rates is None:
+            # Unknown model — log and bail with a conservative non-zero
+            # cost using Sonnet-tier rates so unknown-model usage still
+            # counts against the ceiling.
+            log.warning(
+                "CostMeter[%s]: unknown model_id=%r; billing at Sonnet rates",
+                self.label, model_id,
+            )
+            rates = MODEL_RATES["claude-sonnet-4-6"]
+
+        in_toks = self._read_field(usage, "input_tokens")
+        out_toks = self._read_field(usage, "output_tokens")
+        cache_create = self._read_field(usage, "cache_creation_input_tokens")
+        cache_read = self._read_field(usage, "cache_read_input_tokens")
+
+        ttl = cache_ttl or self.cache_ttl
+        cache_write_rate_key = "cache_write_1h" if ttl == "1h" else "cache_write_5m"
+
+        discount = BATCH_DISCOUNT if is_batch else 1.0
+
+        # Only input/output get the Batch discount (per Anthropic pricing).
+        cost = (
+            in_toks * rates["input"] * discount
+            + out_toks * rates["output"] * discount
+            + cache_create * rates[cache_write_rate_key]
+            + cache_read * rates["cache_read"]
+        )
+        return cost
+
+    # ------------------------------------------------------------------
+    # Record (with ceiling check)
+    # ------------------------------------------------------------------
+
+    def record(
+        self,
+        model_id: str,
+        usage: Any,
+        *,
+        is_batch: bool = False,
+        cache_ttl: str | None = None,
+        note: str | None = None,
+    ) -> float:
+        """Record a single call's cost. Raises CostCeilingExceeded on breach.
+
+        Returns the USD cost of this call.
+        """
+        cost = self.compute_cost(model_id, usage, is_batch=is_batch, cache_ttl=cache_ttl)
+        self.spent_usd += cost
+        rec = {
+            "event": "cost_record",
+            "label": self.label,
+            "model": model_id,
+            "is_batch": is_batch,
+            "cost_usd": round(cost, 6),
+            "spent_usd": round(self.spent_usd, 6),
+            "ceiling_usd": self.ceiling_usd,
+            "fraction": round(self.spent_usd / self.ceiling_usd, 4),
+            "note": note,
+        }
+        self.records.append(rec)
+        _cost_log.info("llm_runtime.cost %s", json.dumps(rec, separators=(",", ":")))
+
+        if (
+            not self._warned
+            and self.spent_usd >= self.ceiling_usd * self.warn_at_fraction
+            and self.spent_usd < self.ceiling_usd
+        ):
+            self._warned = True
+            log.warning(
+                "CostMeter[%s]: spend at %.1f%% of ceiling ($%.4f / $%.4f)",
+                self.label,
+                100 * self.spent_usd / self.ceiling_usd,
+                self.spent_usd, self.ceiling_usd,
+            )
+
+        if self.spent_usd > self.ceiling_usd:
+            payload = {
+                "event": "cost_ceiling_exceeded",
+                "label": self.label,
+                "spent_usd": round(self.spent_usd, 6),
+                "ceiling_usd": self.ceiling_usd,
+                "records": len(self.records),
+            }
+            _cost_log.error(
+                "llm_runtime.cost %s",
+                json.dumps(payload, separators=(",", ":")),
+            )
+            raise CostCeilingExceeded(
+                f"CostMeter[{self.label}] exceeded ${self.ceiling_usd:.2f} "
+                f"ceiling (spent ${self.spent_usd:.4f} over {len(self.records)} calls)"
+            )
+        return cost
+
+    # ------------------------------------------------------------------
+    # Reporting
+    # ------------------------------------------------------------------
+
+    def summary(self) -> dict[str, Any]:
+        """Final report shape — emit at workflow exit for digest line."""
+        by_model: dict[str, dict[str, float | int]] = {}
+        for r in self.records:
+            m = r["model"]
+            slot = by_model.setdefault(m, {"calls": 0, "cost_usd": 0.0})
+            slot["calls"] = int(slot["calls"]) + 1
+            slot["cost_usd"] = float(slot["cost_usd"]) + float(r["cost_usd"])
+        return {
+            "label": self.label,
+            "spent_usd": round(self.spent_usd, 6),
+            "ceiling_usd": self.ceiling_usd,
+            "fraction": round(self.spent_usd / self.ceiling_usd, 4),
+            "call_count": len(self.records),
+            "by_model": by_model,
+        }
 
 
 _VALIDATOR_CACHE: Callable[..., tuple[bool, list[str]]] | None = None

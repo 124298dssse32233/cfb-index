@@ -846,6 +846,17 @@ def build_parser() -> argparse.ArgumentParser:
         "--workers", type=int, default=3,
         help="Parallel LLM subprocess workers per team (default: 3).",
     )
+    gen_chron_parser.add_argument(
+        "--batch", default="auto",
+        choices=["auto", "on", "off"],
+        help=(
+            "Use Anthropic Message Batches API (50%% off + 1-hour prompt "
+            "caching). 'auto' (default): batch ON for multi-team runs "
+            "(>=2 slugs), OFF for single-team runs (typically interactive). "
+            "'on' / 'off' force either path. The synchronous subprocess "
+            "path remains the fallback for single-team interactive iteration."
+        ),
+    )
 
     render_team_parser = subparsers.add_parser(
         "render-team",
@@ -1573,12 +1584,75 @@ def main() -> None:
         from cfb_rankings.team_pages.data import fetch_team_snapshot
         from cfb_rankings.team_pages.state_resolver import resolve_state
         from cfb_rankings.team_pages.chronicle_generator import (
-            generate_chronicle_for_team, BLUE_BLOODS,
+            generate_chronicle_for_team,
+            generate_chronicle_for_teams_batch,
+            BLUE_BLOODS,
         )
 
         slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
         totals = {"scanned": 0, "published": 0, "dropped": 0}
         NEW_STREAM_TYPES = ("anomaly", "moment", "flashpoint", "echo", "retroactive", "player_arc")
+
+        # Batch-mode dispatcher: auto -> batch when >=2 slugs and model
+        # isn't 'template' (template doesn't hit the LLM at all). Single-
+        # team runs stay on the sync subprocess path for interactive UX.
+        batch_choice = getattr(args, "batch", "auto")
+        use_batch = (
+            batch_choice == "on"
+            or (batch_choice == "auto" and len(slugs) >= 2 and args.model != "template")
+        )
+
+        if use_batch:
+            print(
+                f"generate-chronicle: BATCH mode ({len(slugs)} programs, model={args.model})",
+                flush=True,
+            )
+            # Pre-resolve all profiles + snapshots; collect into one batch plan.
+            teams: list = []
+            for slug in slugs:
+                try:
+                    profile = load_profile(slug)
+                except FileNotFoundError:
+                    print(f"  skip {slug}: profile not found")
+                    continue
+                try:
+                    snapshot = fetch_team_snapshot(db, slug, season_year=args.season)
+                except LookupError as exc:
+                    print(f"  skip {slug}: {exc}")
+                    continue
+                teams.append((profile, snapshot))
+
+            cards_by_slug = generate_chronicle_for_teams_batch(
+                db, teams,
+                model=args.model,
+                max_cards=args.top_k,
+            )
+            # Persist using the same unpublish-then-publish pattern as the
+            # sync path. Loop teams in submission order for stable logs.
+            type_placeholders = ",".join(["?"] * len(NEW_STREAM_TYPES))
+            for profile, snapshot in teams:
+                slug = profile.slug
+                cards = cards_by_slug.get(slug, [])
+                with db.connection() as _c:
+                    _c.execute(
+                        f"update team_chronicle_observations set is_published = 0 "
+                        f"where team_id = ? and season_year = ? "
+                        f"  and card_type in ({type_placeholders})",
+                        (snapshot.team_id, snapshot.season_year, *NEW_STREAM_TYPES),
+                    )
+                    _c.commit()
+                state = resolve_state(profile, snapshot)
+                for rank, card in enumerate(cards, start=1):
+                    card.persist(db, snapshot.team_id, snapshot.season_year, rank, state.as_dict())
+                type_summary = ", ".join(c.card_type for c in cards) or "(none survived)"
+                print(f"  {slug}: published {len(cards)} cards — {type_summary}")
+                totals["published"] += len(cards)
+            print(
+                f"generate-chronicle: done — programs={len(slugs)} "
+                f"cards_published={totals['published']} (batch)"
+            )
+            return
+
         for slug in slugs:
             try:
                 profile = load_profile(slug)

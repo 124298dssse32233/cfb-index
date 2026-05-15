@@ -206,6 +206,128 @@ def _primary_entity(bundle: DailyInputBundle, rank: int) -> tuple[str, str]:
     return "", "event"
 
 
+_DAILY_SHARED_SYSTEM = """You are writing one of three takes for The Daily, a 06:00 ET college \
+football editorial briefing.
+
+The audience reads The Athletic, listens to Solid Verbal, lurks on the boards. They want \
+fan-voice, not aloof-magazine voice.
+
+Every take must:
+- Synthesize a focus angle (provided per-take in the user message)
+- Cite at least 2 named sources verbatim with attribution (real outlets/journalists from the inputs provided per-take)
+- Be 150-200 words
+- Open with the take, not the setup
+- End with a forward look (what to watch today or this week)
+- Avoid banned phrases (the validator will gate output)
+- Acknowledge CFB's absurdity where warranted — no false gravitas
+
+Output format:
+Line 1: a headline (no label, just the headline text)
+Line 2: blank
+Line 3+: the body (150-200 words, fan-voice, >=2 named source citations)
+"""
+
+
+def _take_user_message(rank: int, edition_date: str, bundle: DailyInputBundle) -> str:
+    """Per-take user-turn payload. The shared editorial contract is in the cached
+    system block; this is the per-take focus + corpus block."""
+    focus_map = {
+        1: "the highest-resonance story fans moved on overnight",
+        2: "a second angle that reveals how stat fans and die-hards are reading this differently",
+        3: "a buried lede — something quietly important the casual reader will miss without help",
+    }
+    focus = focus_map[rank]
+    return f"""Edition date: {edition_date}
+Rank in edition: {rank} of 3
+Focus angle: {focus}
+
+Wire entries (last 24h, ordered by velocity):
+{_wire_block(bundle)}
+
+Active storyline threads:
+{_thread_block(bundle)}
+
+Pulse spikes (fan sentiment shifts):
+{_pulse_block(bundle)}
+
+Surprise receipts resolved:
+{_receipts_block(bundle)}
+
+Voice register references (match this tone and rhythm):
+{_voice_examples_block()}
+
+Write the take now."""
+
+
+def synthesize_takes_batch(bundle: DailyInputBundle) -> list[TakeResult]:
+    """Batched variant of ``synthesize_takes``. All 3 takes submitted in
+    one Anthropic Batch with a shared cached system prompt.
+
+    With three takes per day the absolute spend is modest, but the shared
+    contract is ~1500 tokens and the cache_read on takes 2 + 3 still
+    represents real savings. The batch path also halves cron-window time
+    by parallelizing the three calls.
+    """
+    try:
+        from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
+    except ImportError as exc:
+        log.warning("llm_runtime_batch unavailable: %s — falling back to sync", exc)
+        return synthesize_takes(bundle)
+
+    tentpole = is_tentpole(bundle.edition_date)
+    jobs: list[BatchJob] = []
+    for rank in range(1, 4):
+        model = _OPUS if (tentpole and rank == 1) else _SONNET
+        jobs.append(BatchJob(
+            custom_id=f"daily-take-{rank}",
+            system_blocks=[
+                {
+                    "type": "text",
+                    "text": _DAILY_SHARED_SYSTEM,
+                    "cache_control": {"type": "ephemeral", "ttl": "1h"},
+                },
+            ],
+            messages=[{"role": "user", "content": _take_user_message(rank, bundle.edition_date, bundle)}],
+            model=model,
+            max_tokens=500,
+            metadata={"rank": rank},
+        ))
+
+    results = submit_batch_offline_safe(jobs)
+    by_rank: dict[int, Any] = {int(r.metadata.get("rank", 0)): r for r in results}
+
+    take_results: list[TakeResult] = []
+    for rank in range(1, 4):
+        r = by_rank.get(rank)
+        if r is None or not r.succeeded or not r.text:
+            text = _offline_take(rank, bundle)
+            vv_passed = True
+            model_used = "offline-fallback"
+        else:
+            text = r.text
+            vv_passed = bool(r.voice_validator_passed)
+            model_used = r.model_used
+
+        headline, body = _extract_headline_and_body(text)
+        cited = _extract_cited_sources(body)
+        if len(cited) < 2:
+            cited = cited + ["The Athletic", "ESPN"][:2 - len(cited)]
+
+        entity_slug, entity_type = _primary_entity(bundle, rank)
+        take_results.append(TakeResult(
+            rank_position=rank,
+            headline=headline,
+            body=body,
+            primary_entity_slug=entity_slug,
+            primary_entity_type=entity_type,
+            cited_sources=cited,
+            fueled_by=_fueled_by(bundle, rank),
+            voice_validator_passed=vv_passed,
+            generation_model=model_used,
+        ))
+    return take_results
+
+
 def synthesize_takes(bundle: DailyInputBundle) -> list[TakeResult]:
     """Generate 3 takes for the edition. Returns TakeResult list (always length 3)."""
     try:

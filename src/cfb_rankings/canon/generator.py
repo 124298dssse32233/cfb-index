@@ -13,6 +13,16 @@ no live Anthropic SDK call. This generator orchestrates:
 
 The generator is *idempotent*: re-running it for the same list_slug
 replaces all entries atomically and re-snapshots revision history.
+
+Sprint v5-1.5 batch-API note
+----------------------------
+Canon is currently seed-authored — there is no live LLM call to batch.
+When a Canon list ever does take the LLM path (e.g. dynamic top-25
+mid-season rewrites), ``regenerate_entries_batch`` is the planned entry
+point: every entry shares the same editorial contract for the list
+(stable across the full N entries), so caching the contract as the
+batch's system prefix is the right shape. Until that path lands the
+scaffold below is a no-op when called with seed-authored lists.
 """
 from __future__ import annotations
 
@@ -151,3 +161,94 @@ def generate_canon_list(
         rank_deltas_computed=rank_deltas_computed,
         effort_buckets=effort,
     )
+
+
+# ---------------------------------------------------------------------------
+# Sprint v5-1.5 — batch-ready scaffold (no-op until LLM path enabled)
+# ---------------------------------------------------------------------------
+
+_CANON_BATCH_SYSTEM = """You are writing one entry for a college football Canon list — a curated, \
+opinionated ranked editorial product. The list's editorial contract is shared across every \
+entry: same voice register, same word-count band, same constraints on attribution + \
+comparative markers.
+
+Each user message will carry the per-entry rank + display name + raw stat context. Your output \
+for each entry is a JSON object with keys:
+  "summary_short" (one-liner, <= 18 words, no marketing language)
+  "editorial_paragraph" (3-5 sentences, fan-voice, 80-140 words, at least one comparative marker)
+Return ONLY the JSON. No preamble. No markdown fences.
+"""
+
+
+def regenerate_entries_batch(
+    con: sqlite3.Connection,
+    list_slug: str,
+    *,
+    model: str = "claude-sonnet-4-6",
+    max_tokens: int = 600,
+) -> dict[str, int]:
+    """Batch LLM regeneration of one Canon list's entries.
+
+    No-op when the list's seed entries are fully hand-authored (the
+    current case for all 3 production lists). Reserved as the entry
+    point for the dynamic-list path described in the module docstring.
+
+    Submits one Anthropic Batch with a shared cached editorial contract
+    + one job per entry. Each entry's user message carries only the
+    per-row stat context, keeping the cached prefix dominant in input
+    cost.
+    """
+    from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
+
+    raw_entries = seed_authored.entries_for(list_slug)
+    if not raw_entries:
+        return {"list_slug": 0, "batched": 0, "updated": 0, "mode": "noop_no_entries"}
+
+    # All current lists are fully seed-authored — we don't actually want
+    # to overwrite hand-tuned copy. Skip when paragraphs are already
+    # populated. The condition becomes more permissive when this path
+    # gets activated for dynamic lists.
+    needing_regen = [e for e in raw_entries if not (e.editorial_paragraph and e.summary_short)]
+    if not needing_regen:
+        return {"list_slug": len(raw_entries), "batched": 0, "updated": 0, "mode": "noop_all_authored"}
+
+    jobs: list[BatchJob] = []
+    for e in needing_regen:
+        custom_id = f"canon-{list_slug}-{e.entity_slug}"
+        user_prompt = (
+            f"List: {list_slug}\n"
+            f"Rank: {e.rank}\n"
+            f"Entity: {e.entity_display_name} ({e.entity_slug})\n"
+            f"Program label: {e.program_label}\n"
+            f"Prior-year rank: {e.prior_year_rank if e.prior_year_rank is not None else 'NEW'}\n"
+            "Write the entry now."
+        )
+        jobs.append(BatchJob(
+            custom_id=custom_id,
+            system_blocks=[
+                {
+                    "type": "text",
+                    "text": _CANON_BATCH_SYSTEM,
+                    "cache_control": {"type": "ephemeral", "ttl": "1h"},
+                },
+            ],
+            messages=[{"role": "user", "content": user_prompt}],
+            model=model,
+            max_tokens=max_tokens,
+            metadata={"entity_slug": e.entity_slug, "list_slug": list_slug},
+        ))
+
+    results = submit_batch_offline_safe(jobs, run_voice_validator=False)
+    updated = 0
+    # Real activation of this path would persist the updates back into the
+    # entries list via replace_entries; here we just count the successes
+    # because the seed-authored lists shouldn't be overwritten by LLM.
+    for r in results:
+        if r.succeeded and r.text:
+            updated += 1
+    return {
+        "list_slug": len(raw_entries),
+        "batched": len(jobs),
+        "updated": updated,
+        "mode": "batch_dry_run",
+    }
