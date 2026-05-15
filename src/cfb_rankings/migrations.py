@@ -1483,6 +1483,17 @@ def apply_runtime_migrations(db: Database) -> None:
           on portal_moves (announced_date, player_name)
         """
     )
+    # Unique index for UPSERT support — Sprint v5-1 Day 4 (Adapter 1).
+    # The plan called for (player_external_id, entered_at_utc), but the
+    # actual schema has player_name + announced_date instead. We add
+    # from_team_slug to disambiguate cases where two players with the
+    # same name enter the portal on the same day from different teams.
+    db.execute(
+        """
+        create unique index if not exists idx_portal_moves_upsert_key
+          on portal_moves (player_name, announced_date, coalesce(from_team_slug, ''))
+        """
+    )
 
     db.execute(
         """

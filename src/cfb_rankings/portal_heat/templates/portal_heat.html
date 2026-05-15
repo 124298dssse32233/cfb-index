@@ -1,0 +1,39 @@
+<!--
+  Portal Heat Index template (see cfb_rankings.portal_heat.renderer
+  for the authoritative list of tokens). Substituted at render time.
+-->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} CFB Index</title>
+<meta name="description" content="The Transfer Portal Heat Index — programs ranked by net Δ talent over the last {{WINDOW_DAYS}} days.">
+<style>{{HEAD_STYLE}}</style>
+</head><body>
+<a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
+<div class="page" id="main-content">
+  <div class="chrome">
+    <span><a href="/">CFB INDEX</a></span>
+    <span>{{UPDATED_AT}}</span>
+  </div>
+  <div class="brand-row">
+    <div class="brand">CFB <span class="slash">/</span> INDEX</div>
+    {{GLOBAL_NAV}}
+  </div>
+  <hr class="rule">
+  <header class="hero">
+    <div class="eyebrow">S3. PORTAL HEAT</div>
+    <h1>Transfer Portal Heat Index &mdash; Last {{WINDOW_DAYS}} days</h1>
+    <p class="lede">{{LEDE}}</p>
+    <p class="window-meta">{{WEEK_LABEL}} {{DAYS_TO_KICKOFF_PAREN}}</p>
+  </header>
+  <hr class="rule soft">
+  <section class="board-section">
+    <div class="board">{{BOARD_OR_EMPTY}}</div>
+  </section>
+  <footer class="footer">
+    <hr class="rule soft">
+    <p class="eyebrow muted">CFB INDEX · {{UPDATED_AT}}</p>
+  </footer>
+</div>
+</body></html>

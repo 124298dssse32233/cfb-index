@@ -1355,6 +1355,25 @@ def build_parser() -> argparse.ArgumentParser:
     render_wire_parser.add_argument("--skip-homepage", action="store_true",
         help="Skip the homepage Wire <tbody> patch — render /wire/ only.")
 
+    # ---- Sprint v5-1 Day 4 follow-up: S3 Portal Heat Index ----
+    # DESIGN_AUDIT_2026_05_15_v5_4.md Part 4 §S3.
+    # Renders /portal-heat/index.html from `portal_moves` (populated by
+    # wire/ingestion.py Adapter 1). DB-tolerant: produces an empty-state
+    # page when no rows are in the window.
+    refresh_portal_heat_parser = subparsers.add_parser(
+        "refresh-portal-heat",
+        help="S3 surface: render /portal-heat/ from portal_moves "
+             "(Top-25 programs by net delta talent).",
+    )
+    refresh_portal_heat_parser.add_argument(
+        "--days", type=int, default=14,
+        help="Lookback window in days (default: 14).",
+    )
+    refresh_portal_heat_parser.add_argument(
+        "--output-dir", default=None,
+        help="Override output dir (default: output/site/portal-heat).",
+    )
+
     # ---- Sprint 8.5: Pulse follow-ups ----
     prepare_pulse_parser = subparsers.add_parser(
         "prepare-pulse",
@@ -4503,6 +4522,14 @@ def main() -> None:
                 db, homepage_path=homepage_path, limit=args.limit,
             )
             result["homepage_patch"] = patch_stats
+        print(json.dumps(result, indent=2, default=str), flush=True)
+        return
+
+    # ---- Sprint v5-1 Day 4 follow-up: refresh-portal-heat ----
+    if args.command == "refresh-portal-heat":
+        from cfb_rankings.portal_heat.renderer import render_all as render_portal_heat
+        output_dir = Path(args.output_dir) if args.output_dir else None
+        result = render_portal_heat(db, output_dir=output_dir, days=args.days)
         print(json.dumps(result, indent=2, default=str), flush=True)
         return
 
