@@ -176,7 +176,10 @@ def kickoff_date(season: int, db: sqlite3.Connection | None = None) -> date:
             row = cur.fetchone()
             if row and row[0]:
                 return date.fromisoformat(str(row[0])[:10])
-        except sqlite3.Error as exc:
+        except (sqlite3.Error, AttributeError, TypeError) as exc:
+            # Broaden the catch: callers may pass a Database wrapper (different
+            # API) or None. We fall back to KEY_EVENTS_<season> rather than
+            # crash. Tolerance > correctness when constants are authoritative.
             log.debug("kickoff_date: DB query failed for season %d (%s); using constant", season, exc)
 
     events = KEY_EVENTS_BY_YEAR.get(season, [])

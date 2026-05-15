@@ -23,6 +23,12 @@ from datetime import datetime, date, timedelta
 from html import escape
 import json
 from pathlib import Path
+
+from cfb_rankings.common.cfb_calendar import (
+    cfb_week_label,
+    days_to_kickoff,
+    is_in_season,
+)
 from typing import Any
 
 from cfb_rankings.db import Database
@@ -205,7 +211,17 @@ FRIENDLY_MODEL_LABEL = "CFB Index v1"
 
 
 def render_masthead(issue_number: str, model_week: int | None, issue_date: str, updated_label: str = "Updated this week") -> str:
-    mw = f"Model Week {int(model_week)}" if model_week else "Model Week \u2014"
+    # In-season the bare "Model Week N" label is fine. Offseason it reads as
+    # garbage to readers ("Model Week 20" in late May means nothing), so swap
+    # in the phase + days-to-kickoff parenthetical. See cfb_calendar module.
+    today = date.today()
+    if model_week and is_in_season(today, db=None):
+        mw = f"Model Week {int(model_week)}"
+    elif model_week:
+        # Offseason: replace 'Model Week N' with phase + countdown.
+        mw = f"{cfb_week_label(today, db=None)}"
+    else:
+        mw = "Model Week \u2014"
     return f"""
     <div class="hub-masthead">
       <div class="hub-container hub-masthead-inner">

@@ -19,10 +19,12 @@ if the rating-deltas surface is empty.
 
 from __future__ import annotations
 
+from datetime import date
 from html import escape
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.common.cfb_calendar import cfb_week_label_for_window
 from cfb_rankings.db import Database
 
 
@@ -326,7 +328,7 @@ _PAGE_TEMPLATE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vibe Shifts — Week {week} · {season_year} · CFB Index</title>
+<title>Vibe Shifts — {week_label} · {season_year} · CFB Index</title>
 <meta name="description" content="The teams that changed the most this week. Ranked by absolute power-rating swing, with the why decomposed into offense, defense, special teams, and resume.">
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
@@ -349,7 +351,7 @@ _PAGE_TEMPLATE = """<!doctype html>
 <body class="vibe-shifts-page">
 <main class="site-shell" id="main-content">
   <section class="hero">
-    <p class="eyebrow">The Vibe Shift Ledger · Week {week}</p>
+    <p class="eyebrow">The Vibe Shift Ledger · {week_label}</p>
     <h1>Who changed the most this week.</h1>
     <p class="lede">Ten teams, ranked by the absolute size of their power-rating swing. Each card shows the headline number, where it came from (offense, defense, special teams, resume), and the actual game that produced it. Save the image; the argument's already there.</p>
     <p class="section-note">Sunday morning ritual. Updates after every model run.</p>
@@ -401,9 +403,25 @@ def render_vibe_shifts_index_html(
     season_year: int,
     week: int,
     cards: list[dict[str, Any]],
+    *,
+    today: date | None = None,
 ) -> str:
+    """Render the Vibe Shifts index page.
+
+    Args:
+        season_year: Season being summarized (e.g. 2026).
+        week: ISO calendar week the data was computed for. Used as a
+            DB key, never surfaced raw in user-facing copy.
+        cards: The list of card payloads to render.
+        today: For the human-friendly week label. Defaults to date.today().
+            Lets tests pin a stable label across rebuilds.
+    """
+    today = today or date.today()
+    week_label = cfb_week_label_for_window(today, week, db=None)
     body = _render_ledger_body(season_year, week, cards)
-    return _PAGE_TEMPLATE.format(season_year=season_year, week=week, body=body)
+    return _PAGE_TEMPLATE.format(
+        season_year=season_year, week=week, week_label=week_label, body=body
+    )
 
 
 # ---------------------------------------------------------------------------
