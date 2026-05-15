@@ -20,10 +20,12 @@ Design rules this module holds the line on:
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 import json
 import math
 from typing import Any, Iterable
 
+from cfb_rankings.common.cfb_calendar import cfb_week_label_for_window
 from cfb_rankings.db import Database
 
 
@@ -119,7 +121,7 @@ def fetch_team_mood_profile(
         "rival_heat": rival_heat,
         "archetype": archetype,
         "storylines": storylines,
-        "updated_label": f"Week {week} conversation window",
+        "updated_label": f"{cfb_week_label_for_window(date.today(), week, db=None)} conversation window",
     }
 
 
@@ -232,7 +234,7 @@ def fetch_player_mood_profile(
         "archetype": _archetype(belief, {"label": None}, swing, cohesion),
         "storylines": [],   # player-scope storylines require conversation_storylines(entity_type='player'); wiring pending
         "top_quote": top_quote,
-        "updated_label": f"Week {week} conversation window",
+        "updated_label": f"{cfb_week_label_for_window(date.today(), week, db=None)} conversation window",
     }
 
 
@@ -399,7 +401,7 @@ def compute_player_mood_index(
             "updated_label": (
                 f"Season {season_year} conversation window"
                 if chosen_scope == "season"
-                else f"Week {week} conversation window"
+                else f"{cfb_week_label_for_window(date.today(), week, db=None)} conversation window"
             ),
         }
     return index
@@ -520,7 +522,7 @@ def _empty_player_profile(
         "archetype": None,
         "storylines": [],
         "top_quote": None,
-        "updated_label": f"Week {week} conversation window",
+        "updated_label": f"{cfb_week_label_for_window(date.today(), week, db=None)} conversation window",
     }
 
 
@@ -1322,7 +1324,7 @@ def _empty_profile(
         "rival_heat": {"available": False, "label": None, "score": None, "narrative": "Rival Heat tracks mockery, fear, and obsession from rival fanbases."},
         "archetype": None,
         "storylines": [],
-        "updated_label": f"Week {week} conversation window",
+        "updated_label": f"{cfb_week_label_for_window(date.today(), week, db=None)} conversation window",
     }
 
 

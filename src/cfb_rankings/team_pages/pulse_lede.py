@@ -3,9 +3,11 @@
 One lede per entity: a 2-3 sentence fan-voice editorial statement that
 anchors the current moment for that team, conference, or player.
 
-Model routing (matches sprint plan):
+Model routing (v5.3 tier upgrade: ALL entities use Opus 4.7):
   - "opus" tier  → alabama, ohio-state, georgia  (claude-opus-4-7)
-  - "sonnet" tier → all other 12 entities        (claude-sonnet-4-6)
+  - "sonnet" tier → all other 12 entities        (claude-opus-4-7 — upgraded
+    from claude-sonnet-4-6 per v5.3 row #15; form is identical regardless of
+    program prestige, so uniform Opus across all entities)
 
 Storage: team_pulse_cache (teams/players). Conference ledes are stored as
          the delta_label field in conference_themes (first theme row).
@@ -25,7 +27,12 @@ from typing import Any
 log = logging.getLogger(__name__)
 
 _OPUS_MODEL = "claude-opus-4-7"
-_SONNET_MODEL = "claude-sonnet-4-6"
+# v5.3 tier upgrade: was claude-sonnet-4-6. Pulse lede is the most-read line on
+# each team page (2-3 sentences, hero of Pulse module). Uniform Opus across all
+# 15 entities — the form is identical regardless of program prestige. Keeping
+# the _SONNET_MODEL name + _model_for_tier dispatch so future tier-split is a
+# one-line change.
+_SONNET_MODEL = "claude-opus-4-7"
 
 _SYSTEM_PROMPT = """\
 You are a college football editorial writer who speaks directly to die-hard fans.

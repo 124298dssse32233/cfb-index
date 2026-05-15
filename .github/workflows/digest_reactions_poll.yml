@@ -1,0 +1,86 @@
+name: digest_reactions_poll
+# Hourly poll of 👍/👎 reactions on the rolling digest issue comments.
+# 👎 reactions → editorial_overrides (override_kind='reject'), so Kevin
+# can veto a digest item with one click and the next render skips it.
+#
+# Replaces the v5.0 plan's authenticated "reject" web form. No serverless
+# function, no Vercel custom route — just polling reactions via gh api.
+#
+# Calls `manage.py sync-digest-reactions` (TODO: CLI lands Sprint v5-8
+# per IMPLEMENTATION_PLAN.md Part 3 Sprint v5-8; staged here as the
+# workflow shell so the schedule exists at Sprint v5-1 close).
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # hourly
+  workflow_dispatch:
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: read
+      contents: read
+      actions: read
+    env:
+      ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
+      GH_TOKEN:             ${{ secrets.GITHUB_TOKEN }}
+      DIGEST_ISSUE_NUMBER:  ${{ vars.DIGEST_ISSUE_NUMBER }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          set -e
+          python -m pip install -U pip pyyaml
+          python -m pip install -e .
+
+      - name: Download prior DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          set -e
+          python manage.py init-db
+          python manage.py apply-migrations
+
+      # TODO Sprint v5-8 follow-up (workflow shell lands Sprint v5-1 Day 4):
+      # implement `manage.py sync-digest-reactions` in cli.py. Reads
+      # comments on issue ${DIGEST_ISSUE_NUMBER} via `gh api`, parses
+      # `:thumbsdown:` reactions on each item, inserts rows into
+      # editorial_overrides with override_kind='reject'. Idempotent
+      # by (item_id, reaction_user_id) — repeated runs are no-ops.
+      - name: Sync digest reactions to editorial_overrides
+        run: |
+          set -e
+          python -u manage.py sync-digest-reactions
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+  notify:
+    if: failure()
+    needs: poll
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}

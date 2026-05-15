@@ -809,8 +809,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Generation backend. Default: template (deterministic, offline).",
     )
     gen_narr_parser.add_argument(
-        "--model", default="claude-sonnet-4-6",
-        help="Claude model id for --llm claude / claude-code.",
+        "--model", default="claude-opus-4-7",
+        help="Claude model id for --llm claude / claude-code. "
+             "Default upgraded to Opus 4.7 per v5.3 row #13 — team narratives "
+             "are quarterly cadence, low volume, high visibility.",
     )
     gen_narr_parser.add_argument(
         "--season", type=int, default=None,
@@ -1675,9 +1677,15 @@ def main() -> None:
         print(f"  prior chapters in context: {len(context['prior_chapters'])}")
         print(f"  voice register source: {context['voice_register_source']}")
 
+        # v5.3 row #10: storyline thread chapters are 800-1500w with required
+        # prior-chapter callbacks + 3+ source citations + verbatim pull quote.
+        # Cross-chapter coherence is exactly Opus's strength. Upgraded from
+        # Sonnet 4.6 — the biggest single-line quality lift in the codebase.
+        # Pattern E (continuity-grounded) wraps land in Sprint v5-4; this is
+        # the Day-1 model bump while the loop infra is built.
         result = generate_with_voice_check(
             prompt,
-            model="claude-sonnet-4-6",
+            model="claude-opus-4-7",
             max_tokens=6000,
             max_retries=1,
         )

@@ -18,6 +18,13 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.common.cfb_calendar import (
+    cfb_week_label,
+    human_phase_label,
+    is_in_season,
+    kickoff_date,
+)
+
 from .profile_loader import Profile, load_profile, PROFILED_SLUGS
 from .data import (
     FLOOR_AWAITING, FLOOR_GROWING,
@@ -758,7 +765,13 @@ def _pulse_meta(mood: dict[str, Any], state: PageState, snap: TeamSnapshot) -> s
         wk = mood.get("latest_week")
         vol = mood.get("volume", 0)
         conf = mood.get("confidence_tier") or "medium"
-        return f"Wk {wk} · {vol:,} mentions · {conf} confidence"
+        # In-season: 'Wk 9 · 1,234 mentions · medium confidence'.
+        # Offseason: drop the bare 'Wk N' (reads as garbage in May) and use
+        # the human phase label instead. The mention count + confidence
+        # tier stay informative regardless of phase.
+        if is_in_season(date.today(), db=None):
+            return f"Wk {wk} · {vol:,} mentions · {conf} confidence"
+        return f"{human_phase_label(date.today(), db=None)} · {vol:,} mentions · {conf} confidence"
     return f"{state.season_phase.replace('-', ' ')} · signal ramps back in camp"
 
 
@@ -939,10 +952,13 @@ def _offseason_events(
             "ongoing",
             "pulse__event-delta--up",
         ))
-        kickoff = date(today.year, 8, 30)  # rough Week 0/1 anchor
+        # Use real kickoff date from the games table (with KEY_EVENTS_2026
+        # fallback when DB is empty) rather than the historical hardcoded
+        # Aug 30 anchor. See common/cfb_calendar.
+        kickoff = kickoff_date(today.year, db=None)
         if today < kickoff:
             items.append((
-                "Wk 1",
+                "Kickoff",
                 f"Season opener in {(kickoff - today).days} days",
                 "kickoff",
                 "",

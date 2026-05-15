@@ -307,12 +307,43 @@ def _call_with_rate_limit_retry(
                 "messages": [{"role": "user", "content": prompt}],
             }
             if system:
-                kwargs["system"] = system
+                # Ephemeral prompt-cache on the system block. The system prompt
+                # is the largest stable token block in every voice-validated
+                # surface (Chronicle voice contract ~2000 tokens shared across
+                # 595 calls/week, etc.). Cache hit drops input cost ~10x for
+                # the cached portion. No effect on first call in a 5-min
+                # window; subsequent calls within the window read from cache.
+                # See IMPLEMENTATION_PLAN.md Part 4 Sprint v5-1 Day 1 Patch 1.
+                kwargs["system"] = [
+                    {
+                        "type": "text",
+                        "text": system,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ]
             response = client.messages.create(**kwargs)
             text_parts = [b.text for b in response.content if hasattr(b, "text")]
             text = "".join(text_parts).strip()
             in_toks = getattr(response.usage, "input_tokens", 0)
             out_toks = getattr(response.usage, "output_tokens", 0)
+            # Prompt-cache visibility — emits to telemetry when caching is
+            # active so we can verify hit rate. cache_creation_input_tokens
+            # are billed at 1.25x base rate (one-time); cache_read_input_tokens
+            # at 0.1x base rate (every cached hit). Anthropic SDK exposes both
+            # as separate usage fields; older SDK versions may not have them
+            # (hence getattr default 0). input_tokens excludes the cached
+            # portion, so total billable input is in_toks + 1.25*cache_create
+            # + 0.1*cache_read.
+            cache_create = getattr(response.usage, "cache_creation_input_tokens", 0)
+            cache_read = getattr(response.usage, "cache_read_input_tokens", 0)
+            if cache_create or cache_read:
+                _emit_telemetry({
+                    "event": "cache_usage",
+                    "model": model,
+                    "cache_creation_input_tokens": cache_create,
+                    "cache_read_input_tokens": cache_read,
+                    "input_tokens": in_toks,
+                })
             return (text, in_toks, out_toks)
         except Exception as exc:
             msg = str(exc).lower()

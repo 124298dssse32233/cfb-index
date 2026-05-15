@@ -1,0 +1,85 @@
+name: archive_retro_daily
+# Adapter 3 — daily Arctic Shift retro pull.
+#
+# Daily 03:00 ET (= 07:00 UTC). Pulls same-MM-DD posts from 2014-2025
+# off Arctic Shift, filters high-engagement, writes to archive_threads +
+# conversation_documents. Powers S5 (Today in CFB History) and S7
+# (Saturdays Past).
+#
+# Calls `manage.py fetch-archive-retro` (TODO: CLI lands Sprint v5-1
+# Day 4 afternoon alongside `src/cfb_rankings/ingest/sources/archive_retro.py`).
+# DB-write workflow; no site artifact produced here (the render workflows
+# consume the rows downstream).
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # 03:00 ET / 07:00 UTC
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    env:
+      ANTHROPIC_API_KEY:        ${{ secrets.ANTHROPIC_API_KEY }}
+      ARCTIC_SHIFT_API_KEY:     ${{ secrets.ARCTIC_SHIFT_API_KEY }}
+      GH_TOKEN:                 ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          set -e
+          python -m pip install -U pip pyyaml
+          python -m pip install -e .
+
+      - name: Download prior DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          set -e
+          python manage.py init-db
+          python manage.py apply-migrations
+
+      # TODO Sprint v5-1 Day 4 follow-up: implement `manage.py fetch-archive-retro`
+      # in cli.py. Wraps `src/cfb_rankings/ingest/sources/archive_retro.py`
+      # (Day 4 afternoon deliverable). Iterates year in (today.year - 12 ..
+      # today.year - 1), pulls Arctic Shift posts at same-MM-DD with
+      # min_score=50, writes archive_threads + conversation_documents.
+      - name: Fetch archive retro threads (Arctic Shift)
+        run: |
+          set -e
+          python -u manage.py fetch-archive-retro
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+  notify:
+    if: failure()
+    needs: fetch
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}

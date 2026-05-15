@@ -325,11 +325,24 @@ jobs:
           overwrite: true
 
       # ════════════════════════════════════════════════════════════════════
-      # Trigger publish-site to rebuild the full site with fresh data
+      # Trigger world-class enrich to rebuild the full site with fresh data
+      #
+      # Why world_class_enrich.yml and not publish_site.yml:
+      # publish_site.yml has set+e + check=False that swallow build-site
+      # failures. After a 3+ hour backfill, the fresh DB shape can break
+      # build-site silently — publish_site then falls back to the prior
+      # cached site artifact (passes the >=5000-files sanity gate against
+      # stale content) and reports success while no real rebuild happened.
+      # That happened 2026-05-15 (1m 33s "success" with 17-file diff).
+      #
+      # world_class_enrich.yml runs the full editorial pipeline directly
+      # (Wire, Daily, Mailbag, Chronicle, Narratives, Canon, Best Calls)
+      # so backfills always land into world-class enrichment output rather
+      # than a passthrough.
       # ════════════════════════════════════════════════════════════════════
-      - name: Trigger publish-site workflow
+      - name: Trigger world-class enrich workflow
         if: success() || failure()
         run: |
-          gh workflow run publish_site.yml
+          gh workflow run world_class_enrich.yml --field skip_ai=false
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

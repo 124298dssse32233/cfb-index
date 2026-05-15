@@ -528,12 +528,20 @@ def collect_recent_actions(
         len(out), target_count,
     )
 
-    # OFFSEASON FALLBACK: If no real rows available, use sample data
-    # to give users a sense of what the Wire will look like during the season.
+    # OFFSEASON FALLBACK: If no real live rows are available, surface REAL
+    # retro content (same-MM-DD wire rows from prior years, recent recruiting
+    # commits, archive Reddit threads) instead of fabricating transactions.
+    # Earlier behavior shipped 14 hardcoded fake transactions with real player
+    # names + invented destinations under source_kind='unverified'; fixed
+    # 2026-05-15 per IMPLEMENTATION_PLAN.md Part 4 Sprint v5-1 Day 1 Patch 5.
+    # If retro tables are empty too, the wire panel renders empty rather than
+    # fabricated — empty is honest, fabricated is fraud.
     if not out:
-        log.info("wire.ingestion: no real rows available, using offseason fallback sample data")
+        log.info("wire.ingestion: no live rows available, attempting real-data retro fallback")
         from cfb_rankings.wire.offseason_fallback import get_offseason_fallback_entries
-        out = get_offseason_fallback_entries()[:target_count]
+        # Pass the db connection (raw underlying connection if available)
+        db_conn = getattr(db, "_conn", None) or getattr(db, "conn", None) or db
+        out = get_offseason_fallback_entries(db_conn, target_count=target_count)
 
     return out
 

@@ -1,0 +1,174 @@
+name: transfer_portal_heat
+# S3 surface — Transfer Portal Heat Index.
+#
+# Cadence (DESIGN_AUDIT_2026_05_15_v5_4 Part 6):
+#   3x/day during portal windows (Dec 1-31, Apr 16-May 31)
+#   1x/day (06:00 UTC) the rest of the year
+#
+# We declare three cron schedules and gate the off-window firings in
+# Python: morning runs always proceed; the noon + evening runs exit 0
+# early when today's date isn't inside a portal window.
+#
+# Calls `manage.py refresh-portal-heat` (TODO: CLI lands Sprint v5-1 Day 4
+# afternoon — workflow is staged in advance so the schedule history exists
+# the moment the CLI ships).
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # 06:00 UTC daily (year-round)
+    - cron: "0 14 * * *"  # 14:00 UTC (portal-window only)
+    - cron: "0 22 * * *"  # 22:00 UTC (portal-window only)
+  workflow_dispatch:
+
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CFBD_API_KEY:      ${{ secrets.CFBD_API_KEY }}
+      GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          set -e
+          python -m pip install -U pip pyyaml
+          python -m pip install -e .
+
+      - name: Gate non-morning runs to portal windows only
+        id: gate
+        run: |
+          set -e
+          python <<'PY'
+          import os, sys
+          from datetime import datetime, timezone
+          now = datetime.now(timezone.utc)
+          hour = now.hour
+          month = now.month
+          day = now.day
+          in_dec = (month == 12)
+          in_aprmay = (month == 4 and day >= 16) or (month == 5)
+          in_window = in_dec or in_aprmay
+          # Morning run (06:00 UTC) always proceeds. Other crons gate.
+          if hour == 6:
+              print("[gate] morning run — always proceed")
+          elif in_window:
+              print(f"[gate] hour={hour} in portal window — proceed")
+          else:
+              print(f"[gate] hour={hour} outside portal window — skipping")
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write("skip=true\n")
+              sys.exit(0)
+          PY
+
+      - name: Download prior DB artifact
+        if: steps.gate.outputs.skip != 'true'
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -e
+          python manage.py init-db
+          python manage.py apply-migrations
+
+      - name: Download prior site state
+        if: steps.gate.outputs.skip != 'true'
+        id: dl_site
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Seed output/site from prior state
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -e
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          echo "Seeded $(find output/site -type f | wc -l) files"
+
+      # TODO Sprint v5-1 Day 4 follow-up: implement `manage.py refresh-portal-heat`
+      # in cli.py. It should ingest portal_moves rows, compute the
+      # heat-index aggregation, write to portal_heat tables, and re-render
+      # /portal-heat/ index + per-team panels.
+      - name: Refresh Transfer Portal Heat Index
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -e
+          python -u manage.py refresh-portal-heat
+
+      - name: Verify build freshness
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -e
+          MODIFIED=$(find output/site -type f -newer prior-site 2>/dev/null | wc -l)
+          echo "Fresh files: $MODIFIED"
+          if [ "$MODIFIED" -lt 1 ]; then
+            echo "::error::refresh-portal-heat produced zero fresh files"
+            exit 1
+          fi
+
+      - name: Sanity-check site before upload
+        if: steps.gate.outputs.skip != 'true'
+        id: site_check
+        run: |
+          set +e
+          FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
+          echo "Found $FILE_COUNT files in output/site"
+          if [ "$FILE_COUNT" -lt 5000 ]; then
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload site artifact
+        if: always() && steps.gate.outputs.skip != 'true' && steps.site_check.outputs.healthy == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site/
+          retention-days: 14
+          overwrite: true
+
+      - name: Upload DB artifact
+        if: always() && steps.gate.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+  notify:
+    if: failure()
+    needs: refresh
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}

@@ -195,7 +195,7 @@ def _voice_summary(agg: SourceAggregate, sample: Sequence[sqlite3.Row]) -> str:
         f"Sample claims:\n{bullets}"
     )
     resp = client.messages.create(
-        model=os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-5"),
+        model=os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-6"),
         max_tokens=240,
         system=_VOICE_SYSTEM,
         messages=[{"role": "user", "content": user}],

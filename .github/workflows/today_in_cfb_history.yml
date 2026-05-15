@@ -1,0 +1,123 @@
+name: today_in_cfb_history
+# S5 surface — Today in CFB History.
+#
+# Daily 05:00 ET (= 09:00 UTC). Renders the "on this day" anniversary
+# card consumed by the homepage strip and the standalone
+# /today-in-history/ page.
+#
+# Calls `manage.py render-today-in-history` (TODO: CLI lands Sprint v5-1
+# Day 4 afternoon alongside Adapter 3 archive_threads writes).
+
+on:
+  schedule:
+    - cron: "0 9 * * *"   # 05:00 ET / 09:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: read
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          set -e
+          python -m pip install -U pip pyyaml
+          python -m pip install -e .
+
+      - name: Download prior DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          set -e
+          python manage.py init-db
+          python manage.py apply-migrations
+
+      - name: Download prior site state
+        id: dl_site
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Seed output/site from prior state
+        run: |
+          set -e
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+
+      # TODO Sprint v5-1 Day 4 follow-up: implement `manage.py render-today-in-history`
+      # in cli.py. Reads archive_threads (same-MM-DD across 2014-2025
+      # written by archive_retro_daily.yml + Adapter 3) and emits the
+      # /today-in-history/ page plus the homepage anniversary strip.
+      - name: Render Today in CFB History
+        run: |
+          set -e
+          python -u manage.py render-today-in-history
+
+      - name: Verify build freshness
+        run: |
+          set -e
+          MODIFIED=$(find output/site -type f -newer prior-site 2>/dev/null | wc -l)
+          echo "Fresh files: $MODIFIED"
+          if [ "$MODIFIED" -lt 1 ]; then
+            echo "::error::render-today-in-history produced zero fresh files"
+            exit 1
+          fi
+
+      - name: Sanity-check site before upload
+        id: site_check
+        run: |
+          set +e
+          FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
+          echo "Found $FILE_COUNT files in output/site"
+          if [ "$FILE_COUNT" -lt 5000 ]; then
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload site artifact
+        if: always() && steps.site_check.outputs.healthy == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site/
+          retention-days: 14
+          overwrite: true
+
+  notify:
+    if: failure()
+    needs: render
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}
