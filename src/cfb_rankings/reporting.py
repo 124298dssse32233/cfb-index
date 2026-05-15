@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import base64
 from dataclasses import dataclass, replace
-from datetime import datetime
+from datetime import date, datetime
 import hashlib
 from html import escape
 import json
@@ -11,6 +11,11 @@ from pathlib import Path
 import re
 from typing import Any
 
+from cfb_rankings.common.cfb_calendar import (
+    cfb_week_label,
+    cfb_week_label_for_window,
+    is_offseason,
+)
 from cfb_rankings.db import Database
 from cfb_rankings.bets.glossary import glossary_payload_js, load_glossary
 from cfb_rankings.fan_intelligence import (
@@ -28,6 +33,47 @@ from cfb_rankings.utils import (
     season_span_label,
     slugify,
 )
+
+
+def _published_run_label(model_week: Any, *, today: date | None = None) -> str:
+    """User-facing label for the "Published Run" meta-pill / Pulse card.
+
+    In-season the bare 'Week N' is fine. Offseason it reads as garbage
+    ('Week 16' in May means nothing), so swap in the phase + days-to-
+    kickoff parenthetical from cfb_calendar.
+
+    Args:
+        model_week: The published run's week (int or castable). Surfaced
+            in-season; ignored offseason.
+        today: For test pinning. Defaults to date.today().
+    """
+    today = today or date.today()
+    if not is_offseason(today, db=None) and model_week is not None:
+        try:
+            return f"Week {int(model_week)}"
+        except (TypeError, ValueError):
+            return cfb_week_label(today, db=None)
+    return cfb_week_label(today, db=None)
+
+
+def _heisman_week_pill(week: Any, season_year: Any, *, today: date | None = None) -> str:
+    """User-facing label for Heisman 'Latest Heisman week' / 'Vote-eligible inputs' pills.
+
+    Pattern: in-season → 'Week N'. Offseason → 'Final {season_year}'.
+    Returns '—' if week is None or season is None.
+    """
+    if week is None:
+        return "—"
+    today = today or date.today()
+    if is_offseason(today, db=None) and season_year is not None:
+        try:
+            return f"Final {int(season_year)}"
+        except (TypeError, ValueError):
+            return f"Final {season_year}"
+    try:
+        return f"Week {int(week)}"
+    except (TypeError, ValueError):
+        return f"Week {week}"
 
 
 def _rankings_freshness_lede(season_year: int, ranked_week, local_week) -> str:
@@ -12003,7 +12049,7 @@ def _render_site_pulse_cards(site_pulse: dict[str, Any]) -> str:
         ),
         (
             "Published Run",
-            f"Week {site_pulse['model_week']} board",
+            f"{_published_run_label(site_pulse['model_week'])} board",
             f"CFB Index v1 was last cut at {site_pulse['data_cutoff_display']}.",
             "CFB Index publish",
         ),
@@ -14284,7 +14330,7 @@ def render_rankings_page_html(
           <div class="home-meta-row panel">
             <div class="meta-pill"><span>Season</span><strong>{escape(season_name)}</strong></div>
             <div class="meta-pill"><span>Span</span><strong>{escape(season_span_label(season_year_value))}</strong></div>
-            <div class="meta-pill"><span>Published Run</span><strong>Week {escape(str(summary["week"]))}</strong></div>
+            <div class="meta-pill"><span>Published Run</span><strong>{escape(_published_run_label(summary["week"]))}</strong></div>
             <div class="meta-pill"><span>Site Universe</span><strong>{len(rankings)} ranked teams</strong></div>
           </div>
         </section>
@@ -15886,8 +15932,8 @@ def render_heisman_page_html(
       <section class="section">
         <div class="home-meta-row panel">
           <div class="meta-pill"><span>Season</span><strong>{escape(season_name)}</strong></div>
-          <div class="meta-pill"><span>Latest Heisman week</span><strong>{escape("--" if latest_week is None else f"Week {int(latest_week)}")}</strong></div>
-          <div class="meta-pill"><span>Vote-eligible inputs</span><strong>{escape("--" if vote_eligible_week is None else f"Week {vote_eligible_week}")}</strong></div>
+          <div class="meta-pill"><span>Latest Heisman week</span><strong>{escape(_heisman_week_pill(latest_week, season_year_value))}</strong></div>
+          <div class="meta-pill"><span>Vote-eligible inputs</span><strong>{escape(_heisman_week_pill(vote_eligible_week, season_year_value))}</strong></div>
           <div class="meta-pill"><span>Ranked players</span><strong>{ranked_profiles:,}</strong></div>
           <div class="meta-pill"><span>Player cards</span><strong>{tracked_profiles:,}</strong></div>
           <div class="meta-pill"><span>Current candidates with pages</span><strong>{tracked_on_board:,}</strong></div>
@@ -16046,7 +16092,7 @@ def render_players_index_html(
         <div class="home-meta-row panel">
           <div class="meta-pill"><span>Player cards</span><strong>{len(player_directory_rows):,}</strong></div>
           <div class="meta-pill"><span>Current Heisman ranks</span><strong>{current_ranked:,}</strong></div>
-          <div class="meta-pill"><span>Latest Heisman week</span><strong>{escape("--" if latest_week is None else f"Week {int(latest_week)}")}</strong></div>
+          <div class="meta-pill"><span>Latest Heisman week</span><strong>{escape(_heisman_week_pill(latest_week, season_year_value))}</strong></div>
           <div class="meta-pill"><span>Season</span><strong>{escape(season_name)}</strong></div>
         </div>
       </section>
@@ -23312,7 +23358,21 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
             '</div>'
             '</section>'
         )
-    week_label = shown[0].get("week") or ""
+    # Cohort signal subhead: in-season this renders "week 9". Offseason it
+    # used to render "week 31" or "week 2026-21" — garbage to readers.
+    # Use cfb_week_label_for_window so offseason renders as the phase
+    # label ("Late Spring window"). Best-effort int parse handles both
+    # int weeks and "YYYY-WW" ISO key formats.
+    _week_raw = shown[0].get("week") or ""
+    try:
+        _week_int = int(str(_week_raw).split("-")[-1]) if _week_raw else 0
+    except (ValueError, TypeError):
+        _week_int = 0
+    week_label = (
+        cfb_week_label_for_window(date.today(), _week_int, db=None)
+        if _week_int
+        else str(_week_raw)
+    )
     confidence = shown[0].get("confidence_tier") or "?"
     bars = []
     # Sort with highest effective_n first for visual anchor
@@ -23353,7 +23413,7 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
         '<div class="section-head">'
         f'<h2>Cohort Signal</h2>'
         '<p class="section-sub">Per-cohort sentiment for '
-        f'{escape(team_name)}, week {escape(week_label)}. Confidence tier: '
+        f'{escape(team_name)}, {escape(week_label)}. Confidence tier: '
         f'<strong>{escape(confidence)}</strong>. '
         '<a href="../methodology/fan-intelligence.html">How we weight cohorts &raquo;</a></p>'
         '</div>'
