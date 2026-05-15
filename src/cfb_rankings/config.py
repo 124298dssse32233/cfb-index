@@ -3,7 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 import os
 from pathlib import Path
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
+
+if TYPE_CHECKING:
+    from cfb_rankings.quality_loop import LoopPattern
 
 
 @dataclass(frozen=True)
@@ -49,6 +52,47 @@ def _require_env(name: str) -> str:
     if not value:
         raise RuntimeError(f"Missing required environment variable: {name}")
     return value
+
+
+# ---------------------------------------------------------------------------
+# quality_loop.py feature-flag dispatch + per-surface weekly spend ceilings.
+#
+# Sprint v5-1 lands `quality_loop.py` with the flags dict EMPTY so no surface
+# changes behavior. Subsequent sprints flip one flag at a time per the
+# rollout table in DESIGN_AUDIT_2026_05_15_v5_3.md Part 5. The eight
+# existing call sites that use `llm_runtime.generate_with_voice_check`
+# directly stay on contract until their surface key appears here.
+#
+# Surface keys follow the convention `tier{N}.{surface_slug}`. Use these
+# exact strings — they're the join key with WEEKLY_CEILINGS_CENTS below
+# and with the telemetry written by `team_pages.llm_usage_log`.
+# ---------------------------------------------------------------------------
+
+# Empty by default. Sprint v5-2 begins populating per the rollout schedule
+# in DESIGN_AUDIT_2026_05_15_v5_3.md Part 5 / IMPLEMENTATION_PLAN.md Part 5.
+# Type is `dict[str, "LoopPattern"]` once quality_loop is imported by the
+# caller; left as plain dict here to avoid a hard import cycle.
+QUALITY_LOOP_FLAGS: dict[str, "LoopPattern"] = {}
+
+
+# Per-surface weekly spend ceilings (cents). Enforced by quality_loop.py's
+# Rung-3 circuit breaker. Verbatim from DESIGN_AUDIT_2026_05_15_v5_3.md
+# Part 2 and IMPLEMENTATION_PLAN.md Part 6.5.
+WEEKLY_CEILINGS_CENTS: dict[str, int] = {
+    "tier1.edition_cover":         1000,   # $10/wk (Pattern D headroom)
+    "tier1.daily_lead":             500,
+    "tier1.heisman_weekly":         300,
+    "tier1.mailbag":                800,
+    "tier1.reaction_story":         500,
+    "tier1.storyline_chapter":      400,
+    "tier1.canon_top10":            200,
+    "tier1.chronicle_profiled":     500,
+    "tier2.team_narrative":         200,
+    "tier2.pulse_state":            200,
+    "tier2.chronicle_unprofiled":  1500,
+    "tier3.wire":                   200,
+    "tier3.canon_tail":             200,
+}
 
 
 def _load_dotenv() -> None:
