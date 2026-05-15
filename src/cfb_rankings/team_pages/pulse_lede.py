@@ -61,6 +61,72 @@ def _themes_summary(themes: list[dict]) -> str:
     return "\n".join(lines)
 
 
+def generate_entity_ledes_batch(
+    entities: list[tuple[str, str, list[dict], str, str | None]],
+    db_conn: Any,
+) -> dict[tuple[str, str], dict[str, Any]]:
+    """Batched lede generator for N entities.
+
+    ``entities`` is a list of ``(entity_slug, entity_type, themes, model_tier,
+    entity_name)`` tuples. Returns ``{(slug, type): {text, voice_validator_passed,
+    model_used}}`` for every entity.
+
+    Same shared-system-cached + per-entity-user-message pattern as
+    pulse_themes.extract_entities_themes_batch. The lede system prompt
+    (~250 tokens) caches once per batch; per-entity messages stay tiny
+    (just the entity name + 3 themes).
+    """
+    from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
+
+    jobs: list[BatchJob] = []
+    by_id: dict[str, tuple[str, str, str]] = {}  # custom_id -> (slug, type, model)
+    for (entity_slug, entity_type, themes, model_tier, entity_name) in entities:
+        name = entity_name or entity_slug.replace("-", " ").title()
+        model = _model_for_tier(model_tier)
+        themes_block = _themes_summary(themes)
+        user_prompt = (
+            f"Entity: {name} ({entity_type})\n\n"
+            f"Current fan conversation themes:\n{themes_block}\n\n"
+            f"Write the Lede (2-3 sentences, fan voice, present tense)."
+        )
+        sanitized_slug = entity_slug.replace("/", "-").replace(":", "-")
+        custom_id = f"pulse-lede-{entity_type}-{sanitized_slug}"
+        by_id[custom_id] = (entity_slug, entity_type, model)
+        jobs.append(BatchJob(
+            custom_id=custom_id,
+            system_blocks=[
+                {
+                    "type": "text",
+                    "text": _SYSTEM_PROMPT,
+                    "cache_control": {"type": "ephemeral", "ttl": "1h"},
+                },
+            ],
+            messages=[{"role": "user", "content": user_prompt}],
+            model=model,
+            max_tokens=200,
+            metadata={"slug": entity_slug, "entity_type": entity_type},
+        ))
+
+    results = submit_batch_offline_safe(jobs)
+    out: dict[tuple[str, str], dict[str, Any]] = {}
+    for r in results:
+        slug, etype, model = by_id[r.custom_id]
+        text = r.text
+        passed = bool(r.voice_validator_passed)
+        if r.succeeded and text and r.mode == "batch":
+            if etype == "conference":
+                _store_conference_lede(slug, text, model, db_conn, passed)
+            else:
+                _store_team_lede(slug, etype, text, model, db_conn, passed)
+        out[(slug, etype)] = {
+            "text": text,
+            "voice_validator_passed": passed,
+            "model_used": r.model_used,
+            "mode": r.mode,
+        }
+    return out
+
+
 def generate_entity_lede(
     entity_slug: str,
     entity_type: str,

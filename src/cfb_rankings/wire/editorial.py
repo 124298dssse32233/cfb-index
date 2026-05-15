@@ -19,6 +19,17 @@ Validator gate: every emitted string passes through
 `team_pages.voice_validator.validate_fan_voice` before insertion.
 First-pass failure -> falls back to the factual restatement. No template
 phrase-bank involved on the hot path.
+
+Sprint v5-1.5 batch-API note
+----------------------------
+This module's current hot path is template + authored-caption lookup —
+NOT a live LLM call. There is nothing to batch yet. When the production
+path lands (Sonnet API per uncovered row with cache on action hash),
+``generate_uncovered_rows_batch`` below is the planned entry point:
+it submits every uncovered Wire row in one Anthropic Batch with a
+shared cached system contract (impact-scoring rubric + voice register).
+The function is wired to llm_runtime_batch but is a no-op until the
+production LLM path is enabled — see ``generate_uncovered_rows_batch``.
 """
 from __future__ import annotations
 
@@ -178,4 +189,114 @@ def generate_editorial_for_pending(
         "validator_dropped": validator_dropped,
         "validator_passed": processed - validator_dropped,
         "historical_comps": historical_count,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Sprint v5-1.5 — batch-ready scaffold (no-op until production LLM lands)
+# ---------------------------------------------------------------------------
+
+_WIRE_BATCH_SYSTEM = """You are writing the "why it matters" caption for a single Wire entry on a \
+college football editorial site.
+
+Voice: fan-voice, 10-25 words, specific to the player + donor + destination context. No corporate \
+speak. No methodology references. No banned phrases. Return ONLY the caption text, no preamble.
+"""
+
+
+def generate_uncovered_rows_batch(
+    db: Database,
+    *,
+    days: int = 90,
+    model: str = "claude-sonnet-4-6",
+) -> dict[str, Any]:
+    """Batched LLM generation for Wire rows NOT covered by an authored caption.
+
+    This is the planned entry point when the wire editorial path adopts a
+    live Sonnet call per uncovered row (see module docstring). It builds
+    one Anthropic Batch with a shared cached voice contract and one job
+    per uncovered row, then updates the row's why_it_matters in DB.
+
+    Current behavior: identifies uncovered rows, submits the batch via
+    ``submit_batch_offline_safe``. If the API key is unset (typical for
+    local dev), every job comes back as offline-stub and DB writes are
+    skipped — the row keeps its factual_restatement until next run.
+    Production deployment of this path is gated on the Sprint v5-2
+    quality-loop work.
+    """
+    from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
+
+    where = (
+        "where occurred_at >= datetime('now', :since) "
+        "  and (why_it_matters is null or trim(why_it_matters) = '' "
+        "       or why_it_matters like '%: ' || action || '.')"
+    )
+    rows = db.query_all(
+        f"""
+        select id, occurred_at, program_slug, program_display, actor_kind,
+               action, fan_intel_velocity_spike, related_thread_slug
+        from wire_entries
+        {where}
+        order by occurred_at desc
+        """,
+        {"since": f"-{int(days)} days"},
+    )
+
+    # Skip rows that ARE covered by an authored caption.
+    uncovered: list[dict[str, Any]] = []
+    for r in rows:
+        if _lookup_authored(r) is None:
+            uncovered.append(r)
+
+    if not uncovered:
+        return {"uncovered": 0, "batched": 0, "updated": 0, "mode": "noop"}
+
+    jobs: list[BatchJob] = []
+    for r in uncovered:
+        custom_id = f"wire-{r['id']}"
+        program = (r.get("program_display") or "").strip()
+        action = (r.get("action") or "").strip()
+        user_prompt = (
+            f"Program: {program}\n"
+            f"Action: {action}\n"
+            f"Velocity spike: {r.get('fan_intel_velocity_spike') or 'n/a'}\n"
+            "Write the why-it-matters caption now."
+        )
+        jobs.append(BatchJob(
+            custom_id=custom_id,
+            system_blocks=[
+                {
+                    "type": "text",
+                    "text": _WIRE_BATCH_SYSTEM,
+                    "cache_control": {"type": "ephemeral", "ttl": "1h"},
+                },
+            ],
+            messages=[{"role": "user", "content": user_prompt}],
+            model=model,
+            max_tokens=120,
+            metadata={"wire_id": r["id"]},
+        ))
+
+    results = submit_batch_offline_safe(jobs)
+    updated = 0
+    for r_obj in results:
+        if not r_obj.succeeded or not r_obj.text:
+            continue
+        text = r_obj.text.strip()
+        ok, _violations = validate_fan_voice(text, source="wire.batch_why_it_matters")
+        if not ok:
+            continue
+        wire_id = r_obj.metadata.get("wire_id")
+        if wire_id is None:
+            continue
+        db.execute(
+            "update wire_entries set why_it_matters = :why where id = :id",
+            {"why": text, "id": wire_id},
+        )
+        updated += 1
+    return {
+        "uncovered": len(uncovered),
+        "batched": len(jobs),
+        "updated": updated,
+        "mode": "batch",
     }

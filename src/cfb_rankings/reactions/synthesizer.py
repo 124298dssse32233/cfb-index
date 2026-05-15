@@ -304,6 +304,190 @@ def _llm_synthesize(
         return headline, dek, body
 
 
+# ── Batched LLM synthesis (cost-optimized path) ─────────────────────────────
+
+_REACTIONS_SHARED_SYSTEM = """You are writing Reaction Stories for a college football editorial site.
+
+The editorial product for a Reaction Story is the COHORT DIVERGENCE, not the event recap. \
+Open by acknowledging the event briefly, then pivot HARD to: stat folks said X, regular fans \
+said Y, die-hards said Z. Show why the split matters.
+
+Audience: college football fans who follow closely. Voice: warm-fan-positioned, knowledgeable, \
+acknowledges CFB's absurdity.
+
+Required for every story:
+- 350-500 words
+- Headline + dek + body (markdown body)
+- Cite at least 3 named sources verbatim across the 3 cohort sections
+- Each cohort section = 1 paragraph with 2-3 verbatim quotes
+- End with: "What we're watching" — what the next 72h will tell us
+- No banned phrases (don't say: analytics cohort, die-hard cohort, casual cohort, n=, discourse velocity, cohort taxonomy)
+- Use cohort labels naturally ("stat folks", "regular fans", "the boards") — never the internal taxonomy
+
+Output: a JSON object with keys "headline", "dek", "body" (markdown string). Nothing else.
+"""
+
+
+def _reactions_user_message(
+    wire_row: dict,
+    cohort_div: CohortDivergence,
+    surprise_index: float,
+) -> str:
+    """Per-story user-turn payload for the batch path."""
+    entity_name = wire_row.get("program_display", wire_row.get("program_slug", "Unknown"))
+    wire_summary = f"{wire_row.get('action', '')} — {wire_row.get('why_it_matters', '')}"
+    cohort_struct = json.dumps({
+        "stat_folks": {
+            "stance": cohort_div.stat_folks.stance,
+            "sentiment_score": cohort_div.stat_folks.sentiment_score,
+            "volume_share": cohort_div.stat_folks.volume_share,
+            "quotes": [{"text": q.text, "attribution": q.attribution} for q in cohort_div.stat_folks.quotes],
+        },
+        "casual_fans": {
+            "stance": cohort_div.casual_fans.stance,
+            "sentiment_score": cohort_div.casual_fans.sentiment_score,
+            "volume_share": cohort_div.casual_fans.volume_share,
+            "quotes": [{"text": q.text, "attribution": q.attribution} for q in cohort_div.casual_fans.quotes],
+        },
+        "die_hards": {
+            "stance": cohort_div.die_hards.stance,
+            "sentiment_score": cohort_div.die_hards.sentiment_score,
+            "volume_share": cohort_div.die_hards.volume_share,
+            "quotes": [{"text": q.text, "attribution": q.attribution} for q in cohort_div.die_hards.quotes],
+        },
+    }, indent=2)
+    surprise_note = (
+        f"Surprise Index: {surprise_index} (>=75 — mark this as unlikely/surprising in the lede)\n"
+        if surprise_index >= 75 else ""
+    )
+    return (
+        f"Entity: {entity_name}\n"
+        f"Event: {wire_summary}\n"
+        f"{surprise_note}\n"
+        f"Cohort divergence data:\n{cohort_struct}\n\n"
+        f"Wire event:\n{json.dumps(dict(wire_row), default=str, indent=2)}\n\n"
+        f"Voice register references:\n{_VOICE_EXAMPLES}\n\n"
+        f"Write the Reaction Story now. Output JSON with keys: headline, dek, body."
+    )
+
+
+def synthesize_reactions_batch(
+    stories: list[tuple["TriggerEvent", dict, CohortDivergence, str]],
+) -> list["ReactionStory"]:
+    """Batched generation of N reaction stories.
+
+    Args:
+        stories: list of (trigger, wire_row, cohort_div, story_slug) tuples.
+
+    Returns the persisted ReactionStory list. Voice-validator output here
+    is informational — the JSON-output contract triggers false positives
+    on the fan-voice validator, so the existing per-attempt _canonical_validate
+    check on body+headline+dek remains the authoritative gate (with stub
+    fallback on validate fail).
+    """
+    try:
+        from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
+    except ImportError as exc:
+        print(f"  [reactions.batch] llm_runtime_batch unavailable: {exc} — falling back to sync", flush=True)
+        return [generate_reaction(trigger, wire_row, cohort_div, story_slug)
+                for trigger, wire_row, cohort_div, story_slug in stories]
+
+    jobs = []
+    by_slug: dict[str, tuple] = {}
+    for (trigger, wire_row, cohort_div, story_slug) in stories:
+        surprise_index = _compute_surprise_index(wire_row, cohort_div)
+        is_blue_blood = trigger.primary_entity_slug in _BLUE_BLOOD_SLUGS
+        use_opus = (surprise_index >= 90) and is_blue_blood
+        model = "claude-opus-4-7" if use_opus else "claude-sonnet-4-6"
+        custom_id = f"reaction-{story_slug}"
+        by_slug[custom_id] = (trigger, wire_row, cohort_div, story_slug, surprise_index, model)
+        jobs.append(BatchJob(
+            custom_id=custom_id,
+            system_blocks=[
+                {
+                    "type": "text",
+                    "text": _REACTIONS_SHARED_SYSTEM,
+                    "cache_control": {"type": "ephemeral", "ttl": "1h"},
+                },
+            ],
+            messages=[{"role": "user", "content": _reactions_user_message(wire_row, cohort_div, surprise_index)}],
+            model=model,
+            max_tokens=1200,
+            metadata={"story_slug": story_slug, "surprise_index": surprise_index},
+        ))
+
+    results = submit_batch_offline_safe(jobs, run_voice_validator=False)
+    out: list[ReactionStory] = []
+    for r in results:
+        (trigger, wire_row, cohort_div, story_slug, surprise_index, model) = by_slug[r.custom_id]
+        validator_passed = False
+        generation_model = r.model_used or model
+        if r.succeeded and r.text:
+            # Parse JSON; on failure or validator fail, drop to stub.
+            raw = r.text.strip()
+            try:
+                if "```json" in raw:
+                    raw = raw.split("```json")[1].split("```")[0].strip()
+                elif "```" in raw:
+                    raw = raw.split("```")[1].split("```")[0].strip()
+                parsed = json.loads(raw)
+                headline = parsed["headline"]
+                dek = parsed["dek"]
+                body = parsed["body"]
+            except Exception:
+                # Fall back to stub generation
+                headline, dek, body = _stub_story_body(wire_row, cohort_div, surprise_index)
+                generation_model = "offline-stub-fallback"
+
+            result_v = _canonical_validate(body + " " + headline + " " + dek)
+            validator_passed = result_v.passed
+            if not validator_passed:
+                # Voice validator failed — drop to stub (no batch retries).
+                print(f"  [reactions.batch] voice validator failed for {story_slug}; using stub", flush=True)
+                headline, dek, body = _stub_story_body(wire_row, cohort_div, surprise_index)
+                generation_model = "offline-stub-fallback"
+                validator_passed = True
+        else:
+            print(f"  [reactions.batch] {r.custom_id}: {r.error!r} — using stub", flush=True)
+            headline, dek, body = _stub_story_body(wire_row, cohort_div, surprise_index)
+            generation_model = "offline-stub-fallback"
+            validator_passed = True
+
+        cited_sources = _build_cited_sources(wire_row, cohort_div)
+        story = ReactionStory(
+            slug=story_slug,
+            triggered_by_wire_id=trigger.wire_id,
+            triggered_at_utc=utc_now_iso(),
+            triggered_by_velocity=trigger.velocity,
+            primary_entity_slug=trigger.primary_entity_slug,
+            primary_entity_type=trigger.primary_entity_type,
+            headline=headline,
+            dek=dek,
+            body=body,
+            surprise_index=surprise_index,
+            status="published",
+            voice_validator_passed=1 if validator_passed else 0,
+            generation_model=generation_model,
+            cited_sources_json=json.dumps(cited_sources),
+            notes=f"trigger_reason={trigger.trigger_reason}; mode=batch",
+        )
+        upsert_story(story)
+        for cohort_data in (cohort_div.stat_folks, cohort_div.casual_fans, cohort_div.die_hards):
+            split = CohortSplit(
+                story_slug=story_slug,
+                cohort=cohort_data.cohort,
+                stance=cohort_data.stance,
+                representative_quotes_json=json.dumps(
+                    [{"text": q.text, "attribution": q.attribution} for q in cohort_data.quotes]
+                ),
+                sentiment_score=cohort_data.sentiment_score,
+                volume_share=cohort_data.volume_share,
+            )
+            upsert_cohort_split(split)
+        out.append(story)
+    return out
+
+
 # ── Main entry point ────────────────────────────────────────────────────────
 
 def generate_reaction(

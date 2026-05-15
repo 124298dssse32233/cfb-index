@@ -447,6 +447,234 @@ def write_card(
     return payload, meta
 
 
+# --------------------------------------------------------------------------
+# Stage 3 (batch) — Anthropic Message Batches API path
+# --------------------------------------------------------------------------
+#
+# Cost-optimization layer (Sprint v5-1.5). The per-team subprocess path
+# above stays in place for single-team interactive runs. When generating
+# Chronicle cards across many teams in one weekly pass, the batch path
+# stacks Anthropic's Batch API discount (50% off input + output) with
+# 1-hour prompt caching (~90% off cached input) for a combined ~5% rate
+# on the cached prefix. With 17 profiled programs × ~5 cards/week × a
+# shared editorial-voice contract, this is the highest-volume call site
+# in the system.
+#
+# The shared cached prefix is the voice-contract preamble (banned phrases,
+# attribution patterns, etc.) — stable across every Chronicle card. The
+# per-card user message carries the candidate-specific evidence + program
+# voice. First card in the batch pays cache_write_1h, every subsequent
+# card pays cache_read.
+
+_CHRONICLE_BATCH_SYSTEM_PREAMBLE = """You are writing ONE Chronicle card per request for a college football \
+team page. Each Chronicle card reads like what a sharp independent beat \
+writer for the program would post — a named writer with taste and a \
+ten-year memory of the program, not a research note, not a stats engine, \
+not a pipeline describing itself.
+
+# Hard editorial constraints (apply to every card)
+
+- Headline: 6-14 words. MUST contain at least one specific noun beyond the
+  program name itself — a player, a coach, an opponent, a date, a stadium,
+  a play. Generic headlines fail.
+- Body: 2-3 sentences, 45-85 words total. Short sentences. Concrete nouns.
+  Active voice. At least ONE comparative marker ("since", "like", "only",
+  "longest", "first time in X years", "hasn't Y since", etc.) — threading
+  the current observation to program memory.
+- Attribution: use the source_citation provided in each user message
+  VERBATIM as the attribution field.
+- Do not explain the card. Do not cite "this Chronicle" or "this card"
+  or "the pipeline" or "our model" or any other meta reference. The fan
+  does not want to know how the card was made.
+- Do not invent facts not in the evidence blob. Do not invent quotes.
+
+# Banned phrases (rewrite from scratch if your draft contains any of these)
+
+- sample, stat engine, pipeline, our algorithm, the algorithm, methodology
+- tier 1, tier 2, the pattern is, summary stat, compression of outcome
+- flattening of, every season produces, this table, this card, this module
+- the engine, cfb index
+
+# Output format (every response)
+
+Return ONLY a JSON object, no markdown fences, no preamble:
+
+{
+  "headline": "<6-14 word headline with a specific noun>",
+  "body": "<45-85 word body, 2-3 sentences>",
+  "attribution": "<use the source citation verbatim>"
+}
+
+Before returning, read your draft back as if you were a sharp independent
+blogger for this program. Would you post this? If yes, return. Otherwise
+rewrite once and return.
+"""
+
+
+def _per_card_user_prompt(
+    candidate: CandidateObservation,
+    profile: Profile,
+) -> str:
+    """Per-card user-turn prompt for the batch path. Holds the
+    candidate-specific evidence + program voice cues. Kept short so the
+    cached system preamble dominates input cost."""
+    never = "\n".join(f"- {s}" for s in profile.never_use) or "- (none specified)"
+    stock = "\n".join(f"- {s}" for s in profile.stock_phrases) or "- (none specified)"
+    era_overrides = profile.era_name_overrides
+    era_lines = "\n".join(f"- {k}: {v}" for k, v in era_overrides.items()) or "- (none)"
+    mascot = profile.mascot_voice
+    mascot_lines = "\n".join(f"- {k}: {v}" for k, v in mascot.items()) or "- (none)"
+    evidence_blob = json.dumps(candidate.evidence, indent=2, ensure_ascii=False)
+    return f"""Program: {profile.program_name}
+
+# Program voice (use literally, do not paraphrase)
+
+voice_register: {profile.voice_register}
+identity_phrase: "{profile.identity_phrase}"
+mantra: "{profile.mantra}"
+
+Stock phrases earned on this fanbase:
+{stock}
+
+Era name overrides:
+{era_lines}
+
+Mascot voice (for tonal register only):
+{mascot_lines}
+
+Program-specific never-use list (treat as hard bans IN ADDITION to system bans):
+{never}
+
+# Candidate
+
+Card type: {candidate.suggested_type}
+Stream origin: {candidate.stream}
+Source citation (use VERBATIM as the attribution field): {candidate.source_citation}
+
+Summary the writer should anchor on:
+{candidate.notes}
+
+Raw evidence (JSON):
+{evidence_blob}
+
+Write the card now."""
+
+
+def build_chronicle_batch_jobs(
+    plan: list[tuple[CandidateObservation, Profile, TeamSnapshot, str]],
+    *,
+    max_tokens: int = 2048,
+) -> list[Any]:
+    """Translate (candidate, profile, snapshot, model) tuples into BatchJob list.
+
+    Returns a list of ``BatchJob`` instances. Caller passes them to
+    ``llm_runtime_batch.submit_batch``. The shared system preamble is
+    marked with ``cache_control={'type': 'ephemeral', 'ttl': '1h'}`` so
+    the first card in the batch pays the cache-write rate and every
+    subsequent card reads from cache.
+
+    ``custom_id`` shape: ``chronicle-<slug>-<rank>``. Persisted on the
+    BatchResult so the orchestrator can route results back to the right
+    candidate + persist row.
+    """
+    from cfb_rankings.llm_runtime_batch import BatchJob
+
+    jobs: list[BatchJob] = []
+    for idx, (cand, profile, snapshot, mdl) in enumerate(plan):
+        custom_id = f"chronicle-{profile.slug}-{idx+1}"
+        system_blocks: list[dict[str, Any]] = [
+            {
+                "type": "text",
+                "text": _CHRONICLE_BATCH_SYSTEM_PREAMBLE,
+                "cache_control": {"type": "ephemeral", "ttl": "1h"},
+            },
+        ]
+        user_prompt = _per_card_user_prompt(cand, profile)
+        jobs.append(BatchJob(
+            custom_id=custom_id,
+            system_blocks=system_blocks,
+            messages=[{"role": "user", "content": user_prompt}],
+            model=mdl,
+            max_tokens=max_tokens,
+            metadata={
+                "slug": profile.slug,
+                "rank": idx + 1,
+                "stream": cand.stream,
+                "suggested_type": cand.suggested_type,
+            },
+        ))
+    return jobs
+
+
+def write_cards_batch(
+    plan: list[tuple[CandidateObservation, Profile, TeamSnapshot, str]],
+    *,
+    max_tokens: int = 2048,
+    poll_interval_seconds: int = 30,
+    timeout_seconds: int = 14400,
+) -> list[tuple[CandidateObservation, Profile, TeamSnapshot, str, dict[str, str] | None, dict[str, Any]]]:
+    """Batch variant of ``write_card`` — process N cards in one API batch.
+
+    Returns a list of ``(candidate, profile, snapshot, model, payload, meta)``
+    tuples in the same order as ``plan``. ``payload`` is None on failure;
+    ``meta`` carries error string + token counts so the orchestrator can
+    log the same telemetry shape as the sync path.
+
+    Voice-validator runs inside submit_batch but its result is informational
+    only at this stage — the per-card regex ``validate_card`` is still the
+    authoritative gate downstream.
+    """
+    from cfb_rankings.llm_runtime_batch import submit_batch_offline_safe
+
+    jobs = build_chronicle_batch_jobs(plan, max_tokens=max_tokens)
+    results = submit_batch_offline_safe(
+        jobs,
+        poll_interval_seconds=poll_interval_seconds,
+        timeout_seconds=timeout_seconds,
+        # Chronicle does its own JSON-parsing + regex validation (Stage 4)
+        # — bypass the fan-voice validator here. The system prompt
+        # instructs the model to return raw JSON, which would otherwise
+        # be flagged on structural grounds.
+        run_voice_validator=False,
+    )
+
+    # Map custom_id → result, then re-emit in plan order with parsed JSON.
+    by_id: dict[str, Any] = {r.custom_id: r for r in results}
+    out: list[tuple[CandidateObservation, Profile, TeamSnapshot, str, dict[str, str] | None, dict[str, Any]]] = []
+    for idx, (cand, profile, snapshot, mdl) in enumerate(plan):
+        custom_id = f"chronicle-{profile.slug}-{idx+1}"
+        r = by_id.get(custom_id)
+        meta: dict[str, Any] = {
+            "model": mdl,
+            "mode": "batch",
+            "duration_s": 0.0,
+            "error": None,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+        }
+        if r is None:
+            meta["error"] = "batch result missing"
+            out.append((cand, profile, snapshot, mdl, None, meta))
+            continue
+        meta["input_tokens"] = r.input_tokens
+        meta["output_tokens"] = r.output_tokens
+        meta["cache_read_input_tokens"] = r.cache_read_input_tokens
+        meta["cache_creation_input_tokens"] = r.cache_creation_input_tokens
+        if not r.succeeded or not r.text:
+            meta["error"] = r.error or "batch job did not succeed"
+            out.append((cand, profile, snapshot, mdl, None, meta))
+            continue
+        payload = _parse_json_from_model_output(r.text)
+        if payload is None:
+            meta["error"] = f"model output unparseable: {r.text[:200]}"
+            out.append((cand, profile, snapshot, mdl, None, meta))
+            continue
+        out.append((cand, profile, snapshot, mdl, payload, meta))
+    return out
+
+
 _JSON_FENCE_RE = re.compile(r"```(?:json)?\s*([\s\S]*?)```", re.IGNORECASE)
 _JSON_OBJECT_RE = re.compile(r"\{[\s\S]*\}")
 
@@ -583,6 +811,7 @@ def generate_chronicle_for_team(
     week: int | None = None,
     parallel_workers: int = 3,
     log: Any = None,
+    mode: str = "sync",
 ) -> list[ChronicleCard]:
     """Full pipeline: scan → rank → write (LLM) → validate → keep survivors.
 
@@ -670,6 +899,125 @@ def generate_chronicle_for_team(
 
     logf(f"  [{profile.slug}] survived: {len(surviving)}/{len(ranked)} cards "
          f"(dropped: {len(dropped)})")
+    return surviving
+
+
+def generate_chronicle_for_teams_batch(
+    db,
+    teams: list[tuple[Profile, TeamSnapshot]],
+    *,
+    model: str = "auto",
+    max_cards: int = 5,
+    log: Any = None,
+    poll_interval_seconds: int = 30,
+    timeout_seconds: int = 14400,
+) -> dict[str, list[ChronicleCard]]:
+    """Multi-team batch generation — every card from every team in ONE batch.
+
+    Stages:
+      1. For each team: stream scan + ranking (pure Python, no LLM).
+      2. Collect ALL ranked candidates across teams into one batch.
+      3. Submit the batch with a shared cached system preamble.
+      4. Parse + validate (Stage 4 regex) per card.
+      5. Retry failed cards once via the SYNCHRONOUS path (low N after
+         filter, doesn't pay batch poll latency twice).
+      6. Return {slug: list[ChronicleCard]} for the caller to persist.
+
+    The retry-on-validate-fail path stays synchronous because:
+      - Validation failures are sparse (maybe 5-10% of cards across all teams)
+      - Re-batching a tiny set wastes the cache-hit benefit
+      - Submitting individual retries against the existing sync path
+        preserves the existing rewrite-guidance retry behavior
+    """
+    logf = _make_logger(log)
+    is_blueblood_map = {slug: slug in BLUE_BLOODS for slug, _ in [(p.slug, s) for p, s in teams]}
+
+    # Stage 1 + 2: per-team stream scan + rank.
+    per_team_plan: list[tuple[Profile, TeamSnapshot, list[CandidateObservation]]] = []
+    conn = db.connection() if hasattr(db, "connection") else db
+    with conn as c:
+        for profile, snapshot in teams:
+            candidates = scan_all_streams(c, profile.slug, snapshot.season_year, None)
+            ranked = rank_candidates(candidates, profile, max_cards=max_cards)
+            logf(f"  [{profile.slug}] streams: {len(candidates)} candidates, ranked={len(ranked)}")
+            per_team_plan.append((profile, snapshot, ranked))
+
+    # Build flat batch plan: (cand, profile, snapshot, model_id)
+    flat_plan: list[tuple[CandidateObservation, Profile, TeamSnapshot, str]] = []
+    flat_index: list[tuple[str, int]] = []  # (slug, rank-in-team) parallel to flat_plan
+    for profile, snapshot, ranked in per_team_plan:
+        is_blueblood = profile.slug in BLUE_BLOODS
+        for i, cand in enumerate(ranked):
+            if model == "sonnet":
+                mdl = CLAUDE_MODEL_SONNET
+            elif model == "opus":
+                mdl = CLAUDE_MODEL_OPUS
+            elif model == "template":
+                mdl = "template"
+            else:  # 'auto'
+                mdl = CLAUDE_MODEL_OPUS if (is_blueblood and i == 0) else CLAUDE_MODEL_SONNET
+            flat_plan.append((cand, profile, snapshot, mdl))
+            flat_index.append((profile.slug, i + 1))
+
+    if not flat_plan:
+        return {p.slug: [] for p, _ in teams}
+
+    # Template mode: bypass LLM entirely.
+    if model == "template":
+        out: dict[str, list[ChronicleCard]] = {p.slug: [] for p, _ in teams}
+        for (cand, profile, snapshot, _mdl), (slug, _rank) in zip(flat_plan, flat_index):
+            out[slug].append(_template_card(cand, profile, rank=len(out[slug]) + 1))
+        return out
+
+    # Stage 3: BATCH SUBMIT. Renumber custom_ids by team to keep them unique.
+    # The batch helper expects an (idx-within-plan)-based custom_id; rebuild
+    # plan as a single contiguous list since the build helper uses idx+1.
+    logf(f"  [batch] submitting {len(flat_plan)} cards across {len(teams)} teams")
+    batch_results = write_cards_batch(
+        flat_plan,
+        poll_interval_seconds=poll_interval_seconds,
+        timeout_seconds=timeout_seconds,
+    )
+
+    # Stage 4 + retry-sync: validate per card; retry failures via subprocess.
+    surviving: dict[str, list[ChronicleCard]] = {p.slug: [] for p, _ in teams}
+    retry_specs: list[tuple[int, CandidateObservation, Profile, TeamSnapshot, str]] = []
+    for i, (cand, profile, snapshot, mdl, payload, meta) in enumerate(batch_results):
+        slug = profile.slug
+        if payload is None:
+            logf(f"  [{slug}] rank-{flat_index[i][1]} {cand.stream}/{cand.suggested_type}: batch write failed ({meta.get('error')!r}) — will retry sync")
+            retry_specs.append((i, cand, profile, snapshot, mdl))
+            continue
+        ok, reasons = validate_card(payload, cand, profile)
+        if ok:
+            surviving[slug].append(
+                _payload_to_card(payload, cand, model_id=mdl, snapshot=snapshot,
+                                 season_year=snapshot.season_year, validation_notes=[])
+            )
+            continue
+        logf(f"  [{slug}] rank-{flat_index[i][1]} {cand.stream}/{cand.suggested_type}: validation failed ({reasons}); queueing sync retry")
+        retry_specs.append((i, cand, profile, snapshot, mdl))
+
+    # Synchronous retry pass — limited to the sparse failures.
+    if retry_specs:
+        logf(f"  [batch] {len(retry_specs)} cards need sync retry")
+        for (_i, cand, profile, snapshot, mdl) in retry_specs:
+            payload, meta = write_card(cand, profile, snapshot, model=mdl)
+            if payload is None:
+                logf(f"  [{profile.slug}]   sync retry write also failed: {meta.get('error')!r}")
+                continue
+            ok, reasons = validate_card(payload, cand, profile)
+            if ok:
+                surviving[profile.slug].append(
+                    _payload_to_card(payload, cand, model_id=mdl, snapshot=snapshot,
+                                     season_year=snapshot.season_year,
+                                     validation_notes=["sync-retry"])
+                )
+            else:
+                logf(f"  [{profile.slug}]   sync retry validation also failed: {reasons}")
+
+    for slug, cards in surviving.items():
+        logf(f"  [{slug}] survived: {len(cards)} cards")
     return surviving
 
 
