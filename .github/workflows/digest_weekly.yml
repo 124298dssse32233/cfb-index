@@ -1,0 +1,96 @@
+name: digest_weekly
+# Weekly editorial digest — posted as a comment on the rolling
+# DIGEST_ISSUE_NUMBER GitHub Issue. Replaces the v5.0 plan's Resend
+# integration (no email infra, $0 cost).
+#
+# Fri 17:00 ET / 21:00 UTC. Builds the digest markdown via
+# `manage.py build-weekly-digest`, then posts as a comment so the
+# digest_reactions_poll.yml hourly cron can read 👍/👎 reactions and
+# route 👎 back into editorial_overrides.
+#
+# Calls `manage.py build-weekly-digest` (TODO: CLI lands Sprint v5-8
+# per IMPLEMENTATION_PLAN.md Part 3 Sprint v5-8; staged here as the
+# workflow shell so the schedule history exists at Sprint v5-1 close).
+
+on:
+  schedule:
+    - cron: "0 21 * * 5"   # Fri 17:00 ET / 21:00 UTC
+  workflow_dispatch:
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      issues: write
+      contents: read
+      actions: read
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          set -e
+          python -m pip install -U pip pyyaml
+          python -m pip install -e .
+
+      - name: Download prior DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          set -e
+          python manage.py init-db
+          python manage.py apply-migrations
+
+      # TODO Sprint v5-8 follow-up (workflow shell lands Sprint v5-1 Day 4):
+      # implement `manage.py build-weekly-digest --out digest.md
+      # --look-ahead-days 7` in cli.py. Pulls upcoming-week tentpoles
+      # from edition_features, recent quality_loop failures, top
+      # divergence movers, and stale storyline threads into a
+      # markdown summary.
+      - name: Build digest body
+        run: |
+          set -e
+          python -u manage.py build-weekly-digest \
+            --out digest.md \
+            --look-ahead-days 7
+
+      - name: Post comment to rolling digest issue
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ vars.DIGEST_ISSUE_NUMBER }}
+          body-path: digest.md
+          reactions: "+1, -1"
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+  notify:
+    if: failure()
+    needs: digest
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}

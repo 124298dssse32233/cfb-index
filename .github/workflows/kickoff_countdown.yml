@@ -1,0 +1,107 @@
+name: kickoff_countdown
+# S1 surface — Days to Kickoff Countdown strip.
+#
+# Daily 01:00 ET (= 05:00 UTC). Lightweight: just refreshes a small
+# JSON file (output/site/assets/countdown.json or similar) consumed by
+# the homepage countdown strip. No DB writes, no heavy build steps.
+#
+# Calls `manage.py render-kickoff-countdown` (TODO: CLI lands Sprint v5-1
+# Day 4 afternoon, coupled with cfb_calendar.py from Day 2).
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # 01:00 ET / 05:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Deps
+        run: |
+          set -e
+          python -m pip install -U pip pyyaml
+          python -m pip install -e .
+
+      - name: Download prior site state
+        id: dl_site
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Seed output/site from prior state
+        run: |
+          set -e
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+
+      # TODO Sprint v5-1 Day 4 follow-up: implement `manage.py render-kickoff-countdown`
+      # in cli.py. It should compute "days to next Week 1 Saturday" using
+      # cfb_calendar.py (Day 2 deliverable) and write a small JSON blob
+      # to output/site/assets/countdown.json. Homepage JS reads the JSON
+      # and updates the countdown strip without a full rebuild.
+      - name: Render kickoff countdown JSON
+        run: |
+          set -e
+          python -u manage.py render-kickoff-countdown
+
+      - name: Verify build freshness
+        run: |
+          set -e
+          MODIFIED=$(find output/site -type f -newer prior-site 2>/dev/null | wc -l)
+          echo "Fresh files: $MODIFIED"
+          if [ "$MODIFIED" -lt 1 ]; then
+            echo "::error::render-kickoff-countdown produced zero fresh files"
+            exit 1
+          fi
+
+      - name: Sanity-check site before upload
+        id: site_check
+        run: |
+          set +e
+          FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
+          echo "Found $FILE_COUNT files in output/site"
+          if [ "$FILE_COUNT" -lt 5000 ]; then
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload site artifact
+        if: always() && steps.site_check.outputs.healthy == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site/
+          retention-days: 14
+          overwrite: true
+
+  notify:
+    if: failure()
+    needs: render
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}

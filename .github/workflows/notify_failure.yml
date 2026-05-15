@@ -1,0 +1,61 @@
+name: notify_failure
+# Reusable workflow — opens a GitHub issue on automation failure.
+# Called via `uses: ./.github/workflows/notify_failure.yml` with `if: failure()`
+# from every cron workflow that lands in Sprint v5-1.
+#
+# The issue is labeled `automation-failure` so a saved search / dashboard
+# can show the open backlog at a glance.
+
+on:
+  workflow_call:
+    inputs:
+      run_id:
+        description: "GitHub Actions run ID of the failing workflow."
+        required: true
+        type: string
+      workflow_name:
+        description: "Human-readable workflow name that failed."
+        required: true
+        type: string
+
+jobs:
+  open_issue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Open automation-failure issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ inputs.run_id }}
+          WF_NAME: ${{ inputs.workflow_name }}
+          REPO: ${{ github.repository }}
+          SERVER_URL: ${{ github.server_url }}
+        run: |
+          set -e
+          RUN_URL="${SERVER_URL}/${REPO}/actions/runs/${RUN_ID}"
+          TITLE="automation-failure: ${WF_NAME} (run ${RUN_ID})"
+          BODY=$(cat <<EOF
+          Workflow **${WF_NAME}** failed.
+
+          Run: ${RUN_URL}
+
+          This issue was opened automatically by \`notify_failure.yml\`.
+          Investigate the failed run, then close this issue once resolved
+          (or fixed-forward by the next successful run).
+
+          Triggered: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+          EOF
+          )
+          # Ensure the automation-failure label exists (idempotent).
+          gh label create automation-failure \
+            --color B60205 \
+            --description "Auto-opened by notify_failure.yml" \
+            --repo "${REPO}" 2>/dev/null || true
+          gh issue create \
+            --repo "${REPO}" \
+            --title "${TITLE}" \
+            --body "${BODY}" \
+            --label automation-failure
