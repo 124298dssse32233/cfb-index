@@ -9,7 +9,9 @@ from textwrap import dedent
 import requests
 
 
-DEFAULT_MODEL = "claude-sonnet-4-20250514"
+# claude-sonnet-4-20250514 retires from the API on 2026-06-15 (hard error
+# after that date). Migrated to claude-sonnet-4-6 to stay live past then.
+DEFAULT_MODEL = "claude-sonnet-4-6"
 ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_VERSION = "2023-06-01"
 
