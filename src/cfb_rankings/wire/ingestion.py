@@ -96,6 +96,7 @@ def _collect_live_actions(
     except Exception as exc:
         log.warning("wire.ingestion: portal fetch failed: %s", exc)
         portal = []
+    portal_persisted = 0
     for item in portal or []:
         # CFBD portal payload typically has: firstName, lastName, position,
         # origin, destination, transferDate, eligibility.
@@ -118,6 +119,32 @@ def _collect_live_actions(
         prog_row = _resolve_program(db, destination)
         if not prog_row:
             continue
+        # Sprint v5-1 Day 4 (Adapter 1): persist EVERY portal row to the
+        # portal_moves table, regardless of whether the destination
+        # resolves to an FBS program (it might be a DII transfer, an
+        # uncommitted entry, or a recently-flipped destination). The wire
+        # only surfaces FBS-resolved rows, but the portal_moves table is
+        # the source of truth for the Heat Index renderer.
+        try:
+            from_prog = _resolve_program(db, origin) if origin else None
+            _persist_portal_move(
+                db,
+                item=item,
+                player_name=full_name,
+                position=position,
+                transfer_date=transfer_date,
+                from_slug=(from_prog or {}).get("slug") if from_prog else None,
+                to_slug=prog_row["slug"],
+                from_team_id=(from_prog or {}).get("team_id") if from_prog else None,
+                to_team_id=prog_row.get("team_id"),
+                origin_name=origin,
+                destination_name=destination,
+            )
+            portal_persisted += 1
+        except Exception as exc:
+            # Persistence failure must NOT prevent wire ingest from
+            # continuing — log it and move on.
+            log.warning("wire.ingestion: persist_portal_move failed: %s", exc)
         rows.append({
             "occurred_at": transfer_date,
             "program_slug": prog_row["slug"],
@@ -134,6 +161,11 @@ def _collect_live_actions(
             "fan_intel_velocity_spike": 70,  # portal moves read loud
             "related_thread_slug": None,
         })
+    if portal_persisted:
+        log.info(
+            "wire.ingestion: persisted %d portal rows into portal_moves",
+            portal_persisted,
+        )
 
     # ---- recruiting (live) ------------------------------------------
     # Also pull live recruits for the current year + next year to catch
@@ -474,7 +506,7 @@ def _resolve_program(db: Database, name: str) -> dict[str, Any] | None:
         return None
     row = db.query_one(
         """
-        select slug, coalesce(short_name, canonical_name) as display, level_code
+        select team_id, slug, coalesce(short_name, canonical_name) as display, level_code
         from teams
         where lower(canonical_name) = lower(:n)
            or lower(school_name) = lower(:n)
@@ -485,6 +517,93 @@ def _resolve_program(db: Database, name: str) -> dict[str, Any] | None:
     if row and row.get("level_code") == "FBS":
         return row
     return None
+
+
+# ---------------------------------------------------------------------------
+# Adapter 1 (Sprint v5-1 Day 4): persist CFBD portal rows to portal_moves.
+# ---------------------------------------------------------------------------
+#
+# IMPLEMENTATION_PLAN.md Part 5 Adapter 1 specified an UPSERT key of
+# (player_external_id, entered_at_utc) — but the actual portal_moves
+# schema in migrations.py:1462 uses player_name + announced_date + slugs
+# instead. We honor the *intent* (idempotent upsert keyed on the closest
+# natural identity available) by using (player_name, announced_date,
+# from_team_slug) — a unique index for that triple is added in
+# migrations.py alongside this adapter.
+#
+# Why this matters: the S3 Portal Heat Index renderer (portal_heat/)
+# queries portal_moves for last-N-day churn. Until this adapter shipped,
+# the table stayed empty because the CFBD portal query at wire/ingestion
+# only built wire_entries rows.
+
+import json as _json
+
+
+def _persist_portal_move(
+    db: Database,
+    *,
+    item: dict[str, Any],
+    player_name: str,
+    position: str | None,
+    transfer_date: datetime,
+    from_slug: str | None,
+    to_slug: str,
+    from_team_id: int | None,
+    to_team_id: int | None,
+    origin_name: str | None,
+    destination_name: str | None,
+) -> None:
+    """UPSERT a single CFBD portal payload into the portal_moves table.
+
+    Dedup is via the unique index on
+    (player_name, announced_date, coalesce(from_team_slug, '')) added
+    alongside this adapter. ON CONFLICT updates status-equivalent fields
+    (summary, to_team_slug, to_team_id, position) so a later flip is
+    reflected.
+
+    Per CLAUDE.md `_normalize_query`, named params survive the
+    ``%(name)s`` → ``:name`` rewrite — we use ``:name`` here directly.
+    """
+    summary = (
+        f"{position or 'Player'} {player_name} transfers from {origin_name} to {destination_name}"
+        if origin_name and destination_name else
+        f"{position or 'Player'} {player_name} portal move"
+    )
+    sources = _json.dumps([
+        {"source_name": "CFBD /player/portal", "source_url": None},
+    ])
+    params = {
+        "player_name": player_name,
+        "from_team_id": from_team_id,
+        "to_team_id": to_team_id,
+        "from_team_slug": from_slug,
+        "to_team_slug": to_slug,
+        "position": position,
+        "announced_date": transfer_date.date().isoformat()
+            if hasattr(transfer_date, "date") else str(transfer_date)[:10],
+        "summary": summary,
+        "sources_json": sources,
+    }
+    db.execute(
+        """
+        insert into portal_moves
+            (player_name, from_team_id, to_team_id,
+             from_team_slug, to_team_slug,
+             position, announced_date, summary, sources_json)
+        values
+            (:player_name, :from_team_id, :to_team_id,
+             :from_team_slug, :to_team_slug,
+             :position, :announced_date, :summary, :sources_json)
+        on conflict (player_name, announced_date, coalesce(from_team_slug, ''))
+        do update set
+            to_team_slug = excluded.to_team_slug,
+            to_team_id   = excluded.to_team_id,
+            position     = coalesce(excluded.position, portal_moves.position),
+            summary      = excluded.summary,
+            sources_json = excluded.sources_json
+        """,
+        params,
+    )
 
 
 # ---------------------------------------------------------------------------

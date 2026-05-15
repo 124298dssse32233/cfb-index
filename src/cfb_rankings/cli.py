@@ -169,6 +169,83 @@ def build_parser() -> argparse.ArgumentParser:
         help="Render /methodology/freshness.html only — last-run-per-source summary.",
     )
 
+    # Sprint v5-1 Day 4 — Adapter 3 (archive_threads daily retro pull).
+    fetch_archive_retro_parser = subparsers.add_parser(
+        "fetch-archive-retro",
+        help="Daily Arctic Shift retro pull. Same-MM-DD ± 2 days across prior "
+             "years. High-engagement posts → archive_threads; lower-scoring → "
+             "conversation_documents tagged 'arctic_shift_retro'. Powers S5 / S7.",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--today", type=str, default=None,
+        help="Anchor date as YYYY-MM-DD. Defaults to today UTC.",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--years-back", type=int, default=12,
+        help="How many prior years to scan (default: 12).",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--min-score", type=int, default=50,
+        help="Engagement threshold for archive_threads promotion (default: 50).",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--day-window", type=int, default=2,
+        help="Inclusive +/- day window around target MM-DD (default: 2).",
+    )
+
+    # Sprint v5-1 Day 4 — S5 Today in CFB History renderer.
+    render_today_history_parser = subparsers.add_parser(
+        "render-today-in-history",
+        help="Render /anniversary/today/ — the offseason safety-net page. "
+             "Pulls from archive_threads + team_chronicle_observations + "
+             "historical_seasons_summary; always emits a valid page.",
+    )
+    render_today_history_parser.add_argument(
+        "--today", type=str, default=None,
+        help="Anchor date as YYYY-MM-DD. Defaults to today UTC.",
+    )
+    render_today_history_parser.add_argument(
+        "--output-dir", type=str, default="output/site/anniversary/today",
+        help="Output directory (default: output/site/anniversary/today).",
+    )
+    render_today_history_parser.add_argument(
+        "--max-cards", type=int, default=5,
+        help="Maximum anniversary cards on the page (default: 5).",
+    )
+
+    # Sprint v5-1 Day 4 — S1 Days to Kickoff countdown.
+    kickoff_countdown_parser = subparsers.add_parser(
+        "render-kickoff-countdown",
+        help="Render /kickoff/ countdown page + sitewide countdown.json. "
+             "Daily lightweight refresh — no DB writes; reads kickoff date from "
+             "cfb_calendar (KEY_EVENTS_<season> or games table).",
+    )
+    kickoff_countdown_parser.add_argument(
+        "--today", type=str, default=None,
+        help="Anchor date YYYY-MM-DD. Defaults to today UTC.",
+    )
+    kickoff_countdown_parser.add_argument(
+        "--output-dir", type=str, default="output/site",
+        help="Output directory root (writes /kickoff/index.html + "
+             "/assets/countdown.json under this root).",
+    )
+
+    # Sprint v5-1 Day 4 — S4 Recruit Watch Board.
+    refresh_recruiting_parser = subparsers.add_parser(
+        "refresh-recruiting-pulse",
+        help="Render /recruit-board/<class_year>/ pages. Reads "
+             "player_recruiting_profiles for the target class year, ranks "
+             "programs by weighted star sum, surfaces top 25.",
+    )
+    refresh_recruiting_parser.add_argument(
+        "--class-year", type=int, default=None,
+        help="Target recruiting class year (default: next class, e.g. 2027 in May 2026).",
+    )
+    refresh_recruiting_parser.add_argument(
+        "--output-dir", type=str, default="output/site",
+        help="Output directory root (writes /recruit-board/<class_year>/index.html).",
+    )
+
     # R1 — Sunday Vibe Shift Ledger. See docs/octopus/next-roadmap.md.
     vibe_parser = subparsers.add_parser(
         "build-vibe-shifts",
@@ -1355,6 +1432,25 @@ def build_parser() -> argparse.ArgumentParser:
     render_wire_parser.add_argument("--skip-homepage", action="store_true",
         help="Skip the homepage Wire <tbody> patch — render /wire/ only.")
 
+    # ---- Sprint v5-1 Day 4 follow-up: S3 Portal Heat Index ----
+    # DESIGN_AUDIT_2026_05_15_v5_4.md Part 4 §S3.
+    # Renders /portal-heat/index.html from `portal_moves` (populated by
+    # wire/ingestion.py Adapter 1). DB-tolerant: produces an empty-state
+    # page when no rows are in the window.
+    refresh_portal_heat_parser = subparsers.add_parser(
+        "refresh-portal-heat",
+        help="S3 surface: render /portal-heat/ from portal_moves "
+             "(Top-25 programs by net delta talent).",
+    )
+    refresh_portal_heat_parser.add_argument(
+        "--days", type=int, default=14,
+        help="Lookback window in days (default: 14).",
+    )
+    refresh_portal_heat_parser.add_argument(
+        "--output-dir", default=None,
+        help="Override output dir (default: output/site/portal-heat).",
+    )
+
     # ---- Sprint 8.5: Pulse follow-ups ----
     prepare_pulse_parser = subparsers.add_parser(
         "prepare-pulse",
@@ -1464,6 +1560,16 @@ def build_parser() -> argparse.ArgumentParser:
     mailbag_history_parser.add_argument(
         "--limit", type=int, default=10,
         help="Number of editions to show (default: 10).",
+    )
+
+    coaching_fetch_parser = subparsers.add_parser(
+        "coaching-fetch-news",
+        help="Sprint v5-1 Day 4: pull Footballscoop RSS + 247Sports coaching "
+             "tracker into coaching_changes (+ wire_entries).",
+    )
+    coaching_fetch_parser.add_argument(
+        "--days", type=int, default=7,
+        help="Only consider entries newer than N days (default: 7).",
     )
 
     return parser
@@ -2165,6 +2271,81 @@ def main() -> None:
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         out = write_freshness_page(db)
         print(f"freshness page written: {out}")
+        return
+
+    if args.command == "fetch-archive-retro":
+        from cfb_rankings.ingest.sources.archive_retro import fetch_archive_retro
+        today_arg = None
+        if args.today:
+            today_arg = date.fromisoformat(args.today)
+        result = fetch_archive_retro(
+            db,
+            today=today_arg,
+            years_back=args.years_back,
+            min_score=args.min_score,
+            day_window=args.day_window,
+        )
+        print(
+            f"fetch-archive-retro: years_scanned={result['years_scanned']} "
+            f"posts_fetched={result['posts_fetched']} "
+            f"posts_promoted={result['posts_promoted']} "
+            f"posts_archived_low_engagement={result['posts_archived_low_engagement']} "
+            f"errors={result['errors']}"
+        )
+        return
+
+    if args.command == "render-today-in-history":
+        from cfb_rankings.today_in_history import render_today_in_history_page
+        today_arg = None
+        if args.today:
+            today_arg = date.fromisoformat(args.today)
+        result = render_today_in_history_page(
+            db,
+            today=today_arg,
+            output_dir=args.output_dir,
+            max_cards=args.max_cards,
+        )
+        print(
+            f"render-today-in-history: cards_rendered={result['cards_rendered']} "
+            f"files={len(result['output_files'])}"
+        )
+        for path in result["output_files"]:
+            print(f"  wrote {path}")
+        return
+
+    if args.command == "render-kickoff-countdown":
+        from cfb_rankings.countdown import render_countdown
+        today_arg = None
+        if args.today:
+            today_arg = date.fromisoformat(args.today)
+        # Reuse the underlying sqlite3 connection for kickoff_date lookup
+        # (cfb_calendar tolerates a None DB; passing it lets the games-table
+        # path fire when available).
+        result = render_countdown(
+            db.connection() if hasattr(db, "connection") else db,
+            today=today_arg,
+            output_dir=args.output_dir,
+        )
+        print(
+            f"render-kickoff-countdown: days={result['days_to_kickoff']} "
+            f"phase={result['phase_label']!r} "
+            f"files={result['files_written']}"
+        )
+        return
+
+    if args.command == "refresh-recruiting-pulse":
+        from cfb_rankings.recruit_board import render_recruit_board
+        result = render_recruit_board(
+            db.connection() if hasattr(db, "connection") else db,
+            class_year=args.class_year,
+            output_dir=args.output_dir,
+        )
+        print(
+            f"refresh-recruiting-pulse: class_year={result['class_year']} "
+            f"programs={result['program_count']} "
+            f"days_to_kickoff={result['days_to_kickoff']} "
+            f"-> {result['output_path']}"
+        )
         return
 
     if args.command == "build-dynasty-heatmap":
@@ -4496,6 +4677,14 @@ def main() -> None:
         print(json.dumps(result, indent=2, default=str), flush=True)
         return
 
+    # ---- Sprint v5-1 Day 4 follow-up: refresh-portal-heat ----
+    if args.command == "refresh-portal-heat":
+        from cfb_rankings.portal_heat.renderer import render_all as render_portal_heat
+        output_dir = Path(args.output_dir) if args.output_dir else None
+        result = render_portal_heat(db, output_dir=output_dir, days=args.days)
+        print(json.dumps(result, indent=2, default=str), flush=True)
+        return
+
     # ---- Sprint 8.5: Pulse follow-ups ----
     if args.command == "prepare-pulse":
         from cfb_rankings.team_pages.pulse_state import TOP_ENTITIES_FULL, TOP_ENTITIES_PARTIAL
@@ -4645,6 +4834,17 @@ def main() -> None:
             status = ed.get("status", "")
             notes = (ed.get("notes") or "")[:40]
             print(f"{slug:<14} {date_str:<12} {status:<12} {notes}", flush=True)
+        return
+
+    if args.command == "coaching-fetch-news":
+        from cfb_rankings.ingest.sources import coaching_tracker
+        counter = coaching_tracker.fetch_coaching_news(db, days=args.days)
+        print(
+            f"coaching-fetch-news: fetched={counter['fetched']} "
+            f"matched_keyword={counter['matched_keyword']} "
+            f"persisted={counter['persisted']} errors={counter['errors']}",
+            flush=True,
+        )
         return
 
     raise RuntimeError(f"Unsupported command: {args.command}")
