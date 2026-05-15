@@ -60,7 +60,9 @@ jobs:
       - name: Install deps
         run: |
           python -m pip install -U pip
-          python -m pip install pyyaml
+          # Install project + deps (anthropic, requests, numpy, etc.).
+          # Without `-e .` AI steps silently degrade to offline-stub.
+          python -m pip install -e .
 
       # ── DB artifact ────────────────────────────────────────────────────
       - name: Download DB artifact

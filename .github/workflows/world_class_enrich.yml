@@ -67,7 +67,14 @@ jobs:
       - name: Install deps
         run: |
           python -m pip install -U pip
-          python -m pip install pyyaml
+          # Install the project + all declared deps (anthropic, requests,
+          # numpy, vaderSentiment, PyYAML). Without `-e .` the anthropic
+          # SDK is missing and llm_runtime.generate_with_voice_check
+          # silently falls back to offline-stub for every AI step,
+          # which then trips the daily_editions CHECK constraint
+          # (status='offline-draft' not in enum) and cascades through
+          # the rest of the pipeline. See 2026-05-15 incident analysis.
+          python -m pip install -e .
 
       # ── DB artifact ────────────────────────────────────────────────────
       - name: Download DB artifact
