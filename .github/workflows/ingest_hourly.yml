@@ -37,7 +37,7 @@ jobs:
       - name: Deps
         run: |
           python -m pip install -U pip
-          python -m pip install pyyaml
+          python -m pip install -e .
 
       # Cross-workflow DB share. actions/download-artifact@v4 only finds
       # artifacts from the current run by default, which silos each
