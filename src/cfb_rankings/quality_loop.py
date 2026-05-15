@@ -186,6 +186,29 @@ _MAX_REVISES: dict[LoopPattern, int] = {
     LoopPattern.E_CONTINUITY: 1,
 }
 
+# Wall-clock timeout per loop invocation (seconds). Defense-in-depth against
+# the runaway-loop failure mode: an SDK hang, a network stall, or a critic
+# stuck in retry would otherwise burn unbounded compute. The `_MAX_REVISES`
+# iteration cap already bounds the call count, but doesn't bound wall-clock
+# per call. The console.anthropic.com $100/mo cap catches runaway spend on
+# a multi-day timescale; this timeout catches it within seconds.
+#
+# Sized per pattern's expected work:
+#   A: single shot — 30s plenty
+#   B: gen + 1 critic + maybe 1 revise — 60s
+#   C: gen + 3 critics + 1 revise + 3 re-critics — 90s
+#   D: gen + 4 critics + 2 revises + 4 re-critics — 150s
+#   E: gen + 3 critics + 1 revise + continuity preload — 90s
+#
+# Tunable per surface via call-site argument; this is the hard ceiling.
+_WALL_CLOCK_TIMEOUT_S: dict[LoopPattern, float] = {
+    LoopPattern.A_SINGLE_SHOT: 30.0,
+    LoopPattern.B_SINGLE_CRITIC: 60.0,
+    LoopPattern.C_CRITIC_REVISE: 90.0,
+    LoopPattern.D_ADVERSARIAL: 150.0,
+    LoopPattern.E_CONTINUITY: 90.0,
+}
+
 
 # ---------------------------------------------------------------------------
 # Circuit-breaker state (process-local; persistence is a Sprint v5-1 Day 5
@@ -1023,9 +1046,27 @@ def _run_critic_loop(
             _CIRCUIT_STATE.escalated_this_run = True
             escalated_this_call = True
 
+    # Wall-clock safety net. If the loop has already burned through its
+    # budget before entering the revise round (e.g. a hung first generation
+    # or a critic panel that took ages), bail with a fall-back. Defense
+    # against runaway: caps blast radius at one timeout window of compute
+    # rather than letting it spin until rate-limit kicks in.
+    timeout_s = _WALL_CLOCK_TIMEOUT_S.get(pattern, 120.0)
+    if (time.monotonic() - started) > timeout_s:
+        fell_back = True
+        fallback_reason = f"wall_clock_timeout_{timeout_s:.0f}s"
+        final_text = None
+        failed = []  # skip the revise loop entirely
+
     # Revise + re-critique loop (max_revises times). Pattern A has 0,
-    # Patterns B/C/E have 1, Pattern D has 2.
+    # Patterns B/C/E have 1, Pattern D has 2. Also bails on wall-clock
+    # timeout — checked at start of every iteration.
     while failed and revise_count < max_revises:
+        if (time.monotonic() - started) > timeout_s:
+            fell_back = True
+            fallback_reason = f"wall_clock_timeout_{timeout_s:.0f}s"
+            final_text = None
+            break
         revise_count += 1
         revised_prompt = _revise_prompt(current_prompt, verdicts)
         gen = _generate(revised_prompt, system=system, model=current_model,
