@@ -1466,6 +1466,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Number of editions to show (default: 10).",
     )
 
+    coaching_fetch_parser = subparsers.add_parser(
+        "coaching-fetch-news",
+        help="Sprint v5-1 Day 4: pull Footballscoop RSS + 247Sports coaching "
+             "tracker into coaching_changes (+ wire_entries).",
+    )
+    coaching_fetch_parser.add_argument(
+        "--days", type=int, default=7,
+        help="Only consider entries newer than N days (default: 7).",
+    )
+
     return parser
 
 
@@ -4645,6 +4655,17 @@ def main() -> None:
             status = ed.get("status", "")
             notes = (ed.get("notes") or "")[:40]
             print(f"{slug:<14} {date_str:<12} {status:<12} {notes}", flush=True)
+        return
+
+    if args.command == "coaching-fetch-news":
+        from cfb_rankings.ingest.sources import coaching_tracker
+        counter = coaching_tracker.fetch_coaching_news(db, days=args.days)
+        print(
+            f"coaching-fetch-news: fetched={counter['fetched']} "
+            f"matched_keyword={counter['matched_keyword']} "
+            f"persisted={counter['persisted']} errors={counter['errors']}",
+            flush=True,
+        )
         return
 
     raise RuntimeError(f"Unsupported command: {args.command}")
