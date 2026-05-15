@@ -77,7 +77,10 @@ jobs:
       - name: Install deps
         run: |
           python -m pip install -U pip
-          python -m pip install pyyaml
+          # Install the project + its declared deps (numpy, requests, vaderSentiment,
+          # PyYAML, anthropic). The Arctic Shift / pullpush Reddit clients need
+          # `requests`; importing them without it crashes the whole CLI.
+          python -m pip install -e .
 
       - name: Download prior DB artifact
         uses: dawidd6/action-download-artifact@v6
