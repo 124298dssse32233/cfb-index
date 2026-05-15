@@ -1,0 +1,354 @@
+name: reddit-deep-2026-offseason
+# DEEP Reddit ingestion for the 2026 offseason (= season=2025 in codebase
+# terminology; covers Jan 12 → today across the existing offseason_week_map
+# weeks 21-31). Designed to maximize signal density for the time window
+# fans care about RIGHT NOW (portal close, coaching carousel, signing day,
+# spring practice, spring transfer window, summer hype).
+#
+# This is intentionally NOT in the site-deploy concurrency group because it
+# only writes DB rows; the trailing publish-site triggers the deploy.
+#
+# Coverage strategy:
+#   • team_search across /r/CFB and major aggregator/city subs (national lens)
+#   • subreddit_listing on every priority team sub (local-fanbase lens) for
+#     listings=new AND listing=top (captures both hot-takes and consensus)
+#   • Tight 3-day windows to avoid Arctic-Shift's per-query result caps
+#   • limit_per_query, comment-post-limit, comments-per-post all 5-10x default
+#   • min-comment-post-replies dropped to 1 (capture conversation, not just
+#     blockbuster threads)
+#
+# Estimated runtime: 2-5 hours depending on Arctic Shift latency.
+
+on:
+  workflow_dispatch:
+    inputs:
+      through_date:
+        description: "Last ET calendar date to include (default: today UTC)"
+        required: false
+        default: ""
+      season:
+        description: "Codebase season year (2026 offseason = '2025')"
+        required: false
+        default: "2025"
+      window:
+        description: "Offseason week window (default 21..31, full offseason)"
+        required: false
+        default: "21..31"
+      limit_per_query:
+        description: "Posts per Arctic Shift query (baseline 100, deep 500)"
+        required: false
+        default: "500"
+      days_per_window:
+        description: "Date granularity inside each offseason week (1=daily, 7=weekly)"
+        required: false
+        default: "5"
+      comment_post_limit:
+        description: "Top N posts per week to pull comments for (baseline 50)"
+        required: false
+        default: "300"
+      comments_per_post:
+        description: "Comments to pull per top post (baseline 50)"
+        required: false
+        default: "200"
+      min_comment_post_replies:
+        description: "Minimum reply count to qualify a post for comment pull (baseline 3)"
+        required: false
+        default: "1"
+
+jobs:
+  deep_reddit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350    # ~5h 50m, just under GitHub's 6-hour ceiling
+    permissions:
+      contents: read
+      actions: write   # to trigger publish-site at the end
+    env:
+      CFBD_API_KEY:       ${{ secrets.CFBD_API_KEY }}
+      CFBD_PATREON_KEY:   ${{ secrets.CFBD_PATREON_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Install deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyyaml
+
+      - name: Download prior DB artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Apply migrations + seed (idempotent)
+        run: |
+          python manage.py init-db
+          python manage.py apply-migrations
+          python manage.py seed-source-registry
+          python manage.py seed-priority-teams
+          python manage.py seed-feed-instances
+
+      - name: Resolve through_date
+        id: thru
+        run: |
+          if [ -z "${{ github.event.inputs.through_date }}" ]; then
+            echo "value=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=${{ github.event.inputs.through_date }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ════════════════════════════════════════════════════════════════════
+      # Generate deep collection plan from priority_teams.yaml
+      # ════════════════════════════════════════════════════════════════════
+      - name: Build deep collection plan (national + team-local lenses)
+        run: |
+          python <<'PY'
+          import json
+          import yaml
+          from pathlib import Path
+
+          PLAN_PATH = Path("deep_plan.json")
+          PRIORITY = yaml.safe_load(Path("seeds/priority_teams.yaml").read_text())
+          teams = PRIORITY.get("teams") or []
+
+          LIMIT_PER_QUERY = int("${{ github.event.inputs.limit_per_query || '500' }}")
+          plan: list[dict] = []
+
+          # ── National aggregator subs: team_search across top teams ────────
+          # /r/CFB is the firehose; supplement with /r/CollegeFootball mirror.
+          NATIONAL_SUBS = ["CFB", "CollegeFootball"]
+          top_team_names = []
+          for t in teams[:30]:  # top 30 by rank_priority
+              name = (t.get("display_name") or t.get("school") or t.get("team_name") or "").strip()
+              if name:
+                  top_team_names.append(name)
+          for sub in NATIONAL_SUBS:
+              plan.append({
+                  "mode": "team_search",
+                  "teams": top_team_names,
+                  "subreddit": sub,
+                  "audience_bucket": "national",
+                  "search_limit": LIMIT_PER_QUERY,
+                  "require_cfb_context": True,
+                  "replace_existing": False,
+              })
+
+          # ── Team subreddits: subreddit_listing (new + top) for each ───────
+          # Captures local-fanbase chatter that doesn't mention team name in body.
+          for t in teams:
+              team_name = (t.get("display_name") or t.get("school") or t.get("team_name") or "").strip()
+              team_sub = (t.get("reddit_team_sub") or "").strip()
+              alumni_sub = (t.get("reddit_alumni_sub") or "").strip()
+              if not team_name:
+                  continue
+              for sub in {team_sub, alumni_sub}:
+                  if not sub or sub.lower() == "cfb":
+                      continue
+                  for listing in ("new", "top"):
+                      plan.append({
+                          "mode": "subreddit_listing",
+                          "team": team_name,
+                          "subreddit": sub,
+                          "audience_bucket": "team",
+                          "listing": listing,
+                          "limit": LIMIT_PER_QUERY,
+                          "require_cfb_context": False,  # team subs are CFB by definition
+                          "replace_existing": False,
+                      })
+
+          # ── City subs: team_search lens (e.g. /r/Eugene for Oregon) ───────
+          for t in teams:
+              team_name = (t.get("display_name") or t.get("school") or t.get("team_name") or "").strip()
+              city_sub = (t.get("reddit_city_sub") or "").strip()
+              if not team_name or not city_sub:
+                  continue
+              plan.append({
+                  "mode": "team_search",
+                  "teams": [team_name],
+                  "subreddit": city_sub,
+                  "audience_bucket": "city",
+                  "search_limit": LIMIT_PER_QUERY,
+                  "require_cfb_context": True,
+                  "replace_existing": False,
+              })
+
+          PLAN_PATH.write_text(json.dumps(plan, indent=2))
+          print(f"Wrote deep plan: {len(plan)} entries to {PLAN_PATH}")
+          counts: dict = {}
+          for e in plan:
+              counts[e["mode"]] = counts.get(e["mode"], 0) + 1
+          for k, v in counts.items():
+              print(f"  {k}: {v}")
+          PY
+
+      - name: Plan summary (head)
+        run: |
+          echo "── First 10 plan entries ──"
+          python -c "import json; p=json.load(open('deep_plan.json')); [print(json.dumps(e)) for e in p[:10]]"
+          echo "── Total entries: $(python -c 'import json; print(len(json.load(open(\"deep_plan.json\"))))') ──"
+
+      # ════════════════════════════════════════════════════════════════════
+      # DEEP BACKFILL — every offseason week, every plan entry, comments on
+      # every post with >=1 reply. This is the firehose.
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Deep Reddit backfill (season ${{ github.event.inputs.season || '2025' }} window ${{ github.event.inputs.window || '21..31' }})"
+        run: |
+          set +e
+          python -u manage.py backfill-offseason-conversation \
+            --season "${{ github.event.inputs.season || '2025' }}" \
+            --window "${{ github.event.inputs.window || '21..31' }}" \
+            --provider arctic-shift \
+            --plan deep_plan.json \
+            --limit-per-query "${{ github.event.inputs.limit_per_query || '1000' }}" \
+            --days-per-window "${{ github.event.inputs.days_per_window || '3' }}" \
+            --through-date "${{ steps.thru.outputs.value }}" \
+            --collect-comments \
+            --comment-post-limit "${{ github.event.inputs.comment_post_limit || '500' }}" \
+            --comments-per-post "${{ github.event.inputs.comments_per_post || '300' }}" \
+            --min-comment-post-replies "${{ github.event.inputs.min_comment_post_replies || '1' }}" \
+            --continue-on-error \
+            || echo "Deep backfill exited non-zero (partial progress is committed)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Fallback pass with the DEFAULT plan (team_search across /r/CFB only,
+      # using mood-week target teams). This catches anything the custom plan
+      # missed and re-runs feature build for every week.
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Fallback pass — default plan + extra subreddits"
+        run: |
+          set +e
+          python -u manage.py backfill-offseason-conversation \
+            --season "${{ github.event.inputs.season || '2025' }}" \
+            --window "${{ github.event.inputs.window || '21..31' }}" \
+            --provider arctic-shift \
+            --subreddit CFB \
+            --subreddit CollegeFootball \
+            --limit-per-query "${{ github.event.inputs.limit_per_query || '1000' }}" \
+            --days-per-window "${{ github.event.inputs.days_per_window || '3' }}" \
+            --through-date "${{ steps.thru.outputs.value }}" \
+            --collect-comments \
+            --comment-post-limit "${{ github.event.inputs.comment_post_limit || '500' }}" \
+            --comments-per-post "${{ github.event.inputs.comments_per_post || '300' }}" \
+            --min-comment-post-replies "${{ github.event.inputs.min_comment_post_replies || '1' }}" \
+            --continue-on-error \
+            || echo "Fallback pass exited non-zero (partial progress is committed)"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Compute fan-intelligence derived tables from the new raw rows.
+      # Without this chain, the mood/pulse/sentiment surfaces still show
+      # stale or empty values even though raw rows are populated.
+      # ════════════════════════════════════════════════════════════════════
+      - name: Compute fan-intel bridge tables
+        run: |
+          set +e
+          python -u manage.py tag-player-names                  || echo "tag-player-names skipped"
+          python -u manage.py build-conversation-features        || echo "build-conversation-features skipped"
+          python -u manage.py prepare-pulse                      || echo "prepare-pulse skipped"
+          python -u manage.py classify-player-sentiment          || echo "classify-player-sentiment skipped"
+          python -u manage.py extract-predictive-claims          || echo "extract-predictive-claims skipped"
+          python -u manage.py compute-surprise-index             || echo "compute-surprise-index skipped"
+          python -u manage.py resolve-outcomes                   || echo "resolve-outcomes skipped"
+
+      - name: Compute weekly mood + cohort (entire offseason)
+        run: |
+          set +e
+          python <<'PY'
+          import subprocess
+          from datetime import date, timedelta
+          # Walk every Monday from 2026-01-12 through today and compute mood + cohort.
+          start = date(2026, 1, 12)
+          today = date.today()
+          monday = today - timedelta(days=today.weekday())
+          d = start
+          weeks_done = 0
+          while d <= monday:
+              iso = d.isocalendar()
+              week_key = f"{iso[0]}-{iso[1]:02d}"
+              subprocess.run(["python","-u","manage.py","compute-mood-week","--week", d.strftime("%Y-%m-%d")], check=False)
+              subprocess.run(["python","-u","manage.py","compute-cohort-week","--week", week_key], check=False)
+              subprocess.run(["python","-u","manage.py","compute-divergence","--week", week_key], check=False)
+              subprocess.run(["python","-u","manage.py","compute-player-week-mood","--week", week_key], check=False)
+              weeks_done += 1
+              d = d + timedelta(weeks=1)
+          print(f"Computed mood/cohort/divergence/player-mood for {weeks_done} weeks")
+          PY
+
+      - name: Classify fanbases (refresh 2025 season + 1yr back)
+        run: |
+          set +e
+          python -u manage.py classify-fanbases \
+            --season "${{ github.event.inputs.season || '2025' }}" \
+            --backfill-history 1 \
+            || echo "classify-fanbases skipped"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Inventory + upload + trigger publish-site
+      # ════════════════════════════════════════════════════════════════════
+      - name: DB inventory after deep Reddit pull
+        run: |
+          python <<'PY'
+          import sqlite3
+          db = sqlite3.connect("cfb_rankings.db")
+          cur = db.cursor()
+          key = [
+              "conversation_documents",
+              "source_observations",
+              "fanbase_mood_weekly",
+              "fanbase_cohort_weekly",
+              "fanbase_classification_history",
+              "player_week_mood",
+              "player_sentiment",
+              "predictive_claims",
+              "phrase_mentions_weekly",
+              "conversation_features_weekly",
+              "conversation_features_daily",
+          ]
+          pages = cur.execute("pragma page_count").fetchone()[0]
+          page_sz = cur.execute("pragma page_size").fetchone()[0]
+          print(f"DB size: {pages * page_sz / 1e6:.1f} MB")
+          for t in key:
+              try:
+                  n = cur.execute(f"select count(*) from {t}").fetchone()[0]
+                  print(f"  {t:42s} = {n:>12,}")
+              except Exception as e:
+                  print(f"  {t:42s} = (error: {e})")
+          # Breakdown of just-collected reddit docs by audience
+          try:
+              for row in cur.execute("""
+                  select coalesce(source_subchannel,'(none)') as sub,
+                         count(*) as n
+                  from conversation_documents
+                  where source_name = 'reddit'
+                    and substr(coalesce(observed_at_utc,''),1,7) >= '2026-01'
+                  group by sub
+                  order by n desc
+                  limit 25
+              """):
+                  print(f"  reddit/{row[0]:34s} = {row[1]:>10,}")
+          except Exception as e:
+              print(f"breakdown error: {e}")
+          PY
+
+      - name: Upload DB artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+      - name: Trigger publish-site workflow
+        if: success() || failure()
+        run: gh workflow run publish_site.yml
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
