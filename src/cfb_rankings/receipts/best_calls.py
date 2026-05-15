@@ -177,10 +177,15 @@ def _llm_write(claim: sqlite3.Row, *, tier: str) -> tuple[dict[str, Any], str]:
         client = _client()
     except ImportError:
         return _stub_write(claim, tier=tier), f"stub:{tier}"
+    # v5.3 tier upgrade: both tiers route to Opus 4.7 (was Opus 4.5 + Sonnet 4.5).
+    # Receipts Best Calls is a Tier-1 surface in v5.3 row #17 (Receipts Desk voice
+    # — dry ledger-keeper register; "Aged well / Aged badly / Aging / Verdict
+    # pending" sign-off). Visibility justifies Opus across both tiers. Both
+    # tiers remain env-overridable for safety. See IMPLEMENTATION_PLAN.md Part 4.
     model = (
-        os.environ.get("RECEIPTS_OPUS_MODEL", "claude-opus-4-5")
+        os.environ.get("RECEIPTS_OPUS_MODEL", "claude-opus-4-7")
         if tier == "opus" else
-        os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-5")
+        os.environ.get("RECEIPTS_SONNET_MODEL", "claude-opus-4-7")
     )
     system = _OPUS_SYSTEM if tier == "opus" else _SONNET_SYSTEM
     resp = client.messages.create(

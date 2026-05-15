@@ -160,8 +160,8 @@ def prefilter_corpus(
 # ---------- Stage 1: Haiku batch classifier ---------------------------------
 
 HAIKU_MODEL = os.environ.get("RECEIPTS_HAIKU_MODEL", "claude-haiku-4-5")
-SONNET_MODEL = os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-5")
-OPUS_MODEL = os.environ.get("RECEIPTS_OPUS_MODEL", "claude-opus-4-5")
+SONNET_MODEL = os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-6")
+OPUS_MODEL = os.environ.get("RECEIPTS_OPUS_MODEL", "claude-opus-4-7")
 
 PREDICTION_KINDS = (
     "record", "game", "recruit", "coaching_change", "portal",

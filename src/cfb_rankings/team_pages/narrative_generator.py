@@ -104,7 +104,7 @@ def generate_state_of_team(
     state: PageState,
     *,
     mode: str = "template",
-    claude_model: str = "claude-sonnet-4-6",
+    claude_model: str = "claude-opus-4-7",
 ) -> NarrativeResult:
     """Generate the state-of-team paragraph.
 

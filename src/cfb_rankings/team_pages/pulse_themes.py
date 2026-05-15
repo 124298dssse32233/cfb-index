@@ -24,7 +24,13 @@ from typing import Any
 log = logging.getLogger(__name__)
 
 _HAIKU_MODEL = "claude-haiku-4-5-20251001"
-_SONNET_MODEL = "claude-sonnet-4-6"
+# v5.3 tier upgrade per row #16: pulse_themes Stage 2 ranker/writer was Sonnet,
+# now Opus 4.7. Each theme carries label + summary + representative_quote —
+# voice register lives here, justifying the upgrade. Stage 1 Haiku scan
+# (candidate JSON extraction) stays — narrow factual task. Name kept as
+# _SONNET_MODEL for now to avoid downstream rename churn; collapsing the
+# naming is a future cleanup.
+_SONNET_MODEL = "claude-opus-4-7"
 _EXCERPT_LIMIT = 30     # docs fed to Haiku per entity
 _EXCERPT_CHARS = 400    # truncate each body_text
 _DAYS = 30              # lookback window for conversation docs
