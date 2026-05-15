@@ -91,10 +91,19 @@ jobs:
           echo "Seeded output/site with $(find output/site -type f | wc -l) files from prior state"
 
       - name: Build or incrementally sync
+        id: site_build
         run: |
-          set +e
+          # set -e: propagate failure. Historical bug (fixed 2026-05-15):
+          # `set +e` + `check=False` masked build-site non-zero exits, the
+          # prior-site cache (seeded into output/site above) passed the
+          # >=5000-files sanity gate, and the workflow uploaded stale
+          # content as a 'fresh' artifact. 2026-05-15 manifestation:
+          # publish_site.yml ran 1m 33s post-backfill and pushed 17 files
+          # while a real rebuild was expected to produce >17k page diffs.
+          # See IMPLEMENTATION_PLAN.md Part 4 Sprint v5-1 Day 1 Patch 3.
+          set -e
           python <<'PY'
-          import os, subprocess
+          import os, subprocess, sys
           from datetime import date
           today = date.today()
           in_season = (today.month >= 8) or (today.month == 1)
@@ -104,7 +113,7 @@ jobs:
               anchor = date(anchor_year, 8, 20)
               week = max(1, min(16, (today - anchor).days // 7 + 1))
               print(f"[publish] in-season incremental sync: season={season} week={week}")
-              subprocess.run(
+              rc = subprocess.run(
                   ["python", "-u", "manage.py", "sync-site-incremental",
                    "--season", str(season),
                    "--through-week", str(week),
@@ -112,14 +121,38 @@ jobs:
                    "--skip-heisman",
                    "--skip-connectivity-check"],
                   check=False,
-              )
+              ).returncode
           else:
               print("[publish] out-of-season full site rebuild")
-              subprocess.run(
+              rc = subprocess.run(
                   ["python", "-u", "manage.py", "build-site"],
                   check=False,
-              )
+              ).returncode
+          # Propagate build failure to the GitHub Action — do not allow
+          # subsequent steps to bake a stale prior-site cache into the
+          # uploaded artifact.
+          if rc != 0:
+              print(f"::error::build/sync exited non-zero (rc={rc}); failing the workflow")
+              sys.exit(rc)
           PY
+
+      - name: Verify build produced fresh pages
+        run: |
+          # Defense-in-depth against silent failures. Even if build-site
+          # exits 0, count modified files to confirm a real rebuild happened.
+          # `find -newer prior-site` matches files modified after the
+          # prior-site directory was seeded; a healthy rebuild touches
+          # thousands. Anything under 100 indicates the rebuild did not run.
+          MODIFIED=$(find output/site -type f -newer prior-site 2>/dev/null | wc -l)
+          TEAM_COUNT=$(find output/site/teams -name "*.html" 2>/dev/null | wc -l)
+          echo "Build verification: $MODIFIED files modified vs prior-site, $TEAM_COUNT team pages present"
+          if [ "$TEAM_COUNT" -lt 100 ]; then
+            echo "::error::Only $TEAM_COUNT team pages found — build-site likely produced near-empty output"
+            exit 1
+          fi
+          if [ "$MODIFIED" -lt 100 ]; then
+            echo "::warning::Only $MODIFIED files freshly modified — incremental sync may have been a no-op or skipped most pages"
+          fi
 
       - name: Refresh methodology + freshness pages
         run: |
