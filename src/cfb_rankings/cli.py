@@ -169,6 +169,50 @@ def build_parser() -> argparse.ArgumentParser:
         help="Render /methodology/freshness.html only — last-run-per-source summary.",
     )
 
+    # Sprint v5-1 Day 4 — Adapter 3 (archive_threads daily retro pull).
+    fetch_archive_retro_parser = subparsers.add_parser(
+        "fetch-archive-retro",
+        help="Daily Arctic Shift retro pull. Same-MM-DD ± 2 days across prior "
+             "years. High-engagement posts → archive_threads; lower-scoring → "
+             "conversation_documents tagged 'arctic_shift_retro'. Powers S5 / S7.",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--today", type=str, default=None,
+        help="Anchor date as YYYY-MM-DD. Defaults to today UTC.",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--years-back", type=int, default=12,
+        help="How many prior years to scan (default: 12).",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--min-score", type=int, default=50,
+        help="Engagement threshold for archive_threads promotion (default: 50).",
+    )
+    fetch_archive_retro_parser.add_argument(
+        "--day-window", type=int, default=2,
+        help="Inclusive +/- day window around target MM-DD (default: 2).",
+    )
+
+    # Sprint v5-1 Day 4 — S5 Today in CFB History renderer.
+    render_today_history_parser = subparsers.add_parser(
+        "render-today-in-history",
+        help="Render /anniversary/today/ — the offseason safety-net page. "
+             "Pulls from archive_threads + team_chronicle_observations + "
+             "historical_seasons_summary; always emits a valid page.",
+    )
+    render_today_history_parser.add_argument(
+        "--today", type=str, default=None,
+        help="Anchor date as YYYY-MM-DD. Defaults to today UTC.",
+    )
+    render_today_history_parser.add_argument(
+        "--output-dir", type=str, default="output/site/anniversary/today",
+        help="Output directory (default: output/site/anniversary/today).",
+    )
+    render_today_history_parser.add_argument(
+        "--max-cards", type=int, default=5,
+        help="Maximum anniversary cards on the page (default: 5).",
+    )
+
     # R1 — Sunday Vibe Shift Ledger. See docs/octopus/next-roadmap.md.
     vibe_parser = subparsers.add_parser(
         "build-vibe-shifts",
@@ -2194,6 +2238,46 @@ def main() -> None:
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         out = write_freshness_page(db)
         print(f"freshness page written: {out}")
+        return
+
+    if args.command == "fetch-archive-retro":
+        from cfb_rankings.ingest.sources.archive_retro import fetch_archive_retro
+        today_arg = None
+        if args.today:
+            today_arg = date.fromisoformat(args.today)
+        result = fetch_archive_retro(
+            db,
+            today=today_arg,
+            years_back=args.years_back,
+            min_score=args.min_score,
+            day_window=args.day_window,
+        )
+        print(
+            f"fetch-archive-retro: years_scanned={result['years_scanned']} "
+            f"posts_fetched={result['posts_fetched']} "
+            f"posts_promoted={result['posts_promoted']} "
+            f"posts_archived_low_engagement={result['posts_archived_low_engagement']} "
+            f"errors={result['errors']}"
+        )
+        return
+
+    if args.command == "render-today-in-history":
+        from cfb_rankings.today_in_history import render_today_in_history_page
+        today_arg = None
+        if args.today:
+            today_arg = date.fromisoformat(args.today)
+        result = render_today_in_history_page(
+            db,
+            today=today_arg,
+            output_dir=args.output_dir,
+            max_cards=args.max_cards,
+        )
+        print(
+            f"render-today-in-history: cards_rendered={result['cards_rendered']} "
+            f"files={len(result['output_files'])}"
+        )
+        for path in result["output_files"]:
+            print(f"  wrote {path}")
         return
 
     if args.command == "build-dynasty-heatmap":
