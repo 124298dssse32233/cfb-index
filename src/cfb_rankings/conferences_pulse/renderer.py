@@ -49,18 +49,27 @@ _CONF_DISPLAY: dict[str, str] = {
 
 
 def _load_conference_data(conference_slug: str, db_conn: Any) -> dict[str, Any]:
-    """Load themes + lede from conference_themes table."""
+    """Load themes + lede from conference_themes table.
+
+    Defensive: conference_themes table is created by the prepare-pulse
+    pipeline. If it doesn't exist yet (fresh DB, pipeline never ran),
+    return empty themes rather than crashing the renderer.
+    """
+    import sqlite3
     cur = db_conn.cursor()
-    cur.execute(
-        """
-        SELECT label, summary, representative_quote, delta_label, surfaced_rank
-        FROM conference_themes
-        WHERE conference_slug = ?
-        ORDER BY surfaced_rank
-        """,
-        (conference_slug,),
-    )
-    rows = cur.fetchall()
+    try:
+        cur.execute(
+            """
+            SELECT label, summary, representative_quote, delta_label, surfaced_rank
+            FROM conference_themes
+            WHERE conference_slug = ?
+            ORDER BY surfaced_rank
+            """,
+            (conference_slug,),
+        )
+        rows = cur.fetchall()
+    except sqlite3.OperationalError:
+        rows = []
     if not rows:
         return {"themes": [], "lede": None}
 
@@ -98,23 +107,33 @@ def _sentiment_bars(positive: int, neutral: int, negative: int) -> str:
 
 
 def _load_conf_sentiment(conference_slug: str, db_conn: Any) -> dict[str, Any]:
-    """Aggregate team_conversation_daily for all teams in this conference."""
+    """Aggregate team_conversation_daily for all teams in this conference.
+
+    Defensive against missing conferences.conference_slug column — added
+    via migration 20260525_18 (2026-05-15). On DBs where the migration
+    hasn't run, returns empty so the renderer falls back to its empty-
+    state UI rather than crashing.
+    """
+    import sqlite3
     cur = db_conn.cursor()
-    cur.execute(
-        """
-        SELECT
-            SUM(tcd.positive_doc_count),
-            SUM(tcd.negative_doc_count),
-            SUM(tcd.mention_count),
-            AVG(tcd.mean_sentiment_score)
-        FROM team_conversation_daily tcd
-        JOIN teams t ON t.team_id = tcd.team_id
-        JOIN conferences c ON c.conference_id = t.current_conference_id
-        WHERE c.conference_slug = ?
-          AND tcd.as_of_date >= date('now', '-30 days')
-        """,
-        (conference_slug,),
-    )
+    try:
+        cur.execute(
+            """
+            SELECT
+                SUM(tcd.positive_doc_count),
+                SUM(tcd.negative_doc_count),
+                SUM(tcd.mention_count),
+                AVG(tcd.mean_sentiment_score)
+            FROM team_conversation_daily tcd
+            JOIN teams t ON t.team_id = tcd.team_id
+            JOIN conferences c ON c.conference_id = t.current_conference_id
+            WHERE c.conference_slug = ?
+              AND tcd.as_of_date >= date('now', '-30 days')
+            """,
+            (conference_slug,),
+        )
+    except sqlite3.OperationalError:
+        return {}
     row = cur.fetchone()
     if not row or not row[2]:
         return {}

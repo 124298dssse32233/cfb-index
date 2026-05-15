@@ -120,19 +120,19 @@ jobs:
           python -u manage.py ingest-nfl-draft \
             --start-year "${{ github.event.inputs.start_season || '2014' }}" \
             --end-year   "${{ github.event.inputs.end_season   || '2025' }}" \
-            || echo "ingest-nfl-draft failed (continuing)"
+            || echo "::warning::ingest-nfl-draft failed (continuing — set+e swallowed the exit code)"
 
       - name: "Ingest — Historical consensus (polls, SP+, Vegas)"
         run: |
           set +e
           python -u manage.py load-historical-consensus --kind all \
-            || echo "load-historical-consensus failed (continuing)"
+            || echo "::warning::load-historical-consensus failed (continuing — set+e swallowed the exit code)"
 
       - name: "Ingest — Sync team brand assets (logos, colors)"
         run: |
           set +e
           python -u manage.py sync-team-brand-assets --classification fbs \
-            || echo "sync-team-brand-assets failed (continuing)"
+            || echo "::warning::sync-team-brand-assets failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # COMPUTE — derived metrics
@@ -146,7 +146,7 @@ jobs:
             python -u manage.py run-heisman-model \
               --season      "$SEASON" \
               --through-week 16 \
-              || echo "heisman $SEASON failed (continuing)"
+              || echo "::warning::heisman $SEASON failed (continuing — set+e swallowed the exit code)"
           done
 
       - name: "Compute — Rivalry ratios (current week)"
@@ -154,21 +154,21 @@ jobs:
           set +e
           WEEK=$(date -u +%Y-%m-%d)
           python -u manage.py compute-rivalry-ratios --week "$WEEK" \
-            || echo "compute-rivalry-ratios failed (continuing)"
+            || echo "::warning::compute-rivalry-ratios failed (continuing — set+e swallowed the exit code)"
 
       - name: "Compute — Mirror matches"
         run: |
           set +e
           python -u manage.py compute-mirror-matches \
             --season "${{ github.event.inputs.end_season || '2025' }}" \
-            || echo "compute-mirror-matches failed (continuing)"
+            || echo "::warning::compute-mirror-matches failed (continuing — set+e swallowed the exit code)"
 
       - name: "Compute — Player achievements"
         run: |
           set +e
           python -u manage.py compute-achievements \
             --season "${{ github.event.inputs.end_season || '2025' }}" \
-            || echo "compute-achievements failed (continuing)"
+            || echo "::warning::compute-achievements failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # SITE BUILDS — generate HTML pages in output/site/
@@ -180,7 +180,7 @@ jobs:
           python -u manage.py build-nfl-pipeline \
             --year-start "${{ github.event.inputs.start_season || '2014' }}" \
             --year-end   "${{ github.event.inputs.end_season   || '2025' }}" \
-            || echo "build-nfl-pipeline failed (continuing)"
+            || echo "::warning::build-nfl-pipeline failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Dynasty heatmap"
         run: |
@@ -188,70 +188,70 @@ jobs:
           python -u manage.py build-dynasty-heatmap \
             --year-start "${{ github.event.inputs.start_season || '2014' }}" \
             --year-end   "${{ github.event.inputs.end_season   || '2025' }}" \
-            || echo "build-dynasty-heatmap failed (continuing)"
+            || echo "::warning::build-dynasty-heatmap failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Players landing page"
         run: |
           set +e
           python -u manage.py build-players-landing \
             --season "${{ github.event.inputs.end_season || '2025' }}" \
-            || echo "build-players-landing failed (continuing)"
+            || echo "::warning::build-players-landing failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — The Room board (transfer portal)"
         run: |
           set +e
           python -u manage.py build-the-room-board \
             --season 2026 \
-            || echo "build-the-room-board failed (continuing)"
+            || echo "::warning::build-the-room-board failed (continuing — set+e swallowed the exit code)"
           python -u manage.py render-the-room \
-            || echo "render-the-room failed (continuing)"
+            || echo "::warning::render-the-room failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Signature story board"
         run: |
           set +e
           python -u manage.py build-signature-story-board \
             --season "${{ github.event.inputs.end_season || '2025' }}" \
-            || echo "build-signature-story-board failed (continuing)"
+            || echo "::warning::build-signature-story-board failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Vibe shifts"
         run: |
           set +e
           python -u manage.py build-vibe-shifts \
             --season "${{ github.event.inputs.end_season || '2025' }}" \
-            || echo "build-vibe-shifts failed (continuing)"
+            || echo "::warning::build-vibe-shifts failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Conference pulse pages"
         run: |
           set +e
           python -u manage.py render-conferences-pulse --all \
-            || echo "render-conferences-pulse failed (continuing)"
+            || echo "::warning::render-conferences-pulse failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Historical season pages (all profiled programs)"
         run: |
           set +e
           python -u manage.py generate-historical-seasons \
-            || echo "generate-historical-seasons failed (continuing)"
+            || echo "::warning::generate-historical-seasons failed (continuing — set+e swallowed the exit code)"
           python -u manage.py render-historical-seasons \
-            || echo "render-historical-seasons failed (continuing)"
+            || echo "::warning::render-historical-seasons failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Canon pages"
         run: |
           set +e
           python -u manage.py render-canon-all \
-            || echo "render-canon-all failed (continuing)"
+            || echo "::warning::render-canon-all failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Prediction receipts"
         run: |
           set +e
           python -u manage.py render-receipts \
-            || echo "render-receipts failed (continuing)"
+            || echo "::warning::render-receipts failed (continuing — set+e swallowed the exit code)"
 
       - name: "Build — Best calls editorial (AI, 2025)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
         run: |
           set +e
           python -u manage.py generate-best-calls --year 2025 --n 25 \
-            || echo "generate-best-calls failed (continuing)"
+            || echo "::warning::generate-best-calls failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # UPLOAD

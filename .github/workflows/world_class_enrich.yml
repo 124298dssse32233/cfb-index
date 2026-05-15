@@ -129,19 +129,19 @@ jobs:
         run: |
           set +e
           python -u manage.py wire-ingest --days 7 \
-            || echo "wire-ingest failed (continuing)"
+            || echo "::warning::wire-ingest failed (continuing — set+e swallowed the exit code)"
 
       - name: "Wire — generate editorial copy (14-day window)"
         run: |
           set +e
           python -u manage.py wire-generate-editorial --days 14 \
-            || echo "wire-generate-editorial failed (continuing)"
+            || echo "::warning::wire-generate-editorial failed (continuing — set+e swallowed the exit code)"
 
       - name: "Wire — render /wire/ index + archive pages"
         run: |
           set +e
           python -u manage.py render-wire \
-            || echo "render-wire failed (continuing)"
+            || echo "::warning::render-wire failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # DAILY EDITION — seed → generate → render
@@ -150,20 +150,20 @@ jobs:
         run: |
           set +e
           python -u manage.py seed-editions \
-            || echo "seed-editions failed (continuing)"
+            || echo "::warning::seed-editions failed (continuing — set+e swallowed the exit code)"
 
       - name: "Daily — generate today's edition (AI)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
         run: |
           set +e
           python -u manage.py generate-daily \
-            || echo "generate-daily failed (continuing)"
+            || echo "::warning::generate-daily failed (continuing — set+e swallowed the exit code)"
 
       - name: "Daily — render edition HTML"
         run: |
           set +e
           python -u manage.py render-daily \
-            || echo "render-daily failed (continuing)"
+            || echo "::warning::render-daily failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # MAILBAG — seed → curate → generate → render
@@ -172,26 +172,26 @@ jobs:
         run: |
           set +e
           python -u manage.py mailbag-seed-submissions --n 5 \
-            || echo "mailbag-seed-submissions failed (continuing)"
+            || echo "::warning::mailbag-seed-submissions failed (continuing — set+e swallowed the exit code)"
 
       - name: "Mailbag — curate submissions for current edition"
         run: |
           set +e
           python -u manage.py mailbag-curate-submissions \
-            || echo "mailbag-curate-submissions failed (continuing)"
+            || echo "::warning::mailbag-curate-submissions failed (continuing — set+e swallowed the exit code)"
 
       - name: "Mailbag — generate answers (AI)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
         run: |
           set +e
           python -u manage.py mailbag-generate-answers \
-            || echo "mailbag-generate-answers failed (continuing)"
+            || echo "::warning::mailbag-generate-answers failed (continuing — set+e swallowed the exit code)"
 
       - name: "Mailbag — render HTML pages"
         run: |
           set +e
           python -u manage.py render-mailbag \
-            || echo "render-mailbag failed (continuing)"
+            || echo "::warning::render-mailbag failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # REACTIONS — check triggers → auto-generate → render
@@ -201,13 +201,13 @@ jobs:
         run: |
           set +e
           python -u manage.py reactions-check-triggers --hours 168 --auto \
-            || echo "reactions-check-triggers failed (continuing)"
+            || echo "::warning::reactions-check-triggers failed (continuing — set+e swallowed the exit code)"
 
       - name: "Reactions — render all reaction story pages"
         run: |
           set +e
           python -u manage.py render-reactions \
-            || echo "render-reactions failed (continuing)"
+            || echo "::warning::render-reactions failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # TEAM PAGE AI ENRICHMENT
@@ -218,47 +218,47 @@ jobs:
         run: |
           set +e
           python -u manage.py load-team-profiles \
-            || echo "load-team-profiles failed (continuing)"
+            || echo "::warning::load-team-profiles failed (continuing — set+e swallowed the exit code)"
 
       - name: "Team pages — generate AI narratives (all profiled programs)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
         run: |
           set +e
           python -u manage.py generate-narratives --llm claude \
-            || echo "generate-narratives failed (continuing)"
+            || echo "::warning::generate-narratives failed (continuing — set+e swallowed the exit code)"
 
       - name: "Team pages — generate Chronicle cards (all profiled programs)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
         run: |
           set +e
           python -u manage.py generate-chronicle --workers 3 \
-            || echo "generate-chronicle failed (continuing)"
+            || echo "::warning::generate-chronicle failed (continuing — set+e swallowed the exit code)"
 
       - name: "Team pages — refresh Savant percentiles"
         run: |
           set +e
           python -u manage.py refresh-savant \
             --season "${{ github.event.inputs.season || '2025' }}" \
-            || echo "refresh-savant failed (continuing)"
+            || echo "::warning::refresh-savant failed (continuing — set+e swallowed the exit code)"
 
       - name: "Team pages — refresh season arc (2014-present)"
         run: |
           set +e
           python -u manage.py refresh-season-arc \
             --latest-season "${{ github.event.inputs.season || '2025' }}" \
-            || echo "refresh-season-arc failed (continuing)"
+            || echo "::warning::refresh-season-arc failed (continuing — set+e swallowed the exit code)"
 
       - name: "Team pages — refresh rivalry head-to-head data"
         run: |
           set +e
           python -u manage.py refresh-rivalry \
-            || echo "refresh-rivalry failed (continuing)"
+            || echo "::warning::refresh-rivalry failed (continuing — set+e swallowed the exit code)"
 
       - name: "Team pages — render all profiled programs"
         run: |
           set +e
           python -u manage.py render-team-pages \
-            || echo "render-team-pages failed (continuing)"
+            || echo "::warning::render-team-pages failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # RETRO OFFSEASON PAGES
@@ -267,13 +267,13 @@ jobs:
         run: |
           set +e
           python -u manage.py seed-retro-all \
-            || echo "seed-retro-all failed (continuing)"
+            || echo "::warning::seed-retro-all failed (continuing — set+e swallowed the exit code)"
 
       - name: "Retro — build retro page HTML"
         run: |
           set +e
           python -u manage.py build-retro-pages \
-            || echo "build-retro-pages failed (continuing)"
+            || echo "::warning::build-retro-pages failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # PLAYER MOOD — weekly compute (8 weeks) + season rollup
@@ -301,7 +301,7 @@ jobs:
           set +e
           python -u manage.py compute-player-season-mood \
             --season "${{ github.event.inputs.season || '2025' }}" \
-            || echo "compute-player-season-mood failed (continuing)"
+            || echo "::warning::compute-player-season-mood failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # WIKI AWARDS — scrape + auto-import (2014-present)
@@ -313,7 +313,7 @@ jobs:
             --start-year 2014 \
             --end-year "${{ github.event.inputs.season || '2025' }}" \
             --auto-import \
-            || echo "scrape-wiki-awards failed (continuing)"
+            || echo "::warning::scrape-wiki-awards failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # CANON LISTS — seed → generate all 3 → render
@@ -322,7 +322,7 @@ jobs:
         run: |
           set +e
           python -u manage.py seed-canon-metadata \
-            || echo "seed-canon-metadata failed (continuing)"
+            || echo "::warning::seed-canon-metadata failed (continuing — set+e swallowed the exit code)"
 
       - name: "Canon — generate: 100 Best Players (CFP era, AI)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
@@ -331,7 +331,7 @@ jobs:
           python -u manage.py generate-canon-list \
             --list the-100-best-players-cfp-era \
             --year 2026 \
-            || echo "generate-canon-list (players) failed (continuing)"
+            || echo "::warning::generate-canon-list (players) failed (continuing — set+e swallowed the exit code)"
 
       - name: "Canon — generate: 50 Most Defining Games (CFP era, AI)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
@@ -340,7 +340,7 @@ jobs:
           python -u manage.py generate-canon-list \
             --list the-50-most-defining-games-cfp-era \
             --year 2026 \
-            || echo "generate-canon-list (games) failed (continuing)"
+            || echo "::warning::generate-canon-list (games) failed (continuing — set+e swallowed the exit code)"
 
       - name: "Canon — generate: 25 Best Coaching Hires (2020s, AI)"
         if: ${{ github.event.inputs.skip_ai != 'true' }}
@@ -349,13 +349,13 @@ jobs:
           python -u manage.py generate-canon-list \
             --list the-25-best-coaching-hires-2020s \
             --year 2026 \
-            || echo "generate-canon-list (coaches) failed (continuing)"
+            || echo "::warning::generate-canon-list (coaches) failed (continuing — set+e swallowed the exit code)"
 
       - name: "Canon — render all list + entry pages"
         run: |
           set +e
           python -u manage.py render-canon-all \
-            || echo "render-canon-all failed (continuing)"
+            || echo "::warning::render-canon-all failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # HUB INTELLIGENCE
@@ -364,13 +364,13 @@ jobs:
         run: |
           set +e
           python -u manage.py hub-computed-evidence \
-            || echo "hub-computed-evidence failed (continuing)"
+            || echo "::warning::hub-computed-evidence failed (continuing — set+e swallowed the exit code)"
 
       - name: "Hub — prepare pulse themes + ledes"
         run: |
           set +e
           python -u manage.py prepare-pulse \
-            || echo "prepare-pulse failed (continuing)"
+            || echo "::warning::prepare-pulse failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # SITE SURFACE REFRESH
@@ -379,19 +379,19 @@ jobs:
         run: |
           set +e
           python -u manage.py render-storylines \
-            || echo "render-storylines failed (continuing)"
+            || echo "::warning::render-storylines failed (continuing — set+e swallowed the exit code)"
 
       - name: "Site — refresh editions archive"
         run: |
           set +e
           python -u manage.py build-editions-archive \
-            || echo "build-editions-archive failed (continuing)"
+            || echo "::warning::build-editions-archive failed (continuing — set+e swallowed the exit code)"
 
       - name: "Site — refresh methodology pages"
         run: |
           set +e
           python -u manage.py build-methodology \
-            || echo "build-methodology failed (continuing)"
+            || echo "::warning::build-methodology failed (continuing — set+e swallowed the exit code)"
 
       - name: "Site — render homepage from active edition"
         run: |
@@ -403,7 +403,7 @@ jobs:
         run: |
           set +e
           python -u manage.py render-wire \
-            || echo "render-wire (homepage patch) failed (continuing)"
+            || echo "::warning::render-wire (homepage patch) failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
       # POST-PROCESS LAYER — must run AFTER all renderers

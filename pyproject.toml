@@ -10,6 +10,16 @@ dependencies = [
   "vaderSentiment>=3.3.2,<4.0",
   "PyYAML>=6.0",
   "anthropic>=0.40.0",
+  # bs4 + lxml imported by src/cfb_rankings/ingest/sources/wiki_awards.py
+  # for the Wikipedia honors scraper. Without these the `scrape-wiki-awards`
+  # CLI fails ModuleNotFoundError on import. Added 2026-05-15 after
+  # world_class_enrich.yml runs 25942058001 + 25942691409 silent-failed.
+  "beautifulsoup4>=4.12.0",
+  "lxml>=5.0.0",
+  # feedparser used by ingest/sources RSS adapters (locked_on, beat_writers,
+  # campus_news, athletics, substack). Added defensively — same missing-dep
+  # class of bug was about to bite the daily-cron pipeline.
+  "feedparser>=6.0.0",
 ]
 
 [project.scripts]

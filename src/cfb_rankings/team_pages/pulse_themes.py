@@ -64,25 +64,42 @@ def _fetch_team_excerpts(entity_slug: str, db_conn: Any) -> list[dict[str, str]]
 
 
 def _fetch_conference_excerpts(conference_slug: str, db_conn: Any) -> list[dict[str, str]]:
+    # Defensive: conferences.conference_slug column was added 2026-05-15
+    # via migration 20260525_18. On a DB where the migration hasn't run
+    # (or where the conferences table is wholly absent), this query
+    # raises sqlite3.OperationalError. The world_class_enrich pipeline
+    # used to silently swallow the exception via set+e || echo. Now we
+    # log + return [] so pulse_themes degrades gracefully to zero
+    # conference excerpts instead of crashing the entire prepare-pulse
+    # CLI mid-run.
+    import sqlite3
     cur = db_conn.cursor()
-    # Aggregate team mentions within conference
-    cur.execute(
-        """
-        SELECT cd.body_text, cd.source_name, cdt.target_label
-        FROM conversation_document_targets cdt
-        JOIN conversation_documents cd
-            ON cd.conversation_document_id = cdt.conversation_document_id
-        JOIN teams t ON t.team_id = cdt.team_id
-        JOIN conferences c ON c.conference_id = t.current_conference_id
-        WHERE c.conference_slug = ?
-          AND cd.body_text IS NOT NULL
-          AND cd.body_text != ''
-          AND cd.collected_at_utc >= datetime('now', '-30 days')
-        ORDER BY cd.like_count DESC
-        LIMIT ?
-        """,
-        (conference_slug, _EXCERPT_LIMIT),
-    )
+    try:
+        cur.execute(
+            """
+            SELECT cd.body_text, cd.source_name, cdt.target_label
+            FROM conversation_document_targets cdt
+            JOIN conversation_documents cd
+                ON cd.conversation_document_id = cdt.conversation_document_id
+            JOIN teams t ON t.team_id = cdt.team_id
+            JOIN conferences c ON c.conference_id = t.current_conference_id
+            WHERE c.conference_slug = ?
+              AND cd.body_text IS NOT NULL
+              AND cd.body_text != ''
+              AND cd.collected_at_utc >= datetime('now', '-30 days')
+            ORDER BY cd.like_count DESC
+            LIMIT ?
+            """,
+            (conference_slug, _EXCERPT_LIMIT),
+        )
+    except sqlite3.OperationalError as exc:
+        log.warning(
+            "_fetch_conference_excerpts: query failed for slug=%r (%s); "
+            "returning empty list. Apply migration 20260525_18 to add "
+            "conferences.conference_slug column.",
+            conference_slug, exc,
+        )
+        return []
     return [
         {"text": r[0][:_EXCERPT_CHARS], "source": r[1], "label": r[2]}
         for r in cur.fetchall()
