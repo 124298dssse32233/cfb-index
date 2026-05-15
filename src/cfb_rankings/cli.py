@@ -213,6 +213,39 @@ def build_parser() -> argparse.ArgumentParser:
         help="Maximum anniversary cards on the page (default: 5).",
     )
 
+    # Sprint v5-1 Day 4 — S1 Days to Kickoff countdown.
+    kickoff_countdown_parser = subparsers.add_parser(
+        "render-kickoff-countdown",
+        help="Render /kickoff/ countdown page + sitewide countdown.json. "
+             "Daily lightweight refresh — no DB writes; reads kickoff date from "
+             "cfb_calendar (KEY_EVENTS_<season> or games table).",
+    )
+    kickoff_countdown_parser.add_argument(
+        "--today", type=str, default=None,
+        help="Anchor date YYYY-MM-DD. Defaults to today UTC.",
+    )
+    kickoff_countdown_parser.add_argument(
+        "--output-dir", type=str, default="output/site",
+        help="Output directory root (writes /kickoff/index.html + "
+             "/assets/countdown.json under this root).",
+    )
+
+    # Sprint v5-1 Day 4 — S4 Recruit Watch Board.
+    refresh_recruiting_parser = subparsers.add_parser(
+        "refresh-recruiting-pulse",
+        help="Render /recruit-board/<class_year>/ pages. Reads "
+             "player_recruiting_profiles for the target class year, ranks "
+             "programs by weighted star sum, surfaces top 25.",
+    )
+    refresh_recruiting_parser.add_argument(
+        "--class-year", type=int, default=None,
+        help="Target recruiting class year (default: next class, e.g. 2027 in May 2026).",
+    )
+    refresh_recruiting_parser.add_argument(
+        "--output-dir", type=str, default="output/site",
+        help="Output directory root (writes /recruit-board/<class_year>/index.html).",
+    )
+
     # R1 — Sunday Vibe Shift Ledger. See docs/octopus/next-roadmap.md.
     vibe_parser = subparsers.add_parser(
         "build-vibe-shifts",
@@ -2278,6 +2311,41 @@ def main() -> None:
         )
         for path in result["output_files"]:
             print(f"  wrote {path}")
+        return
+
+    if args.command == "render-kickoff-countdown":
+        from cfb_rankings.countdown import render_countdown
+        today_arg = None
+        if args.today:
+            today_arg = date.fromisoformat(args.today)
+        # Reuse the underlying sqlite3 connection for kickoff_date lookup
+        # (cfb_calendar tolerates a None DB; passing it lets the games-table
+        # path fire when available).
+        result = render_countdown(
+            db.connection() if hasattr(db, "connection") else db,
+            today=today_arg,
+            output_dir=args.output_dir,
+        )
+        print(
+            f"render-kickoff-countdown: days={result['days_to_kickoff']} "
+            f"phase={result['phase_label']!r} "
+            f"files={result['files_written']}"
+        )
+        return
+
+    if args.command == "refresh-recruiting-pulse":
+        from cfb_rankings.recruit_board import render_recruit_board
+        result = render_recruit_board(
+            db.connection() if hasattr(db, "connection") else db,
+            class_year=args.class_year,
+            output_dir=args.output_dir,
+        )
+        print(
+            f"refresh-recruiting-pulse: class_year={result['class_year']} "
+            f"programs={result['program_count']} "
+            f"days_to_kickoff={result['days_to_kickoff']} "
+            f"-> {result['output_path']}"
+        )
         return
 
     if args.command == "build-dynasty-heatmap":
