@@ -1362,6 +1362,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--auto", action="store_true",
         help="Auto-generate + render reaction stories for all triggered candidates.",
     )
+    check_triggers_parser.add_argument(
+        "--batch", default="auto",
+        choices=["auto", "on", "off"],
+        help=(
+            "Sprint v5-1.5c: use Anthropic Message Batches API (50%% off + "
+            "1h prompt caching) when running --auto across multiple triggered "
+            "events. 'auto' (default): batch ON for >=2 events, OFF for 1. "
+            "'on'/'off' force either path. Has no effect without --auto."
+        ),
+    )
 
     generate_reaction_parser = subparsers.add_parser(
         "generate-reaction",
@@ -1416,6 +1426,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="Lookback window in days (default: 14).")
     wire_editorial_parser.add_argument("--overwrite", action="store_true",
         help="Overwrite existing editorial fields (use with care).")
+    wire_editorial_parser.add_argument(
+        "--batch", default="off",
+        choices=["auto", "on", "off"],
+        help=(
+            "Sprint v5-1.5c: when 'on' (or 'auto' with >=2 uncovered rows), "
+            "run the LLM-backed batch path generate_uncovered_rows_batch on "
+            "wire rows without authored captions (50%% off + 1h cache). "
+            "Default is 'off' — keep the deterministic templated factual "
+            "fallback that ships today; the LLM path activates gated on the "
+            "Sprint v5-2 quality-loop validator work."
+        ),
+    )
 
     render_wire_parser = subparsers.add_parser(
         "render-wire",
@@ -1469,6 +1491,17 @@ def build_parser() -> argparse.ArgumentParser:
     prepare_pulse_parser.add_argument(
         "--tier", default=None, choices=["full", "partial"],
         help="Force tier override. Default: auto-detect from top-entity lists.",
+    )
+    prepare_pulse_parser.add_argument(
+        "--batch", default="auto",
+        choices=["auto", "on", "off"],
+        help=(
+            "Sprint v5-1.5c: use Anthropic Message Batches API (50%% off + "
+            "1h prompt caching) for Stage-2 themes + lede emission. "
+            "'auto' (default): batch ON for >=2 entities, OFF for 1. "
+            "'on'/'off' force either path. The sync per-entity path remains "
+            "for single-entity --entity invocations."
+        ),
     )
 
     render_conf_pulse_parser = subparsers.add_parser(
@@ -1542,6 +1575,17 @@ def build_parser() -> argparse.ArgumentParser:
     mailbag_gen_parser.add_argument(
         "--edition", type=str, default=None,
         help="Edition slug. Defaults to current ISO week.",
+    )
+    mailbag_gen_parser.add_argument(
+        "--batch", default="auto",
+        choices=["auto", "on", "off"],
+        help=(
+            "Sprint v5-1.5c: use Anthropic Message Batches API (50%% off + "
+            "1h prompt caching). 'auto' (default): batch ON when >=2 curated "
+            "questions, OFF for a single-question edition. 'on'/'off' force "
+            "either path. The sync path remains available for low-volume "
+            "interactive runs."
+        ),
     )
 
     render_mailbag_parser = subparsers.add_parser(
@@ -4564,7 +4608,10 @@ def main() -> None:
 
     if args.command == "reactions-check-triggers":
         from cfb_rankings.reactions.triggers import check_triggers
-        from cfb_rankings.reactions.synthesizer import generate_reaction
+        from cfb_rankings.reactions.synthesizer import (
+            generate_reaction,
+            synthesize_reactions_batch,
+        )
         from cfb_rankings.reactions.cohort_divergence import extract_cohort_divergence
         from cfb_rankings.reactions.data import fetch_wire_entry
         from cfb_rankings.reactions.renderer import render_story, render_archive
@@ -4580,15 +4627,35 @@ def main() -> None:
             indent=2,
         ), flush=True)
         if args.auto and events:
+            # Sprint v5-1.5c: build the (trigger, wire_row, cohort_div, story_slug)
+            # tuple list once; routing decides whether to fan out via batch.
+            stories_input: list = []
             for evt in events:
                 wire_row = fetch_wire_entry(evt.wire_id)
                 if wire_row is None:
                     continue
                 cohort_div = extract_cohort_divergence(wire_row)
-                story = generate_reaction(evt, wire_row, cohort_div, evt.suggested_slug)
-                render_story(story.slug)
-                render_archive()
-                print(f"  auto-generated: {story.slug}", flush=True)
+                stories_input.append((evt, wire_row, cohort_div, evt.suggested_slug))
+
+            batch_choice = getattr(args, "batch", "auto")
+            use_batch = (
+                batch_choice == "on"
+                or (batch_choice == "auto" and len(stories_input) >= 2)
+            )
+
+            if use_batch and stories_input:
+                stories = synthesize_reactions_batch(stories_input)
+                for story in stories:
+                    render_story(story.slug)
+                    print(f"  auto-generated (batch): {story.slug}", flush=True)
+                if stories:
+                    render_archive()
+            else:
+                for (evt, wire_row, cohort_div, slug) in stories_input:
+                    story = generate_reaction(evt, wire_row, cohort_div, slug)
+                    render_story(story.slug)
+                    render_archive()
+                    print(f"  auto-generated: {story.slug}", flush=True)
         return
 
     if args.command == "generate-reaction":
@@ -4690,10 +4757,40 @@ def main() -> None:
         return
 
     if args.command == "wire-generate-editorial":
-        from cfb_rankings.wire.editorial import generate_editorial_for_pending
-        stats = generate_editorial_for_pending(
-            db, days=args.days, overwrite=args.overwrite,
+        from cfb_rankings.wire.editorial import (
+            generate_editorial_for_pending,
+            generate_uncovered_rows_batch,
+            _lookup_authored,
         )
+        batch_choice = getattr(args, "batch", "off")
+        # 'auto' counts uncovered rows in window to decide.
+        if batch_choice == "auto":
+            rows = db.query_all(
+                """
+                select id, occurred_at, program_slug, program_display, actor_kind,
+                       action, fan_intel_velocity_spike, related_thread_slug
+                from wire_entries
+                where occurred_at >= datetime('now', :since)
+                """,
+                {"since": f"-{int(args.days)} days"},
+            )
+            n_uncovered = sum(1 for r in rows if _lookup_authored(r) is None)
+            use_batch = n_uncovered >= 2
+        else:
+            use_batch = batch_choice == "on"
+
+        if use_batch:
+            stats = generate_uncovered_rows_batch(db, days=args.days)
+            # Run the deterministic pass too so non-uncovered rows still get
+            # their why_it_matters / impact_label fields if missing.
+            det_stats = generate_editorial_for_pending(
+                db, days=args.days, overwrite=args.overwrite,
+            )
+            stats = {**det_stats, "batch_llm": stats}
+        else:
+            stats = generate_editorial_for_pending(
+                db, days=args.days, overwrite=args.overwrite,
+            )
         print(json.dumps(stats, indent=2), flush=True)
         return
 
@@ -4738,24 +4835,71 @@ def main() -> None:
                                                       "american-athletic", "mountain-west"]]
             )
 
+        batch_choice = getattr(args, "batch", "auto")
+        use_batch = (
+            batch_choice == "on"
+            or (batch_choice == "auto" and len(run_list) >= 2)
+        )
+
+        OPUS_SLUGS = {"alabama", "ohio-state", "georgia"}
+
         with db.connection() as conn:
-            for slug, etype in run_list:
-                if args.tier:
-                    tier = args.tier
-                else:
-                    tier = "full" if slug in TOP_ENTITIES_FULL else "partial"
-                print(f"  prepare-pulse: {slug} ({etype}) tier={tier}", flush=True)
-                themes = pulse_themes.extract_entity_themes(slug, etype, tier, conn)
-                model_tier = "opus" if slug in {"alabama", "ohio-state", "georgia"} else "sonnet"
-                lede_result = pulse_lede.generate_entity_lede(
-                    slug, etype, themes, model_tier, conn
+            if use_batch:
+                # Sprint v5-1.5c: flatten into one (slug, etype, tier, name)
+                # list for the Stage-2 themes batch. Stage-1 Haiku candidate
+                # scan remains per-entity inside extract_entities_themes_batch.
+                batch_themes_input: list[tuple[str, str, str, str | None]] = []
+                for slug, etype in run_list:
+                    if args.tier:
+                        tier = args.tier
+                    else:
+                        tier = "full" if slug in TOP_ENTITIES_FULL else "partial"
+                    batch_themes_input.append((slug, etype, tier, None))
+                    print(f"  prepare-pulse: {slug} ({etype}) tier={tier} [batch]", flush=True)
+
+                themes_by_entity = pulse_themes.extract_entities_themes_batch(
+                    batch_themes_input, conn,
                 )
-                lede_ok = lede_result.get("voice_validator_passed", False)
-                print(
-                    f"    themes={len(themes)} lede_ok={lede_ok} "
-                    f"mode={lede_result.get('mode')}",
-                    flush=True,
+
+                # Build lede batch from the themes output, keeping the same
+                # opus/sonnet routing as the sync handler.
+                batch_lede_input: list[tuple[str, str, list[dict], str, str | None]] = []
+                for slug, etype, tier, _name in batch_themes_input:
+                    themes = themes_by_entity.get((slug, etype), [])
+                    model_tier = "opus" if slug in OPUS_SLUGS else "sonnet"
+                    batch_lede_input.append((slug, etype, themes, model_tier, None))
+
+                lede_results = pulse_lede.generate_entity_ledes_batch(
+                    batch_lede_input, conn,
                 )
+
+                for slug, etype, _tier, _name in batch_themes_input:
+                    themes = themes_by_entity.get((slug, etype), [])
+                    lede_result = lede_results.get((slug, etype), {})
+                    lede_ok = lede_result.get("voice_validator_passed", False)
+                    print(
+                        f"    {slug} ({etype}): themes={len(themes)} "
+                        f"lede_ok={lede_ok} mode={lede_result.get('mode')}",
+                        flush=True,
+                    )
+            else:
+                for slug, etype in run_list:
+                    if args.tier:
+                        tier = args.tier
+                    else:
+                        tier = "full" if slug in TOP_ENTITIES_FULL else "partial"
+                    print(f"  prepare-pulse: {slug} ({etype}) tier={tier}", flush=True)
+                    themes = pulse_themes.extract_entity_themes(slug, etype, tier, conn)
+                    model_tier = "opus" if slug in OPUS_SLUGS else "sonnet"
+                    lede_result = pulse_lede.generate_entity_lede(
+                        slug, etype, themes, model_tier, conn
+                    )
+                    lede_ok = lede_result.get("voice_validator_passed", False)
+                    print(
+                        f"    themes={len(themes)} lede_ok={lede_ok} "
+                        f"mode={lede_result.get('mode')}",
+                        flush=True,
+                    )
         print("prepare-pulse complete.", flush=True)
         return
 
@@ -4827,8 +4971,15 @@ def main() -> None:
         return
 
     if args.command == "mailbag-generate-answers":
-        from cfb_rankings.mailbag.synthesizer import generate_answers_for_edition
-        from cfb_rankings.mailbag.data import current_edition_slug
+        from cfb_rankings.mailbag.synthesizer import (
+            generate_answers_for_edition,
+            generate_answers_for_edition_batch,
+        )
+        from cfb_rankings.mailbag.data import (
+            current_edition_slug,
+            db_conn as _mailbag_db_conn,
+            list_curated_for_edition,
+        )
         from cfb_rankings.llm_runtime import CostMeter, CostCeilingExceeded
         edition = getattr(args, "edition", None) or current_edition_slug()
         # Pattern C: per-CLI-invocation meter. Per-run ceiling = $1.00
@@ -4837,8 +4988,25 @@ def main() -> None:
             ceiling_usd=1.0,
             label=f"cli.mailbag-generate-answers.{edition}",
         )
+        # Sprint v5-1.5c batch-path activation:
+        # 'auto' (default) batches when there are >=2 curated questions; that's
+        # where the 50%-off batch discount + 1h-cache savings actually fire.
+        # 'on' force-batches even N==1 (useful for testing the batch path).
+        # 'off' keeps the legacy sync subprocess loop (interactive UX).
+        batch_choice = getattr(args, "batch", "auto")
+        n_curated = 0
+        if batch_choice == "auto":
+            with _mailbag_db_conn() as _conn:
+                n_curated = len(list_curated_for_edition(_conn, edition))
+        use_batch = (
+            batch_choice == "on"
+            or (batch_choice == "auto" and n_curated >= 2)
+        )
         try:
-            result = generate_answers_for_edition(edition, _meter=cost_meter)
+            if use_batch:
+                result = generate_answers_for_edition_batch(edition, _meter=cost_meter)
+            else:
+                result = generate_answers_for_edition(edition, _meter=cost_meter)
         except CostCeilingExceeded as exc:
             print(f"::error::CostMeter halted run: {exc}", flush=True)
             return 1
@@ -4848,6 +5016,7 @@ def main() -> None:
             f"voice_passed={result['voice_passed']} voice_failed={result['voice_failed']} "
             f"tokens_in={result['total_input_tokens']} tokens_out={result['total_output_tokens']} "
             f"model_usage={result['model_usage']} "
+            f"mode={result.get('mode', 'sync')} "
             f"spent=${cost_meter.spent_usd:.4f} / ${cost_meter.ceiling_usd:.2f}",
             flush=True,
         )
