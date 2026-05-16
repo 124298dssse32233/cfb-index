@@ -347,7 +347,6 @@ def _full_page_html(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{safe_title} — CFB Index</title>
-<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">
 <style>{_BASE_STYLE}</style>
 </head>
 <body class="mailbag__page">

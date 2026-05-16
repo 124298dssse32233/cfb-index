@@ -81,7 +81,6 @@ def _page_head(title: str) -> str:
         f'<meta charset="utf-8"/>\n'
         f'<title>{escaped}</title>\n'
         f'<meta name="viewport" content="width=device-width,initial-scale=1"/>\n'
-        f'<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css"/>\n'
         f'<style>\n{_CSS}</style>\n'
         f'</head>\n<body class="reaction__page">{nav}<div class="wrap">\n'
     )
