@@ -153,6 +153,22 @@ def fetch_edition_voices(db: Database, edition_slug: str) -> list[EditionVoice]:
 # ---------------- Upsert ----------------
 
 def upsert_edition(db: Database, edition: Edition) -> None:
+    # Hotfix-13 — preserve status promotions and cover_essay_id linkage.
+    #
+    # Same race as upsert_feature (see below). The world_class_enrich
+    # workflow's generate-edition-covers step promotes W18/W19 to
+    # status='published' and stamps cover_essay_id. The NEXT workflow's
+    # seed-editions step would call upsert_edition with the seed's
+    # status='draft' and cover_essay_id=None, and ON CONFLICT was
+    # overwriting them — demoting W18/W19 back to draft and dropping
+    # the cover_essay_id pointer. The homepage's fetch_active_edition
+    # (which filters on status='published') then stopped seeing them
+    # and fell back to W17.
+    #
+    # Fix: in the ON CONFLICT update, never demote status (draft is the
+    # only seed value; published once-set stays). Never overwrite a
+    # set cover_essay_id with NULL. Title and dek follow the same
+    # "preserve external writes" pattern as upsert_feature.
     db.execute(
         """
         insert into editions (
@@ -171,9 +187,18 @@ def upsert_edition(db: Database, edition: Edition) -> None:
             theme_dek = excluded.theme_dek,
             cover_viz_kind = excluded.cover_viz_kind,
             cover_viz_data_json = excluded.cover_viz_data_json,
-            cover_essay_id = excluded.cover_essay_id,
-            status = excluded.status,
-            published_at_utc = excluded.published_at_utc,
+            -- Preserve cover_essay_id once it's been pointed at a real
+            -- feature row. Seed sends NULL; Pattern C / publish-edition
+            -- writer stamps the real id.
+            cover_essay_id = coalesce(editions.cover_essay_id, excluded.cover_essay_id),
+            -- Never demote status. The status ladder is one-way:
+            -- draft → published. Re-seeding with status='draft' (the
+            -- placeholder default) must not undo a previous promotion.
+            status = case
+                when editions.status = 'published' then 'published'
+                else excluded.status
+            end,
+            published_at_utc = coalesce(editions.published_at_utc, excluded.published_at_utc),
             last_updated_utc = current_timestamp
         """,
         {
@@ -193,6 +218,29 @@ def upsert_edition(db: Database, edition: Edition) -> None:
 
 
 def upsert_feature(db: Database, feature: EditionFeature) -> int:
+    # Hotfix-13 — preserve Pattern C–generated dek + body_markdown across
+    # subsequent seed-editions calls.
+    #
+    # Before this fix, ON CONFLICT was overwriting `dek` and `body_markdown`
+    # with the seed payload's placeholder values on every re-seed. The
+    # workflow ordering is:
+    #   1. dawidd6-download artifact (has Pattern C 5890-char body for W19)
+    #   2. seed-editions  → upsert_feature → ON CONFLICT resets dek+body
+    #      back to "Cover essay scaffold — auto-filled by the Pattern C
+    #      generator on the next world_class_enrich run" placeholder.
+    #   3. render-edition reads the now-reset placeholder → article page
+    #      ships with the placeholder text instead of the real essay.
+    #
+    # Symptom on the live site: /editions/2026-w19/three-weeks-before-camp
+    # -whispers/ rendered to ~3.7KB of placeholder text even though the DB
+    # had ~5.9KB of real essay content right before seed-editions ran.
+    #
+    # Fix: in the ON CONFLICT update, use `coalesce(nullif(existing,
+    # placeholder), excluded)` semantics for content fields — keep the
+    # existing value if it's non-empty AND not equal to the incoming seed
+    # value. For dek and body_markdown specifically, prefer the existing
+    # value when it differs from the new seed (indicating an external
+    # writer like Pattern C has touched it).
     db.execute(
         """
         insert into edition_features (
@@ -206,8 +254,19 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
         on conflict(edition_slug, feature_order) do update set
             feature_kind = excluded.feature_kind,
             title = excluded.title,
-            dek = excluded.dek,
-            body_markdown = excluded.body_markdown,
+            -- Preserve any externally-written dek/body (Pattern C, manual
+            -- override, etc.). Only adopt the incoming seed when the
+            -- existing value is empty/null. Equality with excluded is
+            -- a no-op so this is safe for idempotent first-time seed.
+            dek = case
+                when coalesce(edition_features.dek, '') = '' then excluded.dek
+                else edition_features.dek
+            end,
+            body_markdown = case
+                when coalesce(edition_features.body_markdown, '') = ''
+                    then excluded.body_markdown
+                else edition_features.body_markdown
+            end,
             byline = excluded.byline,
             read_time_minutes = excluded.read_time_minutes,
             storyline_thread_slug = excluded.storyline_thread_slug,
