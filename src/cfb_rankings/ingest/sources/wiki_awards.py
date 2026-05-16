@@ -33,9 +33,12 @@ from typing import Any, Iterable
 
 from bs4 import BeautifulSoup  # type: ignore
 
+from cfb_rankings.common.head_chrome import base_url
+
 log = logging.getLogger(__name__)
 
-_UA = "CFBIndex-autopilot/1.0 (+https://cfbindex.example)"
+# Routes through head_chrome.base_url() so a domain swap is a one-line change.
+_UA = f"CFBIndex-autopilot/1.0 (+{base_url()})"
 
 
 def _wiki_url(title: str) -> str:

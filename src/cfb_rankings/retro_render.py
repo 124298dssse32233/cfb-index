@@ -13,6 +13,7 @@ import json
 import subprocess
 from typing import Any
 
+from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
 from cfb_rankings.hub_page import fetch_hub_data, render_hub_page_html
 from cfb_rankings.ingest.hub_data_retro import RETRO_BANNER, RETRO_ISSUES, seed_offseason_week_map, seed_retro_issue
@@ -46,9 +47,12 @@ def _retro_banner_html() -> str:
 def _head_extra(cache_token: str | None = None, *, indexable: bool = False) -> str:
     cache_meta = f'\n    <meta name="cfb-retro-cache" content="{escape(cache_token)}">' if cache_token else ""
     robots = "index,follow" if indexable else "noindex,follow"
+    # Canonical via head_chrome.absolute_url so a future domain swap is a
+    # one-line change at DEFAULT_BASE_URL.
+    canonical = escape(absolute_url("/hub/retro/"))
     return (
         f'<meta name="robots" content="{robots}">\n'
-        '    <link rel="canonical" href="/hub/retro/">'
+        f'    <link rel="canonical" href="{canonical}">'
         f"{cache_meta}"
     )
 

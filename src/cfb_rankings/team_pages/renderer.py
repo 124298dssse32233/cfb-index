@@ -24,6 +24,7 @@ from cfb_rankings.common.cfb_calendar import (
     is_in_season,
     kickoff_date,
 )
+from cfb_rankings.common.head_chrome import render_head_chrome
 
 from .profile_loader import Profile, load_profile, PROFILED_SLUGS
 from .data import (
@@ -356,6 +357,14 @@ def _render_page(
         )
     footer_html = _render_footer(profile, state)
 
+    head_chrome_block = render_head_chrome(
+        page_path=f"/teams/{profile.slug}.html",
+        title=page_title,
+        description=f"{profile.program_name} — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.",
+        og_image_path=f"/teams/{profile.slug}-og.svg",
+        og_type="article",
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -364,6 +373,7 @@ def _render_page(
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="{html.escape(profile.program_name)} — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.">
 <meta name="theme-color" content="{accent_primary}">
+{head_chrome_block}
 <style>
 {tokens_css}
 

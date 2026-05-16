@@ -63,7 +63,10 @@ _CHANGE_TYPE_MAP: tuple[tuple[tuple[str, ...], str], ...] = (
     (("contract"), "contract"),
 )
 
-_UA = "CFBIndex-coaching-tracker/1.0 (+https://cfbindex.example)"
+from cfb_rankings.common.head_chrome import base_url
+
+# Routes through head_chrome.base_url() so a domain swap is a one-line change.
+_UA = f"CFBIndex-coaching-tracker/1.0 (+{base_url()})"
 
 
 # ---------------------------------------------------------------------------

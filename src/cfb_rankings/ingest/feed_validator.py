@@ -19,11 +19,13 @@ from typing import Any
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
+from cfb_rankings.common.head_chrome import base_url
 from cfb_rankings.db import Database
 
 logger = logging.getLogger(__name__)
 
-_UA = "CFBIndex-FanIntel/0.1 (+https://cfb-index.com)"
+# Routes through head_chrome.base_url() so a domain swap is a one-line change.
+_UA = f"CFBIndex-FanIntel/0.1 (+{base_url()})"
 _TIMEOUT_SECONDS = 10.0
 
 
