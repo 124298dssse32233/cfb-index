@@ -8,13 +8,13 @@
   <rect width="1200" height="675" fill="url(#bg-grad)"/>
   <!-- Top-left eyebrow -->
   <text x="80" y="92" fill="rgba(255,255,255,0.78)" font-size="22" font-weight="700"
-        letter-spacing="4" font-family="system-ui, -apple-system, sans-serif">WEEK 16 · 2025 · VIBE SHIFT #8</text>
+        letter-spacing="4" font-family="system-ui, -apple-system, sans-serif">WEEK 16 · 2025 · VIBE SHIFT #7</text>
   <!-- Team name -->
   <text x="80" y="200" fill="#FFFFFF" font-size="92" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"
         textLength="600" lengthAdjust="spacingAndGlyphs">Old Dominion</text>
   <text x="80" y="244" fill="rgba(255,255,255,0.78)" font-size="24" font-weight="600"
-        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">SUN BELT</text>
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">CONFERENCE USA</text>
   <!-- Delta hero number -->
   <text x="80" y="380" fill="#7cf3a8" font-size="160" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"

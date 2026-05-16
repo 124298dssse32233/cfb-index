@@ -14,7 +14,7 @@
         font-family="system-ui, -apple-system, sans-serif"
         textLength="500" lengthAdjust="spacingAndGlyphs">Cincinnati</text>
   <text x="80" y="244" fill="rgba(255,255,255,0.78)" font-size="24" font-weight="600"
-        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">BIG 12</text>
+        font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">AMERICAN ATHLETIC</text>
   <!-- Delta hero number -->
   <text x="80" y="380" fill="#ff7575" font-size="160" font-weight="900"
         font-family="system-ui, -apple-system, sans-serif"
