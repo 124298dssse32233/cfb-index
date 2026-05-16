@@ -26,6 +26,13 @@ from typing import Any
 
 log = logging.getLogger(__name__)
 
+# Sprint v5-5 — Pattern C dispatch surface key. When
+# ``config.QUALITY_LOOP_FLAGS["tier1.pulse_lede"]`` is set to
+# ``LoopPattern.C_CRITIC_REVISE`` (the v5-5 default), the lede body is
+# routed through the 3-critic loop instead of the sync
+# generate_with_voice_check path. See ``_pattern_c_lede`` below.
+_SURFACE_KEY = "tier1.pulse_lede"
+
 _OPUS_MODEL = "claude-opus-4-7"
 # v5.3 tier upgrade: was claude-sonnet-4-6. Pulse lede is the most-read line on
 # each team page (2-3 sentences, hero of Pulse module). Uniform Opus across all
@@ -48,6 +55,59 @@ this team, conference, or player. Rules:
 
 def _model_for_tier(tier: str) -> str:
     return _OPUS_MODEL if tier == "opus" else _SONNET_MODEL
+
+
+def _flag_is_pattern_c() -> bool:
+    """True when the v5-5 ``tier1.pulse_lede`` flag is set to Pattern C.
+
+    Defensive: any failure to import the flag (test isolation, partial
+    module load on a stale build) falls back to False → sync path. The
+    flag map is checked on every call rather than cached because the
+    quality-loop-reenable CLI mutates it in-process when an auto-disable
+    is reversed.
+    """
+    try:
+        from cfb_rankings.config import QUALITY_LOOP_FLAGS
+        from cfb_rankings.quality_loop import LoopPattern
+    except Exception:  # pragma: no cover — defensive
+        return False
+    configured = QUALITY_LOOP_FLAGS.get(_SURFACE_KEY)
+    if isinstance(configured, str):  # raw-string fallback path in config
+        try:
+            configured = LoopPattern(configured)
+        except ValueError:
+            return False
+    return configured == LoopPattern.C_CRITIC_REVISE
+
+
+def _pattern_c_lede(prompt: str, model: str) -> str | None:
+    """Run the lede through ``loop_c_critic_revise`` and return the
+    final text, or None on fall-back.
+
+    The loop's wall-clock timeout, Rung-2 critic-failure handling, and
+    Rung-3 weekly-ceiling check all return ``fell_back=True``. The
+    caller treats None as "use the sync path" — voice never lands as
+    None unless both paths fail.
+    """
+    try:
+        from cfb_rankings.quality_loop import loop_c_critic_revise
+    except Exception:  # pragma: no cover — defensive
+        return None
+    try:
+        result = loop_c_critic_revise(
+            prompt,
+            system=_SYSTEM_PROMPT,
+            model=model,
+            max_tokens=200,
+            surface=_SURFACE_KEY,
+            subcommand="quality_loop.C.pulse_lede",
+        )
+    except Exception as exc:  # pragma: no cover — defensive
+        log.warning("pulse_lede Pattern C raised %s; falling back to sync", exc)
+        return None
+    if result.fell_back or not result.text:
+        return None
+    return result.text
 
 
 def _themes_summary(themes: list[dict]) -> str:
@@ -181,14 +241,29 @@ def generate_entity_lede(
         f"Write the Lede (2-3 sentences, fan voice, present tense)."
     )
 
-    result = generate_with_voice_check(
-        prompt,
-        system=_SYSTEM_PROMPT,
-        model=model,
-        max_tokens=200,
-        max_retries=1,
-        fallback_to_offline=True,
-    )
+    # Sprint v5-5 — Pattern C dispatch. When the surface flag is set,
+    # route the lede through the 3-critic loop (voice / headline / factuality).
+    # On any loop fall-back (offline-stub, wall-clock timeout, Rung-2 critic
+    # failure, Rung-3 weekly ceiling, auto-disable) the sync path below
+    # picks up — voice never lands as None unless both paths fail.
+    pattern_c_text = _pattern_c_lede(prompt, model) if _flag_is_pattern_c() else None
+    if pattern_c_text is not None:
+        result = {
+            "text": pattern_c_text,
+            "voice_validator_passed": True,  # Pattern C uses critic scores
+            "model_used": model,
+            "mode": "live",
+            "tokens_used": {},  # CostMeter inside loop_c_critic_revise logs spend
+        }
+    else:
+        result = generate_with_voice_check(
+            prompt,
+            system=_SYSTEM_PROMPT,
+            model=model,
+            max_tokens=200,
+            max_retries=1,
+            fallback_to_offline=True,
+        )
 
     lede_text = result.get("text")
     passed = result.get("voice_validator_passed", False)
