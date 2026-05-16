@@ -261,6 +261,52 @@ jobs:
             || echo "::warning::render-team-pages failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
+      # TEAM MODEL — idempotent backfill (Hotfix-7 prerequisite)
+      #
+      # run-heisman-model requires a team-model snapshot to exist for the
+      # target season+week (joins to power_ratings_weekly). Run-models is
+      # idempotent and cheap on already-populated seasons; it's a no-op when
+      # power_ratings_weekly already has the row, and seeds it when missing.
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Team model — run for missing seasons (idempotent, Heisman prerequisite)"
+        run: |
+          set +e
+          python <<'PY'
+          import subprocess, sqlite3
+          conn = sqlite3.connect("cfb_rankings.db")
+          # Same season scan as the Heisman step below. We run-models for
+          # seasons whose power_ratings_weekly is short of week 16.
+          seasons = [r[0] for r in conn.execute(
+              "SELECT DISTINCT season_year FROM games "
+              "WHERE home_points IS NOT NULL "
+              "ORDER BY season_year"
+          ).fetchall()]
+          for season in seasons:
+              if season < 2020:
+                  continue
+              # Check whether power_ratings_weekly has week 16 for this season
+              max_week = conn.execute(
+                  "SELECT COALESCE(MAX(p.week), 0) FROM power_ratings_weekly p "
+                  "JOIN model_runs mr ON mr.model_run_id = p.model_run_id "
+                  "WHERE mr.season_year = ?",
+                  (season,),
+              ).fetchone()[0]
+              if max_week and max_week >= 16:
+                  print(f"  team-model season {season}: week {max_week}, skipping")
+                  continue
+              print(f"  team-model season {season}: max_week={max_week}, running")
+              rc = subprocess.run(
+                  ["python", "-u", "manage.py", "run-models",
+                   "--season", str(season), "--through-week", "16"],
+                  check=False,
+              ).returncode
+              if rc != 0:
+                  print(f"::warning::run-models {season} exited {rc}")
+          conn.close()
+          PY
+          echo "team-model done"
+
+      # ════════════════════════════════════════════════════════════════════
       # HEISMAN MODEL — idempotent backfill (Hotfix-6)
       #
       # The Heisman pipeline writes to heisman_rankings_weekly which
