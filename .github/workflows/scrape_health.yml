@@ -56,8 +56,15 @@ jobs:
       - name: Print scrape-health (7 days)
         run: python manage.py scrape-health --since-days 7
 
-      - name: Upload DB artifact
+      - name: Verify DB artifact healthy before upload
         if: always()
+        id: db_sanity
+        continue-on-error: true
+        run: |
+          python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
+      - name: Upload DB artifact
+        if: steps.db_sanity.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: cfb-rankings-db
