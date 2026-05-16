@@ -464,6 +464,28 @@ jobs:
             || echo "::warning::prepare-pulse failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
+      # EDITIONS — Pattern C cover-essay synthesis for draft stubs
+      #
+      # seed-editions (above) materializes the W18/W19 stubs at status
+      # 'draft' with a placeholder body. This step routes each draft
+      # edition through quality_loop.loop_c_critic_revise to generate
+      # the cover essay body via Opus 4.7 + 3-critic loop, then promotes
+      # the edition draft → published so `fetch_active_edition` (used by
+      # render-homepage) rotates to the latest one. Without this, the
+      # homepage stays pinned to the last status='published' edition
+      # (XVII as of 2026-04-25).
+      #
+      # Idempotent: re-running on an already-published edition is a
+      # no-op (the --status filter defaults to 'draft' only).
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Editions — generate Pattern C cover essays for draft issues"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-edition-covers --status draft \
+            || echo "::warning::generate-edition-covers failed (continuing — homepage may stay on prior issue)"
+
+      # ════════════════════════════════════════════════════════════════════
       # SITE SURFACE REFRESH
       # ════════════════════════════════════════════════════════════════════
       - name: "Site — refresh storylines index"

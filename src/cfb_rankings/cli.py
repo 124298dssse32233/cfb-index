@@ -4474,6 +4474,13 @@ def main() -> None:
         "render-homepage",
         "seed-editions",
         "build-editions-archive",
+        # Sprint v5-2 + follow-up wired into dispatch (commands were
+        # registered via register_edition_subcommands but never routed
+        # here, so calls were falling through. The plural variant is the
+        # one world_class_enrich actually invokes after seed-editions to
+        # auto-fill draft stubs.)
+        "generate-edition-cover",
+        "generate-edition-covers",
     ):
         rc = args.func(args)
         raise SystemExit(rc or 0)
