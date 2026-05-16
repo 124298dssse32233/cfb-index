@@ -307,6 +307,7 @@ def make_cost_meter_for_surface(
     *,
     label: str | None = None,
     default_usd: float = 5.00,
+    db: "Database | None" = None,
 ):
     """Construct a ``CostMeter`` whose ceiling comes from
     ``PER_RUN_CEILINGS_USD[surface]``, falling back to ``default_usd``
@@ -314,6 +315,14 @@ def make_cost_meter_for_surface(
 
     This is the canonical way for Pattern C surfaces to build their
     per-run meter so the per-surface ceiling is enforced uniformly.
+
+    When ``db`` is provided, the returned meter ALSO forwards every
+    ``record()`` call to ``record_surface_spend(db, surface, cost)`` so
+    the 24h rolling aggregate stays accurate. The forwarding wrap is
+    transparent: callers see the same return value (cost in USD) and
+    the same ``CostCeilingExceeded`` propagation. See
+    ``attach_meter_to_surface`` for an in-place wiring against a
+    pre-existing meter.
     """
     # Lazy import to avoid pulling llm_runtime at module import time
     # (keeps `from cfb_rankings.circuit_state import ...` light).
@@ -323,10 +332,46 @@ def make_cost_meter_for_surface(
         ceiling = float(PER_RUN_CEILINGS_USD.get(surface, default_usd))
     except Exception:
         ceiling = float(default_usd)
-    return CostMeter(
+    meter = CostMeter(
         ceiling_usd=ceiling,
         label=label or surface,
     )
+    if db is not None:
+        attach_meter_to_surface(db, meter, surface)
+    return meter
+
+
+def attach_meter_to_surface(db: "Database", meter: Any, surface: str) -> None:
+    """Wrap ``meter.record()`` so every recorded cost ALSO flows into
+    ``surface_spend_events`` for the 24h aggregate guardrail.
+
+    Idempotent: calling twice on the same meter does NOT double-count
+    (a ``_surface_tracked`` sentinel attribute is checked first).
+
+    Failure isolation: if writing to ``surface_spend_events`` raises
+    (transient SQLite lock, missing table on a partially-migrated DB,
+    etc.) the error is swallowed with a log line. Per-run ceiling
+    enforcement via ``CostMeter`` is the primary guardrail; the 24h
+    aggregate is a secondary safety net that must not crash a live run.
+    """
+    if getattr(meter, "_surface_tracked", False):
+        return
+    original_record = meter.record
+
+    def _tracked_record(model_id: str, usage: Any, **kwargs: Any) -> float:
+        cost = original_record(model_id, usage, **kwargs)
+        try:
+            record_surface_spend(db, surface, float(cost or 0.0))
+        except Exception as exc:  # pragma: no cover — defensive
+            log.warning(
+                "attach_meter_to_surface: record_surface_spend failed for "
+                "surface=%r cost=$%.4f: %s",
+                surface, float(cost or 0.0), exc,
+            )
+        return cost
+
+    meter.record = _tracked_record  # type: ignore[assignment]
+    meter._surface_tracked = True  # type: ignore[attr-defined]
 
 
 # ---------------------------------------------------------------------------
@@ -437,6 +482,7 @@ __all__ = [
     "get_active_pattern",
     "reset_surface_degrade",
     "make_cost_meter_for_surface",
+    "attach_meter_to_surface",
     "prune_old_events",
     "status_report",
 ]

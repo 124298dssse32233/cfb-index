@@ -560,6 +560,36 @@ def test_cli_quality_loop_reenable_clears_marker(db: Database, capsys):
 # 16. Defensive — circuit_state failures must not crash loop_for_surface
 # ===========================================================================
 
+def test_attach_meter_to_surface_records_each_call(db: Database):
+    """A wrapped CostMeter forwards every record() into surface_spend_events,
+    so the 24h aggregate sees the spend live."""
+    surface = "tier1.daily_lead"
+    meter = circuit_state.make_cost_meter_for_surface(surface, db=db)
+    # $0.50 of Opus output: 0.50 / (75e-6) tokens.
+    tokens = int(0.50 / (75.00 / 1_000_000))
+    cost = meter.record("claude-opus-4-7", _make_usage(in_toks=0, out_toks=tokens))
+    # int() floor of the token math drops a fraction-of-a-cent — use rel=1e-3.
+    assert cost == pytest.approx(0.50, rel=1e-3)
+    assert circuit_state.get_24h_spend(db, surface) == pytest.approx(cost, rel=1e-6)
+
+
+def test_attach_meter_to_surface_is_idempotent(db: Database):
+    """Calling attach_meter_to_surface twice does not double-record."""
+    surface = "tier1.daily_lead"
+    meter = circuit_state.make_cost_meter_for_surface(surface)
+    circuit_state.attach_meter_to_surface(db, meter, surface)
+    circuit_state.attach_meter_to_surface(db, meter, surface)  # no-op second time
+
+    tokens = int(0.10 / (75.00 / 1_000_000))
+    meter.record("claude-opus-4-7", _make_usage(in_toks=0, out_toks=tokens))
+    rows = db.query_all(
+        "SELECT id FROM surface_spend_events WHERE surface = :s",
+        {"s": surface},
+    )
+    # Exactly ONE spend event, not two.
+    assert len(rows) == 1
+
+
 def test_loop_for_surface_tolerates_circuit_state_failure(db: Database):
     """If get_active_pattern raises (e.g. partial migration), loop_for_surface
     falls back to the QUALITY_LOOP_FLAGS lookup."""
