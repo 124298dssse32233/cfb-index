@@ -1,5 +1,92 @@
 # Fan Intelligence Build — Session Log
 
+2026-05-16 23:20 UTC | v5-5/6/7 cleanup
+
+Priority 1 — Pattern C → B demote:
+  pulse_lede:           pre-cost $0.1706/call | post-cost $0.0285/call | fall-back 100% → 0%
+  pulse_themes_writer:  pre-cost $0.2088/call | post-cost $0.0498/call | fall-back 71% → 0%
+  Per-run cost: pulse_lede $2.73 → $0.46 (-83%); pulse_themes_writer $2.92 → $0.70 (-76%)
+  Estimated daily savings (assuming 1 world_class_enrich/day): $4.49/day = ~$135/month
+  Verification gate: PASS — fall-back < 30% (both 0%) AND cost-per-call lower than C baseline
+  Status: SHIPPED PR #77
+
+Priority 2 — call_id dedup:
+  Pre-fix avg rows per LLM call: ~2.0 (narrative.state_of_team + generate-narratives:state_of_team
+    duplicate pattern, both writing 17 rows for same 17 LLM calls)
+  Post-fix avg rows per LLM call: 1.0 (narrative.state_of_team shows 17 rows / 17 unique
+    call_ids; the generate-narratives:state_of_team duplicate surface no longer appears
+    in the post-merge run window — the dedup index swallowed those second writes)
+  Cross-run check: 187 rows with call_id IS NOT NULL, 187 unique call_ids, 0 NULL
+  Verification gate: PASS — total_rows == unique_calls AND both > 0
+  Status: SHIPPED PR #78 (includes migration 20260530_02 partial unique index +
+    INSERT OR IGNORE + call_id threading through generate_with_voice_check,
+    CostMeter.record, _log_invocation, append_llm_usage)
+
+Priority 3 — best_calls workflow wire:
+  Wired into: .github/workflows/world_class_enrich.yml (2 new steps after Canon
+    block: generate-best-calls --year 2025 --n 25 --opus-top 3 + render-receipts)
+  First scheduled-run cost: $0.00 (generator returned `{"season_year": 2025,
+    "entries": 0, "note": "no_resolved_hits"}` — the upstream predictive_claims
+    table has no verdict='hit' rows for the 2025 season yet; surface is wired
+    correctly but stays dormant until that data pipeline fills)
+  /receipts/ page status: LIVE-but-empty-data (page renders, "Featured long-shots
+    that hit" + "Recent resolutions" headers present, zero card content. NOT a
+    seed placeholder — the renderer correctly degrades to empty when no resolved
+    claims exist. Note: the brief referenced /best-calls/ as the URL but the
+    actual rendered surface is /receipts/index.html)
+  Verification gate: FAIL on the "best_calls fired at least once" criterion
+    (no LLM call because no eligible inputs) — but page renders without 404 and
+    content isn't seed-placeholder. Per the brief's FAIL rule: documented as
+    INERT for tomorrow's investigation (the resolve-outcomes / surprise-index
+    pipeline that promotes predictive_claims from unresolved → verdict='hit'
+    is the upstream gap; not in scope this session)
+  Status: SHIPPED PR #79 with caveats — wiring landed, generator runs, but the
+    surface stays dormant until upstream data lands
+
+Session totals:
+  Spend this session (cleanup only, post-22:30 UTC):
+    P1 verification run (25974653944): ~$3.50 — visible drop from prior runs
+      due to the C→B demote on pulse surfaces
+    P2+P3 verification run (25974990233): $3.65 (cli.generate-chronicle $0.31,
+      pulse_lede $0.87, pulse_themes_writer $1.41, pulse_themes.batch $0.10,
+      narrative.state_of_team $0.84, reaction.batch $0.09, daily $0.02)
+    Total cleanup-window spend: ~$7.15
+  Cumulative spend today (entire 2026-05-16): ~$22.40 / $100 console cap (22%)
+  PRs landed: #77 (P1 demote), #78 (P2 dedup), #79 (P3 best_calls wire),
+              #80 (this session-log entry)
+
+Blockers carried forward to next session (HIGH priority):
+  - Pattern C critic-prompt tuning for short-form + JSON surfaces. The
+    demote in PR #77 is the right tactical fix but the underlying critic
+    rejection rate (100% / 71%) means Pattern C is unusable on these
+    surfaces. 2-3 hour focused investment to tune per-surface critic
+    prompts or accept that short-form / structured-JSON surfaces stay on
+    Pattern B permanently.
+  - canon_top10 + canon_tail generator rewrite (seed → LLM). Flags
+    declared since PR #72 but canon/generator.py is fully seed-authored;
+    the wrappers in receipts/best_calls.py only fire when the underlying
+    LLM call site exists. Same caveat applies until the canon generator
+    is refactored to call generate_with_voice_check / loop_*.
+  - resolve-outcomes / surprise-index pipeline that promotes
+    predictive_claims to verdict='hit'. Without resolved hits in 2025
+    data, generate-best-calls always returns entries=0. The P3 wiring
+    will produce real content the moment that pipeline backfills the
+    2024 season's resolved claims (verdicts from the Aug-Dec 2024
+    games + their pre-game predictive_claims).
+
+Blockers carried forward (LOW priority):
+  - dawidd6 race fix Option B (DB-backed canonical pointer)
+  - W18 cover essay regenerate (pre-existing seed-fallback state — not
+    re-tried since PR #75 pattern C demote means it won't get a Pattern C
+    regen on the next cycle either; the seed body is permanent unless
+    explicitly forced)
+  - v5-8 Pillow visual work (needs fresh context session)
+
+Discipline followed: zero agent dispatches, hard verification gates between
+priorities (P1's PASS gated P2; P2's PASS gated P3 — neither short-circuited),
+no fix-forward on P3's INERT result (documented and stopped), no ceiling
+tightening, no flag flips beyond the C→B demote on the two failing surfaces.
+
 2026-05-16 22:10 UTC | aggressive v5-5 / v5-6 / v5-7 push (per owner override of cost-prudence rule)
 
 v5-5 (PR #72): surface=tier1.pulse_lede, pattern=C_CRITIC_REVISE,
