@@ -543,3 +543,294 @@ def _offline_stub_answer(submission: dict[str, Any], edition_slug: str) -> str:
         f"Short answer: watch what they do in the portal, not what they say in spring press conferences. "
         f"[DRAFT — edition {edition_slug}; API key required for full synthesis]"
     )
+
+
+# ---------------------------------------------------------------------------
+# Sprint v5-3 Pattern C flag-flip dispatch — synthesize_mailbag_answer
+#
+# Routes a single mailbag answer through `quality_loop.loop_c_critic_revise`
+# when `QUALITY_LOOP_FLAGS["tier1.mailbag"] == LoopPattern.C_CRITIC_REVISE`.
+# Otherwise short-circuits to the existing `generate_with_voice_check`
+# sync path (preserving offline-stub fall-back). See
+# DESIGN_AUDIT_2026_05_15_v5_3.md Part 1 row #4 and IMPLEMENTATION_PLAN.md
+# Part 5.
+# ---------------------------------------------------------------------------
+
+from dataclasses import dataclass as _dc
+from typing import TYPE_CHECKING as _TYPE_CHECKING, Callable as _Callable, Optional as _Optional
+import sqlite3 as _sqlite3
+
+from cfb_rankings.quality_loop import (
+    LoopPattern as _LoopPattern,
+    loop_c_critic_revise as _loop_c_critic_revise,
+)
+
+if _TYPE_CHECKING:  # pragma: no cover
+    from cfb_rankings.db import Database as _Database
+    from cfb_rankings.quality_loop import LoopResult as _LoopResult
+
+
+MAILBAG_SURFACE_KEY = "tier1.mailbag"
+MAILBAG_SUBCOMMAND = "quality_loop.C.mailbag"
+
+#: Mailbag answers target 250-400 words = ~400-600 tokens of output.
+#: 1536 leaves headroom for revise-pass guidance.
+MAILBAG_MAX_TOKENS = 1536
+
+
+MAILBAG_SYSTEM_PROMPT = """You are answering one fan question for The \
+Mailbag — CFB Index's Friday 09:00 ET reader-Q&A briefing. The audience \
+reads The Athletic, listens to Solid Verbal, lurks on the boards. They \
+want SYNTHESIS, not opinion.
+
+VOICE
+- Warm-fan-positioned, never aloof-magazine. Treats the questioner like \
+  a friend who reads closely and wants the synthesis.
+- Acknowledge CFB's absurdity where warranted. No false gravitas.
+- No banned phrases (analytics-cohort, casual-cohort, die-hard-cohort, \
+  national-narrative-cohort, n=, effective_n, discourse velocity, signal \
+  pipeline, engagement loop, leverage the, delve into, in the realm of, \
+  paradigm shift, synergy, methodology, the data shows, obviously).
+
+STRUCTURAL CONSTRAINTS
+- 250-400 words.
+- Open with the question hook, not background setup.
+- Cite at least three named sources verbatim with attribution (e.g. \
+  "Marcus Spears noted on Monday...", "according to beat reporter Sam \
+  Khan Jr.", "a recent ESPN analysis found..."). Pull attribution from \
+  the VERBATIM SOURCE QUOTES block.
+- End with exactly this format on its own line: \
+  "Short answer: <one-line distilled take>".
+
+FACTUALITY
+- Every quoted phrase must trace verbatim to the VERBATIM SOURCE QUOTES \
+  block. Paraphrase prose; never invent quotes or attribution.
+- If the corpus block is empty for the question's tags, do NOT mention \
+  the corpus emptiness anywhere in your answer. Answer from broad CFB \
+  context using real named voices on the topic. Do NOT apologize for \
+  absence of data. Do NOT write 'the corpus came back empty' or any \
+  variant.
+
+CONTINUITY
+- Read the PAST MAILBAG ANSWERS block. Don't repeat. If a prior answer \
+  already framed a position on this topic, advance or qualify it rather \
+  than restating.
+
+Output is the answer BODY ONLY — no headline, no byline, no markdown \
+headers. Plain prose paragraphs separated by blank lines, ending with \
+the "Short answer:" line."""
+
+
+def _mailbag_format_section(label: str, value: Any) -> str:
+    """Render one labeled section for the v5-3 prompt body."""
+    if value is None or value == [] or value == {}:
+        return f"{label}:\n(empty — no signal yet for this section)"
+    if isinstance(value, (list, dict)):
+        try:
+            body = json.dumps(value, indent=2, default=str, ensure_ascii=False)
+        except (TypeError, ValueError):
+            body = str(value)
+    else:
+        body = str(value)
+    return f"{label}:\n{body}"
+
+
+def compose_mailbag_prompt_body(context: dict[str, Any]) -> str:
+    """Compose the prompt body for a mailbag answer.
+
+    Sections (in order):
+        1. QUESTION + SUBMITTER HANDLE + TOPIC TAGS
+        2. VERBATIM SOURCE QUOTES (conversation_quotes 14d, matched to topic)
+        3. FANBASE CLASSIFICATION HISTORY (per-program, 6 seasons)
+        4. ACTIVE STORYLINES MATCHING (in-flight threads on the topic)
+        5. PAST MAILBAG ANSWERS (recent answers on adjacent topics — non-repetition)
+        6. ARCHIVE THREADS (multi-season storyline arcs)
+    """
+    qid = context.get("question_id", "")
+    question = context.get("question") or {}
+    submitter = question.get("submitter_handle") or "A reader"
+    text = question.get("question_text") or ""
+    parts: list[str] = []
+    parts.append(
+        "SOURCE OBSERVATIONS — every quoted phrase must trace verbatim to "
+        "the VERBATIM SOURCE QUOTES block. Paraphrase prose freely."
+    )
+    parts.append(
+        f"QUESTION (id {qid}, from {submitter}):\n\"{text}\""
+    )
+    parts.append(_mailbag_format_section(
+        "TOPIC TAGS",
+        context.get("topic_tags"),
+    ))
+    parts.append(_mailbag_format_section(
+        "VERBATIM SOURCE QUOTES (conversation_quotes 14d, matched to topic)",
+        context.get("conversation_quotes"),
+    ))
+    parts.append(_mailbag_format_section(
+        "FANBASE CLASSIFICATION HISTORY (per-program, 6 seasons)",
+        context.get("fanbase_classification_history"),
+    ))
+    parts.append(_mailbag_format_section(
+        "ACTIVE STORYLINES MATCHING (in-flight threads on the topic)",
+        context.get("active_storylines_matching"),
+    ))
+    parts.append(_mailbag_format_section(
+        "PAST MAILBAG ANSWERS (recent on adjacent topics — do not repeat)",
+        context.get("past_mailbag_answers"),
+    ))
+    parts.append(_mailbag_format_section(
+        "ARCHIVE THREADS (multi-season storyline arcs)",
+        context.get("archive_threads"),
+    ))
+    parts.append(
+        "TASK: Write the mailbag answer body for this question. 250-400 "
+        "words. Plain prose. No headline / byline / markdown headers. "
+        "Cite >=3 named sources verbatim from the VERBATIM SOURCE QUOTES "
+        "block. End with a 'Short answer:' line distilling the take."
+    )
+    return "\n\n".join(parts)
+
+
+@_dc
+class MailbagAnswerResult:
+    """Outcome of one :func:`synthesize_mailbag_answer` call."""
+    text: _Optional[str]
+    source: str  # "llm" | "offline" | "none"
+    loop_result: _Optional["_LoopResult"] = None
+    fallback_reason: _Optional[str] = None
+
+
+def _mailbag_connection_for_builder(db: "_Database") -> _Optional[_sqlite3.Connection]:
+    """Best-effort extraction of an underlying ``sqlite3.Connection``."""
+    for attr in ("_raw_conn", "raw_conn", "conn", "_conn", "connection"):
+        candidate = getattr(db, attr, None)
+        if isinstance(candidate, _sqlite3.Connection):
+            return candidate
+    url = getattr(db, "url", None) or getattr(db, "database_url", None)
+    if isinstance(url, str) and url.startswith("sqlite:///"):
+        try:
+            conn = _sqlite3.connect(url.replace("sqlite:///", "", 1))
+            conn.row_factory = _sqlite3.Row
+            return conn
+        except _sqlite3.Error:
+            return None
+    return None
+
+
+def synthesize_mailbag_answer(
+    *,
+    question_id: int,
+    edition_slug: str,
+    db: "_Database",
+    sqlite_conn: _Optional[_sqlite3.Connection] = None,
+    context_builder: _Optional[_Callable[..., dict[str, Any]]] = None,
+    fallback: _Optional[_Callable[[dict, str], _Optional[str]]] = None,
+) -> "MailbagAnswerResult":
+    """Generate a single mailbag answer body for ``question_id``.
+
+    Dispatch rules:
+
+    * Flag set → build context via
+      :func:`prompt_context.builders.build_mailbag_context`, compose
+      prompt body, route through :func:`quality_loop.loop_c_critic_revise`.
+
+    * Flag absent → call ``fallback(submission_dict, edition_slug)`` for
+      the offline stub. Default fallback is :func:`_offline_stub_answer`
+      reading from the existing submission row.
+    """
+    try:
+        from cfb_rankings.config import QUALITY_LOOP_FLAGS
+    except Exception:  # pragma: no cover
+        QUALITY_LOOP_FLAGS = {}
+
+    configured = QUALITY_LOOP_FLAGS.get(MAILBAG_SURFACE_KEY)
+    if isinstance(configured, str):
+        try:
+            configured = _LoopPattern(configured)
+        except ValueError:
+            configured = None
+
+    def _default_fallback(sub: dict, slug: str) -> _Optional[str]:
+        try:
+            return _offline_stub_answer(sub, slug)
+        except Exception:  # pragma: no cover — defensive
+            return None
+
+    fallback_fn = fallback or _default_fallback
+
+    # Resolve the question row up front so the fallback has something to
+    # quote even on the flag-absent path.
+    submission: dict[str, Any] = {"id": question_id}
+    conn = sqlite_conn
+    if conn is None:
+        conn = _mailbag_connection_for_builder(db)
+
+    # Path 1: flag absent → offline-stub path.
+    if configured != _LoopPattern.C_CRITIC_REVISE:
+        if conn is not None:
+            try:
+                row = conn.execute(
+                    "SELECT id, submitter_handle, question_text, topic_tags_json "
+                    "FROM mailbag_submissions WHERE id = ? LIMIT 1",
+                    (question_id,),
+                ).fetchone()
+                if row is not None:
+                    submission = dict(row) if not isinstance(row, dict) else row
+            except _sqlite3.Error:
+                pass
+        stub_text = fallback_fn(submission, edition_slug)
+        return MailbagAnswerResult(
+            text=stub_text,
+            source="offline" if stub_text else "none",
+            loop_result=None,
+            fallback_reason="flag_absent" if stub_text else "flag_absent_no_stub",
+        )
+
+    # Path 2: flag set → LLM path via Pattern C.
+    builder = context_builder
+    if builder is None:
+        from cfb_rankings.prompt_context.builders import (
+            build_mailbag_context as _default_builder,
+        )
+        builder = _default_builder
+
+    context: dict[str, Any] = {"question_id": question_id}
+    if conn is not None:
+        try:
+            context = builder(question_id, conn)
+        except Exception as exc:  # pragma: no cover
+            log.warning(
+                "mailbag: context builder failed (%s: %s); routing through "
+                "loop with empty context",
+                type(exc).__name__, exc,
+            )
+            context = {"question_id": question_id}
+
+    # Pull the submission row out of the built context for the fallback.
+    submission = context.get("question") or submission
+
+    prompt_body = compose_mailbag_prompt_body(context)
+
+    loop_result = _loop_c_critic_revise(
+        prompt_body,
+        system=MAILBAG_SYSTEM_PROMPT,
+        max_tokens=MAILBAG_MAX_TOKENS,
+        surface=MAILBAG_SURFACE_KEY,
+        subcommand=MAILBAG_SUBCOMMAND,
+    )
+
+    if loop_result.fell_back or not loop_result.text:
+        stub_text = fallback_fn(submission, edition_slug)
+        return MailbagAnswerResult(
+            text=stub_text,
+            source="offline" if stub_text else "none",
+            loop_result=loop_result,
+            fallback_reason=loop_result.fallback_reason or "loop_returned_no_text",
+        )
+
+    return MailbagAnswerResult(
+        text=loop_result.text,
+        source="llm",
+        loop_result=loop_result,
+        fallback_reason=None,
+    )

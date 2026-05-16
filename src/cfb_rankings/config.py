@@ -76,6 +76,24 @@ def _require_env(name: str) -> str:
 # `editions/seeds.py` is preserved when the loop falls back (offline,
 # wall-clock timeout 90s, Rung-2 critic failures, Rung-3 weekly ceiling).
 #
+# Sprint v5-3 (2026-05-15) — BATCH FLIP of the next four Tier-1 surfaces.
+#
+# Following the v5-2 first-flag-flip pattern, the next four Tier-1
+# surfaces also route through Pattern C:
+#
+#     * `tier1.daily_lead`         → daily.cover_essay.synthesize_daily_lead
+#     * `tier1.daily_supporting`   → daily.cover_essay.synthesize_daily_supporting
+#     * `tier1.heisman_weekly`     → heisman.cover_essay.synthesize_heisman_weekly
+#     * `tier1.mailbag`            → mailbag.synthesizer.synthesize_mailbag_answer
+#     * `tier1.reaction_story`     → reactions.synthesizer.synthesize_reaction_story
+#
+# Each wrapper preserves the existing sync / seed / offline-stub
+# fall-back when the loop falls back (offline-stub, wall-clock timeout,
+# Rung-2 critic failures, Rung-3 weekly ceiling). All existing
+# `generate_with_voice_check` and batch call sites stay on contract;
+# the new wrappers are *additive* dispatch helpers that the new CLI
+# entry points and tests reach for explicitly.
+#
 # Subsequent surfaces will flip per the rollout schedule in
 # DESIGN_AUDIT_2026_05_15_v5_3.md Part 5 / IMPLEMENTATION_PLAN.md Part 5.
 # Edition cover specifically upgrades to Pattern D (adversarial, with
@@ -86,12 +104,22 @@ def _require_env(name: str) -> str:
 # caller; left as plain dict here to avoid a hard import cycle. The
 # import below is deferred and survives any import-time circularity by
 # falling back to the raw string value, which quality_loop accepts.
+_V5_3_FLAGS = (
+    "tier1.edition_cover",
+    "tier1.daily_lead",
+    "tier1.daily_supporting",
+    "tier1.heisman_weekly",
+    "tier1.mailbag",
+    "tier1.reaction_story",
+)
+
+
 def _initial_quality_loop_flags() -> "dict[str, LoopPattern]":
     try:
         from cfb_rankings.quality_loop import LoopPattern as _LP
     except Exception:  # pragma: no cover — circular-import guardrail
-        return {"tier1.edition_cover": "C_critic_revise"}  # type: ignore[dict-item]
-    return {"tier1.edition_cover": _LP.C_CRITIC_REVISE}
+        return {k: "C_critic_revise" for k in _V5_3_FLAGS}  # type: ignore[dict-item]
+    return {k: _LP.C_CRITIC_REVISE for k in _V5_3_FLAGS}
 
 
 QUALITY_LOOP_FLAGS: dict[str, "LoopPattern"] = _initial_quality_loop_flags()
@@ -103,6 +131,7 @@ QUALITY_LOOP_FLAGS: dict[str, "LoopPattern"] = _initial_quality_loop_flags()
 WEEKLY_CEILINGS_CENTS: dict[str, int] = {
     "tier1.edition_cover":         1000,   # $10/wk (Pattern D headroom)
     "tier1.daily_lead":             500,
+    "tier1.daily_supporting":       500,   # supporting takes 2 + 3 of The Daily
     "tier1.heisman_weekly":         300,
     "tier1.mailbag":                800,
     "tier1.reaction_story":         500,
