@@ -57,57 +57,106 @@ def _model_for_tier(tier: str) -> str:
     return _OPUS_MODEL if tier == "opus" else _SONNET_MODEL
 
 
-def _flag_is_pattern_c() -> bool:
-    """True when the v5-5 ``tier1.pulse_lede`` flag is set to Pattern C.
+def _flag_loop_pattern():
+    """Resolve the ``tier1.pulse_lede`` flag to a LoopPattern, or None.
 
-    Defensive: any failure to import the flag (test isolation, partial
-    module load on a stale build) falls back to False → sync path. The
-    flag map is checked on every call rather than cached because the
-    quality-loop-reenable CLI mutates it in-process when an auto-disable
-    is reversed.
+    Defensive: any import failure or unknown value returns None → sync
+    path. Called on every entity rather than cached because the
+    quality-loop-reenable CLI mutates the flag dict in-process.
     """
     try:
         from cfb_rankings.config import QUALITY_LOOP_FLAGS
         from cfb_rankings.quality_loop import LoopPattern
     except Exception:  # pragma: no cover — defensive
-        return False
+        return None
     configured = QUALITY_LOOP_FLAGS.get(_SURFACE_KEY)
     if isinstance(configured, str):  # raw-string fallback path in config
         try:
             configured = LoopPattern(configured)
         except ValueError:
-            return False
-    return configured == LoopPattern.C_CRITIC_REVISE
+            return None
+    return configured
 
 
-def _pattern_c_lede(prompt: str, model: str) -> str | None:
-    """Run the lede through ``loop_c_critic_revise`` and return the
-    final text, or None on fall-back.
+def _flag_is_loop_dispatch() -> bool:
+    """True when the flag selects either Pattern B or C (i.e. a loop
+    dispatch, not the sync path).
 
-    The loop's wall-clock timeout, Rung-2 critic-failure handling, and
-    Rung-3 weekly-ceiling check all return ``fell_back=True``. The
-    caller treats None as "use the sync path" — voice never lands as
-    None unless both paths fail.
+    Pattern A and absent values both fall through to the sync path —
+    Pattern A is effectively what sync is now (single shot + regex
+    voice validator), and there's no need to add a second layer.
     """
     try:
-        from cfb_rankings.quality_loop import loop_c_critic_revise
+        from cfb_rankings.quality_loop import LoopPattern
+    except Exception:  # pragma: no cover — defensive
+        return False
+    configured = _flag_loop_pattern()
+    return configured in (LoopPattern.B_SINGLE_CRITIC, LoopPattern.C_CRITIC_REVISE)
+
+
+def _pattern_loop_lede(prompt: str, model: str) -> str | None:
+    """Run the lede through the configured loop and return final text.
+
+    Dispatches to ``loop_b_single_critic`` (Pattern B) or
+    ``loop_c_critic_revise`` (Pattern C) based on the surface flag. On
+    any fall-back (offline-stub, wall-clock timeout, Rung-2 critic
+    failure, Rung-3 weekly ceiling, 24h auto-disable) returns None and
+    the caller picks up the sync path. The demote 2026-05-16 moved this
+    surface from C to B because the 3-critic loop rejected 100% of
+    short-form pulse output as `consecutive_critic_failures_after_escalation`.
+    """
+    try:
+        from cfb_rankings.quality_loop import (
+            LoopPattern,
+            loop_b_single_critic,
+            loop_c_critic_revise,
+        )
     except Exception:  # pragma: no cover — defensive
         return None
+    pattern = _flag_loop_pattern()
+    if pattern == LoopPattern.B_SINGLE_CRITIC:
+        loop_fn = loop_b_single_critic
+        subcommand = "quality_loop.B.pulse_lede"
+    elif pattern == LoopPattern.C_CRITIC_REVISE:
+        loop_fn = loop_c_critic_revise
+        subcommand = "quality_loop.C.pulse_lede"
+    else:
+        return None
     try:
-        result = loop_c_critic_revise(
+        result = loop_fn(
             prompt,
             system=_SYSTEM_PROMPT,
             model=model,
             max_tokens=200,
             surface=_SURFACE_KEY,
-            subcommand="quality_loop.C.pulse_lede",
+            subcommand=subcommand,
         )
     except Exception as exc:  # pragma: no cover — defensive
-        log.warning("pulse_lede Pattern C raised %s; falling back to sync", exc)
+        log.warning("pulse_lede loop %s raised %s; falling back to sync",
+                    pattern, exc)
         return None
     if result.fell_back or not result.text:
         return None
     return result.text
+
+
+# Back-compat alias retained briefly to avoid breaking import paths in
+# any downstream module that imported the old _flag_is_pattern_c name.
+# Returns True only when the flag is exactly Pattern C — which now means
+# False for pulse_lede after the demote. New code uses the broader
+# `_flag_is_loop_dispatch` to cover both B and C.
+def _flag_is_pattern_c() -> bool:
+    try:
+        from cfb_rankings.quality_loop import LoopPattern
+    except Exception:  # pragma: no cover
+        return False
+    return _flag_loop_pattern() == LoopPattern.C_CRITIC_REVISE
+
+
+# Back-compat alias for the old function name. New code calls
+# _pattern_loop_lede which dispatches on the actual flag value.
+def _pattern_c_lede(prompt: str, model: str) -> str | None:
+    return _pattern_loop_lede(prompt, model)
 
 
 def _themes_summary(themes: list[dict]) -> str:
@@ -144,13 +193,14 @@ def generate_entity_ledes_batch(
     meter = _meter or CostMeter(ceiling_usd=0.5, label="pulse_lede.batch")
     from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
 
-    # Sprint v5-5 follow-up (hotfix-15) — Pattern C / Batch API are mutually
-    # exclusive. When the ``tier1.pulse_lede`` flag is set, skip the batch
-    # and iterate sync — each entity goes through ``generate_entity_lede``
-    # which has the Pattern C dispatch wired (PR #72). Lose 50% Batch
-    # discount, gain the 3-critic loop on each lede. 24h aggregate ceiling
+    # Sprint v5-5 follow-up (hotfix-15) — loop dispatch / Batch API are
+    # mutually exclusive. When the ``tier1.pulse_lede`` flag selects
+    # Pattern B or C, skip the batch and iterate sync — each entity goes
+    # through ``generate_entity_lede`` which has the loop dispatch wired
+    # (PR #72, demoted to B 2026-05-16 22:30 UTC). Lose 50% Batch
+    # discount, gain the critic loop on each lede. 24h aggregate ceiling
     # ($5/day in DAILY_AGGREGATE_CEILINGS_USD) bounds the cost.
-    if _flag_is_pattern_c():
+    if _flag_is_loop_dispatch():
         out: dict[tuple[str, str], dict[str, Any]] = {}
         for (entity_slug, entity_type, themes, model_tier, entity_name) in entities:
             result = generate_entity_lede(
@@ -262,19 +312,22 @@ def generate_entity_lede(
         f"Write the Lede (2-3 sentences, fan voice, present tense)."
     )
 
-    # Sprint v5-5 — Pattern C dispatch. When the surface flag is set,
-    # route the lede through the 3-critic loop (voice / headline / factuality).
-    # On any loop fall-back (offline-stub, wall-clock timeout, Rung-2 critic
-    # failure, Rung-3 weekly ceiling, auto-disable) the sync path below
-    # picks up — voice never lands as None unless both paths fail.
-    pattern_c_text = _pattern_c_lede(prompt, model) if _flag_is_pattern_c() else None
-    if pattern_c_text is not None:
+    # Sprint v5-5 — quality_loop dispatch. The flag selects Pattern B
+    # (single critic, no revise loop) or Pattern C (3-critic + revise).
+    # On any loop fall-back the sync path below picks up — voice never
+    # lands as None unless both paths fail. Demoted from C → B on
+    # 2026-05-16 22:30 UTC after telemetry showed 100% fall-back rate
+    # on the C path for short-form pulse output.
+    pattern_loop_text = (
+        _pattern_loop_lede(prompt, model) if _flag_is_loop_dispatch() else None
+    )
+    if pattern_loop_text is not None:
         result = {
-            "text": pattern_c_text,
-            "voice_validator_passed": True,  # Pattern C uses critic scores
+            "text": pattern_loop_text,
+            "voice_validator_passed": True,  # loop uses critic scores
             "model_used": model,
             "mode": "live",
-            "tokens_used": {},  # CostMeter inside loop_c_critic_revise logs spend
+            "tokens_used": {},  # loop_*_critic_* logs spend via append_llm_usage
         }
     else:
         result = generate_with_voice_check(
