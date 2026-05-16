@@ -52,6 +52,7 @@ copy can iterate without breaking the regression net.
 from __future__ import annotations
 
 import json
+import logging
 import re
 import time
 from dataclasses import dataclass, field
@@ -60,6 +61,8 @@ from typing import Any, Callable, Iterable
 
 from cfb_rankings import llm_runtime
 from cfb_rankings.team_pages import llm_usage_log
+
+log = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
@@ -1167,7 +1170,11 @@ _LOOP_FUNCTIONS: dict[LoopPattern, Callable[..., LoopResult]] = {
 }
 
 
-def loop_for_surface(surface: str) -> Callable[..., LoopResult] | None:
+def loop_for_surface(
+    surface: str,
+    *,
+    db: Any | None = None,
+) -> Callable[..., LoopResult] | None:
     """Look up the configured loop for a surface key.
 
     Returns the loop function (``loop_a_single_shot`` ... ``loop_e_continuity``)
@@ -1176,7 +1183,34 @@ def loop_for_surface(surface: str) -> Callable[..., LoopResult] | None:
     Call sites use ``None`` as the signal to stay on the legacy
     ``generate_with_voice_check`` path. Sprint v5-2 populates the flags
     dict surface-by-surface per the rollout in v5.3 Part 5.
+
+    Sprint v5-3 owner Interrupt 2: when ``db`` is provided, the
+    24-hour-rolling auto-disable guardrail in
+    ``cfb_rankings.circuit_state`` is consulted before reading the
+    configured flag. If the surface has been auto-disabled (its 24h
+    aggregate spend exceeded ``DAILY_AGGREGATE_CEILINGS_USD``), this
+    returns the degraded pattern's loop function instead of the
+    configured one. Pass ``db=None`` (the default) to preserve the
+    legacy behavior — useful for unit tests that don't want to wire
+    in the SQLite layer.
     """
+    if db is not None:
+        try:
+            from cfb_rankings.circuit_state import get_active_pattern
+            pattern = get_active_pattern(db, surface)
+            if pattern is None:
+                return None
+            return _LOOP_FUNCTIONS.get(pattern)
+        except Exception:
+            # circuit_state failures (missing table on a partially-migrated
+            # DB, transient SQLite errors) MUST NOT crash production loops.
+            # Fall through to the plain QUALITY_LOOP_FLAGS lookup so the
+            # surface keeps running on its configured pattern.
+            log.warning(
+                "loop_for_surface: circuit_state lookup failed for %r; "
+                "falling back to QUALITY_LOOP_FLAGS without auto-disable check",
+                surface,
+            )
     try:
         from cfb_rankings.config import QUALITY_LOOP_FLAGS
     except Exception:

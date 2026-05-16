@@ -1616,6 +1616,29 @@ def build_parser() -> argparse.ArgumentParser:
         help="Only consider entries newer than N days (default: 7).",
     )
 
+    # ----------------------------------------------------------------
+    # Sprint v5-3 owner Interrupt 2 — quality-loop guardrail visibility.
+    # ----------------------------------------------------------------
+    quality_loop_status_parser = subparsers.add_parser(
+        "quality-loop-status",
+        help="Print per-surface 24h spend + active LoopPattern + auto-disable "
+             "status. Inspects surface_spend_events + surface_degrade_state.",
+    )
+    quality_loop_status_parser.add_argument(
+        "--json", action="store_true",
+        help="Emit the rows as a JSON array instead of a human-readable table.",
+    )
+
+    quality_loop_reenable_parser = subparsers.add_parser(
+        "quality-loop-reenable",
+        help="Clear the auto-disable degrade marker for a surface after human "
+             "review. Re-enables the configured Pattern C flag.",
+    )
+    quality_loop_reenable_parser.add_argument(
+        "surface", type=str,
+        help="Surface key, e.g. 'tier1.edition_cover' or 'tier1.reaction_story'.",
+    )
+
     return parser
 
 
@@ -5061,6 +5084,55 @@ def main() -> None:
             f"persisted={counter['persisted']} errors={counter['errors']}",
             flush=True,
         )
+        return
+
+    # ----------------------------------------------------------------
+    # Sprint v5-3 owner Interrupt 2 — quality-loop guardrail commands.
+    # ----------------------------------------------------------------
+    if args.command == "quality-loop-status":
+        from cfb_rankings.circuit_state import status_report
+        rows = status_report(db)
+        if getattr(args, "json", False):
+            print(json.dumps(rows, indent=2))
+            return
+        # Human-readable table.
+        if not rows:
+            print("quality-loop-status: no surfaces configured.")
+            return
+        header = (
+            f"{'surface':<32} {'active':<18} {'24h_spend':>10} "
+            f"{'ceiling':>10} {'frac':>6}  degraded"
+        )
+        print(header)
+        print("-" * len(header))
+        for r in rows:
+            ceiling = r["ceiling_24h_usd"]
+            ceiling_s = f"${ceiling:.2f}" if ceiling is not None else "  --  "
+            degraded_s = "YES" if r["degraded"] else " "
+            if r["degraded"] and r.get("degrade_reason"):
+                degraded_s = f"YES ({r['degrade_reason']})"
+            print(
+                f"{r['surface']:<32} "
+                f"{(r['active_pattern'] or '-'):<18} "
+                f"${r['spend_24h_usd']:>9.4f} "
+                f"{ceiling_s:>10} "
+                f"{r['fraction']:>6.2f}  {degraded_s}"
+            )
+        return
+
+    if args.command == "quality-loop-reenable":
+        from cfb_rankings.circuit_state import reset_surface_degrade
+        cleared = reset_surface_degrade(db, args.surface)
+        if cleared:
+            print(
+                f"quality-loop-reenable: cleared degrade marker for "
+                f"{args.surface!r}. Configured Pattern C flag is now active again."
+            )
+        else:
+            print(
+                f"quality-loop-reenable: no degrade marker found for "
+                f"{args.surface!r} (already enabled or never tripped)."
+            )
         return
 
     raise RuntimeError(f"Unsupported command: {args.command}")
