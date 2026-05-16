@@ -218,6 +218,41 @@ class CostMeter:
         self.records.append(rec)
         _cost_log.info("llm_runtime.cost %s", json.dumps(rec, separators=(",", ":")))
 
+        # Hotfix-10 — persist to llm_usage_log SQL table via the existing
+        # dual-writer in team_pages.llm_usage_log. Before this hotfix,
+        # CostMeter.record() updated only the in-memory counter + the
+        # JSON-line cost log; the llm_usage_log SQL table stayed at 0
+        # rows so the cost-telemetry SQL (`select surface, sum(cost_usd)
+        # from llm_usage_log ...`) returned nothing, breaking Phase 4.
+        # The append_llm_usage call is wrapped in try/except inside
+        # itself, so a SQL-mirror failure here can never raise. Skip
+        # zero-cost records (template-v1, dry runs) to keep the table
+        # focused on real billable activity.
+        if cost > 0.0:
+            try:
+                from cfb_rankings.team_pages.llm_usage_log import (
+                    append_llm_usage as _append_llm_usage,
+                )
+                _append_llm_usage(
+                    subcommand=f"costmeter.{self.label}",
+                    model=model_id,
+                    prompt_tokens=self._read_field(usage, "input_tokens"),
+                    completion_tokens=self._read_field(usage, "output_tokens"),
+                    cache_read_tokens=self._read_field(usage, "cache_read_input_tokens"),
+                    cache_creation_tokens=self._read_field(
+                        usage, "cache_creation_input_tokens"
+                    ),
+                    duration_s=0.0,  # CostMeter doesn't track latency
+                    cost_usd=cost,
+                    extra={
+                        "surface": self.label,
+                        "note": note,
+                        "is_batch": int(bool(is_batch)),
+                    },
+                )
+            except Exception:  # pragma: no cover — defensive
+                pass
+
         if (
             not self._warned
             and self.spent_usd >= self.ceiling_usd * self.warn_at_fraction
