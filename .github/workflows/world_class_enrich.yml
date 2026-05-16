@@ -449,6 +449,33 @@ jobs:
             || echo "::warning::render-canon-all failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
+      # RECEIPTS — Best Calls weekly editorial (Pattern C)
+      #
+      # Priority 3 (2026-05-16): tier1.best_calls flag is LIVE since PR #74
+      # but no scheduled workflow invoked the CLI, leaving the surface
+      # inert. Wiring it into world_class_enrich's weekly cadence per
+      # owner brief: "Decision is made: weekly cadence, fire once per
+      # world_class_enrich run, same as the other Tier-1 surfaces."
+      #
+      # --year hard-pinned to 2025 to match the v5-5 plan's reference to
+      # "annual canonical Best Calls of <year>". When the 2026 season
+      # has resolved-outcome predictive_claims (post-Aug 2026), bump.
+      # --n 25 + --opus-top 3 are the established defaults in cli.py.
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Receipts — generate Best Calls weekly editorial (AI, Pattern C)"
+        if: ${{ github.event.inputs.skip_ai != 'true' }}
+        run: |
+          set +e
+          python -u manage.py generate-best-calls --year 2025 --n 25 --opus-top 3 \
+            || echo "::warning::generate-best-calls failed (continuing — best_calls page may stay stale)"
+
+      - name: "Receipts — render best-calls + receipts pages"
+        run: |
+          set +e
+          python -u manage.py render-receipts \
+            || echo "::warning::render-receipts failed (continuing — set+e swallowed the exit code)"
+
+      # ════════════════════════════════════════════════════════════════════
       # HUB INTELLIGENCE
       # ════════════════════════════════════════════════════════════════════
       - name: "Hub — compute evidence report"
