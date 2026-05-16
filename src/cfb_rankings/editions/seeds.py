@@ -897,7 +897,7 @@ def _archive_w18() -> tuple[Edition, list[EditionFeature], list[EditionVoice]]:
             "this week is the absence of signal — and what fanbases choose "
             "to talk about when there's nothing forced on them."
         ),
-        cover_viz_kind="placeholder",
+        cover_viz_kind="drift",  # CHECK constraint requires gap/drift/field/heatmap/distribution/flow/rank_shift; drift is the natural fit for offseason signal-absence narrative
         cover_viz_data={"caption": "Issue XVIII placeholder. Pattern C cover essay generation fills this in on next world_class_enrich."},
         cover_essay_id=None,
         status="draft",
@@ -971,7 +971,7 @@ def _archive_w19() -> tuple[Edition, list[EditionFeature], list[EditionVoice]]:
             "the boards are talking about now is the baseline against which "
             "August's signal gets measured."
         ),
-        cover_viz_kind="placeholder",
+        cover_viz_kind="drift",  # CHECK constraint requires gap/drift/field/heatmap/distribution/flow/rank_shift
         cover_viz_data={"caption": "Issue XIX placeholder. Pattern C cover essay generation fills this in on next world_class_enrich."},
         cover_essay_id=None,
         status="draft",
