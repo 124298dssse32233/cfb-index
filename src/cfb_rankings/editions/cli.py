@@ -78,6 +78,46 @@ def register_edition_subcommands(subparsers: argparse._SubParsersAction) -> None
     )
     gen_cover.set_defaults(func=_cmd_generate_cover)
 
+    # Sprint v5-2 follow-up: batch wrapper around generate-edition-cover.
+    # Iterates over editions matching a status filter, generates each
+    # cover via Pattern C (or seed fall-back), persists the body to
+    # edition_features, and (default) promotes status draft → published.
+    # Used by the world_class_enrich workflow to auto-fill draft stubs
+    # like W18/W19 — without this, the homepage stays on the last
+    # status='published' edition (XVII) and never rotates.
+    gen_covers = subparsers.add_parser(
+        "generate-edition-covers",
+        help=(
+            "Batch-generate cover essays for editions matching a status "
+            "filter (default: 'draft'). Persists each body to "
+            "edition_features and promotes status to 'published'. "
+            "Idempotent — re-running on an already-published edition is "
+            "a no-op unless --include-published is set."
+        ),
+    )
+    gen_covers.add_argument(
+        "--status", default="draft",
+        help="Filter editions by status. Default: 'draft'.",
+    )
+    gen_covers.add_argument(
+        "--no-promote", action="store_true",
+        help=(
+            "Persist the generated body but do NOT update editions.status. "
+            "Default behavior: promote draft → published once a body is "
+            "successfully generated and persisted."
+        ),
+    )
+    gen_covers.add_argument(
+        "--require-llm", action="store_true",
+        help=(
+            "Only persist/promote when the generator's source == 'llm'. "
+            "Seed-fall-back bodies are left in place but the edition is "
+            "NOT promoted. Use this in workflows where Pattern C must "
+            "have actually fired (e.g. quality-gated production runs)."
+        ),
+    )
+    gen_covers.set_defaults(func=_cmd_generate_edition_covers)
+
 
 # ---------------- Command implementations ----------------
 
@@ -188,6 +228,107 @@ def _persist_cover_body(db, slug: str, body: str) -> None:
         """,
         {"body": body, "slug": slug},
     )
+
+
+def _cmd_generate_edition_covers(args: argparse.Namespace) -> int:
+    """Batch: generate cover essays for editions matching --status,
+    persist each body, and (default) promote draft → published.
+
+    Workflow entry point. The world_class_enrich pipeline calls this
+    after `seed-editions` ensures W18/W19 stubs exist; this then
+    materializes their cover essays via Pattern C and promotes them
+    so the homepage's `fetch_active_edition` rotation picks them up.
+
+    Exit codes:
+        0 — at least one edition processed (success or graceful skip)
+        2 — no editions matched the --status filter
+
+    Counters are printed at the end for workflow log visibility.
+    """
+    from .cover_essay import synthesize_cover_essay
+
+    db = _open_db()
+    rows = db.query_all(
+        "select edition_slug, edition_number, status, "
+        "       publish_date "
+        "from editions "
+        "where status = :status "
+        "order by publish_date asc, edition_number asc",
+        {"status": args.status},
+    )
+    if not rows:
+        print(f"no editions with status='{args.status}' — nothing to do")
+        return 2
+
+    promoted = 0
+    persisted_no_promote = 0
+    skipped_no_text = 0
+    skipped_seed_only = 0
+    print(f"found {len(rows)} edition(s) with status='{args.status}'")
+    for row in rows:
+        slug = str(row["edition_slug"])
+        # The edition_slug carries the calendar year + ISO week as
+        # `YYYY-w{WW}`. Parse rather than relying on edition_number
+        # in case the two ever drift. publish_date is the authoritative
+        # date for context-builder lookups; derive the season from its
+        # year prefix so the cohort/storyline queries pull the right
+        # offseason window.
+        publish_date = str(row["publish_date"] or "")
+        season = int(publish_date[:4]) if publish_date else int(row["edition_number"])
+        week = int(row["edition_number"])
+        print(f"\n  → {slug} (season={season}, week={week})")
+        result = synthesize_cover_essay(
+            season=season, week=week, edition_slug=slug, db=db,
+        )
+        if result.text is None:
+            print(
+                f"    no text produced (source={result.source}, "
+                f"reason={result.fallback_reason}) — skipped"
+            )
+            skipped_no_text += 1
+            continue
+
+        if args.require_llm and result.source != "llm":
+            print(
+                f"    source={result.source!r} but --require-llm set — "
+                f"body left untouched, edition NOT promoted"
+            )
+            skipped_seed_only += 1
+            continue
+
+        _persist_cover_body(db, slug, result.text)
+
+        if args.no_promote:
+            print(
+                f"    persisted body (source={result.source}, "
+                f"len={len(result.text)}) — --no-promote set, status stays "
+                f"'{row['status']}'"
+            )
+            persisted_no_promote += 1
+        else:
+            db.execute(
+                "update editions "
+                "   set status = 'published', "
+                "       published_at_utc = coalesce(published_at_utc, "
+                "                                   datetime('now')), "
+                "       last_updated_utc = current_timestamp "
+                " where edition_slug = :slug",
+                {"slug": slug},
+            )
+            print(
+                f"    persisted body (source={result.source}, "
+                f"len={len(result.text)}) + promoted "
+                f"{row['status']} → published"
+            )
+            promoted += 1
+
+    print(
+        f"\nsummary: promoted={promoted} "
+        f"persisted_no_promote={persisted_no_promote} "
+        f"skipped_no_text={skipped_no_text} "
+        f"skipped_seed_only={skipped_seed_only}"
+    )
+    return 0
 
 
 def _open_db() -> Database:
