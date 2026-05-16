@@ -217,17 +217,70 @@ def _cmd_generate_cover(args: argparse.Namespace) -> int:
 def _persist_cover_body(db, slug: str, body: str) -> None:
     """Update an existing cover_essay feature in-place. Does not create a
     new row — the edition seed (or an authoring step) is expected to
-    have already inserted the feature_order=1 placeholder."""
+    have already inserted the feature_order=1 placeholder.
+
+    Hotfix-11: ALSO update the feature's `dek` field. The homepage and
+    archive cards render `dek` (not `body_markdown`) as the tease text
+    under the issue title. Prior to this fix the seed-authored "Cover
+    essay scaffold — auto-filled by the Pattern C generator on the next
+    world_class_enrich run" placeholder dek persisted forever, even
+    after Pattern C wrote a real body. Derive the new dek from the
+    first paragraph of body (cap ~220 chars at sentence boundary) so
+    the tease accurately summarizes the live essay.
+    """
+    new_dek = _dek_from_body(body)
     db.execute(
         """
         update edition_features
-           set body_markdown = :body
+           set body_markdown = :body,
+               dek = :dek
          where edition_slug = :slug
            and feature_order = 1
            and feature_kind = 'cover_essay'
         """,
-        {"body": body, "slug": slug},
+        {"body": body, "dek": new_dek, "slug": slug},
     )
+
+
+def _dek_from_body(body: str, *, max_chars: int = 220) -> str:
+    """Derive a tease-dek from the first paragraph of a cover essay body.
+
+    Strategy:
+      1. Take the first non-empty paragraph (split on \\n\\n).
+      2. If it fits in max_chars, return it verbatim.
+      3. Otherwise truncate at the last sentence-ending punctuation
+         (`.`, `?`, `!`) before max_chars, preserving the punctuation.
+         If no sentence break exists, truncate at the last word boundary
+         and append `…`.
+
+    Returns the original body capped at max_chars when no paragraph
+    break is present (e.g. seed-fall-back single-line placeholders).
+    Never returns an empty string when body is non-empty — falls back
+    to a hard char cap if all else fails.
+    """
+    if not body:
+        return ""
+    text = body.strip()
+    # First paragraph: split on blank line; if none, treat the whole
+    # text as one paragraph.
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    first = paragraphs[0] if paragraphs else text
+    # Collapse internal whitespace to single spaces (avoids
+    # \n-mid-paragraph artifacts in the rendered HTML).
+    first = " ".join(first.split())
+    if len(first) <= max_chars:
+        return first
+    # Find the last sentence-ending punctuation at or before max_chars.
+    head = first[:max_chars]
+    for punct in (". ", "? ", "! "):
+        idx = head.rfind(punct)
+        if idx >= max_chars // 2:  # prefer a sentence break in the back half
+            return head[: idx + 1].rstrip()
+    # Fall back to last word boundary + ellipsis.
+    space_idx = head.rfind(" ")
+    if space_idx > 0:
+        return head[:space_idx].rstrip() + "…"
+    return head + "…"
 
 
 def _cmd_generate_edition_covers(args: argparse.Namespace) -> int:

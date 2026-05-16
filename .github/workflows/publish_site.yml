@@ -176,7 +176,22 @@ jobs:
         run: |
           set +e
           python manage.py seed-editions || echo "seed-editions skipped"
-          for SLUG in 2026-w14 2026-w15 2026-w16 2026-w17; do
+          # Hotfix-11: iterate over all editions in the DB instead of a
+          # hardcoded slug list. The old loop was pinned to W14-W17 and
+          # missed every subsequent edition (W18, W19, ...), so the
+          # archive's "Read the cover essay →" CTAs 404'd and the
+          # homepage's active-edition link dead-ended. The DB query is
+          # the source of truth — seed-editions above guarantees every
+          # known slug exists before this loop runs.
+          SLUGS=$(python -c "
+          import sqlite3
+          conn = sqlite3.connect('cfb_rankings.db')
+          for r in conn.execute('SELECT edition_slug FROM editions ORDER BY publish_date').fetchall():
+              print(r[0])
+          conn.close()
+          ")
+          echo "rendering edition article pages for: $SLUGS"
+          for SLUG in $SLUGS; do
             python manage.py render-edition --slug "$SLUG" || echo "render-edition $SLUG skipped"
           done
           echo "done"
