@@ -68,11 +68,33 @@ def _require_env(name: str) -> str:
 # and with the telemetry written by `team_pages.llm_usage_log`.
 # ---------------------------------------------------------------------------
 
-# Empty by default. Sprint v5-2 begins populating per the rollout schedule
-# in DESIGN_AUDIT_2026_05_15_v5_3.md Part 5 / IMPLEMENTATION_PLAN.md Part 5.
+# Sprint v5-2 (2026-05-15) — FIRST quality_loop flag flip.
+#
+# `tier1.edition_cover` now routes through Pattern C (Opus 4.7 + extended
+# thinking + 3-critic voice/headline/factuality loop with one revise pass)
+# via `editions.cover_essay.synthesize_cover_essay`. Sync fall-through to
+# `editions/seeds.py` is preserved when the loop falls back (offline,
+# wall-clock timeout 90s, Rung-2 critic failures, Rung-3 weekly ceiling).
+#
+# Subsequent surfaces will flip per the rollout schedule in
+# DESIGN_AUDIT_2026_05_15_v5_3.md Part 5 / IMPLEMENTATION_PLAN.md Part 5.
+# Edition cover specifically upgrades to Pattern D (adversarial, with
+# engagement critic) in Sprint v5-8 after a 4-week A/B against the
+# Pattern C baseline.
+#
 # Type is `dict[str, "LoopPattern"]` once quality_loop is imported by the
-# caller; left as plain dict here to avoid a hard import cycle.
-QUALITY_LOOP_FLAGS: dict[str, "LoopPattern"] = {}
+# caller; left as plain dict here to avoid a hard import cycle. The
+# import below is deferred and survives any import-time circularity by
+# falling back to the raw string value, which quality_loop accepts.
+def _initial_quality_loop_flags() -> "dict[str, LoopPattern]":
+    try:
+        from cfb_rankings.quality_loop import LoopPattern as _LP
+    except Exception:  # pragma: no cover — circular-import guardrail
+        return {"tier1.edition_cover": "C_critic_revise"}  # type: ignore[dict-item]
+    return {"tier1.edition_cover": _LP.C_CRITIC_REVISE}
+
+
+QUALITY_LOOP_FLAGS: dict[str, "LoopPattern"] = _initial_quality_loop_flags()
 
 
 # Per-surface weekly spend ceilings (cents). Enforced by quality_loop.py's

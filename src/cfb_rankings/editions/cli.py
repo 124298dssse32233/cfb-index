@@ -49,6 +49,35 @@ def register_edition_subcommands(subparsers: argparse._SubParsersAction) -> None
     )
     archive.set_defaults(func=_cmd_build_archive)
 
+    # Sprint v5-2: LLM-driven Edition cover essay synthesis.
+    # Routes through quality_loop.loop_c_critic_revise when the feature
+    # flag is set in config.QUALITY_LOOP_FLAGS, otherwise falls back to
+    # the seed-authored body. See editions/cover_essay.py for the full
+    # dispatch contract.
+    gen_cover = subparsers.add_parser(
+        "generate-edition-cover",
+        help=(
+            "Synthesize the Edition cover essay body via quality_loop "
+            "(Pattern C). Falls back to seed payload when the flag is "
+            "unset or the loop falls back."
+        ),
+    )
+    gen_cover.add_argument("--season", required=True, type=int,
+                           help="Season year, e.g. 2026")
+    gen_cover.add_argument("--week", required=True, type=int,
+                           help="Week number, e.g. 17")
+    gen_cover.add_argument("--slug", required=True,
+                           help="Edition slug, e.g. 2026-w17")
+    gen_cover.add_argument(
+        "--persist", action="store_true",
+        help=(
+            "Persist the generated body to edition_features (feature_order=1, "
+            "feature_kind='cover_essay'). Without this flag the command "
+            "prints the result to stdout and writes nothing."
+        ),
+    )
+    gen_cover.set_defaults(func=_cmd_generate_cover)
+
 
 # ---------------- Command implementations ----------------
 
@@ -104,6 +133,61 @@ def _cmd_build_archive(args: argparse.Namespace) -> int:
     path = write_editions_archive(db)
     print(f"editions archive written: {path}")
     return 0
+
+
+def _cmd_generate_cover(args: argparse.Namespace) -> int:
+    """Sprint v5-2 — first quality_loop flag flip.
+
+    With ``config.QUALITY_LOOP_FLAGS["tier1.edition_cover"]`` set to
+    ``LoopPattern.C_CRITIC_REVISE`` (the v5-2 default), this routes the
+    cover essay through the 3-critic loop. Without the flag, it returns
+    the seed body. Either way the command exits 0 with the body on
+    stdout — workflows decide whether to ``--persist`` it.
+    """
+    from .cover_essay import synthesize_cover_essay
+
+    db = _open_db()
+    result = synthesize_cover_essay(
+        season=int(args.season),
+        week=int(args.week),
+        edition_slug=args.slug,
+        db=db,
+    )
+
+    if result.text is None:
+        print(
+            f"no cover essay body produced for {args.slug} "
+            f"(source={result.source}, reason={result.fallback_reason})"
+        )
+        return 1
+
+    if args.persist:
+        _persist_cover_body(db, args.slug, result.text)
+        print(
+            f"persisted cover essay for {args.slug} "
+            f"(source={result.source}, len={len(result.text)})"
+        )
+    else:
+        print(f"source={result.source} len={len(result.text)}")
+        print("--- BODY ---")
+        print(result.text)
+    return 0
+
+
+def _persist_cover_body(db, slug: str, body: str) -> None:
+    """Update an existing cover_essay feature in-place. Does not create a
+    new row — the edition seed (or an authoring step) is expected to
+    have already inserted the feature_order=1 placeholder."""
+    db.execute(
+        """
+        update edition_features
+           set body_markdown = :body
+         where edition_slug = :slug
+           and feature_order = 1
+           and feature_kind = 'cover_essay'
+        """,
+        {"body": body, "slug": slug},
+    )
 
 
 def _open_db() -> Database:
