@@ -12,6 +12,7 @@ Selection logic:
 from __future__ import annotations
 
 import json
+import logging
 import os
 import sqlite3
 from dataclasses import dataclass
@@ -19,6 +20,65 @@ from typing import Any, Sequence
 
 from . import voice_validator
 from .runtime import db_conn
+
+log = logging.getLogger(__name__)
+
+# Sprint v5-7 — Pattern C dispatch surface key for the Best Calls weekly
+# digest. When ``config.QUALITY_LOOP_FLAGS["tier1.best_calls"]`` is set
+# to ``LoopPattern.C_CRITIC_REVISE`` (the v5-5 default), each entry's
+# editorial is routed through the 3-critic loop. See
+# ``_pattern_c_best_call_entry`` below.
+_SURFACE_KEY = "tier1.best_calls"
+
+
+def _flag_is_pattern_c() -> bool:
+    """True when ``tier1.best_calls`` is set to Pattern C.
+
+    Defensive: any import failure returns False → sync path.
+    """
+    try:
+        from cfb_rankings.config import QUALITY_LOOP_FLAGS
+        from cfb_rankings.quality_loop import LoopPattern
+    except Exception:  # pragma: no cover — defensive
+        return False
+    configured = QUALITY_LOOP_FLAGS.get(_SURFACE_KEY)
+    if isinstance(configured, str):
+        try:
+            configured = LoopPattern(configured)
+        except ValueError:
+            return False
+    return configured == LoopPattern.C_CRITIC_REVISE
+
+
+def _pattern_c_best_call_entry(
+    user_prompt: str, system: str, model: str
+) -> str | None:
+    """Route a single best_calls entry through ``loop_c_critic_revise``.
+
+    Returns the loop's text (still JSON-string format per the system
+    prompt) on success, or None on any fall-back (offline-stub,
+    wall-clock timeout, Rung-2 critic failure, Rung-3 weekly ceiling,
+    24h auto-disable). Caller treats None as "use the sync path".
+    """
+    try:
+        from cfb_rankings.quality_loop import loop_c_critic_revise
+    except Exception:  # pragma: no cover — defensive
+        return None
+    try:
+        result = loop_c_critic_revise(
+            user_prompt,
+            system=system,
+            model=model,
+            max_tokens=900,
+            surface=_SURFACE_KEY,
+            subcommand="quality_loop.C.best_calls",
+        )
+    except Exception as exc:  # pragma: no cover — defensive
+        log.warning("best_calls Pattern C raised %s; falling back to sync", exc)
+        return None
+    if result.fell_back or not result.text:
+        return None
+    return result.text
 
 
 @dataclass
@@ -200,16 +260,35 @@ def _llm_write(
         os.environ.get("RECEIPTS_SONNET_MODEL", "claude-opus-4-7")
     )
     system = _OPUS_SYSTEM if tier == "opus" else _SONNET_SYSTEM
-    resp = client.messages.create(
-        model=model,
-        max_tokens=900,
-        system=system,
-        messages=[{"role": "user", "content": _claim_brief(claim)}],
+    user_prompt = _claim_brief(claim)
+
+    # Sprint v5-7 — Pattern C dispatch. When the ``tier1.best_calls`` flag
+    # is set, route through the 3-critic loop. The loop's text output is
+    # the same JSON-object-as-string format the sync path produces (system
+    # prompt enforces the schema), so downstream parse logic is unchanged.
+    # On any fall-back the sync client.messages.create path picks up;
+    # entry never lands as a stub unless both paths fail.
+    pattern_c_text = (
+        _pattern_c_best_call_entry(user_prompt, system, model)
+        if _flag_is_pattern_c() else None
     )
-    # Pattern A cost recording — propagates CostCeilingExceeded.
-    if getattr(resp, "usage", None) is not None:
-        meter.record(model, resp.usage, note=f"receipts.best_calls.{tier}")
-    text = "".join(b.text for b in resp.content if hasattr(b, "text"))
+    if pattern_c_text is not None:
+        # Pattern C path: loop_c_critic_revise already recorded cost via
+        # llm_usage_log + emit_telemetry; no separate meter.record() call
+        # needed (and we don't have the resp.usage object anyway).
+        text = pattern_c_text
+    else:
+        resp = client.messages.create(
+            model=model,
+            max_tokens=900,
+            system=system,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+        # Pattern A cost recording — propagates CostCeilingExceeded.
+        if getattr(resp, "usage", None) is not None:
+            meter.record(model, resp.usage, note=f"receipts.best_calls.{tier}")
+        text = "".join(b.text for b in resp.content if hasattr(b, "text"))
+
     try:
         obj = json.loads(text[text.index("{"):text.rindex("}") + 1])
     except (ValueError, json.JSONDecodeError):
