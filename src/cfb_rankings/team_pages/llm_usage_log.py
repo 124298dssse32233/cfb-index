@@ -216,8 +216,15 @@ def append_llm_usage(
             fell_back_val = 0
 
         conn.execute(
+            # Priority 2 dedup (2026-05-16): INSERT OR IGNORE means a
+            # second writer landing the same call_id for the same
+            # underlying LLM call silently no-ops. The partial unique
+            # index on call_id WHERE NOT NULL (migration 20260530_02)
+            # backs this. Pre-call_id rows (NULL) are not constrained;
+            # legacy double-counts remain in place until a separate
+            # cleanup migration removes them.
             """
-            INSERT INTO llm_usage_log (
+            INSERT OR IGNORE INTO llm_usage_log (
                 call_id, invoked_at_utc, iso_week,
                 surface, model_id, prompt_version,
                 input_tokens, output_tokens,

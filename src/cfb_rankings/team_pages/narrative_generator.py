@@ -709,12 +709,16 @@ def _estimate_cost(model: str, prompt_tok: int, completion_tok: int) -> float:
     return (prompt_tok * rates["input"] + completion_tok * rates["output"]) / 1_000_000
 
 
-def _log_invocation(subcommand: str, model: str, p_tok: int, c_tok: int, dur: float) -> None:
+def _log_invocation(subcommand: str, model: str, p_tok: int, c_tok: int, dur: float, *, call_id: str | None = None) -> None:
     try:
         from .llm_usage_log import append_llm_usage
+        extra: dict[str, Any] = {}
+        if call_id:
+            extra["call_id"] = call_id
         append_llm_usage(
             subcommand=subcommand, model=model,
             prompt_tokens=p_tok, completion_tokens=c_tok, duration_s=dur,
+            extra=extra,
         )
     except Exception:
         pass  # never let logging break generation
@@ -746,6 +750,13 @@ def _call_anthropic_sdk(
         ) from e
 
     client = anthropic.Anthropic()
+    # Priority 2 (2026-05-16) — mint one call_id per LLM call and share
+    # it with both telemetry writers (CostMeter.record + the legacy
+    # _log_invocation → append_llm_usage call). The unique-call_id index
+    # backed by INSERT OR IGNORE makes the second write a silent no-op,
+    # collapsing the historical 2× rows-per-call to 1.
+    import uuid as _uuid
+    call_id = _uuid.uuid4().hex
     msg = client.messages.create(
         model=model,
         max_tokens=500,
@@ -753,7 +764,7 @@ def _call_anthropic_sdk(
     )
     # Record cost against the meter. CostCeilingExceeded propagates.
     if getattr(msg, "usage", None) is not None:
-        meter.record(model, msg.usage, note=f"narrative.{variant}")
+        meter.record(model, msg.usage, note=f"narrative.{variant}", call_id=call_id)
     body = "".join(
         getattr(block, "text", "") for block in msg.content
         if getattr(block, "type", "") == "text"
@@ -761,7 +772,7 @@ def _call_anthropic_sdk(
     usage = getattr(msg, "usage", None)
     p_tok = int(getattr(usage, "input_tokens", 0) or 0)
     c_tok = int(getattr(usage, "output_tokens", 0) or 0)
-    _log_invocation(f"generate-narratives:{variant}", model, p_tok, c_tok, 0.0)
+    _log_invocation(f"generate-narratives:{variant}", model, p_tok, c_tok, 0.0, call_id=call_id)
     return NarrativeResult(
         body_md=body,
         title=None,
