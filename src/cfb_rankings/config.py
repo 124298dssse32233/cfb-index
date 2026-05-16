@@ -147,8 +147,22 @@ _V5_4_E_FLAGS = (
 _V5_5_FLAGS = (
     "tier1.canon_top10",
     "tier1.canon_tail",
-    "tier1.pulse_themes_writer",
     "tier1.best_calls",
+)
+
+# Sprint v5-5 demote (2026-05-16 22:30 UTC) — pulse_lede + pulse_themes_writer
+# Pattern C produced a 100% / 71% fall-back rate respectively, exiting via
+# `consecutive_critic_failures_after_escalation`. The 3-critic loop is tuned
+# for long-form essay output (edition_cover convention) and rejects
+# short-form (pulse_lede = 2-3 sentences) and structured-JSON
+# (pulse_themes_writer) outputs. Each rejected call paid for the critic
+# loop AND the sync fall-back — effectively 2× cost for no quality gain.
+# Demoting to Pattern B (single critic, no revise loop). The single critic
+# still validates voice but stops trying to enforce convergence on a
+# pattern that doesn't fit the surface. Tier-2 narratives + Chronicle
+# rank-3-5 surfaces have run on Pattern B successfully since v5-1.
+_V5_5_B_FLAGS = (
+    "tier1.pulse_themes_writer",
     "tier1.pulse_lede",
 )
 
@@ -160,12 +174,14 @@ def _initial_quality_loop_flags() -> "dict[str, LoopPattern]":
         out: dict[str, str] = {k: "C_critic_revise" for k in _V5_3_FLAGS}
         out.update({k: "E_continuity" for k in _V5_4_E_FLAGS})
         out.update({k: "C_critic_revise" for k in _V5_5_FLAGS})
+        out.update({k: "B_single_critic" for k in _V5_5_B_FLAGS})
         return out  # type: ignore[return-value]
     out: dict[str, "LoopPattern"] = {
         k: _LP.C_CRITIC_REVISE for k in _V5_3_FLAGS
     }
     out.update({k: _LP.E_CONTINUITY for k in _V5_4_E_FLAGS})
     out.update({k: _LP.C_CRITIC_REVISE for k in _V5_5_FLAGS})
+    out.update({k: _LP.B_SINGLE_CRITIC for k in _V5_5_B_FLAGS})
     return out
 
 

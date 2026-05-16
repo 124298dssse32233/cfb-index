@@ -44,53 +44,94 @@ _DAYS = 30              # lookback window for conversation docs
 _SURFACE_KEY = "tier1.pulse_themes_writer"
 
 
-def _flag_is_pattern_c() -> bool:
-    """True when the ``tier1.pulse_themes_writer`` flag is set to Pattern C.
+def _flag_loop_pattern():
+    """Resolve the ``tier1.pulse_themes_writer`` flag to a LoopPattern.
 
-    Same defensive contract as pulse_lede._flag_is_pattern_c(): any
-    import / enum-coercion failure returns False → sync path.
+    Returns None on import failure or unknown value (falls through to
+    sync path).
     """
     try:
         from cfb_rankings.config import QUALITY_LOOP_FLAGS
         from cfb_rankings.quality_loop import LoopPattern
     except Exception:  # pragma: no cover — defensive
-        return False
+        return None
     configured = QUALITY_LOOP_FLAGS.get(_SURFACE_KEY)
     if isinstance(configured, str):
         try:
             configured = LoopPattern(configured)
         except ValueError:
-            return False
-    return configured == LoopPattern.C_CRITIC_REVISE
+            return None
+    return configured
 
 
-def _pattern_c_themes_writer(prompt: str, system: str, model: str, max_tokens: int) -> str | None:
-    """Run the Stage 2 themes writer through ``loop_c_critic_revise``.
+def _flag_is_loop_dispatch() -> bool:
+    """True when the flag selects either Pattern B or C."""
+    try:
+        from cfb_rankings.quality_loop import LoopPattern
+    except Exception:  # pragma: no cover — defensive
+        return False
+    return _flag_loop_pattern() in (
+        LoopPattern.B_SINGLE_CRITIC, LoopPattern.C_CRITIC_REVISE
+    )
 
-    Returns the loop's final text on success, None on any fall-back
-    (offline-stub, wall-clock timeout, Rung-2 critic failure, Rung-3
-    weekly ceiling, 24h auto-disable). Caller treats None as "use the
-    sync path".
+
+def _pattern_loop_themes_writer(
+    prompt: str, system: str, model: str, max_tokens: int
+) -> str | None:
+    """Run the Stage 2 themes writer through the configured loop.
+
+    Dispatches to ``loop_b_single_critic`` (Pattern B) or
+    ``loop_c_critic_revise`` (Pattern C). Returns final text on success,
+    None on any fall-back. Demoted from C → B on 2026-05-16 22:30 UTC
+    after telemetry showed 71% fall-back rate on the C path for
+    structured-JSON output.
     """
     try:
-        from cfb_rankings.quality_loop import loop_c_critic_revise
+        from cfb_rankings.quality_loop import (
+            LoopPattern, loop_b_single_critic, loop_c_critic_revise,
+        )
     except Exception:  # pragma: no cover — defensive
         return None
+    pattern = _flag_loop_pattern()
+    if pattern == LoopPattern.B_SINGLE_CRITIC:
+        loop_fn = loop_b_single_critic
+        subcommand = "quality_loop.B.pulse_themes_writer"
+    elif pattern == LoopPattern.C_CRITIC_REVISE:
+        loop_fn = loop_c_critic_revise
+        subcommand = "quality_loop.C.pulse_themes_writer"
+    else:
+        return None
     try:
-        result = loop_c_critic_revise(
+        result = loop_fn(
             prompt,
             system=system,
             model=model,
             max_tokens=max_tokens,
             surface=_SURFACE_KEY,
-            subcommand="quality_loop.C.pulse_themes_writer",
+            subcommand=subcommand,
         )
     except Exception as exc:  # pragma: no cover — defensive
-        log.warning("pulse_themes Pattern C raised %s; falling back to sync", exc)
+        log.warning("pulse_themes loop %s raised %s; falling back to sync",
+                    pattern, exc)
         return None
     if result.fell_back or not result.text:
         return None
     return result.text
+
+
+# Back-compat aliases: keep old function names callable so any
+# downstream import keeps working. New code uses _flag_is_loop_dispatch
+# / _pattern_loop_themes_writer.
+def _flag_is_pattern_c() -> bool:
+    try:
+        from cfb_rankings.quality_loop import LoopPattern
+    except Exception:  # pragma: no cover
+        return False
+    return _flag_loop_pattern() == LoopPattern.C_CRITIC_REVISE
+
+
+def _pattern_c_themes_writer(prompt: str, system: str, model: str, max_tokens: int) -> str | None:
+    return _pattern_loop_themes_writer(prompt, system, model, max_tokens)
 
 # ---------------------------------------------------------------------------
 # DB helpers
@@ -341,23 +382,24 @@ def _sonnet_rank_and_write(
         + excerpt_lines
     )
 
-    # Sprint v5-6 — Pattern C dispatch for Stage 2 ranker/writer. When the
-    # ``tier1.pulse_themes_writer`` flag is set, route through the 3-critic
-    # loop. The loop returns the same JSON-array-as-string format the sync
-    # path produces, so the downstream parse logic is unchanged. On any
-    # fall-back the sync path picks up — themes never land as [] unless
-    # both paths fail.
-    pattern_c_text = (
-        _pattern_c_themes_writer(prompt, _SONNET_SYSTEM, _SONNET_MODEL, 900)
-        if _flag_is_pattern_c() else None
+    # Sprint v5-6 — quality_loop dispatch for Stage 2 ranker/writer.
+    # The flag selects Pattern B (single critic, no revise) or C (3-critic
+    # + revise). The loop returns the same JSON-array-as-string format the
+    # sync path produces, so the downstream parse logic is unchanged. On
+    # any fall-back the sync path picks up — themes never land as [] unless
+    # both paths fail. Demoted from C → B on 2026-05-16 22:30 UTC after
+    # telemetry showed 71% fall-back rate on the C path for JSON output.
+    pattern_loop_text = (
+        _pattern_loop_themes_writer(prompt, _SONNET_SYSTEM, _SONNET_MODEL, 900)
+        if _flag_is_loop_dispatch() else None
     )
-    if pattern_c_text is not None:
+    if pattern_loop_text is not None:
         result = {
-            "text": pattern_c_text,
-            "voice_validator_passed": True,  # Pattern C uses critic scores
+            "text": pattern_loop_text,
+            "voice_validator_passed": True,  # loop uses critic scores
             "model_used": _SONNET_MODEL,
             "mode": "live",
-            "tokens_used": {},  # CostMeter inside loop_c_critic_revise logs spend
+            "tokens_used": {},  # loop_*_critic_* logs spend via append_llm_usage
         }
     else:
         result = generate_with_voice_check(
@@ -475,15 +517,15 @@ def extract_entities_themes_batch(
         return out
 
     # Sprint v5-5/v5-6 follow-up (hotfix-15) — Pattern C and Batch API are
-    # mutually exclusive. The Batch API doesn't support the 3-critic
-    # sequential loop. When the ``tier1.pulse_themes_writer`` flag is set
-    # to Pattern C, skip the batch and iterate sync — each entity goes
-    # through ``_sonnet_rank_and_write`` which has the Pattern C dispatch
-    # wired (PR #73). Cost trade-off: lose the 50% Batch discount, gain
-    # the critic loop on ~30 entity calls. Auto-disable via the 24h
-    # aggregate ceiling ($8/day in DAILY_AGGREGATE_CEILINGS_USD) bounds
-    # the cost if a single run somehow runs hot.
-    if _flag_is_pattern_c():
+    # mutually exclusive. The Batch API doesn't support sequential critic
+    # loops. When the ``tier1.pulse_themes_writer`` flag selects Pattern B
+    # or C, skip the batch and iterate sync — each entity goes through
+    # ``_sonnet_rank_and_write`` which has the loop dispatch wired
+    # (PR #73, demoted C → B 2026-05-16 22:30 UTC). Cost trade-off:
+    # lose the 50% Batch discount, gain the critic loop on ~30 entities.
+    # 24h aggregate ceiling ($8/day) bounds the cost if a single run runs
+    # hot.
+    if _flag_is_loop_dispatch():
         for (slug, etype, tier, name, candidates, excerpts, n_themes) in stage2_inputs:
             themes, passed = _sonnet_rank_and_write(
                 candidates, name, n_themes, excerpts, _meter=meter,
