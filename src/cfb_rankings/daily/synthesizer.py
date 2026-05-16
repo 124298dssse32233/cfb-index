@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import logging
 from datetime import datetime, timezone
+from typing import Any
 
 from .data import (
     VOICE_EXAMPLES,
@@ -328,13 +329,57 @@ def synthesize_takes_batch(bundle: DailyInputBundle) -> list[TakeResult]:
     return take_results
 
 
-def synthesize_takes(bundle: DailyInputBundle) -> list[TakeResult]:
-    """Generate 3 takes for the edition. Returns TakeResult list (always length 3)."""
+def _record_take_cost(meter: Any, llm_result: dict, model: str, rank: int) -> None:
+    """Helper: record a Daily take's cost against the shared meter.
+
+    ``generate_with_voice_check`` returns ``tokens_used = {input, output}``
+    but no cache_creation / cache_read fields. We wrap it into the dict
+    shape CostMeter expects and record. Skips offline-stub results
+    (zero-token, model='offline-stub') so they don't pollute spend.
+    """
+    if llm_result.get("mode") == "offline-stub":
+        return
+    tokens = llm_result.get("tokens_used") or {}
+    in_toks = int(tokens.get("input") or 0)
+    out_toks = int(tokens.get("output") or 0)
+    if in_toks == 0 and out_toks == 0:
+        return
+    usage = {
+        "input_tokens": in_toks,
+        "output_tokens": out_toks,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+    }
+    meter.record(model, usage, note=f"daily.take_{rank}")
+
+
+def synthesize_takes(
+    bundle: DailyInputBundle,
+    *,
+    _meter: Any = None,
+) -> list[TakeResult]:
+    """Generate 3 takes for the edition. Returns TakeResult list (always length 3).
+
+    ``_meter`` (Pattern B, optional): if supplied, records per-take cost
+    against the meter. A ``CostCeilingExceeded`` from inside the loop
+    propagates out — only the workflow-level entry point should catch it.
+    When omitted, a default per-call meter is created with this surface's
+    per-run ceiling so standalone calls still hard-fail on runaway spend.
+    """
     try:
         from cfb_rankings.llm_runtime import generate_with_voice_check
     except ImportError as exc:
         log.warning("llm_runtime unavailable: %s — using offline stubs", exc)
         generate_with_voice_check = None
+
+    # Lazy import to keep this module importable in environments that
+    # vendor a minimal cfb_rankings tree.
+    from cfb_rankings.llm_runtime import CostMeter
+
+    meter = _meter or CostMeter(
+        ceiling_usd=0.5,
+        label=f"daily.{bundle.edition_date}",
+    )
 
     tentpole = is_tentpole(bundle.edition_date)
     results: list[TakeResult] = []
@@ -360,6 +405,11 @@ def synthesize_takes(bundle: DailyInputBundle) -> list[TakeResult]:
                 text = llm_result.get("text") or ""
                 vv_passed = bool(llm_result.get("voice_validator_passed", False))
                 model_used = llm_result.get("model_used", model)
+                # Record cost against the meter. tokens_used carries the
+                # totals from generate_with_voice_check (across any
+                # voice-validator retries). We wrap the dict so CostMeter
+                # can read it via its dict-shape input contract.
+                _record_take_cost(meter, llm_result, model_used, rank)
                 log.info(
                     "take %d/%s: voice_validator_passed=%s attempts=%d tokens=%s",
                     rank, bundle.edition_date, vv_passed,
@@ -367,6 +417,12 @@ def synthesize_takes(bundle: DailyInputBundle) -> list[TakeResult]:
                     llm_result.get("tokens_used", {}),
                 )
             except Exception as exc:
+                # Re-raise CostCeilingExceeded so the workflow halts. Any
+                # other exception (Overloaded, rate limit) falls through
+                # to the offline-stub path so the cron stays healthy.
+                from cfb_rankings.llm_runtime import CostCeilingExceeded
+                if isinstance(exc, CostCeilingExceeded):
+                    raise
                 log.warning(
                     "take %d/%s: LLM call failed (%s: %s); using offline-stub",
                     rank, bundle.edition_date, type(exc).__name__, exc,

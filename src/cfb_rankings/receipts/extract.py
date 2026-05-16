@@ -225,8 +225,20 @@ def classify_batch_haiku(
     batch: Sequence[Candidate],
     *,
     offline: bool | None = None,
+    _meter: Any = None,
 ) -> tuple[list[ExtractedClaim], dict[str, int]]:
-    """Returns (claims, token_usage_dict)."""
+    """Returns (claims, token_usage_dict).
+
+    ``_meter`` (Pattern A, optional): if supplied, records this call's
+    Haiku cost. Defaults to a per-call meter so standalone use still
+    enforces a ceiling.
+    """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=0.2,
+        label="receipts.haiku_classify",
+    )
+
     use_offline = offline if offline is not None else not _have_anthropic()
     if use_offline:
         return _stub_classify_haiku(batch), {"input_tokens": 0, "output_tokens": 0}
@@ -239,6 +251,9 @@ def classify_batch_haiku(
         system=_HAIKU_SYSTEM,
         messages=[{"role": "user", "content": user_prompt}],
     )
+    # Pattern A cost recording: SDK usage object accepted directly.
+    if getattr(resp, "usage", None) is not None:
+        meter.record(HAIKU_MODEL, resp.usage, note="receipts.haiku_classify")
     text = "".join(b.text for b in resp.content if hasattr(b, "text"))
     tokens = {
         "input_tokens": getattr(resp.usage, "input_tokens", 0),
@@ -411,8 +426,18 @@ def review_batch_sonnet(
     drafts: Sequence[ExtractedClaim],
     *,
     offline: bool | None = None,
+    _meter: Any = None,
 ) -> tuple[list[ExtractedClaim], dict[str, int]]:
-    """Review medium-confidence Haiku drafts and refine."""
+    """Review medium-confidence Haiku drafts and refine.
+
+    ``_meter`` (Pattern A, optional): records this Sonnet call's cost.
+    """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=0.5,
+        label="receipts.sonnet_review",
+    )
+
     use_offline = offline if offline is not None else not _have_anthropic()
     if use_offline:
         return _stub_review_sonnet(drafts), {"input_tokens": 0, "output_tokens": 0}
@@ -430,6 +455,8 @@ def review_batch_sonnet(
         system=_SONNET_SYSTEM,
         messages=[{"role": "user", "content": user_prompt}],
     )
+    if getattr(resp, "usage", None) is not None:
+        meter.record(SONNET_MODEL, resp.usage, note="receipts.sonnet_review")
     text = "".join(b.text for b in resp.content if hasattr(b, "text"))
     tokens = {
         "input_tokens": getattr(resp.usage, "input_tokens", 0),

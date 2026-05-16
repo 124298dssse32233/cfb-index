@@ -1694,10 +1694,20 @@ def main() -> None:
             generate_chronicle_for_teams_batch,
             BLUE_BLOODS,
         )
+        from cfb_rankings.llm_runtime import CostMeter, CostCeilingExceeded
 
         slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
         totals = {"scanned": 0, "published": 0, "dropped": 0}
         NEW_STREAM_TYPES = ("anomaly", "moment", "flashpoint", "echo", "retroactive", "player_arc")
+
+        # Pattern C: one CostMeter per CLI invocation. Across-team ceiling.
+        # Sized for a full 17-program weekly profiled run (~$5 from
+        # IMPLEMENTATION_PLAN.md Part 6.5 line item tier1.chronicle_profiled).
+        # CostCeilingExceeded HALTS the run rather than racing past budget.
+        cost_meter = CostMeter(
+            ceiling_usd=10.0,
+            label="cli.generate-chronicle",
+        )
 
         # Batch-mode dispatcher: auto -> batch when >=2 slugs and model
         # isn't 'template' (template doesn't hit the LLM at all). Single-
@@ -1728,11 +1738,16 @@ def main() -> None:
                     continue
                 teams.append((profile, snapshot))
 
-            cards_by_slug = generate_chronicle_for_teams_batch(
-                db, teams,
-                model=args.model,
-                max_cards=args.top_k,
-            )
+            try:
+                cards_by_slug = generate_chronicle_for_teams_batch(
+                    db, teams,
+                    model=args.model,
+                    max_cards=args.top_k,
+                    _meter=cost_meter,
+                )
+            except CostCeilingExceeded as exc:
+                print(f"::error::CostMeter halted run: {exc}", flush=True)
+                return 1
             # Persist using the same unpublish-then-publish pattern as the
             # sync path. Loop teams in submission order for stable logs.
             type_placeholders = ",".join(["?"] * len(NEW_STREAM_TYPES))
@@ -1755,56 +1770,63 @@ def main() -> None:
                 totals["published"] += len(cards)
             print(
                 f"generate-chronicle: done — programs={len(slugs)} "
-                f"cards_published={totals['published']} (batch)"
+                f"cards_published={totals['published']} (batch) "
+                f"spent=${cost_meter.spent_usd:.4f} / ${cost_meter.ceiling_usd:.2f}"
             )
             return
 
-        for slug in slugs:
-            try:
-                profile = load_profile(slug)
-            except FileNotFoundError:
-                print(f"  skip {slug}: profile not found")
-                continue
-            try:
-                snapshot = fetch_team_snapshot(db, slug, season_year=args.season)
-            except LookupError as exc:
-                print(f"  skip {slug}: {exc}")
-                continue
-            state = resolve_state(profile, snapshot)
-            print(f"[{slug}] model={args.model} blueblood={slug in BLUE_BLOODS}")
-            cards = generate_chronicle_for_team(
-                db, profile, snapshot,
-                model=args.model,
-                max_cards=args.top_k,
-                parallel_workers=args.workers,
-            )
-            # Unpublish prior rows ONLY for the 6 stream-driven types — leave
-            # any other card_type (rivalry_posture, rivalry_stakes, savant_echo,
-            # etc. from separate scripts) untouched.
-            type_placeholders = ",".join(["?"] * len(NEW_STREAM_TYPES))
-            db.execute(
-                f"update team_chronicle_observations set is_published = 0 "
-                f"where team_id = :tid and season_year = :s "
-                f"  and card_type in ({type_placeholders})",
-                {"tid": snapshot.team_id, "s": snapshot.season_year, **{}},
-            ) if False else None  # placeholder — real exec below with tuple params
-            # Use raw params since :placeholder won't bind tuple; fall through
-            with db.connection() as _c:
-                _c.execute(
-                    f"update team_chronicle_observations set is_published = 0 "
-                    f"where team_id = ? and season_year = ? "
-                    f"  and card_type in ({type_placeholders})",
-                    (snapshot.team_id, snapshot.season_year, *NEW_STREAM_TYPES),
+        try:
+            for slug in slugs:
+                try:
+                    profile = load_profile(slug)
+                except FileNotFoundError:
+                    print(f"  skip {slug}: profile not found")
+                    continue
+                try:
+                    snapshot = fetch_team_snapshot(db, slug, season_year=args.season)
+                except LookupError as exc:
+                    print(f"  skip {slug}: {exc}")
+                    continue
+                state = resolve_state(profile, snapshot)
+                print(f"[{slug}] model={args.model} blueblood={slug in BLUE_BLOODS}")
+                cards = generate_chronicle_for_team(
+                    db, profile, snapshot,
+                    model=args.model,
+                    max_cards=args.top_k,
+                    parallel_workers=args.workers,
+                    _meter=cost_meter,
                 )
-                _c.commit()
-            for rank, card in enumerate(cards, start=1):
-                card.persist(db, snapshot.team_id, snapshot.season_year, rank, state.as_dict())
-            type_summary = ", ".join(c.card_type for c in cards) or "(none survived)"
-            print(f"  {slug}: published {len(cards)} cards — {type_summary}")
-            totals["published"] += len(cards)
+                # Unpublish prior rows ONLY for the 6 stream-driven types — leave
+                # any other card_type (rivalry_posture, rivalry_stakes, savant_echo,
+                # etc. from separate scripts) untouched.
+                type_placeholders = ",".join(["?"] * len(NEW_STREAM_TYPES))
+                db.execute(
+                    f"update team_chronicle_observations set is_published = 0 "
+                    f"where team_id = :tid and season_year = :s "
+                    f"  and card_type in ({type_placeholders})",
+                    {"tid": snapshot.team_id, "s": snapshot.season_year, **{}},
+                ) if False else None  # placeholder — real exec below with tuple params
+                # Use raw params since :placeholder won't bind tuple; fall through
+                with db.connection() as _c:
+                    _c.execute(
+                        f"update team_chronicle_observations set is_published = 0 "
+                        f"where team_id = ? and season_year = ? "
+                        f"  and card_type in ({type_placeholders})",
+                        (snapshot.team_id, snapshot.season_year, *NEW_STREAM_TYPES),
+                    )
+                    _c.commit()
+                for rank, card in enumerate(cards, start=1):
+                    card.persist(db, snapshot.team_id, snapshot.season_year, rank, state.as_dict())
+                type_summary = ", ".join(c.card_type for c in cards) or "(none survived)"
+                print(f"  {slug}: published {len(cards)} cards — {type_summary}")
+                totals["published"] += len(cards)
+        except CostCeilingExceeded as exc:
+            print(f"::error::CostMeter halted run: {exc}", flush=True)
+            return 1
         print(
             f"generate-chronicle: done — programs={len(slugs)} "
-            f"cards_published={totals['published']}"
+            f"cards_published={totals['published']} "
+            f"spent=${cost_meter.spent_usd:.4f} / ${cost_meter.ceiling_usd:.2f}"
         )
         return
 
@@ -4483,15 +4505,28 @@ def main() -> None:
     if args.command == "generate-daily":
         from datetime import date as _date
         from cfb_rankings.daily import select_inputs, synthesize_takes, persist_edition
+        from cfb_rankings.llm_runtime import CostMeter, CostCeilingExceeded
         apply_runtime_migrations(db)
         edition_date = args.date or _date.today().isoformat()
-        with db.connection() as conn:
-            bundle = select_inputs(conn, edition_date)
-            takes = synthesize_takes(bundle)
-            persist_edition(conn, bundle, takes)
+        # Pattern C: per-CLI-invocation meter. Per-run ceiling = $0.50
+        # (IMPLEMENTATION_PLAN.md Part 6.5 tier1.daily_lead = $5/week ÷ ~7 runs ≈ $0.71;
+        # we use a conservative $0.50 against the v5.4 cost-tolerance target).
+        cost_meter = CostMeter(
+            ceiling_usd=0.5,
+            label=f"cli.generate-daily.{edition_date}",
+        )
+        try:
+            with db.connection() as conn:
+                bundle = select_inputs(conn, edition_date)
+                takes = synthesize_takes(bundle, _meter=cost_meter)
+                persist_edition(conn, bundle, takes)
+        except CostCeilingExceeded as exc:
+            print(f"::error::CostMeter halted run: {exc}", flush=True)
+            return 1
         vv_pass = sum(1 for t in takes if t.voice_validator_passed)
         print(f"generate-daily {edition_date}: {len(takes)} takes generated, "
-              f"voice_validator passed {vv_pass}/{len(takes)}")
+              f"voice_validator passed {vv_pass}/{len(takes)} "
+              f"spent=${cost_meter.spent_usd:.4f} / ${cost_meter.ceiling_usd:.2f}")
         for t in takes:
             print(f"  #{t.rank_position}: {t.headline[:80]}")
         return
@@ -4794,14 +4829,26 @@ def main() -> None:
     if args.command == "mailbag-generate-answers":
         from cfb_rankings.mailbag.synthesizer import generate_answers_for_edition
         from cfb_rankings.mailbag.data import current_edition_slug
+        from cfb_rankings.llm_runtime import CostMeter, CostCeilingExceeded
         edition = getattr(args, "edition", None) or current_edition_slug()
-        result = generate_answers_for_edition(edition)
+        # Pattern C: per-CLI-invocation meter. Per-run ceiling = $1.00
+        # (IMPLEMENTATION_PLAN.md Part 6.5 tier1.mailbag = $8/week ÷ ~7 runs).
+        cost_meter = CostMeter(
+            ceiling_usd=1.0,
+            label=f"cli.mailbag-generate-answers.{edition}",
+        )
+        try:
+            result = generate_answers_for_edition(edition, _meter=cost_meter)
+        except CostCeilingExceeded as exc:
+            print(f"::error::CostMeter halted run: {exc}", flush=True)
+            return 1
         print(
             f"mailbag-generate-answers: edition={result['edition_slug']} "
             f"answers={result['answers_generated']} "
             f"voice_passed={result['voice_passed']} voice_failed={result['voice_failed']} "
             f"tokens_in={result['total_input_tokens']} tokens_out={result['total_output_tokens']} "
-            f"model_usage={result['model_usage']}",
+            f"model_usage={result['model_usage']} "
+            f"spent=${cost_meter.spent_usd:.4f} / ${cost_meter.ceiling_usd:.2f}",
             flush=True,
         )
         return

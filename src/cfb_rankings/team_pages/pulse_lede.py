@@ -64,6 +64,8 @@ def _themes_summary(themes: list[dict]) -> str:
 def generate_entity_ledes_batch(
     entities: list[tuple[str, str, list[dict], str, str | None]],
     db_conn: Any,
+    *,
+    _meter: Any = None,
 ) -> dict[tuple[str, str], dict[str, Any]]:
     """Batched lede generator for N entities.
 
@@ -71,11 +73,15 @@ def generate_entity_ledes_batch(
     entity_name)`` tuples. Returns ``{(slug, type): {text, voice_validator_passed,
     model_used}}`` for every entity.
 
+    ``_meter`` (Pattern B, optional): single meter spans the batch.
+
     Same shared-system-cached + per-entity-user-message pattern as
     pulse_themes.extract_entities_themes_batch. The lede system prompt
     (~250 tokens) caches once per batch; per-entity messages stay tiny
     (just the entity name + 3 themes).
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(ceiling_usd=0.5, label="pulse_lede.batch")
     from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
 
     jobs: list[BatchJob] = []
@@ -113,6 +119,20 @@ def generate_entity_ledes_batch(
         slug, etype, model = by_id[r.custom_id]
         text = r.text
         passed = bool(r.voice_validator_passed)
+        # Record batch cost. CostCeilingExceeded propagates out.
+        if r.succeeded and (r.input_tokens or r.output_tokens):
+            meter.record(
+                r.model_used or model,
+                {
+                    "input_tokens": int(r.input_tokens or 0),
+                    "output_tokens": int(r.output_tokens or 0),
+                    "cache_creation_input_tokens": int(r.cache_creation_input_tokens or 0),
+                    "cache_read_input_tokens": int(r.cache_read_input_tokens or 0),
+                },
+                is_batch=True,
+                cache_ttl="1h",
+                note=f"pulse_lede.batch.{slug}",
+            )
         if r.succeeded and text and r.mode == "batch":
             if etype == "conference":
                 _store_conference_lede(slug, text, model, db_conn, passed)
@@ -134,12 +154,22 @@ def generate_entity_lede(
     model_tier: str,
     db_conn: Any,
     entity_name: str | None = None,
+    *,
+    _meter: Any = None,
 ) -> dict[str, Any]:
     """Generate and persist a lede for one entity.
 
     Returns llm_runtime result dict with 'text' and 'voice_validator_passed'.
+
+    ``_meter`` (Pattern B, optional): if supplied, records cost against the
+    meter after the call. CostCeilingExceeded propagates up.
     """
-    from cfb_rankings.llm_runtime import generate_with_voice_check
+    from cfb_rankings.llm_runtime import CostMeter, generate_with_voice_check
+
+    meter = _meter or CostMeter(
+        ceiling_usd=0.5,
+        label=f"pulse_lede.{entity_slug}",
+    )
 
     name = entity_name or entity_slug.replace("-", " ").title()
     model = _model_for_tier(model_tier)
@@ -162,6 +192,23 @@ def generate_entity_lede(
 
     lede_text = result.get("text")
     passed = result.get("voice_validator_passed", False)
+
+    # Pattern B cost recording. Skip offline-stub mode (zero-token).
+    if result.get("mode") == "live":
+        tokens = result.get("tokens_used") or {}
+        in_toks = int(tokens.get("input") or 0)
+        out_toks = int(tokens.get("output") or 0)
+        if in_toks or out_toks:
+            meter.record(
+                result.get("model_used", model),
+                {
+                    "input_tokens": in_toks,
+                    "output_tokens": out_toks,
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                },
+                note=f"pulse_lede.{entity_slug}",
+            )
 
     if lede_text and result["mode"] == "live":
         if entity_type == "conference":

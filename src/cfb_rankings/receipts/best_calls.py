@@ -169,8 +169,20 @@ def _claim_brief(claim: sqlite3.Row) -> str:
     )
 
 
-def _llm_write(claim: sqlite3.Row, *, tier: str) -> tuple[dict[str, Any], str]:
-    """tier in {'sonnet','opus'}. Falls back to stub when offline."""
+def _llm_write(
+    claim: sqlite3.Row, *, tier: str,
+    _meter: Any = None,
+) -> tuple[dict[str, Any], str]:
+    """tier in {'sonnet','opus'}. Falls back to stub when offline.
+
+    ``_meter`` (Pattern A, optional): records this Best-Calls call's cost.
+    """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label=f"receipts.best_calls.{tier}",
+    )
+
     if not _have_anthropic():
         return _stub_write(claim, tier=tier), f"stub:{tier}"
     try:
@@ -194,6 +206,9 @@ def _llm_write(claim: sqlite3.Row, *, tier: str) -> tuple[dict[str, Any], str]:
         system=system,
         messages=[{"role": "user", "content": _claim_brief(claim)}],
     )
+    # Pattern A cost recording — propagates CostCeilingExceeded.
+    if getattr(resp, "usage", None) is not None:
+        meter.record(model, resp.usage, note=f"receipts.best_calls.{tier}")
     text = "".join(b.text for b in resp.content if hasattr(b, "text"))
     try:
         obj = json.loads(text[text.index("{"):text.rindex("}") + 1])
