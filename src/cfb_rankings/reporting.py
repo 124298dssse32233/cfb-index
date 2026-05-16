@@ -6394,7 +6394,14 @@ def build_history_explorer_rows(
 
 
 def fetch_current_heisman_snapshot(db: Database, summary: dict[str, Any]) -> dict[str, Any]:
-    season_year = int(summary["season_year"])
+    raw_season_year = int(summary["season_year"])
+    # Hotfix-6: when heisman_rankings_weekly has no rows for raw_season_year
+    # (e.g. summary says 2026 but the Heisman model has only run for 2020-
+    # 2025), fall back to the most recent season with data. Avoids the
+    # /heisman/ "0 ranked players" empty state when the renderer is ahead
+    # of the model. See the 2026-05-15 poisoned-artifact investigation +
+    # the parallel run-heisman-model backfill task.
+    season_year = raw_season_year
     week_row = db.query_one(
         """
         select max(week) as week
@@ -6404,6 +6411,25 @@ def fetch_current_heisman_snapshot(db: Database, summary: dict[str, Any]) -> dic
         {"season_year": season_year},
     ) or {}
     week = None if week_row.get("week") is None else int(week_row["week"])
+    if week is None:
+        # No data for raw_season_year — find the most-recent season that has
+        # rows. Falling back to that lets the page render the prior season's
+        # final Heisman state instead of an empty shell.
+        fallback_row = db.query_one(
+            "select max(season_year) as max_season from heisman_rankings_weekly"
+        ) or {}
+        fallback_season = int(fallback_row.get("max_season") or 0)
+        if fallback_season and fallback_season != raw_season_year:
+            season_year = fallback_season
+            week_row = db.query_one(
+                """
+                select max(week) as week
+                from heisman_rankings_weekly
+                where season_year = %(season_year)s
+                """,
+                {"season_year": season_year},
+            ) or {}
+            week = None if week_row.get("week") is None else int(week_row["week"])
     rows = db.query_all(
         """
         with latest_rows as (
@@ -6515,7 +6541,28 @@ def fetch_player_directory_rows(
     summary: dict[str, Any],
     heisman_week: int | None = None,
 ) -> list[dict[str, Any]]:
-    season_year = int(summary["season_year"])
+    raw_season_year = int(summary["season_year"])
+    # Hotfix-6: roster_entries may not have rows for raw_season_year yet
+    # (e.g. summary says 2026 but the latest roster snapshot is 2025).
+    # Fall back to the most recent season with roster data so the player
+    # directory isn't empty. Diagnostic from the 2026-05-15 poisoned-
+    # artifact investigation: with summary["season_year"]=2026 + roster
+    # data only for 2020-2025, the previous query returned 0 rows →
+    # /players/ index showed "0 player cards". Falling back to
+    # max(season_year) gives the user a live directory of the most
+    # recent player snapshot.
+    season_year = raw_season_year
+    try:
+        latest_row = db.query_one(
+            "select max(season_year) as max_year from roster_entries"
+        )
+        latest_year = int((latest_row or {}).get("max_year") or 0) if latest_row else 0
+    except Exception:
+        latest_year = 0
+    if latest_year and latest_year < raw_season_year:
+        # Future-dated summary; roster hasn't caught up. Use the latest
+        # roster season as the effective filter.
+        season_year = latest_year
     rows = db.query_all(
         """
         with current_roster as (

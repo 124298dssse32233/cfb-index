@@ -261,6 +261,51 @@ jobs:
             || echo "::warning::render-team-pages failed (continuing — set+e swallowed the exit code)"
 
       # ════════════════════════════════════════════════════════════════════
+      # HEISMAN MODEL — idempotent backfill (Hotfix-6)
+      #
+      # The Heisman pipeline writes to heisman_rankings_weekly which
+      # /heisman/ + /players/ both query. The 2026-05-15 poisoned-artifact
+      # investigation surfaced that the model hadn't been run on the
+      # backfilled DB — heisman_rankings_weekly was 0 rows even in the
+      # healthy 165MB artifact. This step runs the model for every
+      # season 2020-current that doesn't yet have model output.
+      # ════════════════════════════════════════════════════════════════════
+      - name: "Heisman — run model for missing seasons (idempotent)"
+        run: |
+          set +e
+          python <<'PY'
+          import subprocess, sqlite3
+          conn = sqlite3.connect("cfb_rankings.db")
+          # For every season with games, check whether heisman_rankings_weekly
+          # has any rows. If not, run the model.
+          seasons = [r[0] for r in conn.execute(
+              "SELECT DISTINCT season_year FROM games "
+              "WHERE home_points IS NOT NULL "
+              "ORDER BY season_year"
+          ).fetchall()]
+          for season in seasons:
+              if season < 2020:
+                  continue  # Heisman model only goes back to 2020 reliably
+              count = conn.execute(
+                  "SELECT COUNT(*) FROM heisman_rankings_weekly WHERE season_year = ?",
+                  (season,),
+              ).fetchone()[0]
+              if count > 0:
+                  print(f"  season {season}: {count} rows, skipping")
+                  continue
+              print(f"  season {season}: 0 rows, running model")
+              rc = subprocess.run(
+                  ["python", "-u", "manage.py", "run-heisman-model",
+                   "--season", str(season), "--through-week", "16"],
+                  check=False,
+              ).returncode
+              if rc != 0:
+                  print(f"::warning::run-heisman-model {season} exited {rc}")
+          conn.close()
+          PY
+          echo "done"
+
+      # ════════════════════════════════════════════════════════════════════
       # RETRO OFFSEASON PAGES
       # ════════════════════════════════════════════════════════════════════
       - name: "Retro — seed all retro issues (idempotent)"
