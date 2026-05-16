@@ -253,6 +253,14 @@ def _substitute(template: str, tokens: dict[str, str]) -> str:
 # ---------------------------------------------------------------------------
 
 def fetch_recent(db: Database, *, days: int) -> list[dict[str, Any]]:
+    # Filter out source_kind='unverified' rows from the legacy fake-news
+    # offseason fallback (deleted in commit 1162d5b3 but the rows it
+    # wrote prior to that commit still sit in the wire_entries table).
+    # The renderer should never surface those — they're real player names
+    # paired with invented destinations (Quinn Ewers/Glenn Schumann/etc).
+    # Hotfix-5: render-time filter is idempotent + works against any DB
+    # state; complemented by a one-time DELETE migration that cleans
+    # the rows out at the source.
     return db.query_all(
         """
         select id, occurred_at, program_slug, program_display, actor_kind,
@@ -262,6 +270,7 @@ def fetch_recent(db: Database, *, days: int) -> list[dict[str, Any]]:
         from wire_entries
         where occurred_at >= datetime('now', :since)
           and trim(why_it_matters) <> ''
+          and coalesce(source_kind, '') != 'unverified'
         order by occurred_at desc
         """,
         {"since": f"-{int(days)} days"},
@@ -278,6 +287,7 @@ def fetch_for_month(db: Database, *, year: int, month: int) -> list[dict[str, An
         where strftime('%Y', occurred_at) = :y
           and strftime('%m', occurred_at) = :m
           and trim(why_it_matters) <> ''
+          and coalesce(source_kind, '') != 'unverified'
         order by occurred_at desc
         """,
         {"y": f"{year:04d}", "m": f"{month:02d}"},

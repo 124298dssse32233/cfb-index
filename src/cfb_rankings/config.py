@@ -146,6 +146,93 @@ WEEKLY_CEILINGS_CENTS: dict[str, int] = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Sprint v5-3 owner Interrupt 2 (2026-05-15) — per-surface CostMeter
+# ceilings + 24-hour rolling aggregate auto-disable.
+#
+# Two guardrails layered on top of the existing weekly ceilings:
+#
+# 1. PER_RUN_CEILINGS_USD — hard ceiling for a single workflow invocation.
+#    Trips ``llm_runtime.CostMeter.record()`` (which raises
+#    ``CostCeilingExceeded``) and aborts that run immediately. Defense
+#    against a single runaway loop racking up a multi-dollar bill in one
+#    invocation.
+#
+# 2. DAILY_AGGREGATE_CEILINGS_USD — sum of cost over the last 24 hours
+#    across ALL runs. When breached, the surface's Pattern C flag is
+#    auto-disabled and the surface degrades to ``SURFACE_DEGRADE_PATTERN``
+#    until human re-enable via ``manage.py quality-loop-reenable``.
+#    Defense against bursty news cycles where Reactions could fire many
+#    times in a day.
+#
+# Together they form a defense-in-depth around the
+# console.anthropic.com $100/mo outer cap — the per-run ceiling catches
+# runaway within seconds, the 24hr aggregate catches it within hours.
+# ---------------------------------------------------------------------------
+
+# Per-run cost ceiling (single workflow invocation) in USD.
+# Trips CostMeter.record() and aborts the run immediately.
+PER_RUN_CEILINGS_USD: dict[str, float] = {
+    "tier1.edition_cover":      5.00,
+    "tier1.daily_lead":         3.00,
+    "tier1.daily_supporting":   3.00,
+    "tier1.heisman_weekly":     2.00,
+    "tier1.mailbag":            1.00,
+    "tier1.reaction_story":     0.50,
+    "tier1.storyline_chapter":  2.00,
+    "tier1.chronicle_profiled": 0.50,
+}
+
+# Per-24hr rolling aggregate ceiling (USD). When a surface's last-24h
+# spend exceeds this, auto-disable Pattern C and degrade to Pattern B/A
+# until human re-enables.
+DAILY_AGGREGATE_CEILINGS_USD: dict[str, float] = {
+    "tier1.edition_cover":      10.00,
+    "tier1.daily_lead":         15.00,
+    "tier1.daily_supporting":   15.00,
+    "tier1.heisman_weekly":      5.00,
+    "tier1.mailbag":            20.00,
+    "tier1.reaction_story":     15.00,
+    "tier1.storyline_chapter":  10.00,
+    "tier1.chronicle_profiled": 25.00,  # 595 cards/wk worst case
+}
+
+
+def _surface_degrade_pattern_map() -> "dict[str, LoopPattern]":
+    """Build the degrade-pattern map. Deferred to avoid a hard import
+    cycle with ``cfb_rankings.quality_loop``; falls back to string values
+    that ``circuit_state.get_active_pattern`` accepts."""
+    try:
+        from cfb_rankings.quality_loop import LoopPattern as _LP
+    except Exception:  # pragma: no cover — circular-import guardrail
+        return {
+            "tier1.edition_cover":      "A_single_shot",
+            "tier1.daily_lead":         "A_single_shot",
+            "tier1.daily_supporting":   "A_single_shot",
+            "tier1.heisman_weekly":     "A_single_shot",
+            "tier1.mailbag":            "A_single_shot",
+            "tier1.reaction_story":     "A_single_shot",
+            "tier1.storyline_chapter":  "B_single_critic",
+            "tier1.chronicle_profiled": "B_single_critic",
+        }  # type: ignore[return-value]
+    # Most degrade to Pattern A (single shot) — preserves output but
+    # drops the 3-critic loop. Storyline/Chronicle profiled degrade to
+    # Pattern B (single critic) because continuity is core to their value.
+    return {
+        "tier1.edition_cover":      _LP.A_SINGLE_SHOT,
+        "tier1.daily_lead":         _LP.A_SINGLE_SHOT,
+        "tier1.daily_supporting":   _LP.A_SINGLE_SHOT,
+        "tier1.heisman_weekly":     _LP.A_SINGLE_SHOT,
+        "tier1.mailbag":            _LP.A_SINGLE_SHOT,
+        "tier1.reaction_story":     _LP.A_SINGLE_SHOT,
+        "tier1.storyline_chapter":  _LP.B_SINGLE_CRITIC,
+        "tier1.chronicle_profiled": _LP.B_SINGLE_CRITIC,
+    }
+
+
+SURFACE_DEGRADE_PATTERN: "dict[str, LoopPattern]" = _surface_degrade_pattern_map()
+
+
 def _load_dotenv() -> None:
     env_path = Path.cwd() / ".env"
     if not env_path.exists():
