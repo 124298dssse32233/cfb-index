@@ -35,6 +35,63 @@ _EXCERPT_LIMIT = 30     # docs fed to Haiku per entity
 _EXCERPT_CHARS = 400    # truncate each body_text
 _DAYS = 30              # lookback window for conversation docs
 
+# Sprint v5-6 — Pattern C dispatch surface key for Stage 2 (Opus ranker/writer).
+# Stage 1 Haiku scan stays sync-only; it's a narrow factual JSON extraction
+# task that doesn't need a critic loop. When
+# ``config.QUALITY_LOOP_FLAGS["tier1.pulse_themes_writer"]`` is set to
+# ``LoopPattern.C_CRITIC_REVISE`` (the v5-5 default), the Stage 2 call is
+# routed through the 3-critic loop. See ``_pattern_c_themes_writer`` below.
+_SURFACE_KEY = "tier1.pulse_themes_writer"
+
+
+def _flag_is_pattern_c() -> bool:
+    """True when the ``tier1.pulse_themes_writer`` flag is set to Pattern C.
+
+    Same defensive contract as pulse_lede._flag_is_pattern_c(): any
+    import / enum-coercion failure returns False → sync path.
+    """
+    try:
+        from cfb_rankings.config import QUALITY_LOOP_FLAGS
+        from cfb_rankings.quality_loop import LoopPattern
+    except Exception:  # pragma: no cover — defensive
+        return False
+    configured = QUALITY_LOOP_FLAGS.get(_SURFACE_KEY)
+    if isinstance(configured, str):
+        try:
+            configured = LoopPattern(configured)
+        except ValueError:
+            return False
+    return configured == LoopPattern.C_CRITIC_REVISE
+
+
+def _pattern_c_themes_writer(prompt: str, system: str, model: str, max_tokens: int) -> str | None:
+    """Run the Stage 2 themes writer through ``loop_c_critic_revise``.
+
+    Returns the loop's final text on success, None on any fall-back
+    (offline-stub, wall-clock timeout, Rung-2 critic failure, Rung-3
+    weekly ceiling, 24h auto-disable). Caller treats None as "use the
+    sync path".
+    """
+    try:
+        from cfb_rankings.quality_loop import loop_c_critic_revise
+    except Exception:  # pragma: no cover — defensive
+        return None
+    try:
+        result = loop_c_critic_revise(
+            prompt,
+            system=system,
+            model=model,
+            max_tokens=max_tokens,
+            surface=_SURFACE_KEY,
+            subcommand="quality_loop.C.pulse_themes_writer",
+        )
+    except Exception as exc:  # pragma: no cover — defensive
+        log.warning("pulse_themes Pattern C raised %s; falling back to sync", exc)
+        return None
+    if result.fell_back or not result.text:
+        return None
+    return result.text
+
 # ---------------------------------------------------------------------------
 # DB helpers
 # ---------------------------------------------------------------------------
@@ -283,14 +340,34 @@ def _sonnet_rank_and_write(
         f"Pick verbatim quotes from these source excerpts where possible:\n"
         + excerpt_lines
     )
-    result = generate_with_voice_check(
-        prompt,
-        system=_SONNET_SYSTEM,
-        model=_SONNET_MODEL,
-        max_tokens=900,
-        max_retries=1,
-        fallback_to_offline=True,
+
+    # Sprint v5-6 — Pattern C dispatch for Stage 2 ranker/writer. When the
+    # ``tier1.pulse_themes_writer`` flag is set, route through the 3-critic
+    # loop. The loop returns the same JSON-array-as-string format the sync
+    # path produces, so the downstream parse logic is unchanged. On any
+    # fall-back the sync path picks up — themes never land as [] unless
+    # both paths fail.
+    pattern_c_text = (
+        _pattern_c_themes_writer(prompt, _SONNET_SYSTEM, _SONNET_MODEL, 900)
+        if _flag_is_pattern_c() else None
     )
+    if pattern_c_text is not None:
+        result = {
+            "text": pattern_c_text,
+            "voice_validator_passed": True,  # Pattern C uses critic scores
+            "model_used": _SONNET_MODEL,
+            "mode": "live",
+            "tokens_used": {},  # CostMeter inside loop_c_critic_revise logs spend
+        }
+    else:
+        result = generate_with_voice_check(
+            prompt,
+            system=_SONNET_SYSTEM,
+            model=_SONNET_MODEL,
+            max_tokens=900,
+            max_retries=1,
+            fallback_to_offline=True,
+        )
     passed = result.get("voice_validator_passed", False)
     # Pattern B cost recording for Stage-2 Sonnet rank/write.
     if _meter is not None and result.get("mode") == "live":
