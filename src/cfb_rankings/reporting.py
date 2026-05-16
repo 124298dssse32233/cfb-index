@@ -16,6 +16,7 @@ from cfb_rankings.common.cfb_calendar import (
     cfb_week_label_for_window,
     is_offseason,
 )
+from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
 from cfb_rankings.bets.glossary import glossary_payload_js, load_glossary
 from cfb_rankings.fan_intelligence import (
@@ -13798,22 +13799,70 @@ def _format_calendar_date(value: datetime) -> str:
     return f"{value.strftime('%B')} {value.day}, {value.year}"
 
 
-def _meta_tags(description: str, title: str = "", image_path: str = "og-image.svg") -> str:
+def _meta_tags(
+    description: str,
+    title: str = "",
+    image_path: str = "og-image.svg",
+    *,
+    canonical_path: str | None = None,
+    og_image_url: str | None = None,
+) -> str:
+    """Emit the standard <head> meta block.
+
+    Parameters
+    ----------
+    description, title, image_path
+        Page-relative ``image_path`` (legacy) is preserved for callers
+        that pass a path relative to the rendered HTML file's directory.
+    canonical_path
+        Optional site-relative path (e.g. ``"/teams/alabama.html"``).
+        When provided, also emits ``<link rel="canonical">``,
+        ``og:url``, and ``twitter:url`` resolved through
+        :func:`absolute_url` so they carry the BASE_URL host. Future
+        callers should populate this; existing call sites still work
+        without it.
+    og_image_url
+        Optional site-relative or absolute URL for the OG image. Takes
+        precedence over the legacy ``image_path`` when present and is
+        resolved through :func:`absolute_url` so the social-media
+        crawler sees an absolute URL (a hard requirement per the OG
+        spec).
+    """
     safe_desc = escape(description)
     safe_title = escape(title) if title else ""
-    safe_image = escape(image_path)
+    # Resolve OG image: prefer the explicit (absolutize-able) `og_image_url`
+    # when supplied; fall back to the legacy file-relative `image_path`.
+    if og_image_url:
+        resolved_image = absolute_url(og_image_url)
+    else:
+        resolved_image = image_path
+    safe_image = escape(resolved_image)
     og_title_line = f'<meta property="og:title" content="{safe_title}">' if safe_title else ""
     twitter_title_line = f'<meta name="twitter:title" content="{safe_title}">' if safe_title else ""
+
+    canonical_block = ""
+    og_url_line = ""
+    twitter_url_line = ""
+    if canonical_path:
+        canonical_abs = absolute_url(canonical_path)
+        safe_canonical = escape(canonical_abs)
+        canonical_block = f'<link rel="canonical" href="{safe_canonical}">'
+        og_url_line = f'<meta property="og:url" content="{safe_canonical}">'
+        twitter_url_line = f'<meta name="twitter:url" content="{safe_canonical}">'
+
     return (
+        f'{canonical_block}'
         f'<meta name="description" content="{safe_desc}">'
         f'<meta property="og:site_name" content="THE CFB INDEX">'
         f'<meta property="og:type" content="website">'
+        f'{og_url_line}'
         f'{og_title_line}'
         f'<meta property="og:description" content="{safe_desc}">'
         f'<meta property="og:image" content="{safe_image}">'
         f'<meta property="og:image:width" content="1200">'
         f'<meta property="og:image:height" content="630">'
         f'<meta name="twitter:card" content="summary_large_image">'
+        f'{twitter_url_line}'
         f'{twitter_title_line}'
         f'<meta name="twitter:description" content="{safe_desc}">'
         f'<meta name="twitter:image" content="{safe_image}">'
@@ -14099,7 +14148,7 @@ def render_home_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} | College Football Power Index</title>
-    {_meta_tags(f"THE CFB INDEX — Power and Resume rankings for every NCAA football team, with a fan-intelligence layer reading belief, respect, and rivalry heat. One universe from FBS through Division III.", title=f"THE CFB INDEX | {season_name}")}
+    {_meta_tags(f"THE CFB INDEX — Power and Resume rankings for every NCAA football team, with a fan-intelligence layer reading belief, respect, and rivalry heat. One universe from FBS through Division III.", title=f"THE CFB INDEX | {season_name}", canonical_path="/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -14300,7 +14349,7 @@ def render_rankings_page_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Rankings</title>
-    {_meta_tags(f"Power and Resume rankings for all NCAA football teams in {season_name}. FBS, FCS, Division II, and Division III on one board with filterable sort and conference views.", title=f"{season_name} Rankings | THE CFB INDEX", image_path="../og-image.svg")}
+    {_meta_tags(f"Power and Resume rankings for all NCAA football teams in {season_name}. FBS, FCS, Division II, and Division III on one board with filterable sort and conference views.", title=f"{season_name} Rankings | THE CFB INDEX", image_path="../og-image.svg", canonical_path="/rankings/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -14954,7 +15003,7 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(team_name)} | {escape(season_name)}</title>
-    {_meta_tags(f"{team_name} {season_name}: record {int(season_summary.get('wins') or 0)}-{int(season_summary.get('losses') or 0)}, Power {_public_power_text(ranking.power_display)}, Resume {_public_resume_text(ranking.resume_display)}. Mood, matchups, and the model's read on the season.", title=f"{team_name} | {season_name}", image_path=f"{ranking.slug}-og.svg")}
+    {_meta_tags(f"{team_name} {season_name}: record {int(season_summary.get('wins') or 0)}-{int(season_summary.get('losses') or 0)}, Power {_public_power_text(ranking.power_display)}, Resume {_public_resume_text(ranking.resume_display)}. Mood, matchups, and the model's read on the season.", title=f"{team_name} | {season_name}", image_path=f"{ranking.slug}-og.svg", canonical_path=f"/teams/{ranking.slug}.html", og_image_url=f"/teams/{ranking.slug}-og.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -15406,7 +15455,7 @@ def render_teams_index_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Teams | {escape(season_name)}</title>
-    {_meta_tags(f"Every NCAA football team for {season_name} — FBS, FCS, Division II, and Division III. Filter by level, browse by conference, search by name.", title=f"Teams | {season_name}", image_path="../og-image.svg")}
+    {_meta_tags(f"Every NCAA football team for {season_name} — FBS, FCS, Division II, and Division III. Filter by level, browse by conference, search by name.", title=f"Teams | {season_name}", image_path="../og-image.svg", canonical_path="/teams/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -15902,7 +15951,7 @@ def render_heisman_page_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Heisman Tracker | {escape(season_name)}</title>
-    {_meta_tags(f"A full-board Heisman model for {season_name}. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — including the best non-QB, best G5, and best defensive case.", title=f"Heisman Tracker | {season_name}", image_path="../og-image.svg")}
+    {_meta_tags(f"A full-board Heisman model for {season_name}. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — including the best non-QB, best G5, and best defensive case.", title=f"Heisman Tracker | {season_name}", image_path="../og-image.svg", canonical_path="/heisman/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>

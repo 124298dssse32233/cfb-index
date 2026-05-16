@@ -28,6 +28,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.common.head_chrome import render_head_chrome
+
 from .profile_loader import Profile, load_profile
 
 
@@ -213,6 +215,12 @@ def _render_page(
     )
 
     page_title = f"{profile.program_name} {year} — {title} — CFB Index"
+    head_chrome_block = render_head_chrome(
+        page_path=f"/teams/{profile.slug}/seasons/{year}.html",
+        title=page_title,
+        description=f"{profile.program_name} — {year} season archive · {title}.",
+        og_type="article",
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -221,6 +229,7 @@ def _render_page(
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="{html.escape(profile.program_name)} — {year} season archive · {html.escape(title)}.">
 <meta name="theme-color" content="{accent_primary}">
+{head_chrome_block}
 <style>
 {tokens_css}
 

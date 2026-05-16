@@ -23,12 +23,16 @@ from abc import ABC, abstractmethod
 from typing import Any, Iterable, Sequence
 from urllib.request import Request, urlopen
 
+from cfb_rankings.common.head_chrome import base_url
 from cfb_rankings.db import Database
 
 logger = logging.getLogger(__name__)
 
 
-_DEFAULT_USER_AGENT = "CFBIndex-FanIntel/0.1 (+https://cfb-index.com)"
+# User-Agent string for outbound HTTP requests. The host suffix tracks
+# the canonical site URL so operators of upstream services can find us;
+# routes through head_chrome.base_url() so a domain swap is a one-line change.
+_DEFAULT_USER_AGENT = f"CFBIndex-FanIntel/0.1 (+{base_url()})"
 
 
 @dataclasses.dataclass(frozen=True)
