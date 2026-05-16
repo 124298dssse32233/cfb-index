@@ -10577,12 +10577,38 @@ def fetch_historical_season_ledger(db: Database) -> list[dict[str, Any]]:
         order by tr.season_year desc, fp.final_rank asc, fp.power_rating desc, t.canonical_name asc
         """
     )
+    # Build eligibility set from teams whose CURRENT team_seasons row puts
+    # them in an official subdivision conference. Historical backfill only
+    # populates `games`, not `team_seasons`, so per-row level/conference is
+    # NULL for prior seasons — applying the eligibility filter row-by-row
+    # used to drop every historical row (Alabama loaded 1 season instead of 6+).
+    eligible_team_ids: set[int] = set()
+    eligibility_rows = db.query_all(
+        """
+        select ts.team_id,
+               coalesce(ts.level_code, t.level_code) as level_code,
+               c.conference_name
+        from team_seasons ts
+        join teams t on t.team_id = ts.team_id
+        left join conferences c on c.conference_id = ts.conference_id
+        where ts.season_year = (
+          select max(season_year) from team_seasons
+        )
+        """
+    )
+    for elig_row in eligibility_rows:
+        elig_level = str(elig_row.get("level_code") or "")
+        elig_conf = None if elig_row.get("conference_name") is None else str(elig_row.get("conference_name"))
+        if is_site_eligible_team(elig_level, elig_conf):
+            eligible_team_ids.add(int(elig_row["team_id"]))
+
     ledger: list[dict[str, Any]] = []
     for row in rows:
+        team_id = int(row["team_id"])
+        if team_id not in eligible_team_ids:
+            continue
         level_code = str(row.get("level_code") or "")
         conference_name = None if row.get("conference_name") is None else str(row.get("conference_name"))
-        if not is_site_eligible_team(level_code, conference_name):
-            continue
         points_for = int(row.get("points_for") or 0)
         points_against = int(row.get("points_against") or 0)
         games_played = max(1, int(row.get("games_played") or 0))
@@ -15779,7 +15805,7 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
             </article>
           </div>
           <div class="team-hero-actions">
-            {f'<a class="button button-primary" href="{program_data.get("current_season_url")}">{escape(season_name)} Season Page</a>' if program_data.get("current_season_url") else ''}
+            {f'<a class="button button-primary" href="{program_data.get("current_season_url")}">{escape(season_name)} Page</a>' if program_data.get("current_season_url") else ''}
             <a class="button button-secondary" href="../rankings/index.html">Current Rankings</a>
             <a class="button button-secondary" href="../history/index.html">History Hub</a>
           </div>
