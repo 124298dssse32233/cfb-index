@@ -130,6 +130,28 @@ _V5_4_E_FLAGS = (
     "tier1.chronicle_profiled",
 )
 
+# Sprint v5-5 (Jun 22-26 per IMPLEMENTATION_PLAN.md, brought forward
+# 2026-05-16 owner request) — Canon + Pulse Pattern C flag batch:
+#   tier1.canon_top10           top 10 entries of each canon list
+#   tier1.canon_tail            tail entries (rank 11-N) of each canon list
+#   tier1.pulse_themes_writer   Stage 2 writer that turns theme candidates
+#                               into the final 1-3 themes shown on the
+#                               team/conference Pulse panels
+#   tier1.best_calls            Receipts "Best Calls" weekly digest
+#   tier1.pulse_lede            Lede above the Pulse panel for each entity
+#
+# Wiring policy in this batch: the flag declarations land now. Generator
+# wrappers (the actual loop_c_critic_revise dispatch) ship per-surface
+# across v5-5/v5-6/v5-7 sprints — see each module's docstring for which
+# surface is live and which is still pre-wrapper (flag inert).
+_V5_5_FLAGS = (
+    "tier1.canon_top10",
+    "tier1.canon_tail",
+    "tier1.pulse_themes_writer",
+    "tier1.best_calls",
+    "tier1.pulse_lede",
+)
+
 
 def _initial_quality_loop_flags() -> "dict[str, LoopPattern]":
     try:
@@ -137,11 +159,13 @@ def _initial_quality_loop_flags() -> "dict[str, LoopPattern]":
     except Exception:  # pragma: no cover — circular-import guardrail
         out: dict[str, str] = {k: "C_critic_revise" for k in _V5_3_FLAGS}
         out.update({k: "E_continuity" for k in _V5_4_E_FLAGS})
+        out.update({k: "C_critic_revise" for k in _V5_5_FLAGS})
         return out  # type: ignore[return-value]
     out: dict[str, "LoopPattern"] = {
         k: _LP.C_CRITIC_REVISE for k in _V5_3_FLAGS
     }
     out.update({k: _LP.E_CONTINUITY for k in _V5_4_E_FLAGS})
+    out.update({k: _LP.C_CRITIC_REVISE for k in _V5_5_FLAGS})
     return out
 
 
@@ -166,6 +190,16 @@ WEEKLY_CEILINGS_CENTS: dict[str, int] = {
     "tier2.chronicle_unprofiled":  1500,
     "tier3.wire":                   200,
     "tier3.canon_tail":             200,
+    # Sprint v5-5 additions (2026-05-16) — Canon + Pulse Pattern C. The
+    # tier1.canon_top10 ceiling above is the v5-3 pre-allocation;
+    # tier1.canon_tail / pulse_themes_writer / best_calls / pulse_lede
+    # are new and get conservative $2-3/wk caps. The auto-disable rolling
+    # 24h aggregate (DAILY_AGGREGATE_CEILINGS_USD below) is the primary
+    # cost guardrail for these — weekly is a secondary backstop.
+    "tier1.canon_tail":             300,
+    "tier1.pulse_themes_writer":    300,
+    "tier1.best_calls":             200,
+    "tier1.pulse_lede":             200,
 }
 
 
@@ -196,28 +230,47 @@ WEEKLY_CEILINGS_CENTS: dict[str, int] = {
 # Per-run cost ceiling (single workflow invocation) in USD.
 # Trips CostMeter.record() and aborts the run immediately.
 PER_RUN_CEILINGS_USD: dict[str, float] = {
-    "tier1.edition_cover":      5.00,
-    "tier1.daily_lead":         3.00,
-    "tier1.daily_supporting":   3.00,
-    "tier1.heisman_weekly":     2.00,
-    "tier1.mailbag":            1.00,
-    "tier1.reaction_story":     0.50,
-    "tier1.storyline_chapter":  2.00,
-    "tier1.chronicle_profiled": 0.50,
+    "tier1.edition_cover":       5.00,
+    "tier1.daily_lead":          3.00,
+    "tier1.daily_supporting":    3.00,
+    "tier1.heisman_weekly":      2.00,
+    "tier1.mailbag":             1.00,
+    "tier1.reaction_story":      0.50,
+    "tier1.storyline_chapter":   2.00,
+    "tier1.chronicle_profiled":  0.50,
+    # Sprint v5-5 additions:
+    # Canon top-10 + tail run nightly in batch over ~300 entries total;
+    # cap per-run high enough to allow the full list refresh in one shot.
+    # Pulse themes/lede fire per-entity (17 profiled teams + conferences),
+    # each cheap individually. Best calls is one weekly digest call.
+    "tier1.canon_top10":         3.00,
+    "tier1.canon_tail":          5.00,
+    "tier1.pulse_themes_writer": 2.00,
+    "tier1.best_calls":          1.00,
+    "tier1.pulse_lede":          1.00,
 }
 
 # Per-24hr rolling aggregate ceiling (USD). When a surface's last-24h
 # spend exceeds this, auto-disable Pattern C and degrade to Pattern B/A
 # until human re-enables.
 DAILY_AGGREGATE_CEILINGS_USD: dict[str, float] = {
-    "tier1.edition_cover":      10.00,
-    "tier1.daily_lead":         15.00,
-    "tier1.daily_supporting":   15.00,
-    "tier1.heisman_weekly":      5.00,
-    "tier1.mailbag":            20.00,
-    "tier1.reaction_story":     15.00,
-    "tier1.storyline_chapter":  10.00,
-    "tier1.chronicle_profiled": 25.00,  # 595 cards/wk worst case
+    "tier1.edition_cover":       10.00,
+    "tier1.daily_lead":          15.00,
+    "tier1.daily_supporting":    15.00,
+    "tier1.heisman_weekly":       5.00,
+    "tier1.mailbag":             20.00,
+    "tier1.reaction_story":      15.00,
+    "tier1.storyline_chapter":   10.00,
+    "tier1.chronicle_profiled":  25.00,  # 595 cards/wk worst case
+    # Sprint v5-5 additions: rolling 24h aggregates. Auto-disable Pattern C
+    # if exceeded, surface degrades to SURFACE_DEGRADE_PATTERN until manual
+    # quality-loop-reenable. Sized 5-10× weekly to allow bursty days
+    # (e.g. a canon list full refresh nightly).
+    "tier1.canon_top10":          5.00,
+    "tier1.canon_tail":          10.00,
+    "tier1.pulse_themes_writer":  8.00,
+    "tier1.best_calls":           5.00,
+    "tier1.pulse_lede":           5.00,
 }
 
 
@@ -229,27 +282,41 @@ def _surface_degrade_pattern_map() -> "dict[str, LoopPattern]":
         from cfb_rankings.quality_loop import LoopPattern as _LP
     except Exception:  # pragma: no cover — circular-import guardrail
         return {
-            "tier1.edition_cover":      "A_single_shot",
-            "tier1.daily_lead":         "A_single_shot",
-            "tier1.daily_supporting":   "A_single_shot",
-            "tier1.heisman_weekly":     "A_single_shot",
-            "tier1.mailbag":            "A_single_shot",
-            "tier1.reaction_story":     "A_single_shot",
-            "tier1.storyline_chapter":  "B_single_critic",
-            "tier1.chronicle_profiled": "B_single_critic",
+            "tier1.edition_cover":       "A_single_shot",
+            "tier1.daily_lead":          "A_single_shot",
+            "tier1.daily_supporting":    "A_single_shot",
+            "tier1.heisman_weekly":      "A_single_shot",
+            "tier1.mailbag":             "A_single_shot",
+            "tier1.reaction_story":      "A_single_shot",
+            "tier1.storyline_chapter":   "B_single_critic",
+            "tier1.chronicle_profiled":  "B_single_critic",
+            # Sprint v5-5 additions — Canon/Pulse/Best Calls degrade to
+            # Pattern A on auto-disable, same as the other tier1
+            # editorial surfaces. Loses the critic loop but preserves
+            # the underlying Opus/Sonnet output.
+            "tier1.canon_top10":         "A_single_shot",
+            "tier1.canon_tail":          "A_single_shot",
+            "tier1.pulse_themes_writer": "A_single_shot",
+            "tier1.best_calls":          "A_single_shot",
+            "tier1.pulse_lede":          "A_single_shot",
         }  # type: ignore[return-value]
     # Most degrade to Pattern A (single shot) — preserves output but
     # drops the 3-critic loop. Storyline/Chronicle profiled degrade to
     # Pattern B (single critic) because continuity is core to their value.
     return {
-        "tier1.edition_cover":      _LP.A_SINGLE_SHOT,
-        "tier1.daily_lead":         _LP.A_SINGLE_SHOT,
-        "tier1.daily_supporting":   _LP.A_SINGLE_SHOT,
-        "tier1.heisman_weekly":     _LP.A_SINGLE_SHOT,
-        "tier1.mailbag":            _LP.A_SINGLE_SHOT,
-        "tier1.reaction_story":     _LP.A_SINGLE_SHOT,
-        "tier1.storyline_chapter":  _LP.B_SINGLE_CRITIC,
-        "tier1.chronicle_profiled": _LP.B_SINGLE_CRITIC,
+        "tier1.edition_cover":       _LP.A_SINGLE_SHOT,
+        "tier1.daily_lead":          _LP.A_SINGLE_SHOT,
+        "tier1.daily_supporting":    _LP.A_SINGLE_SHOT,
+        "tier1.heisman_weekly":      _LP.A_SINGLE_SHOT,
+        "tier1.mailbag":             _LP.A_SINGLE_SHOT,
+        "tier1.reaction_story":      _LP.A_SINGLE_SHOT,
+        "tier1.storyline_chapter":   _LP.B_SINGLE_CRITIC,
+        "tier1.chronicle_profiled":  _LP.B_SINGLE_CRITIC,
+        "tier1.canon_top10":         _LP.A_SINGLE_SHOT,
+        "tier1.canon_tail":          _LP.A_SINGLE_SHOT,
+        "tier1.pulse_themes_writer": _LP.A_SINGLE_SHOT,
+        "tier1.best_calls":          _LP.A_SINGLE_SHOT,
+        "tier1.pulse_lede":          _LP.A_SINGLE_SHOT,
     }
 
 
