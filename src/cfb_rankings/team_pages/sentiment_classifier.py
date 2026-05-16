@@ -69,13 +69,23 @@ def classify_player_targets(
     db_conn: Any,
     limit: int | None = None,
     dry_run: bool = False,
+    *,
+    _meter: Any = None,
 ) -> dict[str, int]:
     """Classify all unlabelled player-linked conversation targets.
 
     Returns a summary dict: {labelled, skipped, batches, errors}.
     Skips rows where body_text is empty or None — these cannot be classified.
+
+    ``_meter`` (Pattern B, optional): single meter spans all batches in
+    this invocation. The sentiment classifier is Haiku-only and per-row
+    cost is tiny, so the ceiling here is conservatively low.
     """
-    from cfb_rankings.llm_runtime import generate_with_voice_check
+    from cfb_rankings.llm_runtime import CostMeter, generate_with_voice_check
+    meter = _meter or CostMeter(
+        ceiling_usd=0.2,
+        label="sentiment.player_targets",
+    )
 
     cur = db_conn.cursor()
 
@@ -130,6 +140,23 @@ def classify_player_targets(
             fallback_to_offline=True,
         )
         batches += 1
+
+        # Pattern B cost recording — skip offline-stub.
+        if result.get("mode") == "live":
+            tokens = result.get("tokens_used") or {}
+            in_toks = int(tokens.get("input") or 0)
+            out_toks = int(tokens.get("output") or 0)
+            if in_toks or out_toks:
+                meter.record(
+                    result.get("model_used", _HAIKU_MODEL),
+                    {
+                        "input_tokens": in_toks,
+                        "output_tokens": out_toks,
+                        "cache_creation_input_tokens": 0,
+                        "cache_read_input_tokens": 0,
+                    },
+                    note=f"sentiment.batch_{batches}",
+                )
 
         if result["mode"] == "offline-stub" or not result["text"]:
             log.warning("batch %d: offline-stub, skipping %d rows", batches, len(batch))

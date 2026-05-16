@@ -612,6 +612,7 @@ def write_cards_batch(
     max_tokens: int = 2048,
     poll_interval_seconds: int = 30,
     timeout_seconds: int = 14400,
+    _meter: Any = None,
 ) -> list[tuple[CandidateObservation, Profile, TeamSnapshot, str, dict[str, str] | None, dict[str, Any]]]:
     """Batch variant of ``write_card`` — process N cards in one API batch.
 
@@ -623,7 +624,15 @@ def write_cards_batch(
     Voice-validator runs inside submit_batch but its result is informational
     only at this stage — the per-card regex ``validate_card`` is still the
     authoritative gate downstream.
+
+    ``_meter`` (Pattern A, optional): single meter spans the batch — per-run
+    ceiling caps the whole batch. CostCeilingExceeded propagates.
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=5.0,
+        label="chronicle.batch",
+    )
     from cfb_rankings.llm_runtime_batch import submit_batch_offline_safe
 
     jobs = build_chronicle_batch_jobs(plan, max_tokens=max_tokens)
@@ -662,6 +671,20 @@ def write_cards_batch(
         meta["output_tokens"] = r.output_tokens
         meta["cache_read_input_tokens"] = r.cache_read_input_tokens
         meta["cache_creation_input_tokens"] = r.cache_creation_input_tokens
+        # Record batch cost (Pattern A). CostCeilingExceeded propagates.
+        if r.succeeded and (r.input_tokens or r.output_tokens):
+            meter.record(
+                r.model_used or mdl,
+                {
+                    "input_tokens": int(r.input_tokens or 0),
+                    "output_tokens": int(r.output_tokens or 0),
+                    "cache_creation_input_tokens": int(r.cache_creation_input_tokens or 0),
+                    "cache_read_input_tokens": int(r.cache_read_input_tokens or 0),
+                },
+                is_batch=True,
+                cache_ttl="1h",
+                note=f"chronicle.{profile.slug}.rank_{idx+1}",
+            )
         if not r.succeeded or not r.text:
             meta["error"] = r.error or "batch job did not succeed"
             out.append((cand, profile, snapshot, mdl, None, meta))
@@ -812,6 +835,7 @@ def generate_chronicle_for_team(
     parallel_workers: int = 3,
     log: Any = None,
     mode: str = "sync",
+    _meter: Any = None,
 ) -> list[ChronicleCard]:
     """Full pipeline: scan → rank → write (LLM) → validate → keep survivors.
 
@@ -822,6 +846,11 @@ def generate_chronicle_for_team(
       - 'opus'    → all Opus (expensive; avoid unless testing)
       - 'template' → skip the LLM entirely; emit a deterministic card from
                      the candidate evidence (degraded mode for offline dev).
+
+    ``_meter`` (Pattern A, optional): cost ceiling for this team's run.
+    The sync subprocess path (write_card → claude CLI) does NOT expose
+    token usage, so it cannot be metered. Only the batch sub-path uses
+    the meter today. CostCeilingExceeded propagates from inner calls.
     """
     logf = _make_logger(log)
     season_year = season_year or snapshot.season_year
@@ -911,6 +940,7 @@ def generate_chronicle_for_teams_batch(
     log: Any = None,
     poll_interval_seconds: int = 30,
     timeout_seconds: int = 14400,
+    _meter: Any = None,
 ) -> dict[str, list[ChronicleCard]]:
     """Multi-team batch generation — every card from every team in ONE batch.
 
@@ -977,6 +1007,7 @@ def generate_chronicle_for_teams_batch(
         flat_plan,
         poll_interval_seconds=poll_interval_seconds,
         timeout_seconds=timeout_seconds,
+        _meter=_meter,
     )
 
     # Stage 4 + retry-sync: validate per card; retry failures via subprocess.

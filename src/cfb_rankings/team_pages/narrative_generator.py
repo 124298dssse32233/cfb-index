@@ -105,6 +105,7 @@ def generate_state_of_team(
     *,
     mode: str = "template",
     claude_model: str = "claude-opus-4-7",
+    _meter: Any = None,
 ) -> NarrativeResult:
     """Generate the state-of-team paragraph.
 
@@ -112,6 +113,8 @@ def generate_state_of_team(
       - 'template' → deterministic composition from profile frontmatter.
       - 'claude' → Anthropic SDK call.
       - 'claude-code' → subprocess out to `claude` binary (Max sub).
+
+    ``_meter`` (Pattern A, optional): cost ceiling for the claude SDK path.
     """
     prompt = build_state_of_team_prompt(profile, snapshot, state)
 
@@ -129,7 +132,7 @@ def generate_state_of_team(
         )
 
     if mode == "claude":
-        return _call_anthropic_sdk(prompt, claude_model, variant="state_of_team")
+        return _call_anthropic_sdk(prompt, claude_model, variant="state_of_team", _meter=_meter)
 
     if mode == "claude-code":
         return _call_claude_code_cli(prompt, claude_model, variant="state_of_team")
@@ -153,6 +156,7 @@ def generate_state_of_team_post_game(
     final_meta: dict[str, Any],
     mode: str = "template",
     claude_model: str = "claude-opus-4-7",
+    _meter: Any = None,
 ) -> NarrativeResult:
     """Generate the post-game state-of-team paragraph for the GameRecapHero.
 
@@ -181,7 +185,9 @@ def generate_state_of_team_post_game(
         )
 
     if mode == "claude":
-        return _call_anthropic_sdk(prompt, claude_model, variant="state_of_team_post_game")
+        return _call_anthropic_sdk(
+            prompt, claude_model, variant="state_of_team_post_game", _meter=_meter,
+        )
 
     if mode == "claude-code":
         return _call_claude_code_cli(prompt, claude_model, variant="state_of_team_post_game")
@@ -714,7 +720,23 @@ def _log_invocation(subcommand: str, model: str, p_tok: int, c_tok: int, dur: fl
         pass  # never let logging break generation
 
 
-def _call_anthropic_sdk(prompt: str, model: str, variant: str) -> NarrativeResult:
+def _call_anthropic_sdk(
+    prompt: str, model: str, variant: str,
+    *,
+    _meter: Any = None,
+) -> NarrativeResult:
+    """Direct anthropic SDK call. ``_meter`` (Pattern A, optional) records cost.
+
+    Note: this module ships its own ``_estimate_cost`` + ``_log_invocation``
+    telemetry. The CostMeter integration is consolidated on top — Best Calls
+    + DB usage log + meter all coexist, but the meter is the only one that
+    can HARD-FAIL the workflow if the ceiling is breached.
+    """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label=f"narrative.{variant}",
+    )
     try:
         import anthropic  # type: ignore
     except ImportError as e:
@@ -729,6 +751,9 @@ def _call_anthropic_sdk(prompt: str, model: str, variant: str) -> NarrativeResul
         max_tokens=500,
         messages=[{"role": "user", "content": prompt}],
     )
+    # Record cost against the meter. CostCeilingExceeded propagates.
+    if getattr(msg, "usage", None) is not None:
+        meter.record(model, msg.usage, note=f"narrative.{variant}")
     body = "".join(
         getattr(block, "text", "") for block in msg.content
         if getattr(block, "type", "") == "text"

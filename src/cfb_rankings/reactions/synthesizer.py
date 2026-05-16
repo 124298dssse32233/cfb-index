@@ -18,7 +18,7 @@ import re
 import textwrap
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Optional
 
 from .cohort_divergence import CohortData, CohortDivergence
 from .data import (
@@ -214,8 +214,15 @@ def _llm_synthesize(
     cohort_div: CohortDivergence,
     surprise_index: float,
     model: str,
+    *,
+    _meter: "Any" = None,
 ) -> tuple[str, str, str]:
-    """Call Anthropic API to synthesize the story. Returns (headline, dek, body)."""
+    """Call Anthropic API to synthesize the story. Returns (headline, dek, body).
+
+    ``_meter`` (Pattern B, optional): if supplied, records this call's cost
+    against the meter after the SDK returns. ``CostCeilingExceeded`` from
+    ``meter.record`` propagates up to the workflow entry point.
+    """
     import anthropic
 
     entity_name = wire_row.get("program_display", wire_row.get("program_slug", "Unknown"))
@@ -285,6 +292,10 @@ def _llm_synthesize(
         max_tokens=1200,
         messages=[{"role": "user", "content": prompt}],
     )
+    # Pattern B: record cost on the meter if one was supplied. We pass
+    # the raw SDK usage object — CostMeter understands its attrs.
+    if _meter is not None and getattr(msg, "usage", None) is not None:
+        _meter.record(model, msg.usage, note="reaction_story")
     raw = msg.content[0].text.strip()
 
     # Parse JSON response
@@ -373,11 +384,16 @@ def _reactions_user_message(
 
 def synthesize_reactions_batch(
     stories: list[tuple["TriggerEvent", dict, CohortDivergence, str]],
+    *,
+    _meter: Any = None,
 ) -> list["ReactionStory"]:
     """Batched generation of N reaction stories.
 
     Args:
         stories: list of (trigger, wire_row, cohort_div, story_slug) tuples.
+        _meter: optional CostMeter (Pattern B). One meter applies across the
+            entire batch — if you supply one at the workflow entry point it
+            tracks total spend for the run.
 
     Returns the persisted ReactionStory list. Voice-validator output here
     is informational — the JSON-output contract triggers false positives
@@ -385,11 +401,16 @@ def synthesize_reactions_batch(
     check on body+headline+dek remains the authoritative gate (with stub
     fallback on validate fail).
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label="reaction.batch",
+    )
     try:
         from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
     except ImportError as exc:
         print(f"  [reactions.batch] llm_runtime_batch unavailable: {exc} — falling back to sync", flush=True)
-        return [generate_reaction(trigger, wire_row, cohort_div, story_slug)
+        return [generate_reaction(trigger, wire_row, cohort_div, story_slug, _meter=meter)
                 for trigger, wire_row, cohort_div, story_slug in stories]
 
     jobs = []
@@ -422,6 +443,21 @@ def synthesize_reactions_batch(
         (trigger, wire_row, cohort_div, story_slug, surprise_index, model) = by_slug[r.custom_id]
         validator_passed = False
         generation_model = r.model_used or model
+        # Record batch cost. Cache fields propagate so cache_read pricing
+        # applies. CostCeilingExceeded propagates out of the loop.
+        if r.succeeded and (r.input_tokens or r.output_tokens):
+            meter.record(
+                generation_model,
+                {
+                    "input_tokens": int(r.input_tokens or 0),
+                    "output_tokens": int(r.output_tokens or 0),
+                    "cache_creation_input_tokens": int(r.cache_creation_input_tokens or 0),
+                    "cache_read_input_tokens": int(r.cache_read_input_tokens or 0),
+                },
+                is_batch=True,
+                cache_ttl="1h",
+                note=f"reaction.batch.{story_slug}",
+            )
         if r.succeeded and r.text:
             # Parse JSON; on failure or validator fail, drop to stub.
             raw = r.text.strip()
@@ -496,13 +532,24 @@ def generate_reaction(
     cohort_div: CohortDivergence,
     story_slug: str,
     offline: Optional[bool] = None,
+    *,
+    _meter: "Any" = None,
 ) -> ReactionStory:
     """Synthesize + persist a Reaction Story.
 
     Returns the persisted ReactionStory. Voice validator gate: retry once,
     drop to stub on second failure.
+
+    ``_meter`` (Pattern B, optional): cost meter; per-call default created
+    if omitted so standalone calls still hard-fail on runaway spend.
     """
     use_offline = offline if offline is not None else _OFFLINE
+    # Lazy import — keep this module importable in minimal environments.
+    from cfb_rankings.llm_runtime import CostMeter, CostCeilingExceeded
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label=f"reaction.{story_slug}",
+    )
 
     surprise_index = _compute_surprise_index(wire_row, cohort_div)
 
@@ -515,7 +562,12 @@ def generate_reaction(
         if use_offline:
             return _stub_story_body(wire_row, cohort_div, surprise_index)
         try:
-            return _llm_synthesize(wire_row, cohort_div, surprise_index, model)
+            return _llm_synthesize(
+                wire_row, cohort_div, surprise_index, model, _meter=meter,
+            )
+        except CostCeilingExceeded:
+            # Cost ceiling breaches MUST propagate — never swallow.
+            raise
         except Exception as exc:
             print(f"  [synthesizer] LLM call failed (attempt {attempt}): {exc}", flush=True)
             return _stub_story_body(wire_row, cohort_div, surprise_index)

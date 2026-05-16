@@ -209,6 +209,7 @@ def generate_uncovered_rows_batch(
     *,
     days: int = 90,
     model: str = "claude-sonnet-4-6",
+    _meter: Any = None,
 ) -> dict[str, Any]:
     """Batched LLM generation for Wire rows NOT covered by an authored caption.
 
@@ -223,7 +224,14 @@ def generate_uncovered_rows_batch(
     skipped — the row keeps its factual_restatement until next run.
     Production deployment of this path is gated on the Sprint v5-2
     quality-loop work.
+
+    ``_meter`` (Pattern A, optional): single meter spans the batch.
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label="wire.editorial.batch",
+    )
     from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
 
     where = (
@@ -280,6 +288,20 @@ def generate_uncovered_rows_batch(
     results = submit_batch_offline_safe(jobs)
     updated = 0
     for r_obj in results:
+        # Record batch cost. CostCeilingExceeded propagates out.
+        if r_obj.succeeded and (r_obj.input_tokens or r_obj.output_tokens):
+            meter.record(
+                r_obj.model_used or model,
+                {
+                    "input_tokens": int(r_obj.input_tokens or 0),
+                    "output_tokens": int(r_obj.output_tokens or 0),
+                    "cache_creation_input_tokens": int(r_obj.cache_creation_input_tokens or 0),
+                    "cache_read_input_tokens": int(r_obj.cache_read_input_tokens or 0),
+                },
+                is_batch=True,
+                cache_ttl="1h",
+                note=f"wire.editorial.{r_obj.metadata.get('wire_id')}",
+            )
         if not r_obj.succeeded or not r_obj.text:
             continue
         text = r_obj.text.strip()

@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import sqlite3
 from dataclasses import dataclass
+from typing import Any
 
 from .data import (
     CanonListMeta, CanonEntry,
@@ -186,6 +187,7 @@ def regenerate_entries_batch(
     *,
     model: str = "claude-sonnet-4-6",
     max_tokens: int = 600,
+    _meter: "Any" = None,
 ) -> dict[str, int]:
     """Batch LLM regeneration of one Canon list's entries.
 
@@ -197,7 +199,16 @@ def regenerate_entries_batch(
     + one job per entry. Each entry's user message carries only the
     per-row stat context, keeping the cached prefix dominant in input
     cost.
+
+    ``_meter`` (Pattern A, optional): single meter for the entire batch.
+    Currently always a no-op against seed-authored lists; reserved for
+    when this path activates against dynamic lists.
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=2.0,
+        label=f"canon.{list_slug}",
+    )
     from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
 
     raw_entries = seed_authored.entries_for(list_slug)
@@ -244,6 +255,20 @@ def regenerate_entries_batch(
     # entries list via replace_entries; here we just count the successes
     # because the seed-authored lists shouldn't be overwritten by LLM.
     for r in results:
+        # Record batch cost. CostCeilingExceeded propagates out.
+        if r.succeeded and (r.input_tokens or r.output_tokens):
+            meter.record(
+                r.model_used or model,
+                {
+                    "input_tokens": int(r.input_tokens or 0),
+                    "output_tokens": int(r.output_tokens or 0),
+                    "cache_creation_input_tokens": int(r.cache_creation_input_tokens or 0),
+                    "cache_read_input_tokens": int(r.cache_read_input_tokens or 0),
+                },
+                is_batch=True,
+                cache_ttl="1h",
+                note=f"canon.{list_slug}.{r.metadata.get('entity_slug')}",
+            )
         if r.succeeded and r.text:
             updated += 1
     return {

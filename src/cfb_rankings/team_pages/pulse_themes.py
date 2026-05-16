@@ -187,7 +187,12 @@ not generic praise. Return ONLY a JSON array of objects with keys:
 Example: [{"label":"Transfer Portal Drama","summary":"...","quote":"..."}]"""
 
 
-def _haiku_extract_candidates(excerpts: list[dict], entity_name: str) -> list[dict]:
+def _haiku_extract_candidates(
+    excerpts: list[dict],
+    entity_name: str,
+    *,
+    _meter: Any = None,
+) -> list[dict]:
     from cfb_rankings.llm_runtime import generate_with_voice_check
 
     if not excerpts:
@@ -208,6 +213,22 @@ def _haiku_extract_candidates(excerpts: list[dict], entity_name: str) -> list[di
         max_retries=1,
         fallback_to_offline=True,
     )
+    # Pattern B cost recording for Stage-1 Haiku candidate extraction.
+    if _meter is not None and result.get("mode") == "live":
+        tokens = result.get("tokens_used") or {}
+        in_toks = int(tokens.get("input") or 0)
+        out_toks = int(tokens.get("output") or 0)
+        if in_toks or out_toks:
+            _meter.record(
+                result.get("model_used", _HAIKU_MODEL),
+                {
+                    "input_tokens": in_toks,
+                    "output_tokens": out_toks,
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                },
+                note=f"pulse_themes.haiku.{entity_name}",
+            )
     if result["mode"] == "offline-stub" or not result["text"]:
         return []
     try:
@@ -242,7 +263,9 @@ Return ONLY a JSON array of N objects, ordered rank 1 first."""
 
 
 def _sonnet_rank_and_write(
-    candidates: list[dict], entity_name: str, n: int, excerpts: list[dict]
+    candidates: list[dict], entity_name: str, n: int, excerpts: list[dict],
+    *,
+    _meter: Any = None,
 ) -> tuple[list[dict], bool]:
     from cfb_rankings.llm_runtime import generate_with_voice_check
 
@@ -269,6 +292,22 @@ def _sonnet_rank_and_write(
         fallback_to_offline=True,
     )
     passed = result.get("voice_validator_passed", False)
+    # Pattern B cost recording for Stage-2 Sonnet rank/write.
+    if _meter is not None and result.get("mode") == "live":
+        tokens = result.get("tokens_used") or {}
+        in_toks = int(tokens.get("input") or 0)
+        out_toks = int(tokens.get("output") or 0)
+        if in_toks or out_toks:
+            _meter.record(
+                result.get("model_used", _SONNET_MODEL),
+                {
+                    "input_tokens": in_toks,
+                    "output_tokens": out_toks,
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                },
+                note=f"pulse_themes.sonnet.{entity_name}",
+            )
     if result["mode"] == "offline-stub" or not result["text"]:
         return [], False
     try:
@@ -294,6 +333,8 @@ def _sonnet_rank_and_write(
 def extract_entities_themes_batch(
     entities: list[tuple[str, str, str, str | None]],
     db_conn: Any,
+    *,
+    _meter: Any = None,
 ) -> dict[tuple[str, str], list[dict]]:
     """Batched Stage 2 (Sonnet/Opus) theme ranker/writer for N entities.
 
@@ -312,7 +353,14 @@ def extract_entities_themes_batch(
     batch helper's standard telemetry contract. Failed Stage 1 entities
     short-circuit to empty results and are skipped from the Stage 2
     batch.
+
+    ``_meter`` (Pattern B, optional): single meter spans both stages.
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label="pulse_themes.batch",
+    )
     from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
 
     # Stage 1 — sync candidate scan + excerpt fetch (small per-entity).
@@ -340,7 +388,7 @@ def extract_entities_themes_batch(
         if not excerpts:
             out[(entity_slug, entity_type)] = []
             continue
-        candidates = _haiku_extract_candidates(excerpts, name)
+        candidates = _haiku_extract_candidates(excerpts, name, _meter=meter)
         if not candidates:
             out[(entity_slug, entity_type)] = []
             continue
@@ -385,6 +433,20 @@ def extract_entities_themes_batch(
     results = submit_batch_offline_safe(jobs, run_voice_validator=False)
     for r in results:
         slug, etype, n_themes = by_id[r.custom_id]
+        # Record batch cost. CostCeilingExceeded propagates.
+        if r.succeeded and (r.input_tokens or r.output_tokens):
+            meter.record(
+                r.model_used or _SONNET_MODEL,
+                {
+                    "input_tokens": int(r.input_tokens or 0),
+                    "output_tokens": int(r.output_tokens or 0),
+                    "cache_creation_input_tokens": int(r.cache_creation_input_tokens or 0),
+                    "cache_read_input_tokens": int(r.cache_read_input_tokens or 0),
+                },
+                is_batch=True,
+                cache_ttl="1h",
+                note=f"pulse_themes.batch.sonnet.{slug}",
+            )
         if not r.succeeded or not r.text:
             log.warning("pulse_themes batch: %s failed (%s)", r.custom_id, r.error)
             out[(slug, etype)] = []
@@ -422,12 +484,22 @@ def extract_entity_themes(
     tier: str,
     db_conn: Any,
     entity_name: str | None = None,
+    *,
+    _meter: Any = None,
 ) -> list[dict]:
     """Run Haiku+Sonnet theme pipeline for one entity.
 
     tier: 'full' → 3 themes; 'partial' → 1 theme
     Returns persisted themes list (empty on offline/failure).
+
+    ``_meter`` (Pattern B, optional): single meter spans Stage 1 (Haiku) +
+    Stage 2 (Sonnet) so a per-entity ceiling covers the full pipeline.
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label=f"pulse_themes.{entity_slug}",
+    )
     n_themes = 3 if tier == "full" else 1
 
     # Fetch excerpts
@@ -453,11 +525,11 @@ def extract_entity_themes(
 
     log.info("extract_entity_themes: %s | %d excerpts | tier=%s", entity_slug, len(excerpts), tier)
 
-    candidates = _haiku_extract_candidates(excerpts, name)
+    candidates = _haiku_extract_candidates(excerpts, name, _meter=meter)
     if not candidates:
         return []
 
-    themes, passed = _sonnet_rank_and_write(candidates, name, n_themes, excerpts)
+    themes, passed = _sonnet_rank_and_write(candidates, name, n_themes, excerpts, _meter=meter)
 
     if themes:
         if entity_type == "conference":

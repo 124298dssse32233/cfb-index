@@ -219,6 +219,8 @@ Begin your answer now."""
 
 def generate_answers_for_edition_batch(
     edition_slug: str,
+    *,
+    _meter: Any = None,
 ) -> dict[str, Any]:
     """Batched variant of ``generate_answers_for_edition`` — submits every
     curated question for the edition in one Anthropic Batch.
@@ -229,12 +231,21 @@ def generate_answers_for_edition_batch(
       - Output (250-400 words × N questions) gets the 50% Batch discount
       - Combined: ~50-70% reduction vs the synchronous path for a 5+
         question edition (which is the common case)
+
+    ``_meter`` (Pattern B, optional): if supplied, records per-job cost
+    against the meter (batched calls bill at 50% input+output rates).
     """
+    from cfb_rankings.llm_runtime import CostMeter
+
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label=f"mailbag.batch.{edition_slug}",
+    )
     try:
         from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
     except ImportError as exc:
         log.warning("llm_runtime_batch unavailable: %s — falling back to sync", exc)
-        return generate_answers_for_edition(edition_slug)
+        return generate_answers_for_edition(edition_slug, _meter=meter)
 
     with db_conn() as conn:
         curated = list_curated_for_edition(conn, edition_slug)
@@ -301,6 +312,21 @@ def generate_answers_for_edition_batch(
             total_input += r.input_tokens
             total_output += r.output_tokens
             model_usage[used_model] = model_usage.get(used_model, 0) + r.input_tokens + r.output_tokens
+            # Record batch cost against the meter (is_batch=True applies
+            # the 50% input+output discount). Cache fields propagate so
+            # cache_read pricing applies.
+            meter.record(
+                used_model,
+                {
+                    "input_tokens": int(r.input_tokens or 0),
+                    "output_tokens": int(r.output_tokens or 0),
+                    "cache_creation_input_tokens": int(r.cache_creation_input_tokens or 0),
+                    "cache_read_input_tokens": int(r.cache_read_input_tokens or 0),
+                },
+                is_batch=True,
+                cache_ttl="1h",
+                note=f"mailbag.batch.rank_{rank}.sub_{sub_id}",
+            )
             if passed:
                 voice_passed += 1
             else:
@@ -351,12 +377,24 @@ def generate_answers_for_edition_batch(
 
 def generate_answers_for_edition(
     edition_slug: str,
+    *,
+    _meter: Any = None,
 ) -> dict[str, Any]:
     """Generate synthesis answers for all curated submissions in an edition.
 
     Returns telemetry: {edition_slug, answers_generated, voice_passed, voice_failed,
                         total_input_tokens, total_output_tokens, model_usage}
+
+    ``_meter`` (Pattern B, optional): if supplied, records per-answer cost
+    against the meter. Defaults to a per-call meter with this surface's
+    per-run ceiling so standalone calls still hard-fail on runaway spend.
     """
+    from cfb_rankings.llm_runtime import CostMeter, CostCeilingExceeded
+
+    meter = _meter or CostMeter(
+        ceiling_usd=1.0,
+        label=f"mailbag.{edition_slug}",
+    )
     with db_conn() as conn:
         curated = list_curated_for_edition(conn, edition_slug)
 
@@ -408,6 +446,21 @@ def generate_answers_for_edition(
         in_toks = tokens.get("input", 0)
         out_toks = tokens.get("output", 0)
         used_model = result.get("model_used", model)
+
+        # Record cost against the meter (Pattern B). offline-stub results
+        # contribute nothing and are skipped. CostCeilingExceeded raised
+        # here propagates out of the loop to the workflow entry point.
+        if result.get("mode") != "offline-stub" and (in_toks or out_toks):
+            meter.record(
+                used_model,
+                {
+                    "input_tokens": int(in_toks or 0),
+                    "output_tokens": int(out_toks or 0),
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                },
+                note=f"mailbag.rank_{rank}.sub_{sub_id}",
+            )
 
         total_input += in_toks
         total_output += out_toks

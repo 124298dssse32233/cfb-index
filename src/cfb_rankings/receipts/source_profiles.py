@@ -170,7 +170,21 @@ surprise scores), produce a 2-sentence voice characterization that:
 Output plain text, 2 sentences, no markdown."""
 
 
-def _voice_summary(agg: SourceAggregate, sample: Sequence[sqlite3.Row]) -> str:
+def _voice_summary(
+    agg: SourceAggregate, sample: Sequence[sqlite3.Row],
+    *,
+    _meter: Any = None,
+) -> str:
+    """Generate a short voice/style summary for a tracked Receipts source.
+
+    ``_meter`` (Pattern A, optional): records this Sonnet call's cost.
+    """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=0.3,
+        label=f"receipts.source_voice.{agg.source_slug}",
+    )
+
     if not os.environ.get("ANTHROPIC_API_KEY"):
         return _stub_voice_summary(agg, sample)
     try:
@@ -194,12 +208,15 @@ def _voice_summary(agg: SourceAggregate, sample: Sequence[sqlite3.Row]) -> str:
         f"program_focus: {agg.program_focus_slugs}\n\n"
         f"Sample claims:\n{bullets}"
     )
+    model_id = os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-6")
     resp = client.messages.create(
-        model=os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-6"),
+        model=model_id,
         max_tokens=240,
         system=_VOICE_SYSTEM,
         messages=[{"role": "user", "content": user}],
     )
+    if getattr(resp, "usage", None) is not None:
+        meter.record(model_id, resp.usage, note="receipts.source_voice")
     text = "".join(b.text for b in resp.content if hasattr(b, "text")).strip()
     return text or _stub_voice_summary(agg, sample)
 
@@ -226,11 +243,22 @@ def _stub_voice_summary(agg: SourceAggregate, sample: Sequence[sqlite3.Row]) -> 
 # Top-level orchestrator
 # ---------------------------------------------------------------------------
 
-def recompute_all(*, min_takes: int = 3, top_n: int = 50) -> dict[str, int]:
+def recompute_all(
+    *, min_takes: int = 3, top_n: int = 50,
+    _meter: Any = None,
+) -> dict[str, int]:
     """Recompute source_profiles for every slug with >= min_takes claims.
 
     Bios are written for the top_n most-cited sources only (cost control).
+
+    ``_meter`` (Pattern C, optional): single meter spans every voice_summary
+    call. Defaults to a per-invocation meter sized for the full top_n run.
     """
+    from cfb_rankings.llm_runtime import CostMeter
+    meter = _meter or CostMeter(
+        ceiling_usd=0.3,
+        label="receipts.source_profiles.recompute_all",
+    )
     n = 0
     bios = 0
     with db_conn() as conn:
@@ -249,7 +277,7 @@ def recompute_all(*, min_takes: int = 3, top_n: int = 50) -> dict[str, int]:
                  ORDER BY surprise_index DESC NULLS LAST
                  LIMIT 8
             """, (slug,)).fetchall()
-            voice = _voice_summary(agg, sample) if idx < top_n else None
+            voice = _voice_summary(agg, sample, _meter=meter) if idx < top_n else None
             if voice:
                 bios += 1
             conn.execute("""
