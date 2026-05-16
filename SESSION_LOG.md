@@ -1,5 +1,114 @@
 # Fan Intelligence Build — Session Log
 
+2026-05-16 22:10 UTC | aggressive v5-5 / v5-6 / v5-7 push (per owner override of cost-prudence rule)
+
+v5-5 (PR #72): surface=tier1.pulse_lede, pattern=C_CRITIC_REVISE,
+              first-run cost=$2.73 (16 calls, 100% fall-back to sync),
+              content=PASS (sync fall-back renders correct mascot-personality
+              ledes on /teams/<slug>.html — verified Alabama "The Elephant
+              is patient", Ohio State "Brutus is patient", Oregon "The Duck
+              is changing uniforms", Georgia "Uga is watching the schedule",
+              Texas "Bevo is chewing"), status=LIVE (Pattern C active,
+              fall-back rate 100%).
+
+v5-6 (PR #73): surface=tier1.pulse_themes_writer, pattern=C_CRITIC_REVISE,
+              first-run cost=$2.92 (14 calls, ~71% fall-back rate),
+              content=PASS (sync fall-back renders themes via the existing
+              pulse_themes_batch downstream renderer; team pages still ship
+              correct pulse panels with the QUIET/heritage editorial line),
+              status=LIVE (Pattern C active, fall-back rate ~71%).
+
+v5-7 (PR #74): surface=tier1.best_calls, pattern=C_CRITIC_REVISE,
+              first-run cost=$0.00 (zero calls — no world_class_enrich step
+              invokes `manage.py generate-best-calls`; the wrapper is wired
+              into receipts/best_calls.py:_llm_write but only fires on the
+              manual CLI command; not validated in production this session),
+              content=NOT EXERCISED (no live-site change because best_calls
+              is a manual-trigger surface only), status=LIVE-but-INERT
+              (flag declared, wrapper exists, no caller in any workflow).
+
+hotfix-15 (PR #75): batch-vs-Pattern-C reconciliation. Run 25972411919
+              (v5-5 deploy validation) showed zero entries for any of the
+              5 v5-5 tier1.* surfaces in llm_usage_log despite the flags
+              being set and the wrappers being in place. Root cause: my
+              v5-5 wrapper in pulse_lede.generate_entity_lede targets the
+              SYNC entry point, but world_class_enrich exclusively calls
+              the BATCH entry point (generate_entity_ledes_batch) — same
+              for pulse_themes (sync = _sonnet_rank_and_write, batch =
+              extract_entities_themes_batch). Pattern C and Batch API are
+              mutually exclusive: the 3-critic sequential loop can't be
+              expressed as a single batch submit. Hotfix-15 adds a flag
+              check at the top of each batch function: when the surface
+              flag is Pattern C, the batch function iterates entities
+              sequentially through the sync function (which has the
+              Pattern C wrapper), skipping the BatchJob assembly
+              entirely. Lose 50% Batch discount, gain 3-critic loop
+              firing.
+
+Total session spend (3 runs since v5-5 deploy): **$15.22** (post-hotfix-15
+run = $8.53 alone; pre-hotfix-15 runs = $6.70 — note the pre-hotfix runs
+spent on batch path Pattern B as before, no Pattern C activity).
+
+Console cap status: not directly readable from telemetry; the $100/mo cap
+on console.anthropic.com is the outer ceiling, well above the $15
+session-spend.
+
+Surfaces hot (>50% of 24h ceiling) at session end:
+  - tier1.pulse_lede           $2.73 / $5.0  = 54.6%  HOT
+  - tier1.pulse_themes_writer  $2.92 / $8.0  = 36.5%  ok
+  - tier1.best_calls           $0.00 / $5.0  = 0.0%   ok (no caller)
+
+Critic-failure analysis (honest, not optimistic): both pulse_lede and
+pulse_themes_writer Pattern C loops are exiting via the
+`consecutive_critic_failures_after_escalation` fall-back reason. The
+3-critic loop is rejecting the surfaces' output style — likely because
+the critics are tuned for the v5-2 edition_cover system prompt
+(long-form essay, 1200-word narrative voice) and pulse_lede is 2-3
+sentences (200 max tokens) / pulse_themes_writer is JSON-formatted
+output. The critics don't accept these short-form / structured outputs
+even after the one revise round. Each fall-back still pays for the
+3-call critic + revise loop ($0.15-0.30/entity) on top of the
+subsequent sync call — effectively 2× cost for no Pattern C benefit
+on the rejected calls. The output remains correct via sync fallback,
+so per the user's "if a surface ships broken output: REVERT" rule no
+revert is required — but the critic-tuning gap is real and should be
+addressed in a follow-up.
+
+PRs landed:
+  - #72 sprint-v5-5 (5 flag declarations + pulse_lede sync wrapper)
+  - #73 sprint-v5-6 (pulse_themes_writer sync wrapper)
+  - #74 sprint-v5-7 (best_calls wrapper, CLI-only path)
+  - #75 hotfix-15 (batch path falls through to sync when flag set)
+  - #76 SESSION_LOG entry (this commit)
+
+Blockers carried forward:
+  1. Pattern C critics tuned for long-form essay reject pulse_lede
+     (2-3 sentences) and pulse_themes_writer (JSON). Need critic
+     prompt variants per surface, or per-surface threshold tuning, or
+     accept that these surfaces use Pattern A/B style validation
+     instead. ~$5-6/run wasted on failed Pattern C attempts that
+     fall through to sync anyway.
+  2. tier1.canon_top10 + tier1.canon_tail flags declared in config but
+     INERT — canon generator (canon/generator.py) is currently
+     seed-authored, no live LLM caller. Wrapping requires activating
+     the regenerate_entries_batch path against non-seed-authored
+     lists, a future-sprint scope.
+  3. tier1.best_calls wrapper LIVE but no workflow invokes
+     `generate-best-calls`. The Pattern C path will fire on the next
+     manual CLI invocation but no scheduled validation yet.
+  4. Duplicate logging: each Pattern C call appears twice in
+     llm_usage_log (quality_loop._emit_telemetry + CostMeter.record
+     both insert). Pre-existing from hotfix-10; not breaking but
+     inflates per-surface counts by 2× for surfaces routing through
+     both layers.
+
+Discipline followed: zero agent dispatches, live-site verification of
+team pulse panels via `git show origin/published:teams/<slug>.html`,
+no preemptive ceiling tightening (per owner explicit instruction), no
+fake-fixes (hotfix-15 shipped immediately when telemetry showed
+flags-but-no-fire situation; no claim of "Pattern C live" while batch
+path was bypassing it).
+
 2026-05-16 evening | exhaustive site audit (/octo:auto → manual, no agent dispatches) | User invoked /octo:auto with "look at the whole site for stale data, bugs, etc. be exhaustive" after the 6-hour extension's priority work was complete. Routed to Review intent but executed manually per the established discipline rule ("no debugger-agent dispatches at any bug, manual investigation has been undefeated"). | Method: fetched 22 main surface URLs via `git show origin/published:<path>` (Vercel auth-gated, bypass token absent), plus sample team/program/player/canon/reaction/archive pages, plus the 44,392-file ls-tree inventory of the published branch. Searched site-wide for placeholder/stale text patterns, broken asset references, empty stats, date staleness, broken HTML, hardcoded version strings, dead links from CTAs. | **Five bugs found, four shipped as hotfixes 11-14 (PRs #67-#70)**. **Bug #1**: `publish_site.yml` "Refresh backfilled edition pages" step iterated a hardcoded slug list `2026-w14 2026-w15 2026-w16 2026-w17`, missing W18/W19. Effect: `/editions/2026-w18/the-quiet-week/` and `/editions/2026-w19/three-weeks-before-camp-whispers/` both 404'd, AND the homepage's "READ THE COVER ESSAY →" CTA pointed at the 404 W19 article. Hotfix-11 (PR #67) replaced the hardcoded list with a sqlite3 query `SELECT edition_slug FROM editions ORDER BY publish_date` so every seeded edition auto-renders going forward. **Bug #2**: `_persist_cover_body` in editions/cli.py only UPDATEd `edition_features.body_markdown`, never `dek`. Effect: the seed-authored "Cover essay scaffold — auto-filled by the Pattern C generator on the next world_class_enrich run" placeholder dek persisted on the homepage and archive cards forever, even after Pattern C wrote a real 5,890-char body for W19. Hotfix-11 also added a `_dek_from_body(body, max_chars=220)` helper that takes the first paragraph (or truncates at sentence boundary in the back half of max_chars, or word boundary + ellipsis), and `_persist_cover_body` now writes both `body_markdown` AND `dek` in the same UPDATE. **Bug #4** (caught while #1+#2 deployed): `src/cfb_rankings/{daily,mailbag,reactions}/renderer.py` hardcoded `<link rel="stylesheet" href="/assets/cfb-index.93e59647a6bd.css">` but that file does NOT exist on the published site (current hashes are `89cc354d9863` and `f3924a06eced`). Every load of `/daily/`, `/mailbag/`, `/reactions/` fired a 404 in the browser console for the global stylesheet. Each renderer has its own self-contained inline `<style>` block so removing the broken link has no visual regression. Hotfix-12 (PR #68) dropped the link from all three .py files. Caught one more in Hotfix-14 (PR #70): `src/cfb_rankings/daily/templates/daily.html` (the Mako template that renders `/daily/<date>/index.html`) had the same hardcoded link — patched. **Bug #5** (caught on the post-hotfix-11+12 spot-check): the W19 article page existed (Bug #1 fixed) but rendered with the seed placeholder body (~3.7KB) instead of the Pattern C body (~5.9KB) that was in the DB. Root cause: `upsert_edition` AND `upsert_feature` ON CONFLICT clauses were overwriting content fields back to seed values on every re-seed. Workflow ordering exposes the race: (1) world_class_enrich's `generate-edition-covers` (hotfix-9) writes Pattern C body to body_markdown + promotes editions.status to 'published'; (2) artifact uploaded with the Pattern C content; (3) NEXT workflow (publish_site or world_class_enrich) calls seed-editions; (4) upsert_edition+upsert_feature ON CONFLICT resets body_markdown back to placeholder AND demotes status back to 'draft' (the seed value); (5) the homepage's `fetch_active_edition` (filters on status='published') stops seeing W18/W19 and falls back to W17. Hotfix-13 (PR #69) rewrote the ON CONFLICT in both functions: editions.status uses a case-expression that never demotes 'published'→'draft'; editions.cover_essay_id and editions.published_at_utc use COALESCE to preserve once-set values; edition_features.dek and edition_features.body_markdown use case-expressions that preserve any non-empty existing value (only seed an empty field). | Effect on live site, verified via `git show origin/published:` against the post-fix publish commit `151d5f091e` (publish: weekly rebuild 2026-05-16T20:02Z): `/editions/2026-w19/three-weeks-before-camp-whispers/index.html` jumped from 3,719 bytes of placeholder to 9,749 bytes of real Pattern C content beginning "The press box at Bryant-Denny was nearly empty by the time the cleaning crews started rolling carts down the aisles..." W18's article (`the-quiet-week`) is also 9,705 bytes of real Pattern C content this time (not the seed fall-back from the previous round). Homepage `tease-dek` reads the same first paragraph as the article. Editions archive shows zero `status-draft` pills. The hotfix-13 idempotency now holds — running publish_site or world_class_enrich repeatedly won't undo the Pattern C content or demote the status. Cost telemetry from the validation run (25969961763): 2 Pattern C calls for W18+W19 cost $0.49 (Opus 4.7), 1 fall-back none this time. Cumulative session edition_cover spend: $0.98 + $0.49 = $1.47 against the $10/day ceiling = 14.7%. | **Other findings flagged but NOT fixed this audit**: (a) `today_in_cfb_history` workflow had a `startup_failure` this morning at 10:10 UTC — no log available, possibly a reusable-workflow permission issue; not user-facing because no `/today-in-history/` surface exists on the published site; deferred. (b) 39 `src/cfb_rankings/**/__pycache__/*.pyc` files are committed to the `published` branch — Vercel's `.vercelignore` does exclude them so they're not served to users, just bloat in the git branch. Low priority. (c) `/daily/archive.html` only lists the last 5 daily editions but ~20 exist on disk; the daily archive renderer truncates by design. (d) `hub/index.html` index cards are dated "22 APR 2026" (24 days old at audit time); hub appears to be intentionally lower-cadence, not a bug. (e) Wire entry timestamps like "00:10 ET", "04:11 ET" on a Saturday in May look suspicious but are real CFBD `committed_at` timestamps displayed in ET — a timezone-display refinement, not a data integrity issue. (f) `sitemap.xml` and `robots.txt` don't exist at root — the user's documented stance is "non-public site" so SEO surfaces aren't a priority. | Honest grades — Bug #1 (W18/W19 404): **FIXED + VERIFIED LIVE**. Bug #2 (stale dek): **FIXED + VERIFIED LIVE**. Bug #4 (stale CSS hash, 4 sites): **FIXED + VERIFIED LIVE in 3 of 4** (daily/index.html had a second instance in the template file caught after hotfix-12, fixed in hotfix-14 — daily template fix not yet redeployed at audit-end, will land on the next publish_site run). Bug #5 (re-seed wipe): **FIXED + VERIFIED LIVE** (W18+W19 article pages now have real Pattern C bodies, idempotency holds). Other findings: **DEFERRED** (low priority, no user impact). | PRs landed this session: **#67 hotfix-11**, **#68 hotfix-12**, **#69 hotfix-13**, **#70 hotfix-14**. Discipline rules followed: ✓ zero agent dispatches (all manual investigation), ✓ live-site verification after every deploy via `git show origin/published:`, ✓ no fake-fixes (Bug #4's missed template was caught + shipped as a separate hotfix the moment I noticed it), ✓ no Sprint v5-5 work (still held), ✓ no flag flips.
 
 2026-05-16 mid-day | 6-hour extension end-of-session report | Continuation of the autonomous overnight, closing the three real blockers from that session's list. Priority 1 (Pattern C cover-essay → workflow): **DONE**. Hotfix-9 (PR #64): added new plural CLI `generate-edition-covers` (batch wrapper over existing singular `generate-edition-cover`) that filters editions by --status (default 'draft'), routes each through `synthesize_cover_essay` (Pattern C critic-revise loop or seed fall-back), persists the body to `edition_features.body_markdown`, and (default) promotes `editions.status` draft→published. Inserted new workflow step "Editions — generate Pattern C cover essays for draft issues" in `world_class_enrich.yml` between the Hub pulse step and the storylines refresh, gated on `skip_ai != 'true'`. Also found two latent bugs in cli.py edition-framework dispatch: both `generate-edition-cover` (singular, from v5-2) AND the new plural variant were registered via `register_edition_subcommands` but neither was routed in the `if args.command in (...)` dispatch list at line 4470 — added both. Validated by run 25966764275 (16:16 UTC, 28m total) — `generate-edition-covers` step output: "persisted body (source=seed, len=377) + promoted draft → published" for W18, "persisted body (source=llm, len=5890) + promoted draft → published" for W19. Live site post-deploy (`origin/published` commit 77afd19dc): homepage `/index.html` rotated from `2026-w17` "After the Bracket" to `2026-w19` (Issue XIX) as the active edition. /editions/ archive shows all 6 issues XIV-XIX with zero `status-draft` pills (confirmed by `grep -c '<span class="status-draft">'` returning 0). Priority 2 (CostMeter INSERT → llm_usage_log): **DONE**. Hotfix-10 (PR #65): rewrote `team_pages/llm_usage_log.py:append_llm_usage()` as a JSONL + SQL dual-writer (backwards-compatible signature; added optional cost_usd / cache_*_tokens / sqlite_conn kwargs; opens fresh sqlite3 connection per call via DATABASE_URL env-var path; estimates cost_usd from MODEL_RATES when not provided; maps quality_loop extras `loop_pattern`/`critic_roles_used[0]`/`critic_scores[0]`/`revise_count`/`fell_back` into the corresponding SQL columns; SQL failure swallowed with a `log.warning` — telemetry must never crash a workflow). Also modified `llm_runtime.CostMeter.record()` to call append_llm_usage at the end, so the 14+ CostMeter call sites (PR #51 wiring across daily/mailbag/canon/reactions/receipts/wire/team_pages) now flow into the SQL table without per-site code changes; skips zero-cost records to keep the table focused on billable activity. Smoke-tested locally with a synthetic CostMeter(label='smoke.priority-2.costmeter', ceiling=$5).record('claude-opus-4-7', FakeUsage(in=5000, out=800)) call: cost computed correctly to $0.135, row landed in llm_usage_log with surface/model_id/tokens/cost_usd/invoked_at_utc populated. Existing tests pass: 70/70 under `pytest -k "llm_usage_log or cost_meter or CostMeter or quality_loop"`. Priority 3 (first cost telemetry observation): **PRELIMINARY** — captured ~25 min of activity from run 25966764275 only, NOT the 3-4 hours the brief recommended before extrapolating from data points. SQL aggregate from post-run artifact (7034986782, 329MB, gate passed): 153 rows in llm_usage_log totaling $3.46 across this single run. Per-surface (sorted by spend): `tier1.edition_cover` 2 runs $0.98 ($0.49 avg, 1 fallback — that's the W18 seed fall-back); `generate-narratives:state_of_team` 17 runs $0.84 (likely duplicated by `narrative.state_of_team` at 17 runs $0.84, suggesting one log per quality_loop._emit_telemetry path PLUS one per CostMeter.record dual-write — known limitation, deduplicate by call_id later if it matters); `pulse_themes.batch` 28 runs $0.34; `cli.generate-chronicle` 70 runs $0.30; `pulse_lede.batch` 16 runs $0.13; `cli.generate-daily.2026-05-16` 3 runs $0.02. Per-model: Opus 4.7 73 calls $3.20 (the bulk of cost); Sonnet 4.6 66 calls $0.20; Haiku 4.5 14 calls $0.06. Compared against 24h ceilings: edition_cover at $0.98 / $10 ceiling = 9.8% — well under 50%, no dial-back needed. Other surfaces (mailbag, reactions, heisman_weekly) not observed at all in this window — probably no LLM call fired that touched them this run (mailbag is Friday-09am-only, reactions only fires on trigger checks, heisman_weekly likely guarded by a Pattern E flag that wasn't tripped). **Cannot extrapolate to monthly spend from 25 min of data**, per the brief's explicit warning. Priority 4 (dawidd6 race fix Option A): **SKIPPED** — tactically unnecessary right now (artifacts are all clean after overnight cleanup; no race in progress), and the proper fix is Option B (DB-backed canonical pointer registry) which is a future session's project. Sprint v5-5: **HELD** — the brief's prereq "Phase 4 telemetry shows no surface > 50% of ceiling" is technically met for the surfaces I did observe (edition_cover at 9.8%), but the brief also said "If you don't have at least 3-4 hours of LLM-call activity yet to read meaningfully, mark Priority 3 as DEFERRED. Don't extrapolate from 2 data points." Conservative call: a single 25-min observation window isn't a sufficient base to gate v5-5 on, and the brief's overnight discipline ("If any not clean: STOP. Don't ship v5-5") still applies. No flag flips this session. | Live site final state, verified via `git show origin/published:<path>` against commit 77afd19dc: `/index.html` active edition `2026-w19` (Issue XIX) — rotated up two issues; `/programs/alabama.html` LOADED SEASONS=12 (unchanged); `/programs/ohio-state.html` LOADED SEASONS=12; "Season Season" duplicate count=0 (unchanged); `/heisman/` Ranked players=16,218, Player cards=40,409 (unchanged); `/players/` 40,410 directory rows (unchanged); `/wire/` 0 Quinn Ewers (unchanged); `/editions/` shows XIV/XV/XVI/XVII/XVIII/XIX with zero status-draft pills. 8 of 8 spot-check criteria PASS for the first time including the homepage edition rotation that pre-existed this session. | Cost spend during these 6 hours (from llm_usage_log SQL): $3.46 for the single world_class_enrich run that produced the canonical artifact (other runs this session were before hotfix-10 landed, so their cost wasn't logged). Projected monthly spend extrapolation: I will NOT calculate this from 1 data point per the brief's discipline rule; needs a multi-run sample before any meaningful projection. | PRs landed this session: **#64 hotfix-9** (Pattern C cover-essay workflow wiring + new `generate-edition-covers` CLI + dispatch-list fix); **#65 hotfix-10** (CostMeter SQL persistence + append_llm_usage dual-writer). PRs held: **Sprint v5-5** (held due to insufficient telemetry observation window — 25 min, not 3-4 hours); **Priority 4 dawidd6 race fix** (deferred — operational pressure absent, proper fix is Option B for a future session). | Honest grades — Priority 1: **DONE** (homepage rotates XVII → XIX, Pattern C generated W19's body via LLM at 5890 chars). Priority 2: **DONE** (153 rows in llm_usage_log after one run, dual-writer working as designed). Priority 3: **PRELIMINARY** (real data, but only 25 min — not the 3-4 hours needed for confident pattern-dial decisions). Priority 4: **SKIPPED** (tactical concern absent). Sprint v5-5: **HELD** (intentional, per brief discipline). | Blockers carried to next session: (1) W18 cover essay fell back to seed (377-char placeholder) instead of generating real Pattern C content — should investigate why loop_c_critic_revise returned fell_back=True for that specific edition; may be a Rung-2 critic timeout or a context-builder gap for the May 4 slug; (2) duplicate logging in llm_usage_log (quality_loop._emit_telemetry path + CostMeter.record dual-write both insert a row when both are in the call chain) — not breaking anything, but inflates per-surface counts by 2x for surfaces that route through both layers; (3) mailbag/reactions/heisman_weekly surfaces had no observed activity this session, so their per-surface ceilings remain unvalidated against real spend; (4) dawidd6 race fix still future-tense (Option B canonical-pointer DB registry).
