@@ -197,10 +197,19 @@ class CostMeter:
         is_batch: bool = False,
         cache_ttl: str | None = None,
         note: str | None = None,
+        call_id: str | None = None,
     ) -> float:
         """Record a single call's cost. Raises CostCeilingExceeded on breach.
 
         Returns the USD cost of this call.
+
+        ``call_id`` (Priority 2 — 2026-05-16): when the caller knows the
+        UUID assigned by ``generate_with_voice_check`` for the underlying
+        LLM call, pass it through here so the llm_usage_log dedup index
+        catches the case where ``quality_loop._emit_telemetry`` already
+        wrote a row for the same call. None ⇒ ``append_llm_usage`` will
+        mint a fresh UUID; if no other writer fires for that call, the
+        single fresh-UUID row is the canonical record.
         """
         cost = self.compute_cost(model_id, usage, is_batch=is_batch, cache_ttl=cache_ttl)
         self.spent_usd += cost
@@ -233,6 +242,13 @@ class CostMeter:
                 from cfb_rankings.team_pages.llm_usage_log import (
                     append_llm_usage as _append_llm_usage,
                 )
+                _extra = {
+                    "surface": self.label,
+                    "note": note,
+                    "is_batch": int(bool(is_batch)),
+                }
+                if call_id:
+                    _extra["call_id"] = call_id
                 _append_llm_usage(
                     subcommand=f"costmeter.{self.label}",
                     model=model_id,
@@ -244,11 +260,7 @@ class CostMeter:
                     ),
                     duration_s=0.0,  # CostMeter doesn't track latency
                     cost_usd=cost,
-                    extra={
-                        "surface": self.label,
-                        "note": note,
-                        "is_batch": int(bool(is_batch)),
-                    },
+                    extra=_extra,
                 )
             except Exception:  # pragma: no cover — defensive
                 pass
@@ -440,13 +452,26 @@ def generate_with_voice_check(
             "tokens_used": {"input": int, "output": int},
             "model_used": str,
             "mode": "live" | "offline-stub",
+            "call_id": str,  # Priority 2 (2026-05-16): UUID hex.
+                              # Two downstream writers (CostMeter.record +
+                              # quality_loop._emit_telemetry) thread this
+                              # same id into append_llm_usage so the
+                              # INSERT OR IGNORE / unique index dedups the
+                              # second write at the SQL layer. Generated
+                              # here so the SDK call and its telemetry
+                              # share one id even when one of the writers
+                              # is bypassed.
         }``
     """
+    import uuid
+    call_id = uuid.uuid4().hex
     api_key = _resolve_api_key()
     if not api_key:
         if not fallback_to_offline:
             raise RuntimeError("ANTHROPIC_API_KEY not set and fallback_to_offline=False")
-        return _empty_result(model, "no_api_key")
+        stub = _empty_result(model, "no_api_key")
+        stub["call_id"] = call_id
+        return stub
 
     # Lazy import + lazy client construction. The Anthropic SDK chain has
     # pydantic-version sensitivity (e.g. it fails to load on Python 3.14
@@ -458,13 +483,17 @@ def generate_with_voice_check(
     except ImportError:
         if not fallback_to_offline:
             raise
-        return _empty_result(model, "anthropic_sdk_not_installed")
+        stub = _empty_result(model, "anthropic_sdk_not_installed")
+        stub["call_id"] = call_id
+        return stub
     except Exception as exc:
         if not fallback_to_offline:
             raise
         log.warning("llm_runtime: SDK construction failed (%s: %s); falling back to offline-stub",
                     type(exc).__name__, exc)
-        return _empty_result(model, f"sdk_init_failed:{type(exc).__name__}")
+        stub = _empty_result(model, f"sdk_init_failed:{type(exc).__name__}")
+        stub["call_id"] = call_id
+        return stub
 
     validate_fan_voice = _load_validator()
     current_prompt = prompt
@@ -517,6 +546,7 @@ def generate_with_voice_check(
                 "tokens_used": {"input": total_input, "output": total_output},
                 "model_used": model,
                 "mode": "live",
+                "call_id": call_id,
             }
 
         if voice_attempts <= max_retries:
@@ -540,6 +570,7 @@ def generate_with_voice_check(
         "tokens_used": {"input": total_input, "output": total_output},
         "model_used": model,
         "mode": "live",
+        "call_id": call_id,
     }
 
 
