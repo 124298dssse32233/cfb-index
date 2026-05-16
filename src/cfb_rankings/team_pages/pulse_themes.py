@@ -474,6 +474,28 @@ def extract_entities_themes_batch(
     if not stage2_inputs:
         return out
 
+    # Sprint v5-5/v5-6 follow-up (hotfix-15) — Pattern C and Batch API are
+    # mutually exclusive. The Batch API doesn't support the 3-critic
+    # sequential loop. When the ``tier1.pulse_themes_writer`` flag is set
+    # to Pattern C, skip the batch and iterate sync — each entity goes
+    # through ``_sonnet_rank_and_write`` which has the Pattern C dispatch
+    # wired (PR #73). Cost trade-off: lose the 50% Batch discount, gain
+    # the critic loop on ~30 entity calls. Auto-disable via the 24h
+    # aggregate ceiling ($8/day in DAILY_AGGREGATE_CEILINGS_USD) bounds
+    # the cost if a single run somehow runs hot.
+    if _flag_is_pattern_c():
+        for (slug, etype, tier, name, candidates, excerpts, n_themes) in stage2_inputs:
+            themes, passed = _sonnet_rank_and_write(
+                candidates, name, n_themes, excerpts, _meter=meter,
+            )
+            out[(slug, etype)] = themes
+            if themes:
+                if etype == "conference":
+                    _store_conference_themes(slug, themes, db_conn, passed)
+                else:
+                    _store_team_themes(slug, etype, themes, db_conn, passed)
+        return out
+
     # Stage 2 — BATCH the ranker/writer across entities.
     jobs: list[BatchJob] = []
     by_id: dict[str, tuple[str, str, int]] = {}  # custom_id -> (slug, type, n_themes)

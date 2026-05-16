@@ -144,6 +144,27 @@ def generate_entity_ledes_batch(
     meter = _meter or CostMeter(ceiling_usd=0.5, label="pulse_lede.batch")
     from cfb_rankings.llm_runtime_batch import BatchJob, submit_batch_offline_safe
 
+    # Sprint v5-5 follow-up (hotfix-15) — Pattern C / Batch API are mutually
+    # exclusive. When the ``tier1.pulse_lede`` flag is set, skip the batch
+    # and iterate sync — each entity goes through ``generate_entity_lede``
+    # which has the Pattern C dispatch wired (PR #72). Lose 50% Batch
+    # discount, gain the 3-critic loop on each lede. 24h aggregate ceiling
+    # ($5/day in DAILY_AGGREGATE_CEILINGS_USD) bounds the cost.
+    if _flag_is_pattern_c():
+        out: dict[tuple[str, str], dict[str, Any]] = {}
+        for (entity_slug, entity_type, themes, model_tier, entity_name) in entities:
+            result = generate_entity_lede(
+                entity_slug, entity_type, themes, model_tier, db_conn,
+                entity_name=entity_name, _meter=meter,
+            )
+            out[(entity_slug, entity_type)] = {
+                "text": result.get("text"),
+                "voice_validator_passed": result.get("voice_validator_passed", False),
+                "model_used": result.get("model_used", _model_for_tier(model_tier)),
+                "mode": result.get("mode", "live"),
+            }
+        return out
+
     jobs: list[BatchJob] = []
     by_id: dict[str, tuple[str, str, str]] = {}  # custom_id -> (slug, type, model)
     for (entity_slug, entity_type, themes, model_tier, entity_name) in entities:
