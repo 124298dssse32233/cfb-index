@@ -87,6 +87,17 @@ def _require_env(name: str) -> str:
 #     * `tier1.mailbag`            → mailbag.synthesizer.synthesize_mailbag_answer
 #     * `tier1.reaction_story`     → reactions.synthesizer.synthesize_reaction_story
 #
+# Sprint v5-4 (2026-05-15) — Pattern E flag flips for cross-chapter
+# continuity surfaces:
+#
+#     * `tier1.storyline_chapter`  → storylines.chapter_pattern_e.synthesize_storyline_chapter
+#     * `tier1.chronicle_profiled` → team_pages.chronicle_pattern_e.synthesize_chronicle_card
+#
+# Pattern E is Pattern C plus a continuity critic + a thread-history /
+# named-entity-ledger pre-pass. Chronicle Pattern E only activates for
+# the PROFILED_SLUGS roster — unprofiled programs stay on the legacy
+# template-only chronicle path.
+#
 # Each wrapper preserves the existing sync / seed / offline-stub
 # fall-back when the loop falls back (offline-stub, wall-clock timeout,
 # Rung-2 critic failures, Rung-3 weekly ceiling). All existing
@@ -113,13 +124,25 @@ _V5_3_FLAGS = (
     "tier1.reaction_story",
 )
 
+# Sprint v5-4 — Pattern E (continuity-grounded) flags.
+_V5_4_E_FLAGS = (
+    "tier1.storyline_chapter",
+    "tier1.chronicle_profiled",
+)
+
 
 def _initial_quality_loop_flags() -> "dict[str, LoopPattern]":
     try:
         from cfb_rankings.quality_loop import LoopPattern as _LP
     except Exception:  # pragma: no cover — circular-import guardrail
-        return {k: "C_critic_revise" for k in _V5_3_FLAGS}  # type: ignore[dict-item]
-    return {k: _LP.C_CRITIC_REVISE for k in _V5_3_FLAGS}
+        out: dict[str, str] = {k: "C_critic_revise" for k in _V5_3_FLAGS}
+        out.update({k: "E_continuity" for k in _V5_4_E_FLAGS})
+        return out  # type: ignore[return-value]
+    out: dict[str, "LoopPattern"] = {
+        k: _LP.C_CRITIC_REVISE for k in _V5_3_FLAGS
+    }
+    out.update({k: _LP.E_CONTINUITY for k in _V5_4_E_FLAGS})
+    return out
 
 
 QUALITY_LOOP_FLAGS: dict[str, "LoopPattern"] = _initial_quality_loop_flags()
