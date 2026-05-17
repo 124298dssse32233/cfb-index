@@ -1,6 +1,154 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-17 17:00 UTC | overnight segment 3 — user asleep again, "use octopus + parallel agents" — 11 PRs (#101-#111) + Heisman 2025 model rerun
+═══════════════════════════════════════════════════════════════════════
+
+User went away with explicit "parallel agents OK" mandate. This was
+the first segment using parallel-agent dispatches as part of the
+workflow. Pattern was: spawn a focused Explore subagent on a surface
+class (matchups/compare, daily/hub/reactions, legacy team pages,
+profiled team pages, pipeline-health), let it report findings under
+350 words, manually verify each finding against current code/output,
+then ship targeted PRs.
+
+Memory-note discipline ("Octopus briefs need verification — generated
+audit briefs have repeatedly misdiagnosed architecture") held: I
+manually verified every agent finding before acting. The agent
+generally surfaced real bugs but sometimes mis-prioritized or
+proposed over-aggressive fixes. Verification gate caught nothing
+this segment (all 11 PRs landed clean).
+
+Strategic wins this segment:
+
+  PR #101 — fix(player-pages): per-player target season for Current
+    Season Production. The deferred-blocker I HARD-NO'd two segments
+    ago (graduated-player fallback). Per-player CTE picks each
+    player's max-data season instead of restricting all to
+    current_season=2025. Quinn Ewers / Dillon Gabriel pages now
+    surface their actual 2024 stats (3,472 passing yds, 31 TDs)
+    under "2024 Season · Final" instead of empty 2025 panels.
+    Verified live before further session work.
+
+  PR #102 — fix(heisman): _model_summary_for_week 3-pass fallback.
+    Root cause of why /heisman/ was stuck on 2024 data: model_runs
+    for 2025 had only week=21 (final, end-of-season), but the lookup
+    demanded week=16 exactly. 2024 had week=16 because team-model
+    ran incrementally; 2025 only ran end-of-season. Fix is a
+    cascading 3-pass query (exact week → nearest ≤ requested → any).
+    Heisman model itself caps at week 16 internally, so finding the
+    model_run at any week is safe. After deploy, world-class-enrich
+    re-ran with the fix, wrote 15,601 rows for season 2025.
+
+  PR #103 — feat(storylines): og:image + twitter:card on /storylines/
+    + thread pages.
+  PR #104 — feat(canon): og:image + twitter:card on canon hub +
+    lists + entries.
+  PR #105 — feat(meta): og:image + twitter:card on /methodology/ +
+    /editions/.
+  PR #106 — feat(meta): og:image + twitter:card on /matchups/
+    (surfaced by parallel agent on matchups/compare audit).
+  PR #107 — feat(meta): og:image + twitter:card on /daily/ + /hub/ +
+    /reactions/ + individual reaction stories.
+    Total OG-meta coverage now: every public landing page on the
+    site ships full social-share metadata.
+
+  PR #108 — fix(audit): replace "percentile points ahead" jargon
+    with fan-readable gloss. Surfaced by parallel agent on legacy
+    team-page audit. Both server-side _power_resume_gap_note() and
+    client-side insightLine() in the power-resume plot script. New
+    phrasing keeps the number but adds plain-English context:
+    "Resume is running 9 points ahead of power right now — results
+    are outpacing the underlying strength rating."
+
+  PR #109 — fix(audit): format transfer_date as human-readable.
+    Surfaced by parallel agent on player/heisman/room copy audit.
+    Player transfer Eligibility card was rendering raw ISO timestamp
+    "2023-12-04T14:01:00.000Z" as submetric. Reuses existing
+    _format_game_date helper → "Dec 4, 2023".
+
+  PR #110 — fix(audit): omit homepage Voices section when no voices
+    loaded. Surfaced by parallel agent on homepage audit. Section
+    XIII "VOICES BEHIND THIS EDITION" was shipping a labeled header
+    with an empty <div class="voices-grid"></div> beneath because
+    edition_voices DB table has 0 rows for current edition. Short-
+    circuit _render_voices returns "" when voices list is empty.
+
+  PR #111 — fix(audit): scrub internal jargon from team_pages/ public
+    footer + pulse badge. Surfaced by parallel agent on team_pages/
+    profiled programs. Two surfaces leaked internal field/state
+    names:
+      - "n=0 · awaiting signal" exposed effective_n parameter name
+        → "0 mentions · awaiting signal"
+      - "CFB Index · team-pages v1.0 · sentience dead-period-summer"
+        exposed anchor_variant state-machine label
+        → "CFB Index · team-pages v1.0" (sentience tag dropped)
+
+Parallel-agent audit pattern that worked (kept for future sessions):
+
+  1. Pick a surface class with clear boundaries (matchups, daily/
+     hub/reactions, profiled team pages).
+  2. Spawn Explore subagent with concrete instructions: fetch live
+     HTML via `git show origin/published:`, list specific bug
+     patterns to look for, report under N words with file/line
+     specificity.
+  3. Manually verify each finding (grep for the offending string,
+     read the source code that emits it).
+  4. Triage: ship clear bugs, defer editorial choices, document
+     ARCHITECTURAL items for user discussion.
+  5. Smoke-test the fix locally (ast.parse + helper function call)
+     before pushing.
+
+Workflow runs fired this segment:
+  - 2 world-class-enrich (one ran the Heisman 2025 model fix)
+  - 4 publish-site (one already complete, three queued/in-flight at
+    write time)
+
+Verification status at write time:
+  - PR #101 — VERIFIED LIVE on quinn-ewers-39300.html. Stats show
+    "2024 Season · Final" with full passing/rushing/fumbles rows.
+  - PR #102 — VERIFIED at the data layer. world-class-enrich logs
+    confirm "[heisman] season 2025 board week 16 using inputs through
+    week 16 wrote 15601 rows in 841.1s". Next publish will deploy
+    the Heisman tracker page sourced from this data.
+  - PRs #103-#111 — IN PUBLISH QUEUE (runs 25996173022 /
+    25996361811 / 25997175944). Verification deferred to post-publish
+    drain.
+
+Blockers / soft failures surfaced by pipeline-health audit (NOT
+fixed this segment — listed for next session's user input):
+
+  CRITICAL (data-loss):
+    - Chronicle cards write failures for 5 programs (Florida,
+      Massachusetts, Notre Dame, Oklahoma, Washington) in the most
+      recent enrich run. Retry fallback failed with "claude CLI not
+      on PATH" — the sync retry mechanism is broken in the workflow
+      environment. Needs investigation of how `claude` is provisioned
+      in CI vs locally. Currently surfacing as stale chronicle cards
+      on those programs.
+
+  HIGH:
+    - Pattern C validation strictness — AI-generated card output
+      failing validation gates designed to catch hallucinations.
+      Need to tune the validator or relax thresholds. Surfaced for
+      Florida, Massachusetts, Notre Dame, Washington.
+    - Edition covers skipped because no `status='draft'` editions
+      exist. Editorial seed workflow may need user attention.
+
+  MEDIUM:
+    - Node.js 20 actions deprecated. GitHub will force-migrate to
+      Node.js 24 on June 2, 2026. Touches ~10 workflow YAMLs. Bulk
+      version bump is mechanical but worth user review before
+      shipping.
+
+Cumulative spend across whole session (since 2026-05-16 17:28 PT):
+  Total PRs: 27 (PR #82 through PR #111 inclusive minus a few
+  consolidations).
+  LLM/compute spend: still ~$26 / $100 console cap (the Heisman
+  model rerun in PR #102's downstream enrich consumed compute
+  budget but stayed in normal range — 841s for 15.6k Heisman rows).
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-17 06:30 UTC | overnight autonomous segment (user asleep, "trust your judgement") — audit pass 5 + 4 PRs (#96/#97/#98/#99)
 ═══════════════════════════════════════════════════════════════════════
 
