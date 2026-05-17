@@ -625,6 +625,108 @@ print(render_provenance_chip(mentions=247, sources=n)[:120])
 
 ---
 
+## Pattern 9 — Cmd-K search index (v5-11.5 foundation)
+
+**Goal**: Build the static search-index JSON the future Cmd-K overlay fetches. Single payload, client-side fuzzy match. Pre-work for Sprint v5-11.5; the overlay JS/CSS is still Window A's lane.
+
+**When to use it**:
+* Site builds — bake the index alongside HTML generation
+* CI/CD release pipelines — refresh on each publish
+
+**When NOT to use it**:
+* Per-page rendering — the index is global, not per-page
+* Mid-development local iteration — use `--inspect` to view indented JSON instead
+
+### The wire-up
+
+```python
+from cfb_rankings.cmdk import write_search_index, build_search_index
+
+# CLI: shipped today
+# $ python manage.py build-search-index
+# search-index written: output/site/search-index.json (9253 items, 903.0 KB)
+
+# Programmatic:
+out_path, count = write_search_index(
+    db,
+    "output/site/search-index.json",
+    players_max=15000,        # cap for payload size
+    season_year=None,         # auto-pick latest
+    minify=True,
+)
+```
+
+### Data contract (one item)
+
+```python
+class SearchItem(TypedDict):
+    kind: ItemKind         # team / profile / player / edition / mailbag /
+                           # conference / methodology
+    title: str             # primary display string (the searchable text)
+    url: str               # destination on hit
+    subtitle: str          # secondary line (team for player, date for edition)
+    tier: int              # 1 = profile, 2 = FBS, 3 = FCS, 4 = other
+    aliases: list[str]     # alternate match strings (future use)
+```
+
+JSON payload schema:
+```json
+{
+  "schema_version": 1,
+  "items": [
+    {"kind": "profile", "title": "Alabama", "url": "/teams/alabama.html",
+     "subtitle": "Profiled program", "tier": 1},
+    ...
+  ]
+}
+```
+
+### Live counts (canon DB, 2026-05-18)
+
+| Category | Count | Note |
+|---|---:|---|
+| profile | 17 | Tier 1, always |
+| team | 747 | Tier 2 (FBS) / 3 (FCS) / 4 (other) |
+| conference | 121 | Tier 3 |
+| edition | 4 | Tier 2 |
+| mailbag | 0 | grows when mailbag_editions populates |
+| player | 8358 | Bounded by `--players-max` (default 15000) |
+| methodology | 6 | Static fixture |
+| **Total** | **9253** | ~903 KB minified |
+
+### Defenses built in
+* Every indexer degrades gracefully on missing table (returns `[]`)
+* Player indexer is BOUNDED — `--players-max` cap prevents 130k+ blowout
+* Player subtitle does NOT include `home_state` (PII-adjacent)
+* Inactive teams + conferences are filtered out
+* Draft editions + mailbags are filtered out
+
+### Acceptance verification
+
+```bash
+# 1. Tests pass
+python -m pytest tests/test_cmdk_index_builder.py -q
+# Expected: 27 passed
+
+# 2. CLI subcommand runs end-to-end against the real DB
+python manage.py build-search-index --inspect --output /tmp/preview.json
+# Inspect /tmp/preview.json for shape sanity
+
+# 3. Minified payload size is sane
+python manage.py build-search-index
+ls -la output/site/search-index.json
+# Expected: ~900KB (depends on player roster sizes)
+```
+
+### Integration roadmap (Window A's lane)
+
+1. `src/cfb_rankings/cmdk/assets/cmdk.css` + `cmdk.js` — overlay component
+2. Wire `cmdk.js` + `<button class="cmdk-open">` into the global header template
+3. Add Cmd-K (Ctrl-K on Windows/Linux) keyboard binding
+4. Bake `build-search-index` into `publish_site.ps1` after `build-site`
+
+---
+
 ## Status as of 2026-05-17 (revised post-Window-B autonomous run)
 
 Foundation slices shipped:
@@ -636,7 +738,9 @@ Foundation slices shipped:
 * `team_pages/renderer.py` — **rituals strip now LIVE on every profiled team page** (Pattern 6 wire-up complete, 5 integration tests)
 * `auto_summary.py` (31 tests) — Pattern A 30-second summary; cache layer + render
 * `daily/renderer.py` — **auto-summary now LIVE on every Daily edition** (Pattern 7 wire-up complete, 9 integration tests + visual specimen + dedicated CSS in daily.html template)
+* `mailbag/renderer.py` — **auto-summary now LIVE on every Mailbag edition** (Pattern 7 wire-up; 8 integration tests; Mailbag's bone-paper palette — gold left-rail, navy uppercased title, serif bullets)
 * `citations/` (30 tests) — Sprint v5-6a.5 receipt-pattern foundation: Citation dataclass, persistence (round-trip + idempotent), CitationCritic (5 checks), render (inline marker + footer + legacy notice), CSS + mobile-tap-reveal JS
+* `cmdk/` (27 tests) — Sprint v5-11.5 Cmd-K search-index foundation: SearchItem dataclass, 6 indexers (teams/profiles/players/editions/conferences/methodology), JSON writer, `build-search-index` CLI subcommand. Smoke-tested against the canon DB: 9253 items / 903 KB minified.
 
 Pending Window A coordination:
 * Wiring chips into the existing `reporting.py` percentile + stat cell renderers

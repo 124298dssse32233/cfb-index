@@ -1,6 +1,134 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 20:00 UTC | Window B · third continuation — Mailbag + Cmd-K foundation
+═══════════════════════════════════════════════════════════════════════
+
+User confirmed "everything looks good, please continue and use octopus
+as needed to work autonomously" after the prior continuation. Window A
+in parallel attempting the dawidd6 publish-race fix (~2.5h CI wait), so
+this segment had clean lane separation.
+
+DELIVERABLE 1 — Pattern 7 wire-up: auto_summary LIVE on Mailbag editions
+  src/cfb_rankings/mailbag/renderer.py
+    - _build_auto_summary_html(answers, edition_slug, conn) — combines
+      every published answer's (question + answer_body) into one summary
+      input. Short-circuits on combined <200 chars or LLM failure.
+      Strips [DRAFT — edition X] markers before feeding the summarizer.
+    - _adapt_conn_for_auto_summary(conn) — same shim as Daily
+    - Auto-summary block slotted between hero_html and content-grid
+      (above the answer cards), inside the existing render_edition_page
+      pipeline.
+    - Dedicated .auto-summary CSS inside _BASE_STYLE: --paper-dim bg,
+      gold left-rail, navy uppercased title, SERIF bullets (Mailbag's
+      print-feel matches the body text). Distinct from Daily's
+      sans-bullet treatment.
+
+  tests/test_mailbag_auto_summary_integration.py (NEW, 8 tests)
+    Empty answers, short-body skip, LLM failure, successful aside
+    render, multi-answer combining (Q: + body), cache-key shape,
+    DRAFT marker stripping, conn adapter round-trip.
+
+  Test calibration note: DRAFT marker regex matches ONLY the trailing
+  format `[DRAFT — edition X; ...]`. Test initially used `[DRAFT —
+  pending review]` and the regex (correctly) didn't match. Fixed test
+  to use the actual production format.
+
+DELIVERABLE 2 — Pattern 7 NOT wired into Wire (skipped, justified)
+  Wire is a TABLE of short captions, not flowing prose. Its existing
+  lede ("Last 30 days, N entries — each one gets a fan-voice caption")
+  already IS the 30-second summary. Adding another TL;DR on top would
+  be redundant + confuse the surface's editorial framing.
+
+  Honest documentation > forced foundation use. Skipped + recorded.
+
+DELIVERABLE 3 — Sprint v5-11.5 Cmd-K search-index foundation
+  src/cfb_rankings/cmdk/ package:
+    types.py — SearchItem frozen dataclass + ItemKind Literal + as_dict
+      with smart default-omission (tier=5 omitted, empty subtitle
+      omitted) for compact JSON.
+    index_builder.py — 6 indexers + aggregator + writer:
+      * index_teams — partitions by FBS/FCS/other into tiers 2/3/4,
+        skips profiled slugs (which go through index_profiles at
+        tier 1), skips inactive teams
+      * index_profiles — every slug in `profiles/*.md` (default-
+        discovered from disk OR injected via profiled_slugs param
+        for test isolation)
+      * index_players — BOUNDED to current-season-with-stats rows
+        (CAP via --players-max, default 15000) to keep payload sane
+      * index_editions — published editions only (skips drafts)
+      * index_mailbag — published mailbag editions
+      * index_conferences — active conferences, skips ones without slug
+      * index_methodology — static fixture (6 pages)
+      Every indexer wraps sqlite3.OperationalError → returns [] so
+      empty/partial DBs don't crash the builder. PII defense: player
+      subtitle uses position + team_short only, NOT home_state.
+    write_search_index — JSON writer (minify=True default + --inspect
+      mode for indented inspection).
+
+  src/cfb_rankings/cli.py — `build-search-index` subcommand
+    Flags: --output, --players-max, --season, --inspect.
+    Wired into the existing dispatcher just after build-freshness.
+
+  tests/test_cmdk_index_builder.py (NEW, 27 tests)
+    Type contract (3): KIND_VALUES enum, frozen, as_dict defaults.
+    DB fixtures (2): full schema for tests + empty for degrade tests.
+    Per-indexer (14): basic + edge cases for each of the 6 categories.
+    Aggregator + writer (4): combines all kinds, valid JSON output,
+      minify default + inspect mode.
+    PII defense (1): home_state never appears in player subtitle.
+    Defensive (3): every indexer + the aggregator on totally-empty DB.
+
+  Real-DB smoke test against canon DB (3.1GB):
+    9253 total items, 903.0 KB minified, well-formed JSON.
+    Counts: 121 conferences + 4 editions + 6 methodology + 8358
+    players + 17 profiles + 747 teams. Matches v5-11.5 brief prediction
+    (~15k searchable items / ~500KB-1MB payload).
+
+  docs/design-system/34-integration-playbook.md
+    Pattern 9 added (Cmd-K foundation) — wire-up code, JSON schema,
+    live counts table from the canon smoke test, defenses,
+    integration roadmap pointing to Window A's lane for the overlay
+    UI + global-header wiring.
+
+DELIVERABLE 4 — Final retro (this entry).
+
+Cumulative state at end of this continuation:
+  Production modules: 21 (cmdk/ NEW; mailbag/renderer extended)
+  Tests: 286 (was 251) — +8 Mailbag, +27 Cmd-K
+  Live patterns: Pattern 6 (rituals on team pages) + Pattern 7
+    (auto-summary on Daily AND Mailbag) — three LIVE wire-ups in
+    the last two segments.
+  Pre-work: Pattern 9 (Cmd-K) foundation shipped, awaiting Window A's
+    overlay UI integration.
+
+Discipline statement through this continuation:
+  ✓ Used the canon DB to smoke-test the index builder — observed
+    9253 items / 903 KB. Did NOT mutate the DB (read-only queries).
+  ✓ Caught + fixed wrong column name in index_teams JOIN
+    (c.short_name → c.conference_short_name) via failing test
+  ✓ Honest "skip" on Wire instead of forcing a poor-fit wire-up
+  ✓ Bounded player indexing via --players-max — prevented a 130k-
+    player payload blowout
+  ✓ PII test added explicitly: home_state must NEVER appear in
+    player subtitle (paranoid-defaults defense)
+  ✓ Mailbag's DRAFT marker stripping verified by integration test
+    using the exact production regex format
+
+STOP POINT: further work would mean either
+  (a) Cmd-K overlay UI (cmdk.js + cmdk.css) — that's Window A's lane
+      per IMPLEMENTATION_PLAN_v2_addendum.md
+  (b) Saturday Strip wire-up — touches the global mobile-header
+      template (Window A's lane)
+  (c) Auto-summary wire-up into Editions feature articles — same
+      pattern but different template structure; minimal new value
+      after Daily + Mailbag are live
+
+Next-session entry point: docs/design-system/34-integration-
+playbook.md §"Pattern 9" + Window A's eventual v5-11.5 sprint
+opening will pick up the overlay + global-header work.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 16:00 UTC | Window B · continuation — Daily wire-up + v5-11.5 brief
 ═══════════════════════════════════════════════════════════════════════
 

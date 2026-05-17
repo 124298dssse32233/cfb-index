@@ -164,6 +164,31 @@ def build_parser() -> argparse.ArgumentParser:
         help="Render /methodology/fan-intelligence.html from source_registry + weights. "
              "Also regenerates /methodology/freshness.html (TASK 8.7).",
     )
+
+    # Sprint v5-11.5 pre-work — Cmd-K search index.
+    build_search_parser = subparsers.add_parser(
+        "build-search-index",
+        help="Emit output/site/search-index.json — the static index the "
+             "future Cmd-K overlay fetches. ~9k items / ~900KB minified.",
+    )
+    build_search_parser.add_argument(
+        "--output",
+        default="output/site/search-index.json",
+        help="Output path (default: output/site/search-index.json).",
+    )
+    build_search_parser.add_argument(
+        "--players-max", type=int, default=15000,
+        help="Upper bound on player rows in the index (default: 15000).",
+    )
+    build_search_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Season year for player_season_stats filter "
+             "(default: latest with rows).",
+    )
+    build_search_parser.add_argument(
+        "--inspect", action="store_true",
+        help="Emit indented JSON for human inspection (default: minified).",
+    )
     subparsers.add_parser(
         "build-freshness",
         help="Render /methodology/freshness.html only — last-run-per-source summary.",
@@ -2433,6 +2458,22 @@ def main() -> None:
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         out = write_freshness_page(db)
         print(f"freshness page written: {out}")
+        return
+
+    if args.command == "build-search-index":
+        from cfb_rankings.cmdk import write_search_index
+        out_path, count = write_search_index(
+            db,
+            args.output,
+            players_max=args.players_max,
+            season_year=args.season,
+            minify=not args.inspect,
+        )
+        size_kb = out_path.stat().st_size / 1024
+        print(
+            f"search-index written: {out_path} "
+            f"({count} items, {size_kb:.1f} KB)"
+        )
         return
 
     if args.command == "fetch-archive-retro":
