@@ -718,12 +718,45 @@ ls -la output/site/search-index.json
 # Expected: ~900KB (depends on player roster sizes)
 ```
 
+### Overlay component (also Window B's lane, now shipped)
+
+* `src/cfb_rankings/cmdk/assets/cmdk.css` — self-contained styling with
+  per-kind badge palette, mobile bottom-sheet at 640px, `prefers-reduced-motion`
+  opt-out, `var()` fallback chains so the overlay renders correctly even
+  when the host page hasn't defined team-pages tokens
+* `src/cfb_rankings/cmdk/assets/cmdk.js` — vanilla JS, no framework:
+  Cmd-K/Ctrl-K keybind, `[data-cmdk-trigger]` click-to-open, fetch +
+  sessionStorage cache (6h TTL), fuzzy match (token-prefix + tier-aware
+  ranking), arrow-key + Enter + Esc navigation, ARIA dialog + listbox
+  roles, HTML escape on every dynamic insert
+* `window.cmdk.open()` / `window.cmdk.close()` / `window.cmdk.search(q)`
+  programmatic surface for testing or alternate entry points
+* `window.CMDK_CONFIG = { indexUrl, placeholder, ... }` override hook
+* 42 contract tests in `tests/test_cmdk_assets.py` guard the CSS/JS
+  shape — every class the JS injects must have a CSS rule; per-kind
+  badges + reduced-motion + var() fallback all required
+
+### Demo specimen
+
+* `docs/mockups/cmdk_demo.html` + `docs/mockups/cmdk_demo_index.json` —
+  synthetic 18-item index. Press Cmd-K (Mac) or Ctrl-K (Win/Linux) on
+  the page to exercise the overlay. Verified end-to-end via
+  preview server: opens, browses (grouped by kind), searches
+  ("alab" → Alabama, "QB" → all 5 demo players), keyboard nav works,
+  Esc closes.
+* `scripts/_cmdk_demo.py` — regenerates the demo from the live assets
+
 ### Integration roadmap (Window A's lane)
 
-1. `src/cfb_rankings/cmdk/assets/cmdk.css` + `cmdk.js` — overlay component
-2. Wire `cmdk.js` + `<button class="cmdk-open">` into the global header template
-3. Add Cmd-K (Ctrl-K on Windows/Linux) keyboard binding
-4. Bake `build-search-index` into `publish_site.ps1` after `build-site`
+1. Add to global header template:
+   ```html
+   <link rel="stylesheet" href="/assets/cmdk.css">
+   <script defer src="/assets/cmdk.js"></script>
+   <button class="cmdk-trigger" data-cmdk-trigger>Search… <span class="cmdk-trigger__shortcut">⌘K</span></button>
+   ```
+2. Bake `build-search-index` into `publish_site.ps1` after `build-site`
+3. Add the search-index JSON to the site asset copy list
+4. Verify on a real archetype page that Cmd-K / Ctrl-K opens cleanly
 
 ---
 
@@ -740,7 +773,11 @@ Foundation slices shipped:
 * `daily/renderer.py` — **auto-summary now LIVE on every Daily edition** (Pattern 7 wire-up complete, 9 integration tests + visual specimen + dedicated CSS in daily.html template)
 * `mailbag/renderer.py` — **auto-summary now LIVE on every Mailbag edition** (Pattern 7 wire-up; 8 integration tests; Mailbag's bone-paper palette — gold left-rail, navy uppercased title, serif bullets)
 * `citations/` (30 tests) — Sprint v5-6a.5 receipt-pattern foundation: Citation dataclass, persistence (round-trip + idempotent), CitationCritic (5 checks), render (inline marker + footer + legacy notice), CSS + mobile-tap-reveal JS
-* `cmdk/` (27 tests) — Sprint v5-11.5 Cmd-K search-index foundation: SearchItem dataclass, 6 indexers (teams/profiles/players/editions/conferences/methodology), JSON writer, `build-search-index` CLI subcommand. Smoke-tested against the canon DB: 9253 items / 903 KB minified.
+* `cmdk/` (27 builder + 42 asset = 69 tests) — Sprint v5-11.5 Cmd-K
+  foundation FULLY shipped: index builder (6 indexers + writer + CLI),
+  overlay component (cmdk.css + cmdk.js, vanilla, no framework),
+  demo specimen verified end-to-end via preview server. Window A's
+  remaining work is just `<link>` + `<script>` in the global header.
 
 Pending Window A coordination:
 * Wiring chips into the existing `reporting.py` percentile + stat cell renderers

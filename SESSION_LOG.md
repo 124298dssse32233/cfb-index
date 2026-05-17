@@ -1,6 +1,146 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 23:00 UTC | Window B · fourth continuation — Cmd-K overlay UI
+═══════════════════════════════════════════════════════════════════════
+
+User confirmed "proceed autonomously and with octopus as is useful"
+while Window A is still blocked on the dawidd6 enrich CI run (22/62
+progress, 60-90 min timers). Same lane separation as last segment.
+
+Re-read my own v5-11.5 brief from the prior segment: the overlay
+COMPONENT (cmdk.css + cmdk.js) is renderer-only foundation, which
+puts it in Window B's lane. The INTEGRATION (wiring into the global
+header template) is Window A's. This segment fills in the overlay
+component to "ready to wire" status.
+
+DELIVERABLE 1 — cmdk/assets/cmdk.css (~280 lines, locked spec)
+  Self-contained styling. Live-token-aware:
+    - var() fallback chains so the overlay renders correctly on
+      pages that use ANY of the four production token conventions
+      (team-pages dark, mockup light, Daily bespoke, shadcn-style)
+    - Per-kind badge palette: profile = amber, team = navy-blue,
+      player = green, edition = warm gold, mailbag = coral,
+      conference = magenta, methodology = sky — matches the citation
+      badge palette for visual continuity
+    - Mobile breakpoint @ 640px: drops the floating dialog and
+      becomes a bottom-sheet (slide-up animation, 85vh max)
+    - @media (prefers-reduced-motion: reduce) kills the slide-in /
+      fade animations
+    - Trigger button affordance (.cmdk-trigger) for sites that
+      want a visible "Press ⌘K to search" CTA in the header
+
+DELIVERABLE 2 — cmdk/assets/cmdk.js (~360 lines, no framework)
+  Vanilla JS, no dependencies. IIFE-wrapped so it doesn't leak
+  helpers. Public surface: window.cmdk.{open, close, search, _state}.
+
+  Behavior:
+    * Cmd-K (macOS auto-detected via navigator.platform) / Ctrl-K
+      (Win/Linux) global keybind
+    * `[data-cmdk-trigger]` click delegation for visible-CTA opens
+    * Index fetched once from /search-index.json (or
+      window.CMDK_CONFIG.indexUrl override), cached in
+      sessionStorage with 6h TTL
+    * Fuzzy match: token-prefix scoring with title-start boost,
+      tier-aware penalty, multi-token AND-match
+    * Browse mode (empty query): top 4 per kind, grouped by section
+      label in preferred order (profile → team → edition → mailbag
+      → conference → player → methodology)
+    * Keyboard: ArrowUp/Down nav, Enter follows item.url (internal
+      paths use window.location.href; external open new tab), Esc
+      closes
+    * ARIA: role=dialog, aria-modal=true, role=listbox on results,
+      aria-selected on the active item, autoscroll into view on
+      selection change
+    * XSS defense: escapeHtml + escapeAttr on every dynamic insert
+    * Reusable: window.CMDK_CONFIG override for indexUrl,
+      maxResults, placeholder, storageKey, storageTtlMs
+
+DELIVERABLE 3 — Demo specimen + asset contract tests
+  scripts/_cmdk_demo.py (NEW)
+    Builds docs/mockups/cmdk_demo.html + cmdk_demo_index.json.
+    18 synthetic items spanning all 7 kinds (profile/team/player/
+    edition/mailbag-not-present/conference/methodology). The HTML
+    inlines tokens.css + cmdk.css + cmdk.js so the demo is self-
+    contained and works without any server-side build.
+
+  tests/test_cmdk_assets.py (NEW, 42 tests)
+    File existence (2), CSS required-selector contract (17), CSS
+    per-kind badge audit (7), mobile + reduced-motion blocks (2),
+    var() fallback (3), JS strict mode + IIFE (2), public API
+    surface (3), keyboard handlers (4), HTML escape (3), session
+    cache (1), URL routing (1), accessibility roles (3), schema
+    awareness (1). Plus cross-asset coherence test that catches
+    drift — every static cmdk-* class in the JS must have a CSS
+    rule.
+
+  Live verification at preview:8766/cmdk_demo.html:
+    .cmdk-dialog — 620×323px, rgb(23,27,36) dark card bg per spec
+    .cmdk-input — 17px, transparent bg, near-white text
+    Profile kind badge — rgb(240,198,116) amber accent, 0.4 alpha
+      border, exactly per the per-kind palette
+    Group labels — Profile / Team / Edition / Conference / Player
+      / Methodology (mailbag absent because demo has no mailbag
+      items; the order matches the preferred preference list)
+    Search "alab" → "Alabama" (single result, tier-1 boost)
+    Search "QB" → 5 players via subtitle fuzzy match (proves
+      multi-result + subtitle-search both work)
+    Ctrl-K (Windows-class platform) opens dialog — verified
+      via dispatched keydown event, openCount increments
+    Escape closes dialog — aria-hidden flips back to true
+
+DELIVERABLE 4 — Documentation
+  docs/design-system/34-integration-playbook.md
+    Pattern 9 expanded: overlay component block lists the locked
+    behaviors + the demo path. Integration roadmap now shows
+    Window A's remaining work as just <link> + <script> in the
+    global header template (everything else is shipped).
+
+Cumulative state at end of this continuation:
+  Production modules: 21 (cmdk/assets/ NEW, both CSS + JS)
+  Tests: 328 (was 286) — +42 cmdk asset contracts
+  Live patterns: Pattern 6 (rituals on team pages) + Pattern 7
+    (auto-summary on Daily + Mailbag). No new LIVE wire-ups this
+    segment — the overlay needs Window A header integration to
+    light up on real pages.
+  Foundation patterns ready-to-wire: Pattern 8 (citations) +
+    Pattern 9 (Cmd-K). Both fully shipped from Window B's side.
+
+Discipline statement through this continuation:
+  ✓ Built the overlay as a SELF-CONTAINED component (CSS + JS +
+    demo + tests) — no host-page assumptions, no framework dep
+  ✓ Verified end-to-end via the existing preview server before
+    committing — opens, searches, keyboard works, Esc closes
+  ✓ XSS defense applied at every dynamic-insert point (escapeHtml
+    + escapeAttr) — verified by test_js_html_escapes_user_content
+  ✓ Reduced-motion accessibility opt-out included (test guard)
+  ✓ var() fallback chains on the load-bearing CSS tokens so the
+    overlay renders correctly on hosts that haven't loaded team-
+    pages tokens.css yet (test guard)
+  ✓ Caught + fixed test calibration: the class-coherence test
+    was too strict — included runtime-templated classes like
+    `cmdk-item__kind--' + kind` as literals. Tightened the regex
+    to require a valid CSS identifier shape.
+  ✓ Did NOT touch the global header template — that's Window A's
+    explicit lane. Documented the integration recipe in Pattern 9
+    so when Window A picks it up, the wire-up is mechanical.
+
+STOP POINT: further work would mean either
+  (a) Wiring cmdk.css + cmdk.js into the global header template —
+      Window A's lane per IMPLEMENTATION_PLAN_v2_addendum.md and
+      explicit COORDINATION.md lane separation
+  (b) Wiring auto_summary into Editions feature articles — same
+      pattern again on a third surface; minimal new value after
+      Daily + Mailbag are already LIVE
+  (c) Cmd-K telemetry / analytics integration — needs owner input
+      on data flow + privacy posture
+
+Next-session entry point: docs/design-system/34-integration-
+playbook.md §"Pattern 9 → Integration roadmap" has the four-line
+recipe Window A applies in the global header template. Everything
+upstream of that is shipped + tested + visually verified.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 20:00 UTC | Window B · third continuation — Mailbag + Cmd-K foundation
 ═══════════════════════════════════════════════════════════════════════
 
