@@ -22,6 +22,8 @@ import datetime as _dt
 import html
 from pathlib import Path
 
+from cfb_rankings.common.head_chrome import absolute_url
+
 
 _OUTPUT_DIR = Path("output/site/methodology")
 _OUTPUT_FILE = _OUTPUT_DIR / "index.html"
@@ -46,12 +48,35 @@ def render_methodology_index_html(output_dir: Path | None = None) -> str:
     fan_intel_mtime = _last_modified(fan_intel_path)
     freshness_mtime = _last_modified(freshness_path)
     generated_at = _utcnow_iso()
+    page_canonical = absolute_url("/methodology/")
+    og_image_url = absolute_url("/og-image.svg")
+    page_description = (
+        "How CFB Index models work: the Power + Resume ratings, the "
+        "Heisman tracker, the fan-intelligence layer, and how each "
+        "page's data gets refreshed. Methodology pages explain the "
+        "model behind the rankings."
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Methodology | CFB Index</title>
+  <meta name="description" content="{html.escape(page_description, quote=True)}">
+  <link rel="canonical" href="{html.escape(page_canonical, quote=True)}">
+  <meta property="og:site_name" content="THE CFB INDEX">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{html.escape(page_canonical, quote=True)}">
+  <meta property="og:title" content="Methodology | CFB Index">
+  <meta property="og:description" content="{html.escape(page_description, quote=True)}">
+  <meta property="og:image" content="{html.escape(og_image_url, quote=True)}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{html.escape(page_canonical, quote=True)}">
+  <meta name="twitter:title" content="Methodology | CFB Index">
+  <meta name="twitter:description" content="{html.escape(page_description, quote=True)}">
+  <meta name="twitter:image" content="{html.escape(og_image_url, quote=True)}">
   <style>
     body {{ font: 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
            color: #1a1a1a; max-width: 880px; margin: 2rem auto; padding: 0 1rem; }}

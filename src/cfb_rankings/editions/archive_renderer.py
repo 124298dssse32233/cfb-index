@@ -24,6 +24,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
 
 from .data import (
@@ -294,13 +295,30 @@ def render_editions_archive_html(db: Database) -> str:
     <section class="issues">{''.join(issues_html)}</section>"""
 
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    page_canonical = absolute_url("/editions/")
+    og_image_url = absolute_url("/og-image.svg")
+    page_description = "Every weekly issue of the CFB Index — cover essays, features, and voices, archived in one place."
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Editions Archive · CFB Index</title>
-  <meta name="description" content="Every weekly issue of the CFB Index — cover essays, features, and voices, archived in one place.">
+  <meta name="description" content="{html.escape(page_description, quote=True)}">
+  <link rel="canonical" href="{html.escape(page_canonical, quote=True)}">
+  <meta property="og:site_name" content="THE CFB INDEX">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{html.escape(page_canonical, quote=True)}">
+  <meta property="og:title" content="Editions Archive · CFB Index">
+  <meta property="og:description" content="{html.escape(page_description, quote=True)}">
+  <meta property="og:image" content="{html.escape(og_image_url, quote=True)}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{html.escape(page_canonical, quote=True)}">
+  <meta name="twitter:title" content="Editions Archive · CFB Index">
+  <meta name="twitter:description" content="{html.escape(page_description, quote=True)}">
+  <meta name="twitter:image" content="{html.escape(og_image_url, quote=True)}">
   <style>{_ARCHIVE_CSS}</style>
 </head>
 <body>
