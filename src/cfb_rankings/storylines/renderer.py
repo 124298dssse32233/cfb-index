@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any
 
 from . import render_helpers as rh
+from cfb_rankings.common.head_chrome import absolute_url
 
 
 # ---------------------------------------------------------------------------
@@ -429,9 +430,19 @@ def render_thread(db, slug: str, output_dir: Path | str) -> Path:
     template = _load_template("thread.html")
     embedded_css = _load_css()
     accent_hex = thread.get("accent_hex") or "#c5b358"
+    # Distribution-leak fix: storyline pages were shipping without
+    # og:image / twitter:card / canonical until 2026-05-17 (parallel to
+    # the player-page fix in PR #99). Threads are share-bait surfaces
+    # — a Tweet/Bluesky/SMS link to /storylines/<slug>.html previously
+    # rendered as a bare URL with no preview image, title, or
+    # description.
+    page_canonical = absolute_url(f"/storylines/{slug}.html")
+    og_image_url = absolute_url("/og-image.svg")
     page_html = template.safe_substitute(
         page_title=f"{thread['title']} · CFB Index Storyline Threads",
         page_description=thread["dek"],
+        page_canonical=page_canonical,
+        og_image_url=og_image_url,
         embedded_css=embedded_css,
         accent_hex=accent_hex,
         accent_hex_soft=_accent_soft(accent_hex),
@@ -519,6 +530,8 @@ def render_index(db, output_dir: Path | str) -> Path:
         embedded_css=_load_css(),
         thread_cards_html="\n".join(cards) or '<p>No threads yet.</p>',
         footer_year=datetime.now().year,
+        page_canonical=absolute_url("/storylines/"),
+        og_image_url=absolute_url("/og-image.svg"),
     )
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
