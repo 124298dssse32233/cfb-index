@@ -19,6 +19,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.common.head_chrome import absolute_url
+
 # Markdown emphasis stripping/rendering. LLM answers occasionally emit
 # *foo* or **foo** for emphasis; without conversion they leak as literal
 # asterisks. Applied AFTER html.escape so user content stays safe.
@@ -339,15 +341,48 @@ def _full_page_html(
     body: str,
     *,
     edition_slug: str = "",
+    canonical_path: str | None = None,
+    description: str = "",
 ) -> str:
     safe_title = html.escape(title)
+    # OG / Twitter meta tag block (parallel to PR #99/#103-#107). Mailbag
+    # is a share-bait surface: editorial Q&A pages should preview with
+    # title + description + image when posted to Twitter / Bluesky / SMS.
+    safe_desc = html.escape(
+        description
+        or f"{title} — CFB Index editorial mailbag. Fan questions, model answers."
+    )
+    canon = canonical_path or (
+        f"/mailbag/{edition_slug}/" if edition_slug else "/mailbag/"
+    )
+    abs_canon = absolute_url(canon)
+    abs_og = absolute_url("/og-image.svg")
+    safe_canon = html.escape(abs_canon, quote=True)
+    safe_og = html.escape(abs_og, quote=True)
+    meta_block = (
+        f'<meta name="description" content="{safe_desc}">\n'
+        f'<link rel="canonical" href="{safe_canon}">\n'
+        f'<meta property="og:site_name" content="THE CFB INDEX">\n'
+        f'<meta property="og:type" content="article">\n'
+        f'<meta property="og:url" content="{safe_canon}">\n'
+        f'<meta property="og:title" content="{safe_title} — CFB Index">\n'
+        f'<meta property="og:description" content="{safe_desc}">\n'
+        f'<meta property="og:image" content="{safe_og}">\n'
+        f'<meta property="og:image:width" content="1200">\n'
+        f'<meta property="og:image:height" content="630">\n'
+        f'<meta name="twitter:card" content="summary_large_image">\n'
+        f'<meta name="twitter:url" content="{safe_canon}">\n'
+        f'<meta name="twitter:title" content="{safe_title} — CFB Index">\n'
+        f'<meta name="twitter:description" content="{safe_desc}">\n'
+        f'<meta name="twitter:image" content="{safe_og}">\n'
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{safe_title} — CFB Index</title>
-<style>{_BASE_STYLE}</style>
+{meta_block}<style>{_BASE_STYLE}</style>
 </head>
 <body class="mailbag__page">
 <div class="page">
@@ -480,7 +515,12 @@ def render_archive_page(output_dir: Path) -> Path:
         f'<ul class="archive-list" style="padding:40px 0;">{items_html}</ul>'
     )
 
-    page = _full_page_html("The Mailbag — Archive", body)
+    page = _full_page_html(
+        "The Mailbag — Archive",
+        body,
+        canonical_path="/mailbag/archive.html",
+        description="Every CFB Index Mailbag edition, going back to the beginning. Fan questions, model answers, weekly cadence.",
+    )
     out_path = output_dir / "archive.html"
     out_path.write_text(page, encoding="utf-8")
     log.info("mailbag.renderer: wrote archive %s (%d editions)", out_path, len(editions))
@@ -523,7 +563,12 @@ def render_submit_page(output_dir: Path) -> Path:
 
     submit_dir = output_dir / "submit"
     submit_dir.mkdir(parents=True, exist_ok=True)
-    page = _full_page_html("The Mailbag — Submit a Question", body)
+    page = _full_page_html(
+        "The Mailbag — Submit a Question",
+        body,
+        canonical_path="/mailbag/submit/",
+        description="Submit a CFB question to The Mailbag. Fan-driven editorial, weekly cadence.",
+    )
     out_path = submit_dir / "index.html"
     out_path.write_text(page, encoding="utf-8")
     log.info("mailbag.renderer: wrote submit form %s", out_path)
