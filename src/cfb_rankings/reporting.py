@@ -475,6 +475,15 @@ def _percentile_label(value: Any) -> str:
 
 
 def _power_resume_gap_note(power_value: Any, resume_value: Any) -> str:
+    """Fan-readable phrasing for the Power vs Resume gap.
+
+    Audit2 finding: the previous wording "Resume is running 9 percentile
+    points ahead of power right now" reads as analyst jargon on fan-
+    facing surfaces. The gap-in-percentile-points is real information
+    engaged fans want, but "percentile points ahead" by itself is
+    unintelligible without context. Now we keep the number but add a
+    plain-English gloss describing what the gap actually means.
+    """
     if power_value is None or resume_value is None:
         return "Power and resume will sharpen as more results land."
     gap = float(power_value) - float(resume_value)
@@ -483,8 +492,14 @@ def _power_resume_gap_note(power_value: Any, resume_value: Any) -> str:
         return "Power and resume are essentially aligned right now."
     point_label = "point" if rounded_gap == 1 else "points"
     if gap > 0:
-        return f"Power is running {rounded_gap} percentile {point_label} ahead of resume right now."
-    return f"Resume is running {rounded_gap} percentile {point_label} ahead of power right now."
+        return (
+            f"Power is running {rounded_gap} {point_label} ahead of resume right now — "
+            f"the underlying strength rating outpaces what the body of work says."
+        )
+    return (
+        f"Resume is running {rounded_gap} {point_label} ahead of power right now — "
+        f"results are outpacing the underlying strength rating."
+    )
 
 
 def _signed_integer_text(value: Any) -> str:
@@ -22908,8 +22923,8 @@ def _power_resume_plot_script() -> str:
           const gap = Number(team.power_percentile || 0) - Number(team.resume_display || 0);
           const magnitude = Math.round(Math.abs(gap));
           if (magnitude < 8) return 'Power and resume are telling a mostly aligned story right now.';
-          if (gap > 0) return `Power is running about ${magnitude} percentile points ahead of resume right now.`;
-          return `Resume is running about ${magnitude} percentile points ahead of power right now.`;
+          if (gap > 0) return `Power is running about ${magnitude} points ahead of resume right now — strength rating outpaces body of work.`;
+          return `Resume is running about ${magnitude} points ahead of power right now — results outpace underlying strength.`;
         }
 
         function escapeHtml(value) {
