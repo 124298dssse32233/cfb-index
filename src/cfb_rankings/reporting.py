@@ -8725,6 +8725,11 @@ def _build_player_stat_profile(
         "available_groups": _player_stat_available_groups(explorer_rows),
         "snapshot_note": _player_stat_snapshot_note(season_year, week),
         "metric_guide": _player_stat_metric_guide(bucket),
+        # Expose the stat-data season_year + week so renderers can
+        # derive honest "2024 Season · Final" headers instead of
+        # hardcoding "2025". See _current_season_production_title.
+        "season_year": season_year,
+        "week": week,
     }
 
 
@@ -9931,6 +9936,29 @@ def _player_stat_snapshot_note(season_year: int | None, week: int | None) -> str
     season_text = "--" if season_year in (None, 0) else str(int(season_year or 0))
     week_text = "--" if week in (None, 0) else str(int(week or 0))
     return f"{season_text} season snapshot | through week {week_text}"
+
+
+def _current_season_production_title(season_year: Any, week: Any) -> str:
+    """Honest header for the Current Season Production block.
+
+    The block was previously hardcoded "2025 Season · Final" — that
+    lies whenever the underlying stat data is from a prior season
+    (e.g. a player whose latest player_season_summary row is 2024
+    because they graduated). Mirrors _heisman_lens_title (PR #84/#88)
+    in always reflecting the data's actual season.
+    """
+    if not season_year:
+        return "Current Season Production"
+    try:
+        season_int = int(season_year)
+    except (TypeError, ValueError):
+        return "Current Season Production"
+    try:
+        week_int = int(week) if week is not None else 0
+    except (TypeError, ValueError):
+        week_int = 0
+    is_final = week_int >= 16
+    return f"{season_int} Season{' · Final' if is_final else f' · Through W{week_int}' if week_int else ''}"
 
 
 def _build_player_signature_story(
@@ -16971,6 +16999,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         _render_v5_current_season_card(
             traditional_sections_list,
             snapshot_note=str(stat_profile.get("snapshot_note") or "").strip(),
+            season_year=stat_profile.get("season_year"),
+            week=stat_profile.get("week"),
         )
         if traditional_sections_list
         else '<p class="footer-note">Traditional season stats will appear here as soon as the player-season feed has the needed categories.</p>'
@@ -17283,7 +17313,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section" id="current-season-production">
         <article class="panel">
           <div class="section-head">
-            <h2>2025 Season · Final</h2>
+            <h2>{escape(_current_season_production_title(stat_profile.get("season_year"), stat_profile.get("week")))}</h2>
             <p class="section-note">Traditional stats first. Advanced context underneath.</p>
           </div>
           <div class="player-stats-shell">
@@ -18785,6 +18815,9 @@ def _render_player_honor_row(row: dict[str, Any]) -> str:
 def _render_v5_current_season_card(
     sections: list[dict[str, Any]],
     snapshot_note: str = "",
+    *,
+    season_year: Any = None,
+    week: Any = None,
 ) -> str:
     """Render the v5 Current Season Production module (S.3 — Figma port).
 
@@ -18851,10 +18884,11 @@ def _render_v5_current_season_card(
         )
 
     sub_text = snapshot_note or "Box score · Rank + percentile context · Opponent-adjusted"
+    csp_title = _current_season_production_title(season_year, week)
     return f"""
       <article class="csp" data-module="current-season-production" data-state="ready">
         <header class="csp__header">
-          <h2 class="csp__title">2025 Season · Final</h2>
+          <h2 class="csp__title">{escape(csp_title)}</h2>
           <p class="csp__sub">{escape(sub_text)}</p>
         </header>
         <div class="csp__grid">{"".join(cards_html)}</div>
