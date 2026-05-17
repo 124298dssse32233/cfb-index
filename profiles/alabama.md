@@ -23,6 +23,57 @@ vocab:
   selfname: "the Tide"
   stadium_short: "Bryant-Denny"
 
+# Added 2026-05-16 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+# Proof-of-concept for the other 16 profiled teams. ~30-60 min editorial work per team.
+rituals:
+  - name: "Rammer Jammer"
+    started_year: 1970
+    when: "After victory; last possession of opponent"
+    description: "Crimson Tide fans sing the cheer taunting the just-defeated opponent. Once considered too brash for league play, now a definitive Alabama victory ritual that echoes from Bryant-Denny across the SEC."
+    image_asset: "rituals/rammer-jammer.svg"
+    cultural_significance: "high"
+  - name: "Yea Alabama (Fight Song)"
+    started_year: 1926
+    when: "Kickoff + after every score"
+    description: "Written for the 1925 Rose Bowl trip. Defines pre-snap Bryant-Denny atmosphere. The Million Dollar Band's pregame T-formation closes with this song."
+    image_asset: "rituals/yea-alabama.svg"
+    cultural_significance: "high"
+  - name: "Elephant Walk"
+    started_year: 1981
+    when: "Team entrance"
+    description: "Players walk single-file from locker room to field tunnel. Adopted under Bear Bryant's later years; refined by Saban into the modern ritual."
+    image_asset: "rituals/elephant-walk.svg"
+    cultural_significance: "medium"
+  - name: "Pregame Flyover"
+    started_year: 2003
+    when: "End of national anthem, major games"
+    description: "Tuscaloosa-based military flyover at major home games. Coordinated with Maxwell Air Force Base. The kind of pageantry that signals 'this game matters.'"
+    image_asset: "rituals/pregame-flyover.svg"
+    cultural_significance: "medium"
+  - name: "Million Dollar Band Halftime"
+    started_year: 1929
+    when: "Halftime, all home games"
+    description: "Marching band performance with crimson-and-houndstooth uniform tradition. 'Big Al' the elephant mascot leads the formation; the band's iconic T-formation closes the show."
+    image_asset: "rituals/million-dollar-band.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Alabama is what college football looks like when 'process' becomes religion."
+  if_team_didnt_exist_cfb_would_lose: "The program every other contender is implicitly measured against — both the dynasty standard and the foil for every Cinderella story."
+  fan_archetype_dominant: "Process-Believer"
+  outsider_archetype_dominant: "Smug"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "alternating-3-stripe-crimson-white"
+  hero_imagery_default: "halftone-engraving-portrait"
+  signature_color_combination: "crimson-cream-houndstooth-grey"
+
+data_emphasis:
+  primary: "dynasty_arc"
+  secondary: "process_metrics_red_zone_td_rate"
+  ignore: "all_time_rivalry_record_vs_auburn_pre_1980"
+  hero_finding_preferred_axis: "national_title_count"
+
 mascot_voice:
   awaiting_signal: "The Elephant is patient. Signal returns with the schedule."
   empty_state: "Bryant-Denny is dark; the process is not."
