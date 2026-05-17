@@ -16072,7 +16072,7 @@ def render_heisman_page_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Heisman Tracker | {escape(season_name)}</title>
-    {_meta_tags(f"A full-board Heisman model for {season_name}. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — including the best non-QB, best G5, and best defensive case.", title=f"Heisman Tracker | {season_name}", image_path="../og-image.svg", canonical_path="/heisman/", og_image_url="/og-image.svg")}
+    {_meta_tags(f"A full-board Heisman model for {season_name}. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender — plus the top non-QB, top Group of Five player, and top defender on the board.", title=f"Heisman Tracker | {season_name}", image_path="../og-image.svg", canonical_path="/heisman/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -18574,29 +18574,38 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
 
 def _render_heisman_feature_cards(rows: list[HeismanRankingRow]) -> str:
     if not rows:
-        return '<p class="footer-note">Once Heisman rows are loaded, this section will spotlight the favorite, the best non-quarterback, the strongest Group of Five candidacy, and any credible defensive outlier.</p>'
+        return '<p class="footer-note">Once Heisman rows are loaded, this section will spotlight the favorite, the best non-quarterback, the highest-ranked Group of Five player, and the highest-ranked defender.</p>'
 
     favorite = rows[0]
     top_non_qb = next((row for row in rows if _normalize_position(row.position) and _normalize_position(row.position) != "QB"), None)
     top_g5 = next((row for row in rows if (row.conference_name or "") in G5_CONFERENCES), None)
     top_defender = next((row for row in rows if _is_defensive_position(row.position)), None)
+
+    # Labels are intentionally descriptive, not aspirational. The G5
+    # and defender candidates are almost always ranked far down the
+    # board (sample: 2024 top defender Caden Curry was #637). Framing
+    # those as "Best Group of Five case" / "Best defensive case" reads
+    # as if we're nominating them for a real Heisman case, which would
+    # be a credibility hit. "Top X on the board" is honest: it's the
+    # board's #1 in that bucket, regardless of how that compares to
+    # the favorite. See docs/octopus/discover.md §3 P0 #8 (audit2).
     cards: list[str] = []
     for label, row, detail in [
         ("Favorite", favorite, f"Win equity {_probability_text(favorite.win_probability)}"),
         (
-            "Best non-QB",
+            "Top non-QB on the board",
             top_non_qb,
             "--" if top_non_qb is None else f"{_normalize_position(top_non_qb.position) or 'ATH'} | {_probability_text(top_non_qb.win_probability)} to win",
         ),
         (
-            "Best Group of Five case",
+            "Top Group of Five player on the board",
             top_g5,
             "--"
             if top_g5 is None
             else f"{top_g5.conference_name or 'G5'} | Rank #{top_g5.overall_rank}",
         ),
         (
-            "Best defensive case",
+            "Top defender on the board",
             top_defender,
             "--"
             if top_defender is None
