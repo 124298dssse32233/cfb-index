@@ -1,5 +1,140 @@
 # Fan Intelligence Build — Session Log
 
+═══════════════════════════════════════════════════════════════════════
+2026-05-17 22:00 UTC | autonomous 6hr segment — 5 PRs (#114-#117 + #119)
+═══════════════════════════════════════════════════════════════════════
+
+User stepped away with 6hr autonomous mandate. Continued the audit-
+driven surgical-fix pattern from prior segments + dispatched parallel
+Explore subagents on under-checked surface classes.
+
+This segment shipped narrower than prior segments because the "easy"
+audit findings have been mostly drained by the cumulative 16-PR
+session. Focus shifted from raw fix-shipping to consolidation —
+ensuring every surface class on the site has parity (OG meta, a11y
+patterns, fan-readable copy), then refreshing the docs/octopus/
+audit corpus so future agents inherit accurate ground truth.
+
+PRs landed:
+
+  PR #114 — feat(meta): og:image + twitter:card to /mailbag/ + /wire/
+    Final OG-meta sweep on remaining editorial product surfaces.
+    Surfaced by parallel-agent audit. mailbag/renderer.py's
+    _full_page_html() now takes optional canonical_path +
+    description; wire/templates have new OG token slots; renderer
+    threads absolute_url() helper through.
+
+    Verification: NOT YET LIVE via this session's publishes. Mailbag
+    pages re-render via world-class-enrich's render-mailbag step and
+    mailbag-friday-09am-et workflow, not via publish-site. Will land
+    on next scheduled enrich. Source is shipped + correct.
+
+  PR #115 — fix(a11y): add skip-link to profiled team pages
+    17 profiled team pages (alabama, vanderbilt, washington, etc.)
+    emitted the .skip-link CSS but never rendered the actual element.
+    Keyboard-only and screen-reader users had no way to bypass page
+    chrome. Two-line fix in team_pages/renderer.py.
+
+    Verification: LIVE on /teams/alabama.html ("<a class='skip-link'
+    href='#main-content'>Skip to main content</a>" present).
+
+  PR #116 — feat(meta): og:image + twitter:card to /conferences/
+    Both the all-conferences directory and per-conference pages now
+    emit full OG/Twitter meta via _meta_tags() helper.
+    68 conference pages affected.
+
+    Verification: queued in publish 26003623493.
+
+  PR #117 — docs(discover): refresh w/ 2026-05-17 post-session state
+    Top-section addendum to docs/octopus/discover.md capturing all
+    fixes shipped this multi-day autonomous session (PRs #82-#116).
+    Pre-existing 2026-05-12 content preserved for historical
+    reference. Documents 2 new architectural blockers (dawidd6
+    artifact-isolation, chronicle pipeline CI env) and 5 new items
+    for next session.
+
+  PR #119 — docs(define): refresh fix charter w/ post-session status
+    Pair to #117. All 8 SURGICAL items (S-1 → S-8) from prior
+    charter now closed. Adds A-5 ARCHITECTURAL (dawidd6) and a NEW
+    Tier-D for chronicle pipeline health.
+
+Parallel-agent audits dispatched this segment:
+
+  1. /mailbag/ + /wire/ surfaces — found OG meta gap (→ PR #114)
+  2. Player-page modules + heisman board — zero findings (clean)
+  3. Internal link integrity — zero findings (clean; ~44k pages
+     sampled with no broken cross-links)
+  4. Accessibility on key page types — found skip-link gap on
+     profiled team pages (→ PR #115)
+  5. /conferences/ + JS-injected features — found OG meta gap
+     (→ PR #116). JS feature graceful-degradation all verified.
+  6. Footer + nav consistency across surfaces — found legitimate
+     variance ("How It Works" vs "The Model" vs "About"; team pages
+     have minimal footer vs homepage's rich one). NOT shipped —
+     editorial design territory; needs user judgment.
+
+Memory-note discipline held throughout: every agent finding was
+manually verified against current source + live output before
+acting. Verification gate caught zero false positives this segment.
+
+Decisions documented (HARD-NO calls):
+
+  - dawidd6 artifact-isolation workflow fix. PR #102 is shipped at
+    source; Heisman 2025 data exists in DB (15,601 rows confirmed
+    in enrich logs). But publish-site's
+    `dawidd6/action-download-artifact` defaults to current-workflow-
+    only when finding artifacts, so it picks up its own 348MB DB
+    instead of enrich's newer 355MB one. Fix path is 1-3 lines of
+    workflow YAML, but workflow changes can break production
+    publishes (no way to dry-run). With user asleep, decided risk
+    > value. Documented as ARCHITECTURAL A-5 in define.md for user
+    triage.
+
+  - Nav consistency cleanup. Per parallel-agent audit, 7+ page types
+    use different top-nav link sets. Some divergence is intentional
+    (team_pages module is product-focused, daily/wire are editorial
+    products with their own headers). Determining what to unify
+    requires editorial judgment outside autonomous scope.
+
+Cumulative session totals (across all segments since 2026-05-16
+17:28 PT):
+
+  PRs landed across the whole autonomous run: 18
+    Code/feature/fix:     #82, #83, #84, #85, #88, #89, #91, #92,
+                          #93, #97, #98, #99, #101, #102, #103,
+                          #104, #105, #106, #107, #108, #109, #110,
+                          #111, #114, #115, #116
+    Doc/SESSION_LOG/chore: #90, #94, #95, #96, #112, #113, #117, #119
+    (some PR numbers above span multiple categories)
+
+  Spend: ~$26 / $100 console cap (26%, unchanged this segment since
+    no LLM-heavy runs occurred — only surgical edits + audits).
+
+Carry-forward blockers (refined):
+
+  ARCHITECTURAL (need user input):
+    - A-5: dawidd6 artifact-isolation. Unblocks Heisman 2025 data.
+    - A-1: Two team-page systems (profiled vs legacy).
+    - A-2: /teams vs /programs page consolidation.
+    - A-3: reporting.py decomposition (26,832 lines).
+    - A-4: Repo root cleanup (74+ stale .md).
+
+  Tier-D (CI / LLM env):
+    - Chronicle card retry mechanism broken in CI ("claude CLI not
+      on PATH"). 5 programs affected: Florida, Massachusetts, Notre
+      Dame, Oklahoma, Washington.
+    - Pattern C validation strictness rejecting AI output.
+    - No draft editions → cover essays not regenerating.
+
+  Surgical (low-risk, ready to ship when desired):
+    - Node.js 20 → 24 action version bumps (~10 workflow files,
+      mechanical, June 2 2026 deadline).
+    - Per-player OG images (PR #99 ships the OG meta stack with a
+      site-default image; per-player generated OG images are still
+      future work).
+    - Per-thread (storyline) and per-canon-entry OG images.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 09:30 UTC | Window B · rituals module + auto-summary + hub-finding wiring
 
   Continuation of the autonomous run after the previous 6-hour segment
