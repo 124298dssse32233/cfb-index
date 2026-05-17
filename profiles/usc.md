@@ -23,6 +23,56 @@ vocab:
   selfname: "the Trojans"
   stadium_short: "the Coliseum"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Traveler (the white horse)"
+    started_year: 1961
+    when: "Pre-game and after every USC score"
+    description: "A white horse ridden by 'Tommy Trojan' costumed rider gallops across the Coliseum field. Started Sept 30, 1961 (vs Iowa). Each Traveler is a real horse — Traveler IX is current. The horse is stabled near LA Equestrian Center. Sword raised, helmet plume waving — the entire pageant is pure Hollywood Trojan iconography. The horse has its own Twitter following."
+    image_asset: "rituals/usc-traveler.svg"
+    cultural_significance: "high"
+  - name: "Spirit of Troy (band, 'the greatest marching band in the history of the universe')"
+    started_year: 1880 (band founded); cultural-icon status from 1979 Tusk session
+    when: "Every USC athletic event + occasional Fleetwood Mac sessions"
+    description: "USC's marching band, famously the only college band to play on a Grammy-winning album ('Tusk,' Fleetwood Mac, 1979). Plays at Olympics, presidential inaugurations, movies. The band's 'Fight On' is the recognizable hook. The Spirit of Troy treats every halftime as a national television performance — and at the Coliseum it often is."
+    image_asset: "rituals/spirit-of-troy.svg"
+    cultural_significance: "high"
+  - name: "Conquest (the post-victory ritual)"
+    started_year: 1962
+    when: "After every victory"
+    description: "The Spirit of Troy plays 'Conquest' — the 1947 Captain from Castile theme by Alfred Newman — accompanied by victory bell-ringing. Conquest is the canonical USC victory song, even more than Fight On. Coaches stay on the field to participate. The song's brass swell is among the most cinematic moments in college football."
+    image_asset: "rituals/usc-conquest.svg"
+    cultural_significance: "high"
+  - name: "Victory Bell (vs UCLA rivalry trophy)"
+    started_year: 1942
+    when: "Painted USC cardinal or UCLA blue based on rivalry result; ceremonial post-game ritual"
+    description: "295-pound bronze bell, originally on a Southern Pacific locomotive. Won by the rivalry victor each year. Painted in the winner's colors and displayed on the winning campus. The 1965 UCLA wildcat theft (Bruins took it from USC) is part of the lore. The most-photographed trophy in the LA-area college sports calendar."
+    image_asset: "rituals/usc-victory-bell.svg"
+    cultural_significance: "medium"
+  - name: "Tommy Trojan Statue"
+    started_year: 1930
+    when: "Permanent campus monument; covered during UCLA Week to prevent vandalism"
+    description: "Bronze statue of a Trojan warrior on campus. During UCLA Week, USC students cover Tommy in tape and tarps to prevent UCLA fan vandalism. The annual 'covering' ritual is itself an event. Tommy faces east — toward UCLA's Westwood campus — which is either symbolic or coincidence depending on who's telling the story."
+    image_asset: "rituals/tommy-trojan-statue.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "USC is the program that turned Los Angeles entertainment-industry sensibility into a college football brand — and is currently figuring out whether the Big Ten will let it stay that way."
+  if_team_didnt_exist_cfb_would_lose: "Traveler as the most cinematic mascot in college sports. The Spirit of Troy as the only Grammy-recognized college band. The Coliseum as one of three Olympics-host college venues. The Pete Carroll dynasty as the canonical 'how a coach owns a city' arc."
+  fan_archetype_dominant: "Pete-Carroll-Era-Memory"
+  outsider_archetype_dominant: "Hollywood-Glitter"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "cardinal-stripe-on-gold-helmet"
+  hero_imagery_default: "halftone-engraving-portrait-with-traveler"
+  signature_color_combination: "cardinal-gold-cream"
+
+data_emphasis:
+  primary: "big_ten_transition_results"
+  secondary: "la_metro_recruiting_dominance"
+  ignore: "post_sanction_dark_years_metrics"
+  hero_finding_preferred_axis: "los_angeles_recruiting_class_rank"
+
 mascot_voice:
   awaiting_signal: "Traveler is stabled. Signal returns on kickoff's schedule."
   empty_state: "The Coliseum has seen the Olympics three times. It can wait another weekend."

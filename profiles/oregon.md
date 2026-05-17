@@ -23,6 +23,56 @@ vocab:
   selfname: "the Ducks"
   stadium_short: "Autzen"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "The Oregon Duck (motorcycle entrance)"
+    started_year: 1947 (mascot); 2008 (motorcycle entrance)
+    when: "Pre-game and after every touchdown"
+    description: "The Duck — based on Disney's Donald Duck via a 1947 handshake agreement Phil Knight finally formalized — rides a Harley onto the field. After every touchdown, the Duck does pushups equal to the team's running point total. Knee surgeries are common. The mascot is licensed Disney IP; the contract is one of college sports' weirder artifacts."
+    image_asset: "rituals/oregon-duck-motorcycle.svg"
+    cultural_significance: "high"
+  - name: "Uniform Combinations"
+    started_year: 2003
+    when: "Different combination every game — never the same twice in a season"
+    description: "Nike Innovation Kitchen designs Oregon's uniforms; Phil Knight (Nike founder, Oregon alum) funds the program. The combinations are revealed Thursday before each game on social media — itself a ritual. 'What are the Ducks wearing this week?' is part of national Saturday discourse. Recruiting tool, brand statement, weekly aesthetic event."
+    image_asset: "rituals/oregon-uniforms.svg"
+    cultural_significance: "high"
+  - name: "Mighty Oregon (fight song)"
+    started_year: 1916
+    when: "After every score, end of every game"
+    description: "Written by DeWitt Gilbert in 1916. The 'Glory, glory to Oregon!' chorus is the recognizable hook. The Pride of the Pacific band plays it constantly. Less universally famous than Hail to the Victors or Boomer Sooner but central to Autzen's audio identity."
+    image_asset: "rituals/mighty-oregon.svg"
+    cultural_significance: "medium"
+  - name: "The Pit Crew (student section)"
+    started_year: 2007
+    when: "Every home game — the student section as a coordinated entity"
+    description: "Originally the basketball student section; expanded to football. Coordinated chants, costume themes, and a yellow/green visual identity that turns Autzen's north end into a single dense block. Less codified than Penn State's White Out but more aesthetically wild — themed games (camo, Hawaiian, etc.) are normal."
+    image_asset: "rituals/pit-crew.svg"
+    cultural_significance: "medium"
+  - name: "Autzen Decibel Records"
+    started_year: 1990s
+    when: "Every home game — Autzen registers among the loudest stadiums in college football"
+    description: "Autzen's bowl design and 54,000-capacity intimacy produce sustained decibel readings rivaling 100,000-seat stadiums. The 2003 USC game registered 127.2dB. The crowd's coordinated noise during opposing offensive possessions is part of the program's home-field advantage; recruits get sold on this specifically."
+    image_asset: "rituals/autzen-decibel.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Oregon is what happens when Nike money funds a football program — a perpetual brand experiment that occasionally produces title contenders."
+  if_team_didnt_exist_cfb_would_lose: "The uniform-as-content innovation that every college football program has since copied. The Chip Kelly tempo offense as a permanent tactical contribution. Phil Knight's blueprint for how a single mega-donor reshapes a program."
+  fan_archetype_dominant: "Nike-Era-Modernist"
+  outsider_archetype_dominant: "Aesthetic-Above-Substance"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "rotates-every-game-the-point-is-rotation"
+  hero_imagery_default: "risograph-poster-with-duck-silhouette"
+  signature_color_combination: "yellow-green-occasional-pink-anything-else"
+
+data_emphasis:
+  primary: "chip_kelly_and_post_era_tempo_metrics"
+  secondary: "recruiting_class_rank_west_coast"
+  ignore: "pre_2007_records"
+  hero_finding_preferred_axis: "yards_per_play_offensive"
+
 mascot_voice:
   awaiting_signal: "The Duck is changing uniforms. Signal returns on its own schedule."
   empty_state: "Autzen is too loud to sleep in. It just gets quieter."

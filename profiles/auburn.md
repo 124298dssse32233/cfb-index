@@ -23,6 +23,56 @@ vocab:
   selfname: "the Tigers"
   stadium_short: "Jordan-Hare"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Eagle Flight Pre-Game"
+    started_year: 2000
+    when: "Before kickoff at every home game"
+    description: "A live golden eagle (Nova or Aurea, alternating) launches from the upper deck of Jordan-Hare and spirals down to midfield as 87,000 fans roar 'WAAAAR EAGLE!' through the descent. The fan voice is built into the ritual — the eagle's flight times the chant. One of the most theatrical pre-game traditions in sports."
+    image_asset: "rituals/auburn-eagle-flight.svg"
+    cultural_significance: "high"
+  - name: "Rolling Toomer's Corner"
+    started_year: 1972
+    when: "After every football victory"
+    description: "Fans wrap the oak trees at the intersection of College Street and Magnolia Avenue in toilet paper. The 2010 BCS title run drowned the corner in white. The original oaks were poisoned by an Alabama fan in 2010 and replaced; the ritual continued through the interregnum on new trees."
+    image_asset: "rituals/toomers-corner.svg"
+    cultural_significance: "high"
+  - name: "War Eagle Cheer"
+    started_year: 1914
+    when: "Constantly — at every score, every defensive stop, every moment of doubt"
+    description: "Not a fight song, not a chant — a call-and-response that defines Auburn fandom. Origin stories vary (the Civil War veteran's pet eagle is the favored one). Used as greeting, sign-off, victory cry, condolence. The phrase IS the program."
+    image_asset: "rituals/war-eagle-cheer.svg"
+    cultural_significance: "high"
+  - name: "Tiger Walk"
+    started_year: 1962
+    when: "Two hours before kickoff"
+    description: "Players walk from Sewell Hall to Jordan-Hare through a corridor of fans. Originated when fans spontaneously lined the route in 1962; codified into a ritual within a decade. Replicated (badly) at programs nationwide; Auburn's was the prototype."
+    image_asset: "rituals/auburn-tiger-walk.svg"
+    cultural_significance: "medium"
+  - name: "Iron Bowl Week"
+    started_year: 1893
+    when: "Last week of regular season, alternating Tuscaloosa and Auburn"
+    description: "Not a single ritual — a 7-day suspension of normal life for both fanbases. The 2013 Kick Six, the 2010 comeback, the 1972 Punt Bama Punt — Auburn's identity is partly measured in Iron Bowl miracles. Calendar marker that overrides everything else."
+    image_asset: "rituals/iron-bowl.svg"
+    cultural_significance: "high"
+
+cultural_anchors:
+  one_sentence: "Auburn is the SEC's defiant underdog with a 1,200-year history of doing the impossible when nobody asked it to."
+  if_team_didnt_exist_cfb_would_lose: "The program that proves the SEC can have personality alongside dynasty — the team that ruins Alabama's season often enough to keep college football honest."
+  fan_archetype_dominant: "Defiant Underdog"
+  outsider_archetype_dominant: "Chaos-Agent"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-stripe-orange-on-navy"
+  hero_imagery_default: "ligne-claire-with-eagle-silhouette"
+  signature_color_combination: "navy-orange-cream"
+
+data_emphasis:
+  primary: "iron_bowl_results"
+  secondary: "sec_west_resume_strength"
+  ignore: "pre_1980_national_rankings"
+  hero_finding_preferred_axis: "iron_bowl_win_rate_under_current_coach"
+
 mascot_voice:
   awaiting_signal: "Aubie is on campus. Signal returns when the cow-bells do."
   empty_state: "Jordan-Hare is waiting. The week after Alabama is where the year is measured."

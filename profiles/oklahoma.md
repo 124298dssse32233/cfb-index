@@ -23,6 +23,56 @@ vocab:
   selfname: "the Sooners"
   stadium_short: "Owen Field"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Sooner Schooner"
+    started_year: 1964
+    when: "After every Oklahoma score"
+    description: "The covered wagon, pulled by two white ponies named Boomer and Sooner, races across the field after every score. The schooner is a Conestoga wagon — a direct reference to the 1889 Land Rush 'Sooners' who entered Oklahoma Territory before the legal start. The 1985 Orange Bowl tipping incident is part of the lore."
+    image_asset: "rituals/sooner-schooner.svg"
+    cultural_significance: "high"
+  - name: "Boomer Sooner (fight song)"
+    started_year: 1905
+    when: "After every score, before every kickoff, constantly"
+    description: "Written by Arthur Alden in 1905 — set to the tune of Yale's 'Boola Boola' (which OU borrowed and arguably improved). The most-played college fight song per minute of game time. The 'Oklahoma! Oklahoma! Oklahoma! Sooners!' breakdown is the signature; visiting fans learn it by osmosis."
+    image_asset: "rituals/boomer-sooner.svg"
+    cultural_significance: "high"
+  - name: "The Crimson Walk (Sooner Walk)"
+    started_year: 1990s
+    when: "Two hours before kickoff"
+    description: "Players walk from Switzer Center through fans into Owen Field. Less codified than Auburn's or Michigan's equivalents but central to the gameday rhythm. Bob Stoops formalized it; Lincoln Riley and Brent Venables continued. The walk passes the Heisman statues — every Oklahoma Heisman winner cast in bronze along the route."
+    image_asset: "rituals/sooner-walk.svg"
+    cultural_significance: "medium"
+  - name: "Pride of Oklahoma (band)"
+    started_year: 1904
+    when: "Halftime, every home game"
+    description: "The marching band's halftime performance — distinguished by the 'Boomer Sooner' fan-tradition culminating in the script 'OKLAHOMA' formation. Less photogenic than Script Ohio but more athletic — the band's fast tempo through OU formations is its signature. Drumline solos are a fixture."
+    image_asset: "rituals/pride-of-oklahoma.svg"
+    cultural_significance: "medium"
+  - name: "Red River Rivalry Week"
+    started_year: 1900
+    when: "Second Saturday in October, at the Cotton Bowl in Dallas"
+    description: "The neutral-site game vs Texas during the State Fair of Texas. The stadium is split exactly in half — crimson on one sideline, burnt orange on the other. The Golden Hat trophy goes to the winner. Calendar-marker rivalry that organizes the OU season the way The Game organizes Ohio State's."
+    image_asset: "rituals/red-river-rivalry.svg"
+    cultural_significance: "high"
+
+cultural_anchors:
+  one_sentence: "Oklahoma is the program built on Land Rush mythology and the only American college team where the mascot is two white ponies pulling a Conestoga wagon at 25mph."
+  if_team_didnt_exist_cfb_would_lose: "The Sooner Schooner. The Red River. The Big Eight / Big 12 / SEC migration history as a case study in conference realignment. The Switzer-era wishbone offense as a tactical fossil."
+  fan_archetype_dominant: "Manifest-Destiny-Believer"
+  outsider_archetype_dominant: "Late-to-the-SEC"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "interlocking-OU-on-crimson-no-stripe"
+  hero_imagery_default: "halftone-engraving-portrait-with-schooner"
+  signature_color_combination: "crimson-cream"
+
+data_emphasis:
+  primary: "red_river_rivalry_results"
+  secondary: "all_time_conference_titles_count"
+  ignore: "early_sec_transition_anomalies"
+  hero_finding_preferred_axis: "national_championships_count_seven"
+
 mascot_voice:
   awaiting_signal: "The Sooner Schooner is in the stable. Signal returns when the horses hear it."
   empty_state: "Owen Field is quiet. Seven titles do not insulate a program from the present."

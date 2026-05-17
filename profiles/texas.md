@@ -23,6 +23,56 @@ vocab:
   selfname: "the Longhorns"
   stadium_short: "DKR"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Hook 'em Horns (the hand sign)"
+    started_year: 1955
+    when: "Constantly — at every score, every greeting, in every photograph involving a Texas fan"
+    description: "Index and pinky extended, middle and ring folded — invented by head cheerleader Harley Clark in 1955 at a pep rally before the TCU game. Within a decade, every Texas fan greeted with it. Visible at presidential photos, Hollywood premieres, and graduation ceremonies. The most-recognized college fan hand sign in America."
+    image_asset: "rituals/hook-em-horns.svg"
+    cultural_significance: "high"
+  - name: "Bevo (the longhorn steer)"
+    started_year: 1916
+    when: "Sideline every home game (when behaviorally appropriate)"
+    description: "Live longhorn steer (Bevo XV is current). Each Bevo is a working steer with handlers from the Silver Spurs honorary service organization. The 2019 Bevo-vs-Uga (Sugar Bowl) charging incident is part of the lore. Bevo's horns are usually 70+ inches tip-to-tip. The bull is the largest live mascot in any major American sport."
+    image_asset: "rituals/bevo-mascot.svg"
+    cultural_significance: "high"
+  - name: "The Eyes of Texas"
+    started_year: 1903
+    when: "End of every game, win or loss; pre-game"
+    description: "The alma mater, set to 'I've Been Working on the Railroad.' Written 1903 by John Lang Sinclair. Sung by team, band, and fans with Hook 'em signs raised. Controversy around its minstrel-era origins surfaced in 2020; the program kept the song but added historical context. Still central to Texas game-day."
+    image_asset: "rituals/eyes-of-texas.svg"
+    cultural_significance: "high"
+  - name: "Smokey the Cannon"
+    started_year: 1953
+    when: "Fired after every Texas score and after victories"
+    description: "10-pound black-powder cannon fired by Texas Cowboys honorary service organization. Stationed in the south end zone. Each Texas score = one boom, audible across campus. Visiting fans often jump on the first one (it's louder than they expect). Smokey is technically illegal in some states; Austin grants a permit."
+    image_asset: "rituals/smokey-cannon.svg"
+    cultural_significance: "medium"
+  - name: "Texas Fight (fight song)"
+    started_year: 1923
+    when: "After every score and during momentum shifts"
+    description: "Composed by Walter Hunnicutt in 1923. The 'Texas Fight, Texas Fight, And it's goodbye to A&M' lyric was originally pointed at the rival; after A&M left the Big 12 (2012), the lyric became geographically odd. Now that A&M is back on the schedule (SEC 2024+), the lyric is timely again. The song's call-and-response structure is its signature."
+    image_asset: "rituals/texas-fight.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Texas is the program that spent 15 years convinced it deserved more — and the SEC move is the test of whether the conviction was correct."
+  if_team_didnt_exist_cfb_would_lose: "Hook 'em Horns as the canonical college hand sign. Bevo as the largest live mascot in American sports. The Red River as a top-3 American sports rivalry. The 2005 Vince Young national title as the canonical 'one-man team beats dynasty' arc."
+  fan_archetype_dominant: "Birthright-Believer"
+  outsider_archetype_dominant: "Always-Should-Be-Better"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-burnt-orange-stripe-on-white-helmet"
+  hero_imagery_default: "halftone-engraving-portrait-with-longhorn-silhouette"
+  signature_color_combination: "burnt-orange-cream"
+
+data_emphasis:
+  primary: "sec_resume_first_year_and_beyond"
+  secondary: "red_river_results"
+  ignore: "big_12_only_metrics_now_obsolete"
+  hero_finding_preferred_axis: "sec_road_record_first_two_seasons"
+
 mascot_voice:
   awaiting_signal: "Bevo is chewing. Signal returns on its own time."
   empty_state: "DKR doesn't sleep in the off-season. It waits."

@@ -24,6 +24,56 @@ vocab:
   stadium_short: "Sanford Stadium"
   venue_phrase: "Between the Hedges"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Uga (the live mascot)"
+    started_year: 1956
+    when: "Sideline every home game"
+    description: "The white English bulldog with the red jersey patrols Sanford Stadium's sideline. Each Uga descends from the same lineage (UGA XI 'Boom' is current). The 1997 ESPN ranking of Uga as the #1 mascot in college football was a recognition of decades of accumulated cultural weight. Tradition includes the dog house — air-conditioned, just for him."
+    image_asset: "rituals/uga-mascot.svg"
+    cultural_significance: "high"
+  - name: "Calling the Dawgs (Glory Glory)"
+    started_year: 1909
+    when: "After every score and as victory closes"
+    description: "Fans bark — actual barking — through the stadium, especially after defensive stops. 'Glory Glory to Old Georgia' (set to 'Battle Hymn of the Republic') follows touchdowns. The bark/song combination is uniquely Georgia; no other SEC fanbase has the same audio signature."
+    image_asset: "rituals/calling-the-dawgs.svg"
+    cultural_significance: "high"
+  - name: "Between the Hedges"
+    started_year: 1929
+    when: "Phrase used constantly; the privet hedges have been at field's edge since the 1929 stadium opening"
+    description: "Sanford Stadium's playing field is literally enclosed by hedges. 'Between the Hedges' is the venue phrase, the brand, the metaphor. The hedges were temporarily removed for the 1996 Olympic soccer matches; their reinstallation was front-page Athens news. They're a living architectural feature most programs would kill for."
+    image_asset: "rituals/between-the-hedges.svg"
+    cultural_significance: "high"
+  - name: "Dawg Walk"
+    started_year: 1980s
+    when: "Two hours before kickoff, from Stegeman Coliseum through the tailgate fields"
+    description: "Players walk through fans to the stadium. Less theatrical than Auburn's Tiger Walk; more communal — the route winds through actual tailgates, not a corridor. Vince Dooley codified it; Kirby Smart reinforced its centrality."
+    image_asset: "rituals/dawg-walk.svg"
+    cultural_significance: "medium"
+  - name: "Trumpeting the Hairy Dawg"
+    started_year: 1981
+    when: "Halftime, big games"
+    description: "The costumed Hairy Dawg mascot's halftime performance — paired with the Redcoat Band's signature 'Krypton Fanfare' from Superman. The band itself is a tradition; the Hairy Dawg interlude turned it into an event. 'How 'bout them Dawgs?' is the call-and-response cue."
+    image_asset: "rituals/hairy-dawg.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Georgia is what happens when a fanbase finally gets what it spent 40 years waiting for — and then immediately wants more."
+  if_team_didnt_exist_cfb_would_lose: "The Kirby-era proof that the SEC East can produce title-team formula. The Uga lineage. The Sanford hedges. Three things no other program has at the same density."
+  fan_archetype_dominant: "Title-Era Believer"
+  outsider_archetype_dominant: "Insufferable-Since-2021"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-black-stripe-on-silver"
+  hero_imagery_default: "halftone-engraving-portrait"
+  signature_color_combination: "red-black-cream-hedge-green"
+
+data_emphasis:
+  primary: "kirby_era_defensive_metrics"
+  secondary: "recruiting_class_rank_per_year"
+  ignore: "pre_smart_era_records"
+  hero_finding_preferred_axis: "consecutive_top_10_finishes"
+
 mascot_voice:
   awaiting_signal: "Uga is watching the schedule. Signal returns when the grass grows back."
   empty_state: "Sanford is quiet between games. The hedges don't move."

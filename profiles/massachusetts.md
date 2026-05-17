@@ -23,6 +23,56 @@ vocab:
   selfname: "the Minutemen"
   stadium_short: "McGuirk Stadium"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Minuteman Cannon"
+    started_year: 1972
+    when: "Fired before kickoff and after every UMass score"
+    description: "Replica 1775-era cannon fired by the UMass Pep Band (the Power and Class Marching Band). The cannon connects the program identity to the Massachusetts Minutemen — the Revolutionary War militia the program is named for. Less famous than Texas's Smokey or Tennessee's tradition equivalents, but cleanly tied to regional history."
+    image_asset: "rituals/minuteman-cannon.svg"
+    cultural_significance: "medium"
+  - name: "Power and Class (band tradition)"
+    started_year: 1880s
+    when: "Halftime, every home game"
+    description: "The marching band's nickname IS the program identity phrase — 'Power and Class' is what UMass calls itself when defining the institution against bigger-program comparisons. Distinct in that the band branding flows back to the football program, not the reverse. Smaller than Big Ten band productions; precise."
+    image_asset: "rituals/power-and-class-band.svg"
+    cultural_significance: "medium"
+  - name: "Fight Mass (fight song)"
+    started_year: 1970s
+    when: "After every score and at end of every game"
+    description: "Sometimes called 'My UMass' — the fight song variations have shifted with conference moves (Yankee Conference → MAC → independent → Sun Belt). Less iconic than SEC or Big Ten fight songs because UMass football's conference identity has been less stable. The song persists; the affiliation shifts around it."
+    image_asset: "rituals/fight-mass.svg"
+    cultural_significance: "medium"
+  - name: "Sam the Minuteman"
+    started_year: 1972
+    when: "Sideline every game"
+    description: "Costumed mascot — colonial-era militiaman with tricorn hat and musket. Distinct from generic mascots because the figure references actual historical UMass identity (the state's Revolutionary War heritage). Sam's musket is a costume prop, not functional. The mascot was redesigned in the 2000s to look less aggressive — more historical-reenactor than menacing."
+    image_asset: "rituals/sam-the-minuteman.svg"
+    cultural_significance: "medium"
+  - name: "Flagship-First Identity"
+    started_year: 2024 (Mark Whipple return era branding refresh)
+    when: "Constant — the program identity framing"
+    description: "'Flagship' is UMass's branding for being the flagship campus of the University of Massachusetts system. Used in recruiting, signage, marketing. Frames UMass football as the football program that represents an entire state university system. Less a ritual than an institutional positioning the program adopted post-FBS-transition."
+    image_asset: "rituals/flagship-identity.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "UMass is the program that proves Group of Five football is a different sport — and that running an FBS program at a flagship-research university requires explaining itself constantly."
+  if_team_didnt_exist_cfb_would_lose: "The honest case study of an Atlantic-10 / Yankee Conference program trying to live at the FBS level. The Power and Class band branding. The Minuteman cannon as a regionally-rooted ritual. The current Whipple-era restart as a real product-development case."
+  fan_archetype_dominant: "Loyalist-Through-Transitions"
+  outsider_archetype_dominant: "Why-Are-They-FBS"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-white-stripe-on-maroon"
+  hero_imagery_default: "ligne-claire-with-minuteman-silhouette"
+  signature_color_combination: "maroon-white-cream"
+
+data_emphasis:
+  primary: "year_over_year_wins_pace"
+  secondary: "g5_resume_strength"
+  ignore: "p5_comparative_metrics_until_warranted"
+  hero_finding_preferred_axis: "bowl_eligibility_progress"
+
 mascot_voice:
   awaiting_signal: "Sam the Minuteman is scouting. Signal returns when the conference calendar cranks up."
   empty_state: "UMass plays for the rung above itself. The off-season is where that gets built."

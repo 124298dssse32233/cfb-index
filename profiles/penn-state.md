@@ -23,6 +23,56 @@ vocab:
   selfname: "the Nittany Lions"
   stadium_short: "Beaver Stadium"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "White Out"
+    started_year: 2004 (student section); 2005 (full stadium)
+    when: "One designated marquee home game per season"
+    description: "All 110,000+ fans wear white. The visual effect — entire bowl of Beaver Stadium as a single white mass — is among the most photographed scenes in college football. Selected game is usually a top-10 matchup; the 'White Out game' designation drives ticket demand to scalper extremes. The 2017 vs Ohio State Whiteout is the canonical reference."
+    image_asset: "rituals/penn-state-white-out.svg"
+    cultural_significance: "high"
+  - name: "We Are... Penn State"
+    started_year: 1970s
+    when: "Constantly — pre-game, post-score, in any public setting"
+    description: "Call-and-response chant: leader yells 'We Are!' — crowd responds 'PENN STATE!' Three rounds. Origin attributed to Wally Triplett, the program's first Black starter, around 1948 inclusion debates ('We are Penn State' was the affirmation). Adopted as the cheer in the 1970s. Survives every coaching change because it's about the institution, not the team."
+    image_asset: "rituals/we-are-penn-state.svg"
+    cultural_significance: "high"
+  - name: "Nittany Lion Statue Touch"
+    started_year: 1942 (statue installed); ritual evolved 1960s
+    description: "The 1942 sculpted Nittany Lion statue in front of Recreation Building. Fans touch the paw or pose at the statue before games. The statue's paws are physically darker from accumulated touches. Spring graduates photograph with it; recruits include it in their visit footage."
+    when: "Pre-game, all season, plus campus weekdays"
+    image_asset: "rituals/nittany-lion-statue.svg"
+    cultural_significance: "medium"
+  - name: "S-Zone (student section card stunt)"
+    started_year: 2008
+    when: "Once per home season, surprise unveiling"
+    description: "Student section coordinates a card-flip to display 'S' or a graphic across the stands. The Lift for Life charity event and similar partnerships use the section. The coordinated visual stunt is distinct from the White Out — quieter, more student-led. Penn State student leadership rotates the design annually."
+    image_asset: "rituals/s-zone.svg"
+    cultural_significance: "medium"
+  - name: "Zombie Nation (Kernkraft 400)"
+    started_year: 2008
+    when: "After every Penn State first down — the crowd jumps"
+    description: "The 1999 German techno track is the Beaver Stadium third-down stop and first-down celebration song. The stadium jumping triggers seismic readings. The Penn State athletic department has tested the building's structural response; the official engineering verdict: 'within tolerances.' The fans don't care."
+    image_asset: "rituals/zombie-nation.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Penn State is the program that decided collective identity is more durable than individual coaching tenure — and built rituals that survive every administrative crisis."
+  if_team_didnt_exist_cfb_would_lose: "The White Out as a national event. The 'We Are' cheer as the canonical affirmation. The Beaver Stadium 110,000 attendance bar that only Michigan matches. The post-sanctions institutional resilience case study."
+  fan_archetype_dominant: "Institutional-Faithful"
+  outsider_archetype_dominant: "Survivor-of-the-Sandusky-Era"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-white-stripe-on-navy-no-logo"
+  hero_imagery_default: "halftone-engraving-portrait-with-nittany-lion"
+  signature_color_combination: "navy-white-cream"
+
+data_emphasis:
+  primary: "beaver_stadium_home_record"
+  secondary: "white_out_game_results_streak"
+  ignore: "1990s_pre_sandusky_only_metrics"
+  hero_finding_preferred_axis: "home_record_under_franklin"
+
 mascot_voice:
   awaiting_signal: "The Nittany Lion is watching film. Signal returns when the whistle blows."
   empty_state: "Happy Valley is quieter without kickoff. The patience is part of the work."
