@@ -13965,6 +13965,16 @@ def _render_og_image_svg(
         f'<text x="{headline_x}" y="498" fill="#A3A3A3" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="500">{safe_subline}</text>'
         if safe_subline else ""
     )
+    # Continuation line for headlines longer than 36 chars. Previously
+    # this <text> element was always emitted; for short headlines like
+    # "THE CFB INDEX" it became an empty <text> element which left 72px
+    # of dead vertical space between the headline and the subline.
+    # Now only emitted when there's actual continuation text.
+    headline_continuation = safe_headline[36:72] if len(safe_headline) > 36 else ""
+    headline_continuation_block = (
+        f'<text x="{headline_x}" y="400" fill="#FFFFFF" font-family="Bebas Neue, Anton, Inter, sans-serif" font-size="72" font-weight="700" letter-spacing="-1">{headline_continuation}</text>'
+        if headline_continuation else ""
+    )
     return (
         '<?xml version="1.0" encoding="UTF-8"?>'
         '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">'
@@ -13979,7 +13989,7 @@ def _render_og_image_svg(
         f'<text x="100" y="120" fill="{escape(accent)}" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" letter-spacing="6">{safe_eyebrow.upper()}</text>'
         f'{logo_block}'
         f'<text x="{headline_x}" y="300" fill="#FFFFFF" font-family="Bebas Neue, Anton, Inter, sans-serif" font-size="96" font-weight="700" letter-spacing="-1">{safe_headline[:36]}</text>'
-        f'<text x="{headline_x}" y="400" fill="#FFFFFF" font-family="Bebas Neue, Anton, Inter, sans-serif" font-size="72" font-weight="700" letter-spacing="-1">{safe_headline[36:72] if len(safe_headline) > 36 else ""}</text>'
+        f'{headline_continuation_block}'
         f'{subline_block}'
         '<text x="72" y="570" fill="#E5E5E5" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="8">THE CFB INDEX</text>'
         '</svg>'
