@@ -191,6 +191,108 @@ def _archive_links_html(recent_editions: list[dict[str, Any]]) -> str:
     return "\n".join(links) if links else '<span style="opacity:0.4">No prior editions yet</span>'
 
 
+def _build_auto_summary_html(
+    rows: list[tuple],
+    edition_date: str,
+    conn,
+) -> str:
+    """Pattern 7 wire-up — emit the 30-second auto-summary block.
+
+    Combines every take's body markdown into a single article-body for
+    the auto-summary primitive. Returns "" when:
+      - There are 0 takes (rendered as no-takes placeholder elsewhere)
+      - The combined body is <200 chars (too short to summarize)
+      - The LLM call fails or returns no parseable bullets
+      - The Rung-3 weekly ceiling is hit
+
+    Caches per (edition_date, body_hash) so re-running the renderer with
+    the same takes is a single SQLite read.
+    """
+    if not rows:
+        return ""
+    # Combine all take bodies into one article-shape input. Headlines
+    # carry framing; body carries the claim. The 30-second summary
+    # should cover claims, so we feed both.
+    parts: list[str] = []
+    for r in rows:
+        headline = (r[1] or "").strip()
+        body = (r[2] or "").strip()
+        if not body:
+            continue
+        if headline:
+            parts.append(f"{headline}\n\n{body}")
+        else:
+            parts.append(body)
+    combined = "\n\n---\n\n".join(parts)
+    if len(combined) < 200:
+        return ""
+    try:
+        # Import lazily — avoid a hot-path import on every site build
+        # for editions that don't need the summary (small/empty days).
+        from cfb_rankings.auto_summary import (
+            CACHE_DDL,
+            generate_article_summary,
+            render_auto_summary_html,
+        )
+        from cfb_rankings.db import Database
+    except Exception as e:
+        log.warning("auto_summary import failed: %s", e)
+        return ""
+    # The Daily renderer is called with a raw sqlite3 connection (conn);
+    # auto_summary wants a cfb_rankings.db.Database wrapper. Build a thin
+    # adapter around the connection's path so the cache layer functions.
+    db = _adapt_conn_for_auto_summary(conn)
+    if db is None:
+        # Caching unavailable — still try the LLM path (auto_summary
+        # tolerates db=None and just won't cache).
+        summary = generate_article_summary(
+            body_markdown=combined,
+            headline=f"The Daily — {edition_date}",
+            dek="",
+            cache_key=f"daily:{edition_date}",
+            db=None,
+        )
+    else:
+        try:
+            db.execute(CACHE_DDL)  # idempotent
+        except Exception as e:
+            log.warning("auto_summary cache table init failed: %s", e)
+        summary = generate_article_summary(
+            body_markdown=combined,
+            headline=f"The Daily — {edition_date}",
+            dek="",
+            cache_key=f"daily:{edition_date}",
+            db=db,
+        )
+    if summary is None:
+        return ""
+    return render_auto_summary_html(summary)
+
+
+def _adapt_conn_for_auto_summary(conn):
+    """Return a Database wrapper around the same sqlite file the
+    renderer is using, or None when we can't extract a usable path.
+
+    Daily renderer is one of the few callers that gets a raw sqlite3
+    connection rather than a Database handle. We need a Database for
+    the auto_summary cache layer's retry-on-locked + DSN semantics.
+    """
+    try:
+        from cfb_rankings.db import Database
+        # PRAGMA database_list returns rows of (seq, name, file). The
+        # 'main' database's file is the path we want.
+        rows = conn.execute("pragma database_list").fetchall()
+        for row in rows:
+            # sqlite3.Row indexing or tuple
+            file_col = row[2] if not isinstance(row, dict) else row["file"]
+            name_col = row[1] if not isinstance(row, dict) else row["name"]
+            if name_col == "main" and file_col:
+                return Database(f"sqlite:///{file_col}")
+    except Exception as e:
+        log.warning("auto_summary db adapt failed: %s", e)
+    return None
+
+
 def _render_one(
     conn,
     edition_date: str,
@@ -239,6 +341,10 @@ def _render_one(
     )
     takes_html = fallback_banner + takes_html
 
+    # Sprint v5-7.6 — 30-second auto-summary above the takes list.
+    # Pattern 7 from docs/design-system/34-integration-playbook.md.
+    auto_summary_html = _build_auto_summary_html(rows, edition_date, conn)
+
     tpl = _load_template()
     # Distinguish today's edition (canonical /daily/) from archive entries
     # (/daily/<YYYY-MM-DD>/) so OG share-card canonical URLs are accurate.
@@ -249,6 +355,7 @@ def _render_one(
     html = tpl.substitute(
         title=f"The Daily — {_long_date(edition_date)}",
         long_date=_long_date(edition_date),
+        auto_summary_html=auto_summary_html,
         takes_html=takes_html or "<p>No takes available for this edition.</p>",
         watching_html=_watching_html(),
         archive_links=_archive_links_html(recent_editions),

@@ -635,6 +635,7 @@ Foundation slices shipped:
 * `team_pages/rituals_module.py` (63 tests) — strip + cultural anchors + VI chip; data ready for all 17 profiled teams (master commit 95e7d5dd52)
 * `team_pages/renderer.py` — **rituals strip now LIVE on every profiled team page** (Pattern 6 wire-up complete, 5 integration tests)
 * `auto_summary.py` (31 tests) — Pattern A 30-second summary; cache layer + render
+* `daily/renderer.py` — **auto-summary now LIVE on every Daily edition** (Pattern 7 wire-up complete, 9 integration tests + visual specimen + dedicated CSS in daily.html template)
 * `citations/` (30 tests) — Sprint v5-6a.5 receipt-pattern foundation: Citation dataclass, persistence (round-trip + idempotent), CitationCritic (5 checks), render (inline marker + footer + legacy notice), CSS + mobile-tap-reveal JS
 
 Pending Window A coordination:
