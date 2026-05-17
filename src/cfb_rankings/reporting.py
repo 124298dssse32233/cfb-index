@@ -17152,8 +17152,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section" id="current-heisman-lens">
         <article class="panel">
           <div class="section-head">
-            <h2>Current Heisman Lens</h2>
-            <p class="section-note">Where he sits right now, where the season forecast points, and whether the candidacy is actually trophy-live.</p>
+            <h2>{escape(_heisman_lens_title(current_snapshot))}</h2>
+            <p class="section-note">{escape(_heisman_lens_note(current_snapshot))}</p>
           </div>
           {current_context}
         </article>
@@ -19950,6 +19950,58 @@ def _is_defensive_position(value: Any) -> bool:
 
 def _display_rank_text(value: Any) -> str:
     return "--" if value in (None, "") else f"#{int(value)}"
+
+
+def _heisman_lens_title(current_snapshot: dict[str, Any]) -> str:
+    """Player-page Heisman section title.
+
+    Audit2 finding (2026-05-17): the previous hardcoded "Current Heisman
+    Lens" label was misleading for drafted/graduated players. Quinn Ewers
+    is a concrete example — his page shows nowcast #13 / 2025 Season but
+    the underlying heisman_rankings_weekly row is from 2024 week 16 (his
+    final college season) because no 2025 Heisman model has run for him
+    (he's in the NFL now). Labeling that data as "Current" misleads
+    readers into thinking he's actively in the 2025 race.
+
+    Fix: surface the actual data's season_year in the title. For an
+    active player whose model output is 2025, this reads "Heisman Lens
+    · 2025 Season" — still feels current. For Ewers it reads "Heisman
+    Lens · 2024 Season · Final" — accurate.
+    """
+    season = current_snapshot.get("season_year") if current_snapshot else None
+    if not season:
+        return "Heisman Lens"
+    try:
+        season_int = int(season)
+    except (TypeError, ValueError):
+        return "Heisman Lens"
+    # If the data is from a completed season (week 16+), tag as Final.
+    week = current_snapshot.get("week")
+    is_final = bool(week and int(week) >= 16)
+    return f"Heisman Lens · {season_int} Season{' · Final' if is_final else ''}"
+
+
+def _heisman_lens_note(current_snapshot: dict[str, Any]) -> str:
+    """Section subhead. Frames the data as a snapshot of THAT season's
+    final state when the data is from a completed season, vs. current
+    when mid-season.
+    """
+    if not current_snapshot or not current_snapshot.get("season_year"):
+        return (
+            "Where the model places this player relative to the rest of "
+            "the Heisman field."
+        )
+    week = current_snapshot.get("week")
+    if week and int(week) >= 16:
+        return (
+            "Where the player landed at the end of the listed season — "
+            "final nowcast rank, win/finalist/ballot probabilities, and "
+            "the cleanest official Heisman placement on file."
+        )
+    return (
+        "Where he sits right now, where the season forecast points, and "
+        "whether the candidacy is actually trophy-live."
+    )
 
 
 def _board_filter_value(value: Any) -> str:
