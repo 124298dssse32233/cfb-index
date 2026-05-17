@@ -17,6 +17,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+from cfb_rankings.common.head_chrome import absolute_url
 from .data import CohortSplit, ReactionStory, fetch_cohort_splits, fetch_story, list_stories
 
 SITE_ROOT = Path(__file__).resolve().parents[3] / "output" / "site"
@@ -65,8 +66,42 @@ h2.section{font:600 18px/1.25 system-ui;margin:4px 0 16px;}
 """
 
 
-def _page_head(title: str) -> str:
+def _page_head(title: str, *, description: str = "", canonical_path: str | None = None) -> str:
     escaped = html.escape(title)
+    # OG / Twitter meta block (PR #107 — parallel to PR #99/#103/#104/
+    # #105/#106 fixes on other surfaces). Reaction stories are share-
+    # bait — a wire event crosses a velocity threshold, the page fires,
+    # and fans should be able to drop the URL with a preview card.
+    safe_desc = html.escape(description, quote=True) if description else escaped
+    page_canonical = absolute_url(canonical_path) if canonical_path else ""
+    og_image_url = absolute_url("/og-image.svg")
+    safe_canonical = html.escape(page_canonical, quote=True)
+    safe_og_image = html.escape(og_image_url, quote=True)
+    canonical_block = (
+        f'<link rel="canonical" href="{safe_canonical}"/>\n'
+        if page_canonical else ""
+    )
+    og_url_block = (
+        f'<meta property="og:url" content="{safe_canonical}"/>\n'
+        f'<meta name="twitter:url" content="{safe_canonical}"/>\n'
+        if page_canonical else ""
+    )
+    meta_block = (
+        f'{canonical_block}'
+        f'<meta name="description" content="{safe_desc}"/>\n'
+        f'<meta property="og:site_name" content="THE CFB INDEX"/>\n'
+        f'<meta property="og:type" content="article"/>\n'
+        f'{og_url_block}'
+        f'<meta property="og:title" content="{escaped}"/>\n'
+        f'<meta property="og:description" content="{safe_desc}"/>\n'
+        f'<meta property="og:image" content="{safe_og_image}"/>\n'
+        f'<meta property="og:image:width" content="1200"/>\n'
+        f'<meta property="og:image:height" content="630"/>\n'
+        f'<meta name="twitter:card" content="summary_large_image"/>\n'
+        f'<meta name="twitter:title" content="{escaped}"/>\n'
+        f'<meta name="twitter:description" content="{safe_desc}"/>\n'
+        f'<meta name="twitter:image" content="{safe_og_image}"/>\n'
+    )
     nav = (
         '<nav class="reaction__nav" style="background:#14171b;padding:10px 24px;'
         'font:600 11px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;">'
@@ -81,6 +116,7 @@ def _page_head(title: str) -> str:
         f'<meta charset="utf-8"/>\n'
         f'<title>{escaped}</title>\n'
         f'<meta name="viewport" content="width=device-width,initial-scale=1"/>\n'
+        f'{meta_block}'
         f'<style>\n{_CSS}</style>\n'
         f'</head>\n<body class="reaction__page">{nav}<div class="wrap">\n'
     )
@@ -189,7 +225,11 @@ def render_story(slug: str) -> Optional[Path]:
     body_html = _md_to_html(story.body)
     sidebar = _sidebar_html(splits)
 
-    page = _page_head(f"{story.headline} · CFB Index Reaction")
+    page = _page_head(
+        f"{story.headline} · CFB Index Reaction",
+        description=story.dek,
+        canonical_path=f"/reactions/{story.slug}/",
+    )
     page += f'<div class="eyebrow">{eyebrow}</div>\n'
     page += f'<h1>{html.escape(story.headline)}</h1>\n'
     page += f'<p class="dek">{html.escape(story.dek)}</p>\n'
@@ -213,7 +253,15 @@ def render_archive(limit: int = 50) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "index.html"
 
-    page = _page_head("Reaction Stories · CFB Index")
+    page = _page_head(
+        "Reaction Stories · CFB Index",
+        description=(
+            "On-demand reaction stories that fire when a wire event "
+            "crosses a velocity threshold. Each piece maps how stat folks, "
+            "regular fans, and die-hards diverged on the same event."
+        ),
+        canonical_path="/reactions/",
+    )
     page += '<div class="eyebrow">CFB Index</div>\n'
     page += '<h1>Reaction Stories</h1>\n'
     page += (

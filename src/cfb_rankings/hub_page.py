@@ -31,6 +31,7 @@ from cfb_rankings.common.cfb_calendar import (
 )
 from typing import Any
 
+from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
 from cfb_rankings.visual_assets import resolve_team_brand
 from cfb_rankings.ingest.archetypes import (
@@ -1436,6 +1437,11 @@ def render_hub_page_html(data: dict[str, Any]) -> str:
         "across all 133 FBS fanbases."
     )
 
+    # OG + Twitter meta (parallel to PR #99/#103/#104/#105/#106/#107).
+    # The Fan Intelligence Hub is a share-bait magazine surface — links
+    # to /hub/ should render as full preview cards.
+    page_canonical = absolute_url("/hub/")
+    og_image_url = absolute_url("/og-image.svg")
     return f"""<!doctype html>
 <html lang=\"en\">
   <head>
@@ -1443,6 +1449,20 @@ def render_hub_page_html(data: dict[str, Any]) -> str:
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
     <title>{escape(page_title)}</title>
     <meta name=\"description\" content=\"{escape(meta_description)}\">
+    <link rel=\"canonical\" href=\"{escape(page_canonical, quote=True)}\">
+    <meta property=\"og:site_name\" content=\"THE CFB INDEX\">
+    <meta property=\"og:type\" content=\"website\">
+    <meta property=\"og:url\" content=\"{escape(page_canonical, quote=True)}\">
+    <meta property=\"og:title\" content=\"{escape(page_title)}\">
+    <meta property=\"og:description\" content=\"{escape(meta_description)}\">
+    <meta property=\"og:image\" content=\"{escape(og_image_url, quote=True)}\">
+    <meta property=\"og:image:width\" content=\"1200\">
+    <meta property=\"og:image:height\" content=\"630\">
+    <meta name=\"twitter:card\" content=\"summary_large_image\">
+    <meta name=\"twitter:url\" content=\"{escape(page_canonical, quote=True)}\">
+    <meta name=\"twitter:title\" content=\"{escape(page_title)}\">
+    <meta name=\"twitter:description\" content=\"{escape(meta_description)}\">
+    <meta name=\"twitter:image\" content=\"{escape(og_image_url, quote=True)}\">
     {head_extra}
     <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
     <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
