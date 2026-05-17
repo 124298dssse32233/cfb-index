@@ -12320,6 +12320,7 @@ def render_matchups_page_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Matchups</title>
+    {_meta_tags(f"Argument Theater for {season_name} matchups — model prediction, market consensus, and fanbase sentiment side by side for every game on the slate.", title=f"{season_name} Matchups | CFB Index", image_path="../og-image.svg", canonical_path="/matchups/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
