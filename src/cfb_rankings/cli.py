@@ -4852,17 +4852,33 @@ def main() -> None:
         from cfb_rankings.team_pages.pulse_state import TOP_ENTITIES_FULL, TOP_ENTITIES_PARTIAL
         from cfb_rankings.team_pages import pulse_themes, pulse_lede
 
-        # Build the run list
+        # Build the run list from the constants — PR #82 (2026-05-17
+        # audit2) expanded TOP_ENTITIES_PARTIAL to cover all 17 profiled
+        # programs, but this CLI was hardcoding the old 11-entry list
+        # in place and ignoring the constants entirely. Read the
+        # constants now so a future expansion of TOP_ENTITIES_FULL /
+        # TOP_ENTITIES_PARTIAL automatically takes effect.
+        #
+        # The conference vs team split is encoded in well-known prefixes:
+        # conference slugs use "sec" / "fbs-big-ten" / "acc" / "big-12" /
+        # "american-athletic" / "mountain-west"; everything else is a team.
+        _CONFERENCE_SLUGS = {
+            "sec", "fbs-big-ten", "acc", "big-12",
+            "american-athletic", "mountain-west",
+        }
+
+        def _classify(slug: str) -> tuple[str, str]:
+            return (slug, "conference" if slug in _CONFERENCE_SLUGS else "team")
+
         if args.entity:
             run_list = [(args.entity, args.entity_type)]
         else:
+            # FULL tier first (3 themes each), then PARTIAL (1 theme + 1 lede).
+            # sorted() gives stable ordering for telemetry; set membership is
+            # the source of truth.
             run_list = (
-                [(slug, "team") for slug in ["alabama", "ohio-state", "georgia", "notre-dame"]]
-                + [(slug, "conference") for slug in ["sec"]]
-                + [(slug, "team") for slug in ["michigan", "texas", "usc", "penn-state",
-                                                "tennessee", "auburn"]]
-                + [(slug, "conference") for slug in ["fbs-big-ten", "acc", "big-12",
-                                                      "american-athletic", "mountain-west"]]
+                [_classify(s) for s in sorted(TOP_ENTITIES_FULL)]
+                + [_classify(s) for s in sorted(TOP_ENTITIES_PARTIAL)]
             )
 
         batch_choice = getattr(args, "batch", "auto")
