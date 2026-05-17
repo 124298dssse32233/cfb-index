@@ -1,6 +1,6 @@
 # CFB Index — Agent Orientation
 
-_Last refreshed 2026-05-12. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
+_Last refreshed 2026-05-16. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
 
 ## What this is
 Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~69k HTML pages in `output/site/`.
@@ -10,7 +10,7 @@ Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~6
 - DO use `python manage.py build-site` for fast iteration; `./publish_site.ps1` for full publish.
 - DON'T edit `output/site/**` directly. Generated.
 - DON'T hand-edit `cfb_rankings.db`. Write a CLI subcommand in `cli.py`.
-- DON'T read `reporting.py` whole — it's ~25,800 lines as of 2026-05-12 and growing. Use `offset+limit` reads. Line numbers shift weekly — grep for symbols (e.g. `grep -n "_worst_result_text"`) and do not trust historical line numbers in any brief, including this one.
+- DON'T read `reporting.py` whole — it's ~26,800 lines as of 2026-05-16 and growing (was ~25.8k on 2026-05-12, +1k in four days; this growth is normal — surgical fixes add lines). Use `offset+limit` reads. Line numbers shift weekly — grep for symbols (e.g. `grep -n "_worst_result_text"`) and do not trust historical line numbers in any brief, including this one.
 
 ## Key files
 - src/cfb_rankings/reporting.py — HTML monolith. Grep for symbols; do not trust historical line numbers.
@@ -41,7 +41,7 @@ Sonnet = default. Opus = schema/data decisions, cross-cutting copy. Haiku = veri
 - `PLAYER_PAGE_WORLD_CLASS_BRIEF.md` — QB-first player-page redesign strategy, UX principles, Accolade Lens spec, Figma handoff. Archive trail in `research/player-page-worldclass-brainstorm-2026-04-22.md`.
 
 ## Team Pages module
-World-class team-page renderer at `src/cfb_rankings/team_pages/`. Disjoint from `reporting.py`. Profiled programs = every slug with a file in `profiles/*.md` (currently 17 slugs as of 2026-05-12: alabama, auburn, florida, georgia, massachusetts, michigan, notre-dame, ohio-state, oklahoma, oregon, penn-state, tennessee, texas, uconn, usc, vanderbilt, washington — discovered at import time as `PROFILED_SLUGS`; `ls profiles/*.md` is the source of truth). During `build-site`, `reporting.py` short-circuits both the delete-sweep and the legacy HTML write for profiled slugs (grep `reporting.py` for `PROFILED_SLUGS`), then after the legacy loop calls `team_pages.render_all_profiled_pages(db, teams_dir)` to emit the world-class pages. Unprofiled programs (~662 slugs) keep legacy output. Standalone iteration: `python manage.py render-team-pages` (all profiled) or `python manage.py render-team <slug> [<slug> ...]`. Sprint-2 adds Savant + Rivalry modules; see `TEAM_PAGE_WORLD_CLASS_BRIEF.md` and `docs/design-system/12-modules-intel.md`.
+World-class team-page renderer at `src/cfb_rankings/team_pages/`. Disjoint from `reporting.py`. Profiled programs = every slug with a file in `profiles/*.md` (currently 17 slugs as of 2026-05-16, unchanged since 2026-05-12: alabama, auburn, florida, georgia, massachusetts, michigan, notre-dame, ohio-state, oklahoma, oregon, penn-state, tennessee, texas, uconn, usc, vanderbilt, washington — discovered at import time as `PROFILED_SLUGS`; `ls profiles/*.md` is the source of truth). During `build-site`, `reporting.py` short-circuits both the delete-sweep and the legacy HTML write for profiled slugs (grep `reporting.py` for `PROFILED_SLUGS`), then after the legacy loop calls `team_pages.render_all_profiled_pages(db, teams_dir)` to emit the world-class pages. Unprofiled programs (~662 slugs) keep legacy output. Standalone iteration: `python manage.py render-team-pages` (all profiled) or `python manage.py render-team <slug> [<slug> ...]`. Sprint-2 adds Savant + Rivalry modules; see `TEAM_PAGE_WORLD_CLASS_BRIEF.md` and `docs/design-system/12-modules-intel.md`.
 
 ## Fan Intelligence system (2026 buildout)
 - FAN_INTEL_SOURCE_STRATEGY.md — canonical source + cohort reference. Read first before any fan-intel work.
