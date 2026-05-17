@@ -422,6 +422,17 @@ print(s.bullets if s else 'None')
 
 ---
 
+## Pattern 8 — Citation receipts on Pattern C/D editorial
+
+**Goal**: Wire the locked receipt-pattern foundation (Sprint v5-6a.5) into Pattern C/D LLM editorial outputs. Inline ``<sup class="citation">`` markers on every claim + a Wikipedia-style footer list of sources at the bottom of every article.
+
+**When to use it**:
+* Any new Pattern C / Pattern D output (daily, mailbag, wire, reactions, edition features)
+* Anywhere the LLM is producing prose that asserts a claim
+
+**When NOT to use it**:
+* Pure-data renders (rankings, percentile-bar charts, leaderboards) — no claims, no citations needed
+* Pre-cutover content published before 2026-05-17 — use `render_legacy_notice()` instead (forward-only policy per spec)
 ## Pattern 10 — Mood Card provenance chip (M-4)
 
 *(Numbering may shift to 10 after Patterns 8-9 from PR #122 land. Stable identifier: "Mood Card provenance chip".)*
@@ -443,6 +454,67 @@ print(s.bullets if s else 'None')
 ### The wire-up
 
 ```python
+from cfb_rankings.citations import (
+    Citation, CitationCritic, persist_citations, load_citations,
+    annotate_body_markdown, render_citation_footer, render_legacy_notice,
+    CITATION_DDL,
+)
+
+# One-time: create table (idempotent)
+db.execute(CITATION_DDL)
+
+# After Pattern C/D generation returns:
+citations = [
+    Citation(marker_id=1, source_kind="reddit",
+             source_label="r/CFB · 248 replies",
+             source_url=url, confidence="primary"),
+    # ... one per [N] marker in body_markdown
+]
+
+# Critic gate (Window A wires into quality_loop.py's revise loop):
+critic = CitationCritic()
+result = critic.critique(body_markdown, citations, available_sources)
+if not result.passed:
+    # request revise; result.blockers has the specific issues
+
+# Persist alongside the llm_usage_log row (uses its generation_id):
+persist_citations(db, generation_id, citations)
+
+# At render time:
+annotated_body = annotate_body_markdown(body_markdown, citations)
+footer_html = render_citation_footer(citations)
+article_html = template.format(body=annotated_body, footer=footer_html)
+```
+
+### Data contract (LLM structured-output schema)
+
+```python
+class Citation(TypedDict):
+    marker_id: int               # the [N] in body_markdown
+    source_kind: SourceKind      # one of 8: reddit / beat_writer / podcast /
+                                 # wikipedia / official / cfbd / wire / edition
+    source_label: str            # display string ("Mandel · Athletic · 2026-05-12")
+    source_url: str | None       # canonical URL or None
+    source_date: str | None      # ISO date
+    confidence: ConfidenceTier   # primary / supporting / background
+```
+
+### Critic gate semantics
+
+The `CitationCritic` runs five checks:
+1. Every `[N]` in body has a matching Citation entry (blocker if not)
+2. Every Citation has a non-empty source_label (blocker if not)
+3. Citation labels fuzzy-match `available_sources` (blocker — catches hallucinations)
+4. Orphan citations (Citation with no `[N]` in body) — warning, not blocker
+5. Density: target ≥ 1 per 200 words; warn < 1 per 400; block < 1 per 800
+
+### Defenses built in
+* HTML-escapes label / url / date in every render path (XSS)
+* Persistence wipes-then-inserts to be idempotent on regenerations
+* `load_citations` and `persist_citations` degrade silently when the
+  table is missing (caller sees empty list / 0-written, never raises)
+* Mobile tap-reveal in `assets/citations.js` is no-op on hover-capable
+  devices (CSS tooltip takes over)
 from cfb_rankings.provenance.mood_chip import (
     fetch_source_count, render_provenance_chip, PROVENANCE_CHIP_CSS,
 )
@@ -516,6 +588,26 @@ where horizontal space is constrained.
 
 ```bash
 # 1. Tests pass
+python -m pytest tests/test_citations.py -q
+# Expected: 30 passed
+
+# 2. Migration applies cleanly + CHECK constraints functional
+python -c "
+import sqlite3, tempfile
+sql = open('migrations/20260601_01_editorial_citations.sql').read()
+with tempfile.NamedTemporaryFile(suffix='.db', delete=False) as f:
+    path = f.name
+conn = sqlite3.connect(path); conn.executescript(sql)
+try:
+    conn.execute(\"insert into editorial_citations (generation_id, marker_id, source_kind, source_label, confidence) values (1, 1, 'bogus', 'x', 'primary')\")
+    print('FAIL — CHECK allowed bogus source_kind')
+except sqlite3.IntegrityError:
+    print('OK — CHECK source_kind enforced')
+"
+
+# 3. Visual specimen renders the locked treatment
+python scripts/_citations_specimen.py
+# Open docs/mockups/citations_specimen.html in browser
 python -m pytest tests/test_mood_chip.py -q
 # Expected: 20 passed
 
@@ -541,7 +633,9 @@ Foundation slices shipped:
 * `mobile/saturday_strip.py` (9 tests) — ready to use
 * `viral/` (30 tests, 5 share-card types) — renderers ready; CLI works against real DB
 * `team_pages/rituals_module.py` (63 tests) — strip + cultural anchors + VI chip; data ready for all 17 profiled teams (master commit 95e7d5dd52)
+* `team_pages/renderer.py` — **rituals strip now LIVE on every profiled team page** (Pattern 6 wire-up complete, 5 integration tests)
 * `auto_summary.py` (31 tests) — Pattern A 30-second summary; cache layer + render
+* `citations/` (30 tests) — Sprint v5-6a.5 receipt-pattern foundation: Citation dataclass, persistence (round-trip + idempotent), CitationCritic (5 checks), render (inline marker + footer + legacy notice), CSS + mobile-tap-reveal JS
 
 Pending Window A coordination:
 * Wiring chips into the existing `reporting.py` percentile + stat cell renderers
