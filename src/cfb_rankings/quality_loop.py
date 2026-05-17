@@ -769,6 +769,7 @@ def loop_c_critic_revise(
     max_tokens: int = 4000,
     surface: str | None = None,
     subcommand: str = "quality_loop.C",
+    critic_roles: list[CriticRole] | None = None,
 ) -> LoopResult:
     """Pattern C — generate (Opus + thinking) → voice + headline + factuality
     critics → revise once → re-critique → emit.
@@ -776,6 +777,21 @@ def loop_c_critic_revise(
     The default Tier-1 loop. Wraps every surface in v5.3 Part 1 Tier-1
     table except Edition cover (Pattern D) and Storyline/Chronicle profiled
     (Pattern E). Cost ~$0.40/call.
+
+    ``critic_roles`` (2026-05-17 audit2 infra add): override the default
+    critic panel of [VOICE, HEADLINE, FACTUALITY] for surfaces where the
+    full panel is the wrong fit. Concrete examples carried in the v5-5/6/7
+    cleanup retro:
+      - pulse_lede (2-3 sentences) — HEADLINE critic with 8.0 pass
+        threshold rejects almost every short-form draft as "no clear
+        headline"; pass [CriticRole.VOICE] only
+      - pulse_themes_writer (JSON output) — VOICE critic expects fan
+        editorial prose, rejects JSON structure; pass
+        [CriticRole.FACTUALITY] only (or [VOICE, FACTUALITY] with a
+        relaxed voice critic prompt)
+    Default unchanged when ``critic_roles`` is None — preserves back-
+    compat for the v5-3/v5-4 surfaces that are happily passing with the
+    full panel.
     """
     pattern = LoopPattern.C_CRITIC_REVISE
     started = time.monotonic()
@@ -798,7 +814,11 @@ def loop_c_critic_revise(
         prompt=prompt,
         system=system,
         gen_model=model,
-        critic_roles=[CriticRole.VOICE, CriticRole.HEADLINE, CriticRole.FACTUALITY],
+        critic_roles=(
+            critic_roles
+            if critic_roles is not None
+            else [CriticRole.VOICE, CriticRole.HEADLINE, CriticRole.FACTUALITY]
+        ),
         critic_model_overrides=critic_models,
         critic_context=critic_context,
         max_tokens=max_tokens,
@@ -889,6 +909,7 @@ def loop_e_continuity(
     max_tokens: int = 4000,
     surface: str | None = None,
     subcommand: str = "quality_loop.E",
+    critic_roles: list[CriticRole] | None = None,
 ) -> LoopResult:
     """Pattern E — Pattern C plus a continuity critic that sees the last
     3 chapters/cards + a named-entity ledger.
@@ -938,12 +959,16 @@ def loop_e_continuity(
         prompt=prompt,
         system=augmented_system or None,
         gen_model=model,
-        critic_roles=[
-            CriticRole.VOICE,
-            CriticRole.HEADLINE,
-            CriticRole.FACTUALITY,
-            CriticRole.CONTINUITY,
-        ],
+        critic_roles=(
+            critic_roles
+            if critic_roles is not None
+            else [
+                CriticRole.VOICE,
+                CriticRole.HEADLINE,
+                CriticRole.FACTUALITY,
+                CriticRole.CONTINUITY,
+            ]
+        ),
         critic_model_overrides=critic_models,
         critic_context=continuity_ctx,
         max_tokens=max_tokens,
