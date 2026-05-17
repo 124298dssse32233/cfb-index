@@ -997,6 +997,19 @@ def _render_the_canon(canon: dict[str, Any], is_live: bool = False) -> str:
 
 
 def _render_voices(voices: list[EditionVoice]) -> str:
+    # Audit-2 finding: when edition_voices DB table has 0 rows for the
+    # active edition, the previous code shipped:
+    #   <section class="dept">
+    #     <div class="dept-head"><span class="label">VOICES BEHIND THIS
+    #       EDITION</span></div>
+    #     <div class="voices-grid"></div>   <!-- empty -->
+    #   </section>
+    # — a labeled section with no content. Visual dead space on the
+    # homepage. Now we short-circuit: if there are no voices, omit the
+    # entire section so the page flows naturally. When the edition_voices
+    # data layer ships content, the section returns automatically.
+    if not voices:
+        return ""
     cards = "".join(
         f"""<article class="voice-card">
           <div class="voice-name">{html.escape(_humanize_slug(v.source_slug))}</div>
