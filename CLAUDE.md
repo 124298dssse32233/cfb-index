@@ -40,6 +40,14 @@ Sonnet = default. Opus = schema/data decisions, cross-cutting copy. Haiku = veri
 - `CLAUDE_CODE_FIX_PROMPT.md` — older prioritized fix brief; most items now executed.
 - `PLAYER_PAGE_WORLD_CLASS_BRIEF.md` — QB-first player-page redesign strategy, UX principles, Accolade Lens spec, Figma handoff. Archive trail in `research/player-page-worldclass-brainstorm-2026-04-22.md`.
 
+## Design system (LOCKED 2026-05-17 in Sprint v5-5.5 — Window B)
+- `docs/design-system/00-tokens.md` — color ramps + typography stack (Bebas Neue + Source Serif Pro + Inter) + tabular numerals enforcement. Locked tokens; changes require Window A/B coordination.
+- `docs/design-system/30-page-archetypes.md` — 6 IA archetypes (Article / Dashboard / Profile / Database / Tentpole / Anniversary) with allowed-module contracts per archetype.
+- `docs/design-system/31-chart-vocabulary.md` — 6 allowed chart types (percentile bar / trajectory spark / bump chart / annotated line / small multiples / heatmap) + forbidden list (no pie, no vertical bar, no radar except player fingerprint).
+- `docs/design-system/32-receipt-pattern.md` — citation wire format for Pattern C/D editorial, `editorial_citations` migration, citation_critic role, ≥1 marker per 200 words density rule.
+- `docs/design-system/33-confidence-signaling.md` — 3 confidence bands (high/medium/low) + unset, data-driven thresholds from per-team-week distribution, `confidence_calibration` table, per-domain calibration.
+- `docs/mockups/index.html` — Sprint v5-5.4 mockup set (11 surfaces, 33 polish rounds, signed off 2026-05-17). Visual reference for every archetype.
+
 ## Team Pages module
 World-class team-page renderer at `src/cfb_rankings/team_pages/`. Disjoint from `reporting.py`. Profiled programs = every slug with a file in `profiles/*.md` (currently 17 slugs as of 2026-05-16, unchanged since 2026-05-12: alabama, auburn, florida, georgia, massachusetts, michigan, notre-dame, ohio-state, oklahoma, oregon, penn-state, tennessee, texas, uconn, usc, vanderbilt, washington — discovered at import time as `PROFILED_SLUGS`; `ls profiles/*.md` is the source of truth). During `build-site`, `reporting.py` short-circuits both the delete-sweep and the legacy HTML write for profiled slugs (grep `reporting.py` for `PROFILED_SLUGS`), then after the legacy loop calls `team_pages.render_all_profiled_pages(db, teams_dir)` to emit the world-class pages. Unprofiled programs (~662 slugs) keep legacy output. Standalone iteration: `python manage.py render-team-pages` (all profiled) or `python manage.py render-team <slug> [<slug> ...]`. Sprint-2 adds Savant + Rivalry modules; see `TEAM_PAGE_WORLD_CLASS_BRIEF.md` and `docs/design-system/12-modules-intel.md`.
 

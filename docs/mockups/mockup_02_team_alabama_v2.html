@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" data-program="alabama">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alabama — CFB Index (mockup_02_team_alabama_v2)</title>
+  <meta name="description" content="Alabama Crimson Tide football. 18 claimed national titles, 33 SEC titles. The Process Era continues under DeBoer.">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Alabama — The Program They Measure Against">
+  <meta property="og:description" content="18 titles · 33 SEC titles · 4 Heismans · 79 bowls. Founded 1892.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alabama — The Program They Measure Against">
+  <meta name="twitter:description" content="18 titles · 33 SEC titles · 4 Heismans · 79 bowls. Founded 1892.">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    /* Program accent (from profiles/alabama.md) */
+    [data-program="alabama"] {
+      --color-accent-primary: #9E1B32;
+      --color-accent-secondary: #4a0d17;
+      --color-accent-on: #FFFFFF;
+    }
+
+    /* Hero block (Profile archetype) */
+    .program-hero {
+      padding: var(--sp-8) 0 var(--sp-6);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+      /* Subtle bottom-right tint from the program accent — barely perceptible */
+      background: radial-gradient(circle at 100% 100%, color-mix(in oklch, var(--color-accent-primary), transparent 92%) 0%, transparent 50%);
+    }
+    .program-hero__crest {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-4);
+    }
+    .program-hero__mark {
+      width: 56px; height: 56px;
+      border-radius: var(--radius-md);
+      background: var(--color-accent-primary);
+      color: var(--color-accent-on);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 0.04em;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 2px 6px rgba(158, 27, 50, 0.18);
+    }
+    .program-hero__mark svg { width: 28px; height: 28px; }
+    .program-hero__breadcrumb {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .program-hero__name {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 96px);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      color: var(--color-ink);
+      margin: var(--sp-2) 0 var(--sp-3);
+    }
+    .program-hero__identity {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.4;
+      color: var(--color-text);
+      max-width: 42ch;
+      margin: 0 0 var(--sp-4);
+    }
+    .program-hero__heritage {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-4);
+      max-width: 640px;
+      font-family: var(--font-ui);
+    }
+    @media (min-width: 768px) {
+      .program-hero__heritage { grid-template-columns: repeat(4, 1fr); }
+    }
+    .heritage-fact { display: flex; flex-direction: column; gap: 2px; }
+    .heritage-fact__value {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--color-ink);
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .heritage-fact__label {
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* Rituals strip (the v5-8.5 module) */
+    .rituals {
+      margin: var(--sp-12) 0 var(--sp-8);
+    }
+    .rituals-track {
+      display: flex;
+      gap: var(--sp-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: var(--sp-3);
+      -webkit-overflow-scrolling: touch;
+    }
+    @media (min-width: 1024px) {
+      .rituals-track {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: var(--sp-4);
+        overflow: visible;
+      }
+    }
+    .ritual-card {
+      flex: 0 0 140px;
+      scroll-snap-align: start;
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+      min-height: 180px;
+    }
+    @media (min-width: 1024px) { .ritual-card { flex: 1; } }
+    .ritual-card__glyph {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(180deg, var(--color-amber-50), var(--color-surface-card));
+      border-radius: var(--radius-sm);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 30px;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.05em;
+      text-align: center;
+      line-height: 1;
+      box-shadow: inset 0 0 0 0.5px var(--color-amber-100);
+    }
+    .ritual-card__glyph small {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: var(--color-amber-800);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .ritual-card__name {
+      font-family: var(--font-ui);
+      font-size: var(--fs-body-sm);
+      font-weight: var(--fw-medium);
+      line-height: 1.25;
+      color: var(--color-ink);
+    }
+    .ritual-card__since {
+      font-family: var(--font-tabular);
+      font-size: var(--fs-micro);
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* Chronicle cards (2-column) */
+    .chronicle {
+      display: grid;
+      gap: var(--sp-4);
+      grid-template-columns: 1fr;
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) {
+      .chronicle { grid-template-columns: 1fr 1fr; }
+    }
+    .chronicle-card {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-6);
+      border-top: var(--stroke-heavy) solid var(--color-accent-primary);
+    }
+    .chronicle-card__year {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      color: var(--color-accent-primary);
+    }
+    .chronicle-card__headline {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.2vw, 24px);
+      line-height: 1.25;
+      margin: var(--sp-2) 0 var(--sp-3);
+    }
+    .chronicle-card__body {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--color-text);
+    }
+
+    /* Aspiration ladder */
+    .ladder {
+      margin: var(--sp-12) 0;
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .ladder__rung {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-4) var(--sp-6);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    .ladder__rung:last-child { border-bottom: 0; }
+    .ladder__rung--current {
+      background: linear-gradient(90deg, color-mix(in oklch, var(--color-accent-primary), white 88%) 0%, var(--color-surface-card) 60%);
+    }
+    .ladder__step {
+      font-family: var(--font-tabular);
+      font-size: var(--fs-label);
+      color: var(--color-text-muted); /* WCAG fix: text-subtle was 2.50x */
+      letter-spacing: var(--tracking-label);
+    }
+    .ladder__rung--current .ladder__step { color: var(--color-accent-primary); font-weight: var(--fw-medium); }
+    .ladder__rung-name {
+      font-family: var(--font-ui);
+      font-size: var(--fs-body);
+      font-weight: var(--fw-medium);
+    }
+    .ladder__context {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      grid-column: 2 / 4;
+      margin-top: 2px;
+    }
+    .ladder__state {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* Pulse module (mood lede) */
+    .pulse {
+      margin: var(--sp-8) 0;
+      padding: var(--sp-6);
+      background: linear-gradient(180deg, var(--color-amber-50) 0%, var(--color-surface-card) 100%);
+      border-radius: var(--radius-lg);
+      border: var(--stroke-hair) solid var(--color-amber-200);
+    }
+    .pulse__lede {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.4;
+      font-style: italic;
+    }
+    .pulse__lede strong { font-style: normal; color: var(--color-accent-primary); }
+    .pulse__meta {
+      display: flex;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      margin-top: var(--sp-4);
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+    }
+
+    /* Rivalry strip */
+    .rivalries {
+      display: grid;
+      gap: var(--sp-3);
+      grid-template-columns: 1fr;
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) { .rivalries { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .rivalries { grid-template-columns: repeat(4, 1fr); } }
+    .rivalry-card {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .rivalry-card__tier {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .rivalry-card__name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      margin: var(--sp-1) 0;
+    }
+    .rivalry-card__note {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      line-height: 1.45;
+    }
+
+    /* Section header treatment */
+    .program-section { margin: var(--sp-12) 0; }
+    .program-section__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-6);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__logo">CFB INDEX</div>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="#">Hub</a>
+      <a href="#">Daily</a>
+      <a href="#">Heisman</a>
+      <a href="#">Editions</a>
+      <a href="#" aria-current="page">Teams</a>
+      <a href="#">Methodology</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page" role="main">
+
+    <!-- HERO (Profile archetype lead) -->
+    <section class="program-hero" aria-label="Alabama">
+      <div class="program-hero__crest">
+        <div class="program-hero__mark" aria-hidden="true">A</div>
+        <div class="program-hero__breadcrumb">SEC · TUSCALOOSA · FOUNDED 1892</div>
+      </div>
+      <h1 class="program-hero__name">ALABAMA</h1>
+      <p class="program-hero__identity">
+        Alabama is the program the rest of college football measures itself against.
+      </p>
+
+      <div class="program-hero__heritage">
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">18</span>
+          <span class="heritage-fact__label">Claimed titles</span>
+        </div>
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">33</span>
+          <span class="heritage-fact__label">SEC titles</span>
+        </div>
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">4</span>
+          <span class="heritage-fact__label">Heismans</span>
+        </div>
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">79</span>
+          <span class="heritage-fact__label">Bowl trips</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERO FINDING for this team this week -->
+    <section class="hero-finding" aria-label="This week’s finding for Alabama">
+      <p class="eyebrow">THIS WEEK</p>
+      <div class="hero-finding__number">−6</div>
+      <p class="hero-finding__sentence">
+        Alabama’s belief moved down on the model — not because the program is losing, but because it’s <em>being discussed like an ordinary contender</em>.
+      </p>
+      <div class="hero-finding__caption">
+        <span class="sample-chip">Sample: 1,840 mentions · 9 sources · last 7 days</span>
+        <span class="confidence confidence--medium">Medium confidence</span>
+      </div>
+    </section>
+
+    <!-- Pulse lede (mascot voice) -->
+    <aside class="pulse" aria-label="Pulse">
+      <p class="pulse__lede">
+        <strong>The Elephant is patient.</strong> Bryant-Denny is dark; the process is not.
+      </p>
+      <div class="pulse__meta">
+        <span class="sample-chip">Generated Apr 22 · model_version pulse_lede.v3</span>
+        <span class="confidence confidence--high">High confidence</span>
+      </div>
+    </aside>
+
+    <!-- RITUALS strip — v5-8.5 module proof of concept -->
+    <section class="rituals program-section" aria-label="Alabama rituals">
+      <div class="program-section__head">
+        <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
+        <p class="caption" style="max-width: 36ch;">
+          Five things Alabama fans do every Saturday — none of them invented in the last decade.
+        </p>
+      </div>
+      <div class="rituals-track" role="list">
+        <article class="ritual-card" role="listitem">
+          <div class="ritual-card__glyph" aria-hidden="true">RJ<small>cheer</small></div>
+          <h3 class="ritual-card__name">Rammer Jammer</h3>
+          <p class="ritual-card__since">since 1970</p>
+        </article>
+        <article class="ritual-card" role="listitem">
+          <div class="ritual-card__glyph" aria-hidden="true">YA<small>fight song</small></div>
+          <h3 class="ritual-card__name">Yea Alabama</h3>
+          <p class="ritual-card__since">since 1926</p>
+        </article>
+        <article class="ritual-card" role="listitem">
+          <div class="ritual-card__glyph" aria-hidden="true">EW<small>entrance</small></div>
+          <h3 class="ritual-card__name">Elephant Walk</h3>
+          <p class="ritual-card__since">since 1981</p>
+        </article>
+        <article class="ritual-card" role="listitem">
+          <div class="ritual-card__glyph" aria-hidden="true">FO<small>pregame</small></div>
+          <h3 class="ritual-card__name">Pregame Flyover</h3>
+          <p class="ritual-card__since">since 2003</p>
+        </article>
+        <article class="ritual-card" role="listitem">
+          <div class="ritual-card__glyph" aria-hidden="true">MD<small>halftime</small></div>
+          <h3 class="ritual-card__name">Million Dollar Band</h3>
+          <p class="ritual-card__since">since 1929</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Chronicle cards -->
+    <section class="program-section" aria-label="Chronicle">
+      <div class="program-section__head">
+        <h2 class="section-title">Chronicle<span class="section-title__rule"></span></h2>
+        <span class="caption">Two echoes from the program’s era ledger</span>
+      </div>
+      <div class="chronicle">
+        <article class="chronicle-card">
+          <p class="chronicle-card__year">2009</p>
+          <h3 class="chronicle-card__headline">Title #1 of The Process</h3>
+          <p class="chronicle-card__body">
+            Saban’s third year. The defense gave up 11.7 points per game. Mark Ingram became Alabama’s first Heisman. The frame for everything the program would become in the next fifteen years was set on a January night in Pasadena.
+          </p>
+        </article>
+        <article class="chronicle-card">
+          <p class="chronicle-card__year">2024</p>
+          <h3 class="chronicle-card__headline">First miss since 2007</h3>
+          <p class="chronicle-card__body">
+            DeBoer’s first year. 9–4, no SEC title game, no CFP. The first time since the season before Saban arrived that the program finished outside the national title conversation. The 2026 spring read is whether the infrastructure compounds or regresses.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Aspiration ladder (state-aware) -->
+    <section class="program-section" aria-label="Aspiration ladder">
+      <div class="program-section__head">
+        <h2 class="section-title">Aspiration ladder<span class="section-title__rule"></span></h2>
+        <span class="caption">What “success” looks like for this program, this season</span>
+      </div>
+      <div class="ladder">
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">Bowl appearance</span>
+          <span class="ladder__state">Assumed</span>
+          <span class="ladder__context">Below this rung is program crisis.</span>
+        </div>
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">SEC Championship Game</span>
+          <span class="ladder__state">Table stakes</span>
+          <span class="ladder__context">The table-stakes rung for this program.</span>
+        </div>
+        <div class="ladder__rung ladder__rung--current">
+          <span class="ladder__step">▶</span>
+          <span class="ladder__rung-name">CFP Semifinal</span>
+          <span class="ladder__state">Current target</span>
+          <span class="ladder__context">The 12-team format lowered the entry fee; this is where the standard starts.</span>
+        </div>
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">National Championship Game</span>
+          <span class="ladder__state">Stretch</span>
+          <span class="ladder__context">Produced nine times since 2009.</span>
+        </div>
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">National Championship</span>
+          <span class="ladder__state">The standard</span>
+          <span class="ladder__context">Title #19 — the one the program will keep trying to count as though it were the first.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Coaching note / pull quote -->
+    <blockquote class="pull-quote">
+      The 2014 Kick Six is a wound, not a punchline. Reductive framings of Alabama as a “glorified factory” are outside-takes. The voice on this page is from inside the building.
+      <span class="pull-quote__attribution">CFB Index editorial voice — dynastic-process register</span>
+    </blockquote>
+
+    <!-- Rivalries -->
+    <section class="program-section" aria-label="Rivalries">
+      <div class="program-section__head">
+        <h2 class="section-title">Rivalries<span class="section-title__rule"></span></h2>
+      </div>
+      <div class="rivalries">
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 1 · Iron Bowl</p>
+          <h3 class="rivalry-card__name">vs. Auburn</h3>
+          <p class="rivalry-card__note">The defining in-state rivalry. Annual; the SEC title race often bends through it. Auburn punches above its record in the series.</p>
+        </article>
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 2 · 3rd Sat. Oct.</p>
+          <h3 class="rivalry-card__name">vs. Tennessee</h3>
+          <p class="rivalry-card__note">Generational dominance has flipped both ways — Tennessee through the ’90s; Alabama through the 2010s.</p>
+        </article>
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 2</p>
+          <h3 class="rivalry-card__name">vs. LSU</h3>
+          <p class="rivalry-card__note">The SEC West crown through the 2010s.</p>
+        </article>
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 2</p>
+          <h3 class="rivalry-card__name">vs. Georgia</h3>
+          <p class="rivalry-card__note">Elevated by SEC Championship Game meetings and the 2017 national title game.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Methodology footer -->
+    <div class="methodology-stripe" style="border-top: 0.5px solid var(--color-line); padding-top: 24px; margin-top: 48px; font-family: var(--font-ui); font-size: 11px; color: var(--color-text-muted); display:flex; gap:24px; flex-wrap:wrap;">
+      <span>Profile authored Sonnet · reviewed Opus · status: draft</span>
+      <span>Rituals data: profiles/alabama.md · 5 entries</span>
+      <span>Voice: dynastic-process · pulse_lede.v3</span>
+      <a href="#" style="color: var(--color-amber-600);">Methodology →</a>
+    </div>
+
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_01_hub_v2.html">← Hub</a>
+    <a href="mockup_03_team_vanderbilt_v2.html">Vandy →</a>
+  </nav>
+  <a class="reading-guide-trigger" href="#reading-guide">Reading guide</a>
+  <aside id="reading-guide" class="reading-guide" aria-label="Reading guide for Alabama mockup">
+    <div class="reading-guide__head">
+      <h2 class="reading-guide__title">How to read this mockup</h2>
+      <a class="reading-guide__close" href="#main">Close</a>
+    </div>
+    <div class="reading-guide__body">
+      <div class="reading-guide__item">
+        <strong>Profile archetype</strong>
+        Tier-S program template (Alabama, Ohio State, Michigan, Notre Dame, Texas). Full bespoke renderer with state-aware aspiration ladder. Tier-A and Tier-B teams share scaffold but vary in module depth.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Identity phrase</strong>
+        From <code>profiles/alabama.md</code>:identity_phrase. The voice register ("dynastic-process") drives every editorial decision on the page — Roll Tide stays sparse; "scrappy/underdog" is on the never-use list.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Heritage strip</strong>
+        Four facts as numbers-first treatment. Tabular nums on every value. Display font (Bebas Neue) for the value, label as Inter uppercase eyebrow.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Rituals (v5-8.5)</strong>
+        Five rituals real from the profile YAML. Monogram glyph (RJ / YA / EW / FO / MD) is a placeholder for the ligne-claire SVG family. Horizontal scroll on mobile; 5-col grid on desktop.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Pulse lede</strong>
+        Pattern C output: "The Elephant is patient. Bryant-Denny is dark; the process is not." From profiles/alabama.md:mascot_voice — generated when the team page renders, not pre-canned.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Aspiration ladder</strong>
+        State-aware. "Bowl appearance" is below crisis floor; current target is "CFP Semifinal" (the 12-team format changed the entry fee). Each rung carries a one-sentence context line.
+      </div>
+    </div>
+  </aside>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 02</span>
+</body>
+</html>

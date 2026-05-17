@@ -381,6 +381,79 @@ def build_parser() -> argparse.ArgumentParser:
     pach_parser.add_argument("slug_or_id")
     pach_parser.add_argument("--season", type=int, default=None)
 
+    # v5-7.5: per-domain sample-size confidence calibration.
+    # Locked spec: docs/design-system/33-confidence-signaling.md
+    conf_recalc = subparsers.add_parser(
+        "recompute-confidence-thresholds",
+        help=("Recompute the per-domain confidence-chip thresholds from the "
+              "current per-team-week distribution. Idempotent within a "
+              "quarter (UPSERT on (domain, quarter))."),
+    )
+    conf_recalc.add_argument(
+        "--domain",
+        choices=["fan_intel", "historical", "model", "market", "prediction", "all"],
+        default="all",
+        help="Which domain to recompute (default: all).",
+    )
+    conf_recalc.add_argument(
+        "--print-only", action="store_true",
+        help="Compute and print the thresholds but DO NOT write to DB.",
+    )
+
+    conf_status = subparsers.add_parser(
+        "confidence-status",
+        help="Print the current calibration row per domain.",
+    )
+
+    # v5-10e foundation: Monday Mood Map renderer.
+    # Locked spec: docs/design-system/30-page-archetypes.md + mockup_07*.
+    mm_parser = subparsers.add_parser(
+        "generate-mood-map",
+        help=("Render the 1200x675 Monday Mood Map PNG. Cron target: every "
+              "Monday 6am ET. Outputs light + optional dark variant."),
+    )
+    mm_parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("output/site/assets/share/monday_mood_map.png"),
+        help="Output PNG path (parent dirs created if missing).",
+    )
+    mm_parser.add_argument(
+        "--dark", action="store_true",
+        help="Render the dark-mode variant instead.",
+    )
+    mm_parser.add_argument(
+        "--week-label",
+        default=None,
+        help="When-label override (e.g. 'WEEK OF 11 MAY 2026 · No. 048'). "
+             "Defaults to the current ISO week.",
+    )
+
+    # v5-10e: Daily Belief Movers + Pre-game Pack share cards
+    dm_parser = subparsers.add_parser(
+        "generate-daily-movers",
+        help="Render the 1200x630 Daily Belief Movers share card.",
+    )
+    dm_parser.add_argument(
+        "--output", type=Path,
+        default=Path("output/site/assets/share/daily_movers.png"),
+    )
+    dm_parser.add_argument("--dark", action="store_true")
+
+    pp_parser = subparsers.add_parser(
+        "generate-pregame-pack",
+        help="Render the 1200x630 Pre-game Pack share card for a Saturday game.",
+    )
+    pp_parser.add_argument(
+        "--output", type=Path,
+        default=Path("output/site/assets/share/pregame_pack.png"),
+    )
+    pp_parser.add_argument(
+        "--game-id", type=int, default=None,
+        help="Specific game_id to render; defaults to next-Saturday's marquee.",
+    )
+    pp_parser.add_argument("--dark", action="store_true")
+
     # QA audit — dump every Signature Bets module's output for a player.
     pbets_parser = subparsers.add_parser(
         "player-bets-audit",
@@ -2643,6 +2716,98 @@ def main() -> None:
                 else "n/a"
             )
             print(f"  [{rarity}] {a['display_name']} — {a['unlock_context']}")
+        return
+
+    if args.command == "recompute-confidence-thresholds":
+        from cfb_rankings.confidence import (
+            Domain,
+            recompute_thresholds,
+            _DOMAIN_SAMPLE_SQL,
+        )
+        domains = (
+            [Domain(args.domain)] if args.domain != "all"
+            else list(Domain)
+        )
+        if args.print_only:
+            # Dry run — compute but don't write. Bypass the upsert path.
+            import statistics
+            for d in domains:
+                rows = db.query_all(_DOMAIN_SAMPLE_SQL[d])
+                samples = sorted(
+                    int(r["sample_count"]) for r in rows
+                    if r["sample_count"] is not None
+                )
+                n = len(samples)
+                if n == 0:
+                    print(f"{d.value:<12} n=0  (no data — would write fallback thresholds)")
+                    continue
+                p10 = samples[max(0, int(0.10 * (n - 1)))]
+                p25 = samples[max(0, int(0.25 * (n - 1)))]
+                p75 = samples[max(0, int(0.75 * (n - 1)))]
+                print(f"{d.value:<12} n={n:>6}  p10={p10:>6}  p25={p25:>6}  p75={p75:>6}")
+            return
+        for d in domains:
+            result = recompute_thresholds(db, d)
+            t = result.thresholds
+            print(
+                f"{d.value:<12} q={result.quarter}  "
+                f"p10={t.p10:>6}  p25={t.p25:>6}  p75={t.p75:>6}  "
+                f"n={t.sample_size_at_calibration}"
+            )
+        return
+
+    if args.command == "confidence-status":
+        from cfb_rankings.confidence import Domain, get_calibration
+        print(f"{'DOMAIN':<12}  {'P10':>6}  {'P25':>6}  {'P75':>6}  {'N':>8}  CALIBRATED")
+        for d in Domain:
+            t = get_calibration(d, db=db)
+            row = db.query_one(
+                "SELECT quarter, computed_at_utc FROM confidence_calibration "
+                "WHERE domain = ? ORDER BY computed_at_utc DESC LIMIT 1",
+                (d.value,),
+            )
+            calibrated = f"{row['quarter']} @ {row['computed_at_utc']}" if row else "FALLBACK"
+            print(
+                f"{d.value:<12}  {t.p10:>6}  {t.p25:>6}  {t.p75:>6}  "
+                f"{t.sample_size_at_calibration:>8}  {calibrated}"
+            )
+        return
+
+    if args.command == "generate-mood-map":
+        # v5-10e: DB-backed mood-map render.
+        # builders.build_mood_map_input reads from fanbase_mood_weekly +
+        # hub_issue_metadata when populated, falls back to the W048 mockup
+        # composition otherwise. The renderer is identical either way.
+        from cfb_rankings.viral.builders import build_mood_map_input
+        from cfb_rankings.viral.mood_map import render
+        kwargs = build_mood_map_input(db)
+        if args.week_label:
+            kwargs["when_label"] = args.week_label
+        out = render(args.output, dark=bool(args.dark), **kwargs)
+        size_kb = out.stat().st_size / 1024
+        print(f"Wrote {out}  ({size_kb:.1f} KB · 1200x675{' · DARK' if args.dark else ''})")
+        return
+
+    if args.command == "generate-daily-movers":
+        from cfb_rankings.viral.builders import build_daily_movers_input
+        from cfb_rankings.viral.daily_movers import render
+        kwargs = build_daily_movers_input(db)
+        out = render(args.output, dark=bool(args.dark), **kwargs)
+        size_kb = out.stat().st_size / 1024
+        print(f"Wrote {out}  ({size_kb:.1f} KB · 1200x630{' · DARK' if args.dark else ''})")
+        return
+
+    if args.command == "generate-pregame-pack":
+        from cfb_rankings.viral.builders import build_pregame_pack_input
+        from cfb_rankings.viral.pregame_pack import render
+        kwargs = build_pregame_pack_input(db, game_id=args.game_id)
+        if kwargs is None:
+            print("generate-pregame-pack: no qualifying Saturday game in the next 7 days "
+                  "(don't fabricate; pack will run when a game is scheduled).")
+            return
+        out = render(args.output, dark=bool(args.dark), **kwargs)
+        size_kb = out.stat().st_size / 1024
+        print(f"Wrote {out}  ({size_kb:.1f} KB · 1200x630{' · DARK' if args.dark else ''})")
         return
 
     if args.command == "player-bets-audit":

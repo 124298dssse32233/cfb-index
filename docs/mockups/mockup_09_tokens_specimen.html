@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Tokens Specimen — CFB Index (mockup_09)</title>
+  <meta name="description" content="Design-system specimen — 6 color ramps, 9 type sizes, 9 spacing tokens, 4 confidence states, 6 chart types.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Design Tokens Specimen — v5-5.5 lock reference">
+  <meta property="og:description" content="Every locked decision from 00-tokens.md on one page. Color ramps, typography, spacing, radii, confidence, chart vocabulary.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    .specimen-section { margin: var(--sp-12) 0; }
+    .specimen-section__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-4);
+      flex-wrap: wrap;
+    }
+    .specimen-section h2 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-h1);
+      letter-spacing: var(--tracking-h1);
+      margin: 0;
+    }
+    .specimen-section h2 small {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* Color ramp swatches */
+    .ramp {
+      display: grid;
+      grid-template-columns: 80px repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: var(--sp-3);
+    }
+    .ramp__label {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      align-self: center;
+      color: var(--color-text);
+    }
+    .swatch {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: flex-end;
+      padding: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+    }
+    .swatch--light-fg { color: rgba(0,0,0,0.65); }
+    .swatch--dark-fg  { color: rgba(255,255,255,0.85); }
+
+    /* Type specimen */
+    .type-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-2);
+      padding: var(--sp-3) 0;
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    @media (min-width: 768px) {
+      .type-row { grid-template-columns: 200px 1fr; }
+    }
+    .type-row__meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+    .type-row__sample { line-height: 1.1; }
+
+    /* Spacing scale */
+    .spacing-row {
+      display: grid;
+      grid-template-columns: 60px 100px 1fr;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-2) 0;
+    }
+    .spacing-row__bar {
+      background: var(--color-amber-200);
+      height: 12px;
+    }
+    .spacing-row__meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* Radii sample row */
+    .radii-row {
+      display: flex;
+      gap: var(--sp-4);
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .radii-tile {
+      background: var(--color-amber-100);
+      width: 80px; height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-amber-800);
+    }
+
+    /* Confidence chip grid */
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--sp-3);
+    }
+    .chip-cell {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .chip-cell__label {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-2);
+    }
+    .chip-cell__usage {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-text-muted);
+      margin-top: var(--sp-2);
+    }
+
+    /* Chart vocabulary mini-grid */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-4);
+    }
+    @media (min-width: 768px) {
+      .chart-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .chart-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .chart-cell {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .chart-cell h3 {
+      font-family: var(--font-ui);
+      font-size: var(--fs-h3);
+      font-weight: var(--fw-medium);
+      margin: 0 0 var(--sp-2);
+    }
+    .chart-cell p {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      line-height: 1.5;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+    .chart-cell svg { width: 100%; height: 100px; display: block; margin: var(--sp-2) 0; }
+
+    /* Forbidden list */
+    .forbidden {
+      background: var(--color-red-50);
+      border: var(--stroke-hair) solid var(--color-red-100);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .forbidden h3 {
+      font-family: var(--font-ui);
+      font-size: var(--fs-h3);
+      font-weight: var(--fw-medium);
+      color: var(--color-red-800);
+      margin: 0 0 var(--sp-2);
+    }
+    .forbidden ul {
+      margin: 0;
+      padding-left: var(--sp-6);
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      color: var(--color-red-900);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__logo">CFB INDEX</div>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="index.html">All 8</a>
+      <a href="#" aria-current="page">Tokens</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page page--wide" role="main">
+
+    <header class="hero-finding" aria-label="Tokens specimen">
+      <p class="eyebrow">DESIGN-SYSTEM SPECIMEN · v5-5.5 LOCK REFERENCE</p>
+      <h1 class="hero-finding__number" style="font-size: clamp(48px, 6vw, 80px); line-height: 1; margin-bottom: 12px;">Tokens, type, charts</h1>
+      <p class="hero-finding__sentence" style="max-width: 60ch;">
+        Every locked design decision from <code>docs/design-system/00-tokens.md</code> in one place. Reference for the v5-5.5 foundational-decisions sprint.
+      </p>
+    </header>
+
+    <!-- COLORS -->
+    <section class="specimen-section" aria-label="Color ramps">
+      <div class="specimen-section__head">
+        <h2>Color ramps<small>Six ramps × seven stops · OKLCH-compatible</small></h2>
+      </div>
+
+      <div class="ramp" aria-label="Navy ramp">
+        <div class="ramp__label">Navy</div>
+        <div class="swatch swatch--light-fg" style="background: #E6F1FB">50</div>
+        <div class="swatch swatch--light-fg" style="background: #B5D4F4">100</div>
+        <div class="swatch swatch--light-fg" style="background: #85B7EB">200</div>
+        <div class="swatch swatch--dark-fg"  style="background: #378ADD">400</div>
+        <div class="swatch swatch--dark-fg"  style="background: #185FA5">600</div>
+        <div class="swatch swatch--dark-fg"  style="background: #0C447C">800</div>
+        <div class="swatch swatch--dark-fg"  style="background: #042C53">900</div>
+      </div>
+      <div class="ramp" aria-label="Coral ramp">
+        <div class="ramp__label">Coral</div>
+        <div class="swatch swatch--light-fg" style="background: #FAECE7">50</div>
+        <div class="swatch swatch--light-fg" style="background: #F5C4B3">100</div>
+        <div class="swatch swatch--light-fg" style="background: #F0997B">200</div>
+        <div class="swatch swatch--dark-fg"  style="background: #D85A30">400</div>
+        <div class="swatch swatch--dark-fg"  style="background: #993C1D">600</div>
+        <div class="swatch swatch--dark-fg"  style="background: #712B13">800</div>
+        <div class="swatch swatch--dark-fg"  style="background: #4A1B0C">900</div>
+      </div>
+      <div class="ramp" aria-label="Amber ramp">
+        <div class="ramp__label">Amber</div>
+        <div class="swatch swatch--light-fg" style="background: #FAEEDA">50</div>
+        <div class="swatch swatch--light-fg" style="background: #FAC775">100</div>
+        <div class="swatch swatch--light-fg" style="background: #EF9F27">200</div>
+        <div class="swatch swatch--dark-fg"  style="background: #BA7517">400</div>
+        <div class="swatch swatch--dark-fg"  style="background: #854F0B">600</div>
+        <div class="swatch swatch--dark-fg"  style="background: #633806">800</div>
+        <div class="swatch swatch--dark-fg"  style="background: #412402">900</div>
+      </div>
+      <div class="ramp" aria-label="Gray ramp">
+        <div class="ramp__label">Gray</div>
+        <div class="swatch swatch--light-fg" style="background: #F1EFE8">50</div>
+        <div class="swatch swatch--light-fg" style="background: #D3D1C7">100</div>
+        <div class="swatch swatch--light-fg" style="background: #B4B2A9">200</div>
+        <div class="swatch swatch--dark-fg"  style="background: #888780">400</div>
+        <div class="swatch swatch--dark-fg"  style="background: #5F5E5A">600</div>
+        <div class="swatch swatch--dark-fg"  style="background: #444441">800</div>
+        <div class="swatch swatch--dark-fg"  style="background: #2C2C2A">900</div>
+      </div>
+      <div class="ramp" aria-label="Green ramp">
+        <div class="ramp__label">Green</div>
+        <div class="swatch swatch--light-fg" style="background: #E1F5EE">50</div>
+        <div class="swatch swatch--light-fg" style="background: #9FE1CB">100</div>
+        <div class="swatch swatch--light-fg" style="background: #5DCAA5">200</div>
+        <div class="swatch swatch--dark-fg"  style="background: #1D9E75">400</div>
+        <div class="swatch swatch--dark-fg"  style="background: #0F6E56">600</div>
+        <div class="swatch swatch--dark-fg"  style="background: #085041">800</div>
+        <div class="swatch swatch--dark-fg"  style="background: #04342C">900</div>
+      </div>
+      <div class="ramp" aria-label="Red ramp">
+        <div class="ramp__label">Red</div>
+        <div class="swatch swatch--light-fg" style="background: #FCEBEB">50</div>
+        <div class="swatch swatch--light-fg" style="background: #F7C1C1">100</div>
+        <div class="swatch swatch--light-fg" style="background: #F09595">200</div>
+        <div class="swatch swatch--dark-fg"  style="background: #E24B4A">400</div>
+        <div class="swatch swatch--dark-fg"  style="background: #A32D2D">600</div>
+        <div class="swatch swatch--dark-fg"  style="background: #791F1F">800</div>
+        <div class="swatch swatch--dark-fg"  style="background: #501313">900</div>
+      </div>
+
+      <p class="caption" style="margin-top: 16px;">
+        <strong>Color use rules:</strong> Navy = analytical / Coral = emotional / Amber = heritage + peaks / Gray = structural / Green = positive delta / Red = crisis. 2-3 ramps per page maximum. 400-stop is default accent; 600 for bold on light; 800/900 for text on 50-stop surfaces.
+      </p>
+    </section>
+
+    <!-- DARK-MODE TOKENS -->
+    <section class="specimen-section" aria-label="Dark-mode tokens">
+      <div class="specimen-section__head">
+        <h2>Dark-mode tokens<small>Used in OG share cards (iMessage-default) and any prefers-color-scheme: dark surface</small></h2>
+      </div>
+
+      <div style="background: #1A1A18; padding: 32px; border-radius: 12px;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
+          <div>
+            <p style="font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: #B4B2A9; margin: 0 0 12px;">SURFACE + TEXT TOKENS</p>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-family: var(--font-mono); font-size: 10px;">
+              <div style="background: #1A1A18; color: #F4F2EC; padding: 12px; border: 0.5px solid rgba(244,242,236,0.10); border-radius: 4px;">surface<br>#1A1A18</div>
+              <div style="background: #242220; color: #F4F2EC; padding: 12px; border: 0.5px solid rgba(244,242,236,0.10); border-radius: 4px;">surface-card<br>#242220</div>
+              <div style="background: #F4F2EC; color: #1A1A18; padding: 12px; border-radius: 4px;">text<br>#F4F2EC</div>
+              <div style="background: #B4B2A9; color: #1A1A18; padding: 12px; border-radius: 4px;">text-muted<br>#B4B2A9</div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: #B4B2A9; margin: 0 0 12px;">ACCENT + STATUS ON DARK</p>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-family: var(--font-mono); font-size: 10px;">
+              <div style="background: #FAC775; color: #1A1A18; padding: 12px; border-radius: 4px;">amber-100<br>11.20×</div>
+              <div style="background: #5DCAA5; color: #1A1A18; padding: 12px; border-radius: 4px;">green-200<br>8.68×</div>
+              <div style="background: #F09595; color: #1A1A18; padding: 12px; border-radius: 4px;">red-200<br>7.83×</div>
+              <div style="background: #85B7EB; color: #1A1A18; padding: 12px; border-radius: 4px;">navy-200<br>10.50×</div>
+            </div>
+          </div>
+        </div>
+        <p style="color: #B4B2A9; font-family: var(--font-serif); font-size: 13px; line-height: 1.6; margin: 24px 0 0 0; max-width: 60ch;">
+          The dark-mode token set runs on <em style="color: #FAC775;">cool-warm dark</em> — <code style="color: #FAC775;">#1A1A18</code> isn't black, it carries warmth from the cream surface's hue rotated to the dark side. Accent ramps lift to the lighter 100/200 stops so they sit cleanly on dark surfaces; numbers above each accent are the WCAG AA contrast ratio against <code style="color: #FAC775;">#1A1A18</code>.
+        </p>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="specimen-section" aria-label="Typography">
+      <div class="specimen-section__head">
+        <h2>Typography<small>3 families · 9 sizes · 2 weights · tabular numerals enforced</small></h2>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-display · clamp(48,6vw,64) · serif<br>
+          Hero numbers + cover headlines
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-display); font-size: var(--fs-display); letter-spacing: var(--tracking-display);">
+          Bebas Neue display 47
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-h1 · clamp(28,3.5vw,32) · serif<br>
+          Section titles
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-serif); font-size: var(--fs-h1); letter-spacing: var(--tracking-h1);">
+          The Spring-Game Issue · serif h1
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-h2 · clamp(20,2.5vw,22) · serif italic<br>
+          Subheads / pull quotes
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-serif); font-size: var(--fs-h2); font-style: italic;">
+          Source Serif italic h2 — the pull-quote register
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-h3 · 18px · sans 500<br>
+          Module titles
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-ui); font-size: var(--fs-h3); font-weight: 500;">
+          Inter 500 module title at 18px
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-body · 16px · serif<br>
+          Editorial body
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-serif); font-size: var(--fs-body); line-height: var(--lh-body); max-width: 60ch;">
+          Source Serif Pro at 16px / 1.65 line-height. The default body for every Article archetype. Italic for asides; bold for emphasis is sparing.
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-body-sm · 14px · sans<br>
+          UI body / chart labels
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-ui); font-size: var(--fs-body-sm); max-width: 60ch;">
+          Inter at 14px. Used for table cells, navigation, methodology stripes, and reading-guide content.
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-label · 11px · sans 500 uppercase<br>
+          Eyebrows / column headers · 0.11em tracking
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-ui); font-size: var(--fs-label); font-weight: 500; letter-spacing: var(--tracking-label); text-transform: uppercase;">
+          INTER 500 EYEBROW LABEL
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          --fs-caption · 11px · sans 400<br>
+          Metadata
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-ui); font-size: var(--fs-caption);">
+          Inter 400 caption · methodology v1.0
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">
+          tabular-nums on every stat surface<br>
+          tnum + lnum features enforced
+        </div>
+        <div class="type-row__sample" style="font-family: var(--font-ui); font-variant-numeric: tabular-nums lining-nums; font-size: 22px;">
+          11 · 110 · 1,100 · 11,000 · 110,000 → digits align in columns
+        </div>
+      </div>
+    </section>
+
+    <!-- SPACING -->
+    <section class="specimen-section" aria-label="Spacing">
+      <div class="specimen-section__head">
+        <h2>Spacing<small>4px base grid · 8 tokens · no off-scale values</small></h2>
+      </div>
+
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-1</span><div class="spacing-row__bar" style="width: 4px;"></div><span class="spacing-row__meta">4 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-2</span><div class="spacing-row__bar" style="width: 8px;"></div><span class="spacing-row__meta">8 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-3</span><div class="spacing-row__bar" style="width: 12px;"></div><span class="spacing-row__meta">12 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-4</span><div class="spacing-row__bar" style="width: 16px;"></div><span class="spacing-row__meta">16 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-6</span><div class="spacing-row__bar" style="width: 24px;"></div><span class="spacing-row__meta">24 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-8</span><div class="spacing-row__bar" style="width: 32px;"></div><span class="spacing-row__meta">32 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-12</span><div class="spacing-row__bar" style="width: 48px;"></div><span class="spacing-row__meta">48 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-16</span><div class="spacing-row__bar" style="width: 64px;"></div><span class="spacing-row__meta">64 px</span></div>
+      <div class="spacing-row"><span class="spacing-row__meta">--sp-24</span><div class="spacing-row__bar" style="width: 96px;"></div><span class="spacing-row__meta">96 px</span></div>
+    </section>
+
+    <!-- RADII -->
+    <section class="specimen-section" aria-label="Radii">
+      <div class="specimen-section__head">
+        <h2>Radii<small>5 tokens · sm for inputs · md for cards · lg for modules · xl for pages · full for pills</small></h2>
+      </div>
+
+      <div class="radii-row">
+        <div class="radii-tile" style="border-radius: var(--radius-sm);">sm 3px</div>
+        <div class="radii-tile" style="border-radius: var(--radius-md);">md 6px</div>
+        <div class="radii-tile" style="border-radius: var(--radius-lg);">lg 12px</div>
+        <div class="radii-tile" style="border-radius: var(--radius-xl);">xl 20px</div>
+        <div class="radii-tile" style="border-radius: var(--radius-full);">full</div>
+      </div>
+    </section>
+
+    <!-- CONFIDENCE -->
+    <section class="specimen-section" aria-label="Confidence chips">
+      <div class="specimen-section__head">
+        <h2>Confidence chips<small>4 states · WCAG AA each · calibrated against actual data distribution</small></h2>
+      </div>
+
+      <div class="chip-grid">
+        <div class="chip-cell">
+          <div class="chip-cell__label">HIGH</div>
+          <span class="confidence confidence--high">High confidence</span>
+          <p class="chip-cell__usage">Above p75 sample · green-50 / green-800 · 8.28× contrast</p>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-cell__label">MEDIUM</div>
+          <span class="confidence confidence--medium">Medium confidence</span>
+          <p class="chip-cell__usage">p25 to p75 · amber-50 / amber-800 · 8.72× contrast</p>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-cell__label">LOW</div>
+          <span class="confidence confidence--low">Low confidence</span>
+          <p class="chip-cell__usage">Below p25 · red-50 / red-800 · 8.98× contrast</p>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-cell__label">UNSET / UNKNOWN</div>
+          <span class="confidence confidence--unset">Sample insufficient</span>
+          <p class="chip-cell__usage">Below p10 · gray-50 / gray-800 · 8.49× contrast</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHART VOCABULARY -->
+    <section class="specimen-section" aria-label="Chart vocabulary">
+      <div class="specimen-section__head">
+        <h2>Chart vocabulary<small>6 allowed types · everything else is forbidden</small></h2>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-cell">
+          <h3>Percentile bar</h3>
+          <svg viewBox="0 0 220 80" role="img" aria-label="Sample percentile bar"><rect x="10" y="32" width="200" height="16" fill="#F1EFE8"/><rect x="10" y="32" width="146" height="16" fill="#185FA5"/><line x1="156" y1="22" x2="156" y2="58" stroke="#141618" stroke-width="2"/><text x="180" y="44" fill="#141618" font-family="Inter" font-size="11" font-weight="500">73%ile</text></svg>
+          <p>Baseball Savant style. Single metric vs cohort distribution.</p>
+        </div>
+        <div class="chart-cell">
+          <h3>Trajectory spark</h3>
+          <svg viewBox="0 0 220 80" role="img" aria-label="Sample sparkline"><polyline fill="none" stroke="#BA7517" stroke-width="2" points="10,60 40,55 70,48 100,42 130,30 160,22 190,18 210,12"/></svg>
+          <p>160×40 inline sparkline. No axis — direction only.</p>
+        </div>
+        <div class="chart-cell">
+          <h3>Bump chart</h3>
+          <svg viewBox="0 0 220 80" role="img" aria-label="Sample bump chart"><line x1="40" y1="20" x2="180" y2="50" stroke="#D85A30" stroke-width="2"/><line x1="40" y1="50" x2="180" y2="38" stroke="#185FA5" stroke-width="2"/><circle cx="40" cy="20" r="5" fill="#D85A30"/><circle cx="40" cy="50" r="5" fill="#185FA5"/><circle cx="180" cy="50" r="5" fill="#D85A30"/><circle cx="180" cy="38" r="5" fill="#185FA5"/></svg>
+          <p>Two-column rank shifts (cohort vs cohort, week vs week).</p>
+        </div>
+        <div class="chart-cell">
+          <h3>Annotated line</h3>
+          <svg viewBox="0 0 220 80" role="img" aria-label="Sample annotated line"><polyline fill="none" stroke="#185FA5" stroke-width="2" points="10,60 40,55 70,40 100,38 130,22 160,18 190,32 210,28"/><line x1="100" y1="10" x2="100" y2="70" stroke="#BA7517" stroke-width="0.5" stroke-dasharray="3 3"/><text x="104" y="14" fill="#854F0B" font-family="Inter" font-size="9" font-style="italic">event</text></svg>
+          <p>NYT-style. Line + one or two annotation lines marking inflections.</p>
+        </div>
+        <div class="chart-cell">
+          <h3>Small multiples</h3>
+          <svg viewBox="0 0 220 80" role="img" aria-label="Sample small multiples"><g><rect x="10" y="20" width="60" height="40" fill="#F1EFE8"/><polyline fill="none" stroke="#185FA5" stroke-width="1.5" points="14,52 28,40 42,36 56,28 64,30"/></g><g><rect x="80" y="20" width="60" height="40" fill="#F1EFE8"/><polyline fill="none" stroke="#D85A30" stroke-width="1.5" points="84,32 98,30 112,38 126,42 134,50"/></g><g><rect x="150" y="20" width="60" height="40" fill="#F1EFE8"/><polyline fill="none" stroke="#0F6E56" stroke-width="1.5" points="154,40 168,36 182,32 196,30 204,28"/></g></svg>
+          <p>Tufte / Bloomberg grid for comparing across many entities.</p>
+        </div>
+        <div class="chart-cell">
+          <h3>Heatmap</h3>
+          <svg viewBox="0 0 220 80" role="img" aria-label="Sample heatmap"><g><rect x="10" y="20" width="40" height="20" fill="#FAEEDA"/><rect x="55" y="20" width="40" height="20" fill="#FAC775"/><rect x="100" y="20" width="40" height="20" fill="#EF9F27"/><rect x="145" y="20" width="40" height="20" fill="#BA7517"/><rect x="10" y="42" width="40" height="20" fill="#FAC775"/><rect x="55" y="42" width="40" height="20" fill="#EF9F27"/><rect x="100" y="42" width="40" height="20" fill="#BA7517"/><rect x="145" y="42" width="40" height="20" fill="#854F0B"/></g></svg>
+          <p>Density / time-of-day / week-by-week intensity.</p>
+        </div>
+      </div>
+
+      <div class="forbidden" style="margin-top: 24px;">
+        <h3>Forbidden chart types</h3>
+        <ul>
+          <li><strong>Pie charts</strong> — always. Percentile bars communicate the same data more honestly.</li>
+          <li><strong>Vertical bar charts</strong> — use percentile bars instead; they encode position within distribution.</li>
+          <li><strong>Radar / spider charts</strong> — except for the player fingerprint module (PLAYER_PAGE_WORLD_CLASS_BRIEF documents the exception).</li>
+        </ul>
+      </div>
+    </section>
+
+    <p style="font-family: var(--font-ui); font-size: 11px; color: var(--color-text-muted); margin: 64px 0; max-width: 60ch;">
+      All values traced to <code>docs/design-system/00-tokens.md</code>. This specimen is read-only reference — changes to tokens require the v5-5.5 review and Window B / Window A coordination via <code>COORDINATION.md</code>.
+    </p>
+
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_08_dark_share_cards.html">← Dark cards</a>
+    <a aria-disabled="true" href="#">→</a>
+  </nav>
+  <span class="mockup-stamp">SPECIMEN · TOKENS · 09</span>
+</body>
+</html>

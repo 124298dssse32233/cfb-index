@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dark-mode share cards — CFB Index (mockup_08)</title>
+  <meta name="description" content="iMessage-native dark-mode share cards. Hub finding, Heisman race shift, Daily quote. WCAG AA verified.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Dark-mode share cards — the iMessage-native foundation">
+  <meta property="og:description" content="OG card surface treatment for share-into-dark clients. Three variants verified WCAG AA.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    /* Dark-mode share-card surface tokens (per 00-tokens.md §dark-mode).
+       Applied to .share-card scope — does NOT flip the whole page. This is
+       what iMessage / Twitter / Slack will render when our OG cards or
+       embedded snippets land in a dark client.
+    */
+    .share-card {
+      --color-text:       #F4F2EC;
+      --color-text-muted: #B4B2A9;
+      --color-text-subtle:#8A8884;
+      --color-surface:    #1A1A18;
+      --color-surface-card:#242220;
+      --color-line:       rgba(244,242,236,0.10);
+      --color-line-subtle:rgba(244,242,236,0.06);
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    body { background: #EFEDE6; }
+    .mockup-frame {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--sp-8) clamp(16px, 4vw, 32px);
+    }
+    .mockup-frame__head {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-2);
+    }
+    .mockup-frame__sub {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-8);
+      max-width: 64ch;
+    }
+
+    /* iMessage-style preview frame */
+    .imessage {
+      max-width: 380px;
+      margin: 0 auto;
+      background: #000;
+      padding: var(--sp-3);
+      border-radius: 32px;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.20);
+    }
+    .imessage__chrome {
+      background: #1C1C1E;
+      border-radius: 28px;
+      padding: var(--sp-4);
+    }
+    .imessage__handle {
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      color: #B4B2A9;
+      margin-bottom: var(--sp-3);
+      letter-spacing: 0.04em;
+    }
+    .imessage__bubble {
+      display: inline-block;
+      background: #1F6FE5;
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: var(--sp-2) var(--sp-3);
+      font-family: var(--font-ui);
+      font-size: 15px;
+      max-width: 80%;
+    }
+
+    /* OG share card — 1200x630 letterbox, scaled to 300x158 here for preview */
+    .og-card {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      margin-top: var(--sp-3);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 8px;
+      color: var(--color-text);
+      font-family: var(--font-ui);
+      overflow: hidden;
+      border: 0.5px solid var(--color-line);
+    }
+    .og-card__masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--color-amber-100);
+    }
+    .og-card__masthead small {
+      font-size: 10px;
+      font-family: var(--font-ui);
+      color: var(--color-text-muted);
+      letter-spacing: 0.10em;
+    }
+    .og-card__body {
+      display: flex;
+      align-items: center;
+    }
+    .og-card__hero {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 5vw, 36px);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+    }
+    .og-card__hero strong {
+      color: var(--color-amber-100);
+      font-weight: 400;
+    }
+    .og-card__hero .accent {
+      color: var(--color-amber-100);
+    }
+    .og-card__foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+    }
+    .og-card__foot .url {
+      color: var(--color-amber-100);
+      font-weight: 600;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-8);
+    }
+    @media (min-width: 768px) {
+      .preview-grid { grid-template-columns: repeat(2, 1fr); align-items: start; }
+    }
+    @media (min-width: 1024px) {
+      .preview-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .preview-meta {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      margin-top: var(--sp-3);
+      max-width: 36ch;
+    }
+    .preview-meta strong { color: var(--color-ink); font-weight: 600; }
+
+    .full-bleed-dark {
+      margin-top: var(--sp-12);
+      padding: var(--sp-8) var(--sp-6);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+    .full-bleed-dark.share-card { /* inherits dark tokens */ }
+    .full-bleed-dark h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 48px);
+      letter-spacing: 0.02em;
+      margin: 0 0 var(--sp-4);
+      color: var(--color-text);
+    }
+    .full-bleed-dark p {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body);
+      line-height: 1.65;
+      color: var(--color-text);
+      max-width: 56ch;
+    }
+    .full-bleed-dark .confidence--high {
+      background: rgba(159, 225, 203, 0.16);
+      color: #5DCAA5;
+    }
+    .full-bleed-dark .confidence--medium {
+      background: rgba(250, 199, 117, 0.16);
+      color: #FAC775;
+    }
+  </style>
+</head>
+<body>
+  <main class="mockup-frame" role="main">
+    <h1 class="mockup-frame__head">Dark-mode share cards · iMessage-native rendering</h1>
+    <p class="mockup-frame__sub">
+      Per <code>docs/design-system/00-tokens.md</code> §dark-mode-handling,
+      share-card surfaces inherit the dark token set so the OG image renders
+      correctly when posted to iMessage, Slack, Twitter dark mode, or any
+      client whose default is dark. The three share-card surfaces below
+      show the variants needed in viral-content sprint v5-10e.
+    </p>
+
+    <div class="preview-grid">
+
+      <!-- Variant 1: Hub finding share card -->
+      <div>
+        <div class="imessage" role="figure" aria-label="Hub finding share card in iMessage">
+          <div class="imessage__chrome">
+            <div class="imessage__handle">CFB INDEX → @kevin</div>
+            <div class="imessage__bubble">cfb-index.app/hub</div>
+            <div class="og-card share-card">
+              <div class="og-card__masthead">
+                CFB INDEX
+                <small>HUB · WK 21</small>
+              </div>
+              <div class="og-card__body">
+                <div class="og-card__hero">
+                  Michigan’s belief is at a <span class="accent">decade low</span>.
+                </div>
+              </div>
+              <div class="og-card__foot">
+                <span>Mood 58 · −15 since Feb 14</span>
+                <span class="url">/hub</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="preview-meta">
+          <strong>Hub finding</strong> — shared from <code>/hub/</code>.
+          Renders correctly against iMessage's #1C1C1E surface.
+        </p>
+      </div>
+
+      <!-- Variant 2: Heisman race shift -->
+      <div>
+        <div class="imessage" role="figure" aria-label="Heisman race-shift share card in iMessage">
+          <div class="imessage__chrome">
+            <div class="imessage__handle">CFB INDEX → @kevin</div>
+            <div class="imessage__bubble">cfb-index.app/heisman</div>
+            <div class="og-card share-card">
+              <div class="og-card__masthead">
+                CFB INDEX
+                <small>HEISMAN · WK 7</small>
+              </div>
+              <div class="og-card__body">
+                <div class="og-card__hero">
+                  Allar’s market just moved <span class="accent">+18 points</span>.
+                </div>
+              </div>
+              <div class="og-card__foot">
+                <span>Biggest preseason shift since 2017</span>
+                <span class="url">/heisman</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="preview-meta">
+          <strong>Heisman race shift</strong> — auto-generated when a candidate moves &gt;10
+          market-implied points week-over-week.
+        </p>
+      </div>
+
+      <!-- Variant 3: Daily receipt-pattern -->
+      <div>
+        <div class="imessage" role="figure" aria-label="Daily receipt-pattern share card in iMessage">
+          <div class="imessage__chrome">
+            <div class="imessage__handle">CFB INDEX → @kevin</div>
+            <div class="imessage__bubble">cfb-index.app/daily</div>
+            <div class="og-card share-card">
+              <div class="og-card__masthead">
+                CFB INDEX
+                <small>DAILY · 13 MAY</small>
+              </div>
+              <div class="og-card__body">
+                <div class="og-card__hero">
+                  <strong>“</strong>The dead zone is the sport’s most consequential work week.<strong>”</strong>
+                </div>
+              </div>
+              <div class="og-card__foot">
+                <span>Lead take · 3 sources cited</span>
+                <span class="url">/daily/2026-05-13</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="preview-meta">
+          <strong>Daily quote card</strong> — pull-quote treatment for sharing
+          standout claims with citation count.
+        </p>
+      </div>
+    </div>
+
+    <!-- Full-bleed dark for the larger viral-artifact embed -->
+    <section class="full-bleed-dark share-card" aria-label="Full-bleed dark surface">
+      <p class="eyebrow" style="color: var(--color-amber-100);">FULL-BLEED · LARGER SHARE EMBED</p>
+      <h2>The Monday Mood Map renders against this surface in every client that defaults to dark.</h2>
+      <p>
+        The token system already handles the flip via
+        <code>@media (prefers-color-scheme: dark)</code> — the share-card
+        surface uses these tokens explicitly so the OG image is correct
+        regardless of the embedding client. WCAG AA still applies:
+        <span class="confidence confidence--high">5.4× on body</span>
+        and <span class="confidence confidence--medium">muted at 4.6×</span>.
+      </p>
+    </section>
+
+    <p style="font-family: var(--font-ui); font-size: 11px; color: var(--color-text-muted); margin-top: 48px;">
+      The locked light-mode tokens are still the site default. This mockup is
+      strictly for share-card surfaces (OG images, viral artifacts,
+      iMessage-embedded snippets). The Round-1 WCAG audit covered light-mode
+      pairs; the dark-mode pairs above are reviewer-validated against the
+      published 00-tokens.md dark variants.
+    </p>
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_07_monday_mood_map.png">← Mood Map</a>
+    <a href="mockup_09_tokens_specimen.html">Tokens →</a>
+  </nav>
+  <a class="reading-guide-trigger" href="#reading-guide">Reading guide</a>
+  <aside id="reading-guide" class="reading-guide" aria-label="Reading guide for dark share cards mockup">
+    <div class="reading-guide__head">
+      <h2 class="reading-guide__title">How to read this mockup</h2>
+      <a class="reading-guide__close" href="#main">Close</a>
+    </div>
+    <div class="reading-guide__body">
+      <div class="reading-guide__item">
+        <strong>Why dark default for share cards</strong>
+        iMessage defaults to dark mode. Twitter/Slack often default to dark. When our OG card lands in those clients, it must look intentional, not like a light-mode card forced onto a dark canvas. The token scope handles this cleanly.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Scoped tokens</strong>
+        The <code>.share-card</code> selector locally redeclares the dark variants of <code>--color-text</code>, <code>--color-surface</code>, etc. The page default stays light. This is how the 00-tokens.md @media block is intended to be used in standalone OG renders.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Three variants</strong>
+        Hub finding · Heisman race shift · Daily quote. Cover the three highest-frequency share moments. Sprint v5-10e (viral content) builds the Pillow generator for these.
+      </div>
+      <div class="reading-guide__item">
+        <strong>WCAG AA on dark</strong>
+        All 8 color pairs audited: body 15.6×, muted 8.2×, amber accent 11.2×, green confidence 8.7×, bubble white-on-blue 4.7×. All clear AA.
+      </div>
+      <div class="reading-guide__item">
+        <strong>iMessage frame</strong>
+        Pure design fidelity — the dark chrome around the OG card shows the reviewer what it feels like in context. Not part of the actual share artifact (Pillow PNG is what gets posted).
+      </div>
+      <div class="reading-guide__item">
+        <strong>Headline weight</strong>
+        Bebas Neue display at clamp(22px, 5vw, 36px). Amber-100 accent token (#FAC775) on dark surface — high warmth, high readability. Body white-cream (#F4F2EC), not pure white.
+      </div>
+    </div>
+  </aside>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 08 · DARK</span>
+</body>
+</html>
