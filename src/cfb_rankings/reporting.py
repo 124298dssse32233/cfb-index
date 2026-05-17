@@ -13185,6 +13185,7 @@ def render_conferences_index_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Conferences</title>
+    {_meta_tags(f"All NCAA football conferences for {season_name} — FBS, FCS, Division II, Division III. League aggregates of power and resume ratings, with member team rosters.", title=f"{season_name} Conferences | CFB Index", image_path="../og-image.svg", canonical_path="/conferences/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -13409,6 +13410,7 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(conference['conference_name'])} | {escape(season_name)}</title>
+    {_meta_tags(f"{conference['conference_name']} for {season_name}: {conference.get('profile_note') or 'Conference standings, power and resume ratings, and member team profiles.'}", title=f"{conference['conference_name']} | {season_name}", image_path="../og-image.svg", canonical_path=f"/conferences/{conference['slug']}.html", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
