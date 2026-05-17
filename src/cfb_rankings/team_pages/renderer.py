@@ -304,6 +304,7 @@ def _render_page(
     savant_css = (_ASSETS_DIR / "savant_card.css").read_text(encoding="utf-8")
     rivalry_css = (_ASSETS_DIR / "rivalry_card.css").read_text(encoding="utf-8")
     arc_css = (_ASSETS_DIR / "season_arc_card.css").read_text(encoding="utf-8")
+    rituals_css = (_ASSETS_DIR / "rituals_card.css").read_text(encoding="utf-8")
 
     accent_primary = profile.accent_hex
     accent_secondary = profile.accent_hex_secondary or _darken_color(accent_primary)
@@ -324,6 +325,16 @@ def _render_page(
     if not hero_html:
         hero_html = _render_hero(profile, snapshot, state, state_of_team, sp_rating)
     pulse_html = _render_pulse(profile, snapshot, state, mood, divergence)
+    # Sprint v5-8.5 — rituals strip + cultural anchors sit between pulse
+    # and chronicle per mockup_02_team_alabama_v2.html. Empty string when
+    # the profile YAML carries no rituals (e.g. legacy slugs); module
+    # never fabricates content.
+    from .rituals_module import (
+        render_cultural_anchors,
+        render_rituals_strip,
+    )
+    rituals_html = render_rituals_strip(profile)
+    cultural_anchors_html = render_cultural_anchors(profile)
     chronicle_html = _render_chronicle_section(chronicle_cards, profile, state)
     savant_html = render_savant_card(
         profile, savant_rows,
@@ -387,6 +398,7 @@ body {{
 {savant_css}
 {rivalry_css}
 {arc_css}
+{rituals_css}
 </style>
 </head>
 <body>
@@ -395,6 +407,8 @@ body {{
   <div class="content">
     {hero_html}
     {pulse_html}
+    {rituals_html}
+    {cultural_anchors_html}
     {chronicle_html}
     {savant_html}
     {rivalry_html}
