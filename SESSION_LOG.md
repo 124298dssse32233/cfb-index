@@ -53,17 +53,46 @@ class (label hardcoded to "2025" but data may be from prior season):
     eyebrows). story.get("season_year") was already in the payload
     from fetch_player_signature_story — just had to wire it.
 
-Verification: PUBLISH IN-FLIGHT at SESSION_LOG write time. PR #91
-verification via run 25980464662; PR #92/#93 via run 25980725579
-(queued). Live-site sweep will happen post-deploy. Expected:
-  - /heisman/index.html title + meta + pills reflect 2024 (or
-    whichever season the model last ran for)
-  - /players/spotlight.html "Latest Heisman week" pill reflects
-    Heisman data season; "Season" pill still shows current site
-    season (2025) since that's roster-derived
-  - /players/quinn-ewers-39300.html sections show "2024 Season ·
-    Final" headers everywhere, not "2025"
-  - Active 2025 player pages keep current-season labels
+Verification (post-deploy, runs 25980464662 + 25980725579 completed):
+
+  PR #91 — /heisman/index.html (run 25980464662 → published 1c11eab236):
+    <title>Heisman Tracker | 2024 Season</title>             ✓
+    <meta name="description" content="...for 2024 Season...">  ✓
+    <meta property="og:title" content="Heisman Tracker | 2024 Season">  ✓
+    Season pill:               2024 Season    ✓ (was 2025 Season)
+    Latest Heisman week:       Final 2024     ✓ (was Final 2025)
+    Vote-eligible inputs:      Final 2024     ✓ (was Final 2025)
+
+  PR #91 — /players/index.html (same publish):
+    Latest Heisman week pill:  Final 2024     ✓ (Heisman data season)
+    Season pill:               2025 Season    ✓ (site/roster season —
+                                                 intentional split)
+
+  PR #92 — /players/quinn-ewers-39300.html (run 25980725579 → 9ee94fc3db):
+    Current Season Production h2:
+      Before: "2025 Season · Final"
+      After:  "2025 Season"   ✓ (no spurious "· Final" tag — week is
+                                  None because Ewers has no 2025 stat
+                                  rows in player_season_summary; helper
+                                  correctly omits "· Final" / "Through
+                                  W" when week is unknown)
+    Note: the deeper fix (showing "2024 Season · Final" for graduated
+    players) would require teaching _build_player_stat_profile to fall
+    back to the player's most-recent stat season when the current
+    season has no rows — bigger scope, deferred. PR #92 is an
+    improvement (no longer claims "· Final" without data) but doesn't
+    fully solve the graduated-player UX.
+
+  PR #93 — /players/quinn-ewers-39300.html (same publish):
+    Signature Story eyebrow:
+      Before: "2025 Signature"
+      After:  "Signature Story"   ✓ (empty-state fallback fires
+                                      because story.get("has_story")
+                                      is False — no signature for the
+                                      empty 2025 dataset; honest copy)
+
+  Cross-cuts: PR #84/#88 Heisman Lens label still holding live:
+    "Heisman Lens · 2024 Season · Final"  ✓
 
 Discipline note: when checking PR #82's pulse coverage on /teams/
 florida.html during this audit pass I noticed the pulse-mood-delta
@@ -82,7 +111,7 @@ Session additionals:
   Cumulative spend today: ~$26 / $100 console cap (26%, unchanged —
     no Pattern C re-promotions, no LLM-heavy runs)
 
-Blockers carried forward (unchanged from prior segment):
+Blockers carried forward (refined post-verification):
   HIGH:
     - Pattern C critic-prompt tuning for short-form + JSON surfaces
       (PR #83 infra ready, 1-line wrapper change when desired)
@@ -92,6 +121,13 @@ Blockers carried forward (unchanged from prior segment):
       currently 2020-2024. PRs #84/#88/#91/#92/#93 are working
       around this by labeling honestly; the underlying fix is
       running run-heisman-model --season 2025 --through-week N.
+    - NEW: _build_player_stat_profile should fall back to player's
+      most-recent stat season when current season has no rows.
+      Currently graduated players show "2025 Season" with no data
+      instead of "2024 Season · Final" with their last actual
+      stat-bearing year. Deeper fix than the label-layer work in
+      PR #92; would require touching the data builder + cascading
+      through to signature-story / heisman-lens / roster fallbacks.
   LOW:
     - dawidd6 race fix Option B
     - Daily archive orphans cleanup
