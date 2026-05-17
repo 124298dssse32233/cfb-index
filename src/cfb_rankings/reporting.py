@@ -15976,7 +15976,17 @@ def render_heisman_page_html(
     player_directory_rows: list[dict[str, Any]],
     team_conference_map: dict[str, str] | None = None,
 ) -> str:
-    season_year_value = int(summary["season_year"])
+    # Use the snapshot's actual data season for labels — not summary's
+    # "current site season". When heisman_rankings_weekly has no rows
+    # for the current site season (e.g. summary says 2025 but the model
+    # last ran for 2024), fetch_current_heisman_snapshot falls back to
+    # the most recent season with data (Hotfix-6). The labels need to
+    # reflect that fallback or they lie about what the page is showing.
+    # See PR #84/#88 for the parallel fix on /players/<slug>.html.
+    data_season_year = heisman_snapshot.get("season_year")
+    season_year_value = (
+        int(data_season_year) if data_season_year else int(summary["season_year"])
+    )
     season_name = season_label(season_year_value)
     board_rows: list[HeismanRankingRow] = heisman_snapshot.get("rows") or []
     conference_fallback_by_player = {
@@ -16193,6 +16203,10 @@ def render_players_index_html(
 ) -> str:
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
+    # Heisman pill needs the data season, which may be older than the
+    # site season if the model hasn't run for the current season yet.
+    # See render_heisman_page_html / PR #84/#88 for the parallel fix.
+    heisman_data_season = heisman_snapshot.get("season_year") or season_year_value
     current_ranked = sum(1 for row in player_directory_rows if row.get("current_heisman_rank") is not None)
     table_rows = (
         "".join(_render_player_directory_row(row) for row in player_directory_rows)
@@ -16224,7 +16238,7 @@ def render_players_index_html(
         <div class="home-meta-row panel">
           <div class="meta-pill"><span>Player cards</span><strong>{len(player_directory_rows):,}</strong></div>
           <div class="meta-pill"><span>Current Heisman ranks</span><strong>{current_ranked:,}</strong></div>
-          <div class="meta-pill"><span>Latest Heisman week</span><strong>{escape(_heisman_week_pill(latest_week, season_year_value))}</strong></div>
+          <div class="meta-pill"><span>Latest Heisman week</span><strong>{escape(_heisman_week_pill(latest_week, heisman_data_season))}</strong></div>
           <div class="meta-pill"><span>Season</span><strong>{escape(season_name)}</strong></div>
         </div>
       </section>
