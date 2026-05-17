@@ -6835,79 +6835,173 @@ def build_player_page_data_map(
         """,
         player_ids,
     )
+    # Per-player target season + week for "current" stat/usage/value
+    # snapshots. The previous queries hard-restricted to season_year =
+    # current_season, which left graduated / drafted players (no current-
+    # season roster) with an EMPTY "Current Season Production" panel
+    # labeled with the current season year. Fix: each player gets their
+    # OWN target season — current_season if they have rows there,
+    # otherwise their max(season_year) so the panel surfaces their
+    # last-actual-played season.
+    #
+    # Behavior delta:
+    #   - Active 2025 player who has played 2025 games  → unchanged
+    #     (target_season = 2025, query identical to before).
+    #   - Active 2025 returning player with 0 2025 games yet  → now
+    #     shows their 2024 stats labeled "2024 Season · Final" (was
+    #     empty 2025 panel).
+    #   - Graduated 2024 player  → now shows their 2024 stats labeled
+    #     "2024 Season · Final" (was empty 2025 panel).
+    #   - Transfer who played at School A in 2024, no 2025 stats yet
+    #     → shows 2024 School A stats (informative; the team page label
+    #     elsewhere makes clear they've moved).
+    #   - Truly new player with no stats anywhere  → still empty.
+    #
+    # This closes the deeper bug documented in PR #95's blocker list
+    # ("graduated players show '2025 Season' with no data instead of
+    # '2024 Season · Final' with their last actual stat-bearing year").
+    # Subquery puts {placeholders} BEFORE the ? for current_season so
+    # the helper's param order (chunk first, then extra_params) lines up
+    # with SQLite's positional binding.
     current_stat_rows = _query_rows_for_player_ids(
         db,
         """
+        with player_pool as (
+          select player_id from player_season_stats
+          where player_id in ({placeholders})
+          group by player_id
+        ), player_target_season as (
+          select
+            pp.player_id,
+            coalesce(
+              max(case when pss.season_year = ? then pss.season_year end),
+              max(pss.season_year)
+            ) as target_season
+          from player_pool pp
+          join player_season_stats pss on pss.player_id = pp.player_id
+          group by pp.player_id
+        ), player_target_week as (
+          select
+            pts.player_id,
+            pts.target_season,
+            max(pss.week) as target_week
+          from player_target_season pts
+          join player_season_stats pss
+            on pss.player_id = pts.player_id
+            and pss.season_year = pts.target_season
+          group by pts.player_id, pts.target_season
+        )
         select
-          player_id,
-          season_year,
-          week,
-          category,
-          stat_type,
-          stat_value_num
-        from player_season_stats
-        where player_id in ({placeholders})
-          and season_year = ?
-          and week = (
-            select max(pss.week)
-            from player_season_stats pss
-            where pss.season_year = ?
-          )
-        order by player_id asc, category asc, stat_type asc
+          pss.player_id,
+          pss.season_year,
+          pss.week,
+          pss.category,
+          pss.stat_type,
+          pss.stat_value_num
+        from player_season_stats pss
+        join player_target_week ptw
+          on pss.player_id = ptw.player_id
+          and pss.season_year = ptw.target_season
+          and pss.week = ptw.target_week
+        order by pss.player_id asc, pss.category asc, pss.stat_type asc
         """,
         player_ids,
-        extra_params=(current_season, current_season),
+        extra_params=(current_season,),
     )
     current_usage_rows = _query_rows_for_player_ids(
         db,
         """
+        with player_pool as (
+          select player_id from player_usage_season
+          where player_id in ({placeholders})
+          group by player_id
+        ), player_target_season as (
+          select
+            pp.player_id,
+            coalesce(
+              max(case when pus.season_year = ? then pus.season_year end),
+              max(pus.season_year)
+            ) as target_season
+          from player_pool pp
+          join player_usage_season pus on pus.player_id = pp.player_id
+          group by pp.player_id
+        ), player_target_week as (
+          select
+            pts.player_id,
+            pts.target_season,
+            max(pus.week) as target_week
+          from player_target_season pts
+          join player_usage_season pus
+            on pus.player_id = pts.player_id
+            and pus.season_year = pts.target_season
+          group by pts.player_id, pts.target_season
+        )
         select
-          player_id,
-          season_year,
-          week,
-          usage_overall,
-          usage_pass,
-          usage_rush,
-          usage_first_down,
-          usage_second_down,
-          usage_third_down,
-          usage_standard_downs,
-          usage_passing_downs
-        from player_usage_season
-        where player_id in ({placeholders})
-          and season_year = ?
-          and week = (
-            select max(pus.week)
-            from player_usage_season pus
-            where pus.season_year = ?
-          )
-        order by player_id asc
+          pus.player_id,
+          pus.season_year,
+          pus.week,
+          pus.usage_overall,
+          pus.usage_pass,
+          pus.usage_rush,
+          pus.usage_first_down,
+          pus.usage_second_down,
+          pus.usage_third_down,
+          pus.usage_standard_downs,
+          pus.usage_passing_downs
+        from player_usage_season pus
+        join player_target_week ptw
+          on pus.player_id = ptw.player_id
+          and pus.season_year = ptw.target_season
+          and pus.week = ptw.target_week
+        order by pus.player_id asc
         """,
         player_ids,
-        extra_params=(current_season, current_season),
+        extra_params=(current_season,),
     )
     current_value_rows = _query_rows_for_player_ids(
         db,
         """
+        with player_pool as (
+          select player_id from player_value_metrics
+          where player_id in ({placeholders})
+          group by player_id
+        ), player_target_season as (
+          select
+            pp.player_id,
+            coalesce(
+              max(case when pvm.season_year = ? then pvm.season_year end),
+              max(pvm.season_year)
+            ) as target_season
+          from player_pool pp
+          join player_value_metrics pvm on pvm.player_id = pp.player_id
+          group by pp.player_id
+        ), player_target_week as (
+          select
+            pts.player_id,
+            pts.target_season,
+            max(pvm.week) as target_week
+          from player_target_season pts
+          join player_value_metrics pvm
+            on pvm.player_id = pts.player_id
+            and pvm.season_year = pts.target_season
+          group by pts.player_id, pts.target_season
+        )
         select
-          player_id,
-          season_year,
-          week,
-          metric_name,
-          metric_value,
-          plays
-        from player_value_metrics
-        where player_id in ({placeholders})
-          and season_year = ?
-          and week = (
-            select max(pvm.week)
-            from player_value_metrics pvm
-            where pvm.season_year = ?
-          )
-        order by player_id asc, metric_name asc
+          pvm.player_id,
+          pvm.season_year,
+          pvm.week,
+          pvm.metric_name,
+          pvm.metric_value,
+          pvm.plays
+        from player_value_metrics pvm
+        join player_target_week ptw
+          on pvm.player_id = ptw.player_id
+          and pvm.season_year = ptw.target_season
+          and pvm.week = ptw.target_week
+        order by pvm.player_id asc, pvm.metric_name asc
         """,
         player_ids,
-        extra_params=(current_season, current_season),
+        extra_params=(current_season,),
     )
     season_stat_history_rows = _query_player_season_stat_history_rows(db, player_ids)
     peer_stat_rows = db.query_all(
