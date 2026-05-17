@@ -92,13 +92,21 @@ All tokens defined as CSS custom properties in `src/cfb_rankings/team_pages/styl
 }
 ```
 
-## Typography — 9 sizes, 2 families
+## Typography — 9 sizes, 3 families (+ display + tabular numerals)
+
+LOCKED 2026-05-16: Added `--font-display` (Bebas Neue) for hero findings + stadium-scoreboard
+energy. Existing Inter + Source Serif Pro remain authoritative for UI + body. Tabular
+numerals enforced site-wide on stat-class elements (see end of this section).
 
 ```css
 :root {
-  --font-sans:  'Inter', 'SF Pro Text', system-ui, sans-serif;
-  --font-serif: 'Source Serif Pro', Georgia, 'Times New Roman', serif;
-  --font-mono:  ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-sans:    'Inter', 'SF Pro Text', system-ui, sans-serif;
+  --font-serif:   'Source Serif Pro', Georgia, 'Times New Roman', serif;
+  --font-mono:    ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display: 'Bebas Neue', 'Trade Gothic Bold Condensed', sans-serif;
+  --font-ui:      var(--font-sans);  /* alias — used in v2-addendum sprints */
+  --font-body:    var(--font-serif); /* alias — used in v2-addendum sprints */
+  --font-tabular: var(--font-sans);  /* alias — use with tnum feature */
 
   /* Type scale */
   --fs-display:  clamp(48px, 6vw, 64px);    /* serif · hero titles */
@@ -128,6 +136,24 @@ All tokens defined as CSS custom properties in `src/cfb_rankings/team_pages/styl
   --fw-regular: 400;
   --fw-medium:  500;
 }
+
+/* === LOCKED 2026-05-16: Tabular numerals enforcement === */
+/* Every stat / number / data-cell uses tabular numerals so digits align in columns. */
+.stat, .number, .tabular,
+td.numeric, .data-table td,
+.percentile-value, .rank-value, .delta,
+.hero-finding-number, .saturday-strip-score {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  font-family: var(--font-ui);
+}
+
+/* Variable-font preload tags belong in <head>:
+   <link rel="preload" href="/fonts/inter-variable.woff2"
+         as="font" type="font/woff2" crossorigin>
+   <link rel="preload" href="/fonts/source-serif-pro-variable.woff2"
+         as="font" type="font/woff2" crossorigin>
+*/
 ```
 
 ## Spacing — 4px base grid
