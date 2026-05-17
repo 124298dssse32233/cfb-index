@@ -390,7 +390,8 @@ body {{
 </style>
 </head>
 <body>
-<main class="team-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" class="team-page">
   <div class="content">
     {hero_html}
     {pulse_html}
