@@ -19,6 +19,7 @@ from pathlib import Path
 from textwrap import dedent
 from typing import Any, Sequence
 
+from cfb_rankings.common.head_chrome import absolute_url
 from .runtime import db_conn, receipts_output_root, slugify
 
 
@@ -32,6 +33,21 @@ _BASE_HEAD = """<!doctype html>
 <meta charset="utf-8" />
 <title>{title} · CFB Index Receipts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="{description}" />
+<link rel="canonical" href="{page_canonical}" />
+<meta property="og:site_name" content="THE CFB INDEX" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{page_canonical}" />
+<meta property="og:title" content="{title} · CFB Index Receipts" />
+<meta property="og:description" content="{description}" />
+<meta property="og:image" content="{og_image_url}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="{page_canonical}" />
+<meta name="twitter:title" content="{title} · CFB Index Receipts" />
+<meta name="twitter:description" content="{description}" />
+<meta name="twitter:image" content="{og_image_url}" />
 <style>
 :root {{
   --bg: #0c0e10;
@@ -134,7 +150,16 @@ def render_landing() -> Path:
              ORDER BY season_year DESC
         """).fetchall()]
 
-    parts: list[str] = [_BASE_HEAD.format(title="Receipts")]
+    parts: list[str] = [_BASE_HEAD.format(
+        title="Receipts",
+        description=(
+            "The takes that aged well — and the ones that didn't. CFB Index "
+            "tracks predictive takes from beat writers, podcasts, and message "
+            "boards, quantified by the Surprise Index."
+        ),
+        page_canonical=absolute_url("/receipts/"),
+        og_image_url=absolute_url("/og-image.svg"),
+    )]
     parts.append('<div class="kicker">CFB Index · Receipts</div>')
     parts.append("<h1>The takes that aged well — and the ones that didn't.</h1>")
     parts.append(
@@ -152,13 +177,19 @@ def render_landing() -> Path:
             )
         parts.append("</ul>")
 
-    parts.append("<h2>Featured long-shots that hit</h2>")
-    for r in long_shots:
-        parts.append(_render_claim_card(r))
+    # Audit-2 finding: previously these headers shipped above empty
+    # bodies when there were no claims. Conditional now so an empty
+    # receipts dataset surfaces a clean page (just the lede + 25 Best
+    # Calls links) instead of two orphaned <h2>s.
+    if long_shots:
+        parts.append("<h2>Featured long-shots that hit</h2>")
+        for r in long_shots:
+            parts.append(_render_claim_card(r))
 
-    parts.append("<h2>Recent resolutions</h2>")
-    for r in recent:
-        parts.append(_render_claim_card(r, compact=True))
+    if recent:
+        parts.append("<h2>Recent resolutions</h2>")
+        for r in recent:
+            parts.append(_render_claim_card(r, compact=True))
 
     parts.append(_BASE_FOOT.format(now=datetime.utcnow().strftime("%Y-%m-%d %H:%M")))
     out = out_root / "index.html"
@@ -201,7 +232,15 @@ def render_annual(season_year: int) -> Path:
              ORDER BY ral.rank ASC
         """, (season_year,)).fetchall()
 
-    parts: list[str] = [_BASE_HEAD.format(title=f"The 25 Best Calls of {season_year}")]
+    parts: list[str] = [_BASE_HEAD.format(
+        title=f"The 25 Best Calls of {season_year}",
+        description=(
+            f"Twenty-five {season_year} CFB takes that landed when consensus "
+            "said they wouldn't. Ranked by Surprise Index."
+        ),
+        page_canonical=absolute_url(f"/receipts/long-shots/{season_year}.html"),
+        og_image_url=absolute_url("/og-image.svg"),
+    )]
     parts.append('<div class="kicker">CFB Index · Receipts</div>')
     parts.append(f"<h1>The 25 Best Calls of {season_year}</h1>")
     parts.append(
@@ -254,7 +293,18 @@ def render_source(source_slug: str) -> Path | None:
              LIMIT 50
         """, (source_slug,)).fetchall()
 
-    parts: list[str] = [_BASE_HEAD.format(title=prof["display_name"])]
+    _voice_summary = prof["voice_summary"] if "voice_summary" in prof.keys() else None
+    _profile_desc = (
+        _voice_summary
+        if _voice_summary
+        else f"Predictive-call track record for {prof['display_name']} on CFB Index Receipts."
+    )
+    parts: list[str] = [_BASE_HEAD.format(
+        title=_escape(prof["display_name"]),
+        description=_escape(_profile_desc),
+        page_canonical=absolute_url(f"/receipts/source/{safe_slug}.html"),
+        og_image_url=absolute_url("/og-image.svg"),
+    )]
     parts.append('<div class="kicker">CFB Index · Receipts · Source Profile</div>')
     parts.append(f"<h1>{_escape(prof['display_name'])}</h1>")
     if prof["role_label"]:
