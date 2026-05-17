@@ -115,6 +115,61 @@ Verification status at write time:
     25996361811 / 25997175944). Verification deferred to post-publish
     drain.
 
+Post-publish verification (after 25997175944 completed):
+
+  ✓ PR #103 (storyline OG meta) — LIVE on /storylines/saban-to-
+    deboer.html ("og:title" + "twitter:card" present).
+  ✓ PR #105 (methodology OG meta) — LIVE on /methodology/.
+  ✓ PR #106 (matchups OG meta) — LIVE on /matchups/.
+  ✓ PR #107 (daily/hub/reactions OG meta) — LIVE.
+  ✓ PR #109 (transfer_date format) — LIVE: dillon-gabriel page
+    Eligibility submetric now reads "Dec 4, 2023" instead of ISO.
+  ✓ PR #110 (Voices empty-state) — LIVE: homepage no longer
+    contains "VOICES BEHIND THIS EDITION" header.
+  ✓ PR #111 (team_pages jargon scrub) — LIVE on /teams/alabama.html:
+    pulse badge reads "0 mentions · awaiting signal" (was "n=0");
+    footer reads "CFB Index · team-pages v1.0" (no sentience tag).
+
+  ⚠️ PR #104 (canon OG meta) — NOT YET LIVE. /canon/index.html
+    doesn't have og:title yet. Canon pages are rebuilt by
+    world-class-enrich (generate-canon-list step), not by publish-
+    site's build-site. Next enrich run will pick up the fix.
+
+  ❌ PR #102 (Heisman 2025) — UNEXPECTED RESULT. The /heisman/ page
+    still shows "2024 Season" with 16,218 ranked players (the 2024
+    data). The Heisman model DID run successfully in the prior
+    enrich (15,601 rows for 2025 confirmed in logs). But the
+    publish that ran after kept showing 2024.
+
+    Investigation: publish workflow downloads cfb-rankings-db
+    artifact via dawidd6/action-download-artifact@v6 with
+    `workflow_search: true, search_artifacts: true` but no explicit
+    `workflow:` parameter. Default behavior limits artifact search
+    to the current workflow's runs. So the publish downloads its
+    OWN previous publish's DB (348MB), not the enrich's freshly-
+    uploaded one (355MB with 2025 Heisman data).
+
+    Result: enrich's writes to heisman_rankings_weekly never reach
+    the next publish. The model-pipeline fix in PR #102 works at the
+    data layer but the propagation gap blocks it from reaching the
+    public site.
+
+    This is the deferred ARCHITECTURAL blocker called out in earlier
+    sessions: "dawidd6 race fix Option B (DB-backed canonical
+    pointer)". The right fix is to either:
+      (a) Pass an explicit workflow id list to dawidd6 so it can
+          find world-class-enrich's artifact when newer.
+      (b) Switch to a DB-backed canonical pointer (e.g. release
+          asset, R2 bucket, or branch-tracked latest-db marker)
+          that both enrich and publish read/write to.
+
+    PR #102's fix is real and ready — once the artifact-isolation
+    issue is resolved (1-line dawidd6 change OR Option B), Heisman
+    2025 data lands automatically. Until then, /heisman/ continues
+    showing 2024 final via Hotfix-6 fallback — the labels remain
+    honest because of PR #84/#88/#91 (label uses snapshot's actual
+    data season). No fan sees a lie; they just see prior-year data.
+
 Blockers / soft failures surfaced by pipeline-health audit (NOT
 fixed this segment — listed for next session's user input):
 
