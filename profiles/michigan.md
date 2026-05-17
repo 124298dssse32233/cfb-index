@@ -23,6 +23,56 @@ vocab:
   selfname: "the Wolverines"
   stadium_short: "the Big House"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Hail to the Victors"
+    started_year: 1898
+    when: "After every score and at every momentum shift"
+    description: "Written by Louis Elbel hours after Michigan beat Chicago for the 1898 conference title. Played at every Michigan athletic event since. John Philip Sousa called it 'the greatest college fight song ever written.' The Big House's 110,000+ singing it after a touchdown is one of college football's universal experiences."
+    image_asset: "rituals/hail-to-the-victors.svg"
+    cultural_significance: "high"
+  - name: "M Club Banner Touch"
+    started_year: 1962
+    when: "Pre-game, team entrance"
+    description: "Players leap to touch the 'Go Blue / M Club Supports You' banner as they enter the field. Started by Bo Schembechler when the M Club lettermen presented a banner; the ritual stabilized into a Bo-era pillar. Every Michigan player has touched it; the banner itself is replaced periodically but the pose is identical."
+    image_asset: "rituals/m-club-banner.svg"
+    cultural_significance: "high"
+  - name: "The Victors Walk"
+    started_year: 2010
+    when: "90 minutes before kickoff"
+    description: "Players walk from the team hotel to Michigan Stadium through fan-lined Main Street. Rich Rodriguez introduced it; Brady Hoke and Jim Harbaugh kept it. Less codified than Auburn's Tiger Walk but increasingly ritualized. The mid-2010s iteration grew to thousands of fans lining the route."
+    image_asset: "rituals/victors-walk.svg"
+    cultural_significance: "medium"
+  - name: "Winged Helmet"
+    started_year: 1938
+    when: "Worn every game; the helmet IS the brand"
+    description: "Maize-and-blue helmet design from coach Fritz Crisler. Not a ritual per se — a permanent visual identity. So iconic that Delaware and Princeton adopted variants; Michigan's lawyers occasionally intervene. The helmet shows up in every recruiting pitch and every NFL broadcast graphic. Pure visual signature."
+    image_asset: "rituals/winged-helmet.svg"
+    cultural_significance: "high"
+  - name: "The Game (vs Ohio State)"
+    started_year: 1897
+    when: "Last week of regular season, perpetually"
+    description: "Not a Saturday tradition — a season-long cultural orientation. Michigan calendars are organized around The Game; the rest of the schedule is the on-ramp. Three Yards and a Cloud of Dust came from this rivalry. The 2021-2023 Michigan three-game win streak ended Ohio State's dominance era; the 2024 result restored the cycle."
+    image_asset: "rituals/the-game.svg"
+    cultural_significance: "high"
+
+cultural_anchors:
+  one_sentence: "Michigan is the program that treats itself as institutional memory — the keeper of college football's records, including the records of having more of them than anyone."
+  if_team_didnt_exist_cfb_would_lose: "The Game. The winged helmet. The Big House. The Bo era as the template every Big Ten coach pretends to chase. Schembechler-era discipline as an honest counter-balance to SEC speed."
+  fan_archetype_dominant: "Institutional-Memory-Keeper"
+  outsider_archetype_dominant: "Insufferable-About-History"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "winged-helmet-iconic"
+  hero_imagery_default: "halftone-engraving-portrait"
+  signature_color_combination: "maize-navy-cream"
+
+data_emphasis:
+  primary: "the_game_results"
+  secondary: "all_time_wins_record"
+  ignore: "rich_rodriguez_era_only_metrics"
+  hero_finding_preferred_axis: "consecutive_winning_seasons"
+
 mascot_voice:
   awaiting_signal: "Michigan does not wait. Michigan prepares."
   empty_state: "The Big House is empty on purpose. Saturdays have a schedule."

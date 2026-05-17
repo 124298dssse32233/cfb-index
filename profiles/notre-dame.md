@@ -23,6 +23,56 @@ vocab:
   selfname: "the Irish"
   stadium_short: "Notre Dame Stadium"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Play Like a Champion Today (the sign)"
+    started_year: 1980s (Lou Holtz era)
+    when: "Players tap it as they exit the locker room"
+    description: "The blue-and-gold sign hangs above the tunnel from locker room to field. Every Notre Dame player taps it on the way out. Origin is contested (Holtz says he brought it; Devine claims earlier). The sign is now a national archetype — copied at every level of football. The original survives, scuffed by 40 years of palm taps."
+    image_asset: "rituals/play-like-a-champion.svg"
+    cultural_significance: "high"
+  - name: "Victory March (the fight song)"
+    started_year: 1908
+    when: "After every score, played by the band; sung by all 80,000+"
+    description: "'Cheer cheer for old Notre Dame...' Written by Michael and John Shea in 1908. The most recognizable college fight song in America. Plays through Notre Dame Stadium PA after every score. The trumpet quartet's a cappella version before kickoff at the Grotto is its own sub-ritual."
+    image_asset: "rituals/victory-march.svg"
+    cultural_significance: "high"
+  - name: "Trumpet Quartet at the Grotto"
+    started_year: 1990s
+    when: "Pre-game, ~3 hours before kickoff"
+    description: "Four trumpeters from the band play the Alma Mater and Victory March at the Grotto of Our Lady of Lourdes. Spiritual/musical sub-ritual that draws hundreds of fans. Distinctly Notre Dame — no other program has a Marian shrine in its pre-game flow."
+    image_asset: "rituals/trumpets-at-grotto.svg"
+    cultural_significance: "medium"
+  - name: "Touchdown Jesus"
+    started_year: 1964
+    when: "The Hesburgh Library mural visible above the stadium's open north end"
+    description: "Mural of Christ with raised hands, painted as 'Word of Life' (1964). Visible from inside Notre Dame Stadium until the 1997 expansion partially obscured it. The Christ figure's pose mirrors a referee signaling touchdown — hence the universal nickname. The mural is sacred art that became sports iconography by geometric accident."
+    image_asset: "rituals/touchdown-jesus.svg"
+    cultural_significance: "high"
+  - name: "The Shillelagh and the Leprechaun"
+    started_year: 1965
+    when: "Sideline at every game"
+    description: "The student-portrayed Leprechaun mascot was formally adopted in 1965 (replacing the previous 'Fighting Irish' iconography). The shillelagh — the gnarled walking stick — is wielded during games. The Megaphone Game vs USC and the Jeweled Shillelagh Trophy connect this to specific rivalry pageantry."
+    image_asset: "rituals/notre-dame-leprechaun.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Notre Dame is the program that converted Catholic mass immigration into a national fanbase that has nothing to do with proximity to South Bend."
+  if_team_didnt_exist_cfb_would_lose: "The independent's case — the proof that you can be a top-10 program without conference affiliation. The Lou Holtz era. The Rudy myth. The Touchdown Jesus accidental theology."
+  fan_archetype_dominant: "Subway Alumnus"
+  outsider_archetype_dominant: "Mystic-Persecuted"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "gold-helmet-no-stripe-iconic"
+  hero_imagery_default: "halftone-engraving-portrait"
+  signature_color_combination: "kelly-green-gold-navy"
+
+data_emphasis:
+  primary: "independent_schedule_strength"
+  secondary: "national_recruiting_radius"
+  ignore: "conference_standing_metrics"
+  hero_finding_preferred_axis: "consensus_all_americans_per_decade"
+
 mascot_voice:
   awaiting_signal: "The Leprechaun is keeping his own counsel. Signal returns with camp."
   empty_state: "Under the Golden Dome the quiet is structural — the program is listening."

@@ -23,6 +23,56 @@ vocab:
   selfname: "the Commodores"
   stadium_short: "FirstBank Stadium"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Anchor Down"
+    started_year: 2014 (formalization under Derek Mason)
+    when: "Constant — the program identity phrase, displayed and chanted"
+    description: "'Anchor Down' is the team's institutional motto since Derek Mason's tenure, referencing both the nautical Commodore branding and the underdog 'plant your flag, stay grounded' ethos. Used on uniforms, signage, social media handles. The phrase outlasted Mason and is now the canonical Vandy ethos. Quieter than 'Roll Tide' or 'Hook 'em' — by design."
+    image_asset: "rituals/anchor-down.svg"
+    cultural_significance: "high"
+  - name: "Star Walk"
+    started_year: 2015
+    when: "Two hours before kickoff"
+    description: "Players walk from Memorial Gymnasium through fans to FirstBank Stadium. Vanderbilt's version of the Tiger Walk / Dawg Walk — smaller crowd by SEC standards, more intimate by every other standard. The walk passes through the Star Walk of fame, where alumni are honored with sidewalk stars."
+    image_asset: "rituals/vandy-star-walk.svg"
+    cultural_significance: "medium"
+  - name: "Mr. Commodore"
+    started_year: 1990s
+    when: "Sideline and stands every game"
+    description: "The costumed Mr. Commodore mascot — a uniformed naval officer with a saber, referencing Cornelius Vanderbilt's shipping fortune (and the 'Commodore' rank Vanderbilt held in the merchant marine). Distinct from generic mascots; the historical reference is precise. Mr. C is a working naval officer figure, not a cartoon."
+    image_asset: "rituals/mr-commodore.svg"
+    cultural_significance: "medium"
+  - name: "Dynamite (fight song)"
+    started_year: 1938
+    when: "After every score and at every momentum shift"
+    description: "Written by Francis Craig in 1938. 'Dynamite, dynamite, when Vandy starts to fight!' The Spirit of Gold marching band plays it constantly. Less universally recognized than Boomer Sooner or Hail to the Victors, but Vanderbilt fans treasure it specifically because it's theirs — the academic-elite SEC outlier needs its own anthem."
+    image_asset: "rituals/dynamite-fight-song.svg"
+    cultural_significance: "medium"
+  - name: "The Vandy Whistle (and Goalpost Tradition)"
+    started_year: 2024 (Diego Pavia Alabama upset)
+    when: "After signature upset wins"
+    description: "After Vanderbilt beat Alabama 40-35 on Oct 5, 2024 (the first such win since 1984), fans tore down the goalposts and marched them through downtown Nashville, ultimately depositing one in the Cumberland River. The Vandy Whistle now refers to the entire post-upset celebration ritual. Whether this becomes recurring depends on Diego Pavia's career; the 2024 vintage is canonized."
+    image_asset: "rituals/vandy-goalpost-cumberland.svg"
+    cultural_significance: "high"
+
+cultural_anchors:
+  one_sentence: "Vanderbilt is the program that proves academic-elite-meets-SEC is possible if you wait long enough and find the right transfer quarterback."
+  if_team_didnt_exist_cfb_would_lose: "The proof that an academic-prestige SEC institution can compete on personality. The Diego Pavia 2024 Alabama upset as a canonical 'why you stay through bad years' arc. The Star Walk and Anchor Down as quiet rituals in a league of loud ones."
+  fan_archetype_dominant: "Patient-Believer"
+  outsider_archetype_dominant: "Forgotten-Until-Upset"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-gold-stripe-on-black-helmet"
+  hero_imagery_default: "halftone-engraving-portrait-with-anchor"
+  signature_color_combination: "black-gold-cream"
+
+data_emphasis:
+  primary: "lea_era_offensive_metrics"
+  secondary: "sec_road_record_recent"
+  ignore: "pre_2024_only_metrics"
+  hero_finding_preferred_axis: "sec_wins_under_clark_lea"
+
 mascot_voice:
   awaiting_signal: "The Commodore is reading. Signal returns when the league starts back up."
   empty_state: "Vanderbilt trusts its work more than its press. The quiet is part of the plan."

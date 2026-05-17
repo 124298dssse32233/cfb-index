@@ -23,6 +23,56 @@ vocab:
   selfname: "the Vols"
   stadium_short: "Neyland"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Rocky Top"
+    started_year: 1967 (song); ~1972 (stadium adoption)
+    when: "After every score, every defensive stop, constantly"
+    description: "The 1967 Boudleaux and Felice Bryant bluegrass song became Tennessee's de facto secondary fight song. Played dozens of times per game by the Pride of the Southland band. Visiting fans either love it (after the first 3 times) or hate it (after the 30th). The 'WOOO!' between verses is a stadium-coordinated yell."
+    image_asset: "rituals/rocky-top.svg"
+    cultural_significance: "high"
+  - name: "Vol Navy"
+    started_year: 1962
+    when: "Pre-game and post-game for any home game accessible by boat"
+    description: "Hundreds of boats dock along the Tennessee River adjacent to Neyland Stadium. Tailgating-by-boat for every home game. Founded informally in 1962 when broadcaster George Mooney started arriving by boat to avoid traffic. The Vol Navy now numbers 200+ vessels on big-game weekends — uniquely Tennessee."
+    image_asset: "rituals/vol-navy.svg"
+    cultural_significance: "high"
+  - name: "Power T (Pride of the Southland)"
+    started_year: 1965
+    when: "Pre-game, every home game — team runs through the band-formed T"
+    description: "The Pride of the Southland marching band forms a giant 'T' on the field; players run through it onto the playing surface. One of the most-replicated entrances in college football (Auburn, Texas, others have variants). Tennessee's is the prototype. The band's precise dot-formations are part of the spectacle."
+    image_asset: "rituals/power-t-entrance.svg"
+    cultural_significance: "high"
+  - name: "Smokey (the bluetick coonhound)"
+    started_year: 1953
+    when: "Sideline every game"
+    description: "Live bluetick coonhound (Smokey XI is current) on the sideline. Originated when the Pep Club voted for a live mascot in 1953. Smokey IX once 'tasted' Tennessee water before the BCS Championship per tradition. Each Smokey is a real working coonhound, not a show dog. The 'Smokey howl' on third downs is encouraged."
+    image_asset: "rituals/smokey-mascot.svg"
+    cultural_significance: "medium"
+  - name: "Checkerboard End Zones"
+    started_year: 1964
+    when: "Permanent painted-grass feature at Neyland"
+    description: "The orange-and-white checkerboard pattern in both Neyland end zones. Originated under coach Doug Dickey in 1964; briefly removed in the 1990s; restored by popular demand. The checkerboard 'Out!' sweater design (also from this era) is a Knoxville aesthetic signature. The end zones are visible from every TV broadcast — branded geography."
+    image_asset: "rituals/neyland-checkerboards.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Tennessee is the program perpetually one season away from being back — a fanbase whose patience is its identity, even when patience exhausts itself annually."
+  if_team_didnt_exist_cfb_would_lose: "Rocky Top. The Vol Navy. The Pride of the Southland Power T entrance. Neyland Stadium as the 100,000-seat shrine that still feels southern in a way Bryant-Denny doesn't. The Heupel-era restoration as a real case study."
+  fan_archetype_dominant: "Restoration-Believer"
+  outsider_archetype_dominant: "Permanent-Almost"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-power-T-on-orange-no-stripe"
+  hero_imagery_default: "halftone-engraving-portrait-with-checkerboards"
+  signature_color_combination: "tennessee-orange-white-smoky-grey"
+
+data_emphasis:
+  primary: "heupel_era_offensive_metrics"
+  secondary: "sec_east_resume_under_current_regime"
+  ignore: "kiffin_year_only_records"
+  hero_finding_preferred_axis: "neyland_home_record_under_heupel"
+
 mascot_voice:
   awaiting_signal: "Smokey is on the sideline. Signal returns with the Tide on the schedule."
   empty_state: "Neyland is deep-orange and waiting. The restoration is measured one Saturday at a time."

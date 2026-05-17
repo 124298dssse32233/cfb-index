@@ -23,6 +23,56 @@ vocab:
   selfname: "the Huskies"
   stadium_short: "Husky Stadium"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Husky Walk"
+    started_year: 2010s
+    when: "Two hours before kickoff"
+    description: "Players walk from the team facility through a fan-lined route into Husky Stadium. Less codified than Auburn's Tiger Walk but distinct because the route passes the Lake Washington shoreline. The combination of stadium-on-water + walk-by-water makes the geography itself part of the ritual."
+    image_asset: "rituals/husky-walk.svg"
+    cultural_significance: "medium"
+  - name: "Husky Boats / Sailgate"
+    started_year: 1920 (stadium built waterfront); ritual codified post-1980s
+    when: "Pre-game and post-game for any home game"
+    description: "Husky Stadium is the only major college football venue you can sail to. Hundreds of boats dock at the Husky Harbor on Lake Washington for tailgating. The 'Sailgate' fleet rivals Tennessee's Vol Navy in scale, exceeds it in scenic quality. The lake-stadium geography is a permanent recruiting advantage."
+    image_asset: "rituals/husky-sailgate.svg"
+    cultural_significance: "high"
+  - name: "Bow Down to Washington (fight song)"
+    started_year: 1915
+    when: "After every score and at end of every game"
+    description: "Written by Lester J. Wilson in 1915. 'Bow down to Washington / Bow down to Washington!' is the recognizable hook. The Husky Marching Band's brass arrangement is the modern standard. Sung with Husky paw-down hand sign (forming a 'W' with both hands). Predates most current college fight songs."
+    image_asset: "rituals/bow-down-to-washington.svg"
+    cultural_significance: "high"
+  - name: "Husky Wave (sister tradition to Iowa Hawkeye Wave)"
+    started_year: 2017
+    when: "End of first quarter, every home game"
+    description: "After Iowa established the Hawkeye Wave to Stead Family Children's Hospital in 2017, Husky Stadium adopted a parallel tradition: fans turn from the field and wave to Seattle Children's Hospital, visible from upper deck on clear days. Quieter than Iowa's (smaller wave; longer geography) but emotionally identical."
+    image_asset: "rituals/husky-wave.svg"
+    cultural_significance: "medium"
+  - name: "Apple Cup Week (vs Washington State)"
+    started_year: 1900
+    when: "Late-season week — calendar-marker rivalry"
+    description: "Annual rivalry game vs Washington State. The trophy is a metal cup; the symbolism is academic-meets-agricultural Pac-Northwest. Even after Washington's move to the Big Ten and Washington State's stranding, the rivalry persists as non-conference. The 'Apple Cup' is calendar gravity for both fanbases."
+    image_asset: "rituals/apple-cup.svg"
+    cultural_significance: "high"
+
+cultural_anchors:
+  one_sentence: "Washington is the program that combined Pac-12 cool with title-contender football for one season — and is now figuring out whether the Big Ten believes the season was real."
+  if_team_didnt_exist_cfb_would_lose: "Husky Stadium as the only sailable college venue. The Apple Cup as a non-realignment-killed rivalry. The 2023 title-game run as the canonical 'Pac-12-just-before-it-died' arc. The fight song that predates most fight songs."
+  fan_archetype_dominant: "2023-Title-Game-Memory"
+  outsider_archetype_dominant: "Lost-Conference-Survivor"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-gold-stripe-on-purple-helmet"
+  hero_imagery_default: "halftone-engraving-portrait-with-husky-paw"
+  signature_color_combination: "husky-purple-metallic-gold-cream"
+
+data_emphasis:
+  primary: "big_ten_transition_results"
+  secondary: "apple_cup_results_streak"
+  ignore: "pre_2016_only_metrics"
+  hero_finding_preferred_axis: "pac_12_legacy_to_big_ten_transition"
+
 mascot_voice:
   awaiting_signal: "Dubs is patrolling the sideline. Signal returns with the first cold Saturday."
   empty_state: "Husky Stadium is quiet. The lake is not. The program listens to both."

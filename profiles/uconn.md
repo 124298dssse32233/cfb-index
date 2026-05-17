@@ -23,6 +23,56 @@ vocab:
   selfname: "the Huskies"
   stadium_short: "Rentschler Field"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Jonathan the Husky (live mascot)"
+    started_year: 1935 (first Jonathan); current lineage
+    when: "Sideline every game"
+    description: "Live Siberian Husky (Jonathan XV is current) on the sideline. Named for Jonathan Trumbull, Revolutionary War-era Connecticut governor. The Huskies of the Sigma Alpha Epsilon fraternity originally maintained the mascot; now University-supported. The dog patrols sidelines at football AND basketball — split-program identity is the dog's daily reality."
+    image_asset: "rituals/uconn-jonathan-husky.svg"
+    cultural_significance: "high"
+  - name: "Husky Walk"
+    started_year: 2003 (Rentschler Field opening era)
+    when: "Two hours before kickoff"
+    description: "Players walk through fans into Rentschler Field. Less codified than SEC equivalents but central to the Storrs-to-East Hartford gameday rhythm. The walk passes through the parking lots (Rentschler is a 40,000-seat venue off-campus); the route winds through tailgates."
+    image_asset: "rituals/uconn-husky-walk.svg"
+    cultural_significance: "medium"
+  - name: "Husky Stadium 'UConn' Cheer"
+    started_year: 1980s
+    when: "Throughout games"
+    description: "Call-and-response: 'U-C!' followed by 'O-N-N!' Less universally adopted than O-H-I-O but functions identically for UConn fans. The simplicity is the appeal — even casual basketball fans visiting for football can join. Bridge between UConn's better-known basketball identity and the football program."
+    image_asset: "rituals/uconn-cheer.svg"
+    cultural_significance: "medium"
+  - name: "Husky Stadium Bell"
+    started_year: 2000s
+    when: "Rung after every UConn score"
+    description: "Bell stationed in the stadium, rung after every score. Less iconic than Texas's Smokey cannon or Oklahoma's victory bell, but it's UConn's version of the genre. The football team's identity-building through ritual is in earlier stages than 100-year programs; the bell is part of the deliberate construction."
+    image_asset: "rituals/uconn-bell.svg"
+    cultural_significance: "medium"
+  - name: "Football-in-a-Basketball-School Identity"
+    started_year: 2002 (FBS transition); ongoing
+    when: "Constant — the program identity question"
+    description: "UConn football exists in the shadow of UConn basketball (5 men's titles, 12 women's titles). The football program's entire identity rotates around being the football program at a basketball-dominant school. The 2003 first FBS bowl appearance was framed against the basketball context. Every recruiting pitch acknowledges it."
+    image_asset: "rituals/uconn-football-in-basketball-school.svg"
+    cultural_significance: "high"
+
+cultural_anchors:
+  one_sentence: "UConn is the program perpetually figuring out what football means at a basketball school — and refusing to give up the question."
+  if_team_didnt_exist_cfb_would_lose: "The honest case study of football-program-building inside a basketball-dominant institution. The independent-FBS path (after Big East collapse). The 2007 Fiesta Bowl run as the canonical 'tiny program briefly punches above weight' arc."
+  fan_archetype_dominant: "Football-Loyalist-In-Basketball-Town"
+  outsider_archetype_dominant: "Why-Is-UConn-FBS"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-white-stripe-on-navy-husky-logo"
+  hero_imagery_default: "ligne-claire-with-husky-silhouette"
+  signature_color_combination: "national-flag-blue-white-cream"
+
+data_emphasis:
+  primary: "independent_schedule_results"
+  secondary: "bowl_eligibility_trajectory"
+  ignore: "comparison_to_basketball_program_metrics"
+  hero_finding_preferred_axis: "win_pace_year_over_year"
+
 mascot_voice:
   awaiting_signal: "Jonathan is split between two programs. Signal returns when football's court opens."
   empty_state: "Rentschler is quiet. The arena is not. The program is writing its own sentence."

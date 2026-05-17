@@ -23,6 +23,56 @@ vocab:
   selfname: "the Gators"
   stadium_short: "The Swamp"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Mr. Two Bits"
+    started_year: 1949
+    when: "Pre-game and post-touchdown — the cheer ritual"
+    description: "The orange-and-blue-suited fan leads 'Two Bits, Four Bits, Six Bits, A Dollar / All for the Gators, Stand Up and Holler!' through the stadium. George Edmondson Jr. was Mr. Two Bits from 1949-2008; the role passed to guest leaders after his retirement. The cheer itself is older; the character defines it."
+    image_asset: "rituals/florida-mr-two-bits.svg"
+    cultural_significance: "high"
+  - name: "Gator Chomp"
+    started_year: 1981
+    when: "Constantly during games — arms extended, snapping like jaws"
+    description: "Two-armed motion mimicking an alligator's jaws snapping shut, set to two notes from the JAWS theme. Invented by the Gator Band during a 1981 timeout; became the universal Florida fan motion within a season. Visible from every section of The Swamp on every defensive stop."
+    image_asset: "rituals/gator-chomp.svg"
+    cultural_significance: "high"
+  - name: "We Are The Boys (from Old Florida)"
+    started_year: 1919
+    when: "End of third quarter, every home game"
+    description: "Fans link arms with neighbors and sway through the alma-mater-adjacent song. Originated as a 1919 student composition; the swaying ritual stabilized in the 1970s. The most emotionally communal moment of a Florida home game — even casual fans participate."
+    image_asset: "rituals/we-are-the-boys.svg"
+    cultural_significance: "high"
+  - name: "Albert and Alberta"
+    started_year: 1970
+    when: "Sideline and stands throughout games"
+    description: "The costumed alligator mascots (Albert since 1970, Alberta since 1986) work the crowd. Distinct from the Gator Chomp — they ARE the chomp embodied, plus 50 years of accumulated mascot lore. The 'Albert push-ups after every score' tradition is non-negotiable."
+    image_asset: "rituals/albert-alberta.svg"
+    cultural_significance: "medium"
+  - name: "Bull Gator Walk"
+    started_year: 1990
+    when: "Two hours before kickoff"
+    description: "Players walk from the team facility to The Swamp through a crowd-lined corridor. Less famous than Auburn's or Clemson's equivalents but essential to Florida game-day. The Steve Spurrier era turned it into an event; subsequent regimes preserved it."
+    image_asset: "rituals/bull-gator-walk.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Florida is the program that turned swamp humidity and SEC speed into a national-title formula — and never quite stopped believing the formula still works."
+  if_team_didnt_exist_cfb_would_lose: "The proof that the SEC East isn't the SEC West. The Spurrier Fun-n-Gun memory that haunts every offensive coordinator called conservative."
+  fan_archetype_dominant: "Spurrier-Era Believer"
+  outsider_archetype_dominant: "Living-in-the-90s"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "single-blue-stripe-on-orange"
+  hero_imagery_default: "halftone-engraving-portrait"
+  signature_color_combination: "orange-royal-blue-swamp-green"
+
+data_emphasis:
+  primary: "spurrier_era_offensive_metrics"
+  secondary: "sec_east_resume_strength"
+  ignore: "pre_1990_records"
+  hero_finding_preferred_axis: "yards_per_play_offensive"
+
 mascot_voice:
   awaiting_signal: "Albert and Alberta are waiting. The Swamp gets loud when the signal returns."
   empty_state: "The Swamp is quiet. The field itself remembers when it wasn't."

@@ -24,6 +24,56 @@ vocab:
   selfname: "the Buckeyes"
   stadium_short: "the Horseshoe"
 
+# Added 2026-05-17 for v2-addendum Sprint v5-8.5 (Rituals + Cultural Identity)
+rituals:
+  - name: "Script Ohio"
+    started_year: 1936
+    when: "Halftime, every home game"
+    description: "The Ohio State Marching Band spells out 'OHIO' in script across the field, culminating in a senior sousaphone player 'dotting the i.' First performed Oct 24, 1936 — credited as the first moving script-writing by a marching band. Being chosen to dot the i is a senior-year honor with a campus-wide audience. The pageantry hasn't changed in 90 years; that's the point."
+    image_asset: "rituals/script-ohio.svg"
+    cultural_significance: "high"
+  - name: "O-H-I-O Chant"
+    started_year: 1920s
+    when: "Constantly — pre-game, post-score, in any public Ohio State setting"
+    description: "Four people (or four sections) each take one letter, performed in sequence with arm gestures. The most portable college football ritual — works at tailgates, airports, weddings. Any Buckeye fan recognizing another Buckeye in public starts it. The arm-gesture version is the canonical one."
+    image_asset: "rituals/o-h-i-o-chant.svg"
+    cultural_significance: "high"
+  - name: "Carmen Ohio"
+    started_year: 1903 (alma mater); end-of-game tradition codified in 2001
+    description: "The alma mater sung by team, band, and fans after every home game, win or loss. Tradition of the team singing it on the field stabilized under Jim Tressel circa 2001. The post-loss version is its own catharsis ritual — the program acknowledges the loss with the school, not separately."
+    when: "Post-game, every home game"
+    image_asset: "rituals/carmen-ohio.svg"
+    cultural_significance: "high"
+  - name: "Buckeye Leaves on Helmets"
+    started_year: 1968
+    when: "Awarded throughout the season for individual plays"
+    description: "Players earn buckeye-leaf stickers for the helmet based on individual game performances. Originated under Woody Hayes (1968); the leaves accumulate visibly across the season. A heavily-leafed helmet is a defacto status symbol; freshmen with few leaves get the contrast. The leaves themselves are real-ish — a stylized buckeye-shape sticker."
+    image_asset: "rituals/buckeye-leaves.svg"
+    cultural_significance: "medium"
+  - name: "Skull Session"
+    started_year: 1934
+    when: "Two hours before kickoff at St. John Arena"
+    description: "The Marching Band's pre-game public rehearsal — fans pack St. John Arena to watch. The team makes a brief appearance. Originated as a practical band tuning; evolved into a fan event. ~10,000-12,000 attend per game. The contrast: serious band rehearsal in front of cheering fans makes it uniquely Ohio State."
+    image_asset: "rituals/skull-session.svg"
+    cultural_significance: "medium"
+
+cultural_anchors:
+  one_sentence: "Ohio State is the program that turned a single state's football obsession into a national talent monopoly — and treats every game against Michigan as the actual season."
+  if_team_didnt_exist_cfb_would_lose: "Script Ohio. The Game. The Woody Hayes era as the institutional template every coach still measures against. The Buckeye Leaves as the prototype for player-recognition systems college football borrowed from."
+  fan_archetype_dominant: "Statewide-Pride"
+  outsider_archetype_dominant: "Insufferable-About-The-Game"
+
+visual_identity_anchors:
+  helmet_stripe_pattern: "scarlet-stripe-gray-helmet-buckeye-leaves"
+  hero_imagery_default: "halftone-engraving-portrait"
+  signature_color_combination: "scarlet-gray-cream"
+
+data_emphasis:
+  primary: "the_game_results"
+  secondary: "consensus_recruits_per_class"
+  ignore: "non_big_ten_opponents_in_recent_metrics"
+  hero_finding_preferred_axis: "consecutive_big_ten_titles_streak"
+
 mascot_voice:
   awaiting_signal: "Brutus is patient. Columbus waits for kickoff like a season ticket."
   empty_state: "The Horseshoe is quiet. The program is not."
