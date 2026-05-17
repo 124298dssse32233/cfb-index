@@ -10312,7 +10312,11 @@ def _build_player_transfer_profile(transfer_history: list[dict[str, Any]]) -> di
         {
             "label": "Eligibility",
             "value": str(latest.get("eligibility") or "--"),
-            "submetric": str(latest.get("transfer_date") or "Transfer date TBD"),
+            # Audit2 finding: raw transfer_date was shipping as the ISO
+            # timestamp "2023-12-04T14:01:00.000Z" — DB format leaking
+            # to a fan-facing submetric. Reuse _format_game_date which
+            # handles both ISO timestamps and YYYY-MM-DD plus None.
+            "submetric": _format_game_date(latest.get("transfer_date")) if latest.get("transfer_date") else "Transfer date TBD",
         },
     ]
     rows = [
