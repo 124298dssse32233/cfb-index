@@ -1028,18 +1028,22 @@ def _render_pulse_badge(effective_n: float) -> str:
     <30 → "Awaiting Signal"; 30–100 → "Sample Growing"; ≥100 → no badge
     (full-fidelity render is the norm at that point).
     """
+    # Audit-2 finding: "n=0 · awaiting signal" exposes the internal
+    # effective_n field name to fans. Fan-readable rephrase keeps the
+    # number (useful) but uses "mentions" instead of "n=" (jargon).
     n = max(0, int(round(effective_n)))
+    label_word = "mention" if n == 1 else "mentions"
     if effective_n < FLOOR_AWAITING:
         return (
             f'<div class="pulse__badge-row">'
             f'<span class="pulse__badge pulse__badge--awaiting">'
-            f'n={n} · awaiting signal</span></div>'
+            f'{n} {label_word} · awaiting signal</span></div>'
         )
     if effective_n < FLOOR_GROWING:
         return (
             f'<div class="pulse__badge-row">'
             f'<span class="pulse__badge pulse__badge--growing">'
-            f'n={n} · sample growing</span></div>'
+            f'{n} {label_word} · sample growing</span></div>'
         )
     return ""
 
@@ -1089,8 +1093,15 @@ def _render_footer(profile: Profile, state: PageState) -> str:
         if mantra else "<span></span>"
     )
     model = profile.frontmatter.get("model_version", "team-pages v1.0")
+    # Audit-2 finding: "sentience dead-period-summer" exposed the
+    # internal anchor_variant state-machine name (kebab-case from
+    # _MONTH_TO_PHASE) to fans in the footer. The "sentience" label is
+    # brand-internal vocabulary (Iteration Log §Sentience). Fans don't
+    # need to see "sentience post-loss-sunday-monday" in their footer.
+    # Keep the version stamp (still useful for debugging via view-source);
+    # drop the anchor_variant tag.
     return f"""<footer class="page-footer">
-  <span>CFB Index · {html.escape(model)} · sentience {html.escape(state.anchor_variant)}</span>
+  <span>CFB Index · {html.escape(model)}</span>
   {mantra_html}
 </footer>"""
 
