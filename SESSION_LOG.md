@@ -1,6 +1,129 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 16:00 UTC | Window B · continuation — Daily wire-up + v5-11.5 brief
+═══════════════════════════════════════════════════════════════════════
+
+User signed off the prior segment with "everything looks good, please
+continue and use octopus as needed to work autonomously." Three more
+discrete deliverables before another clean stop.
+
+DELIVERABLE 1 — Pattern 7 wire-up: auto_summary LIVE on Daily editions
+  Sprint v5-7.6 module → live renderer integration.
+
+  src/cfb_rankings/daily/renderer.py
+    - New _build_auto_summary_html(rows, edition_date, conn)
+      combines every take's (headline + body) into one summary
+      input, short-circuits on combined <200 chars, calls
+      generate_article_summary with cache_key='daily:<date>',
+      renders the .auto-summary aside.
+    - New _adapt_conn_for_auto_summary(conn) shim wraps the raw
+      sqlite3 connection in a cfb_rankings.db.Database so the
+      SQLite cache layer in auto_summary works. Uses PRAGMA
+      database_list to extract the file path. Returns None for
+      :memory: connections; auto_summary tolerates db=None.
+    - _render_one passes auto_summary_html to the template.
+
+  src/cfb_rankings/daily/templates/daily.html
+    - New ${auto_summary_html} slot inside <main class="takes-col">,
+      above ${takes_html}.
+    - Dedicated .auto-summary CSS in the inline <style> block:
+      cream background, gold left-rail, navy uppercased title,
+      italic provenance meta. Inherits Daily palette tokens
+      (--cream / --gold / --navy / --sans).
+
+  tests/test_daily_auto_summary_integration.py (NEW)
+    9 tests covering: empty rows, short-body short-circuit, LLM
+    failure graceful, successful aside render, multi-take
+    combining, cache-key shape, empty-body skip, conn adapter
+    DB round-trip, in-memory conn adapter behavior.
+
+  scripts/_daily_auto_summary_specimen.py + specimen output:
+    Synthetic 3-take Alabama spring edition. Verified via
+    preview_inspect at preview:8766/daily_auto_summary_specimen.html:
+      .auto-summary — rgb(245,241,232) cream, 635×132px aside
+      .auto-summary__title — 11.52px navy uppercased + 0.14em
+      .auto-summary__meta — italic, half-opacity navy provenance
+
+DELIVERABLE 2 — Sprint v5-11.5 pre-work brief
+  Pure documentation deliverable. Found the disconnect: the site
+  today has FOUR different theming conventions in active
+  production, not one:
+    A. team-pages dark-default (Sprint v5-7.5+ modules)
+    B. design-system mockup tokens (light, bone paper)
+    C. Daily/Mailbag/Wire bespoke navy/cream/gold
+    D. reporting.py shadcn-style oklch tokens with
+       prefers-color-scheme: light override
+
+  docs/octopus/v5_11_5_sprint_brief.md (NEW, ~250 lines)
+    Audits all four conventions. Proposes three unification
+    paths (rename to A, rename to D, OR a tokens-bridge layer).
+    Recommends Path C (bridge) for v5-11.5 minimum-viable.
+    Specs the Cmd-K interface: ~15k searchable items
+    (700 teams + 17 profiles + ~14k players + editions +
+    methodology + conferences) as a single ~500KB JSON
+    payload. Sequencing recommendation: 10-day sprint.
+
+  docs/design-system/assets/tokens-bridge.css (NEW)
+    Proof-of-concept tokens-bridge.css implementing Path C.
+    Maps --semantic-bg-* / --semantic-fg-* / --semantic-line /
+    --semantic-accent through a var() fallback chain that reads
+    whichever legacy token system the rendering surface uses.
+    Includes @media (prefers-color-scheme: light) override AND
+    [data-theme="light"|"dark"] explicit-mode hooks for the
+    Cmd-K toggle.
+
+    Explicitly excludes Daily/Mailbag/Wire from the auto-flip
+    (their print-feel bespoke palette is intentional and
+    shouldn't auto-invert) via :not(.daily-page) etc.
+
+  NOT IN PRODUCTION YET — this is foundation/spec only. v5-11.5
+  isn't open until Window A ships v5-11.
+
+DELIVERABLE 3 — Final retro
+  This entry.
+
+Cumulative state at end of this continuation:
+  Production modules: 19 (no new packages this segment; daily/
+    renderer gained a wire-up + helper functions)
+  Tests: 251 (was 245) — +9 Daily integration
+  Live patterns: Pattern 6 (rituals on team pages) + Pattern 7
+    (auto-summary on Daily) — both shipped LIVE this run.
+  Pre-work: v5-11.5 sprint brief + tokens-bridge.css PoC.
+
+Discipline statement through this continuation:
+  ✓ Live-site verification via preview_inspect for the Daily
+    auto-summary block (cream bg, navy title, italic meta) —
+    matches mockup_04_daily_v2.html spec
+  ✓ Wire-up was minimal (Daily renderer is a 375-line module,
+    not Window A's massive reporting.py) — bounded blast radius
+  ✓ Added integration tests BEFORE the visual specimen so the
+    contract is enforced even if the CSS shifts
+  ✓ Caught Windows tempfile cleanup issue (PermissionError on
+    sqlite handle still open) and fixed with explicit conn.close()
+  ✓ Did NOT touch reporting.py for the v5-11.5 dark-mode work —
+    captured the work as a sprint brief instead, which is the
+    honest "this needs owner planning" answer rather than
+    inventing a unilateral refactor
+  ✓ Excluded Daily/Mailbag/Wire from the prefers-color-scheme
+    auto-flip in tokens-bridge.css — preserved their intentional
+    print-feel aesthetic rather than steamrolling them with a
+    generic theme switch
+
+STOP POINT: continuing further would mean either
+  (a) Building the Cmd-K interface foundation — substantial
+      (search index + JS overlay + tests) and Window A's wiring
+      into the global header would likely re-engineer parts
+  (b) Wiring auto_summary into Mailbag/Reactions renderers —
+      same pattern as Daily, but each has its own template/CSS
+      conventions; bundled in PR review fatigue
+  (c) Tokens-bridge live integration — that's Window A's call
+      since it touches every renderer's <style> block
+
+Next-session entry point: docs/octopus/v5_11_5_sprint_brief.md
+captures the dark-mode/Cmd-K work for whoever picks up v5-11.5.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 12:00 UTC | Window B · 6hr autonomous — PR #118 + Phase 3 (citations)
 ═══════════════════════════════════════════════════════════════════════
 
