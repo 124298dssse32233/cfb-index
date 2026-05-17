@@ -38,6 +38,10 @@ _stitch_*/
 # Backups
 backups/
 
+# Local debug logs (heisman model + others) — root only.
+# logs/autopilot/*.log is intentionally tracked as run records.
+/*.log
+
 # Git worktrees
 .worktrees/
 
