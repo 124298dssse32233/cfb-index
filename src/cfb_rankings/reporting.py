@@ -16360,11 +16360,13 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
             or "He hasn't written his page yet — we'll start filling it in "
                "when there are enough snaps to rank against his peers."
         )
+        empty_season = (story or {}).get("season_year")
+        empty_eyebrow = f"{int(empty_season)} Signature" if empty_season else "Signature Story"
         return f"""
           <article class="signature-story signature-story--empty"
                    data-module="signature-story" data-state="empty">
             <header class="signature-story__header">
-              <p class="signature-story__eyebrow">2025 Signature</p>
+              <p class="signature-story__eyebrow">{escape(empty_eyebrow)}</p>
               <h2 class="signature-story__headline">Awaiting candidate metric</h2>
             </header>
             <p class="signature-story__empty-body">{escape(narrative)}</p>
@@ -16515,13 +16517,15 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
             f'<p class="signature-story__era-context">{escape(str(era_ctx["text"]))}</p>'
         )
 
+    story_season = story.get("season_year") if story else None
+    eyebrow_season = f"{int(story_season)} Signature" if story_season else "Signature Story"
     return f"""
       <article class="signature-story"
                data-module="signature-story" data-state="ready"
                data-metric-id="{escape(str(hs.get('metric_id') or ''))}"
                data-cohort-id="{escape(str(hs.get('cohort_id') or ''))}">
         <header class="signature-story__header">
-          <p class="signature-story__eyebrow">2025 Signature · {escape(str(story.get('updated_label') or ''))}</p>
+          <p class="signature-story__eyebrow">{escape(eyebrow_season)} · {escape(str(story.get('updated_label') or ''))}</p>
           <h2 class="signature-story__headline">{escape(headline)}</h2>
         </header>
         <div class="signature-story__grid">
