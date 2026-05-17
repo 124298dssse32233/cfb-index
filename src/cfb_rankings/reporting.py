@@ -17132,12 +17132,34 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     # when there are no active events for this player.
     _signal_flow_html = render_signal_flow_bar(player_data.get("active_signals"))
 
+    # OG / Twitter meta tags. Player pages are the single most shareable
+    # surface on the site (a Tweet/Bluesky post about a player drops a
+    # /players/<slug>.html link), but until now they shipped with no
+    # og:image / og:title / twitter:card — every shared link looked like
+    # a bare URL in the timeline. Flagged in docs/octopus/discover.md
+    # §3 P3 #14. Fix: use the standard _meta_tags helper with the site's
+    # default og-image. Per-player generated OG images are deferred —
+    # adding the fallback OG metadata is a meaningful baseline that
+    # unblocks share previews today.
+    _player_meta_desc = (
+        f"Player card for {player_name}"
+        + (f", {position}" if position else "")
+        + (f", {team_name}" if team_name else "")
+        + ". Heisman model, signature story, season production, and "
+        + "the model's read on his career arc."
+    )
+    _player_meta_title = (
+        f"{player_name} | Player Card | CFB Index"
+    )
+    _player_canonical_path = f"/players/{_player_slug}.html" if _player_slug else None
+
     return f"""<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(player_name)} Player Card</title>
+    {_meta_tags(_player_meta_desc, title=_player_meta_title, image_path="../og-image.svg", canonical_path=_player_canonical_path, og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
