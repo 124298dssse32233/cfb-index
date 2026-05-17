@@ -25,9 +25,22 @@ SENTIMENT_FLOOR = 100        # min sample to show a distribution bar
 TOP_ENTITIES_FULL = {        # 4 programs + top conference: get 3 themes each
     "alabama", "ohio-state", "georgia", "notre-dame", "sec",
 }
-TOP_ENTITIES_PARTIAL = {     # next 11: get 1 theme + 1 lede (Sonnet)
+# Expanded 2026-05-17 — was 11 entries covering 6 teams + 5 conferences,
+# which left 7 of the 17 profiled programs (per CLAUDE.md's PROFILED_SLUGS)
+# without any pulse content. Their team pages rendered the "Awaiting
+# Signal" fallback panel even when conversation data was available.
+# Now includes every profiled-but-not-FULL team. Cost impact per
+# world_class_enrich run after the P1 demote (Pattern B, ~$0.05/call
+# × 2 surfaces × 7 new teams) ≈ $0.70 additional — well under the
+# tier1.pulse_lede / tier1.pulse_themes_writer 24h ceilings ($5/$8).
+TOP_ENTITIES_PARTIAL = {     # next N: get 1 theme + 1 lede each
+    # Original 6 teams
     "michigan", "texas", "usc", "penn-state", "tennessee", "auburn",
+    # Conferences (unchanged from v5-3)
     "fbs-big-ten", "acc", "big-12", "american-athletic", "mountain-west",
+    # 2026-05-17 audit2 expansion — the remaining 7 profiled programs
+    "florida", "massachusetts", "oklahoma", "oregon",
+    "uconn", "vanderbilt", "washington",
 }
 
 
