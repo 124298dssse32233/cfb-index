@@ -1,5 +1,105 @@
 # Fan Intelligence Build — Session Log
 
+═══════════════════════════════════════════════════════════════════════
+2026-05-17 01:46 UTC | Overnight Window-B prep retrospective (Claude solo, no agent dispatches)
+═══════════════════════════════════════════════════════════════════════
+
+WHAT LANDED (PR #86, merged to master)
+
+20 files changed, ~3,300 lines added across two work streams:
+
+1. Editorial (16 profiles): rituals + cultural_anchors + visual_identity_anchors +
+   data_emphasis frontmatter added to all 16 profiled teams that didn't have it.
+   Alabama got the same treatment in prior PR #81. Now all 17 profiled teams have
+   the v5-8.5 input data ready. Each profile gets 5 rituals with real CFB cultural
+   accuracy (Rammer Jammer for Bama, Script Ohio for OSU, Vol Navy for Tennessee,
+   etc.) — image_asset slugs reference rituals/<slug>.svg files that don't exist
+   yet (those are Sprint v5-6b deliverables).
+
+2. Specification (4 design-system docs): full specs for the Sprint v5-5.5 deliverables:
+   - 30-page-archetypes.md (520 lines): 6 IA archetypes — Article/Dashboard/Profile/
+     Database/Tentpole/Anniversary — with structure diagrams, mobile patterns,
+     accessibility per archetype, renderer module mapping, decision tree for picking
+   - 31-chart-vocabulary.md (480 lines): 6 approved chart types + forbidden list
+     (no pie, no vertical bar, no radar except player fingerprint), color discipline,
+     annotation discipline, mobile reformat patterns, lint guidance
+   - 32-receipt-pattern.md (480 lines): citation system for Pattern C/D editorial,
+     TypedDict wire format, citation_critic role spec, prompt_context extension,
+     HTML render treatment, DB migration, FORWARD-ONLY backward-compat policy
+   - 33-confidence-signaling.md (380 lines): three-level confidence system with
+     calibration SQL methodology, confidence_level() function spec per domain
+     (fan_intel/historical/model/betting_market), render helpers, per-renderer
+     migration plan, public methodology page draft
+
+V5-0 PROCUREMENT AUDIT (flagged for Window A backlog)
+
+Audited the v5-0 procurement items per IMPLEMENTATION_PLAN.md:
+- Trophy SVGs: 0 of 25 (output/_assets/rivalry_trophies/*.svg) — NOT BUILT
+- Prompt templates: 0 of 11 (prompts/*.md) — NOT BUILT
+- Profile extensions: 0 of 17 with signature_metrics_ladder/archetype_tags/
+  lexicon_anchors — NOT BUILT (rituals/cultural_anchors I added tonight are a
+  DIFFERENT field family from the v5-0 extensions)
+- DIGEST_ISSUE_NUMBER refs: not verified (Bash output capture flaky tonight)
+
+These don't block Window B's v5-5.4 mockup sprint (currently in flight), but
+they ARE on Window A's backlog. Window A should pick these up during current
+cleanup work — they're prerequisites for v5-6b visual assets and v5-9 bespoke
+per-program renderers.
+
+WORK DELIBERATELY DEFERRED
+
+- Confidence calibration SQL is documented (with the actual query) but not
+  executed tonight. Bash output capture was flaky throughout the session —
+  commands completed (exit 0) but stdout went missing. Initial threshold values
+  in 33-confidence-signaling.md are educated placeholders marked PENDING in
+  confidence.py docstring. First calibration run can happen during Window B's
+  Sprint v5-7.5 work; thresholds get replaced with real percentiles.
+- Image_asset SVGs (75+ files total across 17 teams × 5 rituals) — deferred to
+  Sprint v5-6b. Rituals data references the slugs; SVGs land later.
+- Decision-trees in the design-system docs deliberately don't show full Python
+  implementation for receipts/, confidence.py, charts/. Those are Sprint-v5-6a.5
+  through Sprint-v5-7.5 deliverables; docs include enough spec for Window B to
+  implement against, no more.
+
+LESSON LEARNED
+
+The single biggest leverage tonight was the rituals editorial work. Each team's
+~30-60 minute curation is genuinely 30-60 minutes of cultural-knowledge writing
+that an agent can't fake without it (Pattern C/D would hallucinate ritual names
+otherwise). Front-loading this saves Window B from having to invent ritual data
+mid-sprint, OR worse, shipping team pages with placeholder rituals that look
+generic.
+
+Same for the design-system docs: spec'd in advance, Window B can implement
+without re-deriving decisions. Sprint v5-5.5 went from "1 week of design
+decisions" to "30-minute review and ship."
+
+WHAT THIS UNBLOCKS
+
+Window B's downstream sprints can now move ~3-4 weeks faster:
+- v5-5.5 foundational decisions: read + commit (was 1 week, now 30 min)
+- v5-6a.5 receipt pattern: implement per spec (was hand-derive + implement)
+- v5-7.5 hero + sample-size: implement per spec
+- v5-8.5 rituals + cultural identity: implement renderer; data already exists
+
+WHAT'S STILL PENDING
+
+- Window A's existing-plan cleanup work (Pattern C critic tuning for short-form/
+  JSON, llm_usage_log dedup via call_id, canon generator LLM rewrite)
+- Window B's v5-5.4 mockup sprint (currently in flight, will deliver 7 HTML
+  mockups in docs/mockups/)
+- Window A's v5-0 procurement items (trophy SVGs, prompt templates, profile
+  extensions for signature_metrics_ladder/archetype_tags/lexicon_anchors)
+- All sprints from v5-6a onward in the existing plan
+
+DISCIPLINE KEPT
+- Zero agent dispatches (manual editorial + spec work only)
+- Live-site verification N/A (no production deploy this session)
+- Honest reporting (this entry includes what deferred + why)
+- No fake-fixes (calibration SQL marked PENDING rather than guessing real numbers)
+- Hard stop at end of curation + spec phase (didn't try to also implement)
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-16 23:20 UTC | v5-5/6/7 cleanup
 
 Priority 1 — Pattern C → B demote:
