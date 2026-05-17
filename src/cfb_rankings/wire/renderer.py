@@ -18,6 +18,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Iterable
 
+from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
 from cfb_rankings.nav import render_global_nav
 
@@ -375,6 +376,9 @@ def render_wire_index(
         "ENTRY_COUNT": str(len(rows)),
         "WINDOW_DAYS": str(days),
         "WIRE_LEDE": wire_lede,
+        # OG / Twitter share-card tokens (PR # — parallel to mailbag OG).
+        "PAGE_CANONICAL": absolute_url("/wire/"),
+        "OG_IMAGE_URL": absolute_url("/og-image.svg"),
     })
 
     out_path = output_dir / "index.html"
@@ -409,6 +413,9 @@ def render_archive_month(
         "PREV_LINK": prev_link,
         "NEXT_LINK": next_link,
         "UPDATED_AT": (now or datetime.utcnow()).strftime("%Y-%m-%d %H:%M UTC"),
+        # OG / Twitter share-card tokens (PR # — parallel to mailbag OG).
+        "PAGE_CANONICAL": absolute_url(f"/wire/archive/{year:04d}-{month:02d}.html"),
+        "OG_IMAGE_URL": absolute_url("/og-image.svg"),
     })
 
     out_path = archive_dir / f"{year:04d}-{month:02d}.html"
