@@ -1,6 +1,103 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-17 04:00 UTC | autonomous run continued (user re-confirmed 10hr mandate) — audit pass 4 + 3 more label fixes (PR #91/#92/#93)
+═══════════════════════════════════════════════════════════════════════
+
+User reiterated autonomous mandate. Picked up with targeted audit-pass-4
+hunting for the specific bug classes I shipped earlier in the day:
+  - Field-name mismatches (PR #88 pattern: dict key vs renderer access)
+  - Empty conditional emissions (PR #89 pattern: hardcoded <text> with
+    no guard for empty content)
+  - JS-injected DOM with no CSS (recurring pattern from auto-memory)
+  - Hardcoded year/season string literals in HTML output
+
+Pattern audits cleared:
+  - field-name mismatches in heisman_years dict + renderers — all
+    consistent (I had already fixed the one bug with #88)
+  - empty conditional emissions in SVG/HTML generators — all guarded
+  - JS-injected DOM classes — 100% have matching CSS rules (verified
+    via static analysis: enumerated every .className=/classList.add()
+    in all .js + inline <script> + reporting.py, cross-checked against
+    every CSS file + inline <style>; zero misses)
+
+Hardcoded-year hunt FOUND THREE MORE INSTANCES of the PR #84/#88 bug
+class (label hardcoded to "2025" but data may be from prior season):
+
+  PR #91 — fix(audit2): /heisman/ + /players/ labels use Heisman data's
+    actual season. /heisman/ tracker page was showing "Season: 2025
+    Season · Final 2025" with #1 player Dillon Gabriel (now in NFL
+    after his 2024 senior year at Oregon). Smoking gun on live page:
+    "Current candidates with pages: 0" — none of the 2024 finalists
+    have current player pages because they all graduated. Same root
+    cause as PR #84: render_heisman_page_html used
+    summary["season_year"] for the label, but
+    fetch_current_heisman_snapshot's Hotfix-6 already returns the
+    actual data season via fallback. Fix threads heisman_snapshot
+    ["season_year"] through to all heisman-derived labels.
+
+  PR #92 — fix(audit2): unhardcode '2025 Season · Final' on player
+    Current Season Production block. Two hardcoded "2025 Season ·
+    Final" strings on player pages (section header + CSP module
+    title). Same bug — graduated players show 2024 final data but
+    were labeled "2025". Fix: new _current_season_production_title()
+    helper that derives label from stat_profile's actual season +
+    week. Helper covers (2024,16)→"2024 Season · Final", (2025,12)→
+    "2025 Season · Through W12", (None,None)→"Current Season
+    Production". stat_profile now exposes season_year + week so
+    renderers can derive headers.
+
+  PR #93 — fix(audit2): unhardcode '2025 Signature' on player
+    Signature Story module. Two hardcoded "2025 Signature" strings
+    in _render_algorithmic_signature_card (empty-state + ready-state
+    eyebrows). story.get("season_year") was already in the payload
+    from fetch_player_signature_story — just had to wire it.
+
+Verification: PUBLISH IN-FLIGHT at SESSION_LOG write time. PR #91
+verification via run 25980464662; PR #92/#93 via run 25980725579
+(queued). Live-site sweep will happen post-deploy. Expected:
+  - /heisman/index.html title + meta + pills reflect 2024 (or
+    whichever season the model last ran for)
+  - /players/spotlight.html "Latest Heisman week" pill reflects
+    Heisman data season; "Season" pill still shows current site
+    season (2025) since that's roster-derived
+  - /players/quinn-ewers-39300.html sections show "2024 Season ·
+    Final" headers everywhere, not "2025"
+  - Active 2025 player pages keep current-season labels
+
+Discipline note: when checking PR #82's pulse coverage on /teams/
+florida.html during this audit pass I noticed the pulse-mood-delta
+content IS populated ("Albert and Alberta are waiting...") but the
+n=0 awaiting-signal BADGE is still showing — that's expected and
+correct. PR #82 expanded the LLM-generation surface (which produces
+the mood-delta + chronicle), but the underlying reddit/news signal
+volume is genuinely zero for that program. Graceful degradation
+working as designed; the badge is honestly surfacing data state, the
+chronicle is filling the visual void.
+
+Session additionals:
+  PRs landed (this segment): #91, #92, #93  (3 total, all merged)
+  Cumulative across full session: #82, #83, #84, #85, #88, #89, #90,
+    #91, #92, #93  (10 PRs total — 9 code, 1 doc)
+  Cumulative spend today: ~$26 / $100 console cap (26%, unchanged —
+    no Pattern C re-promotions, no LLM-heavy runs)
+
+Blockers carried forward (unchanged from prior segment):
+  HIGH:
+    - Pattern C critic-prompt tuning for short-form + JSON surfaces
+      (PR #83 infra ready, 1-line wrapper change when desired)
+    - canon_top10 + canon_tail generator rewrite (seed → LLM)
+    - resolve-outcomes / surprise-index pipeline backfill
+    - Heisman model 2025 season run — heisman_rankings_weekly is
+      currently 2020-2024. PRs #84/#88/#91/#92/#93 are working
+      around this by labeling honestly; the underlying fix is
+      running run-heisman-model --season 2025 --through-week N.
+  LOW:
+    - dawidd6 race fix Option B
+    - Daily archive orphans cleanup
+    - W18 cover essay regenerate
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-17 03:20 UTC | autonomous run (/octo:auto "continue autonomously for 10 hours") — 6 PRs shipped, all verified live
 ═══════════════════════════════════════════════════════════════════════
 
