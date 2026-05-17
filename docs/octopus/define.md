@@ -1,5 +1,83 @@
 # Octopus Define — Fix Charter
 
+═══════════════════════════════════════════════════════════════════════
+## REFRESH 2026-05-17 — post-autonomous-session
+
+The 2026-05-12 charter below is preserved for historical reference. All 8
+named SURGICAL items (S-1 through S-8) are now closed via the autonomous
+session that shipped PRs #82-#116. See `docs/octopus/discover.md` top
+section for the verified-fixes inventory.
+
+### What's the new SURGICAL queue?
+
+After ~16 PRs of audit-driven surgical fixes, the easy queue is drained.
+What's left:
+
+  **Tier-A residues (still SURGICAL when picked individually):**
+    - dawidd6 workflow-isolation fix (1-3 lines, but workflow change
+      risk). Path: change publish-site's DB download config. The
+      reward is unblocking Heisman 2025 data on the live site. The
+      risk is workflow breakage = no DB = no publish.
+    - canon page OG meta — PR #104 shipped, but canon pages regenerate
+      via world-class-enrich's `generate-canon-list` step (not
+      publish-site's `build-site`). Will land on next enrich run.
+
+  **Newly-discovered SURGICAL targets:**
+    - homepage Voices section short-circuit (PR #110, shipped)
+    - team_pages skip-link a11y (PR #115, shipped)
+    - transfer_date format (PR #109, shipped)
+    - power-resume gap copy (PR #108, shipped)
+
+### Tier-B / MODULE blockers (still deferred — need user input)
+
+    - **M-1**: Fan-intel entity matching at the player-page level.
+      Status update: spot-checked Fernando Mendoza's live page during
+      audit pass 4 — The Room section now ships with "Awaiting
+      signal" empty-state UI, no longer surfacing the mis-attributed
+      Locked-On-Penn-State quote. The credibility-damaging bug from
+      the prior audit is no longer visible at the surface layer, but
+      the underlying data-pipeline issue (entity matching too lax)
+      may still exist. Re-audit after next ingest cycle.
+    - **M-2**: Heisman board pagination (15MB page, 15k+ rows). Now
+      partially mitigated: PR #102's model fix means the board would
+      load fresh 2025 data once the dawidd6 issue is resolved.
+      Pagination still needed for mobile perf and crawler indexing.
+    - **M-3**: Heisman column definitions row — partially addressed
+      via PR #84/#98 (clearer label semantics) but a definitional
+      legend above the table is still missing.
+    - **M-4**: Provenance chip on Mood Cards.
+    - **M-5**: Offseason watermark on homepage.
+
+### Tier-C / ARCHITECTURAL (carry forward unchanged)
+
+    - **A-1**: Two team-page systems (profiled vs legacy). Both
+      received this-session improvements (legacy got PR #108
+      power-resume copy; profiled got PR #111 jargon scrub + PR
+      #115 skip-link). The bifurcation is intentional and stable
+      but compounds tech debt.
+    - **A-2**: /teams vs /programs page consolidation.
+    - **A-3**: reporting.py decomposition (now 26,832 lines).
+    - **A-4**: Repo root cleanup (74+ stale .md files).
+    - **NEW A-5**: dawidd6 artifact-isolation. See discover.md
+      refresh for full detail. Two solution paths documented;
+      neither is shippable without explicit user OK.
+
+### NEW Tier-D — chronicle pipeline health (CI env)
+
+    - 5 programs (Florida, Massachusetts, Notre Dame, Oklahoma,
+      Washington) failing chronicle card generation. Retry
+      mechanism broken ("claude CLI not on PATH" in CI).
+    - Pattern C validation strictness rejecting AI output for these
+      programs. Could be the validator is too tight; could be the
+      models are degrading.
+    - Edition cover essays skipped because no `status='draft'`
+      editions exist in DB.
+
+  All three are workflow-env or LLM-tuning concerns that need
+  hands-on debugging rather than blind autonomous fixes.
+
+═══════════════════════════════════════════════════════════════════════
+
 _Phase 2 of the Double Diamond. Takes Phase 1's findings (`docs/octopus/discover.md`), ranks them by impact × ease, tags each as SURGICAL / MODULE / ARCHITECTURAL, and locks the scope for Phase 3._
 
 **Charter rules.**
