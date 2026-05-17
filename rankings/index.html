@@ -7201,8 +7201,8 @@
           const gap = Number(team.power_percentile || 0) - Number(team.resume_display || 0);
           const magnitude = Math.round(Math.abs(gap));
           if (magnitude < 8) return 'Power and resume are telling a mostly aligned story right now.';
-          if (gap > 0) return `Power is running about ${magnitude} percentile points ahead of resume right now.`;
-          return `Resume is running about ${magnitude} percentile points ahead of power right now.`;
+          if (gap > 0) return `Power is running about ${magnitude} points ahead of resume right now — strength rating outpaces body of work.`;
+          return `Resume is running about ${magnitude} points ahead of power right now — results outpace underlying strength.`;
         }
 
         function escapeHtml(value) {
