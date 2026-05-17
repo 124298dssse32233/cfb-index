@@ -1,6 +1,192 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 12:00 UTC | Window B · 6hr autonomous — PR #118 + Phase 3 (citations)
+═══════════════════════════════════════════════════════════════════════
+
+User signed off after the prior 6hr segment with "please use your best
+judgment and continue autonomously for 6 hours." Plan locked at start
+into a 4-phase progression: commit foundation work → live-wire rituals
+→ build v5-6a.5 receipt-pattern foundation → final retro.
+
+PHASE 1 — Foundation PR #118 (~30 min)
+  Bundled the entire prior-segments backlog into one commit titled
+  "feat(v5-foundation): Window B v5-5.4 through v5-8.5 + v5-10e
+  renderer-ready modules." 58 files / 215 tests. Rebased onto master
+  (PRs #115-#117 had landed — skip-link, conferences OG, discover.md
+  refresh — none conflicting). Pushed claude/distracted-knuth-b49f01,
+  opened PR #118. Window A merged it ~3 hours later.
+
+PHASE 2 — Live-wire rituals strip into team_pages (~2hr)
+  Sprint v5-8.5 module → live renderer integration.
+
+  src/cfb_rankings/team_pages/renderer.py
+    - Imported render_rituals_strip + render_cultural_anchors
+    - Slotted rituals_html + cultural_anchors_html between pulse
+      and chronicle (matches mockup_02 section order)
+    - Inlined new rituals_card.css into <head><style>
+
+  src/cfb_rankings/team_pages/assets/rituals_card.css (NEW)
+    - Live-token mapping from the mockup's light-mode rituals
+      selectors. Dark-mode compatible: uses --bg-card / --accent-
+      primary / --stroke-default rather than --color-amber-50 etc.
+    - color-mix() layers preserve the amber-gradient glyph
+      treatment + box-shadow inset stroke.
+
+  tests/test_team_page_rituals_integration.py (NEW)
+    - 5 end-to-end tests calling _render_page with synthetic
+      Profile + TeamSnapshot + PageState fixtures.
+    - Verifies rituals strip presence, cultural-anchors aside,
+      CSS inlining, empty-profile suppression, and the section
+      ordering ("rituals must appear before chronicle").
+
+  scripts/_rituals_integration_specimen.py (NEW)
+  docs/mockups/team_page_rituals_specimen.html (NEW)
+    - Standalone renderer that builds a real Alabama page (with
+      the canonical 5 rituals + cultural anchors from
+      profiles/alabama.md) without needing a populated DB.
+      Output: 59,391-char specimen file.
+
+  Live verification via preview_inspect (8766):
+    .rituals.program-section — 1036×389px section, all 5 cards
+    .ritual-card — rgb(23,27,36) bg, 180px min-height
+    .ritual-card__glyph — rgb(158,27,50) crimson at 30px Inter
+      Display (Alabama accent piped through correctly)
+    .cultural-anchors — dark card bg, 986×154px aside
+
+  Pushed as second commit on the same branch; merged into PR #118.
+
+PHASE 3 — Sprint v5-6a.5 receipt-pattern foundation (~2hr)
+  Citation receipts for Pattern C/D AI editorial. The single
+  biggest credibility lever for AI editorial in 2026.
+
+  Discovery: cfb_rankings.receipts ALREADY EXISTS as Sprint 13's
+  predictive-claim infrastructure. Pivoted to cfb_rankings.citations
+  to avoid name collision.
+
+  migrations/20260601_01_editorial_citations.sql (NEW)
+    Table with CHECK on source_kind (8 enum values) + confidence
+    (3 tiers), UNIQUE on (generation_id, marker_id), indexes
+    on generation_id, source_kind, source_date.
+
+  src/cfb_rankings/citations/ package:
+    types.py — Citation frozen dataclass + SourceKind/Confidence-
+      Tier Literals + citation_from_row builder
+    persistence.py — CITATION_DDL re-export, persist_citations
+      (wipe-then-insert idempotent), load_citations (sorted)
+      Both degrade gracefully on missing table
+    critic.py — CitationCritic with 5 checks: missing/orphan
+      citation, empty source_label, hallucinated_source (fuzzy-
+      matches against available_sources from prompt_context),
+      density bands (target ≥1 per 200, warn <1 per 400, block
+      <1 per 800). Tunable instance fields.
+    render.py — render_inline_marker (locked <sup> with
+      data-cite-* attrs), annotate_body_markdown (replaces [N]
+      with marker HTML; leaves unmatched [N] as plain text so
+      they remain visible/auditable), render_citation_footer
+      (Wikipedia-style <ol>), render_legacy_notice (forward-only
+      pre-cutover content notice)
+    assets/citations.css — locked spec styling: gold superscript
+      + hover tooltip on desktop, color-coded kind badges
+      (Reddit orange / beat-writer navy / podcast amber /
+      Wikipedia gray / official green / CFBD gold / wire coral
+      / edition strong), mobile single-column reflow at 640px
+    assets/citations.js — mobile tap-reveal. Event delegation
+      so dynamically inserted citations work. No-op on hover-
+      capable devices (CSS tooltip takes over).
+
+  tests/test_citations.py (NEW) — 30 tests:
+    types (3): SourceKind enum match, citation_from_row, frozen
+    persistence (8): round-trip, idempotent re-run, missing-
+      table degrade, CHECK constraints (source_kind +
+      confidence), UNIQUE on (generation_id, marker_id)
+    render (8): inline marker structure + XSS escape, body
+      annotation + unmatched-marker preservation, footer
+      structure + sort + escape, legacy notice
+    critic (11): pass + 4 blocker types, density bands, small-
+      body skip, helper properties
+
+  scripts/_citations_specimen.py (NEW)
+  docs/mockups/citations_specimen.html (NEW)
+    Synthetic Alabama spring article with 5 inline citation
+    markers + footer list + legacy notice block. Verified
+    via preview server: gold #c5b358 marker color, Reddit
+    orange #ff4500 badge, footer at 56px top margin.
+
+  docs/design-system/34-integration-playbook.md
+    Added Pattern 8 (citation receipts) with wire-up code,
+    data contract, critic semantics (the 5 checks), defenses,
+    acceptance verification commands. Foundation status block
+    updated to reflect citations/ + rituals LIVE on team pages.
+
+  Density test calibration bug caught + fixed: initial test
+  used 400 words / 1 citation expecting warn, but my impl
+  put the threshold exactly at 400. Adjusted test to 800/1
+  for warn (below 1-per-400 but above 1-per-800 block).
+  Also lowered fuzzy-match word-length floor from >=4 to >=3
+  to keep "CFB" / "MLB" / similar acronyms as signal.
+
+PHASE 4 — Test sweep + retro
+  242 tests pass across all Window B modules:
+    test_citations.py (30)
+    test_auto_summary.py (31)
+    test_hero_findings.py (17)
+    test_hero_findings_db.py (8)
+    test_rituals_module.py (63)
+    test_team_page_rituals_integration.py (5)
+    test_viral_builders.py (28)
+    test_confidence.py (37)
+    test_saturday_strip.py (9)
+    test_viral_share_cards.py (3)
+    test_viral_mood_map.py (11)
+
+  All foundation tests green; no regressions introduced.
+
+Cumulative state at end of this segment:
+  Production modules: 19 (citations/ NEW + receipts package coexists
+    cleanly under the disambiguated namespace)
+  Tests: 245 (was 215) — +30 citations, +5 rituals integration
+  Sprint coverage:
+    v5-5.4 ✓ (mockups signed off)
+    v5-5.5 ✓ (master 30-33 + my 34 playbook with 8 patterns)
+    v5-6a.5 ✓ (receipt pattern foundation NEW THIS SEGMENT)
+    v5-7.5 ✓ (confidence + hero findings, all 4 generators wired)
+    v5-7.6 ✓ (Saturday Strip + auto_summary)
+    v5-8.5 ✓ (rituals — LIVE on team pages)
+    v5-10e ✓ (viral content engine)
+    v5-11.5 ☐ (dark mode + Command-K — next session)
+
+Discipline statement through this segment:
+  ✓ Honored "live-site verification" — rituals strip visually
+    verified via preview_inspect at preview:8766 with exact
+    pixel + color readings before commit
+  ✓ Honored "no parallel agent fan-out" — every change made by
+    Claude main thread; no subagent dispatch
+  ✓ Caught + fixed test calibration bug (density thresholds)
+    rather than skipping the failing test
+  ✓ Renamed package on name-collision discovery (receipts/ →
+    citations/) rather than hijacking existing namespace
+  ✓ Did NOT modify Sprint-13 receipts/render.py despite it
+    appearing in Window A's merge (left it alone — different
+    concern)
+  ✓ Did NOT mutate the canon DB at .worktrees/sprint-11-canon/
+    despite needing rendering data — used synthetic fixtures
+    to verify integration end-to-end
+
+STOP POINT: continuing further would mean either
+  (a) Wiring CitationCritic into quality_loop.py's revise loop —
+      that's Pattern C/D generator work, explicitly Window A's
+      lane per COORDINATION.md
+  (b) Sprint v5-11.5 dark mode + Command-K — fresh sprint that
+      deserves planning + user input on scope
+  (c) Picking up Window A's carry-forwards (chronicle CLI fix,
+      Pattern C strictness, Node 20 audit) — all requiring owner
+      decisions per kickoff discipline
+
+Next-session entry point: docs/design-system/34-integration-
+playbook.md §"Pattern 8" + the v5-11.5 sprint brief in
+IMPLEMENTATION_PLAN_v2_addendum.md (when user is ready).
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 14:50 UTC | wake-session cleanup: 3 more PRs (#158-#160)
 ═══════════════════════════════════════════════════════════════════════
 
