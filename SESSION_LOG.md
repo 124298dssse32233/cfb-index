@@ -1,6 +1,141 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-17 03:20 UTC | autonomous run (/octo:auto "continue autonomously for 10 hours") — 6 PRs shipped, all verified live
+═══════════════════════════════════════════════════════════════════════
+
+Open-ended mandate, picked highest-value items from prior session's
+HIGH-priority blocker list + ran a site-audit pass 2. Discipline rules
+from prior sessions held: zero agent dispatches, hard verification
+gates between PRs, no fix-forward (caught two of my own bugs via
+verification and shipped follow-up fixes rather than papering over).
+
+PRs landed in dependency order:
+
+  PR #82 — fix(audit2): extend pulse coverage to all 17 profiled programs
+    pulse_state.py TOP_ENTITIES_PARTIAL expanded from 11 → 18 entries
+    (added florida, massachusetts, oklahoma, oregon, uconn, vanderbilt,
+    washington). Caught audit-pass-2 finding: team_pulse_cache had 10
+    rows but PROFILED_SLUGS in CLAUDE.md has 17 — 7 teams rendered
+    "Awaiting Signal" fallback on their /teams/<slug>.html pulse panels.
+
+  PR #83 — infra: critic_roles override on Pattern C + E
+    Both loop_c_critic_revise and loop_e_continuity now accept an
+    optional critic_roles=list[CriticRole]|None. Defaults preserve
+    back-compat. Unblocks tomorrow's per-surface critic-prompt tuning
+    work (the carried-forward HIGH-priority blocker from the v5-5/6/7
+    cleanup retro). No live behavior change today — pure infrastructure.
+
+  PR #84 — fix(audit2): label Heisman Lens with the data's actual season
+    Player-page renderer "Current Heisman Lens" was misleading for
+    drafted/graduated players. Quinn Ewers's page showed "Current
+    nowcast #13" with present-tense subhead — but the underlying
+    heisman_rankings_weekly row is from 2024 week 16 (his final
+    college season before being drafted to the Dolphins). New helpers
+    _heisman_lens_title() / _heisman_lens_note() surface the actual
+    season + " · Final" tag for completed seasons.
+
+  PR #85 — fix(audit2 follow-up): prepare-pulse CLI actually reads
+    pulse_state constants. SELF-CAUGHT BUG: PR #82 was a no-op
+    because cli.py prepare-pulse handler imported TOP_ENTITIES_FULL /
+    TOP_ENTITIES_PARTIAL but then hardcoded the old 11-entry slug
+    list inline. Discovered via post-PR-82 verification:
+    team_pulse_cache grew 10 → 10, not 10 → 17 as expected. PR #85
+    replaces the hardcoded list with a comprehension over the
+    constants + a _CONFERENCE_SLUGS classifier set so team-vs-
+    conference distinction auto-derives. Future expansions of either
+    constant propagate immediately.
+
+  PR #88 — fix(audit2 follow-up): Heisman lens latest_week field name
+    SELF-CAUGHT BUG: PR #84 looked for current_snapshot.get("week")
+    but heisman_years dict (built at reporting.py:8132) uses
+    `latest_week` as the field name. Discovered via post-PR-84
+    verification: title correctly switched to "Heisman Lens · 2024
+    Season" but " · Final" tag never appended and the subhead stayed
+    present-tense even on graduated players. One-line fix.
+
+  PR #89 — fix(audit2): og-image — skip empty headline-continuation
+    <text> element. Audit pass 2 finding while checking less-trodden
+    surfaces: /og-image.svg always emits a <text> element at y=400
+    with font-size=72 for the headline's chars 36..72. For "THE CFB
+    INDEX" (13 chars) this becomes an empty element taking up 72px
+    of dead vertical space. Made the continuation block conditional
+    on having actual continuation text (same pattern as subline_block).
+
+Live-site verification (all post-deploy via `git show origin/published:`):
+
+  PR #82 + #85 (pulse coverage):
+    team_pulse_cache rows:        10 → 17  ✓
+    Profiled programs missing pulse:  7 → 0  ✓
+    Sample new content (/teams/florida.html pulse-mood-delta):
+      "Albert and Alberta are waiting. The Swamp gets loud when the
+       signal returns."  ✓ (was "Awaiting Signal" fallback)
+    Pattern B holding for the demoted pulse surfaces:
+      tier1.pulse_lede           23 calls, $0.61, 0 fall-backs
+      tier1.pulse_themes_writer  15 calls, $0.75, 0 fall-backs
+
+  PR #84 + #88 (Heisman lens label):
+    Live /players/quinn-ewers-39300.html section title:
+      Before: "Current Heisman Lens"
+      After:  "Heisman Lens · 2024 Season · Final"
+      Subhead changed from present-tense ("Where he sits right now...")
+      to past-tense ("Where the player landed at the end of the listed
+      season — final nowcast rank...").  ✓
+    Same label applied uniformly to active 2025 prospects (Arch
+    Manning, Julian Sayin) because the Heisman model hasn't run for
+    2025 yet — label is honestly surfacing the 2024 data the page
+    contains, not misrepresenting it as "current".
+
+  PR #89 (og-image):
+    Count of empty <text> at y=400 in /og-image.svg:  1 → 0  ✓
+
+  PR #83 (critic_roles infra):
+    Signature smoke-test confirms both loop_c_critic_revise and
+    loop_e_continuity accept critic_roles=list|None with None default.
+    No live behavior change (intentional — pure infrastructure).
+
+Session totals:
+  Workflow runs fired:  2 world_class_enrich + 3 publish_site
+  Cumulative LLM spend this session: ~$3-4 (Pattern B + chronicle +
+    daily + canon, no Pattern C re-promotions, no flag flips)
+  Total cumulative spend today: ~$26 / $100 console cap (26%)
+  PRs landed: #82, #83, #84, #85, #88, #89  (6 total)
+
+Discipline followed: zero agent dispatches; hard verification gates
+between every PR (caught PRs #82 + #84 as partial-ships and shipped
+#85 + #88 as targeted follow-ups rather than fix-forward); no
+preemptive ceiling tightening; no flag flips; no scope-creep into the
+deferred blockers (canon LLM rewrite, resolve-outcomes pipeline,
+dawidd6 race fix Option B — all left for future sessions per the
+"trust your judgement" but implicit "don't compound flips" boundary).
+
+Blockers carried forward (refined from prior session):
+  HIGH priority:
+    - Pattern C critic-prompt tuning for short-form + JSON surfaces.
+      The PR #83 infrastructure is now in place — passing
+      critic_roles=[CriticRole.VOICE] to loop_c_critic_revise for
+      pulse_lede or critic_roles=[CriticRole.FACTUALITY] for
+      pulse_themes_writer is a 1-line wrapper change once someone
+      decides to re-promote those surfaces from B → C.
+    - canon_top10 + canon_tail generator rewrite (seed → LLM). Flags
+      declared in config since PR #72 but inert until the canon
+      generator gets an LLM caller.
+    - resolve-outcomes / surprise-index pipeline backfill so
+      tier1.best_calls has inputs to operate on.
+    - Heisman model hasn't run for 2025 season — heisman_rankings_weekly
+      has 2020-2024 data only. PR #84 + #88 surface this honestly via
+      labels, but the deeper fix is running run-heisman-model
+      --season 2025 --through-week N once that decision is made.
+  LOW priority:
+    - dawidd6 race fix Option B (DB-backed canonical pointer) — still
+      future-tense; current safeguards (sanity gate + per-surface
+      ceilings) holding.
+    - Daily archive orphans (12 daily/*/index.html on disk vs 5
+      tracked in daily_editions) — hygiene only, not user-facing.
+    - W18 cover essay regenerate (W18 currently shows seed fall-back
+      body; W19 has real Pattern C body since hotfix-13).
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-17 01:46 UTC | Overnight Window-B prep retrospective (Claude solo, no agent dispatches)
 ═══════════════════════════════════════════════════════════════════════
 
