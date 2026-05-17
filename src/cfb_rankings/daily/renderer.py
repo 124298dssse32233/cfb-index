@@ -16,6 +16,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.common.head_chrome import absolute_url
+
 log = logging.getLogger(__name__)
 
 _TEMPLATES_DIR = Path(__file__).parent / "templates"
@@ -238,12 +240,24 @@ def _render_one(
     takes_html = fallback_banner + takes_html
 
     tpl = _load_template()
+    # Distinguish today's edition (canonical /daily/) from archive entries
+    # (/daily/<YYYY-MM-DD>/) so OG share-card canonical URLs are accurate.
+    is_archive_entry = out_path.name != "daily" and out_path.parent.name == "daily"
+    canonical_path = (
+        f"/daily/{edition_date}/" if is_archive_entry else "/daily/"
+    )
     html = tpl.substitute(
         title=f"The Daily — {_long_date(edition_date)}",
         long_date=_long_date(edition_date),
         takes_html=takes_html or "<p>No takes available for this edition.</p>",
         watching_html=_watching_html(),
         archive_links=_archive_links_html(recent_editions),
+        page_description=(
+            f"The Daily for {_long_date(edition_date)} — overnight CFB "
+            f"takes, wire-event reactions, and the day's argument theater."
+        ),
+        page_canonical=absolute_url(canonical_path),
+        og_image_url=absolute_url("/og-image.svg"),
     )
 
     out_path.mkdir(parents=True, exist_ok=True)
