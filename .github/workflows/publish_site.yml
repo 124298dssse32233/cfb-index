@@ -48,6 +48,37 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
+      # Overlay with enrich's DB if it's newer. Background: the prior
+      # `workflow_search: true` step was empirically picking up publish-
+      # site's own previous DB (~348MB) instead of world-class-enrich's
+      # newer one (~355MB with fresh Heisman/savant model output) — the
+      # "dawidd6 race fix Option B" deferred blocker. Explicit workflow:
+      # restricts this overlay to enrich-only, so if enrich ran more
+      # recently than the most-recent publish, its DB overwrites the
+      # baseline downloaded above.
+      #
+      # Safety:
+      #   - continue-on-error: workflow proceeds if this step fails
+      #   - if_no_artifact_found: ignore — silently skip if no enrich
+      #     artifact yet (preserves the baseline DB from step above)
+      #   - workflow_conclusion: success — only consider successful
+      #     enrich runs (avoids picking up a partial DB from a failed
+      #     mid-write)
+      #   - Failure mode is bounded: if both downloads silently fail,
+      #     `Apply migrations + seed` creates a fresh empty DB →
+      #     `build-site` produces near-empty output →
+      #     `Verify build produced fresh pages` catches TEAM_COUNT < 100
+      #     and fails the workflow → no broken push to origin/published.
+      - name: Overlay with enrich's DB if newer (dawidd6 race fix)
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow: world_class_enrich.yml
+          workflow_conclusion: success
+          if_no_artifact_found: ignore
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db
