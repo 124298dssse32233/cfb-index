@@ -16,6 +16,7 @@ import sqlite3
 from pathlib import Path
 from typing import Iterable
 
+from cfb_rankings.common.head_chrome import absolute_url
 from .data import (
     fetch_list_meta, fetch_all_list_metas, fetch_entries,
     CanonListMeta, CanonEntry,
@@ -299,6 +300,9 @@ def render_canon_list(
         mid_entries_html=mid_html,
         footer_entries_section=footer_section,
         methodology_notes=_h(meta.methodology_notes or ""),
+        # OG / Twitter meta-tag support (parallel to PR #99 / #103).
+        page_canonical=absolute_url(f"/canon/{list_slug}.html"),
+        og_image_url=absolute_url("/og-image.svg"),
     )
 
     out_path = canon_dir / f"{list_slug}.html"
@@ -349,6 +353,7 @@ def _write_entry_page(
     else:
         cross_refs_html = ""
 
+    entry_path = f"/canon/{_safe_path_segment(meta.list_slug)}/{_safe_path_segment(e.entity_slug)}.html"
     page = template.format(
         styles_css=styles,
         list_title=_h(meta.title),
@@ -369,6 +374,9 @@ def _write_entry_page(
         prior_year_rank_text=str(e.prior_year_rank) if e.prior_year_rank else "—",
         rank_delta_label=_h(e.rank_delta_label or "—"),
         cross_reference_html=cross_refs_html,
+        # OG / Twitter meta-tag support (parallel to PR #99 / #103).
+        page_canonical=absolute_url(entry_path),
+        og_image_url=absolute_url("/og-image.svg"),
     )
 
     out_path = out_dir / f"{_safe_path_segment(e.entity_slug)}.html"
@@ -416,6 +424,9 @@ def render_canon_index(
         edition_year=edition_year,
         next_revision_year=next_rev,
         list_cards=cards_html,
+        # OG / Twitter meta-tag support (parallel to PR #99 / #103).
+        page_canonical=absolute_url("/canon/"),
+        og_image_url=absolute_url("/og-image.svg"),
     )
     out_path = canon_dir / "index.html"
     out_path.write_text(page, encoding="utf-8")
