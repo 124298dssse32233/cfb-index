@@ -1,5 +1,104 @@
 # Octopus Discover — CFB Index Site-Wide Audit
 
+═══════════════════════════════════════════════════════════════════════
+## REFRESH 2026-05-17 — post-autonomous-session state
+
+_The 2026-05-12 audit content below is preserved for historical reference. This top section captures the delta after the 2026-05-16 → 2026-05-17 autonomous session, which shipped 16 PRs (#82 through #116 inclusive)._
+
+### P0 items fixed since 2026-05-12
+
+  ✓ Homepage "Stub data" copy — already fixed prior to session
+  ✓ Heisman page beta copy "structure is ready for a world-class
+    nowcast" — gone
+  ✓ "Stress point" applied to wins — replaced with "Closest call"
+  ✓ "W15 W18 W20 W21" raw codes as h3 — now "4-0 over the last 4
+    (W15 W18 W20 W21)"
+  ✓ illinois-college broken link — Illinois College team page now
+    builds; link works
+  ✓ Caden Curry "Best defensive case" at #637 — relabeled "Top
+    defender on the board" (PR #98)
+  ✓ "Awaiting Signal · effective-N floor" jargon — already fixed to
+    "publish threshold" copy prior to session
+  ✓ Heisman Lens label mismatch (showed "Current" for graduated
+    players whose data is 2024) — PR #84/#88/#91 surface honest
+    "2024 Season · Final" labels everywhere
+  ✓ Graduated player empty Current Season Production panel — PR
+    #101 made queries per-player target-season, surfacing real
+    last-season stats with honest labels
+  ✓ Internal jargon in profiled team pages ("n=0", "sentience
+    dead-period-summer") — PR #111 scrubbed
+  ✓ Missing skip-link on profiled team pages — PR #115 added
+  ✓ Empty homepage Voices XIII section — PR #110 short-circuits
+  ✓ ISO transfer_date submetric ("2023-12-04T14:01:00.000Z") — PR
+    #109 formats as "Dec 4, 2023"
+  ✓ "percentile points ahead" analyst jargon — PR #108 added
+    fan-readable gloss
+  ✓ og:image / twitter:card missing on player pages — PR #99 added
+    full meta stack; PR #103-#107, #114, #116 completed sweep
+    across every share-bait surface on the site
+
+### Net P0 status
+
+All 9 P0 residues from the prior audit are closed. The two remaining
+items from this segment:
+
+  ⚠ **Heisman 2025 data not reaching publish** — PR #102 fixed the
+    model-runs week lookup. Enrich workflow wrote 15,601 rows for
+    season 2025. BUT publish workflow's
+    `dawidd6/action-download-artifact` default behavior limits
+    artifact search to its own workflow's runs, so it picks up its
+    own previous DB (348MB) instead of enrich's newer one (355MB
+    with the 2025 Heisman data). This is the "dawidd6 race fix
+    Option B" architectural blocker — needs design decision before
+    fix:
+      (a) Add `workflow: world_class_enrich.yml,publish_site.yml`
+          (comma-separated workflows). Untested if dawidd6 v6
+          supports this syntax.
+      (b) DB-backed canonical pointer (release asset, R2 bucket,
+          or branch-tracked latest-db marker that both enrich and
+          publish coordinate on).
+    Until resolved, /heisman/ continues showing 2024 data with
+    honest labels (PR #84/#88/#91 ensure labels match the actual
+    snapshot data, so no fan sees a lie).
+
+  ⚠ **Chronicle card retry failures** in world-class-enrich for 5
+    programs (Florida, Massachusetts, Notre Dame, Oklahoma,
+    Washington). The retry mechanism fails with "claude CLI not on
+    PATH" — workflow env issue, needs investigation of how `claude`
+    is provisioned in CI vs locally. Pattern C validation gates also
+    rejecting AI output for these programs (separate but related
+    issue with strictness).
+
+### P1+ items: see SESSION_LOG for full details
+
+The 2026-05-12 P1/P2/P3 lists below remain accurate for items NOT
+addressed this session. The session focused on P0-tier surgical
+wins with hard verification gates rather than P1+ structural items
+that need user input.
+
+### New issues discovered during session (logged for next session)
+
+- **Nav/footer consistency** — parallel-agent audit surfaced
+  legitimate variance across 7+ page types ("How It Works" vs "The
+  Model" vs "About"; team pages have minimal footer vs homepage's
+  rich one). All editorial design choices — needs user judgment.
+- **`/players/spotlight.html` vs `/players/index.html`** — both
+  exist with different titles ("Players — 2025" vs "Player Cards |
+  2025 Season"). May be intentional product design (two doors to
+  the same data) but the homepage links one, the hub links the
+  other. Worth confirming intent.
+- **Empty `edition_voices` DB table** — homepage Voices section
+  now short-circuits (PR #110) but the underlying editorial
+  workflow seems not to be populating this table.
+- **Node.js 20 GitHub Actions deprecation** — June 2, 2026 forced
+  migration affects ~10 workflow YAML files. Mechanical bulk version
+  bump available when desired.
+- **74+ stale .md files in repo root** — `CLAUDE_CODE_KICKOFF_*.md`,
+  `OVERNIGHT_*.md`, `FIGMA_*.md`, etc. Most are completed-work
+  briefs. Needs user triage to decide archive vs delete.
+
+═══════════════════════════════════════════════════════════════════════
+
 _Phase 1 of the Double Diamond. Read-only. Verifies the 2026-04-22 audit against current site state (2026-05-12), surfaces what's been fixed, what's still broken, and what's new._
 
 **Sample set.** I worked from a representative slice rather than enumerating 69,342 files:
