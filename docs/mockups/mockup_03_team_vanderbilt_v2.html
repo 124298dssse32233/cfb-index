@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" data-program="vanderbilt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vanderbilt — CFB Index (mockup_03_team_vanderbilt_v2)</title>
+  <meta name="description" content="Vanderbilt Commodores football. Founded 1886 — the oldest continuously-operating program in the Deep South.">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Vanderbilt — Not Supposed to Be Here, and Is">
+  <meta property="og:description" content="Founded 1886. The oldest continuously-operating program in the Deep South. 10 bowl appearances. Defiant-academic voice register.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Vanderbilt — Not Supposed to Be Here, and Is">
+  <meta name="twitter:description" content="Founded 1886. The oldest continuously-operating program in the Deep South.">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    /* Program accent (from profiles/vanderbilt.md) */
+    [data-program="vanderbilt"] {
+      --color-accent-primary: #000000;
+      --color-accent-secondary: #CFAE70;
+      --color-accent-on: #FFFFFF;
+    }
+
+    /* Reuse the Alabama scaffold styles; different content makes it Vandy */
+    .program-hero {
+      padding: var(--sp-8) 0 var(--sp-6);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    .program-hero__crest {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-4);
+    }
+    .program-hero__mark {
+      width: 56px; height: 56px;
+      border-radius: var(--radius-md);
+      background: var(--color-accent-primary);
+      color: var(--color-accent-secondary);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.06em;
+    }
+    .program-hero__breadcrumb {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .program-hero__name {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 96px);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      color: var(--color-ink);
+      margin: var(--sp-2) 0 var(--sp-3);
+    }
+    .program-hero__identity {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.4;
+      color: var(--color-text);
+      max-width: 44ch;
+      margin: 0 0 var(--sp-4);
+    }
+    .program-hero__heritage {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-4);
+      max-width: 640px;
+      font-family: var(--font-ui);
+    }
+    @media (min-width: 768px) {
+      .program-hero__heritage { grid-template-columns: repeat(4, 1fr); }
+    }
+    .heritage-fact { display: flex; flex-direction: column; gap: 2px; }
+    .heritage-fact__value {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--color-ink);
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .heritage-fact__label {
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* Rituals strip — empty-state honesty for Tier-B teams */
+    .rituals-placeholder {
+      margin: var(--sp-12) 0 var(--sp-8);
+      padding: var(--sp-6);
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) dashed var(--color-line);
+      border-radius: var(--radius-lg);
+      display: grid;
+      gap: var(--sp-3);
+      max-width: 64ch;
+    }
+    .rituals-placeholder__title {
+      font-family: var(--font-ui);
+      font-size: var(--fs-h3);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+    }
+    .rituals-placeholder__copy {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    /* Pulse module — voice differs by program (defiant-academic) */
+    .pulse {
+      margin: var(--sp-8) 0;
+      padding: var(--sp-6);
+      background: linear-gradient(180deg, #F7F2E5 0%, var(--color-surface-card) 100%);
+      border-radius: var(--radius-lg);
+      border: var(--stroke-hair) solid var(--color-accent-secondary);
+    }
+    .pulse__lede {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.4;
+      font-style: italic;
+    }
+    .pulse__lede strong { font-style: normal; color: var(--color-accent-primary); }
+    .pulse__meta {
+      display: flex;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      margin-top: var(--sp-4);
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+    }
+
+    /* Aspiration ladder — different rungs encode different identity */
+    .ladder {
+      margin: var(--sp-12) 0;
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .ladder__rung {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-4) var(--sp-6);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    .ladder__rung:last-child { border-bottom: 0; }
+    .ladder__rung--current {
+      background: linear-gradient(90deg, #FAF6EC 0%, var(--color-surface-card) 60%);
+    }
+    .ladder__step {
+      font-family: var(--font-tabular);
+      font-size: var(--fs-label);
+      color: var(--color-text-muted); /* WCAG fix: text-subtle was 2.50x */
+      letter-spacing: var(--tracking-label);
+    }
+    .ladder__rung--current .ladder__step { color: var(--color-accent-secondary); font-weight: var(--fw-medium); }
+    .ladder__rung-name {
+      font-family: var(--font-ui);
+      font-size: var(--fs-body);
+      font-weight: var(--fw-medium);
+    }
+    .ladder__context {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      grid-column: 2 / 4;
+      margin-top: 2px;
+    }
+    .ladder__state {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* Chronicle (2-col, but treatment differs from Alabama — softer accent top border) */
+    .chronicle {
+      display: grid;
+      gap: var(--sp-4);
+      grid-template-columns: 1fr;
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) { .chronicle { grid-template-columns: 1fr 1fr; } }
+    .chronicle-card {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-6);
+      border-top: var(--stroke-heavy) solid var(--color-accent-secondary);
+    }
+    .chronicle-card__year {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      color: var(--color-accent-primary);
+    }
+    .chronicle-card__headline {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.2vw, 24px);
+      line-height: 1.25;
+      margin: var(--sp-2) 0 var(--sp-3);
+    }
+    .chronicle-card__body {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+    }
+
+    /* Rivalry */
+    .rivalries {
+      display: grid;
+      gap: var(--sp-3);
+      grid-template-columns: 1fr;
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) { .rivalries { grid-template-columns: repeat(2, 1fr); } }
+    .rivalry-card {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .rivalry-card__tier {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .rivalry-card__name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      margin: var(--sp-1) 0;
+    }
+    .rivalry-card__note {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      line-height: 1.45;
+    }
+
+    .program-section { margin: var(--sp-12) 0; }
+    .program-section__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-6);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__logo">CFB INDEX</div>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="#">Hub</a>
+      <a href="#">Daily</a>
+      <a href="#">Heisman</a>
+      <a href="#">Editions</a>
+      <a href="#" aria-current="page">Teams</a>
+      <a href="#">Methodology</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page" role="main">
+
+    <!-- HERO -->
+    <section class="program-hero" aria-label="Vanderbilt">
+      <div class="program-hero__crest">
+        <div class="program-hero__mark" aria-hidden="true">V</div>
+        <div class="program-hero__breadcrumb">SEC · NASHVILLE · FOUNDED 1886</div>
+      </div>
+      <h1 class="program-hero__name">VANDERBILT</h1>
+      <p class="program-hero__identity">
+        Vanderbilt is the program that is not supposed to be here, and is.
+      </p>
+
+      <div class="program-hero__heritage">
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">0</span>
+          <span class="heritage-fact__label">National titles</span>
+        </div>
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">4</span>
+          <span class="heritage-fact__label">SEC titles (pre-1923)</span>
+        </div>
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">10</span>
+          <span class="heritage-fact__label">Bowl appearances</span>
+        </div>
+        <div class="heritage-fact">
+          <span class="heritage-fact__value">34k</span>
+          <span class="heritage-fact__label">FirstBank Stadium</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERO FINDING (same archetype primitive, different framing) -->
+    <section class="hero-finding" aria-label="This week’s finding for Vanderbilt">
+      <p class="eyebrow">THIS WEEK</p>
+      <div class="hero-finding__number">+11</div>
+      <p class="hero-finding__sentence">
+        Vandy’s belief moved up — the spring rosters that beat Alabama and South Carolina in 2024 are <em>still mostly in the building</em>.
+      </p>
+      <div class="hero-finding__caption">
+        <span class="sample-chip">Sample: 412 mentions · 4 sources · last 7 days</span>
+        <span class="confidence confidence--medium">Medium confidence</span>
+      </div>
+    </section>
+
+    <!-- Pulse — defiant-academic voice register -->
+    <aside class="pulse" aria-label="Pulse">
+      <p class="pulse__lede">
+        <strong>The Commodore is reading.</strong> Vanderbilt trusts its work more than its press. The quiet is part of the plan.
+      </p>
+      <div class="pulse__meta">
+        <span class="sample-chip">Generated Apr 22 · model_version pulse_lede.v3</span>
+        <span class="confidence confidence--medium">Medium confidence</span>
+        <span>Voice register: defiant-academic</span>
+      </div>
+    </aside>
+
+    <!-- Rituals placeholder — Tier-B teams ship empty-state honestly -->
+    <section class="program-section" aria-label="Rituals">
+      <div class="program-section__head">
+        <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
+        <span class="caption">Tier B program — editorial curation in progress</span>
+      </div>
+      <div class="rituals-placeholder">
+        <h3 class="rituals-placeholder__title">Awaiting editorial curation · Sprint v5-8.5</h3>
+        <p class="rituals-placeholder__copy">
+          Tier-B profiles (Vanderbilt, UConn, Massachusetts, Washington) receive 3 ritual entries each in Sprint v5-8.5. The module renders only when the profile YAML has rituals data — never with placeholders. The candidate list below is research for that sprint, not authoritative content.
+        </p>
+        <dl style="font-family: var(--font-serif); font-size: var(--fs-body-sm); line-height: 1.55; color: var(--color-text); margin: var(--sp-3) 0 0 0; display: grid; gap: var(--sp-3);">
+          <div>
+            <dt style="font-family: var(--font-ui); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-amber-800); font-weight: var(--fw-medium);">CANDIDATE 1 · STAR WALK</dt>
+            <dd style="margin: 2px 0 0 0;">The team's pregame walk from the Star Walk gate at the southwest corner of FirstBank Stadium to the locker room. Fans line the rope two-deep on home Saturdays. Started under James Franklin in 2011; survived two coaching changes.</dd>
+          </div>
+          <div>
+            <dt style="font-family: var(--font-ui); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-amber-800); font-weight: var(--fw-medium);">CANDIDATE 2 · ANCHOR DOWN CALL</dt>
+            <dd style="margin: 2px 0 0 0;">The Commodore student section's call-and-response: leader calls "ANCHOR", section answers "DOWN". Repeats on every third down. Adopted from the program's vocab system (see <code>profiles/vanderbilt.md:vocab.greeting</code>).</dd>
+          </div>
+          <div>
+            <dt style="font-family: var(--font-ui); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-amber-800); font-weight: var(--fw-medium);">CANDIDATE 3 · BLACK &amp; GOLD BLACKOUT</dt>
+            <dd style="margin: 2px 0 0 0;">The annual Tennessee-week blackout — student section in black with gold-edged Anchor banners. First explicitly programmed in 2024 for the historic Bama win week; retained for 2025 vs Tennessee.</dd>
+          </div>
+        </dl>
+        <p class="rituals-placeholder__copy" style="font-style: normal; color: var(--color-text-muted); margin-top: var(--sp-4);">
+          The site never invents rituals. These three are candidates pending verification with Vanderbilt athletics media + on-the-ground stringer interviews. The module renders empty until <code>profiles/vanderbilt.md:rituals</code> is populated.
+        </p>
+      </div>
+    </section>
+
+    <!-- Chronicle -->
+    <section class="program-section" aria-label="Chronicle">
+      <div class="program-section__head">
+        <h2 class="section-title">Chronicle<span class="section-title__rule"></span></h2>
+        <span class="caption">Two seasons that defined the modern frame</span>
+      </div>
+      <div class="chronicle">
+        <article class="chronicle-card">
+          <p class="chronicle-card__year">2013</p>
+          <h3 class="chronicle-card__headline">The First Golden Window closes</h3>
+          <p class="chronicle-card__body">
+            James Franklin’s third year. Three straight bowl appearances. First top-25 finish since 1948. Franklin leaves for Penn State the following January. The program would not finish ranked again in the next decade.
+          </p>
+        </article>
+        <article class="chronicle-card">
+          <p class="chronicle-card__year">2024</p>
+          <h3 class="chronicle-card__headline">Three wins in the SEC is real proof of life</h3>
+          <p class="chronicle-card__body">
+            Clark Lea’s fourth year. Beat Alabama in Nashville for the first time since 1984. Beat South Carolina and Auburn in the same month. The League called the wins a scheduling accident. The program called them a standard.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Aspiration ladder — top rung is "Beat the rival", not "National Championship" -->
+    <section class="program-section" aria-label="Aspiration ladder">
+      <div class="program-section__head">
+        <h2 class="section-title">Aspiration ladder<span class="section-title__rule"></span></h2>
+        <span class="caption">What “success” looks like in this building, this season</span>
+      </div>
+      <div class="ladder">
+        <div class="ladder__rung ladder__rung--current">
+          <span class="ladder__step">▶</span>
+          <span class="ladder__rung-name">Beat the rival</span>
+          <span class="ladder__state">Current target</span>
+          <span class="ladder__context">Beat Tennessee in Knoxville or Nashville. Defines the season regardless of record.</span>
+        </div>
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">Bowl eligibility</span>
+          <span class="ladder__state">Threshold</span>
+          <span class="ladder__context">A real threshold, not a ceremonial one — bowl-eligible only 4 times since 2000.</span>
+        </div>
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">Bowl win</span>
+          <span class="ladder__state">Historic</span>
+          <span class="ladder__context">The program’s 4th or 5th bowl win would be a real marker.</span>
+        </div>
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">Top half of the SEC</span>
+          <span class="ladder__state">Unprecedented</span>
+          <span class="ladder__context">SP+ inside the top half of the conference — never in the modern era.</span>
+        </div>
+        <div class="ladder__rung">
+          <span class="ladder__step">·</span>
+          <span class="ladder__rung-name">Ranked season</span>
+          <span class="ladder__state">Dream</span>
+          <span class="ladder__context">Last achieved 2013. Would be historic.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Voice pull-quote — same component, different content -->
+    <blockquote class="pull-quote">
+      The League called it a scheduling accident; the program calls it a standard. Vanderbilt does not apologize for where it plays from.
+      <span class="pull-quote__attribution">From the program profile · defiant-academic voice register</span>
+    </blockquote>
+
+    <!-- Rivalries -->
+    <section class="program-section" aria-label="Rivalries">
+      <div class="program-section__head">
+        <h2 class="section-title">Rivalries<span class="section-title__rule"></span></h2>
+      </div>
+      <div class="rivalries">
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 1 · Oldest rivalry in the South</p>
+          <h3 class="rivalry-card__name">vs. Tennessee</h3>
+          <p class="rivalry-card__note">Since 1892. Tennessee holds the long-series edge; Vanderbilt’s upset years land loud.</p>
+        </article>
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 2 · Kentucky Cup</p>
+          <h3 class="rivalry-card__name">vs. Kentucky</h3>
+          <p class="rivalry-card__note">Annual SEC crossover with shared regional identity.</p>
+        </article>
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 2</p>
+          <h3 class="rivalry-card__name">vs. Ole Miss</h3>
+          <p class="rivalry-card__note">Long SEC West / crossover history; competitive through eras.</p>
+        </article>
+        <article class="rivalry-card">
+          <p class="rivalry-card__tier">Tier 3 · Non-conference</p>
+          <h3 class="rivalry-card__name">vs. Wake Forest</h3>
+          <p class="rivalry-card__note">Academic-peer series.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="methodology-stripe" style="border-top: 0.5px solid var(--color-line); padding-top: 24px; margin-top: 48px; font-family: var(--font-ui); font-size: 11px; color: var(--color-text-muted); display:flex; gap:24px; flex-wrap:wrap;">
+      <span>Profile authored Sonnet · status: draft</span>
+      <span>Voice: defiant-academic · pulse_lede.v3</span>
+      <span>Tier: B (profile-driven distinct)</span>
+      <a href="#" style="color: var(--color-amber-600);">Methodology →</a>
+    </div>
+
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_02_team_alabama_v2.html">← Alabama</a>
+    <a href="mockup_04_daily_v2.html">Daily →</a>
+  </nav>
+  <a class="reading-guide-trigger" href="#reading-guide">Reading guide</a>
+  <aside id="reading-guide" class="reading-guide" aria-label="Reading guide for Vanderbilt mockup">
+    <div class="reading-guide__head">
+      <h2 class="reading-guide__title">How to read this mockup</h2>
+      <a class="reading-guide__close" href="#main">Close</a>
+    </div>
+    <div class="reading-guide__body">
+      <div class="reading-guide__item">
+        <strong>Why Vanderbilt next to Alabama</strong>
+        Same Profile archetype, opposite voice register. Proves the archetype handles the spectrum from dynastic-process (Alabama) to defiant-academic (Vandy) without bespoke renderers per team.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Aspiration ladder, inverted</strong>
+        Alabama's ladder TOPS at "National Championship". Vandy's TOPS at "Beat the rival". The ladder rendering is identical; the data shape is profile-driven. Tier promotion logic (v5-9) handles edge cases.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Rituals empty-state</strong>
+        Tier-B teams (Vandy, UConn, UMass, Washington) get 3 rituals each in v5-8.5 editorial curation. Until then, the module renders an honest dashed-border placeholder. The site NEVER fabricates rituals.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Identity phrase</strong>
+        "Vanderbilt is the program that is not supposed to be here, and is." Not "scrappy underdog" (on the never-use list). The phrasing acknowledges the structural disadvantage without dismissing the football.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Heritage facts</strong>
+        Same four-cell layout as Alabama. "0 national titles" is rendered with the same display font weight as "18" — no hedging. Honest numbers in tabular nums.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Voice register</strong>
+        Footer pulse lede surfaces "Voice register: defiant-academic" as a meta tag. This is for design-system documentation in v5-5.5 — production won't show the register label.
+      </div>
+    </div>
+  </aside>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 03</span>
+</body>
+</html>

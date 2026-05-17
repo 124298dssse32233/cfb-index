@@ -1,0 +1,89 @@
+name: monday-mood-map
+# v5-10e foundation: weekly Monday Mood Map generation.
+# Spec: docs/design-system/30-page-archetypes.md + IMPLEMENTATION_PLAN_v3_iteration.md §H.3.
+# Mockup reference: docs/mockups/mockup_07_monday_mood_map.png (light) and
+#                   docs/mockups/mockup_07c_monday_mood_map_dark.png (dark).
+#
+# Cadence: every Monday 06:00 ET (10:00 UTC during DST, 11:00 UTC during EST).
+# To stay aligned with the editorial promise of "Auto-generated Monday 6am ET",
+# we run at 10:00 UTC year-round and let the post-step adjust display labels.
+#
+# Output artifacts uploaded:
+#   - output/site/assets/share/monday_mood_map.png        (light, default)
+#   - output/site/assets/share/monday_mood_map_dark.png   (dark, iMessage/Slack)
+#
+# A follow-up workflow (NOT shipped here, requires owner X-API credentials)
+# posts the light PNG to X at 09:00 ET. Until that lands, the generated
+# artifacts are committed to the published branch + linked from /hub/.
+on:
+  schedule:
+    - cron: "0 10 * * 1"   # Monday 10:00 UTC (≈ 06:00 ET during DST)
+  workflow_dispatch:
+    inputs:
+      dark_only:
+        description: "Render only the dark variant"
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Pillow
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install Pillow
+
+      - name: Apply migrations
+        env:
+          DATABASE_URL: "sqlite:///./cfb_rankings.db"
+        run: |
+          python manage.py apply-migrations || echo "apply-migrations: best-effort (DB may be empty)"
+
+      - name: Generate Monday Mood Map (light)
+        if: ${{ github.event.inputs.dark_only != 'true' }}
+        env:
+          DATABASE_URL: "sqlite:///./cfb_rankings.db"
+        run: |
+          python manage.py generate-mood-map \
+            --output output/site/assets/share/monday_mood_map.png
+
+      - name: Generate Monday Mood Map (dark)
+        env:
+          DATABASE_URL: "sqlite:///./cfb_rankings.db"
+        run: |
+          python manage.py generate-mood-map --dark \
+            --output output/site/assets/share/monday_mood_map_dark.png
+
+      - name: Verify outputs
+        run: |
+          set -e
+          ls -la output/site/assets/share/
+          for f in output/site/assets/share/monday_mood_map*.png; do
+            size=$(stat -c%s "$f" 2>/dev/null || stat -f%z "$f")
+            if [ "$size" -gt 512000 ]; then
+              echo "FAIL: $f is ${size} bytes, exceeds 500KB budget"
+              exit 1
+            fi
+            echo "OK: $f ($size bytes)"
+          done
+
+      - name: Upload mood-map artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: monday-mood-map-${{ github.run_id }}
+          path: output/site/assets/share/monday_mood_map*.png
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hero Findings Specimen — v5-7.5 generator output</title>
+<link rel="stylesheet" href="_mockup_shared.css">
+<style>
+  body { max-width: 900px; margin: 0 auto; padding: 32px; }
+  .case { margin: 48px 0; padding-top: 24px; border-top: 0.5px solid var(--color-line); }
+  .case h2 { font-family: var(--font-ui); font-size: 13px;
+              letter-spacing: 0.11em; text-transform: uppercase;
+              color: var(--color-text-muted); margin: 0 0 16px; }
+  .empty { font-family: var(--font-serif); font-style: italic;
+            color: var(--color-text-muted); padding: 24px; background: var(--color-surface-card);
+            border: 0.5px solid var(--color-line); border-radius: 6px; }
+</style>
+</head>
+<body>
+  <h1 style="font-family: var(--font-display); font-size: 56px; letter-spacing: 0.02em;">
+    Hero Findings Specimen
+  </h1>
+  <p style="font-family: var(--font-serif); font-size: 17px; color: var(--color-text-muted);
+            max-width: 60ch; margin: 0;">
+    End-to-end output from the three wired v5-7.5 generators
+    (<code>generate_daily_finding</code>,
+    <code>generate_heisman_finding</code>,
+    <code>generate_team_finding</code>) against realistic test data.
+    Each is rendered via <code>render_hero_finding_html</code>.
+    Window A's renderer integration follows the patterns in
+    <a href="../design-system/34-integration-playbook.md">34-integration-playbook.md</a>.
+  </p>
+
+  <div class="case">
+    <h2>Daily — Lead Claim, 3 sources cited</h2>
+    <section class="hero-finding" aria-label="Hero finding">
+  <p class="eyebrow">TODAY&#x27;S LEAD</p>
+  <div class="hero-finding__number">3</div>
+  <p class="hero-finding__sentence">
+    Here's the thing about a slow news Tuesday in May — it's never actually slow.
+  </p>
+  <div class="hero-finding__caption">
+    <span class="sample-chip">Lead take · 2026-05-13</span>
+    <span class="confidence confidence--low">3 sources cited</span>
+  </div>
+</section>
+  </div>
+
+  <div class="case">
+    <h2>Heisman — Race Shift, +18 points across 4 sportsbooks</h2>
+    <section class="hero-finding" aria-label="Hero finding">
+  <p class="eyebrow">THE RACE SHIFT</p>
+  <div class="hero-finding__number">+18</div>
+  <p class="hero-finding__sentence">
+    Drew Allar's market odds tightened <em>18 points</em> against the prior week — the biggest preseason shift in the field.
+  </p>
+  <div class="hero-finding__caption">
+    <span class="sample-chip">Sample: 4 sportsbooks · 2 weeks</span>
+    <span class="confidence confidence--medium">Medium confidence · n=4</span>
+  </div>
+</section>
+  </div>
+
+  <div class="case">
+    <h2>Team Profile — Michigan, mood −15 ("Moore presser")</h2>
+    <section class="hero-finding" aria-label="Hero finding">
+  <p class="eyebrow">THIS WEEK</p>
+  <div class="hero-finding__number">−15</div>
+  <p class="hero-finding__sentence">
+    Belief moved <em>−15 points</em> this week — Moore presser.
+  </p>
+  <div class="hero-finding__caption">
+    <span class="sample-chip">Sample: 3200 mentions · week of 2026-04-22</span>
+    <span class="confidence confidence--high">High confidence · n=3200</span>
+  </div>
+</section>
+  </div>
+
+  <div class="case">
+    <h2>Empty-state demonstration — generators return None when data absent</h2>
+    <p class='empty'>generate_team_finding(team_id=99999) returned: None</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CFB Index — Hub (mockup_01_hub_v2)</title>
+  <meta name="description" content="The Hub. Issue No. 047. 22 Apr 2026. Michigan's belief is at a decade low.">
+
+  <!-- Open Graph + Twitter Card (for iMessage / Slack / Twitter unfurls) -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="The Hub · N° 047 — Michigan's belief is at a decade low">
+  <meta property="og:description" content="Issue 047 · 22 Apr 2026. The Mood Index has Michigan at 58 — its lowest offseason reading since 2014.">
+  <meta property="og:image" content="mockup_07_monday_mood_map.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Hub · N° 047 — Michigan's belief is at a decade low">
+  <meta name="twitter:description" content="The Mood Index has Michigan at 58 — its lowest offseason reading since 2014.">
+  <meta name="twitter:image" content="mockup_07_monday_mood_map.png">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    /* Hub-specific layout */
+    .hub-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-2);
+    }
+    .hub-meta__issue {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.04em;
+    }
+    .hub-meta__date {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+    }
+
+    /* Two-column board for movers + lexicon */
+    .board {
+      display: grid;
+      gap: var(--sp-6);
+      grid-template-columns: 1fr;
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) {
+      .board { grid-template-columns: 1.4fr 1fr; }
+    }
+
+    /* Movers list */
+    .mover {
+      display: grid;
+      grid-template-columns: 24px 1fr auto;
+      align-items: baseline;
+      gap: var(--sp-3);
+      padding: var(--sp-3) 0;
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    .mover:last-child { border-bottom: 0; }
+    .mover__rank {
+      font-family: var(--font-tabular);
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted); /* WCAG fix: text-subtle was 2.50x */
+      text-align: right;
+    }
+    .mover__name {
+      font-family: var(--font-ui);
+      font-size: var(--fs-body);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+    }
+    .mover__reason {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      grid-column: 2 / 4;
+      margin-top: 2px;
+    }
+    .mover__delta { font-size: var(--fs-body); font-weight: var(--fw-medium); }
+
+    /* Lexicon spike list */
+    .lexicon-item {
+      padding: var(--sp-3) 0;
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    .lexicon-item:last-child { border-bottom: 0; }
+    .lexicon-item__phrase {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--fs-body);
+      color: var(--color-ink);
+    }
+    .lexicon-item__phrase::before { content: '"'; }
+    .lexicon-item__phrase::after  { content: '"'; }
+    .lexicon-item__meta {
+      display: flex;
+      gap: var(--sp-3);
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+
+    /* Commiseration card */
+    .commiseration {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-left: var(--stroke-heavy) solid var(--color-amber-400);
+      border-radius: var(--radius-md);
+      padding: var(--sp-6);
+      margin: var(--sp-8) 0;
+    }
+    .commiseration__eyebrow {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-amber-800);
+      font-weight: var(--fw-medium);
+      margin-bottom: var(--sp-2);
+    }
+    .commiseration__body {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      max-width: 56ch;
+    }
+
+    /* Hub cards grid */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-4);
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .cards { grid-template-columns: repeat(3, 1fr); }
+    }
+    .card {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+    .card__headline {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2vw, 24px);
+      letter-spacing: 0.02em;
+      line-height: var(--lh-tight);
+      color: var(--color-ink);
+    }
+    .card__stat {
+      display: flex;
+      align-items: baseline;
+      gap: var(--sp-2);
+    }
+    .card__stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--color-ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .card__stat-label {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      max-width: 18ch;
+    }
+    .card__punchline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      border-top: var(--stroke-hair) solid var(--color-line);
+      padding-top: var(--sp-3);
+    }
+
+    /* Cohort divergence visualization (SVG inline) */
+    .divergence {
+      margin: var(--sp-8) 0;
+    }
+    .divergence-svg {
+      width: 100%;
+      max-width: 640px;
+      height: auto;
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+    }
+
+    /* Methodology footer link */
+    .methodology-stripe {
+      border-top: var(--stroke-hair) solid var(--color-line);
+      padding-top: var(--sp-6);
+      margin-top: var(--sp-12);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-3) var(--sp-6);
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+    }
+    .methodology-stripe a {
+      color: var(--color-amber-600);
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--sp-2) var(--sp-3);
+      margin: calc(-1 * var(--sp-2)) calc(-1 * var(--sp-3));
+      border-radius: var(--radius-sm);
+    }
+    .methodology-stripe a:hover { background: var(--color-amber-50); text-decoration: none; }
+
+    /* Methodology disclosure (Round 28) */
+    .methodology-disclosure {
+      margin-top: var(--sp-12);
+      padding-top: var(--sp-4);
+      border-top: var(--stroke-hair) solid var(--color-line);
+    }
+    .methodology-disclosure > summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-3) var(--sp-4);
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      font-family: var(--font-ui);
+      font-size: var(--fs-body-sm);
+      min-height: 44px;
+    }
+    .methodology-disclosure > summary::-webkit-details-marker { display: none; }
+    .methodology-disclosure > summary::marker { content: ""; }
+    .methodology-disclosure > summary::after {
+      content: "+";
+      color: var(--color-amber-600);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 0;
+    }
+    .methodology-disclosure[open] > summary::after { content: "−"; }
+    .methodology-disclosure > summary:hover { background: var(--color-amber-50); }
+    .methodology-summary__lead { color: var(--color-ink); }
+    .methodology-summary__hint {
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+    }
+    .methodology-disclosure[open] .methodology-summary__hint { display: none; }
+    .methodology-disclosure__body {
+      padding: var(--sp-4) var(--sp-4) var(--sp-6);
+    }
+    .methodology-disclosure__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-4);
+    }
+    @media (min-width: 768px) {
+      .methodology-disclosure__grid { grid-template-columns: 1fr 1fr; }
+    }
+    .methodology-disclosure__label {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-amber-800);
+      font-weight: var(--fw-medium);
+      margin: 0 0 var(--sp-1);
+    }
+    .methodology-disclosure__detail {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      color: var(--color-text);
+      margin: 0;
+    }
+    .methodology-disclosure__more {
+      display: inline-flex;
+      margin-top: var(--sp-4);
+      color: var(--color-amber-600);
+      font-family: var(--font-ui);
+      font-size: var(--fs-body-sm);
+      min-height: 44px;
+      align-items: center;
+      padding: var(--sp-2) var(--sp-3);
+      margin-left: calc(-1 * var(--sp-3));
+      border-radius: var(--radius-sm);
+    }
+    .methodology-disclosure__more:hover { background: var(--color-amber-50); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__logo">CFB INDEX</div>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="#" aria-current="page">Hub</a>
+      <a href="#">Daily</a>
+      <a href="#">Heisman</a>
+      <a href="#">Editions</a>
+      <a href="#">Teams</a>
+      <a href="#">Methodology</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page" role="main">
+
+    <!-- Issue meta -->
+    <div class="hub-meta">
+      <h1 class="hub-meta__issue">The Hub · N° 047</h1>
+      <time class="hub-meta__date" datetime="2026-04-22">22 APR 2026 · MODEL WEEK 21</time>
+    </div>
+
+    <!-- HERO FINDING (the v2-addendum primitive) -->
+    <section class="hero-finding" aria-label="Hero finding">
+      <p class="eyebrow">WHAT THIS WEEK SHOWS</p>
+      <div class="hero-finding__number">58</div>
+      <p class="hero-finding__sentence">
+        Michigan’s Mood Index is at <em>its lowest offseason reading since 2014</em> — a 15-point decline since mid-February.
+      </p>
+      <div class="hero-finding__caption">
+        <span class="sample-chip">Sample: 3,200 mentions · 14 sources · last 7 days</span>
+        <span class="confidence confidence--high">High confidence</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Crossed below the 10-year average on March 14 — the day of the Moore presser.</span>
+      </div>
+    </section>
+
+    <!-- Pull quote drawn from W17 cover essay; identifies the editorial voice -->
+    <blockquote class="pull-quote">
+      Michigan fans are not in denial. They’re reading the room correctly — the Moore presser was a turning point, the portal exits accelerated, and the offseason narrative kept finding new evidence for the same conclusion.
+      <span class="pull-quote__attribution">From the issue N° 047 editor’s note</span>
+    </blockquote>
+
+    <!-- Two-column board: movers + lexicon spikes -->
+    <section class="board" aria-label="This week’s board">
+      <article class="module" aria-labelledby="movers-title">
+        <div class="module__head">
+          <h2 class="module__title" id="movers-title">Movers — past 14 days</h2>
+          <span class="caption">Belief Δ vs. model</span>
+        </div>
+
+        <div class="mover">
+          <span class="mover__rank">1</span>
+          <span class="mover__name">Michigan</span>
+          <span class="mover__delta delta delta--down">−15</span>
+          <span class="mover__reason">First miss of the model in twelve weeks — and the fanbase is the first cohort to read it that way.</span>
+        </div>
+        <div class="mover">
+          <span class="mover__rank">2</span>
+          <span class="mover__name">Oregon</span>
+          <span class="mover__delta delta delta--up">+9</span>
+          <span class="mover__reason">Quietly overtaken Ohio State in three of the four Big Ten cohorts.</span>
+        </div>
+        <div class="mover">
+          <span class="mover__rank">3</span>
+          <span class="mover__name">Alabama</span>
+          <span class="mover__delta delta delta--down">−6</span>
+          <span class="mover__reason">Discussed like an ordinary contender — which Tuscaloosa reads as a sharper cut than losing.</span>
+        </div>
+        <div class="mover">
+          <span class="mover__rank">4</span>
+          <span class="mover__name">Boise State</span>
+          <span class="mover__delta delta delta--up">+5</span>
+          <span class="mover__reason">Post-draft model bump — zero first-rounders out, every starter back.</span>
+        </div>
+        <div class="mover">
+          <span class="mover__rank">5</span>
+          <span class="mover__name">Texas</span>
+          <span class="mover__delta delta delta--down">−2</span>
+          <span class="mover__reason">Four first-round picks gone in 72 hours; the model docked the floor, not the ceiling.</span>
+        </div>
+      </article>
+
+      <article class="module" aria-labelledby="lex-title">
+        <div class="module__head">
+          <h2 class="module__title" id="lex-title">Lexicon spikes — week of Apr 22</h2>
+          <span class="caption">w/w mentions</span>
+        </div>
+
+        <div class="lexicon-item">
+          <div class="lexicon-item__phrase">5-star trust me</div>
+          <div class="lexicon-item__meta">
+            <span class="delta delta--up">+340%</span>
+            <span>1,670 mentions</span>
+            <span>r/OhioStateFootball</span>
+          </div>
+        </div>
+        <div class="lexicon-item">
+          <div class="lexicon-item__phrase">hold the line</div>
+          <div class="lexicon-item__meta">
+            <span class="delta delta--up">+188%</span>
+            <span>3,200 mentions</span>
+            <span>r/MichiganWolverines</span>
+          </div>
+        </div>
+        <div class="lexicon-item">
+          <div class="lexicon-item__phrase">we’re back</div>
+          <div class="lexicon-item__meta">
+            <span class="delta delta--up">+12%</span>
+            <span>47,392 mentions</span>
+            <span>r/Huskers</span>
+          </div>
+        </div>
+        <div class="lexicon-item">
+          <div class="lexicon-item__phrase">in Day we trust</div>
+          <div class="lexicon-item__meta">
+            <span class="delta delta--down">−68%</span>
+            <span>210 mentions</span>
+            <span>r/OhioStateFootball</span>
+          </div>
+        </div>
+        <div class="lexicon-item">
+          <div class="lexicon-item__phrase">Ann Arbor Whitt</div>
+          <div class="lexicon-item__meta">
+            <span class="delta delta--up">+190%</span>
+            <span>390 mentions</span>
+            <span>r/CFB</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Commiseration card -->
+    <aside class="commiseration" aria-label="For Michigan fans">
+      <div class="commiseration__eyebrow">For The Michigan Fans Who Are Still Here</div>
+      <p class="commiseration__body">
+        This is the lowest offseason Michigan has posted since 2014. The 2014 bottom was followed by the Harbaugh hire and a decade-long climb that ended with a championship. History does not promise to repeat — but it does say that the bottom is the place from which Michigan has historically climbed.
+      </p>
+    </aside>
+
+    <!-- Bento cards from W047 cards_json -->
+    <section class="cards" aria-label="This week’s cards">
+      <article class="card">
+        <p class="eyebrow">Nebraska</p>
+        <h3 class="card__headline">NEBRASKA IS NOT BACK</h3>
+        <div class="card__stat">
+          <span class="card__stat-number">47,392</span>
+          <span class="card__stat-label">times Nebraska fans have said “we’re back” this offseason</span>
+        </div>
+        <p class="card__punchline">They are not back.</p>
+      </article>
+
+      <article class="card">
+        <p class="eyebrow">Michigan</p>
+        <h3 class="card__headline">PRESSER WEEK STILL HOLDS</h3>
+        <div class="card__stat">
+          <span class="card__stat-number">−15</span>
+          <span class="card__stat-label">Mood Index points lost the week of the Moore presser</span>
+        </div>
+        <p class="card__punchline">The floor did not collapse. It was removed.</p>
+      </article>
+
+      <article class="card">
+        <p class="eyebrow">Ohio State</p>
+        <h3 class="card__headline">5-STAR TRUST ME</h3>
+        <div class="card__stat">
+          <span class="card__stat-number">+340%</span>
+          <span class="card__stat-label">w/w mentions of the new replacement phrase</span>
+        </div>
+        <p class="card__punchline">“In Day we trust” is dying. The next mantra is already shipping.</p>
+      </article>
+    </section>
+
+    <!-- Cohort divergence chart -->
+    <section class="divergence" aria-label="Cohort divergence">
+      <h2 class="section-title">Where the cohorts disagree<span class="section-title__rule"></span></h2>
+      <p class="caption" style="max-width:52ch; margin-bottom: 16px;">
+        Nine of eleven stat-leaning podcasts have the Big 12 third in their power rankings. Nine of eleven Big 12 fan boards have it fifth — behind the ACC. One of these reads is wrong.
+      </p>
+
+      <svg viewBox="0 0 640 260" class="divergence-svg" role="img" aria-labelledby="div-title div-desc">
+        <title id="div-title">Conference cohort vs fan-board ranking divergence, week of April 22 2026</title>
+        <desc id="div-desc">A bump chart with two columns — stat-cohort rank on the left, fan-cohort rank on the right. Five conferences plotted: SEC stays at #1 in both cohorts; Big Ten stays at #2 in both; Big 12 moves from #3 in stat cohort down to #5 in fan cohort (a two-rank divergence); ACC moves from #5 in stat cohort up to #4 in fan cohort. The two divergence lines (Big 12 and ACC) are emphasized; SEC and Big Ten are shown as dashed flat lines.</desc>
+        <!-- Axes column headers -->
+        <g fill="#444441" font-family="Inter" font-size="10" font-weight="600" letter-spacing="0.08em">
+          <text x="170" y="22" text-anchor="middle">STAT COHORT</text>
+          <text x="470" y="22" text-anchor="middle">FAN COHORT</text>
+        </g>
+        <line x1="170" y1="30" x2="170" y2="232" stroke="#E0DFDB" stroke-width="0.5"/>
+        <line x1="470" y1="30" x2="470" y2="232" stroke="#E0DFDB" stroke-width="0.5"/>
+
+        <!-- background grid: rank lines #1..#9, every other rank labeled -->
+        <g stroke="#E0DFDB" stroke-width="0.5">
+          <line x1="32" y1="50"  x2="608" y2="50"/>
+          <line x1="32" y1="73"  x2="608" y2="73"/>
+          <line x1="32" y1="96"  x2="608" y2="96"/>
+          <line x1="32" y1="119" x2="608" y2="119"/>
+          <line x1="32" y1="142" x2="608" y2="142"/>
+          <line x1="32" y1="165" x2="608" y2="165"/>
+          <line x1="32" y1="188" x2="608" y2="188"/>
+          <line x1="32" y1="211" x2="608" y2="211"/>
+          <line x1="32" y1="234" x2="608" y2="234"/>
+        </g>
+        <!-- y-axis labels — only odd ranks -->
+        <g fill="#6C6C6E" font-family="Inter" font-size="10" text-anchor="end">
+          <text x="22" y="53">#1</text>
+          <text x="22" y="99">#3</text>
+          <text x="22" y="145">#5</text>
+          <text x="22" y="191">#7</text>
+          <text x="22" y="237">#9</text>
+        </g>
+
+        <!-- SEC connector (no divergence — both #1) -->
+        <line x1="170" y1="50" x2="470" y2="50" stroke="#888780" stroke-width="1.5" stroke-dasharray="2 3"/>
+        <circle cx="170" cy="50" r="5" fill="#888780"/>
+        <circle cx="470" cy="50" r="5" fill="#888780"/>
+        <text x="178" y="45" fill="#5F5E5A" font-family="Inter" font-size="10">SEC — both #1 (no divergence)</text>
+
+        <!-- Big Ten connector (#2 stat → #2 fan, flat) -->
+        <line x1="170" y1="73" x2="470" y2="73" stroke="#888780" stroke-width="1.5" stroke-dasharray="2 3"/>
+        <circle cx="170" cy="73" r="5" fill="#888780"/>
+        <circle cx="470" cy="73" r="5" fill="#888780"/>
+        <text x="178" y="68" fill="#5F5E5A" font-family="Inter" font-size="10">Big Ten — both #2</text>
+
+        <!-- Big 12 connector — the divergence line — emphasized -->
+        <line x1="170" y1="96" x2="470" y2="142" stroke="#D85A30" stroke-width="2.5"/>
+        <circle cx="170" cy="96"  r="7" fill="#D85A30"/>
+        <circle cx="470" cy="142" r="7" fill="#D85A30"/>
+        <text x="178" y="91" fill="#993C1D" font-family="Inter" font-size="11" font-weight="500">Big 12 — #3 stat → #5 fan</text>
+
+        <!-- ACC connector — the other divergence -->
+        <line x1="170" y1="142" x2="470" y2="119" stroke="#185FA5" stroke-width="2.5"/>
+        <circle cx="170" cy="142" r="7" fill="#185FA5"/>
+        <circle cx="470" cy="119" r="7" fill="#185FA5"/>
+        <text x="178" y="158" fill="#0C447C" font-family="Inter" font-size="11" font-weight="500">ACC — #5 stat → #4 fan</text>
+      </svg>
+
+      <div class="hero-finding__caption" style="margin-top: 12px;">
+        <span class="sample-chip">11 podcasts · 11 fan boards · methodology v1.0</span>
+        <span class="confidence confidence--medium">Medium confidence</span>
+      </div>
+    </section>
+
+    <!-- Methodology stripe footer with inline disclosure -->
+    <details class="methodology-disclosure">
+      <summary>
+        <span class="methodology-summary__lead">
+          <strong>Methodology · Issue N° 047</strong>
+        </span>
+        <span class="methodology-summary__hint">show the inputs</span>
+      </summary>
+      <div class="methodology-disclosure__body">
+        <div class="methodology-disclosure__grid">
+          <div>
+            <p class="methodology-disclosure__label">COVER</p>
+            <p class="methodology-disclosure__detail">3 editorial sources · curated · sample withheld · source window: Jan–Apr 2026 public record</p>
+          </div>
+          <div>
+            <p class="methodology-disclosure__label">MOOD INDEX</p>
+            <p class="methodology-disclosure__detail">Editorial seed · ET-anchored 7-day window · annotated from <code>event ledger</code> · daily-sentiment window pending volume calibration</p>
+          </div>
+          <div>
+            <p class="methodology-disclosure__label">LEXICON</p>
+            <p class="methodology-disclosure__detail">11 r/CFB subreddits + 7 community boards · w/w mention deltas + spike rank · <code>lexicon_weekly</code> table · editorial gate on every entry</p>
+          </div>
+          <div>
+            <p class="methodology-disclosure__label">COHORT DIVERGENCE</p>
+            <p class="methodology-disclosure__detail">11 stat-leaning podcasts vs 11 fan-leaning community boards · weekly ranking aggregate · medium confidence at current sample size</p>
+          </div>
+        </div>
+        <a href="#" class="methodology-disclosure__more">Full methodology specification →</a>
+      </div>
+    </details>
+
+  </main>
+
+  <footer class="site-footer">
+    <div>The Hub is a weekly publication of CFB Index. Issue N° 047 · 22 Apr 2026. Sources hand-cited per methodology v1.0. Mood scores reflect public conversation only — not vibes.</div>
+  </footer>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a aria-disabled="true" href="#">←</a>
+    <a href="mockup_02_team_alabama_v2.html">Alabama →</a>
+  </nav>
+  <a class="reading-guide-trigger" href="#reading-guide">Reading guide</a>
+  <aside id="reading-guide" class="reading-guide" aria-label="Reading guide for Hub mockup">
+    <div class="reading-guide__head">
+      <h2 class="reading-guide__title">How to read this mockup</h2>
+      <a class="reading-guide__close" href="#main">Close</a>
+    </div>
+    <div class="reading-guide__body">
+      <div class="reading-guide__item">
+        <strong>Hero finding pattern</strong>
+        Every page archetype leads with a finding (number + sentence + caption). This is the v2-addendum's biggest moat-visibility lever — Bloomberg / 538 / NYT Upshot pattern. The "58" is from <code>hub_issue_metadata.id=10</code>.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Movers board</strong>
+        Belief Δ vs the model, not raw rank. Negative numbers in red, positive in green. Italic "reason" lines anchor each delta to a fan-intel signal, not a metric.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Lexicon spikes</strong>
+        Pulled from <code>lexicon_weekly</code>. "5-star trust me" is a real +340% w/w mention from r/OhioStateFootball. The data here is editorial-seeded today; Pattern C generation lands in v5-10e.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Cohort divergence chart</strong>
+        Bump chart, one of the six allowed chart types (v5-5.5 chart vocab spec). Big-12 line is emphasized because it's the real divergence the editorial brief calls out. SEC + Big-Ten are baselines (no divergence) shown dashed.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Commiseration card</strong>
+        Hub-issue editorial unique to this format. Reads as a moment of acknowledgment for the fanbase whose belief moved most negatively. The body is verbatim from <code>commiseration_body</code> in the DB.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Cards (bento)</strong>
+        Each is one anomaly with a stat number + caption + punchline. Pulled from <code>cards_json</code> in the DB. The display font (Bebas Neue) is the editorial register; never use it for UI/data.
+      </div>
+    </div>
+  </aside>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 01</span>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heisman — Preseason 2026 — CFB Index (mockup_05_heisman_v2)</title>
+  <meta name="description" content="Heisman Lens · Preseason 2026 · Allar's market just moved +18 points. The biggest preseason shift since 2017.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Allar's market moved +18 — Heisman Lens, Preseason 2026">
+  <meta property="og:description" content="Biggest preseason shift since 2017. Horse race + bubble watch + historical comparison.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Allar's market moved +18 — Heisman Lens, Preseason 2026">
+  <meta name="twitter:description" content="Biggest preseason shift since 2017. Horse race + bubble watch + historical comparison.">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    /* Dashboard archetype — full-bleed, tighter grid */
+
+    .dash-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-2);
+    }
+    .dash-meta__title { font-family: var(--font-display); font-size: 28px; letter-spacing: 0.04em; }
+    .dash-meta__when {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+    }
+
+    /* Horse-race chart */
+    .horse-race {
+      margin: var(--sp-8) 0;
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-6);
+    }
+    .horse-race__title {
+      font-family: var(--font-ui);
+      font-size: var(--fs-h3);
+      font-weight: var(--fw-medium);
+      margin-bottom: var(--sp-2);
+    }
+    .horse-race-svg {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      max-height: 320px;
+    }
+
+    /* Top-3 board (bigger numbers, lane stripe per candidate) */
+    .top3 {
+      display: grid;
+      gap: var(--sp-3);
+      grid-template-columns: 1fr;
+      margin: var(--sp-6) 0;
+    }
+    @media (min-width: 768px) { .top3 { grid-template-columns: repeat(3, 1fr); } }
+    .candidate {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4) var(--sp-6);
+      border-top: var(--stroke-heavy) solid var(--color-amber-400);
+    }
+    .candidate--silver { border-top-color: var(--color-gray-200); }
+    .candidate--bronze { border-top-color: var(--color-coral-200); }
+    .candidate__rank {
+      font-family: var(--font-display);
+      font-size: 40px;
+      letter-spacing: 0.02em;
+      color: var(--color-ink);
+      line-height: 1;
+    }
+    .candidate__name {
+      font-family: var(--font-serif);
+      font-weight: var(--fw-bold);
+      font-size: clamp(22px, 2.4vw, 26px);
+      line-height: 1.15;
+      margin: var(--sp-1) 0;
+    }
+    .candidate__team {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .candidate__odds {
+      display: flex;
+      align-items: baseline;
+      gap: var(--sp-3);
+      margin-top: var(--sp-3);
+      flex-wrap: wrap;
+    }
+    .candidate__odds-value {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .candidate__odds-label {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+    }
+    .candidate__delta {
+      margin-top: var(--sp-2);
+      font-family: var(--font-tabular);
+      font-size: var(--fs-body-sm);
+    }
+
+    /* Bubble watch — table */
+    .bubble {
+      margin: var(--sp-8) 0;
+    }
+    .bubble__scroller {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      background: var(--color-surface-card);
+    }
+    .bubble-table {
+      min-width: 540px;
+    }
+    .bubble-table th, .bubble-table td {
+      font-size: var(--fs-body-sm);
+    }
+    /* Emphasize the model-vs-market gap column — this is the only column
+       that's genuinely informative (the rest are inputs) */
+    .bubble-table .gap-col {
+      background: var(--color-amber-50);
+      font-weight: var(--fw-medium);
+      border-left: var(--stroke-hair) solid var(--color-amber-100);
+      border-right: var(--stroke-hair) solid var(--color-amber-100);
+    }
+    .bubble-table th.gap-col {
+      color: var(--color-amber-800);
+    }
+    .bubble-table .player {
+      font-family: var(--font-serif);
+      font-weight: var(--fw-bold);
+      font-size: var(--fs-body);
+    }
+    .bubble-table .reason {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-text-muted);
+    }
+
+    /* Historical context strip */
+    .history-strip {
+      margin: var(--sp-8) 0;
+      background: var(--color-amber-50);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-6);
+      border: var(--stroke-hair) solid var(--color-amber-100);
+    }
+    .history-strip__title {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-amber-800);
+      font-weight: var(--fw-medium);
+      margin-bottom: var(--sp-4);
+    }
+    .history-comp {
+      display: grid;
+      gap: var(--sp-4);
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+    @media (min-width: 768px) { .history-comp { grid-template-columns: 1fr 1fr; } }
+    .history-comp__cell { display: grid; gap: 2px; }
+    .history-comp__year {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--color-amber-800);
+      letter-spacing: 0.02em;
+    }
+    .history-comp__name { font-family: var(--font-serif); font-size: var(--fs-body); font-weight: var(--fw-bold); }
+    .history-comp__note { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-body-sm); color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__logo">CFB INDEX</div>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="#">Hub</a>
+      <a href="#">Daily</a>
+      <a href="#" aria-current="page">Heisman</a>
+      <a href="#">Editions</a>
+      <a href="#">Teams</a>
+      <a href="#">Methodology</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page page--wide" role="main">
+
+    <div class="dash-meta">
+      <h1 class="dash-meta__title">HEISMAN LENS — PRESEASON 2026</h1>
+      <span class="dash-meta__when">UPDATED 13 MAY 2026 · OFFSEASON · DRAFT-WEEK CLOSED</span>
+    </div>
+
+    <!-- HERO FINDING — Heisman archetype: race-shift story -->
+    <section class="hero-finding" aria-label="Heisman lead finding">
+      <p class="eyebrow">THE RACE SHIFT</p>
+      <div class="hero-finding__number">+18</div>
+      <p class="hero-finding__sentence">
+        Drew Allar’s market odds tightened <em>18 percentage points</em> after Penn State’s spring footage circulated — the largest preseason market move since 2017.
+      </p>
+      <div class="hero-finding__caption">
+        <span class="sample-chip">Sample: 11 sportsbooks · 4 weeks of betting line history</span>
+        <span class="confidence confidence--medium">Medium confidence · preseason data thin</span>
+      </div>
+    </section>
+
+    <!-- Horse-race chart (bump chart visualization) -->
+    <article class="horse-race" aria-labelledby="race-title">
+      <h2 class="horse-race__title" id="race-title">Where the race stands · weekly market odds</h2>
+      <p class="caption" style="margin-bottom: 16px;">Market-implied probability by week, Apr 1 → May 13, 2026. Lines = market consensus; not the model.</p>
+
+      <svg viewBox="0 0 820 330" class="horse-race-svg" role="img" aria-labelledby="race-svg-title race-svg-desc">
+        <title id="race-svg-title">Heisman Trophy market-implied probability over seven weekly snapshots, April 1 to May 13 2026</title>
+        <desc id="race-svg-desc">A bump chart showing five candidates' market-implied Heisman probabilities by week. Drew Allar (Penn State) climbs from 11% on April 1 to 23.4% on May 13, with the steepest move (+10 points) coming the week of April 29 when Penn State spring footage circulated. CJ Carr (Notre Dame) holds steady around 17%. Julian Sayin (Ohio State) climbs slowly from 8% to 11.2%. Jeremiyah Love (Notre Dame, RB) drifts down from 11% to 6.8%. Bryce Underwood (Michigan) is volatile between 5% and 9% with no clear trend, ending at 5.5%. A dashed vertical annotation at April 29 marks the inflection point.</desc>
+        <!-- background grid (y at 25%/20%/15%/10%/5%) -->
+        <g stroke="#E0DFDB" stroke-width="0.5">
+          <line x1="60" y1="40"  x2="700" y2="40"/>
+          <line x1="60" y1="100" x2="700" y2="100"/>
+          <line x1="60" y1="160" x2="700" y2="160"/>
+          <line x1="60" y1="220" x2="700" y2="220"/>
+          <line x1="60" y1="280" x2="700" y2="280"/>
+        </g>
+
+        <!-- y axis: probability -->
+        <g fill="#6C6C6E" font-family="Inter" font-size="10">
+          <text x="50" y="44"  text-anchor="end">25%</text>
+          <text x="50" y="104" text-anchor="end">20%</text>
+          <text x="50" y="164" text-anchor="end">15%</text>
+          <text x="50" y="224" text-anchor="end">10%</text>
+          <text x="50" y="284" text-anchor="end">5%</text>
+        </g>
+
+        <!-- x axis: weekly snapshots at x = 80, 183.33, 286.67, 390, 493.33, 596.67, 700 -->
+        <g fill="#6C6C6E" font-family="Inter" font-size="10" text-anchor="middle">
+          <text x="80"  y="304">APR 1</text>
+          <text x="287" y="304">APR 15</text>
+          <text x="493" y="304">APR 29</text>
+          <text x="700" y="304">MAY 13</text>
+        </g>
+
+        <!-- Annotation: PSU spring footage circulated week of Apr 29 (x=493) -->
+        <!-- Background tint band to make the inflection moment unmistakable -->
+        <rect x="478" y="40" width="30" height="250" fill="#FAEEDA" opacity="0.5"/>
+        <line x1="493" y1="40" x2="493" y2="290" stroke="#BA7517" stroke-width="1" stroke-dasharray="4 3"/>
+        <!-- Callout box anchored above the line -->
+        <rect x="455" y="14" width="80" height="22" rx="11" fill="#854F0B"/>
+        <text x="495" y="29" fill="#FAEEDA" font-family="Inter" font-size="10" font-weight="700" text-anchor="middle">APR 29 · INFLECTION</text>
+        <text x="498" y="51" fill="#854F0B" font-family="Inter" font-size="9.5" font-style="italic">PSU spring footage circulates</text>
+
+        <!-- ALLAR (gold, rising — emphasized 3px stroke) -->
+        <polyline fill="none" stroke="#BA7517" stroke-width="3"
+          points="80,180 183,160 287,142 390,118 493,85 597,65 700,48"/>
+        <circle cx="700" cy="48" r="5.5" fill="#BA7517"/>
+        <text x="708" y="52" fill="#854F0B" font-family="Inter" font-size="11" font-weight="600">Drew Allar · PSU</text>
+        <text x="708" y="64" fill="#854F0B" font-family="Inter" font-size="9.5">23.4%</text>
+
+        <!-- CARR (navy, steady) -->
+        <polyline fill="none" stroke="#185FA5" stroke-width="2.5"
+          points="80,90 183,95 287,98 390,103 493,108 597,112 700,115"/>
+        <circle cx="700" cy="115" r="5" fill="#185FA5"/>
+        <text x="708" y="118" fill="#0C447C" font-family="Inter" font-size="11" font-weight="500">CJ Carr · ND</text>
+        <text x="708" y="130" fill="#0C447C" font-family="Inter" font-size="9.5">17.0%</text>
+
+        <!-- SAYIN (green, slow climb) -->
+        <polyline fill="none" stroke="#0F6E56" stroke-width="2"
+          points="80,210 183,202 287,196 390,186 493,176 597,168 700,160"/>
+        <circle cx="700" cy="160" r="5" fill="#0F6E56"/>
+        <text x="708" y="155" fill="#085041" font-family="Inter" font-size="11">Julian Sayin · OSU</text>
+        <text x="708" y="167" fill="#085041" font-family="Inter" font-size="9.5">11.2%</text>
+
+        <!-- LOVE (gray, drift) -->
+        <polyline fill="none" stroke="#888780" stroke-width="2"
+          points="80,135 183,142 287,150 390,162 493,172 597,184 700,195"/>
+        <circle cx="700" cy="195" r="5" fill="#888780"/>
+        <text x="708" y="198" fill="#5F5E5A" font-family="Inter" font-size="11">Jeremiyah Love · ND</text>
+        <text x="708" y="210" fill="#5F5E5A" font-family="Inter" font-size="9.5">6.8%</text>
+
+        <!-- UNDERWOOD (coral, volatile) — dashed for CVD distinction from Allar's amber -->
+        <polyline fill="none" stroke="#D85A30" stroke-width="2" stroke-dasharray="6 3"
+          points="80,255 183,228 287,236 390,212 493,232 597,210 700,222"/>
+        <circle cx="700" cy="222" r="5" fill="#D85A30"/>
+        <text x="708" y="225" fill="#993C1D" font-family="Inter" font-size="11">Bryce Underwood · UM</text>
+        <text x="708" y="237" fill="#993C1D" font-family="Inter" font-size="9.5">5.5%</text>
+      </svg>
+
+      <p class="caption" style="margin-top: 12px;">
+        Market data: 11 sportsbooks aggregated · sample fluctuates daily · sample-size confidence: <span class="confidence confidence--medium">medium</span>
+      </p>
+    </article>
+
+    <!-- Top 3 board -->
+    <section class="top3" aria-label="Top-3 board">
+      <article class="candidate">
+        <div class="candidate__rank">1</div>
+        <h3 class="candidate__name">Drew Allar</h3>
+        <p class="candidate__team">QB · Penn State · Senior</p>
+        <div class="candidate__odds">
+          <span class="candidate__odds-value">23.4%</span>
+          <span class="candidate__odds-label">Market-implied · +325</span>
+        </div>
+        <div class="candidate__delta delta delta--up">+18.2 pts since Apr 1</div>
+      </article>
+      <article class="candidate candidate--silver">
+        <div class="candidate__rank">2</div>
+        <h3 class="candidate__name">CJ Carr</h3>
+        <p class="candidate__team">QB · Notre Dame · Sophomore</p>
+        <div class="candidate__odds">
+          <span class="candidate__odds-value">17.0%</span>
+          <span class="candidate__odds-label">Market-implied · +490</span>
+        </div>
+        <div class="candidate__delta delta delta--down">−2.4 pts since Apr 1</div>
+      </article>
+      <article class="candidate candidate--bronze">
+        <div class="candidate__rank">3</div>
+        <h3 class="candidate__name">Julian Sayin</h3>
+        <p class="candidate__team">QB · Ohio State · Sophomore</p>
+        <div class="candidate__odds">
+          <span class="candidate__odds-value">11.2%</span>
+          <span class="candidate__odds-label">Market-implied · +800</span>
+        </div>
+        <div class="candidate__delta delta delta--up">+4.1 pts since Apr 1</div>
+      </article>
+    </section>
+
+    <!-- Bubble watch -->
+    <section class="bubble" aria-labelledby="bubble-title">
+      <h2 class="section-title" id="bubble-title">Bubble watch<span class="section-title__rule"></span></h2>
+      <p class="caption" style="max-width: 56ch; margin-bottom: 16px;">
+        Five candidates whose market odds rest below the top three but whose spring evidence runs ahead of where the market currently has them.
+      </p>
+
+      <div class="bubble__scroller">
+      <table class="data-table bubble-table">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Pos / Team</th>
+            <th class="numeric">Market %</th>
+            <th class="numeric">Model %</th>
+            <th class="numeric gap-col" scope="col">Gap</th>
+            <th>Why watch</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="player">Jeremiyah Love</td>
+            <td>RB · Notre Dame</td>
+            <td class="numeric">6.8%</td>
+            <td class="numeric">12.1%</td>
+            <td class="numeric gap-col"><span class="delta delta--up">+5.3</span></td>
+            <td class="reason">RBs are a structurally undervalued Heisman cohort. Love’s usage role is the cleanest in the country.</td>
+          </tr>
+          <tr>
+            <td class="player">Bryce Underwood</td>
+            <td>QB · Michigan</td>
+            <td class="numeric">5.5%</td>
+            <td class="numeric">3.2%</td>
+            <td class="numeric gap-col"><span class="delta delta--down">−2.3</span></td>
+            <td class="reason">Market is paying for the hype; the model is paying for the production.</td>
+          </tr>
+          <tr>
+            <td class="player">Arch Manning</td>
+            <td>QB · Texas</td>
+            <td class="numeric">9.2%</td>
+            <td class="numeric">6.4%</td>
+            <td class="numeric gap-col"><span class="delta delta--down">−2.8</span></td>
+            <td class="reason">Brand premium. Production gap from the OL departures is real.</td>
+          </tr>
+          <tr>
+            <td class="player">Cade Klubnik</td>
+            <td>QB · Clemson</td>
+            <td class="numeric">3.1%</td>
+            <td class="numeric">7.5%</td>
+            <td class="numeric gap-col"><span class="delta delta--up">+4.4</span></td>
+            <td class="reason">Best returning ACC QB by Pro Football Focus’ aggregate. Market hasn’t caught up.</td>
+          </tr>
+          <tr>
+            <td class="player">Garrett Nussmeier</td>
+            <td>QB · LSU</td>
+            <td class="numeric">4.0%</td>
+            <td class="numeric">6.8%</td>
+            <td class="numeric gap-col"><span class="delta delta--up">+2.8</span></td>
+            <td class="reason">Tigers’ OL retained four of five; Death Valley night schedule is built for him.</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="caption" style="margin-top: 12px;">
+        Model: latent_score blended Bayesian over 2024-25 production + 2026 spring signal · sample sizes flagged on hover (mockup: not interactive). Table scrolls horizontally on mobile.
+      </p>
+    </section>
+
+    <!-- Historical comparison -->
+    <aside class="history-strip" aria-label="Historical comparison">
+      <p class="history-strip__title">Closest historical comp to Drew Allar’s preseason trajectory</p>
+      <div class="history-comp">
+        <div class="history-comp__cell">
+          <span class="history-comp__year">2022</span>
+          <span class="history-comp__name">Caleb Williams · USC</span>
+          <span class="history-comp__note">Identical preseason market-shift profile (+18 pts on spring footage). Won the Heisman in December.</span>
+        </div>
+        <div class="history-comp__cell">
+          <span class="history-comp__year">2021</span>
+          <span class="history-comp__name">CJ Stroud · Ohio State</span>
+          <span class="history-comp__note">Similar pre-Week-1 shape; finished 4th in voting. Preseason hype on QBs converts ~40% of the time.</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Methodology footer -->
+    <div class="methodology-stripe" style="border-top: 0.5px solid var(--color-line); padding-top: 24px; margin-top: 48px; font-family: var(--font-ui); font-size: 11px; color: var(--color-text-muted); display:flex; gap:24px; flex-wrap:wrap;">
+      <span>Heisman Lens: model_version v2.4 · run weekly during off-season</span>
+      <span>Markets: 11 sportsbooks, ET-anchored daily window</span>
+      <span>Empty-state honored: bubble shown only when ≥4 candidates have ≥2 weeks of sample</span>
+      <a href="#" style="color: var(--color-amber-600);">Methodology →</a>
+    </div>
+
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_04_daily_v2.html">← Daily</a>
+    <a href="mockup_06_saturday_strip.html">Strip →</a>
+  </nav>
+  <a class="reading-guide-trigger" href="#reading-guide">Reading guide</a>
+  <aside id="reading-guide" class="reading-guide" aria-label="Reading guide for Heisman mockup">
+    <div class="reading-guide__head">
+      <h2 class="reading-guide__title">How to read this mockup</h2>
+      <a class="reading-guide__close" href="#main">Close</a>
+    </div>
+    <div class="reading-guide__body">
+      <div class="reading-guide__item">
+        <strong>HONEST CAVEAT</strong>
+        <code>heisman_rankings_weekly</code> and <code>heisman_market_odds_weekly</code> are 0-row in this DB snapshot. Names below are real 2026 candidates (Allar from W14 cover essay; Carr, Sayin, Love, Underwood from public context), but the % values are illustrative. The archetype IA is valid; the data pipeline lights it up when the model runs.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Horse-race chart</strong>
+        Bump chart — one of the six allowed chart types. Seven weekly snapshots Apr 1 → May 13. Stroke weight encodes the lead candidate (Allar at 3px, others at 2.5/2px). Dashed annotation at Apr 29 marks the inflection.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Hero finding "+18"</strong>
+        Race-shift narrative — the biggest weekly mover. This is the kind of finding that produces a share-card; see mockup_08 for the dark-mode OG render.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Top-3 board</strong>
+        Gold / silver / bronze top borders. Display font for the rank, serif bold for the name, Inter for the team metadata. Delta uses the system delta--up/down components.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Bubble watch table</strong>
+        Model-vs-market gap is the genuinely interesting column. "Watch" criteria documented in the methodology spec. On mobile the table scrolls horizontally — caught in Round 0 verification.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Historical comparison</strong>
+        2022 Caleb Williams + 2021 CJ Stroud — actual closest comp matches by preseason trajectory shape. Empty-state honored: this module renders only when ≥1 historical comp clears the similarity threshold.
+      </div>
+    </div>
+  </aside>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 05</span>
+</body>
+</html>

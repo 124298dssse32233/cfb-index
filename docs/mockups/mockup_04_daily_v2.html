@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daily — 13 May 2026 — CFB Index (mockup_04_daily_v2)</title>
+  <meta name="description" content="The Daily · 13 May 2026 · The wire came in quiet. The portal got loud. Three takes with full citation receipts.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Dead Air at the Top · The Daily, 13 May 2026">
+  <meta property="og:description" content="The wire came in quiet. The portal got loud. Three takes, 5 cited sources. The receipt pattern in production.">
+  <meta property="article:published_time" content="2026-05-13T06:14:00-04:00">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dead Air at the Top · The Daily, 13 May 2026">
+  <meta name="twitter:description" content="The wire came in quiet. The portal got loud. Three takes, 5 cited sources.">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    /* Article archetype — narrower column, larger body font */
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--sp-6) clamp(16px, 4vw, 32px);
+    }
+
+    .article__eyebrow {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: var(--sp-6);
+    }
+    .article__date {
+      font-family: var(--font-tabular);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* Auto-summary at top (v5-7.6 — Pattern A LLM call, cached) */
+    .auto-summary {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-left: 2px solid var(--color-navy-400);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4) var(--sp-6);
+      margin: var(--sp-6) 0 var(--sp-8);
+    }
+    .auto-summary__title {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-navy-600);
+      margin-bottom: var(--sp-2);
+      font-weight: var(--fw-medium);
+    }
+    .auto-summary__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--sp-2);
+    }
+    .auto-summary__list li {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body);
+      line-height: 1.45;
+      padding-left: var(--sp-4);
+      position: relative;
+    }
+    .auto-summary__list li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--color-navy-400);
+      font-weight: var(--fw-bold);
+    }
+    .auto-summary__meta {
+      font-family: var(--font-ui);
+      font-size: var(--fs-micro);
+      color: var(--color-text-muted);
+      margin-top: var(--sp-3);
+    }
+
+    /* Take cards — three ranked daily takes */
+    .take {
+      margin: var(--sp-12) 0;
+      padding-top: var(--sp-6);
+      border-top: var(--stroke-heavy) solid var(--color-amber-400);
+    }
+    .take--rank-2 { border-top-color: var(--color-navy-400); }
+    .take--rank-3 { border-top-color: var(--color-gray-400); }
+
+    .take__rank {
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: var(--color-amber-600);
+    }
+    .take--rank-2 .take__rank { color: var(--color-navy-600); }
+    .take--rank-3 .take__rank { color: var(--color-gray-600); }
+
+    .take__headline {
+      font-family: var(--font-serif);
+      font-weight: var(--fw-bold);
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin: var(--sp-3) 0 var(--sp-4);
+    }
+    .take__lede {
+      font-family: var(--font-serif);
+      font-size: clamp(17px, 1.6vw, 19px);
+      line-height: 1.55;
+      color: var(--color-text);
+    }
+    .take__lede p { margin: 0 0 var(--sp-4); }
+
+    /* Drop cap on first take (Bloomberg / Athletic) */
+    .take--rank-1 .take__lede > p:first-child::first-letter {
+      font-family: var(--font-display);
+      float: left;
+      font-size: 70px;
+      line-height: 0.85;
+      padding: 4px 8px 0 0;
+      color: var(--color-amber-600);
+    }
+
+    /* Inline share-card preview component (Round 30, v5-10e ref) */
+    .inline-share {
+      margin: var(--sp-12) 0;
+      padding: var(--sp-4);
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+    }
+    .inline-share__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--sp-3);
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+    }
+    .inline-share__label {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-amber-800);
+      font-weight: var(--fw-medium);
+      margin: 0;
+    }
+    .inline-share__hint {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+    }
+    /* The card itself — dark surface scoped via .share-card local override */
+    .inline-share__card.share-card {
+      --color-text: #F4F2EC;
+      --color-text-muted: #B4B2A9;
+      --color-surface: #1A1A18;
+      background: #1A1A18;
+      color: var(--color-text);
+      padding: 18px 22px;
+      border-radius: var(--radius-md);
+      aspect-ratio: 1200 / 630;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 8px;
+      overflow: hidden;
+      max-width: 600px;
+    }
+    .inline-share__masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--color-amber-100);
+    }
+    .inline-share__masthead small {
+      font-size: 10px;
+      font-family: var(--font-ui);
+      color: var(--color-text-muted);
+      letter-spacing: 0.10em;
+    }
+    .inline-share__hero {
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+    }
+    .inline-share__hero strong {
+      color: var(--color-amber-100);
+      font-weight: 400;
+    }
+    .inline-share__foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+    }
+    .inline-share__url {
+      color: var(--color-amber-100);
+      font-weight: 600;
+    }
+    .inline-share__actions {
+      display: flex;
+      gap: var(--sp-2);
+      margin-top: var(--sp-3);
+      flex-wrap: wrap;
+    }
+    .inline-share__btn {
+      font-family: var(--font-ui);
+      font-size: var(--fs-body-sm);
+      padding: var(--sp-2) var(--sp-4);
+      min-height: 44px;
+      background: var(--color-surface);
+      border: var(--stroke-std) solid var(--color-line);
+      border-radius: var(--radius-full);
+      color: var(--color-ink);
+      cursor: pointer;
+    }
+    .inline-share__btn:hover { background: var(--color-amber-50); }
+    .inline-share__btn--primary {
+      background: var(--color-ink);
+      color: var(--color-surface);
+      border-color: var(--color-ink);
+    }
+    .inline-share__btn--primary:hover { background: var(--color-amber-800); }
+
+    /* Sources strip for each take */
+    .take__sources {
+      display: flex;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      margin-top: var(--sp-4);
+      padding-top: var(--sp-3);
+      border-top: var(--stroke-hair) solid var(--color-line);
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+    }
+    .take__sources strong { font-weight: var(--fw-medium); color: var(--color-text); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__logo">CFB INDEX</div>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="#">Hub</a>
+      <a href="#" aria-current="page">Daily</a>
+      <a href="#">Heisman</a>
+      <a href="#">Editions</a>
+      <a href="#">Teams</a>
+      <a href="#">Methodology</a>
+    </nav>
+  </header>
+
+  <main id="main" class="article" role="main">
+
+    <p class="article__eyebrow">THE DAILY</p>
+    <h1 class="visually-hidden">The Daily · 13 May 2026 · No. 213</h1>
+    <p class="article__date" aria-hidden="true">Wednesday · 13 MAY 2026 · No. 213</p>
+
+    <!-- HERO FINDING (Daily archetype) — lead claim pulled forward -->
+    <section class="hero-finding" aria-label="Lead finding">
+      <p class="eyebrow">TODAY’S LEAD</p>
+      <div class="hero-finding__number">0</div>
+      <p class="hero-finding__sentence">
+        Zero wire entries cleared the threshold overnight. The <em>portal’s second window is doing its loudest work in DMs</em>.
+      </p>
+      <div class="hero-finding__caption">
+        <span class="sample-chip">Inputs: 0 wire · 0 thread · 0 receipts · daily_inputs_snapshot</span>
+        <span class="confidence confidence--high">High confidence</span>
+      </div>
+    </section>
+
+    <!-- Auto-summary (v5-7.6 — at top of every article-archetype page) -->
+    <aside class="auto-summary" aria-label="30-second summary">
+      <p class="auto-summary__title">30-second summary</p>
+      <ul class="auto-summary__list">
+        <li>The wire came in empty — but May silence is when programs do their quietest, most consequential roster work.</li>
+        <li>The analytics crowd and the die-hards are watching the same offseason and seeing two different sports. Both are right about pieces of it.</li>
+        <li>Don’t mistake the dead zone for inactivity. Coaching staffs are locking summer evaluation lists this week.</li>
+      </ul>
+      <p class="auto-summary__meta">Auto-generated · model_version daily_summary.v2 · cached 4h</p>
+    </aside>
+
+    <!-- TAKE #1 -->
+    <article class="take take--rank-1">
+      <p class="take__rank">LEAD · No. 1</p>
+      <h2 class="take__headline">Dead Air at the Top: When the Wire Goes Quiet, the Portal Gets Loud</h2>
+      <div class="take__lede">
+        <p>
+          Here’s the thing about a slow news Tuesday in May — it’s never actually slow. It just means the movement is happening in DMs, in commitment-room conversations, and in depth-chart footnotes that haven’t been publicly acknowledged yet.<a class="cite" href="#cite-1" aria-describedby="cite-1">¹</a> The sport doesn’t take days off; it takes days underground.
+        </p>
+        <p>
+          No single story detonated overnight, which, honestly, tracks for this stretch of the calendar. Spring games are in the rearview, official visits haven’t fully ramped, and programs are doing that quiet roster surgery that doesn’t make headlines until someone flips a crystal ball or a beat writer tweets a one-line confirmation.<a class="cite" href="#cite-2" aria-describedby="cite-2">²</a> As <em>Ty Hildenbrandt</em> framed it on Solid Verbal this week, the second portal window’s real action started forty-eight hours after the door closed.<a class="cite" href="#cite-3" aria-describedby="cite-3">³</a>
+        </p>
+      </div>
+      <div class="take__sources">
+        <span><strong>3 sources cited:</strong></span>
+        <span>The Athletic · Solid Verbal · Ty Hildenbrandt</span>
+      </div>
+    </article>
+
+    <!-- Pull quote -->
+    <blockquote class="pull-quote">
+      The dead zone is the sport’s most consequential work week. The programs that understand roster construction don’t need a news cycle to move — they use the silence.
+      <span class="pull-quote__attribution">From the lead take</span>
+    </blockquote>
+
+    <!-- Inline share-card preview (v5-10e component reference) -->
+    <aside class="inline-share" aria-label="Share this quote">
+      <div class="inline-share__head">
+        <p class="inline-share__label">PREVIEW · SHARE THIS QUOTE</p>
+        <span class="inline-share__hint">how it'll appear in iMessage / Slack / Twitter</span>
+      </div>
+      <div class="inline-share__card share-card">
+        <div class="inline-share__masthead">
+          CFB INDEX
+          <small>DAILY · 13 MAY</small>
+        </div>
+        <div class="inline-share__hero">
+          <strong>“</strong>The dead zone is the sport’s most consequential work week.<strong>”</strong>
+        </div>
+        <div class="inline-share__foot">
+          <span>Lead take · 3 sources cited</span>
+          <span class="inline-share__url">/daily/2026-05-13</span>
+        </div>
+      </div>
+      <div class="inline-share__actions">
+        <button type="button" class="inline-share__btn">Copy quote</button>
+        <button type="button" class="inline-share__btn">Copy card</button>
+        <button type="button" class="inline-share__btn inline-share__btn--primary">Share →</button>
+      </div>
+    </aside>
+
+    <!-- TAKE #2 -->
+    <article class="take take--rank-2">
+      <p class="take__rank">SUPPORTING · No. 2</p>
+      <h2 class="take__headline">The Stat Guys and the Die-Hards Are Watching the Same Offseason and Seeing Completely Different Sports</h2>
+      <div class="take__lede">
+        <p>
+          There’s a real split happening right now in how people are processing the 2026 college football landscape, and it’s more pronounced than usual. The analytics crowd is leaning hard into transfer-portal efficiency metrics and returning-production percentages — the kind of framing <em>Stewart Mandel</em> has been threading into his offseason notebooks at The Athletic, where the argument is basically: roster construction is the sport now.<a class="cite" href="#cite-4" aria-describedby="cite-4">⁴</a>
+        </p>
+        <p>
+          Meanwhile, the die-hards on the boards aren’t wrong to push back. They’re watching spring practices, reading body language in coach-speak, and trusting their own eyes over a percentile.<a class="cite" href="#cite-5" aria-describedby="cite-5">⁵</a> Both reads are correct about different things; the gap between them is the offseason’s most interesting fault line.
+        </p>
+      </div>
+      <div class="take__sources">
+        <span><strong>2 sources cited:</strong></span>
+        <span>The Athletic (Stewart Mandel) · Solid Verbal</span>
+      </div>
+    </article>
+
+    <!-- TAKE #3 -->
+    <article class="take take--rank-3">
+      <p class="take__rank">BURIED LEDE · No. 3</p>
+      <h2 class="take__headline">The Offseason Quiet Is Lying to You</h2>
+      <div class="take__lede">
+        <p>
+          We are deep in the dead zone — no wire movement, no pulse spikes, no surprise receipts dropping — and that is precisely when the sport does its most consequential work. The programs that understand roster construction don’t need a news cycle to move. They use the silence.
+        </p>
+        <p>
+          As <em>Stewart Mandel</em> has written repeatedly in The Athletic, the May lull is when coaching staffs finalize their summer evaluation lists and identify which portal targets need a second call before June rosters lock.<a class="cite" href="#cite-4" aria-describedby="cite-4">⁴</a> Meanwhile, over at Solid Verbal, Ty Hildenbrandt and Dan Rubenstein have hammered this point all spring: the teams whose offseason looks the quietest are usually the ones that have already finished moving.<a class="cite" href="#cite-3" aria-describedby="cite-3">³</a>
+        </p>
+      </div>
+      <div class="take__sources">
+        <span><strong>2 sources cited:</strong></span>
+        <span>The Athletic · Solid Verbal</span>
+      </div>
+    </article>
+
+    <!-- Receipt pattern footer — Wikipedia-style citation list -->
+    <section class="citations" aria-label="Sources">
+      <p class="citations__title">Sources</p>
+      <ol class="citations__list" style="list-style: none; counter-reset: cite;">
+        <li id="cite-1">
+          <span class="citations__marker">[1]</span>
+          <span><strong>The Athletic</strong> · Stewart Mandel · “Offseason notebook: the May lull and what it actually means” · May 12, 2026</span>
+        </li>
+        <li id="cite-2">
+          <span class="citations__marker">[2]</span>
+          <span><strong>247Sports</strong> · Crystal-ball confirmations dashboard · pulled May 13, 2026 06:14 ET</span>
+        </li>
+        <li id="cite-3">
+          <span class="citations__marker">[3]</span>
+          <span><strong>The Solid Verbal</strong> · Ty Hildenbrandt &amp; Dan Rubenstein · “Portal Two, Quietly” · podcast episode, May 11, 2026</span>
+        </li>
+        <li id="cite-4">
+          <span class="citations__marker">[4]</span>
+          <span><strong>The Athletic</strong> · Stewart Mandel · “Why roster construction is the sport now” · column series, Apr–May 2026</span>
+        </li>
+        <li id="cite-5">
+          <span class="citations__marker">[5]</span>
+          <span><strong>r/CFB</strong> · cross-fanbase thread · “Boards vs. metrics: who’s reading May correctly?” · 318 replies · May 12, 2026</span>
+        </li>
+      </ol>
+      <p class="caption" style="margin-top: 24px;">
+        Every claim attributed inline. No silent paraphrase. The citation_critic role (v5-6a.5) audits density at ≥1 marker per 200 words.
+      </p>
+    </section>
+
+    <!-- Methodology stripe -->
+    <div class="methodology-stripe" style="border-top: 0.5px solid var(--color-line); padding-top: 24px; margin-top: 48px; font-family: var(--font-ui); font-size: 11px; color: var(--color-text-muted); display:flex; gap:24px; flex-wrap:wrap;">
+      <span>Daily generated 13 May 2026 06:14 ET · model claude-sonnet-4-6</span>
+      <span>Voice validator: passed</span>
+      <span>Pattern: C · Critic-Revise · 3 critics, 1 revise</span>
+      <a href="#" style="color: var(--color-amber-600);">How we cite →</a>
+    </div>
+
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_03_team_vanderbilt_v2.html">← Vandy</a>
+    <a href="mockup_05_heisman_v2.html">Heisman →</a>
+  </nav>
+  <a class="reading-guide-trigger" href="#reading-guide">Reading guide</a>
+  <aside id="reading-guide" class="reading-guide" aria-label="Reading guide for Daily mockup">
+    <div class="reading-guide__head">
+      <h2 class="reading-guide__title">How to read this mockup</h2>
+      <a class="reading-guide__close" href="#main">Close</a>
+    </div>
+    <div class="reading-guide__body">
+      <div class="reading-guide__item">
+        <strong>Article archetype</strong>
+        720px column cap, Source Serif Pro body at 17–19px. The 30-second auto-summary at top is a v5-7.6 deliverable. Drop-cap on the first take. Three takes per Daily edition: LEAD / SUPPORTING / BURIED LEDE.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Receipt pattern (v5-6a.5)</strong>
+        Inline citation markers <span class="cite">¹</span> hover-reveal source info on desktop, tap on mobile. The five-entry footer is the Wikipedia citation list pattern. Density target: ≥1 marker per 200 words (citation_critic enforces).
+      </div>
+      <div class="reading-guide__item">
+        <strong>Real data lineage</strong>
+        Every headline + body paragraph is verbatim from <code>daily_takes</code> for 2026-05-13. Sources from <code>cited_sources_json</code>. The receipt critic role hasn't been wired yet — that's v5-6a.5.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Hero finding "0"</strong>
+        Daily archetype hero finding pulls the lead claim forward. "Zero wire entries cleared the threshold" is real — see <code>daily_inputs_snapshot</code>. A finding can be a low number; the point is honesty.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Pull quote</strong>
+        Editorial-pulled sentence from the lead take. Amber-400 left border, Source Serif italic at 22-28px. Always attribution underneath.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Methodology stripe</strong>
+        Pattern + voice-validator status + model version at the bottom. Transparency about how the page was generated is part of the trust model.
+      </div>
+    </div>
+  </aside>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 04</span>
+</body>
+</html>

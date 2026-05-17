@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saturday Strip — Mobile (mockup_06_saturday_strip)</title>
+  <meta name="description" content="Mobile-only Saturday Strip primitive — live games in-season, countdown + portal news off-season.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Saturday Strip — the daily-return mobile primitive">
+  <meta property="og:description" content="44px sticky at the top of every mobile page. Live games scroll horizontally. Off-season: countdown + portal + camp markers.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    /* Page-level: side-by-side mobile mockups on desktop, stacked on mobile */
+    body { background: #EFEDE6; }
+
+    .mockup-frame {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--sp-8) var(--sp-4);
+    }
+
+    .mockup-frame__head {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-2);
+    }
+    .mockup-frame__sub {
+      font-family: var(--font-ui);
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-6);
+      max-width: 60ch;
+    }
+
+    .device-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-8);
+      justify-items: center;
+    }
+    @media (min-width: 768px) {
+      .device-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+    }
+
+    .device {
+      width: 390px;
+      max-width: 100%;
+      background: var(--color-surface);
+      border: 12px solid #1A1A18;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.18);
+    }
+    .device__label {
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: var(--sp-3);
+    }
+
+    .device__screen {
+      width: 100%;
+      height: 720px;
+      overflow: hidden;
+      position: relative;
+      background: var(--color-surface);
+    }
+
+    /* Status bar (iOS-style) — with dynamic-island-shaped notch */
+    .ios-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px 8px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-ink);
+      position: relative;
+      z-index: 1;
+    }
+    .ios-status::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 96px;
+      height: 28px;
+      background: #1A1A18;
+      border-radius: 14px;
+    }
+    /* Home indicator at bottom of every device screen */
+    .ios-home-indicator {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 4px;
+      background: rgba(20, 22, 24, 0.32);
+      border-radius: 2px;
+      z-index: 12;
+    }
+
+    /* ===== Saturday Strip — IN-SEASON ===== */
+    .strip {
+      background: var(--color-surface-card);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .strip__row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3) var(--sp-4);
+      min-height: 44px;
+      font-family: var(--font-ui);
+    }
+    .strip__row + .strip__row { border-top: var(--stroke-hair) solid var(--color-line); }
+
+    .live-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-red-400);
+      box-shadow: 0 0 0 0 rgba(226,75,74,0.6);
+      animation: pulse 1.4s ease-out infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(226,75,74,0.6); }
+      70%  { box-shadow: 0 0 0 8px rgba(226,75,74,0); }
+      100% { box-shadow: 0 0 0 0 rgba(226,75,74,0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .live-dot { animation: none; }
+    }
+    .live-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      color: var(--color-red-600);
+    }
+    .strip__matchup {
+      flex: 1;
+      display: flex;
+      align-items: baseline;
+      gap: var(--sp-2);
+      font-size: var(--fs-body-sm);
+      font-weight: 600;
+      color: var(--color-ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .strip__matchup .pts { color: var(--color-ink); }
+    .strip__clock {
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+    }
+    .strip__final {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+    }
+    .strip__upset {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      background: var(--color-amber-100);
+      color: var(--color-amber-800);
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+    }
+    .strip__upcoming-time {
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+      min-width: 56px;
+    }
+    .strip__channel {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted); /* WCAG fix: text-subtle was 2.50x */
+      font-weight: 700;
+    }
+    .swipe-hint {
+      font-size: 10px;
+      color: var(--color-text-muted); /* WCAG fix: text-subtle was 2.50x */
+      margin-left: auto;
+    }
+
+    /* Below-strip content scaffold */
+    .below {
+      padding: var(--sp-6) var(--sp-4);
+    }
+    .below__h {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: var(--sp-2);
+    }
+    .below__sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-4);
+    }
+
+    /* ===== Saturday Strip — OFF-SEASON ===== */
+    .strip-off {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3) var(--sp-4);
+      background: var(--color-surface-card);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+      font-family: var(--font-ui);
+      min-height: 44px;
+      font-size: var(--fs-body-sm);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      white-space: nowrap;
+    }
+    .strip-off__item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: var(--sp-2);
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      padding-right: var(--sp-4);
+      border-right: var(--stroke-hair) solid var(--color-line);
+    }
+    .strip-off__item:last-child { border-right: 0; }
+    .strip-off__num {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      color: var(--color-ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .strip-off__label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+    .strip-off__chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+      background: var(--color-amber-50);
+      color: var(--color-amber-800);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    /* Bottom nav (v5-7.6) — leaves room for the home indicator below */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      background: var(--color-surface-card);
+      border-top: var(--stroke-hair) solid var(--color-line);
+      padding: 8px 0 18px;
+    }
+    .bottom-nav__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 4px;
+      font-family: var(--font-ui);
+      font-size: 10px;
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      min-height: 44px;
+    }
+    .bottom-nav__icon {
+      width: 22px; height: 22px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 18px;
+    }
+    .bottom-nav__item--active { color: var(--color-ink); }
+    .bottom-nav__item--active .bottom-nav__icon { color: var(--color-amber-600); }
+
+    /* Annotation callouts */
+    .callout {
+      margin-top: var(--sp-4);
+      max-width: 320px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .callout strong { color: var(--color-ink); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main class="mockup-frame" role="main">
+    <h1 class="mockup-frame__head">Saturday Strip — mobile-only primitive</h1>
+    <p class="mockup-frame__sub">
+      Sticky-at-top mobile element. In-season: live games scrolling + clock. Off-season: countdown + recent portal news + camp-open marker.
+      Spec H.1 from IMPLEMENTATION_PLAN_v3 — 44px tall live, 56px expanded. Touch targets 44×44 min.
+    </p>
+
+    <div class="device-grid">
+
+      <!-- IN-SEASON device -->
+      <div>
+        <div class="device" role="figure" aria-label="In-season Saturday Strip — iPhone 15 Pro 390px">
+          <div class="device__screen">
+            <div class="ios-status">
+              <span>3:47</span>
+              <span>5G · 100%</span>
+            </div>
+
+            <header class="strip" aria-label="Saturday strip — in season">
+              <div class="strip__row">
+                <span class="live-dot" aria-hidden="true"></span>
+                <span class="live-tag">LIVE</span>
+                <span class="strip__matchup">
+                  <span>IND</span><span class="pts">17</span><span aria-hidden="true">—</span><span>PSU</span><span class="pts">14</span>
+                </span>
+                <span class="strip__clock">2Q · 4:32</span>
+                <span class="swipe-hint">swipe →</span>
+              </div>
+              <div class="strip__row">
+                <span class="strip__final">FINAL</span>
+                <span class="strip__matchup">
+                  <span>TEX</span><span class="pts">24</span><span aria-hidden="true">—</span><span>OU</span><span class="pts">21</span>
+                </span>
+                <span class="strip__upset">UPSET</span>
+              </div>
+              <div class="strip__row">
+                <span class="strip__upcoming-time">7:30 ET</span>
+                <span class="strip__matchup">
+                  <span>ALA</span><span aria-hidden="true">—</span><span>LSU</span>
+                </span>
+                <span class="strip__channel">CBS</span>
+              </div>
+              <div class="strip__row">
+                <span class="strip__upcoming-time">8:00 ET</span>
+                <span class="strip__matchup">
+                  <span>ORE</span><span aria-hidden="true">—</span><span>UTAH</span>
+                </span>
+                <span class="strip__channel">ESPN</span>
+              </div>
+            </header>
+
+            <div class="below">
+              <h2 class="below__h">SATURDAY</h2>
+              <p class="below__sub">Week 10 · Nov 1, 2026 · 14 ranked teams playing</p>
+              <p style="font-family: var(--font-serif); font-size: 14px; line-height: 1.5; color: var(--color-text); margin: 0;">
+                Indiana leads at Beaver Stadium late in the second quarter; the Texas–Oklahoma final just broke. Eight ranked games still to come tonight, six of them in prime-time windows.
+              </p>
+            </div>
+
+            <nav class="bottom-nav" aria-label="Primary mobile navigation">
+              <a class="bottom-nav__item bottom-nav__item--active" href="#">
+                <span class="bottom-nav__icon">●</span>
+                <span>Hub</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">D</span>
+                <span>Daily</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">H</span>
+                <span>Heisman</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">T</span>
+                <span>Teams</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">⌘</span>
+                <span>Search</span>
+              </a>
+            </nav>
+            <div class="ios-home-indicator" aria-hidden="true"></div>
+          </div>
+        </div>
+        <p class="device__label">In-season · Saturday gameday</p>
+
+        <div class="callout">
+          <strong>Live indicator:</strong> pulsing red dot (paused under <code>prefers-reduced-motion</code>).
+          <br><strong>Refresh cadence:</strong> 30 sec live, 5 min upcoming, 1 hour off-season.
+          <br><strong>Auto-snap:</strong> current focus snaps leftmost on scroll.
+        </div>
+      </div>
+
+      <!-- OFF-SEASON device -->
+      <div>
+        <div class="device" role="figure" aria-label="Off-season Saturday Strip — iPhone 15 Pro 390px">
+          <div class="device__screen">
+            <div class="ios-status">
+              <span>10:14</span>
+              <span>5G · 100%</span>
+            </div>
+
+            <header class="strip-off" aria-label="Saturday strip — off season">
+              <div class="strip-off__item">
+                <span class="strip-off__num">79</span>
+                <span class="strip-off__label">DAYS TO KICKOFF</span>
+              </div>
+              <div class="strip-off__item">
+                <span class="strip-off__chip">★ COMMIT</span>
+                <span>5★ QB Smith → TEX</span>
+              </div>
+              <div class="strip-off__item">
+                <span class="strip-off__chip">PORTAL</span>
+                <span>Klubnik stays · CLE</span>
+              </div>
+              <div class="strip-off__item">
+                <span class="strip-off__chip">CAMP</span>
+                <span>Opens Aug 3</span>
+              </div>
+              <div class="strip-off__item">
+                <span class="strip-off__chip">TODAY</span>
+                <span>1969: Ohio St 41–14 TCU</span>
+              </div>
+            </header>
+
+            <div class="below">
+              <h2 class="below__h">79 DAYS</h2>
+              <p class="below__sub">May 16, 2026 · Off-season · between the draft and fall camp</p>
+              <p style="font-family: var(--font-serif); font-size: 14px; line-height: 1.5; color: var(--color-text); margin: 0 0 16px;">
+                The second portal window closed last week. Spring footage stopped circulating. The sport is doing its quietest, most consequential work right now — and the Strip surfaces the markers that move.
+              </p>
+
+              <!-- Mini hero finding inline -->
+              <div style="background: var(--color-surface-card); border: 0.5px solid var(--color-line); border-left: 2px solid var(--color-amber-400); padding: 12px 16px; border-radius: 6px;">
+                <p style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--color-text-muted); margin: 0;">TODAY’S READ</p>
+                <p style="font-family: var(--font-serif); font-size: 15px; line-height: 1.4; margin: 4px 0 0;">
+                  Michigan is at its lowest offseason mood since 2014.
+                </p>
+              </div>
+            </div>
+
+            <nav class="bottom-nav" aria-label="Primary mobile navigation">
+              <a class="bottom-nav__item bottom-nav__item--active" href="#">
+                <span class="bottom-nav__icon">●</span>
+                <span>Hub</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">D</span>
+                <span>Daily</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">H</span>
+                <span>Heisman</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">T</span>
+                <span>Teams</span>
+              </a>
+              <a class="bottom-nav__item" href="#">
+                <span class="bottom-nav__icon">⌘</span>
+                <span>Search</span>
+              </a>
+            </nav>
+            <div class="ios-home-indicator" aria-hidden="true"></div>
+          </div>
+        </div>
+        <p class="device__label">Off-season · countdown + portal markers</p>
+
+        <div class="callout">
+          <strong>Days-to-kickoff:</strong> derived from <code>cfb_calendar.py</code> · accurate per phase.
+          <br><strong>Horizontal scroll:</strong> snap-aligned items, swipe to see more.
+          <br><strong>Perf budget:</strong> &lt;500ms initial render, &lt;5KB strip payload.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All 8</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_05_heisman_v2.html">← Heisman</a>
+    <a href="mockup_07_monday_mood_map.png">Mood Map →</a>
+  </nav>
+  <a class="reading-guide-trigger" href="#reading-guide">Reading guide</a>
+  <aside id="reading-guide" class="reading-guide" aria-label="Reading guide for Saturday Strip mockup">
+    <div class="reading-guide__head">
+      <h2 class="reading-guide__title">How to read this mockup</h2>
+      <a class="reading-guide__close" href="#main">Close</a>
+    </div>
+    <div class="reading-guide__body">
+      <div class="reading-guide__item">
+        <strong>Mobile-only primitive</strong>
+        Spec H.1. 44px tall live state, 56px expanded. Sticks to top of viewport on mobile only — desktop has the full site nav instead. Phone frames here are at 390px (iPhone 15 Pro width).
+      </div>
+      <div class="reading-guide__item">
+        <strong>In-season vs off-season</strong>
+        Two render states from the same component. In-season shows live games with pulsing LIVE dot; off-season shows kickoff countdown + portal commits + camp markers. The single CFBD call swap is the only logic change.
+      </div>
+      <div class="reading-guide__item">
+        <strong>prefers-reduced-motion</strong>
+        The pulsing LIVE dot animation is paused under reduced-motion. The horizontal-scroll snap-points are also honored as instant rather than animated.
+      </div>
+      <div class="reading-guide__item">
+        <strong>Bottom navigation (v5-7.6)</strong>
+        5-item bottom nav: Hub / Daily / Heisman / Teams / Search. Touch targets 44×44 min. Search is the Command-K affordance for mobile (v5-11.5).
+      </div>
+      <div class="reading-guide__item">
+        <strong>Performance budget</strong>
+        Strip payload &lt;5KB. Single CFBD call cached 30s during games, 5 min upcoming, 1 hour off-season. Strip render &lt;500ms FCP target on 4G.
+      </div>
+      <div class="reading-guide__item">
+        <strong>iOS chrome detail</strong>
+        Dynamic-island-shaped notch and home indicator included for visual fidelity. Not part of the actual render — just makes the mockup feel like a real phone in review.
+      </div>
+    </div>
+  </aside>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 06</span>
+</body>
+</html>

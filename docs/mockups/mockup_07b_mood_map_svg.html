@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monday Mood Map — accessible SVG (mockup_07b)</title>
+  <meta name="description" content="Accessible SVG alternative to the 1200x675 PNG Mood Map. Screen-reader-readable, interactive on desktop.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="Monday Mood Map — accessible SVG render">
+  <meta property="og:description" content="The same week-of viral artifact rendered as SVG instead of PNG. Every dot has a title and description; screen readers can read the whole map.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    .map-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--sp-6) clamp(16px, 4vw, 32px);
+    }
+    .map-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-2);
+    }
+    .map-meta__title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.04em;
+    }
+    .map-meta__when {
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+    }
+    .mood-svg {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-lg);
+    }
+    .mood-svg .cluster-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      fill: var(--color-amber-800);
+    }
+    .mood-svg .axis-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      fill: var(--color-text-muted);
+    }
+    .mood-svg .hero-num {
+      font-family: 'Bebas Neue', 'Bebas-Fallback', sans-serif;
+      font-size: 72px;
+      fill: var(--color-ink);
+    }
+    .mood-svg .hero-sub {
+      font-family: 'Source Serif Pro', 'SourceSerif-Fallback', Georgia, serif;
+      font-size: 18px;
+      fill: var(--color-ink);
+    }
+    .mood-svg .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      fill: var(--color-text-muted);
+    }
+    .mood-svg .masthead {
+      font-family: 'Bebas Neue', 'Bebas-Fallback', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+    }
+    .mood-svg .dot { cursor: pointer; }
+    .mood-svg .dot:hover { stroke: var(--color-ink); stroke-width: 2px; }
+    .mood-svg .mover-pill { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; fill: #fff; }
+    .mood-svg .mover-reason { font-family: 'Inter', sans-serif; font-size: 11px; fill: var(--color-ink); }
+
+    /* Underlying text-readable table — visible to all, screen-reader-friendly */
+    .map-table-wrap {
+      margin-top: var(--sp-12);
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .map-table-wrap h2 {
+      font-family: var(--font-ui);
+      font-size: var(--fs-h3);
+      font-weight: var(--fw-medium);
+      margin: 0 0 var(--sp-3);
+    }
+    .map-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-ui);
+      font-size: var(--fs-body-sm);
+    }
+    .map-table th, .map-table td {
+      text-align: left;
+      padding: var(--sp-2);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    .map-table th {
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-weight: var(--fw-medium);
+    }
+    .map-table .delta-up { color: var(--color-green-600); font-variant-numeric: tabular-nums; }
+    .map-table .delta-down { color: var(--color-red-600); font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__logo">CFB INDEX</div>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="index.html">All</a>
+      <a href="#" aria-current="page">Hub</a>
+      <a href="#">Daily</a>
+      <a href="#">Methodology</a>
+    </nav>
+  </header>
+
+  <main id="main" class="map-wrap" role="main">
+
+    <div class="map-meta">
+      <h1 class="map-meta__title">Monday Mood Map · N° 048 · SVG render</h1>
+      <time class="map-meta__when" datetime="2026-05-11">11 MAY 2026</time>
+    </div>
+    <p class="caption" style="margin-bottom: var(--sp-6);">
+      Accessible SVG counterpart to <a href="mockup_07_monday_mood_map.png">mockup_07_monday_mood_map.png</a>. Every dot carries a title + description; screen readers can navigate the whole map; hover surfaces the team name + score.
+    </p>
+
+    <svg viewBox="0 0 1200 675" class="mood-svg" role="img" aria-labelledby="moodmap-title moodmap-desc">
+      <title id="moodmap-title">Monday Mood Map — week of 11 May 2026, issue N° 048</title>
+      <desc id="moodmap-desc">
+        Hero finding: 47 of 130 fanbases diverged from the model by more than 15 spots this week. Sample: 202,341 mentions across 47 sources over 7 days. High confidence. The 130 FBS programs are arranged in conference clusters: SEC (16), Big Ten (18), ACC (17), Big 12 (16), AAC (14), MWC (12), Sun Belt (14), MAC (12), CUSA (10), FBS Independents (6), Pac (2). Each dot is colored on a belief ramp from red (low belief, mood under 35) through gray (neutral, 45-55) to green (high belief, over 65). Notable up-movers: Ohio State plus 8 mood points on "5-star trust me" recruiting confidence; Texas plus 7 on spring tempo footage; Boise State plus 5 for keeping every starter; Iowa plus 4 on RPO footage. Notable down-movers: Michigan minus 15 on the Moore presser; Florida minus 9 on offensive line exits; Auburn minus 7 on a quiet portal; Wisconsin minus 6 on DC departure.
+      </desc>
+
+      <!-- Masthead bar -->
+      <rect x="0" y="0" width="1200" height="56" fill="#141618"/>
+      <text x="40" y="36" class="masthead" fill="#FAFAF9">CFB INDEX</text>
+      <text x="1160" y="33" class="hero-eyebrow" fill="#DDDED8" text-anchor="end">MONDAY MOOD MAP · WEEK OF 11 MAY 2026 · No. 048</text>
+
+      <!-- Hero finding -->
+      <text x="40" y="100" class="hero-eyebrow">WHAT THIS WEEK SHOWS</text>
+      <text x="40" y="170" class="hero-num">47 of 130</text>
+      <text x="260" y="138" class="hero-sub">fanbases diverged from the model by more than 15 spots.</text>
+      <text x="260" y="160" class="axis-label">Sample: 202,341 mentions · 47 sources · 7 days · High confidence</text>
+      <rect x="40" y="180" width="140" height="3" fill="#BA7517"/>
+
+      <!-- Section divider -->
+      <line x1="40" y1="210" x2="1160" y2="210" stroke="#E0DFDB" stroke-width="0.5"/>
+
+      <!-- SEC cluster -->
+      <text x="70" y="240" class="cluster-label">SEC · 16 TEAMS</text>
+      <g transform="translate(70, 250)">
+        <!-- 8 cols x 2 rows = 16 dots, dot spacing 28px -->
+        <circle class="dot" cx="0"   cy="0"  r="10" fill="#1D9E75"><title>Texas (Mood 84 · +7 this week — spring tempo footage)</title></circle>
+        <circle class="dot" cx="28"  cy="0"  r="10" fill="#DC4B4A"><title>Florida (Mood 38 · -9 this week — OL exits)</title></circle>
+        <circle class="dot" cx="56"  cy="0"  r="10" fill="#DC4B4A"><title>Alabama (Mood 32 · -6 this week — discussed as ordinary contender)</title></circle>
+        <circle class="dot" cx="84"  cy="0"  r="10" fill="#888780"><title>Georgia (Mood 58 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="0"  r="10" fill="#888780"><title>LSU (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="0"  r="10" fill="#DC4B4A"><title>Auburn (Mood 36 · -7 this week — quiet portal)</title></circle>
+        <circle class="dot" cx="168" cy="0"  r="10" fill="#888780"><title>Tennessee (Mood 60 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="0"  r="10" fill="#888780"><title>Ole Miss (Mood 58 — steady)</title></circle>
+        <circle class="dot" cx="0"   cy="28" r="10" fill="#888780"><title>Texas A&amp;M (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="28"  cy="28" r="10" fill="#888780"><title>South Carolina (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="56"  cy="28" r="10" fill="#888780"><title>Missouri (Mood 60 — steady)</title></circle>
+        <circle class="dot" cx="84"  cy="28" r="10" fill="#888780"><title>Kentucky (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="28" r="10" fill="#888780"><title>Arkansas (Mood 48 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="28" r="10" fill="#888780"><title>Mississippi State (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="168" cy="28" r="10" fill="#888780"><title>Oklahoma (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="28" r="10" fill="#888780"><title>Vanderbilt (Mood 62 — steady, anchor down)</title></circle>
+      </g>
+
+      <!-- Big Ten cluster -->
+      <text x="70" y="320" class="cluster-label">BIG TEN · 18 TEAMS</text>
+      <g transform="translate(70, 330)">
+        <!-- 9 cols x 2 rows = 18 dots -->
+        <circle class="dot" cx="0"   cy="0"  r="10" fill="#DC4B4A"><title>Michigan (Mood 32 · -15 this week — Moore presser)</title></circle>
+        <circle class="dot" cx="28"  cy="0"  r="10" fill="#1D9E75"><title>Ohio State (Mood 86 · +8 this week — 5-star trust me)</title></circle>
+        <circle class="dot" cx="56"  cy="0"  r="10" fill="#888780"><title>Penn State (Mood 60 — steady)</title></circle>
+        <circle class="dot" cx="84"  cy="0"  r="10" fill="#888780"><title>Oregon (Mood 64 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="0"  r="10" fill="#888780"><title>Indiana (Mood 58 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="0"  r="10" fill="#1D9E75"><title>Iowa (Mood 82 · +4 this week — RPO tempo footage)</title></circle>
+        <circle class="dot" cx="168" cy="0"  r="10" fill="#888780"><title>Illinois (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="0"  r="10" fill="#DC4B4A"><title>Wisconsin (Mood 42 · -6 this week — DC departure)</title></circle>
+        <circle class="dot" cx="224" cy="0"  r="10" fill="#888780"><title>Washington (Mood 58 — steady)</title></circle>
+        <circle class="dot" cx="0"   cy="28" r="10" fill="#888780"><title>USC (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="28"  cy="28" r="10" fill="#888780"><title>UCLA (Mood 48 — steady)</title></circle>
+        <circle class="dot" cx="56"  cy="28" r="10" fill="#888780"><title>Maryland (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="84"  cy="28" r="10" fill="#888780"><title>Michigan State (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="28" r="10" fill="#888780"><title>Minnesota (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="28" r="10" fill="#888780"><title>Nebraska (Mood 60 — steady, still saying "we're back")</title></circle>
+        <circle class="dot" cx="168" cy="28" r="10" fill="#888780"><title>Northwestern (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="28" r="10" fill="#888780"><title>Purdue (Mood 48 — steady)</title></circle>
+        <circle class="dot" cx="224" cy="28" r="10" fill="#888780"><title>Rutgers (Mood 50 — steady)</title></circle>
+      </g>
+
+      <!-- ACC cluster -->
+      <text x="70" y="400" class="cluster-label">ACC · 17 TEAMS</text>
+      <g transform="translate(70, 410)">
+        <!-- 9 cols x 2 rows minus 1 -->
+        <circle class="dot" cx="0"   cy="0"  r="10" fill="#888780"><title>Florida State (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="28"  cy="0"  r="10" fill="#888780"><title>Clemson (Mood 60 — steady)</title></circle>
+        <circle class="dot" cx="56"  cy="0"  r="10" fill="#888780"><title>Miami (Mood 58 — steady)</title></circle>
+        <circle class="dot" cx="84"  cy="0"  r="10" fill="#888780"><title>SMU (Mood 60 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="0"  r="10" fill="#888780"><title>Pitt (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="0"  r="10" fill="#888780"><title>North Carolina (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="168" cy="0"  r="10" fill="#888780"><title>NC State (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="0"  r="10" fill="#888780"><title>Duke (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="224" cy="0"  r="10" fill="#888780"><title>Virginia Tech (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="0"   cy="28" r="10" fill="#888780"><title>Virginia (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="28"  cy="28" r="10" fill="#888780"><title>Wake Forest (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="56"  cy="28" r="10" fill="#888780"><title>Louisville (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="84"  cy="28" r="10" fill="#888780"><title>Syracuse (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="28" r="10" fill="#888780"><title>Boston College (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="28" r="10" fill="#888780"><title>Georgia Tech (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="168" cy="28" r="10" fill="#888780"><title>California (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="28" r="10" fill="#888780"><title>Stanford (Mood 48 — steady)</title></circle>
+      </g>
+
+      <!-- Big 12 cluster -->
+      <text x="70" y="480" class="cluster-label">BIG 12 · 16 TEAMS</text>
+      <g transform="translate(70, 490)">
+        <circle class="dot" cx="0"   cy="0"  r="10" fill="#1D9E75"><title>Boise State (Mood 78 · +5 this week — kept every starter)</title></circle>
+        <circle class="dot" cx="28"  cy="0"  r="10" fill="#888780"><title>Arizona State (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="56"  cy="0"  r="10" fill="#888780"><title>BYU (Mood 60 — steady)</title></circle>
+        <circle class="dot" cx="84"  cy="0"  r="10" fill="#888780"><title>Colorado (Mood 58 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="0"  r="10" fill="#888780"><title>Iowa State (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="0"  r="10" fill="#888780"><title>Kansas State (Mood 60 — steady)</title></circle>
+        <circle class="dot" cx="168" cy="0"  r="10" fill="#888780"><title>Kansas (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="0"  r="10" fill="#888780"><title>Texas Tech (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="0"   cy="28" r="10" fill="#888780"><title>Houston (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="28"  cy="28" r="10" fill="#888780"><title>UCF (Mood 52 — steady)</title></circle>
+        <circle class="dot" cx="56"  cy="28" r="10" fill="#888780"><title>Cincinnati (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="84"  cy="28" r="10" fill="#888780"><title>West Virginia (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="112" cy="28" r="10" fill="#888780"><title>Baylor (Mood 56 — steady)</title></circle>
+        <circle class="dot" cx="140" cy="28" r="10" fill="#888780"><title>TCU (Mood 54 — steady)</title></circle>
+        <circle class="dot" cx="168" cy="28" r="10" fill="#888780"><title>Oklahoma State (Mood 50 — steady)</title></circle>
+        <circle class="dot" cx="196" cy="28" r="10" fill="#888780"><title>Utah (Mood 56 — steady)</title></circle>
+      </g>
+
+      <!-- G5 cluster placeholder (compressed for SVG sample) -->
+      <text x="70" y="572" class="cluster-label">G5 + INDEPENDENTS · 63 TEAMS</text>
+      <g transform="translate(70, 582)">
+        <!-- Show 24 representative dots for visual balance — actual full list in data table below -->
+        <g>
+          <circle class="dot" cx="0"   cy="0" r="8" fill="#888780"><title>Notre Dame (Mood 64 — steady, FBS Indep)</title></circle>
+          <circle class="dot" cx="22"  cy="0" r="8" fill="#888780"><title>Army (Mood 62)</title></circle>
+          <circle class="dot" cx="44"  cy="0" r="8" fill="#888780"><title>Navy (Mood 58)</title></circle>
+          <circle class="dot" cx="66"  cy="0" r="8" fill="#888780"><title>UConn (Mood 50, FBS Indep)</title></circle>
+          <circle class="dot" cx="88"  cy="0" r="8" fill="#888780"><title>UMass (Mood 46, FBS Indep)</title></circle>
+          <circle class="dot" cx="110" cy="0" r="8" fill="#888780"><title>Liberty (Mood 60)</title></circle>
+          <circle class="dot" cx="132" cy="0" r="8" fill="#888780"><title>Memphis (Mood 56, AAC)</title></circle>
+          <circle class="dot" cx="154" cy="0" r="8" fill="#888780"><title>Tulane (Mood 54, AAC)</title></circle>
+          <circle class="dot" cx="176" cy="0" r="8" fill="#888780"><title>Army (Mood 60)</title></circle>
+          <circle class="dot" cx="198" cy="0" r="8" fill="#888780"><title>Air Force (Mood 56, MWC)</title></circle>
+          <circle class="dot" cx="220" cy="0" r="8" fill="#888780"><title>JMU (Mood 60, Sun Belt)</title></circle>
+          <circle class="dot" cx="242" cy="0" r="8" fill="#888780"><title>App State (Mood 52, Sun Belt)</title></circle>
+        </g>
+        <text x="280" y="6" class="axis-label">+ 51 more G5 / Indep dots collapsed for legibility · full list in data table below</text>
+      </g>
+
+      <!-- Movers callout pills (top right) -->
+      <text x="940" y="220" class="hero-eyebrow">TOP MOVERS · ±MOOD vs LAST WEEK</text>
+      <g transform="translate(940, 230)">
+        <rect x="0"   y="0"  width="70" height="22" rx="11" fill="#1D9E75"/>
+        <text x="6"   y="16" class="mover-pill">OSU +8</text>
+        <text x="78"  y="16" class="mover-reason">5★ trust me</text>
+
+        <rect x="0"   y="28" width="70" height="22" rx="11" fill="#1D9E75"/>
+        <text x="6"   y="44" class="mover-pill">TEX +7</text>
+        <text x="78"  y="44" class="mover-reason">spring tempo</text>
+
+        <rect x="0"   y="56" width="70" height="22" rx="11" fill="#1D9E75"/>
+        <text x="6"   y="72" class="mover-pill">BSU +5</text>
+        <text x="78"  y="72" class="mover-reason">no exits</text>
+
+        <rect x="0"   y="84" width="70" height="22" rx="11" fill="#1D9E75"/>
+        <text x="6"   y="100" class="mover-pill">IOWA +4</text>
+        <text x="78"  y="100" class="mover-reason">RPO footage</text>
+
+        <rect x="0"   y="124" width="80" height="22" rx="11" fill="#E24B4A"/>
+        <text x="6"   y="140" class="mover-pill">MICH −15</text>
+        <text x="88"  y="140" class="mover-reason">Moore presser</text>
+
+        <rect x="0"   y="152" width="80" height="22" rx="11" fill="#E24B4A"/>
+        <text x="6"   y="168" class="mover-pill">UF −9</text>
+        <text x="88"  y="168" class="mover-reason">OL exits</text>
+
+        <rect x="0"   y="180" width="80" height="22" rx="11" fill="#E24B4A"/>
+        <text x="6"   y="196" class="mover-pill">AUB −7</text>
+        <text x="88"  y="196" class="mover-reason">quiet portal</text>
+
+        <rect x="0"   y="208" width="80" height="22" rx="11" fill="#E24B4A"/>
+        <text x="6"   y="224" class="mover-pill">WIS −6</text>
+        <text x="88"  y="224" class="mover-reason">DC departure</text>
+      </g>
+
+      <!-- Legend stripe -->
+      <text x="40" y="615" class="axis-label" font-weight="600">BELIEF RAMP — LOW</text>
+      <text x="1160" y="615" class="axis-label" font-weight="600" text-anchor="end">HIGH</text>
+      <!-- gradient: 80 segments -->
+      <defs>
+        <linearGradient id="moodGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"  stop-color="#E24B4A"/>
+          <stop offset="50%" stop-color="#888780"/>
+          <stop offset="100%" stop-color="#1D9E75"/>
+        </linearGradient>
+      </defs>
+      <rect x="200" y="620" width="800" height="8" fill="url(#moodGradient)"/>
+
+      <!-- Footer -->
+      <rect x="0" y="640" width="1200" height="35" fill="#F4F2EB"/>
+      <text x="40" y="660" class="axis-label">Methodology v1.0 · 47 sources · ET-anchored 7-day window · receipts honored</text>
+      <text x="1160" y="660" class="axis-label" text-anchor="end" fill="#854F0B" font-weight="700">cfb-index · /hub</text>
+    </svg>
+
+    <!-- Text-readable data table — what the SVG charts via dots -->
+    <div class="map-table-wrap" aria-label="Mood Map underlying data">
+      <h2>Underlying data — top 10 moves this week</h2>
+      <table class="map-table">
+        <thead>
+          <tr>
+            <th scope="col">Team</th>
+            <th scope="col">Conference</th>
+            <th scope="col">Mood Index</th>
+            <th scope="col">Δ vs last week</th>
+            <th scope="col">Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Ohio State</td><td>Big Ten</td><td>86</td><td class="delta-up">+8</td><td>"5-star trust me" recruiting mantra spiked 340% w/w</td></tr>
+          <tr><td>Texas</td><td>SEC</td><td>84</td><td class="delta-up">+7</td><td>Post-spring tempo footage circulated favorably</td></tr>
+          <tr><td>Iowa</td><td>Big Ten</td><td>82</td><td class="delta-up">+4</td><td>RPO snap-count tempo footage</td></tr>
+          <tr><td>Boise State</td><td>Big 12</td><td>78</td><td class="delta-up">+5</td><td>Kept every starter through the portal window</td></tr>
+          <tr><td>Notre Dame</td><td>FBS Independent</td><td>64</td><td>steady</td><td>—</td></tr>
+          <tr><td>Florida</td><td>SEC</td><td>38</td><td class="delta-down">−9</td><td>Offensive line transfer-portal exits</td></tr>
+          <tr><td>Auburn</td><td>SEC</td><td>36</td><td class="delta-down">−7</td><td>Unusually quiet portal week, "moving in silence"</td></tr>
+          <tr><td>Wisconsin</td><td>Big Ten</td><td>42</td><td class="delta-down">−6</td><td>Defensive coordinator departure</td></tr>
+          <tr><td>Alabama</td><td>SEC</td><td>32</td><td class="delta-down">−6</td><td>Discussed like an ordinary contender, which felt worse</td></tr>
+          <tr><td>Michigan</td><td>Big Ten</td><td>32</td><td class="delta-down">−15</td><td>Moore presser landed as turning point</td></tr>
+        </tbody>
+      </table>
+      <p class="caption" style="margin-top: var(--sp-4);">
+        Full 130-team data lives in <code>fanbase_mood_weekly</code> (0-row in this DB snapshot — table shown is illustrative-from-context until the model runs). The PNG and SVG both render the same source data; the SVG carries semantic structure for screen readers.
+      </p>
+    </div>
+
+  </main>
+
+  <nav class="mockup-nav" aria-label="Mockup set navigation">
+    <a class="mockup-nav__home" href="index.html">All</a>
+    <span class="mockup-nav__sep" aria-hidden="true"></span>
+    <a href="mockup_07_monday_mood_map.png">← PNG</a>
+    <a href="mockup_08_dark_share_cards.html">Dark →</a>
+  </nav>
+  <span class="mockup-stamp">MOCKUP · v5-5.4 · 07b · SVG</span>
+</body>
+</html>

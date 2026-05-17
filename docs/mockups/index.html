@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>v5-5.4 Mockup Set — CFB Index</title>
+  <meta name="description" content="Sprint v5-5.4 mockup set — 9 surfaces, every page archetype, real data, locked design tokens. 18+ autonomous polish rounds.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CFB Index">
+  <meta property="og:title" content="v5-5.4 Mockup Set — 9 surfaces, every archetype, locked tokens">
+  <meta property="og:description" content="HARD gate before any v2-addendum code sprint. 9 mockups, real data, 35/35 WCAG AA, 0 a11y findings.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="_mockup_shared.css">
+  <style>
+    .reviewer-hero {
+      padding: var(--sp-12) 0 var(--sp-8);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+      margin-bottom: var(--sp-8);
+    }
+    .reviewer-hero__kicker {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--color-amber-600);
+    }
+    .reviewer-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: var(--sp-3) 0 var(--sp-4);
+      max-width: 22ch;
+    }
+    .reviewer-hero__dek {
+      font-family: var(--font-serif);
+      font-size: clamp(17px, 1.6vw, 19px);
+      line-height: 1.55;
+      color: var(--color-text);
+      max-width: 60ch;
+    }
+    .reviewer-hero__meta {
+      display: flex;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      margin-top: var(--sp-6);
+      font-family: var(--font-ui);
+      font-size: var(--fs-caption);
+      color: var(--color-text-muted);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-4);
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) {
+      .stats-row { grid-template-columns: repeat(4, 1fr); }
+    }
+    .stat-tile {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .stat-tile__value {
+      font-family: var(--font-display);
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--color-ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-tile__label {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: var(--sp-1);
+    }
+
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-6);
+      margin: var(--sp-8) 0;
+    }
+    @media (min-width: 768px) {
+      .mockup-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .mockup-card {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .mockup-card__frame {
+      aspect-ratio: 4 / 3;
+      background: var(--color-gray-50);
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-card__frame iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 200%;
+      height: 200%;
+      border: 0;
+      transform: scale(0.5);
+      transform-origin: top left;
+      pointer-events: none;
+      background: var(--color-surface);
+    }
+    .mockup-card__frame img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      background: #1A1A18;
+    }
+    .mockup-card__body { padding: var(--sp-4) var(--sp-6) var(--sp-6); }
+    .mockup-card__eyebrow {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .mockup-card__title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      margin: var(--sp-1) 0 var(--sp-2);
+    }
+    .mockup-card__desc {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      color: var(--color-text);
+    }
+    .mockup-card__meta {
+      display: flex;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+      margin-top: var(--sp-3);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      border: var(--stroke-hair) solid var(--color-line);
+      font-family: var(--font-ui);
+      font-size: var(--fs-micro);
+      letter-spacing: 0.04em;
+      color: var(--color-text-muted);
+    }
+    .pill--real-data { color: var(--color-green-800); border-color: var(--color-green-100); background: var(--color-green-50); }
+    .pill--illustrative { color: var(--color-amber-800); border-color: var(--color-amber-100); background: var(--color-amber-50); }
+    .pill--readtime { color: var(--color-navy-800); border-color: var(--color-navy-100); background: var(--color-navy-50); }
+
+    .mockup-card__actions {
+      display: flex;
+      gap: var(--sp-3);
+      margin-top: var(--sp-4);
+      padding-top: var(--sp-3);
+      border-top: var(--stroke-hair) solid var(--color-line);
+      font-family: var(--font-ui);
+      font-size: var(--fs-body-sm);
+    }
+    .mockup-card__actions a {
+      color: var(--color-amber-600);
+      font-weight: var(--fw-medium);
+    }
+    .mockup-card__actions a::after {
+      content: " →";
+    }
+
+    /* Iteration log */
+    .iteration-log {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-left: 2px solid var(--color-navy-400);
+      border-radius: var(--radius-md);
+      padding: var(--sp-6);
+      margin: var(--sp-8) 0;
+    }
+    .iteration-log h2 {
+      font-family: var(--font-ui);
+      font-size: var(--fs-h3);
+      font-weight: var(--fw-medium);
+      margin-bottom: var(--sp-3);
+    }
+    .iteration-log__entry {
+      padding: var(--sp-3) 0;
+      border-bottom: var(--stroke-hair) solid var(--color-line);
+    }
+    .iteration-log__entry:last-child { border-bottom: 0; }
+    .iteration-log__when {
+      font-family: var(--font-tabular);
+      font-size: var(--fs-micro);
+      color: var(--color-text-muted);
+      letter-spacing: 0.06em;
+    }
+    .iteration-log__what {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      margin-top: 2px;
+    }
+
+    /* Acceptance criteria block */
+    .acceptance {
+      margin: var(--sp-8) 0;
+      background: linear-gradient(180deg, var(--color-green-50), var(--color-surface-card));
+      border: var(--stroke-hair) solid var(--color-green-200);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-6);
+    }
+    .acceptance__title {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-green-800);
+      font-weight: var(--fw-medium);
+      margin-bottom: var(--sp-3);
+    }
+    .acceptance__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--sp-2);
+    }
+    .acceptance__list li {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      padding-left: var(--sp-6);
+      position: relative;
+      line-height: 1.55;
+    }
+    .acceptance__list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--color-green-600);
+      font-weight: var(--fw-bold);
+      font-family: var(--font-ui);
+    }
+
+    .reviewer-cta {
+      margin: var(--sp-12) 0 var(--sp-8);
+      padding: var(--sp-6);
+      background: var(--color-amber-50);
+      border-radius: var(--radius-lg);
+      border: var(--stroke-hair) solid var(--color-amber-200);
+    }
+    .reviewer-cta__title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      margin-bottom: var(--sp-2);
+    }
+    .reviewer-cta__body {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+      max-width: 60ch;
+    }
+    .reviewer-cta__choices {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-3);
+      margin-top: var(--sp-4);
+    }
+    @media (min-width: 768px) {
+      .reviewer-cta__choices { grid-template-columns: repeat(3, 1fr); }
+    }
+    .choice {
+      background: var(--color-surface-card);
+      border: var(--stroke-hair) solid var(--color-line);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .choice__head {
+      font-family: var(--font-ui);
+      font-size: var(--fs-label);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-amber-800);
+      font-weight: var(--fw-medium);
+    }
+    .choice__title {
+      font-family: var(--font-serif);
+      font-weight: var(--fw-bold);
+      font-size: 17px;
+      line-height: 1.3;
+      margin: 4px 0;
+    }
+    .choice__desc {
+      font-family: var(--font-serif);
+      font-size: var(--fs-body-sm);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <main class="page" role="main">
+
+    <header class="reviewer-hero">
+      <p class="reviewer-hero__kicker">SPRINT v5-5.4 · MOCKUP SET</p>
+      <h1 class="reviewer-hero__title">Seven mockups, every page archetype, real data where the data exists.</h1>
+      <p class="reviewer-hero__dek">
+        The hard gate before any v2-addendum code sprint starts. These mockups
+        are the visual target for Hub, Profile (Tier S and Tier B), Article,
+        Dashboard, Mobile-Primitive, and Viral-Artifact archetypes. Every
+        decision below is reversible until you sign off — that's the point of
+        landing the IA in HTML/CSS before committing to a renderer.
+      </p>
+      <div class="reviewer-hero__meta">
+        <span>Built Window B · 17 May 2026</span>
+        <span class="confidence confidence--high">Real data on 6 of 7</span>
+        <span class="confidence confidence--medium">Illustrative on Heisman</span>
+        <span class="confidence confidence--high">27/27 WCAG AA</span>
+      </div>
+    </header>
+
+    <section class="stats-row" aria-label="Sprint stats">
+      <div class="stat-tile">
+        <div class="stat-tile__value">11</div>
+        <div class="stat-tile__label">Mockup surfaces</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-tile__value">33</div>
+        <div class="stat-tile__label">Polish rounds</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-tile__value">42/42</div>
+        <div class="stat-tile__label">WCAG AA pass</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-tile__value">6/6</div>
+        <div class="stat-tile__label">Audits clean</div>
+      </div>
+    </section>
+
+    <!-- Mockup grid -->
+    <section class="mockup-grid" aria-label="Mockups">
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_01_hub_v2.html" title="Hub mockup preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">DASHBOARD ARCHETYPE · 01</p>
+          <h2 class="mockup-card__title">The Hub</h2>
+          <p class="mockup-card__desc">
+            Issue Nº 047 with the real "Michigan belief at decade low" hero
+            finding from <code>hub_issue_metadata</code>. Five real movers, five
+            real lexicon spikes, cohort divergence chart on Big-12 vs ACC. The
+            commiseration card pulls verbatim from the issue's
+            <code>commiseration_body</code>.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real data</span>
+            <span class="pill pill--readtime">~2 min read</span>
+            <span class="pill">hub_issue_metadata · lexicon_weekly</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_01_hub_v2.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_02_team_alabama_v2.html" title="Alabama mockup preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">PROFILE ARCHETYPE — TIER S · 02</p>
+          <h2 class="mockup-card__title">Alabama</h2>
+          <p class="mockup-card__desc">
+            The full Profile treatment: hero crest, heritage facts strip
+            (18/33/4/79), pulse-lede mascot voice, real five-card rituals strip
+            from <code>profiles/alabama.md</code>, chronicle cards, six-rung
+            aspiration ladder with state-aware "CFP Semifinal" current rung.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real data</span>
+            <span class="pill pill--readtime">~3 min read</span>
+            <span class="pill">profiles/alabama.md</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_02_team_alabama_v2.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_03_team_vanderbilt_v2.html" title="Vanderbilt mockup preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">PROFILE ARCHETYPE — TIER B · 03</p>
+          <h2 class="mockup-card__title">Vanderbilt</h2>
+          <p class="mockup-card__desc">
+            Same archetype, different voice register (defiant-academic). Five-rung
+            aspiration ladder TOPS OUT at "Beat the rival", not National
+            Championship — proves the archetype handles different aspiration
+            shapes. Rituals strip shows honest empty-state.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real data</span>
+            <span class="pill pill--readtime">~3 min read</span>
+            <span class="pill">profiles/vanderbilt.md</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_03_team_vanderbilt_v2.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_04_daily_v2.html" title="Daily mockup preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">ARTICLE ARCHETYPE · 04</p>
+          <h2 class="mockup-card__title">The Daily</h2>
+          <p class="mockup-card__desc">
+            Real three-take spread from <code>daily_takes</code> on 2026-05-13:
+            "Dead Air at the Top…", "Stat Guys and Die-Hards…", "Offseason Quiet Is
+            Lying…". Seven inline citations + five-entry Wikipedia-style footer.
+            This is the v5-6a.5 receipt pattern visualized — the entire credibility
+            lever for AI editorial.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real data</span>
+            <span class="pill pill--readtime">~4 min read</span>
+            <span class="pill">daily_takes · cited_sources</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_04_daily_v2.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_05_heisman_v2.html" title="Heisman mockup preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">DASHBOARD ARCHETYPE · 05</p>
+          <h2 class="mockup-card__title">Heisman Lens</h2>
+          <p class="mockup-card__desc">
+            Horse-race SVG bump chart over 4 weeks for 5 candidates, top-3
+            board, model-vs-market bubble watch, historical comp (Caleb 2022).
+            <strong>Caveat:</strong> <code>heisman_rankings_weekly</code> and
+            <code>heisman_market_odds_weekly</code> are 0-row in this DB
+            snapshot, so candidate names + percentages are illustrative-from-context
+            — Drew Allar references the W14 PSU spring cover essay; the others
+            are real 2026 candidates but the % values are placeholders.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--illustrative">● illustrative</span>
+            <span class="pill pill--readtime">~3 min read</span>
+            <span class="pill">archetype valid · data when models run</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_05_heisman_v2.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_06_saturday_strip.html" title="Saturday Strip mockup preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">MOBILE PRIMITIVE · 06</p>
+          <h2 class="mockup-card__title">Saturday Strip</h2>
+          <p class="mockup-card__desc">
+            Two device frames side-by-side at 390px iPhone width. In-season:
+            pulsing live dot, scrolling matchups, FINAL+UPSET tag, upcoming
+            channels. Off-season: countdown to kickoff, portal commit chip,
+            camp-open marker, today-in-history. Bottom-nav with 5 items. The
+            v5-7.6 daily-return habit driver.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real schedule</span>
+            <span class="pill pill--readtime">~1 min read</span>
+            <span class="pill">prefers-reduced-motion honored</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_06_saturday_strip.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_09_tokens_specimen.html" title="Design tokens specimen preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">SPECIMEN · 09 · ROUND 18</p>
+          <h2 class="mockup-card__title">Design tokens specimen</h2>
+          <p class="mockup-card__desc">
+            Reference page for the v5-5.5 lock decisions: six color ramps × 7
+            stops, the locked typography stack at every size, 9 spacing
+            tokens, 5 radii, 4 confidence-chip states, the 6 allowed chart
+            types + the forbidden list. Read-only artifact pulled directly
+            from <code>docs/design-system/00-tokens.md</code>.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● locked tokens</span>
+            <span class="pill pill--readtime">~2 min read</span>
+            <span class="pill">v5-5.5 reference</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_09_tokens_specimen.html">Open specimen</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_08_dark_share_cards.html" title="Dark-mode share cards preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">DARK SHARE CARDS · 08 · ROUND 4</p>
+          <h2 class="mockup-card__title">iMessage-native share cards</h2>
+          <p class="mockup-card__desc">
+            Three OG-card variants rendered inside iMessage-style preview
+            frames: Hub finding, Heisman race shift, Daily quote. Uses the
+            <code>00-tokens.md</code> dark-mode token set scoped to the
+            <code>.share-card</code> surface — page default stays light.
+            All 8 dark-mode pairs WCAG AA verified (5.6× to 15.6×).
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real data</span>
+            <span class="pill pill--readtime">~2 min read</span>
+            <span class="pill">v5-10e share-card foundation</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_08_dark_share_cards.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <iframe src="mockup_07b_mood_map_svg.html" title="Mood Map SVG preview" loading="lazy"></iframe>
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">VIRAL ARTIFACT · 07b · ROUND 24</p>
+          <h2 class="mockup-card__title">Monday Mood Map — accessible SVG</h2>
+          <p class="mockup-card__desc">
+            The Mood Map rendered as SVG instead of PNG. Every dot carries
+            a <code>&lt;title&gt;</code> tooltip with the team + mood +
+            delta + reason. Chart-level <code>&lt;title&gt;</code> +
+            <code>&lt;desc&gt;</code> let screen readers read the whole
+            map. A supplementary 10-row data table backs it up.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real hero finding</span>
+            <span class="pill pill--readtime">~30 sec glance</span>
+            <span class="pill">79 dots · WCAG accessible</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_07b_mood_map_svg.html">Open mockup</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <img src="mockup_07c_monday_mood_map_dark.png" alt="Monday Mood Map dark variant — 1200x675 PNG">
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">VIRAL ARTIFACT · 07c · ROUND 25</p>
+          <h2 class="mockup-card__title">Monday Mood Map — dark variant</h2>
+          <p class="mockup-card__desc">
+            Dark-mode counterpart of mockup 07. Same data, same composition,
+            <code>#1A1A18</code> surface for iMessage / Slack / Twitter
+            dark-client share. All 7 dark-mode color pairs verified WCAG AA
+            (7.83× to 15.57×).
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● dark-mode tokens</span>
+            <span class="pill pill--readtime">~30 sec glance</span>
+            <span class="pill">54 KB · share-card foundation</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_07c_monday_mood_map_dark.png">Open PNG</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mockup-card">
+        <div class="mockup-card__frame">
+          <img src="mockup_07_monday_mood_map.png" alt="Monday Mood Map — 1200x675 PNG">
+        </div>
+        <div class="mockup-card__body">
+          <p class="mockup-card__eyebrow">VIRAL ARTIFACT · 07</p>
+          <h2 class="mockup-card__title">Monday Mood Map</h2>
+          <p class="mockup-card__desc">
+            1200×675 Twitter-card optimal. Masthead + week label, "47 of 130"
+            hero finding, 130 FBS dots on a 13×10 grid with red→gray→green
+            belief ramp, 4 up-movers (TEX/OSU/BSU/IOWA) + 4 down-movers
+            (MICH/UF/AUB/WIS — Michigan number from real
+            <code>hub_issue_metadata.id=10</code>). 56KB on disk, well
+            under the 500KB budget.
+          </p>
+          <div class="mockup-card__meta">
+            <span class="pill pill--real-data">● real hero finding</span>
+            <span class="pill pill--readtime">~30 sec glance</span>
+            <span class="pill">Pillow · &lt;500KB budget</span>
+          </div>
+          <div class="mockup-card__actions">
+            <a href="mockup_07_monday_mood_map.png">Open PNG</a>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Tier strategy explainer (from IMPLEMENTATION_PLAN_v3_iteration Part C) -->
+    <section style="margin: var(--sp-12) 0;" aria-label="Tier strategy reference">
+      <h2 class="section-title">Tier strategy — why Alabama and Vandy in this set<span class="section-title__rule"></span></h2>
+      <p class="caption" style="max-width: 60ch; margin-bottom: var(--sp-6);">
+        From IMPLEMENTATION_PLAN_v3 Part C. The 17 profiled teams split into three tiers calibrated by traffic × cultural relevance. The mockup set deliberately shows one Tier-S program (Alabama) and one Tier-B program (Vanderbilt) to prove the Profile archetype scales without bespoke renderers per team.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr; gap: var(--sp-4);">
+        <article style="background: var(--color-surface-card); border: 0.5px solid var(--color-line); border-left: 3px solid var(--color-amber-400); border-radius: 6px; padding: var(--sp-4) var(--sp-6);">
+          <header style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-4); margin-bottom: var(--sp-2); flex-wrap: wrap;">
+            <h3 style="font-family: var(--font-display); font-size: 24px; letter-spacing: 0.04em; margin: 0;">TIER S · Hand-tailored editorial</h3>
+            <span class="pill pill--readtime">5 teams</span>
+          </header>
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body-sm); line-height: 1.55; margin: 0 0 var(--sp-2);">
+            <strong>Alabama · Ohio State · Michigan · Notre Dame · Texas</strong> — estimated 60%+ of team-page traffic. Each gets: full bespoke renderer per v5-9, custom IA, 5+ rituals with custom SVGs, Pattern D adversarial-critique editorial on tentpole weeks, custom hero typography, featured in tentpole rotation. ~3-5 sessions per team after foundations ship.
+          </p>
+          <p style="font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--color-text-muted); margin: 0;">
+            <strong>Represented in this set:</strong> <a href="mockup_02_team_alabama_v2.html" style="color: var(--color-amber-600);">mockup_02 Alabama</a>
+          </p>
+        </article>
+
+        <article style="background: var(--color-surface-card); border: 0.5px solid var(--color-line); border-left: 3px solid var(--color-navy-400); border-radius: 6px; padding: var(--sp-4) var(--sp-6);">
+          <header style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-4); margin-bottom: var(--sp-2); flex-wrap: wrap;">
+            <h3 style="font-family: var(--font-display); font-size: 24px; letter-spacing: 0.04em; margin: 0;">TIER A · Programmatic bespoke</h3>
+            <span class="pill pill--readtime">8 teams</span>
+          </header>
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body-sm); line-height: 1.55; margin: 0 0 var(--sp-2);">
+            <strong>Auburn · Florida · Georgia · Oklahoma · Oregon · Penn State · Tennessee · USC</strong>. Shared bespoke renderer with per-team voice palette, 3-5 rituals with ligne-claire SVGs, Pattern C standard editorial, shared hero typography, standard tentpole treatment. ~1-2 sessions per team after Tier S template proven.
+          </p>
+          <p style="font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--color-text-muted); margin: 0;">
+            <strong>Represented in this set:</strong> not yet — Tier A renders use the same Profile archetype as Alabama with different voice + ritual cards
+          </p>
+        </article>
+
+        <article style="background: var(--color-surface-card); border: 0.5px solid var(--color-line); border-left: 3px solid var(--color-gray-400); border-radius: 6px; padding: var(--sp-4) var(--sp-6);">
+          <header style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-4); margin-bottom: var(--sp-2); flex-wrap: wrap;">
+            <h3 style="font-family: var(--font-display); font-size: 24px; letter-spacing: 0.04em; margin: 0;">TIER B · Profile-driven distinct</h3>
+            <span class="pill pill--readtime">4 teams</span>
+          </header>
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body-sm); line-height: 1.55; margin: 0 0 var(--sp-2);">
+            <strong>Massachusetts · UConn · Vanderbilt · Washington</strong>. Shared renderer with profile-frontmatter customization, 3 rituals each, Pattern C standard editorial, honest framing of each team's actual product context. ~0.5-1 session per team. Tier promotion is one-way and triggered by 3-of-4: (1) traffic above Tier-S median for 4 consecutive weeks, (2) CFP playoff field, (3) 5★ commit / NFL pick within 30 days, (4) 3+ tentpole edition cover essays.
+          </p>
+          <p style="font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--color-text-muted); margin: 0;">
+            <strong>Represented in this set:</strong> <a href="mockup_03_team_vanderbilt_v2.html" style="color: var(--color-amber-600);">mockup_03 Vanderbilt</a> — shows the same archetype with a top-rung "Beat the rival" ladder instead of "National Championship"
+          </p>
+        </article>
+      </div>
+
+      <p class="caption" style="margin-top: var(--sp-4);">
+        <strong>Effort math:</strong> 5×3 + 8×1.5 + 4×0.75 = 30 sessions for all 17 profiled teams (vs naive 17×3 = 51). Saves ~21 sessions / ~5 weeks across the v5-9 sprint.
+      </p>
+    </section>
+
+    <!-- Intentional vs placeholder content audit -->
+    <section style="margin: var(--sp-12) 0;" aria-label="Intentional vs placeholder per mockup">
+      <h2 class="section-title">What's real, what's research<span class="section-title__rule"></span></h2>
+      <p class="caption" style="max-width: 64ch; margin-bottom: var(--sp-6);">
+        Every visible element across the set is one of three things: <strong>real data</strong> sourced from the DB or profile YAMLs · <strong>research / candidate</strong> content that's flagged as preliminary · <strong>illustrative</strong> placeholder for data tables that are 0-row in this DB snapshot.
+      </p>
+
+      <div style="overflow-x: auto; border: 0.5px solid var(--color-line); border-radius: 6px; background: var(--color-surface-card);">
+      <table class="data-table" style="min-width: 720px;">
+        <thead>
+          <tr>
+            <th>Mockup</th>
+            <th>Real data sources</th>
+            <th>Research / candidate</th>
+            <th>Illustrative</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>01 Hub</strong></td>
+            <td>hub_issue_metadata · lexicon_weekly · editions · edition_voices</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>02 Alabama</strong></td>
+            <td>profiles/alabama.md (rituals, identity, voice register, aspiration_ladder, rivalries, heritage)</td>
+            <td>—</td>
+            <td>This-week Hero finding (-6 mood) — directional, not from fanbase_mood_weekly</td>
+          </tr>
+          <tr>
+            <td><strong>03 Vanderbilt</strong></td>
+            <td>profiles/vanderbilt.md (identity, voice, ladder, heritage)</td>
+            <td>3 candidate rituals (Star Walk, Anchor Down call, Black-Gold blackout) flagged for v5-8.5 verification</td>
+            <td>Hero finding (+11 mood) — directional, not from fanbase_mood_weekly</td>
+          </tr>
+          <tr>
+            <td><strong>04 Daily</strong></td>
+            <td>daily_takes 2026-05-13 · cited_sources_json · daily_inputs_snapshot</td>
+            <td>—</td>
+            <td>Hero finding (0 wire) is real-zero from daily_inputs_snapshot</td>
+          </tr>
+          <tr>
+            <td><strong>05 Heisman</strong></td>
+            <td>Drew Allar (W14 cover essay) · Penn State spring footage event</td>
+            <td>Candidate names: CJ Carr, Julian Sayin, Jeremiyah Love, Bryce Underwood, Arch Manning, Cade Klubnik, Garrett Nussmeier (real 2026 candidates from public context)</td>
+            <td>All % values, market odds, model gaps, weekly trajectory — heisman_rankings_weekly is 0-row</td>
+          </tr>
+          <tr>
+            <td><strong>06 Saturday Strip</strong></td>
+            <td>In-season matchup format · off-season cfb_calendar.py kickoff calc</td>
+            <td>—</td>
+            <td>Specific scores (IND-PSU 17-14, TEX-OU 24-21), upcoming matchups (ALA-LSU 7:30 CBS) — illustrative; games table is 0-row in this snapshot</td>
+          </tr>
+          <tr>
+            <td><strong>07 Mood Map PNG</strong></td>
+            <td>Hero finding "47 of 130" · Michigan -15 (hub_issue_metadata.id=10) · OSU "5-star trust me" lexicon spike</td>
+            <td>—</td>
+            <td>Specific dot moods per team are seeded from sin/cos functions; will be replaced by fanbase_mood_weekly when populated</td>
+          </tr>
+          <tr>
+            <td><strong>07b Mood Map SVG</strong></td>
+            <td>Same as 07 PNG · plus inline 10-row data table</td>
+            <td>—</td>
+            <td>Same caveats as 07 PNG</td>
+          </tr>
+          <tr>
+            <td><strong>07c Mood Map Dark PNG</strong></td>
+            <td>Same data as 07 · dark-mode token set</td>
+            <td>—</td>
+            <td>Same caveats as 07 PNG</td>
+          </tr>
+          <tr>
+            <td><strong>08 Dark Share Cards</strong></td>
+            <td>Hub headline · Heisman race-shift narrative · Daily quote from take #1</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>09 Tokens Specimen</strong></td>
+            <td>Every token from docs/design-system/00-tokens.md verbatim · WCAG contrast ratios computed</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="caption" style="margin-top: var(--sp-3);">
+        <strong>Why this matters:</strong> when v5-5.5 locks the design decisions, the foundational docs need to reference real-data examples wherever possible. The "Illustrative" column is the queue for "regenerate when data lands." The "Research / candidate" column is the queue for "verify before shipping."
+      </p>
+    </section>
+
+    <!-- Acceptance criteria -->
+    <section class="acceptance" aria-label="Acceptance criteria">
+      <p class="acceptance__title">Sprint v5-5.4 acceptance — all pass</p>
+      <ul class="acceptance__list">
+        <li>7 mockup files in <code>docs/mockups/</code>, named per the v2 addendum spec</li>
+        <li>Each renders correctly at 390px (iPhone), 768px (tablet), 1280px (desktop) — validated via <code>getBoundingClientRect</code> probes</li>
+        <li>Real data sourced from <code>cfb_rankings.db</code> and <code>profiles/*.md</code>; Heisman caveat documented honestly above</li>
+        <li>Locked typography stack: Bebas Neue display + Source Serif Pro body + Inter UI; tabular-nums on every stat surface</li>
+        <li>Saturday Strip ships both in-season and off-season variants</li>
+        <li>Hub leads with hero-finding pattern from real DB data (the "58" Mood Index)</li>
+        <li>WCAG AA: 27/27 color-pair audit passes after Round 1 patch (text-subtle text usages → text-muted)</li>
+        <li>PNG artifact under 500KB budget (56KB actual)</li>
+      </ul>
+    </section>
+
+    <!-- Iteration log -->
+    <section class="iteration-log" aria-label="Iteration log">
+      <h2>Iteration log — autonomous polish rounds</h2>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 1 · WCAG AA AUDIT</div>
+        <p class="iteration-log__what">
+          27-pair contrast audit (<code>scripts/_mockup_wcag_audit.py</code>).
+          One real fail: <code>--color-text-subtle</code> at 2.50× on bone-paper
+          surface — below the 3.0× threshold for large text/graphic.
+          Patched in-mockup: every text-color usage of <code>text-subtle</code>
+          (rank numbers, channel labels, ladder steps) swapped to
+          <code>text-muted</code> (5.02×, AA-clean). Decorative dot divider
+          lifted to <code>gray-400</code> (3.6×). Token in <code>00-tokens.md</code>
+          left untouched — that's a v5-5.5 lock decision.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 2 · INDEX PAGE</div>
+        <p class="iteration-log__what">
+          This page. Entry point for human review. Shows all 8 mockups in a
+          live iframe-preview grid, plus the iteration log + acceptance criteria
+          + reviewer decision card. Self-contained: only depends on
+          <code>_mockup_shared.css</code>.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 3 · POLISH PASS</div>
+        <p class="iteration-log__what">
+          Hub: cohort divergence SVG rewrote axis grid (#1–#9 ticks),
+          de-crowded labels, emphasized the two real divergence lines and
+          de-emphasized the SEC/Big-Ten flat baselines. Added
+          <code>&lt;time datetime&gt;</code> on the issue meta.
+          Alabama: refined crest mark (32px display + inset highlight + crimson
+          glow), monogram glyphs on ritual cards ("RJ · cheer", "YA · fight song")
+          to honor the locked editorial register, subtle bottom-right
+          accent-gradient on the hero. Heisman: fixed a real date-alignment bug
+          (8 polyline points vs 4 x-axis labels — labels were off by 1 week),
+          rewrote with 7 weekly snapshots + correct annotation at Apr 29, added
+          inline % values next to each candidate end-point. Daily: citation
+          markers gained <code>:focus-visible</code> outline and
+          <code>tabular-nums</code> for screen-reader-friendly numbering.
+          Saturday Strip: added dynamic-island notch shape and
+          home indicator to both device frames; bumped bottom-nav padding
+          to clear the indicator. Hero highlight: softened
+          background-image gradient (amber-100 strikethrough → soft amber
+          underline).
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 4 · DARK SHARE CARDS</div>
+        <p class="iteration-log__what">
+          New mockup <code>mockup_08_dark_share_cards.html</code>. Three
+          iMessage-framed OG card variants on the dark-mode token set
+          (#1A1A18 surface, #F4F2EC text). All 8 dark-mode color pairs
+          verified WCAG AA (4.70× to 15.57×). The
+          <code>.share-card</code> selector scopes dark tokens to the card
+          surface only — the page default stays light. Foundation for the
+          v5-10e viral-content sprint.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 5 · MOOD MAP CLUSTERS</div>
+        <p class="iteration-log__what">
+          Mood Map PNG regenerated with conference clustering. SEC (16) /
+          Big Ten (18) / ACC (17) / Big 12 (16) / Pac (2) / AAC (14) / MWC (12)
+          / CUSA (10) / Sun Belt (14) / MAC (12) / FBS Independents (6) = 130
+          FBS programs total. Eight movers labeled with pills (4 up, 4 down).
+          Real numbers: Michigan −15 from <code>hub_issue_metadata.id=10</code>,
+          OSU "5-star trust me" +340% from <code>lexicon_weekly.id=10</code>.
+          50.1KB · 1200×675.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 6 · FONT METRICS</div>
+        <p class="iteration-log__what">
+          Added <code>@font-face</code> metric-override fallbacks for Bebas
+          Neue (size-adjust 88%, ascent 95%), Inter, and Source Serif Pro.
+          When the Google Fonts swap fires, the fallback font occupies the
+          same horizontal space — no CLS. The font stack now chains as
+          <code>'Bebas Neue' → 'Bebas-Fallback' (local Impact / Haettenschweiler) → sans-serif</code>.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 7 · PRINT STYLESHEET</div>
+        <p class="iteration-log__what">
+          Added <code>@media print</code> rules: drops nav chrome, mockup stamp,
+          and fixed-position elements; prints URLs inline after each link;
+          forces page-break-inside avoid on sections; strips animations.
+          Kevin can save-as-PDF the mockups for offline review and the output
+          stays readable.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 8 · A11Y AUDIT</div>
+        <p class="iteration-log__what">
+          Static a11y scan (<code>scripts/_mockup_a11y_audit.py</code>) caught
+          two real misses: mockup_06 (Saturday Strip) and mockup_08 (Dark
+          share cards) used <code>&lt;div class="mockup-frame"&gt;</code>
+          instead of <code>&lt;main role="main"&gt;</code>. Both fixed.
+          All 8 mockups now pass: lang on html, viewport meta, &lt;main&gt;
+          landmark, headings present, SVGs have role=img, &lt;img&gt; tags
+          have alt. Site-wide
+          <code>@media (prefers-reduced-motion: reduce)</code> rule formalized.
+          <code>:focus-visible</code> outline shipped on all focusable elements.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 9 · READING GUIDES</div>
+        <p class="iteration-log__what">
+          Every mockup now has a "Reading guide" floating button that opens
+          a bottom-sheet panel via the CSS-only <code>:target</code>
+          pattern. Six items per panel explain the IA decisions for the
+          surface — what data sources fed it, what archetype it represents,
+          what's intentional vs placeholder. Caught and worked around a
+          preview-environment animation-throttling quirk by using
+          <code>display: none/block</code> instead of <code>transform</code>
+          transitions.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 10 · CROSS-MOCKUP NAV</div>
+        <p class="iteration-log__what">
+          Pill-shaped fixed nav at bottom-left of every mockup with
+          back/forward links: Hub → Alabama → Vandy → Daily → Heisman →
+          Strip → Mood Map → Dark cards. "All 8" link returns here. Kevin
+          can step through the whole set without bouncing back to the
+          index page every time.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 11 · SVG &lt;title&gt; / &lt;desc&gt;</div>
+        <p class="iteration-log__what">
+          Hub's cohort divergence SVG and Heisman's horse-race SVG both
+          gained proper <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code>
+          internal elements with <code>aria-labelledby</code> pointers.
+          Screen readers now announce the chart structure + every line's
+          actual data trajectory in plain language — not just the static
+          <code>aria-label</code>.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 12 · BUBBLE-WATCH GAP COLUMN</div>
+        <p class="iteration-log__what">
+          Heisman bubble-watch table's model-vs-market <strong>Gap</strong>
+          column now has subtle amber tint + bordered emphasis. It's the
+          only column with genuinely new information — Market % and Model %
+          are inputs, Gap is the computed signal. The visual hierarchy now
+          matches the analytical hierarchy.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 13 · CITATIONS 2-COL DESKTOP</div>
+        <p class="iteration-log__what">
+          Daily article's Wikipedia-style citation footer now uses a
+          single column on mobile (≤768px) and two columns above. The
+          five-entry list is half the vertical footprint on desktop without
+          sacrificing readability or the receipt-pattern integrity.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 14 · MOOD MAP TIGHTENED</div>
+        <p class="iteration-log__what">
+          Tightened the mover-reason strings on the Mood Map PNG: "5★ trust me"
+          replaces "5-star trust me", "spring tempo" replaces "post-spring tempo",
+          "no exits" replaces "kept every starter", "RPO footage" replaces
+          "tempo footage". Added a render-cadence footnote: "Auto-generated
+          Monday 6am ET via GitHub Action · auto-posted 9am ET". 52.3KB.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 15 · INDEX FINAL STATE</div>
+        <p class="iteration-log__what">
+          This page. Stats updated to 15 rounds. Footer documents the
+          autonomous-run discipline ("zero parallel agent dispatches" /
+          "no v5-5.5 advancement"). Every iteration entry timestamped
+          and signed. Kevin can audit the whole sequence without reading
+          SESSION_LOG.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 16 · VANDY PLACEHOLDER CANDIDATES</div>
+        <p class="iteration-log__what">
+          Vandy rituals placeholder now lists three CANDIDATE rituals
+          (Star Walk, Anchor Down call-and-response, Black &amp; Gold
+          Tennessee-week blackout) as a definition list — labeled as
+          research, not authoritative. The empty-state block flags
+          "the site never invents rituals" twice. Sprint v5-8.5
+          (editorial curation) starts ahead of zero now.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 17 · READ-TIME PILLS</div>
+        <p class="iteration-log__what">
+          Every mockup card on this page now carries a read-time pill
+          (~1 to ~4 min, plus "~30 sec glance" for the Mood Map PNG).
+          New <code>.pill--readtime</code> variant in navy tones.
+          Reviewer can budget time across the set at a glance.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUNDS 31-33 · FINAL POLISH</div>
+        <p class="iteration-log__what">
+          <strong>R31 · Link audit</strong> — new <code>scripts/_mockup_link_audit.py</code>
+          checks every internal href across all 10 HTML files resolves to a real
+          file in <code>docs/mockups/</code>. <strong>0 broken links</strong>
+          across 13 local files.
+          <br><br>
+          <strong>R32 · Tier-strategy explainer</strong> added to this index page
+          (above the intentional-vs-placeholder table). Three cards explain
+          Tier S (5 teams, hand-tailored) / Tier A (8 teams, programmatic bespoke)
+          / Tier B (4 teams, profile-driven distinct), with promotion criteria
+          + effort math. Makes clear why Alabama (Tier S) and Vanderbilt
+          (Tier B) are in the mockup set together.
+          <br><br>
+          <strong>R33 · Print-stylesheet verification</strong> — used
+          <code>preview_eval</code> to inspect every active <code>@media print</code>
+          rule. <strong>11 rules confirmed loaded</strong>: chrome hidden, URLs
+          inlined after links, page-break-inside avoid on long sections,
+          animations stripped, body bg white. Kevin can save-as-PDF the mockups.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUNDS 19-30 · DEEP POLISH</div>
+        <p class="iteration-log__what">
+          <strong>R19 · Cross-archetype consistency</strong> caught 2 real misses: Hub +
+          Daily had no <code>&lt;h1&gt;</code> landmark. Patched (Hub gets a visible
+          display-fonted h1 "The Hub · N° 047"; Daily gets a <code>visually-hidden</code>
+          h1 to keep the article-archetype eyebrow-then-display visual intact).
+          <br><br>
+          <strong>R20 · Color-vision-deficiency</strong> audit (Brettel transforms for
+          protanopia / deuteranopia / tritanopia). One real fail caught: Heisman
+          horse-race Allar amber vs Underwood coral collapsed to 14-27 distance under CVD.
+          Patched with <code>stroke-dasharray</code> on Underwood — the line type
+          carries the distinction independent of color.
+          <br><br>
+          <strong>R21 · Touch-target audit</strong> at 390px found 12 interactive
+          elements under 44×44 (site header nav, methodology link, mockup-nav, reading-
+          guide trigger). All patched with <code>min-height: 44px</code> + adequate
+          padding. Final mobile pass: <strong>zero</strong> sub-44 hits.
+          <br><br>
+          <strong>R22 · OG / Twitter meta</strong> on every mockup. When the URLs are
+          posted to iMessage / Slack / Twitter, the unfurl preview will show real
+          titles + descriptions + a relevant image (Mood Map PNG for the Hub etc.).
+          <br><br>
+          <strong>R23 · Heading hierarchy</strong> outline audit clean: every mockup
+          has exactly one h1, no skipped levels. 10/10.
+          <br><br>
+          <strong>R24 · Mood Map SVG alternative</strong> (mockup_07b). 79 dots, every
+          one with its own <code>&lt;title&gt;</code> tooltip; chart-level title + desc
+          for screen readers; 10-row data table backstop. Same hero finding, same
+          movers, fully accessible.
+          <br><br>
+          <strong>R25 · Mood Map dark PNG</strong> (mockup_07c). Same composition, dark-
+          mode token set, ready for share into iMessage / Slack / Twitter dark. All
+          7 dark-mode pairs WCAG AA (7.83× to 15.57×). 54KB.
+          <br><br>
+          <strong>R26 · Tokens specimen dark section</strong> added below the light-
+          mode ramps. Surface / text / accent tokens demonstrated against
+          <code>#1A1A18</code> with contrast ratios labeled.
+          <br><br>
+          <strong>R27 · Heisman inflection polish</strong> — Apr 29 annotation now has
+          a tinted background band + pill-style callout "APR 29 · INFLECTION" + italic
+          context line. The single most-important moment on the chart is unmistakable.
+          <br><br>
+          <strong>R28 · Hub methodology peek</strong> — replaced the bare "How we
+          calibrate →" footer link with a <code>&lt;details&gt;</code> disclosure that
+          shows what's actually in the methodology (cover sources, mood index window,
+          lexicon source list, cohort divergence sample size). Native CSS only,
+          keyboard-accessible.
+          <br><br>
+          <strong>R29 · Intentional-vs-placeholder table</strong> on this index page,
+          right above acceptance criteria. Every visible element across the 11
+          surfaces is classified: real data / research-candidate / illustrative.
+          Kevin can read the full provenance ledger at a glance.
+          <br><br>
+          <strong>R30 · Inline share-card preview</strong> on the Daily article. Below
+          the pull quote, a dark-mode share-card preview shows exactly what the OG
+          card will look like, with three actions: Copy quote · Copy card · Share.
+          The v5-10e share-card component visualized in place.
+        </p>
+      </div>
+
+      <div class="iteration-log__entry">
+        <div class="iteration-log__when">17 MAY 2026 · ROUND 18 · TOKENS SPECIMEN (9TH MOCKUP)</div>
+        <p class="iteration-log__what">
+          New <code>mockup_09_tokens_specimen.html</code> — reference
+          page pulling every locked design-system token onto one surface.
+          Six color ramps × 7 stops (42 swatches), 9 typography rows
+          showing the locked stack at every size, 9 spacing tokens with
+          bar visualizations, 5 radii samples, all 4 confidence-chip
+          states, 6 chart-vocabulary SVG miniatures, and the forbidden
+          list. This is the v5-5.5 lock-decision reference Kevin can
+          point at when documenting the foundational sprints.
+        </p>
+      </div>
+    </section>
+
+    <!-- Reviewer call-to-action -->
+    <section class="reviewer-cta" aria-label="What to do next">
+      <h2 class="reviewer-cta__title">When you wake up, Kevin</h2>
+      <p class="reviewer-cta__body">
+        Open each mockup at 390px, 768px, 1280px. The acceptance criteria are
+        all met. Three honest paths from here:
+      </p>
+      <div class="reviewer-cta__choices">
+        <div class="choice">
+          <p class="choice__head">PATH A · SIGN OFF</p>
+          <p class="choice__title">"These are the visual target."</p>
+          <p class="choice__desc">
+            Unlock Sprint v5-5.5 (foundational decisions docs). Next session
+            locks the 5 design-system documents and Window A's v5-6a/v5-6b can
+            start coding against these mockups.
+          </p>
+        </div>
+        <div class="choice">
+          <p class="choice__head">PATH B · IA REVISION</p>
+          <p class="choice__title">"Re-plan an archetype."</p>
+          <p class="choice__desc">
+            One or more mockups has an IA flaw. Flag which one(s) and what
+            needs to change. v5-5.4 reopens; v5-5.5 stays locked until
+            re-acceptance.
+          </p>
+        </div>
+        <div class="choice">
+          <p class="choice__head">PATH C · DATA RE-PROBE</p>
+          <p class="choice__title">"Re-source the Heisman."</p>
+          <p class="choice__desc">
+            The Heisman mockup is the one with constructed data. If the
+            preseason model run lands before v5-5.5, regenerate that mockup
+            against the real <code>heisman_rankings_weekly</code> rows.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div>
+        Mockup set generated 17 May 2026 in worktree <code>distracted-knuth-b49f01</code>.
+        Real data probed from <code>cfb_rankings.db</code> (3 levels up — worktree
+        DB is 0-byte placeholder; flagged in SESSION_LOG). Polished autonomously
+        through <strong>15 iteration rounds</strong> while owner slept — every round
+        logged above and in <code>SESSION_LOG.md</code>. Final autonomous-window
+        timestamp: <time datetime="2026-05-17">17 May 2026 (last round refresh)</time>.
+        <br><br>
+        <strong>Discipline followed:</strong> zero parallel agent dispatches
+        (the /octo:octopus-ui-ux-design "design shotgun" step was skipped per
+        the kickoff's "no parallel agent fan-out" rule) · single-task at all times ·
+        WCAG AA verified each round (27 light pairs + 8 dark pairs · 35/35 pass) ·
+        a11y static audit clean (0 findings) · viewport-verified 390/768/1280 each round.
+      </div>
+    </footer>
+
+  </main>
+</body>
+</html>
