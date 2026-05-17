@@ -5650,6 +5650,28 @@ def _model_run_label(include_heisman: bool) -> str:
 
 
 def _model_summary_for_week(db: "Database", season: int, week: int) -> dict[str, int | str] | None:
+    """Find a model_runs row for (season, week) with backed-up power_ratings.
+
+    Search order, all gated on `exists (select 1 from power_ratings_weekly
+    where model_run_id = mr.model_run_id)` so we never return a model_run
+    that has no power data:
+
+      1. Exact week match — original behavior.
+      2. Latest model_run for the season with week <= requested. Handles
+         late-week postseason data when the caller asked for week 16.
+      3. Latest model_run for the season at any week. Handles seasons
+         that were only run end-of-season (week 21 final, no week-16
+         intermediate). The 2026-05-17 Heisman 2025 failure was exactly
+         this case — model_runs for 2025 had only week=21, but the
+         Heisman model's `--through-week 16` lookup demanded week=16
+         exactly. The model itself caps feature extraction at week 16
+         via _heisman_feature_week, so finding the model_run at any
+         week is safe.
+
+    Returns None only when the season has zero model_runs entries with
+    power data at all.
+    """
+    # Pass 1: exact (season, week) match
     row = db.query_one(
         """
         select mr.model_run_id, mr.week, mr.model_version
@@ -5665,6 +5687,53 @@ def _model_summary_for_week(db: "Database", season: int, week: int) -> dict[str,
         limit 1
         """,
         {"season_year": season, "week": week},
+    )
+    if row is not None:
+        return {
+            "model_run_id": int(row["model_run_id"]),
+            "week": int(row["week"]),
+            "model_version": str(row.get("model_version") or ""),
+        }
+    # Pass 2: nearest run for season with week <= requested
+    row = db.query_one(
+        """
+        select mr.model_run_id, mr.week, mr.model_version
+        from model_runs mr
+        where mr.season_year = %(season_year)s
+          and mr.week <= %(week)s
+          and exists (
+            select 1
+            from power_ratings_weekly p
+            where p.model_run_id = mr.model_run_id
+          )
+        order by mr.week desc, mr.model_run_id desc
+        limit 1
+        """,
+        {"season_year": season, "week": week},
+    )
+    if row is not None:
+        return {
+            "model_run_id": int(row["model_run_id"]),
+            "week": int(row["week"]),
+            "model_version": str(row.get("model_version") or ""),
+        }
+    # Pass 3: any model_run for the season (e.g. only the final snapshot
+    # exists). Heisman model caps at week 16 internally, so even a
+    # week-21 model_run will produce week-16-capped feature extraction.
+    row = db.query_one(
+        """
+        select mr.model_run_id, mr.week, mr.model_version
+        from model_runs mr
+        where mr.season_year = %(season_year)s
+          and exists (
+            select 1
+            from power_ratings_weekly p
+            where p.model_run_id = mr.model_run_id
+          )
+        order by mr.week desc, mr.model_run_id desc
+        limit 1
+        """,
+        {"season_year": season},
     )
     if row is None:
         return None
