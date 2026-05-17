@@ -19976,7 +19976,11 @@ def _heisman_lens_title(current_snapshot: dict[str, Any]) -> str:
     except (TypeError, ValueError):
         return "Heisman Lens"
     # If the data is from a completed season (week 16+), tag as Final.
-    week = current_snapshot.get("week")
+    # NB: heisman_years dict uses `latest_week` (set at line 8149), not the
+    # raw `week` column name. PR #84 read `week` and silently got None for
+    # every player — the title showed "· 2024 Season" (no " · Final" tag)
+    # and the subhead stayed present-tense even on graduated players.
+    week = current_snapshot.get("latest_week")
     is_final = bool(week and int(week) >= 16)
     return f"Heisman Lens · {season_int} Season{' · Final' if is_final else ''}"
 
@@ -19991,7 +19995,11 @@ def _heisman_lens_note(current_snapshot: dict[str, Any]) -> str:
             "Where the model places this player relative to the rest of "
             "the Heisman field."
         )
-    week = current_snapshot.get("week")
+    # NB: heisman_years dict uses `latest_week` (set at line 8149), not the
+    # raw `week` column name. PR #84 read `week` and silently got None for
+    # every player — the title showed "· 2024 Season" (no " · Final" tag)
+    # and the subhead stayed present-tense even on graduated players.
+    week = current_snapshot.get("latest_week")
     if week and int(week) >= 16:
         return (
             "Where the player landed at the end of the listed season — "
