@@ -10,10 +10,21 @@ _Synthesized 2026-05-18 from a comprehensive audit of `CFB_INDEX_VISUAL_SYSTEM_C
 - 8 section rubrics on N° 01–N° 08 eyebrow headers
 - Author portrait + totem master plate available via helpers
 
-✅ **OG share-card metadata** on every public landing page (PR #99/#103-#107/#114/#116/#121)
+✅ **Team logos on team pages** (PR #133) — 664 teams, deterministic URL emit + onerror fallback. Applies to both legacy reporting.py and team_pages/ renderer.
+
+✅ **Tabular numerals + reduced-motion guard** (PR #134) — site-wide via `_DESIGN_SYSTEM_BASELINE_CSS_BLOCK`.
+
+✅ **Confidence chip prototype** (PR #137 player Heisman Lens + PR #140 Heisman Tracker hero) — locked spec from `docs/design-system/33-confidence-signaling.md` wired into the two highest-traffic stat surfaces.
+
+✅ **Comprehensive OG/twitter meta sweep** — every public render surface now has og:image / og:title / og:description / twitter:card. PRs #99/#103-#107/#114/#116/#121 + #141 (6 missing pages) + #142 (editions article+TOC) + #146 (methodology+freshness) + #148 (editions homepage + 3 boards) + #149 (dynasty heatmap) + #150 (countdown+today+recruit) + #151 (vibe-shifts).
+
+✅ **SEO foundations** (PR #145, #153) — robots.txt + sitemap.xml at site root. Sitemap includes 18 top-level landing pages plus every site-eligible team URL (FBS 0.7 priority weekly, non-FBS 0.5 monthly). Per-player + per-archive deferred to Phase 2.
+
 ✅ **A11y skip-link** on profiled team pages (PR #115)
 ✅ **Label honesty layer** — every season label tracks the snapshot's actual data season (PR #84/#88/#91/#92/#93)
 ✅ **Heisman 2025 data pipeline** unblocked (PR #102 + #123)
+✅ **Chart vocabulary audit** (PR #139) — verified inventory vs `docs/design-system/31`. 8 APPROVED, 2 FORBIDDEN (legacy vertical bars in reporting.py), 2 AMBIGUOUS. See `docs/octopus/chart_vocabulary_audit.md`.
+✅ **Visual-system implementation plan** (PR #136) — 8-phase roadmap. See `docs/octopus/implementation_plan_visual_system.md`.
 
 ## Top 5 — highest leverage, can ship autonomously
 
