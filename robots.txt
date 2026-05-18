@@ -1,0 +1,9 @@
+# THE CFB INDEX — robots.txt
+User-agent: *
+Allow: /
+
+# Block draft / WIP edition slugs from indexing
+Disallow: /editions/draft-*
+Disallow: /_smoke-*
+
+Sitemap: https://wonderful-margulis-8ec96b.vercel.app/sitemap.xml
