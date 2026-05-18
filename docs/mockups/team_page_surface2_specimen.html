@@ -1,0 +1,3366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Alabama — CFB Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Alabama — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.">
+<meta name="theme-color" content="#9E1B32">
+<link rel="canonical" href="https://wonderful-margulis-8ec96b.vercel.app/teams/alabama.html">
+<meta property="og:url" content="https://wonderful-margulis-8ec96b.vercel.app/teams/alabama.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="THE CFB INDEX">
+<meta property="og:title" content="Alabama — CFB Index">
+<meta property="og:description" content="Alabama — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.">
+<meta property="og:image" content="https://wonderful-margulis-8ec96b.vercel.app/teams/alabama-og.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://wonderful-margulis-8ec96b.vercel.app/teams/alabama.html">
+<meta name="twitter:title" content="Alabama — CFB Index">
+<meta name="twitter:description" content="Alabama — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.">
+<meta name="twitter:image" content="https://wonderful-margulis-8ec96b.vercel.app/teams/alabama-og.svg">
+<script>/* Theme init — FOUC prevention. MUST load synchronously in <head>.
+ * -------------------------------------------------------------------------
+ * Reads cfb-theme-pref from localStorage. If "light" or "dark", sets
+ * data-theme on <html> BEFORE first paint, so the page renders correctly.
+ * If "system" or unset, removes data-theme and lets prefers-color-scheme
+ * decide.
+ *
+ * Keep this script tiny. The full toggle UI loads via theme_toggle.js
+ * (deferred). This is just the synchronous attribute-setter.
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §"Part 2 — Path C"
+ */
+(function () {
+  try {
+    var pref = localStorage.getItem('cfb-theme-pref');
+    var root = document.documentElement;
+    if (pref === 'light' || pref === 'dark') {
+      root.setAttribute('data-theme', pref);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  } catch (e) { /* localStorage unavailable — silently fall through to OS pref */ }
+})();
+</script>
+<style>
+/* Team-Pages Design Tokens
+ * -------------------------------------------------------------------------
+ * Shared-across-all-teams foundation. Per-team accent colors are injected
+ * via inline custom-properties on the <body> element at render time.
+ *
+ * Inherit / extends the player-page design language (Iteration Log §15.1):
+ *   - Dark-mode default (iMessage-native)
+ *   - Inter Display / serif editorial pairing
+ *   - OKLCH percentile + belief ramps
+ *   - 44px touch targets, mobile-first spacing rhythm
+ */
+
+:root {
+  /* -----  Color system (dark-mode default) ------ */
+  --bg-0: #0b0d12;
+  --bg-1: #12151d;
+  --bg-2: #1a1f2b;
+  --bg-card: #171b24;
+  --bg-card-raised: #1e2330;
+  --bg-overlay: rgba(11, 13, 18, 0.72);
+
+  --fg-primary: #f5f6fa;
+  --fg-secondary: #c6cad6;
+  --fg-muted: #8a90a1;
+  --fg-subtle: #5c6172;
+  --fg-on-accent: #0b0d12;
+
+  --stroke-default: rgba(255, 255, 255, 0.08);
+  --stroke-subtle: rgba(255, 255, 255, 0.05);
+  --stroke-strong: rgba(255, 255, 255, 0.14);
+
+  /* -----  Accent (overridden per-team via inline style) ------ */
+  --accent-primary: #c5b358;
+  --accent-secondary: #084c24;
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  --accent-on: #0b0d12;
+
+  /* -----  Percentile / belief ramps ------ */
+  --pct-low: #c04a4a;
+  --pct-mid-low: #d9845e;
+  --pct-mid: #8a90a1;
+  --pct-mid-high: #5a9dd1;
+  --pct-high: #3570b5;
+
+  --belief-doom: #c04a4a;
+  --belief-mixed: #8a90a1;
+  --belief-bullish: #3ea073;
+
+  --accolade-gold: #c5b358;
+
+  /* -----  Emotional-key accents (seasonal sentience) ------ */
+  --tone-red: #c04a4a;
+  --tone-amber: #d9a55e;
+  --tone-navy: #3570b5;
+  --tone-gray: #8a90a1;
+  --tone-coral: #d95e7c;
+  --tone-green: #3ea073;
+
+  /* -----  Typography ------ */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  --fs-label: clamp(10px, 0.72vw + 8px, 12px);
+  --fs-metric-sm: clamp(14px, 1vw + 10px, 16px);
+  --fs-body: clamp(14px, 0.8vw + 10px, 16px);
+  --fs-body-lg: clamp(15px, 0.9vw + 11px, 18px);
+  --fs-headline-sm: clamp(18px, 1.2vw + 12px, 22px);
+  --fs-headline: clamp(22px, 1.8vw + 14px, 30px);
+  --fs-hero: clamp(32px, 3.5vw + 16px, 56px);
+  --fs-serif-body: clamp(16px, 0.8vw + 12px, 19px);
+  --fs-metric: clamp(24px, 2vw + 12px, 36px);
+
+  --lh-tight: 1.12;
+  --lh-snug: 1.28;
+  --lh-normal: 1.48;
+  --lh-relaxed: 1.65;
+
+  --ls-tight: -0.02em;
+  --ls-normal: 0em;
+  --ls-wide: 0.04em;
+  --ls-label: 0.08em;
+
+  /* -----  Spacing rhythm ------ */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+  --sp-10: 80px;
+
+  /* -----  Radii ------ */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* -----  Elevation ------ */
+  --elev-card: 0 1px 2px rgba(0,0,0,0.38), 0 4px 12px rgba(0,0,0,0.25);
+  --elev-raised: 0 2px 4px rgba(0,0,0,0.42), 0 12px 36px rgba(0,0,0,0.30);
+
+  /* -----  Motion ------ */
+  --motion-reveal: 240ms cubic-bezier(.2,.7,.25,1);
+  --motion-state: 180ms cubic-bezier(.2,.7,.25,1);
+  --motion-data: 420ms cubic-bezier(.2,.7,.25,1);
+  --motion-delight: 800ms cubic-bezier(.2,.7,.25,1);
+
+  /* -----  Touch targets ------ */
+  --touch-min: 44px;
+  --touch-medium: 48px;
+  --touch-large: 60px;
+
+  /* -----  Layout ------ */
+  --content-max-w: 1100px;
+  --content-side-pad: clamp(16px, 4vw, 32px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-reveal: 0ms;
+    --motion-state: 0ms;
+    --motion-data: 0ms;
+    --motion-delight: 0ms;
+  }
+}
+
+/* ============================================================================
+   WORLD-CLASS RANKINGS PAGE STYLES
+   ============================================================================ */
+
+/* -----  Tiered Row Styling ------ */
+.rankings-row--elite {
+  background: linear-gradient(90deg, var(--tone-navy) 0%, transparent 30%);
+  font-weight: 600;
+}
+
+.rankings-row--elite .rank-cell {
+  font-size: 1.2em;
+  color: var(--tone-navy);
+  font-weight: 700;
+}
+
+.rankings-row--power {
+  background: transparent;
+}
+
+.rankings-row--all {
+  opacity: 0.8;
+  font-size: 0.95em;
+}
+
+/* -----  Rank Change Magnitude ------ */
+.rank-delta--large {
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.rank-delta--large.rank-delta--up {
+  background: var(--belief-bullish);
+  color: var(--bg-0);
+}
+
+.rank-delta--large.rank-delta--down {
+  background: var(--tone-red);
+  color: var(--bg-0);
+}
+
+.rank-delta--medium {
+  font-weight: 600;
+}
+
+/* -----  Movement Dashboard ------ */
+.movement-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  margin: var(--sp-8) 0;
+}
+
+.movement-panel {
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+}
+
+.movement-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-3);
+  color: var(--fg-secondary);
+}
+
+.movement-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+
+.movement-card:last-child {
+  border-bottom: none;
+}
+
+.movement-card__rank {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-metric-sm);
+  color: var(--tone-navy);
+  min-width: 40px;
+}
+
+.movement-card__team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.movement-card__team .team-link {
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+
+.movement-card__team .submetric {
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.movement-card__change {
+  min-width: 60px;
+  text-align: right;
+}
+
+/* -----  Tier Toggles ------ */
+.rankings-tier-toggles {
+  display: flex;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  justify-content: center;
+}
+
+.tier-toggle {
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tier-toggle:hover {
+  background: var(--bg-2);
+  border-color: var(--stroke-strong);
+  color: var(--fg-primary);
+}
+
+.tier-toggle--active {
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  border-color: var(--tone-navy);
+}
+
+/* -----  Quick Filter Chips ------ */
+.rankings-quick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4);
+  background: var(--bg-1);
+  border-radius: var(--radius-lg);
+  justify-content: center;
+}
+
+.filter-chip {
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--bg-2);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-chip:hover {
+  background: var(--bg-0);
+  border-color: var(--tone-navy);
+  color: var(--fg-primary);
+}
+
+.filter-chip--active {
+  background: var(--tone-navy);
+  border-color: var(--tone-navy);
+  color: var(--fg-on-accent);
+}
+
+/* -----  Sparkline Styling ------ */
+.rank-sparkline {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+.rank-change-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* -----  Accessibility ------ */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  padding: var(--sp-2) var(--sp-3);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* -----  Responsive Design ------ */
+@media (max-width: 640px) {
+  .rankings-tier-toggles {
+    flex-wrap: wrap;
+  }
+
+  .tier-toggle {
+    flex: 1 1 calc(50% - var(--sp-2));
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .movement-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .rankings-quick-filters {
+    gap: var(--sp-1);
+  }
+
+  .filter-chip {
+    font-size: 10px;
+    padding: var(--sp-1) var(--sp-2);
+    flex: 1 1 calc(33% - var(--sp-1));
+    text-align: center;
+  }
+
+  .rank-sparkline {
+    width: 60px;
+    height: 18px;
+  }
+
+  /* Transform table rows into cards on mobile */
+  #rankingsTableBody tr {
+    display: block;
+    margin-bottom: var(--sp-4);
+    background: var(--bg-1);
+    border: 1px solid var(--stroke-default);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3);
+  }
+
+  #rankingsTableBody thead {
+    display: none;
+  }
+
+  #rankingsTableBody td {
+    display: block;
+    padding: var(--sp-1) 0;
+    border: none;
+  }
+
+  #rankingsTableBody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: var(--sp-2);
+    color: var(--fg-muted);
+  }
+
+  .movement-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .movement-card__rank {
+    font-size: var(--fs-body);
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * Light-mode override for profiled team pages (Sprint v5-11.5 Surface 2)
+ *
+ * When the theme toggle sets data-theme="light" on <html>, override the
+ * dark-default tokens above with their light-mode equivalents. The
+ * accent ramps (--accent-primary, --pct-*, --tone-*, --belief-*) stay
+ * team/data-driven because they read fine on both backgrounds.
+ *
+ * Specificity: :root[data-theme="light"] (0,1,1) beats :root (0,0,1)
+ * defined above. No :where() neutralizer needed here because the
+ * defaults aren't behind an @media block.
+ * ------------------------------------------------------------------------- */
+
+:root[data-theme="light"] {
+  --bg-0:               #faf8f3;          /* bone paper backdrop */
+  --bg-1:               #fbfaf6;
+  --bg-2:               #f5f1e8;
+  --bg-card:            #ffffff;
+  --bg-card-raised:     #f5f1e8;
+  --bg-overlay:         rgba(28, 28, 31, 0.72);
+
+  --fg-primary:         #1c1c1f;
+  --fg-secondary:       #2c2c30;
+  --fg-muted:           #6b6b6b;
+  --fg-subtle:          #8a8a8e;
+  --fg-on-accent:       #0b0d12;          /* accent stays team-driven */
+
+  --stroke-default:     rgba(28, 28, 31, 0.08);
+  --stroke-subtle:      rgba(28, 28, 31, 0.05);
+  --stroke-strong:      rgba(28, 28, 31, 0.16);
+}
+
+
+body {
+  --accent-primary: #9E1B32;
+  --accent-secondary: #FFFFFF;
+  --accent-gradient: linear-gradient(135deg, #9E1B32, #FFFFFF);
+}
+
+/* Team-Pages Component Styles
+ * -------------------------------------------------------------------------
+ * Reads from tokens.css. No raw color or size values here — everything
+ * through custom properties so per-team theming works by swapping tokens.
+ */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-0);
+  color: var(--fg-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.team-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 10% -10%,
+      color-mix(in oklab, var(--accent-primary) 18%, transparent) 0%,
+      transparent 60%),
+    radial-gradient(900px 500px at 90% 0%,
+      color-mix(in oklab, var(--accent-secondary) 14%, transparent) 0%,
+      transparent 55%),
+    var(--bg-0);
+}
+
+.content {
+  max-width: var(--content-max-w);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--content-side-pad) var(--sp-10);
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  display: grid;
+  gap: var(--sp-6);
+  padding: var(--sp-8) 0 var(--sp-7);
+  border-bottom: 1px solid var(--stroke-default);
+}
+
+.hero__identity-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  row-gap: var(--sp-3);
+}
+
+.hero__logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+@media (max-width: 640px) {
+  .hero__logo {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.hero__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+
+.hero__record {
+  font-family: var(--font-mono);
+  font-size: var(--fs-headline-sm);
+  color: var(--fg-secondary);
+  padding: var(--sp-1) var(--sp-3);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-pill);
+  background: var(--bg-card);
+  letter-spacing: var(--ls-wide);
+}
+
+.hero__rank-chip {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-pill);
+  color: var(--fg-primary);
+  border: 1px solid var(--stroke-strong);
+  background: var(--bg-card-raised);
+}
+
+.hero__rank-chip--cfp { color: var(--accolade-gold); border-color: var(--accolade-gold); }
+
+.hero__eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.hero__heritage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-5);
+  padding: var(--sp-3) 0;
+  color: var(--fg-secondary);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  border-top: 1px solid var(--stroke-subtle);
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+.hero__heritage span { white-space: nowrap; }
+.hero__heritage strong {
+  color: var(--fg-primary);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: var(--ls-normal);
+}
+
+.hero__state {
+  font-family: var(--font-serif);
+  font-size: var(--fs-serif-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-primary);
+  max-width: 62ch;
+  margin: 0;
+}
+
+.hero__state strong {
+  color: var(--fg-primary);
+  font-weight: 600;
+}
+
+.hero__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+
+@media (min-width: 760px) {
+  .hero__metrics {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.metric-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-4);
+  display: grid;
+  gap: var(--sp-2);
+  min-height: var(--touch-large);
+}
+
+.metric-tile__label {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.metric-tile__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-metric);
+  font-weight: 700;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  color: var(--fg-primary);
+}
+
+.metric-tile__value--accent { color: var(--accent-primary); }
+
+.metric-tile__delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-secondary);
+}
+.metric-tile__delta--up { color: var(--tone-green); }
+.metric-tile__delta--down { color: var(--tone-red); }
+
+/* ------------------------------------------------------------------ */
+/* Pulse module                                                        */
+/* ------------------------------------------------------------------ */
+
+.pulse {
+  margin-top: var(--sp-8);
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6);
+  display: grid;
+  gap: var(--sp-5);
+  box-shadow: var(--elev-card);
+}
+
+.pulse__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.pulse__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-headline-sm);
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-primary);
+  margin: 0;
+}
+
+.pulse__live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--tone-green);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--tone-green) 20%, transparent);
+  animation: pulse-dot 2s infinite;
+}
+
+.pulse__live-dot--quiet { background: var(--fg-muted); box-shadow: none; animation: none; }
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--tone-green) 35%, transparent); }
+  70% { box-shadow: 0 0 0 8px color-mix(in oklab, var(--tone-green) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--tone-green) 0%, transparent); }
+}
+
+.pulse__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  letter-spacing: var(--ls-wide);
+}
+
+.pulse__grid {
+  display: grid;
+  gap: var(--sp-5);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .pulse__grid {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.pulse__mood-card {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.pulse__mood-number {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5vw + 16px, 84px);
+  font-weight: 800;
+  letter-spacing: var(--ls-tight);
+  line-height: 1;
+  color: var(--accent-primary);
+}
+
+.pulse__mood-delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  color: var(--fg-secondary);
+}
+
+.pulse__trajectory {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 48px;
+  padding: var(--sp-2) 0;
+}
+
+.pulse__trajectory-bar {
+  flex: 1;
+  min-width: 6px;
+  background: color-mix(in oklab, var(--accent-primary) 28%, var(--bg-1) 72%);
+  border-radius: 2px 2px 0 0;
+}
+
+.pulse__trajectory-bar--current {
+  background: var(--accent-primary);
+}
+
+.pulse__event-log {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--bg-card-raised);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--stroke-default);
+}
+
+.pulse__event-log-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.pulse__event {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  gap: var(--sp-3);
+  align-items: baseline;
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+.pulse__event:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.pulse__event-time {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  letter-spacing: var(--ls-wide);
+}
+
+.pulse__event-text {
+  font-size: var(--fs-body);
+  color: var(--fg-primary);
+  line-height: var(--lh-snug);
+}
+
+.pulse__event-delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 600;
+}
+.pulse__event-delta--up { color: var(--tone-green); }
+.pulse__event-delta--down { color: var(--tone-red); }
+
+.pulse__top-take {
+  padding: var(--sp-4);
+  background: var(--bg-card-raised);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--stroke-default);
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-secondary);
+}
+
+.pulse__top-take-attr {
+  display: block;
+  margin-top: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-style: normal;
+}
+
+.pulse__velocity {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+.pulse__velocity-number {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  font-weight: 700;
+  color: var(--fg-primary);
+}
+.pulse__velocity-context {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.pulse__badge-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--sp-3);
+}
+.pulse__badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-default);
+  background: var(--bg-card-raised);
+}
+.pulse__badge--awaiting { color: var(--fg-muted); }
+.pulse__badge--growing  { color: var(--fg-secondary); }
+
+/* ------------------------------------------------------------------ */
+/* Chronicle cards (compact render)                                    */
+/* ------------------------------------------------------------------ */
+
+.chronicle {
+  margin-top: var(--sp-8);
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.chronicle__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  border-bottom: 1px solid var(--stroke-default);
+  padding-bottom: var(--sp-3);
+}
+
+.chronicle__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  font-weight: 700;
+  margin: 0;
+}
+
+.chronicle__grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .chronicle__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chronicle-card {
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  padding: var(--sp-5);
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.chronicle-card--anomaly { border-left-color: var(--tone-amber); }
+.chronicle-card--moment { border-left-color: var(--tone-coral); }
+.chronicle-card--flashpoint { border-left-color: var(--tone-navy); }
+.chronicle-card--echo { border-left-color: var(--tone-gray); }
+.chronicle-card--retroactive { border-left-color: #a07ccf; }
+.chronicle-card--player_arc { border-left-color: #5ec9c4; }
+
+.chronicle-card__type {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.chronicle-card__headline {
+  font-family: var(--font-display);
+  font-size: var(--fs-body-lg);
+  font-weight: 700;
+  color: var(--fg-primary);
+  margin: 0;
+  line-height: var(--lh-snug);
+}
+
+.chronicle-card__body {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-secondary);
+  margin: 0;
+}
+
+.chronicle-card__source {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fg-subtle);
+  letter-spacing: var(--ls-wide);
+}
+
+/* ------------------------------------------------------------------ */
+/* Page footer + subnav                                                */
+/* ------------------------------------------------------------------ */
+
+.page-footer {
+  margin-top: var(--sp-10);
+  padding: var(--sp-6) 0;
+  border-top: 1px solid var(--stroke-default);
+  color: var(--fg-muted);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.page-footer__mantra {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--fg-secondary);
+  text-transform: none;
+  letter-spacing: var(--ls-normal);
+  font-size: var(--fs-body);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive tweaks                                                   */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+  .hero { padding: var(--sp-6) 0; }
+  .hero__wordmark { letter-spacing: var(--ls-tight); }
+  .pulse { padding: var(--sp-5); }
+  .pulse__mood-number { font-size: clamp(40px, 12vw, 64px); }
+  .chronicle-card { padding: var(--sp-4); }
+}
+
+/* Savant Card — 13-metric percentile grid with peer-set toggle.
+   Tokens live in tokens.css; this file composes cards from those tokens. */
+
+.savant-card {
+  background: var(--surface-card, #fff);
+  border: 1px solid var(--line-subtle, #e6e6e6);
+  border-top: 3px solid var(--accent-primary, #0C2340);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  margin-top: var(--sp-5, 24px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color: var(--text-primary, #111);
+}
+
+.savant-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3, 12px);
+}
+
+.savant-card__eyebrow {
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+}
+
+.savant-card__toggle {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--surface-muted, #f2f2f2);
+  border-radius: 999px;
+  padding: 3px;
+}
+.savant-card__chip {
+  background: transparent;
+  border: none;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted, #555);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.savant-card__chip:hover { color: var(--text-primary, #111); }
+.savant-card__chip--active {
+  background: var(--accent-primary, #0C2340);
+  color: #fff;
+}
+
+.savant-card__narrative {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--text-primary, #111);
+  margin: 0 0 var(--sp-4, 16px) 0;
+  padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+  border-left: 3px solid var(--accent-primary, #0C2340);
+}
+.savant-card__narrative--fallback {
+  color: var(--text-muted, #555);
+  font-style: italic;
+}
+
+.savant-card__section {
+  padding: var(--sp-3, 12px) 0;
+  border-top: 1px solid var(--line-subtle, #e6e6e6);
+}
+.savant-card__section:first-of-type { border-top: none; }
+.savant-card__section-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+  margin: 0 0 var(--sp-3, 12px) 0;
+}
+
+/* Bar layout: label | track | value  */
+.savant-bar {
+  display: grid;
+  grid-template-columns: 160px 1fr 56px;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+  padding: 6px 0;
+  transition: background 120ms ease;
+}
+.savant-bar:hover { background: rgba(0,0,0,0.02); }
+
+.savant-bar__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.savant-bar__label-text {
+  font-size: 0.86rem;
+  color: var(--text-primary, #111);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.savant-bar__raw {
+  font-size: 0.68rem;
+  color: var(--text-muted, #888);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.savant-bar__track {
+  position: relative;
+  background: var(--surface-muted, #f2f2f2);
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.savant-bar__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 260ms cubic-bezier(.2,.8,.3,1), background 260ms ease;
+  background: var(--band-color, #9aa0a6);
+}
+.savant-bar__midline {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0,0,0,0.08);
+}
+.savant-bar__value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text-primary, #111);
+  text-align: right;
+  font-size: 0.98rem;
+}
+.savant-bar__pct-sup {
+  font-size: 0.6em;
+  vertical-align: super;
+  color: var(--text-muted, #888);
+  font-weight: 500;
+  margin-left: 1px;
+}
+
+/* Band colors — encoded via data-band so the peer toggle can swap them
+   without rewriting inline styles. */
+.savant-bar[data-band="elite"]    .savant-bar__fill { background: #22c55e; }
+.savant-bar[data-band="strong"]   .savant-bar__fill { background: #65a30d; }
+.savant-bar[data-band="average"]  .savant-bar__fill { background: #a3a3a3; }
+.savant-bar[data-band="concern"]  .savant-bar__fill { background: #f59e0b; }
+.savant-bar[data-band="bottom"]   .savant-bar__fill { background: #dc2626; }
+.savant-bar[data-band="missing"]  .savant-bar__fill { background: transparent; }
+.savant-bar[data-band="missing"]  .savant-bar__value .savant-bar__pct { color: var(--text-muted, #999); }
+
+.savant-card__echo {
+  margin-top: var(--sp-3, 12px);
+  padding: var(--sp-3, 12px) var(--sp-4, 14px);
+  background: var(--surface-muted, #f2f2f2);
+  border-left: 2px solid #6b7280;
+  border-radius: 4px;
+}
+.savant-card__echo-eyebrow {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted, #666);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.savant-card__echo-body {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-primary, #222);
+}
+.savant-card__echo-body strong { font-weight: 600; }
+
+.savant-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--sp-3, 12px) 0 0 0;
+  padding-top: var(--sp-3, 12px);
+  border-top: 1px dashed var(--line-subtle, #e6e6e6);
+}
+.savant-card__legend-chip {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 3px;
+  color: #fff;
+}
+.savant-card__legend-chip--elite    { background: #22c55e; }
+.savant-card__legend-chip--strong   { background: #65a30d; }
+.savant-card__legend-chip--average  { background: #a3a3a3; }
+.savant-card__legend-chip--concern  { background: #f59e0b; }
+.savant-card__legend-chip--bottom   { background: #dc2626; }
+
+.savant-card__source {
+  margin-top: var(--sp-3, 12px);
+  padding-top: var(--sp-3, 10px);
+  border-top: 1px solid var(--line-subtle, #eee);
+  font-size: 0.7rem;
+  color: var(--text-muted, #888);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .savant-bar {
+    grid-template-columns: 104px 1fr 44px;
+    gap: 8px;
+  }
+  .savant-bar__label-text { font-size: 0.78rem; }
+  .savant-bar__value { font-size: 0.86rem; }
+  .savant-card__header { gap: 10px; }
+  .savant-card__toggle { flex-wrap: wrap; }
+  .savant-card__chip { padding: 5px 9px; font-size: 0.64rem; }
+}
+
+/* Rivalry Card — mythic header + meta strip + trajectory + panels + meetings + stakes. */
+
+.rivalry-card {
+  background: var(--surface-card, #fff);
+  border: 1px solid var(--line-subtle, #e6e6e6);
+  border-top: 3px solid var(--accent-primary, #0C2340);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--sp-4, 18px) var(--sp-5, 24px);
+  margin-top: var(--sp-5, 24px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color: var(--text-primary, #111);
+}
+
+/* ---------- Header ---------- */
+.rivalry-card__header {
+  text-align: center;
+  padding-bottom: var(--sp-4, 16px);
+  margin-bottom: var(--sp-4, 18px);
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--text-muted, #666);
+  margin-bottom: 8px;
+}
+.rivalry-card__title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  line-height: 1.15;
+  margin: 0 0 6px 0;
+  color: var(--text-primary, #111);
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+.rivalry-card__trophy {
+  display: inline-block;
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: italic;
+  color: var(--accent-primary, #0C2340);
+  font-size: 1.02rem;
+  margin-bottom: 6px;
+}
+.rivalry-card__lineage {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted, #666);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Meta strip ---------- */
+.rivalry-card__meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__meta-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  border-left: 2px solid var(--accent-primary, #0C2340);
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+}
+.rivalry-card__meta-label {
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #777);
+  font-weight: 600;
+}
+.rivalry-card__meta-value {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--text-primary, #111);
+  font-variant-numeric: tabular-nums;
+}
+.rivalry-card__meta-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted, #888);
+}
+
+/* ---------- Trajectory ---------- */
+.rivalry-card__trajectory {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__trajectory-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.rivalry-card__section-eyebrow {
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+}
+.rivalry-card__gap {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.95rem;
+  color: var(--accent-primary, #0C2340);
+  font-variant-numeric: tabular-nums;
+  font-style: italic;
+}
+.rivalry-card__trajectory-svg {
+  width: 100%;
+  height: 140px;
+  display: block;
+}
+.rivalry-card__trajectory-note {
+  font-size: 0.72rem;
+  color: var(--text-muted, #999);
+  margin: 6px 0 0 0;
+  font-style: italic;
+}
+
+/* ---------- Panels ---------- */
+.rivalry-card__panels {
+  display: grid;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__panels--dual { grid-template-columns: 1fr 1fr; }
+.rivalry-card__panels--single { grid-template-columns: 1fr; }
+.rivalry-card__panel {
+  border: 1px solid var(--line-subtle, #eee);
+  border-top: 3px solid var(--panel-accent, #111);
+  border-radius: 6px;
+  padding: 14px 16px;
+  background: var(--surface-muted, #fafafa);
+}
+.rivalry-card__panel--primary {
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+}
+.rivalry-card__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.rivalry-card__panel-name {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.04rem;
+  color: var(--panel-accent, #111);
+  font-weight: 500;
+}
+.rivalry-card__panel-posture {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  font-style: italic;
+  color: var(--text-muted, #555);
+  font-weight: 500;
+}
+.rivalry-card__panel-quote {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+  color: var(--text-primary, #222);
+}
+.rivalry-card__panel-attr {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted, #777);
+  font-style: normal;
+}
+
+/* ---------- Meetings ---------- */
+.rivalry-card__meetings {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.rivalry-card__meetings-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rivalry-card__meeting {
+  display: grid;
+  grid-template-columns: 30px 48px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line-subtle, #f0f0f0);
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+.rivalry-card__meeting:last-child { border-bottom: none; }
+.rivalry-card__meeting-result {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--text-muted, #888);
+  background: var(--surface-muted, #f3f3f3);
+}
+.rivalry-card__meeting-result--win  { background: #22c55e; color: #fff; }
+.rivalry-card__meeting-result--loss { background: #dc2626; color: #fff; }
+.rivalry-card__meeting-year {
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-muted, #666);
+  font-variant-numeric: tabular-nums;
+}
+.rivalry-card__meeting-body {
+  color: var(--text-primary, #222);
+}
+.rivalry-card__meeting-body--placeholder {
+  color: var(--text-muted, #888);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* ---------- Stakes ---------- */
+.rivalry-card__stakes {
+  padding: 16px 0 4px 0;
+}
+.rivalry-card__stakes-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+.rivalry-card__stakes--dual .rivalry-card__stakes-grid {
+  grid-template-columns: 1fr 1fr;
+}
+.rivalry-card__stake {
+  padding: 12px 14px;
+  background: var(--surface-muted, #fafafa);
+  border-left: 2px solid var(--accent-primary, #0C2340);
+  border-radius: 4px;
+}
+.rivalry-card__stake-label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.rivalry-card__stake-text {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--text-primary, #222);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .rivalry-card { padding: 14px 16px; }
+  .rivalry-card__meta-strip { grid-template-columns: repeat(2, 1fr); }
+  .rivalry-card__panels--dual { grid-template-columns: 1fr; }
+  .rivalry-card__stakes--dual .rivalry-card__stakes-grid { grid-template-columns: 1fr; }
+  .rivalry-card__meeting { grid-template-columns: 24px 40px 1fr; gap: 8px; font-size: 0.86rem; }
+}
+
+/* CFPEraView — zoomed-out 2014+ trajectory + brick chapter index. */
+
+.arc-card {
+  background: var(--surface-card, #fff);
+  border: 1px solid var(--line-subtle, #e6e6e6);
+  border-top: 3px solid var(--accent-primary, #0C2340);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--sp-4, 18px) var(--sp-5, 24px);
+  margin-top: var(--sp-5, 24px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color: var(--text-primary, #111);
+}
+
+/* ---------- Header ---------- */
+.arc-card__header {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__eyebrow,
+.arc-card__section-eyebrow {
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  font-weight: 600;
+}
+.arc-card__title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  line-height: 1.1;
+  margin: 6px 0 8px 0;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text-primary, #111);
+}
+.arc-card__thesis {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-primary, #222);
+  margin: 0;
+  max-width: 68ch;
+}
+.arc-card__thesis--fallback {
+  color: var(--text-muted, #555);
+  font-style: italic;
+}
+
+/* ---------- Meta strip (5-col) ---------- */
+.arc-card__meta-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__meta-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  border-left: 2px solid var(--accent-primary, #0C2340);
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+}
+.arc-card__meta-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #777);
+  font-weight: 600;
+}
+.arc-card__meta-value {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary, #111);
+  font-variant-numeric: tabular-nums;
+}
+.arc-card__meta-sub {
+  font-size: 0.68rem;
+  color: var(--text-muted, #888);
+}
+
+/* ---------- Chart ---------- */
+.arc-card__chart-frame {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.arc-card__legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.arc-card__legend-item {
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted, #666);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.arc-card__legend-item::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 2px;
+  background: var(--legend-color, #111);
+  border-radius: 1px;
+}
+.arc-card__legend-item--quality::before { height: 2.5px; }
+.arc-card__legend-item--ap::before {
+  background: #6b7280;
+  border-top: 1.5px dotted #6b7280;
+  background-color: transparent;
+  height: 0;
+}
+.arc-card__legend-item--cfp::before {
+  background: #d97706;
+  width: 2px;
+  height: 14px;
+}
+.arc-card__chart {
+  width: 100%;
+  height: 180px;
+  display: block;
+}
+.arc-chart__grid { stroke: #e5e7eb; stroke-width: 1; }
+.arc-chart__quality {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  opacity: 0.95;
+}
+.arc-chart__ap {
+  fill: none;
+  stroke: #6b7280;
+  stroke-width: 1.3;
+  stroke-dasharray: 3 3;
+  stroke-linejoin: round;
+  opacity: 0.7;
+}
+.arc-chart__ap-dot {
+  fill: #6b7280;
+  opacity: 0.85;
+}
+.arc-chart__cfp {
+  stroke: #d97706;
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+  opacity: 0.55;
+}
+.arc-chart__cfp--title {
+  stroke-width: 1.4;
+  stroke-dasharray: none;
+  opacity: 0.75;
+}
+.arc-chart__cfp-dot {
+  fill: #d97706;
+  stroke: #fff;
+  stroke-width: 1;
+}
+.arc-chart__cfp-eyebrow {
+  fill: #b45309;
+  font-size: 9px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.arc-chart__cfp-label {
+  fill: #d97706;
+  font-size: 10px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 600;
+}
+.arc-chart__cfp-label--won {
+  font-weight: 700;
+  fill: #b45309;
+}
+.arc-chart__xlabel {
+  fill: #9ca3af;
+  font-size: 10px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 500;
+}
+.arc-chart__xlabel--now {
+  fill: var(--accent-primary, #0C2340);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.arc-chart__ribbon-band {
+  /* fill + opacity set inline per-band */
+}
+.arc-chart__ribbon-label {
+  fill: #ffffff;
+  font-size: 9px;
+  font-family: var(--font-sans, system-ui);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  paint-order: stroke;
+  stroke: rgba(0,0,0,0.35);
+  stroke-width: 0.3;
+}
+.arc-chart__annotation {
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: italic;
+  font-size: 10px;
+  /* fill set inline per annotation */
+}
+.arc-chart__annot-leader {
+  stroke-width: 0.75;
+  stroke-dasharray: 2 1.5;
+  opacity: 0.7;
+  fill: none;
+}
+
+/* ---------- Chapter bricks ---------- */
+.arc-card__chapters {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-subtle, #eee);
+}
+.arc-card__chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.season-brick {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 8px 8px 8px;
+  border: 1px solid var(--line-subtle, #ddd);
+  border-radius: 5px;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  background: #fff;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  position: relative;
+}
+.season-brick:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.season-brick__year {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.95rem;
+  color: var(--text-primary, #111);
+  font-variant-numeric: tabular-nums;
+}
+.season-brick__record {
+  font-size: 0.74rem;
+  color: var(--text-muted, #555);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.season-brick__badge {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 0.7rem;
+  color: #d97706;
+  line-height: 1;
+}
+
+.season-brick--winning   { background: rgba(15, 23, 42, 0.04); border-color: rgba(15, 23, 42, 0.2); }
+.season-brick--peak      { background: rgba(217, 119, 6, 0.12); border-color: rgba(217, 119, 6, 0.45); }
+.season-brick--title-era { background: rgba(217, 119, 6, 0.22); border-color: rgba(217, 119, 6, 0.7); }
+.season-brick--title-era .season-brick__year { font-weight: 600; }
+.season-brick--crisis    { background: rgba(220, 38, 38, 0.1); border-color: rgba(220, 38, 38, 0.35); }
+.season-brick--current   { background: transparent; border: 1.5px solid var(--text-primary, #111); }
+.season-brick--baseline  { background: #fff; }
+.season-brick--data-gap {
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 4px, #eee 4px, #eee 8px);
+  border-color: #ddd;
+  color: var(--text-muted, #999);
+  font-style: italic;
+}
+.season-brick--partial-data {
+  background: #fff;
+  border-color: var(--line-subtle, #d8d8d8);
+}
+.season-brick--partial-data .season-brick__record,
+.season-brick--is-partial .season-brick__record {
+  color: #aaa;
+  font-style: italic;
+}
+.season-brick--partial-data .season-brick__year {
+  color: var(--text-muted, #777);
+}
+
+/* ---------- Closing + peer footer ---------- */
+.arc-card__closing {
+  padding: 16px 0 4px 0;
+}
+.arc-card__closing-text {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-primary, #222);
+  margin: 0 0 14px 0;
+  max-width: 72ch;
+}
+.arc-card__peer-footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line-subtle, #eee);
+}
+.arc-card__peer-footer > div { display: flex; flex-direction: column; gap: 2px; }
+.arc-card__peer-footer dt {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #777);
+  font-weight: 600;
+  margin: 0;
+}
+.arc-card__peer-footer dd {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.15rem;
+  color: var(--text-primary, #111);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .arc-card { padding: 14px 16px; }
+  .arc-card__meta-strip { grid-template-columns: repeat(2, 1fr); }
+  .arc-card__meta-value { font-size: 1.2rem; }
+  .arc-card__peer-footer { grid-template-columns: 1fr; }
+}
+
+/* Rituals strip (Sprint v5-8.5)
+ * -------------------------------------------------------------------------
+ * Live-site styles for the rituals strip rendered by
+ * `cfb_rankings.team_pages.rituals_module`. Class names match the locked
+ * mockup_02_team_alabama_v2.html structure so the renderer output is a
+ * drop-in. Mockup tokens are mapped to the live team-pages token system:
+ *   --color-surface-card → var(--bg-card)
+ *   --color-line          → var(--stroke-default)
+ *   --color-text-muted    → var(--fg-muted)
+ *   --color-ink           → var(--fg-primary)
+ *   --color-accent-primary → var(--accent-primary)
+ *   --font-ui             → var(--font-body)
+ *   --font-tabular        → var(--font-mono)
+ *   amber-50/100/800 layers → mix of var(--tone-amber) + accent
+ */
+
+.rituals.program-section {
+  margin: var(--sp-9) 0 var(--sp-7);
+}
+
+.rituals .program-section__head {
+  margin-bottom: var(--sp-5);
+}
+
+.rituals .section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  font-weight: 700;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-primary);
+  margin: 0 0 var(--sp-2);
+}
+
+.rituals .section-title__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--stroke-default);
+}
+
+.rituals .caption {
+  font-family: var(--font-serif);
+  font-size: var(--fs-serif-body);
+  color: var(--fg-secondary);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+
+.rituals-track {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--sp-3);
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 1024px) {
+  .rituals-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--sp-4);
+    overflow: visible;
+  }
+}
+
+.ritual-card {
+  flex: 0 0 140px;
+  scroll-snap-align: start;
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-height: 180px;
+}
+
+@media (min-width: 1024px) {
+  .ritual-card { flex: 1; }
+}
+
+.ritual-card__glyph {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-primary) 18%, var(--bg-card-raised)),
+    var(--bg-card)
+  );
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--accent-primary);
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--accent-primary) 28%, transparent);
+}
+
+.ritual-card__glyph small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--accent-primary) 65%, var(--fg-muted));
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ritual-card__name {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--fg-primary);
+  margin: 0;
+}
+
+.ritual-card__since {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* Screen-reader-only description for accessibility; visible text is the
+ * monogram + name. The full ritual description is read by AT only. */
+.ritual-card__description.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cultural anchors (renderer-only; rendered when profile YAML carries
+ * `cultural_anchors.one_sentence`). Positioned as a quiet sidebar block
+ * below the rituals strip in the page flow. */
+.cultural-anchors {
+  margin: var(--sp-6) 0 var(--sp-8);
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+}
+
+.cultural-anchors__one-sentence {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-snug);
+  color: var(--fg-primary);
+  margin: 0 0 var(--sp-4);
+}
+
+.cultural-anchors__archetypes {
+  display: grid;
+  gap: var(--sp-2) var(--sp-5);
+  grid-template-columns: max-content 1fr;
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-body);
+}
+
+.cultural-anchors__archetypes dt {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  align-self: center;
+}
+
+.cultural-anchors__archetypes dd {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--fg-primary);
+}
+
+.cultural-anchors__if-lost {
+  margin: var(--sp-3) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--fg-secondary);
+  line-height: var(--lh-normal);
+}
+
+.cultural-anchors__if-lost strong {
+  font-weight: 600;
+  color: var(--fg-primary);
+  margin-right: 0.4em;
+}
+
+/* Visual identity chip — small eyebrow chip; renderer hands back inline. */
+.vi-chip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.vi-chip__helmet,
+.vi-chip__colors {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, transparent);
+}
+
+
+/* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
+/* Theme toggle (Sprint v5-11.5 dark mode foundation)
+ * -------------------------------------------------------------------------
+ * The toggle is a sun/moon/auto cycle button. States:
+ *   - system (default)   → "auto" icon, follows prefers-color-scheme
+ *   - light              → sun icon
+ *   - dark               → moon icon
+ *
+ * Locked spec: docs/octopus/v5_11_5_sprint_brief.md §"Cmd-K toggle hook"
+ *
+ * Live-token mapping uses var() fallback chains so the toggle renders
+ * correctly on hosts using ANY production token system. The button
+ * inherits its accent color from --accent-primary; the tooltip + ring
+ * use semantic tokens from tokens-bridge.css when present.
+ */
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--stroke-default,
+    var(--border, rgba(255, 255, 255, 0.12)));
+  border-radius: 8px;
+  color: var(--fg-secondary,
+    var(--muted-foreground, var(--muted, #c6cad6)));
+  cursor: pointer;
+  transition: background-color 120ms ease,
+              border-color 120ms ease,
+              color 120ms ease;
+  font-family: inherit;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background: color-mix(in srgb,
+    var(--accent-primary, var(--gold, #c5b358)) 12%,
+    transparent
+  );
+  border-color: var(--accent-primary, var(--gold, #c5b358));
+  color: var(--fg-primary, var(--foreground, var(--ink, #f5f6fa)));
+  outline: none;
+}
+
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+  pointer-events: none;
+}
+
+/* Hide all icons by default; show the one matching current state */
+.theme-toggle__icon { display: none; }
+
+.theme-toggle[data-state="system"] .theme-toggle__icon--system { display: block; }
+.theme-toggle[data-state="light"]  .theme-toggle__icon--light  { display: block; }
+.theme-toggle[data-state="dark"]   .theme-toggle__icon--dark   { display: block; }
+
+/* When unset (initial render before JS runs), show the system icon */
+.theme-toggle:not([data-state]) .theme-toggle__icon--system { display: block; }
+
+/* Tooltip on hover/focus — describes next state */
+.theme-toggle::after {
+  content: attr(data-next-label);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  padding: 4px 8px;
+  font-family: var(--font-body,
+    var(--sans, "Inter", system-ui, sans-serif));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+  background: var(--bg-card-raised, var(--card, #1e2330));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.1));
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 50;
+}
+
+.theme-toggle:hover::after,
+.theme-toggle:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced-motion: kill transitions */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle::after,
+  .theme-toggle__icon {
+    transition: none;
+  }
+}
+
+/* Mobile: drop the tooltip (touch users get the next state on tap) */
+@media (max-width: 640px) {
+  .theme-toggle::after { display: none; }
+}
+
+/* Command-K overlay (Sprint v5-11.5 foundation)
+ * -------------------------------------------------------------------------
+ * Locked spec: docs/octopus/v5_11_5_sprint_brief.md §"Part 3 — Command-K"
+ *
+ * Self-contained overlay component. Drop the assets into any page via:
+ *   <link rel="stylesheet" href="/assets/cmdk.css">
+ *   <script defer src="/assets/cmdk.js"></script>
+ *
+ * No HTML markup required — the JS injects the overlay nodes on first
+ * activation. Activation: Cmd-K (macOS) / Ctrl-K (Win/Linux) or click
+ * any element with `data-cmdk-trigger`.
+ *
+ * Live-token mapping — uses both legacy team-pages dark tokens (--bg-0,
+ * --fg-primary, --accent-primary) and the mockup-bridge tokens. Falls
+ * through to hardcoded dark defaults when neither is defined.
+ */
+
+/* ---------------------------------------------------------------------
+ * Backdrop + scrim
+ * --------------------------------------------------------------------- */
+
+.cmdk-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: none;
+  animation: cmdk-fade-in 140ms ease-out;
+}
+
+.cmdk-backdrop[aria-hidden="false"] {
+  display: block;
+}
+
+@keyframes cmdk-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------------------------------------------------------------------
+ * Dialog
+ * --------------------------------------------------------------------- */
+
+.cmdk-dialog {
+  position: fixed;
+  top: 18vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(620px, calc(100vw - 32px));
+  max-height: 64vh;
+  background: var(--bg-card, var(--card, #171b24));
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+  border: 1px solid var(--stroke-strong, rgba(255, 255, 255, 0.14));
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  animation: cmdk-slide-in 180ms ease-out;
+}
+
+.cmdk-dialog[aria-hidden="false"] {
+  display: flex;
+}
+
+@keyframes cmdk-slide-in {
+  from { opacity: 0; transform: translate(-50%, -12px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ---------------------------------------------------------------------
+ * Input
+ * --------------------------------------------------------------------- */
+
+.cmdk-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+}
+
+.cmdk-input-icon {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--fg-muted, var(--muted-foreground, #8a90a1));
+  fill: currentColor;
+}
+
+.cmdk-input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.3;
+  padding: 4px 0;
+  outline: none;
+}
+
+.cmdk-input::placeholder {
+  color: var(--fg-muted, #8a90a1);
+}
+
+.cmdk-shortcut {
+  flex: 0 0 auto;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--fg-muted, #8a90a1);
+  padding: 3px 7px;
+  background: color-mix(in srgb, var(--fg-primary, #f5f6fa) 6%, transparent);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.12));
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------------------------
+ * Results
+ * --------------------------------------------------------------------- */
+
+.cmdk-results {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cmdk-results:empty::before {
+  content: "Start typing to search teams, players, editions…";
+  display: block;
+  padding: 24px 22px;
+  color: var(--fg-muted, #8a90a1);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.cmdk-group {
+  padding: 4px 0;
+}
+
+.cmdk-group__label {
+  padding: 8px 18px 6px;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+}
+
+.cmdk-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: background-color 80ms ease, border-color 80ms ease;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cmdk-item:hover,
+.cmdk-item[aria-selected="true"] {
+  background: color-mix(
+    in srgb,
+    var(--accent-primary, var(--gold, #c5b358)) 10%,
+    transparent
+  );
+  border-left-color: var(--accent-primary, var(--gold, #c5b358));
+}
+
+.cmdk-item__title {
+  flex: 1 1 auto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+}
+
+.cmdk-item__subtitle {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  color: var(--fg-muted, #8a90a1);
+  letter-spacing: 0.01em;
+  text-align: right;
+}
+
+/* Kind badge — small chip on each item */
+.cmdk-item__kind {
+  flex: 0 0 auto;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary, #c5b358) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-primary, #c5b358) 24%, transparent);
+  color: var(--fg-secondary, var(--foreground, #c6cad6));
+  margin-right: 4px;
+}
+
+/* Kind-specific accents — match the citation badge palette */
+.cmdk-item__kind--profile { color: #f0c674; border-color: rgba(240, 198, 116, 0.4); }
+.cmdk-item__kind--team    { color: #87b3d4; border-color: rgba(135, 179, 212, 0.4); }
+.cmdk-item__kind--player  { color: #b5cea8; border-color: rgba(181, 206, 168, 0.4); }
+.cmdk-item__kind--edition { color: #d7ba7d; border-color: rgba(215, 186, 125, 0.4); }
+.cmdk-item__kind--mailbag { color: #ce9178; border-color: rgba(206, 145, 120, 0.4); }
+.cmdk-item__kind--conference { color: #c586c0; border-color: rgba(197, 134, 192, 0.4); }
+.cmdk-item__kind--methodology { color: #9cdcfe; border-color: rgba(156, 220, 254, 0.4); }
+
+/* ---------------------------------------------------------------------
+ * Empty state — when search yields zero results
+ * --------------------------------------------------------------------- */
+
+.cmdk-empty {
+  padding: 32px 22px;
+  text-align: center;
+  color: var(--fg-muted, #8a90a1);
+  font-size: 14px;
+}
+
+.cmdk-empty__hint {
+  font-size: 12px;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------------------
+ * Footer — keyboard hints
+ * --------------------------------------------------------------------- */
+
+.cmdk-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 18px;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 11px;
+  color: var(--fg-muted, #8a90a1);
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+}
+
+.cmdk-footer__key {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-weight: 600;
+  padding: 2px 6px;
+  background: color-mix(in srgb, var(--fg-primary, #f5f6fa) 5%, transparent);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.1));
+  border-radius: 3px;
+  margin-right: 6px;
+  color: var(--fg-secondary, #c6cad6);
+}
+
+/* ---------------------------------------------------------------------
+ * Mobile — drop the floating dialog, use a bottom sheet
+ * --------------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .cmdk-dialog {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100vw;
+    max-height: 85vh;
+    border-radius: 12px 12px 0 0;
+    animation: cmdk-slide-up 200ms ease-out;
+  }
+  @keyframes cmdk-slide-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .cmdk-shortcut { display: none; }
+}
+
+/* ---------------------------------------------------------------------
+ * Trigger button — opt-in for sites that want a visible affordance
+ * (mobile/Cmd-K hint). Markup: <button class="cmdk-trigger">⌘K</button>
+ * --------------------------------------------------------------------- */
+
+.cmdk-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--bg-card, var(--card, #12151d));
+  color: var(--fg-muted, #8a90a1);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.1));
+  border-radius: 6px;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.cmdk-trigger:hover,
+.cmdk-trigger:focus-visible {
+  color: var(--fg-primary, #f5f6fa);
+  border-color: var(--accent-primary, #c5b358);
+  outline: none;
+}
+
+.cmdk-trigger__shortcut {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 5px;
+  background: color-mix(in srgb, var(--fg-primary, #f5f6fa) 6%, transparent);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.1));
+  border-radius: 3px;
+  color: var(--fg-muted, #8a90a1);
+}
+
+/* ---------------------------------------------------------------------
+ * Reduced-motion: kill animations
+ * --------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .cmdk-backdrop,
+  .cmdk-dialog {
+    animation: none;
+  }
+}
+
+
+/* Floating button group — top-right corner. Cmd-K trigger + theme toggle. */
+.profile-page-controls {
+  position: fixed;
+  top: var(--sp-3, 12px);
+  right: var(--sp-4, 16px);
+  display: flex;
+  gap: var(--sp-2, 8px);
+  z-index: 50;
+}
+.profile-page-controls .nav-action,
+.profile-page-controls .theme-toggle,
+.profile-page-controls .cmdk-trigger {
+  background: var(--bg-card, var(--bg-1));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+@media (max-width: 640px) {
+  .profile-page-controls {
+    top: auto;
+    bottom: var(--sp-3, 12px);
+    right: var(--sp-3, 12px);
+  }
+}
+</style>
+<script defer>/* Theme toggle (Sprint v5-11.5 dark mode foundation)
+ * -------------------------------------------------------------------------
+ * Self-contained vanilla JS — no framework dep. Behaviors:
+ *   - Click [data-theme-toggle] cycles system → light → dark → system
+ *   - Persists choice to localStorage as 'cfb-theme-pref'
+ *   - Applies to <html> as data-theme="light|dark" (system removes attr)
+ *   - Tooltip shows "Switch to <next>"
+ *   - Listens to prefers-color-scheme changes when in system mode
+ *     and emits a 'cfb-theme-changed' CustomEvent so other components
+ *     can react (e.g. chart re-renderers)
+ *   - Programmatic API: window.cfbTheme.{set, cycle, current, system}
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §"Cmd-K toggle hook"
+ */
+(function () {
+  'use strict';
+  if (typeof document === 'undefined') return;
+
+  var STORAGE_KEY = 'cfb-theme-pref';
+  var ORDER = ['system', 'light', 'dark'];
+  var ROOT = document.documentElement;
+
+  // ---- State + persistence ----
+  function readPref() {
+    try {
+      var v = localStorage.getItem(STORAGE_KEY);
+      if (v === 'light' || v === 'dark' || v === 'system') return v;
+    } catch (e) { /* unavailable */ }
+    return 'system';
+  }
+
+  function writePref(value) {
+    try { localStorage.setItem(STORAGE_KEY, value); } catch (e) { /* quota */ }
+  }
+
+  // ---- Apply theme ----
+  function apply(pref) {
+    if (pref === 'light' || pref === 'dark') {
+      ROOT.setAttribute('data-theme', pref);
+    } else {
+      ROOT.removeAttribute('data-theme');
+    }
+    updateButtons(pref);
+    // Notify any listeners that the effective theme has changed
+    document.dispatchEvent(new CustomEvent('cfb-theme-changed', {
+      detail: { pref: pref, effective: effectiveTheme() }
+    }));
+  }
+
+  // ---- Compute the effective theme (resolves 'system' to actual mode) ----
+  function effectiveTheme() {
+    var pref = readPref();
+    if (pref === 'light' || pref === 'dark') return pref;
+    return window.matchMedia &&
+           window.matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light' : 'dark';
+  }
+
+  // ---- Cycle through states ----
+  function cycle() {
+    var current = readPref();
+    var idx = ORDER.indexOf(current);
+    var next = ORDER[(idx + 1) % ORDER.length];
+    writePref(next);
+    apply(next);
+    return next;
+  }
+
+  // ---- Set explicit state ----
+  function setTheme(pref) {
+    if (ORDER.indexOf(pref) < 0) return false;
+    writePref(pref);
+    apply(pref);
+    return true;
+  }
+
+  // ---- Update toggle buttons ----
+  function updateButtons(pref) {
+    var nextLabel = {
+      'system': 'Switch to light',
+      'light': 'Switch to dark',
+      'dark': 'Switch to system'
+    }[pref] || '';
+    var buttons = document.querySelectorAll('[data-theme-toggle]');
+    for (var i = 0; i < buttons.length; i++) {
+      var btn = buttons[i];
+      btn.setAttribute('data-state', pref);
+      btn.setAttribute('data-next-label', nextLabel);
+      btn.setAttribute(
+        'aria-label',
+        'Theme: ' + pref + '. Click to ' +
+        (nextLabel || 'change').toLowerCase() + '.'
+      );
+      btn.setAttribute('aria-pressed', pref === 'system' ? 'false' : 'true');
+      // Build icons + click handler if not already done
+      ensureButtonContent(btn);
+    }
+  }
+
+  function ensureButtonContent(btn) {
+    if (btn.dataset.themeReady === '1') return;
+    btn.dataset.themeReady = '1';
+    btn.setAttribute('type', 'button');
+    btn.innerHTML =
+      // System icon — circle half-filled
+      '<svg class="theme-toggle__icon theme-toggle__icon--system" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2v14a7 7 0 010-14z"/>' +
+      '</svg>' +
+      // Sun icon
+      '<svg class="theme-toggle__icon theme-toggle__icon--light" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M12 17a5 5 0 100-10 5 5 0 000 10zm0-13a1 1 0 011 1v1.5a1 1 0 11-2 0V5a1 1 0 011-1zm0 15a1 1 0 011 1V21a1 1 0 11-2 0v-1a1 1 0 011-1zM5 12a1 1 0 011-1H4.5a1 1 0 110 2H6a1 1 0 01-1-1zm14 0a1 1 0 011-1h-1.5a1 1 0 110 2H20a1 1 0 01-1-1zM6.34 6.34a1 1 0 011.41 0l1.06 1.06a1 1 0 11-1.41 1.41L6.34 7.75a1 1 0 010-1.41zm9.19 9.19a1 1 0 011.41 0l1.06 1.06a1 1 0 11-1.41 1.41l-1.06-1.06a1 1 0 010-1.41zM6.34 17.66a1 1 0 010-1.41l1.06-1.06a1 1 0 111.41 1.41L7.75 17.66a1 1 0 01-1.41 0zm9.19-9.19a1 1 0 010-1.41l1.06-1.06a1 1 0 111.41 1.41l-1.06 1.06a1 1 0 01-1.41 0z"/>' +
+      '</svg>' +
+      // Moon icon
+      '<svg class="theme-toggle__icon theme-toggle__icon--dark" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M20 14.5A8 8 0 019.5 4a8.5 8.5 0 1010.5 10.5z"/>' +
+      '</svg>';
+  }
+
+  // ---- Wire up clicks via delegation ----
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (!target) return;
+    var btn = target.closest && target.closest('[data-theme-toggle]');
+    if (!btn) return;
+    e.preventDefault();
+    cycle();
+  });
+
+  // ---- React to OS-level prefers-color-scheme changes when in system mode ----
+  if (window.matchMedia) {
+    var mql = window.matchMedia('(prefers-color-scheme: light)');
+    var listener = function () {
+      if (readPref() === 'system') {
+        // Re-emit so listeners can re-render
+        document.dispatchEvent(new CustomEvent('cfb-theme-changed', {
+          detail: { pref: 'system', effective: effectiveTheme() }
+        }));
+      }
+    };
+    if (mql.addEventListener) mql.addEventListener('change', listener);
+    else if (mql.addListener) mql.addListener(listener);
+  }
+
+  // ---- Initial state ----
+  // Wait for DOM so [data-theme-toggle] buttons exist
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { apply(readPref()); });
+  } else {
+    apply(readPref());
+  }
+
+  // ---- Public API ----
+  window.cfbTheme = {
+    current: readPref,
+    effective: effectiveTheme,
+    cycle: cycle,
+    set: setTheme,
+    system: function () { return setTheme('system'); }
+  };
+})();
+</script>
+<script defer>/* Command-K overlay (Sprint v5-11.5 foundation)
+ * -------------------------------------------------------------------------
+ * Self-contained vanilla JS — no framework dependency. Behavior:
+ *   - Cmd-K (macOS) / Ctrl-K (Win/Linux) opens the overlay
+ *   - Clicking any [data-cmdk-trigger] opens it
+ *   - Esc, click on backdrop, or click on an item closes it
+ *   - Up/Down keys navigate; Enter follows the selected item.url
+ *   - Index is fetched once from window.CMDK_INDEX_URL or
+ *     "/search-index.json", cached in sessionStorage on success
+ *   - Empty input shows a grouped "browse all" view (top items per kind)
+ *
+ * Customize via window.CMDK_CONFIG:
+ *   {
+ *     indexUrl: "/search-index.json",
+ *     maxResults: 24,
+ *     placeholder: "Search teams, players, editions…",
+ *   }
+ *
+ * No HTML required in the page — the script injects nodes on first
+ * activation. Safe to load with <script defer> in the global header.
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §Part 3
+ */
+(function () {
+  'use strict';
+  if (typeof document === 'undefined') return;
+
+  // ---- Configuration ----
+  var CONFIG = Object.assign({
+    indexUrl: '/search-index.json',
+    maxResults: 24,
+    placeholder: 'Search teams, players, editions…',
+    storageKey: 'cmdk:index-v1',
+    storageTtlMs: 6 * 60 * 60 * 1000  // 6 hours
+  }, window.CMDK_CONFIG || {});
+
+  // ---- State ----
+  var index = null;           // { items: [], schema_version: 1 }
+  var dialog = null;          // .cmdk-dialog DOM node
+  var backdrop = null;
+  var input = null;
+  var resultsEl = null;
+  var selectedIdx = 0;
+  var currentItems = [];      // currently rendered items in order
+  var indexLoading = false;
+  var openCount = 0;
+
+  // ---- Build the DOM (idempotent) ----
+  function build() {
+    if (dialog) return;
+    backdrop = document.createElement('div');
+    backdrop.className = 'cmdk-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
+    backdrop.addEventListener('click', close);
+
+    dialog = document.createElement('div');
+    dialog.className = 'cmdk-dialog';
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('aria-label', 'Search');
+    dialog.setAttribute('aria-hidden', 'true');
+
+    // Input row
+    var inputWrap = document.createElement('div');
+    inputWrap.className = 'cmdk-input-wrap';
+    inputWrap.innerHTML =
+      '<svg class="cmdk-input-icon" viewBox="0 0 20 20" aria-hidden="true">' +
+      '<path d="M9 2a7 7 0 015.29 11.59l4.06 4.06-1.42 1.41-4.05-4.06A7 7 0 119 2zm0 2a5 5 0 100 10 5 5 0 000-10z"/>' +
+      '</svg>';
+    input = document.createElement('input');
+    input.className = 'cmdk-input';
+    input.type = 'text';
+    input.placeholder = CONFIG.placeholder;
+    input.setAttribute('aria-label', 'Search query');
+    input.setAttribute('aria-controls', 'cmdk-results');
+    input.setAttribute('autocomplete', 'off');
+    input.setAttribute('spellcheck', 'false');
+    input.addEventListener('input', onInput);
+    input.addEventListener('keydown', onKeyDown);
+    inputWrap.appendChild(input);
+
+    var shortcut = document.createElement('span');
+    shortcut.className = 'cmdk-shortcut';
+    shortcut.textContent = 'Esc';
+    inputWrap.appendChild(shortcut);
+
+    dialog.appendChild(inputWrap);
+
+    // Results region
+    resultsEl = document.createElement('div');
+    resultsEl.className = 'cmdk-results';
+    resultsEl.id = 'cmdk-results';
+    resultsEl.setAttribute('role', 'listbox');
+    dialog.appendChild(resultsEl);
+
+    // Footer hints
+    var footer = document.createElement('div');
+    footer.className = 'cmdk-footer';
+    footer.innerHTML =
+      '<span><span class="cmdk-footer__key">↑↓</span>navigate</span>' +
+      '<span><span class="cmdk-footer__key">↵</span>open</span>' +
+      '<span><span class="cmdk-footer__key">esc</span>close</span>';
+    dialog.appendChild(footer);
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(dialog);
+  }
+
+  // ---- Index loading ----
+  function loadIndex() {
+    if (index) return Promise.resolve(index);
+    // Try sessionStorage cache
+    try {
+      var raw = sessionStorage.getItem(CONFIG.storageKey);
+      if (raw) {
+        var cached = JSON.parse(raw);
+        if (
+          cached && cached.ts &&
+          (Date.now() - cached.ts) < CONFIG.storageTtlMs &&
+          cached.payload && Array.isArray(cached.payload.items)
+        ) {
+          index = cached.payload;
+          return Promise.resolve(index);
+        }
+      }
+    } catch (e) { /* ignore */ }
+
+    if (indexLoading) {
+      return new Promise(function (resolve) {
+        var t = setInterval(function () {
+          if (index) {
+            clearInterval(t);
+            resolve(index);
+          }
+        }, 50);
+      });
+    }
+
+    indexLoading = true;
+    return fetch(CONFIG.indexUrl, { cache: 'force-cache' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('cmdk: index fetch failed ' + r.status);
+        return r.json();
+      })
+      .then(function (payload) {
+        if (!payload || !Array.isArray(payload.items)) {
+          throw new Error('cmdk: malformed index payload');
+        }
+        index = payload;
+        try {
+          sessionStorage.setItem(CONFIG.storageKey, JSON.stringify({
+            ts: Date.now(), payload: payload
+          }));
+        } catch (e) { /* ignore quota */ }
+        return index;
+      })
+      .catch(function (err) {
+        console.warn('[cmdk] failed to load index:', err);
+        index = { items: [], schema_version: 0 };
+        return index;
+      })
+      .finally(function () {
+        indexLoading = false;
+      });
+  }
+
+  // ---- Search logic ----
+  function search(query) {
+    if (!index || !index.items) return [];
+    var q = (query || '').trim().toLowerCase();
+    if (!q) {
+      // Browse mode — top items grouped by kind
+      return topByKind(index.items, CONFIG.maxResults);
+    }
+    var tokens = q.split(/\s+/).filter(Boolean);
+    var hits = [];
+    for (var i = 0; i < index.items.length; i++) {
+      var item = index.items[i];
+      var hay = (item.title + ' ' + (item.subtitle || '') + ' ' +
+                 (item.aliases || []).join(' ')).toLowerCase();
+      var score = 0;
+      var allTokensFound = true;
+      for (var j = 0; j < tokens.length; j++) {
+        var tok = tokens[j];
+        var idx = hay.indexOf(tok);
+        if (idx < 0) {
+          allTokensFound = false;
+          break;
+        }
+        score += 100 - Math.min(idx, 80);
+        // Boost: token-start match on title is best
+        if (item.title.toLowerCase().indexOf(tok) === 0) score += 50;
+      }
+      if (allTokensFound) {
+        // Apply tier penalty — lower tier = better
+        score -= ((item.tier || 5) - 1) * 8;
+        hits.push({ item: item, score: score });
+      }
+    }
+    hits.sort(function (a, b) { return b.score - a.score; });
+    return hits.slice(0, CONFIG.maxResults).map(function (h) { return h.item; });
+  }
+
+  function topByKind(items, maxTotal) {
+    // Show up to N items per kind, alternating, capped at maxTotal
+    var perKindCap = 4;
+    var byKind = {};
+    items.forEach(function (it) {
+      var k = it.kind || 'other';
+      if (!byKind[k]) byKind[k] = [];
+      if (byKind[k].length < perKindCap) byKind[k].push(it);
+    });
+    var kinds = Object.keys(byKind);
+    // Preferred order: profile, team, edition, mailbag, conference, player, methodology
+    var orderPref = [
+      'profile', 'team', 'edition', 'mailbag',
+      'conference', 'player', 'methodology'
+    ];
+    kinds.sort(function (a, b) {
+      var ai = orderPref.indexOf(a);
+      var bi = orderPref.indexOf(b);
+      return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi);
+    });
+    var out = [];
+    kinds.forEach(function (k) {
+      byKind[k].forEach(function (it) {
+        if (out.length < maxTotal) out.push(it);
+      });
+    });
+    return out;
+  }
+
+  // ---- Rendering ----
+  function renderResults(items, isBrowse) {
+    currentItems = items;
+    selectedIdx = 0;
+    if (!items.length) {
+      resultsEl.innerHTML =
+        '<div class="cmdk-empty">No matches.' +
+        '<div class="cmdk-empty__hint">Try a partial team name or player.</div>' +
+        '</div>';
+      return;
+    }
+    // Group by kind for browse mode, flat list otherwise
+    var html = '';
+    if (isBrowse) {
+      var groups = groupByKind(items);
+      Object.keys(groups).forEach(function (kind) {
+        html += '<div class="cmdk-group">';
+        html += '<div class="cmdk-group__label">' + escapeHtml(kindLabel(kind)) + '</div>';
+        groups[kind].forEach(function (item) {
+          html += renderItem(item);
+        });
+        html += '</div>';
+      });
+    } else {
+      html += '<div class="cmdk-group">';
+      items.forEach(function (item) { html += renderItem(item); });
+      html += '</div>';
+    }
+    resultsEl.innerHTML = html;
+    // Wire item clicks
+    var nodes = resultsEl.querySelectorAll('.cmdk-item');
+    for (var i = 0; i < nodes.length; i++) {
+      (function (idx) {
+        nodes[idx].addEventListener('click', function (e) {
+          e.preventDefault();
+          selectedIdx = idx;
+          followSelection();
+        });
+      })(i);
+    }
+    updateSelection();
+  }
+
+  function renderItem(item) {
+    var subtitle = item.subtitle
+      ? '<span class="cmdk-item__subtitle">' + escapeHtml(item.subtitle) + '</span>'
+      : '';
+    return (
+      '<a class="cmdk-item" role="option" aria-selected="false" ' +
+      'href="' + escapeAttr(item.url) + '" data-url="' + escapeAttr(item.url) + '">' +
+      '<span class="cmdk-item__kind cmdk-item__kind--' + escapeAttr(item.kind) + '">' +
+      escapeHtml(kindLabel(item.kind)) +
+      '</span>' +
+      '<span class="cmdk-item__title">' + escapeHtml(item.title) + '</span>' +
+      subtitle +
+      '</a>'
+    );
+  }
+
+  function groupByKind(items) {
+    var groups = {};
+    items.forEach(function (it) {
+      var k = it.kind || 'other';
+      if (!groups[k]) groups[k] = [];
+      groups[k].push(it);
+    });
+    return groups;
+  }
+
+  function kindLabel(kind) {
+    return ({
+      profile: 'Profile',
+      team: 'Team',
+      player: 'Player',
+      edition: 'Edition',
+      mailbag: 'Mailbag',
+      conference: 'Conference',
+      methodology: 'Methodology'
+    })[kind] || kind;
+  }
+
+  function updateSelection() {
+    var nodes = resultsEl.querySelectorAll('.cmdk-item');
+    for (var i = 0; i < nodes.length; i++) {
+      var sel = i === selectedIdx;
+      nodes[i].setAttribute('aria-selected', sel ? 'true' : 'false');
+      if (sel) {
+        // Scroll into view if needed
+        var node = nodes[i];
+        var rect = node.getBoundingClientRect();
+        var parentRect = resultsEl.getBoundingClientRect();
+        if (rect.top < parentRect.top || rect.bottom > parentRect.bottom) {
+          node.scrollIntoView({ block: 'nearest' });
+        }
+      }
+    }
+  }
+
+  // ---- Event handlers ----
+  function onInput(e) {
+    var q = e.target.value;
+    var hits = search(q);
+    renderResults(hits, !q.trim());
+  }
+
+  function onKeyDown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currentItems.length) {
+        selectedIdx = (selectedIdx + 1) % currentItems.length;
+        updateSelection();
+      }
+      return;
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentItems.length) {
+        selectedIdx = (selectedIdx - 1 + currentItems.length) % currentItems.length;
+        updateSelection();
+      }
+      return;
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      followSelection();
+    }
+  }
+
+  function followSelection() {
+    var item = currentItems[selectedIdx];
+    if (!item) return;
+    close();
+    if (item.url && item.url[0] === '/') {
+      window.location.href = item.url;
+    } else if (item.url) {
+      window.open(item.url, '_blank', 'noopener,noreferrer');
+    }
+  }
+
+  // ---- Open/close ----
+  function open() {
+    build();
+    openCount += 1;
+    dialog.setAttribute('aria-hidden', 'false');
+    backdrop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    input.value = '';
+    resultsEl.innerHTML = '';
+    loadIndex().then(function () {
+      // Show top-by-kind on first open
+      var initial = search('');
+      renderResults(initial, true);
+    });
+    // Defer focus until next tick so the input is in the DOM
+    setTimeout(function () { input && input.focus(); }, 0);
+  }
+
+  function close() {
+    if (!dialog) return;
+    dialog.setAttribute('aria-hidden', 'true');
+    backdrop.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // ---- Global keybind ----
+  document.addEventListener('keydown', function (e) {
+    var isMac = /Mac|iPhone|iPad/.test(navigator.platform);
+    var modPressed = isMac ? e.metaKey : e.ctrlKey;
+    if (modPressed && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  // ---- Trigger button delegation ----
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (!target) return;
+    var trigger = target.closest && target.closest('[data-cmdk-trigger]');
+    if (trigger) {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  // ---- Utilities ----
+  function escapeHtml(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function escapeAttr(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Expose for testing / programmatic use
+  window.cmdk = {
+    open: open,
+    close: close,
+    search: function (q) {
+      if (!index) {
+        return loadIndex().then(function () { return search(q); });
+      }
+      return Promise.resolve(search(q));
+    },
+    _state: function () {
+      return {
+        indexLoaded: !!index,
+        itemCount: index ? index.items.length : 0,
+        openCount: openCount
+      };
+    }
+  };
+})();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="profile-page-controls" role="group" aria-label="Page controls">
+  <button class="cmdk-trigger" data-cmdk-trigger type="button"
+          aria-label="Search (Ctrl-K / Cmd-K)"
+          title="Search (Ctrl-K / Cmd-K)">⌘K</button>
+  <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme" type="button"></button>
+</div>
+<main id="main-content" class="team-page">
+  <div class="content">
+    <section class="hero" aria-labelledby="hero-wordmark">
+  <div>
+    <div class="hero__eyebrow">MAY 18, 2026 · OFFSEASON · 2025 SEASON</div>
+    <div class="hero__identity-bar">
+      <img class="hero__logo" src="../assets/team-art/alabama/logo_primary.png" alt="Alabama logo" width="80" height="80" loading="eager" decoding="async" onerror="this.style.display='none'">
+      <h1 id="hero-wordmark" class="hero__wordmark">Alabama</h1>
+      <span class="hero__record" aria-label="Season record">13-1</span>
+      <span class="hero__rank-chip">AP #4</span><span class="hero__rank-chip">COACHES #4</span><span class="hero__rank-chip hero__rank-chip--cfp">CFP #4</span>
+    </div>
+  </div>
+  <div class="hero__heritage"><span>Founded <strong>1892</strong></span><span>Titles <strong>18</strong></span><span>Conf titles <strong>33</strong></span><span>Heismans <strong>4</strong></span><span>CFP <strong>8</strong></span><span>Bowls <strong>79</strong></span><span>Conference <strong>SEC</strong></span><span>Stadium <strong>Bryant-Denny Stadium (100,077)</strong></span><span>Legacy <strong>Paul W. &#x27;Bear&#x27; Bryant</strong></span></div>
+  <p class="hero__state">Bryant-Denny is dark; the process is not.</p>
+  <div class="hero__metrics"><div class="metric-tile">
+  <div class="metric-tile__label">RECORD</div>
+  <div class="metric-tile__value metric-tile__value--accent">13-1</div>
+  <div class="metric-tile__delta">win% .928</div>
+</div><div class="metric-tile">
+  <div class="metric-tile__label">AP</div>
+  <div class="metric-tile__value">#4</div>
+  <div class="metric-tile__delta">top-25</div>
+</div><div class="metric-tile">
+  <div class="metric-tile__label">SP+</div>
+  <div class="metric-tile__value">—</div>
+  
+</div><div class="metric-tile">
+  <div class="metric-tile__label">CFP STANDING</div>
+  <div class="metric-tile__value">#4</div>
+  
+</div></div>
+</section>
+
+    <section class="pulse" aria-labelledby="pulse-title">
+  <div class="pulse__header">
+    <span class="pulse__live-dot pulse__live-dot--quiet" aria-hidden="true"></span>
+    <h2 id="pulse-title" class="pulse__title">The Pulse on Alabama</h2>
+    <span class="pulse__meta">QUIET · OFFSEASON · signal ramps back in camp</span>
+  </div>
+  <div class="pulse__grid">
+    <div class="pulse__mood-card">
+      <div class="pulse__mood-number">—</div>
+      <div class="pulse__mood-delta">The Elephant is patient. Signal returns with the schedule.</div>
+      
+      
+    </div>
+    <div>
+      <div class="pulse__event-log">
+    <p class="pulse__event-log-title">What moved it — offseason · last 30 days</p>
+    <div class="pulse__event">
+      <span class="pulse__event-time">—</span>
+      <span class="pulse__event-text">Awaiting next signal window</span>
+      <span class="pulse__event-delta"></span>
+    </div>
+  </div>
+      <div class="pulse__top-take" style="margin-top: var(--sp-4);">
+        <em>"Roll Tide is not a cheer; it is a statement of identity."</em>
+        <span class="pulse__top-take-attr">— Alabama fanbase · recurring line</span>
+      </div>
+    </div>
+  </div>
+  <div class="pulse__badge-row"><span class="pulse__badge pulse__badge--awaiting">0 mentions · awaiting signal</span></div>
+</section>
+    <section class="rituals program-section" aria-label="Alabama rituals">
+  <div class="program-section__head">
+    <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
+    <p class="caption" style="max-width: 36ch;">Things this fanbase does every Saturday — none of them invented in the last decade.</p>
+  </div>
+  <div class="rituals-track" role="list">
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">RJ<small>victory</small></div>
+      <h3 class="ritual-card__name">Rammer Jammer</h3>
+      <p class="ritual-card__since">since 1970</p>
+      <p class="ritual-card__description visually-hidden">Crimson Tide fans sing the cheer taunting the just-defeated opponent. Once considered too brash for league play, now a definitive Alabama victory ritual that echoes from Bryant-Denny across the SEC.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">YA<small>kickoff</small></div>
+      <h3 class="ritual-card__name">Yea Alabama (Fight Song)</h3>
+      <p class="ritual-card__since">since 1926</p>
+      <p class="ritual-card__description visually-hidden">Written for the 1925 Rose Bowl trip. Defines pre-snap Bryant-Denny atmosphere. The Million Dollar Band&#x27;s pregame T-formation closes with this song.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">EW<small>entrance</small></div>
+      <h3 class="ritual-card__name">Elephant Walk</h3>
+      <p class="ritual-card__since">since 1981</p>
+      <p class="ritual-card__description visually-hidden">Players walk single-file from locker room to field tunnel. Adopted under Bear Bryant&#x27;s later years; refined by Saban into the modern ritual.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">PF<small>anthem</small></div>
+      <h3 class="ritual-card__name">Pregame Flyover</h3>
+      <p class="ritual-card__since">since 2003</p>
+      <p class="ritual-card__description visually-hidden">Tuscaloosa-based military flyover at major home games. Coordinated with Maxwell Air Force Base. The kind of pageantry that signals &#x27;this game matters.&#x27;</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">MD<small>halftime</small></div>
+      <h3 class="ritual-card__name">Million Dollar Band Halftime</h3>
+      <p class="ritual-card__since">since 1929</p>
+      <p class="ritual-card__description visually-hidden">Marching band performance with crimson-and-houndstooth uniform tradition. &#x27;Big Al&#x27; the elephant mascot leads the formation; the band&#x27;s iconic T-formation closes the show.</p>
+    </article>
+  </div>
+</section>
+    <aside class="cultural-anchors" aria-label="Cultural identity">
+  <p class="cultural-anchors__one-sentence">Alabama is what college football looks like when &#x27;process&#x27; becomes religion.</p>
+  <dl class="cultural-anchors__archetypes"><dt>From inside</dt><dd>Process-Believer</dd><dt>From outside</dt><dd>Smug</dd></dl>
+  <p class="cultural-anchors__if-lost"><strong>If the program didn't exist, CFB would lose</strong> <span>The program every other contender is implicitly measured against — both the dynasty standard and the foil for every Cinderella story.</span></p>
+</aside>
+    
+    
+    
+    
+    <footer class="page-footer">
+  <span>CFB Index · team-pages v1.0</span>
+  <span class="page-footer__mantra">“Roll Tide.”</span>
+</footer>
+  </div>
+</main>
+</body>
+</html>
