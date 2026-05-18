@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title}</title>
-<meta name="description" content="${page_description}">
-<link rel="canonical" href="${page_canonical}">
+<title>The Daily — Sunday, May 17th, 2026</title>
+<meta name="description" content="The Daily for Sunday, May 17th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<link rel="canonical" href="https://wonderful-margulis-8ec96b.vercel.app/daily/">
 <meta property="og:site_name" content="THE CFB INDEX">
 <meta property="og:type" content="article">
-<meta property="og:url" content="${page_canonical}">
-<meta property="og:title" content="${title}">
-<meta property="og:description" content="${page_description}">
-<meta property="og:image" content="${og_image_url}">
+<meta property="og:url" content="https://wonderful-margulis-8ec96b.vercel.app/daily/">
+<meta property="og:title" content="The Daily — Sunday, May 17th, 2026">
+<meta property="og:description" content="The Daily for Sunday, May 17th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta property="og:image" content="https://wonderful-margulis-8ec96b.vercel.app/og-image.svg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="${page_canonical}">
-<meta name="twitter:title" content="${title}">
-<meta name="twitter:description" content="${page_description}">
-<meta name="twitter:image" content="${og_image_url}">
+<meta name="twitter:url" content="https://wonderful-margulis-8ec96b.vercel.app/daily/">
+<meta name="twitter:title" content="The Daily — Sunday, May 17th, 2026">
+<meta name="twitter:description" content="The Daily for Sunday, May 17th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta name="twitter:image" content="https://wonderful-margulis-8ec96b.vercel.app/og-image.svg">
 <style>
 /* ---- Design tokens (matches Edition / team-page system) ---- */
 :root {
@@ -299,18 +299,52 @@ body {
 <header class="masthead">
   <div class="masthead__flag">CFB Index · Morning Digest</div>
   <div class="masthead__title">The Daily</div>
-  <div class="masthead__date">${long_date} &nbsp;·&nbsp; Published 06:00 ET</div>
+  <div class="masthead__date">Sunday, May 17th, 2026 &nbsp;·&nbsp; Published 06:00 ET</div>
 </header>
 
 <div class="layout">
   <main class="takes-col">
-    ${auto_summary_html}
-    ${takes_html}
+    <aside class="auto-summary" aria-label="30-second summary">
+  <p class="auto-summary__title">30-second summary</p>
+  <ul class="auto-summary__list">
+        <li>Alabama&#x27;s QB-room re-stack absorbed three transfer arrivals in 72 hours.</li>
+        <li>Beat-writer reporting and r/CFB film breakdown converged on faster OL drill cadence.</li>
+        <li>Market hasn&#x27;t priced the spring news — the cleanest unbet edge of May.</li>
+  </ul>
+  <p class="auto-summary__meta">Auto-generated · model_version auto-summary.v1 · cached 4h</p>
+</aside>
+    <article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">1</span>Take #1 — Top Story
+  </div>
+  <h2 class="take__headline">Alabama spring tilts toward Underwood</h2>
+  <div class="take__body"><p>Bryce Underwood's comp tape leaked to 247Sports overnight and three transfers committed by sundown. The pattern under DeBoer is unmistakable: the QB room re-stacks itself the instant a real comp tape lands. The interesting question is whether anything in this picture is actually new — Tide QB recruiting has worked this way since at least 2022.</p></div>
+  
+  <a class="entity-link" href="/teams/alabama.html">→ Alabama page</a>
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">2</span>Take #2 — Two Reads
+  </div>
+  <h2 class="take__headline">OL drill cadence is the real spring story</h2>
+  <div class="take__body"><p>Andy Staples on Locked On caught it first; r/CFB film threads corroborated within 24 hours. Alabama's offensive line is running spring drills at a cadence visibly faster than any year under Saban. Whether that translates to in-game tempo is open, but the markets haven't moved yet — which Stewart Mandel flagged as the cleanest unbet edge of spring.</p></div>
+  
+  <a class="entity-link" href="/teams/alabama.html">→ Alabama page</a>
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">3</span>Take #3 — Buried Lede
+  </div>
+  <h2 class="take__headline">Recruiting still #3 despite churn</h2>
+  <div class="take__body"><p>CFBD's class composite still has Alabama at #3 in the country, only a tenth of a point behind Georgia. The Tide finished 2025 at 13-1 with the SEC title and a CFP semifinal loss — a year that, by their standards, gets called a 'rebuilding year.' Nobody else's program operates with that calibration.</p></div>
+  
+  <a class="entity-link" href="/teams/alabama.html">→ Alabama page</a>
+</article>
   </main>
   <aside class="sidebar">
     <div class="sidebar__section">
       <div class="sidebar__label">What We're Watching</div>
-      ${watching_html}
+      <div class="sidebar__item">Spring practice reports — portal decisions follow coaching feedback</div><div class="sidebar__item">Transfer portal deadline windows — commitment trackers update daily</div><div class="sidebar__item">Draft advisory declarations — underclassmen decisions shape fall depth</div>
     </div>
   </aside>
 </div>
@@ -318,7 +352,7 @@ body {
 <footer class="archive-footer">
   <div class="archive-footer__label">Yesterday's Takes</div>
   <div class="archive-footer__links">
-    ${archive_links}
+    <span style="opacity:0.4">No prior editions yet</span>
   </div>
   <a class="archive-all" href="/daily/archive.html">View full archive →</a>
 </footer>

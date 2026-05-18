@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Receipt Pattern Specimen — Sprint v5-6a.5</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* Team-Pages Design Tokens
+ * -------------------------------------------------------------------------
+ * Shared-across-all-teams foundation. Per-team accent colors are injected
+ * via inline custom-properties on the <body> element at render time.
+ *
+ * Inherit / extends the player-page design language (Iteration Log §15.1):
+ *   - Dark-mode default (iMessage-native)
+ *   - Inter Display / serif editorial pairing
+ *   - OKLCH percentile + belief ramps
+ *   - 44px touch targets, mobile-first spacing rhythm
+ */
+
+:root {
+  /* -----  Color system (dark-mode default) ------ */
+  --bg-0: #0b0d12;
+  --bg-1: #12151d;
+  --bg-2: #1a1f2b;
+  --bg-card: #171b24;
+  --bg-card-raised: #1e2330;
+  --bg-overlay: rgba(11, 13, 18, 0.72);
+
+  --fg-primary: #f5f6fa;
+  --fg-secondary: #c6cad6;
+  --fg-muted: #8a90a1;
+  --fg-subtle: #5c6172;
+  --fg-on-accent: #0b0d12;
+
+  --stroke-default: rgba(255, 255, 255, 0.08);
+  --stroke-subtle: rgba(255, 255, 255, 0.05);
+  --stroke-strong: rgba(255, 255, 255, 0.14);
+
+  /* -----  Accent (overridden per-team via inline style) ------ */
+  --accent-primary: #c5b358;
+  --accent-secondary: #084c24;
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  --accent-on: #0b0d12;
+
+  /* -----  Percentile / belief ramps ------ */
+  --pct-low: #c04a4a;
+  --pct-mid-low: #d9845e;
+  --pct-mid: #8a90a1;
+  --pct-mid-high: #5a9dd1;
+  --pct-high: #3570b5;
+
+  --belief-doom: #c04a4a;
+  --belief-mixed: #8a90a1;
+  --belief-bullish: #3ea073;
+
+  --accolade-gold: #c5b358;
+
+  /* -----  Emotional-key accents (seasonal sentience) ------ */
+  --tone-red: #c04a4a;
+  --tone-amber: #d9a55e;
+  --tone-navy: #3570b5;
+  --tone-gray: #8a90a1;
+  --tone-coral: #d95e7c;
+  --tone-green: #3ea073;
+
+  /* -----  Typography ------ */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  --fs-label: clamp(10px, 0.72vw + 8px, 12px);
+  --fs-metric-sm: clamp(14px, 1vw + 10px, 16px);
+  --fs-body: clamp(14px, 0.8vw + 10px, 16px);
+  --fs-body-lg: clamp(15px, 0.9vw + 11px, 18px);
+  --fs-headline-sm: clamp(18px, 1.2vw + 12px, 22px);
+  --fs-headline: clamp(22px, 1.8vw + 14px, 30px);
+  --fs-hero: clamp(32px, 3.5vw + 16px, 56px);
+  --fs-serif-body: clamp(16px, 0.8vw + 12px, 19px);
+  --fs-metric: clamp(24px, 2vw + 12px, 36px);
+
+  --lh-tight: 1.12;
+  --lh-snug: 1.28;
+  --lh-normal: 1.48;
+  --lh-relaxed: 1.65;
+
+  --ls-tight: -0.02em;
+  --ls-normal: 0em;
+  --ls-wide: 0.04em;
+  --ls-label: 0.08em;
+
+  /* -----  Spacing rhythm ------ */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+  --sp-10: 80px;
+
+  /* -----  Radii ------ */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* -----  Elevation ------ */
+  --elev-card: 0 1px 2px rgba(0,0,0,0.38), 0 4px 12px rgba(0,0,0,0.25);
+  --elev-raised: 0 2px 4px rgba(0,0,0,0.42), 0 12px 36px rgba(0,0,0,0.30);
+
+  /* -----  Motion ------ */
+  --motion-reveal: 240ms cubic-bezier(.2,.7,.25,1);
+  --motion-state: 180ms cubic-bezier(.2,.7,.25,1);
+  --motion-data: 420ms cubic-bezier(.2,.7,.25,1);
+  --motion-delight: 800ms cubic-bezier(.2,.7,.25,1);
+
+  /* -----  Touch targets ------ */
+  --touch-min: 44px;
+  --touch-medium: 48px;
+  --touch-large: 60px;
+
+  /* -----  Layout ------ */
+  --content-max-w: 1100px;
+  --content-side-pad: clamp(16px, 4vw, 32px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-reveal: 0ms;
+    --motion-state: 0ms;
+    --motion-data: 0ms;
+    --motion-delight: 0ms;
+  }
+}
+
+/* ============================================================================
+   WORLD-CLASS RANKINGS PAGE STYLES
+   ============================================================================ */
+
+/* -----  Tiered Row Styling ------ */
+.rankings-row--elite {
+  background: linear-gradient(90deg, var(--tone-navy) 0%, transparent 30%);
+  font-weight: 600;
+}
+
+.rankings-row--elite .rank-cell {
+  font-size: 1.2em;
+  color: var(--tone-navy);
+  font-weight: 700;
+}
+
+.rankings-row--power {
+  background: transparent;
+}
+
+.rankings-row--all {
+  opacity: 0.8;
+  font-size: 0.95em;
+}
+
+/* -----  Rank Change Magnitude ------ */
+.rank-delta--large {
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.rank-delta--large.rank-delta--up {
+  background: var(--belief-bullish);
+  color: var(--bg-0);
+}
+
+.rank-delta--large.rank-delta--down {
+  background: var(--tone-red);
+  color: var(--bg-0);
+}
+
+.rank-delta--medium {
+  font-weight: 600;
+}
+
+/* -----  Movement Dashboard ------ */
+.movement-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  margin: var(--sp-8) 0;
+}
+
+.movement-panel {
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+}
+
+.movement-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-3);
+  color: var(--fg-secondary);
+}
+
+.movement-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+
+.movement-card:last-child {
+  border-bottom: none;
+}
+
+.movement-card__rank {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-metric-sm);
+  color: var(--tone-navy);
+  min-width: 40px;
+}
+
+.movement-card__team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.movement-card__team .team-link {
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+
+.movement-card__team .submetric {
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.movement-card__change {
+  min-width: 60px;
+  text-align: right;
+}
+
+/* -----  Tier Toggles ------ */
+.rankings-tier-toggles {
+  display: flex;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  justify-content: center;
+}
+
+.tier-toggle {
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tier-toggle:hover {
+  background: var(--bg-2);
+  border-color: var(--stroke-strong);
+  color: var(--fg-primary);
+}
+
+.tier-toggle--active {
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  border-color: var(--tone-navy);
+}
+
+/* -----  Quick Filter Chips ------ */
+.rankings-quick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4);
+  background: var(--bg-1);
+  border-radius: var(--radius-lg);
+  justify-content: center;
+}
+
+.filter-chip {
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--bg-2);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-chip:hover {
+  background: var(--bg-0);
+  border-color: var(--tone-navy);
+  color: var(--fg-primary);
+}
+
+.filter-chip--active {
+  background: var(--tone-navy);
+  border-color: var(--tone-navy);
+  color: var(--fg-on-accent);
+}
+
+/* -----  Sparkline Styling ------ */
+.rank-sparkline {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+.rank-change-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* -----  Accessibility ------ */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  padding: var(--sp-2) var(--sp-3);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* -----  Responsive Design ------ */
+@media (max-width: 640px) {
+  .rankings-tier-toggles {
+    flex-wrap: wrap;
+  }
+
+  .tier-toggle {
+    flex: 1 1 calc(50% - var(--sp-2));
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .movement-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .rankings-quick-filters {
+    gap: var(--sp-1);
+  }
+
+  .filter-chip {
+    font-size: 10px;
+    padding: var(--sp-1) var(--sp-2);
+    flex: 1 1 calc(33% - var(--sp-1));
+    text-align: center;
+  }
+
+  .rank-sparkline {
+    width: 60px;
+    height: 18px;
+  }
+
+  /* Transform table rows into cards on mobile */
+  #rankingsTableBody tr {
+    display: block;
+    margin-bottom: var(--sp-4);
+    background: var(--bg-1);
+    border: 1px solid var(--stroke-default);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3);
+  }
+
+  #rankingsTableBody thead {
+    display: none;
+  }
+
+  #rankingsTableBody td {
+    display: block;
+    padding: var(--sp-1) 0;
+    border: none;
+  }
+
+  #rankingsTableBody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: var(--sp-2);
+    color: var(--fg-muted);
+  }
+
+  .movement-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .movement-card__rank {
+    font-size: var(--fs-body);
+  }
+}
+
+
+body {
+  background: var(--bg-0);
+  color: var(--fg-primary);
+  font-family: var(--font-serif);
+  font-size: var(--fs-serif-body);
+  line-height: 1.65;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 16px; }
+h2 { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--fg-muted); margin: 32px 0 12px; }
+p { margin: 0 0 16px; }
+
+/* Receipt pattern — citation styles (Sprint v5-6a.5)
+ * -------------------------------------------------------------------------
+ * Inline citation superscript markers + Wikipedia-style footer list.
+ *
+ * Live-token mapping from docs/design-system/32-receipt-pattern.md:
+ *   --color-amber-50/200/600 → var(--accent-primary) layers via color-mix
+ *   --color-ink              → var(--fg-primary)
+ *   --color-surface          → var(--bg-card)
+ *   --color-line             → var(--stroke-default)
+ *   --color-text-muted       → var(--fg-muted)
+ *   --color-text-subtle      → var(--fg-subtle)
+ *   --font-ui                → var(--font-body)
+ *   --font-display           → var(--font-display)
+ *
+ * Locked treatment — do not adjust visual treatment without coordinating
+ * with the docs/design-system/32 spec.
+ */
+
+/* ---------------------------------------------------------------------
+ * Inline citation marker — <sup class="citation">
+ * --------------------------------------------------------------------- */
+
+.citation {
+  display: inline-block;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 1;
+  font-feature-settings: "sups" 1;
+  font-weight: 600;
+  margin: 0 0.05em 0 0.08em;
+}
+
+.citation > a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  padding: 0 0.18em;
+  border-radius: var(--radius-sm);
+  transition: background-color 120ms ease, outline-color 120ms ease;
+  outline: 1px solid transparent;
+}
+
+.citation > a:hover,
+.citation > a:focus-visible {
+  background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  outline-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+}
+
+/* Desktop hover tooltip — uses data-cite-label */
+@media (hover: hover) and (min-width: 768px) {
+  .citation:hover::after,
+  .citation:focus-within::after {
+    content: attr(data-cite-label);
+    position: absolute;
+    background: var(--bg-card-raised);
+    color: var(--fg-primary);
+    border: 1px solid var(--stroke-default);
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-feature-settings: normal;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 36ch;
+    z-index: 100;
+    margin-top: 1.4em;
+    margin-left: -1ch;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Footer citation list
+ * --------------------------------------------------------------------- */
+
+.article-citations {
+  margin-top: var(--sp-9);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--stroke-default);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-secondary);
+}
+
+.citations-header {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin: 0 0 var(--sp-4);
+}
+
+.citations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.citation-entry {
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--stroke-default) 60%, transparent);
+  display: grid;
+  grid-template-columns: max-content max-content 1fr max-content;
+  gap: var(--sp-1) var(--sp-3);
+  align-items: baseline;
+}
+
+.citation-entry:last-child {
+  border-bottom: none;
+}
+
+.cite-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-primary);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.cite-kind {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  align-self: center;
+}
+
+.cite-kind--reddit { color: #ff4500; border-color: rgba(255, 69, 0, 0.45); }
+.cite-kind--beat_writer { color: var(--tone-navy); border-color: rgba(53, 112, 181, 0.45); }
+.cite-kind--podcast { color: var(--tone-amber); border-color: rgba(217, 165, 94, 0.45); }
+.cite-kind--wikipedia { color: var(--fg-muted); border-color: var(--stroke-default); }
+.cite-kind--official { color: var(--tone-green); border-color: rgba(62, 160, 115, 0.45); }
+.cite-kind--cfbd { color: var(--accolade-gold); border-color: rgba(197, 179, 88, 0.45); }
+.cite-kind--wire { color: var(--tone-coral); border-color: rgba(217, 94, 124, 0.45); }
+.cite-kind--edition { color: var(--fg-secondary); border-color: var(--stroke-strong); }
+
+.cite-label {
+  font-family: var(--font-body);
+  color: var(--fg-primary);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.cite-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--accent-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cite-link:hover,
+.cite-link:focus-visible {
+  text-decoration: underline;
+}
+
+.cite-date {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+.citations-note {
+  margin-top: var(--sp-5);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+.citations-note a {
+  color: var(--accent-primary);
+}
+
+/* Mobile: stack to one column */
+@media (max-width: 640px) {
+  .citation-entry {
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: auto auto;
+  }
+  .cite-num { grid-row: 1; grid-column: 1; }
+  .cite-kind { grid-row: 1; grid-column: 2; justify-self: start; }
+  .cite-label { grid-row: 2; grid-column: 1 / -1; }
+  .cite-link,
+  .cite-date { grid-row: 3; grid-column: 1 / -1; }
+}
+
+/* ---------------------------------------------------------------------
+ * Legacy-notice block for pre-receipt-pattern content
+ * --------------------------------------------------------------------- */
+
+.legacy-pre-citation-notice {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4) var(--sp-5);
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--fg-secondary);
+  line-height: 1.5;
+}
+
+.legacy-pre-citation-notice p {
+  margin: 0;
+}
+
+.legacy-pre-citation-notice time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-primary);
+}
+
+.legacy-pre-citation-notice a {
+  color: var(--accent-primary);
+}
+
+</style>
+</head>
+<body>
+<h1>Alabama's quiet spring: three signals</h1>
+<h2>v5-6a.5 receipt-pattern specimen</h2>
+
+<p>Alabama's offseason narrative tightened around two threads this week. The first is Kalen DeBoer's quiet QB-room re-stack<sup class="citation" data-cite-id="1" data-cite-kind="beat_writer" data-cite-label="Brett McMurphy · Action Network · May 14, 2026" data-cite-url="https://example.com/action-network/alabama-qb-room" data-cite-date="2026-05-14"><a href="#cite-1" aria-describedby="cite-1">[1]</a></sup> — three transfer arrivals in 72 hours after a Bryce Underwood comp tape leaked to 247Sports. The second is something quieter, picked up first on r/CFB<sup class="citation" data-cite-id="2" data-cite-kind="reddit" data-cite-label="r/CFB · &quot;Alabama OL pace under DeBoer — film thread&quot; · 247 replies" data-cite-url="https://www.reddit.com/r/CFB/comments/example" data-cite-date="2026-05-12"><a href="#cite-2" aria-describedby="cite-2">[2]</a></sup> and corroborated by Andy Staples on the Locked On Tide pod<sup class="citation" data-cite-id="3" data-cite-kind="podcast" data-cite-label="Andy Staples · Locked On Crimson Tide · Ep. 1342 (May 13, 2026)" data-cite-url="https://example.com/locked-on-tide/ep-1342" data-cite-date="2026-05-13"><a href="#cite-3" aria-describedby="cite-3">[3]</a></sup>: the offensive line's spring drill cadence is faster than any year under Saban. Whether that translates to in-game pace is the open question — and the betting market hasn't moved yet, which Stewart Mandel called out as "the cleanest unbet edge of the spring"<sup class="citation" data-cite-id="4" data-cite-kind="beat_writer" data-cite-label="Stewart Mandel · The Athletic · May 12, 2026" data-cite-url="https://example.com/the-athletic/mandel-mailbag" data-cite-date="2026-05-12"><a href="#cite-4" aria-describedby="cite-4">[4]</a></sup>.</p> <p>Underneath all of it, the recruiting picture is steadier than the public-facing churn suggests. CFBD's class composite<sup class="citation" data-cite-id="5" data-cite-kind="cfbd" data-cite-label="CollegeFootballData — 2026 recruiting class composite" data-cite-url="https://collegefootballdata.com/recruiting" data-cite-date="2026-05-15"><a href="#cite-5" aria-describedby="cite-5">[5]</a></sup> still has Alabama at #3 in the country, only a tenth of a point behind Georgia. Bear in mind: the Tide finished 2025 at 13-1 with the SEC title and a CFP semifinal loss — a season that, by their standards, gets called a "rebuilding year." Nobody else's program operates with that calibration.</p>
+
+<footer class="article-citations" aria-labelledby="citations-header">
+  <h3 id="citations-header" class="citations-header">Sources</h3>
+  <ol class="citations-list">
+    <li id="cite-1" class="citation-entry citation-entry--primary"><span class="cite-num">[1]</span> <span class="cite-kind cite-kind--beat_writer">Beat writer</span> <span class="cite-label">Brett McMurphy · Action Network · May 14, 2026</span> <a href="https://example.com/action-network/alabama-qb-room" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-14 &rarr;</a></li>
+    <li id="cite-2" class="citation-entry citation-entry--supporting"><span class="cite-num">[2]</span> <span class="cite-kind cite-kind--reddit">Reddit</span> <span class="cite-label">r/CFB · &quot;Alabama OL pace under DeBoer — film thread&quot; · 247 replies</span> <a href="https://www.reddit.com/r/CFB/comments/example" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-12 &rarr;</a></li>
+    <li id="cite-3" class="citation-entry citation-entry--supporting"><span class="cite-num">[3]</span> <span class="cite-kind cite-kind--podcast">Podcast</span> <span class="cite-label">Andy Staples · Locked On Crimson Tide · Ep. 1342 (May 13, 2026)</span> <a href="https://example.com/locked-on-tide/ep-1342" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-13 &rarr;</a></li>
+    <li id="cite-4" class="citation-entry citation-entry--primary"><span class="cite-num">[4]</span> <span class="cite-kind cite-kind--beat_writer">Beat writer</span> <span class="cite-label">Stewart Mandel · The Athletic · May 12, 2026</span> <a href="https://example.com/the-athletic/mandel-mailbag" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-12 &rarr;</a></li>
+    <li id="cite-5" class="citation-entry citation-entry--background"><span class="cite-num">[5]</span> <span class="cite-kind cite-kind--cfbd">CFBD</span> <span class="cite-label">CollegeFootballData — 2026 recruiting class composite</span> <a href="https://collegefootballdata.com/recruiting" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-15 &rarr;</a></li>
+  </ol>
+  <p class="citations-note">
+    CFB Index editorial is AI-synthesized and grounded in real sources.
+    Every claim above is traceable to at least one cited source.
+    <a href="/methodology/citations.html">How we cite &rarr;</a>
+  </p>
+</footer>
+
+<h2 style="margin-top:80px;">Legacy notice (for pre-cutover content)</h2>
+<aside class="legacy-pre-citation-notice" role="note"
+       aria-label="Pre-citation editorial notice">
+  <p>This piece was published before our citation pattern launched on
+  <time datetime="2026-05-17">2026-05-17</time>.
+  New CFB Index editorial includes inline source citations.
+  <a href="/methodology/citations.html">Learn more &rarr;</a></p>
+</aside>
+
+<script>/* Receipt pattern — mobile tap-reveal for citation markers
+ * -------------------------------------------------------------------------
+ * On desktop the CSS :hover tooltip handles citation labels. On mobile
+ * (no hover), tap reveals an inline expansion below the marker.
+ *
+ * Defensive: the script no-ops gracefully when no .citation nodes exist.
+ * Listener uses event delegation so dynamically-inserted citations work too.
+ *
+ * Spec: docs/design-system/32-receipt-pattern.md §"Tap-reveal"
+ */
+(function () {
+  'use strict';
+  if (typeof document === 'undefined') return;
+
+  // Hover-capable devices already get the CSS tooltip — skip the JS.
+  var noHover = window.matchMedia &&
+    window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  function ensureDetail(citationEl) {
+    var existing = citationEl.nextElementSibling;
+    if (existing && existing.classList.contains('citation-detail')) {
+      return existing;
+    }
+    var detail = document.createElement('span');
+    detail.className = 'citation-detail';
+    detail.setAttribute('role', 'note');
+    detail.style.display = 'block';
+    detail.style.marginTop = '0.4em';
+    detail.style.padding = '0.5em 0.75em';
+    detail.style.fontSize = '13px';
+    detail.style.fontWeight = '400';
+    detail.style.lineHeight = '1.45';
+    detail.style.background = 'var(--bg-card-raised, #1e2330)';
+    detail.style.border =
+      '1px solid var(--stroke-default, rgba(255,255,255,0.08))';
+    detail.style.borderRadius = '6px';
+    detail.style.color = 'var(--fg-primary, #f5f6fa)';
+    detail.style.fontFamily = 'var(--font-body)';
+    var label = citationEl.getAttribute('data-cite-label') || '';
+    var url = citationEl.getAttribute('data-cite-url') || '';
+    var kind = citationEl.getAttribute('data-cite-kind') || '';
+    detail.appendChild(document.createTextNode(label));
+    if (url) {
+      detail.appendChild(document.createTextNode(' '));
+      var link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = 'View source →';
+      link.style.color = 'var(--accent-primary)';
+      detail.appendChild(link);
+    }
+    if (kind) {
+      detail.setAttribute('data-kind', kind);
+    }
+    citationEl.parentNode.insertBefore(detail, citationEl.nextSibling);
+    return detail;
+  }
+
+  document.addEventListener('click', function (event) {
+    if (!noHover) return;
+    var target = event.target;
+    if (!target) return;
+    var citationEl = target.closest && target.closest('.citation');
+    if (!citationEl) return;
+    var anchor = target.closest && target.closest('a');
+    if (anchor && anchor.getAttribute('href') &&
+        anchor.getAttribute('href').indexOf('#cite-') === 0) {
+      // Let the in-page anchor navigation happen — that's the
+      // desired fallback when JS misfires.
+      return;
+    }
+    event.preventDefault();
+    var expanded = citationEl.getAttribute('aria-expanded') === 'true';
+    citationEl.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    var detail = ensureDetail(citationEl);
+    detail.style.display = expanded ? 'none' : 'block';
+  }, false);
+})();
+</script>
+</body>
+</html>

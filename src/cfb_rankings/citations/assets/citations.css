@@ -1,0 +1,228 @@
+/* Receipt pattern — citation styles (Sprint v5-6a.5)
+ * -------------------------------------------------------------------------
+ * Inline citation superscript markers + Wikipedia-style footer list.
+ *
+ * Live-token mapping from docs/design-system/32-receipt-pattern.md:
+ *   --color-amber-50/200/600 → var(--accent-primary) layers via color-mix
+ *   --color-ink              → var(--fg-primary)
+ *   --color-surface          → var(--bg-card)
+ *   --color-line             → var(--stroke-default)
+ *   --color-text-muted       → var(--fg-muted)
+ *   --color-text-subtle      → var(--fg-subtle)
+ *   --font-ui                → var(--font-body)
+ *   --font-display           → var(--font-display)
+ *
+ * Locked treatment — do not adjust visual treatment without coordinating
+ * with the docs/design-system/32 spec.
+ */
+
+/* ---------------------------------------------------------------------
+ * Inline citation marker — <sup class="citation">
+ * --------------------------------------------------------------------- */
+
+.citation {
+  display: inline-block;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 1;
+  font-feature-settings: "sups" 1;
+  font-weight: 600;
+  margin: 0 0.05em 0 0.08em;
+}
+
+.citation > a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  padding: 0 0.18em;
+  border-radius: var(--radius-sm);
+  transition: background-color 120ms ease, outline-color 120ms ease;
+  outline: 1px solid transparent;
+}
+
+.citation > a:hover,
+.citation > a:focus-visible {
+  background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  outline-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+}
+
+/* Desktop hover tooltip — uses data-cite-label */
+@media (hover: hover) and (min-width: 768px) {
+  .citation:hover::after,
+  .citation:focus-within::after {
+    content: attr(data-cite-label);
+    position: absolute;
+    background: var(--bg-card-raised);
+    color: var(--fg-primary);
+    border: 1px solid var(--stroke-default);
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-feature-settings: normal;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 36ch;
+    z-index: 100;
+    margin-top: 1.4em;
+    margin-left: -1ch;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Footer citation list
+ * --------------------------------------------------------------------- */
+
+.article-citations {
+  margin-top: var(--sp-9);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--stroke-default);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-secondary);
+}
+
+.citations-header {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin: 0 0 var(--sp-4);
+}
+
+.citations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.citation-entry {
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--stroke-default) 60%, transparent);
+  display: grid;
+  grid-template-columns: max-content max-content 1fr max-content;
+  gap: var(--sp-1) var(--sp-3);
+  align-items: baseline;
+}
+
+.citation-entry:last-child {
+  border-bottom: none;
+}
+
+.cite-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-primary);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.cite-kind {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  align-self: center;
+}
+
+.cite-kind--reddit { color: #ff4500; border-color: rgba(255, 69, 0, 0.45); }
+.cite-kind--beat_writer { color: var(--tone-navy); border-color: rgba(53, 112, 181, 0.45); }
+.cite-kind--podcast { color: var(--tone-amber); border-color: rgba(217, 165, 94, 0.45); }
+.cite-kind--wikipedia { color: var(--fg-muted); border-color: var(--stroke-default); }
+.cite-kind--official { color: var(--tone-green); border-color: rgba(62, 160, 115, 0.45); }
+.cite-kind--cfbd { color: var(--accolade-gold); border-color: rgba(197, 179, 88, 0.45); }
+.cite-kind--wire { color: var(--tone-coral); border-color: rgba(217, 94, 124, 0.45); }
+.cite-kind--edition { color: var(--fg-secondary); border-color: var(--stroke-strong); }
+
+.cite-label {
+  font-family: var(--font-body);
+  color: var(--fg-primary);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.cite-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--accent-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cite-link:hover,
+.cite-link:focus-visible {
+  text-decoration: underline;
+}
+
+.cite-date {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+.citations-note {
+  margin-top: var(--sp-5);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+.citations-note a {
+  color: var(--accent-primary);
+}
+
+/* Mobile: stack to one column */
+@media (max-width: 640px) {
+  .citation-entry {
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: auto auto;
+  }
+  .cite-num { grid-row: 1; grid-column: 1; }
+  .cite-kind { grid-row: 1; grid-column: 2; justify-self: start; }
+  .cite-label { grid-row: 2; grid-column: 1 / -1; }
+  .cite-link,
+  .cite-date { grid-row: 3; grid-column: 1 / -1; }
+}
+
+/* ---------------------------------------------------------------------
+ * Legacy-notice block for pre-receipt-pattern content
+ * --------------------------------------------------------------------- */
+
+.legacy-pre-citation-notice {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4) var(--sp-5);
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--fg-secondary);
+  line-height: 1.5;
+}
+
+.legacy-pre-citation-notice p {
+  margin: 0;
+}
+
+.legacy-pre-citation-notice time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-primary);
+}
+
+.legacy-pre-citation-notice a {
+  color: var(--accent-primary);
+}

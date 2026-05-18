@@ -125,6 +125,19 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .short-answer .label { text-transform: uppercase; letter-spacing: 0.18em;
   font-size: 10px; opacity: 0.7; margin-right: 6px; }
 
+/* 30-second auto-summary (Sprint v5-7.6, Pattern 7) */
+.auto-summary { margin: 24px 0 8px; padding: 18px 22px; background: var(--paper-dim);
+  border-left: 3px solid var(--gold); border-radius: 3px; max-width: 720px; }
+.auto-summary__title { font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy);
+  margin: 0 0 10px; }
+.auto-summary__list { margin: 0; padding-left: 1.1rem; list-style: disc; }
+.auto-summary__list li { font-family: var(--serif); font-size: 17px; line-height: 1.5;
+  color: var(--ink); margin: 4px 0; }
+.auto-summary__list li::marker { color: var(--gold); }
+.auto-summary__meta { margin: 12px 0 0; font-family: var(--sans); font-size: 11px;
+  letter-spacing: 0.06em; color: var(--muted); font-style: italic; }
+
 /* Source pills */
 .source-pills { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 .pill { font-family: var(--sans); font-size: 11px; font-weight: 600;
@@ -311,6 +324,80 @@ def _answer_card_html(rank: int, answer: dict[str, Any]) -> str:
     )
 
 
+def _build_auto_summary_html(
+    answers: list[dict[str, Any]],
+    edition_slug: str,
+    conn,
+) -> str:
+    """Pattern 7 wire-up for Mailbag — 30-second TL;DR above the answer cards.
+
+    Combines every published answer (question + answer_body) into one
+    summary input. Short-circuits when combined <200 chars or LLM fails.
+    Cached per cache_key='mailbag:<edition_slug>' + body_hash.
+    """
+    if not answers:
+        return ""
+    parts: list[str] = []
+    for a in answers:
+        question = (a.get("question_text") or "").strip()
+        body_raw, _ = _strip_draft_marker(a.get("answer_body") or "")
+        if not body_raw.strip():
+            continue
+        if question:
+            parts.append(f"Q: {question}\n\n{body_raw.strip()}")
+        else:
+            parts.append(body_raw.strip())
+    combined = "\n\n---\n\n".join(parts)
+    if len(combined) < 200:
+        return ""
+    try:
+        from cfb_rankings.auto_summary import (
+            CACHE_DDL,
+            generate_article_summary,
+            render_auto_summary_html,
+        )
+        from cfb_rankings.db import Database
+    except Exception as e:
+        log.warning("mailbag.auto_summary import failed: %s", e)
+        return ""
+    db = _adapt_conn_for_auto_summary(conn)
+    if db is not None:
+        try:
+            db.execute(CACHE_DDL)
+        except Exception as e:
+            log.warning("mailbag.auto_summary cache init failed: %s", e)
+    summary = generate_article_summary(
+        body_markdown=combined,
+        headline=f"The Mailbag — {edition_slug}",
+        dek="",
+        cache_key=f"mailbag:{edition_slug}",
+        db=db,
+    )
+    if summary is None:
+        return ""
+    return render_auto_summary_html(summary)
+
+
+def _adapt_conn_for_auto_summary(conn):
+    """Wrap a raw sqlite3 connection in a Database handle.
+
+    Mirrors the Daily renderer's adapter (Pattern 7 wire-up). Returns
+    None when the connection's path can't be extracted (e.g. :memory:),
+    in which case the caller passes db=None and skips caching.
+    """
+    try:
+        from cfb_rankings.db import Database
+        rows = conn.execute("pragma database_list").fetchall()
+        for row in rows:
+            name_col = row[1] if not isinstance(row, dict) else row["name"]
+            file_col = row[2] if not isinstance(row, dict) else row["file"]
+            if name_col == "main" and file_col:
+                return Database(f"sqlite:///{file_col}")
+    except Exception as e:
+        log.warning("mailbag.auto_summary db adapt failed: %s", e)
+    return None
+
+
 def _sidebar_html(recent_editions: list[dict[str, Any]], current_slug: str = "") -> str:
     items = ""
     for ed in recent_editions[:5]:
@@ -413,6 +500,12 @@ def render_edition_page(
             return None
         answers = list_answers_for_edition(conn, edition_slug)
         recent = list_recent_editions(conn, limit=6)
+        # Build auto-summary while we still hold a connection. The
+        # helper short-circuits when answers are empty/short or the
+        # LLM call fails, so it's safe to call unconditionally.
+        auto_summary_html = _build_auto_summary_html(
+            answers, edition_slug, conn,
+        ) if answers else ""
 
     if not answers:
         log.warning("mailbag.renderer: no answers for edition %s", edition_slug)
@@ -459,6 +552,7 @@ def render_edition_page(
 
     content = (
         f'{hero_html}'
+        f'{auto_summary_html}'
         f'{draft_banner_html}'
         f'<div class="content-grid">'
         f'<main>{cards_html}</main>'

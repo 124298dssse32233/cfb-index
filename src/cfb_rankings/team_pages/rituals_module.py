@@ -76,7 +76,13 @@ def render_rituals_strip(profile: "Profile") -> str:
     if not rituals:
         return ""
 
-    tier = int(profile.frontmatter.get("program_tier", 5) or 5)
+    # Defensive: program_tier should be int 1-9 per spec, but if a profile
+    # YAML carries a non-numeric tier label (e.g. "S") or anything else odd,
+    # fall back to the tier-5 intro rather than crash the render.
+    try:
+        tier = int(profile.frontmatter.get("program_tier", 5) or 5)
+    except (ValueError, TypeError):
+        tier = 5
     intro = _TIER_INTRO.get(tier, _TIER_INTRO[5])
     cards_html = "\n".join(_render_ritual_card(r) for r in rituals[:5])
     return f"""\
