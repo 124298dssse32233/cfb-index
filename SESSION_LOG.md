@@ -1,6 +1,95 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 03:30 UTC | visual-system activation — 4 PRs (#131-#134)
+═══════════════════════════════════════════════════════════════════════
+
+User asked about design/UX docs + the 36 produced PNGs. Investigation
+revealed a complete 1,500+-line strategic visual system on paper
+(CFB_INDEX_VISUAL_SYSTEM_CONCEPT + IDENTITY_PRODUCTION_PLAYBOOK +
+CHATGPT_VISUAL_SYSTEM_RUNBOOK) with Tier-1 production already done
+but ZERO assets wired into the live site.
+
+User mandate: "yes please do all that and ascertain closely what
+design, UX, etc. items can and should be incorporated."
+
+Four PRs shipped:
+
+  PR #131 — Tier-1 bespoke illustrations wired to hub
+    Activated the 36-PNG library for the first time. 70 web-optimized
+    variants deployed (totems 80px + 600px, modifiers 48px + 200px,
+    rubrics 40px + 128px, masters 400px — PIL-LANCZOS from 1024px
+    ChatGPT originals, ~9.5MB total). New
+    src/cfb_rankings/illustrations.py module with URL emitter helpers
+    (totem_url, modifier_url, rubric_url, author_portrait_url) that
+    fall back to None on unknown slugs.
+    Wired into hub_page.py:
+      - 18 archetype totems on N° 04 Taxonomy archetype cards (slug→
+        PNG direct match across all 18)
+      - 8 modifier glyphs on the modifier chip strip
+      - 8 section rubrics on N° 01-N° 08 eyebrow headers (mood-index,
+        ticker, hype-vs-reality from "The Matrix", taxonomy, rivalry,
+        lexicon, this-weeks-cards, commiseration)
+    Backward-compat: every wire-in falls back to text-only when slug
+    isn't in the known asset map.
+
+  PR #132 — Prioritized visual & UX recommendations doc
+    Parallel-agent extracted 250+ design rules from 22 docs (the 3
+    strategy docs + all 15 docs/design-system/* + PLAYER_PAGE_WORLD
+    _CLASS_BRIEF + TEAM_PAGE_WORLD_CLASS_BRIEF + v5_followups +
+    FRONTEND_ARCHITECTURE_DECISION + unified-design-tokens).
+    Synthesized into docs/octopus/visual_ux_recommendations.md:
+      - Already-built section (4 items)
+      - Top 5 shippable autonomously (team logos, tabular nums,
+        confidence chip, Cmd-K wire-up, reduced-motion)
+      - Tier 2 — substantial w/ editorial input (8 items)
+      - Tier 3 — aspirational multi-month (11 items)
+      - Tier 4 — needs explicit decision (3 items)
+      - Recommended autonomous next-session ordering
+
+  PR #133 — Team logos on team pages (Top-5 #1)
+    The biggest "we have these assets, why aren't they on the page"
+    gap. 664 team logos at /assets/team-art/<slug>/logo_primary.png
+    existed but team pages were logo-less because team_logo_src()
+    routed through team_brand_assets DB which returned None for many
+    slugs. Same helper worked on rankings table (which uses onerror
+    fallback). Fix: emit URL deterministically from slug, add
+    onerror to gracefully hide genuinely-missing PNGs. Applied to
+    both legacy reporting.py team-page hero (96px) and team_pages/
+    renderer.py profiled-page hero (80px).
+
+  PR #134 — Tabular numerals + reduced-motion globally (Top-5 #2 + #5)
+    Two locked design-system rules from
+    docs/design-system/00-tokens.md were absent from the global
+    stylesheet. Added one _DESIGN_SYSTEM_BASELINE_CSS_BLOCK appended
+    to _compose_global_css():
+      1. font-variant-numeric: tabular-nums on every common stat-
+         class selector (metric-cell, stat-card, team-stat-tile,
+         csp__stat-value, signature-story__stat-value, heisman-row,
+         percentile-pill, confidence-pill, sample-chip + opt-in
+         [data-tabular-nums="true"]). Stops column-of-numbers jitter.
+      2. @media (prefers-reduced-motion: reduce) collapses all
+         animations/transitions to 0.01ms. Standard a11y pattern,
+         was missing entirely.
+    Both rules purely additive — zero risk.
+
+Parallel-agent pattern continued: spawned Explore subagent to
+extract design rules from 22 docs while I started the Tier-1 art
+wire-up. Agent returned a 1500-word catalog of 250+ rules grouped
+by category. Memory-note discipline held — verified every claimed
+rule against source docs before acting.
+
+Cumulative across multi-day autonomous run: 33 PRs landed since
+PR #82.
+
+Verification status at SESSION_LOG write time:
+  - PR #131 + #132 + #133 + #134 merged on master
+  - Publish 26011469761 in flight (Tier-1 art, recs doc)
+  - Publish 26011857294 queued (team logos, tabular nums + reduced
+    motion)
+  - Live site verification will happen post-publish drain
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 02:00 UTC | autonomous handle-all-four-decisions — user said "best judgment, accept consequences"
 ═══════════════════════════════════════════════════════════════════════
 
