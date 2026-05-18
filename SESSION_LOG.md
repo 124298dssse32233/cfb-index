@@ -1,6 +1,108 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 06:00 UTC | sleep-session cont'd: 8 more PRs (#144-#151)
+═══════════════════════════════════════════════════════════════════════
+
+Continued the sleep-session autonomous mandate. After the first
+slot landed PRs #136-#143 (visual-system plan + confidence chip +
+chart audit + initial OG meta + workflow fix), the second slot
+broadened into adjacent surgical wins:
+
+  PR #144 — Session log entry for the first slot
+
+  PR #145 — feat(seo): robots.txt + minimal sitemap.xml
+    Audit found origin/published has 404.html + og-image.svg but
+    NO robots.txt and NO sitemap.xml. On a 69k-page static site
+    this is a significant crawl-discovery gap.
+    New _write_robots_and_sitemap(site_root) helper emits both at
+    site root, called from build_static_site() right after
+    _ensure_global_assets. robots.txt: allow all crawlers + Sitemap
+    location + disallow draft editions and smoke screenshots.
+    sitemap.xml: 15 top-level landing URLs with proper lastmod /
+    changefreq / priority. Per-team / per-player split-sitemap
+    deferred to Phase 2 (49k+ URLs require multiple sitemap files
+    per the protocol).
+
+  PR #146 — feat(og): methodology + freshness pages
+    Two more provenance renderers (methodology_page,
+    freshness_page) using shared render_head_chrome.
+
+  PR #147 — fix(workflow): publish-site copies static/404.html
+    Daily/wire/mailbag workflows copy static/404.html → output/site
+    each run; publish-site was the outlier. Now consistent —
+    from-scratch publishes ship the custom 404.
+
+  PR #148 — feat(og): 4 more renderers
+    editions/homepage_renderer (SITE HOMEPAGE!), the_room_board,
+    signature_story_board, players_landing.
+
+  PR #149 — feat(og): dynasty heatmap page
+    /history/heatmap/ — multi-year program heatmap.
+
+  PR #150 — feat(og): 3 more renderers
+    countdown, today_in_history, recruit_board.
+
+  PR #151 — feat(og): vibe-shifts per-week ledger
+    /hub/vibe-shifts/<season>/<week>/ — per-week canonical URLs.
+
+Cumulative sleep-session totals (PRs #136 → #151):
+  - 16 PRs landed
+  - 1 implementation plan (PR #136, 343 lines)
+  - 1 chart vocabulary audit (PR #139, 90 lines)
+  - 2 confidence chip wire-ups (PRs #137 player Heisman lens,
+    #140 Heisman board hero)
+  - 13 surfaces gained OG/twitter meta:
+      6 (compare/archive×2/history/program/about-model) — PR #141
+      2 (editions article + TOC)                         — PR #142
+      2 (methodology + freshness)                        — PR #146
+      4 (editions homepage / the_room / sig stories /
+         players landing)                                — PR #148
+      1 (dynasty heatmap)                                — PR #149
+      3 (countdown / today-in-history / recruit-board)   — PR #150
+      1 (vibe-shifts)                                    — PR #151
+  - 2 SEO infrastructure files (robots.txt + sitemap.xml) — PR #145
+  - 2 workflow fixes (fanintel-gameday module install,
+    publish-site 404 copy)
+
+Cumulative across the full multi-day autonomous run: 49 PRs since
+PR #82.
+
+Discipline maintained throughout:
+- Memory-note verification rule held (caught Explore agent's
+  rival_radar mis-classification in the chart audit before
+  shipping; the agent labeled it FORBIDDEN but on hand-verification
+  it's an approved metric-tile composition, not a radar chart)
+- Read failure logs before claiming workflow bugs were fixed
+  (PR #143 — explicit traceback from gh run view drove the fix)
+- Smoke-tested every helper before claiming complete
+- Verified imports + render output before committing every change
+
+Verification status at SESSION_LOG write time:
+  - All 16 PRs (#136-#151) MERGED on master
+  - Publish 26015396877 in_progress (started 04:42 UTC; on
+    PR #146's SHA = 865511fd; will land PRs #136-#146)
+  - PRs #147-#151 will need a follow-on publish after this one
+    drains (concurrency group "site-deploy" prevents parallels)
+
+Carry-forward to next session:
+  - Dispatch follow-on publish-site run once 26015396877 drains
+  - The 4 chart vocab audit follow-up tasks remain open
+    (refactor 2 forbidden bar charts in legacy reporting.py;
+    decide on cohort divergence scatter; re-tag Rival Radar;
+    build src/cfb_rankings/charts/__init__.py per spec)
+  - Confidence chip expansion to remaining surfaces per the
+    design-system/33 priority list (#1 Hub findings, #3 Pulse mood
+    card, #4 Savant card, #5 Daily edition hero finding)
+  - Phase 2A token migration (hard prereq for Phase 3 per the
+    implementation plan)
+  - Window B's PR #122 (citations + cmdk + rituals) remains open
+    with merge conflicts — Window B's lane to resolve
+  - Remaining low-priority OG gaps: nfl_pipeline.py,
+    portal_heat/templates/portal_heat.html (template-based),
+    retro_render.py (noindex,follow — limited SEO benefit)
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 05:00 UTC | sleep-session: 8 PRs (#136-#143) shipped autonomously
 ═══════════════════════════════════════════════════════════════════════
 
