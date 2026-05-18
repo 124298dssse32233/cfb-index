@@ -365,12 +365,15 @@ def render_wire_index(
             f"the people watching."
         )
 
+    from cfb_rankings.nav import render_global_head_chrome, render_global_nav_actions
     template = _load_template("wire.html")
     rendered = _substitute(template, {
         "TITLE": "The Wire",
         "UPDATED_AT": (now or datetime.utcnow()).strftime("%Y-%m-%d %H:%M UTC"),
+        "HEAD_CHROME": render_global_head_chrome(),
         "HEAD_STYLE": _BASE_STYLE,
         "GLOBAL_NAV": render_global_nav(current_page="/wire/", variant="desktop"),
+        "NAV_ACTIONS": render_global_nav_actions(),
         "ENTRIES_TBODY": _entries_tbody(rows, now=now),
         "ARCHIVE_LINKS": archive_links,
         "ENTRY_COUNT": str(len(rows)),
@@ -402,9 +405,11 @@ def render_archive_month(
     rows = fetch_for_month(db, year=year, month=month)
     label = datetime(year, month, 1).strftime("%B %Y")
 
+    from cfb_rankings.nav import render_global_head_chrome
     template = _load_template("wire_archive.html")
     rendered = _substitute(template, {
         "TITLE": f"The Wire — {label}",
+        "HEAD_CHROME": render_global_head_chrome(),
         "HEAD_STYLE": _BASE_STYLE,
         "GLOBAL_NAV": render_global_nav(current_page="/wire/", variant="desktop"),
         "MONTH_LABEL": label,

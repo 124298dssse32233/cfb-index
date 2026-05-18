@@ -31,6 +31,59 @@ from __future__ import annotations
 from typing import Literal
 
 
+def render_global_head_chrome() -> str:
+    """Emit the <head> tags for theme toggle + Cmd-K overlay.
+
+    Renderers that use ``cfb_rankings.nav.render_global_nav`` but don't go
+    through ``reporting.py:_global_link_tags()`` need this to load the
+    theme + cmdk JS/CSS so the buttons in the nav actually work. Callers:
+    wire/renderer.py, editions/homepage_renderer.py, portal_heat/renderer.py.
+
+    Emits (in cascade-correct order):
+      1. tokens-bridge.css — must load before component CSS so the
+         [data-theme="light"] selectors win via Window B's :where() fix
+      2. theme_init.js inlined synchronously — FOUC prevention
+      3. theme_toggle.css + theme_toggle.js (deferred)
+      4. cmdk.css + cmdk.js (deferred)
+
+    The actual files are copied into ``output/site/assets/`` by
+    ``cfb_rankings.reporting._ensure_global_assets()`` (wired in PR #163).
+    Every caller of this helper indirectly depends on a publish that ran
+    that copy step.
+    """
+    from cfb_rankings.theme.render import render_theme_assets_head
+    theme_head = render_theme_assets_head()
+    return (
+        '<link rel="stylesheet" href="/assets/tokens-bridge.css">\n'
+        f'{theme_head}\n'
+        '<link rel="stylesheet" href="/assets/cmdk.css">\n'
+        '<script src="/assets/cmdk.js" defer></script>'
+    )
+
+
+def render_global_nav_actions(*, prefix: str = "/") -> str:
+    """Emit the Cmd-K + theme toggle buttons for the nav.
+
+    Used by renderers that emit the global nav but don't go through
+    reporting.py's _site_nav() (which already includes these). Returns
+    a 2-button <div class="nav-actions"> block ready to drop into the
+    topbar next to the nav links.
+
+    ``prefix`` is unused but kept for API parity with _site_nav callers.
+    Both buttons are absolute-routed (`data-cmdk-trigger` is a behavior
+    hook, theme toggle doesn't navigate).
+    """
+    from cfb_rankings.theme.render import render_theme_toggle_button
+    return (
+        '<div class="nav-actions">'
+        '<button class="cmdk-trigger nav-action" data-cmdk-trigger '
+        'type="button" aria-label="Search (Ctrl-K / Cmd-K)" '
+        'title="Search (Ctrl-K / Cmd-K)">⌘K</button>'
+        f'{render_theme_toggle_button(css_class="theme-toggle nav-action")}'
+        '</div>'
+    )
+
+
 # Valid navigation paths
 NavPath = Literal[
     "/",
