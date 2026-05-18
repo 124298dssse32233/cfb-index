@@ -4988,10 +4988,12 @@ _CONFIDENCE_CSS_BLOCK = """
     color: var(--muted-foreground, #666);
   }
 
-  /* When the chip sits inside a section-head (Heisman Lens, etc.), give it
-     a small top margin so it tucks neatly under the section-note paragraph
-     instead of butting against the previous line. */
-  .section-head > .fi-confidence {
+  /* When the chip sits inside a section-head (Heisman Lens, etc.) or
+     directly under a hero section-note paragraph (Heisman Tracker hero,
+     etc.), give it a small top margin so it tucks neatly under the
+     prior paragraph instead of butting against the previous line. */
+  .section-head > .fi-confidence,
+  .hero > .fi-confidence {
     margin-top: var(--space-2, 0.5rem);
   }
 }
@@ -16281,6 +16283,7 @@ def render_heisman_page_html(
           <strong>Finalist</strong> &mdash; chance to be in New York.
           <strong>Ballot</strong> &mdash; share of voter weight.
         </p>
+        {_heisman_lens_confidence_chip(heisman_snapshot)}
         <div class="cta-row">
           <a class="button button-primary" href="../players/index.html">Open Player Cards</a>
           <a class="button button-secondary" href="../rankings/index.html">Team Rankings</a>
