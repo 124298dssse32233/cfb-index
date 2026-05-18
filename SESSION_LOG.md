@@ -1,6 +1,68 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 14:50 UTC | wake-session cleanup: 3 more PRs (#158-#160)
+═══════════════════════════════════════════════════════════════════════
+
+After the sleep-session shipped 21 PRs (#136-#156, with #157 trailing
+just after wake), the user asked for live links and continuing
+autonomously. Three more PRs landed this slot:
+
+  PR #158 — refactor: remove dead chart helpers (-92 LOC)
+    _render_weekly_delta_blocks (vertical bars without percentile
+    encoding — F2 on the chart vocab FORBIDDEN list) and
+    _render_rating_path (unused trajectory) were both defined but
+    never called. Both superseded by _render_team_journey_chart
+    during the v5 redesign. Removed helpers + their CSS.
+
+  PR #159 — feat(og): NFL Pipeline page (last OG gap)
+    /nfl-pipeline/ — the 12-year NFL Draft leaderboard — was the
+    last public render surface still missing og:image / og:url /
+    twitter:card. Closed via render_head_chrome.
+
+  PR #160 — refactor: 6 more dead helpers (-196 LOC)
+    Explore agent surfaced six more private helpers with zero
+    callers anywhere in src/ tools/ scripts/ tests/:
+      - _render_player_traditional_stat_section (51 LOC)
+      - _render_program_history_row (29 LOC)
+      - _render_home_ranking_rail (29 LOC)
+      - _render_home_team_accordion (71 LOC)
+      - _confidence_label + _confidence_tone_class (16 LOC, both
+        duplicated functionality now living in cfb_rankings/
+        confidence.py per the locked spec)
+    Verified zero callers by grep. Imports clean after removal.
+
+Cumulative this slot (#158-#160): 3 PRs, -288 LOC dead code
+removed, last OG gap closed.
+
+Total across sleep-session + wake-session (PRs #136-#160):
+**25 PRs landed.**
+
+Live verification anchors (confirmed on origin/published right now):
+  - https://github.com/124298dssse32233/cfb-index/blob/published/sitemap.xml
+    → 686 URLs (homepage + landing pages + every site-eligible team)
+  - https://github.com/124298dssse32233/cfb-index/blob/published/robots.txt
+    → User-agent: * Allow: /, with Sitemap reference
+  - https://github.com/124298dssse32233/cfb-index/blob/published/heisman/index.html
+    → HIGH CONFIDENCE chip on Heisman Tracker hero
+  - https://github.com/124298dssse32233/cfb-index/blob/published/players/quinn-ewers-39300.html
+    → HIGH CONFIDENCE chip on player Heisman Lens
+  - https://github.com/124298dssse32233/cfb-index/blob/published/compare/index.html
+    → full og:url + twitter:card meta block (PR #157 confirmed live)
+
+Carry-forward:
+  - Window B PRs #122 + #130 remain open, DIRTY/CONFLICTING (touch
+    SESSION_LOG.md + team_pages/renderer.py which both windows have
+    edited). Window B's lane to rebase.
+  - When #122 + #130 merge: wire-up is global head (Cmd-K + theme
+    toggle stylesheets + scripts) + nav button (cycle theme). Both
+    use _ensure_global_assets copy block + _global_link_tags() +
+    _site_nav() patterns established in PR #131.
+  - Chart audit F1 (legacy _render_history_chart vertical bars +
+    polyline) still pending — needs editorial decision on whether
+    to drop the bars or convert to percentile encoding.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 06:10 UTC | sleep-session final tally: 20 PRs (#136-#155)
 ═══════════════════════════════════════════════════════════════════════
 
