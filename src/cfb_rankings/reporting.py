@@ -21448,57 +21448,6 @@ def _render_team_journey_chart(journey_points: list[dict[str, Any]]) -> str:
     """
 
 
-def _render_weekly_delta_blocks(points: list[dict[str, Any]]) -> str:
-    if not points:
-        return '<p class="footer-note">No team delta history is available yet.</p>'
-
-    bars = []
-    for point in points:
-        delta = point.get("delta")
-        if delta is None:
-            height = 18
-            class_name = "delta-bar missing"
-            label = "No model delta yet"
-        else:
-            height = int(min(100, max(18, abs(float(delta)) * 28)))
-            class_name = "delta-bar positive" if float(delta) >= 0 else "delta-bar negative"
-            label = f"{float(delta):+.2f}"
-        bars.append(
-            f"""
-            <div class="delta-col">
-              <div class="{class_name}" style="height:{height}px"></div>
-              <span class="delta-week">W{int(point.get('week') or 0)}</span>
-              <span class="delta-label">{escape(label)}</span>
-            </div>
-            """
-        )
-    return f'<div class="delta-grid">{"".join(bars)}</div>'
-
-
-def _render_rating_path(values: list[float]) -> str:
-    if len(values) < 2:
-        return '<p class="footer-note">Not enough rating checkpoints yet to draw a path.</p>'
-
-    width = 640
-    height = 220
-    padding = 18
-    min_value = min(values)
-    max_value = max(values)
-    span = max(max_value - min_value, 1.0)
-    points = []
-    for index, value in enumerate(values):
-        x = padding + (index * (width - 2 * padding) / max(1, len(values) - 1))
-        y = height - padding - ((value - min_value) / span) * (height - 2 * padding)
-        points.append(f"{x:.1f},{y:.1f}")
-    polyline = " ".join(points)
-    return f"""
-    <svg class="rating-svg" viewBox="0 0 {width} {height}" role="img" aria-label="Team rating path">
-      <rect x="0" y="0" width="{width}" height="{height}" rx="18" fill="rgba(255,255,255,0.45)"></rect>
-      <polyline fill="none" stroke="#bf3b1f" stroke-width="4" points="{polyline}"></polyline>
-    </svg>
-    """
-
-
 def _team_journey_script() -> str:
     return """
       (() => {
@@ -26194,47 +26143,6 @@ def _site_css() -> str:
         color: var(--muted-foreground);
       }
       .journey-highlight-meta { font-size: 12px; color: var(--muted-foreground); margin-top: 4px; }
-
-      /* Weekly delta chart */
-      .delta-grid {
-        display: flex;
-        align-items: flex-end;
-        gap: 8px;
-        padding: 12px 4px 4px;
-        overflow-x: auto;
-      }
-      .delta-col {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        min-width: 38px;
-        flex: 0 0 auto;
-      }
-      .delta-bar {
-        width: 22px;
-        border-radius: 6px 6px 2px 2px;
-        background: var(--muted-foreground);
-        transition: filter 120ms ease;
-      }
-      .delta-bar.positive { background: #2f9e5a; }
-      .delta-bar.negative { background: #c43d2a; }
-      .delta-bar.missing  {
-        background: repeating-linear-gradient(45deg, var(--border) 0 4px, var(--secondary) 4px 8px);
-        border: 1px dashed var(--border-strong);
-      }
-      .delta-bar:hover { filter: brightness(1.08); }
-      .delta-week {
-        font: 600 11px/1 var(--font-sans);
-        color: var(--muted-foreground);
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-      .delta-label {
-        font-size: 11px;
-        color: var(--foreground);
-        font-variant-numeric: tabular-nums;
-      }
 
       /* Power vs Resume plot */
       .power-resume-module {
