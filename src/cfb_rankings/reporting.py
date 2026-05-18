@@ -5268,6 +5268,35 @@ def _ensure_global_assets(site_root: Path) -> str:
             if not dst_path.exists() or dst_path.stat().st_mtime < png.stat().st_mtime:
                 shutil.copy2(png, dst_path)
 
+    # Copy Window B's theme + cmdk assets from their package dirs.
+    # These ship the dark/light theme toggle (PR #130) and Cmd-K search
+    # overlay (PR #122). docs/octopus/window_b_wire_up_plan.md is the
+    # spec; this is Step 1 of that plan.
+    _pkg_root = Path(__file__).parent
+    for pkg_name, asset_files in (
+        ("theme", ("theme_init.js", "theme_toggle.css", "theme_toggle.js")),
+        ("cmdk",  ("cmdk.css", "cmdk.js")),
+    ):
+        pkg_assets_dir = _pkg_root / pkg_name / "assets"
+        for fname in asset_files:
+            src_path = pkg_assets_dir / fname
+            if not src_path.exists():
+                continue
+            dst_path = assets_dir / fname
+            if not dst_path.exists() or dst_path.stat().st_mtime < src_path.stat().st_mtime:
+                shutil.copy2(src_path, dst_path)
+
+    # Copy tokens-bridge.css from docs/design-system/assets/. This is the
+    # Path-C semantic bridge that maps brand tokens to component CSS;
+    # tokens-bridge MUST load before component stylesheets so the
+    # [data-theme] overrides win the cascade (per PR #130's :where()
+    # specificity fix).
+    tokens_bridge_src = _pkg_root.parents[1] / "docs" / "design-system" / "assets" / "tokens-bridge.css"
+    if tokens_bridge_src.exists():
+        tokens_bridge_dst = assets_dir / "tokens-bridge.css"
+        if not tokens_bridge_dst.exists() or tokens_bridge_dst.stat().st_mtime < tokens_bridge_src.stat().st_mtime:
+            shutil.copy2(tokens_bridge_src, tokens_bridge_dst)
+
     # Generate fi-glossary-data.js from seeds/fi_glossary.yaml. Rewritten
     # every build so edits to the seed file propagate to the live site.
     glossary_data_path = assets_dir / "js" / "bets" / "fi-glossary-data.js"
@@ -5292,9 +5321,20 @@ def _global_link_tags() -> str:
     `alpine:init` event), then alpine.min.js. All `defer` so they execute
     in document order after HTML parse, before DOMContentLoaded.
     """
+    from cfb_rankings.theme.render import render_theme_assets_head
+
     filename = _global_css_filename or "cfb-index.css"
+    # Theme assets must load BEFORE component CSS so the [data-theme]
+    # cascade wins. render_theme_assets_head() inlines theme_init.js
+    # synchronously (FOUC prevention) + emits <link> + deferred toggle
+    # JS. The :where() fix in tokens-bridge.css makes the cascade work.
+    theme_head = render_theme_assets_head()
     return (
-        f'<link rel="stylesheet" href="/assets/{filename}">\n'
+        # tokens-bridge before component CSS so [data-theme] selectors win
+        f'<link rel="stylesheet" href="/assets/tokens-bridge.css">\n'
+        f'    {theme_head}\n'
+        f'    <link rel="stylesheet" href="/assets/{filename}">\n'
+        f'    <link rel="stylesheet" href="/assets/cmdk.css">\n'
         f'    <script src="/assets/js/url-state.js" defer></script>\n'
         f'    <script src="/assets/js/the-room.js" defer></script>\n'
         f'    <script src="/assets/js/subnav.js" defer></script>\n'
@@ -5305,7 +5345,8 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/bets/scenario-explorer.js" defer></script>\n'
         f'    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>\n'
         f'    <script src="/assets/js/bets/context-menu.js" defer></script>\n'
-        f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>'
+        f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>\n'
+        f'    <script src="/assets/cmdk.js" defer></script>'
     )
 
 
@@ -20572,6 +20613,8 @@ def _render_phase_banner(phase_obj=None) -> str:
 
 
 def _site_nav(prefix: str, current: str) -> str:
+    from cfb_rankings.theme.render import render_theme_toggle_button
+
     active_key = {
         "home": "rankings",
         "rankings": "rankings",
@@ -20622,6 +20665,12 @@ def _site_nav(prefix: str, current: str) -> str:
         f'<div class="nav-actions">'
         f'<a class="nav-action{" is-current" if active_key == "matchups" else ""}" href="{prefix}matchups/index.html">Matchup Simulator</a>'
         f'<a class="nav-action{" is-current" if active_key == "compare" else ""}" href="{prefix}compare/index.html">Compare Teams</a>'
+        # Cmd-K search trigger (Window B PR #122). cmdk.js binds to
+        # [data-cmdk-trigger] + the Ctrl-K/Cmd-K keybinding.
+        f'<button class="cmdk-trigger nav-action" data-cmdk-trigger type="button" aria-label="Search (Ctrl-K / Cmd-K)" title="Search (Ctrl-K / Cmd-K)">⌘K</button>'
+        # Theme toggle (Window B PR #130). theme_toggle.js binds to
+        # [data-theme-toggle] and cycles dark / light / auto on click.
+        f'{render_theme_toggle_button(css_class="theme-toggle nav-action")}'
         f"</div>"
         f"</div>"
         f"</header>"

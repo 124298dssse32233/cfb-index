@@ -185,6 +185,24 @@ jobs:
             echo "::warning::Only $MODIFIED files freshly modified — incremental sync may have been a no-op or skipped most pages"
           fi
 
+      - name: Build Cmd-K search index
+        # Ships output/site/search-index.json so the Cmd-K overlay's
+        # client-side search has a real dataset (~500KB-1MB depending
+        # on player count). The overlay is wired in cfb-index.css/js
+        # globally and triggered by the ⌘K button in the topbar.
+        # continue-on-error so a transient failure doesn't sink the
+        # whole publish; cmdk.js falls back to a friendly empty-state.
+        run: |
+          set +e
+          python manage.py build-search-index --output output/site/search-index.json
+          if [ -f output/site/search-index.json ]; then
+            echo "search-index.json: $(stat -c%s output/site/search-index.json 2>/dev/null || stat -f%z output/site/search-index.json) bytes"
+          else
+            echo "::warning::search-index.json missing — Cmd-K overlay will degrade gracefully"
+          fi
+          echo "done"
+        continue-on-error: true
+
       - name: Refresh methodology + freshness pages
         run: |
           set +e
