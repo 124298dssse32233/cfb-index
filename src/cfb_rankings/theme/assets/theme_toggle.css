@@ -1,0 +1,107 @@
+/* Theme toggle (Sprint v5-11.5 dark mode foundation)
+ * -------------------------------------------------------------------------
+ * The toggle is a sun/moon/auto cycle button. States:
+ *   - system (default)   → "auto" icon, follows prefers-color-scheme
+ *   - light              → sun icon
+ *   - dark               → moon icon
+ *
+ * Locked spec: docs/octopus/v5_11_5_sprint_brief.md §"Cmd-K toggle hook"
+ *
+ * Live-token mapping uses var() fallback chains so the toggle renders
+ * correctly on hosts using ANY production token system. The button
+ * inherits its accent color from --accent-primary; the tooltip + ring
+ * use semantic tokens from tokens-bridge.css when present.
+ */
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--stroke-default,
+    var(--border, rgba(255, 255, 255, 0.12)));
+  border-radius: 8px;
+  color: var(--fg-secondary,
+    var(--muted-foreground, var(--muted, #c6cad6)));
+  cursor: pointer;
+  transition: background-color 120ms ease,
+              border-color 120ms ease,
+              color 120ms ease;
+  font-family: inherit;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background: color-mix(in srgb,
+    var(--accent-primary, var(--gold, #c5b358)) 12%,
+    transparent
+  );
+  border-color: var(--accent-primary, var(--gold, #c5b358));
+  color: var(--fg-primary, var(--foreground, var(--ink, #f5f6fa)));
+  outline: none;
+}
+
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+  pointer-events: none;
+}
+
+/* Hide all icons by default; show the one matching current state */
+.theme-toggle__icon { display: none; }
+
+.theme-toggle[data-state="system"] .theme-toggle__icon--system { display: block; }
+.theme-toggle[data-state="light"]  .theme-toggle__icon--light  { display: block; }
+.theme-toggle[data-state="dark"]   .theme-toggle__icon--dark   { display: block; }
+
+/* When unset (initial render before JS runs), show the system icon */
+.theme-toggle:not([data-state]) .theme-toggle__icon--system { display: block; }
+
+/* Tooltip on hover/focus — describes next state */
+.theme-toggle::after {
+  content: attr(data-next-label);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  padding: 4px 8px;
+  font-family: var(--font-body,
+    var(--sans, "Inter", system-ui, sans-serif));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+  background: var(--bg-card-raised, var(--card, #1e2330));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.1));
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 50;
+}
+
+.theme-toggle:hover::after,
+.theme-toggle:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced-motion: kill transitions */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle::after,
+  .theme-toggle__icon {
+    transition: none;
+  }
+}
+
+/* Mobile: drop the tooltip (touch users get the next state on tap) */
+@media (max-width: 640px) {
+  .theme-toggle::after { display: none; }
+}

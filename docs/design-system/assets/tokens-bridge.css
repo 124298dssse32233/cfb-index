@@ -107,10 +107,14 @@
  * Daily/Mailbag/Wire keep their bespoke cream/navy palette regardless
  * (per the v5-11.5 brief §Part 5 risk: their print-feel aesthetic is
  * intentional and shouldn't be auto-flipped).
+ *
+ * Specificity note: the OS-preference block is wrapped in :where()
+ * so it has ZERO specificity contribution. Any [data-theme="..."]
+ * attribute set by the toggle wins automatically.
  * --------------------------------------------------------------------- */
 
 @media (prefers-color-scheme: light) {
-  :root:not(.daily-page):not(.mailbag-page):not(.wire-page) {
+  :where(:root:not(.daily-page):not(.mailbag-page):not(.wire-page)) {
     --semantic-bg-base: #faf8f3;        /* bone paper backdrop */
     --semantic-bg-elevated: #ffffff;
     --semantic-bg-card: #ffffff;
@@ -124,11 +128,11 @@
   }
 }
 
-/* User-preference override (future):
+/* User-preference override:
  *   <html data-theme="light"> or [data-theme="dark"] forces a mode
- *   regardless of OS preference. Wire to a Cmd-K toggle in v5-11.5. */
+ *   regardless of OS preference. Set by theme/assets/theme_toggle.js
+ *   (and the FOUC-prevention theme_init.js). */
 
-[data-theme="light"]:root,
 :root[data-theme="light"] {
   --semantic-bg-base: #faf8f3;
   --semantic-bg-elevated: #ffffff;
@@ -141,7 +145,6 @@
   --semantic-line-strong: rgba(28, 28, 31, 0.16);
 }
 
-[data-theme="dark"]:root,
 :root[data-theme="dark"] {
   --semantic-bg-base: #0b0d12;
   --semantic-bg-elevated: #12151d;
