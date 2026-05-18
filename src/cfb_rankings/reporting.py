@@ -15223,12 +15223,17 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     betting_table = _render_team_betting_table(ranking.team_id, schedule)
     team_theme = _team_theme(ranking.slug)
     team_mark = _team_mark(team_name, slug=ranking.slug)
-    from cfb_rankings.visual_assets import team_logo_src
-    hero_logo_path = team_logo_src(ranking.slug)
+    # Audit-3 fix: was using team_logo_src() which goes through the
+    # team_brand_assets DB table. Many slugs returned None even though
+    # /assets/team-art/<slug>/logo_primary.png exists for all 664 teams.
+    # Emit URL deterministically + onerror gracefully hides any genuinely-
+    # missing PNG. Same pattern as rankings table (line ~20510).
     hero_logo_html = (
-        f'<img src="../{hero_logo_path.lstrip("/")}" alt="{escape(team_name)} logo" '
-        f'width="120" height="120" class="team-hero-logo" loading="lazy">'
-        if hero_logo_path else ""
+        f'<img src="../assets/team-art/{escape(ranking.slug)}/logo_primary.png" '
+        f'alt="{escape(team_name)} logo" '
+        f'width="96" height="96" class="team-hero-logo" loading="lazy" '
+        f'onerror="this.style.display=\'none\'">'
+        if ranking.slug else ""
     )
     net_points = pf - pa
     mood_profile = team_data.get("mood_profile") or {}
