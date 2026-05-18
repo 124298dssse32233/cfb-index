@@ -1,6 +1,72 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 15:45 UTC | Window A · Window B wire-up shipped (PR #163)
+═══════════════════════════════════════════════════════════════════════
+
+User merged Window B's PRs #122 + #130 at 15:31-15:33 UTC. The
+moment they landed, Window A's pre-staged wire-up plan
+(docs/octopus/window_b_wire_up_plan.md from PR #162) became
+executable.
+
+PR #163 — feat(globals): wire up theme toggle + Cmd-K
+  Mechanical execution of the 4-step plan:
+
+  Step 1: _ensure_global_assets() — copies theme/ + cmdk/ package
+    assets to output/site/assets/, plus tokens-bridge.css from
+    docs/design-system/assets/. Smoke-tested: all 6 files emit
+    (theme_init.js 975B, theme_toggle.css 3392B,
+    theme_toggle.js 6133B, cmdk.css 9972B, cmdk.js 14586B,
+    tokens-bridge.css 5034B).
+
+  Step 2: _global_link_tags() — injects theme + cmdk into <head>:
+    - tokens-bridge.css FIRST (so [data-theme] cascade wins per
+      Window B's :where() specificity fix)
+    - render_theme_assets_head() inlines theme_init.js
+      synchronously (FOUC prevention) + emits toggle CSS link +
+      deferred toggle JS
+    - cfb-index.css unchanged
+    - cmdk.css link
+    - cmdk.js deferred
+
+  Step 3: _site_nav() — adds two buttons to nav-actions:
+    - <button data-cmdk-trigger>⌘K</button>
+    - render_theme_toggle_button() output
+    Both with nav-action class for visual harmony.
+
+  Step 4: publish_site.yml — adds "Build Cmd-K search index" step
+    between "Verify build produced fresh pages" and "Refresh
+    methodology + freshness pages". continue-on-error: true so
+    transient failure doesn't sink the publish. Verified locally:
+    python manage.py build-search-index produces 858 items @ 140KB.
+
+  Total diff: 69 lines added across 2 files. Per Window B's
+  estimate ("mechanical, ~10 min"). Actual: ~15 min with smoke tests.
+
+Verification (all PASS):
+  - theme + cmdk APIs callable after master sync
+  - _ensure_global_assets emits all 6 expected files into tempdir
+  - _global_link_tags contains theme_init + cmdk.css + cmdk.js +
+    tokens-bridge.css
+  - _site_nav emits both data-cmdk-trigger and data-theme-toggle
+  - publish_site.yml YAML parses cleanly; build-search-index at
+    position 11/27
+
+Publish 26045360743 queued on master HEAD = PR #163 merge
+(1e521894). When it drains:
+  - Live site gets ⌘K button + theme toggle in topbar (every page
+    using _site_nav)
+  - /search-index.json at site root (~140KB)
+  - No FOUC on theme — theme_init.js runs synchronously in <head>
+  - Daily + Mailbag get Window B's auto-summary
+  - 17 profiled team pages get Window B's rituals strip
+
+Out of scope (follow-up):
+  - Profiled team pages use their own inline CSS bundle, not
+    _global_link_tags(). Theme toggle on profiled team pages =
+    Surface 2 follow-up, documented in window_b_wire_up_plan.md.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 23:00 UTC | Window B · fourth continuation — Cmd-K overlay UI
 ═══════════════════════════════════════════════════════════════════════
 
