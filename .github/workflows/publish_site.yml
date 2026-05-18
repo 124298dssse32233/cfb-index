@@ -259,6 +259,16 @@ jobs:
       - name: Install World-Class enhancement layer (CSS+JS+HTML inject)
         run: python tools/wcfb_enhancements/install.py
 
+      - name: Ensure custom 404 ships with the deploy
+        # The rolling site-state artifact doesn't always include 404.html
+        # (it'd disappear if a fresh build started from scratch). Match the
+        # pattern the daily/wire/mailbag workflows already use: copy the
+        # canonical static/404.html into output/site each publish. Without
+        # this, Vercel falls back to its branded NOT_FOUND page.
+        run: |
+          cp -f static/404.html output/site/404.html || true
+          echo "404.html copy: $(ls -la output/site/404.html 2>/dev/null || echo missing)"
+
       - name: Write .vercelignore for published branch
         run: python tools/write_published_vercelignore.py
 
