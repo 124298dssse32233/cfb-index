@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily — Monday, May 18th, 2026</title>
+<meta name="description" content="The Daily for Monday, May 18th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<link rel="canonical" href="https://wonderful-margulis-8ec96b.vercel.app/daily/2026-05-18/">
+<meta property="og:site_name" content="THE CFB INDEX">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wonderful-margulis-8ec96b.vercel.app/daily/2026-05-18/">
+<meta property="og:title" content="The Daily — Monday, May 18th, 2026">
+<meta property="og:description" content="The Daily for Monday, May 18th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta property="og:image" content="https://wonderful-margulis-8ec96b.vercel.app/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://wonderful-margulis-8ec96b.vercel.app/daily/2026-05-18/">
+<meta name="twitter:title" content="The Daily — Monday, May 18th, 2026">
+<meta name="twitter:description" content="The Daily for Monday, May 18th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta name="twitter:image" content="https://wonderful-margulis-8ec96b.vercel.app/og-image.svg">
+<style>
+/* ---- Design tokens (matches Edition / team-page system) ---- */
+:root {
+  --ink:      #1a1a2e;
+  --paper:    #f8f6f0;
+  --gold:     #c9a84c;
+  --navy:     #0f2044;
+  --slate:    #4a5568;
+  --rule:     #e2ddd5;
+  --accent:   #c53030;
+  --serif:    'Georgia', 'Times New Roman', serif;
+  --sans:     'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--serif);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+/* ---- Masthead ---- */
+.masthead {
+  border-bottom: 3px double var(--gold);
+  padding: 2rem 0 1rem;
+  text-align: center;
+  background: var(--navy);
+  color: #fff;
+}
+.masthead__flag {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.masthead__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #fff;
+}
+.masthead__date {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Layout ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr min(680px, 100%) 280px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+.takes-col { grid-column: 2; }
+.sidebar { grid-column: 3; padding-left: 2rem; }
+
+/* ---- Take cards ---- */
+.take {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+.take:last-child { border-bottom: none; }
+
+.take__rank {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.take__numeral {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+.take__headline {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy);
+  margin: 0.75rem 0 1rem;
+}
+.take__body {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+.take__body p { margin-bottom: 0.75rem; }
+
+/* ---- Source pills ---- */
+.source-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.source-pill {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--gold);
+  color: var(--navy);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* ---- Entity link ---- */
+.entity-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--slate);
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+.entity-link:hover { color: var(--navy); text-decoration: underline; }
+
+/* ---- Sidebar ---- */
+.sidebar__section {
+  margin-bottom: 2rem;
+}
+.sidebar__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.sidebar__item {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--slate);
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule);
+  line-height: 1.4;
+}
+.sidebar__item:last-child { border-bottom: none; }
+
+/* ---- Archive footer ---- */
+.archive-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+.archive-footer__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.archive-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.archive-footer__link {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+}
+.archive-footer__link:hover { color: var(--gold); }
+.archive-all {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.archive-all:hover { color: var(--gold); }
+
+/* ---- Nav ---- */
+.site-nav {
+  background: var(--navy);
+  padding: 0.6rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+.site-nav a { color: rgba(255,255,255,0.65); text-decoration: none; margin-right: 1.2rem; }
+.site-nav a:hover { color: var(--gold); }
+</style>
+
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+<body class="daily__page">
+
+<nav class="site-nav daily__nav">
+  <a href="/">Home</a>
+  <a href="/rankings/">Rankings</a>
+  <a href="/daily/">Daily</a>
+  <a href="/wire/">Wire</a>
+  <a href="/mailbag/">Mailbag</a>
+  <a href="/editions/">Editions</a>
+  <a href="/methodology/">Methodology</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead__flag">CFB Index · Morning Digest</div>
+  <div class="masthead__title">The Daily</div>
+  <div class="masthead__date">Monday, May 18th, 2026 &nbsp;·&nbsp; Published 06:00 ET</div>
+</header>
+
+<div class="layout">
+  <main class="takes-col">
+    <article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">1</span>Take #1 — Top Story
+  </div>
+  <h2 class="take__headline">Vanderbilt Is Not A Joke Anymore, And The SEC Needs To Stop Pretending Otherwise</h2>
+  <div class="take__body"><p>Clark Lea has done something genuinely weird in Nashville — he's built a program that other programs actually fear. The Diego Pavia era at Vanderbilt isn't a one-season anomaly or a trap-game footnote. It's a structural shift, and the rest of the SEC is slowly, painfully processing that reality. Beating Alabama doesn't happen by accident twice in a generation. It happens because your quarterback plays like he's got something to prove every single snap and your coaching staff stopped apologizing for existing in this conference.</p><p>The discourse is catching up. Stewart Mandel noted at The Athletic that Vanderbilt's recruiting trajectory post-Alabama win showed &quot;a measurable uptick in portal interest from players who previously wouldn't have considered the program.&quot; Meanwhile, Pete Thamel at ESPN flagged Lea's staff retention as quietly one of the better continuity stories in the SEC entering this cycle.</p><p>Continuity matters. Pavia's eligibility situation matters more. Watch what Vanderbilt's fall camp depth chart looks like at quarterback — that's the real canary here.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">ESPN flagged</span><span class="source-pill">Stewart Mandel</span></div>
+  
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">2</span>Take #2 — Two Reads
+  </div>
+  <h2 class="take__headline">The Stat Guys and the Die-Hards Are Watching Completely Different USC Teams Right Now</h2>
+  <div class="take__body"><p>The analytics crowd looks at Lincoln Riley's offense and still sees structure worth believing in — yards-per-play numbers that paper over the losses, skill-position talent that keeps the EPA metrics respectable. The die-hards watch the film and want to throw the remote. Three years in, and the defense still tackles like it received a cease-and-desist from physicality itself. Those two reads aren't both wrong; that's the genuinely maddening part.</p><p>Stewart Mandel noted in The Athletic that USC's margins in close Big Ten games have exposed a program still searching for an identity that survives a real road environment. Meanwhile, Bruce Feldman has flagged the transfer portal footprint Riley built as one of the most expensive roster constructions in the country — which makes the defensive regression not just embarrassing but genuinely confusing.</p><p>College football does this constantly: hands a program everything it asked for, then shrugs.</p><p>The number to watch this week is USC's defensive line depth after spring workouts conclude. If the portal opens again before June, that's your answer about whether Riley's staff believes what they're selling.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">Stewart Mandel</span></div>
+  
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">3</span>Take #3 — Buried Lede
+  </div>
+  <h2 class="take__headline">UConn Is a Real Football Program Now, and Jim Mora Won't Let You Forget It</h2>
+  <div class="take__body"><p>The buried lede inside UConn's bowl-eligible run isn't the wins — it's that Jim Mora has made Storrs, Connecticut a place where transfers actually want to stay. That doesn't happen by accident, and it doesn't happen fast, yet here it is. Pete Thamel noted at ESPN that UConn's roster retention rate through the last portal cycle was quietly one of the better stories in the Group of Five, which matters more than any single result. When you're an independent without a conference safety net, stability <em>is</em> the program.</p><p>Meanwhile, Stewart Mandel wrote in The Athletic that programs like UConn represent exactly the kind of mid-tier success story the new revenue-sharing era could either accelerate or quietly suffocate — depending on how the money flows to programs outside Power Four footprints. That's the existential question nobody's asking yet.</p><p>UConn plays in an environment where every win is earned without a conference home or guaranteed marquee exposure. Watch whether Mora can land another portal class this cycle that keeps the ceiling rising — or whether the money gap finally bites.</p></div>
+  <div class="source-pills"><span class="source-pill">The Athletic</span><span class="source-pill">ESPN that</span><span class="source-pill">Pete Thamel</span><span class="source-pill">Stewart Mandel</span></div>
+  <a class="entity-link" href="/teams/washington.html">→ Washington page</a>
+</article>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__label">What We're Watching</div>
+      <div class="sidebar__item">Spring practice reports — portal decisions follow coaching feedback</div><div class="sidebar__item">Transfer portal deadline windows — commitment trackers update daily</div><div class="sidebar__item">Draft advisory declarations — underclassmen decisions shape fall depth</div>
+    </div>
+  </aside>
+</div>
+
+<footer class="archive-footer">
+  <div class="archive-footer__label">Yesterday's Takes</div>
+  <div class="archive-footer__links">
+    <a class="archive-footer__link" href="/daily/2026-05-18/">Monday, May 18th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-17/">Sunday, May 17th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-16/">Saturday, May 16th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-15/">Friday, May 15th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-14/">Thursday, May 14th, 2026</a>
+  </div>
+  <a class="archive-all" href="/daily/archive.html">View full archive →</a>
+</footer>
+
+</body>
+</html>
