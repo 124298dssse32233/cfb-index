@@ -642,6 +642,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 
 def _render_head(edition: Edition) -> str:
     from cfb_rankings.common.head_chrome import render_head_chrome
+    from cfb_rankings.nav import render_global_head_chrome
 
     title = html.escape(f"CFB Index · {edition.theme_title}")
     # Homepage is rendered at site root "/". og_type="website" per the
@@ -652,6 +653,9 @@ def _render_head(edition: Edition) -> str:
         description=edition.theme_dek,
         og_type="website",
     )
+    # Theme toggle + Cmd-K assets — must load synchronously for FOUC
+    # prevention. See cfb_rankings.nav.render_global_head_chrome.
+    _global_head = render_global_head_chrome()
     return f"""<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8">
@@ -659,6 +663,7 @@ def _render_head(edition: Edition) -> str:
 <title>{title}</title>
 <meta name="description" content="{html.escape(edition.theme_dek)}">
 {_head_chrome}
+{_global_head}
 <style>{_INLINE_CSS}</style>
 </head><body>
 <a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>"""
@@ -667,13 +672,17 @@ def _render_head(edition: Edition) -> str:
 # ----------------------- Sections -----------------------
 
 def _render_masthead(edition: Edition, publish_label: str) -> str:
-    from cfb_rankings.nav import render_global_nav
+    from cfb_rankings.nav import render_global_nav, render_global_nav_actions
 
     vol = _ROMAN[edition.volume] if edition.volume < len(_ROMAN) else str(edition.volume)
     publish_time = (edition.published_at_utc or "").split(" ")[1][:5] if edition.published_at_utc else "06:00"
 
     # Use shared navigation component for consistency across all pages
     nav_html = render_global_nav(current_page="/", variant="desktop")
+    # Cmd-K + theme toggle buttons (assets loaded via render_global_head_chrome
+    # in _render_head). Placed alongside the nav so both are reachable from
+    # the masthead.
+    nav_actions_html = render_global_nav_actions()
 
     return f"""
 <header class="masthead">
@@ -687,6 +696,7 @@ def _render_masthead(edition: Edition, publish_label: str) -> str:
     <div class="brand-row">
       <div class="brand">CFB<span class="slash">/</span>INDEX</div>
       {nav_html}
+      {nav_actions_html}
     </div>
     <hr class="rule">
   </div>

@@ -311,12 +311,15 @@ def render_index(
             "We'll fill it in the moment CFBD shows fresh portal activity."
         )
 
+    from cfb_rankings.nav import render_global_head_chrome, render_global_nav_actions
     template = _load_template("portal_heat.html")
     rendered = _substitute(template, {
         "TITLE": "Transfer Portal Heat Index",
         "UPDATED_AT": now.strftime("%Y-%m-%d %H:%M UTC"),
+        "HEAD_CHROME": render_global_head_chrome(),
         "HEAD_STYLE": _BASE_STYLE,
         "GLOBAL_NAV": _global_nav(),
+        "NAV_ACTIONS": render_global_nav_actions(),
         "WEEK_LABEL": html.escape(week_label),
         "DAYS_TO_KICKOFF_PAREN": html.escape(dtk_paren),
         "WINDOW_DAYS": str(days),
