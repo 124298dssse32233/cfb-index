@@ -323,6 +323,7 @@ _PAGE_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dynasty Heatmap — {year_start}-{year_end} · CFB Index</title>
 <meta name="description" content="Every FBS program, every year from {year_start} through {year_end}, colored by where it finished in that year's power-rating distribution. One image, twelve seasons of the CFP era.">
+{head_chrome}
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
   .dh-wrap {{ overflow-x: auto; margin: 24px 0; border: 1px solid var(--border, #d8d8d8); border-radius: 12px; }}
@@ -442,16 +443,30 @@ def render_dynasty_heatmap_page(
     year_start: int = DEFAULT_YEAR_START,
     year_end: int = DEFAULT_YEAR_END,
 ) -> str:
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
     teams = _team_index(rows)
     svg = render_dynasty_heatmap_svg(
         rows, year_start=year_start, year_end=year_end,
     )
     takeaways_html = _build_takeaways_html(teams, rows)
+    head_chrome = render_head_chrome(
+        page_path="/history/heatmap/",
+        title=f"Dynasty Heatmap — {year_start}-{year_end} · CFB Index",
+        description=(
+            f"Every FBS program, every year from {year_start} through "
+            f"{year_end}, colored by where it finished in that year's "
+            "power-rating distribution. One image, twelve seasons of "
+            "the CFP era."
+        ),
+        og_type="article",
+    )
     return _PAGE_TEMPLATE.format(
         year_start=year_start,
         year_end=year_end,
         svg_html=svg,
         takeaways_html=takeaways_html,
+        head_chrome=head_chrome,
     )
 
 
