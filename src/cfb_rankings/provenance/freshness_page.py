@@ -122,13 +122,26 @@ def render_freshness_html(db: Database) -> str:
 
     table_body = "\n".join(_format_row(r, today) for r in rows)
 
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
     generated_at = _utcnow_iso()
+    _head_chrome = render_head_chrome(
+        page_path="/methodology/freshness.html",
+        title="Data Source Freshness | CFB Index",
+        description=(
+            f"Per-source freshness dashboard for the CFB Index "
+            f"fan-intelligence pipeline. {total} registered sources, "
+            "regenerated weekly."
+        ),
+        og_type="article",
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CFB Index — Data Source Freshness</title>
+  {_head_chrome}
   <style>
     body {{ font-family: ui-sans-serif, system-ui, sans-serif; margin: 2rem; color: #111; }}
     h1 {{ font-size: 2rem; margin-bottom: 0.25rem; }}

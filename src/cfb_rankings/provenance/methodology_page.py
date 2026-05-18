@@ -256,13 +256,28 @@ footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #
 
 
 def render_methodology_html(db: Database) -> str:
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
     sources = _fetch_sources(db)
     tiers = ["A", "B", "C", "D"]
     active_count = sum(1 for s in sources if s["is_active"])
 
+    _head_chrome = render_head_chrome(
+        page_path="/methodology/fan-intelligence.html",
+        title="Fan Intelligence — Methodology | CFB Index",
+        description=(
+            f"How CFB Index's fan-intelligence pipeline works: "
+            f"{active_count} active sources across {len(sources)} registered, "
+            "tier-graded by reliability, with full source registry transparency."
+        ),
+        og_type="article",
+    )
+
     parts = ["<!doctype html>", "<html lang='en'><head>",
              "<meta charset='utf-8'>",
+             "<meta name='viewport' content='width=device-width, initial-scale=1'>",
              "<title>Fan Intelligence — Methodology | CFB Index</title>",
+             _head_chrome,
              f"<style>{_CSS}</style>",
              "</head><body>"]
     parts.append("<h1>Fan Intelligence — Methodology</h1>")
