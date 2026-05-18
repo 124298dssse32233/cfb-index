@@ -1,0 +1,158 @@
+/* tokens-bridge.css — Sprint v5-11.5 pre-work proof-of-concept
+ * -------------------------------------------------------------------------
+ * Bridges three legacy token systems (team-pages dark, mockup light,
+ * Daily bespoke) under a single set of semantic tokens, so a single
+ * `prefers-color-scheme` switch can flip the entire site.
+ *
+ * NOT IN PRODUCTION YET. This file is a starting point for the v5-11.5
+ * sprint. See docs/octopus/v5_11_5_sprint_brief.md §"Path C" for the
+ * rationale.
+ *
+ * How it works:
+ *   - Semantic tokens (--semantic-bg, --semantic-fg, etc.) resolve via
+ *     a chain of var() fallbacks: if --bg-0 is defined (team-pages
+ *     surfaces), use it; else if --background (reporting.py), use it;
+ *     else if --navy (Daily), use it; else hard fallback.
+ *   - A @media (prefers-color-scheme: light) block re-roots the same
+ *     semantic tokens to the light-mode values from the mockup set.
+ *   - Components read --semantic-* and inherit the right value for
+ *     whichever surface they render on AND whichever mode the user
+ *     prefers.
+ *
+ * Limitations:
+ *   - Accent colors (per-team) still pipe through their existing
+ *     names; the bridge handles only the surface/text neutrals.
+ *   - This file does NOT rename any existing tokens; it adds a new
+ *     layer that components can opt into incrementally.
+ */
+
+:root {
+  /* ---- Surface ramp ---- */
+  --semantic-bg-base: var(
+    --bg-0,
+    var(--background,
+      var(--navy, #0b0d12)
+    )
+  );
+  --semantic-bg-elevated: var(
+    --bg-1,
+    var(--card,
+      var(--cream, #12151d)
+    )
+  );
+  --semantic-bg-card: var(
+    --bg-card,
+    var(--popover,
+      var(--cream, #171b24)
+    )
+  );
+  --semantic-bg-raised: var(
+    --bg-card-raised,
+    var(--card,
+      var(--cream, #1e2330)
+    )
+  );
+
+  /* ---- Foreground ramp ---- */
+  --semantic-fg-primary: var(
+    --fg-primary,
+    var(--foreground,
+      var(--ink, #f5f6fa)
+    )
+  );
+  --semantic-fg-secondary: var(
+    --fg-secondary,
+    var(--muted-foreground,
+      var(--ink, #c6cad6)
+    )
+  );
+  --semantic-fg-muted: var(
+    --fg-muted,
+    var(--muted-foreground,
+      var(--ink, #8a90a1)
+    )
+  );
+
+  /* ---- Lines + borders ---- */
+  --semantic-line: var(
+    --stroke-default,
+    var(--border,
+      rgba(255, 255, 255, 0.08)
+    )
+  );
+  --semantic-line-strong: var(
+    --stroke-strong,
+    var(--border-strong,
+      rgba(255, 255, 255, 0.14)
+    )
+  );
+
+  /* ---- Accent (per-team-overridable) ---- */
+  --semantic-accent: var(
+    --accent-primary,
+    var(--gold, #c5b358)
+  );
+  --semantic-accent-fg: var(
+    --accent-on,
+    #0b0d12
+  );
+}
+
+/* ---------------------------------------------------------------------
+ * Light-mode override — triggered by `prefers-color-scheme: light`.
+ * Users without the preference get the dark default (team-pages
+ * convention A). Users who prefer light see the mockup-style bone
+ * paper aesthetic.
+ *
+ * Daily/Mailbag/Wire keep their bespoke cream/navy palette regardless
+ * (per the v5-11.5 brief §Part 5 risk: their print-feel aesthetic is
+ * intentional and shouldn't be auto-flipped).
+ *
+ * Specificity note: the OS-preference block is wrapped in :where()
+ * so it has ZERO specificity contribution. Any [data-theme="..."]
+ * attribute set by the toggle wins automatically.
+ * --------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: light) {
+  :where(:root:not(.daily-page):not(.mailbag-page):not(.wire-page)) {
+    --semantic-bg-base: #faf8f3;        /* bone paper backdrop */
+    --semantic-bg-elevated: #ffffff;
+    --semantic-bg-card: #ffffff;
+    --semantic-bg-raised: #f5f1e8;
+    --semantic-fg-primary: #1c1c1f;
+    --semantic-fg-secondary: #2c2c30;
+    --semantic-fg-muted: #6b6b6b;
+    --semantic-line: rgba(28, 28, 31, 0.08);
+    --semantic-line-strong: rgba(28, 28, 31, 0.16);
+    /* --semantic-accent and --semantic-accent-fg stay team-driven */
+  }
+}
+
+/* User-preference override:
+ *   <html data-theme="light"> or [data-theme="dark"] forces a mode
+ *   regardless of OS preference. Set by theme/assets/theme_toggle.js
+ *   (and the FOUC-prevention theme_init.js). */
+
+:root[data-theme="light"] {
+  --semantic-bg-base: #faf8f3;
+  --semantic-bg-elevated: #ffffff;
+  --semantic-bg-card: #ffffff;
+  --semantic-bg-raised: #f5f1e8;
+  --semantic-fg-primary: #1c1c1f;
+  --semantic-fg-secondary: #2c2c30;
+  --semantic-fg-muted: #6b6b6b;
+  --semantic-line: rgba(28, 28, 31, 0.08);
+  --semantic-line-strong: rgba(28, 28, 31, 0.16);
+}
+
+:root[data-theme="dark"] {
+  --semantic-bg-base: #0b0d12;
+  --semantic-bg-elevated: #12151d;
+  --semantic-bg-card: #171b24;
+  --semantic-bg-raised: #1e2330;
+  --semantic-fg-primary: #f5f6fa;
+  --semantic-fg-secondary: #c6cad6;
+  --semantic-fg-muted: #8a90a1;
+  --semantic-line: rgba(255, 255, 255, 0.08);
+  --semantic-line-strong: rgba(255, 255, 255, 0.14);
+}

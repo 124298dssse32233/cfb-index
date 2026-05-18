@@ -1862,6 +1862,233 @@ a { color: inherit; text-decoration: none; }
   .arc-card__peer-footer { grid-template-columns: 1fr; }
 }
 
+/* Rituals strip (Sprint v5-8.5)
+ * -------------------------------------------------------------------------
+ * Live-site styles for the rituals strip rendered by
+ * `cfb_rankings.team_pages.rituals_module`. Class names match the locked
+ * mockup_02_team_alabama_v2.html structure so the renderer output is a
+ * drop-in. Mockup tokens are mapped to the live team-pages token system:
+ *   --color-surface-card → var(--bg-card)
+ *   --color-line          → var(--stroke-default)
+ *   --color-text-muted    → var(--fg-muted)
+ *   --color-ink           → var(--fg-primary)
+ *   --color-accent-primary → var(--accent-primary)
+ *   --font-ui             → var(--font-body)
+ *   --font-tabular        → var(--font-mono)
+ *   amber-50/100/800 layers → mix of var(--tone-amber) + accent
+ */
+
+.rituals.program-section {
+  margin: var(--sp-9) 0 var(--sp-7);
+}
+
+.rituals .program-section__head {
+  margin-bottom: var(--sp-5);
+}
+
+.rituals .section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  font-weight: 700;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-primary);
+  margin: 0 0 var(--sp-2);
+}
+
+.rituals .section-title__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--stroke-default);
+}
+
+.rituals .caption {
+  font-family: var(--font-serif);
+  font-size: var(--fs-serif-body);
+  color: var(--fg-secondary);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+
+.rituals-track {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--sp-3);
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 1024px) {
+  .rituals-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--sp-4);
+    overflow: visible;
+  }
+}
+
+.ritual-card {
+  flex: 0 0 140px;
+  scroll-snap-align: start;
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-height: 180px;
+}
+
+@media (min-width: 1024px) {
+  .ritual-card { flex: 1; }
+}
+
+.ritual-card__glyph {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-primary) 18%, var(--bg-card-raised)),
+    var(--bg-card)
+  );
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--accent-primary);
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--accent-primary) 28%, transparent);
+}
+
+.ritual-card__glyph small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--accent-primary) 65%, var(--fg-muted));
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ritual-card__name {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--fg-primary);
+  margin: 0;
+}
+
+.ritual-card__since {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* Screen-reader-only description for accessibility; visible text is the
+ * monogram + name. The full ritual description is read by AT only. */
+.ritual-card__description.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cultural anchors (renderer-only; rendered when profile YAML carries
+ * `cultural_anchors.one_sentence`). Positioned as a quiet sidebar block
+ * below the rituals strip in the page flow. */
+.cultural-anchors {
+  margin: var(--sp-6) 0 var(--sp-8);
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+}
+
+.cultural-anchors__one-sentence {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-snug);
+  color: var(--fg-primary);
+  margin: 0 0 var(--sp-4);
+}
+
+.cultural-anchors__archetypes {
+  display: grid;
+  gap: var(--sp-2) var(--sp-5);
+  grid-template-columns: max-content 1fr;
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-body);
+}
+
+.cultural-anchors__archetypes dt {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  align-self: center;
+}
+
+.cultural-anchors__archetypes dd {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--fg-primary);
+}
+
+.cultural-anchors__if-lost {
+  margin: var(--sp-3) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--fg-secondary);
+  line-height: var(--lh-normal);
+}
+
+.cultural-anchors__if-lost strong {
+  font-weight: 600;
+  color: var(--fg-primary);
+  margin-right: 0.4em;
+}
+
+/* Visual identity chip — small eyebrow chip; renderer hands back inline. */
+.vi-chip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.vi-chip__helmet,
+.vi-chip__colors {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, transparent);
+}
+
 </style>
 
 <!-- wcfb-enhancements -->
@@ -1937,6 +2164,49 @@ a { color: inherit; text-decoration: none; }
   </div>
   <div class="pulse__badge-row"><span class="pulse__badge pulse__badge--awaiting">0 mentions · awaiting signal</span></div>
 </section>
+    <section class="rituals program-section" aria-label="Oregon rituals">
+  <div class="program-section__head">
+    <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
+    <p class="caption" style="max-width: 36ch;">The rituals that anchor a Saturday in this program&#x27;s world.</p>
+  </div>
+  <div class="rituals-track" role="list">
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">OD<small>pre-game and after</small></div>
+      <h3 class="ritual-card__name">The Oregon Duck (motorcycle entrance)</h3>
+      <p class="ritual-card__since">since 1947 (mascot); 2008 (motorcycle entrance)</p>
+      <p class="ritual-card__description visually-hidden">The Duck — based on Disney&#x27;s Donald Duck via a 1947 handshake agreement Phil Knight finally formalized — rides a Harley onto the field. After every touchdown, the Duck does pushups equal to the team&#x27;s running point total. Knee surgeries are common. The mascot is licensed Disney IP; the contract is one of college sports&#x27; weirder artifacts.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">UC<small>different combinat</small></div>
+      <h3 class="ritual-card__name">Uniform Combinations</h3>
+      <p class="ritual-card__since">since 2003</p>
+      <p class="ritual-card__description visually-hidden">Nike Innovation Kitchen designs Oregon&#x27;s uniforms; Phil Knight (Nike founder, Oregon alum) funds the program. The combinations are revealed Thursday before each game on social media — itself a ritual. &#x27;What are the Ducks wearing this week?&#x27; is part of national Saturday discourse. Recruiting tool, brand statement, weekly aesthetic event.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">MO<small>scoring</small></div>
+      <h3 class="ritual-card__name">Mighty Oregon (fight song)</h3>
+      <p class="ritual-card__since">since 1916</p>
+      <p class="ritual-card__description visually-hidden">Written by DeWitt Gilbert in 1916. The &#x27;Glory, glory to Oregon!&#x27; chorus is the recognizable hook. The Pride of the Pacific band plays it constantly. Less universally famous than Hail to the Victors or Boomer Sooner but central to Autzen&#x27;s audio identity.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">PC<small>every home game — </small></div>
+      <h3 class="ritual-card__name">The Pit Crew (student section)</h3>
+      <p class="ritual-card__since">since 2007</p>
+      <p class="ritual-card__description visually-hidden">Originally the basketball student section; expanded to football. Coordinated chants, costume themes, and a yellow/green visual identity that turns Autzen&#x27;s north end into a single dense block. Less codified than Penn State&#x27;s White Out but more aesthetically wild — themed games (camo, Hawaiian, etc.) are normal.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">AD<small>every home game — </small></div>
+      <h3 class="ritual-card__name">Autzen Decibel Records</h3>
+      <p class="ritual-card__since">since 1990s</p>
+      <p class="ritual-card__description visually-hidden">Autzen&#x27;s bowl design and 54,000-capacity intimacy produce sustained decibel readings rivaling 100,000-seat stadiums. The 2003 USC game registered 127.2dB. The crowd&#x27;s coordinated noise during opposing offensive possessions is part of the program&#x27;s home-field advantage; recruits get sold on this specifically.</p>
+    </article>
+  </div>
+</section>
+    <aside class="cultural-anchors" aria-label="Cultural identity">
+  <p class="cultural-anchors__one-sentence">Oregon is what happens when Nike money funds a football program — a perpetual brand experiment that occasionally produces title contenders.</p>
+  <dl class="cultural-anchors__archetypes"><dt>From inside</dt><dd>Nike-Era-Modernist</dd><dt>From outside</dt><dd>Aesthetic-Above-Substance</dd></dl>
+  <p class="cultural-anchors__if-lost"><strong>If the program didn't exist, CFB would lose</strong> <span>The uniform-as-content innovation that every college football program has since copied. The Chip Kelly tempo offense as a permanent tactical contribution. Phil Knight&#x27;s blueprint for how a single mega-donor reshapes a program.</span></p>
+</aside>
     <section class="chronicle" aria-labelledby="chronicle-title">
   <div class="chronicle__header">
     <h2 id="chronicle-title" class="chronicle__title">The Chronicle</h2>

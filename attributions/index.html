@@ -4,7 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Attributions | CFB Index</title>
-<link rel="stylesheet" href="/assets/cfb-index.a82ef0c2af64.css">
+<link rel="stylesheet" href="/assets/tokens-bridge.css">
+    <script>/* Theme init — FOUC prevention. MUST load synchronously in <head>.
+ * -------------------------------------------------------------------------
+ * Reads cfb-theme-pref from localStorage. If "light" or "dark", sets
+ * data-theme on <html> BEFORE first paint, so the page renders correctly.
+ * If "system" or unset, removes data-theme and lets prefers-color-scheme
+ * decide.
+ *
+ * Keep this script tiny. The full toggle UI loads via theme_toggle.js
+ * (deferred). This is just the synchronous attribute-setter.
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §"Part 2 — Path C"
+ */
+(function () {
+  try {
+    var pref = localStorage.getItem('cfb-theme-pref');
+    var root = document.documentElement;
+    if (pref === 'light' || pref === 'dark') {
+      root.setAttribute('data-theme', pref);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  } catch (e) { /* localStorage unavailable — silently fall through to OS pref */ }
+})();
+</script>
+<link rel="stylesheet" href="/assets/theme_toggle.css">
+<script defer src="/assets/theme_toggle.js"></script>
+    <link rel="stylesheet" href="/assets/cfb-index.a82ef0c2af64.css">
+    <link rel="stylesheet" href="/assets/cmdk.css">
     <script src="/assets/js/url-state.js" defer></script>
     <script src="/assets/js/the-room.js" defer></script>
     <script src="/assets/js/subnav.js" defer></script>
@@ -16,6 +44,7 @@
     <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
     <script src="/assets/js/bets/context-menu.js" defer></script>
     <script src="/assets/alpine.min.js" defer></script>
+    <script src="/assets/cmdk.js" defer></script>
 
 <!-- wcfb-enhancements -->
 <link rel="stylesheet" href="/assets/wcfb-enhancements.css">

@@ -1862,6 +1862,233 @@ a { color: inherit; text-decoration: none; }
   .arc-card__peer-footer { grid-template-columns: 1fr; }
 }
 
+/* Rituals strip (Sprint v5-8.5)
+ * -------------------------------------------------------------------------
+ * Live-site styles for the rituals strip rendered by
+ * `cfb_rankings.team_pages.rituals_module`. Class names match the locked
+ * mockup_02_team_alabama_v2.html structure so the renderer output is a
+ * drop-in. Mockup tokens are mapped to the live team-pages token system:
+ *   --color-surface-card → var(--bg-card)
+ *   --color-line          → var(--stroke-default)
+ *   --color-text-muted    → var(--fg-muted)
+ *   --color-ink           → var(--fg-primary)
+ *   --color-accent-primary → var(--accent-primary)
+ *   --font-ui             → var(--font-body)
+ *   --font-tabular        → var(--font-mono)
+ *   amber-50/100/800 layers → mix of var(--tone-amber) + accent
+ */
+
+.rituals.program-section {
+  margin: var(--sp-9) 0 var(--sp-7);
+}
+
+.rituals .program-section__head {
+  margin-bottom: var(--sp-5);
+}
+
+.rituals .section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  font-weight: 700;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-primary);
+  margin: 0 0 var(--sp-2);
+}
+
+.rituals .section-title__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--stroke-default);
+}
+
+.rituals .caption {
+  font-family: var(--font-serif);
+  font-size: var(--fs-serif-body);
+  color: var(--fg-secondary);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+
+.rituals-track {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--sp-3);
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 1024px) {
+  .rituals-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--sp-4);
+    overflow: visible;
+  }
+}
+
+.ritual-card {
+  flex: 0 0 140px;
+  scroll-snap-align: start;
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-height: 180px;
+}
+
+@media (min-width: 1024px) {
+  .ritual-card { flex: 1; }
+}
+
+.ritual-card__glyph {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-primary) 18%, var(--bg-card-raised)),
+    var(--bg-card)
+  );
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--accent-primary);
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--accent-primary) 28%, transparent);
+}
+
+.ritual-card__glyph small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--accent-primary) 65%, var(--fg-muted));
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ritual-card__name {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--fg-primary);
+  margin: 0;
+}
+
+.ritual-card__since {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* Screen-reader-only description for accessibility; visible text is the
+ * monogram + name. The full ritual description is read by AT only. */
+.ritual-card__description.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cultural anchors (renderer-only; rendered when profile YAML carries
+ * `cultural_anchors.one_sentence`). Positioned as a quiet sidebar block
+ * below the rituals strip in the page flow. */
+.cultural-anchors {
+  margin: var(--sp-6) 0 var(--sp-8);
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--bg-card);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+}
+
+.cultural-anchors__one-sentence {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-snug);
+  color: var(--fg-primary);
+  margin: 0 0 var(--sp-4);
+}
+
+.cultural-anchors__archetypes {
+  display: grid;
+  gap: var(--sp-2) var(--sp-5);
+  grid-template-columns: max-content 1fr;
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-body);
+}
+
+.cultural-anchors__archetypes dt {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  align-self: center;
+}
+
+.cultural-anchors__archetypes dd {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--fg-primary);
+}
+
+.cultural-anchors__if-lost {
+  margin: var(--sp-3) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--fg-secondary);
+  line-height: var(--lh-normal);
+}
+
+.cultural-anchors__if-lost strong {
+  font-weight: 600;
+  color: var(--fg-primary);
+  margin-right: 0.4em;
+}
+
+/* Visual identity chip — small eyebrow chip; renderer hands back inline. */
+.vi-chip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.vi-chip__helmet,
+.vi-chip__colors {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, transparent);
+}
+
 </style>
 
 <!-- wcfb-enhancements -->
@@ -1930,13 +2157,56 @@ a { color: inherit; text-decoration: none; }
     </div>
   </div>
       <div class="pulse__top-take" style="margin-top: var(--sp-4);">
-        <em>"Success with Honor."</em>
+        <em>"The Grand Experiment."</em>
         <span class="pulse__top-take-attr">— Penn State fanbase · recurring line</span>
       </div>
     </div>
   </div>
   <div class="pulse__badge-row"><span class="pulse__badge pulse__badge--awaiting">0 mentions · awaiting signal</span></div>
 </section>
+    <section class="rituals program-section" aria-label="Penn State rituals">
+  <div class="program-section__head">
+    <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
+    <p class="caption" style="max-width: 36ch;">The rituals that anchor a Saturday in this program&#x27;s world.</p>
+  </div>
+  <div class="rituals-track" role="list">
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">WO<small>one designated mar</small></div>
+      <h3 class="ritual-card__name">White Out</h3>
+      <p class="ritual-card__since">since 2004 (student section); 2005 (full stadium)</p>
+      <p class="ritual-card__description visually-hidden">All 110,000+ fans wear white. The visual effect — entire bowl of Beaver Stadium as a single white mass — is among the most photographed scenes in college football. Selected game is usually a top-10 matchup; the &#x27;White Out game&#x27; designation drives ticket demand to scalper extremes. The 2017 vs Ohio State Whiteout is the canonical reference.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">WA<small>constantly — pre-g</small></div>
+      <h3 class="ritual-card__name">We Are... Penn State</h3>
+      <p class="ritual-card__since">since 1970s</p>
+      <p class="ritual-card__description visually-hidden">Call-and-response chant: leader yells &#x27;We Are!&#x27; — crowd responds &#x27;PENN STATE!&#x27; Three rounds. Origin attributed to Wally Triplett, the program&#x27;s first Black starter, around 1948 inclusion debates (&#x27;We are Penn State&#x27; was the affirmation). Adopted as the cheer in the 1970s. Survives every coaching change because it&#x27;s about the institution, not the team.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">NL<small>pre-game</small></div>
+      <h3 class="ritual-card__name">Nittany Lion Statue Touch</h3>
+      <p class="ritual-card__since">since 1942 (statue installed); ritual evolved 1960s</p>
+      <p class="ritual-card__description visually-hidden">The 1942 sculpted Nittany Lion statue in front of Recreation Building. Fans touch the paw or pose at the statue before games. The statue&#x27;s paws are physically darker from accumulated touches. Spring graduates photograph with it; recruits include it in their visit footage.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">S-<small>once per home seas</small></div>
+      <h3 class="ritual-card__name">S-Zone (student section card stunt)</h3>
+      <p class="ritual-card__since">since 2008</p>
+      <p class="ritual-card__description visually-hidden">Student section coordinates a card-flip to display &#x27;S&#x27; or a graphic across the stands. The Lift for Life charity event and similar partnerships use the section. The coordinated visual stunt is distinct from the White Out — quieter, more student-led. Penn State student leadership rotates the design annually.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="medium">
+      <div class="ritual-card__glyph" aria-hidden="true">ZN<small>after every penn s</small></div>
+      <h3 class="ritual-card__name">Zombie Nation (Kernkraft 400)</h3>
+      <p class="ritual-card__since">since 2008</p>
+      <p class="ritual-card__description visually-hidden">The 1999 German techno track is the Beaver Stadium third-down stop and first-down celebration song. The stadium jumping triggers seismic readings. The Penn State athletic department has tested the building&#x27;s structural response; the official engineering verdict: &#x27;within tolerances.&#x27; The fans don&#x27;t care.</p>
+    </article>
+  </div>
+</section>
+    <aside class="cultural-anchors" aria-label="Cultural identity">
+  <p class="cultural-anchors__one-sentence">Penn State is the program that decided collective identity is more durable than individual coaching tenure — and built rituals that survive every administrative crisis.</p>
+  <dl class="cultural-anchors__archetypes"><dt>From inside</dt><dd>Institutional-Faithful</dd><dt>From outside</dt><dd>Survivor-of-the-Sandusky-Era</dd></dl>
+  <p class="cultural-anchors__if-lost"><strong>If the program didn't exist, CFB would lose</strong> <span>The White Out as a national event. The &#x27;We Are&#x27; cheer as the canonical affirmation. The Beaver Stadium 110,000 attendance bar that only Michigan matches. The post-sanctions institutional resilience case study.</span></p>
+</aside>
     <section class="chronicle" aria-labelledby="chronicle-title">
   <div class="chronicle__header">
     <h2 id="chronicle-title" class="chronicle__title">The Chronicle</h2>
