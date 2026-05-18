@@ -19826,57 +19826,6 @@ def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
     """
 
 
-def _render_player_traditional_stat_section(section: dict[str, Any]) -> str:
-    cells = "".join(
-        f"""
-        <td class="metric-cell player-stat-table-cell" data-label="{escape(str(cell.get("label") or "--"))}">
-          <div class="player-stat-table-line">
-            <span class="player-stat-table-value">{escape(str(cell.get("value") or "--"))}</span>
-            <span class="player-stat-table-peer {escape(str(cell.get("tone") or "tone-neutral"))}">{escape(str(cell.get("peer") or "--"))}</span>
-          </div>
-        </td>
-        """
-        for cell in (section.get("cells") or [])
-    )
-    headers = "".join(f"<th>{escape(str(cell.get('label') or '--'))}</th>" for cell in (section.get("cells") or []))
-    subtitle = str(section.get("subtitle") or "").strip()
-    peer_basis = str(section.get("peer_basis") or "").strip()
-    section_meta = "".join(
-        part
-        for part in [
-            f'<span class="player-stat-section-chip">{escape(str(section.get("season_label") or "Current season"))}</span>',
-            f'<span class="player-stat-section-chip">{escape(peer_basis)}</span>' if peer_basis else "",
-        ]
-    )
-    return f"""
-    <div class="player-stat-traditional-section">
-      <div class="player-stat-section-head">
-        <div>
-          <h4>{escape(str(section.get("title") or "Stats"))}</h4>
-          {f'<p>{escape(subtitle)}</p>' if subtitle else ''}
-        </div>
-        <div class="player-stat-section-meta">
-          {section_meta}
-        </div>
-      </div>
-      <div class="table-wrap compact-table-wrap player-stat-traditional-table">
-        <table>
-          <thead>
-            <tr>
-              {headers}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {cells}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    """
-
-
 def _player_metric_help_text(metric_name: Any) -> str | None:
     metric_key = _board_filter_value(metric_name)
     catalog = {
@@ -21813,35 +21762,6 @@ def _render_program_conference_timeline(timeline: dict[str, Any]) -> str:
     """
 
 
-def _render_program_history_row(
-    row: dict[str, Any],
-    history_profile: dict[str, Any],
-    current_season_url: str | None = None,
-) -> str:
-    conference = _clean_conference_name(str(row.get("conference_name") or f"{row.get('level_code') or ''} Independents"))
-    lens_label, lens_body = _render_history_row_context(row, history_profile)
-    current_row = history_profile.get("current_row") or {}
-    is_current = int(current_row.get("season_year") or 0) == int(row.get("season_year") or 0)
-    season_link = (
-        f'<a class="text-link" href="{escape(current_season_url)}">Open season page</a>'
-        if is_current and current_season_url
-        else '<span class="submetric">Program view</span>'
-    )
-    return f"""
-    <tr>
-      <td>{int(row.get("season_year") or 0)}</td>
-      <td>{escape(conference)}<span class="submetric">{escape(str(row.get("level_code") or ""))}</span></td>
-      <td>{escape(lens_label)}<span class="submetric">{escape(lens_body)}</span></td>
-      <td>{int(row.get("wins") or 0)}-{int(row.get("losses") or 0)}</td>
-      <td>#{escape(_display_rank_value(row.get("final_rank")))}</td>
-      <td>{escape(_public_power_text(row.get("end_power_display")))}</td>
-      <td>{escape(_public_resume_text(row.get("end_resume_display")))}</td>
-      <td>{int(row.get("margin") or 0):+d}</td>
-      <td>{season_link}</td>
-    </tr>
-    """
-
-
 def _render_program_season_explorer_row(
     row: dict[str, Any],
     history_profile: dict[str, Any],
@@ -21918,35 +21838,6 @@ def _render_history_feature_cards(history_hub: dict[str, Any], prefix: str = "te
             """
         )
     return "".join(rendered)
-
-
-def _render_home_ranking_rail(rankings: list[RankingRow]) -> str:
-    items = []
-    for row in rankings:
-        delta_class = _rank_change_class(row.rank_change)
-        delta_text = _rank_change_text(row.rank_change)
-        items.append(
-            f"""
-            <a class="rank-row" href="teams/{escape(row.slug)}.html">
-              <span class="rank-no">{row.rank}</span>
-                <span class="rank-delta {delta_class}">{escape(delta_text)}</span>
-              <span class="rank-team-wrap">
-                <span class="rank-team">{escape(row.team_name)}</span>
-                <span class="rank-team-meta">{escape(row.level_code)} | Power {_public_power_text(row.power_display)}</span>
-              </span>
-            </a>
-            """
-        )
-    return f"""
-    <div class="rank-rail">
-      <div class="rank-rail-head">
-        <span>Rank</span>
-        <span>Delta</span>
-        <span>Team</span>
-      </div>
-      {''.join(items)}
-    </div>
-    """
 
 
 def _render_home_team_board(team_pages: list[dict[str, Any]]) -> str:
@@ -22121,77 +22012,6 @@ def _render_home_board_row(team_data: dict[str, Any], is_open: bool) -> str:
       </div>
     </details>
     """
-
-
-def _render_home_team_accordion(team_pages: list[dict[str, Any]]) -> str:
-    blocks = []
-    for index, team_data in enumerate(team_pages):
-        ranking: RankingRow = team_data["ranking"]
-        team = team_data["team"]
-        season_summary = team_data["season_summary"]
-        efficiency_snapshot = team_data["efficiency_snapshot"]
-        history_profile = team_data.get("history_profile") or {}
-        trend_points = team_data["trend_points"]
-        # Pass the full schedule so _compact_recent_form / _best_result_text /
-        # _worst_result_text see the whole season. The prior [:4] slice
-        # silently truncated to the first four games — making "Best signal"
-        # / "Closest call" / "Last 4 games" all derive from weeks 1-4 instead
-        # of the full year. Caught in Octopus delivery review 2026-05-12.
-        schedule = team_data["schedule"]
-        conference = _clean_conference_name(str(team.get("conference_name") or f"{ranking.level_code} Independents"))
-        wins = int(season_summary.get("wins") or 0)
-        losses = int(season_summary.get("losses") or 0)
-        best_result = _best_result_text(ranking.team_id, schedule)
-        worst_result = _worst_result_text(ranking.team_id, schedule)
-        recent_form = _compact_recent_form(ranking.team_id, schedule)
-        efficiency_note = _best_efficiency_signal(efficiency_snapshot)
-        open_attr = " open" if index == 0 else ""
-        blocks.append(
-            f"""
-            <details class="team-dropdown"{open_attr}>
-              <summary>
-                <span class="dropdown-rank">#{ranking.rank}</span>
-                <span class="dropdown-team">{escape(ranking.team_name)}</span>
-                <span class="dropdown-meta">{escape(ranking.level_code)} | {escape(conference)} | {wins}-{losses}</span>
-                <span class="dropdown-power">{_public_power_text(ranking.power_display)}</span>
-              </summary>
-              <div class="dropdown-body">
-                <div class="dropdown-topline">
-                  <div class="chip-row">
-                    <span class="mini-chip">Record {wins}-{losses}</span>
-                    <span class="mini-chip">Resume {_public_resume_text(ranking.resume_display)}</span>
-                    <span class="mini-chip">Overall #{ranking.rank}</span>
-                    <span class="mini-chip">{escape(ranking.level_code)} profile</span>
-                  </div>
-                  <a class="text-link" href="teams/{escape(ranking.slug)}.html">Open team page</a>
-                </div>
-                <div class="dropdown-grid">
-                  <article class="mini-panel">
-                    <h3>Team Identity</h3>
-                    {_render_identity_plot(ranking)}
-                  </article>
-                  <article class="mini-panel">
-                    <h3>Best Wins / Bad Losses</h3>
-                    <p><strong>Best signal:</strong> {escape(best_result)}</p>
-                    <p><strong>Closest call:</strong> {escape(worst_result)}</p>
-                  </article>
-                  <article class="mini-panel">
-                    <h3>Rating Arc</h3>
-                    {_render_micro_rating_path(team_data["rating_path"])}
-                  </article>
-                  <article class="mini-panel">
-                    <h3>Overall Team Profile</h3>
-                    <p><strong>Recent form:</strong> {escape(recent_form)}</p>
-                    <p><strong>Efficiency pulse:</strong> {escape(efficiency_note)}</p>
-                    <p><strong>Power / Resume:</strong> {_public_power_text(ranking.power_display)} / {_public_resume_text(ranking.resume_display)}</p>
-                  </article>
-                  {_render_history_mini_panel(history_profile)}
-                </div>
-              </div>
-            </details>
-            """
-        )
-    return "".join(blocks)
 
 
 def _power_resume_plot_payload(team_pages: list[dict[str, Any]], prefix: str = "") -> str:
@@ -23864,22 +23684,6 @@ def _level_color(level_code: str) -> str:
         "DII": "#c96a10",
         "DIII": "#7c4dff",
     }.get(level_code, "#6c655d")
-
-
-def _confidence_label(value: float) -> str:
-    if value >= 55:
-        return "High"
-    if value >= 30:
-        return "Medium"
-    return "Fragile"
-
-
-def _confidence_tone_class(value: float) -> str:
-    if value >= 55:
-        return "confidence-high"
-    if value >= 30:
-        return "confidence-medium"
-    return "confidence-fragile"
 
 
 def _latest_local_week(db: Database, season_year: int) -> int:
