@@ -306,6 +306,31 @@ def _render_page(
     arc_css = (_ASSETS_DIR / "season_arc_card.css").read_text(encoding="utf-8")
     rituals_css = (_ASSETS_DIR / "rituals_card.css").read_text(encoding="utf-8")
 
+    # Sprint v5-11.5 Surface 2 wire-up — theme toggle + Cmd-K on profiled
+    # team pages. The team_pages renderer inlines its CSS bundle and
+    # doesn't go through _global_link_tags(), so we inject the assets
+    # directly here. tokens-bridge.css is NOT loaded (team-page CSS uses
+    # its own --bg-*/--fg-* tokens directly, with a [data-theme="light"]
+    # override block appended to tokens.css for the toggle to flip).
+    from cfb_rankings.theme.render import (
+        THEME_INIT_SCRIPT,
+        render_theme_toggle_button,
+    )
+    theme_toggle_css = (
+        Path(__file__).parents[1] / "theme" / "assets" / "theme_toggle.css"
+    ).read_text(encoding="utf-8")
+    theme_toggle_js = (
+        Path(__file__).parents[1] / "theme" / "assets" / "theme_toggle.js"
+    ).read_text(encoding="utf-8")
+    cmdk_css = (
+        Path(__file__).parents[1] / "cmdk" / "assets" / "cmdk.css"
+    ).read_text(encoding="utf-8")
+    cmdk_js = (
+        Path(__file__).parents[1] / "cmdk" / "assets" / "cmdk.js"
+    ).read_text(encoding="utf-8")
+    # Defensive </script> escape — same hardening as render_theme_assets_head
+    theme_init_safe = THEME_INIT_SCRIPT.replace("</script>", "<\\/script>")
+
     accent_primary = profile.accent_hex
     accent_secondary = profile.accent_hex_secondary or _darken_color(accent_primary)
 
@@ -385,6 +410,7 @@ def _render_page(
 <meta name="description" content="{html.escape(profile.program_name)} — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.">
 <meta name="theme-color" content="{accent_primary}">
 {head_chrome_block}
+<script>{theme_init_safe}</script>
 <style>
 {tokens_css}
 
@@ -399,10 +425,46 @@ body {{
 {rivalry_css}
 {arc_css}
 {rituals_css}
+
+/* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
+{theme_toggle_css}
+{cmdk_css}
+
+/* Floating button group — top-right corner. Cmd-K trigger + theme toggle. */
+.profile-page-controls {{
+  position: fixed;
+  top: var(--sp-3, 12px);
+  right: var(--sp-4, 16px);
+  display: flex;
+  gap: var(--sp-2, 8px);
+  z-index: 50;
+}}
+.profile-page-controls .nav-action,
+.profile-page-controls .theme-toggle,
+.profile-page-controls .cmdk-trigger {{
+  background: var(--bg-card, var(--bg-1));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}}
+@media (max-width: 640px) {{
+  .profile-page-controls {{
+    top: auto;
+    bottom: var(--sp-3, 12px);
+    right: var(--sp-3, 12px);
+  }}
+}}
 </style>
+<script defer>{theme_toggle_js}</script>
+<script defer>{cmdk_js}</script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="profile-page-controls" role="group" aria-label="Page controls">
+  <button class="cmdk-trigger" data-cmdk-trigger type="button"
+          aria-label="Search (Ctrl-K / Cmd-K)"
+          title="Search (Ctrl-K / Cmd-K)">⌘K</button>
+  {render_theme_toggle_button(css_class="theme-toggle")}
+</div>
 <main id="main-content" class="team-page">
   <div class="content">
     {hero_html}
