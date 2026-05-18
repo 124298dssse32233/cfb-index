@@ -641,13 +641,24 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 
 
 def _render_head(edition: Edition) -> str:
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
     title = html.escape(f"CFB Index · {edition.theme_title}")
+    # Homepage is rendered at site root "/". og_type="website" per the
+    # spec (article pages use og_type="article").
+    _head_chrome = render_head_chrome(
+        page_path="/",
+        title=f"CFB Index · {edition.theme_title}",
+        description=edition.theme_dek,
+        og_type="website",
+    )
     return f"""<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{html.escape(edition.theme_dek)}">
+{_head_chrome}
 <style>{_INLINE_CSS}</style>
 </head><body>
 <a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>"""
