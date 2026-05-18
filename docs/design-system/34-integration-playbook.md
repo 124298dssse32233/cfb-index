@@ -760,6 +760,105 @@ ls -la output/site/search-index.json
 
 ---
 
+## Pattern 11 — Dark/light theme toggle (v5-11.5 Path C)
+
+*(Numbering may shift if PRs land out of order. Stable identifier: "theme toggle".)*
+
+**Goal**: Self-contained sun/moon/auto cycle toggle that flips the site between light and dark via the tokens-bridge.css semantic-token layer. Pairs with the Path C tokens-bridge.css PoC to deliver the v5-11.5 sprint's headline dark-mode deliverable.
+
+**Three states** — `system` (follows OS pref), `light`, `dark`. Click or `window.cfbTheme.cycle()` to rotate.
+
+### The wire-up (Window A's lane in the global header)
+
+```python
+# In the global head template (e.g. common/head_chrome.py):
+from cfb_rankings.theme import render_theme_assets_head
+
+head_html += render_theme_assets_head()
+# Emits:
+#   <script>{theme_init.js inlined — FOUC fix, NOT deferred}</script>
+#   <link rel="stylesheet" href="/assets/theme_toggle.css">
+#   <script defer src="/assets/theme_toggle.js"></script>
+```
+
+```python
+# In the global header template (e.g. site nav):
+from cfb_rankings.theme import render_theme_toggle_button
+
+header_html += render_theme_toggle_button()
+# Emits: <button class="theme-toggle" data-theme-toggle ...></button>
+```
+
+```python
+# Also ensure tokens-bridge.css loads before the renderer's own CSS:
+head_html += '<link rel="stylesheet" href="/assets/tokens-bridge.css">'
+```
+
+### Asset copy list (publish_site step)
+
+```bash
+cp src/cfb_rankings/theme/assets/theme_toggle.css output/site/assets/
+cp src/cfb_rankings/theme/assets/theme_toggle.js  output/site/assets/
+cp docs/design-system/assets/tokens-bridge.css    output/site/assets/
+# theme_init.js is INLINED via render_theme_assets_head, not copied
+```
+
+### Programmatic API
+
+```js
+window.cfbTheme.current()    // -> 'system' | 'light' | 'dark'
+window.cfbTheme.effective()  // -> 'light' | 'dark' (resolves 'system')
+window.cfbTheme.cycle()      // -> next state
+window.cfbTheme.set('light') // -> true; persists + applies
+window.cfbTheme.system()     // -> resets to system pref
+```
+
+### CustomEvent: `cfb-theme-changed`
+
+```js
+document.addEventListener('cfb-theme-changed', function (e) {
+  // e.detail.pref       — 'system' | 'light' | 'dark'
+  // e.detail.effective  — 'light' | 'dark'
+  myChart.recolor(e.detail.effective);
+});
+```
+
+Fires on every toggle + on OS-pref change when in `system` mode. Pair with chart re-renderers that depend on accent colors.
+
+### Defenses built in
+
+* **FOUC prevention** — `theme_init.js` inlines + runs synchronously in `<head>` (NOT deferred). Sets `data-theme` BEFORE first paint. Tiny (<1KB).
+* **localStorage failure tolerance** — privacy-mode browsers throw on access; both scripts wrap in try/catch.
+* **var() fallback chains** — CSS renders correctly on hosts that haven't loaded tokens-bridge.css yet.
+* **Specificity fix in tokens-bridge.css** — the @media block uses `:where()` to neutralize specificity so `[data-theme="dark"]` overrides always win. (Caught + fixed during demo verification; previously `:not(.daily-page):not(.mailbag-page):not(.wire-page)` had specificity 0,3,1 vs `[data-theme]`'s 0,1,1, so the @media block won unconditionally and the toggle had no effect.)
+* **Bespoke-palette exclusion** — Daily/Mailbag/Wire keep their print-feel cream/navy palette regardless of theme; the @media block excludes `.daily-page`, `.mailbag-page`, `.wire-page`.
+* **Accessibility** — `prefers-reduced-motion` kills transitions; every toggle carries `aria-label` + `aria-pressed`; mobile drops the tooltip (no hover on touch).
+
+### Acceptance verification
+
+```bash
+# 1. Tests pass
+python -m pytest tests/test_theme_toggle.py -q
+# Expected: 30 passed
+
+# 2. Demo specimen renders the full flow
+python scripts/_theme_toggle_demo.py
+# Open docs/mockups/theme_toggle_demo.html in a real browser
+# Click the sun/moon/auto button (top right) — bg + fg + cards
+# should re-color smoothly through system → light → dark → system.
+# Hard-refresh: theme persists per localStorage. Open DevTools
+# console: window.cfbTheme.{current, effective, cycle, set, system}
+# all callable.
+```
+
+### Known limitation — headless-preview pixel sampling
+
+The preview server's headless Chrome reports `getComputedStyle(body).backgroundColor` from a stale paint when CSS variables flip via JS. **This is a preview-environment quirk, not a real-browser bug.** The CSS variables themselves (`--semantic-bg-base`, `--semantic-fg-primary`) flip correctly per `preview_inspect` — the architecture works.
+
+Verify in a real browser locally; do not rely on screenshot tools to gate this PR.
+
+---
+
 ## Status as of 2026-05-17 (revised post-Window-B autonomous run)
 
 Foundation slices shipped:

@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Theme Toggle Demo — Sprint v5-11.5</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>/* Theme init — FOUC prevention. MUST load synchronously in <head>.
+ * -------------------------------------------------------------------------
+ * Reads cfb-theme-pref from localStorage. If "light" or "dark", sets
+ * data-theme on <html> BEFORE first paint, so the page renders correctly.
+ * If "system" or unset, removes data-theme and lets prefers-color-scheme
+ * decide.
+ *
+ * Keep this script tiny. The full toggle UI loads via theme_toggle.js
+ * (deferred). This is just the synchronous attribute-setter.
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §"Part 2 — Path C"
+ */
+(function () {
+  try {
+    var pref = localStorage.getItem('cfb-theme-pref');
+    var root = document.documentElement;
+    if (pref === 'light' || pref === 'dark') {
+      root.setAttribute('data-theme', pref);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  } catch (e) { /* localStorage unavailable — silently fall through to OS pref */ }
+})();
+</script>
+
+<style>
+/* Team-Pages Design Tokens
+ * -------------------------------------------------------------------------
+ * Shared-across-all-teams foundation. Per-team accent colors are injected
+ * via inline custom-properties on the <body> element at render time.
+ *
+ * Inherit / extends the player-page design language (Iteration Log §15.1):
+ *   - Dark-mode default (iMessage-native)
+ *   - Inter Display / serif editorial pairing
+ *   - OKLCH percentile + belief ramps
+ *   - 44px touch targets, mobile-first spacing rhythm
+ */
+
+:root {
+  /* -----  Color system (dark-mode default) ------ */
+  --bg-0: #0b0d12;
+  --bg-1: #12151d;
+  --bg-2: #1a1f2b;
+  --bg-card: #171b24;
+  --bg-card-raised: #1e2330;
+  --bg-overlay: rgba(11, 13, 18, 0.72);
+
+  --fg-primary: #f5f6fa;
+  --fg-secondary: #c6cad6;
+  --fg-muted: #8a90a1;
+  --fg-subtle: #5c6172;
+  --fg-on-accent: #0b0d12;
+
+  --stroke-default: rgba(255, 255, 255, 0.08);
+  --stroke-subtle: rgba(255, 255, 255, 0.05);
+  --stroke-strong: rgba(255, 255, 255, 0.14);
+
+  /* -----  Accent (overridden per-team via inline style) ------ */
+  --accent-primary: #c5b358;
+  --accent-secondary: #084c24;
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  --accent-on: #0b0d12;
+
+  /* -----  Percentile / belief ramps ------ */
+  --pct-low: #c04a4a;
+  --pct-mid-low: #d9845e;
+  --pct-mid: #8a90a1;
+  --pct-mid-high: #5a9dd1;
+  --pct-high: #3570b5;
+
+  --belief-doom: #c04a4a;
+  --belief-mixed: #8a90a1;
+  --belief-bullish: #3ea073;
+
+  --accolade-gold: #c5b358;
+
+  /* -----  Emotional-key accents (seasonal sentience) ------ */
+  --tone-red: #c04a4a;
+  --tone-amber: #d9a55e;
+  --tone-navy: #3570b5;
+  --tone-gray: #8a90a1;
+  --tone-coral: #d95e7c;
+  --tone-green: #3ea073;
+
+  /* -----  Typography ------ */
+  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif Pro", "Georgia", "Charter", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  --fs-label: clamp(10px, 0.72vw + 8px, 12px);
+  --fs-metric-sm: clamp(14px, 1vw + 10px, 16px);
+  --fs-body: clamp(14px, 0.8vw + 10px, 16px);
+  --fs-body-lg: clamp(15px, 0.9vw + 11px, 18px);
+  --fs-headline-sm: clamp(18px, 1.2vw + 12px, 22px);
+  --fs-headline: clamp(22px, 1.8vw + 14px, 30px);
+  --fs-hero: clamp(32px, 3.5vw + 16px, 56px);
+  --fs-serif-body: clamp(16px, 0.8vw + 12px, 19px);
+  --fs-metric: clamp(24px, 2vw + 12px, 36px);
+
+  --lh-tight: 1.12;
+  --lh-snug: 1.28;
+  --lh-normal: 1.48;
+  --lh-relaxed: 1.65;
+
+  --ls-tight: -0.02em;
+  --ls-normal: 0em;
+  --ls-wide: 0.04em;
+  --ls-label: 0.08em;
+
+  /* -----  Spacing rhythm ------ */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+  --sp-10: 80px;
+
+  /* -----  Radii ------ */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* -----  Elevation ------ */
+  --elev-card: 0 1px 2px rgba(0,0,0,0.38), 0 4px 12px rgba(0,0,0,0.25);
+  --elev-raised: 0 2px 4px rgba(0,0,0,0.42), 0 12px 36px rgba(0,0,0,0.30);
+
+  /* -----  Motion ------ */
+  --motion-reveal: 240ms cubic-bezier(.2,.7,.25,1);
+  --motion-state: 180ms cubic-bezier(.2,.7,.25,1);
+  --motion-data: 420ms cubic-bezier(.2,.7,.25,1);
+  --motion-delight: 800ms cubic-bezier(.2,.7,.25,1);
+
+  /* -----  Touch targets ------ */
+  --touch-min: 44px;
+  --touch-medium: 48px;
+  --touch-large: 60px;
+
+  /* -----  Layout ------ */
+  --content-max-w: 1100px;
+  --content-side-pad: clamp(16px, 4vw, 32px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-reveal: 0ms;
+    --motion-state: 0ms;
+    --motion-data: 0ms;
+    --motion-delight: 0ms;
+  }
+}
+
+/* ============================================================================
+   WORLD-CLASS RANKINGS PAGE STYLES
+   ============================================================================ */
+
+/* -----  Tiered Row Styling ------ */
+.rankings-row--elite {
+  background: linear-gradient(90deg, var(--tone-navy) 0%, transparent 30%);
+  font-weight: 600;
+}
+
+.rankings-row--elite .rank-cell {
+  font-size: 1.2em;
+  color: var(--tone-navy);
+  font-weight: 700;
+}
+
+.rankings-row--power {
+  background: transparent;
+}
+
+.rankings-row--all {
+  opacity: 0.8;
+  font-size: 0.95em;
+}
+
+/* -----  Rank Change Magnitude ------ */
+.rank-delta--large {
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.rank-delta--large.rank-delta--up {
+  background: var(--belief-bullish);
+  color: var(--bg-0);
+}
+
+.rank-delta--large.rank-delta--down {
+  background: var(--tone-red);
+  color: var(--bg-0);
+}
+
+.rank-delta--medium {
+  font-weight: 600;
+}
+
+/* -----  Movement Dashboard ------ */
+.movement-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  margin: var(--sp-8) 0;
+}
+
+.movement-panel {
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+}
+
+.movement-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-3);
+  color: var(--fg-secondary);
+}
+
+.movement-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+
+.movement-card:last-child {
+  border-bottom: none;
+}
+
+.movement-card__rank {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-metric-sm);
+  color: var(--tone-navy);
+  min-width: 40px;
+}
+
+.movement-card__team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.movement-card__team .team-link {
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+
+.movement-card__team .submetric {
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+}
+
+.movement-card__change {
+  min-width: 60px;
+  text-align: right;
+}
+
+/* -----  Tier Toggles ------ */
+.rankings-tier-toggles {
+  display: flex;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  justify-content: center;
+}
+
+.tier-toggle {
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--bg-1);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tier-toggle:hover {
+  background: var(--bg-2);
+  border-color: var(--stroke-strong);
+  color: var(--fg-primary);
+}
+
+.tier-toggle--active {
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  border-color: var(--tone-navy);
+}
+
+/* -----  Quick Filter Chips ------ */
+.rankings-quick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4);
+  background: var(--bg-1);
+  border-radius: var(--radius-lg);
+  justify-content: center;
+}
+
+.filter-chip {
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--bg-2);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: all var(--motion-state);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-chip:hover {
+  background: var(--bg-0);
+  border-color: var(--tone-navy);
+  color: var(--fg-primary);
+}
+
+.filter-chip--active {
+  background: var(--tone-navy);
+  border-color: var(--tone-navy);
+  color: var(--fg-on-accent);
+}
+
+/* -----  Sparkline Styling ------ */
+.rank-sparkline {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+.rank-change-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* -----  Accessibility ------ */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--tone-navy);
+  color: var(--fg-on-accent);
+  padding: var(--sp-2) var(--sp-3);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* -----  Responsive Design ------ */
+@media (max-width: 640px) {
+  .rankings-tier-toggles {
+    flex-wrap: wrap;
+  }
+
+  .tier-toggle {
+    flex: 1 1 calc(50% - var(--sp-2));
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .movement-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .rankings-quick-filters {
+    gap: var(--sp-1);
+  }
+
+  .filter-chip {
+    font-size: 10px;
+    padding: var(--sp-1) var(--sp-2);
+    flex: 1 1 calc(33% - var(--sp-1));
+    text-align: center;
+  }
+
+  .rank-sparkline {
+    width: 60px;
+    height: 18px;
+  }
+
+  /* Transform table rows into cards on mobile */
+  #rankingsTableBody tr {
+    display: block;
+    margin-bottom: var(--sp-4);
+    background: var(--bg-1);
+    border: 1px solid var(--stroke-default);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3);
+  }
+
+  #rankingsTableBody thead {
+    display: none;
+  }
+
+  #rankingsTableBody td {
+    display: block;
+    padding: var(--sp-1) 0;
+    border: none;
+  }
+
+  #rankingsTableBody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: var(--sp-2);
+    color: var(--fg-muted);
+  }
+
+  .movement-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .movement-card__rank {
+    font-size: var(--fs-body);
+  }
+}
+
+
+/* tokens-bridge.css — Sprint v5-11.5 pre-work proof-of-concept
+ * -------------------------------------------------------------------------
+ * Bridges three legacy token systems (team-pages dark, mockup light,
+ * Daily bespoke) under a single set of semantic tokens, so a single
+ * `prefers-color-scheme` switch can flip the entire site.
+ *
+ * NOT IN PRODUCTION YET. This file is a starting point for the v5-11.5
+ * sprint. See docs/octopus/v5_11_5_sprint_brief.md §"Path C" for the
+ * rationale.
+ *
+ * How it works:
+ *   - Semantic tokens (--semantic-bg, --semantic-fg, etc.) resolve via
+ *     a chain of var() fallbacks: if --bg-0 is defined (team-pages
+ *     surfaces), use it; else if --background (reporting.py), use it;
+ *     else if --navy (Daily), use it; else hard fallback.
+ *   - A @media (prefers-color-scheme: light) block re-roots the same
+ *     semantic tokens to the light-mode values from the mockup set.
+ *   - Components read --semantic-* and inherit the right value for
+ *     whichever surface they render on AND whichever mode the user
+ *     prefers.
+ *
+ * Limitations:
+ *   - Accent colors (per-team) still pipe through their existing
+ *     names; the bridge handles only the surface/text neutrals.
+ *   - This file does NOT rename any existing tokens; it adds a new
+ *     layer that components can opt into incrementally.
+ */
+
+:root {
+  /* ---- Surface ramp ---- */
+  --semantic-bg-base: var(
+    --bg-0,
+    var(--background,
+      var(--navy, #0b0d12)
+    )
+  );
+  --semantic-bg-elevated: var(
+    --bg-1,
+    var(--card,
+      var(--cream, #12151d)
+    )
+  );
+  --semantic-bg-card: var(
+    --bg-card,
+    var(--popover,
+      var(--cream, #171b24)
+    )
+  );
+  --semantic-bg-raised: var(
+    --bg-card-raised,
+    var(--card,
+      var(--cream, #1e2330)
+    )
+  );
+
+  /* ---- Foreground ramp ---- */
+  --semantic-fg-primary: var(
+    --fg-primary,
+    var(--foreground,
+      var(--ink, #f5f6fa)
+    )
+  );
+  --semantic-fg-secondary: var(
+    --fg-secondary,
+    var(--muted-foreground,
+      var(--ink, #c6cad6)
+    )
+  );
+  --semantic-fg-muted: var(
+    --fg-muted,
+    var(--muted-foreground,
+      var(--ink, #8a90a1)
+    )
+  );
+
+  /* ---- Lines + borders ---- */
+  --semantic-line: var(
+    --stroke-default,
+    var(--border,
+      rgba(255, 255, 255, 0.08)
+    )
+  );
+  --semantic-line-strong: var(
+    --stroke-strong,
+    var(--border-strong,
+      rgba(255, 255, 255, 0.14)
+    )
+  );
+
+  /* ---- Accent (per-team-overridable) ---- */
+  --semantic-accent: var(
+    --accent-primary,
+    var(--gold, #c5b358)
+  );
+  --semantic-accent-fg: var(
+    --accent-on,
+    #0b0d12
+  );
+}
+
+/* ---------------------------------------------------------------------
+ * Light-mode override — triggered by `prefers-color-scheme: light`.
+ * Users without the preference get the dark default (team-pages
+ * convention A). Users who prefer light see the mockup-style bone
+ * paper aesthetic.
+ *
+ * Daily/Mailbag/Wire keep their bespoke cream/navy palette regardless
+ * (per the v5-11.5 brief §Part 5 risk: their print-feel aesthetic is
+ * intentional and shouldn't be auto-flipped).
+ *
+ * Specificity note: the OS-preference block is wrapped in :where()
+ * so it has ZERO specificity contribution. Any [data-theme="..."]
+ * attribute set by the toggle wins automatically.
+ * --------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: light) {
+  :where(:root:not(.daily-page):not(.mailbag-page):not(.wire-page)) {
+    --semantic-bg-base: #faf8f3;        /* bone paper backdrop */
+    --semantic-bg-elevated: #ffffff;
+    --semantic-bg-card: #ffffff;
+    --semantic-bg-raised: #f5f1e8;
+    --semantic-fg-primary: #1c1c1f;
+    --semantic-fg-secondary: #2c2c30;
+    --semantic-fg-muted: #6b6b6b;
+    --semantic-line: rgba(28, 28, 31, 0.08);
+    --semantic-line-strong: rgba(28, 28, 31, 0.16);
+    /* --semantic-accent and --semantic-accent-fg stay team-driven */
+  }
+}
+
+/* User-preference override:
+ *   <html data-theme="light"> or [data-theme="dark"] forces a mode
+ *   regardless of OS preference. Set by theme/assets/theme_toggle.js
+ *   (and the FOUC-prevention theme_init.js). */
+
+:root[data-theme="light"] {
+  --semantic-bg-base: #faf8f3;
+  --semantic-bg-elevated: #ffffff;
+  --semantic-bg-card: #ffffff;
+  --semantic-bg-raised: #f5f1e8;
+  --semantic-fg-primary: #1c1c1f;
+  --semantic-fg-secondary: #2c2c30;
+  --semantic-fg-muted: #6b6b6b;
+  --semantic-line: rgba(28, 28, 31, 0.08);
+  --semantic-line-strong: rgba(28, 28, 31, 0.16);
+}
+
+:root[data-theme="dark"] {
+  --semantic-bg-base: #0b0d12;
+  --semantic-bg-elevated: #12151d;
+  --semantic-bg-card: #171b24;
+  --semantic-bg-raised: #1e2330;
+  --semantic-fg-primary: #f5f6fa;
+  --semantic-fg-secondary: #c6cad6;
+  --semantic-fg-muted: #8a90a1;
+  --semantic-line: rgba(255, 255, 255, 0.08);
+  --semantic-line-strong: rgba(255, 255, 255, 0.14);
+}
+
+
+/* Theme toggle (Sprint v5-11.5 dark mode foundation)
+ * -------------------------------------------------------------------------
+ * The toggle is a sun/moon/auto cycle button. States:
+ *   - system (default)   → "auto" icon, follows prefers-color-scheme
+ *   - light              → sun icon
+ *   - dark               → moon icon
+ *
+ * Locked spec: docs/octopus/v5_11_5_sprint_brief.md §"Cmd-K toggle hook"
+ *
+ * Live-token mapping uses var() fallback chains so the toggle renders
+ * correctly on hosts using ANY production token system. The button
+ * inherits its accent color from --accent-primary; the tooltip + ring
+ * use semantic tokens from tokens-bridge.css when present.
+ */
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--stroke-default,
+    var(--border, rgba(255, 255, 255, 0.12)));
+  border-radius: 8px;
+  color: var(--fg-secondary,
+    var(--muted-foreground, var(--muted, #c6cad6)));
+  cursor: pointer;
+  transition: background-color 120ms ease,
+              border-color 120ms ease,
+              color 120ms ease;
+  font-family: inherit;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background: color-mix(in srgb,
+    var(--accent-primary, var(--gold, #c5b358)) 12%,
+    transparent
+  );
+  border-color: var(--accent-primary, var(--gold, #c5b358));
+  color: var(--fg-primary, var(--foreground, var(--ink, #f5f6fa)));
+  outline: none;
+}
+
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+  pointer-events: none;
+}
+
+/* Hide all icons by default; show the one matching current state */
+.theme-toggle__icon { display: none; }
+
+.theme-toggle[data-state="system"] .theme-toggle__icon--system { display: block; }
+.theme-toggle[data-state="light"]  .theme-toggle__icon--light  { display: block; }
+.theme-toggle[data-state="dark"]   .theme-toggle__icon--dark   { display: block; }
+
+/* When unset (initial render before JS runs), show the system icon */
+.theme-toggle:not([data-state]) .theme-toggle__icon--system { display: block; }
+
+/* Tooltip on hover/focus — describes next state */
+.theme-toggle::after {
+  content: attr(data-next-label);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  padding: 4px 8px;
+  font-family: var(--font-body,
+    var(--sans, "Inter", system-ui, sans-serif));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+  background: var(--bg-card-raised, var(--card, #1e2330));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.1));
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 50;
+}
+
+.theme-toggle:hover::after,
+.theme-toggle:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced-motion: kill transitions */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle::after,
+  .theme-toggle__icon {
+    transition: none;
+  }
+}
+
+/* Mobile: drop the tooltip (touch users get the next state on tap) */
+@media (max-width: 640px) {
+  .theme-toggle::after { display: none; }
+}
+
+
+
+body {
+  background: var(--semantic-bg-base, var(--bg-0, #0b0d12));
+  color: var(--semantic-fg-primary, var(--fg-primary, #f5f6fa));
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  margin: 0;
+  min-height: 100vh;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.demo-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--semantic-line, var(--stroke-default, rgba(255,255,255,0.08)));
+  background: var(--semantic-bg-elevated, var(--bg-1, #12151d));
+}
+.demo-brand {
+  font-family: var(--font-display, "Inter", sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--semantic-fg-secondary, var(--fg-secondary, #c6cad6));
+}
+
+.demo-wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
+
+h1 {
+  font-family: var(--font-display, "Inter", sans-serif);
+  font-size: 32px;
+  margin: 0 0 12px;
+  color: var(--semantic-fg-primary, #f5f6fa);
+}
+h2 {
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--semantic-fg-muted, var(--fg-muted, #8a90a1));
+  margin: 0 0 16px;
+}
+.lede {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--semantic-fg-secondary, var(--fg-secondary, #c6cad6));
+  max-width: 56ch;
+}
+
+.demo-card {
+  background: var(--semantic-bg-card, var(--bg-card, #171b24));
+  border: 1px solid var(--semantic-line, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.demo-swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.swatch {
+  padding: 16px;
+  border-radius: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  border: 1px solid var(--semantic-line, rgba(255,255,255,0.08));
+  color: var(--semantic-fg-muted, #8a90a1);
+}
+.swatch[data-which="base"]     { background: var(--semantic-bg-base, #0b0d12); }
+.swatch[data-which="elevated"] { background: var(--semantic-bg-elevated, #12151d); }
+.swatch[data-which="card"]     { background: var(--semantic-bg-card, #171b24); }
+.swatch[data-which="raised"]   { background: var(--semantic-bg-raised, #1e2330); }
+
+.demo-fg { font-family: var(--font-mono, monospace); font-size: 13px; margin: 4px 0; }
+.demo-fg[data-which="primary"]   { color: var(--semantic-fg-primary, #f5f6fa); }
+.demo-fg[data-which="secondary"] { color: var(--semantic-fg-secondary, #c6cad6); }
+.demo-fg[data-which="muted"]     { color: var(--semantic-fg-muted, #8a90a1); }
+
+.demo-state {
+  background: var(--semantic-bg-base, #0b0d12);
+  border: 1px solid var(--semantic-line, rgba(255,255,255,0.08));
+  border-radius: 6px;
+  padding: 12px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  color: var(--semantic-fg-primary, #f5f6fa);
+  margin: 0;
+}
+.demo-hint {
+  font-size: 13px;
+  color: var(--semantic-fg-muted, #8a90a1);
+  margin-top: 8px;
+}
+
+.demo-btn {
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 13px;
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--semantic-fg-secondary, #c6cad6);
+  border: 1px solid var(--semantic-line, rgba(255,255,255,0.12));
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 6px;
+}
+.demo-btn:hover {
+  border-color: var(--semantic-accent, var(--accent-primary, #c5b358));
+  color: var(--semantic-fg-primary, #f5f6fa);
+}
+
+</style>
+</head>
+<body>
+
+<header class="demo-head">
+  <div class="demo-brand">CFB Index · v5-11.5 demo</div>
+  <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme" type="button"></button>
+</header>
+
+<main class="demo-wrap">
+  <h1>Theme toggle &mdash; Path C end-to-end</h1>
+  <p class="lede">
+    Press the sun/moon/auto button (top right) to cycle through three
+    states: <strong>system</strong> &middot; <strong>light</strong> &middot;
+    <strong>dark</strong>. The choice persists in localStorage so the
+    page renders correctly on reload.
+  </p>
+
+  <section class="demo-card">
+    <h2>Surface ramp</h2>
+    <div class="demo-swatches">
+      <div class="swatch" data-which="base">--semantic-bg-base</div>
+      <div class="swatch" data-which="elevated">--semantic-bg-elevated</div>
+      <div class="swatch" data-which="card">--semantic-bg-card</div>
+      <div class="swatch" data-which="raised">--semantic-bg-raised</div>
+    </div>
+  </section>
+
+  <section class="demo-card">
+    <h2>Foreground ramp</h2>
+    <p class="demo-fg" data-which="primary">--semantic-fg-primary</p>
+    <p class="demo-fg" data-which="secondary">--semantic-fg-secondary</p>
+    <p class="demo-fg" data-which="muted">--semantic-fg-muted</p>
+  </section>
+
+  <section class="demo-card">
+    <h2>Live theme state</h2>
+    <pre class="demo-state"><code id="state-display">(loading...)</code></pre>
+    <p class="demo-hint">
+      The state above updates whenever the toggle cycles, fired via the
+      <code>cfb-theme-changed</code> CustomEvent. Other components
+      (charts, etc.) can listen to this event to re-render with the
+      new colors.
+    </p>
+  </section>
+
+  <section class="demo-card">
+    <h2>Programmatic API</h2>
+    <p>
+      <button class="demo-btn" onclick="window.cfbTheme.set('light')">Force light</button>
+      <button class="demo-btn" onclick="window.cfbTheme.set('dark')">Force dark</button>
+      <button class="demo-btn" onclick="window.cfbTheme.system()">Reset to system</button>
+    </p>
+  </section>
+</main>
+
+
+<script>/* Theme toggle (Sprint v5-11.5 dark mode foundation)
+ * -------------------------------------------------------------------------
+ * Self-contained vanilla JS — no framework dep. Behaviors:
+ *   - Click [data-theme-toggle] cycles system → light → dark → system
+ *   - Persists choice to localStorage as 'cfb-theme-pref'
+ *   - Applies to <html> as data-theme="light|dark" (system removes attr)
+ *   - Tooltip shows "Switch to <next>"
+ *   - Listens to prefers-color-scheme changes when in system mode
+ *     and emits a 'cfb-theme-changed' CustomEvent so other components
+ *     can react (e.g. chart re-renderers)
+ *   - Programmatic API: window.cfbTheme.{set, cycle, current, system}
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §"Cmd-K toggle hook"
+ */
+(function () {
+  'use strict';
+  if (typeof document === 'undefined') return;
+
+  var STORAGE_KEY = 'cfb-theme-pref';
+  var ORDER = ['system', 'light', 'dark'];
+  var ROOT = document.documentElement;
+
+  // ---- State + persistence ----
+  function readPref() {
+    try {
+      var v = localStorage.getItem(STORAGE_KEY);
+      if (v === 'light' || v === 'dark' || v === 'system') return v;
+    } catch (e) { /* unavailable */ }
+    return 'system';
+  }
+
+  function writePref(value) {
+    try { localStorage.setItem(STORAGE_KEY, value); } catch (e) { /* quota */ }
+  }
+
+  // ---- Apply theme ----
+  function apply(pref) {
+    if (pref === 'light' || pref === 'dark') {
+      ROOT.setAttribute('data-theme', pref);
+    } else {
+      ROOT.removeAttribute('data-theme');
+    }
+    updateButtons(pref);
+    // Notify any listeners that the effective theme has changed
+    document.dispatchEvent(new CustomEvent('cfb-theme-changed', {
+      detail: { pref: pref, effective: effectiveTheme() }
+    }));
+  }
+
+  // ---- Compute the effective theme (resolves 'system' to actual mode) ----
+  function effectiveTheme() {
+    var pref = readPref();
+    if (pref === 'light' || pref === 'dark') return pref;
+    return window.matchMedia &&
+           window.matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light' : 'dark';
+  }
+
+  // ---- Cycle through states ----
+  function cycle() {
+    var current = readPref();
+    var idx = ORDER.indexOf(current);
+    var next = ORDER[(idx + 1) % ORDER.length];
+    writePref(next);
+    apply(next);
+    return next;
+  }
+
+  // ---- Set explicit state ----
+  function setTheme(pref) {
+    if (ORDER.indexOf(pref) < 0) return false;
+    writePref(pref);
+    apply(pref);
+    return true;
+  }
+
+  // ---- Update toggle buttons ----
+  function updateButtons(pref) {
+    var nextLabel = {
+      'system': 'Switch to light',
+      'light': 'Switch to dark',
+      'dark': 'Switch to system'
+    }[pref] || '';
+    var buttons = document.querySelectorAll('[data-theme-toggle]');
+    for (var i = 0; i < buttons.length; i++) {
+      var btn = buttons[i];
+      btn.setAttribute('data-state', pref);
+      btn.setAttribute('data-next-label', nextLabel);
+      btn.setAttribute(
+        'aria-label',
+        'Theme: ' + pref + '. Click to ' +
+        (nextLabel || 'change').toLowerCase() + '.'
+      );
+      btn.setAttribute('aria-pressed', pref === 'system' ? 'false' : 'true');
+      // Build icons + click handler if not already done
+      ensureButtonContent(btn);
+    }
+  }
+
+  function ensureButtonContent(btn) {
+    if (btn.dataset.themeReady === '1') return;
+    btn.dataset.themeReady = '1';
+    btn.setAttribute('type', 'button');
+    btn.innerHTML =
+      // System icon — circle half-filled
+      '<svg class="theme-toggle__icon theme-toggle__icon--system" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 2v14a7 7 0 010-14z"/>' +
+      '</svg>' +
+      // Sun icon
+      '<svg class="theme-toggle__icon theme-toggle__icon--light" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M12 17a5 5 0 100-10 5 5 0 000 10zm0-13a1 1 0 011 1v1.5a1 1 0 11-2 0V5a1 1 0 011-1zm0 15a1 1 0 011 1V21a1 1 0 11-2 0v-1a1 1 0 011-1zM5 12a1 1 0 011-1H4.5a1 1 0 110 2H6a1 1 0 01-1-1zm14 0a1 1 0 011-1h-1.5a1 1 0 110 2H20a1 1 0 01-1-1zM6.34 6.34a1 1 0 011.41 0l1.06 1.06a1 1 0 11-1.41 1.41L6.34 7.75a1 1 0 010-1.41zm9.19 9.19a1 1 0 011.41 0l1.06 1.06a1 1 0 11-1.41 1.41l-1.06-1.06a1 1 0 010-1.41zM6.34 17.66a1 1 0 010-1.41l1.06-1.06a1 1 0 111.41 1.41L7.75 17.66a1 1 0 01-1.41 0zm9.19-9.19a1 1 0 010-1.41l1.06-1.06a1 1 0 111.41 1.41l-1.06 1.06a1 1 0 01-1.41 0z"/>' +
+      '</svg>' +
+      // Moon icon
+      '<svg class="theme-toggle__icon theme-toggle__icon--dark" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M20 14.5A8 8 0 019.5 4a8.5 8.5 0 1010.5 10.5z"/>' +
+      '</svg>';
+  }
+
+  // ---- Wire up clicks via delegation ----
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (!target) return;
+    var btn = target.closest && target.closest('[data-theme-toggle]');
+    if (!btn) return;
+    e.preventDefault();
+    cycle();
+  });
+
+  // ---- React to OS-level prefers-color-scheme changes when in system mode ----
+  if (window.matchMedia) {
+    var mql = window.matchMedia('(prefers-color-scheme: light)');
+    var listener = function () {
+      if (readPref() === 'system') {
+        // Re-emit so listeners can re-render
+        document.dispatchEvent(new CustomEvent('cfb-theme-changed', {
+          detail: { pref: 'system', effective: effectiveTheme() }
+        }));
+      }
+    };
+    if (mql.addEventListener) mql.addEventListener('change', listener);
+    else if (mql.addListener) mql.addListener(listener);
+  }
+
+  // ---- Initial state ----
+  // Wait for DOM so [data-theme-toggle] buttons exist
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { apply(readPref()); });
+  } else {
+    apply(readPref());
+  }
+
+  // ---- Public API ----
+  window.cfbTheme = {
+    current: readPref,
+    effective: effectiveTheme,
+    cycle: cycle,
+    set: setTheme,
+    system: function () { return setTheme('system'); }
+  };
+})();
+</script>
+<script>
+function updateState() {
+  var d = document.getElementById('state-display');
+  if (!d || !window.cfbTheme) return;
+  d.textContent =
+    'pref:      ' + window.cfbTheme.current() + '\n' +
+    'effective: ' + window.cfbTheme.effective() + '\n' +
+    'html[data-theme]: ' + (document.documentElement.getAttribute('data-theme') || '(none — follows OS)');
+}
+document.addEventListener('cfb-theme-changed', updateState);
+document.addEventListener('DOMContentLoaded', updateState);
+</script>
+</body>
+</html>
