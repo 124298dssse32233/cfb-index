@@ -2447,6 +2447,53 @@ _RANKINGS_CONTROLS_CSS_BLOCK = """
 # 0.25 for border) instead of the pure-greyscale set we shipped in S.1.
 # Activated by class="dark" on <html>; not applied by default per S.1
 # follow-up. Stage S.6 flips it on after all modules are ported.
+_DESIGN_SYSTEM_BASELINE_CSS_BLOCK = """
+/* === Design-system baseline (Top-5 #2 + #5 — 2026-05-18) ===
+ *
+ * Two locked rules from docs/design-system/00-tokens.md:
+ *
+ * 1. Tabular numerals on every stat-class element. The cardinal
+ *    typography rule: data points must be tabular-nums so columns
+ *    of numbers don't jitter as digits change width.
+ *
+ * 2. Reduced motion respect. Global collapse to instant-state for
+ *    users who requested less motion (prefers-reduced-motion: reduce).
+ */
+
+/* Tabular numerals on data-point elements site-wide */
+.metric-cell,
+.metric-cell *,
+.stat-card strong,
+.stat-card .submetric,
+.team-stat-tile strong,
+.csp__stat-value,
+.csp__pct-pill,
+.signature-story__stat-value,
+.heisman-row td.metric-cell,
+td.metric-cell,
+.rank-cell,
+.player-stat-value,
+.player-stat-context,
+.percentile-pill,
+.confidence-pill,
+.sample-chip,
+[data-tabular-nums="true"] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Reduced motion: respect user opt-in */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+"""
+
+
 _DARK_MODE_CSS_BLOCK = """
 html.dark {
   color-scheme: dark;
@@ -5149,6 +5196,8 @@ def _compose_global_css() -> str:
         + _CONTEXT_MENU_CSS_BLOCK
         + "\n/* === World-class rankings controls (tier toggles, quick filters, movement dashboard) === */\n"
         + _RANKINGS_CONTROLS_CSS_BLOCK
+        + "\n/* === Design-system baseline (tabular nums + reduced motion) === */\n"
+        + _DESIGN_SYSTEM_BASELINE_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
