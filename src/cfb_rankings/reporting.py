@@ -12795,6 +12795,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Compare Teams</title>
+    {_meta_tags(f"Side-by-side comparison of any two NCAA football teams for {season_name}. Power, resume, recent form, fan-belief and rivalry overlays in one view.", title=f"Compare Teams | {season_name}", image_path="../og-image.svg", canonical_path="/compare/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -13736,6 +13737,7 @@ def render_archive_index_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} Archive</title>
+    {_meta_tags(f"The weekly archive board for every published checkpoint, season by season. Replay the rankings the way fans remember the season.", title=f"Weekly Archive | {season_name}", image_path="../og-image.svg", canonical_path="/archive/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -13839,6 +13841,7 @@ def render_archive_snapshot_html(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} {escape(week_label)}</title>
+    {_meta_tags(f"{season_name} {week_label} archive snapshot. The full board as it stood after that checkpoint — power, resume, biggest movers.", title=f"{season_name} {week_label} | Archive", image_path="../og-image.svg", canonical_path=f"/archive/{snapshot['slug']}.html", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -14868,6 +14871,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(season_name)} History</title>
+    {_meta_tags(f"The CFB Index history hub for {season_name}. Greatest seasons, strongest programs, biggest turnarounds, deepest collapses, sustained runs — all built from {int(history_hub.get('team_seasons') or 0):,} modeled team-seasons.", title=f"History | {season_name}", image_path="../og-image.svg", canonical_path="/history/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -15980,6 +15984,7 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(team_name)} Program History</title>
+    {_meta_tags(f"{team_name} — full program history: peak power, best resume, best finish, baseline, all-time arc, season-by-season explorer.", title=f"{team_name} | Program History", image_path="../og-image.svg", canonical_path=f"/programs/{team_slug}.html", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
@@ -18696,6 +18701,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>About The Model</title>
+    {_meta_tags("Methodology for THE CFB INDEX — the two-model design (predictive power + earned resume), the data layers, and the fan-intelligence overlays.", title="The Model | THE CFB INDEX", image_path="../og-image.svg", canonical_path="/about-model/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
   </head>
   <body>
