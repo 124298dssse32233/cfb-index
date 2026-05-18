@@ -5309,6 +5309,84 @@ def _global_link_tags() -> str:
     )
 
 
+def _write_robots_and_sitemap(site_root: Path) -> None:
+    """Emit /robots.txt + /sitemap.xml at the site root.
+
+    Standard SEO basics that were missing entirely from the deployed
+    site (verified 2026-05-18 against origin/published — no robots.txt,
+    no sitemap.xml). Crawlers were finding pages only via internal
+    links, which on a 69k-page static site is a significant
+    discovery gap.
+
+    Robots: allow all crawlers, point at sitemap.
+    Sitemap: minimal index of the high-priority landing pages
+    (homepage, hub, rankings, heisman, etc.). Per-team and per-player
+    URL inclusion is deferred — those crawl naturally via internal
+    links once the top-level surfaces are indexed. The 50k-URL
+    sitemap split is documented in the implementation plan as a
+    future Phase 2 task.
+    """
+    from .common.head_chrome import absolute_url
+
+    robots_path = site_root / "robots.txt"
+    sitemap_path = site_root / "sitemap.xml"
+
+    sitemap_url = absolute_url("/sitemap.xml")
+    robots_body = (
+        "# THE CFB INDEX — robots.txt\n"
+        "User-agent: *\n"
+        "Allow: /\n"
+        "\n"
+        "# Block draft / WIP edition slugs from indexing\n"
+        "Disallow: /editions/draft-*\n"
+        "Disallow: /_smoke-*\n"
+        "\n"
+        f"Sitemap: {sitemap_url}\n"
+    )
+    robots_path.write_text(robots_body, encoding="utf-8")
+
+    # Top-level landing pages. Each gets <changefreq> + <priority> per
+    # sitemap protocol. Priority 1.0 = homepage, 0.9 = primary product
+    # surfaces, 0.7 = secondary, 0.5 = archive/about.
+    today = datetime.now().strftime("%Y-%m-%d")
+    entries: list[tuple[str, float, str]] = [
+        ("/",                       1.0, "daily"),
+        ("/hub/",                   0.9, "daily"),
+        ("/rankings/",              0.9, "daily"),
+        ("/heisman/",               0.9, "daily"),
+        ("/teams/",                 0.9, "weekly"),
+        ("/players/",               0.9, "weekly"),
+        ("/programs/",              0.8, "weekly"),
+        ("/conferences/",           0.7, "weekly"),
+        ("/history/",               0.7, "weekly"),
+        ("/archive/",               0.7, "weekly"),
+        ("/matchups/",              0.7, "weekly"),
+        ("/compare/",               0.6, "weekly"),
+        ("/editions/",              0.8, "weekly"),
+        ("/methodology/",           0.5, "monthly"),
+        ("/about-model/",           0.5, "monthly"),
+    ]
+
+    url_blocks = []
+    for path, priority, changefreq in entries:
+        loc = absolute_url(path)
+        url_blocks.append(
+            f"  <url>\n"
+            f"    <loc>{escape(loc)}</loc>\n"
+            f"    <lastmod>{today}</lastmod>\n"
+            f"    <changefreq>{changefreq}</changefreq>\n"
+            f"    <priority>{priority:.1f}</priority>\n"
+            f"  </url>"
+        )
+    sitemap_body = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(url_blocks)
+        + "\n</urlset>\n"
+    )
+    sitemap_path.write_text(sitemap_body, encoding="utf-8")
+
+
 def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> None:
     attributions_dir = site_root / "attributions"
     attributions_dir.mkdir(parents=True, exist_ok=True)
@@ -5369,6 +5447,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     site_root.mkdir(parents=True, exist_ok=True)
     _ensure_global_assets(site_root)
     _write_attributions_page(site_root, db=db)
+    _write_robots_and_sitemap(site_root)
 
     if summary is None or not rankings:
         # Do NOT stub-overwrite a healthy index.html — when running in CI
