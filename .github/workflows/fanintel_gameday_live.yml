@@ -35,6 +35,12 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pyyaml
+          # Install the cfb_rankings package itself so `python -c "from
+          # cfb_rankings.* import ..."` resolves in the Poll step below.
+          # Without this the workflow fails with ModuleNotFoundError; only
+          # manage.py-routed steps work because manage.py injects src/ onto
+          # sys.path. Other workflows (publish-site etc.) already do this.
+          python -m pip install -e .
 
       - name: Download prior DB artifact
         uses: dawidd6/action-download-artifact@v6
