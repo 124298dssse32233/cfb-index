@@ -417,6 +417,18 @@ def render_the_room_board_html(
         )
 
     nav = _nav_html(prefix="../", current="players")
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
+    head_chrome = render_head_chrome(
+        page_path="/players/the-room/",
+        title=f"Players in The Room — {season_year} | CFB Index",
+        description=(
+            f"The Room: every player CFB Index is tracking for {season_year}. "
+            "Hot takes, anti-takes, and the algorithmic signature of who's "
+            "trending in fan conversation."
+        ),
+        og_type="article",
+    )
     return (
         "<!doctype html>\n"
         '<html lang="en">\n'
@@ -424,6 +436,7 @@ def render_the_room_board_html(
         '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         f'<title>Players in The Room — {season_year} | CFB Index</title>\n'
+        f"{head_chrome}\n"
         f'<link rel="stylesheet" href="/assets/{css_filename}">\n'
         f"<style>\n{_ROOM_STYLES}</style>\n"
         "</head>\n"

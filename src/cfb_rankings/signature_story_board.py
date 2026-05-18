@@ -111,12 +111,25 @@ def render_signature_story_board_html(rows: list[dict[str, Any]], season_year: i
     else:
         body = "\n".join(sections)
 
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
+    head_chrome = render_head_chrome(
+        page_path="/players/signature-stories/",
+        title=f"Signature Stories — {season_year} | CFB Index",
+        description=(
+            f"Signature Stories for {season_year}: one headline stat per "
+            "player, picked by an explainable engine, ordered by cohort "
+            "percentile within position."
+        ),
+        og_type="article",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Signature Stories — {season_year} | CFB Index</title>
+    {head_chrome}
     <link rel="stylesheet" href="../style.css">
   </head>
   <body>

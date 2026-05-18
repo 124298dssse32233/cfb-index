@@ -163,13 +163,26 @@ def render_players_landing_html(payload: dict[str, Any], season_year: int) -> st
     else:
         ss_panel = ""
 
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
     title = f"Players — {season_year}"
+    head_chrome = render_head_chrome(
+        page_path="/players/landing/",
+        title=f"{title} | CFB Index",
+        description=(
+            f"Player landing for the {season_year} season — Heisman watch, "
+            "Signature Stories, prospect cohorts, and every player card on "
+            "the site."
+        ),
+        og_type="article",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{escape(title)} | CFB Index</title>
+    {head_chrome}
     <link rel="stylesheet" href="../style.css">
   </head>
   <body>
