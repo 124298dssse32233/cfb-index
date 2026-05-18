@@ -201,6 +201,7 @@ _PAGE_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The NFL Pipeline — 12 years of the Draft by program · CFB Index</title>
 <meta name="description" content="Every college football program ranked by NFL Draft output {year_start}-{year_end}. Picks, first-rounders, recent pipeline pace, and the position each program develops best.">
+{head_chrome}
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
   .pipeline-summary {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0; }}
@@ -327,16 +328,29 @@ def render_pipeline_landing_html(
     year_end: int = DEFAULT_YEAR_END,
     top_n: int = 50,
 ) -> str:
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
     summary_cards = _build_summary_cards(summary, year_start, year_end)
     window_years = year_end - year_start + 1
     leaderboard_rows = _render_leaderboard_rows(summary[:top_n], window_years, 3)
     position_chips = _render_position_chips(positions)
+    head_chrome = render_head_chrome(
+        page_path="/nfl-pipeline/",
+        title=f"The NFL Pipeline — 12 years of the Draft by program · CFB Index",
+        description=(
+            f"Every college football program ranked by NFL Draft output "
+            f"{year_start}-{year_end}. Picks, first-rounders, recent "
+            "pipeline pace, and the position each program develops best."
+        ),
+        og_type="article",
+    )
     return _PAGE_TEMPLATE.format(
         year_start=year_start,
         year_end=year_end,
         summary_cards=summary_cards,
         leaderboard_rows=leaderboard_rows,
         position_chips=position_chips,
+        head_chrome=head_chrome,
     )
 
 
