@@ -12,7 +12,8 @@ Tick a box only after:
 3. A dated line appended to `SESSION_LOG.md`.
 
 Defaults policy, autonomy rules, and stop conditions live in
-`CLAUDE_CODE_KICKOFF_AUTOPILOT.md` — this file is the checklist only.
+`docs/archive/CLAUDE_CODE_KICKOFF_AUTOPILOT.md` (archived 2026-05-18
+in repo-root cleanup) — this file is the checklist only.
 
 ---
 
