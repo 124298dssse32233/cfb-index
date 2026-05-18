@@ -4987,6 +4987,13 @@ _CONFIDENCE_CSS_BLOCK = """
   .fi-confidence__sample {
     color: var(--muted-foreground, #666);
   }
+
+  /* When the chip sits inside a section-head (Heisman Lens, etc.), give it
+     a small top margin so it tucks neatly under the section-note paragraph
+     instead of butting against the previous line. */
+  .section-head > .fi-confidence {
+    margin-top: var(--space-2, 0.5rem);
+  }
 }
 """
 
@@ -17416,6 +17423,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <div class="section-head">
             <h2>{escape(_heisman_lens_title(current_snapshot))}</h2>
             <p class="section-note">{escape(_heisman_lens_note(current_snapshot))}</p>
+            {_heisman_lens_confidence_chip(current_snapshot)}
           </div>
           {current_context}
         </article>
@@ -20284,6 +20292,50 @@ def _heisman_lens_note(current_snapshot: dict[str, Any]) -> str:
     return (
         "Where he sits right now, where the season forecast points, and "
         "whether the candidacy is actually trophy-live."
+    )
+
+
+def _heisman_lens_confidence_chip(current_snapshot: dict[str, Any]) -> str:
+    """Render the model-confidence chip for the Heisman Lens section.
+
+    The Heisman model's confidence in its probability estimates scales
+    with how many games are in the books. Locked spec
+    (``docs/design-system/33-confidence-signaling.md``): show the dial.
+
+    Sample-depth proxy = season week:
+      week >= 13 → HIGH    (regular season complete / bowl-or-final)
+      8 ≤ week < 13 → MEDIUM (multiple opponents played; mid-to-late)
+      4 ≤ week < 8 → LOW    (early season; volatility expected)
+      week < 4 → suppress   (UNSET; too early for stable signal)
+
+    Emits HTML using the existing ``fi-confidence`` CSS already shipped
+    in the design-system baseline block. Returns an empty string when
+    suppressed — the locked spec calls for "rather show no chip than
+    a misleading one."
+    """
+    if not current_snapshot:
+        return ""
+    week_raw = current_snapshot.get("latest_week") or current_snapshot.get("week")
+    try:
+        week = int(week_raw) if week_raw is not None else 0
+    except (TypeError, ValueError):
+        week = 0
+    if week < 4:
+        return ""
+    if week >= 13:
+        band, label = "high", "High confidence"
+    elif week >= 8:
+        band, label = "medium", "Medium confidence"
+    else:
+        band, label = "low", "Low confidence"
+    aria = escape(f"Model confidence: {label}, through week {week}")
+    return (
+        f'<span class="fi-confidence fi-confidence--{band}" '
+        f'data-confidence="{band}" role="img" aria-label="{aria}">'
+        f'<span class="fi-confidence__dot" aria-hidden="true"></span>'
+        f'<span class="fi-confidence__label">{escape(label.upper())}</span>'
+        f'<span class="fi-confidence__sample">&middot; through week {week}</span>'
+        f'</span>'
     )
 
 
