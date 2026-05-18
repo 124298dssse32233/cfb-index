@@ -127,6 +127,7 @@ _HTML_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
+{head_chrome}
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
   .recruit-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -239,6 +240,13 @@ def render_recruit_board(
         )
         body = f'<div class="recruit-grid">{cards}</div>'
 
+    from cfb_rankings.common.head_chrome import render_head_chrome
+    head_chrome = render_head_chrome(
+        page_path=f"/recruit-board/{class_year}/",
+        title=title,
+        description=f"Top {top_n} recruiting classes for {class_year}.",
+        og_type="article",
+    )
     html = _HTML_TEMPLATE.format(
         title=escape(title),
         description=escape(f"Top {top_n} recruiting classes for {class_year}."),
@@ -246,6 +254,7 @@ def render_recruit_board(
         title_heading=escape(title_heading),
         lede=escape(lede),
         body=body,
+        head_chrome=head_chrome,
     )
 
     out_root = Path(output_dir)
