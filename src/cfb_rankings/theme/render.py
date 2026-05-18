@@ -44,7 +44,12 @@ def render_theme_assets_head(
     """
     parts: list[str] = []
     if inline_init:
-        parts.append(f'<script>{THEME_INIT_SCRIPT}</script>')
+        # Defensive escape: if THEME_INIT_SCRIPT ever contains the
+        # literal `</script>`, the HTML parser would close the inline
+        # tag prematurely. The current script doesn't, but future edits
+        # to theme_init.js shouldn't require remembering this constraint.
+        script_safe = THEME_INIT_SCRIPT.replace("</script>", "<\\/script>")
+        parts.append(f'<script>{script_safe}</script>')
     parts.append(
         f'<link rel="stylesheet" href="{_html.escape(css_url)}">'
     )
