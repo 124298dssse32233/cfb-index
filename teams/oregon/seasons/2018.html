@@ -451,6 +451,38 @@
   }
 }
 
+/* -------------------------------------------------------------------------
+ * Light-mode override for profiled team pages (Sprint v5-11.5 Surface 2)
+ *
+ * When the theme toggle sets data-theme="light" on <html>, override the
+ * dark-default tokens above with their light-mode equivalents. The
+ * accent ramps (--accent-primary, --pct-*, --tone-*, --belief-*) stay
+ * team/data-driven because they read fine on both backgrounds.
+ *
+ * Specificity: :root[data-theme="light"] (0,1,1) beats :root (0,0,1)
+ * defined above. No :where() neutralizer needed here because the
+ * defaults aren't behind an @media block.
+ * ------------------------------------------------------------------------- */
+
+:root[data-theme="light"] {
+  --bg-0:               #faf8f3;          /* bone paper backdrop */
+  --bg-1:               #fbfaf6;
+  --bg-2:               #f5f1e8;
+  --bg-card:            #ffffff;
+  --bg-card-raised:     #f5f1e8;
+  --bg-overlay:         rgba(28, 28, 31, 0.72);
+
+  --fg-primary:         #1c1c1f;
+  --fg-secondary:       #2c2c30;
+  --fg-muted:           #6b6b6b;
+  --fg-subtle:          #8a8a8e;
+  --fg-on-accent:       #0b0d12;          /* accent stays team-driven */
+
+  --stroke-default:     rgba(28, 28, 31, 0.08);
+  --stroke-subtle:      rgba(28, 28, 31, 0.05);
+  --stroke-strong:      rgba(28, 28, 31, 0.16);
+}
+
 
 body {
   --accent-primary: #154733;

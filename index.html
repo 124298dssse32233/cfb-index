@@ -18,6 +18,35 @@
 <meta name="twitter:title" content="CFB Index · Three Weeks Before Camp Whispers">
 <meta name="twitter:description" content="Fall-camp coverage starts to bleed in mid-July. May 11 is three weeks ahead of the earliest camp-position rumors. What the boards are talking about now is the baseline against which August&#x27;s signal gets measured.">
 <meta name="twitter:image" content="https://wonderful-margulis-8ec96b.vercel.app/og/default.png">
+<link rel="stylesheet" href="/assets/tokens-bridge.css">
+<script>/* Theme init — FOUC prevention. MUST load synchronously in <head>.
+ * -------------------------------------------------------------------------
+ * Reads cfb-theme-pref from localStorage. If "light" or "dark", sets
+ * data-theme on <html> BEFORE first paint, so the page renders correctly.
+ * If "system" or unset, removes data-theme and lets prefers-color-scheme
+ * decide.
+ *
+ * Keep this script tiny. The full toggle UI loads via theme_toggle.js
+ * (deferred). This is just the synchronous attribute-setter.
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §"Part 2 — Path C"
+ */
+(function () {
+  try {
+    var pref = localStorage.getItem('cfb-theme-pref');
+    var root = document.documentElement;
+    if (pref === 'light' || pref === 'dark') {
+      root.setAttribute('data-theme', pref);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  } catch (e) { /* localStorage unavailable — silently fall through to OS pref */ }
+})();
+</script>
+<link rel="stylesheet" href="/assets/theme_toggle.css">
+<script defer src="/assets/theme_toggle.js"></script>
+<link rel="stylesheet" href="/assets/cmdk.css">
+<script src="/assets/cmdk.js" defer></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; }
 :root {
@@ -297,6 +326,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
         <a class="nav-link" href="/wire/">Wire</a>
         <a class="nav-link" href="/about-model/">The Model</a>
       </nav>
+      <div class="nav-actions"><button class="cmdk-trigger nav-action" data-cmdk-trigger type="button" aria-label="Search (Ctrl-K / Cmd-K)" title="Search (Ctrl-K / Cmd-K)">⌘K</button><button class="theme-toggle nav-action" data-theme-toggle aria-label="Toggle theme" type="button"></button></div>
     </div>
     <hr class="rule">
   </div>
