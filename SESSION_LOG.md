@@ -1,6 +1,98 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 02:00 UTC | autonomous handle-all-four-decisions — user said "best judgment, accept consequences"
+═══════════════════════════════════════════════════════════════════════
+
+User delegated the four remaining deferred decisions with full
+authority: "i just want you to use your absolute best judgment to
+handle all of these answers. i trust your judgment and accept the
+consequences."
+
+Four decisions made + shipped:
+
+DECISION #1: Chronicle CI "claude CLI not on PATH" — NOT-A-BUG.
+  Investigation: chronicle_generator.py:411 calls shutil.which("claude").
+  Returns None in CI → write_card returns None payload → cards drop
+  gracefully → Awaiting Signal UI ships. This is the architectural
+  intent: chronicle is local-only. Developer runs `manage.py
+  generate-chronicle` locally with Claude Code on PATH, commits the
+  resulting JSON, build-site emits the cards from JSON. The 5
+  programs (Florida, Mass, Notre Dame, Oklahoma, Washington) missing
+  chronicles just haven't had local generation run yet.
+  ACTION: documented in docs/octopus/define.md as RESOLVED. No code
+  change needed.
+
+DECISION #2: Repo root cleanup — PR #125 SHIPPED (42 files archived).
+  Reduced *.md at repo root from 74 → 32 files (56% reduction). All
+  42 archived files were clearly historical: kickoff briefs for
+  completed sprints, overnight session summaries, sprint
+  retrospectives, design audit iterations (9 versioned v1-v5_4 of
+  the same 2026_05_15 audit), Figma commission briefs for shipped
+  work, Codex retro prompts. Conservative criteria: when uncertain,
+  kept at root. Updated docs/audits/autopilot_progress.md to point
+  at the new docs/archive/ path.
+
+DECISION #3: Nav consistency — PR #126 SHIPPED. "The Model" picked
+  as canonical name for /about-model/ link across all surfaces.
+    Before:                          After:
+    - homepage footer "How It Works" → "The Model"
+    - hub top nav    "About"         → "The Model"
+    - hub footer     "About"         → "The Model"
+    - mailbag footer "About"         → "The Model"
+    - nav.py global  "How It Works"  → "The Model"
+  Rationale: "The Model" is the product noun (concise, specific).
+  Beats "How It Works" (colloquial), "About" (too generic), and
+  "Methodology" (jargon + that's already a separate page at
+  /methodology/ which keeps its label). 5 files touched.
+
+DECISION #4: Pattern C validation strictness — LEAVE AS-IS.
+  Three options considered: (a) relax thresholds globally,
+  (b) disable per-program, (c) leave-as-is with graceful fallback.
+  Picked (c). Rationale: relaxing risks shipping hallucinated content
+  for OTHER programs the gate currently catches well; per-program
+  disabling is editorial picking we don't have grounds for; the
+  Awaiting Signal fallback is correct UX. The REAL fix is the
+  chronicle pipeline action from Decision #1 (local generation).
+  ACTION: PR #127 documented this in define.md so future agents
+  don't try to "fix" by lowering thresholds.
+
+Cumulative across multi-day autonomous run (since 2026-05-16 17:28
+PT): 29 PRs landed on master. Highest-impact were:
+  - PR #102 + #123: Heisman 2025 model fix + dawidd6 race fix
+    (unblocked the architectural blocker; Heisman 2025 now live)
+  - PR #99-#107, #114, #116, #121: full OG-meta sweep across every
+    share-bait surface on the site
+  - PR #82, #85: pulse coverage expansion (10 → 17 profiled
+    programs)
+  - PR #84/#88/#91/#92/#93: graduated-player label honesty (made
+    labels track snapshot's actual season — invisible after PR #123
+    fixed the data layer, but ensures honest UX in any future model
+    gap)
+  - PR #110: homepage Voices empty-state short-circuit
+  - PR #111: profiled team page jargon scrub (n=0, sentience X)
+  - PR #115: skip-link a11y for 17 profiled team pages
+  - PR #125: repo root cleanup (74 → 32 .md files)
+  - PR #126: "The Model" canonical nav label
+
+Carry-forward to next session:
+  - dawidd6 fix is monitoring — continued enrich → publish cycles
+    should keep refreshing Heisman + savant + retro + canon data
+    automatically.
+  - Local chronicle regeneration for Florida, Mass, Notre Dame,
+    Oklahoma, Washington (when convenient for the developer).
+  - Node.js 20 → 24 auto-migration June 2, 2026 (no action needed).
+  - Window B's Cmd-K wire-up (their Pattern 9 work; once PR #122 is
+    pushed, the global header `<link>` + `<script>` wiring is
+    Window A's lane — 10-min mechanical change).
+
+The user's "absolute best judgment, accept consequences" mandate
+was honored across all four decisions. Three of four were doc/
+classification work (no code risk); the one code change (PR #126
+nav consistency) is reversible if "The Model" isn't the right
+brand voice — just revert that PR.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 00:30 UTC | DAWIDD6 FIX SHIPPED + VERIFIED — Heisman 2025 finally on live site
 ═══════════════════════════════════════════════════════════════════════
 
