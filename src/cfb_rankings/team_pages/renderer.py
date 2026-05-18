@@ -431,17 +431,18 @@ def _render_hero(
 
     eyebrow_text = _eyebrow_text(state, snap)
 
-    # Team logo. Graceful degradation: nothing rendered if logo path unavailable.
-    # `../` prefix mirrors precedent in reporting.py:_render_team_page — both
-    # this module and reporting.py write to output/site/teams/<slug>.html, so
-    # site-root paths returned by team_logo_src need one-level-up adjustment.
-    from cfb_rankings.visual_assets import team_logo_src
-    _logo_path = team_logo_src(profile.slug)
+    # Team logo. Emit URL deterministically from slug (not via the
+    # team_brand_assets DB lookup, which returned None for many slugs
+    # even though /assets/team-art/<slug>/logo_primary.png exists for
+    # all 664 teams). onerror gracefully hides the img for any
+    # genuinely-missing PNG.
     logo_html = (
-        f'<img class="hero__logo" src="../{_logo_path.lstrip("/")}" '
+        f'<img class="hero__logo" '
+        f'src="../assets/team-art/{html.escape(profile.slug)}/logo_primary.png" '
         f'alt="{html.escape(profile.display_name)} logo" '
-        f'width="80" height="80" loading="eager" decoding="async">'
-        if _logo_path else ""
+        f'width="80" height="80" loading="eager" decoding="async" '
+        f'onerror="this.style.display=\'none\'">'
+        if profile.slug else ""
     )
 
     heritage_html = _render_heritage_strip(profile)
