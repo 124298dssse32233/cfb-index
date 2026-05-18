@@ -28,20 +28,25 @@ The visual concept doc proposes a 90-day production plan oriented around **produ
 
 ---
 
-## Phase 1 — Foundation (DONE / shipping now)
+## Phase 1 — Foundation (DONE)
 
 **Goal:** Lock the tokens + cardinal typography rules + Tier-1 art so every subsequent phase has rails.
 
 | Deliverable | Status | Verification |
 |---|---|---|
-| Tabular numerals on stat-class elements | ✅ PR #134 shipped | Live after publish 26011857294 |
-| Reduced-motion guard | ✅ PR #134 shipped | Same |
-| Team logos on team pages | ✅ PR #133 shipped | Same |
-| Tier-1 art wired to hub | ✅ PR #131 shipped | Live after publish 26011469761 |
-| Design recommendations doc | ✅ PR #132 shipped | On master |
-| URL helper module (`illustrations.py`) | ✅ PR #131 shipped | On master |
+| Tabular numerals on stat-class elements | ✅ PR #134 | Live in publish 26011857294 |
+| Reduced-motion guard | ✅ PR #134 | Same |
+| Team logos on team pages | ✅ PR #133 | Same |
+| Tier-1 art wired to hub | ✅ PR #131 | Live in publish 26011469761 |
+| Design recommendations doc | ✅ PR #132 | On master |
+| URL helper module (`illustrations.py`) | ✅ PR #131 | On master |
+| Confidence chip prototype (Heisman Lens + hero) | ✅ PR #137, PR #140 | Live in publish 26015396877 (in flight) |
+| Chart vocabulary audit | ✅ PR #139 | `docs/octopus/chart_vocabulary_audit.md` |
+| OG/twitter meta sweep (~14 surfaces) | ✅ PRs #141, #142, #146, #148, #149, #150, #151 | Live in publishes |
+| SEO foundations (robots.txt + sitemap.xml with team URLs) | ✅ PR #145, PR #153 | Live after next publish |
+| Workflow stability (fanintel-gameday module, publish-site 404 copy) | ✅ PR #143, PR #147 | Active on next workflow runs |
 
-**Done — close Phase 1. Cumulative: 5 PRs.**
+**Done — close Phase 1. Cumulative: 19 PRs (#131-#154).** Plus Phase 1.5 SEO + workflow bonus items added during the 2026-05-18 sleep-session.
 
 ---
 
