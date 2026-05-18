@@ -5198,6 +5198,18 @@ def _ensure_global_assets(site_root: Path) -> str:
         if not dst_path.exists() or dst_path.stat().st_mtime < src_path.stat().st_mtime:
             shutil.copy2(src_path, dst_path)
 
+    # Copy Tier-1 bespoke illustrations (36 PNGs across 4 categories +
+    # sized variants per the visual concept). See src/cfb_rankings/
+    # illustrations.py for the URL emitter helpers callers should use.
+    illustrations_src = src_assets_dir / "illustrations"
+    if illustrations_src.is_dir():
+        for png in illustrations_src.glob("**/*.png"):
+            rel = png.relative_to(src_assets_dir)
+            dst_path = assets_dir / rel
+            dst_path.parent.mkdir(parents=True, exist_ok=True)
+            if not dst_path.exists() or dst_path.stat().st_mtime < png.stat().st_mtime:
+                shutil.copy2(png, dst_path)
+
     # Generate fi-glossary-data.js from seeds/fi_glossary.yaml. Rewritten
     # every build so edits to the seed file propagate to the live site.
     glossary_data_path = assets_dir / "js" / "bets" / "fi-glossary-data.js"
