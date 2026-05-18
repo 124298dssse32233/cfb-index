@@ -1,6 +1,72 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 00:30 UTC | DAWIDD6 FIX SHIPPED + VERIFIED — Heisman 2025 finally on live site
+═══════════════════════════════════════════════════════════════════════
+
+The dawidd6 artifact-isolation architectural blocker (deferred-with-
+documentation across multiple session segments) is RESOLVED.
+
+PR #123 added a 7-line overlay step to publish_site.yml that runs
+right after the existing baseline DB download, with explicit
+`workflow: world_class_enrich.yml`. The step uses
+continue-on-error + if_no_artifact_found:ignore so failure is
+bounded — if enrich hasn't run or upload failed, publish proceeds
+with the baseline DB just like it did before. If enrich's DB exists
+and is newer, it overwrites the baseline.
+
+End-to-end verification:
+
+  1. PR #123 merged: 22:46 UTC
+  2. Enrich 26004980357 triggered 22:48 UTC
+     - Heisman model wrote 15,601 rows for season 2025 in 814s
+     - DB artifact uploaded with full 2025 data
+  3. Publish 26005822978 triggered 23:27 UTC, queued behind enrich
+  4. Publish ran with new workflow:
+     - Step 5 "Download DB artifact" (baseline) ✓
+     - Step 6 "Overlay with enrich's DB if newer (dawidd6 race fix)" ✓
+     - Build-site rendered against the overlay'd DB
+     - Push to published succeeded
+  5. origin/published commit 9f0abeb0678 verified live
+
+Live state confirmation (/heisman/index.html on origin/published):
+
+  BEFORE (every prior publish since model gap began):
+    <title>Heisman Tracker | 2024 Season</title>
+    Season: 2024 Season
+    Latest Heisman week: Final 2024
+    Ranked players: 16,218
+    Current candidates with pages: 0    ← smoking gun
+
+  AFTER (this publish):
+    <title>Heisman Tracker | 2025 Season</title>        ✓
+    Season: 2025 Season                                  ✓
+    Latest Heisman week: Final 2025                      ✓
+    Ranked players: 15,599                               ✓
+    Current candidates with pages: 15,599                ✓
+
+  Top-ranked 2025 candidate: Fernando Mendoza (Indiana QB, Big Ten)
+    win 14.3%, finalist 74.7%, ballot 80.8%
+    — was the credibility-corrosive M-1 audit subject (wrong-quote
+    bug). Now correctly featured as the #1 candidate instead of a
+    graduated 2024 QB.
+
+Downstream implications:
+
+  - All player pages now source from 2025 Heisman board (PR #84/#88/
+    #91 labels will follow the new data automatically).
+  - Heisman Lens labels on player pages will start showing 2025
+    snapshot when the next round of player-page rebuild propagates.
+  - The "honest label" workarounds (PR #84/#88/#91 making labels
+    track snapshot's actual season) are now invisible — they were
+    always correct, but no longer needed to mask a model gap.
+
+Cumulative across the multi-day autonomous run: 23 PRs landed,
+22 on master (one was a Window B PR #118 + #122 overlap). The
+dawidd6 fix unblocks the single highest-impact remaining item from
+the original audit charter.
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-17 22:00 UTC | autonomous 6hr segment — 5 PRs (#114-#117 + #119)
 ═══════════════════════════════════════════════════════════════════════
 
