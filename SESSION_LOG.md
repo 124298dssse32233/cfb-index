@@ -1,6 +1,108 @@
 # Fan Intelligence Build — Session Log
 
 ═══════════════════════════════════════════════════════════════════════
+2026-05-18 05:00 UTC | sleep-session: 8 PRs (#136-#143) shipped autonomously
+═══════════════════════════════════════════════════════════════════════
+
+User mandate: "please continue working autonomously for like 10
+hours while i sleep and 'Heavily review' the
+CFB_INDEX_VISUAL_SYSTEM_CONCEPT.md doc etc."
+
+The heavy review of the visual-system concept doc was already done
+in the prior slot (PR #132 recommendations + PR #136 implementation
+plan). This slot continued execution against that plan and broadened
+into adjacent surgical wins.
+
+Eight PRs shipped this slot:
+
+  PR #136 — Implementation plan for the visual & UX system
+    343-line synthesis of the visual-concept doc + 15 design-system
+    files + PLAYER_PAGE/TEAM_PAGE briefs into an 8-phase roadmap.
+    Phases 1-8, dependency graph, ~14-week budget for Phases 2-6.
+
+  PR #137 — Confidence chip on player Heisman Lens (Top-5 #3)
+    First wire-up of the locked confidence-chip pattern from
+    docs/design-system/33-confidence-signaling.md. New
+    _heisman_lens_confidence_chip helper that maps season week to
+    HIGH/MEDIUM/LOW/suppressed band. Reuses existing fi-confidence
+    CSS shipped via _CONFIDENCE_CSS_BLOCK at line 4952.
+
+  PR #138 — Session log entry for prior PRs (#136-#137)
+
+  PR #139 — Chart vocabulary audit (docs/octopus/chart_vocabulary_audit.md)
+    Verified inventory of every chart-rendering surface against the
+    locked design-system/31 allowed-six taxonomy. 8 APPROVED · 2
+    FORBIDDEN (vertical bars without percentile encoding in legacy
+    reporting.py) · 2 AMBIGUOUS (cohort scatter; Rival Radar
+    misleading product name).
+    Memory-note discipline caught a first-pass agent
+    mis-classification of rival_radar.py — held to "verify before
+    claim" before shipping.
+
+  PR #140 — Confidence chip on Heisman Tracker hero
+    Extended the chip from the player-page Heisman Lens to the
+    higher-traffic /heisman/ Tracker hero. Reused the existing
+    helper; broadened the chip's container margin-top CSS rule to
+    cover .hero placement too.
+
+  PR #141 — OG meta for 6 missing page surfaces
+    Audit found render_compare_page, render_archive_index,
+    render_archive_snapshot, render_history_index, render_program_page,
+    render_about_model all emit ZERO og:image / og:title / twitter:card
+    meta. Each one's head now has a _meta_tags() call. Page-specific
+    descriptions + canonical_path per page so og:url resolves
+    through absolute_url().
+
+  PR #142 — OG meta for editions article + TOC pages
+    editions/article_renderer.py — both _render_edition_index (TOC)
+    and _render_article (per-feature) — emitted 0 OG meta. Now both
+    use the shared common.head_chrome.render_head_chrome helper
+    (same helper team_pages already uses). Edition articles are the
+    highest-share editorial content on the site.
+
+  PR #143 — Fix fanintel-gameday-live workflow ModuleNotFoundError
+    Workflow had been failing every Saturday with
+    "ModuleNotFoundError: No module named cfb_rankings" on the
+    'Poll live games' step. Root cause: Deps step only installed
+    pyyaml; the Poll step uses python -c "from cfb_rankings.db
+    import ..." which bypasses manage.py's sys.path injection.
+    Fix: add `pip install -e .` to Deps step.
+
+Cumulative across multi-day autonomous run: 41 PRs landed since
+PR #82.
+
+This session pattern:
+  - Execute against an established plan (PR #136 implementation plan
+    was the spine)
+  - Verify each agent finding before committing (memory-note rule)
+  - Each PR narrow-scope, surgical, verifiable
+  - Run smoke tests via `python -c` before claiming work is done
+  - Read failure logs before claiming bugs are fixed (PR #143)
+
+Verification status at SESSION_LOG write time:
+  - PRs #136-#143 all MERGED on master
+  - Publish 26013947541 in_progress (started 04:42 UTC; will pick
+    up PRs #136-#143 inclusive)
+  - Need a follow-on publish after this one finishes — PRs #141,
+    #142, #143 landed after 26013947541's source SHA (59d31972 =
+    PR #139 merge), so won't be in this publish. Concurrency group
+    "site-deploy" prevents parallel publishes.
+
+Carry-forward to next session:
+  - Dispatch another publish-site run once 26013947541 drains, to
+    land PRs #140-#143 on the live site
+  - Expand confidence chip to remaining surfaces per the
+    design-system/33 priority list (#1 Hub, #3 Pulse mood card,
+    #4 Savant card, #5 Daily edition hero finding)
+  - Phase 2A token migration (hard prereq for Phase 3 per the
+    implementation plan)
+  - Window B's PR #122 (citations + cmdk + rituals) remains open
+    with merge conflicts — Window B's lane to resolve
+  - 4 follow-up tasks from chart audit (refactor 2 forbidden bar
+    charts, decide cohort divergence, re-tag Rival Radar, build
+    src/cfb_rankings/charts/__init__.py)
+
+═══════════════════════════════════════════════════════════════════════
 2026-05-18 04:00 UTC | visual-system plan + confidence chip prototype
 ═══════════════════════════════════════════════════════════════════════
 
