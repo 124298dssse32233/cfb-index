@@ -422,6 +422,117 @@ print(s.bullets if s else 'None')
 
 ---
 
+## Pattern 10 — Mood Card provenance chip (M-4)
+
+*(Numbering may shift to 10 after Patterns 8-9 from PR #122 land. Stable identifier: "Mood Card provenance chip".)*
+
+**Goal**: Surface *where the Mood Card's signal came from* — count of distinct subreddits/feeds/podcasts, with a link to the methodology page. Pairs with Pattern 1's confidence chip (sample-size band) to give a complete provenance picture.
+
+**When to use it**:
+* `_render_team_mood_card` in `reporting.py` (legacy team-page mood card)
+* `_render_pulse` in `team_pages/renderer.py` (profiled team page)
+* `_render_room` on player pages (uses the player-scoped variant)
+* Anywhere a Mood Card surfaces an aggregate sentiment number
+
+**When NOT to use it**:
+* Pure structural-data surfaces (rankings, percentile bars) — no
+  "sources" concept; use the confidence chip alone
+* Surfaces where `mentions == 0` AND `sources == 0` — the chip returns
+  empty string by design; caller renders the empty-state UI instead
+
+### The wire-up
+
+```python
+from cfb_rankings.provenance.mood_chip import (
+    fetch_source_count, render_provenance_chip, PROVENANCE_CHIP_CSS,
+)
+
+# In the renderer where mood data is in scope:
+mood = fetch_team_mood_profile(db, team_id, season_year, week, context)
+sample = mood.get("sample") or {}
+mentions = int(sample.get("mentions") or 0)
+sources = fetch_source_count(
+    db, team_id=team_id, season_year=season_year, week=week, bucket="fan",
+)
+
+chip_html = render_provenance_chip(
+    mentions=mentions,
+    sources=sources,
+    methodology_url="/methodology/fan-intelligence.html",
+)
+# Drop chip_html into the mood-card meta row (next to the existing
+# confidence chip + sarcasm-risk chip)
+
+# Ensure PROVENANCE_CHIP_CSS is in the page's <style> block exactly once
+```
+
+### Player-scope variant
+
+```python
+from cfb_rankings.provenance.mood_chip import fetch_player_source_count
+
+sources = fetch_player_source_count(
+    db, player_id=player_id, season_year=season_year, week=week, bucket="fan",
+)
+chip_html = render_provenance_chip(mentions=mentions, sources=sources)
+```
+
+### Renderer parity (the M-4 spec deferral)
+
+The original define.md note read: *"Defer until the two renderers
+converge or both get the chip in one PR."* This PR ships only the
+primitive + tests as a self-contained module — the wire-up into both
+renderers is a follow-up once PR #122 (team_pages/renderer.py
+modifications) lands cleanly.
+
+Wire-up call sites:
+
+1. `team_pages/_render_pulse` — the meta-line below the pulse score.
+   Add `fetch_source_count` to `team_pages/data.py::fetch_mood_snapshot`
+   so the `mood` dict carries it natively (avoids adding a `db` param
+   to the renderer). Use `compact=True` for the tight inline space.
+
+2. `reporting.py::_render_team_mood_card` — the existing
+   `sample_detail` span at ~reporting.py:24012 is the exact
+   replacement point; swap from a static string to
+   `render_provenance_chip(mentions, sources)`.
+
+3. `reporting.py::_render_player_room` (or similar player-page Room
+   renderer) — use `fetch_player_source_count` against
+   `player_week_conversation_features`.
+
+The compact variant (`compact=True`) is available for any surface
+where horizontal space is constrained.
+
+### Defenses built in
+* HTML-escapes the methodology URL (XSS — verified by test)
+* `fetch_source_count` returns 0 on missing-table OperationalError
+* `render_provenance_chip(0, 0)` returns empty string — caller decides
+  empty-state copy instead of showing "based on 0 posts from 0 sources"
+* CSS uses `var()` fallback chains so the chip renders on any of the
+  four production token systems
+
+### Acceptance verification
+
+```bash
+# 1. Tests pass
+python -m pytest tests/test_mood_chip.py -q
+# Expected: 20 passed
+
+# 2. Smoke against canon DB
+python -c "
+import sys; sys.path.insert(0, 'src')
+from cfb_rankings.db import Database
+from cfb_rankings.provenance.mood_chip import fetch_source_count, render_provenance_chip
+db = Database('sqlite:///../../../.worktrees/sprint-11-canon/cfb_rankings.db')
+n = fetch_source_count(db, team_id=333, season_year=2025, week=12)
+print('Alabama 2025-W12 fan sources:', n)
+print(render_provenance_chip(mentions=247, sources=n)[:120])
+"
+```
+
+---
+
 ## Status as of 2026-05-17 (revised post-Window-B autonomous run)
 
 Foundation slices shipped:
