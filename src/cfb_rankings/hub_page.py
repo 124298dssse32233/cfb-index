@@ -293,9 +293,43 @@ def render_nav(
 
 
 def render_section_eyebrow(section_num: str, section_name: str) -> str:
+    """Render an N\u00b0 XX eyebrow with optional rubric icon (Tier-1 art).
+
+    Maps section_name \u2192 rubric slug. If a rubric exists for that section,
+    prepends a 40px PNG icon. Missing-rubric sections render text-only
+    (graceful fallback \u2014 caller doesn't need to know which sections have
+    art). See src/cfb_rankings/illustrations.py for the URL emitter.
+    """
+    from cfb_rankings.illustrations import rubric_url
+
+    # Map known section names \u2192 rubric slug. Inexact matches fall through
+    # to "no icon" rather than emit a broken <img>. Keep this map narrow:
+    # only confident pairings ship art.
+    _name_to_rubric = {
+        "the ticker": "the-ticker",
+        "the matrix": "hype-vs-reality",  # The Matrix = hype-vs-reality matrix
+        "the taxonomy": "the-taxonomy",
+        "the rivalry": "the-rivalry",
+        "the lexicon": "the-lexicon",
+        "the index cards": "this-weeks-cards",
+        "the mood index": "the-mood-index",
+        "the commiseration": "the-commiseration",
+    }
+    # Strip suffixes like " \u00b7 N\u00b0 047" so "The Index Cards \u00b7 N\u00b0 047" maps
+    name_key = section_name.split("\u00b7", 1)[0].strip().lower()
+    slug = _name_to_rubric.get(name_key)
+    icon_html = ""
+    if slug:
+        url = rubric_url(slug, size=40)
+        if url:
+            icon_html = (
+                f'<img class="hub-eyebrow__rubric" src="{escape(url)}" '
+                f'alt="" width="20" height="20" loading="lazy" '
+                f'style="vertical-align:middle;margin-right:8px;">'
+            )
     return (
         f'<div class="hub-eyebrow">'
-        f'{escape(section_num)} <span class="hub-gold-dot">\u00b7</span> {escape(section_name)}'
+        f'{icon_html}{escape(section_num)} <span class="hub-gold-dot">\u00b7</span> {escape(section_name)}'
         f'</div>'
     )
 
@@ -1025,6 +1059,7 @@ def render_taxonomy_section(taxonomy_rows: list[dict[str, Any]], modifier_rows: 
 
 
 def _render_archetype_card(row: dict[str, Any]) -> str:
+    from cfb_rankings.illustrations import totem_url
     top_teams = row.get("top_teams") or []
     team_chips_html = "".join(
         f'<span class="hub-team-chip-row">'
@@ -1035,9 +1070,22 @@ def _render_archetype_card(row: dict[str, Any]) -> str:
     )
     signature_phrase = str(row.get("signature_phrase") or "")
     sparkline = _render_archetype_migration_sparkline(row.get("top_teams") or [])
+    # Tier-1 art: prepend the archetype's totem PNG (80px chip) when one
+    # exists for this slug. Missing-totem archetypes degrade gracefully
+    # to text-only headers. See illustrations.py + the visual concept
+    # doc Tier-1 §1.1 for the per-archetype totem inventory.
+    archetype_slug = str(row.get("slug") or "")
+    totem_src = totem_url(archetype_slug, size=80)
+    totem_html = ""
+    if totem_src:
+        totem_html = (
+            f'<img class="archetype-card-totem" src="{escape(totem_src)}" '
+            f'alt="" width="48" height="48" loading="lazy" '
+            f'style="display:block;margin-bottom:8px;">'
+        )
     return f"""
     <article class="archetype-card">
-      <h3 class="archetype-card-title">{escape(str(row['name']))}</h3>
+      {totem_html}<h3 class="archetype-card-title">{escape(str(row['name']))}</h3>
       <p class="archetype-card-desc">{escape(str(row.get('description') or ''))}</p>
       <div class="archetype-card-teams">{team_chips_html}</div>
       <div class="archetype-card-phrase">
@@ -1085,10 +1133,24 @@ def _render_archetype_migration_sparkline(top_teams: list[dict[str, Any]]) -> st
 
 
 def _render_modifier_strip(modifiers: list[dict[str, Any]]) -> str:
-    chips = "".join(
-        f'<span class="modifier-chip"><span class="hub-gold-dot">\u00b7</span> {escape(str(m["name"]))}</span>'
-        for m in modifiers
-    )
+    from cfb_rankings.illustrations import modifier_url
+    chip_parts = []
+    for m in modifiers:
+        slug = str(m.get("slug") or "")
+        name = str(m.get("name") or "")
+        glyph_src = modifier_url(slug, size=48)
+        if glyph_src:
+            glyph_html = (
+                f'<img class="modifier-chip__glyph" src="{escape(glyph_src)}" '
+                f'alt="" width="20" height="20" loading="lazy" '
+                f'style="vertical-align:middle;margin-right:6px;">'
+            )
+        else:
+            glyph_html = '<span class="hub-gold-dot">\u00b7</span> '
+        chip_parts.append(
+            f'<span class="modifier-chip">{glyph_html}{escape(name)}</span>'
+        )
+    chips = "".join(chip_parts)
     return f"""
     <div class="hub-modifier-strip">
       <div class="hub-modifier-row">{chips}</div>
