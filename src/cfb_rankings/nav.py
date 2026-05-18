@@ -56,7 +56,7 @@ NAV_ITEMS = [
     {"path": "/history/", "label": "History"},
     {"path": "/editions/", "label": "Editions"},
     {"path": "/wire/", "label": "Wire"},
-    {"path": "/about-model/", "label": "How It Works"},
+    {"path": "/about-model/", "label": "The Model"},
 ]
 
 

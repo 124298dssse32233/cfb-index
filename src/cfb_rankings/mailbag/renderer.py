@@ -229,7 +229,7 @@ def _footer_html() -> str:
         '<p>CFB Index — college football rankings &amp; intelligence. '
         '<a href="/mailbag/submit/" class="text-link">Submit a question</a> · '
         '<a href="/mailbag/archive.html" class="text-link">Archive</a> · '
-        '<a href="/about-model/" class="text-link">About</a></p>'
+        '<a href="/about-model/" class="text-link">The Model</a></p>'
         '</footer>'
     )
 
