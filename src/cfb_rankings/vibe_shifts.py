@@ -330,6 +330,7 @@ _PAGE_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vibe Shifts — {week_label} · {season_year} · CFB Index</title>
 <meta name="description" content="The teams that changed the most this week. Ranked by absolute power-rating swing, with the why decomposed into offense, defense, special teams, and resume.">
+{head_chrome}
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
   .vibe-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; margin-top: 24px; }}
@@ -419,8 +420,20 @@ def render_vibe_shifts_index_html(
     today = today or date.today()
     week_label = cfb_week_label_for_window(today, week, db=None)
     body = _render_ledger_body(season_year, week, cards)
+    from cfb_rankings.common.head_chrome import render_head_chrome
+    head_chrome = render_head_chrome(
+        page_path=f"/hub/vibe-shifts/{season_year}/{week}/",
+        title=f"Vibe Shifts — {week_label} · {season_year} · CFB Index",
+        description=(
+            "The teams that changed the most this week. Ranked by absolute "
+            "power-rating swing, with the why decomposed into offense, "
+            "defense, special teams, and resume."
+        ),
+        og_type="article",
+    )
     return _PAGE_TEMPLATE.format(
-        season_year=season_year, week=week, week_label=week_label, body=body
+        season_year=season_year, week=week, week_label=week_label, body=body,
+        head_chrome=head_chrome,
     )
 
 
