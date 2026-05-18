@@ -5309,7 +5309,10 @@ def _global_link_tags() -> str:
     )
 
 
-def _write_robots_and_sitemap(site_root: Path) -> None:
+def _write_robots_and_sitemap(
+    site_root: Path,
+    rankings: list[RankingRow] | None = None,
+) -> None:
     """Emit /robots.txt + /sitemap.xml at the site root.
 
     Standard SEO basics that were missing entirely from the deployed
@@ -5319,12 +5322,10 @@ def _write_robots_and_sitemap(site_root: Path) -> None:
     discovery gap.
 
     Robots: allow all crawlers, point at sitemap.
-    Sitemap: minimal index of the high-priority landing pages
-    (homepage, hub, rankings, heisman, etc.). Per-team and per-player
-    URL inclusion is deferred — those crawl naturally via internal
-    links once the top-level surfaces are indexed. The 50k-URL
-    sitemap split is documented in the implementation plan as a
-    future Phase 2 task.
+    Sitemap: top-level landing pages + every site-eligible team page.
+    Per-player URLs (~5k) and per-archive snapshots (~1k) deferred —
+    they crawl naturally via internal links from the team / rankings
+    pages, and including them would push past 50k-URL splits sooner.
     """
     from .common.head_chrome import absolute_url
 
@@ -5359,12 +5360,15 @@ def _write_robots_and_sitemap(site_root: Path) -> None:
         ("/programs/",              0.8, "weekly"),
         ("/conferences/",           0.7, "weekly"),
         ("/history/",               0.7, "weekly"),
+        ("/history/heatmap/",       0.6, "weekly"),
         ("/archive/",               0.7, "weekly"),
         ("/matchups/",              0.7, "weekly"),
         ("/compare/",               0.6, "weekly"),
         ("/editions/",              0.8, "weekly"),
         ("/methodology/",           0.5, "monthly"),
         ("/about-model/",           0.5, "monthly"),
+        ("/today/",                 0.6, "daily"),
+        ("/kickoff/",               0.5, "weekly"),
     ]
 
     url_blocks = []
@@ -5378,6 +5382,38 @@ def _write_robots_and_sitemap(site_root: Path) -> None:
             f"    <priority>{priority:.1f}</priority>\n"
             f"  </url>"
         )
+
+    # Append every site-eligible team page. The ranking list already
+    # carries level_code + conference_name so we can filter through
+    # is_site_eligible_team() — matches what the team-page renderer
+    # uses to decide whether to emit each team's HTML.
+    if rankings:
+        team_seen: set[str] = set()
+        for r in rankings:
+            slug = getattr(r, "slug", None) or ""
+            if not slug or slug in team_seen:
+                continue
+            level = getattr(r, "level_code", "") or ""
+            conf = getattr(r, "conference_name", None)
+            if not is_site_eligible_team(level, conf):
+                continue
+            team_seen.add(slug)
+            # FBS gets weekly changefreq + 0.7 priority; non-FBS get
+            # monthly + 0.5 since their pages update less often.
+            if level.upper() == "FBS":
+                pri, freq = 0.7, "weekly"
+            else:
+                pri, freq = 0.5, "monthly"
+            loc = absolute_url(f"/teams/{slug}.html")
+            url_blocks.append(
+                f"  <url>\n"
+                f"    <loc>{escape(loc)}</loc>\n"
+                f"    <lastmod>{today}</lastmod>\n"
+                f"    <changefreq>{freq}</changefreq>\n"
+                f"    <priority>{pri:.1f}</priority>\n"
+                f"  </url>"
+            )
+
     sitemap_body = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -5447,7 +5483,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     site_root.mkdir(parents=True, exist_ok=True)
     _ensure_global_assets(site_root)
     _write_attributions_page(site_root, db=db)
-    _write_robots_and_sitemap(site_root)
+    _write_robots_and_sitemap(site_root, rankings=rankings)
 
     if summary is None or not rankings:
         # Do NOT stub-overwrite a healthy index.html — when running in CI
