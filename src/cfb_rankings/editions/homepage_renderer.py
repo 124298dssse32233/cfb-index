@@ -1061,7 +1061,7 @@ def _render_footer(edition: Edition) -> str:
           <li><a href="/rankings/">Rankings</a></li>
           <li><a href="/teams/">Team Pages</a></li>
           <li><a href="/conferences/">Conferences</a></li>
-          <li><a href="/about-model/">How It Works</a></li>
+          <li><a href="/about-model/">The Model</a></li>
           <li><a href="/methodology/fan-intelligence.html">Fan Intel</a></li>
         </ul>
       </div>

@@ -283,7 +283,7 @@ def render_nav(
           <a class="hub-nav-active" href="./">Hub</a>
           {retro_html}
           <a href="{site_prefix}archive/">Archive</a>
-          <a href="{site_prefix}about-model/">About</a>
+          <a href="{site_prefix}about-model/">The Model</a>
           <a class="hub-nav-subscribe" href="#">Subscribe</a>
         </nav>
         {next_html}
@@ -1358,7 +1358,7 @@ def render_hub_footer(issue: dict[str, Any]) -> str:
             <div class="hub-footer-col-title">Publication</div>
             <a href="#">Subscribe \u00b7 Wednesdays 9AM ET \u2192</a>
             <a href="/archive/">Archive</a>
-            <a href="/about-model/">About</a>
+            <a href="/about-model/">The Model</a>
             <a href="/methodology/">Methodology</a>
           </div>
           <div>
