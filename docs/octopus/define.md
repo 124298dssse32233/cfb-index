@@ -62,19 +62,36 @@ What's left:
       refresh for full detail. Two solution paths documented;
       neither is shippable without explicit user OK.
 
-### NEW Tier-D — chronicle pipeline health (CI env)
+### Tier-D — chronicle pipeline (RESOLVED as by-design, 2026-05-18)
 
-    - 5 programs (Florida, Massachusetts, Notre Dame, Oklahoma,
-      Washington) failing chronicle card generation. Retry
-      mechanism broken ("claude CLI not on PATH" in CI).
-    - Pattern C validation strictness rejecting AI output for these
-      programs. Could be the validator is too tight; could be the
-      models are degrading.
-    - Edition cover essays skipped because no `status='draft'`
-      editions exist in DB.
+  Investigation 2026-05-18 (autonomous, see SESSION_LOG entry):
+  the chronicle generator is LOCAL-ONLY by architecture
+  (chronicle_generator.py:411 — `shutil.which("claude")` returns None
+  in CI, write_card returns None payload, cards drop gracefully,
+  Awaiting Signal UI ships). This is NOT a CI environment bug.
 
-  All three are workflow-env or LLM-tuning concerns that need
-  hands-on debugging rather than blind autonomous fixes.
+  - 5 programs (Florida, Massachusetts, Notre Dame, Oklahoma,
+    Washington) ship "Awaiting Signal" chronicle modules because
+    chronicle was last generated locally before they were added to
+    the profiled set. The fix is: developer runs
+    `python manage.py generate-chronicle --workers 3` locally
+    (with Claude Code installed on PATH) and commits the resulting
+    JSON. **Not a code fix; a content-pipeline action.**
+
+  - Pattern C validation strictness is CORRECT as-is. Decision
+    2026-05-18 (autonomous): keep current thresholds. Relaxing
+    risks shipping hallucinated content for programs the gate
+    currently catches well. Per-program disabling is editorial
+    picking without justification. The graceful "Awaiting Signal"
+    fallback IS the right UX when an LLM output doesn't pass the
+    hallucination gate.
+
+  - Edition cover essays skipped (no `status='draft'` editions in
+    DB) is editorial workflow state — when an editor sets up a
+    draft edition, the cover-essay generator fires. Not a bug.
+
+  All three items in this tier are NOT-A-BUG outcomes. Removed
+  from active blocker list 2026-05-18.
 
 ═══════════════════════════════════════════════════════════════════════
 
