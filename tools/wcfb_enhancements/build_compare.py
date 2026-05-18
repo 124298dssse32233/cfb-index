@@ -14,6 +14,15 @@ import json
 import sys
 from pathlib import Path
 
+# Make src/ importable so we can use the shared render_head_chrome helper
+# for og/twitter meta. Without this, the page is overwritten with only a
+# partial OG meta block (og:title + og:image; no twitter, no canonical,
+# no og:url).
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_SRC_PATH = _REPO_ROOT / "src"
+if _SRC_PATH.is_dir() and str(_SRC_PATH) not in sys.path:
+    sys.path.insert(0, str(_SRC_PATH))
+
 try:
     import yaml
 except ImportError:
@@ -66,10 +75,7 @@ HTML_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Compare Programs — CFB Index</title>
 <meta name="description" content="Side-by-side comparison of college football programs. Pick any two of the 17 profiled programs to see identity, accent color, mantra, and a link to the full team page.">
-<meta property="og:title" content="Compare Programs — CFB Index">
-<meta property="og:description" content="Pick any two profiled programs to compare side-by-side.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="/og-image.svg">
+__HEAD_CHROME__
 <style>
 :root {
   --bg: #f6f1e6;
@@ -349,10 +355,31 @@ def main() -> int:
     target_dir.mkdir(parents=True, exist_ok=True)
     target = target_dir / "index.html"
 
+    # Resolve OG/twitter head chrome via the shared helper so the page
+    # matches every other production surface. Falls back to the
+    # legacy-partial OG block if the helper isn't importable (e.g. when
+    # this tool runs outside the repo's normal sys.path).
+    try:
+        from cfb_rankings.common.head_chrome import render_head_chrome
+        head_chrome = render_head_chrome(
+            page_path="/compare/",
+            title="Compare Programs — CFB Index",
+            description="Side-by-side comparison of college football programs. Pick any two of the 17 profiled programs.",
+            og_type="website",
+        )
+    except ImportError:
+        head_chrome = (
+            '<meta property="og:title" content="Compare Programs — CFB Index">\n'
+            '<meta property="og:description" content="Pick any two profiled programs to compare side-by-side.">\n'
+            '<meta property="og:type" content="website">\n'
+            '<meta property="og:image" content="/og-image.svg">'
+        )
+
     html = HTML_TEMPLATE
     html = html.replace("__PICKER_OPTIONS_A__", build_options(programs))
     html = html.replace("__PICKER_OPTIONS_B__", build_options(programs))
     html = html.replace("__PROGRAM_JSON__", json.dumps(programs))
+    html = html.replace("__HEAD_CHROME__", head_chrome)
 
     target.write_text(html, encoding="utf-8")
     print(f"[build_compare] wrote {target} ({target.stat().st_size} bytes, "
