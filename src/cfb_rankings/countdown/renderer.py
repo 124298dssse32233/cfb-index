@@ -34,6 +34,7 @@ _HTML_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
+{head_chrome}
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
   .countdown-hero {{ text-align: center; padding: 64px 24px; }}
@@ -110,6 +111,13 @@ def render_countdown(
         "Phase, countdown, and what's happening in the meantime."
     )
 
+    from cfb_rankings.common.head_chrome import render_head_chrome
+    head_chrome = render_head_chrome(
+        page_path="/kickoff/",
+        title=title,
+        description=description,
+        og_type="article",
+    )
     html = _HTML_TEMPLATE.format(
         title=escape(title),
         description=escape(description),
@@ -117,6 +125,7 @@ def render_countdown(
         unit=escape(unit),
         phase_label=escape(phase),
         detail=escape(detail),
+        head_chrome=head_chrome,
     )
 
     kickoff_dir = output_root / "kickoff"

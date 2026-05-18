@@ -231,7 +231,18 @@ def render_today_in_history_html(
     elif phase_label:
         phase_meta = f'<div class="phase">{html.escape(phase_label)}</div>'
 
+    from cfb_rankings.common.head_chrome import render_head_chrome
+
     generated_at = _utcnow_iso()
+    head_chrome = render_head_chrome(
+        page_path="/today/",
+        title="Today in CFB History · CFB Index",
+        description=(
+            "On this date in college football — anniversary cards anchored "
+            "on real history, refreshed daily."
+        ),
+        og_type="article",
+    )
 
     return f"""<!doctype html>
 <html lang="en">
@@ -240,6 +251,7 @@ def render_today_in_history_html(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Today in CFB History · CFB Index</title>
   <meta name="description" content="On this date in college football — anniversary cards anchored on real history, refreshed daily.">
+  {head_chrome}
   <style>{_CSS}</style>
 </head>
 <body>
