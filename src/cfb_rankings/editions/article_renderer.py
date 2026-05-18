@@ -15,6 +15,7 @@ import html
 import re
 from pathlib import Path
 
+from cfb_rankings.common.head_chrome import render_head_chrome
 from cfb_rankings.db import Database
 
 from .data import (
@@ -121,10 +122,22 @@ def _render_edition_index(edition: Edition, features: list[EditionFeature]) -> s
         for f in ordered
     )
 
+    _toc_title = f"{edition.theme_title or edition.edition_slug} · CFB Index"
+    _toc_desc = (
+        edition.theme_dek
+        or f"Edition {edition.edition_number or ''}: {edition.theme_title or 'CFB Index editorial'}"
+    )
+    _toc_head = render_head_chrome(
+        page_path=f"/editions/{edition.edition_slug}/",
+        title=_toc_title,
+        description=_toc_desc,
+        og_type="article",
+    )
     return f"""<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(edition.theme_title or edition.edition_slug)} · CFB Index</title>
+{_toc_head}
 <style>{_ARTICLE_CSS}
 .toc-list {{ list-style: none; padding: 0; margin: 0; }}
 .toc-list li {{ margin: 0; padding: 0; border-top: 1px solid var(--rule-soft); }}
@@ -162,11 +175,18 @@ def _render_edition_index(edition: Edition, features: list[EditionFeature]) -> s
 def _render_article(edition: Edition, feature: EditionFeature) -> str:
     body_html = _markdown_to_html(feature.body_markdown)
     kind_label = feature.feature_kind.replace("_", " ").upper()
+    _article_head = render_head_chrome(
+        page_path=f"/editions/{edition.edition_slug}/{_slugify(feature.title)}/",
+        title=f"{feature.title} · CFB Index",
+        description=feature.dek or feature.title,
+        og_type="article",
+    )
     return f"""<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(feature.title)} · CFB Index</title>
 <meta name="description" content="{html.escape(feature.dek)}">
+{_article_head}
 <style>{_ARTICLE_CSS}</style>
 </head><body>
 <div class="page">
