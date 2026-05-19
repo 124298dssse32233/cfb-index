@@ -339,6 +339,13 @@ def _surface_degrade_pattern_map() -> "dict[str, LoopPattern]":
 SURFACE_DEGRADE_PATTERN: "dict[str, LoopPattern]" = _surface_degrade_pattern_map()
 
 
+# World-Class Stats Display feature flag (Phase 1, Sprint A)
+# Controls whether player pages use the new card-based percentile layout
+# or fall back to legacy stat table rendering.
+# Set USE_WORLD_CLASS_STATS=true in .env or environment to enable.
+USE_WORLD_CLASS_STATS = os.getenv("USE_WORLD_CLASS_STATS", "true").lower() == "true"
+
+
 def _load_dotenv() -> None:
     env_path = Path.cwd() / ".env"
     if not env_path.exists():

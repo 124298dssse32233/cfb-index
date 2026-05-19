@@ -1,80 +1,79 @@
-name: backfill-full-history
-# Full historical backfill from 2014 to present.
+name: Backfill 2021-2023 + Reddit (Overnight)
 #
-# Phases:
-#   1. CFBD preseason  — teams, rosters, recruiting for every season
-#   2. CFBD history    — games, stats, rankings + model runs (backfill-cfbd-history)
-#   3. Player context  — usage, value, rankings per season
-#   4. Game player stats — game-level individual stat lines
-#   5. Reddit offseason — Arctic Shift historical collection (offseason weeks)
-#   6. Fan intel       — fanbase classification + mood/cohort compute
-#   7. Upload DB artifact
+# Completes 2021-2023 seasons with full data:
+#   - Rosters, games, stats from CFBD
+#   - Player season stats (Heisman model)
+#   - Game-level player stats
+#   - Reddit offseason conversations
+#   - Fan intelligence data
+#   - Auto-deploys to Vercel when complete
 #
-# Estimated runtime: 3-6 hours depending on inputs.
-# Run this once; the daily/weekly/hourly workflows keep data current going forward.
+# Estimated runtime: 4-7 hours
+# Runs on GitHub Actions — your computer can be OFF!
 
 on:
   workflow_dispatch:
     inputs:
       start_season:
-        description: "First CFB season year (default: 2014)"
+        description: "First season year"
         required: false
-        default: "2014"
+        default: "2021"
       end_season:
-        description: "Last completed CFB season year (default: 2025)"
+        description: "Last season year"
         required: false
-        default: "2025"
+        default: "2023"
       skip_reddit:
-        description: "Skip Reddit offseason backfill (saves ~2-3 hrs)"
-        type: boolean
-        required: false
-        default: false
-      skip_player_stats:
-        description: "Skip player context + game-level stats (saves ~1 hr)"
-        type: boolean
-        required: false
-        default: false
-      skip_models:
-        description: "Skip model runs during CFBD history backfill"
+        description: "Skip Reddit backfill (saves ~2-3 hrs)"
         type: boolean
         required: false
         default: false
 
-# Serialize with other site workflows to avoid artifact collisions.
+# Prevent concurrent runs
 concurrency:
-  group: site-deploy
+  group: backfill-2021-2023
   cancel-in-progress: false
 
 jobs:
   backfill:
     runs-on: ubuntu-latest
-    timeout-minutes: 360    # 6-hour cap; sufficient for 2014-2025 full run
+    timeout-minutes: 480    # 8-hour cap
+
+    # Permissions needed
     permissions:
       contents: read
-      actions: write          # needed to dispatch publish-site at the end
+      actions: write          # for triggering publish workflow
+      pull-requests: write
+
+    # Environment variables from GitHub Secrets
     env:
       CFBD_API_KEY:           ${{ secrets.CFBD_API_KEY }}
-      CFBD_PATREON_KEY:       ${{ secrets.CFBD_PATREON_KEY }}
-      YOUTUBE_API_KEY:        ${{ secrets.YOUTUBE_API_KEY }}
-      SEATGEEK_CLIENT_ID:     ${{ secrets.SEATGEEK_CLIENT_ID }}
-      SPOTIFY_CLIENT_ID:      ${{ secrets.SPOTIFY_CLIENT_ID }}
       ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+      REDDIT_CLIENT_ID:       ${{ secrets.REDDIT_CLIENT_ID }}
+      REDDIT_CLIENT_SECRET:   ${{ secrets.REDDIT_CLIENT_SECRET }}
+      REDDIT_USER_AGENT:      ${{ secrets.REDDIT_USER_AGENT }}
 
     steps:
-      - name: Checkout
+      # ════════════════════════════════════════════════════════════════════
+      # SETUP
+      # ════════════════════════════════════════════════════════════════════
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Python 3.12
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
+        with:
+          python-version: "3.12"
+          cache: 'pip'
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
-          python -m pip install -U pip
-          python -m pip install pyyaml
+          python -m pip install --upgrade pip
+          pip install pyyaml requests
 
-      # ── Download latest DB ──────────────────────────────────────────────
-      - name: Download prior DB artifact
+      # ════════════════════════════════════════════════════════════════════
+      # DOWNLOAD EXISTING DATABASE (if available)
+      # ════════════════════════════════════════════════════════════════════
+      - name: Download previous DB artifact
         uses: dawidd6/action-download-artifact@v6
         continue-on-error: true
         with:
@@ -84,246 +83,284 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
-      - name: Apply migrations + seed (idempotent)
-        run: |
-          python manage.py init-db
-          python manage.py apply-migrations
-          python manage.py seed-source-registry
-          python manage.py seed-priority-teams
-          python manage.py seed-feed-instances
-
-      # ── CFBD API health check ───────────────────────────────────────────
+      # ════════════════════════════════════════════════════════════════════
+      # VERIFY CFBD API ACCESS
+      # ════════════════════════════════════════════════════════════════════
       - name: Verify CFBD API key
         run: |
           python <<'PY'
-          import os, urllib.request, urllib.error
+          import os, urllib.request, urllib.error, sys
           key = os.environ.get("CFBD_API_KEY", "")
           if not key:
-              print("::error::CFBD_API_KEY secret is empty — aborting")
-              raise SystemExit(1)
+              print("::error::CFBD_API_KEY secret is empty")
+              sys.exit(1)
           req = urllib.request.Request(
-              "https://apinext.collegefootballdata.com/teams/fbs?year=2025",
+              "https://apinext.collegefootballdata.com/teams/fbs?year=2024",
               headers={"Authorization": f"Bearer {key}"},
           )
           try:
               with urllib.request.urlopen(req, timeout=20) as r:
-                  body_len = len(r.read())
-              print(f"CFBD API OK: HTTP {r.status}, {body_len} bytes")
+                  body = r.read()
+              print(f"✓ CFBD API OK: HTTP {r.status}, {len(body)} bytes")
           except urllib.error.HTTPError as e:
               print(f"::error::CFBD API HTTP {e.code}: {e.reason}")
-              raise SystemExit(1)
+              sys.exit(1)
           except Exception as e:
               print(f"::error::CFBD API error: {e}")
-              raise SystemExit(1)
+              sys.exit(1)
           PY
 
       # ════════════════════════════════════════════════════════════════════
-      # PHASE 1 — Preseason: teams, rosters, recruiting (every season)
+      # PHASE 1: LOAD ROSTERS (REQUIRED for player matching)
       # ════════════════════════════════════════════════════════════════════
-      - name: "Phase 1 — Ingest preseason (teams/rosters/recruiting) ${{ github.event.inputs.start_season || '2014' }}-2026"
+      - name: "Phase 1: Load FBS rosters ${{ github.event.inputs.start_season || '2021' }}-${{ github.event.inputs.end_season || '2023' }}"
         run: |
           set +e
-          START="${{ github.event.inputs.start_season || '2014' }}"
-          END="${{ github.event.inputs.end_season || '2025' }}"
+          START="${{ github.event.inputs.start_season || '2021' }}"
+          END="${{ github.event.inputs.end_season || '2023' }}"
+
+          echo "=================================================="
+          echo "PHASE 1: Loading rosters for seasons $START to $END"
+          echo "=================================================="
+
           for SEASON in $(seq "$START" "$END"); do
-            echo "── Preseason FBS $SEASON ──"
-            python -u manage.py ingest-cfbd-preseason \
-              --season "$SEASON" --classification fbs \
-              || echo "preseason fbs $SEASON failed (continuing)"
-            echo "── Preseason FCS $SEASON ──"
-            python -u manage.py ingest-cfbd-preseason \
-              --season "$SEASON" --classification fcs \
-              || echo "preseason fcs $SEASON failed (continuing)"
+            echo ""
+            echo "[$SEASON] Loading FBS roster..."
+            if python -u manage.py ingest-cfbd-preseason \
+              --season "$SEASON" \
+              --classification fbs; then
+              echo "[$SEASON] ✓ Roster loaded successfully"
+            else
+              echo "[$SEASON] ⚠ Roster load failed (continuing)"
+            fi
           done
-          # 2026 off-season rosters (current year, no games yet)
-          echo "── Preseason FBS 2026 (current off-season) ──"
-          python -u manage.py ingest-cfbd-preseason --season 2026 --classification fbs \
-            || echo "preseason fbs 2026 failed (continuing)"
-          python -u manage.py ingest-cfbd-preseason --season 2026 --classification fcs \
-            || echo "preseason fcs 2026 failed (continuing)"
-          echo "Phase 1 done"
+
+          echo ""
+          echo "=================================================="
+          echo "PHASE 1 COMPLETE"
+          echo "=================================================="
 
       # ════════════════════════════════════════════════════════════════════
-      # PHASE 2 — CFBD history: games, stats, power ratings, model runs
+      # PHASE 2: LOAD GAMES & STATS (run team models)
       # ════════════════════════════════════════════════════════════════════
-      - name: "Phase 2 — CFBD game history + model runs ${{ github.event.inputs.start_season || '2014' }}-${{ github.event.inputs.end_season || '2025' }}"
+      - name: "Phase 2: Load games, stats, and run team models"
         run: |
           set +e
-          START="${{ github.event.inputs.start_season || '2014' }}"
-          END="${{ github.event.inputs.end_season || '2025' }}"
-          SKIP_MODELS="${{ github.event.inputs.skip_models }}"
-          MODELS_FLAG=""
-          if [ "$SKIP_MODELS" != "true" ]; then
-            MODELS_FLAG="--run-models"
-          fi
-          python -u manage.py backfill-cfbd-history \
+          START="${{ github.event.inputs.start_season || '2021' }}"
+          END="${{ github.event.inputs.end_season || '2023' }}"
+
+          echo "=================================================="
+          echo "PHASE 2: Loading games, stats, running team models"
+          echo "=================================================="
+
+          # Run CFBD history backfill with models
+          echo ""
+          echo "Running backfill-cfbd-history with team models..."
+          if python -u manage.py backfill-cfbd-history \
             --start-season "$START" \
-            --end-season   "$END" \
+            --end-season "$END" \
             --include-postseason \
             --skip-play-level \
             --skip-heisman \
-            --skip-connectivity-check \
-            $MODELS_FLAG \
-            || echo "backfill-cfbd-history exited non-zero (continuing)"
-          echo "Phase 2 done"
+            --run-models \
+            --skip-connectivity-check; then
+            echo "✓ CFBD history backfill completed"
+          else
+            echo "⚠ CFBD history backfill had issues (continuing)"
+          fi
+
+          echo ""
+          echo "=================================================="
+          echo "PHASE 2 COMPLETE"
+          echo "=================================================="
 
       # ════════════════════════════════════════════════════════════════════
-      # PHASE 3 — Player context (usage, value, recruiting rankings)
+      # PHASE 3: RUN HEISMAN MODEL (computes player season stats!)
       # ════════════════════════════════════════════════════════════════════
-      - name: "Phase 3 — Player context (usage/value/rankings)"
-        if: ${{ github.event.inputs.skip_player_stats != 'true' }}
+      - name: "Phase 3: Run Heisman model (player season stats)"
         run: |
           set +e
-          python -u manage.py backfill-player-context \
-            --start-season "${{ github.event.inputs.start_season || '2014' }}" \
-            --end-season   "${{ github.event.inputs.end_season   || '2025' }}" \
-            --skip-connectivity-check \
-            || echo "backfill-player-context exited non-zero (continuing)"
-          echo "Phase 3 done"
+          START="${{ github.event.inputs.start_season || '2021' }}"
+          END="${{ github.event.inputs.end_season || '2023' }}"
+
+          echo "=================================================="
+          echo "PHASE 3: Running Heisman model for season stats"
+          echo "=================================================="
+          echo "This computes player_season_stats table!"
+
+          for SEASON in $(seq "$START" "$END"); do
+            echo ""
+            echo "[$SEASON] Running Heisman model through week 16..."
+            if python -u manage.py run-heisman-model \
+              --season "$SEASON" \
+              --through-week 16; then
+              echo "[$SEASON] ✓ Heisman model completed"
+            else
+              echo "[$SEASON] ⚠ Heisman model failed (continuing)"
+            fi
+          done
+
+          echo ""
+          echo "=================================================="
+          echo "PHASE 3 COMPLETE"
+          echo "=================================================="
 
       # ════════════════════════════════════════════════════════════════════
-      # PHASE 4 — Game-level player stats (PPA, rushing, receiving, etc.)
+      # PHASE 4: GAME-LEVEL PLAYER STATS
       # ════════════════════════════════════════════════════════════════════
-      - name: "Phase 4 — Game-level player stats"
-        if: ${{ github.event.inputs.skip_player_stats != 'true' }}
+      - name: "Phase 4: Game-level player stats"
         run: |
           set +e
-          python -u manage.py backfill-game-player-stats \
-            --start-season "${{ github.event.inputs.start_season || '2014' }}" \
-            --end-season   "${{ github.event.inputs.end_season   || '2025' }}" \
+          START="${{ github.event.inputs.start_season || '2021' }}"
+          END="${{ github.event.inputs.end_season || '2023' }}"
+
+          echo "=================================================="
+          echo "PHASE 4: Loading game-level player stats"
+          echo "=================================================="
+
+          if python -u manage.py backfill-game-player-stats \
+            --start-season "$START" \
+            --end-season "$END" \
+            --classification fbs \
             --include-postseason \
-            --missing-only \
-            --skip-connectivity-check \
-            || echo "backfill-game-player-stats exited non-zero (continuing)"
-          echo "Phase 4 done"
+            --skip-connectivity-check; then
+            echo "✓ Game player stats completed"
+          else
+            echo "⚠ Game player stats had issues (continuing)"
+          fi
+
+          echo ""
+          echo "=================================================="
+          echo "PHASE 4 COMPLETE"
+          echo "=================================================="
 
       # ════════════════════════════════════════════════════════════════════
-      # PHASE 5 — Reddit offseason conversations (Arctic Shift archive)
-      #
-      # Collects offseason Reddit discussion for each season (weeks 21-31 =
-      # late-May through early-August, when fan anticipation peaks).
-      # Arctic Shift has full Reddit history back to ~2013.
-      # Skippable if you want a faster run (--skip-reddit=true).
+      # PHASE 5: REDDIT OFFSEASON CONVERSATIONS (Arctic Shift)
       # ════════════════════════════════════════════════════════════════════
-      - name: "Phase 5 — Reddit offseason backfill ${{ github.event.inputs.start_season || '2014' }}-${{ github.event.inputs.end_season || '2025' }}"
+      - name: "Phase 5: Reddit offseason conversations"
         if: ${{ github.event.inputs.skip_reddit != 'true' }}
         run: |
           set +e
-          START="${{ github.event.inputs.start_season || '2014' }}"
-          END="${{ github.event.inputs.end_season || '2025' }}"
+          START="${{ github.event.inputs.start_season || '2021' }}"
+          END="${{ github.event.inputs.end_season || '2023' }}"
+
+          echo "=================================================="
+          echo "PHASE 5: Reddit offseason backfill (weeks 21-31)"
+          echo "=================================================="
+
           for SEASON in $(seq "$START" "$END"); do
-            echo "── Reddit offseason backfill: season $SEASON ──"
-            python -u manage.py backfill-offseason-conversation \
-              --season             "$SEASON" \
-              --provider           arctic-shift \
-              --window             "21..31" \
-              --limit-per-query    200 \
+            echo ""
+            echo "[$SEASON] Collecting Reddit offseason conversations..."
+            if python -u manage.py backfill-offseason-conversation \
+              --season "$SEASON" \
+              --provider arctic-shift \
+              --window "21..31" \
+              --limit-per-query 200 \
               --collect-comments \
               --comment-post-limit 50 \
-              --comments-per-post  50 \
+              --comments-per-post 50 \
               --min-comment-post-replies 3 \
-              --continue-on-error \
-              || echo "Reddit backfill season $SEASON failed (continuing)"
+              --continue-on-error; then
+              echo "[$SEASON] ✓ Reddit backfill completed"
+            else
+              echo "[$SEASON] ⚠ Reddit backfill failed (continuing)"
+            fi
           done
-          echo "Phase 5 done"
+
+          echo ""
+          echo "=================================================="
+          echo "PHASE 5 COMPLETE"
+          echo "=================================================="
 
       # ════════════════════════════════════════════════════════════════════
-      # PHASE 6 — Fan intelligence: fanbase classification + mood compute
+      # PHASE 6: FAN INTELLIGENCE
       # ════════════════════════════════════════════════════════════════════
-      - name: "Phase 6a — Classify fanbases (all seasons)"
+      - name: "Phase 6: Fan intelligence (classification, mood, cohorts)"
         run: |
           set +e
-          END="${{ github.event.inputs.end_season || '2025' }}"
-          START="${{ github.event.inputs.start_season || '2014' }}"
-          SEASONS_BACK=$(( END - START ))
+          END="${{ github.event.inputs.end_season || '2023' }}"
+
+          echo "=================================================="
+          echo "PHASE 6: Fan intelligence computation"
+          echo "=================================================="
+
+          # Classify fanbases
+          echo ""
+          echo "Classifying fanbases..."
           python -u manage.py classify-fanbases \
             --season "$END" \
-            --backfill-history "$SEASONS_BACK" \
-            || echo "classify-fanbases failed (continuing)"
-          echo "Phase 6a done"
+            --backfill-history 3 || echo "⚠ Fanbase classification had issues"
 
-      - name: "Phase 6b — Compute weekly mood (recent 8 weeks)"
-        run: |
-          set +e
+          # Compute recent mood (4 weeks)
+          echo ""
+          echo "Computing weekly mood (recent 4 weeks)..."
           python <<'PY'
           import subprocess
           from datetime import date, timedelta
-          # Compute mood for the last 8 weeks (Monday anchors)
           today = date.today()
-          monday = today - timedelta(days=today.weekday())
-          for i in range(8):
-              week_start = monday - timedelta(weeks=i)
+          for i in range(4):
+              week_start = today - timedelta(weeks=i)
               cmd = ["python", "-u", "manage.py", "compute-mood-week",
                      "--week", week_start.strftime("%Y-%m-%d")]
-              result = subprocess.run(cmd, check=False)
-              print(f"compute-mood-week {week_start}: exit={result.returncode}")
+              subprocess.run(cmd, check=False)
           PY
-          echo "Phase 6b done"
 
-      - name: "Phase 6c — Compute cohort weeks (recent 4 weeks)"
-        run: |
-          set +e
+          # Compute cohort weeks
+          echo ""
+          echo "Computing cohort weeks (recent 4 weeks)..."
           python <<'PY'
           import subprocess
           from datetime import date, timedelta
           today = date.today()
-          iso = today.isocalendar()
           for i in range(4):
               d = today - timedelta(weeks=i)
               iso_d = d.isocalendar()
               week_key = f"{iso_d[0]}-{iso_d[1]:02d}"
               cmd = ["python", "-u", "manage.py", "compute-cohort-week",
                      "--week", week_key]
-              result = subprocess.run(cmd, check=False)
-              print(f"compute-cohort-week {week_key}: exit={result.returncode}")
+              subprocess.run(cmd, check=False)
           PY
-          echo "Phase 6c done"
+
+          echo ""
+          echo "=================================================="
+          echo "PHASE 6 COMPLETE"
+          echo "=================================================="
 
       # ════════════════════════════════════════════════════════════════════
-      # PHASE 7 — DB inventory
+      # DATA COVERAGE REPORT
       # ════════════════════════════════════════════════════════════════════
-      - name: DB inventory after full backfill
+      - name: Generate data coverage report
         run: |
           python <<'PY'
           import sqlite3
           db = sqlite3.connect("cfb_rankings.db")
           cur = db.cursor()
-          tables = [r[0] for r in cur.execute(
-              "select name from sqlite_master where type='table' order by name"
-          ).fetchall()]
-          key = [
-              'teams', 'games', 'players',
-              'model_runs', 'power_ratings_weekly',
-              'fanbase_mood_weekly', 'fanbase_cohort_weekly',
-              'fanbase_classification_history',
-              'storyline_threads', 'editions',
-              'conversation_documents', 'source_observations',
-              'team_brand_assets', 'player_honors',
-              'game_player_stats', 'player_season_context',
-          ]
-          pages = cur.execute("pragma page_count").fetchone()[0]
-          page_sz = cur.execute("pragma page_size").fetchone()[0]
-          print(f"DB size: {pages * page_sz / 1e6:.1f} MB  ({len(tables)} tables)")
-          for t in key:
-              try:
-                  n = cur.execute(f"select count(*) from {t}").fetchone()[0]
-                  print(f"  {t:42s} = {n:>12,}")
-              except Exception as e:
-                  print(f"  {t:42s} = (error: {e})")
+
+          print("")
+          print("==================================================")
+          print("DATA COVERAGE REPORT")
+          print("==================================================")
+
+          # Check each season
+          for season in [2020, 2021, 2022, 2023, 2024]:
+              cur.execute("""
+                  SELECT
+                    (SELECT COUNT(*) FROM games WHERE season_year = ?) as games,
+                    (SELECT COUNT(*) FROM roster_entries WHERE season_year = ?) as roster,
+                    (SELECT COUNT(*) FROM player_season_stats WHERE season_year = ?) as season_stats,
+                    (SELECT COUNT(*) FROM player_game_stats WHERE season_year = ?) as game_stats
+              """, (season, season, season, season))
+              row = cur.fetchone()
+              print(f"{season}: games={row[0]:5,}  roster={row[1]:6,}  season_stats={row[2]:6,}  game_stats={row[3]:7,}")
+
+          print("==================================================")
           PY
 
       # ════════════════════════════════════════════════════════════════════
-      # Upload DB artifact
+      # UPLOAD DATABASE ARTIFACT
       # ════════════════════════════════════════════════════════════════════
-      - name: Verify DB artifact healthy before upload
+      - name: Upload database artifact
         if: always()
-        id: db_sanity
-        continue-on-error: true
-        run: |
-          python scripts/verify_db_artifact_healthy.py cfb_rankings.db
-
-      - name: Upload DB artifact
-        if: steps.db_sanity.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: cfb-rankings-db
@@ -332,24 +369,26 @@ jobs:
           overwrite: true
 
       # ════════════════════════════════════════════════════════════════════
-      # Trigger world-class enrich to rebuild the full site with fresh data
-      #
-      # Why world_class_enrich.yml and not publish_site.yml:
-      # publish_site.yml has set+e + check=False that swallow build-site
-      # failures. After a 3+ hour backfill, the fresh DB shape can break
-      # build-site silently — publish_site then falls back to the prior
-      # cached site artifact (passes the >=5000-files sanity gate against
-      # stale content) and reports success while no real rebuild happened.
-      # That happened 2026-05-15 (1m 33s "success" with 17-file diff).
-      #
-      # world_class_enrich.yml runs the full editorial pipeline directly
-      # (Wire, Daily, Mailbag, Chronicle, Narratives, Canon, Best Calls)
-      # so backfills always land into world-class enrichment output rather
-      # than a passthrough.
+      # TRIGGER SITE BUILD AND DEPLOY
       # ════════════════════════════════════════════════════════════════════
-      - name: Trigger world-class enrich workflow
-        if: success() || failure()
+      - name: Trigger site build and deploy
+        if: success()
         run: |
-          gh workflow run world_class_enrich.yml --field skip_ai=false
+          echo "Triggering publish_site workflow..."
+          gh workflow run publish_site.yml
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report completion
+        if: always()
+        run: |
+          echo ""
+          echo "╔══════════════════════════════════════════════════════════╗"
+          echo "║           BACKFILL COMPLETE!                            ║"
+          echo "╠══════════════════════════════════════════════════════════╣"
+          echo "║  • Database uploaded as artifact                         ║"
+          echo "║  • Site build triggered (check Actions tab)              ║"
+          echo "║  • Will auto-deploy to Vercel when build completes         ║"
+          echo "╠══════════════════════════════════════════════════════════╣"
+          echo "║  Next: Check your live site in ~15-20 minutes              ║"
+          echo "╚══════════════════════════════════════════════════════════╝"

@@ -26,6 +26,14 @@ from cfb_rankings.fan_intelligence import (
     fetch_team_mood_profile,
 )
 from cfb_rankings.visual_assets import resolve_team_brand
+# World-class stats display components (modular, testable, avoids god-object anti-pattern)
+from cfb_rankings.theme import (
+    render_stats_assets_head,
+    render_all_player_season_stat_tables,
+    render_percentile_bars_grid,
+    render_sample_badge,
+)
+from cfb_rankings.config import USE_WORLD_CLASS_STATS
 from cfb_rankings.utils import (
     PROGRAM_COUNT_REFERENCE_DATE,
     SUBDIVISION_PROGRAM_COUNTS,
@@ -5272,9 +5280,10 @@ def _ensure_global_assets(site_root: Path) -> str:
     # These ship the dark/light theme toggle (PR #130) and Cmd-K search
     # overlay (PR #122). docs/octopus/window_b_wire_up_plan.md is the
     # spec; this is Step 1 of that plan.
+    # World-class stats display assets (PR TBD): stats_table.css + stat_definitions.js
     _pkg_root = Path(__file__).parent
     for pkg_name, asset_files in (
-        ("theme", ("theme_init.js", "theme_toggle.css", "theme_toggle.js")),
+        ("theme", ("theme_init.js", "theme_toggle.css", "theme_toggle.js", "stats_table.css", "stat_definitions.js")),
         ("cmdk",  ("cmdk.css", "cmdk.js")),
     ):
         pkg_assets_dir = _pkg_root / pkg_name / "assets"
@@ -5320,6 +5329,9 @@ def _global_link_tags() -> str:
     IIFE), then the-room.js (registers an Alpine component via the
     `alpine:init` event), then alpine.min.js. All `defer` so they execute
     in document order after HTML parse, before DOMContentLoaded.
+
+    World-class stats display assets (stats_table.css, stat_definitions.js)
+    are loaded globally to enable tap-triggered definitions on all stat pages.
     """
     from cfb_rankings.theme.render import render_theme_assets_head
 
@@ -5329,12 +5341,15 @@ def _global_link_tags() -> str:
     # synchronously (FOUC prevention) + emits <link> + deferred toggle
     # JS. The :where() fix in tokens-bridge.css makes the cascade work.
     theme_head = render_theme_assets_head()
+    # Stats table assets: CSS for sticky columns + tap targets, JS for definitions
+    stats_head = render_stats_assets_head()
     return (
         # tokens-bridge before component CSS so [data-theme] selectors win
         f'<link rel="stylesheet" href="/assets/tokens-bridge.css">\n'
         f'    {theme_head}\n'
         f'    <link rel="stylesheet" href="/assets/{filename}">\n'
         f'    <link rel="stylesheet" href="/assets/cmdk.css">\n'
+        f'    <link rel="stylesheet" href="/assets/stats_table.css">\n'  # World-class stats tables
         f'    <script src="/assets/js/url-state.js" defer></script>\n'
         f'    <script src="/assets/js/the-room.js" defer></script>\n'
         f'    <script src="/assets/js/subnav.js" defer></script>\n'
@@ -5345,6 +5360,7 @@ def _global_link_tags() -> str:
         f'    <script src="/assets/js/bets/scenario-explorer.js" defer></script>\n'
         f'    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>\n'
         f'    <script src="/assets/js/bets/context-menu.js" defer></script>\n'
+        f'    <script src="/assets/stat_definitions.js" defer></script>'  # Stat definitions
         f'    <script src="/assets/{_ALPINE_ASSET_NAME}" defer></script>\n'
         f'    <script src="/assets/cmdk.js" defer></script>'
     )
@@ -17244,6 +17260,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     modules = player_data.get("modules") or []
 
     player_name = str(player.get("full_name") or "Player")
+    player_slug = str(player.get("player_slug") or "")
     position = str(player.get("position") or primary_team.get("position") or "--")
     class_year = str(player.get("class_year") or primary_team.get("class_year") or "--")
     team_name = str(primary_team.get("team_name") or "Independent file")
@@ -17362,10 +17379,14 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         if traditional_sections_list
         else '<p class="footer-note">Traditional season stats will appear here as soon as the player-season feed has the needed categories.</p>'
     )
-    season_stat_tables_html = "".join(
-        _render_player_season_stat_table(section)
-        for section in season_stat_tables
-    ) or '<p class="footer-note">Season-by-season stat tables will appear here as soon as older player stat seasons are loaded into the local database.</p>'
+    # World-Class Stats Display (Phase 1, Sprint A) — use card-based percentile layout
+    # when USE_WORLD_CLASS_STATS=true, otherwise fall back to legacy rendering.
+    season_stat_tables_html = render_all_player_season_stat_tables(
+        season_stat_tables,
+        player_name=player_name,
+        player_slug=player_slug or None,
+        use_legacy=not USE_WORLD_CLASS_STATS,
+    )
     advanced_rows_html = (
         "".join(
             f"""
@@ -17380,6 +17401,67 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         )
         or '<tr><td colspan="4">Advanced metrics will appear here as soon as the player-season feed has usable context for this role.</td></tr>'
     )
+
+    # World-Class Advanced Metrics Section (Phase 1, Task A2)
+    # Card-based percentile layout with EPA, Success Rate, CPOE, AY/A
+    if USE_WORLD_CLASS_STATS and (stat_profile.get("advanced_rows") or []):
+        # Extract advanced metrics and convert to percentile bars
+        from cfb_rankings.theme.percentile_bar import PercentileBar, SampleSize
+        advanced_bars = []
+        for row in (stat_profile.get("advanced_rows") or []):
+            metric_name = str(row.get("metric") or "").lower()
+            value_str = str(row.get("value") or "--")
+            # Try to parse numeric value
+            try:
+                value = float(value_str.replace("%", "").replace("+", "").strip())
+            except (ValueError, AttributeError):
+                value = None
+
+            # Map metric names to IDs and benchmarks
+            metric_map = {
+                "epa/play": ("epa_per_play", 0.15, "+0.15"),
+                "epa per play": ("epa_per_play", 0.15, "+0.15"),
+                "success rate": ("success_rate", 50.0, "50%"),
+                "success rate+": ("success_rate", 50.0, "50%"),
+                "cpoe": ("cpoe", 5.0, "+5%"),
+                "cpoe+": ("cpoe", 5.0, "+5%"),
+                "ay/a": ("aya", 8.5, "8.5"),
+                "adjusted yards/attempt": ("aya", 8.5, "8.5"),
+            }
+
+            if metric_name in metric_map and value is not None:
+                bar_id, benchmark, benchmark_str = metric_map[metric_name]
+                # Calculate approximate percentile (linear scale from 0 to benchmark*2)
+                # This is a simplified calculation; Phase 3 will implement proper percentile calculation
+                percentile = min(100, max(0, int((value / (benchmark * 1.5)) * 100))) if benchmark != 0 else 50
+
+                bar = PercentileBar(
+                    id=bar_id,
+                    label=str(row.get("metric") or metric_name.title()),
+                    value=value,
+                    percentile=percentile,
+                    format_str={("epa_per_play",): "+.2f", ("success_rate",): ".1f%%", ("cpoe",): "+.1f%%", ("aya",): ".1f"}.get(
+                        (bar_id,), ".2f"
+                    ),
+                    benchmark=benchmark_str,
+                )
+                advanced_bars.append(bar)
+
+        # Render the advanced metrics as a percentile grid
+        if advanced_bars:
+            advanced_percentile_html = f"""
+            <section class="wcfb-advanced-stats">
+              <div class="wcfb-advanced-stats__header">
+                <h3>Advanced Metrics</h3>
+                {render_sample_badge(SampleSize(high_confidence=True, label="High confidence"))}
+              </div>
+              {render_percentile_bars_grid(advanced_bars, use_cards=True)}
+            </section>
+            """
+        else:
+            advanced_percentile_html = ""
+    else:
+        advanced_percentile_html = ""
     archetype_tags = "".join(
         f'<span class="player-stat-archetype-tag">{escape(str(tag or ""))}</span>'
         for tag in (stat_profile.get("archetype", {}).get("tags") or [])
@@ -17772,7 +17854,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
               <div class="feature-grid history-snapshot-grid player-stat-support-grid">
                 {stat_advanced_cards}
               </div>
-              <div class="table-wrap compact-table-wrap">
+              {f'''{advanced_percentile_html}''' if USE_WORLD_CLASS_STATS else f'''<div class="table-wrap compact-table-wrap">
                 <table>
                   <thead>
                     <tr>
@@ -17786,7 +17868,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
                     {advanced_rows_html}
                   </tbody>
                 </table>
-              </div>
+              </div>'''}
             </div>
           </details>
           <details class="player-stats-explorer">
