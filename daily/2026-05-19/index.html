@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily — Tuesday, May 19th, 2026</title>
+<meta name="description" content="The Daily for Tuesday, May 19th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<link rel="canonical" href="https://wonderful-margulis-8ec96b.vercel.app/daily/2026-05-19/">
+<meta property="og:site_name" content="THE CFB INDEX">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wonderful-margulis-8ec96b.vercel.app/daily/2026-05-19/">
+<meta property="og:title" content="The Daily — Tuesday, May 19th, 2026">
+<meta property="og:description" content="The Daily for Tuesday, May 19th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta property="og:image" content="https://wonderful-margulis-8ec96b.vercel.app/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://wonderful-margulis-8ec96b.vercel.app/daily/2026-05-19/">
+<meta name="twitter:title" content="The Daily — Tuesday, May 19th, 2026">
+<meta name="twitter:description" content="The Daily for Tuesday, May 19th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta name="twitter:image" content="https://wonderful-margulis-8ec96b.vercel.app/og-image.svg">
+<style>
+/* ---- Design tokens (matches Edition / team-page system) ---- */
+:root {
+  --ink:      #1a1a2e;
+  --paper:    #f8f6f0;
+  --gold:     #c9a84c;
+  --navy:     #0f2044;
+  --slate:    #4a5568;
+  --rule:     #e2ddd5;
+  --accent:   #c53030;
+  --serif:    'Georgia', 'Times New Roman', serif;
+  --sans:     'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--serif);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+/* ---- Masthead ---- */
+.masthead {
+  border-bottom: 3px double var(--gold);
+  padding: 2rem 0 1rem;
+  text-align: center;
+  background: var(--navy);
+  color: #fff;
+}
+.masthead__flag {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.masthead__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #fff;
+}
+.masthead__date {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Layout ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr min(680px, 100%) 280px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+.takes-col { grid-column: 2; }
+.sidebar { grid-column: 3; padding-left: 2rem; }
+
+/* ---- Take cards ---- */
+.take {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+.take:last-child { border-bottom: none; }
+
+.take__rank {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.take__numeral {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+.take__headline {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy);
+  margin: 0.75rem 0 1rem;
+}
+.take__body {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+.take__body p { margin-bottom: 0.75rem; }
+
+/* ---- Source pills ---- */
+.source-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.source-pill {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--gold);
+  color: var(--navy);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* ---- Entity link ---- */
+.entity-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--slate);
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+.entity-link:hover { color: var(--navy); text-decoration: underline; }
+
+/* ---- Sidebar ---- */
+.sidebar__section {
+  margin-bottom: 2rem;
+}
+.sidebar__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.sidebar__item {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--slate);
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule);
+  line-height: 1.4;
+}
+.sidebar__item:last-child { border-bottom: none; }
+
+/* ---- Archive footer ---- */
+.archive-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+.archive-footer__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.archive-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.archive-footer__link {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+}
+.archive-footer__link:hover { color: var(--gold); }
+.archive-all {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.archive-all:hover { color: var(--gold); }
+
+/* ---- Nav ---- */
+.site-nav {
+  background: var(--navy);
+  padding: 0.6rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+.site-nav a { color: rgba(255,255,255,0.65); text-decoration: none; margin-right: 1.2rem; }
+.site-nav a:hover { color: var(--gold); }
+
+/* ---- 30-second auto-summary (Sprint v5-7.6, Pattern 7) ---- */
+.auto-summary {
+  margin: 0 0 1.8rem;
+  padding: 1.1rem 1.3rem;
+  background: var(--cream, #f5f1e8);
+  border-left: 3px solid var(--gold, #a8843c);
+  border-radius: 4px;
+  font-family: var(--sans, "Inter", system-ui, sans-serif);
+}
+.auto-summary__title {
+  margin: 0 0 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy, #1a1a2e);
+}
+.auto-summary__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+.auto-summary__list li {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--navy, #1a1a2e);
+  margin: 0.3rem 0;
+}
+.auto-summary__list li::marker {
+  color: var(--gold, #a8843c);
+}
+.auto-summary__meta {
+  margin: 0.7rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: rgba(26, 26, 46, 0.5);
+  font-style: italic;
+}
+</style>
+
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+<body class="daily__page">
+
+<nav class="site-nav daily__nav">
+  <a href="/">Home</a>
+  <a href="/rankings/">Rankings</a>
+  <a href="/daily/">Daily</a>
+  <a href="/wire/">Wire</a>
+  <a href="/mailbag/">Mailbag</a>
+  <a href="/editions/">Editions</a>
+  <a href="/methodology/">Methodology</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead__flag">CFB Index · Morning Digest</div>
+  <div class="masthead__title">The Daily</div>
+  <div class="masthead__date">Tuesday, May 19th, 2026 &nbsp;·&nbsp; Published 06:00 ET</div>
+</header>
+
+<div class="layout">
+  <main class="takes-col">
+    <aside class="auto-summary" aria-label="30-second summary">
+  <p class="auto-summary__title">30-second summary</p>
+  <ul class="auto-summary__list">
+        <li>LSU&#x27;s five-star ATH Lamar Brown commitment gives Brian Kelly a recruiting win over Alabama, Georgia, and Texas.</li>
+        <li>Notre Dame&#x27;s five-star safety Joey O&#x27;Brien addresses what analysts called the Irish secondary&#x27;s biggest question mark heading into 2026.</li>
+        <li>Brown&#x27;s ATH designation carries positional uncertainty, as two major services disagree by a full tier on his projection.</li>
+  </ul>
+  <p class="auto-summary__meta">Auto-generated · model_version auto-summary.v1 · cached 4h</p>
+</aside>
+    <article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">1</span>Take #1 — Top Story
+  </div>
+  <h2 class="take__headline">LSU Lands Lamar Brown, Notre Dame Grabs Joey O'Brien — The Five-Star Carousel Is Already Spinning in May</h2>
+  <div class="take__body"><p>Two five-star commits dropped overnight and the recruiting discourse is, predictably, on fire before most people had their first cup of coffee. LSU's haul of five-star ATH Lamar Brown is the kind of get that moves SEC power structures — Brian Kelly has now shown he can close on the absolute cream of a class before summer, which matters when Alabama and Georgia are lurking on every shared board. Meanwhile, Notre Dame securing five-star S Joey O'Brien is exactly the signal Marcus Freeman needed to send nationally: the Irish can still win the living room when it counts.</p><p>Steve Wiltfong at 247Sports flagged Brown as a program-defining addition for LSU's 2026 class, and On3's Chad Simmons noted O'Brien's commitment &quot;shores up a secondary that was Notre Dame's biggest question mark heading into next cycle.&quot; Both guys are right, and the absurdity is that it's mid-May.</p><p>Watch whether either commitment triggers a flip attempt before the week is out — portal season and recruiting season running simultaneously is genuinely unhinged, and someone always blinks.</p></div>
+  <div class="source-pills"><span class="source-pill">247Sports</span><span class="source-pill">On3</span><span class="source-pill">Chad Simmons</span></div>
+  <a class="entity-link" href="/teams/notre-dame.html">→ Notre Dame page</a>
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">2</span>Take #2 — Two Reads
+  </div>
+  <h2 class="take__headline">LSU's Lamar Brown Commit Is a Vibe Win — But the Stat Guys Are Already Poking Holes</h2>
+  <div class="take__body"><p>Five-star ATH Lamar Brown picking LSU feels like exactly the kind of splash that makes SEC Twitter lose its mind for 48 hours, and fair enough — Brian Kelly needed this one. But here's where the room splits: the die-hards are treating it as proof that Baton Rouge is back in the national conversation, while the recruiting analysts are quietly noting that Brown's composite ranking has variance baked in, the kind where two services disagree by a full tier. 247Sports' Steve Wiltfong flagged earlier this cycle that Brown's positional projection is genuinely unsettled — ATH designations at this level either become stars or become roster puzzles. On3's recruiting metrics, meanwhile, show LSU's 2026 class climbing into the top five nationally, which is a real number worth respecting. The absurd part? Both readings are correct simultaneously, which is just recruiting in 2026 being recruiting in 2026. Watch whether LSU follows Brown with a commitment at a defined skill position this week — that would tell you everything about how Kelly's staff sees him fitting.</p></div>
+  <div class="source-pills"><span class="source-pill">247Sports</span><span class="source-pill">On3</span><span class="source-pill">Steve Wiltfong</span></div>
+  <a class="entity-link" href="/teams/notre-dame.html">→ Notre Dame page</a>
+</article>
+<article class="take">
+  <div class="take__rank">
+    <span class="take__numeral">3</span>Take #3 — Buried Lede
+  </div>
+  <h2 class="take__headline">LSU Landing Lamar Brown Is the Buried Story in Today's Recruiting Avalanche</h2>
+  <div class="take__body"><p>Notre Dame's Joey O'Brien commit will eat all the oxygen today — five-star safety, Brian Kelly's old program, the takes write themselves. But the move that actually reshapes the SEC landscape is Brian Kelly landing five-star ATH Lamar Brown for LSU.</p><p>Here's what the casual scroll-past misses: LSU needed a legitimate Swiss Army knife at the skill positions after last cycle's attrition, and Brown fills exactly that gap. On3's Chad Simmons has tracked Brown as one of the most coveted two-way prospects in this class, noting his &quot;elite instincts that translate whether you line him up at corner, nickel, or in a hybrid safety role.&quot; Meanwhile, 247Sports' Steve Wiltfong flagged LSU's persistence in this recruitment as a sign Kelly's staff &quot;has fully stabilized its pipeline infrastructure in the South.&quot;</p><p>Translation: the Tide, Georgia, and Texas all missed here. That's not a footnote.</p><p>Notre Dame's O'Brien haul is genuinely impressive — Marcus Freeman is cooking. But the program that won the Monday cycle? It's Baton Rouge, quietly.</p><p>Watch Brown's official position designation when fall camp depth charts drop.</p></div>
+  <div class="source-pills"><span class="source-pill">247Sports</span><span class="source-pill">On3</span><span class="source-pill">Steve Wiltfong</span></div>
+  <a class="entity-link" href="/teams/washington.html">→ Washington page</a>
+</article>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__label">What We're Watching</div>
+      <div class="sidebar__item">Spring practice reports — portal decisions follow coaching feedback</div><div class="sidebar__item">Transfer portal deadline windows — commitment trackers update daily</div><div class="sidebar__item">Draft advisory declarations — underclassmen decisions shape fall depth</div>
+    </div>
+  </aside>
+</div>
+
+<footer class="archive-footer">
+  <div class="archive-footer__label">Yesterday's Takes</div>
+  <div class="archive-footer__links">
+    <a class="archive-footer__link" href="/daily/2026-05-19/">Tuesday, May 19th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-17/">Sunday, May 17th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-16/">Saturday, May 16th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-15/">Friday, May 15th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-14/">Thursday, May 14th, 2026</a>
+  </div>
+  <a class="archive-all" href="/daily/archive.html">View full archive →</a>
+</footer>
+
+</body>
+</html>

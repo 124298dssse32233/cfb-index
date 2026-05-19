@@ -96,6 +96,19 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .short-answer .label { text-transform: uppercase; letter-spacing: 0.18em;
   font-size: 10px; opacity: 0.7; margin-right: 6px; }
 
+/* 30-second auto-summary (Sprint v5-7.6, Pattern 7) */
+.auto-summary { margin: 24px 0 8px; padding: 18px 22px; background: var(--paper-dim);
+  border-left: 3px solid var(--gold); border-radius: 3px; max-width: 720px; }
+.auto-summary__title { font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy);
+  margin: 0 0 10px; }
+.auto-summary__list { margin: 0; padding-left: 1.1rem; list-style: disc; }
+.auto-summary__list li { font-family: var(--serif); font-size: 17px; line-height: 1.5;
+  color: var(--ink); margin: 4px 0; }
+.auto-summary__list li::marker { color: var(--gold); }
+.auto-summary__meta { margin: 12px 0 0; font-family: var(--sans); font-size: 11px;
+  letter-spacing: 0.06em; color: var(--muted); font-style: italic; }
+
 /* Source pills */
 .source-pills { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 .pill { font-family: var(--sans); font-size: 11px; font-weight: 600;
@@ -163,7 +176,15 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 <div class="page">
 <div class="chrome"><span class="eyebrow">CFB Index</span><span class="eyebrow muted">The Mailbag — 2026-w20</span></div>
 <div class="brand-row"><div class="brand">CFB<span class="slash">/</span>Index</div><nav class="nav"><a href="/">Home</a><a href="/rankings/">Rankings</a><a href="/daily/">Daily</a><a href="/wire/">Wire</a><a href="/mailbag/">Mailbag</a><a href="/editions/">Editions</a><a href="/methodology/">Methodology</a></nav></div><hr class="rule" />
-<header class="hero"><div class="kicker">The Mailbag</div><h1 class="masthead">The Mailbag</h1><p class="deck">Edition 2026-w20 — published Friday 2026-05-15</p><div class="meta">Your questions. The corpus answers.</div></header><hr class="rule soft" /><div class="content-grid"><main><div class="answer-card"><div class="answer-num">Question 1</div><blockquote class="answer-question">&ldquo;FSU&#x27;s exit drama from the ACC — what&#x27;s the actual realistic timeline, and where do they land? The legal posturing has been going on long enough that I genuinely can&#x27;t tell anymore which scenarios are leverage plays and which are real.&rdquo;</blockquote><div class="answer-byline">— Vince from Tallahassee</div><div class="answer-body"><p>Vince, I feel you on the fatigue — this thing has been simmering so long it&#x27;s become its own subgenre of CFB news.</p>
+<header class="hero"><div class="kicker">The Mailbag</div><h1 class="masthead">The Mailbag</h1><p class="deck">Edition 2026-w20 — published Friday 2026-05-15</p><div class="meta">Your questions. The corpus answers.</div></header><hr class="rule soft" /><aside class="auto-summary" aria-label="30-second summary">
+  <p class="auto-summary__title">30-second summary</p>
+  <ul class="auto-summary__list">
+        <li>FSU&#x27;s realistic exit timeline stretches to 2026 or 2027 at the earliest, bottlenecked by unresolved jurisdictional litigation.</li>
+        <li>The $500M-plus withdrawal exposure means FSU&#x27;s true leverage is forcing a tiered ACC revenue model, not an imminent departure.</li>
+        <li>SEC expansion, per reporting, likely requires FSU and Clemson as a package rather than either program joining solo.</li>
+  </ul>
+  <p class="auto-summary__meta">Auto-generated · model_version auto-summary.v1 · cached 4h</p>
+</aside><div class="content-grid"><main><div class="answer-card"><div class="answer-num">Question 1</div><blockquote class="answer-question">&ldquo;FSU&#x27;s exit drama from the ACC — what&#x27;s the actual realistic timeline, and where do they land? The legal posturing has been going on long enough that I genuinely can&#x27;t tell anymore which scenarios are leverage plays and which are real.&rdquo;</blockquote><div class="answer-byline">— Vince from Tallahassee</div><div class="answer-body"><p>Vince, I feel you on the fatigue — this thing has been simmering so long it&#x27;s become its own subgenre of CFB news.</p>
 <p>Here&#x27;s the honest synthesis of where realistic timelines and landing spots stand:</p>
 <p>The legal piece is the bottleneck, full stop. The dueling lawsuits — FSU&#x27;s filing in Leon County (Florida) and the ACC&#x27;s countersuit in Mecklenburg County (North Carolina) — are still working through jurisdictional questions, and as Andrea Adelson at ESPN has emphasized repeatedly in her ACC coverage, nothing about exit timing gets real until those venue fights resolve. That alone can eat quarters, not weeks.</p>
 <p>On the money: the grant of rights plus withdrawal penalty is the wall. David Hale, before his ESPN departure, laid out the math that&#x27;s still roughly accurate — you&#x27;re talking a combined exposure north of $500M if FSU bolts without a negotiated settlement. Ross Dellenger at Yahoo has been the most consistent national voice connecting this to the broader realignment chessboard, and his framing has been that FSU&#x27;s leverage isn&#x27;t really &quot;we&#x27;re leaving tomorrow,&quot; it&#x27;s &quot;we&#x27;re forcing a renegotiated revenue tier or an unequal-distribution model inside the ACC.&quot; That&#x27;s the leverage play. The actual exit is the nuclear option.</p>
@@ -191,8 +212,8 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 <p>Pete Thamel at ESPN has tracked the structural changes at Kansas closely, noting how Leipold&#x27;s staff retention and recruiting infrastructure have started to reflect a program operating with medium-tier Big 12 ambitions rather than just survival goals. That&#x27;s a meaningful distinction. Sam Khan Jr., who has covered the Big 12 as closely as anyone, has pointed to Kansas as one of the programs whose portal activity has tilted toward genuine competition rather than gap-filling. And Greg McElroy on ESPN radio has made the broader point that coaches like Leipold — methodical, system-first guys who build from the line of scrimmage — tend to have a second gear once the roster catches up to the scheme.</p>
 <p>Here&#x27;s where I&#x27;ll flag honest uncertainty: the Big 12 is genuinely brutal right now, especially with the conference&#x27;s expansion adding more quality opponents. A championship game appearance requires not just Kansas winning games but also catching a specific bracket of results elsewhere. That&#x27;s not pessimism — that&#x27;s just how a 16-team league math works.</p>
 <p>But the ceiling question? Brenda, the ceiling is no longer &quot;maybe eight wins.&quot; The roster depth, the portal approach, and the staff continuity suggest a program that can credibly chase a Big 12 West — or post-realignment division — title in the right year. Whether <em>this</em> is that year is genuinely uncertain without knowing how the spring depth chart settled.</p>
-<p>The feel-good story frame is for programs that haven&#x27;t built anything yet. Kansas has built something.</p></div><div class="short-answer"><span class="label">Short answer</span>The ceiling is legitimately a Big 12 championship game appearance — but converting that ceiling into a result still requires a favorable draw and staying healthy in ways no one can promise.</div></div></main><aside class="sidebar"><div class="sidebar-head">Recent Editions</div><div class="sidebar-edition"><a href="/mailbag/2026-w20/" style="color:var(--gold);">2026-w20</a><span class="date">2026-05-15</span></div><div class="sidebar-cta"><p>Got a question about CFB? We read everything.</p><a href="/mailbag/submit/">Submit a question &rarr;</a></div></aside></div>
-<footer class="footer"><p>CFB Index — college football rankings &amp; intelligence. <a href="/mailbag/submit/" class="text-link">Submit a question</a> · <a href="/mailbag/archive.html" class="text-link">Archive</a> · <a href="/about-model/" class="text-link">About</a></p></footer>
+<p>The feel-good story frame is for programs that haven&#x27;t built anything yet. Kansas has built something.</p></div><div class="short-answer"><span class="label">Short answer</span>The ceiling is legitimately a Big 12 championship game appearance — but converting that ceiling into a result still requires a favorable draw and staying healthy in ways no one can promise.</div></div></main><aside class="sidebar"><div class="sidebar-head">Recent Editions</div><div class="sidebar-edition"><a href="/mailbag/2026-w21/">2026-w21</a><span class="date">2026-05-22</span></div><div class="sidebar-edition"><a href="/mailbag/2026-w20/" style="color:var(--gold);">2026-w20</a><span class="date">2026-05-15</span></div><div class="sidebar-cta"><p>Got a question about CFB? We read everything.</p><a href="/mailbag/submit/">Submit a question &rarr;</a></div></aside></div>
+<footer class="footer"><p>CFB Index — college football rankings &amp; intelligence. <a href="/mailbag/submit/" class="text-link">Submit a question</a> · <a href="/mailbag/archive.html" class="text-link">Archive</a> · <a href="/about-model/" class="text-link">The Model</a></p></footer>
 </div>
 </body>
 </html>
