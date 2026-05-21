@@ -159,6 +159,9 @@ jobs:
   notify:
     if: failure()
     needs: refresh
+    permissions:
+      issues: write
+      contents: read
     uses: ./.github/workflows/notify_failure.yml
     with:
       run_id: ${{ github.run_id }}
