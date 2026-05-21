@@ -33,9 +33,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Python 3.12
-        uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
+      # NOTE 2026-05-21: skipping actions/setup-python@v5 on self-hosted —
+      # it fails trying to install Python because the runner lacks admin
+      # privileges (registry access denied). System Python 3.12 is already
+      # on PATH on the Alienware.
+      - name: Verify system Python
+        run: |
+          python --version
+          python -c "import sys; assert sys.version_info >= (3, 12), 'need 3.12+, got ' + sys.version"
 
       - name: Deps
         run: |
