@@ -22,9 +22,6 @@ concurrency:
 # (see task #23 in CLAUDE_CODE_LAUNCH_ROADMAP.md). The Alienware is always-
 # on and dedicated, so allocation never fails. To roll back: change runs-on
 # back to `ubuntu-latest` and remove `defaults.run.shell`.
-defaults:
-  run:
-    shell: bash
 
 jobs:
   render:
@@ -36,6 +33,9 @@ jobs:
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v4
