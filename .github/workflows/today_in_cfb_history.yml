@@ -13,34 +13,35 @@ on:
     - cron: "0 9 * * *"   # 05:00 ET / 09:00 UTC
   workflow_dispatch:
 
-# Migrated 2026-05-21 to self-hosted runner (Alienware Aurora ACT1250).
-# GHA shared runners had been failing intermittently with startup_failure
-# (see task #23 in CLAUDE_CODE_LAUNCH_ROADMAP.md). The Alienware is always-
-# on and dedicated, so allocation never fails. To roll back: change runs-on
-# back to `ubuntu-latest`.
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+# 2026-05-21 migration attempt to self-hosted runner ROLLED BACK.
+# Self-hosted runner is registered and working (smoketest passes), but this
+# specific workflow has Windows incompatibility: `find -newer prior-site`
+# and the render command produced cards_rendered=0 on Windows. Reverting
+# to ubuntu-latest. The self-hosted runner remains available for workflows
+# that don't have Windows-portability issues. See task #25 for the per-
+# workflow Windows-portability triage.
 
 jobs:
   render:
-    runs-on: [self-hosted, alienware]
+    runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: read
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # NOTE 2026-05-21: skipping actions/setup-python@v5 on self-hosted —
-      # it fails trying to install Python because the runner lacks admin
-      # privileges (registry access denied). System Python 3.12 is already
-      # on PATH on the Alienware.
-      - name: Verify system Python
-        run: |
-          python --version
-          python -c "import sys; assert sys.version_info >= (3, 12), 'need 3.12+, got ' + sys.version"
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
 
       - name: Deps
         run: |
@@ -120,3 +121,11 @@ jobs:
           path: output/site/
           retention-days: 14
           overwrite: true
+
+  notify:
+    if: failure()
+    needs: render
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}
