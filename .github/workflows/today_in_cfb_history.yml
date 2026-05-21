@@ -13,23 +13,16 @@ on:
     - cron: "0 9 * * *"   # 05:00 ET / 09:00 UTC
   workflow_dispatch:
 
-concurrency:
-  group: site-deploy
-  cancel-in-progress: false
-
 # Migrated 2026-05-21 to self-hosted runner (Alienware Aurora ACT1250).
 # GHA shared runners had been failing intermittently with startup_failure
 # (see task #23 in CLAUDE_CODE_LAUNCH_ROADMAP.md). The Alienware is always-
 # on and dedicated, so allocation never fails. To roll back: change runs-on
-# back to `ubuntu-latest` and remove `defaults.run.shell`.
+# back to `ubuntu-latest`.
 
 jobs:
   render:
     runs-on: [self-hosted, alienware]
     timeout-minutes: 20
-    permissions:
-      contents: read
-      actions: read
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
@@ -122,11 +115,3 @@ jobs:
           path: output/site/
           retention-days: 14
           overwrite: true
-
-  notify:
-    if: failure()
-    needs: render
-    uses: ./.github/workflows/notify_failure.yml
-    with:
-      run_id: ${{ github.run_id }}
-      workflow_name: ${{ github.workflow }}
