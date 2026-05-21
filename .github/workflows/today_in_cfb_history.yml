@@ -17,9 +17,18 @@ concurrency:
   group: site-deploy
   cancel-in-progress: false
 
+# Migrated 2026-05-21 to self-hosted runner (Alienware Aurora ACT1250).
+# GHA shared runners had been failing intermittently with startup_failure
+# (see task #23 in CLAUDE_CODE_LAUNCH_ROADMAP.md). The Alienware is always-
+# on and dedicated, so allocation never fails. To roll back: change runs-on
+# back to `ubuntu-latest` and remove `defaults.run.shell`.
+defaults:
+  run:
+    shell: bash
+
 jobs:
   render:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, alienware]
     timeout-minutes: 20
     permissions:
       contents: read
