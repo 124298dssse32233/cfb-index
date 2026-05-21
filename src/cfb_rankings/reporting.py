@@ -2468,7 +2468,10 @@ _DESIGN_SYSTEM_BASELINE_CSS_BLOCK = """
  *    users who requested less motion (prefers-reduced-motion: reduce).
  */
 
-/* Tabular numerals on data-point elements site-wide */
+/* Tabular numerals on data-point elements site-wide.
+ * Extended 2026-05-21 to close the gaps identified by
+ * docs/research/cfb-stats-audit-2026-05-21.md (P0): biotabs__panel-value
+ * and the rank-delta family were rendering proportional figures. */
 .metric-cell,
 .metric-cell *,
 .stat-card strong,
@@ -2485,6 +2488,8 @@ td.metric-cell,
 .percentile-pill,
 .confidence-pill,
 .sample-chip,
+.biotabs__panel-value,
+.rank-delta,
 [data-tabular-nums="true"] {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
@@ -9454,8 +9459,8 @@ def _build_player_traditional_sections(bucket: str, explorer_rows: list[dict[str
                     ("Passing", "Completions", "CMP"),
                     ("Passing", "Attempts", "ATT"),
                     ("Passing", "Completion %", "CMP%"),
-                    ("Passing", "Yards / attempt", "YPA"),
-                    ("Passing", "Passer rating", "RTG"),
+                    ("Passing", "Yards / attempt", "Y/A"),
+                    ("Passing", "Passer rating", "RATE"),
                 ],
             },
             {
@@ -9685,7 +9690,7 @@ def _player_season_table_catalog(bucket: str) -> list[dict[str, Any]]:
                     },
                     {"label": "YDS", "group": "Passing", "metric": "Passing yards", "format": "whole", "aggregate": "sum"},
                     {
-                        "label": "YPA",
+                        "label": "Y/A",
                         "format": "decimal",
                         "aggregate": "ratio",
                         "numerator": ("Passing", "Passing yards"),
@@ -9693,7 +9698,7 @@ def _player_season_table_catalog(bucket: str) -> list[dict[str, Any]]:
                     },
                     {"label": "TD", "group": "Passing", "metric": "Pass TD", "format": "whole", "aggregate": "sum"},
                     {"label": "INT", "group": "Passing", "metric": "Interceptions", "format": "whole", "aggregate": "sum"},
-                    {"label": "RTG", "format": "decimal", "aggregate": "passer_rating"},
+                    {"label": "RATE", "format": "decimal", "aggregate": "passer_rating"},
                     {"label": "LNG", "group": "Passing", "metric": "Longest pass", "format": "whole", "aggregate": "max"},
                     {"label": "SACK", "group": "Passing", "metric": "Sacks taken", "format": "whole", "aggregate": "sum"},
                 ],
@@ -26349,9 +26354,22 @@ def _site_css() -> str:
       /* =======================================================
          Tables (rankings, history, schedules)
          ======================================================= */
+      /* Cheap Win #1 (2026-05-21): horizontal-scroll wrappers used by the
+         legacy .table-wrap family on team/program/canon pages now expose
+         a sticky first column so the identity cell (year / player / team)
+         stays anchored as the body scrolls right. Pairs with the tabular-
+         numerals lock in the consolidated rule block. See
+         docs/research/cfb-stats-antipatterns.md Cheap Win #1. */
       .table-wrap,
       .compact-table-wrap,
-      .game-impact-table-wrap { width: 100%; overflow-x: auto; }
+      .game-impact-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* iOS Safari: position:sticky inside overflow-x:auto is fragile;
+           promoting the wrapper to its own compositing layer fixes it. */
+        transform: translateZ(0);
+      }
 
       table {
         width: 100%;
@@ -26374,6 +26392,37 @@ def _site_css() -> str:
         vertical-align: middle;
       }
       tbody tr:hover td { background: var(--secondary); }
+
+      /* Sticky first column on all legacy tables wrapped in
+         .table-wrap / .compact-table-wrap / .game-impact-table-wrap.
+         Background color is mandatory (prevents text bleed-through);
+         right-edge box-shadow signals the seam to the eye. */
+      .table-wrap > table > thead > tr > th:first-child,
+      .table-wrap > table > tbody > tr > td:first-child,
+      .compact-table-wrap > table > thead > tr > th:first-child,
+      .compact-table-wrap > table > tbody > tr > td:first-child,
+      .game-impact-table-wrap > table > thead > tr > th:first-child,
+      .game-impact-table-wrap > table > tbody > tr > td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: var(--background);
+        box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.08);
+      }
+      .table-wrap > table > thead > tr > th:first-child,
+      .compact-table-wrap > table > thead > tr > th:first-child,
+      .game-impact-table-wrap > table > thead > tr > th:first-child {
+        /* Header cells need the secondary tone, not background, to match
+           the rest of the header row. */
+        background: var(--secondary);
+        z-index: 3; /* Above body sticky cells when scrolled */
+      }
+      /* Hover row background should override the sticky cell background. */
+      .table-wrap > table > tbody > tr:hover > td:first-child,
+      .compact-table-wrap > table > tbody > tr:hover > td:first-child,
+      .game-impact-table-wrap > table > tbody > tr:hover > td:first-child {
+        background: var(--secondary);
+      }
 
       .heisman-row td {
         font-weight: 500;
@@ -26489,9 +26538,53 @@ def _site_css() -> str:
         .summary-spark { grid-column: 2 / 3; grid-row: 1 / 3; }
       }
 
-      /* Print-ish reset */
+      /* Print stylesheet — extended 2026-05-21 to handle stats tables.
+         Per docs/research/cfb-stats-mobile-playbook.md §15.2: print must
+         drop sticky positioning (sticky breaks paginated print), remove
+         overflow wrappers (print is a single canvas, not a scroll viewport),
+         hide filter / nav chrome, repeat thead on each page, and avoid
+         row breaks. */
       @media print {
-        .topbar, .nav-toggle, .button, .button-primary, .button-secondary, .nav-action { display: none; }
+        /* Chrome: nav, buttons, share/sort affordances. */
+        .topbar, .nav-toggle, .button, .button-primary, .button-secondary,
+        .nav-action, .cmdk-trigger, .theme-toggle,
+        .wcfb-stats-sort-button, .wcfb-def-trigger {
+          display: none !important;
+        }
+
+        /* Tables: drop sticky, drop overflow, let the table breathe. */
+        .table-wrap,
+        .compact-table-wrap,
+        .game-impact-table-wrap {
+          overflow: visible !important;
+          transform: none !important;
+        }
+        .table-wrap > table > thead > tr > th:first-child,
+        .table-wrap > table > tbody > tr > td:first-child,
+        .compact-table-wrap > table > thead > tr > th:first-child,
+        .compact-table-wrap > table > tbody > tr > td:first-child,
+        .game-impact-table-wrap > table > thead > tr > th:first-child,
+        .game-impact-table-wrap > table > tbody > tr > td:first-child {
+          position: static !important;
+          box-shadow: none !important;
+          background: transparent !important;
+        }
+
+        /* Repeat thead on each printed page; avoid breaking rows. */
+        thead { display: table-header-group; }
+        tfoot { display: table-footer-group; }
+        tr { page-break-inside: avoid; }
+
+        /* Conservative typography for print readability. */
+        body {
+          background: white !important;
+          color: black !important;
+        }
+        table {
+          font-size: 11pt;
+          color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
       }
 
       /* =======================================================

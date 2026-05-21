@@ -624,7 +624,7 @@ def _render_diagnosis_row(diagnosis: list[dict[str, Any]]) -> str:
 # can populate from mock fixtures, with hooks for the production path.
 
 _DEFAULT_DIAGNOSIS_CANDIDATES: tuple[str, ...] = (
-    "RUSH YPC", "PASS YPA", "3RD-DOWN%", "RED-ZONE TD%", "TO MARGIN",
+    "RUSH YPC", "PASS Y/A", "3RD-DOWN%", "RED-ZONE TD%", "TO MARGIN",
     "EXPLOSIVE PLAYS ALLOWED", "SACK RATE", "PRESSURE RATE",
     "FIELD POSITION", "2H POINTS", "OPP 2H POINTS", "TOP",
     "PENALTY YARDS", "FIRST DOWNS", "4TH-DOWN OUT",
