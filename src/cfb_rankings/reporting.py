@@ -2646,6 +2646,66 @@ _PROFILE_PRIMITIVES_CSS_BLOCK = """
   font-size: 11px;
   letter-spacing: 0.02em;
 }
+
+/* Dashboard archetype mobile thumb-zone filter strip — Session 5.
+ * Per docs/design-system/30-page-archetypes.md, Dashboard pages should
+ * expose a bottom sticky filter shortcut on mobile. Hidden on desktop
+ * because the existing inline filter UI is already in view at 768px+. */
+.dashboard-mobile-filter-strip {
+  display: none;
+}
+@media (max-width: 767px) {
+  .dashboard-mobile-filter-strip {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    min-height: 56px;
+    background: var(--bg-overlay, rgba(11, 13, 18, 0.92));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.18);
+  }
+  /* When the strip is rendered, push the bottom of <main> so its
+   * contents don't sit underneath the fixed bar. */
+  body:has(.dashboard-mobile-filter-strip) main {
+    padding-bottom: 72px;
+  }
+}
+.dashboard-mobile-filter-strip__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 64px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.10));
+  color: var(--fg-primary, inherit);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.dashboard-mobile-filter-strip__chip:hover,
+.dashboard-mobile-filter-strip__chip:focus-visible {
+  background: var(--bg-card-raised, rgba(255, 255, 255, 0.10));
+  border-color: var(--stroke-strong, rgba(255, 255, 255, 0.18));
+}
+.dashboard-mobile-filter-strip__summary {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--fg-secondary, #c6cad6);
+  font-variant-numeric: tabular-nums;
+}
 """
 
 
@@ -15238,10 +15298,10 @@ def render_rankings_page_html(
           </article>
         </section>
 
-        <section class="section">
+        <section class="section" id="rankings-filter">
           <article class="panel">
             <div class="filter-strip-head">
-              <h3 class="filter-strip-label">Filter the rankings</h3>
+              <h3 class="filter-strip-label" id="rankings-filter-anchor">Filter the rankings</h3>
               <p class="section-note">Slice the board the way fans actually browse: by level, league, rank range, or argument style. <a class="text-link" href="../compare/index.html">Open Compare →</a></p>
             </div>
             {_metric_guide_strip()}
@@ -15337,12 +15397,26 @@ def render_rankings_page_html(
           prefix="../",
       )}
     </main>
+    {_render_dashboard_mobile_strip(
+        filter_anchor="#rankings-filter-anchor",
+        summary_text=f"{len(rankings):,} teams",
+    )}
     <script>{_power_resume_plot_script()}</script>
     <script>{_rankings_board_script()}</script>
     {render_global_footer()}
   </body>
 </html>
 """
+
+
+def _render_dashboard_mobile_strip(*, filter_anchor: str, summary_text: str = "") -> str:
+    """Wrapper that imports cfb_rankings.dashboards.render_mobile_filter_strip
+    lazily so the reporting.py module-level import surface stays unchanged."""
+    from cfb_rankings.dashboards import render_mobile_filter_strip
+    return render_mobile_filter_strip(
+        filter_anchor=filter_anchor,
+        summary_text=summary_text,
+    )
 
 
 def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, Any], site_pulse: dict[str, Any]) -> str:
@@ -16938,7 +17012,7 @@ def render_heisman_page_html(
       <section class="section">
         <article class="panel">
           <div class="filter-strip-head">
-            <h3 class="filter-strip-label">Filter the board</h3>
+            <h3 class="filter-strip-label" id="heisman-filter-anchor">Filter the board</h3>
             <p class="section-note">Search by player, team, conference, or position; flip between raw order and probability views.</p>
           </div>
           <p class="section-note">{escape(market_note)}</p>
@@ -17030,6 +17104,10 @@ def render_heisman_page_html(
           prefix="../",
       )}
     </main>
+    {_render_dashboard_mobile_strip(
+        filter_anchor="#heisman-filter-anchor",
+        summary_text=f"{len(board_rows):,} players",
+    )}
     {_heisman_tail_payload_html}
     <script>{_heisman_board_script()}</script>
     <script>
@@ -17729,6 +17807,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
 
 
 def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     player = player_data.get("player") or {}
     primary_team = player_data.get("primary_team") or {}
     current_snapshot = player_data.get("current_snapshot") or {}
@@ -18524,6 +18603,13 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       {render_change_log(player_data.get("active_signals") or [])}
+
+      {render_profile_meta_footer(
+          methodology_label="How we model players",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{escape(position)} &middot; {escape(class_year)} &middot; {escape(team_name)}",
+      )}
 
     </main>
     <div data-kb-toast aria-live="polite" data-open="false"></div>
