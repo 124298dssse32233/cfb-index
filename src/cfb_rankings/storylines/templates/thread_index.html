@@ -22,10 +22,11 @@
     <style>${embedded_css}</style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="shell">
             <a href="/" class="brand">CFB Index</a>
-            <nav>
+            <nav aria-label="Primary">
                 <a href="/storylines/">Storylines</a>
                 <a href="/teams/">Teams</a>
                 <a href="/conferences/">Conferences</a>
@@ -35,11 +36,11 @@
     </header>
 
     <div class="shell">
-        <div class="breadcrumb" style="padding: 24px 0 6px;">
+        <nav class="breadcrumb" aria-label="Breadcrumb" style="padding: 24px 0 6px;">
             <span class="seg"><a href="/">Home</a></span>
             <span class="sep">/</span>
-            <span class="current">Storylines</span>
-        </div>
+            <span class="current" aria-current="page">Storylines</span>
+        </nav>
     </div>
 
     <section class="index-hero">
@@ -49,7 +50,7 @@
         </div>
     </section>
 
-    <main class="shell">
+    <main id="main-content" class="shell">
         <div class="index-grid">${thread_cards_html}</div>
         ${database_meta_footer}
     </main>

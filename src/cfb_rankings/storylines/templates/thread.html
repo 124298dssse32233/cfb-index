@@ -23,10 +23,11 @@
     <style>:root { --accent: ${accent_hex}; --accent-soft: ${accent_hex_soft}; }</style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="shell">
             <a href="/" class="brand">CFB Index</a>
-            <nav>
+            <nav aria-label="Primary">
                 <a href="/storylines/">Storylines</a>
                 <a href="/teams/">Teams</a>
                 <a href="/conferences/">Conferences</a>
@@ -35,7 +36,7 @@
         </div>
     </header>
 
-    <div class="thread-card-wrap">
+    <main id="main-content" class="thread-card-wrap">
         <article class="thread-card" data-thread-slug="${thread_slug}">
 
             <header class="thread-header">
@@ -129,7 +130,7 @@
             </footer>
 
         </article>
-    </div>
+    </main>
 
     <footer class="site-footer">
         <div class="shell">
