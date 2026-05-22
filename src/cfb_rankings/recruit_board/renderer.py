@@ -159,6 +159,7 @@ _HTML_TEMPLATE = """<!doctype html>
   <section class="section">
     {body}
   </section>
+  {meta_footer}
 </main>
 </body>
 </html>
@@ -247,6 +248,20 @@ def render_recruit_board(
         description=f"Top {top_n} recruiting classes for {class_year}.",
         og_type="article",
     )
+    # Database-archetype meta-footer (Session 6 Track 6 adopter #6).
+    from cfb_rankings.database_archetype import (
+        render_database_meta_footer as _db_archetype_footer,
+    )
+    meta_footer = _db_archetype_footer(
+        label=(
+            "program tracked" if len(programs) == 1
+            else "programs tracked"
+        ),
+        total_rows=len(programs),
+        methodology_label="How the recruit board is weighted",
+        methodology_href="/methodology/",
+        updated_text=f"Updated {today.isoformat()}",
+    )
     html = _HTML_TEMPLATE.format(
         title=escape(title),
         description=escape(f"Top {top_n} recruiting classes for {class_year}."),
@@ -255,6 +270,7 @@ def render_recruit_board(
         lede=escape(lede),
         body=body,
         head_chrome=head_chrome,
+        meta_footer=meta_footer,
     )
 
     out_root = Path(output_dir)
