@@ -218,6 +218,25 @@ def build_parser() -> argparse.ArgumentParser:
         help="Inclusive +/- day window around target MM-DD (default: 2).",
     )
 
+    # Stubs for workflow CLIs that haven't been implemented yet (Sprint v5-8
+    # follow-ups). The schedule slots fire hourly/weekly and were silently
+    # failing → opening one automation-failure issue per cron firing once
+    # notify_failure.yml started working (2026-05-22). Until the real
+    # implementation lands, log a stub message and exit 0 so the workflow
+    # stays green.
+    subparsers.add_parser(
+        "sync-digest-reactions",
+        help="STUB. Sync 👍/👎 reactions on the rolling digest issue into "
+             "editorial_overrides. Real implementation lands Sprint v5-8.",
+    )
+    weekly_digest_parser = subparsers.add_parser(
+        "build-weekly-digest",
+        help="STUB. Build the weekly digest markdown body. Real "
+             "implementation lands Sprint v5-8.",
+    )
+    weekly_digest_parser.add_argument("--out", type=str, default="digest.md")
+    weekly_digest_parser.add_argument("--look-ahead-days", type=int, default=7)
+
     # Sprint v5-1 Day 4 — S5 Today in CFB History renderer.
     render_today_history_parser = subparsers.add_parser(
         "render-today-in-history",
@@ -2495,6 +2514,36 @@ def main() -> None:
             f"posts_archived_low_engagement={result['posts_archived_low_engagement']} "
             f"errors={result['errors']}"
         )
+        return
+
+    # Sprint v5-8 stub commands (added 2026-05-22 to silence hourly/weekly
+    # cron failure noise once notify_failure.yml started working). Real
+    # implementations TBD; until then the workflows exit 0 with a log
+    # message and the rolling artifact stays untouched.
+    if args.command == "sync-digest-reactions":
+        print("sync-digest-reactions: STUB -- no-op until Sprint v5-8.")
+        print("  Real implementation will poll the rolling digest issue for")
+        print("  thumbs-up/thumbs-down reactions, parse :thumbsdown: into")
+        print("  editorial_overrides (override_kind='reject'), idempotent by")
+        print("  (item_id, user_id).")
+        return
+
+    if args.command == "build-weekly-digest":
+        print("build-weekly-digest: STUB -- no-op until Sprint v5-8.")
+        print(f"  Args parsed: out={getattr(args, 'out', None)!r} "
+              f"look_ahead_days={getattr(args, 'look_ahead_days', None)!r}")
+        # Touch the output path so the downstream "Post comment to rolling
+        # digest issue" workflow step has a file to read. An empty-ish body
+        # is a valid no-op comment that won't pollute the digest thread.
+        out_path = getattr(args, "out", None) or "digest.md"
+        try:
+            Path(out_path).write_text(
+                "_(build-weekly-digest is a stub awaiting Sprint v5-8; "
+                "this run produced no digest body.)_\n",
+                encoding="utf-8",
+            )
+        except Exception as exc:
+            print(f"  warning: failed to write stub body to {out_path}: {exc}")
         return
 
     if args.command == "render-today-in-history":
