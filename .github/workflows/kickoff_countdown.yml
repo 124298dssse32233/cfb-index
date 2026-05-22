@@ -9,8 +9,13 @@ name: kickoff_countdown
 # Day 4 afternoon, coupled with cfb_calendar.py from Day 2).
 
 on:
-  schedule:
-    - cron: "0 5 * * *"   # 01:00 ET / 05:00 UTC
+  # 2026-05-22: schedule disabled — cancelled+startup_failure on every recent
+  # run because the render-kickoff-countdown CLI subcommand wasn't shipped
+  # (Sprint v5-1 Day 4 TODO never landed). Sprint M's in-page Kickoff
+  # Countdown chip ships the same data as a per-team module. Gated to
+  # workflow_dispatch only until/if a standalone homepage strip is needed.
+  # schedule:
+  #   - cron: "0 5 * * *"
   workflow_dispatch:
 
 concurrency:

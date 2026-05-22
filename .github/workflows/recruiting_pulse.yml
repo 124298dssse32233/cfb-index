@@ -11,8 +11,12 @@ name: recruiting_pulse
 # Day 4 afternoon).
 
 on:
-  schedule:
-    - cron: "0 6 * * *"   # 06:00 UTC daily (gated to May-Aug in step below)
+  # 2026-05-22: schedule disabled — workflow was 5/5 failing because the
+  # refresh-recruiting-pulse CLI never landed (Sprint v5-1 Day 4 TODO).
+  # Gated to workflow_dispatch only until the CLI ships. Restore cron when
+  # ready.
+  # schedule:
+  #   - cron: "0 6 * * *"
   workflow_dispatch:
 
 concurrency:
