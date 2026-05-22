@@ -484,6 +484,12 @@ def render_qb_fingerprint_hero(
     signature_story = signature_story or {}
     the_room = the_room or {}
     cohort_divergence = cohort_divergence or {}
+    # cohort_divergence can be a dataclass (bets.cohort_divergence.
+    # CohortDivergenceMap) or a dict. Normalize to dict access.
+    def _cd_get(key: str) -> Any:
+        if isinstance(cohort_divergence, dict):
+            return cohort_divergence.get(key)
+        return getattr(cohort_divergence, key, None)
 
     # === Cell 1: CFB Index QB Score (composite 0-100) ===
     # Source priority: signature_story.percentile (0-100), else current_snapshot
@@ -564,7 +570,7 @@ def render_qb_fingerprint_hero(
         )
 
     # === Cell 4: Respect Gap (fan score - national score) ===
-    respect_gap = cohort_divergence.get("respect_gap")
+    respect_gap = _cd_get("respect_gap")
     if respect_gap is None and signature_story.get("respect_gap") is not None:
         respect_gap = signature_story.get("respect_gap")
     if respect_gap is not None:
@@ -593,7 +599,7 @@ def render_qb_fingerprint_hero(
         )
 
     # === Cell 5: Reality Gap (belief vs structural percentile) ===
-    reality_gap = cohort_divergence.get("reality_gap")
+    reality_gap = _cd_get("reality_gap")
     if reality_gap is None and signature_story.get("reality_gap") is not None:
         reality_gap = signature_story.get("reality_gap")
     if reality_gap is not None:
