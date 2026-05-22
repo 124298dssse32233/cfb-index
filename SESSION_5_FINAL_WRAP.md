@@ -58,8 +58,19 @@ Closed five categories of audit work — three structural (Profile primitives, D
 | `7bd24efef01` | docs(session5): wrap reflects 36 commits including 2 functional year bugs |
 | `0067fa97d38` | docs(session5): final wrap — workflow chain visualization + what's running |
 | `07fac0ab33c` | fix(canon): "Eliah" → "Eli" Drinkwitz + arrow entities on receipts legend |
+| `8bf33adecd3` | docs(session5): final wrap — 40 commits + deploy chain confirmed |
+| `74f5d3d11ca` | fix(editions): upsert also overwrites Pattern C/E/Sprint dek+body leaks |
+| `d74beb06833` | feat(homepage): add days-to-kickoff chrome line to editions masthead |
 
-40 commits this session. Last-touch: `07fac0ab33c`. (Two more wrap-doc commits after this expected.)
+43 commits this session. Last-touch: `d74beb06833`.
+
+## Big finding from continued auditing
+
+**Session 4's "homepage hero finding (days-to-kickoff)" never actually shipped to the visible homepage.** The hero finding was added to the LEGACY homepage renderer in `reporting.py:render_home_page_html`. But the actual live homepage is rendered by `cfb_rankings/editions/homepage_renderer.py`, which the legacy renderer falls back to. So visitors never saw the countdown.
+
+Fix: added a fourth chrome-strip span ("N DAYS TO KICKOFF" styled in gold) to the editions masthead. Doesn't compete with the magazine-cover hero — sits as a subtle counter alongside VOL./NO./PUBLISHED. Renders only during offseason.
+
+This is the kind of issue that's hard to catch without browser inspection — locally the legacy renderer works; on the live site the editions renderer takes priority. The session 4 commit's wrap claimed the feature shipped; live audit revealed it didn't.
 
 ## Two functional bugs caught + fixed (not just copy)
 
