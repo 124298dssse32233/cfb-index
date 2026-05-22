@@ -258,12 +258,24 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
             -- override, etc.). Only adopt the incoming seed when the
             -- existing value is empty/null. Equality with excluded is
             -- a no-op so this is safe for idempotent first-time seed.
+            -- Session 5 addendum (2026-05-22): also overwrite when the
+            -- existing value is a known dev-commentary placeholder. The
+            -- original Hotfix-13 logic protected against re-seeding
+            -- demoting Pattern C output to placeholder; the symmetric
+            -- protection (re-seeding upgrading a placeholder to a
+            -- better seed) was missing. Detection is conservative: only
+            -- the exact "[Auto-generated content placeholder" prefix
+            -- and the "Cover essay scaffold — auto-filled" prefix
+            -- count as placeholders. Real essays never start that way.
             dek = case
                 when coalesce(edition_features.dek, '') = '' then excluded.dek
+                when edition_features.dek like 'Cover essay scaffold — auto-filled%' then excluded.dek
                 else edition_features.dek
             end,
             body_markdown = case
                 when coalesce(edition_features.body_markdown, '') = ''
+                    then excluded.body_markdown
+                when edition_features.body_markdown like '[Auto-generated content placeholder%'
                     then excluded.body_markdown
                 else edition_features.body_markdown
             end,
