@@ -3680,7 +3680,7 @@ def render_narrative_arc_card(arc: dict[str, Any] | None) -> str:
     season = int(arc.get("season") or 0)
     auto = bool(arc.get("auto_generated"))
     eyebrow_badge = (
-        ' <span class="narrative-arc__badge">Auto-draft &middot; flag to review</span>'
+        ' <span class="narrative-arc__badge">AI-drafted &middot; under editorial review</span>'
         if auto else ""
     )
     acts_html: list[str] = []
@@ -20114,7 +20114,7 @@ def _render_v5_splits_card(splits: dict[str, Any] | None) -> str:
               <p class="splits__sub">Down-distance · Situational · Personnel · Opponent-tier</p>
             </header>
             <div class="splits__awaiting" role="status">
-              Splits surface this player&rsquo;s performance by situation. Populates once the team has play-by-play data ingested for the season.
+              Splits break this player&rsquo;s performance down by situation — down-and-distance, opponent tier, personnel groupings. Returns once the season&rsquo;s play-by-play coverage builds out enough sample to draw real conclusions from.
             </div>
           </article>
         """
