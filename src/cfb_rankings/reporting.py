@@ -16561,8 +16561,24 @@ def render_heisman_page_html(
         key=lambda value: value.lower(),
     )
     market_header = "<th>Market</th>" if has_market_data else ""
+    # Performance: cap the inline table at top-1000 rows. The legacy
+    # behavior rendered ALL ~16k ranked players inline, producing a
+    # 15MB HTML response. Top-1000 covers every realistic Heisman case
+    # (the lowest ranks are zero-win-equity tail rows that fans don't
+    # search by rank), drops page weight ~93%, and keeps the existing
+    # client-side filter/sort JS working since it operates on DOM rows.
+    _MAX_BOARD_ROWS_INLINE = 1000
+    _board_rows_inline = board_rows[:_MAX_BOARD_ROWS_INLINE]
+    _truncated_count = max(0, len(board_rows) - _MAX_BOARD_ROWS_INLINE)
+    _truncation_note_row = (
+        f'<tr class="hb-row hb-row--truncation"><td colspan="{10 if has_market_data else 9}">'
+        f'Showing top {_MAX_BOARD_ROWS_INLINE:,} of {len(board_rows):,} ranked players. '
+        f'The {_truncated_count:,} remaining are tail-of-the-board rows with negligible win equity.'
+        f'</td></tr>'
+        if _truncated_count > 0 else ''
+    )
     table_rows = (
-        "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in board_rows)
+        "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in _board_rows_inline) + _truncation_note_row
         if board_rows
         else f'<tr><td colspan="{10 if has_market_data else 9}">Heisman model rows have not been loaded yet for this season.</td></tr>'
     )
@@ -16809,8 +16825,24 @@ def render_players_index_html(
     # See render_heisman_page_html / PR #84/#88 for the parallel fix.
     heisman_data_season = heisman_snapshot.get("season_year") or season_year_value
     current_ranked = sum(1 for row in player_directory_rows if row.get("current_heisman_rank") is not None)
+    # Performance: cap the inline directory at top-2000 rows. Legacy
+    # behavior rendered all ~17k cards inline (31MB HTML). Top-2000 covers
+    # every QB/RB/WR/TE the search bar gets used for in practice and drops
+    # page weight ~88%. Tail rows are deeper roster fill (specialists,
+    # walk-ons, transfers from non-FBS); navigable via direct URL or
+    # team-page roster strips. See audit §E2.
+    _MAX_PLAYER_DIRECTORY_INLINE = 2000
+    _player_rows_inline = player_directory_rows[:_MAX_PLAYER_DIRECTORY_INLINE]
+    _player_truncated = max(0, len(player_directory_rows) - _MAX_PLAYER_DIRECTORY_INLINE)
+    _player_truncation_note = (
+        f'<tr><td colspan="8" class="footer-note">'
+        f'Showing top {_MAX_PLAYER_DIRECTORY_INLINE:,} of {len(player_directory_rows):,} player cards. '
+        f'Tail rows are accessible via direct URL or team roster pages.'
+        f'</td></tr>'
+        if _player_truncated > 0 else ''
+    )
     table_rows = (
-        "".join(_render_player_directory_row(row) for row in player_directory_rows)
+        "".join(_render_player_directory_row(row) for row in _player_rows_inline) + _player_truncation_note
         if player_directory_rows
         else '<tr><td colspan="8">Player cards will populate after roster or Heisman data is loaded.</td></tr>'
     )
