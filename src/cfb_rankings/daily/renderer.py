@@ -424,6 +424,17 @@ def _render_archive_index(conn, base: Path, limit: int = 30) -> Path:
             f'</tr>\n'
         )
 
+    from cfb_rankings.database_archetype import (
+        render_database_meta_footer as _db_archetype_footer,
+    )
+    from datetime import datetime as _dt, timezone as _tz
+    _meta_footer = _db_archetype_footer(
+        label=("edition tracked" if len(editions) == 1 else "editions tracked"),
+        total_rows=len(editions),
+        methodology_label="How The Daily ships",
+        methodology_href="/methodology/",
+        updated_text=f"Updated {_dt.now(_tz.utc).strftime('%Y-%m-%d')}",
+    )
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -439,6 +450,13 @@ th{{text-align:left;border-bottom:2px solid #c9a84c;padding:0.5rem;color:#0f2044
 td{{padding:0.5rem;border-bottom:1px solid #e2ddd5;}}
 a{{color:#0f2044;}}
 a:hover{{color:#c9a84c;}}
+/* Inline Database-archetype meta-footer styles so the archive page
+ * doesn't depend on the global stylesheet being loaded. Mirrors the
+ * locked treatment in reporting._DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK. */
+.database-archetype__meta-footer{{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 0;margin-top:32px;border-top:1px solid rgba(15,32,68,0.12);font-size:12px;color:#4a5568;}}
+.database-archetype__meta-link{{font-weight:700;color:#c9a84c;text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;}}
+.database-archetype__meta-link:hover{{text-decoration:underline;}}
+.database-archetype__meta-pill{{padding:4px 10px;border-radius:999px;background:rgba(15,32,68,0.04);border:1px solid rgba(15,32,68,0.08);font-size:11px;letter-spacing:0.04em;}}
 </style>
 </head>
 <body class="daily__archive">
@@ -451,6 +469,7 @@ a:hover{{color:#c9a84c;}}
 <thead><tr><th>Edition</th><th>Status</th><th>Takes</th><th>Voice OK</th></tr></thead>
 <tbody>{rows_html}</tbody>
 </table>
+{_meta_footer}
 </body>
 </html>"""
 
