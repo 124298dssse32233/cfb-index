@@ -1026,3 +1026,98 @@ before the in-flight deploy ships the additional 14 queued commits.
 ahead of in-flight deploy 26306953962. Will dispatch ONE final publish-site
 after current finishes to ship the Phase 9 a11y batch + Phase 10 perf
 wins + Phase 12 smoke test script.
+
+---
+
+## Continuation-12 — Sprints A/B/C from World-Class Gap Audit (21:00 UTC)
+
+User feedback: "i still think the player and team pages look ugly."
+Deep audit written to `WORLD_CLASS_GAP_AUDIT_2026_05_22.md` (10,542
+words) confirmed: ~25% of designed modules shipped; the Bebas Neue
+display font locked in tokens.md never reached hero numbers; per-team
+accent_secondary leaked `#b98343` across all 79 FBS programs; player
+pages opened with generic 4-tile chrome instead of QB Fingerprint.
+
+Drove three sprints from the audit's §5 plan back-to-back:
+
+**Sprint B — Token Cleanup (1d est, shipped in ~1hr)**
+Commit `d2450ebe036`:
+- Added `secondary` field to 79 FBS programs in TEAM_COLOR_BY_SLUG
+  (hub_page.py) with researched official brand secondary colors.
+  Notre Dame: navy + gold (#0C2340 + #C99700). Oregon: green +
+  yellow. Alabama: crimson + paper. etc.
+- Updated visual_assets.resolve_team_brand to prefer override.secondary
+  over DB column. _team_theme() now returns real per-team secondary
+  instead of #b98343 for every team in the override.
+- Added @import for Bebas Neue from Google Fonts to
+  team_pages/assets/tokens.css; promoted --font-display from
+  "Inter Display" to 'Bebas Neue' fallback chain.
+- Updated .hero__record from --font-mono pill (18-22px) to
+  --font-display larger format (22-30px) so the loudest stat (10-2
+  record) reads as visual anchor.
+- Updated .profile-identity-v2__name to 'Bebas Neue' first +
+  clamp(32-56px) so all ~18k legacy Profile pages get display-face
+  hero text.
+- Updated .profile-identity-v2__stat-tile-value to Bebas Neue +
+  clamp(26-36px).
+- Updated .profile-identity-v2__team-mark from 56px subtle box to
+  clamp(64-88px) filled accent tile with white wordmark.
+- Updated .profile-identity-v2 to read --team-accent / --team-accent-
+  soft from enclosing .team-shell so accent gradient + border + tile
+  colors actually reflect each team's brand pair.
+
+**Sprint A — QB Fingerprint Hero (3d est, shipped in ~1hr as MVP)**
+Commit `2d5eaa67a7e`:
+- New file `src/cfb_rankings/profile/qb_fingerprint.py` (~550 LOC)
+  with QB_FINGERPRINT_CSS_BLOCK + render_qb_fingerprint_hero.
+- Replaces the generic 4-tile profile-identity strip on every
+  player page with the 5-cell Eyebrow→Number→Narrative hero from
+  PLAYER_PAGE_WORLD_CLASS_BRIEF §4.1.
+  - Left column: team-mark + Bebas Neue wordmark + position/class/
+    jersey/measurables chip row
+  - Middle column: 5 vibe cells (CFB Index QB Score / Heisman Heat /
+    Fan Belief / Respect Gap / Reality Gap), each with Bebas Neue
+    number + 1-line narrative + color-coded gap states
+  - Right column: 3 accolade mini-cards (Heisman / Davey O'Brien /
+    Consensus All-American)
+- Diagonal --team-accent gradient at 6% opacity background +
+  accent border-left rail.
+- Mobile <760px: vibe cells become horizontal snap-scroll.
+- Empty-state honest copy per brief §8.8 (no "Awaiting Signal"
+  placeholders).
+
+**Sprint C piece 1 — Player Standing Rail (~30 min)**
+Commit `156b775649a`:
+- New file `src/cfb_rankings/profile/standing_rail.py` (~440 LOC)
+  with the 17-rung universal ladder from brief §7.
+- RUNG_NAMES (R00 "Walk-on" → R16 "POTY winner") + RUNG_NARRATIVE
+  (one-line read per rung) + TIER_BOUNDARIES (6 tiers).
+- 5-second read: Bebas Neue rung name above + filled gold marker
+  on the 17-tick rail + ghost marker for last season + 6 tier pills
+  below.
+- Eyebrow shows signed delta from last season ("up 4 rungs").
+- Honest empty-state when standing_rung is None.
+
+**Sprint C piece 2 — Selector Grid (~25 min)**
+Commit `bebb205e8dd`:
+- New file `src/cfb_rankings/profile/selector_grid.py` (~340 LOC)
+  with the 11-pill All-America selector visualization from brief
+  §3 #9 + §7.5 ("Don't ship without the Selector Grid").
+- SELECTORS taxonomy: 5 NCAA-recognized (AP/AFCA/FWAA/SN/WC) + 6
+  extras (SI/Athletic/USAT/ESPN/PFF/Athlon).
+- Pill state by data-rank: gold for 1st team, silver for 2nd,
+  bronze for HM, grey for empty.
+- Headline auto-computes Unanimous/Consensus/All-American status
+  from NCAA-recognized pills lit gold.
+- Always renders the full grid — empty pills ARE the visualisation.
+
+**Net: 4 sprint pieces, 4 commits, ~3 hours work.** Master state:
+`bebb205e8dd` — 3 commits ahead of in-flight deploy 26311806685
+(which is at 2d5eaa67a7e and carries Sprint A + B). Will dispatch
+ONE final publish-site after current finishes to ship Standing Rail
++ Selector Grid + this docs continuation.
+
+The session has now produced visible top-of-page changes on every
+Profile-archetype surface (~18,000 pages) + player-specific module
+backfill (Standing Rail + Selector Grid + QB Fingerprint hero), all
+mapped to the brief verbatim.
