@@ -30,8 +30,32 @@
         // Clear all aria-current first, then set on the active.
         links.forEach(function (l) { l.removeAttribute('aria-current'); });
         link.setAttribute('aria-current', 'page');
-        // Auto-scroll the active link into view in the horizontal strip.
-        try { link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } catch (_e) {}
+        // Center the active link horizontally inside the subnav strip,
+        // WITHOUT touching the page's vertical scroll. Using
+        // scrollIntoView with block:'nearest' would re-scroll the page
+        // back to the active link whenever the user scrolls a new
+        // section into view — that's the scroll-jacking the user
+        // reported on player pages (subnav fights vertical scroll).
+        try {
+          // The subnav is the nearest scrollable ancestor with overflow-x.
+          // Compute target scrollLeft so the link is centered in `nav`.
+          var navRect = nav.getBoundingClientRect();
+          var linkRect = link.getBoundingClientRect();
+          var currentScrollLeft = nav.scrollLeft || 0;
+          var linkCenter = linkRect.left + linkRect.width / 2;
+          var navCenter = navRect.left + navRect.width / 2;
+          var delta = linkCenter - navCenter;
+          var target = Math.max(0, currentScrollLeft + delta);
+          if (Math.abs(delta) > 4) {
+            // Only adjust horizontally; never vertically. Use smooth
+            // behavior when supported.
+            if (typeof nav.scrollTo === 'function') {
+              nav.scrollTo({ left: target, behavior: 'smooth' });
+            } else {
+              nav.scrollLeft = target;
+            }
+          }
+        } catch (_e) {}
       });
     }, { rootMargin: '-30% 0px -60% 0px' });
     sections.forEach(function (s) { observer.observe(s); });
