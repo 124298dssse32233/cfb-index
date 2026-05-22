@@ -7044,11 +7044,20 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         if ranking is not None:
             wins = int(season_summary.get("wins") or 0)
             losses = int(season_summary.get("losses") or 0)
+            # Sprint M+: pull per-team brand accent so each share card
+            # paints with the program's own color, not the universal red.
+            try:
+                from cfb_rankings.visual_assets import resolve_team_brand as _rt_brand
+                _brand = _rt_brand(slug)
+                _accent = getattr(_brand, "primary_color", None) or "#DC2626"
+            except Exception:
+                _accent = "#DC2626"
             (teams_dir / f"{slug}-og.svg").write_text(
                 _render_og_image_svg(
                     eyebrow=f"{ranking.level_code} · {ranking.conference_name or 'Independent'}",
                     headline=str(ranking.team_name),
                     subline=f"#{ranking.rank} · {wins}-{losses} · Power {_public_power_text(ranking.power_display)}",
+                    accent=_accent,
                     slug=slug,
                     site_root=site_root,
                 ),
