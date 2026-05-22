@@ -227,3 +227,87 @@ def render_breadcrumb(
       {crumb_html}
       {separators}
     </nav>"""
+
+
+def render_global_footer(
+    *,
+    edition_number: str | None = None,
+    edition_vol: str | None = None,
+) -> str:
+    """Site-wide footer matching the masthead pattern in editions/homepage_renderer.py.
+
+    Renderers that don't have edition context (rankings, player pages,
+    program pages, conferences) pass nothing and get a stable
+    edition-agnostic chrome. Renderers that DO have edition context
+    (homepage, daily, wire, mailbag) can keep their existing footer that
+    references the edition number — this helper is just the fallback so
+    legacy reporting.py-rendered pages stop shipping without a footer.
+
+    Discovery 2026-05-22: the legacy reporting.py renderer never wrapped
+    pages with a global footer; only the newer module renderers
+    (editions/homepage_renderer, wire, mailbag, storylines, portal_heat,
+    hub_page, today_in_history) emit one. Result: /players/* (×17,836),
+    /rankings/, /teams/<unprofiled>, /programs/<slug>, /conferences/*
+    all rendered footer-less. This helper closes that gap.
+    """
+    from datetime import date
+    year = date.today().year
+    vol = edition_vol or "I"
+    no = edition_number or "—"
+    return f"""<footer class="footer">
+  <div class="page">
+    <div class="chrome">
+      <span>VOL. {vol} · NO. {no}</span>
+      <span>CFB / INDEX</span>
+      <span>{year}</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>DEPARTMENTS</h4>
+        <ul>
+          <li><a href="/editions/">Editions Archive</a></li>
+          <li><a href="/daily/">The Daily</a></li>
+          <li><a href="/wire/">The Wire</a></li>
+          <li><a href="/mailbag/">The Mailbag</a></li>
+          <li><a href="/storylines/">Storyline Threads</a></li>
+          <li><a href="/canon/">The Canon</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>REFERENCE</h4>
+        <ul>
+          <li><a href="/rankings/">Rankings</a></li>
+          <li><a href="/teams/">Team Pages</a></li>
+          <li><a href="/players/">Player Pages</a></li>
+          <li><a href="/conferences/">Conferences</a></li>
+          <li><a href="/heisman/">Heisman</a></li>
+          <li><a href="/about-model/">The Model</a></li>
+          <li><a href="/methodology/">Methodology</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>SUBSCRIBE</h4>
+        <ul>
+          <li>Saturday morning · 06:00 ET</li>
+          <li>Weekly cover essay</li>
+          <li>The Daily — every morning</li>
+          <li>The Wire — continuous</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>MASTHEAD</h4>
+        <ul>
+          <li>Editor's Desk</li>
+          <li>Receipts Desk</li>
+          <li>Cohort Desk</li>
+          <li>Connections Desk</li>
+          <li>Fan-Voice Desk</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-chrome">
+      <span>© {year} CFB INDEX · BUILT FOR THE OFFSEASON</span>
+      <span>VOL. {vol} · NO. {no}</span>
+    </div>
+  </div>
+</footer>"""

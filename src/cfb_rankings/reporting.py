@@ -18,6 +18,7 @@ from cfb_rankings.common.cfb_calendar import (
 )
 from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
+from cfb_rankings.nav import render_global_footer
 from cfb_rankings.bets.glossary import glossary_payload_js, load_glossary
 from cfb_rankings.fan_intelligence import (
     MoodContext,
@@ -12631,6 +12632,7 @@ def render_matchups_page_html(
       <script id="matchupPayload" type="application/json">{matchup_payload}</script>
       <script>{_matchup_tool_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13116,6 +13118,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
       <script id="comparePayload" type="application/json">{compare_payload}</script>
       <script>{_compare_tool_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13488,6 +13491,7 @@ def render_conferences_index_html(
         </div>
       </section>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13757,6 +13761,7 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
       </section>
       {extra_sections}
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13932,6 +13937,7 @@ def render_archive_index_html(
       </section>
       {''.join(sections)}
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -14086,6 +14092,7 @@ def render_archive_snapshot_html(
         </div>
       </section>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -14785,6 +14792,7 @@ def render_home_html(
       <script>{_home_board_script()}</script>
       <script>{_matchup_tool_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -15022,6 +15030,7 @@ def render_rankings_page_html(
     </main>
     <script>{_power_resume_plot_script()}</script>
     <script>{_rankings_board_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -15404,6 +15413,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
       </section>
     </main>
     <script>{_history_explorer_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -15755,6 +15765,7 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
       </section>
     </main>
     <script>{_team_journey_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -15881,6 +15892,7 @@ def render_programs_index_html(
       </section>
       <script>{_programs_explorer_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16020,6 +16032,7 @@ def render_teams_index_html(
       </section>
       <script>{_teams_index_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16366,6 +16379,7 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
       </section>
     </main>
     <script>{_program_page_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16618,6 +16632,7 @@ def render_heisman_page_html(
       </section>
     </main>
     <script>{_heisman_board_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16736,6 +16751,7 @@ def render_players_index_html(
       </section>
     </main>
     <script>{_player_directory_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -18073,6 +18089,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
     </main>
     <div data-kb-toast aria-live="polite" data-open="false"></div>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -19056,6 +19073,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
         </article>
       </section>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
