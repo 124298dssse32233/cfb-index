@@ -13401,10 +13401,17 @@ def _team_theme(slug: str | None) -> dict[str, str]:
     from cfb_rankings.visual_assets import resolve_team_brand
     brand = resolve_team_brand(slug)
     # Generic registry fallback is "#5A5954"; preserve the old editorial fallback
-    # pair (#19423f / #b98343) for truly unknown slugs so conferences render
-    # with the paper-tone accent they had in Phase 1.
+    # for truly unknown slugs so conferences render with a paper-tone accent.
     accent = brand.primary_color if brand.primary_color != "#5A5954" else "#19423f"
-    accent_soft = brand.secondary_color or "#b98343"
+    # Audit T31 fix: when team_brand.secondary_color is null, fall back to a
+    # neutral paper tone derived FROM THE PRIMARY rather than the universal
+    # #b98343 warm tan that previously made every legacy team page look the
+    # same secondary color. Keeps single-color teams looking like themselves.
+    accent_soft = brand.secondary_color
+    if not accent_soft:
+        # Compose a neutral that doesn't clash with any primary — a desaturated
+        # near-gray that lets the primary do the identity work.
+        accent_soft = "#8a8a8a" if accent != "#19423f" else "#b98343"
     return {"accent": accent, "accent_soft": accent_soft}
 
 
