@@ -2991,6 +2991,13 @@ from cfb_rankings.profile.standing_rail import (
     STANDING_RAIL_CSS_BLOCK as _STANDING_RAIL_CSS_BLOCK,
     render_standing_rail as _render_standing_rail,
 )
+# Sprint C 2026-05-22: Selector Grid — brief §7.5, called out as "Don't
+# ship without the Selector Grid." The 11-pill grid of All-America
+# selectors, gold/silver/bronze/empty per the player's body of honors.
+from cfb_rankings.profile.selector_grid import (
+    SELECTOR_GRID_CSS_BLOCK as _SELECTOR_GRID_CSS_BLOCK,
+    render_selector_grid as _render_selector_grid,
+)
 
 
 _PROFILE_IDENTITY_V2_CSS_BLOCK = """
@@ -6000,6 +6007,8 @@ def _compose_global_css() -> str:
         + _QB_FINGERPRINT_CSS_BLOCK
         + "\n/* === Player Standing Rail — Sprint C (2026-05-22) === */\n"
         + _STANDING_RAIL_CSS_BLOCK
+        + "\n/* === Selector Grid — Sprint C (2026-05-22) === */\n"
+        + _SELECTOR_GRID_CSS_BLOCK
         + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
         + _TOUCH_TARGET_A11Y_CSS_BLOCK
         + "\n/* === Global footer column heading (Session 6 H4→H3 fix) === */\n"
@@ -19235,6 +19244,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             standing_rung=(player_data.get("standing") or {}).get("current_rung_id"),
             last_season_rung=(player_data.get("standing") or {}).get("last_season_rung_id"),
             season_label=str((player_data.get("standing") or {}).get("season_label") or ""),
+        )}
+        {_render_selector_grid(
+            honors_history,
+            season=(current_snapshot.get("season_year")
+                    or (heisman_years[0].get("season_year") if heisman_years else None)
+                    or 2025),
         )}
         {_render_v5_player_standing_card(player_data.get("standing"))}
       </section>
