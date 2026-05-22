@@ -18,6 +18,8 @@ from __future__ import annotations
 
 from bisect import bisect_left
 from html import escape
+
+from cfb_rankings.utils import ordinal_suffix as _ordinal
 from pathlib import Path
 from typing import Any
 
@@ -415,7 +417,7 @@ def _build_takeaways_html(teams: list[dict[str, Any]], rows: list[dict[str, Any]
         '<div class="dh-takeaway">'
         '<div class="dh-takeaway__label">CFP-ERA DYNASTY</div>'
         f'<div class="dh-takeaway__value">{escape(dynasty["team_name"])}</div>'
-        f'<div class="dh-takeaway__why">{dynasty["avg_percentile"]:.0f}th percentile average across {dynasty["n_seasons"]} seasons — the program with the most concentrated dominance of the bracket era.</div>'
+        f'<div class="dh-takeaway__why">{int(dynasty["avg_percentile"])}{_ordinal(int(dynasty["avg_percentile"]))} percentile average across {dynasty["n_seasons"]} seasons — the program with the most concentrated dominance of the bracket era.</div>'
         '</div>'
     )
     if hard_landing:

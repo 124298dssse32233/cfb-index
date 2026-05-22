@@ -39,6 +39,7 @@ from cfb_rankings.utils import (
     PROGRAM_COUNT_REFERENCE_DATE,
     SUBDIVISION_PROGRAM_COUNTS,
     is_site_eligible_team,
+    ordinal_suffix,
     season_label,
     season_span_label,
     slugify,
@@ -17418,12 +17419,13 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
         f'</span>'
         f'</div>'
     ) if rank and cohort_size else ""
+    _pct_suffix = ordinal_suffix(pct_int)
     pctile_card = (
         f'<div class="signature-story__rank-row">'
         f'  <span class="signature-story__rank-label">Percentile vs {escape(rank_cohort or "cohort")}</span>'
         f'  <span class="signature-story__rank-value {_percentile_class(pct)}" '
-        f'aria-label="{pct_int}th percentile">'
-        f'{pct_int}<span style="font-size: var(--fs-meta);">th</span>'
+        f'aria-label="{pct_int}{_pct_suffix} percentile">'
+        f'{pct_int}<span style="font-size: var(--fs-meta);">{_pct_suffix}</span>'
         f'</span>'
         f'</div>'
     )
@@ -19938,10 +19940,11 @@ def _render_v5_current_season_card(
             pct_match = re.search(r"(\d+)(?:st|nd|rd|th)", peer)
             pct = int(pct_match.group(1)) if pct_match else None
             if pct is not None:
+                _suf = ordinal_suffix(pct)
                 pill_html = (
                     f'<span class="csp__pct-pill {_bucket_class(pct)}" '
-                    f'aria-label="{pct}th percentile">'
-                    f'{pct}<span class="csp__pct-pill-suffix">th</span>'
+                    f'aria-label="{pct}{_suf} percentile">'
+                    f'{pct}<span class="csp__pct-pill-suffix">{_suf}</span>'
                     f'</span>'
                 )
             else:

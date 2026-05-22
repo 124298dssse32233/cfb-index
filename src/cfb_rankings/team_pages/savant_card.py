@@ -24,6 +24,8 @@ import html
 import json
 from typing import Any
 
+from cfb_rankings.utils import ordinal_suffix as _ordinal_suffix
+
 from .profile_loader import Profile
 
 
@@ -109,7 +111,8 @@ def _render_narrative(narrative: str | None, rows: list[dict[str, Any]], profile
     bottom = ranked[-1]
     top_txt = " and ".join(f"{lbl.lower()} (top {100 - int(p):d}%)" for lbl, p in top)
     bot_lbl, bot_p = bottom
-    crux = f"the crux lives in {bot_lbl.lower()}, where {profile.program_name} sits at the {int(bot_p):d}th percentile."
+    _bp = int(bot_p)
+    crux = f"the crux lives in {bot_lbl.lower()}, where {profile.program_name} sits at the {_bp}{_ordinal_suffix(_bp)} percentile."
     text = f"{profile.program_name} reads strongest in {top_txt}; {crux}"
     return f'<p class="savant-card__narrative savant-card__narrative--fallback">{html.escape(text)}</p>'
 
@@ -177,24 +180,6 @@ def _render_metric_bar(row: dict[str, Any]) -> str:
         <span class="savant-bar__pct">{int(round(pct_main))}</span><span class="savant-bar__pct-sup">{_ordinal_suffix(int(round(pct_main)))}</span>
       </div>
     </div>"""
-
-
-def _ordinal_suffix(n: int) -> str:
-    """Return the correct ordinal suffix for n (st/nd/rd/th).
-
-    Handles the 11-13 special case ("11th", "12th", "13th" — not "11st").
-    Used on percentile labels so "93rd" doesn't render as "93th".
-    """
-    if 10 <= (n % 100) <= 13:
-        return "th"
-    last = n % 10
-    if last == 1:
-        return "st"
-    if last == 2:
-        return "nd"
-    if last == 3:
-        return "rd"
-    return "th"
 
 
 def _render_echo(echo: dict[str, Any]) -> str:
