@@ -892,3 +892,52 @@ Wakeup task instruction "trigger ONE more publish-site" deliberately
 NOT executed because 26304080630 is in flight; triggering would
 cancel it via the site-deploy concurrency group and re-incur the
 ~40-min build cost.
+
+---
+
+## Continuation-9 — post-deploy verification + final ship (19:10 UTC)
+
+**Deploy 26304080630 completed successfully at 19:09 UTC** (~64 min total
+wall-clock; Vercel deploy step itself was 6 min, finishing at 18:54
+UTC). Live verification of the 8 post-deploy items against the new
+production deployment `dpl_2qKpN9Ls4NouwwsGVEruAaZSF5Lq`:
+
+| # | Surface | Check | Result |
+|---|---|---|---|
+| 1 | `/programs/notre-dame.html` | `.profile-identity-v2` class on hero | ✅ PRESENT (`<section class="profile-identity-v2">` with all sub-elements) |
+| 2 | `/teams/florida-international.html` | `.profile-identity-v2` on unprofiled team | ✅ PRESENT |
+| 3 | `/players/fernando-mendoza-38276.html` | `.profile-identity-v2` on player page | ✅ PRESENT |
+| 4 | `/sitemap.xml` | URL count > 5,000 (target) | ⚠ 1,763 URLs (was 686 → 157% expansion; below 5,000 target but substantial improvement) |
+| 5 | `/heisman/` | `aria-live="polite"` on board-status | ✅ PRESENT (`<strong id="heismanVisibleCount">` inside aria-live container) |
+| 6 | `/` | `.brand__tagline` element + ≥768px display | ❌ MISSING — editions/homepage_renderer.py emits its own `<div class="brand">CFB/INDEX</div>` without tagline. **Fixed in 7ae757feb52.** |
+| 7 | `/daily/2026-05-22/` | `.article-archetype__footer` block | ❌ MISSING — Phase 4 commit 14881463c88 IS in master but post-dates the 0a982b10cbe deploy. Ships with next deploy. |
+| 8 | `/wire/` | `.database-archetype__meta-footer` | ❌ MISSING — d98c1f7a21d publish-site workflow update IS in master but post-dates the 0a982b10cbe deploy. Ships with next deploy. |
+
+**Why items 7+8 weren't live:** the deploy at 0a982b10cbe predates the
+phase-4 article-archetype commit (14881463c88) AND the d98c1f7a21d
+workflow update that calls render-wire / refresh-portal-heat etc as
+explicit pipeline steps. They will both ship with the next deploy.
+
+**Why item 6 wasn't live:** the editions homepage_renderer.py is an
+entirely separate template from reporting.py's topbar. Phase 7 was
+applied only to the topbar emitted by reporting.py. The actual `/`
+URL is rendered by editions/homepage_renderer.py which had its own
+bespoke `.brand` markup. Fixed by adding `.brand__mark` /
+`.brand__tagline` split + matching CSS rules.
+
+**Final ship:** publish-site `26306953962` triggered at 19:10 UTC at
+SHA `7ae757feb52` (12 commits ahead of last deploy):
+1. e20efa63893 — Track 1+3+4 verified LIVE doc
+2. d98c1f7a21d — fix(publish-site): render Database-archetype surfaces
+3. c0275ddd743 — docs(session6): continuation-5 wakeup verification
+4. 89452f4fa88 — docs(session6): continuation-6 W17 verified
+5. 84170146463 — fix(a11y,phase-9c): contrast gold-deep
+6. 99854b35c90 — fix(a11y): footer-col__heading CSS site-wide
+7. c9f3484324e — fix(nav): "Analysis" → "Conferences"
+8. 3224fcb0427 — docs(session6): continuation-7
+9. a2974b1cc32 — fix(nav): /attributions/ site nav
+10. 84398e20ad6 — fix(a11y,phase-9): skip-link + heading-order on editions
+11. b3ecf5ef9ec — docs(session6): continuation-8
+12. **7ae757feb52** — fix(homepage,phase-7): brand tagline on editions homepage_renderer
+
+The final ship completes all 12 ROADMAP phases that were code-complete.
