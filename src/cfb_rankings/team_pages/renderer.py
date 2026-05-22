@@ -51,6 +51,7 @@ from .program_prestige_bar import (
     PROGRAM_PRESTIGE_BAR_CSS,
 )
 from .page_tone_strip import render_page_tone_strip, PAGE_TONE_STRIP_CSS
+from .trajectory_chip import render_trajectory_chip, TRAJECTORY_CHIP_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -410,6 +411,11 @@ def _render_page(
             profile, arc_rows,
             current_season=snapshot.season_year if snapshot else None,
         )
+    # Program Trajectory chip — Brief §11.4 "Are we as good as we used to be?"
+    # 10-year rolling prestige rung with slope label + sparkline.
+    trajectory_chip_html = ""
+    if arc_rows:
+        trajectory_chip_html = render_trajectory_chip(profile, arc_rows)
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -474,6 +480,9 @@ body {{
 /* Page Tone Strip — Brief Part III §32 (seasonal sentience visible) */
 {PAGE_TONE_STRIP_CSS}
 
+/* Program Trajectory chip — Brief §11.4 */
+{TRAJECTORY_CHIP_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -522,6 +531,7 @@ body {{
     {page_tone_html}
     {season_standing_html}
     {program_prestige_html}
+    {trajectory_chip_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
