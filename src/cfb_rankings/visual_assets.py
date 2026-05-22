@@ -222,8 +222,14 @@ def resolve_team_brand(slug: Optional[str]) -> TeamBrand:
     # texture: override only
     texture: Optional[str] = override.get("texture")
 
-    # secondary_color and mascot: DB only
-    secondary_color: Optional[str] = db_brand.get("secondary_color")
+    # secondary_color and mascot: prefer TEAM_COLOR_BY_SLUG override (Sprint B
+    # 2026-05-22 — added `secondary` field to the override dict so the legacy
+    # renderer's --team-accent-soft stops leaking #b98343 across every team),
+    # fall back to DB.
+    secondary_color: Optional[str] = (
+        override.get("secondary")
+        or db_brand.get("secondary_color")
+    )
     mascot: Optional[str] = db_brand.get("mascot_name")
 
     # logo paths: DB assets only

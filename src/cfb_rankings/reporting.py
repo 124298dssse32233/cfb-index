@@ -2984,12 +2984,26 @@ _PROFILE_IDENTITY_V2_CSS_BLOCK = """
  */
 
 .profile-identity-v2 {
-  --profile-v2-accent: var(--accent-primary, #c9a24a);
-  --profile-v2-accent-soft: rgba(201, 162, 74, 0.10);
+  /* Sprint B 2026-05-22: read --team-accent / --team-accent-soft from the
+   * enclosing .team-shell wrapper (set by reporting.py _team_theme()
+   * inline style per program/player/team). Falls back to --accent-primary
+   * if a non-team-shell ancestor sets it, then to default gold. This lets
+   * Notre Dame's identity strip use ND navy/gold instead of every team
+   * sharing the same generic gold accent. */
+  --profile-v2-accent: var(--team-accent, var(--accent-primary, #c9a24a));
+  --profile-v2-accent-2: var(--team-accent-soft, #c9a24a);
+  --profile-v2-accent-soft: color-mix(in oklab, var(--profile-v2-accent) 8%, transparent);
   position: relative;
-  padding: clamp(16px, 2.4vw, 32px) clamp(16px, 3vw, 40px);
-  border-left: 4px solid var(--profile-v2-accent);
+  padding: clamp(20px, 2.8vw, 40px) clamp(20px, 3.4vw, 48px);
+  border-left: 6px solid var(--profile-v2-accent);
   border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--profile-v2-accent) 6%, transparent) 0%,
+      color-mix(in oklab, var(--profile-v2-accent-2) 4%, transparent) 60%,
+      transparent 100%
+    );
   margin-bottom: clamp(20px, 3vw, 32px);
 }
 .profile-identity-v2__header {
@@ -2999,19 +3013,24 @@ _PROFILE_IDENTITY_V2_CSS_BLOCK = """
   margin-bottom: clamp(12px, 1.5vw, 20px);
 }
 .profile-identity-v2__team-mark {
+  /* Sprint B 2026-05-22: was 56px subtle box; promoted to 72px filled
+   * accent tile so the abbreviation reads as a real wordmark, not a
+   * tiny pill next to the page title. */
   flex: 0 0 auto;
-  width: 56px;
-  height: 56px;
+  width: clamp(64px, 6vw, 88px);
+  height: clamp(64px, 6vw, 88px);
   border-radius: 12px;
-  background: var(--profile-v2-accent-soft);
+  background: var(--profile-v2-accent);
   border: 1px solid var(--profile-v2-accent);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
-  font-weight: 800;
-  font-size: 22px;
-  color: var(--profile-v2-accent);
+  font-family: 'Bebas Neue', var(--font-display, "Inter Display"), "Inter", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(26px, 2.4vw + 10px, 36px);
+  letter-spacing: 0.02em;
+  color: #ffffff;
   overflow: hidden;
 }
 .profile-identity-v2__team-mark svg,
@@ -3037,10 +3056,15 @@ _PROFILE_IDENTITY_V2_CSS_BLOCK = """
   margin: 0;
 }
 .profile-identity-v2__name {
-  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
-  font-size: clamp(24px, 2vw + 14px, 38px);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  /* Sprint B 2026-05-22: Bebas Neue first; declared in _site_css @import
+   * for legacy renderer. The wordmark is the loudest text on every
+   * profile-archetype surface (~18k pages). */
+  font-family: 'Bebas Neue', var(--font-display, "Inter Display"), "Inter", system-ui, sans-serif;
+  font-size: clamp(32px, 3vw + 16px, 56px);
+  font-weight: 400; /* Bebas Neue is already condensed-bold by design */
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
   margin: 0;
   color: var(--fg-primary, inherit);
 }
@@ -3076,9 +3100,15 @@ _PROFILE_IDENTITY_V2_CSS_BLOCK = """
   color: var(--fg-muted, #8a90a1);
 }
 .profile-identity-v2__stat-tile-value {
-  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
-  font-size: 22px;
-  font-weight: 800;
+  /* Sprint B 2026-05-22: Bebas Neue display face. Bumped from 22px sans
+   * to 32px display so the tile value reads as a real headline number,
+   * not a small label. Keeps tabular-nums from the inheriting stat-tile
+   * wrapper so digits column-align. */
+  font-family: 'Bebas Neue', var(--font-display, "Inter Display"), "Inter", system-ui, sans-serif;
+  font-size: clamp(26px, 2.5vw + 12px, 36px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
   color: var(--fg-primary, inherit);
 }
 .profile-identity-v2__stat-tile-sub {
