@@ -226,6 +226,7 @@ _PAGE_TEMPLATE = """<!doctype html>
 </style>
 </head>
 <body class="nfl-pipeline-page">
+<a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
 <main class="site-shell" id="main-content">
   <section class="hero">
     <p class="eyebrow">The NFL Pipeline · {year_start}-{year_end}</p>
