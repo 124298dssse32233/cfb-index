@@ -1,9 +1,19 @@
 # CFB Index — Agent Orientation
 
-_Last refreshed 2026-05-16. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
+_Last refreshed 2026-05-22. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
 
 ## What this is
 Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~69k HTML pages in `output/site/`.
+
+## Deployment (UPDATED 2026-05-22)
+- **Vercel git auto-deploy is DISCONNECTED.** Master pushes do NOT trigger Vercel deploys. (Reason: `output/` is gitignored, so git-triggered builds had zero player HTML files and 404'd `/players/*`.) Don't reconnect without a migration plan.
+- **All production deploys flow through `vercel deploy --prod` inside cron workflows.** `publish-site.yml`, `the-daily-06am-et.yml`, `wire-daily-04am-et.yml`, `mailbag-friday-09am-et.yml` each call the Vercel CLI directly.
+- **To force a fresh deploy:** trigger `publish-site` via `gh workflow run publish_site.yml`. Runs ~50 min.
+- **CI guardrails:**
+  - 19 workflows fail-loud if the rolling `cfb-rankings-db` artifact is missing or poisoned (Option B). Bypass via `--allow-empty` on `scripts/verify_db_artifact_healthy.py` if you legitimately need a fresh-DB start.
+  - 7 workflows that call the `notify_failure.yml` reusable workflow have an explicit `permissions: { issues: write, contents: read }` on their notify job — don't strip it.
+  - `live_smoke_test.yml` hits 28 representative URLs every 30 min and opens an automation-failure issue at < 95% pass rate.
+- See [SESSION_3_AUTONOMOUS_WRAP.md](SESSION_3_AUTONOMOUS_WRAP.md) for the full structural-hardening pass on 2026-05-22.
 
 ## Do / Don't
 - DO edit `src/cfb_rankings/reporting.py` (the generator) and `fan_intelligence.py`.
