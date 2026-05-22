@@ -252,6 +252,14 @@ QB_FINGERPRINT_CSS_BLOCK = """
   margin: 0;
 }
 
+.qb-fingerprint__spark {
+  display: block;
+  width: 100%;
+  height: 20px;
+  color: var(--qb-accent);
+  margin: 4px 0 2px;
+}
+
 .qb-fingerprint__cell-value--awaiting {
   color: var(--qb-fg-muted);
   font-size: clamp(20px, 1.6vw + 10px, 28px);
@@ -356,6 +364,46 @@ def _rank_text(v: Any) -> str | None:
     return f"#{n}"
 
 
+def _sparkline_svg(points: list[float], *, width: int = 100, height: int = 20) -> str:
+    """Render a tiny SVG sparkline. Returns "" when <2 points.
+
+    Brief §3 #3 — Trajectory Spark primitive: 160x40 desktop, smaller
+    on the cell scale. Dotted baseline = start of season, solid line =
+    current.
+    """
+    pts: list[float] = []
+    for p in points:
+        try:
+            pts.append(float(p))
+        except (TypeError, ValueError):
+            continue
+    if len(pts) < 2:
+        return ""
+    pmin = min(pts)
+    pmax = max(pts)
+    span = pmax - pmin if pmax > pmin else 1.0
+    n = len(pts)
+    coords: list[str] = []
+    for i, v in enumerate(pts):
+        x = (i / max(1, n - 1)) * (width - 2) + 1
+        # Higher value = lower y (top of svg)
+        y = height - (((v - pmin) / span) * (height - 2) + 1)
+        coords.append(f"{x:.1f},{y:.1f}")
+    path_d = "M " + " L ".join(coords)
+    last_x, last_y = coords[-1].split(",")
+    baseline_y = height - 1
+    return (
+        f'<svg class="qb-fingerprint__spark" viewBox="0 0 {width} {height}" '
+        f'width="{width}" height="{height}" aria-hidden="true" preserveAspectRatio="none">'
+        f'<line x1="1" y1="{baseline_y}" x2="{width-1}" y2="{baseline_y}" '
+        f'stroke="currentColor" stroke-width="1" stroke-dasharray="2 2" opacity="0.25"/>'
+        f'<polyline points="{" ".join(coords)}" fill="none" '
+        f'stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+        f'<circle cx="{last_x}" cy="{last_y}" r="2" fill="currentColor"/>'
+        '</svg>'
+    )
+
+
 def _cell(
     eyebrow: str,
     value: str | None,
@@ -363,11 +411,15 @@ def _cell(
     *,
     value_class: str | None = None,
     awaiting: bool = False,
+    sparkline: list[float] | None = None,
 ) -> str:
     """Render one of the 5 vibe cells.
 
     `awaiting=True` displays a small italicized 'Awaiting Signal' that
     matches the brief's honest-empty-state rule (§8.8).
+
+    `sparkline` if provided renders a tiny SVG trajectory above the
+    narrative (brief §3 #3 Trajectory Spark primitive).
     """
     eyebrow_html = escape(eyebrow)
     if awaiting or not value:
@@ -383,10 +435,12 @@ def _cell(
         f'<p class="qb-fingerprint__cell-narrative">{narrative_html}</p>'
         if narrative_html else ""
     )
+    spark_block = _sparkline_svg(sparkline) if sparkline else ""
     return (
         '<article class="qb-fingerprint__cell">'
         f'<p class="qb-fingerprint__cell-eyebrow">{eyebrow_html}</p>'
         f'<p class="{cls}">{value_html}</p>'
+        f'{spark_block}'
         f'{narrative_block}'
         '</article>'
     )
@@ -455,6 +509,21 @@ def render_qb_fingerprint_hero(
     # === Cell 2: Heisman Heat ===
     nowcast_rank = _rank_text(current_snapshot.get("nowcast_rank"))
     win_prob = _pct(current_snapshot.get("win_probability"))
+    # Trajectory: try the snapshot's weekly_history if present
+    heisman_trajectory: list[float] | None = None
+    weekly = current_snapshot.get("weekly_history") or current_snapshot.get("nowcast_history")
+    if isinstance(weekly, list) and weekly:
+        # Could be [{"rank":n}, ...] or [rank, ...]; invert ranks so higher
+        # on the sparkline = better Heisman position.
+        ranks: list[float] = []
+        for w in weekly[-8:]:
+            r = w.get("rank") if isinstance(w, dict) else w
+            try:
+                ranks.append(-float(r))
+            except (TypeError, ValueError):
+                pass
+        if len(ranks) >= 2:
+            heisman_trajectory = ranks
     if nowcast_rank:
         narr_bits: list[str] = []
         if win_prob:
@@ -463,7 +532,8 @@ def render_qb_fingerprint_hero(
         if finalist_prob and not win_prob:
             narr_bits.append(f"{finalist_prob} to make the finalist tier")
         heisman_narr = "; ".join(narr_bits) if narr_bits else "Live model ranking."
-        cell_heisman = _cell("Heisman Heat", nowcast_rank, heisman_narr)
+        cell_heisman = _cell("Heisman Heat", nowcast_rank, heisman_narr,
+                             sparkline=heisman_trajectory)
     else:
         cell_heisman = _cell("Heisman Heat", None,
                              "Not on the live Heisman board this week.",
@@ -560,6 +630,22 @@ def render_qb_fingerprint_hero(
     heisman_finalist = _pct(current_snapshot.get("finalist_probability"))
     heisman_ballot = _pct(current_snapshot.get("any_ballot_probability"))
 
+    # Davey O'Brien: per-award model isn't built yet. If the player is in
+    # the top 10 of the Heisman nowcast we can show a derived "in
+    # consideration" pill — honest empty otherwise.
+    davey_value: str | None = None
+    try:
+        rk = current_snapshot.get("nowcast_rank")
+        if rk is not None and int(rk) <= 10:
+            davey_value = "In contention"
+    except (TypeError, ValueError):
+        pass
+
+    # Consensus All-American: derived signal from honors history's
+    # all-american flag, if present anywhere.
+    consensus_value: str | None = None  # placeholder — wired from
+    # honors_history in caller when available
+
     accolades_html = "\n".join([
         _accolade(
             "ACCOLADE PROBABILITY",
@@ -569,12 +655,12 @@ def render_qb_fingerprint_hero(
         _accolade(
             "TOP QB AWARD",
             "Davey O'Brien",
-            None,  # awaiting per-award model
+            davey_value,
         ),
         _accolade(
             "CONSENSUS",
             "All-American",
-            None,  # awaiting consensus selector model
+            consensus_value,
         ),
     ])
 
