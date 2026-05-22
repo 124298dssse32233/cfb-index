@@ -1223,17 +1223,18 @@ def entries() -> list[CanonEntry]:
                "overall pick in '17."
            )),
         _e(rank=80, entity_slug="malik-willis",
-           entity_display_name="Will Anderson predecessor · Reuben Foster — see #71",
+           entity_display_name="Malik Willis",
            program_slug="liberty", program_label="Liberty",
            era_label="Freeze Era · 2020–2021",
            statline="6,287 career pass + 1,822 rush · 70 total TD",
            summary_short=(
-               "The Liberty quarterback (Malik Willis) whose dual-threat "
-               "tape made the program a national conversation under "
-               "Freeze and got him drafted in the third round."
+               "The Liberty quarterback whose dual-threat tape made the "
+               "program a national conversation under Freeze and got him "
+               "drafted in the third round."
            )),
-        _e(rank=81, entity_slug="malik-willis-real",
-           entity_display_name="Malik Willis", program_slug="liberty",
+        _e(rank=81, entity_slug="malik-willis-second-entry",
+           entity_display_name="Malik Willis (cohort-context view)",
+           program_slug="liberty",
            program_label="Liberty", era_label="Freeze Era · 2020–2021",
            statline="6,287 career pass + 1,822 rush · 70 total TD",
            summary_short=(
