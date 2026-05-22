@@ -304,7 +304,7 @@ def render_global_footer(
     </div>
     <div class="footer-cols">
       <div class="footer-col">
-        <h4>DEPARTMENTS</h4>
+        <h3 class="footer-col__heading">DEPARTMENTS</h3>
         <ul>
           <li><a href="/editions/">Editions Archive</a></li>
           <li><a href="/daily/">The Daily</a></li>
@@ -315,7 +315,7 @@ def render_global_footer(
         </ul>
       </div>
       <div class="footer-col">
-        <h4>REFERENCE</h4>
+        <h3 class="footer-col__heading">REFERENCE</h3>
         <ul>
           <li><a href="/rankings/">Rankings</a></li>
           <li><a href="/teams/">Team Pages</a></li>
@@ -328,7 +328,7 @@ def render_global_footer(
         </ul>
       </div>
       <div class="footer-col">
-        <h4>SUBSCRIBE</h4>
+        <h3 class="footer-col__heading">SUBSCRIBE</h3>
         <ul>
           <li>Saturday morning · 06:00 ET</li>
           <li>Weekly cover essay</li>
@@ -337,7 +337,7 @@ def render_global_footer(
         </ul>
       </div>
       <div class="footer-col">
-        <h4>MASTHEAD</h4>
+        <h3 class="footer-col__heading">MASTHEAD</h3>
         <ul>
           <li>Editor's Desk</li>
           <li>Receipts Desk</li>

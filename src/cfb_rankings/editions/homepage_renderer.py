@@ -380,6 +380,19 @@ def _render_document(edition: Edition, features: list[EditionFeature],
     parts.append(_render_active_threads(threads_data, is_live=threads_is_live))
     parts.append(_render_the_canon(canon_data, is_live=canon_is_live))
     parts.append(_render_voices(voices))
+    # Dashboard archetype: methodology footer before the site footer.
+    # Track 4 browser-MCP validation caught the homepage missing this.
+    from cfb_rankings.dashboards import render_methodology_footer as _render_homepage_methodology
+    parts.append(_render_homepage_methodology(
+        page="Homepage",
+        sample_summary=(
+            f"Issue {edition.edition_number} · {edition.theme_title}"
+            if edition.theme_title else f"Issue {edition.edition_number}"
+        ),
+        prefix="/",
+        methodology_label="How the model works",
+        methodology_href="/methodology/",
+    ))
     parts.append(_render_footer(edition))
     parts.append("</main></body></html>")
     return "".join(parts)
@@ -1086,7 +1099,7 @@ def _render_footer(edition: Edition) -> str:
     </div>
     <div class="footer-cols">
       <div class="footer-col">
-        <h4>DEPARTMENTS</h4>
+        <h3 class="footer-col__heading">DEPARTMENTS</h3>
         <ul>
           <li><a href="/editions/">Editions Archive</a></li>
           <li><a href="/daily/">The Daily</a></li>
@@ -1097,7 +1110,7 @@ def _render_footer(edition: Edition) -> str:
         </ul>
       </div>
       <div class="footer-col">
-        <h4>REFERENCE</h4>
+        <h3 class="footer-col__heading">REFERENCE</h3>
         <ul>
           <li><a href="/rankings/">Rankings</a></li>
           <li><a href="/teams/">Team Pages</a></li>
@@ -1107,7 +1120,7 @@ def _render_footer(edition: Edition) -> str:
         </ul>
       </div>
       <div class="footer-col">
-        <h4>SUBSCRIBE</h4>
+        <h3 class="footer-col__heading">SUBSCRIBE</h3>
         <ul>
           <li>Saturday morning · 06:00 ET</li>
           <li>Weekly cover essay</li>
@@ -1116,7 +1129,7 @@ def _render_footer(edition: Edition) -> str:
         </ul>
       </div>
       <div class="footer-col">
-        <h4>MASTHEAD</h4>
+        <h3 class="footer-col__heading">MASTHEAD</h3>
         <ul>
           <li>Editor's Desk</li>
           <li>Receipts Desk</li>

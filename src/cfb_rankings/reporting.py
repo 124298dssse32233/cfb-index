@@ -2972,6 +2972,46 @@ _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK = """
 """
 
 
+_TOUCH_TARGET_A11Y_CSS_BLOCK = """
+/* WCAG 2.5.5 (Level AAA) — interactive targets ≥44x44 CSS pixels.
+ * The browser-MCP validation pass in session 6 caught 100% of
+ * interactive elements rendering below 44px on every sampled page.
+ * Fix: explicit min-height on standalone targets (top nav, action
+ * buttons, methodology-footer links, theme toggle, cmdk trigger).
+ * Inline text links inside body prose are intentionally exempt
+ * per the 2.5.5 spec — wrapping every link in 44px-tall padding
+ * would shred paragraph rhythm.
+ */
+.nav-link,
+.nav-action,
+.nav-toggle,
+.cmdk-trigger,
+.theme-toggle,
+.profile-meta-footer__link,
+.methodology-footer__link,
+.database-archetype__meta-link,
+.article-archetype__footer-methodology,
+.article-archetype__footer-share,
+.dashboard-mobile-filter-strip__chip,
+.database-archetype__filter-link,
+.savant-card__chip,
+.button-primary,
+.button-secondary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+/* Mobile-collapsed nav items still need the 44px floor when stacked. */
+@media (max-width: 900px) {
+  .nav-link,
+  .nav-action,
+  .nav-toggle {
+    min-height: 44px;
+  }
+}
+"""
+
+
 _DARK_MODE_CSS_BLOCK = """
 html.dark {
   color-scheme: dark;
@@ -5690,6 +5730,8 @@ def _compose_global_css() -> str:
         + _PROFILE_PRIMITIVES_CSS_BLOCK
         + "\n/* === Database + Article archetype primitives (Session 6, 2026-05-22) === */\n"
         + _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK
+        + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
+        + _TOUCH_TARGET_A11Y_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
