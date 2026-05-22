@@ -32,7 +32,7 @@
 </script>
 <link rel="stylesheet" href="/assets/theme_toggle.css">
 <script defer src="/assets/theme_toggle.js"></script>
-    <link rel="stylesheet" href="/assets/cfb-index.9b7f0baf95f3.css">
+    <link rel="stylesheet" href="/assets/cfb-index.84d3ccfdf8a6.css">
     <link rel="stylesheet" href="/assets/cmdk.css">
     <link rel="stylesheet" href="/assets/stats_table.css">
     <script src="/assets/js/url-state.js" defer></script>
@@ -406,10 +406,10 @@
           </article>
         </section>
 
-        <section class="section">
+        <section class="section" id="rankings-filter">
           <article class="panel">
             <div class="filter-strip-head">
-              <h3 class="filter-strip-label">Filter the rankings</h3>
+              <h3 class="filter-strip-label" id="rankings-filter-anchor">Filter the rankings</h3>
               <p class="section-note">Slice the board the way fans actually browse: by level, league, rank range, or argument style. <a class="text-link" href="../compare/index.html">Open Compare →</a></p>
             </div>
             
@@ -7199,6 +7199,11 @@
   </div>
 </section>
     </main>
+    <nav class="dashboard-mobile-filter-strip" aria-label="Filter and sort shortcuts">
+  <a class="dashboard-mobile-filter-strip__chip" href="#rankings-filter-anchor">Filter</a>
+  
+  <span class="dashboard-mobile-filter-strip__summary">668 teams</span>
+</nav>
     <script>
       (() => {
         const payloadNode = document.getElementById('powerResumePayload');
