@@ -2972,6 +2972,17 @@ _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK = """
 """
 
 
+# Sprint A 2026-05-22: QB Fingerprint hero replaces the generic
+# profile-identity-v2 4-tile strip on QB player pages with the 5-cell
+# vibe-read hero from PLAYER_PAGE_WORLD_CLASS_BRIEF §4.1. CSS lives in
+# the qb_fingerprint module; this alias makes it injectable from
+# _site_css() alongside the other archetype CSS blocks.
+from cfb_rankings.profile.qb_fingerprint import (
+    QB_FINGERPRINT_CSS_BLOCK as _QB_FINGERPRINT_CSS_BLOCK,
+    render_qb_fingerprint_hero as _render_qb_fingerprint_hero,
+)
+
+
 _PROFILE_IDENTITY_V2_CSS_BLOCK = """
 /* Profile-archetype identity-strip v2 — the richer variant with
  * team mark + stat tiles + action buttons + accent rail. Unblocks
@@ -5975,6 +5986,8 @@ def _compose_global_css() -> str:
         + _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK
         + "\n/* === Profile identity-strip v2 — Phase 3 richer primitive (Session 6) === */\n"
         + _PROFILE_IDENTITY_V2_CSS_BLOCK
+        + "\n/* === QB Fingerprint hero — Sprint A (2026-05-22) === */\n"
+        + _QB_FINGERPRINT_CSS_BLOCK
         + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
         + _TOUCH_TARGET_A11Y_CSS_BLOCK
         + "\n/* === Global footer column heading (Session 6 H4→H3 fix) === */\n"
@@ -18930,36 +18943,23 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <span>/</span>
           <strong>{escape(player_name)}</strong>
         </div>
-        {render_profile_identity_strip_v2(
+        {_render_qb_fingerprint_hero(
+            player_name=player_name,
             eyebrow=f"{position} · {team_name.upper()} · {conference_name.upper()}",
-            name=player_name,
-            sub_meta="",
             team_mark_html=escape(team_mark),
-            stat_tiles=[
-                {"label": "Current nowcast", "value": current_rank_text},
-                {"label": "Season forecast", "value": forecast_text},
-                {"label": "Win probability",
-                 "value": _probability_text(current_snapshot.get("win_probability"))},
-                {"label": "Best official finish", "value": best_finish_text},
+            facts=[
+                class_year if class_year and class_year != "--" else "",
+                f"#{player.get('jersey')}" if player.get("jersey") not in (None, "", "--") else "",
+                _player_measurement_text(player.get("height_inches"), player.get("weight_lbs")),
+                _player_hometown_text(player.get("hometown"), player.get("home_state")),
             ],
-            action_buttons=[
-                {"label": "Heisman Board",
-                 "href": "../heisman/index.html",
-                 "variant": "primary"},
-                {"label": "All Player Cards",
-                 "href": "../players/index.html",
-                 "variant": "secondary"},
-            ] + ([
-                {"label": f"{team_name} team page",
-                 "href": f"../teams/{team_slug}.html",
-                 "variant": "secondary"},
-            ] if _valid_team_slug(team_slug) else []),
-            chips=["Player Card"],
-            accent_color=team_theme['accent'],
-            accent_color_soft=team_theme['accent_soft'],
-            aria_label=f"{player_name} player identity",
+            sub_meta="",
+            current_snapshot=current_snapshot,
+            signature_story=signature_story,
+            the_room=player_data.get("the_room") or {},
+            cohort_divergence=player_data.get("cohort_divergence") or {},
+            aria_label=f"{player_name} fingerprint",
         )}
-        {f'<div class="player-hero-facts">{hero_facts}</div>' if hero_facts else ''}
         {render_this_day_chip(player_data.get("this_day_moment"))}
       </section>
 
