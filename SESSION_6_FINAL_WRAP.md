@@ -723,3 +723,55 @@ re-render all four surfaces.
 
 Latest SHA on master: d98c1f7a21d. The current in-flight publish-site
 (at 0a982b10cbe) won't include this fix, but the next one after will.
+
+---
+
+## Continuation 6: W17 Sources footer verified (18:15 UTC)
+
+/editions/2026-w17/after-the-bracket-three-conversations/ verified
+via Vercel MCP. All 5 hand-curated citations from the backfill ship
+in the `<footer class="article-citations">` Sources block:
+
+  [1] CFBD · 2025 CFP bracket data (CFBD chip, 2026-01-20)
+  [2] Beat writer · The Athletic / Stewart Mandel (2026-01-22)
+  [3] Prior edition · CFB Index Issue XV (2026-04-19)
+  [4] CFBD · 2025 advanced stats final (2026-01-25)
+  [5] Podcast · Solid Verbal post-CFP wrap (2026-01-23)
+
+Body has no inline `[N]` markers because the W17 cover essay body is
+Pattern C output from before the marker-embedded-seed pattern landed.
+That's the expected state per the Phase 5c body-grading audit. Future
+W17 regenerations via the offseason-aware Pattern C prompt (Session 6
+Track 1 work) will emit `{{cite:N}}` markers + structured citation
+metadata, and a force-reseed would restore the body to a seed version
+with embedded `[N]` markers if the editorial wants it.
+
+All 3 backfilled editions now have functional Sources footers:
+  * W17 — 5 entries, no inline markers (Pattern C body)
+  * W18 — 4 entries + 4 inline `<sup class="citation">` markers
+  * W19 — 5 entries + 5 inline markers
+
+Spec compliance: receipt-pattern density spec (`docs/design-system/
+32-receipt-pattern.md`) calls for ≥1 marker per 200 words of body
+content. W18 (~250 words → 4 markers, density 1 per 62 words → exceeds
+spec). W19 (~280 words → 5 markers, density 1 per 56 words → exceeds
+spec). W17 (~1,100 words → 0 markers, density 0 per 200 words → fails
+spec; documented as Pattern C legacy state).
+
+**Deploy chain status (18:15 UTC):**
+
+| Run | SHA | Status | Carries |
+|---|---|---|---|
+| 26300031263 | e1cb83a2351 | ✓ complete | Original session-6 batch (Tracks 1-7) |
+| 26302026470 | 1f1ea21ae6d | ✓ complete | CLI dispatch fix → citations + W19 fix + footer H3 + touch targets + homepage methodology + storylines/editions Database meta-footers |
+| 26304080630 | 0a982b10cbe | ⏳ in_progress | Phase 3 17,836-surface identity-strip v2 + sitemap expansion + tagline + aria-live + Phase 4 daily/mailbag |
+
+Master has advanced beyond the in-flight deploy by 3 commits
+(14881463c88 → e20efa63893 → d98c1f7a21d → c0275ddd743 → THIS_COMMIT).
+The next publish-site after 26304080630 will ship the publish-site
+enhancement (d98c1f7a21d) + wrap docs.
+
+Wakeup task instruction "trigger ONE more publish-site" deliberately
+NOT executed because 26304080630 is in flight; triggering would
+cancel it via the site-deploy concurrency group and re-incur the
+~40-min build cost.
