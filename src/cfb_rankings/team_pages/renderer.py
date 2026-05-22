@@ -60,6 +60,7 @@ from .fanbase_health import render_fanbase_health, FANBASE_HEALTH_CSS
 from .conference_standing import render_conference_standing, CONFERENCE_STANDING_CSS
 from .ceiling_floor import render_ceiling_floor, CEILING_FLOOR_CSS
 from .home_field_advantage import render_home_field_advantage, HOME_FIELD_ADVANTAGE_CSS
+from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -492,6 +493,10 @@ def _render_page(
     # Home-Field Advantage — Brief §11.3. Home vs away win-share + margin
     # differential from games table. Honest empty when sample < 6 games.
     home_field_html = render_home_field_advantage(db, profile, snapshot) if db is not None else ""
+    # Moment of the Year — Brief §11.7 games-table approximation. Surfaces the
+    # single highest-impact game of the season (ranked opponent + postseason +
+    # margin scored). Honest empty when no impactful game scores ≥4.
+    moment_of_year_html = render_moment_of_year(db, profile, snapshot) if db is not None else ""
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -587,6 +592,9 @@ body {{
 /* Home-Field Advantage — Brief §11.3 */
 {HOME_FIELD_ADVANTAGE_CSS}
 
+/* Moment of the Year — Brief §11.7 approximation */
+{MOMENT_OF_YEAR_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -644,6 +652,7 @@ body {{
     {conference_standing_html}
     {ceiling_floor_html}
     {home_field_html}
+    {moment_of_year_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
