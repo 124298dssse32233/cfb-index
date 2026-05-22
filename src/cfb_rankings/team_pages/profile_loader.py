@@ -282,3 +282,245 @@ def upsert_profile_to_db(db, profile: Profile) -> None:
             "always_surface": json.dumps(profile.always_surface, ensure_ascii=False),
         },
     )
+
+
+# ---------------------------------------------------------------------------
+# Sprint H — Synthesized Profiles for unprofiled FBS teams.
+# Closes the audit's T31 ("two-tier reality") without authoring 100 YAMLs by
+# hand. Pulls usable identity material from the database (team_brand colors +
+# mascot_name, conference, school_name) and produces a Profile that lets the
+# world-class renderer execute. Hand-authored YAMLs always win when present.
+# ---------------------------------------------------------------------------
+
+
+# Default tier ↔ register defaults. Synthesized teams land at tier 5 unless
+# something in the DB pushes them higher (e.g., conference of last resort).
+_CONFERENCE_TIER_HINTS: dict[str, int] = {
+    "Southeastern Conference": 2,
+    "SEC": 2,
+    "Big Ten Conference": 2,
+    "Big Ten": 2,
+    "Atlantic Coast Conference": 2,
+    "ACC": 2,
+    "Big 12 Conference": 3,
+    "Big 12": 3,
+    "FBS Independents": 3,
+    "American Athletic Conference": 4,
+    "American Athletic": 4,
+    "Mountain West Conference": 5,
+    "Mountain West": 5,
+    "Sun Belt Conference": 5,
+    "Sun Belt": 5,
+    "Mid-American Conference": 6,
+    "MAC": 6,
+    "Conference USA": 6,
+    "C-USA": 6,
+}
+
+
+def _safe_color(hex_in: str | None, fallback: str) -> str:
+    if not hex_in:
+        return fallback
+    s = str(hex_in).strip()
+    if not s:
+        return fallback
+    if not s.startswith("#"):
+        s = "#" + s
+    # Reject obviously bad values
+    if len(s) not in (4, 7):
+        return fallback
+    return s
+
+
+def _fetch_synth_inputs(db, slug: str) -> dict[str, Any] | None:
+    """Return the data bundle needed to synthesize a Profile.
+
+    Returns None when no FBS team with this slug exists.
+    """
+    row = db.query_one(
+        """
+        select t.team_id, t.canonical_name, t.school_name, t.short_name,
+               t.level_code, t.city, t.state, c.conference_name,
+               tb.primary_color, tb.secondary_color, tb.mascot_name,
+               tb.abbreviation_short
+        from teams t
+        left join conferences c on c.conference_id = t.current_conference_id
+        left join team_brand tb on tb.team_id = t.team_id
+        where t.slug = :slug
+        """,
+        {"slug": slug},
+    )
+    return dict(row) if row else None
+
+
+def synthesize_profile(slug: str, db) -> Profile:
+    """Build a usable Profile dataclass from database data alone.
+
+    For programs with a hand-authored YAML, prefer load_profile(); fall here
+    only for the long tail. The synthesized Profile drives the same modules
+    as authored profiles, just with tier-defaulted voice + empty rituals.
+    """
+    inputs = _fetch_synth_inputs(db, slug)
+    if inputs is None:
+        raise LookupError(f"synthesize_profile: team slug not found: {slug}")
+
+    program_name = (
+        inputs.get("school_name")
+        or inputs.get("canonical_name")
+        or slug.replace("-", " ").title()
+    )
+    conference = inputs.get("conference_name") or ""
+    mascot = inputs.get("mascot_name") or ""
+    short_name = inputs.get("short_name") or program_name
+    abbrev = inputs.get("abbreviation_short") or ""
+    primary = _safe_color(inputs.get("primary_color"), "#1d1d1f")
+    secondary = _safe_color(inputs.get("secondary_color"), "#8a8a8a")
+
+    # Tier from conference, then nudge for known-tier mismatch isn't worth
+    # the complexity — let the user override later with a YAML.
+    tier = _CONFERENCE_TIER_HINTS.get(conference, 6)
+
+    # Identity phrase: a plain, honest descriptor. Authored YAMLs will replace
+    # this with bespoke voice; for the long tail this beats nothing.
+    if conference:
+        identity_phrase = (
+            f"{program_name} is the {conference} program known for "
+            f"{('the ' + mascot.lower()) if mascot else 'its faithful following'}."
+        )
+    else:
+        identity_phrase = f"{program_name} is the FBS program known for its faithful following."
+
+    selfname = (
+        f"the {mascot}" if mascot and not mascot.lower().startswith("the ")
+        else (mascot or f"the {short_name}")
+    )
+
+    mantra = f"Go {mascot}." if mascot else f"Go {short_name}."
+
+    frontmatter = {
+        "team_id": int(inputs["team_id"]),
+        "program_name": program_name,
+        "display_name": program_name,
+        "program_slug": slug,
+        "program_tier": tier,
+        "voice_register": "plain-honest",
+        "tonal_template": "plain-honest",
+        "identity_phrase": identity_phrase,
+        "mantra": mantra,
+        "authored_by": "synthesized",
+        "editorial_review_status": "synthesized",
+        "model_version": "team-pages synth v1.0",
+        "accent_hex": primary,
+        "accent_hex_secondary": secondary,
+        "gradient_hex_pair": f"{primary},{secondary}",
+        "vocab": {
+            "signoff": mantra,
+            "greeting": f"Go {short_name}",
+            "hashtags": [f"#{slug.replace('-', '').title()}", f"#Go{short_name.replace(' ', '')}"],
+            "selfname": selfname,
+            "stadium_short": "",
+            "abbreviation": abbrev,
+        },
+        "rituals": [],
+        "cultural_anchors": {
+            "one_sentence": (
+                f"{program_name} is a program whose voice hasn't been authored yet — "
+                "this page renders from database signal alone until the editorial profile is filed."
+            ),
+            "if_team_didnt_exist_cfb_would_lose": "",
+            "fan_archetype_dominant": "",
+            "outsider_archetype_dominant": "",
+        },
+        "visual_identity_anchors": {},
+        "mascot_voice": {
+            "awaiting_signal": "Awaiting signal — voice not yet authored.",
+            "loss_acknowledged": "Quiet today.",
+            "win_celebrated": "Win in the books.",
+        },
+        "stock_phrases": [f"Go {short_name}", mantra],
+        "never_use": [],
+        "always_surface": [],
+    }
+
+    sections: dict[str, dict[str, str]] = {
+        "program_history": {
+            "_body": (
+                f"Program profile for {program_name} has not yet been hand-authored. "
+                f"This page renders the world-class chrome from database signal "
+                f"({conference}, {inputs.get('city') or '?'}). The editorial body "
+                "fills in when a profile YAML is filed."
+            )
+        },
+        "fanbase_summary": {
+            "_body": (
+                f"Fanbase voice for {program_name} pending editorial profile. "
+                "Pulse signals populate from the conversation pipeline as they arrive."
+            )
+        },
+        "rivalry_context": {
+            "_body": (
+                f"Rivalry context for {program_name} pending profile authoring."
+            )
+        },
+    }
+
+    # Synthetic source_path points to a path that does NOT exist on disk.
+    # Downstream code that branches on file existence will treat this as
+    # synthesized; downstream code that just stringifies it gets a stable label.
+    synth_path = PROFILES_DIR / f"_synth_{slug}.md"
+
+    return Profile(
+        slug=slug,
+        team_id=int(inputs["team_id"]),
+        program_tier=tier,
+        voice_register="plain-honest",
+        tonal_template="plain-honest",
+        identity_phrase=identity_phrase,
+        mantra=mantra,
+        frontmatter=frontmatter,
+        sections=sections,
+        source_path=synth_path,
+    )
+
+
+def load_or_synthesize(slug: str, db, profiles_dir: Path | None = None) -> Profile:
+    """Return a Profile for any FBS slug.
+
+    Hand-authored YAML wins when present. Else falls back to synthesize_profile().
+    """
+    try:
+        return load_profile(slug, profiles_dir=profiles_dir)
+    except FileNotFoundError:
+        return synthesize_profile(slug, db)
+
+
+def list_real_fbs_slugs(db) -> list[str]:
+    """Return the canonical list of FBS slugs (P4 + G5 + Independents).
+
+    Used by the bulk renderer to iterate every real FBS program. Filters out
+    the data-quality stragglers (e.g., "valley-city-state") that carry
+    level_code='FBS' incorrectly in the source feed.
+    """
+    rows = db.query_all(
+        """
+        select t.slug
+        from teams t
+        join conferences c on c.conference_id = t.current_conference_id
+        where t.level_code = 'FBS'
+          and c.conference_name in (
+              'Southeastern Conference', 'SEC',
+              'Big Ten Conference', 'Big Ten',
+              'Atlantic Coast Conference', 'ACC',
+              'Big 12 Conference', 'Big 12',
+              'American Athletic Conference', 'American Athletic',
+              'Mountain West Conference', 'Mountain West',
+              'Sun Belt Conference', 'Sun Belt',
+              'Mid-American Conference', 'MAC',
+              'Conference USA', 'C-USA',
+              'FBS Independents',
+              'Pac-12 Conference', 'Pac-12'
+          )
+        order by t.slug
+        """
+    )
+    return [r["slug"] for r in rows]

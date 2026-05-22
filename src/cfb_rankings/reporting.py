@@ -6988,10 +6988,19 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
 
     teams_dir = site_root / "teams"
     teams_dir.mkdir(parents=True, exist_ok=True)
-    from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS  # profiled teams rendered by team_pages/renderer.py
+    # Sprint H: world-class renderer covers ALL real FBS programs (30
+    # hand-authored + ~89 synthesized). The legacy loop must not overwrite
+    # any of them, so we compute the full world-class set here once.
+    from cfb_rankings.team_pages.profile_loader import (
+        PROFILED_SLUGS, list_real_fbs_slugs,
+    )
+    try:
+        _world_class_slugs = set(PROFILED_SLUGS) | set(list_real_fbs_slugs(db))
+    except Exception:
+        _world_class_slugs = set(PROFILED_SLUGS)
     for existing_file in teams_dir.glob("*.html"):
-        if existing_file.stem in PROFILED_SLUGS:
-            continue  # preserve world-class output
+        if existing_file.stem in _world_class_slugs:
+            continue  # preserve world-class output (profiled OR synthesized)
         _safe_unlink_generated_file(existing_file)
     (teams_dir / "index.html").write_text(
         render_teams_index_html(summary, rankings),
@@ -7028,7 +7037,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
 
     _report_progress("Writing team season pages...")
     for slug, team_data in team_pages.items():
-        if slug not in PROFILED_SLUGS:  # profiled teams rendered by team_pages/renderer.py
+        if slug not in _world_class_slugs:  # world-class renderer covers all real FBS
             (teams_dir / f"{slug}.html").write_text(render_team_page_html(summary, team_data), encoding="utf-8")
         ranking = team_data.get("ranking")
         season_summary = team_data.get("season_summary") or {}
@@ -7047,15 +7056,19 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
             )
 
     # Team Pages v2 — world-class renderer for profiled programs (Sprint 2).
-    # Legacy pages for unprofiled programs are written above; the legacy loop
-    # at L5269-5271 short-circuits for profiled slugs. This step writes the
-    # new-style pages from src/cfb_rankings/team_pages/. See CLAUDE.md
-    # "Team Pages (new module)" for the integration notes.
-    _report_progress("Writing team pages v2 (profiled programs)...")
+    # Sprint H: the world-class renderer now covers ALL real FBS programs,
+    # not just the 30 with hand-authored YAMLs. Unprofiled programs use
+    # synthesize_profile() to build a usable Profile from DB signal so they
+    # get the same chrome (Season Standing, Prestige, Trajectory, Peers,
+    # Kickoff, Page Tone, Hero Arc, Aspiration, Savant) as profiled ones.
+    # Closes audit T31 ("two-tier reality") structurally.
+    _report_progress("Writing team pages v2 (all FBS — profiled + synthesized)...")
     try:
         from cfb_rankings.team_pages import render_all_profiled_pages
-        count = render_all_profiled_pages(db, output_dir=teams_dir)
-        _report_progress(f"Team-pages v2: rendered {count} profiled programs.")
+        count = render_all_profiled_pages(
+            db, output_dir=teams_dir, include_unprofiled_fbs=True,
+        )
+        _report_progress(f"Team-pages v2: rendered {count} FBS programs (30 hand-authored + ~89 synthesized).")
     except Exception as exc:
         _report_progress(f"Team-pages v2 render skipped: {exc}")
 

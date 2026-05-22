@@ -68,17 +68,27 @@ def render_all_profiled_pages(
     *,
     today: date | None = None,
     season_year: int | None = None,
+    include_unprofiled_fbs: bool = False,
 ) -> int:
     """Render the team page for every slug present in profiles/.
 
     Build-site hook. Swallows per-slug exceptions so one broken profile
     never fails the whole build; prints a one-line note per failure.
     Returns the count of pages successfully written.
+
+    When ``include_unprofiled_fbs=True``, also renders every real FBS
+    program that lacks a hand-authored YAML, using
+    ``synthesize_profile()`` to build a usable Profile from DB signal.
+    This closes the audit's T31 ("two-tier reality") gap — all 119 real
+    FBS programs share the world-class chrome; only the 30 profiled ones
+    carry hand-authored voice on top.
     """
-    from .profile_loader import PROFILED_SLUGS
+    from .profile_loader import PROFILED_SLUGS, list_real_fbs_slugs
     from .historical_season_page import render_all_historical_seasons
 
     count = 0
+    profiled_count = 0
+    synthesized_count = 0
     errors: list[tuple[str, str]] = []
     for slug in sorted(PROFILED_SLUGS):
         try:
@@ -87,11 +97,40 @@ def render_all_profiled_pages(
                 today=today, season_year=season_year,
             )
             count += 1
+            profiled_count += 1
         except Exception as exc:
             errors.append((slug, f"{type(exc).__name__}: {exc}"))
+
+    if include_unprofiled_fbs:
+        try:
+            all_fbs = list_real_fbs_slugs(db)
+        except Exception as exc:
+            print(f"  team-pages v2: FBS slug list unavailable — {exc}")
+            all_fbs = []
+        unprofiled = [s for s in all_fbs if s not in PROFILED_SLUGS]
+        for slug in unprofiled:
+            try:
+                render_team_page(
+                    db, slug, output_dir,
+                    today=today, season_year=season_year,
+                )
+                count += 1
+                synthesized_count += 1
+            except Exception as exc:
+                errors.append((slug, f"{type(exc).__name__}: {exc}"))
+
     if errors:
-        for slug, msg in errors:
+        # Keep the noise short — show first 10 only.
+        for slug, msg in errors[:10]:
             print(f"  team-pages v2: {slug} failed — {msg}")
+        if len(errors) > 10:
+            print(f"  team-pages v2: + {len(errors) - 10} more failures suppressed")
+
+    if include_unprofiled_fbs:
+        print(
+            f"  team-pages v2: {profiled_count} hand-authored + "
+            f"{synthesized_count} synthesized = {count} world-class team pages"
+        )
 
     # Also render historical-season archive pages for every (slug, year)
     # pair present in team_season_arc. Errors per (slug, year) are logged
@@ -113,8 +152,14 @@ def render_team_page(
     today: date | None = None,
     season_year: int | None = None,
 ) -> Path:
-    """Build the HTML and write it to output_dir/<slug>.html."""
-    profile = load_profile(slug)
+    """Build the HTML and write it to output_dir/<slug>.html.
+
+    Sprint H: when no hand-authored profile YAML exists for this slug,
+    falls back to ``synthesize_profile()`` so every real FBS program can
+    render with the world-class chrome.
+    """
+    from .profile_loader import load_or_synthesize
+    profile = load_or_synthesize(slug, db)
     snapshot = fetch_team_snapshot(db, slug, season_year)
     # Sprint 6 — load any recent finalized live-game row for this team
     # within the 72h post-game window. resolve_state uses this to flip into
