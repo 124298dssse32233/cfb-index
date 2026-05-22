@@ -363,7 +363,7 @@ def render_editions_archive_html(db: Database) -> str:
       <div class="chrome">
         <span>CFB · INDEX</span>
         <span>Editions Archive</span>
-        <span>Generated {html.escape(generated_at)}</span>
+        <span>Updated {html.escape(generated_at)}</span>
       </div>
       <div class="bottom">
         <a href="/">Home</a> &nbsp;·&nbsp;
