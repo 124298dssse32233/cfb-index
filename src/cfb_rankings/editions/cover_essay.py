@@ -149,8 +149,33 @@ CONTINUITY
 - Read the PRIOR 4 COVERS block. Don't restate. Build on. If a previous \
   cover already framed a question, advance it.
 
-Output is the cover essay BODY ONLY — no headline, no dek, no byline, \
-no markdown headers. Plain prose paragraphs separated by blank lines."""
+CITATIONS (receipt pattern, locked spec)
+- Tag concrete factual claims drawn from SOURCE OBSERVATIONS with inline \
+  `[N]` markers. Use 4-6 markers across a ~1,100-word essay (roughly \
+  one per 200 words).
+- AFTER the body, emit a single `<sources>` block listing every marker \
+  with one line per citation in this exact format:
+      [N] source_kind · source_label · source_date · source_url · confidence
+- `source_kind` MUST be one of: reddit, beat_writer, podcast, wikipedia, \
+  official, cfbd, wire, edition.
+- `confidence` MUST be one of: primary, supporting, background.
+- `source_date` is ISO YYYY-MM-DD; `source_url` is the canonical URL or \
+  the literal "n/a" for sources without one (e.g. a CFBD API query).
+- If the SOURCE OBSERVATIONS block is empty / sparse, skip the `<sources>` \
+  block entirely and omit `[N]` markers — better to ship without citations \
+  than fabricate sources.
+
+Output structure:
+  <body prose with optional [N] markers>
+
+  <sources>
+  [1] ...
+  [2] ...
+  </sources>
+
+No headline, no dek, no byline, no markdown headers in the body. Plain \
+prose paragraphs separated by blank lines, followed by the `<sources>` \
+block if any markers were used."""
 
 
 # ---------------------------------------------------------------------------
@@ -485,6 +510,80 @@ def fallback_to_seed(edition_slug: str) -> Optional[str]:
     return None
 
 
+def parse_citations_block(llm_output: str) -> tuple[str, list[dict[str, Any]]]:
+    """Strip the <sources> block from LLM output and parse its lines.
+
+    The system prompt instructs the LLM to append a `<sources>...</sources>`
+    block listing each citation in the format::
+
+        [N] source_kind · source_label · source_date · source_url · confidence
+
+    Returns a tuple of ``(body_without_sources_block, citations_list)``.
+    ``citations_list`` is a list of dicts shaped for
+    :class:`cfb_rankings.citations.types.Citation`. If no block is
+    present or the block doesn't parse, returns ``(llm_output, [])`` —
+    soft-fail, the body still ships.
+
+    The body retains its inline ``[N]`` markers regardless of whether
+    parsing succeeds; ``citations.annotate_body_markdown`` will leave
+    unmatched markers as plain ``[N]`` text (visible-by-design).
+    """
+    import re as _re
+
+    if not llm_output:
+        return "", []
+
+    match = _re.search(
+        r"<sources>\s*(.+?)\s*</sources>",
+        llm_output, _re.DOTALL | _re.IGNORECASE,
+    )
+    if not match:
+        return llm_output, []
+
+    body = llm_output[: match.start()].rstrip() + llm_output[match.end():].lstrip()
+
+    citations: list[dict[str, Any]] = []
+    for line in match.group(1).strip().splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        # Format: "[N] kind · label · date · url · confidence"
+        marker_match = _re.match(r"^\[(\d+)\]\s*(.+)$", line)
+        if not marker_match:
+            continue
+        marker_id = int(marker_match.group(1))
+        rest = marker_match.group(2)
+        # Split on " · " — the locked separator
+        parts = [p.strip() for p in rest.split("·")]
+        if len(parts) < 2:
+            continue
+        # Pad missing trailing fields with sensible defaults
+        kind = parts[0] if len(parts) > 0 else "edition"
+        label = parts[1] if len(parts) > 1 else ""
+        date = parts[2] if len(parts) > 2 else None
+        url = parts[3] if len(parts) > 3 else None
+        conf = parts[4] if len(parts) > 4 else "supporting"
+        if url and url.lower() in ("n/a", "none", "-"):
+            url = None
+        # Strict allow-list per editorial_citations CHECK constraints
+        if kind not in (
+            "reddit", "beat_writer", "podcast", "wikipedia",
+            "official", "cfbd", "wire", "edition",
+        ):
+            kind = "edition"  # safe default
+        if conf not in ("primary", "supporting", "background"):
+            conf = "supporting"
+        citations.append({
+            "marker_id": marker_id,
+            "source_kind": kind,
+            "source_label": label,
+            "source_date": date,
+            "source_url": url,
+            "confidence": conf,
+        })
+    return body, citations
+
+
 __all__ = [
     "SURFACE_KEY",
     "SUBCOMMAND",
@@ -492,6 +591,7 @@ __all__ = [
     "EDITION_COVER_SYSTEM_PROMPT",
     "CoverEssayResult",
     "compose_prompt_body",
+    "parse_citations_block",
     "synthesize_cover_essay",
     "fallback_to_seed",
 ]

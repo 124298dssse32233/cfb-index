@@ -267,8 +267,16 @@ def _persist_cover_body(db, slug: str, body: str) -> None:
     after Pattern C wrote a real body. Derive the new dek from the
     first paragraph of body (cap ~220 chars at sentence boundary) so
     the tease accurately summarizes the live essay.
+
+    Session 6 addendum: parse the `<sources>` block out of LLM output
+    via cover_essay.parse_citations_block, persist citations via
+    cfb_rankings.citations.persist_citations, and store the cleaned
+    body (sans <sources> block). The body retains its inline `[N]`
+    markers; annotate_body_markdown handles them at render time.
     """
-    new_dek = _dek_from_body(body)
+    from .cover_essay import parse_citations_block
+    cleaned_body, citation_dicts = parse_citations_block(body)
+    new_dek = _dek_from_body(cleaned_body)
     db.execute(
         """
         update edition_features
@@ -278,8 +286,30 @@ def _persist_cover_body(db, slug: str, body: str) -> None:
            and feature_order = 1
            and feature_kind = 'cover_essay'
         """,
-        {"body": body, "dek": new_dek, "slug": slug},
+        {"body": cleaned_body, "dek": new_dek, "slug": slug},
     )
+
+    # Persist citations to editorial_citations if the LLM emitted any.
+    # generation_id = the cover-essay feature's row id. Soft-fail when
+    # the feature row can't be located (shouldn't happen since the
+    # UPDATE above just touched it, but defensive).
+    if citation_dicts:
+        try:
+            row = db.query_one(
+                "select id from edition_features where edition_slug = :slug "
+                "and feature_order = 1 and feature_kind = 'cover_essay'",
+                {"slug": slug},
+            )
+            if row and row.get("id") is not None:
+                from cfb_rankings.citations import Citation, persist_citations
+                citations = [Citation(**c) for c in citation_dicts]
+                persist_citations(db, int(row["id"]), citations)
+        except Exception as exc:  # pragma: no cover — defensive
+            import logging as _log
+            _log.warning(
+                "persist_cover_body: citation persistence skipped for "
+                "%s: %s: %s", slug, type(exc).__name__, exc,
+            )
 
 
 def _dek_from_body(body: str, *, max_chars: int = 220) -> str:
