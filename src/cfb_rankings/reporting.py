@@ -16436,7 +16436,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
               </label>
             </div>
             <div class="board-toolbar">
-              <div class="board-status">
+              <div class="board-status" aria-live="polite" aria-atomic="true">
                 <strong id="historyExplorerCount">{len(explorer_rows)}</strong>
                 <span>seasons visible</span>
               </div>
@@ -17081,7 +17081,7 @@ def render_teams_index_html(
                 </select>
               </label>
             </div>
-            <div class="board-status">
+            <div class="board-status" aria-live="polite" aria-atomic="true">
               <span class="status-pill"><strong id="teamsVisibleCount">{len(rankings)}</strong> teams visible</span>
               <a class="button button-secondary" href="../rankings/index.html">Open Power Rankings</a>
             </div>
@@ -17739,7 +17739,7 @@ def render_heisman_page_html(
                   <button type="button" class="jump-chip" data-heisman-limit="100">Top 100</button>
                 <button type="button" class="jump-chip is-active" data-heisman-limit="all">All players</button>
               </div>
-              <div class="board-status">
+              <div class="board-status" aria-live="polite" aria-atomic="true">
                 <strong id="heismanVisibleCount">{len(board_rows)}</strong>
                 <span>players visible</span>
                 </div>
@@ -26006,7 +26006,7 @@ def _site_css() -> str:
         border-left: 1px solid var(--rule, rgba(28,28,31,0.18));
         max-width: 26ch;
       }
-      @media (min-width: 1024px) {
+      @media (min-width: 768px) {
         .brand__tagline { display: inline-flex; align-items: center; }
       }
       .brand::after { content: ''; }
