@@ -258,7 +258,15 @@ jobs:
       - name: Compute fan-intel bridge tables
         run: |
           set +e
-          python -u manage.py tag-player-names                  || echo "tag-player-names skipped"
+          # tag-player-mentions (NOT tag-player-names — legacy name never
+          # existed as a CLI subcommand and the prior `|| echo skipped`
+          # swallow had been silently no-op'ing this step). --commit
+          # actually inserts rows. Season derives from current calendar:
+          # Feb-Jul -> previous year; Aug-Jan -> current year.
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          echo "Tagging player mentions for season=$SEASON"
+          python -u manage.py tag-player-mentions --season=$SEASON --commit \
+                                                                || echo "tag-player-mentions skipped"
           python -u manage.py build-conversation-features        || echo "build-conversation-features skipped"
           python -u manage.py prepare-pulse                      || echo "prepare-pulse skipped"
           python -u manage.py classify-player-sentiment          || echo "classify-player-sentiment skipped"

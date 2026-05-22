@@ -83,7 +83,17 @@ jobs:
       - name: Compute fanintel bridge tables
         run: |
           set +e
-          python manage.py tag-player-names || echo "tag-player-names skipped"
+          # Compute the "current" football season — the calendar year if we're
+          # already in the new season's late summer/fall, else the prior year
+          # (so Feb-Jul of YYYY runs against season YYYY-1). Mirrors the same
+          # derivation used in publish_site.yml.
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          echo "Tagging player mentions for season=$SEASON"
+          # tag-player-mentions (NOT tag-player-names — that legacy name has
+          # never existed as a CLI subcommand; the prior workflow text was
+          # silently no-op'ing for months via the `|| echo skipped` swallow).
+          # --commit actually inserts rows; without it the call is a dry-run.
+          python manage.py tag-player-mentions --season=$SEASON --commit || echo "tag-player-mentions skipped"
           python manage.py build-conversation-features || echo "build-conversation-features skipped"
           python manage.py prepare-pulse || echo "prepare-pulse skipped"
           python manage.py classify-player-sentiment || echo "classify-player-sentiment skipped"
