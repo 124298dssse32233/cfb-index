@@ -91,7 +91,8 @@ def compute_cohort_divergence(
         return CohortDivergenceMap(
             applicable=False,
             awaiting_reason=(
-                "Per-cohort mention data hasn't landed for this player yet."
+                "Cohort divergence reads how different fanbases talk about this "
+                "player. Returns once weekly mentions clear the publish floor."
             ),
             dots=[],
             max_mentions=0,

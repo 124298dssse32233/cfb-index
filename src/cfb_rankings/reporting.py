@@ -3671,9 +3671,9 @@ def render_narrative_arc_card(arc: dict[str, Any] | None) -> str:
             '<article class="narrative-arc narrative-arc--empty" '
             'data-module="narrative-arc" data-state="empty">'
             '  <p class="narrative-arc__eyebrow">Season in 3 Acts</p>'
-            '  <p>Arc authoring in progress for this player. Lights up '
-            'when the editorial pass covers them or the auto-generator '
-            'clears its confidence gate.</p>'
+            '  <p>The three-act season arc returns once this player&rsquo;s '
+            'season produces enough signal to grade in chapters &mdash; opening, '
+            'pivot, finish &mdash; with editorial conviction.</p>'
             '</article>'
         )
     player_name = escape(str(arc.get("player_name") or "Player"))
@@ -4654,10 +4654,10 @@ def render_mirror_match_card(matches: list[Any] | None) -> str:
             '<article class="mirror-match" data-module="mirror-match" '
             'data-state="empty">'
             '  <p class="mirror-match__eyebrow">Statistical mirror</p>'
-            '  <p class="mirror-match__headline">Awaiting historical backfill</p>'
+            '  <p class="mirror-match__headline">No close historical match yet</p>'
             '  <p class="mirror-match__sub">The 15-year cohort is thin for '
-            'this player\'s position today. Matches surface automatically '
-            'as historical coverage lands.</p>'
+            'this player&rsquo;s position right now. Matches surface as the '
+            'historical archive deepens.</p>'
             '</article>'
         )
     top = matches[0]
