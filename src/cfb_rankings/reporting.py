@@ -6940,7 +6940,18 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         render_programs_index_html(summary, program_explorer_rows, history_hub, site_pulse),
         encoding="utf-8",
     )
+    # Sprint H: precompute the world-class slug set once so per-program
+    # render can flag whether a richer /teams/<slug>.html exists.
+    try:
+        from cfb_rankings.team_pages.profile_loader import (
+            PROFILED_SLUGS as _PS, list_real_fbs_slugs as _LRFS,
+        )
+        _world_class_set_for_programs = set(_PS) | set(_LRFS(db))
+    except Exception:
+        from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS as _PS
+        _world_class_set_for_programs = set(_PS)
     for slug, program_data in program_pages.items():
+        program_data["__world_class_available"] = slug in _world_class_set_for_programs
         (programs_dir / f"{slug}.html").write_text(render_program_page_html(summary, program_data), encoding="utf-8")
 
     heisman_dir = site_root / "heisman"
@@ -17404,7 +17415,16 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
     # identity strip that points to the world-class page so visitors who
     # land here from external links + the legacy "Programs" nav don't
     # think the thin history page is the canonical team experience.
+    #
+    # Sprint H (2026-05-22): the world-class team page now covers all 119
+    # real FBS programs (not just 30 hand-authored), so the banner gate
+    # expands accordingly. program_data["__world_class_available"] is
+    # precomputed at the caller. Fall back to the hand-authored set when
+    # the flag is missing (e.g. ad-hoc renders that bypass build-site).
     from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS as _PROFILED_SLUGS
+    _PROFILED_SLUGS = set(_PROFILED_SLUGS)
+    if program_data.get("__world_class_available"):
+        _PROFILED_SLUGS.add(str(program_data.get("team", {}).get("slug", "")))
     team = program_data.get("team") or {}
     history = program_data.get("history") or []
     history_profile = program_data.get("history_profile") or {}
