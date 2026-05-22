@@ -2972,6 +2972,196 @@ _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK = """
 """
 
 
+_PROFILE_IDENTITY_V2_CSS_BLOCK = """
+/* Profile-archetype identity-strip v2 — the richer variant with
+ * team mark + stat tiles + action buttons + accent rail. Unblocks
+ * the Phase 3 migration of program / unprofiled-team / player pages
+ * away from their bespoke .premium-team-hero blocks.
+ *
+ * Custom properties:
+ *   --profile-v2-accent       team accent color (default: global gold)
+ *   --profile-v2-accent-soft  10%-alpha tint for stat-tile backgrounds
+ */
+
+.profile-identity-v2 {
+  --profile-v2-accent: var(--accent-primary, #c9a24a);
+  --profile-v2-accent-soft: rgba(201, 162, 74, 0.10);
+  position: relative;
+  padding: clamp(16px, 2.4vw, 32px) clamp(16px, 3vw, 40px);
+  border-left: 4px solid var(--profile-v2-accent);
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.profile-identity-v2__header {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 1.5vw, 20px);
+  margin-bottom: clamp(12px, 1.5vw, 20px);
+}
+.profile-identity-v2__team-mark {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: var(--profile-v2-accent-soft);
+  border: 1px solid var(--profile-v2-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--profile-v2-accent);
+  overflow: hidden;
+}
+.profile-identity-v2__team-mark svg,
+.profile-identity-v2__team-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.profile-identity-v2__wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.profile-identity-v2__eyebrow {
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin: 0;
+}
+.profile-identity-v2__name {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: clamp(24px, 2vw + 14px, 38px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--fg-primary, inherit);
+}
+.profile-identity-v2__sub-meta {
+  font-size: clamp(13px, 0.3vw + 12px, 15px);
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+
+/* Stat tile grid */
+.profile-identity-v2__stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: clamp(12px, 1.5vw, 20px);
+}
+.profile-identity-v2__stat-tile {
+  padding: 10px 12px;
+  background: var(--profile-v2-accent-soft);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.profile-identity-v2__stat-tile-label {
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+}
+.profile-identity-v2__stat-tile-value {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--fg-primary, inherit);
+}
+.profile-identity-v2__stat-tile-sub {
+  font-size: 11px;
+  color: var(--fg-secondary, #c6cad6);
+}
+
+/* Action row */
+.profile-identity-v2__action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(8px, 1vw, 12px);
+}
+.profile-identity-v2__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.profile-identity-v2__action--primary {
+  background: var(--profile-v2-accent);
+  color: var(--bg-primary, #1a1a1a);
+}
+.profile-identity-v2__action--primary:hover {
+  opacity: 0.92;
+}
+.profile-identity-v2__action--secondary {
+  background: transparent;
+  color: var(--fg-primary, inherit);
+  border-color: var(--profile-v2-accent);
+}
+.profile-identity-v2__action--secondary:hover {
+  background: var(--profile-v2-accent-soft);
+}
+
+/* Chip row (same look as v1 chips, kept for visual continuity) */
+.profile-identity-v2__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.profile-identity-v2__chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, #c6cad6);
+}
+
+/* Mobile: stack team-mark above wordmark, condense tile grid */
+@media (max-width: 640px) {
+  .profile-identity-v2__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-identity-v2__team-mark {
+    width: 48px;
+    height: 48px;
+  }
+  .profile-identity-v2__name {
+    font-size: clamp(22px, 5vw, 30px);
+  }
+}
+"""
+
+
 _TOUCH_TARGET_A11Y_CSS_BLOCK = """
 /* WCAG 2.5.5 (Level AAA) — interactive targets ≥44x44 CSS pixels.
  * The browser-MCP validation pass in session 6 caught 100% of
@@ -5730,6 +5920,8 @@ def _compose_global_css() -> str:
         + _PROFILE_PRIMITIVES_CSS_BLOCK
         + "\n/* === Database + Article archetype primitives (Session 6, 2026-05-22) === */\n"
         + _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK
+        + "\n/* === Profile identity-strip v2 — Phase 3 richer primitive (Session 6) === */\n"
+        + _PROFILE_IDENTITY_V2_CSS_BLOCK
         + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
         + _TOUCH_TARGET_A11Y_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
@@ -16824,7 +17016,10 @@ def _teams_index_script() -> str:
 
 
 def render_program_page_html(summary: dict[str, Any], program_data: dict[str, Any]) -> str:
-    from cfb_rankings.profile import render_profile_meta_footer
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip_v2,
+    )
     team = program_data.get("team") or {}
     history = program_data.get("history") or []
     history_profile = program_data.get("history_profile") or {}
@@ -16945,51 +17140,39 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
           <span>/</span>
           <strong>{escape(team_name)}</strong>
         </div>
-        <section class="hero team-hero premium-team-hero">
-          <div class="team-hero-top">
-            <div>
-              <h1>{escape(team_name)}</h1>
-              <p class="team-hero-sub">{escape(level_code)} program | latest conference era: {escape(conference_name)}</p>
-            </div>
-            <div class="team-rank-chip">Program Explorer</div>
-          </div>
-          <div class="team-stat-ribbon">
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Loaded Seasons</span>
-                <strong>{int(history_profile.get("loaded_seasons") or 0)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Latest Season</span>
-                <strong>{escape(str(latest_season_year or '--'))}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Peak Loaded Season</span>
-                <strong>{escape(peak_power_text)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Best Finish</span>
-                <strong>{escape(best_finish_text)}</strong>
-              </div>
-            </article>
-          </div>
-          <div class="team-hero-actions">
-            {f'<a class="button button-primary" href="{program_data.get("current_season_url")}">{escape(season_name)} Page</a>' if program_data.get("current_season_url") else ''}
-            <a class="button button-secondary" href="../rankings/index.html">Current Rankings</a>
-            <a class="button button-secondary" href="../history/index.html">History Hub</a>
-          </div>
-          {program_subnav}
-        </section>
+        {render_profile_identity_strip_v2(
+            eyebrow=f"{level_code} PROGRAM EXPLORER",
+            name=team_name,
+            sub_meta=f"latest conference era: {conference_name}",
+            team_mark_html=escape(team_mark),
+            stat_tiles=[
+                {"label": "Loaded Seasons",
+                 "value": str(int(history_profile.get("loaded_seasons") or 0))},
+                {"label": "Latest Season",
+                 "value": str(latest_season_year or "--")},
+                {"label": "Peak Power",
+                 "value": peak_power_text},
+                {"label": "Best Finish",
+                 "value": best_finish_text},
+            ],
+            action_buttons=([
+                {"label": f"{season_name} Page",
+                 "href": program_data.get("current_season_url"),
+                 "variant": "primary"},
+            ] if program_data.get("current_season_url") else []) + [
+                {"label": "Current Rankings",
+                 "href": "../rankings/index.html",
+                 "variant": "secondary"},
+                {"label": "History Hub",
+                 "href": "../history/index.html",
+                 "variant": "secondary"},
+            ],
+            chips=["Program Explorer"],
+            accent_color=team_theme['accent'],
+            accent_color_soft=team_theme['accent_soft'],
+            aria_label=f"{team_name} program identity",
+        )}
+        {program_subnav}
       </section>
 
       <section class="section premium-team-grid player-anchor-section" id="program-arc">
