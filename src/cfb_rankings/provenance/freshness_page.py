@@ -157,7 +157,8 @@ def render_freshness_html(db: Database) -> str:
     .status-error {{ color: #cf222e; font-weight: 600; }}
     .status-empty {{ color: #b08800; font-weight: 600; }}
     .status-skipped {{ color: #555; }}
-    .status-unknown, .never {{ color: #999; font-style: italic; }}
+    /* Phase 9 a11y: WCAG AA 4.5:1 — was #999 (2.84:1 fail on #fff) */
+    .status-unknown, .never {{ color: #595959; font-style: italic; }}
     nav a {{ margin-right: 1rem; color: #0969da; }}
     small {{ color: #666; }}
   </style>

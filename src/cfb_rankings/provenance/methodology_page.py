@@ -251,7 +251,8 @@ code { background: #f4f4f8; padding: 1px 5px; border-radius: 3px; font-size: 13p
 .source-activity th, .source-activity td { padding: 4px 10px; font-size: 13px; }
 .divergence-leaderboard td:nth-child(3), .source-activity td:nth-child(2),
 .source-activity td:nth-child(3), .divergence-leaderboard td:nth-child(4) { font-variant-numeric: tabular-nums; text-align: right; }
-footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
+/* Phase 9 a11y: WCAG AA 4.5:1 contrast — was #888 (3.55:1 fail on #fff) */
+footer { color: #595959; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
 """
 
 
