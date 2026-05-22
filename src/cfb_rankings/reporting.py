@@ -5516,19 +5516,35 @@ def render_rival_radar_card(radar: Any | None, player_name: str) -> str:
 
 
 def render_anti_take_card(anti_take: Any | None) -> str:
-    """Render the Anti-Take sibling card. Empty string when none."""
-    if not anti_take:
-        return ""
-    if hasattr(anti_take, "rendered_text"):
-        text = anti_take.rendered_text
-        tag = anti_take.caveat_tag
-    elif isinstance(anti_take, dict):
-        text = str(anti_take.get("rendered_text") or "")
-        tag = str(anti_take.get("caveat_tag") or "")
-    else:
-        return ""
+    """Render the Anti-Take sibling card.
+
+    Sprint C (audit 2026-05-22): always emit the card so the brief's
+    "Hot-Take + Anti-Take pair" reads as a deliberate paired module
+    even when the bets pipeline hasn't produced an anti-take for this
+    player. Per brief §8.8: "specific, honest copy. Never 'No data
+    available.'" — the awaiting state names exactly why it's empty.
+    """
+    text = ""
+    tag = ""
+    if anti_take:
+        if hasattr(anti_take, "rendered_text"):
+            text = anti_take.rendered_text or ""
+            tag = anti_take.caveat_tag or ""
+        elif isinstance(anti_take, dict):
+            text = str(anti_take.get("rendered_text") or "")
+            tag = str(anti_take.get("caveat_tag") or "")
     if not text:
-        return ""
+        return (
+            '<article class="anti-take anti-take--awaiting" data-module="anti-take" data-state="empty">'
+            '  <div class="anti-take__header">'
+            '    <p class="anti-take__eyebrow">Anti-Take</p>'
+            '    <span class="anti-take__tag">PENDING</span>'
+            '  </div>'
+            '  <p class="anti-take__text"><em>The contrarian read fires when the rules-engine'
+            ' detects a stat that complicates the Hot-Take. Quiet here means the model'
+            ' hasn&rsquo;t found a defensible counter yet — not that one doesn&rsquo;t exist.</em></p>'
+            '</article>'
+        )
     return (
         '<article class="anti-take" data-module="anti-take">'
         '  <div class="anti-take__header">'
@@ -5541,23 +5557,32 @@ def render_anti_take_card(anti_take: Any | None) -> str:
 
 
 def render_hot_take_card(take: Any | None) -> str:
-    """Render the Hot-Take card. Empty string when no take.
+    """Render the Hot-Take card.
 
-    Input is a bets.hot_take.HotTake dataclass (or a dict with the same
-    shape from the cached render payload).
+    Sprint C (audit 2026-05-22): always emit the card so the
+    "Hot-Take + Anti-Take pair" reads as a deliberate paired module
+    even when the rules-engine hasn't produced a take for this player.
+    Per brief §8.8 "specific, honest copy. Never 'No data available.'"
     """
-    if not take:
-        return ""
-    if hasattr(take, "rendered_text"):
-        text = take.rendered_text
-        meta = take.meta or {}
-    elif isinstance(take, dict):
-        text = str(take.get("rendered_text") or "")
-        meta = take.get("meta") or {}
-    else:
-        return ""
+    text = ""
+    meta: dict[str, Any] = {}
+    if take:
+        if hasattr(take, "rendered_text"):
+            text = take.rendered_text or ""
+            meta = take.meta or {}
+        elif isinstance(take, dict):
+            text = str(take.get("rendered_text") or "")
+            meta = take.get("meta") or {}
     if not text:
-        return ""
+        return (
+            '<article class="hot-take hot-take--awaiting" data-module="hot-take" data-state="empty">'
+            '  <p class="hot-take__eyebrow">Today&rsquo;s Hot-Take</p>'
+            '  <p class="hot-take__text"><em>The Hot-Take engine fires when this'
+            ' player&rsquo;s percentile profile crosses a defensible threshold'
+            ' (top 10% in a cohort, 100+ snap sample). When it&rsquo;s quiet, the'
+            ' model is honoring its &ldquo;must be defensible&rdquo; rule.</em></p>'
+            '</article>'
+        )
     rank = meta.get("rank")
     sample = meta.get("sample")
     cohort = meta.get("cohort") or ""
