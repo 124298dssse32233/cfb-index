@@ -28,6 +28,7 @@ from cfb_rankings.common.cfb_calendar import (
     cfb_week_label,
     days_to_kickoff,
     is_in_season,
+    is_offseason,
 )
 from typing import Any
 
@@ -211,7 +212,11 @@ FRIENDLY_MODEL_LABEL = "CFB Index v1"
 # ---------------------------------------------------------------------------
 
 
-def render_masthead(issue_number: str, model_week: int | None, issue_date: str, updated_label: str = "Updated this week") -> str:
+def render_masthead(issue_number: str, model_week: int | None, issue_date: str, updated_label: str | None = None) -> str:
+    # Fallback label is offseason-aware. Most callers pass an explicit
+    # "Updated {date}" so this is just a safety net.
+    if updated_label is None:
+        updated_label = "Updated this offseason" if is_offseason(date.today(), db=None) else "Updated this week"
     # In-season the bare "Model Week N" label is fine. Offseason it reads as
     # garbage to readers ("Model Week 20" in late May means nothing), so swap
     # in the phase + days-to-kickoff parenthetical. See cfb_calendar module.
@@ -803,21 +808,23 @@ def render_mood_ticker_section(ticker: dict[str, list[dict[str, Any]]], issue: d
     is_retro = bool((issue or {}).get("is_retro"))
     source = _section_source(all_items, issue=issue) if is_retro else "computed"
     pills = "".join(_render_ticker_pill(row, show_badge=is_retro) for row in all_items)
+    _is_off = is_offseason(date.today(), db=None)
     methodology = _issue_methodology(
         issue or {},
         "mood_ticker",
         (
             "n = 340K conversations over 7d",
             "bot-filtered",
-            "updated this week",
+            "updated this offseason" if _is_off else "updated this week",
         ),
     )
     badge = render_provenance_badge(source) if is_retro else ""
+    _ticker_h2 = "The Offseason's Biggest Mood Movers" if _is_off else "This Week&rsquo;s Biggest Mood Movers"
     return f"""
     <section id="sec-02" class="hub-section hub-section-paper"{_section_attr(source) if is_retro else ""}>
       <div class="hub-container">
         {render_section_eyebrow("N\u00b0 02", "The Ticker")}
-        <h2 class="hub-display-l">This Week&rsquo;s Biggest Mood Movers {badge}</h2>
+        <h2 class="hub-display-l">{_ticker_h2} {badge}</h2>
         <p class="hub-dek">Ten fanbases whose belief shifted hardest in the last seven days.</p>
         <div class="hub-ticker-grid">{pills}</div>
         <p class="hub-caption">The top five are gaining on coach news; the bottom five are losing on a single press conference each.</p>
@@ -1019,7 +1026,7 @@ def render_hype_vs_reality_section(issue: dict[str, Any] | None = None) -> str:
             "n = 2.4M conversations",
             "hype from sentiment",
             "reality from model",
-            "updated this week",
+            "updated this offseason" if is_offseason(date.today(), db=None) else "updated this week",
         ),
     )
     badge = render_provenance_badge(source) if is_retro else ""
@@ -1154,7 +1161,7 @@ def _render_modifier_strip(modifiers: list[dict[str, Any]]) -> str:
     return f"""
     <div class="hub-modifier-strip">
       <div class="hub-modifier-row">{chips}</div>
-      <p class="hub-caption hub-caption-center">Every fanbase carries one primary archetype and, this week, one of eight modifiers.</p>
+      <p class="hub-caption hub-caption-center">{"Every fanbase carries one primary archetype and one of eight modifiers." if is_offseason(date.today(), db=None) else "Every fanbase carries one primary archetype and, this week, one of eight modifiers."}</p>
     </div>
     """
 
@@ -1172,7 +1179,7 @@ def render_rivalry_section(rivalries: list[dict[str, Any]], issue: dict[str, Any
         _issue_methodology(
             issue or {},
             "rivalry",
-            ("ratio from pair mentions", "bot-filtered", "updated this week"),
+            ("ratio from pair mentions", "bot-filtered", "updated this offseason" if is_offseason(date.today(), db=None) else "updated this week"),
         )
         if is_retro
         else ""
@@ -1239,7 +1246,7 @@ def render_lexicon_section(lexicon: dict[str, Any] | None, issue: dict[str, Any]
         <section id="sec-06" class="hub-section hub-section-paper"{_section_attr("editorial") if is_retro else ""}>
           <div class="hub-container">
             {render_section_eyebrow("N\u00b0 06", "The Lexicon")}
-            <h2 class="hub-display-l">No featured phrase this week.</h2>
+            <h2 class="hub-display-l">{"No featured phrase from the latest signal." if is_offseason(date.today(), db=None) else "No featured phrase this week."}</h2>
             <p class="hub-dek">The Lexicon of the Week lights up when a single phrase clears the spike threshold (+100% WoW), the volume floor (500+ mentions), and the sample-quote floor (3+ quotable uses).</p>
           </div>
         </section>
@@ -1268,7 +1275,7 @@ def render_lexicon_section(lexicon: dict[str, Any] | None, issue: dict[str, Any]
       <div class="hub-container">
         {render_section_eyebrow("N\u00b0 06", "The Lexicon")}
         <h2 class="hub-display-l">&ldquo;{escape(str(lexicon.get('phrase') or ''))}&rdquo; {badge}</h2>
-        <p class="hub-dek">The phrase that spiked in {escape_or_dash(lexicon.get('related_team_name'))} fan conversations this week, and what it means.</p>
+        <p class="hub-dek">{"The phrase that recently spiked in " + escape_or_dash(lexicon.get('related_team_name')) + " fan conversations, and what it means." if is_offseason(date.today(), db=None) else "The phrase that spiked in " + escape_or_dash(lexicon.get('related_team_name')) + " fan conversations this week, and what it means."}</p>
         <article class="lexicon-feature">
           <div class="lexicon-feature-left">{paragraphs_html}</div>
           <div class="lexicon-feature-right">
@@ -1342,9 +1349,9 @@ def render_index_cards_section(issue: dict[str, Any]) -> str:
     <section id="sec-07" class="hub-section hub-section-paper"{_section_attr(source) if is_retro else ""}>
       <div class="hub-container">
         {render_section_eyebrow("N\u00b0 07", f"The Index Cards \u00b7 {issue['issue_number']}")}
-        <h2 class="hub-display-l">This week&rsquo;s cards</h2>
+        <h2 class="hub-display-l">{"Latest cards" if is_offseason(date.today(), db=None) else "This week&rsquo;s cards"}</h2>
         <div class="hub-index-cards">{cards_html}</div>
-        <p class="hub-caption hub-caption-center">All Index Cards are collectible. <a href="#">Save this week&rsquo;s cards</a> <span class="hub-gold-dot">\u00b7</span> <a href="/archive/">archive of all 47 issues &rarr;</a></p>
+        <p class="hub-caption hub-caption-center">All Index Cards are collectible. <a href="#">{"Save the latest cards" if is_offseason(date.today(), db=None) else "Save this week&rsquo;s cards"}</a> <span class="hub-gold-dot">\u00b7</span> <a href="/archive/">archive of all 47 issues &rarr;</a></p>
       </div>
     </section>
     """

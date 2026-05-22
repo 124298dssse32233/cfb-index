@@ -497,16 +497,18 @@ def _power_resume_gap_note(power_value: Any, resume_value: Any) -> str:
         return "Power and resume will sharpen as more results land."
     gap = float(power_value) - float(resume_value)
     rounded_gap = int(round(abs(gap)))
+    _is_off = is_offseason(date.today(), db=None)
+    _when = "through the most recent season" if _is_off else "right now"
     if rounded_gap < 2:
-        return "Power and resume are essentially aligned right now."
+        return f"Power and resume are essentially aligned {_when}."
     point_label = "point" if rounded_gap == 1 else "points"
     if gap > 0:
         return (
-            f"Power is running {rounded_gap} {point_label} ahead of resume right now — "
+            f"Power is {rounded_gap} {point_label} ahead of resume {_when} — "
             f"the underlying strength rating outpaces what the body of work says."
         )
     return (
-        f"Resume is running {rounded_gap} {point_label} ahead of power right now — "
+        f"Resume is {rounded_gap} {point_label} ahead of power {_when} — "
         f"results are outpacing the underlying strength rating."
     )
 
@@ -10348,7 +10350,11 @@ def _build_player_signature_story(
     transfer_count = int(transfer_profile.get("transfer_count") or 0)
     honor_count = len(honors_history)
 
-    title = "What makes this player interesting right now"
+    title = (
+        "What made this player interesting"
+        if is_offseason(date.today(), db=None) else
+        "What makes this player interesting right now"
+    )
     if bucket == "DEF":
         title = "Why this is a rare defensive case"
         body = (
@@ -12278,7 +12284,12 @@ def _conference_profile_note(
         return f"{conference_name} looks stronger on team quality than on season resume, which makes it a dangerous future-facing league."
     if upper_strength >= round_robin_power + 1.8:
         return f"{conference_name} has real upper-tier density. The top of the board raises the conference ceiling without the rest of the league completely falling away."
-    return f"{conference_name} reads like a balanced league right now, with {top_team_name} setting the pace and the rest of the board staying reasonably connected behind it."
+    _is_off_balanced = is_offseason(date.today(), db=None)
+    return (
+        f"{conference_name} read like a balanced league through the most recent season, with {top_team_name} setting the pace and the rest of the board staying reasonably connected behind it."
+        if _is_off_balanced else
+        f"{conference_name} reads like a balanced league right now, with {top_team_name} setting the pace and the rest of the board staying reasonably connected behind it."
+    )
 
 
 def _matchup_team_snapshot(team_data: dict[str, Any], prefix: str = "") -> dict[str, Any]:
@@ -13259,9 +13270,9 @@ def _compare_tool_script() -> str:
           if (headline) headline.textContent = `${teamA.team_name} vs. ${teamB.team_name}`;
           if (summary) {
             summary.textContent =
-              `${stronger} looks stronger right now on the predictive board. ` +
+              `${stronger} is stronger on the predictive board. ` +
               `${betterResume} owns the better body of work. ` +
-              `${moreExplosive} currently carries the more volatile big-play profile.`;
+              `${moreExplosive} carries the more volatile big-play profile.`;
           }
         }
 
@@ -13518,16 +13529,37 @@ def _render_conference_movers_section(conference: dict[str, Any]) -> str:
             f'</a>'
         )
 
-    risers_html = "".join(_card(t, "up") for t in risers) or '<p class="footer-note">No meaningful risers this week.</p>'
-    faders_html = "".join(_card(t, "down") for t in faders) or '<p class="footer-note">No meaningful faders this week.</p>'
+    _is_off = is_offseason(date.today(), db=None)
+    _no_risers = (
+        '<p class="footer-note">No meaningful risers from the last refresh.</p>'
+        if _is_off else
+        '<p class="footer-note">No meaningful risers this week.</p>'
+    )
+    _no_faders = (
+        '<p class="footer-note">No meaningful faders from the last refresh.</p>'
+        if _is_off else
+        '<p class="footer-note">No meaningful faders this week.</p>'
+    )
+    risers_html = "".join(_card(t, "up") for t in risers) or _no_risers
+    faders_html = "".join(_card(t, "down") for t in faders) or _no_faders
+    _risers_note = (
+        "Rank movement since the most recent refresh."
+        if _is_off else
+        "Week-over-week rank change inside the board."
+    )
+    _faders_note = (
+        "Teams whose stock dropped most since the last refresh."
+        if _is_off else
+        "Teams whose stock dropped most against the board this week."
+    )
     return f"""
       <section class="section two-up">
         <article class="panel">
-          <div class="section-head"><h2>Biggest Risers</h2><p class="section-note">Week-over-week rank change inside the board.</p></div>
+          <div class="section-head"><h2>Biggest Risers</h2><p class="section-note">{_risers_note}</p></div>
           <div class="feature-grid scenario-grid">{risers_html}</div>
         </article>
         <article class="panel">
-          <div class="section-head"><h2>Biggest Faders</h2><p class="section-note">Teams whose stock dropped most against the board this week.</p></div>
+          <div class="section-head"><h2>Biggest Faders</h2><p class="section-note">{_faders_note}</p></div>
           <div class="feature-grid scenario-grid">{faders_html}</div>
         </article>
       </section>
@@ -14145,7 +14177,9 @@ def _build_matchup_scenarios(team_pages: list[dict[str, Any]]) -> list[tuple[str
 
     if len(top_overall) >= 2:
         team_a, team_b = _default_matchup_pair(top_overall)
-        scenarios.append(("Championship collision", team_a, team_b, "The cleanest high-end matchup on the board right now."))
+        _scenarios_off = is_offseason(date.today(), db=None)
+        scenarios.append(("Championship collision", team_a, team_b,
+            "The cleanest high-end matchup heading into next season." if _scenarios_off else "The cleanest high-end matchup on the board right now."))
 
     if top_overall:
         power_leader = top_overall[0]
@@ -14156,7 +14190,9 @@ def _build_matchup_scenarios(team_pages: list[dict[str, Any]]) -> list[tuple[str
                     "Power vs. resume",
                     power_leader,
                     resume_leader,
-                    "The classic argument: who looks strongest right now versus who has earned the season's best body of work.",
+                    ("The classic argument: who looks strongest versus who earned the best body of work."
+                     if is_offseason(date.today(), db=None) else
+                     "The classic argument: who looks strongest right now versus who has earned the season's best body of work."),
                 )
             )
 
@@ -14641,7 +14677,7 @@ def render_home_html(
       <section class="home-shell">
         <div class="hero-mast premium-home-hero">
           <p class="eyebrow">{escape(str(editorial_context.get("hero_eyebrow") or "Fan Intelligence / Power / Resume"))}</p>
-          <h1>{escape(str(editorial_context.get("hero_title") or "How college football is actually feeling this week."))}</h1>
+          <h1>{escape(str(editorial_context.get("hero_title") or ("How college football is actually feeling, week by week." if is_offseason(date.today(), db=None) else "How college football is actually feeling this week.")))}</h1>
           <p class="lede mast-copy">
             {escape(str(editorial_context.get("hero_lede") or "A single football universe for FBS through Division III, paired with a proprietary fan-intelligence layer that reads the belief, respect, and rivalry heat around every team. Built for argument, not dashboards."))}
           </p>
@@ -14769,7 +14805,7 @@ def render_home_html(
           <div class="section-head">
             <div>
               <h2>Data Pulse</h2>
-              <p class="section-note">What is loaded locally right now, what powers the numbers, and why the site can keep growing.</p>
+              <p class="section-note">What's currently loaded, what powers the numbers, and why the site can keep growing.</p>
             </div>
           </div>
           <div class="feature-grid pulse-grid">
@@ -14849,7 +14885,9 @@ def render_rankings_page_html(
             {_rankings_freshness_lede(season_year_value, summary["week"], latest_local_week)}
           </p>
           <p class="section-note">
-            The list is meant to read like a clean selection-room board: how strong teams look right now, and what they have actually earned.
+            {"A clean selection-room board for the just-completed " + season_name + ": how strong teams looked, and what they actually earned."
+             if is_offseason(date.today(), db=None) else
+             "The list is meant to read like a clean selection-room board: how strong teams look right now, and what they have actually earned."}
           </p>
           <div class="cta-row">
             <a class="button button-primary" href="../matchups/index.html">Open Matchups</a>
@@ -16462,8 +16500,8 @@ def render_heisman_page_html(
         )
     else:
         market_note = (
-            "No external Heisman futures prior is loaded for this snapshot. "
-            "CFBD currently exposes game betting lines, not award futures."
+            "No external award-market prior is loaded for this snapshot. "
+            "The probabilities below are model-only."
         )
     if season_is_completed:
         vote_note = (
@@ -17744,7 +17782,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {render_scenario_explorer_card(player_data.get("scenario_payload"))}
         <article class="panel">
           <div class="section-head">
-            <h2>{escape(str(signature_story.get("title") or "What makes this player interesting right now"))}</h2>
+            <h2>{escape(str(signature_story.get("title") or ("What made this player interesting" if is_offseason(date.today(), db=None) else "What makes this player interesting right now")))}</h2>
             <p class="section-note">The fast read on the thing that makes this player more than a generic stat line.</p>
           </div>
           <div class="prose-panel">
@@ -18999,7 +19037,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
         <p class="eyebrow">Methodology</p>
         <h1>Two models, one football universe.</h1>
         <p class="lede">
-          The predictive power model asks how strong a team is right now. The resume model asks what that team has earned so far.
+          The predictive power model asks how strong a team is at any given moment. The resume model asks what that team has earned so far.
           Both are anchored to the same {escape(season_name)} identity, even when postseason games are played in the next calendar year.
         </p>
       </section>

@@ -192,8 +192,8 @@ def render_players_landing_html(payload: dict[str, Any], season_year: int) -> st
       <p class="prose-panel">
         Two lenses on every player worth watching. <strong>Signature
         Stories</strong> are the engine's top statistical case — the
-        single number that makes the strongest argument for that player
-        right now. <strong>The Room</strong> tracks who fans are
+        single number that makes the strongest argument for that player.
+        <strong>The Room</strong> tracks who fans are
         actually <em>talking about</em> — own fans, rivals, national
         media — with a belief score that quantifies whether the
         conversation runs warm or cold. Together they answer two

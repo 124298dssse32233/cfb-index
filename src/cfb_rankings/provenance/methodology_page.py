@@ -305,7 +305,9 @@ def render_methodology_html(db: Database) -> str:
         "</ul>"
     )
     if coverage.get("qualifying_divergence"):
-        parts.append("<h3>Top divergence this week</h3>")
+        from cfb_rankings.common.cfb_calendar import is_offseason as _is_off
+        _heading = "Top divergence from the latest refresh" if _is_off(_dt.date.today(), db=None) else "Top divergence this week"
+        parts.append(f"<h3>{_heading}</h3>")
         parts.append(
             "<table class='divergence-leaderboard'><thead><tr>"
             "<th>Team</th><th>Week</th><th>Divergence score</th>"
