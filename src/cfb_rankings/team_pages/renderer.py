@@ -57,6 +57,7 @@ from .peer_comparator import render_peer_comparator, PEER_COMPARATOR_CSS
 from .on_this_day import render_on_this_day, ON_THIS_DAY_CSS
 from .wrapped_stack import render_wrapped_stack, WRAPPED_STACK_CSS
 from .fanbase_health import render_fanbase_health, FANBASE_HEALTH_CSS
+from .conference_standing import render_conference_standing, CONFERENCE_STANDING_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -481,6 +482,9 @@ def _render_page(
     # mood volume, and cohort divergence. Honest empty when all signals are
     # missing.
     fanbase_health_html = render_fanbase_health(profile, snapshot, mood, divergence, arc_rows)
+    # Conference Standing — Brief §10.2-10.3. Where the focal team sits
+    # within its conference cohort. Compact table + positioning summary.
+    conference_standing_html = render_conference_standing(db, profile, snapshot) if db is not None else ""
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -567,6 +571,9 @@ body {{
 /* Fanbase Health Index — Brief §11.1 */
 {FANBASE_HEALTH_CSS}
 
+/* Conference Standing — Brief §10.2-10.3 */
+{CONFERENCE_STANDING_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -621,6 +628,7 @@ body {{
     {on_this_day_html}
     {wrapped_html}
     {fanbase_health_html}
+    {conference_standing_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
