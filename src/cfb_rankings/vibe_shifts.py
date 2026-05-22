@@ -351,6 +351,7 @@ _PAGE_TEMPLATE = """<!doctype html>
 </head>
 <body class="vibe-shifts-page">
 <main class="site-shell" id="main-content">
+  {hero_finding}
   <section class="hero">
     <p class="eyebrow">The Vibe Shift Ledger · {week_label}</p>
     <h1>Who changed the most this week.</h1>
@@ -360,9 +361,7 @@ _PAGE_TEMPLATE = """<!doctype html>
   <section class="section">
     {body}
   </section>
-  <section class="section">
-    <p class="muted">Sourced from per-game power swings, joined to each game's opponent and score for context. <a href="/methodology/">How the model works</a>.</p>
-  </section>
+  {methodology_footer}
 </main>
 </body>
 </html>
@@ -421,6 +420,7 @@ def render_vibe_shifts_index_html(
     week_label = cfb_week_label_for_window(today, week, db=None)
     body = _render_ledger_body(season_year, week, cards)
     from cfb_rankings.common.head_chrome import render_head_chrome
+    from cfb_rankings.dashboards import render_hero_finding, render_methodology_footer
     head_chrome = render_head_chrome(
         page_path=f"/hub/vibe-shifts/{season_year}/{week}/",
         title=f"Vibe Shifts — {week_label} · {season_year} · CFB Index",
@@ -431,9 +431,44 @@ def render_vibe_shifts_index_html(
         ),
         og_type="article",
     )
+
+    # Dashboard archetype: hero finding zone — the top-card delta is
+    # the page's defining number. Empty when no cards (offseason or
+    # pre-kickoff weeks). Caption surfaces sample size + week.
+    if cards:
+        _top = cards[0]
+        _top_delta = _format_delta(_top.get("power_delta", 0))
+        _hero_finding_html = render_hero_finding(
+            eyebrow=f"Vibe Shifts · {week_label}",
+            number=_top_delta,
+            sentence=(
+                f"{escape(_top.get('team_name', 'Top mover'))} "
+                f"posted the largest power-rating swing this week."
+            ),
+            caption=(
+                f"{len(cards)} teams ranked &middot; week {week} of {season_year} season"
+            ),
+            aria_label="Biggest power swing this week",
+        )
+    else:
+        _hero_finding_html = ""
+
+    # Dashboard archetype: methodology footer at the bottom of the page,
+    # paired with sample size text. Required by audit C3.
+    _methodology_footer_html = render_methodology_footer(
+        page="Vibe Shifts",
+        sample_summary=(
+            f"Sample: {len(cards)} teams ranked by absolute power swing"
+            if cards else "Sample: no qualifying games yet this week"
+        ),
+        prefix="/",
+    )
+
     return _PAGE_TEMPLATE.format(
         season_year=season_year, week=week, week_label=week_label, body=body,
         head_chrome=head_chrome,
+        hero_finding=_hero_finding_html,
+        methodology_footer=_methodology_footer_html,
     )
 
 
