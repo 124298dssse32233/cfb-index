@@ -292,8 +292,16 @@ def render_index(
     rows = fetch_program_churn(db, days=days, limit=25, now=now)
 
     week_label = _safe_label(today, db, fn=cfb_week_label)
+    # cfb_week_label already appends "(N days to kickoff)" during the
+    # offseason, so the template's separate DAYS_TO_KICKOFF_PAREN slot
+    # would duplicate it. Pass empty in that case.
     dtk = _safe_dtk(today, db)
-    dtk_paren = f"({dtk} days to kickoff)" if dtk is not None else ""
+    if dtk is not None and f"({dtk} days to kickoff)" in week_label:
+        dtk_paren = ""
+    elif dtk is not None:
+        dtk_paren = f"({dtk} days to kickoff)"
+    else:
+        dtk_paren = ""
 
     if rows:
         body = _board_html(rows)
