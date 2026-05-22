@@ -52,10 +52,19 @@
  *
  * Inherit / extends the player-page design language (Iteration Log §15.1):
  *   - Dark-mode default (iMessage-native)
- *   - Inter Display / serif editorial pairing
+ *   - Bebas Neue display / serif editorial pairing (Sprint B 2026-05-22:
+ *     promoted --font-display to Bebas Neue per 00-tokens.md lock 2026-05-16)
  *   - OKLCH percentile + belief ramps
  *   - 44px touch targets, mobile-first spacing rhythm
  */
+
+/* Sprint B 2026-05-22: Bebas Neue load for the world-class team-page renderer.
+ * Previously --font-display was "Inter Display" — Bebas Neue was declared in
+ * 00-tokens.md but never reached the team-pages stylesheet, so hero numbers
+ * rendered in Inter or Source Serif Pro instead of the stadium-scoreboard
+ * display face the brief calls for. display=swap prevents FOIT. */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 
 :root {
   /* -----  Color system (dark-mode default) ------ */
@@ -104,7 +113,11 @@
   --tone-green: #3ea073;
 
   /* -----  Typography ------ */
-  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Sprint B 2026-05-22: --font-display is Bebas Neue (per 00-tokens.md lock
+   * 2026-05-16). Inter Display kept as fallback while font loads. Bebas Neue
+   * is intentionally the *display* face — used for hero numbers, big metric
+   * tile values, the wordmark — never for body text. */
+  --font-display: 'Bebas Neue', "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "Source Serif Pro", "Georgia", "Charter", serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
@@ -602,14 +615,20 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero__record {
-  font-family: var(--font-mono);
-  font-size: var(--fs-headline-sm);
-  color: var(--fg-secondary);
+  /* Sprint B 2026-05-22: was --font-mono. The record (10-2) is the loudest
+   * single stat on the page and the brief calls for "big display-font
+   * number" treatment. Promoted to --font-display (Bebas Neue) at the
+   * --fs-headline scale so it lands as the visual anchor below the
+   * wordmark, not as quiet pill text next to it. */
+  font-family: var(--font-display);
+  font-size: var(--fs-headline);
+  color: var(--accent-primary);
   padding: var(--sp-1) var(--sp-3);
-  border: 1px solid var(--stroke-default);
+  border: 1px solid var(--accent-primary);
   border-radius: var(--radius-pill);
   background: var(--bg-card);
-  letter-spacing: var(--ls-wide);
+  letter-spacing: var(--ls-normal);
+  line-height: 1;
 }
 
 .hero__rank-chip {
@@ -893,6 +912,95 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   letter-spacing: var(--ls-label);
   font-style: normal;
+}
+
+/* ============================================================================
+ * Five-axis Pulse strip — Brief §4.2 Panel 2 (Sprint D)
+ * Reality Gap / Respect Gap / Cohort Divergence / Rival Heat / Volatility
+ * ========================================================================= */
+
+.pulse-five-axis {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  margin-top: var(--sp-4);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+}
+.pulse-five-axis__eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.pulse-axis {
+  display: grid;
+  grid-template-columns: minmax(0, 120px) 1fr auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--stroke-subtle);
+}
+.pulse-axis:first-of-type { border-top: 0; }
+.pulse-axis__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+.pulse-axis__bar {
+  position: relative;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.pulse-axis__fill {
+  position: absolute;
+  inset: 0;
+  width: var(--pct, 0%);
+  background: var(--pct-mid);
+  border-radius: 5px;
+  transition: width 240ms ease-out;
+}
+.pulse-axis[data-band="high"] .pulse-axis__fill { background: var(--pct-high); }
+.pulse-axis[data-band="mid"]  .pulse-axis__fill { background: var(--pct-mid); }
+.pulse-axis[data-band="low"]  .pulse-axis__fill { background: var(--pct-low); }
+.pulse-axis__chip {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.pulse-axis__desc {
+  grid-column: 1 / -1;
+  font-family: var(--font-serif);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  line-height: 1.4;
+  font-style: italic;
+}
+.pulse-axis--awaiting .pulse-axis__label,
+.pulse-axis--awaiting .pulse-axis__desc {
+  color: var(--fg-muted);
+}
+.pulse-axis--awaiting .pulse-axis__fill {
+  opacity: 0.45;
+}
+.pulse-axis--awaiting .pulse-axis__chip {
+  font-style: italic;
+}
+@media (max-width: 720px) {
+  .pulse-axis {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .pulse-axis__bar { grid-column: 1 / -1; }
 }
 
 .pulse__velocity {
@@ -1569,6 +1677,129 @@ a { color: inherit; text-decoration: none; }
   .rivalry-card__meeting { grid-template-columns: 24px 40px 1fr; gap: 8px; font-size: 0.86rem; }
 }
 
+/* ============================================================================
+ * Fan Heat Index dual-thermometer — Brief §7.2 Zone 4 (Sprint E finish)
+ * Two opposing thermometers. OKLCH cool→warm→hot gradient — explicitly NOT
+ * the percentile ramp; brief §7 carves rivalry-heat as its own semantic.
+ * ========================================================================= */
+
+.rivalry-heat {
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px;
+  margin: 14px 0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+.rivalry-heat__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+}
+.rivalry-heat__title {
+  font-family: 'Bebas Neue', 'Inter Display', 'Inter', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary, #1a1a1a);
+  margin: 0;
+}
+.rivalry-heat__eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin: 0;
+}
+.rivalry-heat__body {
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-secondary, #4a4a4a);
+  margin: 0;
+  max-width: 60ch;
+}
+.rivalry-heat__body em { font-style: italic; }
+.rivalry-heat__pair {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 4px;
+}
+.rivalry-heat__pair::before {
+  content: "VS";
+  grid-column: 2 / 3;
+  align-self: center;
+  font-family: 'Bebas Neue', 'Inter Display', sans-serif;
+  font-size: 18px;
+  color: var(--fg-muted, #8a90a1);
+  letter-spacing: 0.08em;
+}
+.rivalry-heat__side {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid color-mix(in oklab, var(--side-accent) 30%, transparent);
+  border-radius: 8px;
+  text-align: left;
+}
+.rivalry-heat__side--opponent { text-align: right; }
+.rivalry-heat__name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--side-accent);
+}
+.rivalry-heat__column { display: flex; align-items: stretch; }
+.rivalry-heat__side--opponent .rivalry-heat__column { justify-content: flex-end; }
+.rivalry-heat__bar {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.rivalry-heat__side--opponent .rivalry-heat__bar { transform: scaleX(-1); }
+.rivalry-heat__fill {
+  position: absolute;
+  inset: 0;
+  width: var(--fill, 0%);
+  background: linear-gradient(90deg, #4a8fc8 0%, #b58a3e 50%, #c04a4a 100%);
+  border-radius: 8px;
+  transition: width 240ms ease-out;
+}
+.rivalry-heat__bar--awaiting .rivalry-heat__fill {
+  opacity: 0.35;
+  filter: grayscale(0.6);
+}
+.rivalry-heat__label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--fg-secondary, #4a4a4a);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 540px) {
+  .rivalry-heat__pair { grid-template-columns: 1fr; gap: 8px; }
+  .rivalry-heat__pair::before { display: none; }
+  .rivalry-heat__side--opponent { text-align: left; }
+  .rivalry-heat__side--opponent .rivalry-heat__column { justify-content: flex-start; }
+  .rivalry-heat__side--opponent .rivalry-heat__bar { transform: none; }
+}
+
 /* CFPEraView — zoomed-out 2014+ trajectory + brick chapter index. */
 
 .arc-card {
@@ -2145,6 +2376,149 @@ a { color: inherit; text-decoration: none; }
   border-radius: 999px;
   background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
   border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, transparent);
+}
+
+
+/* Hero Arc 13-brick CFP-era stripe — Sprint E (Brief §20) */
+
+/* Hero Arc Stripe — TEAM_PAGE_WORLD_CLASS_BRIEF §20, v1.0 CFP era */
+
+.hero-arc-stripe {
+  --has-cfp:        var(--accolade-gold);
+  --brick-empty:    color-mix(in oklab, var(--bg-card-raised) 80%, var(--bg-card));
+  --label-fg:       var(--fg-secondary);
+
+  display: grid;
+  gap: var(--sp-3, 12px);
+  padding: clamp(16px, 2.2vw, 28px) clamp(16px, 2.6vw, 32px);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--accent-primary) 6%, transparent) 0%,
+      color-mix(in oklab, var(--accent-secondary) 4%, transparent) 60%,
+      transparent 100%
+    );
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-lg, 16px);
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+
+.hero-arc-stripe__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+.hero-arc-stripe__title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.5vw + 10px, 28px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.hero-arc-stripe__sub {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.hero-arc-stripe__bricks {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  align-items: end;
+  gap: 6px;
+  height: 96px;
+  padding: 4px 0;
+}
+
+.hero-arc-stripe__brick {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  min-width: 0;
+  height: 100%;
+  cursor: default;
+}
+.hero-arc-stripe__bar {
+  display: block;
+  width: 100%;
+  border-radius: 4px 4px 2px 2px;
+  background: var(--brick-color, var(--brick-empty));
+  border: 1px solid color-mix(in oklab, var(--brick-color, var(--brick-empty)) 60%, transparent);
+  min-height: 16px;
+  transition: filter 120ms ease;
+}
+.hero-arc-stripe__brick--cfp .hero-arc-stripe__bar {
+  border: 2px solid var(--has-cfp);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--has-cfp) 22%, transparent);
+}
+.hero-arc-stripe__brick--current .hero-arc-stripe__bar {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+.hero-arc-stripe__brick:hover .hero-arc-stripe__bar {
+  filter: brightness(1.18);
+}
+
+.hero-arc-stripe__brick-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--fg-muted);
+  text-align: center;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hero-arc-stripe__brick--cfp .hero-arc-stripe__brick-label {
+  color: var(--has-cfp);
+}
+
+.hero-arc-stripe__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.hero-arc-stripe__legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.hero-arc-stripe__legend-dot--high { background: var(--pct-high); }
+.hero-arc-stripe__legend-dot--mid  { background: var(--pct-mid); }
+.hero-arc-stripe__legend-dot--low  { background: var(--pct-low); }
+.hero-arc-stripe__legend-dot--cfp  {
+  background: transparent;
+  border: 2px solid var(--has-cfp);
+  width: 10px; height: 10px;
+}
+
+@media (max-width: 540px) {
+  .hero-arc-stripe__bricks { height: 72px; gap: 4px; }
+  .hero-arc-stripe__brick-label { font-size: 8px; }
+  .hero-arc-stripe__title { font-size: 20px; }
 }
 
 
@@ -3285,6 +3659,24 @@ a { color: inherit; text-decoration: none; }
 </div></div>
 </section>
 
+    
+<section class="hero-arc-stripe" aria-labelledby="hero-arc-stripe-h" data-module="hero-arc-stripe">
+  <div class="hero-arc-stripe__header">
+    <h2 id="hero-arc-stripe-h" class="hero-arc-stripe__title">CFP Era · Alabama</h2>
+    <p class="hero-arc-stripe__sub">12 seasons on file</p>
+  </div>
+  <div class="hero-arc-stripe__bricks" role="img"
+       aria-label="13-brick season-strength arc, 2014 through 2026">
+    <div class="hero-arc-stripe__brick" title="2014 · 12-2 · UR AP" aria-label="2014 · 12-2 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">14</span></div><div class="hero-arc-stripe__brick" title="2015 · 14-1 · UR AP" aria-label="2015 · 14-1 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">15</span></div><div class="hero-arc-stripe__brick" title="2016 · 14-1 · UR AP" aria-label="2016 · 14-1 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">16</span></div><div class="hero-arc-stripe__brick" title="2017 · 13-1 · UR AP" aria-label="2017 · 13-1 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">17</span></div><div class="hero-arc-stripe__brick" title="2018 · 14-1 · UR AP" aria-label="2018 · 14-1 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">18</span></div><div class="hero-arc-stripe__brick" title="2019 · 11-2 · UR AP" aria-label="2019 · 11-2 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">19</span></div><div class="hero-arc-stripe__brick" title="2020 · 13-0 · UR AP" aria-label="2020 · 13-0 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">20</span></div><div class="hero-arc-stripe__brick" title="2021 · 13-2 · UR AP" aria-label="2021 · 13-2 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">21</span></div><div class="hero-arc-stripe__brick" title="2022 · 11-2 · UR AP" aria-label="2022 · 11-2 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">22</span></div><div class="hero-arc-stripe__brick" title="2023 · 12-2 · UR AP" aria-label="2023 · 12-2 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">23</span></div><div class="hero-arc-stripe__brick" title="2024 · 9-4 · UR AP" aria-label="2024 · 9-4 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">24</span></div><div class="hero-arc-stripe__brick hero-arc-stripe__brick--current" title="2025 · 11-4 · UR AP" aria-label="2025 · 11-4 · UR AP"><span class="hero-arc-stripe__bar" style="--brick-color: var(--pct-high); height: 100%;"></span><span class="hero-arc-stripe__brick-label">25</span></div><div class="hero-arc-stripe__brick" title="2026 · no data on file" aria-label="2026 no data"><span class="hero-arc-stripe__bar" style="--brick-color: var(--brick-empty); height: 16px;"></span><span class="hero-arc-stripe__brick-label">26</span></div>
+  </div>
+  <p class="hero-arc-stripe__legend">
+    <span><span class="hero-arc-stripe__legend-dot hero-arc-stripe__legend-dot--low"></span>down</span>
+    <span><span class="hero-arc-stripe__legend-dot hero-arc-stripe__legend-dot--mid"></span>middle</span>
+    <span><span class="hero-arc-stripe__legend-dot hero-arc-stripe__legend-dot--high"></span>peak</span>
+    <span><span class="hero-arc-stripe__legend-dot hero-arc-stripe__legend-dot--cfp"></span>CFP year</span>
+  </p>
+</section>
+
     <section class="pulse" aria-labelledby="pulse-title">
   <div class="pulse__header">
     <span class="pulse__live-dot pulse__live-dot--quiet" aria-hidden="true"></span>
@@ -3312,10 +3704,14 @@ a { color: inherit; text-decoration: none; }
     </div>
   </div>
       <div class="pulse__top-take" style="margin-top: var(--sp-4);">
-        <em>"Roll Tide is not a cheer; it is a statement of identity."</em>
+        <em>"The process does not flinch at rankings."</em>
         <span class="pulse__top-take-attr">— Alabama fanbase · recurring line</span>
       </div>
     </div>
+  </div>
+  <div class="pulse-five-axis" aria-label="Five-axis Pulse strip" data-state="empty">
+    <p class="pulse-five-axis__eyebrow">FIVE-AXIS · Brief §4.2 Panel 2</p>
+    <div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Reality Gap</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">How far fan belief diverges from the structural model.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Respect Gap</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Fan score minus national score for this team&#x27;s brand.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Cohort Divergence</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Spread between sub-fanbase cohorts in the Pulse window.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Rival Heat</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">How much rival fanbases are mentioning this team.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Volatility</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Week-over-week mood swing magnitude.</span></div>
   </div>
   <div class="pulse__badge-row"><span class="pulse__badge pulse__badge--awaiting">0 mentions · awaiting signal</span></div>
 </section>
@@ -3679,6 +4075,39 @@ a { color: inherit; text-decoration: none; }
     <p class="rivalry-card__trajectory-note">
       Signal accumulating · per-rivalry weekly fan-intel feeding in as the 2026-27 season approaches.
     </p>
+  </div>
+  <div class="rivalry-heat" aria-labelledby="rivalry-heat-h" data-state="empty">
+    <div class="rivalry-heat__header">
+      <h3 id="rivalry-heat-h" class="rivalry-heat__title">Fan Heat Index</h3>
+      <p class="rivalry-heat__eyebrow">Fan Heat Index · brief §7.2 zone 4</p>
+    </div>
+    <p class="rivalry-heat__body"><em>Cross-fanbase rivalry-flagged sentiment is the brief's §7.2.7 ingestion dependency. Pipeline lights up when the rivalry-week source adapter fires. Thermometers below show the chrome with both sides cool.</em></p>
+    <div class="rivalry-heat__pair">
+      <div class="rivalry-heat__side" style="--side-accent: #9E1B32;">
+        <div class="rivalry-heat__name">Alabama</div>
+        <div class="rivalry-heat__column">
+          <div class="rivalry-heat__bar rivalry-heat__bar--awaiting" role="progressbar"
+               aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="0"
+               aria-label="Alabama fan heat">
+            <span class="rivalry-heat__fill" style="--fill: 8%;"></span>
+          </div>
+        </div>
+        <div class="rivalry-heat__label">Awaiting</div>
+      </div>
+      <div class="rivalry-heat__side rivalry-heat__side--opponent" style="--side-accent: #b56a3c;">
+        <div class="rivalry-heat__name">Auburn</div>
+        <div class="rivalry-heat__column">
+          <div class="rivalry-heat__bar rivalry-heat__bar--awaiting" role="progressbar"
+               aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="0"
+               aria-label="Auburn fan heat">
+            <span class="rivalry-heat__fill" style="--fill: 8%;"></span>
+          </div>
+        </div>
+        <div class="rivalry-heat__label">Awaiting</div>
+      </div>
+    </div>
   </div>
   <div class="rivalry-card__panels rivalry-card__panels--dual">
     <article class="rivalry-card__panel rivalry-card__panel--primary" style="--panel-accent: #9E1B32">

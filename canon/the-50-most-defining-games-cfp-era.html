@@ -94,6 +94,28 @@ a {
 }
 a:hover { color: var(--fg-0); }
 
+/* ----- skip-link (Phase 9 a11y) ---------- */
+.canon-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.canon-skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: var(--bg-0);
+  font-weight: 700;
+  border-radius: var(--r-sm);
+  margin: var(--gap-2);
+}
+
 /* ----- masthead ---------- */
 .canon-masthead {
   border-bottom: 1px solid var(--line);
@@ -665,6 +687,7 @@ a:hover { color: var(--fg-0); }
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head>
 <body class="canon-page canon-list-page">
+<a href="#main-content" class="canon-skip-link">Skip to main content</a>
 <header class="canon-masthead">
   <div class="canon-masthead__inner">
     <a class="canon-masthead__brand" href="/">CFB Index</a>
@@ -675,7 +698,7 @@ a:hover { color: var(--fg-0); }
   </div>
 </header>
 
-<main class="canon-main">
+<main id="main-content" class="canon-main">
   <section class="canon-list-hero">
     <p class="canon-list-hero__eyebrow">The Canon · 2026 edition</p>
     <h1 class="canon-list-hero__title">The 50 Most Defining Games of the CFP Era</h1>
@@ -730,8 +753,8 @@ a:hover { color: var(--fg-0); }
     <p class="canon-receipts__body">
       Every rank in this edition is tracked against last year's slot.
       <span class="canon-receipts__legend">
-        <span class="canon-receipts__chip canon-receipts__chip--up">\u2191</span> moved up
-        <span class="canon-receipts__chip canon-receipts__chip--down">\u2193</span> moved down
+        <span class="canon-receipts__chip canon-receipts__chip--up">&#8593;</span> moved up
+        <span class="canon-receipts__chip canon-receipts__chip--down">&#8595;</span> moved down
         <span class="canon-receipts__chip canon-receipts__chip--flat">→</span> held
         <span class="canon-receipts__chip canon-receipts__chip--new">NEW</span> first edition
       </span>

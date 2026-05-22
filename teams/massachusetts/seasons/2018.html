@@ -28,10 +28,19 @@
  *
  * Inherit / extends the player-page design language (Iteration Log §15.1):
  *   - Dark-mode default (iMessage-native)
- *   - Inter Display / serif editorial pairing
+ *   - Bebas Neue display / serif editorial pairing (Sprint B 2026-05-22:
+ *     promoted --font-display to Bebas Neue per 00-tokens.md lock 2026-05-16)
  *   - OKLCH percentile + belief ramps
  *   - 44px touch targets, mobile-first spacing rhythm
  */
+
+/* Sprint B 2026-05-22: Bebas Neue load for the world-class team-page renderer.
+ * Previously --font-display was "Inter Display" — Bebas Neue was declared in
+ * 00-tokens.md but never reached the team-pages stylesheet, so hero numbers
+ * rendered in Inter or Source Serif Pro instead of the stadium-scoreboard
+ * display face the brief calls for. display=swap prevents FOIT. */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 
 :root {
   /* -----  Color system (dark-mode default) ------ */
@@ -80,7 +89,11 @@
   --tone-green: #3ea073;
 
   /* -----  Typography ------ */
-  --font-display: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Sprint B 2026-05-22: --font-display is Bebas Neue (per 00-tokens.md lock
+   * 2026-05-16). Inter Display kept as fallback while font loads. Bebas Neue
+   * is intentionally the *display* face — used for hero numbers, big metric
+   * tile values, the wordmark — never for body text. */
+  --font-display: 'Bebas Neue', "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "Source Serif Pro", "Georgia", "Charter", serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
