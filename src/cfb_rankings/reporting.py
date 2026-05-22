@@ -2510,6 +2510,145 @@ td.metric-cell,
 """
 
 
+# Profile-archetype primitives — Session 5 (2026-05-22).
+# Backs the cfb_rankings.profile module. These rules deliberately use
+# new class names (.profile-*) so adopting them in a legacy renderer
+# never collides with the existing .team-shell / .team-stat-ribbon /
+# .premium-team-grid styling — both can co-exist until a future session
+# does the full Profile-archetype consolidation. See
+# docs/design-system/30-page-archetypes.md §"Profile archetype" and
+# src/cfb_rankings/profile/__init__.py for the matching emitters.
+_PROFILE_PRIMITIVES_CSS_BLOCK = """
+/* Profile primitives — shared with team_pages aesthetic */
+
+.profile-identity-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(16px, 2.4vw, 32px) clamp(16px, 3vw, 40px);
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+.profile-identity-strip__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin: 0;
+}
+.profile-identity-strip__name {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: clamp(22px, 1.8vw + 14px, 34px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--fg-primary, inherit);
+}
+.profile-identity-strip__meta {
+  font-size: clamp(14px, 0.4vw + 12px, 16px);
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+.profile-identity-strip__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.profile-identity-strip__chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, #c6cad6);
+}
+
+.profile-awaiting {
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 14px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.03));
+  margin: clamp(16px, 2vw, 24px) 0;
+}
+.profile-awaiting__title {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: clamp(16px, 0.6vw + 14px, 20px);
+  margin: 0 0 8px;
+  color: var(--fg-primary, inherit);
+}
+.profile-awaiting__body {
+  font-size: clamp(14px, 0.4vw + 12px, 16px);
+  line-height: 1.5;
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+.profile-awaiting__cta {
+  margin-left: 4px;
+  color: var(--accent-primary, currentColor);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.profile-awaiting__cta:hover,
+.profile-awaiting__cta:focus-visible {
+  opacity: 0.85;
+}
+
+.profile-module-grid {
+  display: grid;
+  gap: clamp(16px, 2vw, 24px);
+  margin: clamp(16px, 2vw, 24px) 0;
+}
+.profile-module-grid--1col { grid-template-columns: 1fr; }
+.profile-module-grid--2col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.profile-module-grid--3col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 768px) {
+  .profile-module-grid--2col,
+  .profile-module-grid--3col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-meta-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(12px, 1.6vw, 20px) clamp(12px, 2vw, 24px);
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 13px;
+  color: var(--fg-muted, #8a90a1);
+}
+.profile-meta-footer__link {
+  font-weight: 600;
+  color: var(--fg-secondary, #c6cad6);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.profile-meta-footer__link:hover,
+.profile-meta-footer__link:focus-visible {
+  border-bottom-color: currentColor;
+}
+.profile-meta-footer__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--stroke-subtle, rgba(255, 255, 255, 0.05));
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+"""
+
+
 _DARK_MODE_CSS_BLOCK = """
 html.dark {
   color-scheme: dark;
@@ -5223,6 +5362,8 @@ def _compose_global_css() -> str:
         + _RANKINGS_CONTROLS_CSS_BLOCK
         + "\n/* === Design-system baseline (tabular nums + reduced motion) === */\n"
         + _DESIGN_SYSTEM_BASELINE_CSS_BLOCK
+        + "\n/* === Profile-archetype primitives (Session 5, 2026-05-22) === */\n"
+        + _PROFILE_PRIMITIVES_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -13518,10 +13659,17 @@ def render_conferences_index_html(
     conference_pages: list[dict[str, Any]],
     site_pulse: dict[str, Any],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     top_cards = _render_conference_spotlight([conference for conference in conference_pages if int(conference["team_count"]) >= 4][:12], prefix="")
     table_rows = "\n".join(_render_conference_table_row(conference) for conference in conference_pages)
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we compute league strength",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{len(conference_pages):,} conferences · {season_name}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -13582,6 +13730,8 @@ def render_conferences_index_html(
           </table>
         </div>
       </section>
+
+      {profile_meta_footer}
     </main>
     {render_global_footer()}
   </body>
@@ -15927,10 +16077,17 @@ def render_programs_index_html(
     history_hub: dict[str, Any],
     site_pulse: dict[str, Any],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     cards = _render_program_explorer_cards(explorer_rows)
     table_rows = "".join(_render_program_explorer_row(row) for row in explorer_rows)
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we measure program signals",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{len(explorer_rows):,} programs · {escape(str(history_hub.get('first_season') or '—'))}–{escape(str(history_hub.get('last_season') or '—'))}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -16041,6 +16198,8 @@ def render_programs_index_html(
         </article>
       </section>
       <script>{_programs_explorer_script()}</script>
+
+      {profile_meta_footer}
     </main>
     {render_global_footer()}
   </body>
