@@ -14952,11 +14952,17 @@ def render_home_html(
     except Exception:
         _days_to_kickoff = 0
     if 1 <= _days_to_kickoff <= 365:
+        # Derive the upcoming-kickoff year from the date arithmetic instead of
+        # the awkward `month >= 8` heuristic on summary.season_year. The
+        # kickoff date = today + days-to-kickoff; that date's year IS the
+        # upcoming season.
+        from datetime import timedelta as _td
+        _kickoff_year = (date.today() + _td(days=_days_to_kickoff)).year
         _home_hero_finding = (
             f'<section class="hero-finding" aria-label="Countdown to kickoff">'
             f'<p class="hero-finding__eyebrow">Days to kickoff</p>'
             f'<p class="hero-finding__number">{_days_to_kickoff}</p>'
-            f'<p class="hero-finding__sentence">until the {season_year_value + (1 if date.today().month >= 8 else 0)} season starts.</p>'
+            f'<p class="hero-finding__sentence">until the {_kickoff_year} season starts.</p>'
             f'<p class="hero-finding__caption">{len(rankings):,} ranked teams &middot; updated {date.today().isoformat()}.</p>'
             f'</section>'
         )
