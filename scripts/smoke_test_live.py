@@ -58,6 +58,7 @@ URLS: list[tuple[str, str, str]] = [
     ("/compare/", "section-index", "Team comparison tool"),
     ("/storylines/", "section-index", "Storylines"),
     ("/history/", "section-index", "Historical archive"),
+    ("/anniversary/today/", "section-index", "Today-in-CFB-history daily render — render-today-in-history CLI writes here despite workflow comment saying /today-in-history/"),
 
     # Sampled detail pages — players (drawn from Heisman board)
     ("/players/fernando-mendoza-38276.html", "player-detail",
