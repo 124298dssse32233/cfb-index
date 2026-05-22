@@ -14719,6 +14719,26 @@ def render_home_html(
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     editorial_context = _home_editorial_context()
+    # Hero finding for the homepage: days-to-kickoff is the most natural
+    # big number on a college football site. Suppressed in-season (when
+    # kickoff is past or > 365 days out — covers spring/summer + a
+    # safety guard against the calendar function returning weird values).
+    try:
+        from cfb_rankings.common.cfb_calendar import days_to_kickoff as _dtk_fn
+        _days_to_kickoff = _dtk_fn(date.today(), db=None)
+    except Exception:
+        _days_to_kickoff = 0
+    if 1 <= _days_to_kickoff <= 365:
+        _home_hero_finding = (
+            f'<section class="hero-finding" aria-label="Countdown to kickoff">'
+            f'<p class="hero-finding__eyebrow">Days to kickoff</p>'
+            f'<p class="hero-finding__number">{_days_to_kickoff}</p>'
+            f'<p class="hero-finding__sentence">until the {season_year_value + (1 if date.today().month >= 8 else 0)} season starts.</p>'
+            f'<p class="hero-finding__caption">{len(rankings):,} ranked teams &middot; updated {date.today().isoformat()}.</p>'
+            f'</section>'
+        )
+    else:
+        _home_hero_finding = ''
     summary_cards = _render_summary_cards(featured_team_pages)
     board = _render_home_team_board(featured_team_pages)
     power_resume_plot = _render_power_resume_plot(featured_team_pages, prefix="")
@@ -14755,6 +14775,7 @@ def render_home_html(
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("", current="home")}
+      {_home_hero_finding}
       <section class="home-shell">
         <div class="hero-mast premium-home-hero">
           <p class="eyebrow">{escape(str(editorial_context.get("hero_eyebrow") or "Fan Intelligence / Power / Resume"))}</p>
@@ -20644,8 +20665,24 @@ def _heisman_board_script() -> str:
     """
 
 
-def _player_slug(player_id: int, full_name: str) -> str:
-    return f"{slugify(full_name)}-{player_id}"
+def _player_slug(player_id: int, full_name: str, *, stable_id: str | None = None) -> str:
+    """Generate the URL slug for a player.
+
+    Defaults to the legacy ``{name-slug}-{autoincrement_player_id}`` shape
+    so existing inbound links (Heisman board, search index, sitemap)
+    continue to resolve.
+
+    When ``stable_id`` is provided (e.g. CFBD player id from the
+    ``player_source_ids`` table), the function prefers it. This is the
+    infrastructure for player-ID-stability Option A per
+    ``docs/research/player-id-stability-scoping-2026-05-21.md``. Flipping
+    the call sites to pass ``stable_id`` is a follow-up that also requires
+    writing redirect files at the legacy URLs so existing bookmarks /
+    Google index entries don't break.
+
+    Until call sites pass ``stable_id``, behavior is unchanged.
+    """
+    return f"{slugify(full_name)}-{stable_id or player_id}"
 
 
 def _normalize_position(value: Any) -> str:
