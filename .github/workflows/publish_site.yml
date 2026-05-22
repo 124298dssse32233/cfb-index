@@ -305,6 +305,17 @@ jobs:
           python manage.py render-daily || echo "render-daily skipped"
           echo "done"
 
+      - name: Refresh Canon pages (Phase 9 a11y template fix)
+        # The canon renderer (canon/templates/*.html → output/site/canon/)
+        # isn't invoked by build-site. Phase 9 added canon-skip-link +
+        # id="main-content" to the templates but the live HTML lagged
+        # because there was no rebuild step. Run render-canon-all so
+        # every template change ships on the next publish.
+        run: |
+          set +e
+          python manage.py render-canon-all --output-dir output/site || echo "render-canon-all skipped"
+          echo "done"
+
       # ====================================================================
       # POST-PROCESS LAYER — must run AFTER all renderers that write
       # files in output/site/, otherwise their writes will erase the
