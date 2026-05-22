@@ -16584,17 +16584,19 @@ def render_heisman_page_html(
     market_header = "<th>Market</th>" if has_market_data else ""
     # Performance: cap the inline table at top-1000 rows. The legacy
     # behavior rendered ALL ~16k ranked players inline, producing a
-    # 15MB HTML response. Top-1000 covers every realistic Heisman case
-    # (the lowest ranks are zero-win-equity tail rows that fans don't
-    # search by rank), drops page weight ~93%, and keeps the existing
-    # client-side filter/sort JS working since it operates on DOM rows.
+    # 15MB HTML response. Top-1000 covers every realistic Heisman case;
+    # the remaining ~15k are tail-of-the-board rows hydrated lazily via
+    # JSON payload on demand (see "Load full board" button + handler in
+    # _heisman_board_script).
     _MAX_BOARD_ROWS_INLINE = 1000
     _board_rows_inline = board_rows[:_MAX_BOARD_ROWS_INLINE]
-    _truncated_count = max(0, len(board_rows) - _MAX_BOARD_ROWS_INLINE)
+    _tail_rows = board_rows[_MAX_BOARD_ROWS_INLINE:]
+    _truncated_count = len(_tail_rows)
     _truncation_note_row = (
-        f'<tr class="hb-row hb-row--truncation"><td colspan="{10 if has_market_data else 9}">'
+        f'<tr class="hb-row hb-row--truncation" data-heisman-tail-anchor="true">'
+        f'<td colspan="{10 if has_market_data else 9}">'
         f'Showing top {_MAX_BOARD_ROWS_INLINE:,} of {len(board_rows):,} ranked players. '
-        f'The {_truncated_count:,} remaining are tail-of-the-board rows with negligible win equity.'
+        f'<button type="button" class="text-link" data-heisman-load-tail>Load the remaining {_truncated_count:,} &rarr;</button>'
         f'</td></tr>'
         if _truncated_count > 0 else ''
     )
@@ -16603,6 +16605,22 @@ def render_heisman_page_html(
         if board_rows
         else f'<tr><td colspan="{10 if has_market_data else 9}">Heisman model rows have not been loaded yet for this season.</td></tr>'
     )
+    # Lazy-load payload: render each tail row server-side as an HTML
+    # string, then ship the concatenated string as a JSON literal in a
+    # <script type="application/json"> block. The "Load full board" JS
+    # parses it, inserts before the truncation anchor row, then removes
+    # the anchor + the now-loaded payload script. This brings the full
+    # board back without paying the 15MB initial cost.
+    if _tail_rows:
+        import json as _json
+        _tail_html = "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in _tail_rows)
+        _heisman_tail_payload_html = (
+            f'<script type="application/json" id="heisman-tail-payload">'
+            f'{_json.dumps({"tail_rows_html": _tail_html, "tail_count": _truncated_count})}'
+            f'</script>'
+        )
+    else:
+        _heisman_tail_payload_html = ""
     featured_cards = _render_heisman_feature_cards(board_rows)
     tracked_profiles = len(player_directory_rows)
     ranked_profiles = len(board_rows)
@@ -16827,7 +16845,30 @@ def render_heisman_page_html(
           prefix="../",
       )}
     </main>
+    {_heisman_tail_payload_html}
     <script>{_heisman_board_script()}</script>
+    <script>
+      (() => {{
+        const btn = document.querySelector('[data-heisman-load-tail]');
+        const anchor = document.querySelector('[data-heisman-tail-anchor]');
+        const payloadNode = document.getElementById('heisman-tail-payload');
+        if (!btn || !anchor || !payloadNode) return;
+        btn.addEventListener('click', () => {{
+          try {{
+            const data = JSON.parse(payloadNode.textContent || '{{}}');
+            if (!data || !data.tail_rows_html) return;
+            // Insert the tail rows immediately AFTER the anchor row, then
+            // remove the anchor (which holds the button) so the button
+            // can't be clicked again.
+            const tpl = document.createElement('template');
+            tpl.innerHTML = data.tail_rows_html;
+            anchor.parentNode.insertBefore(tpl.content, anchor.nextSibling);
+            anchor.remove();
+            payloadNode.remove();
+          }} catch (err) {{ console.error('heisman tail load failed', err); }}
+        }});
+      }})();
+    </script>
     {render_global_footer()}
   </body>
 </html>
