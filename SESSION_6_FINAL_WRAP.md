@@ -782,6 +782,67 @@ In-flight deploy SHA: 0a982b10cbe (8 commits behind master).
 
 ---
 
+## Continuation 8: Phase 2 axe-equivalent audit + a11y fixes
+
+Phase 3 deploy at 0a982b10cbe still in_progress at 70+ min on the
+build step — much longer than typical due to the 17,836-player-page
+v2 identity-strip rebuild. Per wakeup task instruction "Don't trigger
+another publish-site unless urgent" — running Phase 2 audit on
+currently-live state instead.
+
+**Phase 2 audit results — 5 representative URLs:**
+
+| URL | h1 | heading-violations | touch-sub-44% | imgs-no-alt | skip-link | aria-live | contrast-fails | identityV2 |
+|---|---|---|---|---|---|---|---|---|
+| / | 1 | 0 | 100% | 0 | ✓ | 0 | 10 | n/a |
+| /heisman/ | 1 | 0 | 99% | 0 | ✓ | 0 | 0 | n/a |
+| /players/mendoza/ | 1 | 0 | 51% | 0 | ✓ | 2 | n/a | **FALSE** |
+| /programs/notre-dame.html | 1 | 0 | n/a | 0 | ✓ | n/a | n/a | **FALSE** (legacyHero TRUE) |
+| /editions/2026-w18/the-quiet-week/ | 1 | **1** | n/a | n/a | **✗** | n/a | n/a | n/a |
+
+Key findings:
+
+* **identityV2 FALSE on /programs/ + /players/ pages** — confirms
+  Phase 3 deploy hasn't landed yet. Pre-deploy state.
+
+* **Homepage contrast fails (10)** — gold-on-cream chrome countdown,
+  CTA, eyebrow links. Fix queued in commit 84170146463 (gold-deep
+  variant); will land in next deploy.
+
+* **/heisman/ aria-live=0** — Phase 9a aria-live additions queued in
+  71989ae0d80 not yet deployed.
+
+* **Touch-sub-44% varies (100% / 99% / 51%)** — the 100% on homepage
+  is suspect; my touch-target CSS (1800d7bd37a) is queued for the
+  in-flight deploy. Once deployed should drop sharply.
+
+* **2 NEW real a11y bugs caught on /editions/2026-w18/the-quiet-week/:**
+  - **skip-link MISSING** — article pages opened with <body><div
+    class="page"> with no "Skip to main content" link
+  - **heading-order H1→H3 jump** — article body has no H2/H3
+    subheadings; emitting Sources footer as `<h3 id="citations-
+    header">` skipped a level after the `<h1 class="article-title">`
+
+**Commits this turn (1) — Phase 2 follow-ups:**
+
+* `84398e20ad6` — fix(a11y,phase-9): skip-link + heading-order on
+  edition articles
+  - Added skip-link with id="main-content" anchor to both
+    _render_article and _render_edition_index (matches global
+    _site_nav skip-link pattern)
+  - Changed citations footer heading from <h3> to <h2> in
+    citations/render.py — semantically correct (Sources is a peer
+    of the article title, not a subsection) and resolves the
+    heading-order skip. .citations-header CSS rule styles by class
+    not by tag, so visual treatment preserved.
+  - Affects every cited edition article + every future edition that
+    uses cfb_rankings.citations.render_citation_footer.
+
+**Total session 6 commits: 53.** Master SHA: 84398e20ad6.
+In-flight deploy SHA: 0a982b10cbe (11 commits behind master).
+
+---
+
 ## Continuation 6: W17 Sources footer verified (18:15 UTC)
 
 /editions/2026-w17/after-the-bracket-three-conversations/ verified
