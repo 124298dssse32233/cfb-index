@@ -16,6 +16,13 @@ accent_hex: "#F47321"
 accent_hex_secondary: "#005030"
 gradient_hex_pair: "#F47321,#005030"
 
+# Brief §3.2 — Program Prestige.
+# Miami's late-80s/early-2000s peaks are the All-Time Great Era reference.
+prestige_tier: 4
+prestige_historical_peak:
+  tier: 7
+  label: "1983-2001 The U dynasty"
+
 vocab:
   signoff: "It's all about the U."
   greeting: "GO CANES"

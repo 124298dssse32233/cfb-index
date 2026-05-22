@@ -46,6 +46,10 @@ from .season_standing_rail import (
     render_season_standing_rail,
     SEASON_STANDING_RAIL_CSS,
 )
+from .program_prestige_bar import (
+    render_program_prestige_bar,
+    PROGRAM_PRESTIGE_BAR_CSS,
+)
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -411,6 +415,10 @@ def _render_page(
     # Standing Rail. Placed directly under the hero so the 5-second read
     # ("where is this team in the national picture") lands first.
     season_standing_html = render_season_standing_rail(profile, snapshot)
+    # Program Prestige bar — Brief §3.2. Slower-moving sibling answering
+    # "what kind of program is this, historically?" Sits next to Season
+    # Standing so the fast + slow signals read together.
+    program_prestige_html = render_program_prestige_bar(profile)
     footer_html = _render_footer(profile, state)
 
     head_chrome_block = render_head_chrome(
@@ -455,6 +463,9 @@ body {{
 /* Season Standing Rail — Brief §3.1 (team-page analog) */
 {SEASON_STANDING_RAIL_CSS}
 
+/* Program Prestige Bar — Brief §3.2 */
+{PROGRAM_PRESTIGE_BAR_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -498,6 +509,7 @@ body {{
   <div class="content">
     {hero_html}
     {season_standing_html}
+    {program_prestige_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}

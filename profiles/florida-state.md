@@ -16,6 +16,13 @@ accent_hex: "#782F40"
 accent_hex_secondary: "#CEB888"
 gradient_hex_pair: "#782F40,#CEB888"
 
+# Brief §3.2 — Program Prestige.
+# FSU's 1987-1996 Bowden run was the All-Time Great Era; current tier reflects rebuild.
+prestige_tier: 4
+prestige_historical_peak:
+  tier: 7
+  label: "1987-1996 Bobby Bowden top-5 streak"
+
 vocab:
   signoff: "Unconquered."
   greeting: "GO NOLES"

@@ -16,6 +16,13 @@ accent_hex: "#F56600"
 accent_hex_secondary: "#522D80"
 gradient_hex_pair: "#F56600,#522D80"
 
+# Brief §3.2 — Program Prestige.
+# Clemson sustained a Dynasty Active era under Dabo from 2015-2020.
+prestige_tier: 5
+prestige_historical_peak:
+  tier: 6
+  label: "2015-2020 Dabo Swinney peak"
+
 vocab:
   signoff: "All in."
   greeting: "Go Tigers"

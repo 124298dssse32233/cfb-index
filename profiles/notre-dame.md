@@ -16,6 +16,13 @@ accent_hex: "#0C2340"
 accent_hex_secondary: "#C99700"
 gradient_hex_pair: "#0C2340,#C99700"
 
+# Brief §3.2 — Program Prestige.
+# Notre Dame is a Blue Blood; the Lou Holtz '88 title era is the modern peak.
+prestige_tier: 5
+prestige_historical_peak:
+  tier: 7
+  label: "1988-1993 Lou Holtz era"
+
 vocab:
   signoff: "Go Irish."
   greeting: "GO IRISH"
