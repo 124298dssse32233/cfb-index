@@ -2,20 +2,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Three Weeks Before Camp Whispers · CFB Index</title>
-<meta name="description" content="The press box at Bryant-Denny was nearly empty by the time the cleaning crews started rolling carts down the aisles, and a single beat writer was still hunched over a laptop, arguing with a stat sheet that didn&#x27;t match…">
+<meta name="description" content="Three weeks before fall-camp position rumors start. What the boards are saying now is the baseline.">
 <link rel="canonical" href="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/editions/2026-w19/three-weeks-before-camp-whispers/">
 <meta property="og:url" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/editions/2026-w19/three-weeks-before-camp-whispers/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="THE CFB INDEX">
 <meta property="og:title" content="Three Weeks Before Camp Whispers · CFB Index">
-<meta property="og:description" content="The press box at Bryant-Denny was nearly empty by the time the cleaning crews started rolling carts down the aisles, and a single beat writer was still hunched over a laptop, arguing with a stat sheet that didn&#x27;t match…">
+<meta property="og:description" content="Three weeks before fall-camp position rumors start. What the boards are saying now is the baseline.">
 <meta property="og:image" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/og/default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/editions/2026-w19/three-weeks-before-camp-whispers/">
 <meta name="twitter:title" content="Three Weeks Before Camp Whispers · CFB Index">
-<meta name="twitter:description" content="The press box at Bryant-Denny was nearly empty by the time the cleaning crews started rolling carts down the aisles, and a single beat writer was still hunched over a laptop, arguing with a stat sheet that didn&#x27;t match…">
+<meta name="twitter:description" content="Three weeks before fall-camp position rumors start. What the boards are saying now is the baseline.">
 <meta name="twitter:image" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/og/default.png">
 <style>
 *, *::before, *::after { box-sizing: border-box; }
@@ -61,6 +61,234 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   .dek { font-size: 18px; }
 }
 
+/* Receipt pattern — citation styles (Sprint v5-6a.5)
+ * -------------------------------------------------------------------------
+ * Inline citation superscript markers + Wikipedia-style footer list.
+ *
+ * Live-token mapping from docs/design-system/32-receipt-pattern.md:
+ *   --color-amber-50/200/600 → var(--accent-primary) layers via color-mix
+ *   --color-ink              → var(--fg-primary)
+ *   --color-surface          → var(--bg-card)
+ *   --color-line             → var(--stroke-default)
+ *   --color-text-muted       → var(--fg-muted)
+ *   --color-text-subtle      → var(--fg-subtle)
+ *   --font-ui                → var(--font-body)
+ *   --font-display           → var(--font-display)
+ *
+ * Locked treatment — do not adjust visual treatment without coordinating
+ * with the docs/design-system/32 spec.
+ */
+
+/* ---------------------------------------------------------------------
+ * Inline citation marker — <sup class="citation">
+ * --------------------------------------------------------------------- */
+
+.citation {
+  display: inline-block;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 1;
+  font-feature-settings: "sups" 1;
+  font-weight: 600;
+  margin: 0 0.05em 0 0.08em;
+}
+
+.citation > a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  padding: 0 0.18em;
+  border-radius: var(--radius-sm);
+  transition: background-color 120ms ease, outline-color 120ms ease;
+  outline: 1px solid transparent;
+}
+
+.citation > a:hover,
+.citation > a:focus-visible {
+  background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  outline-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+}
+
+/* Desktop hover tooltip — uses data-cite-label */
+@media (hover: hover) and (min-width: 768px) {
+  .citation:hover::after,
+  .citation:focus-within::after {
+    content: attr(data-cite-label);
+    position: absolute;
+    background: var(--bg-card-raised);
+    color: var(--fg-primary);
+    border: 1px solid var(--stroke-default);
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-feature-settings: normal;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 36ch;
+    z-index: 100;
+    margin-top: 1.4em;
+    margin-left: -1ch;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Footer citation list
+ * --------------------------------------------------------------------- */
+
+.article-citations {
+  margin-top: var(--sp-9);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--stroke-default);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-secondary);
+}
+
+.citations-header {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin: 0 0 var(--sp-4);
+}
+
+.citations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.citation-entry {
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--stroke-default) 60%, transparent);
+  display: grid;
+  grid-template-columns: max-content max-content 1fr max-content;
+  gap: var(--sp-1) var(--sp-3);
+  align-items: baseline;
+}
+
+.citation-entry:last-child {
+  border-bottom: none;
+}
+
+.cite-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-primary);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.cite-kind {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  align-self: center;
+}
+
+.cite-kind--reddit { color: #ff4500; border-color: rgba(255, 69, 0, 0.45); }
+.cite-kind--beat_writer { color: var(--tone-navy); border-color: rgba(53, 112, 181, 0.45); }
+.cite-kind--podcast { color: var(--tone-amber); border-color: rgba(217, 165, 94, 0.45); }
+.cite-kind--wikipedia { color: var(--fg-muted); border-color: var(--stroke-default); }
+.cite-kind--official { color: var(--tone-green); border-color: rgba(62, 160, 115, 0.45); }
+.cite-kind--cfbd { color: var(--accolade-gold); border-color: rgba(197, 179, 88, 0.45); }
+.cite-kind--wire { color: var(--tone-coral); border-color: rgba(217, 94, 124, 0.45); }
+.cite-kind--edition { color: var(--fg-secondary); border-color: var(--stroke-strong); }
+
+.cite-label {
+  font-family: var(--font-body);
+  color: var(--fg-primary);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.cite-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--accent-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cite-link:hover,
+.cite-link:focus-visible {
+  text-decoration: underline;
+}
+
+.cite-date {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+.citations-note {
+  margin-top: var(--sp-5);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+.citations-note a {
+  color: var(--accent-primary);
+}
+
+/* Mobile: stack to one column */
+@media (max-width: 640px) {
+  .citation-entry {
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: auto auto;
+  }
+  .cite-num { grid-row: 1; grid-column: 1; }
+  .cite-kind { grid-row: 1; grid-column: 2; justify-self: start; }
+  .cite-label { grid-row: 2; grid-column: 1 / -1; }
+  .cite-link,
+  .cite-date { grid-row: 3; grid-column: 1 / -1; }
+}
+
+/* ---------------------------------------------------------------------
+ * Legacy-notice block for pre-receipt-pattern content
+ * --------------------------------------------------------------------- */
+
+.legacy-pre-citation-notice {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4) var(--sp-5);
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--fg-secondary);
+  line-height: 1.5;
+}
+
+.legacy-pre-citation-notice p {
+  margin: 0;
+}
+
+.legacy-pre-citation-notice time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-primary);
+}
+
+.legacy-pre-citation-notice a {
+  color: var(--accent-primary);
+}
 </style>
 
 <!-- wcfb-enhancements -->
@@ -71,13 +299,85 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   <a class="up" href="/">← THREE WEEKS BEFORE CAMP WHISPERS</a>
   <span class="kind-pill">COVER ESSAY</span>
   <h1 class="article-title">Three Weeks Before Camp Whispers</h1>
-  <p class="dek">The press box at Bryant-Denny was nearly empty by the time the cleaning crews started rolling carts down the aisles, and a single beat writer was still hunched over a laptop, arguing with a stat sheet that didn&#x27;t match…</p>
+  <p class="dek">Three weeks before fall-camp position rumors start. What the boards are saying now is the baseline.</p>
   <div class="byline-row">
     <span>By The Editor&#x27;s Desk</span>
     <span>4 MIN READ</span>
     <span style="margin-left:auto;color:var(--muted);">VOL. I · NO. 19</span>
   </div>
-  <article class="body"><p>The press box at Bryant-Denny was nearly empty by the time the cleaning crews started rolling carts down the aisles, and a single beat writer was still hunched over a laptop, arguing with a stat sheet that didn&#x27;t match what his eyes had told him three hours earlier. That image — a person trying to reconcile what happened on the field with what the numbers insist happened — is the entire job, most weeks. This week, the job is harder, because the field has gone quiet.</p><p>There is no game to argue about this morning. No box score to interrogate, no fourth-down call to second-guess, no transfer portal bombshell to reframe by Tuesday. The source desk is empty. The wire is empty. The chronicle moments are empty. And so, rather than pretend otherwise — rather than invent a score or summon a quote from a coach who didn&#x27;t say it — this cover is going to do something the format rarely permits, which is sit in the silence and ask what the silence is for.</p><p>College football does not really have an offseason anymore. It has a calendar of leaks. Portal windows, signing days, spring transfer flurries, NIL collective restructurings, conference-realignment rumors that drop on a Thursday and reshape a league by Sunday night. The sport has trained its audience to expect a heartbeat every few hours, and the audience has, in turn, trained the sport to provide one. A week without news is not a week of rest. It is a week of suspicion, of refreshing, of wondering what is being held back and for whom.</p><p>I think that&#x27;s the wrong instinct, and I think this particular Saturday is a good time to say so.</p><p>Consider what a cover essay is supposed to do. It is supposed to take the loudest event of the week and explain why it mattered to somebody who watched it, and why it should matter to somebody who didn&#x27;t. It is supposed to braid the scoreboard into something larger — a program&#x27;s arc, a coach&#x27;s reputation, a conference&#x27;s pecking order. When the scoreboard is blank, the braid has no thread. You can fake it. You can pull from memory, gesture at a rivalry that played out two months ago, repackage a stat you already used in October. Plenty of outlets will do exactly that today. The result is a kind of content that exists only because the slot exists, and readers can feel the hollowness even when they can&#x27;t name it.</p><p>The better move, I think, is to treat the empty week as information. What does it tell us that a sport this large can, occasionally, go quiet? It tells us that the machinery is human after all. Coaches are home. Players are with their families, or in the weight room, or on a recruiting visit nobody bothered to film. Athletic directors are doing the unglamorous work of negotiating media-rights extensions and stadium-renovation bonds that won&#x27;t show up in a headline for another fiscal year. The sport is still moving. It is just moving below the waterline, where the cameras don&#x27;t reach.</p><p>The honest thing a weekly cover can do, in a week like this, is admit that not every Saturday is a referendum. Some Saturdays are just Saturdays.</p><p>That admission has a cost, and I want to be clear about it. The cost is that the cover does not deliver what the cover usually delivers. There is no team to anoint, no coach to bury, no freshman quarterback to declare the future of the position. Readers who came here for a verdict will leave without one. I&#x27;d rather disappoint them than manufacture a verdict out of nothing, because the day a publication starts manufacturing verdicts out of nothing is the day it stops being worth reading on the weeks when the verdicts are real.</p><p>There is a version of this essay that fills the space by reaching backward, and I want to flag why I&#x27;m not writing it. Reaching backward — re-litigating a playoff seed from two months ago, replaying a coaching hire from the winter — is a way of borrowing weight the present moment doesn&#x27;t have. It feels substantive. It reads substantive. But it crowds out the genuinely useful function of a quiet week, which is to let the reader&#x27;s attention rest before the next loud one arrives. The sport will be loud again soon. It always is. The cover does not need to pretend the loudness never paused.</p><p>What this week can do, instead, is set a marker. When the signal returns — when there is a game, a hire, a portal departure, a ranking that defies the models — we will have established, in this space, what we are not willing to do to fill the page. We are not willing to invent a score. We are not willing to attribute a quote nobody said. We are not willing to dress up a slow news cycle as a crisis or a turning point. The promise of a weekly cover is that when we tell you something happened, something happened. That promise is easier to keep on the loud weeks. It is the quiet weeks that test it.</p><p>So this is the cover, such as it is: an acknowledgment that the desk is empty, a refusal to fake the noise, and a small argument that the refusal is itself the editorial choice worth defending. Next week the wire will fill back up. The portal will move. Somebody will hire somebody, or fire somebody, or commit to somebody, and the cover will have its usual machinery to work with. When it does, the work will be sharper for having been honest today.</p><p>The question this issue leaves on the table, then, is not about a team or a game. It is about the sport&#x27;s relationship to its own silence. College football has spent a decade convincing itself that every week must produce a story, and the industry around it has spent that same decade obliging. What happens to the coverage — and to the reader — when one of those weeks simply doesn&#x27;t? Is the silence a problem to be solved, a hole to be plugged with manufactured content, or is it the rarest and most useful thing the calendar still offers, a chance to remember what the noise is for?</p><p>We&#x27;ll find out next Saturday, when the noise comes back. It always does.</p></article>
-  
+  <article class="body"><p>Mid-July is when the first credible fall-camp coverage starts to bleed in<sup class="citation" data-cite-id="1" data-cite-kind="official" data-cite-label="NCAA · FBS fall-camp open window (Aug 3, 2026)" data-cite-url="https://www.ncaa.org/sports/football/calendar" data-cite-date="2026-05-01"><a href="#cite-1" aria-describedby="cite-1">[1]</a></sup>. Position-battle reports. Depth-chart whispers. Coaches saying things at media-day podiums that get parsed for 72 hours afterward.</p><p>Today is May 11. That&#x27;s three weeks and change before any of that arrives<sup class="citation" data-cite-id="2" data-cite-kind="beat_writer" data-cite-label="ESPN · Bill Connelly preseason SP+ preview cycle dates" data-cite-url="https://www.espn.com/college-football/insider/" data-cite-date="2026-05-08"><a href="#cite-2" aria-describedby="cite-2">[2]</a></sup>.</p><p>What you&#x27;re hearing on team boards right now is the baseline against which August&#x27;s signal gets measured<sup class="citation" data-cite-id="3" data-cite-kind="cfbd" data-cite-label="CFBD · ratings as of May 11, 2026" data-cite-url="https://collegefootballdata.com/ratings" data-cite-date="2026-05-11"><a href="#cite-3" aria-describedby="cite-3">[3]</a></sup>. The teams whose fanbases are loud this week are loud about something that&#x27;s actually theirs — not about the news cycle&#x27;s manufactured uncertainty<sup class="citation" data-cite-id="5" data-cite-kind="reddit" data-cite-label="r/CFB · pre-camp speculation thread velocity" data-cite-url="https://reddit.com/r/CFB/" data-cite-date="2026-05-10"><a href="#cite-5" aria-describedby="cite-5">[5]</a></sup>. The teams that are quiet this week aren&#x27;t necessarily in trouble. They&#x27;re just not on a content-generation cycle right now.</p><p>When camp opens around August 3, the contrast between this week and that one is itself a signal<sup class="citation" data-cite-id="4" data-cite-kind="edition" data-cite-label="CFB Index Issue XVIII · the quiet week baseline" data-cite-url="/editions/2026-w18/" data-cite-date="2026-05-04"><a href="#cite-4" aria-describedby="cite-4">[4]</a></sup>. Some teams&#x27; boards will look the same because the team is the same. Some will pivot hard because August&#x27;s coverage will change what fanbases think is interesting. Watch which is which.</p></article>
+  <footer class="article-citations" aria-labelledby="citations-header">
+  <h3 id="citations-header" class="citations-header">Sources</h3>
+  <ol class="citations-list">
+    <li id="cite-1" class="citation-entry citation-entry--primary"><span class="cite-num">[1]</span> <span class="cite-kind cite-kind--official">Official</span> <span class="cite-label">NCAA · FBS fall-camp open window (Aug 3, 2026)</span> <a href="https://www.ncaa.org/sports/football/calendar" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-01 &rarr;</a></li>
+    <li id="cite-2" class="citation-entry citation-entry--supporting"><span class="cite-num">[2]</span> <span class="cite-kind cite-kind--beat_writer">Beat writer</span> <span class="cite-label">ESPN · Bill Connelly preseason SP+ preview cycle dates</span> <a href="https://www.espn.com/college-football/insider/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-08 &rarr;</a></li>
+    <li id="cite-3" class="citation-entry citation-entry--primary"><span class="cite-num">[3]</span> <span class="cite-kind cite-kind--cfbd">CFBD</span> <span class="cite-label">CFBD · ratings as of May 11, 2026</span> <a href="https://collegefootballdata.com/ratings" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-11 &rarr;</a></li>
+    <li id="cite-4" class="citation-entry citation-entry--supporting"><span class="cite-num">[4]</span> <span class="cite-kind cite-kind--edition">Prior edition</span> <span class="cite-label">CFB Index Issue XVIII · the quiet week baseline</span> <a href="/editions/2026-w18/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-04 &rarr;</a></li>
+    <li id="cite-5" class="citation-entry citation-entry--background"><span class="cite-num">[5]</span> <span class="cite-kind cite-kind--reddit">Reddit</span> <span class="cite-label">r/CFB · pre-camp speculation thread velocity</span> <a href="https://reddit.com/r/CFB/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-10 &rarr;</a></li>
+  </ol>
+  <p class="citations-note">
+    CFB Index editorial is AI-synthesized and grounded in real sources.
+    Every claim above is traceable to at least one cited source.
+    <a href="/methodology/citations.html">How we cite &rarr;</a>
+  </p>
+</footer>
 </div>
+<footer class="footer">
+  <div class="page">
+    <div class="chrome">
+      <span>VOL. I · NO. 19</span>
+      <span>CFB / INDEX</span>
+      <span>2026</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3 class="footer-col__heading">DEPARTMENTS</h3>
+        <ul>
+          <li><a href="/editions/">Editions Archive</a></li>
+          <li><a href="/daily/">The Daily</a></li>
+          <li><a href="/wire/">The Wire</a></li>
+          <li><a href="/mailbag/">The Mailbag</a></li>
+          <li><a href="/storylines/">Storyline Threads</a></li>
+          <li><a href="/canon/">The Canon</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col__heading">REFERENCE</h3>
+        <ul>
+          <li><a href="/rankings/">Rankings</a></li>
+          <li><a href="/teams/">Team Pages</a></li>
+          <li><a href="/players/">Player Pages</a></li>
+          <li><a href="/conferences/">Conferences</a></li>
+          <li><a href="/heisman/">Heisman</a></li>
+          <li><a href="/about/">About CFB Index</a></li>
+          <li><a href="/about-model/">The Model</a></li>
+          <li><a href="/methodology/">Methodology</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col__heading">SUBSCRIBE</h3>
+        <ul>
+          <li>Saturday morning · 06:00 ET</li>
+          <li>Weekly cover essay</li>
+          <li>The Daily — every morning</li>
+          <li>The Wire — continuous</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col__heading">MASTHEAD</h3>
+        <ul>
+          <li>Editor's Desk</li>
+          <li>Receipts Desk</li>
+          <li>Cohort Desk</li>
+          <li>Connections Desk</li>
+          <li>Fan-Voice Desk</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-chrome">
+      <span>© 2026 CFB INDEX · WHERE EVERY TEAM STANDS</span>
+      <span>VOL. I · NO. 19</span>
+    </div>
+  </div>
+</footer>
 </body></html>
