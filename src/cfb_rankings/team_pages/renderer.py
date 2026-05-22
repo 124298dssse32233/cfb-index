@@ -41,6 +41,7 @@ from .savant_card import render_savant_card
 from .rivalry_card import render_rivalry_card
 from .season_arc_card import render_season_arc_card
 from .hero_arc_stripe import render_hero_arc_stripe, HERO_ARC_STRIPE_CSS
+from .aspiration_ladder import render_aspiration_ladder, ASPIRATION_LADDER_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -400,6 +401,8 @@ def _render_page(
             profile, arc_rows,
             current_season=snapshot.season_year if snapshot else None,
         )
+    # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
+    aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     footer_html = _render_footer(profile, state)
 
     head_chrome_block = render_head_chrome(
@@ -437,6 +440,9 @@ body {{
 
 /* Hero Arc 13-brick CFP-era stripe — Sprint E (Brief §20) */
 {HERO_ARC_STRIPE_CSS}
+
+/* Aspiration Ladder — Brief Part III §33.4 */
+{ASPIRATION_LADDER_CSS}
 
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
@@ -482,6 +488,7 @@ body {{
     {hero_html}
     {hero_arc_stripe_html}
     {pulse_html}
+    {aspiration_ladder_html}
     {rituals_html}
     {cultural_anchors_html}
     {chronicle_html}
