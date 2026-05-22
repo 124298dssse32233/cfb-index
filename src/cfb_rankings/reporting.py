@@ -3202,6 +3202,29 @@ _TOUCH_TARGET_A11Y_CSS_BLOCK = """
 """
 
 
+_GLOBAL_FOOTER_HEADING_CSS_BLOCK = """
+/* Global footer column heading — gold uppercase chrome treatment.
+ * Session 6 fix: nav.render_global_footer uses
+ * <h3 class="footer-col__heading">, but the original styling rule only
+ * lived inline on the homepage. As a result, every other surface that
+ * shipped the global footer (edition articles, team pages, etc.) got
+ * default H3 styling instead of the intended chrome. Adding the rule
+ * to the global stylesheet so it applies site-wide.
+ */
+.footer-col h4,
+.footer-col h3,
+.footer-col .footer-col__heading {
+  font-family: var(--sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #c9a24a);
+  margin: 0 0 16px;
+}
+"""
+
+
 _DARK_MODE_CSS_BLOCK = """
 html.dark {
   color-scheme: dark;
@@ -5924,6 +5947,8 @@ def _compose_global_css() -> str:
         + _PROFILE_IDENTITY_V2_CSS_BLOCK
         + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
         + _TOUCH_TARGET_A11Y_CSS_BLOCK
+        + "\n/* === Global footer column heading (Session 6 H4→H3 fix) === */\n"
+        + _GLOBAL_FOOTER_HEADING_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )

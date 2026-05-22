@@ -547,7 +547,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .wire-table .program { font-weight: 700; color: var(--ink); }
 .wire-table .why { font-family: var(--serif); font-style: italic;
   color: var(--ink); }
-.wire-table .impact { font-weight: 700; text-align: right; color: var(--gold); }
+.wire-table .impact { font-weight: 700; text-align: right; color: var(--gold-deep); }
 
 /* Active Threads */
 .threads-grid { display: grid; grid-template-columns: 740px 1fr; gap: 48px; }
@@ -569,7 +569,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .thread-list .thread-row:first-of-type { border-top: 0; }
 .thread-list .thread-name { font-family: var(--serif); font-size: 16px; font-weight: 600; }
 .thread-list .chapters { font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); }
 .thread-list .last-updated { font-family: var(--sans); font-size: 10px; color: var(--muted);
   letter-spacing: 0.14em; text-transform: uppercase; }
 
@@ -622,7 +622,11 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .footer .chrome { color: var(--paper); border-bottom: 1px solid var(--paper);
   padding-bottom: 24px; margin-bottom: 32px; }
 .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
-.footer-col h4 { font-family: var(--sans); font-size: 11px;
+/* Footer column heading — supports both legacy <h4> markup and the
+ * post-heading-order-fix <h3 class="footer-col__heading"> markup. */
+.footer-col h4,
+.footer-col h3,
+.footer-col .footer-col__heading { font-family: var(--sans); font-size: 11px;
   font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gold); margin: 0 0 16px; }
 .footer-col ul { list-style: none; padding: 0; margin: 0; }
