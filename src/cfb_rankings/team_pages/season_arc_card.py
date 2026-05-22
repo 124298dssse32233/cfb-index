@@ -350,7 +350,7 @@ def _render_brick_index(profile: Profile, rows: list[dict[str, Any]]) -> str:
         ap_txt = f"AP #{r['ap_rank_final']}" if r["ap_rank_final"] else ""
         if is_partial:
             displayed = f"{r['wins']}-{r['losses']}" + (f"-{r['ties']}" if r["ties"] else "")
-            title_attr = f"{year} · ingest incomplete (snapshot {displayed}) · {ap_txt}".strip(" ·")
+            title_attr = f"{year} · partial record on file ({displayed}) · {ap_txt}".strip(" ·")
         else:
             title_attr = f"{year} · {record} · {ap_txt}".strip(" ·")
         cls_attr = " ".join(["season-brick", *cls_list])
