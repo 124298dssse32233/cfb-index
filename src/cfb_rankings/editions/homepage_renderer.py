@@ -959,7 +959,7 @@ def _render_the_wire(wire: dict[str, Any], is_live: bool = False) -> str:
     </div>
     <table class="wire-table">
       <thead><tr>
-        <th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th>
+        <th scope="col">WHEN</th><th scope="col">PROGRAM</th><th scope="col">ACTION</th><th scope="col">WHY IT MATTERS</th><th scope="col">IMPACT</th>
       </tr></thead>
       <tbody>{rows}</tbody>
     </table>

@@ -477,7 +477,7 @@ a:hover{{color:#c9a84c;}}
 <h1>The Daily — Archive</h1>
 <p class="sub">Last {limit} editions · <a href="/daily/">← Current edition</a></p>
 <table>
-<thead><tr><th>Edition</th><th>Status</th><th>Takes</th><th>Voice OK</th></tr></thead>
+<thead><tr><th scope="col">Edition</th><th scope="col">Status</th><th scope="col">Takes</th><th scope="col">Voice OK</th></tr></thead>
 <tbody>{rows_html}</tbody>
 </table>
 {_meta_footer}

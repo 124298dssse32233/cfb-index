@@ -178,8 +178,8 @@ def render_freshness_html(db: Database) -> str:
   <table>
     <thead>
       <tr>
-        <th>Source</th><th>ID</th><th>Tier</th><th>Method</th><th>Active</th>
-        <th>Last run</th><th>Status</th><th>Items captured</th>
+        <th scope="col">Source</th><th scope="col">ID</th><th scope="col">Tier</th><th scope="col">Method</th><th scope="col">Active</th>
+        <th scope="col">Last run</th><th scope="col">Status</th><th scope="col">Items captured</th>
       </tr>
     </thead>
     <tbody>

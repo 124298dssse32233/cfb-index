@@ -14318,9 +14318,9 @@ def _compare_tool_script() -> str:
               <table>
                 <thead>
                   <tr>
-                    <th>Phase</th>
-                    <th>${teamA.team_name}</th>
-                    <th>${teamB.team_name}</th>
+                    <th scope="col">Phase</th>
+                    <th scope="col">${teamA.team_name}</th>
+                    <th scope="col">${teamB.team_name}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -14356,9 +14356,9 @@ def _compare_tool_script() -> str:
               <table>
                 <thead>
                   <tr>
-                    <th>Opponent</th>
-                    <th>${teamA.team_name}</th>
-                    <th>${teamB.team_name}</th>
+                    <th scope="col">Opponent</th>
+                    <th scope="col">${teamA.team_name}</th>
+                    <th scope="col">${teamB.team_name}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -14468,14 +14468,14 @@ def render_conferences_index_html(
           <table>
             <thead>
               <tr>
-                <th>Conference</th>
-                <th>Level</th>
-                <th>Teams</th>
-                <th>RR50</th>
-                <th>Upper Strength</th>
-                <th>Median Power</th>
-                <th>Resume Pulse</th>
-                <th>Top Team</th>
+                <th scope="col">Conference</th>
+                <th scope="col">Level</th>
+                <th scope="col">Teams</th>
+                <th scope="col">RR50</th>
+                <th scope="col">Upper Strength</th>
+                <th scope="col">Median Power</th>
+                <th scope="col">Resume Pulse</th>
+                <th scope="col">Top Team</th>
               </tr>
             </thead>
             <tbody>
@@ -14594,7 +14594,7 @@ def _render_conference_market_section(conference: dict[str, Any]) -> str:
           <div class="section-head"><h2>ATS Leaders</h2><p class="section-note">Who beat the number most often this season.</p></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Team</th><th>Cover Rate</th><th>Record</th></tr></thead>
+              <thead><tr><th scope="col">Team</th><th scope="col">Cover Rate</th><th scope="col">Record</th></tr></thead>
               <tbody>{cover_rows}</tbody>
             </table>
           </div>
@@ -14603,7 +14603,7 @@ def _render_conference_market_section(conference: dict[str, Any]) -> str:
           <div class="section-head"><h2>Wins vs Market</h2><p class="section-note">Win total minus the market's implied expectation, by team.</p></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Team</th><th>Wins vs Market</th><th>Sample</th></tr></thead>
+              <thead><tr><th scope="col">Team</th><th scope="col">Wins vs Market</th><th scope="col">Sample</th></tr></thead>
               <tbody>{wins_rows}</tbody>
             </table>
           </div>
@@ -14781,14 +14781,14 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
           <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Team</th>
-                <th>Record</th>
-                <th>Power</th>
-                <th>Resume</th>
-                <th>ATS</th>
-                <th>Wins vs Market</th>
-                <th>Recent Form</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Team</th>
+                <th scope="col">Record</th>
+                <th scope="col">Power</th>
+                <th scope="col">Resume</th>
+                <th scope="col">ATS</th>
+                <th scope="col">Wins vs Market</th>
+                <th scope="col">Recent Form</th>
               </tr>
             </thead>
             <tbody>
@@ -15117,12 +15117,12 @@ def render_archive_snapshot_html(
           <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Change</th>
-                <th>Team</th>
-                <th>Level</th>
-                <th>Power</th>
-                <th>Resume</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Change</th>
+                <th scope="col">Team</th>
+                <th scope="col">Level</th>
+                <th scope="col">Power</th>
+                <th scope="col">Resume</th>
               </tr>
             </thead>
             <tbody>
@@ -16094,12 +16094,12 @@ def render_rankings_page_html(
             <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Change</th>
-                <th>Team</th>
-                <th>Level</th>
-                <th>Power</th>
-                <th>Resume</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Change</th>
+                <th scope="col">Team</th>
+                <th scope="col">Level</th>
+                <th scope="col">Power</th>
+                <th scope="col">Resume</th>
               </tr>
             </thead>
             <tbody id="rankingsTableBody">
@@ -16223,12 +16223,12 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody>
@@ -16249,12 +16249,12 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody>
@@ -16277,10 +16277,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Latest Season</th>
-                  <th>Peak Gap</th>
-                  <th>Context</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Latest Season</th>
+                  <th scope="col">Peak Gap</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -16301,10 +16301,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Window</th>
-                  <th>Average Power</th>
-                  <th>Context</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Window</th>
+                  <th scope="col">Average Power</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -16327,10 +16327,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Jump Season</th>
-                  <th>Change</th>
-                  <th>Latest Finish</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Jump Season</th>
+                  <th scope="col">Change</th>
+                  <th scope="col">Latest Finish</th>
                 </tr>
               </thead>
               <tbody>
@@ -16351,10 +16351,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Loaded Seasons</th>
-                  <th>Average Power</th>
-                  <th>Latest Season</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Loaded Seasons</th>
+                  <th scope="col">Average Power</th>
+                  <th scope="col">Latest Season</th>
                 </tr>
               </thead>
               <tbody>
@@ -16377,12 +16377,12 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody>
@@ -16403,10 +16403,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Drop Season</th>
-                  <th>Change</th>
-                  <th>Latest Finish</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Drop Season</th>
+                  <th scope="col">Change</th>
+                  <th scope="col">Latest Finish</th>
                 </tr>
               </thead>
               <tbody>
@@ -16488,15 +16488,15 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Program</th>
-                  <th>Lens</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
-                  <th>Margin</th>
-                  <th>Open</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Lens</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
+                  <th scope="col">Margin</th>
+                  <th scope="col">Open</th>
                 </tr>
               </thead>
               <tbody id="historyExplorerBody">
@@ -16770,9 +16770,9 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
             <table>
               <thead>
                 <tr>
-                  <th>Phase</th>
-                  <th>Record</th>
-                  <th>Games</th>
+                  <th scope="col">Phase</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Games</th>
                 </tr>
               </thead>
               <tbody>
@@ -16812,18 +16812,18 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <table>
             <thead>
               <tr>
-                <th>Week</th>
-                <th>Date</th>
-                <th>Game</th>
-                <th>Phase</th>
-                <th>Result</th>
-                <th>Close</th>
-                <th>ATS</th>
-                <th>Total</th>
-                <th>Pregame</th>
-                <th>Power Change</th>
-                <th>Resume Change</th>
-                <th>Postgame</th>
+                <th scope="col">Week</th>
+                <th scope="col">Date</th>
+                <th scope="col">Game</th>
+                <th scope="col">Phase</th>
+                <th scope="col">Result</th>
+                <th scope="col">Close</th>
+                <th scope="col">ATS</th>
+                <th scope="col">Total</th>
+                <th scope="col">Pregame</th>
+                <th scope="col">Power Change</th>
+                <th scope="col">Resume Change</th>
+                <th scope="col">Postgame</th>
               </tr>
             </thead>
             <tbody>
@@ -16842,16 +16842,16 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <table>
             <thead>
               <tr>
-                <th>Season</th>
-                <th>Lens</th>
-                <th>Record</th>
-                <th>Final Rank</th>
-                <th>End Power</th>
-                <th>End Resume</th>
-                <th>Games</th>
-                <th>Points For</th>
-                <th>Points Against</th>
-                <th>Margin</th>
+                <th scope="col">Season</th>
+                <th scope="col">Lens</th>
+                <th scope="col">Record</th>
+                <th scope="col">Final Rank</th>
+                <th scope="col">End Power</th>
+                <th scope="col">End Resume</th>
+                <th scope="col">Games</th>
+                <th scope="col">Points For</th>
+                <th scope="col">Points Against</th>
+                <th scope="col">Margin</th>
               </tr>
             </thead>
             <tbody>
@@ -16982,16 +16982,16 @@ def render_programs_index_html(
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Current Board</th>
-                  <th>Latest Season</th>
-                  <th>Loaded Seasons</th>
-                  <th>Peak Power</th>
-                  <th>Best Resume</th>
-                  <th>Best Finish</th>
-                  <th>Vs. Baseline</th>
-                  <th>Volatility</th>
-                  <th>Season Page</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Current Board</th>
+                  <th scope="col">Latest Season</th>
+                  <th scope="col">Loaded Seasons</th>
+                  <th scope="col">Peak Power</th>
+                  <th scope="col">Best Resume</th>
+                  <th scope="col">Best Finish</th>
+                  <th scope="col">Vs. Baseline</th>
+                  <th scope="col">Volatility</th>
+                  <th scope="col">Season Page</th>
                 </tr>
               </thead>
               <tbody id="programExplorerBody">
@@ -17130,11 +17130,11 @@ def render_teams_index_html(
             <table>
               <thead>
                 <tr>
-                  <th>Rank</th>
-                  <th>Team</th>
-                  <th>Level</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Level</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody id="teamsIndexBody">
@@ -17479,15 +17479,15 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
           <table>
             <thead>
               <tr>
-                <th>Season</th>
-                <th>Conference</th>
-                <th>Lens</th>
-                <th>Record</th>
-                <th>Final Rank</th>
-                <th>End Power</th>
-                <th>End Resume</th>
-                <th>Margin</th>
-                <th>Season Page</th>
+                <th scope="col">Season</th>
+                <th scope="col">Conference</th>
+                <th scope="col">Lens</th>
+                <th scope="col">Record</th>
+                <th scope="col">Final Rank</th>
+                <th scope="col">End Power</th>
+                <th scope="col">End Resume</th>
+                <th scope="col">Margin</th>
+                <th scope="col">Season Page</th>
               </tr>
             </thead>
             <tbody id="programSeasonExplorerBody">
@@ -17552,7 +17552,7 @@ def render_heisman_page_html(
         {str(row.team_name).strip() for row in board_rows if row.team_name},
         key=lambda value: value.lower(),
     )
-    market_header = "<th>Market</th>" if has_market_data else ""
+    market_header = "<th scope="col">Market</th>" if has_market_data else ""
     # Performance: cap the inline table at top-1000 rows. The legacy
     # behavior rendered ALL ~16k ranked players inline, producing a
     # 15MB HTML response. Top-1000 covers every realistic Heisman case;
@@ -17791,16 +17791,16 @@ def render_heisman_page_html(
             <table>
               <thead>
                 <tr>
-                  <th>Rank</th>
-                  <th>Player</th>
-                  <th>Team</th>
-                  <th>Pos</th>
-                  <th>Nowcast</th>
-                  <th>Forecast</th>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Nowcast</th>
+                  <th scope="col">Forecast</th>
                   {market_header}
-                  <th>Win</th>
-                  <th>Finalist</th>
-                  <th>Ballot</th>
+                  <th scope="col">Win</th>
+                  <th scope="col">Finalist</th>
+                  <th scope="col">Ballot</th>
                 </tr>
               </thead>
               <tbody id="heismanBoardBody">
@@ -17961,14 +17961,14 @@ def render_players_index_html(
             <table>
               <thead>
                 <tr>
-                  <th>Player</th>
-                  <th>Team</th>
-                  <th>Pos</th>
-                  <th>Current Heisman</th>
-                  <th>Best Finish</th>
-                  <th>Tracked Seasons</th>
-                  <th>Forecast</th>
-                  <th>Card</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Current Heisman</th>
+                  <th scope="col">Best Finish</th>
+                  <th scope="col">Tracked Seasons</th>
+                  <th scope="col">Forecast</th>
+                  <th scope="col">Card</th>
                 </tr>
               </thead>
               <tbody id="playerDirectoryBody">
@@ -19005,9 +19005,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Class</th>
-                  <th>Profile</th>
-                  <th>Context</th>
+                  <th scope="col">Class</th>
+                  <th scope="col">Profile</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -19031,9 +19031,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Move</th>
-                  <th>Context</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Move</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -19130,10 +19130,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
                 <table>
                   <thead>
                     <tr>
-                      <th>Metric</th>
+                      <th scope="col">Metric</th>
                       <th class="metric-cell">Value</th>
                       <th class="metric-cell">Peer context</th>
-                      <th>Why it matters</th>
+                      <th scope="col">Why it matters</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -19173,7 +19173,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
                     <th class="metric-cell" data-player-stat-sort-trigger="value-desc">Value</th>
                     <th class="metric-cell">Rank</th>
                     <th class="metric-cell">Pct</th>
-                    <th>Why it matters</th>
+                    <th scope="col">Why it matters</th>
                   </tr>
                 </thead>
                 <tbody id="playerStatsExplorerBody">
@@ -19240,11 +19240,11 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Honor</th>
-                  <th>Scope</th>
-                  <th>Team / Selector</th>
-                  <th>Context</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Honor</th>
+                  <th scope="col">Scope</th>
+                  <th scope="col">Team / Selector</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -19265,16 +19265,16 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Role</th>
-                  <th>Latest Model</th>
-                  <th>Forecast</th>
-                  <th>Win</th>
-                  <th>Finalist</th>
-                  <th>Official Finish</th>
-                  <th>Points</th>
-                  <th>Context</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Latest Model</th>
+                  <th scope="col">Forecast</th>
+                  <th scope="col">Win</th>
+                  <th scope="col">Finalist</th>
+                  <th scope="col">Official Finish</th>
+                  <th scope="col">Points</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -19295,12 +19295,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Conference</th>
-                  <th>Pos</th>
-                  <th>Class</th>
-                  <th>Bio</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Conference</th>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Class</th>
+                  <th scope="col">Bio</th>
                 </tr>
               </thead>
               <tbody>
@@ -19768,10 +19768,10 @@ def _render_game_impact_table(team_id: int, schedule: list[dict[str, Any]], limi
       <table class="game-impact-table">
         <thead>
           <tr>
-            <th>Key Result</th>
-            <th>Pregame</th>
-            <th>Actual</th>
-            <th>Delta</th>
+            <th scope="col">Key Result</th>
+            <th scope="col">Pregame</th>
+            <th scope="col">Actual</th>
+            <th scope="col">Delta</th>
           </tr>
         </thead>
         <tbody>
@@ -21265,7 +21265,7 @@ def _render_player_metric_label(metric_name: Any) -> str:
 
 
 def _render_player_season_stat_table(section: dict[str, Any]) -> str:
-    headers = "".join(f"<th>{escape(str(label or '--'))}</th>" for label in (section.get("columns") or []))
+    headers = "".join(f"<th scope="col">{escape(str(label or '--'))}</th>" for label in (section.get("columns") or []))
     rows_html: list[str] = []
     for row in (section.get("rows") or []):
         team_name = str(row.get("team_name") or "--")
@@ -21303,8 +21303,8 @@ def _render_player_season_stat_table(section: dict[str, Any]) -> str:
         <table>
           <thead>
             <tr>
-              <th>Season</th>
-              <th>Team</th>
+              <th scope="col">Season</th>
+              <th scope="col">Team</th>
               {headers}
             </tr>
           </thead>
@@ -22558,13 +22558,13 @@ def _render_team_betting_table(team_id: int, schedule: list[dict[str, Any]], lim
         <table>
           <thead>
             <tr>
-              <th>Week</th>
-              <th>Game</th>
-              <th>Result</th>
-              <th>Close</th>
-              <th>ATS</th>
-              <th>Total</th>
-              <th>ML</th>
+              <th scope="col">Week</th>
+              <th scope="col">Game</th>
+              <th scope="col">Result</th>
+              <th scope="col">Close</th>
+              <th scope="col">ATS</th>
+              <th scope="col">Total</th>
+              <th scope="col">ML</th>
             </tr>
           </thead>
           <tbody>
