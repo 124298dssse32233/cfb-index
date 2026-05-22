@@ -271,7 +271,7 @@ _PAGE_TEMPLATE = """<!doctype html>
   </section>
 
   <section class="section">
-    <p class="muted">Source: <code>player_nfl_draft</code>. Recruiting and on-field performance live on the team pages; the pipeline column closes the loop.</p>
+    <p class="muted">Sourced from the per-pick draft archive. Recruiting and on-field performance live on the team pages; the pipeline column closes the loop.</p>
   </section>
 </main>
 </body>

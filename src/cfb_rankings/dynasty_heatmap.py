@@ -360,7 +360,7 @@ _PAGE_TEMPLATE = """<!doctype html>
   <section class="section">
     <h2>How to read it</h2>
     <p>Look for <strong>solid warm bands</strong> — those are dynasties. Look for <strong>swings from cool to warm</strong> — those are turnarounds (Indiana 2024-25, James Madison's FBS arrival). Look for <strong>warm-then-cool collapses</strong> — those are hard landings (USC post-2017, FSU 2024).</p>
-    <p class="muted">Source: <code>power_ratings_weekly</code> final-week ratings. Methodology at <a href="/about-model/">/about-model/</a>.</p>
+    <p class="muted">Sourced from each program&rsquo;s final-week closing power rating per season. Methodology at <a href="/about-model/">/about-model/</a>.</p>
   </section>
 </main>
 </body>
