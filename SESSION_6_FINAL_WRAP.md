@@ -726,6 +726,62 @@ Latest SHA on master: d98c1f7a21d. The current in-flight publish-site
 
 ---
 
+## Continuation 7: Phase 3 deploy still building + Phase 9c contrast wins
+
+Wakeup at 18:42 UTC fired to verify publish-site 26304080630
+(SHA 0a982b10cbe — Phase 3 architectural migration). Found it
+**still in_progress** on the "Build or incrementally sync" step
+(~37 min in). This step renders the full 17,836-player + 665-
+program + 662-unprofiled-team pages with the new v2 identity-strip;
+that's the longest single render in the codebase.
+
+Per wakeup instruction "only trigger if 26304080630 has actually
+completed" — NOT triggering another publish-site.
+
+**Item 8 verified manually** while waiting: /portal-heat/ does NOT
+have `.database-archetype__meta-footer` block (validates the
+hypothesis that publish-site at 0a982b10cbe predates the
+d98c1f7a21d workflow refresh enhancement). Page is timestamped
+"2026-05-22 09:37 UTC" — that's when transfer_portal_heat.yml
+last ran this morning, well before any session-6 commits. The
+portal-heat renderer needs the dedicated workflow to fire (or
+publish-site to call it explicitly, which d98c1f7a21d adds).
+
+**Commits this turn (3) — Phase 9c contrast hardening:**
+
+* `84170146463` — gold-on-cream contrast fix #1
+  - `--gold-deep` (#8a6a2d, 5.5:1) added to homepage_renderer
+  - `.chrome-countdown` ("92 DAYS TO KICKOFF") swapped to gold-deep
+  - `.cta` ("READ THE COVER ESSAY →") swapped to gold-deep
+  - Both previously failed WCAG AA at 2.14:1
+
+* `99854b35c90` — contrast fix #2 + regression fix
+  - `.wire-table .impact` → gold-deep
+  - `.thread-list .chapters` → gold-deep
+  - **Regression caught:** the heading-order H4→H3 fix earlier in
+    session 6 broke footer-column heading styling site-wide. CSS
+    rule targeted `.footer-col h4` but HTML emits
+    `<h3 class="footer-col__heading">`. Every page that shipped the
+    global footer (edition articles, team pages, etc.) was rendering
+    the column headings with default H3 styling instead of the
+    intended gold-uppercase chrome. Fixed by adding a new
+    `_GLOBAL_FOOTER_HEADING_CSS_BLOCK` to reporting.py's global
+    stylesheet that matches h4 / h3 / .footer-col__heading.
+
+* `c9f3484324e` — top-nav label clarity
+  - "Analysis" → "Conferences" — the link pointed at
+    /conferences/index.html and the vague "Analysis" label didn't
+    tell users what was on the other side. Internal `active_key`
+    stays "analysis" for surface-detection compatibility.
+
+These 3 commits will deploy in the NEXT publish-site (after the
+in-flight one finishes).
+
+**Total session 6 commits: 50.** Master SHA: c9f3484324e.
+In-flight deploy SHA: 0a982b10cbe (8 commits behind master).
+
+---
+
 ## Continuation 6: W17 Sources footer verified (18:15 UTC)
 
 /editions/2026-w17/after-the-bracket-three-conversations/ verified
