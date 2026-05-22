@@ -81,7 +81,8 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .chrome { font-family: var(--sans); font-size: 11px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase;
   display: flex; justify-content: space-between; padding: 12px 0;
-  color: var(--ink); }
+  color: var(--ink); gap: 16px; flex-wrap: wrap; }
+.chrome .chrome-countdown { color: var(--gold); font-weight: 700; }
 .brand-row { display: flex; align-items: baseline; justify-content: space-between;
   padding: 24px 0; }
 .brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
@@ -310,6 +311,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
       <span>VOL. I · NO. 19</span>
       <span>MONDAY · MAY 11 · 2026</span>
       <span>PUBLISHED 06:00 ET</span>
+      <span class="chrome-countdown">92 DAYS TO KICKOFF</span>
     </div>
     <hr class="rule">
     <div class="brand-row">
@@ -411,7 +413,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
       <div class="toc-roman">V.</div>
       <div>
         <div class="toc-title">Storyline Threads in Mid-Spring</div>
-        <div class="toc-dek">The five storyline arcs the Pattern E continuity loop is currently advancing.</div>
+        <div class="toc-dek">The arcs the Connections Desk is currently tracking through the offseason.</div>
       </div>
       <div class="toc-meta">
         3 MIN READ<br>By The Connections Desk
@@ -499,16 +501,55 @@ We&#x27;re sitting in that weird purgatory between…</div>
       <thead><tr>
         <th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th>
       </tr></thead>
-      <tbody>
-<tr><td class="when">08:08 ET</td><td class="program"><a href="/teams/miami.html">Miami</a></td><td class="action">Five-star OT Jackson Cantwell commits 2026</td><td class="why">Miami: Five-star OT Jackson Cantwell commits 2026.</td><td class="impact amber">MOVES ACC</td></tr>
-<tr><td class="when">05:18 ET</td><td class="program"><a href="/teams/nebraska.html">Nebraska</a></td><td class="action">Four-star CB Danny Odem commits 2026</td><td class="why">Nebraska: Four-star CB Danny Odem commits 2026.</td><td class="impact muted">MINOR</td></tr>
-<tr><td class="when">04:36 ET</td><td class="program"><a href="/teams/tennessee.html">Tennessee</a></td><td class="action">Four-star OT Kamari Blair commits 2026</td><td class="why">Tennessee: Four-star OT Kamari Blair commits 2026.</td><td class="impact muted">MINOR</td></tr>
-<tr><td class="when">01:43 ET</td><td class="program"><a href="/teams/texas.html">Texas</a></td><td class="action">Five-star QB Dia Bell commits 2026</td><td class="why">Texas: Five-star QB Dia Bell commits 2026.</td><td class="impact amber">MOVES SEC</td></tr>
-<tr><td class="when">01:37 ET</td><td class="program"><a href="/teams/georgia.html">Georgia</a></td><td class="action">Four-star DL Valdin Sone commits 2026</td><td class="why">Georgia: Four-star DL Valdin Sone commits 2026.</td><td class="impact muted">MINOR</td></tr>
-<tr><td class="when">01:23 ET</td><td class="program"><a href="/teams/tennessee.html">Tennessee</a></td><td class="action">Four-star LB Brayden Rouse commits 2026</td><td class="why">Tennessee: Four-star LB Brayden Rouse commits 2026.</td><td class="impact muted">MINOR</td></tr>
-<tr><td class="when">01:14 ET</td><td class="program"><a href="/teams/miami.html">Miami</a></td><td class="action">Four-star WR Milan Parris commits 2026</td><td class="why">Miami: Four-star WR Milan Parris commits 2026.</td><td class="impact muted">MINOR</td></tr>
-<tr><td class="when">00:29 ET</td><td class="program"><a href="/teams/notre-dame.html">Notre Dame</a></td><td class="action">Five-star TE Ian Premer commits 2026</td><td class="why">Notre Dame: Five-star TE Ian Premer commits 2026.</td><td class="impact amber">MAJOR</td></tr>
-</tbody>
+      <tbody><tr>
+          <td class="when">May 22</td>
+          <td class="program">Miami</td>
+          <td>Five-star OT Jackson Cantwell commits 2026</td>
+          <td class="why">Miami: Five-star OT Jackson Cantwell commits 2026.</td>
+          <td class="impact">MOVES ACC</td>
+        </tr><tr>
+          <td class="when">May 22</td>
+          <td class="program">Nebraska</td>
+          <td>Four-star CB Danny Odem commits 2026</td>
+          <td class="why">Nebraska: Four-star CB Danny Odem commits 2026.</td>
+          <td class="impact">MINOR</td>
+        </tr><tr>
+          <td class="when">May 22</td>
+          <td class="program">Tennessee</td>
+          <td>Four-star OT Kamari Blair commits 2026</td>
+          <td class="why">Tennessee: Four-star OT Kamari Blair commits 2026.</td>
+          <td class="impact">MINOR</td>
+        </tr><tr>
+          <td class="when">May 22</td>
+          <td class="program">Texas</td>
+          <td>Five-star QB Dia Bell commits 2026</td>
+          <td class="why">Texas: Five-star QB Dia Bell commits 2026.</td>
+          <td class="impact">MOVES SEC</td>
+        </tr><tr>
+          <td class="when">May 22</td>
+          <td class="program">Georgia</td>
+          <td>Four-star DL Valdin Sone commits 2026</td>
+          <td class="why">Georgia: Four-star DL Valdin Sone commits 2026.</td>
+          <td class="impact">MINOR</td>
+        </tr><tr>
+          <td class="when">May 22</td>
+          <td class="program">Tennessee</td>
+          <td>Four-star LB Brayden Rouse commits 2026</td>
+          <td class="why">Tennessee: Four-star LB Brayden Rouse commits 2026.</td>
+          <td class="impact">MINOR</td>
+        </tr><tr>
+          <td class="when">May 22</td>
+          <td class="program">Miami</td>
+          <td>Four-star WR Milan Parris commits 2026</td>
+          <td class="why">Miami: Four-star WR Milan Parris commits 2026.</td>
+          <td class="impact">MINOR</td>
+        </tr><tr>
+          <td class="when">May 22</td>
+          <td class="program">Notre Dame</td>
+          <td>Five-star TE Ian Premer commits 2026</td>
+          <td class="why">Notre Dame: Five-star TE Ian Premer commits 2026.</td>
+          <td class="impact">MAJOR</td>
+        </tr></tbody>
     </table>
   </div>
 </section>
