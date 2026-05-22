@@ -2998,6 +2998,13 @@ from cfb_rankings.profile.selector_grid import (
     SELECTOR_GRID_CSS_BLOCK as _SELECTOR_GRID_CSS_BLOCK,
     render_selector_grid as _render_selector_grid,
 )
+# Sprint C 2026-05-22: Player Savant Card — brief §4.5 "Advanced Savant
+# card" 12 percentile bars in red→grey→blue OKLCH. Visual analog to the
+# text-only v5 savant card; ships ABOVE the v5 card.
+from cfb_rankings.profile.player_savant import (
+    PLAYER_SAVANT_CSS_BLOCK as _PLAYER_SAVANT_CSS_BLOCK,
+    render_player_savant_card as _render_player_savant_card,
+)
 
 # Sprint F lite 2026-05-22: pointer banner on /programs/<slug> pages
 # that surfaces the world-class /teams/<slug>.html page for profiled
@@ -6075,6 +6082,8 @@ def _compose_global_css() -> str:
         + _STANDING_RAIL_CSS_BLOCK
         + "\n/* === Selector Grid — Sprint C (2026-05-22) === */\n"
         + _SELECTOR_GRID_CSS_BLOCK
+        + "\n/* === Player Savant Card — Sprint C (2026-05-22) === */\n"
+        + _PLAYER_SAVANT_CSS_BLOCK
         + "\n/* === World-class team-page pointer — Sprint F lite (2026-05-22) === */\n"
         + _WORLD_CLASS_POINTER_CSS_BLOCK
         + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
@@ -19349,6 +19358,13 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="advanced-savant">
+        {_render_player_savant_card(
+            player_data.get("savant"),
+            season=(current_snapshot.get("season_year")
+                    or (heisman_years[0].get("season_year") if heisman_years else None)
+                    or 2025),
+            position=position,
+        )}
         {_render_v5_savant_card(player_data.get("savant"))}
       </section>
 
