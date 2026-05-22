@@ -2981,6 +2981,16 @@ from cfb_rankings.profile.qb_fingerprint import (
     QB_FINGERPRINT_CSS_BLOCK as _QB_FINGERPRINT_CSS_BLOCK,
     render_qb_fingerprint_hero as _render_qb_fingerprint_hero,
 )
+# Sprint C 2026-05-22: Player Standing Rail (17-rung, brief §7). Renders
+# the actual rail HTML the audit doc flagged as missing — the existing
+# _render_v5_player_standing_card path produces a decorative scaffold but
+# the marker/CSS combo doesn't read as a real ladder. New module owns the
+# 5-second read + tier pills with Bebas Neue rung-name + per-rung
+# narrative copy.
+from cfb_rankings.profile.standing_rail import (
+    STANDING_RAIL_CSS_BLOCK as _STANDING_RAIL_CSS_BLOCK,
+    render_standing_rail as _render_standing_rail,
+)
 
 
 _PROFILE_IDENTITY_V2_CSS_BLOCK = """
@@ -5988,6 +5998,8 @@ def _compose_global_css() -> str:
         + _PROFILE_IDENTITY_V2_CSS_BLOCK
         + "\n/* === QB Fingerprint hero — Sprint A (2026-05-22) === */\n"
         + _QB_FINGERPRINT_CSS_BLOCK
+        + "\n/* === Player Standing Rail — Sprint C (2026-05-22) === */\n"
+        + _STANDING_RAIL_CSS_BLOCK
         + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
         + _TOUCH_TARGET_A11Y_CSS_BLOCK
         + "\n/* === Global footer column heading (Session 6 H4→H3 fix) === */\n"
@@ -19219,6 +19231,11 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="player-standing">
+        {_render_standing_rail(
+            standing_rung=(player_data.get("standing") or {}).get("current_rung_id"),
+            last_season_rung=(player_data.get("standing") or {}).get("last_season_rung_id"),
+            season_label=str((player_data.get("standing") or {}).get("season_label") or ""),
+        )}
         {_render_v5_player_standing_card(player_data.get("standing"))}
       </section>
 
