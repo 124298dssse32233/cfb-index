@@ -5720,7 +5720,7 @@ __GLOBAL_TAGS__
   <h2>Data sources</h2>
   <p>The CFB Index is built on <strong>CollegeFootballData.com</strong>. CFBD supplies the upstream scaffolding for every team page on this site &mdash; canonical names, mascots, conference and division assignments, FBS and FCS classification, primary and alternate color values, and the logo references that give each program its visual signature. CFBD is also the backbone of the ranking inputs: schedules, results, and the play-level records that feed the model.</p>
   <p>Where CFBD is missing a logo variant &mdash; most often a dark-mode mark or a secondary wordmark &mdash; the <strong>ESPN content delivery network</strong> serves as a backstop. The selection is deterministic and documented in the build.{espn_cdn_note}</p>
-  <p><strong>TheSportsDB</strong> is not in active use for NCAA football on this site. Their college-football coverage remains incomplete enough that relying on it would introduce inconsistency the editorial product cannot accept.</p>
+  <p><strong>TheSportsDB</strong> is not in active use for NCAA football on this site. Their college-football coverage remains incomplete enough that relying on it would introduce inconsistency that the editorial product cannot accept.</p>
 
   <h2>Marks and names</h2>
   <p>Team marks, logos, wordmarks, uniforms, and institutional names are the property of their respective universities, athletic departments, and conferences. The CFB Index reproduces them in the ordinary editorial and analytical manner &mdash; to identify the team a paragraph, table, or chart is discussing. No endorsement is claimed and none should be inferred.</p>
