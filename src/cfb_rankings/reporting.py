@@ -22013,7 +22013,10 @@ def _site_nav(prefix: str, current: str) -> str:
         ("history", "History", f"{prefix}history/index.html"),
         ("nfl-pipeline", "NFL Pipeline", f"{prefix}nfl-pipeline/index.html"),
         ("model", "The Model", f"{prefix}about-model/index.html"),
-        ("analysis", "Analysis", f"{prefix}conferences/index.html"),
+        # Session 6: "Analysis" → "Conferences" — the link points to
+        # /conferences/index.html and the label "Analysis" was vague
+        # marketing-speak that doesn't tell users what's there.
+        ("analysis", "Conferences", f"{prefix}conferences/index.html"),
         ("archive", "Weekly Archive", f"{prefix}archive/index.html"),
     ]
     rendered = "".join(
