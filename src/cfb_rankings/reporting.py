@@ -5800,7 +5800,7 @@ __SITE_NAV__
     <article class=\"panel\">
       <div class=\"section-head\"><h2>How it works</h2></div>
       <p>Two models run in parallel. The <strong>predictive power model</strong> asks how strong a team is at any given moment. The <strong>resume model</strong> asks what that team has earned so far — who they played, what happened, how the results compare to expectation. Keeping them separate matches one of the most useful distinctions in serious college-football analytics.</p>
-      <p>On top of the models, a <strong>fan-intelligence layer</strong> ingests Reddit, mainstream coverage, betting markets, and recruiting signal. The result is what each fanbase actually believes, not just what the box score says.</p>
+      <p>On top of the models, a <strong>fan-intelligence layer</strong> reads Reddit, mainstream coverage, betting markets, and recruiting signal. The result is what each fanbase actually believes, not just what the box score says.</p>
       <p>Full methodology at <a href=\"/about-model/\">/about-model/</a> and <a href=\"/methodology/\">/methodology/</a>.</p>
     </article>
   </section>
