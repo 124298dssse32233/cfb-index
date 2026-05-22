@@ -14271,7 +14271,10 @@ def _render_conference_parity_section(conference: dict[str, Any]) -> str:
 
 
 def render_conference_page_html(summary: dict[str, Any], conference: dict[str, Any]) -> str:
-    from cfb_rankings.profile import render_profile_meta_footer
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip,
+    )
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     top_team = conference["top_team"]
@@ -14288,6 +14291,26 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
             + _render_conference_parity_section(conference)
             + _load_conference_pulse_fragment(conference.get("slug", ""))  # Sprint 8.5 hook
         )
+    # Profile-archetype identity strip (Session 6 Track 5 — first
+    # concrete identity-strip adopter in a legacy reporting.py
+    # renderer). The strip carries the eyebrow + conference name +
+    # the existing chip row's data points. Lede stays in the hero
+    # block underneath so the editorial profile_note still reads
+    # at full size.
+    _conf_chips = [
+        f"#{int(conference['overall_rank'])} overall",
+        f"#{int(conference['level_rank'])} in {conference['level_code']}",
+        f"RR50 {_public_power_text(conference.get('round_robin_power_display'))}",
+        f"Upper strength {_public_power_text(conference.get('upper_strength_display'))}",
+        f"{conference['team_count']} teams",
+        f"Top 25 teams {conference['top_25_count']}",
+    ]
+    profile_identity_html = render_profile_identity_strip(
+        eyebrow=f"{conference['level_code']} CONFERENCE · {season_name.upper()}",
+        name=conference['conference_name'],
+        key_meta="",  # the lede sits in the hero block below
+        chips=_conf_chips,
+    )
     profile_meta_footer = render_profile_meta_footer(
         methodology_label="How we measure conference strength",
         methodology_href="../methodology/index.html",
@@ -14306,18 +14329,9 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="conferences")}
+      {profile_identity_html}
       <section class="hero">
-        <p class="eyebrow">{escape(conference['level_code'])} Conference</p>
-        <h1>{escape(conference['conference_name'])}</h1>
         <p class="lede">{escape(conference['profile_note'])}</p>
-        <div class="chip-row season-chip-row">
-          <span class="mini-chip">#{int(conference['overall_rank'])} overall</span>
-          <span class="mini-chip">#{int(conference['level_rank'])} in {escape(conference['level_code'])}</span>
-          <span class="mini-chip">RR50 {_public_power_text(conference.get('round_robin_power_display'))}</span>
-          <span class="mini-chip">Upper strength {_public_power_text(conference.get('upper_strength_display'))}</span>
-          <span class="mini-chip">{conference['team_count']} teams</span>
-          <span class="mini-chip">Top 25 teams {conference['top_25_count']}</span>
-        </div>
       </section>
 
       <section class="section two-up">
