@@ -608,3 +608,75 @@ keyboard/contrast/SR + Phase 10 performance + Phase 11 mockup-
 diff + Phase 12 final consolidation. All require the in-flight
 deploy to land first because they're validation passes against
 the post-Phase-3 architectural state.
+
+---
+
+## Continuation 4: Track 1 + 4 verified LIVE (18:05 UTC)
+
+The in-flight publish-site at 1f1ea21ae6d effectively shipped while
+gh CLI was still reporting in_progress (post-build steps were
+running). Verified live via Vercel MCP:
+
+**✓ Track 1 — Receipt-pattern citations END-TO-END live:**
+
+/editions/2026-w18/the-quiet-week/ body shows 4 inline citation
+markers as proper `<sup class="citation" data-cite-id="N" data-cite-
+kind="..." data-cite-label="..." data-cite-url="..." data-cite-
+date="...">` HTML, each linking to the matching footer entry.
+
+Sources footer renders `<footer class="article-citations">` with
+`<h3 id="citations-header">Sources</h3>` and 4 entries:
+  [1] Official · NCAA spring portal window · 2026-04-30 →
+  [2] Beat writer · 247Sports portal tracker · 2026-05-02 →
+  [3] Reddit · r/CFB weekly discussion · 2026-05-04 →
+  [4] Prior edition · CFB Index Issue XVII · 2026-04-26 →
+
+Same pattern verified on /editions/2026-w19/three-weeks-before-camp-
+whispers/ — 5 citation markers (NCAA, ESPN Connelly, CFBD, prior
+edition XVIII, r/CFB), Sources footer with all 5 entries.
+
+Full citations.css (~150 lines, locked design-system treatment)
+inlined into every article page.
+
+**✓ Track 3 + 4 — Both wrong-season Pattern C drifts FIXED:**
+
+W18: dek "Spring portal closed; fall-camp coverage hasn't opened..."
++ body "The first Monday in May is the quietest week..." — seed
+restored after the force-reseed-feature CLI ran inside publish-site.
+
+W19: dek "Three weeks before fall-camp position rumors start..."
++ body "Mid-July is when the first credible fall-camp coverage
+starts to bleed in..." — Bryant-Denny content GONE.
+
+**✓ Phase 9 partial — Heading-order H4→H3 LIVE:**
+
+Footer column headings now `<h3 class="footer-col__heading">`. Player
+page heading-order audit no longer flags H4-after-H2.
+
+**✓ Track 4 — Global footer on edition article pages LIVE:**
+
+Every /editions/<n>/<slug>/ page now ends with the site-wide
+`<footer class="footer">` with Departments / Reference / Subscribe
+/ Masthead columns. (Chrome MCP DOM probe earlier showed
+`footerCount: 0`; now shows `footerCount: 2` — article-citations
+footer + site footer.)
+
+**Next publish-site dispatched at 26304080630 (SHA 0a982b10cbe):**
+
+This deploy ships the queued continuation work that hasn't yet
+deployed:
+  * Phase 3 v2 identity-strip migration (programs, unprofiled
+    teams, players — ~19,163 surfaces will get the new accent-rail
+    + stat-tile grid layout)
+  * Phase 6 sitemap expansion (686 → ~18,800 URLs)
+  * Phase 7b brand tagline visible at ≥768px
+  * Phase 9a aria-live="polite" on filter result counts
+  * Phase 4 Article archetype on /daily/ + /mailbag/
+  * Phase 6 Database meta-footer on /wire/, /storylines/,
+    /portal-heat/, /recruit-board/
+  * Phase 7a /about/ has 500+ words (already verified via static
+    review)
+
+Expected runtime ~40 min. After it lands, the post-deploy
+validation phases (2, 8, 9b/c/d, 10, 11) can run against the
+new architectural state.
