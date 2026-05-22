@@ -16429,16 +16429,42 @@ def render_heisman_page_html(
     tracked_on_board = sum(1 for row in player_directory_rows if row.get("current_heisman_rank") is not None)
     latest_week = heisman_snapshot.get("week")
     vote_eligible_week = None if latest_week is None else min(int(latest_week), 16)
-    market_note = (
-        "An external award-market prior is loaded for this snapshot and blended into the forecast with a decaying in-season weight."
-        if has_market_data
-        else "No external Heisman futures prior is loaded for this snapshot. CFBD currently exposes game betting lines, not award futures."
-    )
-    vote_note = (
-        "Postseason snapshots freeze the Heisman inputs at conference championship week so bowl and playoff games do not rewrite a vote that was already cast."
-        if latest_week is not None and int(latest_week) > 16
-        else "The probabilities reflect the live vote-eligible data horizon for this week."
-    )
+    # If today is in the CFB offseason (after the most recent CFP title game,
+    # before the next kickoff), the snapshot is a retrospective view of a
+    # completed season — not a live race. Copy needs to match. Without this
+    # check the page reads "live vote-eligible data horizon for this week"
+    # in May 2026 alongside a "Final 2025" badge in the meta-pill row —
+    # mutually contradictory.
+    season_is_completed = is_offseason(date.today(), db=None)
+    if has_market_data:
+        market_note = (
+            "An external award-market prior is loaded for this snapshot and blended into the forecast with a decaying in-season weight."
+        )
+    elif season_is_completed:
+        market_note = (
+            f"Final-season snapshot. No external award-market prior is loaded; "
+            f"the probabilities below were the model's last live read on the "
+            f"{season_name} race before the trophy was awarded."
+        )
+    else:
+        market_note = (
+            "No external Heisman futures prior is loaded for this snapshot. "
+            "CFBD currently exposes game betting lines, not award futures."
+        )
+    if season_is_completed:
+        vote_note = (
+            f"Final-season view: these are the model's last vote-eligible "
+            f"inputs for the {season_name} race. Treat them as a retrospective "
+            f"on what the model believed, not a live forecast."
+        )
+    elif latest_week is not None and int(latest_week) > 16:
+        vote_note = (
+            "Postseason snapshots freeze the Heisman inputs at conference "
+            "championship week so bowl and playoff games do not rewrite a "
+            "vote that was already cast."
+        )
+    else:
+        vote_note = "The probabilities reflect the live vote-eligible data horizon for this week."
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -16452,18 +16478,17 @@ def render_heisman_page_html(
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="heisman")}
       <section class="hero">
-        <p class="eyebrow">Heisman Tracker</p>
-        <h1>A full-board Heisman model, not just a top-three list.</h1>
+        <p class="eyebrow">{"Final " + str(season_year_value) + " Heisman Tracker" if season_is_completed else "Heisman Tracker"}</p>
+        <h1>{"How the model called the " + str(season_year_value) + " Heisman race." if season_is_completed else "A full-board Heisman model, not just a top-three list."}</h1>
         <p class="lede">
-          This page is built to support the stronger interpretation of the award: if every voter had to rank the full FBS universe,
-          where would every player land right now, and how much actual win equity does each candidacy have?
+          {("These are the model's final " + str(season_year_value) + " vote-eligible inputs &mdash; the last live read on the race before the trophy was awarded. Treat this as a retrospective: where did the model think every player landed, and how much actual win equity did each candidacy carry?")
+           if season_is_completed else
+           "This page is built to support the stronger interpretation of the award: if every voter had to rank the full FBS universe, where would every player land right now, and how much actual win equity does each candidacy have?"}
         </p>
         <p class="section-note">
-          Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stands right now.
-          <strong>Forecast</strong> &mdash; where we think it ends up.
-          <strong>Win</strong> &mdash; chance to win the trophy.
-          <strong>Finalist</strong> &mdash; chance to be in New York.
-          <strong>Ballot</strong> &mdash; share of voter weight.
+          {("Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stood at the cutoff. <strong>Forecast</strong> &mdash; where the model expected it to end. <strong>Win</strong> &mdash; chance to win the trophy. <strong>Finalist</strong> &mdash; chance to be in New York. <strong>Ballot</strong> &mdash; share of voter weight.")
+           if season_is_completed else
+           "Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stands right now. <strong>Forecast</strong> &mdash; where we think it ends up. <strong>Win</strong> &mdash; chance to win the trophy. <strong>Finalist</strong> &mdash; chance to be in New York. <strong>Ballot</strong> &mdash; share of voter weight."}
         </p>
         {_heisman_lens_confidence_chip(heisman_snapshot)}
         <div class="cta-row">
