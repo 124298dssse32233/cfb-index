@@ -290,6 +290,21 @@ jobs:
           python manage.py render-storylines
           echo "done"
 
+      # Session 6 — re-render the four Database-archetype surfaces that
+      # have their own dedicated renderers + workflows. Without these
+      # calls inside publish-site, code changes to wire/daily/portal-
+      # heat/recruit-board renderers don't deploy until the surface's
+      # own cron fires. All idempotent + `|| true` so a single-surface
+      # failure doesn't break the publish.
+      - name: Refresh Database-archetype surfaces (Session 6)
+        run: |
+          set +e
+          python manage.py render-wire --days 30 || echo "render-wire skipped"
+          python manage.py refresh-portal-heat || echo "refresh-portal-heat skipped"
+          python manage.py refresh-recruiting-pulse || echo "refresh-recruiting-pulse skipped"
+          python manage.py render-daily || echo "render-daily skipped"
+          echo "done"
+
       # ====================================================================
       # POST-PROCESS LAYER — must run AFTER all renderers that write
       # files in output/site/, otherwise their writes will erase the
