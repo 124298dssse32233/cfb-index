@@ -239,9 +239,6 @@ def _render_trajectory(profile: Profile, opp: str, opponent_profiled: bool) -> s
         )
         return coords
 
-    gap = primary_pts[-1] - opp_pts[-1]
-    gap_sign = "+" if gap >= 0 else ""
-
     dual_line_html = ""
     if opponent_profiled:
         dual_line_html = f"""
@@ -249,14 +246,13 @@ def _render_trajectory(profile: Profile, opp: str, opponent_profiled: bool) -> s
       <circle cx="290" cy="{120 - opp_pts[-1] * 0.9}" r="4" fill="{opp_hex}" />
       <text x="300" y="{124 - opp_pts[-1] * 0.9}" fill="{opp_hex}" font-size="11" font-family="system-ui">{html.escape(_name(opp))}</text>"""
 
-    gap_badge = ""
-    if opponent_profiled:
-        gap_badge = f'<span class="rivalry-card__gap">gap {gap_sign}{gap} pts</span>'
-
+    # Until per-rivalry weekly fan-intel scores land, the curve is an
+    # illustrative placeholder. The "gap +N pts" badge that used to appear
+    # here was reading like a real number (Oregon +16 pts vs Washington),
+    # which is misleading. Eyebrow now says "illustrative" instead.
     return f"""<div class="rivalry-card__trajectory">
     <div class="rivalry-card__trajectory-header">
-      <span class="rivalry-card__section-eyebrow">HEAT TRAJECTORY · four weeks to kickoff</span>
-      {gap_badge}
+      <span class="rivalry-card__section-eyebrow">HEAT TRAJECTORY &middot; illustrative &middot; four weeks to kickoff</span>
     </div>
     <svg class="rivalry-card__trajectory-svg" viewBox="0 0 340 140" role="img" aria-label="Rivalry heat trajectory placeholder">
       <defs>
