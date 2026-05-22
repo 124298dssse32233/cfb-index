@@ -382,7 +382,7 @@ def _render_ledger_body(season_year: int, week: int, cards: list[dict[str, Any]]
         team_url = f"/teams/{escape(team_slug)}.html"
         items.append(f'''
         <a class="vibe-card" href="{team_url}">
-          <img class="vibe-card__img" src="{svg_url}" alt="Vibe Shift card for {escape(team_name)} week {week}" loading="lazy"/>
+          <img class="vibe-card__img" src="{svg_url}" alt="Vibe Shift card for {escape(team_name)} week {week}" loading="lazy" decoding="async"/>
           <div class="vibe-card__meta">
             <div class="vibe-card__rank">#{rank} · {escape(card.get("conference_name") or card.get("level_code") or "").upper()}</div>
             <div class="vibe-card__team">{escape(team_name)}</div>

@@ -329,7 +329,8 @@ def render_section_eyebrow(section_num: str, section_name: str) -> str:
         if url:
             icon_html = (
                 f'<img class="hub-eyebrow__rubric" src="{escape(url)}" '
-                f'alt="" width="20" height="20" loading="lazy" '
+                f'alt="" width="20" height="20" '
+                f'loading="lazy" decoding="async" '
                 f'style="vertical-align:middle;margin-right:8px;">'
             )
     return (
@@ -1087,7 +1088,8 @@ def _render_archetype_card(row: dict[str, Any]) -> str:
     if totem_src:
         totem_html = (
             f'<img class="archetype-card-totem" src="{escape(totem_src)}" '
-            f'alt="" width="48" height="48" loading="lazy" '
+            f'alt="" width="48" height="48" '
+            f'loading="lazy" decoding="async" '
             f'style="display:block;margin-bottom:8px;">'
         )
     return f"""
@@ -1149,7 +1151,8 @@ def _render_modifier_strip(modifiers: list[dict[str, Any]]) -> str:
         if glyph_src:
             glyph_html = (
                 f'<img class="modifier-chip__glyph" src="{escape(glyph_src)}" '
-                f'alt="" width="20" height="20" loading="lazy" '
+                f'alt="" width="20" height="20" '
+                f'loading="lazy" decoding="async" '
                 f'style="vertical-align:middle;margin-right:6px;">'
             )
         else:

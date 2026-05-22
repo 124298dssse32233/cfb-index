@@ -16593,7 +16593,8 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     hero_logo_html = (
         f'<img src="../assets/team-art/{escape(ranking.slug)}/logo_primary.png" '
         f'alt="{escape(team_name)} logo" '
-        f'width="96" height="96" class="team-hero-logo" loading="lazy" '
+        f'width="96" height="96" class="team-hero-logo" '
+        f'loading="lazy" decoding="async" '
         f'onerror="this.style.display=\'none\'">'
         if ranking.slug else ""
     )
@@ -25823,7 +25824,10 @@ def _site_css() -> str:
         text-decoration: none;
         cursor: default;
       }
-      @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
+      /* Phase 10 perf: removed Anton (unused) + Inter (already self-hosted as
+         @font-face above). Bebas Neue is still loaded for team-archetype-name
+         and .attributions-page headings — only ~22KB woff2, swap-display. */
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
       :root {
         /* Core surface palette (Figma) */
