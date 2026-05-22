@@ -10762,10 +10762,10 @@ def _build_player_recruiting_profile(recruiting_history: list[dict[str, Any]]) -
             "blue_chip": False,
             "recruit_types": [],
             "cards": [
-                {"label": "Top pedigree", "value": "No recruit row", "submetric": "CFBD has no matched recruiting profile on file"},
-                {"label": "Composite rating", "value": "--", "submetric": "Recruit feed not matched"},
+                {"label": "Top pedigree", "value": "Not on file", "submetric": "No matched recruiting profile in the loaded archive"},
+                {"label": "Composite rating", "value": "--", "submetric": "Composite rating unavailable for this player"},
                 {"label": "Signed with", "value": "--", "submetric": "Commitment history unavailable"},
-                {"label": "Origin", "value": "--", "submetric": "School and hometown unavailable"},
+                {"label": "Origin", "value": "--", "submetric": "Hometown and high school unavailable"},
             ],
             "rows": [],
         }
@@ -14280,7 +14280,7 @@ def _render_archive_movers(rankings: list[RankingRow], direction: str, prefix: s
     if direction == "up":
         candidates = sorted((row for row in rankings if row.rank_change > 0), key=lambda row: (-row.rank_change, row.rank))[:8]
         heading = "Biggest Risers"
-        empty = "No earlier snapshot is loaded yet, so there are no week-over-week risers to show."
+        empty = "No prior snapshot to compare against yet, so there are no week-over-week risers to show."
     else:
         candidates = sorted((row for row in rankings if row.rank_change < 0), key=lambda row: (row.rank_change, row.rank))[:8]
         heading = "Biggest Drops"
@@ -18056,7 +18056,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     )
     stat_explorer_rows = (
         "".join(_render_player_stat_explorer_row(row) for row in (stat_profile.get("explorer_rows") or []))
-        or '<tr><td colspan="6">The stat explorer will populate once player-season metrics are loaded for this player.</td></tr>'
+        or '<tr><td colspan="6">The stat explorer fills in once this player has measured season-level metrics on the board.</td></tr>'
     )
     trophy_case_cards = "".join(
         f"""
@@ -18112,12 +18112,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             """
             for row in (transfer_profile.get("rows") or [])
         )
-        or '<tr><td colspan="3">No transfer portal movement is loaded for this player.</td></tr>'
+        or '<tr><td colspan="3">No transfer portal moves on file for this player.</td></tr>'
     )
     honors_rows = (
         "".join(_render_player_honor_row(row) for row in honors_history)
         if honors_history
-        else '<tr><td colspan="5">No honors rows are loaded yet. The card is ready for All-America, all-conference, weekly awards, watch lists, and postseason trophies.</td></tr>'
+        else '<tr><td colspan="5">No formal honors on the ledger yet. All-America, all-conference, weekly awards, watch lists, and postseason trophies land here when they&rsquo;re earned.</td></tr>'
     )
     current_context = f"""
       <div class="feature-grid history-snapshot-grid">
@@ -21793,7 +21793,7 @@ def _render_team_betting_overview(team_data: dict[str, Any]) -> str:
     ranking: RankingRow = team_data["ranking"]
     betting = team_data.get("betting_summary") or {}
     if not betting.get("games_with_lines"):
-        return '<p class="footer-note">Market summaries will appear after more CFBD line data is loaded for this team.</p>'
+        return '<p class="footer-note">Market summaries return when more closing-line data is available for this team\'s schedule.</p>'
     best_cover = betting.get("best_cover") or {}
     worst_burn = betting.get("worst_burn") or {}
     total_surprise = betting.get("biggest_total_miss") or {}
