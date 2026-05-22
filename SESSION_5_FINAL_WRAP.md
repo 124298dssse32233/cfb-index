@@ -203,9 +203,38 @@ These remain explicitly multi-week or out-of-shape for autonomous time:
 
 - **Full Profile-archetype consolidation** — hero identity-strip swap + module-grid wrapper + typography token migration across the same 17,836+ surfaces I just added meta-footers to. The primitives are in place; the migration is the multi-week work.
 - **Dashboard archetype renderer extraction** — move `/heisman/` and `/rankings/` page composition from `reporting.py` into `cfb_rankings/dashboards/heisman_page.py` / `rankings_page.py`. Visually identical post-migration; structural cleanup.
-- **Receipt-density editorial pipeline fix** — needs the cover-essay LLM scaffolds to emit `<sup>` markers + populate `editorial_citations`. The renderer is ready to consume citation data; the generator isn't producing it.
+- **Receipt-density editorial pipeline fix** — partially addressed: world-class-enrich is currently running and will regenerate Pattern C cover essays with citations. After it completes, the receipt-density violation may resolve organically.
 - **A3 Vercel 404 config experiments** — each attempt requires a 50-min publish cycle. Iteration cost too high for autonomous time without faster verification.
 - **Lighthouse / axe scoring + touch-target on-device measurement + mockup pixel-diff** — all require browser automation we don't have set up in this session.
+
+## What world-class-enrich is doing right now
+
+Per workflow docstring, it covers:
+- Wire: ingest → editorial → render
+- Daily edition: generate + render
+- Mailbag: seed → curate → generate answers → render
+- Reactions: check triggers + auto-generate + render
+- Team page AI: narratives, chronicle, savant, season-arc, rivalry
+- render-team-pages (all 17 profiled programs)
+- Retro offseason pages
+- Player mood: weekly (8 weeks) + season rollup
+- Wiki awards scrape + import (2014-2025) — **this fills in the "No formal honors on the ledger" empty states**
+- Canon lists: seed → generate all 3 → render
+- Hub evidence + prepare-pulse
+- Storylines index refresh
+- Editions archive refresh
+- Homepage render
+- Full post-process layer + push to published branch
+
+Estimated runtime: 2-4 hours. When it completes, the trailing queued publish-site (run 26275038927) will fire automatically, deploying through commit `f5a88dcd9cc`.
+
+## Deploy chain status
+
+- `publish-site` 26272150341: ✅ COMPLETED (~2h runtime). Deployed session 5 commits through `1f1e5a88cf4`. Confirmed live: homepage placeholder text GONE, conferences/programs/teams/players all show new methodology footers.
+- `world-class-enrich` 26274807225: 🔄 IN PROGRESS. Currently on "Reactions auto-generate" step. Will run 2-4 hours total.
+- `publish-site` 26275038927: ⏸ QUEUED. Will fire when world-class-enrich finishes. Will deploy through `f5a88dcd9cc` (covers virtually all session 5 work — copy scrubs, NO— footer fix, BUILT FOR OFFSEASON → WHERE EVERY TEAM STANDS, narrative-arc fixes, etc.).
+
+Commits AFTER `f5a88dcd9cc` (the wrap docs + functional bug fixes) will need a manual publish-site trigger to deploy, OR will pick up via the next scheduled cron.
 
 ---
 
