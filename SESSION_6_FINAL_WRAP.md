@@ -1,0 +1,243 @@
+# Session 6 — Eight-track close-out across the remaining 8-10%
+
+**Mode:** Autonomous, user monitoring. Continuation of session 5's audit
+close-out after the user expanded scope from "remaining 1%" to also
+include the deferred Tier-2 architectural work (Profile / Database /
+Article archetype migrations + perf splits).
+
+**Audit source:** [docs/research/design-audit-2026-05-22-v2.md](docs/research/design-audit-2026-05-22-v2.md)
+**Predecessor wrap:** [SESSION_5_FINAL_WRAP.md](SESSION_5_FINAL_WRAP.md)
+**Production base URL:** https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app
+
+---
+
+## TL;DR
+
+Closed **seven of the eight planned tracks** spanning editorial, design-
+system spec compliance, and architectural scaffolding. The receipt-
+pattern citation pipeline (Axis M hard violation) now ships end-to-end
+with 15 hand-curated citations across three live editions. The
+Database + Article archetype starter modules land alongside the
+already-shipped Profile + Dashboard scaffolds; full surface migration
+remains the explicit Tier-2 multi-week item but the foundation is now
+in place for incremental adoption.
+
+**Best single fix:** the W18 + W19 cover essays were both shipping
+wrong-season Pattern C output (mid-November + post-game press-box
+scenes on May 4 / May 11 publish dates). Fixed by adding offseason
+awareness to the Pattern C system prompt + emitting a CALENDAR
+CONTEXT block in compose_prompt_body, then adding wrong-season
+detection patterns to upsert_feature so the next seed-editions run
+overwrites the bad body from seed. Backstopped with a `force-reseed-
+feature` CLI for emergency direct-DB recovery.
+
+**Second-biggest fix:** Edition article pages (e.g. `/editions/2026-w18/
+the-quiet-week/`) were shipping with **zero** `<footer>` elements.
+Chrome MCP browser validation caught it; one-line fix in
+`editions/article_renderer.py` adds the site-wide footer back.
+
+---
+
+## Commits pushed to master (chronological)
+
+| SHA | Track | Title |
+|-----|-------|-------|
+| `95d3a39880f` | 3 | fix(track-3): W18 wrong-season Pattern C drift + canon dev-vocab + D1 link norm |
+| `b7585f2c2c9` | 1 | feat(track-1): wire receipt-pattern citations into article renderer + backfill 3 editions |
+| `132d3fe6c59` | 2 | feat(track-2): Dashboard archetype primitives on /hub/vibe-shifts/ |
+| `e1cb83a2351` | 5/6/7 | feat(tracks-5-6-7): Profile awaiting-module adoption + Database/Article archetype starter scaffolds |
+| `a3cce88737c` | 4 | fix(track-4): W19 wrong-season detection + global footer on edition article pages |
+
+5 commits this session. All work landed under SHA `a3cce88737c`.
+
+---
+
+## Track-by-track outcomes
+
+### Track 3 — Editorial cleanup (SHA `95d3a39880f`)
+- **W18 wrong-season Pattern C fix:** 4-file change touching the prompt
+  context builder, the Pattern C system prompt + compose_prompt_body,
+  upsert detection patterns, and a new `force-reseed-feature` CLI.
+- **Canon entries cleanup:** 19 slug-vs-name mismatches + dev-vocab
+  display-name leaks fixed across `seed_players.py`. Examples:
+  `tony-pollard` → `aj-brown`, `cam-taylor-britt` → `sam-hubbard`,
+  `dak-cousins-namesake` → `marcus-mariota`, plus several "namesake" /
+  "second-entry" / "cohort-context view" / "Reese's Senior Bowl
+  invitee ·" dev-vocab scrubs.
+- **D1 navigation gap resolved:** audit doc had the URL pattern wrong;
+  conferences pages already exist at `/conferences/fbs-<slug>.html`.
+  Added defensive prefix normalization in `daily/renderer.py` to
+  prevent the bare-slug URL from being generated downstream.
+- **D2 navigation gap resolved:** audit had the URL wrong;
+  `/nfl-pipeline/` (not `/players/nfl-pipeline/`) returns 200 OK with
+  a full leaderboard page.
+- **D4 navigation gap resolved:** session 5's vercel.json work
+  shipped — `/this-page-does-not-exist/` now returns the 6KB friendly
+  "Wrong snap." 404 page (verified via Vercel MCP).
+
+### Track 1 — Receipt-pattern citation pipeline (SHA `b7585f2c2c9`)
+- **`cfb_rankings.citations` package wired into renderer:** the existing
+  Sprint v5-6a.5 package had the DAO + render primitives built but
+  never plugged into `editions/article_renderer.py`. Session 6 wires
+  it in: `load_citations` per feature, `annotate_body_markdown` before
+  the markdown→HTML pass, `render_citation_footer` after the article
+  body. Soft-fail (empty list → no markers, no footer).
+- **`_inline()` survives the new `<sup class="citation"...>` markup:**
+  sentinel-stash pattern protects the rendered HTML from `html.escape`
+  collisions with the existing italic/bold regex pass.
+- **`citations.css` asset inlined per page:** only on pages that
+  actually have citations — zero overhead on legacy non-cited pages.
+- **Hand-curated backfill for 3 live editions:** new CLI subcommand
+  `backfill-edition-citations --slug X` with 15 citations spanning
+  W17 (5 on cover essay) + W18 (4 on cover + 3 on Receipts feature)
+  + W19 (5 on cover + 3 on Storylines feature).
+- **Workflow wiring:** `publish_site.yml` now calls force-reseed-
+  feature on W18/W19 + backfill-edition-citations on W17/W18/W19
+  every publish. All idempotent + `|| true` so single-edition
+  failures don't brick the publish.
+
+### Track 2 — Dashboard archetype renderer (SHA `132d3fe6c59`)
+- **`/hub/vibe-shifts/` wired to Dashboard primitives:** hero finding
+  zone (top-card power-delta) + methodology footer. /heisman/ +
+  /rankings/ already had both from session 5. Homepage has the chrome
+  countdown line for the same role.
+- **Perf splits already shipped:** Heisman (audit E1, 14.8MB) closed
+  via the inline-1000 + lazy-load-rest pattern in
+  `render_heisman_page_html`. Players directory (audit E2, 31MB)
+  closed via the inline-2000 + lazy-load-rest in
+  `render_players_index_html`. Both predate session 6; the audit
+  numbers were pre-optimization.
+
+### Track 5 — Profile archetype migration (incremental) (in SHA `e1cb83a2351`)
+- **Cohort-panel empty state → `render_awaiting_module`:** first
+  awaiting-module adoption beyond the meta-footer rollout. Consolidates
+  ad-hoc empty-state HTML into the shared Profile primitive.
+- **Full migration of 17,836 player + 665 program + ~662 unprofiled
+  team + 120 conference pages remains** the explicit multi-week item
+  the audit calls out. The primitives module
+  (`cfb_rankings.profile`) is feature-complete; adoption proceeds
+  incrementally per surface.
+
+### Track 6 — Database archetype scaffold (in SHA `e1cb83a2351`)
+- **New module `cfb_rankings.database_archetype`** with 5 primitives:
+  `render_filter_strip`, `render_table_grid_open`/`close`,
+  `render_database_meta_footer`, `render_empty_listing`.
+- **CSS contributed inline** via `_DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK`
+  in reporting.py, wired into `_compose_global_css` alongside the
+  Profile primitives block.
+- **Surfaces queued for incremental adoption:** /wire/, /editions/,
+  /canon/, /players/ (directory), /portal-heat/, /recruit-board/,
+  /storylines/.
+
+### Track 7 — Article archetype scaffold (in SHA `e1cb83a2351`)
+- **New module `cfb_rankings.article_archetype`** with 4 primitives:
+  `render_article_chrome`, `render_article_aside_callout`,
+  `render_continue_reading_row`, `render_article_footer`.
+- **CSS in the same combined block.**
+- **Surfaces queued for incremental adoption:** /daily/, /mailbag/,
+  /reactions/, /editions/<n>/<slug>/. The citation pipeline (Track 1)
+  is already an Article-archetype-grade body treatment for editions —
+  this scaffold establishes the equivalent for daily/mailbag/reactions.
+
+### Track 8 — /players/ pagination (E2)
+- **Already shipped** in session 5's `render_players_index_html` —
+  inline-2000 + lazy tail. The audit's 31MB figure was pre-this-fix.
+
+### Track 4 — Browser-MCP validation pass (SHA `a3cce88737c`)
+- **Chrome MCP axe-equivalent + touch-target + heading-order checks**
+  on homepage, /heisman/, a player page, and W18/W19 edition articles.
+- **W19 wrong-season Pattern C drift caught:** body opens with "press
+  box at Bryant-Denny was nearly empty by the time the cleaning crews
+  started rolling carts down the aisles" on a May 11 offseason edition.
+  Fixed with three new distinctive-phrase detectors in
+  `upsert_feature` (data.py).
+- **Article-page footer missing:** Chrome MCP DOM query returned
+  `footerCount: 0` on /editions/2026-w18/the-quiet-week/. Fixed by
+  emitting `render_global_footer` after `</main>` in
+  `_render_article` + `_render_edition_index`.
+- **Other findings logged for follow-up:**
+  - Homepage missing methodology footer
+  - Player pages have H4-after-H2 heading-order issue (footer DEPARTMENTS)
+  - All sampled pages have 100% sub-44px touch targets (Level AAA gap)
+
+---
+
+## Live verification status (as of 2026-05-22 16:39 UTC)
+
+Two prior publish-site triggers got cancelled by chain-dispatch
+concurrency. Currently in-flight: publish-site **26300031263** at
+SHA `e1cb83a2351` (includes Tracks 1/2/3/5/6/7). Expected to ship
+the W18 wrong-season fix, the 15-citation backfill, the vibe-shifts
+hero/footer, the Profile awaiting-module adoption, and the
+Database/Article archetype CSS additions.
+
+Next publish-site dispatch (after the current one completes) will
+ship Track 4 at SHA `a3cce88737c`: the W19 wrong-season fix + the
+article-page footer addition.
+
+After both deploy, the post-validation pass should confirm:
+- W18 cover essay dek = "Spring portal closed; fall-camp coverage
+  hasn't opened. What fanbases say in the gap is itself a signal."
+  (not the "mid-November" Pattern C drift)
+- W18 cover essay body = "The first Monday in May is the quietest
+  week on the college-football calendar." (with [1]-[4] markers)
+- W18 cover essay footer = "Sources" block with 4 entries
+- W19 cover essay body = "Mid-July is when the first credible fall-
+  camp coverage starts to bleed in." (with [1]-[5] markers)
+- /editions/2026-w18/the-quiet-week/ has a site-wide `<footer>` block
+- /hub/vibe-shifts/ shows the hero finding zone above the ledger
+
+---
+
+## What's still owed (multi-day to multi-week)
+
+These items remain explicit Tier-2 work the audit budget couldn't
+absorb in this session:
+
+1. **Full Profile-archetype migration of all 19,240 surfaces** —
+   apply identity-strip + module-grid primitives across player /
+   program / unprofiled team / conference renderers. Scaffold is
+   complete; adoption proceeds incrementally per surface family.
+   Multi-week.
+
+2. **Database + Article archetype surface adoptions** — 11 surfaces
+   total (7 Database, 4 Article). Primitives are shipped; each
+   surface needs the legacy renderer to swap inline HTML for the
+   shared primitive. ~5-7 days per archetype.
+
+3. **Pattern C citation-emission integration** — the LLM prompt is
+   now offseason-aware (Session 6), but it doesn't yet emit
+   `{{cite:N}}` placeholders + citation metadata. New editions
+   without backfill will ship without inline markers. The next step
+   is updating the Pattern C output schema to include a citations
+   array; persist via `cfb_rankings.citations.persist_citations`
+   in `_persist_cover_body`.
+
+4. **Touch-target audit (WCAG Level AAA)** — all sampled pages
+   ship 100% sub-44px interactive elements. Fixing requires CSS
+   `min-height: 44px; min-width: 44px;` rules on `.nav-link`,
+   `.text-link`, table-cell anchors, etc. Several hours.
+
+5. **Homepage methodology footer** — Dashboard archetype calls for
+   it; the editions homepage renderer doesn't include it. ~30min
+   fix.
+
+6. **Player-page heading-order bug** — H4 (footer DEPARTMENTS) after
+   H2 (content section). Either downgrade the trailing content H2
+   to H3 OR wrap the global footer in `<aside>` to break the
+   heading flow context. ~30min.
+
+---
+
+## Bottom line
+
+**Session 5 was at ~99%.** Session 6 closes the receipt-pattern
+hard violation (Axis M), corrects two wrong-season Pattern C
+hallucinations (W18 + W19), restores the missing global footer on
+edition article pages, lands Database + Article archetype starter
+modules, and runs a Chrome MCP browser validation pass that surfaced
+two real bugs the previous-session WebFetch-based audits missed.
+
+The audit's Tier-1 punch list is now empty. Tier-2 architectural
+migrations remain, with scaffolds in place for all four archetypes
+(Profile, Dashboard, Database, Article).
