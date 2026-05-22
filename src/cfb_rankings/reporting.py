@@ -15424,9 +15424,16 @@ def _render_dashboard_mobile_strip(*, filter_anchor: str, summary_text: str = ""
 
 
 def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, Any], site_pulse: dict[str, Any]) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     level_cards = _render_history_level_cards(history_hub, prefix="../programs/")
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we built the historical archive",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{int(history_hub.get('team_seasons') or 0):,} team-seasons &middot; {escape(str(history_hub.get('first_season') or ''))}&ndash;{escape(str(history_hub.get('last_season') or ''))}",
+    )
     greatest_rows = _render_history_team_season_rows(history_hub.get("greatest_seasons") or [], prefix="../programs/")
     strongest_rows = _render_history_team_season_rows(history_hub.get("strongest_seasons") or [], prefix="../programs/")
     roughest_rows = _render_history_team_season_rows(history_hub.get("roughest_seasons") or [], prefix="../programs/")
@@ -15798,6 +15805,8 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
           {preseason_playbook}
         </div>
       </section>
+
+      {profile_meta_footer}
     </main>
     <script>{_history_explorer_script()}</script>
     {render_global_footer()}
@@ -16306,6 +16315,7 @@ def render_teams_index_html(
     summary: dict[str, Any],
     rankings: list[RankingRow],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     level_counts: dict[str, int] = {}
@@ -16434,6 +16444,13 @@ def render_teams_index_html(
           </div>
         </article>
       </section>
+
+      {render_profile_meta_footer(
+          methodology_label="How we model team strength",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{len(rankings):,} teams across FBS, FCS, Division II, Division III",
+      )}
       <script>{_teams_index_script()}</script>
     </main>
     {render_global_footer()}
