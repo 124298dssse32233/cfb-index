@@ -4736,6 +4736,18 @@ def main() -> None:
         # auto-fill draft stubs.)
         "generate-edition-cover",
         "generate-edition-covers",
+        # Session 6 (2026-05-22) — wire two new editions subcommands
+        # into dispatch. Without these entries, publish-site failed with
+        # "Unsupported command: backfill-edition-citations" / "...
+        # force-reseed-feature" and the W18/W19 wrong-season fix +
+        # citation backfill silently no-op'd through the workflow's
+        # `|| true` swallowers. Symptom: live W18 dek + body got the
+        # seed fix from the upsert detection (which fires in seed-
+        # editions, a different command), but inline [N] markers
+        # showed as plain text because the citations were never
+        # persisted.
+        "backfill-edition-citations",
+        "force-reseed-feature",
     ):
         rc = args.func(args)
         raise SystemExit(rc or 0)
