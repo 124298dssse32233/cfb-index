@@ -66,6 +66,93 @@ recruit-board). Total Article-archetype concrete adopters: 2
 
 ---
 
+## Session 6 — second continuation (post-roadmap)
+
+After the wrap-v2 commit, the user asked "what next?" — I built
+ROADMAP_TO_COMPLETE.md laying out 12 phases covering everything to
+reach a "perfect to show people" state. Then started executing
+roadmap phases in this same session:
+
+**93741213f5d — Phase 3 first concrete adopter (conference identity-strip)**
+- render_conference_page_html migrated from inline hero block to
+  cfb_rankings.profile.render_profile_identity_strip (v1 — the thin
+  primitive). First legacy reporting.py renderer to adopt the
+  Profile identity strip beyond meta-footer.
+
+**1f1ea21ae6d — Critical CLI dispatch fix**
+- Live verification post-deploy caught that backfill-edition-citations
+  + force-reseed-feature subcommands were silently failing with
+  "Unsupported command" because they were registered but not in the
+  editions-dispatch tuple in cli.py:4726. The workflow's `|| true`
+  swallowers hid the failures. W18 dek+body got fixed (via the
+  upsert detection in seed-editions, a separate code path) but
+  citation markers shipped as plain `[N]` text because citations
+  were never persisted. Fix wires both subcommands into dispatch.
+
+**46d440e6ab9 — ROADMAP_TO_COMPLETE.md**
+- 614-line comprehensive plan covering 12 phases:
+  - Phase 1: Verify session 6 deploy (wakeup-driven)
+  - Phase 2: Browser-MCP Lighthouse + axe audit
+  - Phase 3: Richer Profile identity-strip v2 + 17,836-surface migration
+  - Phase 4: Article archetype on /daily/ + /mailbag/
+  - Phase 5: Editorial quality (Pattern D + corpus voice scan)
+  - Phase 6: Infrastructure / SEO
+  - Phase 7: Onboarding (/about/ + tagline)
+  - Phase 8: Mobile UX validation
+  - Phase 9: Accessibility hardening
+  - Phase 10: Performance hardening
+  - Phase 11: Mockup pixel-diff
+  - Phase 12: Final consolidation
+- Each phase has concrete tasks, day budget, verification gate.
+
+**25b691e1acb — Phase 3 v2 primitive + program-page migration**
+- New `render_profile_identity_strip_v2` accepting team_mark_html,
+  stat_tiles, action_buttons, chips, accent_color. Closes the
+  "primitive too thin" gap that blocked Profile migration on player
+  / program / unprofiled-team surfaces.
+- `_PROFILE_IDENTITY_V2_CSS_BLOCK` (~150 lines) contributing the v2
+  visual treatment: team-mark badge + stat-tile grid + action buttons
+  at 44px height + accent-color hierarchy + mobile-stack layout.
+- render_program_page_html (665 surfaces) migrated to v2.
+
+**cb4cd9318d1 — Phase 3 team + player page migrations**
+- render_team_page_html (~662 unprofiled surfaces) migrated.
+- render_player_page_html (17,836 surfaces) migrated.
+- Total Profile-archetype identity-strip adopter count: 19,283
+  surfaces. Closes the bulk of the audit's Tier-2 multi-week item.
+
+**d5de51c5994 — Phase 6 Task 6a sitemap expansion**
+- Sitemap was indexing 686 URLs (top-level + team pages only).
+  Audit found 9 missing top-level surfaces + ~18,000 per-entity
+  URLs not indexed.
+- _write_robots_and_sitemap now accepts `db: Database | None` and
+  queries each entity type. Estimated sitemap size: ~18,800 URLs.
+- 45,000 URL hard cap per file; switches to sitemap-index pattern
+  before hitting the protocol's 50k threshold.
+
+**71989ae0d80 — Phase 7b + Phase 9a**
+- Brand tagline visibility breakpoint dropped from 1024px → 768px so
+  tablets see "Where every team stands · what every fanbase thinks"
+  alongside the brand mark.
+- aria-live="polite" + aria-atomic="true" on three filter-count
+  containers (Heisman, Teams, History Explorer) so screen readers
+  announce result-count updates.
+
+**fff2b13deed / ee314ea0d64 — wrap-doc continuation updates**
+
+Total continuation commits this session: 13 (93741213f5d,
+1f1ea21ae6d, 46d440e6ab9, 25b691e1acb, cb4cd9318d1, d5de51c5994,
+71989ae0d80, plus earlier 1800d7bd37a, a44e1eb64ec, 758036c07c3,
+1db0f307e83, fb6b97067a2, 330ef13fc4c, 1be54c42777). Total session 6
+commits: 28 (initial 5 + 23 continuation).
+
+Phase 3 (Track 5 multi-week item) status: substantively complete.
+All four Profile-archetype surface families now adopt the v2
+primitive. Live verification pending the next deploy (publish-site
+at SHA 71989ae0d80 or later).
+
+---
+
 ## Track-by-track outcomes
 
 ### Track 3 — Editorial cleanup (SHA `95d3a39880f`)
