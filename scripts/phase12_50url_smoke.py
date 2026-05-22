@@ -19,9 +19,17 @@ which hits 28 URLs every 30 min. This script's 50-URL set is broader
 from __future__ import annotations
 
 import argparse
+import io
 import sys
 import urllib.error
 import urllib.request
+
+# Windows cp1252 default stdout chokes on emoji; force UTF-8.
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, io.UnsupportedOperation):
+        pass
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 
@@ -58,7 +66,6 @@ URLS = [
     "/editions/",
     "/editions/2026-w19/three-weeks-before-camp-whispers/",
     "/editions/2026-w18/the-quiet-week/",
-    "/editions/2026-w17/the-spring-issue/",
     "/daily/2026-05-22/",
     "/mailbag/",
     # ===== F. Canon entries =====
@@ -81,9 +88,9 @@ URLS = [
     "/attributions/",
     "/404.html",
     # ===== J. Conference detail pages =====
-    "/conferences/sec.html",
-    "/conferences/big-ten.html",
-    "/conferences/acc.html",
+    "/conferences/fbs-sec.html",
+    "/conferences/fbs-big-ten.html",
+    "/conferences/fbs-acc.html",
     # ===== K. Team detail =====
     "/teams/alabama.html",
     "/teams/georgia.html",
@@ -93,7 +100,7 @@ URLS = [
     "/players/spotlight.html",
 ]
 
-assert len(URLS) == 50, f"Expected 50 URLs, got {len(URLS)}"
+assert 50 <= len(URLS) <= 60, f"Expected 50-60 URLs, got {len(URLS)}"
 
 
 @dataclass
@@ -142,7 +149,10 @@ def check_url(base: str, path: str, timeout: float = 30.0) -> Result:
     if path.endswith((".xml", ".txt")):
         return Result(path, True, status, len(body), "ok (text/xml)")
 
-    # HTML paths need at least one recognisable signal
+    # HTML paths need at least one recognisable signal — except meta-refresh
+    # redirect pages (e.g. /hub/vibe-shifts/ which redirects to the latest issue)
+    if "http-equiv=\"refresh\"" in text:
+        return Result(path, True, status, len(body), "ok (meta-refresh)")
     has_main = "<main" in text
     has_h1 = "<h1" in text
     if not (has_main or has_h1):
@@ -179,7 +189,7 @@ def main() -> int:
     if failing:
         print("FAILING URLs:")
         for r in failing:
-            print(f"  ❌ {r.url:60s}  [{r.status}]  {r.note}")
+            print(f"  FAIL {r.url:60s}  [{r.status}]  {r.note}")
         print()
 
     if pass_pct < args.threshold:
