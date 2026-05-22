@@ -447,8 +447,16 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .brand-row { display: flex; align-items: baseline; justify-content: space-between;
   padding: 24px 0; }
 .brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
-  letter-spacing: 0.04em; }
+  letter-spacing: 0.04em; display: flex; flex-direction: column; gap: 4px;
+  line-height: 1; }
 .brand .slash { color: var(--gold); margin: 0 6px; }
+.brand__mark { display: inline-flex; align-items: baseline; }
+.brand__tagline { display: none; font-family: var(--sans); font-size: 11px;
+  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin: 0; }
+@media (min-width: 768px) {
+  .brand__tagline { display: inline-flex; align-items: center; }
+}
 .nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase; }
 .nav a { margin-left: 28px; color: var(--ink); }
@@ -739,7 +747,7 @@ def _render_masthead(edition: Edition, publish_label: str) -> str:
     </div>
     <hr class="rule">
     <div class="brand-row">
-      <div class="brand">CFB<span class="slash">/</span>INDEX</div>
+      <div class="brand"><span class="brand__mark">CFB<span class="slash">/</span>INDEX</span><span class="brand__tagline">Where every team stands &middot; what every fanbase thinks</span></div>
       {nav_html}
       {nav_actions_html}
     </div>
