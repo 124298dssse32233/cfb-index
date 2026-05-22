@@ -17170,6 +17170,7 @@ def render_players_index_html(
     player_directory_rows: list[dict[str, Any]],
     heisman_snapshot: dict[str, Any],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     # Heisman pill needs the data season, which may be older than the
@@ -17292,6 +17293,13 @@ def render_players_index_html(
           </div>
         </article>
       </section>
+
+      {render_profile_meta_footer(
+          methodology_label="How we model players",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{len(player_directory_rows):,} player cards on file",
+      )}
     </main>
     <script>{_player_directory_script()}</script>
     {render_global_footer()}
