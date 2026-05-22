@@ -941,3 +941,37 @@ SHA `7ae757feb52` (12 commits ahead of last deploy):
 12. **7ae757feb52** — fix(homepage,phase-7): brand tagline on editions homepage_renderer
 
 The final ship completes all 12 ROADMAP phases that were code-complete.
+
+---
+
+## Continuation-10 — Phase 9 deep a11y audit (in-flight + queued)
+
+While the publish-site at 7ae757feb52 was still on the Build step (started
+19:10 UTC, ~50min wall-clock), ran a Phase 9 deep a11y audit across 7
+representative live pages: /, /rankings/, /methodology/, /storylines/,
+/portal-heat/, /canon/, /conferences/, /about/. Caught a 4-class bug set
+and shipped surgical fixes:
+
+**Phase 9 commit chain (6 commits ahead of the in-flight deploy):**
+
+| Commit | What it fixes |
+|---|---|
+| `cc7d6f0838d` | scope="col" on all 209 `<th>` site-wide (reporting.py 194, daily/freshness/methodology/stats_table/templates 15). Also full a11y rewrite of `/methodology/index.html` — skip-link + main landmark + aria-label + .meta #777→#5a5a5a + footer #888→#595959 contrast wins. |
+| `f9f18112c30` | 3 more contrast wins — methodology_page footer #888, freshness_page .status-unknown #999, season_arc_card partial-data #aaa+#777. All now ~7:1 (comfortable WCAG AAA). |
+| `0a40a01a5a7` | /storylines/ thread_index + thread.html — skip-link + `<main id="main-content">` landmark + aria-label="Primary" on nav + aria-label="Breadcrumb" + aria-current="page". |
+| `07e315e2d5a` | /canon/ index + list + entry templates — .canon-skip-link + id="main-content" on `<main>`. Matching CSS in canon.css. |
+| `440ee48094e` | Promoted id="main-content" from `<div class="page">` to a proper `<main>` element on /portal-heat/, /wire/, /wire/archive/. Screen-reader landmark navigation now lands on real main element instead of a generic div. |
+
+**Audit deltas (still LIVE state — these fixes ship in NEXT deploy):**
+- `/conferences/` HAS 9 `<th>` tags WITHOUT scope= (pre-cc7d6f0838d).
+- `/methodology/index.html` LACKS skip-link + main landmark + has #777/#888 contrast fails.
+- `/storylines/` (index + 8 thread pages) LACK skip-link + main + nav aria-label.
+- `/canon/` (index + 3 lists + 175 entry pages) LACK skip-link + main id.
+- `/portal-heat/`, `/wire/`, `/wire/archive/<month>/` have id="main-content" on `<div>` not `<main>`.
+
+All flip to ✅ after the next publish-site dispatch.
+
+**Master state at end of continuation-10:** `440ee48094e` — 6 commits ahead
+of in-flight deploy 26306953962 (which is at 7ae757feb52). Will trigger
+ONE more publish-site after the current one completes, no sooner (concurrency
+group would cancel it).
