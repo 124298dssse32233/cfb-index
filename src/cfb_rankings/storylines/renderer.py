@@ -289,9 +289,9 @@ _RECEIPT_STUBS: dict[str, list[dict]] = {
     # thread's chapters.
     "_default": [
         {
-            "quote": "Receipts on this thread's prior takes will appear here.",
+            "quote": "Receipts on this thread's prior takes return when the editorial ledger reaches enough resolved chapters to grade them honestly.",
             "verdict": "premature",
-            "attribution": "— Sprint 13 (Receipts) ships the live ledger.",
+            "attribution": "&mdash; The Receipts Desk",
         },
     ],
 }
@@ -470,7 +470,7 @@ def render_thread(db, slug: str, output_dir: Path | str) -> Path:
         current_chapter_sources_html=current_chapter_sources_html,
         related_threads_html=related_threads_html,
         receipts_html=_render_receipts_stub(slug),
-        receipts_stub_label="placeholder · Sprint 13 ships the live ledger",
+        receipts_stub_label="receipts pending — see methodology",
         footer_year=datetime.now().year,
     )
     out_dir = Path(output_dir)
