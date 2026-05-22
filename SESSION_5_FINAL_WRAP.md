@@ -42,8 +42,35 @@ Closed five categories of audit work — three structural (Profile primitives, D
 | `d63b108c895` | chore(docs): archive 7 more historical CLAUDE_CODE_*.md planning docs |
 | `044fb67e45b` | docs(session5): wrap reflects all 20 commits + 8 Profile renderer adopters |
 | `e7998d2340e` | fix(copy): scrub remaining table-name leaks on NFL pipeline + Dynasty Heatmap |
+| `08c756b5a5a` | docs(session5): final commit count 22 (incl. nfl-pipeline + heatmap fixes) |
+| `08ac91347d5` | fix(copy): scrub "Auto-draft · flag to review" + "Populates once... ingested" |
+| `8913ca9ae37` | fix(copy): scrub remaining "is loaded" + "rows loaded" dev-vocab on player + rankings |
+| `1c263efd5d7` | fix(copy): scrub narrative-arc / mirror-match / cohort empty-state dev-vocab |
+| `84f9f7f6787` | fix(canon): scrub "rematch-placeholder" / "(rematch placeholder)" from CFP-era games |
+| `eb3f7110568` | fix(canon): repair garbled #80 entry on the-100-best-players-cfp-era |
+| `f91538979d6` | fix(copy): scrub "ingest incomplete (snapshot N-M)" dev-vocab from season arc bricks |
+| `190f31570cb` | fix(copy): scrub "ingests" dev-verb on /about/ page |
+| `30a8026264e` | fix(copy): scrub 4 more "loaded yet/for this" leaks on Heisman + player tabs |
+| `cb5113a7011` | fix(copy): "Rows inserted" → "Items captured" on freshness page table |
 
-22 commits this session. Last-touch: `e7998d2340e`.
+33 commits this session. Last-touch: `cb5113a7011`.
+
+## Workflow triggers (continuation of session)
+
+After the polish commits accumulated, triggered four workflows:
+
+- `world-class-enrich` (queued, runs 2-4 hours) — fills in Pattern C cover essays + populates editorial_citations (addresses receipt-density violation)
+- `ingest-daily` (ran successfully) — daily data refresh
+- `ingest-hourly` (ran successfully) — hourly data refresh
+- `monday-mood-map` (FAILED with pre-existing DB-artifact bug, unrelated to session 5)
+- `publish-site` x2 (queued) — first completed and deployed initial S5 batch; second queued behind world-class-enrich to deploy the late commits
+
+Live deploy verified after first publish-site completed:
+- Homepage placeholder "Issue XIX placeholder. Pattern C cover essay generation" → GONE ✓
+- /conferences/ has profile-meta-footer ✓
+- /teams/florida-international.html has "How we measure team strength" methodology link + "Updated May 22, 2026" timestamp ✓
+- /players/fernando-mendoza-38276.html has "How we model players" methodology link ✓
+- `live_smoke_test` continues passing (28 sample URLs all 200)
 
 ---
 
