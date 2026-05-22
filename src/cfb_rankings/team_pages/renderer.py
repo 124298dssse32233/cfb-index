@@ -816,6 +816,11 @@ def _render_pulse(
 
     badge_html = _render_pulse_badge(effective_n)
 
+    # Sprint D (Brief §4.2 Panel 2): five-axis strip — Reality Gap /
+    # Respect Gap / Cohort Divergence / Rival Heat / Volatility.
+    # Wire from existing data where present; honest empty-state otherwise.
+    five_axis_html = _render_five_axis_strip(mood, divergence, snap, state, show_live)
+
     return f"""<section class="pulse" aria-labelledby="pulse-title">
   <div class="pulse__header">
     <span class="{live_dot_cls}" aria-hidden="true"></span>
@@ -837,8 +842,82 @@ def _render_pulse(
       </div>
     </div>
   </div>
+  {five_axis_html}
   {badge_html}
 </section>"""
+
+
+# ============================================================================
+# Five-axis strip — Brief §4.2 Panel 2 (Sprint D)
+# ============================================================================
+
+def _render_five_axis_strip(
+    mood: dict[str, Any],
+    divergence: float | None,
+    snap: TeamSnapshot,
+    state: PageState,
+    show_live: bool,
+) -> str:
+    """Five axes per the brief: Reality Gap / Respect Gap / Cohort Divergence
+    / Rival Heat / Volatility. Each renders a mini-bar with a labeled chip.
+    Axes where data isn't ingested yet render in honest empty-state mode."""
+    # Best-effort signal extraction. The mood dict carries cohort signals
+    # when the FI pipeline has populated them; everything else falls
+    # through to honest awaiting copy per brief §8.8.
+    def _abs_pct(v: Any) -> int | None:
+        if v is None:
+            return None
+        try:
+            f = float(v)
+        except (TypeError, ValueError):
+            return None
+        if abs(f) <= 1.0 + 1e-9:
+            return max(0, min(100, int(round(abs(f) * 100))))
+        return max(0, min(100, int(round(abs(f)))))
+
+    reality_pct = _abs_pct(mood.get("reality_gap"))
+    respect_pct = _abs_pct(mood.get("respect_gap"))
+    divergence_pct = _abs_pct(divergence)
+    rival_pct = _abs_pct(mood.get("rival_heat"))
+    volatility_pct = _abs_pct(mood.get("volatility"))
+
+    def _axis(label: str, pct: int | None, desc: str) -> str:
+        if pct is None:
+            return (
+                '<div class="pulse-axis pulse-axis--awaiting">'
+                f'<span class="pulse-axis__label">{html.escape(label)}</span>'
+                '<div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div>'
+                f'<span class="pulse-axis__chip">awaiting</span>'
+                f'<span class="pulse-axis__desc">{html.escape(desc)}</span>'
+                '</div>'
+            )
+        # Band by absolute strength (this is intensity, not signed)
+        band = "high" if pct >= 70 else "mid" if pct >= 40 else "low"
+        return (
+            f'<div class="pulse-axis" data-band="{band}">'
+            f'<span class="pulse-axis__label">{html.escape(label)}</span>'
+            f'<div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: {pct}%;"></span></div>'
+            f'<span class="pulse-axis__chip">{pct} pct</span>'
+            f'<span class="pulse-axis__desc">{html.escape(desc)}</span>'
+            '</div>'
+        )
+
+    axes_html = "".join([
+        _axis("Reality Gap", reality_pct,
+              "How far fan belief diverges from the structural model."),
+        _axis("Respect Gap", respect_pct,
+              "Fan score minus national score for this team's brand."),
+        _axis("Cohort Divergence", divergence_pct,
+              "Spread between sub-fanbase cohorts in the Pulse window."),
+        _axis("Rival Heat", rival_pct,
+              "How much rival fanbases are mentioning this team."),
+        _axis("Volatility", volatility_pct,
+              "Week-over-week mood swing magnitude."),
+    ])
+    return f"""<div class="pulse-five-axis" aria-label="Five-axis Pulse strip" data-state="{('ready' if show_live else 'empty')}">
+    <p class="pulse-five-axis__eyebrow">FIVE-AXIS · Brief §4.2 Panel 2</p>
+    {axes_html}
+  </div>"""
 
 
 def _render_trajectory(trajectory: list[dict[str, Any]]) -> str:

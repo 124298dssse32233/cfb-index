@@ -385,6 +385,95 @@ a { color: inherit; text-decoration: none; }
   font-style: normal;
 }
 
+/* ============================================================================
+ * Five-axis Pulse strip — Brief §4.2 Panel 2 (Sprint D)
+ * Reality Gap / Respect Gap / Cohort Divergence / Rival Heat / Volatility
+ * ========================================================================= */
+
+.pulse-five-axis {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  margin-top: var(--sp-4);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+}
+.pulse-five-axis__eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.pulse-axis {
+  display: grid;
+  grid-template-columns: minmax(0, 120px) 1fr auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--stroke-subtle);
+}
+.pulse-axis:first-of-type { border-top: 0; }
+.pulse-axis__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+.pulse-axis__bar {
+  position: relative;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.pulse-axis__fill {
+  position: absolute;
+  inset: 0;
+  width: var(--pct, 0%);
+  background: var(--pct-mid);
+  border-radius: 5px;
+  transition: width 240ms ease-out;
+}
+.pulse-axis[data-band="high"] .pulse-axis__fill { background: var(--pct-high); }
+.pulse-axis[data-band="mid"]  .pulse-axis__fill { background: var(--pct-mid); }
+.pulse-axis[data-band="low"]  .pulse-axis__fill { background: var(--pct-low); }
+.pulse-axis__chip {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.pulse-axis__desc {
+  grid-column: 1 / -1;
+  font-family: var(--font-serif);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  line-height: 1.4;
+  font-style: italic;
+}
+.pulse-axis--awaiting .pulse-axis__label,
+.pulse-axis--awaiting .pulse-axis__desc {
+  color: var(--fg-muted);
+}
+.pulse-axis--awaiting .pulse-axis__fill {
+  opacity: 0.45;
+}
+.pulse-axis--awaiting .pulse-axis__chip {
+  font-style: italic;
+}
+@media (max-width: 720px) {
+  .pulse-axis {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .pulse-axis__bar { grid-column: 1 / -1; }
+}
+
 .pulse__velocity {
   display: flex;
   align-items: baseline;
