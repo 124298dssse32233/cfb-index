@@ -52,6 +52,7 @@ from .program_prestige_bar import (
 )
 from .page_tone_strip import render_page_tone_strip, PAGE_TONE_STRIP_CSS
 from .trajectory_chip import render_trajectory_chip, TRAJECTORY_CHIP_CSS
+from .kickoff_countdown import render_kickoff_countdown, KICKOFF_COUNTDOWN_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -430,6 +431,10 @@ def _render_page(
     # offseason vs gameday vs rivalry-peak read differently AND look
     # differently. The strip surfaces phase + tone + outcome + live state.
     page_tone_html = render_page_tone_strip(state)
+    # Kickoff Countdown — Brief §22.1 offseason variant. Anchors every team
+    # page in calendar time: "247 days · until kickoff · Aug 30" / "3d 18h ·
+    # vs Michigan · Sat 12:00" / "Live now."
+    kickoff_html = render_kickoff_countdown(snapshot, today=state.today)
     footer_html = _render_footer(profile, state)
 
     head_chrome_block = render_head_chrome(
@@ -483,6 +488,9 @@ body {{
 /* Program Trajectory chip — Brief §11.4 */
 {TRAJECTORY_CHIP_CSS}
 
+/* Kickoff Countdown — Brief §22.1 */
+{KICKOFF_COUNTDOWN_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -529,6 +537,7 @@ body {{
   <div class="content">
     {hero_html}
     {page_tone_html}
+    {kickoff_html}
     {season_standing_html}
     {program_prestige_html}
     {trajectory_chip_html}

@@ -40,6 +40,7 @@ class GameResult:
     status: str
     margin: int | None = None
     outcome: str | None = None  # 'W' / 'L' / 'T' / 'upcoming'
+    start_time_utc: str | None = None  # ISO 8601, when known
 
     def label(self) -> str:
         if self.outcome in (None, "upcoming"):
@@ -161,6 +162,7 @@ def _fetch_games(db, team_id: int, season_year: int) -> list[GameResult]:
     rows = db.query_all(
         """
         select g.season_year, g.week, g.status,
+               g.start_time_utc,
                g.home_team_id, g.away_team_id,
                g.home_points, g.away_points,
                ht.canonical_name as home_name, ht.slug as home_slug,
@@ -201,6 +203,7 @@ def _fetch_games(db, team_id: int, season_year: int) -> list[GameResult]:
                 status=r["status"] or "",
                 margin=margin,
                 outcome=outcome,
+                start_time_utc=r["start_time_utc"] if "start_time_utc" in r.keys() else None,
             )
         )
     return out
