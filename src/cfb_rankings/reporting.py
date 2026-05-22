@@ -2710,6 +2710,268 @@ _PROFILE_PRIMITIVES_CSS_BLOCK = """
 """
 
 
+# =============================================================================
+# Database + Article archetype primitives — Session 6 (2026-05-22) scaffolds.
+# Mirrors the Profile/Dashboard CSS pattern. Both archetypes use deliberately
+# orthogonal class names (.database-archetype__*, .article-archetype__*) so
+# legacy renderers (canon, wire, editions, daily, mailbag) can co-exist
+# during incremental adoption.
+# =============================================================================
+
+_DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK = """
+/* Database archetype primitives */
+
+.database-archetype__filter-strip {
+  position: sticky;
+  top: 64px;
+  z-index: 5;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  padding: clamp(8px, 1vw, 12px) clamp(16px, 3vw, 40px);
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+.database-archetype__filter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.database-archetype__filter-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--bg-card-raised, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  color: var(--fg-secondary, #c6cad6);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.database-archetype__filter-link:hover,
+.database-archetype__filter-link:focus-visible {
+  border-color: var(--stroke-strong, rgba(255, 255, 255, 0.18));
+  color: var(--fg-primary, inherit);
+}
+.database-archetype__filter-state {
+  font-size: 10px;
+  color: var(--fg-muted, #8a90a1);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.database-archetype__table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  background: var(--bg-card, rgba(255, 255, 255, 0.03));
+  font-variant-numeric: tabular-nums;
+}
+.database-archetype__meta-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px clamp(16px, 3vw, 40px);
+  margin-top: clamp(24px, 4vw, 56px);
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 12px;
+  color: var(--fg-secondary, #c6cad6);
+}
+.database-archetype__meta-link {
+  font-weight: 700;
+  color: var(--accent-primary, #c9a24a);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.database-archetype__meta-link:hover { text-decoration: underline; }
+.database-archetype__meta-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-card-raised, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.database-archetype__empty {
+  padding: clamp(20px, 3vw, 40px);
+  border: 1px dashed var(--stroke-default, rgba(255, 255, 255, 0.12));
+  border-radius: 14px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.02));
+  text-align: center;
+  margin: clamp(20px, 3vw, 40px) 0;
+}
+.database-archetype__empty-headline {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: 20px;
+  margin: 0 0 6px;
+  color: var(--fg-primary, inherit);
+}
+.database-archetype__empty-body {
+  font-size: 14px;
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+.database-archetype__empty-cta {
+  font-weight: 700;
+  color: var(--accent-primary, #c9a24a);
+  margin-left: 4px;
+  text-decoration: none;
+}
+.database-archetype__empty-cta:hover { text-decoration: underline; }
+
+/* Article archetype primitives */
+
+.article-archetype__chrome {
+  padding: clamp(16px, 2.4vw, 32px) clamp(16px, 3vw, 40px) clamp(20px, 3vw, 40px);
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  margin-bottom: clamp(20px, 3vw, 40px);
+}
+.article-archetype__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin: 0 0 12px;
+}
+.article-archetype__kind-pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--fg-primary, #1a1a1a);
+  color: var(--bg-primary, #f6f1e6);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.article-archetype__headline {
+  font-family: var(--font-display-serif, "Source Serif Pro", Georgia, serif);
+  font-size: clamp(28px, 2.8vw + 16px, 56px);
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+.article-archetype__dek {
+  font-family: var(--font-display-serif, "Source Serif Pro", Georgia, serif);
+  font-size: clamp(16px, 0.6vw + 14px, 22px);
+  font-style: italic;
+  line-height: 1.45;
+  margin: 0 0 24px;
+  color: var(--fg-secondary, #c6cad6);
+}
+.article-archetype__byline-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, #c6cad6);
+}
+.article-archetype__byline-edition {
+  margin-left: auto;
+  color: var(--fg-muted, #8a90a1);
+}
+.article-archetype__aside-callout {
+  border-left: 4px solid var(--accent-primary, #c9a24a);
+  padding: 16px 24px;
+  margin: clamp(24px, 4vw, 48px) 0;
+  background: var(--bg-card, rgba(255, 255, 255, 0.03));
+  border-radius: 0 12px 12px 0;
+}
+.article-archetype__aside-quote {
+  font-family: var(--font-display-serif, "Source Serif Pro", Georgia, serif);
+  font-style: italic;
+  font-size: clamp(18px, 0.6vw + 14px, 22px);
+  line-height: 1.5;
+  margin: 0;
+}
+.article-archetype__aside-attribution {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  color: var(--fg-muted, #8a90a1);
+}
+.article-archetype__continue-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: clamp(32px, 5vw, 64px);
+  padding-top: 24px;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+}
+@media (max-width: 600px) {
+  .article-archetype__continue-row { grid-template-columns: 1fr; }
+}
+.article-archetype__nav-link {
+  display: block;
+  padding: 16px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+.article-archetype__nav-link:hover,
+.article-archetype__nav-link:focus-visible {
+  border-color: var(--stroke-strong, rgba(255, 255, 255, 0.18));
+}
+.article-archetype__nav-link--next { text-align: right; }
+.article-archetype__nav-eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin-bottom: 4px;
+}
+.article-archetype__nav-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-primary, inherit);
+}
+.article-archetype__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(32px, 5vw, 56px);
+  padding-top: 24px;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 12px;
+}
+.article-archetype__footer-methodology,
+.article-archetype__footer-share {
+  font-weight: 700;
+  color: var(--accent-primary, #c9a24a);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.article-archetype__footer-methodology:hover,
+.article-archetype__footer-share:hover { text-decoration: underline; }
+"""
+
+
 _DARK_MODE_CSS_BLOCK = """
 html.dark {
   color-scheme: dark;
@@ -5426,6 +5688,8 @@ def _compose_global_css() -> str:
         + _DESIGN_SYSTEM_BASELINE_CSS_BLOCK
         + "\n/* === Profile-archetype primitives (Session 5, 2026-05-22) === */\n"
         + _PROFILE_PRIMITIVES_CSS_BLOCK
+        + "\n/* === Database + Article archetype primitives (Session 6, 2026-05-22) === */\n"
+        + _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -24487,19 +24751,24 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
     # suppressed (never a fake number).
     shown = [r for r in cohort_rows if (r.get("effective_n") or 0) >= FLOOR_MIN]
     if not shown:
+        # Profile archetype empty state via render_awaiting_module primitive.
+        # Track 5 (Session 6): consolidate inline empty-state HTML to the
+        # shared Profile primitive so all "no signal yet" surfaces match.
+        from cfb_rankings.profile import render_awaiting_module
         return (
             '<section class="section cohort-panel cohort-panel--empty" aria-label="Cohort sentiment">'
-            '<div class="section-head">'
-            '<h2>Cohort Signal</h2>'
-            '<p class="section-sub">How the fan conversation splits across age, lens, and geography cohorts.</p>'
-            '</div>'
-            '<div class="cohort-panel-empty-body">'
-            '<p><strong>Awaiting signal.</strong> '
-            'Not enough fan conversation has cleared this week\'s publish threshold yet '
-            '(we wait for &ge;30 weighted posts before showing a number). '
-            '<a href="../methodology/fan-intelligence.html">How we set the bar &rsaquo;</a></p>'
-            '</div>'
-            '</section>'
+            + render_awaiting_module(
+                title="Cohort Signal",
+                body=(
+                    "Not enough fan conversation has cleared this week's "
+                    "publish threshold yet (we wait for &ge;30 weighted "
+                    "posts before showing a number)."
+                ),
+                action_label="How we set the bar",
+                action_href="../methodology/fan-intelligence.html",
+                aria_label="Cohort signal — awaiting data",
+            )
+            + '</section>'
         )
     # Cohort signal subhead: in-season this renders "week 9". Offseason it
     # used to render "week 31" or "week 2026-21" — garbage to readers.
