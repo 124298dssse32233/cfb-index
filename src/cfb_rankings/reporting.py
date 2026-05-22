@@ -14820,11 +14820,14 @@ def _home_editorial_context(now: datetime | None = None) -> dict[str, Any]:
     active_phase = next((phase for phase in phases if phase["month"] == current.month), None)
 
     if not active_phase:
+        # Defensive fallback (all 12 months are in `phases`, so this rarely
+        # fires). Keep the copy season-neutral so it doesn't lie about
+        # being a live weekly tracker if it ever does fire offseason.
         return {
-            "is_offseason": False,
+            "is_offseason": is_offseason(current, db=None),
             "today_label": _format_calendar_date(current),
             "hero_eyebrow": "Fan Intelligence / Power / Resume",
-            "hero_title": "How college football is actually feeling this week.",
+            "hero_title": "Where every team stands, what every fanbase thinks.",
             "hero_lede": "A single football universe for FBS through Division III, paired with a proprietary fan-intelligence layer that reads the belief, respect, and rivalry heat around every team. Built for argument, not dashboards.",
         }
 
@@ -14998,7 +15001,7 @@ def render_home_html(
       <section class="home-shell">
         <div class="hero-mast premium-home-hero">
           <p class="eyebrow">{escape(str(editorial_context.get("hero_eyebrow") or "Fan Intelligence / Power / Resume"))}</p>
-          <h1>{escape(str(editorial_context.get("hero_title") or ("How college football is actually feeling, week by week." if is_offseason(date.today(), db=None) else "How college football is actually feeling this week.")))}</h1>
+          <h1>{escape(str(editorial_context.get("hero_title") or ("Where every team stands, what every fanbase thinks." if is_offseason(date.today(), db=None) else "How college football is actually feeling this week.")))}</h1>
           <p class="lede mast-copy">
             {escape(str(editorial_context.get("hero_lede") or "A single football universe for FBS through Division III, paired with a proprietary fan-intelligence layer that reads the belief, respect, and rivalry heat around every team. Built for argument, not dashboards."))}
           </p>
