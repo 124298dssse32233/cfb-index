@@ -17553,7 +17553,7 @@ def render_heisman_page_html(
         {str(row.team_name).strip() for row in board_rows if row.team_name},
         key=lambda value: value.lower(),
     )
-    market_header = "<th scope="col">Market</th>" if has_market_data else ""
+    market_header = '<th scope="col">Market</th>' if has_market_data else ""
     # Performance: cap the inline table at top-1000 rows. The legacy
     # behavior rendered ALL ~16k ranked players inline, producing a
     # 15MB HTML response. Top-1000 covers every realistic Heisman case;
@@ -21266,7 +21266,7 @@ def _render_player_metric_label(metric_name: Any) -> str:
 
 
 def _render_player_season_stat_table(section: dict[str, Any]) -> str:
-    headers = "".join(f"<th scope="col">{escape(str(label or '--'))}</th>" for label in (section.get("columns") or []))
+    headers = "".join(f'<th scope="col">{escape(str(label or "--"))}</th>' for label in (section.get("columns") or []))
     rows_html: list[str] = []
     for row in (section.get("rows") or []):
         team_name = str(row.get("team_name") or "--")

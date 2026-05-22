@@ -166,10 +166,10 @@ def _render_tier_section(tier: str, sources: list[dict[str, Any]]) -> str:
     body.append(f"<h3>Tier {tier}</h3>")
     body.append(f"<p class='tier-explainer'>{html.escape(_TIER_EXPLAINERS[tier])}</p>")
     body.append("<table class='sources'><thead><tr>")
-    body.append("<th scope="col">source_id</th><th scope="col">name</th><th scope="col">cadence / method</th>"
-                "<th scope="col">license</th><th scope="col">publication form</th>"
-                "<th scope="col">last successful fetch</th>"
-                "</tr></thead><tbody>")
+    body.append('<th scope="col">source_id</th><th scope="col">name</th><th scope="col">cadence / method</th>'
+                '<th scope="col">license</th><th scope="col">publication form</th>'
+                '<th scope="col">last successful fetch</th>'
+                '</tr></thead><tbody>')
     for s in rows:
         active_mark = "" if s["is_active"] else " <span class='inactive'>(inactive)</span>"
         last = html.escape(s["last_fetch"] or "—")
@@ -195,7 +195,7 @@ def _render_tier_section(tier: str, sources: list[dict[str, Any]]) -> str:
 
 
 def _render_cohort_matrix(sources: list[dict[str, Any]]) -> str:
-    lines = ["<table class='weights'><thead><tr><th scope="col">source_id</th>"]
+    lines = ['<table class=\'weights\'><thead><tr><th scope="col">source_id</th>']
     for c in COHORTS:
         lines.append(f"<th class='cohort-col'>{html.escape(c)}</th>")
     lines.append("</tr></thead><tbody>")
@@ -311,8 +311,8 @@ def render_methodology_html(db: Database) -> str:
         parts.append(f"<h3>{_heading}</h3>")
         parts.append(
             "<table class='divergence-leaderboard'><thead><tr>"
-            "<th scope="col">Team</th><th scope="col">Week</th><th scope="col">Divergence score</th>"
-            "<th scope="col">Qualifying cohorts</th></tr></thead><tbody>"
+            '<th scope="col">Team</th><th scope="col">Week</th><th scope="col">Divergence score</th>'
+            '<th scope="col">Qualifying cohorts</th></tr></thead><tbody>'
         )
         for row in coverage["qualifying_divergence"]:
             team = html.escape(row.get("team_name") or f"team:{row['team_id']}")
@@ -329,8 +329,8 @@ def render_methodology_html(db: Database) -> str:
         parts.append("<h3>Sources with runs in the last 7 days</h3>")
         parts.append(
             "<table class='source-activity'><thead><tr>"
-            "<th scope="col">source_id</th><th scope="col">runs</th><th scope="col">rows (ok)</th>"
-            "<th scope="col">latest run</th></tr></thead><tbody>"
+            '<th scope="col">source_id</th><th scope="col">runs</th><th scope="col">rows (ok)</th>'
+            '<th scope="col">latest run</th></tr></thead><tbody>'
         )
         for row in coverage["by_source"]:
             parts.append(

@@ -323,7 +323,7 @@ class StatsTableRenderer:
         """Render a table header cell with sort affordance."""
         if not column.sortable:
             safe_header = _html.escape(column.header)
-            return f"<th scope="col">{safe_header}</th>"
+            return f'<th scope="col">{safe_header}</th>'
 
         # Sortable header with button (44×44px tap target)
         safe_id = _html.escape(column.id)
