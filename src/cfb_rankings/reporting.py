@@ -16675,10 +16675,10 @@ def render_heisman_page_html(
             f"Final {season_year_value} Heisman" if season_is_completed else "Heisman Tracker"
         )
         _hero_caption = (
-            f"Model believed {escape(_top.player_name)} would win the {season_year_value} race "
+            f"Model believed {escape(_top.full_name)} would win the {season_year_value} race "
             f"({escape(_top.team_name or '')}); sample = {len(board_rows):,} ranked players."
             if season_is_completed else
-            f"{escape(_top.player_name)} leads ({escape(_top.team_name or '')}); "
+            f"{escape(_top.full_name)} leads ({escape(_top.team_name or '')}); "
             f"sample = {len(board_rows):,} ranked players this week."
         )
         _hero_finding_html = f"""
