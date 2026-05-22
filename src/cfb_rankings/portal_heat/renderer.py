@@ -320,7 +320,22 @@ def render_index(
         )
 
     from cfb_rankings.nav import render_global_head_chrome, render_global_nav_actions
+    from cfb_rankings.database_archetype import (
+        render_database_meta_footer as _db_archetype_footer,
+    )
     template = _load_template("portal_heat.html")
+    # Database-archetype meta-footer (Session 6 Track 6 adopter #5).
+    # Surfaces top-25-programs sample size + methodology pointer + Updated.
+    _db_meta = _db_archetype_footer(
+        label=(
+            "program ranked" if len(rows) == 1
+            else "programs ranked"
+        ),
+        total_rows=len(rows),
+        methodology_label="How the portal heat index is built",
+        methodology_href="/methodology/",
+        updated_text=f"Updated {now.strftime('%Y-%m-%d')}",
+    )
     rendered = _substitute(template, {
         "TITLE": "Transfer Portal Heat Index",
         "UPDATED_AT": now.strftime("%Y-%m-%d %H:%M UTC"),
@@ -333,6 +348,7 @@ def render_index(
         "WINDOW_DAYS": str(days),
         "LEDE": html.escape(lede),
         "BOARD_OR_EMPTY": body,
+        "DATABASE_META_FOOTER": _db_meta,
     })
 
     out_path = output_dir / "index.html"
