@@ -47,3 +47,8 @@ backups/
 
 # Storyline draft scaffolds (LLM-generated drafts written by --auto fallback path)
 src/cfb_rankings/storylines/seeds/_drafts/
+
+# Forensic backups created during incident remediation (e.g. the
+# 15,408-line .vercelignore allowlist backed up 2026-05-21 before
+# replacement). Kept on disk but out of git noise.
+.vercelignore.bak-*
