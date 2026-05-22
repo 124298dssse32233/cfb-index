@@ -61,6 +61,7 @@ from .conference_standing import render_conference_standing, CONFERENCE_STANDING
 from .ceiling_floor import render_ceiling_floor, CEILING_FLOOR_CSS
 from .home_field_advantage import render_home_field_advantage, HOME_FIELD_ADVANTAGE_CSS
 from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
+from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -497,6 +498,8 @@ def _render_page(
     # single highest-impact game of the season (ranked opponent + postseason +
     # margin scored). Honest empty when no impactful game scores ≥4.
     moment_of_year_html = render_moment_of_year(db, profile, snapshot) if db is not None else ""
+    # Schedule Strength chip — opponent quality from games table.
+    schedule_strength_html = render_schedule_strength(db, profile, snapshot) if db is not None else ""
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -595,6 +598,9 @@ body {{
 /* Moment of the Year — Brief §11.7 approximation */
 {MOMENT_OF_YEAR_CSS}
 
+/* Schedule Strength chip */
+{SCHEDULE_STRENGTH_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -653,6 +659,7 @@ body {{
     {ceiling_floor_html}
     {home_field_html}
     {moment_of_year_html}
+    {schedule_strength_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
