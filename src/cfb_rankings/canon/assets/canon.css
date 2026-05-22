@@ -73,6 +73,28 @@ a {
 }
 a:hover { color: var(--fg-0); }
 
+/* ----- skip-link (Phase 9 a11y) ---------- */
+.canon-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.canon-skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: var(--bg-0);
+  font-weight: 700;
+  border-radius: var(--r-sm);
+  margin: var(--gap-2);
+}
+
 /* ----- masthead ---------- */
 .canon-masthead {
   border-bottom: 1px solid var(--line);
