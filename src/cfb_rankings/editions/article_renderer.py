@@ -181,9 +181,14 @@ def _render_edition_index(edition: Edition, features: list[EditionFeature]) -> s
   margin: 0 0 16px; }}
 .edition-hero .theme-dek {{ font-family: var(--serif); font-size: 22px;
   font-style: italic; line-height: 1.45; color: var(--ink); margin: 0; }}
+.skip-link {{ position: absolute; left: -9999px; top: auto; width: 1px;
+  height: 1px; overflow: hidden; }}
+.skip-link:focus {{ position: static; left: auto; width: auto; height: auto;
+  background: var(--ink); color: var(--paper); padding: 8px 16px; }}
 </style>
 </head><body>
-<main class="page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main class="page" id="main-content">
   <a class="up" href="/editions/">← All editions</a>
   <header class="edition-hero">
     <div class="vol">VOLUME {edition.volume or 'I'} · NO. {edition.edition_number or '—'} · {html.escape(publish_date)}</div>
@@ -226,9 +231,14 @@ def _render_article(
 <meta name="description" content="{html.escape(feature.dek)}">
 {_article_head}
 <style>{_ARTICLE_CSS}
+.skip-link {{ position: absolute; left: -9999px; top: auto; width: 1px;
+  height: 1px; overflow: hidden; }}
+.skip-link:focus {{ position: static; left: auto; width: auto; height: auto;
+  background: var(--ink); color: var(--paper); padding: 8px 16px; }}
 {citations_css}</style>
 </head><body>
-<div class="page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="page" id="main-content">
   <a class="up" href="/">← {html.escape(edition.theme_title.upper())}</a>
   <span class="kind-pill">{html.escape(kind_label)}</span>
   <h1 class="article-title">{html.escape(feature.title)}</h1>
