@@ -21,6 +21,16 @@ jobs:
     permissions:
       contents: write   # pushes to `published` branch
       actions: read     # cross-workflow artifact download via dawidd6 action
+    env:
+      # Vercel git integration was disconnected 2026-05-21 to stop master
+      # auto-deploys from publishing a content-less site (output/ is
+      # gitignored). With git disconnected, this workflow must call the
+      # Vercel CLI directly to ship the built site to production —
+      # otherwise publish-site updates the `published` branch but the live
+      # URL never moves.
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     # CURRENT_CFB_SEASON intentionally NOT pinned: the inline Python
     # below derives season from today.year so the workflow self-rolls.
     # Previously this was env: CURRENT_CFB_SEASON: "2026" which silently
@@ -316,6 +326,26 @@ jobs:
           else
             echo "healthy=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # ---- Vercel deploy ----
+      # Added 2026-05-21 after disconnecting Vercel git integration. Without
+      # this, publish-site updates the cfb-rankings-site artifact and the
+      # `published` branch but the live URL never moves. Mirrors the pattern
+      # in the-daily-06am-et.yml / wire-daily-04am-et.yml / mailbag.
+      - name: Install Vercel CLI
+        if: steps.site_check.outputs.healthy == 'true'
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        if: steps.site_check.outputs.healthy == 'true'
+        # Run from repo root so vercel.json (outputDirectory: output/site)
+        # applies — matches the-daily-06am-et.yml pattern. Adding
+        # working-directory: output/site would break the deploy because
+        # vercel.json doesn't live there.
+        run: |
+          vercel deploy --prod --yes --archive=tgz \
+            --token=$VERCEL_TOKEN \
+            --scope=$VERCEL_ORG_ID
 
       - name: Upload site artifact
         if: always() && steps.site_check.outputs.healthy == 'true'
