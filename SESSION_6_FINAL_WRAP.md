@@ -50,8 +50,11 @@ Chrome MCP browser validation caught it; one-line fix in
 | `66a6dd51ef7` | docs | docs(session6): comprehensive wrap doc |
 | `1800d7bd37a` | a11y+6 | fix(a11y,track-6): WCAG 2.5.5 touch targets + homepage methodology footer + footer heading hierarchy + Database archetype adopter |
 | `a44e1eb64ec` | 6 | feat(track-6): Database archetype meta-footer on /daily/archive |
+| `bd129e41fb2` | docs | docs(session6): wrap doc reflects continuation work |
+| `758036c07c3` | 6 | feat(track-6): Database archetype meta-footer on /wire/ |
+| `1db0f307e83` | 1 | feat(track-1): Pattern C citation emission — LLM auto-cites future editions |
 
-8 commits this session. Latest SHA: `a44e1eb64ec`.
+11 commits this session. Latest SHA: `1db0f307e83`.
 
 ---
 
@@ -235,6 +238,33 @@ adopter:
   the daily archive doesn't load the global stylesheet. Shows
   "N editions tracked" + "How The Daily ships →" + Updated date.
 
+**758036c07c3 — /wire/ Database meta-footer**
+
+- Third Database-archetype concrete adopter. wire.html template gets
+  a `{{DATABASE_META_FOOTER}}` placeholder; the wire renderer fills
+  it via `render_database_meta_footer`. Shows "N entries in the
+  window" + "How The Wire is curated →" + Updated date.
+
+**1db0f307e83 — Pattern C citation auto-emission**
+
+- Closes the last "what's still owed" item from this wrap's earlier
+  draft. `EDITION_COVER_SYSTEM_PROMPT` extended with a CITATIONS
+  section instructing the LLM to emit `[N]` markers inline + a
+  `<sources>` block at the end of the output. Format is locked
+  ("[N] kind · label · date · url · confidence") with strict
+  allow-lists for `source_kind` + `confidence`.
+- New `parse_citations_block(llm_output)` strips the `<sources>`
+  block, leaves inline `[N]` markers in the body, returns a list
+  of Citation-shaped dicts.
+- `_persist_cover_body` now parses citations from the LLM output,
+  stores the cleaned body, and persists citations via
+  `cfb_rankings.citations.persist_citations` keyed by the
+  cover-essay feature's row id. Idempotent (persist_citations does
+  DELETE-then-INSERT).
+- After this lands, every future world_class_enrich run will
+  auto-emit citations + auto-persist them. No more hand-curated
+  backfill needed for new editions.
+
 ---
 
 ## What's still owed (multi-day to multi-week)
@@ -253,13 +283,13 @@ absorb in this session:
    surface needs the legacy renderer to swap inline HTML for the
    shared primitive. ~5-7 days per archetype.
 
-3. **Pattern C citation-emission integration** — the LLM prompt is
-   now offseason-aware (Session 6), but it doesn't yet emit
-   `{{cite:N}}` placeholders + citation metadata. New editions
-   without backfill will ship without inline markers. The next step
-   is updating the Pattern C output schema to include a citations
-   array; persist via `cfb_rankings.citations.persist_citations`
-   in `_persist_cover_body`.
+3. **Pattern C citation-emission integration** — **CLOSED in commit
+   `1db0f307e83`**. LLM prompt now instructs emission of `[N]`
+   markers + a `<sources>` block; `parse_citations_block` strips
+   the block and returns a structured citation list;
+   `_persist_cover_body` persists citations to
+   `editorial_citations` via `cfb_rankings.citations.persist_citations`.
+   Future editions auto-cite without hand-curation.
 
 4. **Touch-target audit (WCAG Level AAA)** — all sampled pages
    ship 100% sub-44px interactive elements. Fixing requires CSS
