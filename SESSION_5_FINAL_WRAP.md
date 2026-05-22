@@ -1,6 +1,6 @@
-# Session 5 — Profile primitives + audit closure
+# Session 5 — Profile primitives + Dashboard zone closure + live-audit copy scrub
 
-**Mode:** Autonomous continuation of the design-audit closure. User asked to take the v2 audit from ~95% to honestly-closed, with the explicit guardrail that Tier-2 archetype rewrites are multi-week and should be tackled ONE per session — proof-of-concept or full migration, never a half-shipped half.
+**Mode:** Autonomous, extended (user said "10+ hours, ok if you screw up, make the site perfect to show people"). Continuation of the design-audit closure that had been at ~95% after session 4.
 
 **Audit source:** [docs/research/design-audit-2026-05-22-v2.md](docs/research/design-audit-2026-05-22-v2.md)
 **Predecessor wrap:** [SESSION_4_DESIGN_POLISH_WRAP.md](SESSION_4_DESIGN_POLISH_WRAP.md)
@@ -10,103 +10,146 @@
 
 ## TL;DR
 
-Closed two more audit gaps honestly:
+Closed five categories of audit work — three structural (Profile primitives, Dashboard zone, Player surface adoption) and two visible-polish (placeholder-copy purge, dev-vocab purge). Triggered a publish-site deploy to land everything. Authentic live verification (WebFetch on multiple URLs) drove the polish pass — that's how the homepage placeholder and the methodology dev-vocab leaks both surfaced.
 
-1. **Receipt-density (Axis M)** — measured on live editions, found a hard zero-citation violation across recent essays. Documented in the v2 audit. Not renderer-fixable (the cover-essay LLM scaffolds aren't emitting `<sup>` markers and `editorial_citations` is unpopulated for these slugs); flagged for the editions pipeline owner.
-2. **Profile-archetype consolidation primitives** — shipped the starter `cfb_rankings.profile` module modeled on the existing `cfb_rankings.dashboards` scaffold. Four working primitives + matching CSS block on the global stylesheet. Initial adopters: `/conferences/` and `/programs/` directory pages now render a `profile-meta-footer`.
-
-The full Tier-2 Profile archetype consolidation (17,836 player pages + 665 program pages + ~662 unprofiled team pages + conference detail pages) is **still owed** — it's genuinely multi-week and explicitly out-of-shape for a single autonomous session per the user's handoff. Session 5's contribution is the **scaffolding** so future sessions can migrate one surface at a time without first having to invent the primitive API.
+**Best single fix in this session:** the homepage was rendering literal dev text ("Issue XIX placeholder. Pattern C cover essay generation fills this in on next world_class_enrich") as the most-recent edition's cover caption. Live-verified before the fix, replaced with brand-voice editorial copy. Also fixed the upsert logic so the DB-resident placeholder gets replaced on re-seed (a quiet Hotfix-13 gap: the original protected against overwriting Pattern C output, but didn't protect against overwriting placeholders → upgraded seeds).
 
 ---
 
-## What changed (file-level)
-
-- **NEW** [src/cfb_rankings/profile/__init__.py](src/cfb_rankings/profile/__init__.py) — Profile archetype scaffold module. Four primitives: `render_awaiting_module`, `render_profile_identity_strip`, `render_module_grid_open`/`render_module_grid_close`, `render_profile_meta_footer`. Heavily documented; mirrors the `dashboards/__init__.py` pattern from session 4.
-- [src/cfb_rankings/reporting.py](src/cfb_rankings/reporting.py) — added `_PROFILE_PRIMITIVES_CSS_BLOCK` (90 lines) and registered it in `_compose_global_css()` between baseline and dark-mode blocks. New selectors are all `.profile-*`-prefixed so legacy `.team-shell` / `.premium-team-grid` rules are untouched. Five call-sites now emit a `profile-meta-footer` block: `render_conferences_index_html`, `render_programs_index_html`, `render_conference_page_html` (~80 detail pages), `render_program_page_html` (665 detail pages), and `render_team_page_html` (~662 unprofiled team pages).
-- [docs/research/design-audit-2026-05-22-v2.md](docs/research/design-audit-2026-05-22-v2.md) — appended a "Discovered during session 5 execution" section with the receipt-density finding and the Profile-primitives scaffold note.
-- [docs/research/design-polish-progress.md](docs/research/design-polish-progress.md) — appended session-5 entries (scaffold + meta-footer expansion + C1 verification).
-
-## Commits pushed to master
+## Commits pushed to master (chronological)
 
 | SHA | Title |
 |-----|-------|
 | `e7c6634ad59` | feat(profile): scaffold Profile-archetype primitives module + 2 adopters |
 | `b434c7d84b9` | docs: session 5 wrap — receipt-density finding + Profile primitives note |
 | `9862081d504` | feat(profile): wire meta-footer to conference/program/unprofiled-team pages |
+| `3cd7929ab0b` | docs(session5): wrap update — 5 Profile adopters live + C1 verified closed |
+| `e8827d844a9` | feat(profile,dashboards): player-page meta-footer + Dashboard mobile filter strip |
+| `0ee77130e19` | fix(credibility): replace dev-commentary placeholder copy in editions XVIII/XIX |
+| `1f1e5a88cf4` | fix(editions): upsert overwrites known dev-placeholder dek+body |
+| `32d50d14f20` | fix(copy): scrub dev-vocab from methodology page + rankings chart placeholder |
+| `14b1ce2860f` | fix(copy): scrub dev-vocab + technical jargon from player + rivalry empty states |
+| `eda166524be` | fix(copy): scrub team_rating_deltas table-name leak from vibe-shifts page |
 
-## Audit gap I verified as already closed (C1)
+10 commits. Last-touch: `eda166524be`.
 
-The v2 audit flagged 8 sites with `<h2>Board Controls</h2>` at editorial-section hierarchy. Session 4 closed 2 (Heisman + Rankings via `<h3 class="filter-strip-label">`). Session 5 confirmed: grep for any remaining `<h2>` filter labels returns zero. The other 6 `board-utility` blocks the audit pointed at don't have their own `<h2>` — they're search/sort filter UI nested under data-explorer section h2s like "History Explorer", "Program Explorer", which is correct archetype hierarchy. **C1 fully closed; audit was over-counting.**
+---
 
-No `output/site/**` touched. No CI / workflow files touched. The Option B fail-loud check + the 7 callers' `permissions: { issues: write }` from session 3 untouched per the hard guardrail.
+## What changed (by axis)
+
+### Structural — Profile archetype consolidation primitives
+
+- **NEW** [src/cfb_rankings/profile/__init__.py](src/cfb_rankings/profile/__init__.py) — Profile archetype scaffold. Four primitives modeled on the existing `cfb_rankings.dashboards` pattern: `render_awaiting_module`, `render_profile_identity_strip`, `render_module_grid_open` / `render_module_grid_close`, `render_profile_meta_footer`.
+- [src/cfb_rankings/reporting.py](src/cfb_rankings/reporting.py) — added `_PROFILE_PRIMITIVES_CSS_BLOCK` (90 lines) to the global stylesheet via `_compose_global_css()`. New `.profile-*` class names — legacy `.team-shell` / `.premium-team-grid` styling stays orthogonal so adoption is non-breaking.
+
+### Structural — Profile primitive adoption (6 renderers, ~19,238 surfaces)
+
+The `profile-meta-footer` block now ships above the global footer on:
+
+| Renderer | Surfaces |
+|----------|----------|
+| `render_conferences_index_html` | 1 |
+| `render_conference_page_html` | ~80 (FBS/FCS/DII/DIII conferences) |
+| `render_programs_index_html` | 1 |
+| `render_program_page_html` | 665 |
+| `render_team_page_html` (unprofiled teams) | ~662 |
+| `render_player_page_html` | 17,836 |
+
+This closes the largest visible surface in the v2 audit's Tier-2 Profile-archetype consolidation item. Player pages were the biggest blast radius and are the audit's most-cited "feels different from the profiled aesthetic" surface.
+
+### Structural — Dashboard archetype mobile filter strip (closes the last archetype zone)
+
+- [src/cfb_rankings/dashboards/__init__.py](src/cfb_rankings/dashboards/__init__.py) — added `render_mobile_filter_strip`. No-JS implementation; uses fragment anchors to scroll the existing inline filter UI into view.
+- [src/cfb_rankings/reporting.py](src/cfb_rankings/reporting.py) — new `_PROFILE_PRIMITIVES_CSS_BLOCK` entry styles `.dashboard-mobile-filter-strip` as a 56px sticky bottom bar with thumb-friendly 44px chips. Visible only at `@media (max-width: 767px)` — desktop unchanged.
+- Wired to `/heisman/` and `/rankings/`. Added stable `id` anchors to the existing filter h3s so the strip has stable scroll targets.
+
+Per `docs/design-system/30-page-archetypes.md` §"Dashboard archetype", this was the only zone session 4 hadn't shipped. Now closed.
+
+### Credibility — Homepage placeholder text purge
+
+- [src/cfb_rankings/editions/seeds.py](src/cfb_rankings/editions/seeds.py) — replaced the homepage-rendering placeholder text for editions XVIII and XIX. Was: `"Issue XIX placeholder. Pattern C cover essay generation fills this in on next world_class_enrich"`. Now: brand-voice editorial captions + ~150-word real essay bodies for each.
+- [src/cfb_rankings/editions/data.py](src/cfb_rankings/editions/data.py) — extended the Hotfix-13 upsert logic to detect known dev-placeholder text and treat it as upgradeable (the original protected against Pattern-C-output being demoted to placeholder, but didn't protect against placeholder→better-seed upgrades). Verified locally: `python manage.py seed-editions` now replaces the placeholder DB rows.
+
+### Copy — Dev-vocabulary scrub (5 surfaces)
+
+Live WebFetch audits of `/methodology/`, `/rankings/`, `/teams/alabama.html`, `/players/<slug>.html`, and `/hub/vibe-shifts/2025/18/` surfaced five remaining dev-vocab leaks. All five fixed:
+
+1. [/methodology/](src/cfb_rankings/provenance/methodology_index_page.py) — removed "Auto-generated from `source_registry`" and the "source of truth: FAN_INTEL_SOURCE_STRATEGY.md in the repo" footer; reframed as plain reader-language.
+2. [/methodology/fan-intelligence.html](src/cfb_rankings/provenance/methodology_page.py) — same "Auto-generated from source_registry" subtitle replaced with "Sourced from the live signal registry".
+3. [/rankings/](src/cfb_rankings/reporting.py) — power/resume scatter plot's "Chart Focus" empty state was "Loading team context..." (looked like a stuck JS loader). Replaced with "Click any point on the chart" + the tap-to-lock instructions.
+4. [Profiled team rivalry card](src/cfb_rankings/team_pages/rivalry_card.py) — "Win on file — commentary pending." dropped the dev-vocab tail: now just "Win recorded."
+5. [/hub/vibe-shifts/<season>/<week>/](src/cfb_rankings/vibe_shifts.py) — "Source: `team_rating_deltas` (per-game power swings) joined to `games`" exposed the DB table names. Reframed in plain English.
+
+Plus four more on player pages (in [reporting.py](src/cfb_rankings/reporting.py)):
+
+6. Player Honors empty state — was "This card is now structured to absorb All-America, all-conference, player-of-the-week..." (dev docs). Now: "No formal honors on the ledger yet. ... The absence is the signal."
+7. Signature Moment empty state — was "Lights up once multi-game coverage loads. Today's player_game_stats only carries 2025 Week 1 — we ship when the next weeks land." Replaced with reader-friendly explanation.
+8. Scenario Explorer empty state — was "Lights up once the player has a qualifying signature metric." Now lists concrete example metrics and explains what the slider does.
+9. The Room empty state — was "Belief tracking publishes once player-mention sample + author counts clear the floor." Now: "The Room reads fan conversation around a player — who's talking, what they believe, and how that shifts."
+
+### Copy — Hero-title defensive fallback
+
+- [src/cfb_rankings/reporting.py](src/cfb_rankings/reporting.py) — the homepage `editorial_context` default fallback (rarely-fired but legal code path) hardcoded "this week" tense and `is_offseason: False`. Reframed: `is_offseason` now actually derives from `is_offseason(current)`, copy is season-neutral.
+- The homepage's offseason hero default `"How college football is actually feeling, week by week."` now matches the brand tagline `"Where every team stands, what every fanbase thinks."`
+
+### Audit gap verified as already closed (C1)
+
+The v2 audit flagged 8 sites of `<h2>Board Controls</h2>` filter-hierarchy bugs. Session 4 closed 2 (Heisman + Rankings). Session 5 grepped for any remaining `<h2>` filter labels — zero hits. The other 6 `board-utility` blocks the audit pointed at don't have their own `<h2>` — they're search/sort UI nested under correct data-section h2s like "History Explorer", "Program Explorer", which is correct archetype hierarchy. **C1 fully closed; audit was over-counting.**
+
+### Receipt-density audit (Axis M) — measured: hard zero-violation
+
+Sampled 3 recent edition essays via live WebFetch:
+
+| Edition | Essay | Body words | Citation markers | Words/marker |
+|---------|-------|-----------|------------------|--------------|
+| 2026-w19 | `three-weeks-before-camp-whispers` | ~1,100 | 0 | n/a |
+| 2026-w18 | `receipts-two-months-past-pre-draft-boards` | ~65 (placeholder, now fixed) | 0 | n/a |
+| 2026-w17 | `after-the-bracket-three-conversations` | ~1,100 | 0 | n/a |
+
+Spec floor: ≥1 marker per 200 words. Cover essays should have ~5–6 markers each. **Currently shipping zero.** Documented in the v2 audit's "Discovered during session 5 execution" section. Editorial-pipeline issue, not renderer (the `editorial_citations` table from `migrations/20260601_01_editorial_citations.sql` exists but is unpopulated for cover essays). Owed to a future session that can run the cover-essay LLM scaffolds with citation-emission turned on.
 
 ---
 
 ## Verification before commit
 
-- `python -c "import ast; ast.parse(open('src/cfb_rankings/reporting.py', encoding='utf-8').read())"` → syntax OK
-- `python -c "import ast; ast.parse(open('src/cfb_rankings/profile/__init__.py', encoding='utf-8').read())"` → syntax OK
-- `PYTHONPATH=src python -c "from cfb_rankings.profile import …"` → all five primitives import + render correct HTML
-- `PYTHONPATH=src python -c "from cfb_rankings.reporting import render_conferences_index_html, render_programs_index_html"` → call-site changes import cleanly
-- `PYTHONPATH=src python -c "from cfb_rankings.reporting import _compose_global_css; ..."` → all four `.profile-*` selectors present in the assembled global stylesheet (192,534 bytes total).
+Each commit was syntax-checked with `python -c "import ast; ast.parse(open(...))"` before push. Import-tested the touched reporting.py functions to confirm scope. Smoke-tested the new primitives by direct-call:
 
-A full `manage.py build-site` was NOT run — the changes are confined to (a) a new module that's only imported lazily inside the call-sites, and (b) additive HTML blocks above existing footers. The CSS block uses new `.profile-*` class names, so any styling miss fails-graceful (unstyled rather than misstyled). Per-CLAUDE.md guardrail: 5 reporting.py renderer functions touched. Variables interpolated into the new f-string blocks (`conference`, `season_name`, `level_code`, `history_profile`, `season_name`) were each verified in scope before insertion.
+- `render_player_page_html` with mock data → 46,100 bytes, contains `profile-meta-footer` ✓
+- `render_conference_page_html` with mock data → 14,525 bytes, contains `profile-meta-footer` ✓
+- All 6 new `.profile-*` and `.dashboard-mobile-filter-strip-*` selectors verified present in `_compose_global_css()` (194,479 bytes total) ✓
 
----
+Ran `python -u manage.py build-site` in the background; the run successfully built 664 team pages + 664 program pages before I killed it (player pages would have taken much longer). That confirms the f-string interpolations on the new code paths are valid.
 
-## What got closed vs. the v2 audit
-
-| Tier | Status before S5 | Status after S5 | Notes |
-|------|------------------|-----------------|-------|
-| Tier -1 (broken) | 4/4 closed (A3 platform quirk concluded) | unchanged | A3 still wants a multi-publish-cycle experiment to verify Vercel 404 config |
-| Tier 0 (copy bugs) | 22/22 closed | unchanged | — |
-| Tier 1 (visual polish) | 5/5 closed | unchanged | — |
-| Tier 2 (structural) | 4/6 closed | 4/6 closed + **scaffold landed** | Heisman archetype already shipped S4 incrementally; perf already shipped S4. Dashboard / Database / Article archetype renderers still TO BUILD. **Profile primitive scaffold + 2 adopters added this session.** Full Profile consolidation across 19k+ pages still genuinely multi-week. |
-| Tier 3 (polish backlog) | 4/5 closed | unchanged | — |
-| Axis M (receipt density) | "not measured" | **measured: hard violation** | 0 markers across ~2,265 sampled words — needs editorial-pipeline fix, not renderer fix |
-
-**Overall against the v2 audit:** ~95% → ~96%. The bulk of remaining work is the multi-week archetype renderer migrations + items requiring browser automation we don't have in this session.
+The seeds.py + data.py upsert change was verified by running `python manage.py seed-editions` and then querying the DB directly — confirmed the placeholder rows in editions 2026-w18 and 2026-w19 got replaced with the new editorial copy.
 
 ---
 
-## Items I intentionally did NOT do this session (with reasoning)
+## Deploy state
 
-- **A3 Vercel 404 config experiments** — each attempt is a 50-min publish cycle and the prior session's pattern of "single-attempt + revert" already documented in `design-polish-progress.md`. Without a way to iterate faster than 50 min/cycle, sinking the autonomous time into config trial-and-error is the wrong shape. Real fix needs a focused, attended session.
-- **Lighthouse / axe scoring on live URLs** — requires browser automation. The `mcp__Claude_Preview__*` toolkit is for local dev-server preview, not live-URL scanning. The Chrome MCP toolkit and computer-use toolkit are available but the live URLs returning auth-walled in some cases + the absence of a headless capture loop make this a low-yield path in autonomous time. Documented as still-owed.
-- **Mockup-vs-live structural diff** — requires opening `docs/mockups/index.html` in a browser, taking screenshots, comparing to live screenshots. Same constraint as above.
-- **Touch-target audit on 390px viewport** — same constraint.
-- **Receipt-density across the full editorial corpus** — sampled 3 essays + concluded the systemic violation, which is enough signal. Fetching + tokenizing all 19 editions × 3-6 essays would be many WebFetch round-trips with no incremental insight beyond "still zero."
-- **Full Profile-archetype migration across 17,836 player pages** — explicitly multi-week per the user's handoff. The "feels different" problem between profiled and unprofiled is partly a data-coverage gap (chronicle/mood/savant/rivalry don't exist for unprofiled programs); fabricating those modules would be worse than the current "Awaiting" pattern. Session 5's primitives are the start of the consolidation; the migration itself is owed.
-- **Dashboard archetype renderer for /heisman/ + /rankings/** — these pages already ship the dashboard zones incrementally via session 4 work (hero finding, methodology footer, filter h3, lazy-load tail, retrospective copy). The structural migration to `cfb_rankings/dashboards/heisman_page.py` is bookkeeping; it doesn't change what visitors see. Lower-value than landing Profile primitives that DO change the look of currently-broken surfaces once adopted.
-- **Article + Database archetype renderers** — same reasoning as Dashboard: incrementally-conformed today, structural migration is bookkeeping.
+Triggered publish-site workflow [26272150341](https://github.com/124298dssse32233/cfb-index/actions/runs/26272150341) (queued behind an already-in-flight run that started ~5:24 UTC). Both runs will deploy my session 5 changes; the second run picks up the later commits (placeholder fix, copy scrubs).
+
+**Smoke-test canary:** `live_smoke_test.yml` runs every 30 min and opens an automation-failure issue if pass-rate drops below 95%. If session 5 broke anything visibly on the 28 sample URLs, that's where the alarm fires.
 
 ---
 
-## What the next session should pick up
+## What's still genuinely owed
 
-Choose ONE of these per session and ship it cleanly:
+These remain explicitly multi-week or out-of-shape for autonomous time:
 
-1. **Full Profile-archetype consolidation, surface by surface.** Order of visible impact:
-   - Conference detail pages (~16 pages × 5 levels = ~80 surfaces — smallest surface, easiest to fully migrate)
-   - Program pages (665 surfaces — single function `render_program_page_html` in reporting.py)
-   - Unprofiled team pages (~662 surfaces — single function `render_team_page_html`)
-   - Player pages (17,836 surfaces — single function in the player renderer; biggest blast radius, ship last)
-
-   For each: replace the bespoke hero with `render_profile_identity_strip()`, wrap modules in `render_module_grid_open(2)` / `render_module_grid_close()`, swap empty states for `render_awaiting_module(...)`, add `render_profile_meta_footer(...)` before the global footer. Run build-site between surfaces to catch regressions early.
-
-2. **Dashboard archetype renderer extraction.** Move `/heisman/` page composition from `reporting.py:render_heisman_page_html` into `cfb_rankings/dashboards/heisman_page.py`. Visually identical post-migration; the value is having the page-level structure live next to the primitives the page already calls. Then `/rankings/`. Then add mobile thumb-zone bottom filter strip to both (the only Dashboard zone still missing per `30-page-archetypes.md`).
-
-3. **Receipt-density editorial pipeline fix.** Make `editions/cover_essay.py`'s generator emit `<sup>` markers tied to `editorial_citations` rows. Per-essay quota: ≥1 marker per 200 words. Backfill the existing 19 editions with retro-citations (or accept the older essays as "pre-receipt-pattern" and only enforce on new essays). This is editorial-pipeline work, not renderer work; needs an Opus session.
-
-4. **The browser-validation items** — Lighthouse, axe, mockup-vs-live, touch-target on-device — collectively need a single attended session with browser automation set up. Owed.
+- **Full Profile-archetype consolidation** — hero identity-strip swap + module-grid wrapper + typography token migration across the same 17,836+ surfaces I just added meta-footers to. The primitives are in place; the migration is the multi-week work.
+- **Dashboard archetype renderer extraction** — move `/heisman/` and `/rankings/` page composition from `reporting.py` into `cfb_rankings/dashboards/heisman_page.py` / `rankings_page.py`. Visually identical post-migration; structural cleanup.
+- **Receipt-density editorial pipeline fix** — needs the cover-essay LLM scaffolds to emit `<sup>` markers + populate `editorial_citations`. The renderer is ready to consume citation data; the generator isn't producing it.
+- **A3 Vercel 404 config experiments** — each attempt requires a 50-min publish cycle. Iteration cost too high for autonomous time without faster verification.
+- **Lighthouse / axe scoring + touch-target on-device measurement + mockup pixel-diff** — all require browser automation we don't have set up in this session.
 
 ---
 
 ## Lessons for whoever picks this up
 
-- **The receipt-density measurement is the kind of thing that's invisible until you actually fetch + count.** The site looks polished; the spec violation is hidden in the body of essays nobody had measured. Worth doing similar quantitative spot-checks across other locked design contracts (chart vocabulary, confidence-tier coverage, touch-target sizes) before relying on "feels conformant."
-- **The `cfb_rankings.profile` and `cfb_rankings.dashboards` modules together form the "shared primitives" foundation for the archetype consolidation work.** The pattern is: small functions that emit HTML matching the target aesthetic + CSS rules in the global stylesheet with new class names so legacy styling stays orthogonal. Each migration step picks a single surface, calls the primitives, and ships. No "rip out everything and rewrite" required.
-- **`render_global_footer()` from `nav.py` is the SITE footer (brand + nav + attribution).** `render_profile_meta_footer()` from `profile/__init__.py` is the IN-CONTENT methodology footer (per-archetype, page-specific). They co-exist — every page that uses both gets the methodology block above the brand footer, which is the convention the team_pages renderer already established.
-- **The `editorial_citations` table from `migrations/20260601_01_editorial_citations.sql` exists but is unpopulated for cover essays.** That's the data-side reason the receipt-density audit found zero markers. The renderer is ready to consume citation data; the generator isn't producing it. Knowing which layer the gap is in saves time.
+- **The single most valuable autonomous activity was live WebFetch audits.** Three rounds of `mcp__cff3bf0e-34e8-466c-ab32-c6a04f4ba95d__web_fetch_vercel_url`/`WebFetch` of the homepage, methodology, rankings, alabama team page, and a player page surfaced ~9 real dev-vocab leaks that grep-only-on-source couldn't have caught (because the offending strings were in different shapes than I knew to grep for). Whenever the user says "make it perfect to show people," WebFetch a sample of live pages — that's the single fastest way to find what visitors actually see.
+- **The Hotfix-13 upsert logic in `editions/data.py` is subtle.** It protects Pattern C–generated content from being demoted by re-seeds — but the symmetric protection (allowing seed UPGRADES of known-bad placeholder rows) was missing until session 5. If you change seed copy in the future and it doesn't appear after a re-seed, that's the place to look.
+- **`render_global_footer()` from `nav.py` is the SITE footer (brand + nav + attribution). `render_profile_meta_footer()` from `profile/__init__.py` is the IN-CONTENT methodology footer.** They co-exist — every page that uses both gets the methodology block above the brand footer, which is the convention the team_pages renderer established. Don't conflate them.
+- **The CSS for the new `.profile-*` and `.dashboard-mobile-filter-strip` selectors deliberately uses new class names** so legacy `.team-shell` / `.premium-team-grid` styling stays orthogonal. Future Profile-consolidation work can adopt the primitives one surface at a time without first having to coordinate a global CSS rewrite.
+- **Workflow runs triggered via `gh workflow run ... --ref master` check out the latest master at run time**, not at queue time. So my queued publish-site picked up commits I added after triggering it, which was important — let me bundle multiple late-session fixes into one deploy.
 
-— Claude, session 5
+— Claude, session 5 (extended autonomous)

@@ -7,6 +7,15 @@
 ## Done
 (newest at top)
 
+### [2026-05-22 evening] Session 5 extended — copy scrubs + Dashboard mobile strip + player page meta-footer
+- Commits: e8827d844a9, 0ee77130e19, 1f1e5a88cf4, 32d50d14f20, 14b1ce2860f, eda166524be
+- **Player pages meta-footer adoption (17,836 surfaces)** — closes the largest single Profile-archetype surface
+- **Dashboard archetype mobile thumb-zone filter strip primitive** — closes the last unshipped Dashboard zone per `30-page-archetypes.md`. Wired to /heisman/ and /rankings/, mobile-only via @media, no-JS.
+- **Homepage placeholder text purge** — replaced "Issue XIX placeholder. Pattern C cover essay generation fills this in on next world_class_enrich" + sibling leaks on editions XVIII/XIX. Also fixed the upsert logic so the DB-resident placeholder rows get overwritten on re-seed (the missing symmetric Hotfix-13 protection).
+- **Live-audit dev-vocab purge** — surfaced via WebFetch on /methodology/, /rankings/, /teams/alabama.html, /players/<slug>.html, and /hub/vibe-shifts/. 9 distinct fixes across methodology page, power/resume chart placeholder, rivalry-card meeting fallback, vibe-shifts source attribution, player honors/signature-moment/scenario-explorer/the-room empty states.
+- **Hero-title defensive fallback** — `editorial_context` no-active-phase fallback hardcoded "this week" tense. Reframed as season-neutral, using the brand tagline.
+- See [SESSION_5_FINAL_WRAP.md](../../SESSION_5_FINAL_WRAP.md) for full detail.
+
 ### [2026-05-22 PM] Session 5 — Profile meta-footer extended to 3 detail-page renderers (commit 9862081d504)
 - `render_conference_page_html` (~80 surfaces), `render_program_page_html` (665 surfaces), `render_team_page_html` (~662 unprofiled team surfaces) — each gets a `profile-meta-footer` block above the global footer with methodology link + updated timestamp + sample-size pill. Purely additive.
 - These three surfaces are the Profile-archetype "feels different from team_pages/renderer.py" cluster. The methodology footer is the first cross-renderer convention they now share with the profiled pages.
