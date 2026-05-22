@@ -229,6 +229,44 @@ def render_breadcrumb(
     </nav>"""
 
 
+def render_methodology_footer(
+    *,
+    page: str,
+    sample_summary: str,
+    updated_label: str | None = None,
+    prefix: str = "",
+    methodology_label: str = "How we measure this",
+    methodology_href: str | None = None,
+) -> str:
+    """Dashboard archetype methodology footer.
+
+    Per docs/design-system/30-page-archetypes.md (Dashboard archetype):
+    Dashboard pages should end with a small methodology footer containing:
+    - "How we measure this →" link
+    - Sample-size summary
+    - "Updated" timestamp
+
+    page                   identifier used for the section's aria-label
+    sample_summary         e.g. "Sample: 16,218 ranked players"
+    updated_label          e.g. "Updated 2026-05-22"; if None, derived from today's UTC date
+    prefix                 path prefix to navigate up to root (e.g. "../")
+    methodology_label      link text
+    methodology_href       defaults to ``<prefix>about-model/index.html``
+    """
+    from datetime import date as _date
+    if updated_label is None:
+        updated_label = f"Updated {_date.today().isoformat()}"
+    if methodology_href is None:
+        methodology_href = f"{prefix}about-model/index.html"
+    return f"""<section class="methodology-footer" aria-label="{page} methodology">
+  <div class="methodology-footer__inner">
+    <a class="methodology-footer__link" href="{methodology_href}">{methodology_label} &rarr;</a>
+    <span class="methodology-footer__sample">{sample_summary}</span>
+    <span class="methodology-footer__updated">{updated_label}</span>
+  </div>
+</section>"""
+
+
 def render_global_footer(
     *,
     edition_number: str | None = None,

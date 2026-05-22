@@ -18,7 +18,7 @@ from cfb_rankings.common.cfb_calendar import (
 )
 from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
-from cfb_rankings.nav import render_global_footer
+from cfb_rankings.nav import render_global_footer, render_methodology_footer
 from cfb_rankings.bets.glossary import glossary_payload_js, load_glossary
 from cfb_rankings.fan_intelligence import (
     MoodContext,
@@ -5543,6 +5543,84 @@ __GLOBAL_FOOTER__
     (attributions_dir / "index.html").write_text(html, encoding="utf-8")
 
 
+def _write_about_page(site_root: Path) -> None:
+    """Write /about/ — the "what is CFB Index?" page for first-visit visitors.
+
+    Distinct from /about-model/, which is the methodology page. This is
+    the product explainer: what the site is, who it's for, and where to
+    start. Closes the audit's H1 onboarding gap.
+    """
+    about_dir = site_root / "about"
+    about_dir.mkdir(parents=True, exist_ok=True)
+    html = """<!doctype html>
+<html lang=\"en\">
+<head>
+<meta charset=\"utf-8\">
+<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+<title>About | CFB Index</title>
+<meta name=\"description\" content=\"CFB Index is one football universe for FBS through Division III, paired with a fan-intelligence layer that reads belief, respect, and rivalry heat around every team.\">
+<link rel=\"canonical\" href=\"https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/about/\">
+<meta property=\"og:title\" content=\"About | CFB Index\">
+<meta property=\"og:type\" content=\"website\">
+<meta property=\"og:image\" content=\"/og-image.svg\">
+__GLOBAL_TAGS__
+</head>
+<body>
+<main class=\"site-shell\" id=\"main-content\">
+__SITE_NAV__
+  <section class=\"hero\">
+    <p class=\"eyebrow\">About</p>
+    <h1>One football universe. One fan-intelligence layer. One argument.</h1>
+    <p class=\"lede\">
+      CFB Index is a college-football reference product. It combines a power+resume
+      ranking model that covers <strong>every NCAA team, FBS through Division III</strong>
+      with a layer that listens to what fans are actually saying about each program — belief,
+      respect, rivalry heat. The point is to support better arguments, not faster ones.
+    </p>
+  </section>
+
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>What you'll find</h2></div>
+      <ul class=\"about-list\">
+        <li><strong><a href=\"/rankings/\">Power Rankings</a></strong> — a single board ranking every team across every level, with a Power side (predictive) and a Resume side (earned).</li>
+        <li><strong><a href=\"/heisman/\">Heisman Tracker</a></strong> — a full-board Heisman model, not just a top-three list. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender.</li>
+        <li><strong><a href=\"/teams/\">Team Pages</a></strong> — one per program, including a deep-treatment design for 17 profiled teams (mood, chronicle, savant, rivalry).</li>
+        <li><strong><a href=\"/players/\">Player Pages</a></strong> — 17,000+ player profiles with percentile context and signature stories.</li>
+        <li><strong><a href=\"/hub/vibe-shifts/\">Vibe Shifts</a></strong> — what's moving in the conversation, weekly.</li>
+        <li><strong><a href=\"/wire/\">The Wire</a></strong> — transactions and news rolled forward.</li>
+        <li><strong><a href=\"/editions/\">Editions</a></strong> — the weekly editorial issue.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>How it works</h2></div>
+      <p>Two models run in parallel. The <strong>predictive power model</strong> asks how strong a team is at any given moment. The <strong>resume model</strong> asks what that team has earned so far — who they played, what happened, how the results compare to expectation. Keeping them separate matches one of the most useful distinctions in serious college-football analytics.</p>
+      <p>On top of the models, a <strong>fan-intelligence layer</strong> ingests Reddit, mainstream coverage, betting markets, and recruiting signal. The result is what each fanbase actually believes, not just what the box score says.</p>
+      <p>Full methodology at <a href=\"/about-model/\">/about-model/</a> and <a href=\"/methodology/\">/methodology/</a>.</p>
+    </article>
+  </section>
+
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>Who it's for</h2></div>
+      <p>Fans who want to argue with more receipts. Analysts who want one place to check both the model and the mood. Anyone who likes their college football served with a perspective.</p>
+    </article>
+  </section>
+
+  <p class=\"back\"><a href=\"/\">&larr; back to the front page</a></p>
+</main>
+__GLOBAL_FOOTER__
+</body>
+</html>"""
+    html = html.replace("__GLOBAL_TAGS__", _global_link_tags())
+    html = html.replace("__SITE_NAV__", _site_nav("../", current="about"))
+    html = html.replace("__GLOBAL_FOOTER__", render_global_footer())
+    (about_dir / "index.html").write_text(html, encoding="utf-8")
+
+
 def build_static_site(db: Database, output_dir: str | Path = "output/site") -> Path:
     _report_progress(f"Building static site at {output_dir}...")
     summary, rankings = fetch_latest_rankings(db, limit=1000)
@@ -5550,6 +5628,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     site_root.mkdir(parents=True, exist_ok=True)
     _ensure_global_assets(site_root)
     _write_attributions_page(site_root, db=db)
+    _write_about_page(site_root)
     _write_robots_and_sitemap(site_root, rankings=rankings)
 
     if summary is None or not rankings:
@@ -14880,6 +14959,14 @@ def render_rankings_page_html(
     <div aria-live="polite" aria-atomic="true" class="sr-only" id="rankingsAnnouncer"></div>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="rankings")}
+      {(
+        f'<section class="hero-finding" aria-label="Top of the board">'
+        f'<p class="hero-finding__eyebrow">{escape(season_name)} Power Rankings</p>'
+        f'<p class="hero-finding__number">{_public_power_text(rankings[0].power_display) if rankings else "—"}</p>'
+        f'<p class="hero-finding__sentence">{escape(rankings[0].team_name)} leads the board on the predictive side.</p>'
+        f'<p class="hero-finding__caption">Sample: {len(rankings):,} ranked teams across every level &middot; resume {_public_resume_text(rankings[0].resume_display)}/100.</p>'
+        f'</section>'
+      ) if rankings else ''}
         <section class="hero">
           <p class="eyebrow">Power Rankings</p>
           <h1>{escape(season_name)} across every level.</h1>
@@ -15064,6 +15151,11 @@ def render_rankings_page_html(
           </table>
         </div>
       </section>
+      {render_methodology_footer(
+          page="Rankings",
+          sample_summary=f"Sample: {len(rankings):,} ranked teams across FBS, FCS, Division II, and Division III",
+          prefix="../",
+      )}
     </main>
     <script>{_power_resume_plot_script()}</script>
     <script>{_rankings_board_script()}</script>
@@ -16692,6 +16784,11 @@ def render_heisman_page_html(
           </div>
         </article>
       </section>
+      {render_methodology_footer(
+          page="Heisman",
+          sample_summary=f"Sample: {len(board_rows):,} ranked players in the model",
+          prefix="../",
+      )}
     </main>
     <script>{_heisman_board_script()}</script>
     {render_global_footer()}
@@ -20850,7 +20947,7 @@ def _site_nav(prefix: str, current: str) -> str:
     return (
         f'<a class="skip-link" href="#main-content">Skip to main content</a>'
         f'<header class="topbar">'
-        f'<a class="brand" href="{prefix}index.html">THE CFB INDEX</a>'
+        f'<a class="brand" href="{prefix}index.html"><span class="brand__mark">THE CFB INDEX</span><span class="brand__tagline">Where every team stands &middot; what every fanbase thinks</span></a>'
         f'<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button>'
         f'<div class="topbar-panels">'
         f'<nav class="nav" id="site-nav-links">{rendered}</nav>'
@@ -24835,9 +24932,28 @@ def _site_css() -> str:
         .brand::before { width: 48px; height: 48px; font-size: 26px; }
       }
       .brand { font: 600 14px/1.1 var(--font-sans); text-transform: none; }
-      .brand::after {
-        content: attr(data-tagline);
+      .brand__mark {
+        display: inline-flex;
+        align-items: center;
       }
+      .brand__tagline {
+        display: none;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 400;
+        font-style: italic;
+        color: var(--muted-foreground);
+        letter-spacing: 0.04em;
+        line-height: 1.2;
+        margin-left: 8px;
+        padding-left: 10px;
+        border-left: 1px solid var(--rule, rgba(28,28,31,0.18));
+        max-width: 26ch;
+      }
+      @media (min-width: 1024px) {
+        .brand__tagline { display: inline-flex; align-items: center; }
+      }
+      .brand::after { content: ''; }
 
       .topbar-panels {
         display: contents;
@@ -25032,6 +25148,36 @@ def _site_css() -> str:
         font-size: 12px;
         color: var(--muted-foreground);
         margin: 0;
+      }
+
+      /* Dashboard methodology footer: per the archetype spec, every
+         Dashboard page should close with a small footer linking to
+         methodology + sample-size + "Updated" timestamp. */
+      .methodology-footer {
+        margin: clamp(32px, 6vw, 64px) 0 0;
+        padding: clamp(16px, 3vw, 28px) clamp(20px, 4vw, 48px);
+        border-top: 1px solid var(--rule, rgba(28,28,31,0.12));
+      }
+      .methodology-footer__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: clamp(12px, 2vw, 28px);
+        font-family: var(--font-ui);
+        font-size: 12px;
+        color: var(--muted-foreground);
+      }
+      .methodology-footer__link {
+        color: var(--foreground);
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .methodology-footer__sample,
+      .methodology-footer__updated {
+        font-variant-numeric: tabular-nums;
       }
 
       /* Filter widget heads: visually subordinate to editorial sections.
