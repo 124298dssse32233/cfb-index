@@ -317,6 +317,168 @@ _CONFERENCE_TIER_HINTS: dict[str, int] = {
     "C-USA": 6,
 }
 
+# Mascot-keyed voice library. Maps the lowercased mascot_name from
+# team_brand to a (awaiting_signal, loss_acknowledged, win_celebrated)
+# triple, so synthesized profiles get a differentiated mascot voice
+# instead of all reading "Awaiting signal — voice not yet authored."
+# Each entry handles plural forms (Tigers, Bulldogs) gracefully.
+_MASCOT_VOICE_LIBRARY: dict[str, dict[str, str]] = {
+    "tiger":     {"awaiting_signal": "The Tiger is patient.",
+                  "loss_acknowledged": "Tiger waits. Tiger hunts again.",
+                  "win_celebrated": "The Tiger eats tonight."},
+    "tigers":    {"awaiting_signal": "The Tigers wait in the brush.",
+                  "loss_acknowledged": "Quieter Tigers. Same Tigers.",
+                  "win_celebrated": "The Tigers earn their dinner."},
+    "bulldog":   {"awaiting_signal": "The Bulldog is patient.",
+                  "loss_acknowledged": "Bulldog grunts. Bulldog comes back.",
+                  "win_celebrated": "The Bulldog earns the bone."},
+    "bulldogs":  {"awaiting_signal": "The Bulldogs are patient.",
+                  "loss_acknowledged": "Bulldogs grunt. They come back.",
+                  "win_celebrated": "Bulldogs eat tonight."},
+    "wildcat":   {"awaiting_signal": "The Wildcat watches.",
+                  "loss_acknowledged": "Wildcat retreats. Wildcat returns.",
+                  "win_celebrated": "The Wildcat hunts."},
+    "wildcats":  {"awaiting_signal": "The Wildcats are on the prowl.",
+                  "loss_acknowledged": "Wildcats lick wounds.",
+                  "win_celebrated": "Wildcats own the night."},
+    "eagle":     {"awaiting_signal": "The Eagle circles.",
+                  "loss_acknowledged": "Eagle lands. Eagle takes off again.",
+                  "win_celebrated": "The Eagle soars."},
+    "eagles":    {"awaiting_signal": "The Eagles circle the field.",
+                  "loss_acknowledged": "Eagles land. Eagles fly tomorrow.",
+                  "win_celebrated": "Eagles take flight tonight."},
+    "lion":      {"awaiting_signal": "The Lion rests.",
+                  "loss_acknowledged": "Lion sleeps. Lion roars again.",
+                  "win_celebrated": "The Lion roars."},
+    "lions":     {"awaiting_signal": "The Lions rest in the shade.",
+                  "loss_acknowledged": "Lions sleep tonight.",
+                  "win_celebrated": "The Lions roar."},
+    "panther":   {"awaiting_signal": "The Panther is silent.",
+                  "loss_acknowledged": "Panther retreats. Panther stalks again.",
+                  "win_celebrated": "The Panther hunts tonight."},
+    "panthers":  {"awaiting_signal": "The Panthers patrol the field.",
+                  "loss_acknowledged": "Panthers regroup.",
+                  "win_celebrated": "Panthers earn their kill."},
+    "bear":      {"awaiting_signal": "The Bear hibernates.",
+                  "loss_acknowledged": "Bear sleeps off the wound.",
+                  "win_celebrated": "The Bear feeds."},
+    "bears":     {"awaiting_signal": "The Bears are in the woods.",
+                  "loss_acknowledged": "Bears retreat to the den.",
+                  "win_celebrated": "The Bears eat tonight."},
+    "knight":    {"awaiting_signal": "The Knight stands watch.",
+                  "loss_acknowledged": "Knight regroups for the next campaign.",
+                  "win_celebrated": "The Knight rides."},
+    "knights":   {"awaiting_signal": "The Knights polish their armor.",
+                  "loss_acknowledged": "Knights regroup.",
+                  "win_celebrated": "Knights claim the day."},
+    "cougar":    {"awaiting_signal": "The Cougar waits in the mountain.",
+                  "loss_acknowledged": "Cougar retreats up the ridge.",
+                  "win_celebrated": "The Cougar hunts."},
+    "cougars":   {"awaiting_signal": "The Cougars survey the territory.",
+                  "loss_acknowledged": "Cougars climb higher tomorrow.",
+                  "win_celebrated": "Cougars own this peak."},
+    "buffalo":   {"awaiting_signal": "Ralphie watches the horizon.",
+                  "loss_acknowledged": "The Buffalo waits for the next run.",
+                  "win_celebrated": "The Buffalo charges."},
+    "buffaloes": {"awaiting_signal": "The Buffaloes graze.",
+                  "loss_acknowledged": "Buffaloes regroup at the river.",
+                  "win_celebrated": "Buffaloes thunder across the plain."},
+    "razorback": {"awaiting_signal": "The Razorback waits.",
+                  "loss_acknowledged": "Hog call quieter tonight.",
+                  "win_celebrated": "WOO PIG SOOIE."},
+    "razorbacks": {"awaiting_signal": "The Razorbacks wait.",
+                   "loss_acknowledged": "Hog call quieter tonight.",
+                   "win_celebrated": "WOO PIG SOOIE."},
+    "hawkeye":   {"awaiting_signal": "The Hawkeye watches the field.",
+                  "loss_acknowledged": "Hawkeye regroups.",
+                  "win_celebrated": "Hawkeyes hold the line."},
+    "hawkeyes":  {"awaiting_signal": "The Hawkeyes watch from above.",
+                  "loss_acknowledged": "Hawkeyes regroup.",
+                  "win_celebrated": "Hawkeyes own the day."},
+    "duck":      {"awaiting_signal": "The Duck plots.",
+                  "loss_acknowledged": "Duck regroups.",
+                  "win_celebrated": "The Duck quacks."},
+    "ducks":     {"awaiting_signal": "The Ducks plot the formation.",
+                  "loss_acknowledged": "Ducks regroup at the pond.",
+                  "win_celebrated": "Ducks fly tonight."},
+    "trojan":    {"awaiting_signal": "The Trojan stands sentinel.",
+                  "loss_acknowledged": "The Trojan rebuilds the wall.",
+                  "win_celebrated": "The Trojan claims the day."},
+    "trojans":   {"awaiting_signal": "The Trojans stand guard.",
+                  "loss_acknowledged": "Trojans rebuild.",
+                  "win_celebrated": "Trojans claim the day."},
+    "spartan":   {"awaiting_signal": "The Spartan trains.",
+                  "loss_acknowledged": "Spartan returns to the gymnasium.",
+                  "win_celebrated": "The Spartan returns victorious."},
+    "spartans":  {"awaiting_signal": "The Spartans drill.",
+                  "loss_acknowledged": "Spartans drill harder tomorrow.",
+                  "win_celebrated": "Spartans return with their shields."},
+    "musketeer": {"awaiting_signal": "The Musketeer waits.",
+                  "loss_acknowledged": "Musketeer regroups.",
+                  "win_celebrated": "All for one, and the win is ours."},
+    "rebel":     {"awaiting_signal": "The Rebel is watchful.",
+                  "loss_acknowledged": "Rebel regroups.",
+                  "win_celebrated": "The Rebel claims the day."},
+    "rebels":    {"awaiting_signal": "The Rebels are watchful.",
+                  "loss_acknowledged": "Rebels regroup.",
+                  "win_celebrated": "Rebels claim the day."},
+    "viking":    {"awaiting_signal": "The Viking sharpens the axe.",
+                  "loss_acknowledged": "Viking sharpens for the next raid.",
+                  "win_celebrated": "The Viking claims the spoils."},
+    "vikings":   {"awaiting_signal": "The Vikings sharpen their axes.",
+                  "loss_acknowledged": "Vikings sharpen for the next raid.",
+                  "win_celebrated": "Vikings claim the spoils."},
+    "pirate":    {"awaiting_signal": "The Pirate plots the route.",
+                  "loss_acknowledged": "Pirate regroups at the harbor.",
+                  "win_celebrated": "Pirate claims the treasure."},
+    "pirates":   {"awaiting_signal": "The Pirates plot the next voyage.",
+                  "loss_acknowledged": "Pirates dock for repairs.",
+                  "win_celebrated": "Pirates claim the treasure."},
+    "minutemen": {"awaiting_signal": "The Minutemen stand ready.",
+                  "loss_acknowledged": "Minutemen return to the muster.",
+                  "win_celebrated": "Minutemen hold the day."},
+    "fighting irish": {"awaiting_signal": "The Leprechaun is keeping his own counsel.",
+                       "loss_acknowledged": "Leprechaun stays in the green room.",
+                       "win_celebrated": "The Leprechaun emerges."},
+    "horned frog":   {"awaiting_signal": "SuperFrog is in stasis.",
+                      "loss_acknowledged": "Riff Ram quieter tonight.",
+                      "win_celebrated": "Hypnotoad approves."},
+    "horned frogs":  {"awaiting_signal": "SuperFrog is in stasis.",
+                      "loss_acknowledged": "Riff Ram quieter tonight.",
+                      "win_celebrated": "Hypnotoad approves."},
+}
+
+
+def _resolve_mascot_voice(mascot_name: str) -> dict[str, str]:
+    """Return a mascot-voice triple for the given mascot name.
+
+    Tries exact mascot_name match (lowercased), then trailing-word
+    match (so 'Auburn Tigers' resolves via 'tigers'), then generic
+    fallback.
+    """
+    if not mascot_name:
+        return {
+            "awaiting_signal": "Awaiting signal — voice not yet authored.",
+            "loss_acknowledged": "Quiet today.",
+            "win_celebrated": "Win in the books.",
+        }
+    key = str(mascot_name).strip().lower()
+    if key in _MASCOT_VOICE_LIBRARY:
+        return dict(_MASCOT_VOICE_LIBRARY[key])
+    # Trailing-word fallback
+    parts = key.rsplit(" ", 1)
+    if len(parts) > 1 and parts[-1] in _MASCOT_VOICE_LIBRARY:
+        return dict(_MASCOT_VOICE_LIBRARY[parts[-1]])
+    # Singular fallback (e.g. 'tigers' → 'tiger' if missing)
+    if key.endswith("s") and key[:-1] in _MASCOT_VOICE_LIBRARY:
+        return dict(_MASCOT_VOICE_LIBRARY[key[:-1]])
+    return {
+        "awaiting_signal": f"The {mascot_name} are patient.",
+        "loss_acknowledged": f"The {mascot_name} regroup.",
+        "win_celebrated": f"Go {mascot_name}.",
+    }
+
+
 # Conference-keyed voice register defaults. Synthesized teams pick up the
 # regional/tonal flavor of their conference instead of all sharing
 # "plain-honest". Authored YAMLs override this.
@@ -494,11 +656,7 @@ def synthesize_profile(slug: str, db) -> Profile:
             "outsider_archetype_dominant": "",
         },
         "visual_identity_anchors": {},
-        "mascot_voice": {
-            "awaiting_signal": "Awaiting signal — voice not yet authored.",
-            "loss_acknowledged": "Quiet today.",
-            "win_celebrated": "Win in the books.",
-        },
+        "mascot_voice": _resolve_mascot_voice(mascot),
         "stock_phrases": [f"Go {short_name}", mantra],
         "never_use": [],
         "always_surface": [],
