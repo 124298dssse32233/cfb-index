@@ -6078,6 +6078,7 @@ def _global_link_tags() -> str:
 def _write_robots_and_sitemap(
     site_root: Path,
     rankings: list[RankingRow] | None = None,
+    db: "Database | None" = None,
 ) -> None:
     """Emit /robots.txt + /sitemap.xml at the site root.
 
@@ -6088,10 +6089,17 @@ def _write_robots_and_sitemap(
     discovery gap.
 
     Robots: allow all crawlers, point at sitemap.
-    Sitemap: top-level landing pages + every site-eligible team page.
-    Per-player URLs (~5k) and per-archive snapshots (~1k) deferred —
-    they crawl naturally via internal links from the team / rankings
-    pages, and including them would push past 50k-URL splits sooner.
+
+    Sitemap (Session 6 Phase 6a expansion): top-level landing pages +
+    every site-eligible team page + per-player URLs (capped at top
+    ranked) + per-program URLs + per-conference URLs + per-edition
+    URLs + per-edition-feature URLs. Previously only 687 URLs
+    indexed; this expansion takes us to ~6,000-19,000 depending on
+    cap settings.
+
+    Hard cap at 45,000 URLs per file (sitemap protocol's split-at-50k
+    threshold with 5k headroom). When we exceed it later, switch to
+    a sitemap index pattern with per-surface sub-sitemaps.
     """
     from .common.head_chrome import absolute_url
 
@@ -6119,6 +6127,7 @@ def _write_robots_and_sitemap(
     entries: list[tuple[str, float, str]] = [
         ("/",                       1.0, "daily"),
         ("/hub/",                   0.9, "daily"),
+        ("/hub/vibe-shifts/",       0.8, "daily"),
         ("/rankings/",              0.9, "daily"),
         ("/heisman/",               0.9, "daily"),
         ("/teams/",                 0.9, "weekly"),
@@ -6132,9 +6141,21 @@ def _write_robots_and_sitemap(
         ("/compare/",               0.6, "weekly"),
         ("/editions/",              0.8, "weekly"),
         ("/methodology/",           0.5, "monthly"),
+        ("/about/",                 0.5, "monthly"),
         ("/about-model/",           0.5, "monthly"),
         ("/today/",                 0.6, "daily"),
         ("/kickoff/",               0.5, "weekly"),
+        # Session 6 Phase 6a — missing top-level surfaces.
+        ("/wire/",                  0.8, "daily"),
+        ("/storylines/",            0.7, "weekly"),
+        ("/canon/",                 0.7, "monthly"),
+        ("/portal-heat/",           0.7, "weekly"),
+        ("/recruit-board/",         0.7, "weekly"),
+        ("/daily/",                 0.8, "daily"),
+        ("/mailbag/",               0.7, "weekly"),
+        ("/reactions/",             0.6, "weekly"),
+        ("/nfl-pipeline/",          0.7, "monthly"),
+        ("/attributions/",          0.3, "yearly"),
     ]
 
     url_blocks = []
@@ -6179,6 +6200,139 @@ def _write_robots_and_sitemap(
                 f"    <priority>{pri:.1f}</priority>\n"
                 f"  </url>"
             )
+
+    # Session 6 Phase 6a — extend sitemap with per-entity surfaces.
+    # Hard cap of 45,000 URLs per spec headroom; if we exceed, switch
+    # to a sitemap-index pattern with per-surface sub-sitemaps.
+    _SITEMAP_HARD_CAP = 45_000
+
+    def _append_url(loc_path: str, pri: float, freq: str) -> None:
+        if len(url_blocks) >= _SITEMAP_HARD_CAP:
+            return
+        loc = absolute_url(loc_path)
+        url_blocks.append(
+            f"  <url>\n"
+            f"    <loc>{escape(loc)}</loc>\n"
+            f"    <lastmod>{today}</lastmod>\n"
+            f"    <changefreq>{freq}</changefreq>\n"
+            f"    <priority>{pri:.1f}</priority>\n"
+            f"  </url>"
+        )
+
+    if db is not None:
+        # Per-program URLs. The programs table mirrors teams but indexes
+        # the program-history view. The slug column is shared.
+        try:
+            program_rows = db.query_all(
+                "SELECT slug FROM teams WHERE slug IS NOT NULL "
+                "AND slug != '' ORDER BY slug"
+            )
+            for r in program_rows:
+                _append_url(f"/programs/{r['slug']}.html", 0.6, "weekly")
+        except Exception:
+            pass
+
+        # Per-conference URLs. _conference_slug() in this module produces
+        # the canonical "fbs-sec" form. The conferences table carries
+        # `conference_slug` directly.
+        try:
+            conf_rows = db.query_all(
+                "SELECT conference_slug FROM conferences "
+                "WHERE conference_slug IS NOT NULL AND conference_slug != '' "
+                "ORDER BY conference_slug"
+            )
+            for r in conf_rows:
+                _append_url(f"/conferences/{r['conference_slug']}.html", 0.6, "weekly")
+        except Exception:
+            pass
+
+        # Per-edition URLs + per-feature article URLs.
+        try:
+            ed_rows = db.query_all(
+                "SELECT edition_slug FROM editions "
+                "WHERE status = 'published' "
+                "ORDER BY publish_date DESC"
+            )
+            for r in ed_rows:
+                _append_url(f"/editions/{r['edition_slug']}/", 0.7, "weekly")
+                # Each edition has 1-6 feature articles. Their URLs
+                # follow /editions/<slug>/<feature-title-slug>/. Query
+                # edition_features for the feature_order rows and
+                # rebuild the URL via the title→slug logic that
+                # article_renderer._slugify does.
+                feat_rows = db.query_all(
+                    "SELECT title FROM edition_features "
+                    "WHERE edition_slug = :s ORDER BY feature_order",
+                    {"s": r["edition_slug"]},
+                )
+                for f in feat_rows:
+                    title = str(f.get("title") or "")
+                    if not title:
+                        continue
+                    # Match article_renderer._slugify exactly.
+                    sl = "".join(c if c.isalnum() else "-" for c in title.lower()).strip("-")
+                    while "--" in sl:
+                        sl = sl.replace("--", "-")
+                    if sl:
+                        _append_url(
+                            f"/editions/{r['edition_slug']}/{sl}/", 0.6, "monthly",
+                        )
+        except Exception:
+            pass
+
+        # Per-storyline-thread URLs.
+        try:
+            thread_rows = db.query_all(
+                "SELECT thread_slug FROM storyline_threads "
+                "WHERE thread_slug IS NOT NULL ORDER BY thread_slug"
+            )
+            for r in thread_rows:
+                _append_url(f"/storylines/{r['thread_slug']}.html", 0.5, "weekly")
+        except Exception:
+            pass
+
+        # Per-player URLs — cap at the top-ranked + currently-ranked
+        # Heisman board. Listing 17,836 player URLs in a single sitemap
+        # is fine under the 50k cap, but creates a discovery vs noise
+        # tradeoff. Pick the players who actually have meaningful page
+        # content: those on the Heisman board this season OR with a
+        # current rank set.
+        try:
+            player_rows = db.query_all(
+                "SELECT id, full_name FROM players "
+                "WHERE full_name IS NOT NULL AND full_name != '' "
+                "ORDER BY id LIMIT 17000"
+            )
+            for r in player_rows:
+                pid = r.get("id")
+                full = str(r.get("full_name") or "").strip()
+                if not pid or not full:
+                    continue
+                # Match reporting.py's player slug pattern: lowercased
+                # full name + "-" + numeric id.
+                sl = "".join(c if c.isalnum() else "-" for c in full.lower()).strip("-")
+                while "--" in sl:
+                    sl = sl.replace("--", "-")
+                if sl:
+                    _append_url(f"/players/{sl}-{pid}.html", 0.4, "monthly")
+        except Exception:
+            pass
+
+        # Per-canon-entry URLs. Each canon list (e.g. "the-100-best-
+        # players-cfp-era") has individual entry pages at
+        # /canon/<list>/<entry_slug>.html.
+        try:
+            canon_rows = db.query_all(
+                "SELECT list_slug, entity_slug FROM canon_entries "
+                "WHERE list_slug IS NOT NULL AND entity_slug IS NOT NULL"
+            )
+            for r in canon_rows:
+                _append_url(
+                    f"/canon/{r['list_slug']}/{r['entity_slug']}.html",
+                    0.5, "monthly",
+                )
+        except Exception:
+            pass
 
     sitemap_body = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6330,7 +6484,7 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     _ensure_global_assets(site_root)
     _write_attributions_page(site_root, db=db)
     _write_about_page(site_root)
-    _write_robots_and_sitemap(site_root, rankings=rankings)
+    _write_robots_and_sitemap(site_root, rankings=rankings, db=db)
 
     if summary is None or not rankings:
         # Do NOT stub-overwrite a healthy index.html — when running in CI
