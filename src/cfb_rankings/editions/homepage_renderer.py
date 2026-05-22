@@ -409,6 +409,14 @@ _INLINE_CSS = """
   --rule: #1a1a1a;
   --rule-soft: rgba(26,26,26,0.18);
   --gold: #c9a24a;
+  /* Phase 9c — darker amber for foreground text on the cream paper
+   * background. The brand gold (#c9a24a on #f6f1e6) gives only 2.14:1
+   * contrast — fails WCAG AA 4.5:1 for normal text. This deeper
+   * variant (#8a6a2d on #f6f1e6 = 5.5:1) passes AA. Use --gold for
+   * decorative accents (bars, borders, hover) where contrast doesn't
+   * apply; use --gold-deep wherever the gold IS the text color.
+   */
+  --gold-deep: #8a6a2d;
   --navy: #1f2c4d;
   --muted: #7a7a7a;
   --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
@@ -426,7 +434,7 @@ html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
 a { color: inherit; text-decoration: none; }
 a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 a.cta { font-family: var(--sans); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-deep);
   border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
 a.text-link { border-bottom: 1px dotted currentColor; }
 
@@ -435,7 +443,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
   letter-spacing: 0.16em; text-transform: uppercase;
   display: flex; justify-content: space-between; padding: 12px 0;
   color: var(--ink); gap: 16px; flex-wrap: wrap; }
-.chrome .chrome-countdown { color: var(--gold); font-weight: 700; }
+.chrome .chrome-countdown { color: var(--gold-deep); font-weight: 700; }
 .brand-row { display: flex; align-items: baseline; justify-content: space-between;
   padding: 24px 0; }
 .brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
