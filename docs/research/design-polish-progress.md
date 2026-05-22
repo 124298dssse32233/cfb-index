@@ -7,8 +7,23 @@
 ## Done
 (newest at top)
 
+### [2026-05-22 04:55 UTC] commit 814e2d77178
+- **Phase C partial:** filter-strip h2→h3 (Heisman + Rankings), Heisman hero finding zone, stale absolute Vercel URL fix in common/head_chrome.py
+- **Files:** src/cfb_rankings/reporting.py, src/cfb_rankings/common/head_chrome.py
+- **Deferred:** C3 (Dashboard methodology footers), H1 (brand tagline + /about/ page) — visual-judgment calls
+
+### [2026-05-22 04:35 UTC] commit b54fcd3e3bb
+- **Phase B:** 22+ offseason copy bugs gated on is_offseason() across 4 files
+- **Clusters closed:** B1 (rankings), B2 (players ×17,836), B3 (hub vibe-shifts), B4 (conferences/compare/heisman), B5 (methodology/about-model), B6 (shared power-resume gap footer), B7 (homepage scenarios + players landing)
+- **Files:** reporting.py, hub_page.py, players_landing.py, provenance/methodology_page.py
+
+### [2026-05-22 04:15 UTC] commit ec29e3f1899
+- **Phase A4:** add render_global_footer() to nav.py + wire into all reporting.py page wraps
+- **Files:** src/cfb_rankings/nav.py (NEW helper), src/cfb_rankings/reporting.py (17 sites patched)
+- **Affects:** 17,836 player pages, /rankings/, /teams/<unprofiled>, /programs/, /conferences/, /heisman/, /history/ all now have footer
+
 ## In progress
-- Phase A3 + A4 (the actually-broken Tier -1 items)
+- Awaiting publish-site validation (run 26268986578 on commit 814e2d77178)
 
 ## Blocked / deferred
 (items where I investigated and decided NOT to fix autonomously, with reasoning)
