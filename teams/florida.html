@@ -2522,6 +2522,733 @@ a { color: inherit; text-decoration: none; }
 }
 
 
+/* Aspiration Ladder — Brief Part III §33.4 */
+
+/* Aspiration Ladder — Brief Part III §33.4 */
+.aspiration-ladder {
+  display: grid;
+  gap: var(--sp-3, 12px);
+  padding: var(--sp-4, 18px) var(--sp-5, 22px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.aspiration-ladder__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+}
+.aspiration-ladder__title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.5vw + 10px, 26px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.aspiration-ladder__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.aspiration-ladder__rungs {
+  display: grid;
+  gap: 8px;
+}
+.aspiration-ladder__rung {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 16px;
+  align-items: baseline;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-subtle);
+  border-left: 4px solid var(--accent-primary, #c9a24a);
+  border-radius: 8px;
+}
+.aspiration-ladder__rung--locked {
+  opacity: 0.55;
+  border-left-style: dashed;
+}
+.aspiration-ladder__rung-name {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--fg-primary);
+}
+.aspiration-ladder__rung-odds {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--accent-primary, #c9a24a);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.aspiration-ladder__rung--locked .aspiration-ladder__rung-odds {
+  color: var(--fg-muted);
+}
+.aspiration-ladder__rung-context {
+  grid-column: 1 / -1;
+  font-family: var(--font-serif);
+  font-size: var(--fs-label);
+  font-style: italic;
+  color: var(--fg-secondary);
+  line-height: 1.45;
+}
+.aspiration-ladder__locked-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--fg-muted);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  margin-left: 6px;
+}
+
+
+/* Season Standing Rail — Brief §3.1 (team-page analog) */
+
+/* Season Standing Rail — Brief §3.1
+ *
+ * Visual sibling of the player Standing Rail. Reads --accent-primary /
+ * --accent-secondary from the enclosing body so each team page's rail
+ * takes on the program brand pair.
+ */
+
+.season-standing-rail {
+  --rail-track:        rgba(255, 255, 255, 0.08);
+  --rail-tick:         rgba(255, 255, 255, 0.18);
+  --rail-marker:       var(--accent-primary, #c9a24a);
+  --rail-marker-soft:  var(--accent-secondary, var(--accent-primary, #c9a24a));
+  --rail-ghost:        rgba(255, 255, 255, 0.22);
+  --rail-tier-bg:      rgba(255, 255, 255, 0.03);
+  --rail-champion:     #d4af37;
+
+  display: grid;
+  gap: clamp(12px, 1.5vw, 18px);
+  padding: clamp(18px, 2.4vw, 28px) clamp(18px, 2.6vw, 32px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-default, var(--rail-tick));
+  border-radius: 16px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+
+.season-standing-rail__header {
+  display: grid;
+  gap: 6px;
+}
+.season-standing-rail__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.season-standing-rail__rung-name {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(28px, 2.6vw + 12px, 40px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.season-standing-rail__rung-narrative {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: clamp(14px, 0.4vw + 13px, 17px);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 64ch;
+}
+
+/* === The rail itself: 10 ticks === */
+
+.season-standing-rail__rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: center;
+  height: 56px;
+  padding: 0 6px;
+}
+.season-standing-rail__rail::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--rail-track);
+  border-radius: 2px;
+  transform: translateY(-50%);
+}
+.season-standing-rail__tick {
+  position: relative;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.season-standing-rail__tick::before {
+  content: "";
+  width: 2px;
+  height: 12px;
+  background: var(--rail-tick);
+  border-radius: 1px;
+}
+.season-standing-rail__tick[data-current="true"]::before {
+  width: 18px;
+  height: 28px;
+  background: var(--rail-marker);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 4px color-mix(in oklab, var(--rail-marker) 24%, transparent),
+    0 0 0 10px color-mix(in oklab, var(--rail-marker) 8%, transparent);
+}
+.season-standing-rail__tick[data-ghost="true"]::before {
+  width: 8px;
+  height: 18px;
+  background: var(--rail-ghost);
+  border-radius: 3px;
+}
+/* Championship rung (R9) — accolade gold even when not current. */
+.season-standing-rail__tick[data-rung="9"]::before {
+  background: var(--rail-champion);
+  width: 4px;
+  height: 16px;
+}
+.season-standing-rail__tick[data-rung="9"][data-current="true"]::before {
+  background: var(--rail-champion);
+  box-shadow:
+    0 0 0 4px color-mix(in oklab, var(--rail-champion) 32%, transparent),
+    0 0 0 10px color-mix(in oklab, var(--rail-champion) 10%, transparent);
+}
+.season-standing-rail__rung-num {
+  position: absolute;
+  bottom: -22px;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--fg-muted);
+}
+.season-standing-rail__tick[data-current="true"] .season-standing-rail__rung-num {
+  color: var(--rail-marker);
+}
+
+/* === Tier pill row === */
+
+.season-standing-rail__tiers {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  padding: 4px;
+  background: var(--rail-tier-bg);
+  border-radius: 10px;
+}
+.season-standing-rail__tier {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px 6px;
+  color: var(--fg-muted);
+  background: transparent;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.season-standing-rail__tier[data-current="true"] {
+  background: var(--rail-marker);
+  color: #ffffff;
+  border-color: var(--rail-marker);
+}
+
+@media (max-width: 640px) {
+  .season-standing-rail__tiers {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .season-standing-rail__rung-name { font-size: 26px; }
+}
+
+/* Empty state — drawn when compute_season_rung returns None */
+.season-standing-rail--empty {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--rail-tick);
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.season-standing-rail--empty p {
+  margin: 0;
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-style: italic;
+  color: var(--fg-muted);
+  font-size: 14px;
+}
+
+
+/* Program Prestige Bar — Brief §3.2 */
+
+/* Program Prestige Bar — Brief §3.2
+ *
+ * Sibling of the Season Standing rail. Reads accent tokens from the
+ * enclosing body so each program brand colors the active tier pill.
+ */
+
+.program-prestige-bar {
+  --pp-track:        rgba(255, 255, 255, 0.08);
+  --pp-tier-bg:      rgba(255, 255, 255, 0.02);
+  --pp-marker:       var(--accent-primary, #c9a24a);
+  --pp-marker-soft:  var(--accent-secondary, var(--accent-primary, #c9a24a));
+  --pp-ghost:        rgba(255, 255, 255, 0.22);
+
+  display: grid;
+  gap: clamp(12px, 1.5vw, 18px);
+  padding: clamp(18px, 2.4vw, 28px) clamp(18px, 2.6vw, 32px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-default, var(--pp-track));
+  border-radius: 16px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+
+.program-prestige-bar__header {
+  display: grid;
+  gap: 6px;
+}
+.program-prestige-bar__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.program-prestige-bar__tier-name {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(32px, 3vw + 14px, 56px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.program-prestige-bar__narrative {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: clamp(14px, 0.4vw + 13px, 17px);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 64ch;
+}
+.program-prestige-bar__peak {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 13px;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+.program-prestige-bar__peak strong {
+  color: var(--fg-primary);
+  font-weight: 700;
+}
+
+/* === Tier-bar: 7 segments === */
+
+.program-prestige-bar__bar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  padding: 5px;
+  background: var(--pp-tier-bg);
+  border-radius: 12px;
+  border: 1px solid var(--pp-track);
+}
+.program-prestige-bar__segment {
+  position: relative;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 12px 6px 26px 6px;
+  color: var(--fg-muted);
+  background: transparent;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+}
+.program-prestige-bar__segment-num {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--fg-muted);
+  opacity: 0.6;
+}
+.program-prestige-bar__segment[data-current="true"] {
+  background: var(--pp-marker);
+  color: #ffffff;
+  border-color: var(--pp-marker);
+}
+.program-prestige-bar__segment[data-current="true"] .program-prestige-bar__segment-num {
+  color: rgba(255,255,255,0.85);
+  opacity: 1;
+}
+.program-prestige-bar__segment[data-peak="true"]:not([data-current="true"]) {
+  background: color-mix(in oklab, var(--pp-marker) 14%, transparent);
+  border-color: color-mix(in oklab, var(--pp-marker) 50%, transparent);
+  color: var(--fg-primary);
+}
+.program-prestige-bar__segment[data-peak="true"]:not([data-current="true"])::after {
+  content: "PEAK";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--pp-marker);
+}
+
+@media (max-width: 640px) {
+  .program-prestige-bar__tier-name { font-size: 32px; }
+  .program-prestige-bar__bar {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+  }
+}
+
+.program-prestige-bar--empty {
+  display: none; /* every team renders the bar; only override fully missing */
+}
+
+
+/* Page Tone Strip — Brief Part III §32 (seasonal sentience visible) */
+
+/* Page Tone Strip — Brief Part III §32. Makes seasonal sentience visible.
+ *
+ * The body carries data-page-tone (accent_key) + data-page-phase + data-page-anchor
+ * so downstream CSS can react. This strip is the explicit visible signal.
+ */
+
+.page-tone-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  padding: 8px clamp(12px, 1.5vw, 18px);
+  margin: 0 0 clamp(12px, 2vw, 20px) 0;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 8px;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.page-tone-strip__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.page-tone-strip__chip + .page-tone-strip__chip::before {
+  content: "·";
+  margin-right: 4px;
+  opacity: 0.4;
+}
+.page-tone-strip__chip--accent {
+  color: var(--accent-primary, #c9a24a);
+}
+.page-tone-strip__chip--live {
+  color: var(--accent-secondary, var(--accent-primary, #c9a24a));
+}
+.page-tone-strip__pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-secondary, var(--accent-primary, #c9a24a));
+  display: inline-block;
+  margin-right: 6px;
+  animation: page-tone-pulse 2s ease-in-out infinite;
+}
+@keyframes page-tone-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(1.0); }
+  50%      { opacity: 1.0;  transform: scale(1.25); }
+}
+
+/* Tone-keyed accents — modulates the strip border-left and live dot. */
+body[data-page-tone="red"]    .page-tone-strip { border-left-color: #d94747; }
+body[data-page-tone="amber"]  .page-tone-strip { border-left-color: #c98c1a; }
+body[data-page-tone="green"]  .page-tone-strip { border-left-color: #2c8f5a; }
+body[data-page-tone="navy"]   .page-tone-strip { border-left-color: #2e4d8a; }
+body[data-page-tone="coral"]  .page-tone-strip { border-left-color: #e07060; }
+body[data-page-tone="gray"]   .page-tone-strip { border-left-color: rgba(255,255,255,0.25); }
+
+/* Sentience-driven background tint on the whole page, very subtle. */
+body[data-page-tone="amber"] { background-image: radial-gradient(circle at 12% -10%, rgba(201, 140, 26, 0.05), transparent 35%); }
+body[data-page-tone="green"] { background-image: radial-gradient(circle at 88% -10%, rgba(44, 143, 90, 0.04), transparent 35%); }
+body[data-page-tone="red"]   { background-image: radial-gradient(circle at 50% -10%, rgba(217, 71, 71, 0.05), transparent 35%); }
+body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -10%, rgba(46, 77, 138, 0.04), transparent 40%); }
+
+@media (max-width: 540px) {
+  .page-tone-strip {
+    font-size: 10px;
+    letter-spacing: 0.10em;
+  }
+}
+
+
+/* Program Trajectory chip — Brief §11.4 */
+
+/* Program Trajectory Chip — Brief §11.4 */
+.trajectory-chip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px 18px;
+  padding: 12px clamp(14px, 1.8vw, 20px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.trajectory-chip__direction {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(22px, 1.8vw + 10px, 30px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #c9a24a);
+  white-space: nowrap;
+}
+.trajectory-chip__direction--rising    { color: #2c8f5a; }
+.trajectory-chip__direction--declining { color: #c95151; }
+.trajectory-chip__direction--volatile  { color: #c98c1a; }
+.trajectory-chip__direction--steady    { color: var(--accent-primary, #c9a24a); }
+
+.trajectory-chip__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 64ch;
+}
+
+.trajectory-chip__spark {
+  display: block;
+  height: 36px;
+  width: clamp(80px, 12vw, 160px);
+  font-variant-numeric: tabular-nums;
+}
+.trajectory-chip__spark path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.trajectory-chip__spark circle {
+  fill: var(--accent-primary, #c9a24a);
+}
+.trajectory-chip__spark line.baseline {
+  stroke: var(--fg-muted);
+  stroke-dasharray: 2 3;
+  stroke-width: 0.5;
+  opacity: 0.5;
+}
+
+@media (max-width: 540px) {
+  .trajectory-chip { grid-template-columns: 1fr; }
+  .trajectory-chip__spark { width: 100%; }
+}
+
+
+/* Kickoff Countdown — Brief §22.1 */
+
+/* Kickoff Countdown — Brief Part II §22.1
+ * One-line presence chip that anchors every team page in calendar time.
+ */
+
+.kickoff-countdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  padding: 10px clamp(14px, 1.8vw, 18px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 10px;
+  margin-bottom: clamp(16px, 2vw, 24px);
+  font-variant-numeric: tabular-nums;
+}
+.kickoff-countdown__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.kickoff-countdown__number {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(24px, 2.0vw + 10px, 32px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--accent-primary, #c9a24a);
+  margin: 0;
+}
+.kickoff-countdown__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+.kickoff-countdown--live {
+  border-left-color: #d94747;
+}
+.kickoff-countdown--live .kickoff-countdown__number {
+  color: #d94747;
+  animation: kickoff-live-pulse 1.4s ease-in-out infinite;
+}
+@keyframes kickoff-live-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+.kickoff-countdown--gameday  { border-left-color: #c98c1a; }
+.kickoff-countdown--gameweek { border-left-color: #2c8f5a; }
+.kickoff-countdown--offseason {
+  border-left-color: rgba(255, 255, 255, 0.18);
+}
+.kickoff-countdown--offseason .kickoff-countdown__number {
+  color: var(--fg-secondary);
+}
+
+
+/* Program Peer Comparator — Brief §26 */
+
+/* Program Peer Comparator — Brief §26 */
+.peer-comparator {
+  display: grid;
+  gap: clamp(8px, 1.2vw, 14px);
+  padding: clamp(14px, 1.8vw, 22px) clamp(16px, 2.0vw, 26px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.peer-comparator__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.peer-comparator__title {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(20px, 1.5vw + 9px, 26px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.peer-comparator__peers {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.peer-comparator__peer {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+.peer-comparator__peer:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent-primary, #c9a24a);
+}
+.peer-comparator__peer-name {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg-primary);
+}
+.peer-comparator__peer-reason {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--fg-secondary);
+  line-height: 1.35;
+}
+.peer-comparator__caveat {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-style: italic;
+  color: var(--fg-muted);
+  margin: 0;
+  opacity: 0.7;
+}
+@media (max-width: 640px) {
+  .peer-comparator__peers { grid-template-columns: 1fr; }
+}
+
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 /* Theme toggle (Sprint v5-11.5 dark mode foundation)
  * -------------------------------------------------------------------------
@@ -3618,7 +4345,10 @@ a { color: inherit; text-decoration: none; }
 <link rel="stylesheet" href="/assets/wcfb-enhancements.css">
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head>
-<body>
+<body data-page-tone="gray"
+      data-page-phase="dead-period-heritage"
+      data-page-anchor="dead-period-summer"
+      data-in-season="false">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="profile-page-controls" role="group" aria-label="Page controls">
   <button class="cmdk-trigger" data-cmdk-trigger type="button"
@@ -3659,6 +4389,48 @@ a { color: inherit; text-decoration: none; }
 </div></div>
 </section>
 
+    <section class="page-tone-strip" role="status" aria-live="polite" aria-label="Page mode for dead-period-heritage" data-tone="gray" data-anchor="dead-period-summer"><span class="page-tone-strip__chip page-tone-strip__chip--accent">Dead Period</span><span class="page-tone-strip__chip">Offseason</span><span class="page-tone-strip__chip">Patient</span><span class="page-tone-strip__chip page-tone-strip__chip--live">Post-win — basking</span></section>
+    <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">100 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
+    
+<section class="season-standing-rail" aria-labelledby="season-standing-rail-h"
+         data-module="season-standing-rail" data-state="ready">
+  <div class="season-standing-rail__header">
+    <p class="season-standing-rail__eyebrow">Season Standing · 2025 · 4-8 · AP #13</p>
+    <h2 id="season-standing-rail-h" class="season-standing-rail__rung-name">Top 15</h2>
+    <p class="season-standing-rail__rung-narrative">Florida: Top 15 nationally. NY6-bowl conversation.</p>
+  </div>
+  <div class="season-standing-rail__rail" role="img"
+       aria-label="Season standing rail — Florida at rung 5, Top 15">
+    <span class="season-standing-rail__tick" data-rung="0" aria-label="Rung 0 — Sub-FBS" title="R0 · Sub-FBS"><span class="season-standing-rail__rung-num">R0</span></span><span class="season-standing-rail__tick" data-rung="1" aria-label="Rung 1 — FBS sub-.500" title="R1 · FBS sub-.500"><span class="season-standing-rail__rung-num">R1</span></span><span class="season-standing-rail__tick" data-rung="2" aria-label="Rung 2 — FBS competitive" title="R2 · FBS competitive"><span class="season-standing-rail__rung-num">R2</span></span><span class="season-standing-rail__tick" data-rung="3" aria-label="Rung 3 — Bowl eligible" title="R3 · Bowl eligible"><span class="season-standing-rail__rung-num">R3</span></span><span class="season-standing-rail__tick" data-rung="4" aria-label="Rung 4 — Ranked (25-16)" title="R4 · Ranked (25-16)"><span class="season-standing-rail__rung-num">R4</span></span><span class="season-standing-rail__tick" data-rung="5" data-current="true" aria-label="Rung 5 — Top 15" title="R5 · Top 15"><span class="season-standing-rail__rung-num">R5</span></span><span class="season-standing-rail__tick" data-rung="6" aria-label="Rung 6 — CFP contender" title="R6 · CFP contender"><span class="season-standing-rail__rung-num">R6</span></span><span class="season-standing-rail__tick" data-rung="7" aria-label="Rung 7 — CFP quarterfinal/semi" title="R7 · CFP quarterfinal/semi"><span class="season-standing-rail__rung-num">R7</span></span><span class="season-standing-rail__tick" data-rung="8" aria-label="Rung 8 — CFP title game" title="R8 · CFP title game"><span class="season-standing-rail__rung-num">R8</span></span><span class="season-standing-rail__tick" data-rung="9" aria-label="Rung 9 — National champion" title="R9 · National champion"><span class="season-standing-rail__rung-num">R9</span></span>
+  </div>
+  <div class="season-standing-rail__tiers" role="list" aria-label="Season standing tiers">
+    <span class="season-standing-rail__tier">Sub-FBS</span><span class="season-standing-rail__tier">Building</span><span class="season-standing-rail__tier">Bowl</span><span class="season-standing-rail__tier" data-current="true">Ranked</span><span class="season-standing-rail__tier">Contender</span><span class="season-standing-rail__tier">Playoff</span>
+  </div>
+</section>
+    
+<section class="program-prestige-bar" aria-labelledby="program-prestige-bar-h"
+         data-module="program-prestige-bar" data-state="ready">
+  <div class="program-prestige-bar__header">
+    <p class="program-prestige-bar__eyebrow">Program Prestige · Florida</p>
+    <h2 id="program-prestige-bar-h" class="program-prestige-bar__tier-name">National Program</h2>
+    <p class="program-prestige-bar__narrative">National Program — sustained top-25 expectations across cycles.</p>
+    
+  </div>
+  <div class="program-prestige-bar__bar" role="list" aria-label="Program prestige tiers">
+    <div class="program-prestige-bar__segment" data-tier="1" title="Tier 1 · Regional"><span class="program-prestige-bar__segment-num">T1</span><span>Regional</span></div><div class="program-prestige-bar__segment" data-tier="2" title="Tier 2 · Mid-Major Contender"><span class="program-prestige-bar__segment-num">T2</span><span>Mid-Major</span></div><div class="program-prestige-bar__segment" data-tier="3" title="Tier 3 · Power Program"><span class="program-prestige-bar__segment-num">T3</span><span>Power</span></div><div class="program-prestige-bar__segment" data-tier="4" data-current="true" title="Tier 4 · National Program"><span class="program-prestige-bar__segment-num">T4</span><span>National</span></div><div class="program-prestige-bar__segment" data-tier="5" title="Tier 5 · Blue Blood"><span class="program-prestige-bar__segment-num">T5</span><span>Blue Blood</span></div><div class="program-prestige-bar__segment" data-tier="6" title="Tier 6 · Dynasty Active"><span class="program-prestige-bar__segment-num">T6</span><span>Dynasty</span></div><div class="program-prestige-bar__segment" data-tier="7" title="Tier 7 · All-Time Great Era"><span class="program-prestige-bar__segment-num">T7</span><span>All-Time</span></div>
+  </div>
+</section>
+    <section class="trajectory-chip" aria-labelledby="trajectory-chip-h" data-module="trajectory-chip" data-state="ready"><h2 id="trajectory-chip-h" class="trajectory-chip__direction trajectory-chip__direction--steady">Steady</h2><p class="trajectory-chip__story"><strong>Florida 2016–2025.</strong> Holding the line. The 10-year slope (-0.04 rungs / yr) doesn&#x27;t tilt either way — the program lives at roughly Tier 4.</p><svg class="trajectory-chip__spark" viewBox="0 0 160 36" preserveAspectRatio="none" role="img" aria-label="10-season prestige sparkline"><line class="baseline" x1="0" y1="19.8" x2="160" y2="19.8"></line><path d="M 2.0,19.8 L 19.3,19.8 L 36.7,16.2 L 54.0,16.2 L 71.3,16.2 L 88.7,19.8 L 106.0,19.8 L 123.3,19.8 L 140.7,23.3 L 158.0,16.2"></path><circle cx="158.0" cy="16.2" r="3"></circle></svg></section>
+    
+<section class="peer-comparator" aria-labelledby="peer-comparator-h"
+         data-module="peer-comparator" data-state="ready">
+  <p class="peer-comparator__eyebrow">Most Similar Programs · Florida</p>
+  <h2 id="peer-comparator-h" class="peer-comparator__title">Reads Like</h2>
+  <div class="peer-comparator__peers" role="list" aria-label="Three most similar programs">
+    <a class="peer-comparator__peer" href="/teams/auburn.html" aria-label="Peer program: Auburn"><span class="peer-comparator__peer-name">Auburn</span><span class="peer-comparator__peer-reason">Tier 2</span></a><a class="peer-comparator__peer" href="/teams/florida-state.html" aria-label="Peer program: Florida State"><span class="peer-comparator__peer-name">Florida State</span><span class="peer-comparator__peer-reason">Tier 2</span></a><a class="peer-comparator__peer" href="/teams/oregon.html" aria-label="Peer program: Oregon"><span class="peer-comparator__peer-name">Oregon</span><span class="peer-comparator__peer-reason">Tier 2</span></a>
+  </div>
+  <p class="peer-comparator__caveat">Static-attribute similarity across tier, archetype, conference, and voice. Not a prediction — a calibration.</p>
+</section>
     
 <section class="hero-arc-stripe" aria-labelledby="hero-arc-stripe-h" data-module="hero-arc-stripe">
   <div class="hero-arc-stripe__header">
@@ -3714,6 +4486,15 @@ a { color: inherit; text-decoration: none; }
     <div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Reality Gap</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">How far fan belief diverges from the structural model.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Respect Gap</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Fan score minus national score for this team&#x27;s brand.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Cohort Divergence</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Spread between sub-fanbase cohorts in the Pulse window.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Rival Heat</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">How much rival fanbases are mentioning this team.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Volatility</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Week-over-week mood swing magnitude.</span></div>
   </div>
   <div class="pulse__badge-row"><span class="pulse__badge pulse__badge--awaiting">0 mentions · awaiting signal</span></div>
+</section>
+    <section class="aspiration-ladder" aria-labelledby="aspiration-ladder-h">
+  <div class="aspiration-ladder__header">
+    <h2 id="aspiration-ladder-h" class="aspiration-ladder__title">Aspiration Ladder</h2>
+    <p class="aspiration-ladder__eyebrow">Brief Part III §33.4 · Florida</p>
+  </div>
+  <div class="aspiration-ladder__rungs">
+    <div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">9-win season</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">The benchmark recent successors are graded against.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Conference title</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">The structural peak the modern era is built for.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">NY6 bowl</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Above the bowl tier — the validation bowl.</p></div><div class="aspiration-ladder__rung aspiration-ladder__rung--locked"><span class="aspiration-ladder__rung-name">CFP appearance<span class="aspiration-ladder__locked-chip">Locked</span></span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Plausible in a strong year; the dream rung.</p></div>
+  </div>
 </section>
     <section class="rituals program-section" aria-label="Florida rituals">
   <div class="program-section__head">
