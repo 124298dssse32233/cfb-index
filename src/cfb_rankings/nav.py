@@ -345,7 +345,7 @@ def render_global_footer(
       </div>
     </div>
     <div class="bottom-chrome">
-      <span>© {year} CFB INDEX · BUILT FOR THE OFFSEASON</span>
+      <span>© {year} CFB INDEX · WHERE EVERY TEAM STANDS</span>
       <span>VOL. {vol} · NO. {no}</span>
     </div>
   </div>

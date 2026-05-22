@@ -1107,7 +1107,7 @@ def _render_footer(edition: Edition) -> str:
       </div>
     </div>
     <div class="bottom-chrome">
-      <span>© {year} CFB INDEX · BUILT FOR THE OFFSEASON</span>
+      <span>© {year} CFB INDEX · WHERE EVERY TEAM STANDS</span>
       <span>VOL. {vol} · NO. {edition.edition_number}</span>
     </div>
   </div>
