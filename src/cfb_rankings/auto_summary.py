@@ -278,7 +278,7 @@ def render_auto_summary_html(summary: AutoSummary) -> str:
   <ul class="auto-summary__list">
 {items}
   </ul>
-  <p class="auto-summary__meta">Auto-generated · model_version {_html.escape(summary.model_version)} · cached 4h</p>
+  <p class="auto-summary__meta">AI-summarized · refreshed every 4 hours</p>
 </aside>"""
 
 

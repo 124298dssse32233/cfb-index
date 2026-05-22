@@ -290,18 +290,18 @@ def render_methodology_html(db: Database) -> str:
     coverage = _fetch_coverage_summary(db)
     parts.append("<h2>0. Current coverage</h2>")
     parts.append(
-        '<p>Live counts from the production DB, refreshed on every methodology build.</p>'
+        '<p>Live counts, refreshed on every methodology build.</p>'
     )
     parts.append(
         "<ul class='coverage-stats'>"
         f"<li><strong>{coverage['conversation_docs_with_source']:,}</strong> "
-        "conversation_documents landed under the fan-intel schema</li>"
+        "fan-conversation documents indexed under the fan-intelligence layer</li>"
         f"<li><strong>{coverage['source_observations']:,}</strong> "
-        "source_observations (Tier A numeric)</li>"
+        "tier-A numeric observations (industry-grade ratings, market lines)</li>"
         f"<li><strong>{coverage['cohort_cells']:,}</strong> "
-        "team_cohort_week cells</li>"
+        "team-by-week cohort sentiment cells</li>"
         f"<li><strong>{coverage['divergence_rows']:,}</strong> "
-        "team-week divergence rows</li>"
+        "team-by-week divergence rows (where the cohorts disagree)</li>"
         "</ul>"
     )
     if coverage.get("qualifying_divergence"):
@@ -393,8 +393,7 @@ def render_methodology_html(db: Database) -> str:
     parts.append("<h2 id='glossary'>7. Glossary</h2>")
     parts.append("<p>Every Fan Intelligence term used on a player or team page has a "
                  "definition here. The same entries back the <code>?</code> popovers next to "
-                 "eyebrow labels throughout the site; this section is the canonical copy "
-                 "(source: <code>seeds/fi_glossary.yaml</code>).</p>")
+                 "eyebrow labels throughout the site; this section is the canonical copy.</p>")
     try:
         glossary = load_glossary()
     except Exception as exc:  # pragma: no cover - defensive
@@ -417,8 +416,8 @@ def render_methodology_html(db: Database) -> str:
             parts.append(f"<p class='tier-explainer'>See also &middot; {links}</p>")
 
     parts.append("<footer>"
-                 "Fan Intelligence methodology page — generated at "
-                 f"{_utcnow_iso()} — source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> + <code>source_registry</code>."
+                 "Fan Intelligence methodology page — last updated "
+                 f"{_utcnow_iso()}."
                  "</footer>")
     parts.append("</body></html>")
     return "\n".join(parts)
