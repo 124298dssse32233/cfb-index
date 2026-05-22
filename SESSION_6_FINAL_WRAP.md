@@ -184,6 +184,66 @@ at SHA 71989ae0d80 or later).
 That's ~7 of 12 phases either done or in flight, after a single
 session of execution.
 
+---
+
+## Phase 1 — Partial live verification (publish-site 26300031263 at e1cb83a2351)
+
+The deploy at e1cb83a2351 (Tracks 1/2/3/5/6/7 + initial wrap) completed
+at 17:18 UTC. Live verification via Vercel MCP:
+
+**✓ Track 2 (/hub/vibe-shifts/2025/18/):**
+- Hero finding zone present: "Vibe Shifts · Late Spring window / -2.73
+  / UConn posted the largest power-rating swing this week. / 10 teams
+  ranked · week 18 of 2025 season"
+- Methodology footer present: "How we measure this → / Sample: 10
+  teams ranked by absolute power swing / Updated 2026-05-22"
+- Both Dashboard archetype primitives confirmed rendering.
+
+**✓ Track 3 (/editions/2026-w18/the-quiet-week/):**
+- Dek now reads "Spring portal closed; fall-camp coverage hasn't
+  opened. What fanbases say in the gap is itself a signal." (the
+  seed content, NOT the wrong-season "mid-November" Pattern C drift)
+- Body opens with "The first Monday in May is the quietest week on
+  the college-football calendar" (seed restored)
+- Inline `[1]`, `[2]`, `[3]`, `[4]` markers present in body
+- W18 dek + body got fixed via the upsert detection patterns in
+  seed-editions, which ran successfully.
+
+**✗ Track 1 (citation rendering on W18 + W19):**
+- Inline `[N]` markers ship as plain text instead of `<sup
+  class="citation">` HTML
+- No `<footer class="article-citations">` Sources block
+- Root cause: backfill-edition-citations + force-reseed-feature CLI
+  subcommands fell through the dispatch tuple in cli.py, failing with
+  "Unsupported command" (caught via deploy-log analysis). Workflow's
+  `|| true` swallowers hid the failures.
+- Fix landed in SHA 1f1ea21ae6d (now in flight via publish-site
+  26302026470). Once that deploys:
+  - force-reseed-feature will overwrite W19 wrong-season body
+  - backfill-edition-citations will persist citations for w17/w18/w19
+  - Live editions will show real `<sup class="citation">` markers +
+    Sources footers
+
+**✗ Track 4 (W19 wrong-season Pattern C drift):**
+- W19 still shows "press box at Bryant-Denny was nearly empty by the
+  time the cleaning crews started rolling carts down the aisles"
+  body on live (a post-game Alabama scene shipping on a May 11
+  offseason edition).
+- Track 4 detection patterns + force-reseed don't deploy until the
+  in-flight publish-site (26302026470 at 1f1ea21ae6d) completes.
+
+**Decision: NOT triggering another publish-site.** The in-flight
+deploy at 1f1ea21ae6d carries the Track 4 W19 fix + CLI dispatch
+fix + Phase 3/6/7/9 continuation work. Triggering would cancel it
+via the `site-deploy` concurrency group and waste the 30+ min
+already invested.
+
+**Next wakeup** (scheduled for ~11:07 earlier, looking at publish-
+site 26302026470) will fire after that deploy completes and verify
+the citation markers + W19 fix + Phase 3 architectural migration
++ Phase 6 sitemap expansion + Phase 7b tagline + Phase 9a aria-live
+all ship together.
+
 **Still requires the next deploy** to verify: Phase 3 architecture
 across 19,283 surfaces, sitemap expansion, all the Phase 9a aria-
 live additions, brand tagline visibility.
