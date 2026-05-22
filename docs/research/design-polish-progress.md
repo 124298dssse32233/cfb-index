@@ -7,6 +7,11 @@
 ## Done
 (newest at top)
 
+### [2026-05-22 PM] Session 5 — Profile meta-footer extended to 3 detail-page renderers (commit 9862081d504)
+- `render_conference_page_html` (~80 surfaces), `render_program_page_html` (665 surfaces), `render_team_page_html` (~662 unprofiled team surfaces) — each gets a `profile-meta-footer` block above the global footer with methodology link + updated timestamp + sample-size pill. Purely additive.
+- These three surfaces are the Profile-archetype "feels different from team_pages/renderer.py" cluster. The methodology footer is the first cross-renderer convention they now share with the profiled pages.
+- **C1 verification:** grep for any remaining `<h2>Board Controls</h2>` or `<h2>Filter…</h2>` patterns returned zero hits. The 6 other `board-utility` blocks the v2 audit pointed at don't have their own h2 — they sit nested under data-section h2s like "History Explorer", "Program Explorer", which is correct hierarchy. C1 is fully closed (audit was over-counting).
+
 ### [2026-05-22 PM] Session 5 — Profile-archetype primitives scaffold + receipt-density audit
 - **Receipt-density measurement** on 3 recent edition essays (2026-w17, -w18, -w19): 0 citation markers across ~2,265 words. Hard violation of `docs/design-system/32-receipt-pattern.md` (spec floor: ≥1 per 200 words ≈ 11 expected). Documented in `docs/research/design-audit-2026-05-22-v2.md` §"Discovered during session 5 execution" — not renderer-fixable; needs the cover-essay LLM pipeline to start emitting `<sup>` markers + populate `editorial_citations`.
 - **Profile primitives scaffold landed:** new `src/cfb_rankings/profile/__init__.py` module exposing `render_awaiting_module`, `render_profile_identity_strip`, `render_module_grid_open/close`, `render_profile_meta_footer`. Modeled on existing `cfb_rankings.dashboards` scaffold pattern.

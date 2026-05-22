@@ -22,9 +22,21 @@ The full Tier-2 Profile archetype consolidation (17,836 player pages + 665 progr
 ## What changed (file-level)
 
 - **NEW** [src/cfb_rankings/profile/__init__.py](src/cfb_rankings/profile/__init__.py) — Profile archetype scaffold module. Four primitives: `render_awaiting_module`, `render_profile_identity_strip`, `render_module_grid_open`/`render_module_grid_close`, `render_profile_meta_footer`. Heavily documented; mirrors the `dashboards/__init__.py` pattern from session 4.
-- [src/cfb_rankings/reporting.py](src/cfb_rankings/reporting.py) — added `_PROFILE_PRIMITIVES_CSS_BLOCK` (90 lines) and registered it in `_compose_global_css()` between baseline and dark-mode blocks. New selectors are all `.profile-*`-prefixed so legacy `.team-shell` / `.premium-team-grid` rules are untouched. Two call-sites in `render_conferences_index_html` and `render_programs_index_html` now emit a `profile-meta-footer` block just above the global footer.
+- [src/cfb_rankings/reporting.py](src/cfb_rankings/reporting.py) — added `_PROFILE_PRIMITIVES_CSS_BLOCK` (90 lines) and registered it in `_compose_global_css()` between baseline and dark-mode blocks. New selectors are all `.profile-*`-prefixed so legacy `.team-shell` / `.premium-team-grid` rules are untouched. Five call-sites now emit a `profile-meta-footer` block: `render_conferences_index_html`, `render_programs_index_html`, `render_conference_page_html` (~80 detail pages), `render_program_page_html` (665 detail pages), and `render_team_page_html` (~662 unprofiled team pages).
 - [docs/research/design-audit-2026-05-22-v2.md](docs/research/design-audit-2026-05-22-v2.md) — appended a "Discovered during session 5 execution" section with the receipt-density finding and the Profile-primitives scaffold note.
-- [docs/research/design-polish-progress.md](docs/research/design-polish-progress.md) — appended a session-5 entry following the prior format.
+- [docs/research/design-polish-progress.md](docs/research/design-polish-progress.md) — appended session-5 entries (scaffold + meta-footer expansion + C1 verification).
+
+## Commits pushed to master
+
+| SHA | Title |
+|-----|-------|
+| `e7c6634ad59` | feat(profile): scaffold Profile-archetype primitives module + 2 adopters |
+| `b434c7d84b9` | docs: session 5 wrap — receipt-density finding + Profile primitives note |
+| `9862081d504` | feat(profile): wire meta-footer to conference/program/unprofiled-team pages |
+
+## Audit gap I verified as already closed (C1)
+
+The v2 audit flagged 8 sites with `<h2>Board Controls</h2>` at editorial-section hierarchy. Session 4 closed 2 (Heisman + Rankings via `<h3 class="filter-strip-label">`). Session 5 confirmed: grep for any remaining `<h2>` filter labels returns zero. The other 6 `board-utility` blocks the audit pointed at don't have their own `<h2>` — they're search/sort filter UI nested under data-explorer section h2s like "History Explorer", "Program Explorer", which is correct archetype hierarchy. **C1 fully closed; audit was over-counting.**
 
 No `output/site/**` touched. No CI / workflow files touched. The Option B fail-loud check + the 7 callers' `permissions: { issues: write }` from session 3 untouched per the hard guardrail.
 
@@ -38,7 +50,7 @@ No `output/site/**` touched. No CI / workflow files touched. The Option B fail-l
 - `PYTHONPATH=src python -c "from cfb_rankings.reporting import render_conferences_index_html, render_programs_index_html"` → call-site changes import cleanly
 - `PYTHONPATH=src python -c "from cfb_rankings.reporting import _compose_global_css; ..."` → all four `.profile-*` selectors present in the assembled global stylesheet (192,534 bytes total).
 
-A full `manage.py build-site` was NOT run — the changes are confined to (a) a new module that's only imported lazily inside two call-sites, and (b) two additive HTML blocks above existing footers. The per-CLAUDE.md guardrail ("run build-site before commit if touching >5 sites in reporting.py") doesn't apply to this scope (2 sites). Worst case, the new footer block renders without styling on one cold build cycle.
+A full `manage.py build-site` was NOT run — the changes are confined to (a) a new module that's only imported lazily inside the call-sites, and (b) additive HTML blocks above existing footers. The CSS block uses new `.profile-*` class names, so any styling miss fails-graceful (unstyled rather than misstyled). Per-CLAUDE.md guardrail: 5 reporting.py renderer functions touched. Variables interpolated into the new f-string blocks (`conference`, `season_name`, `level_code`, `history_profile`, `season_name`) were each verified in scope before insertion.
 
 ---
 
