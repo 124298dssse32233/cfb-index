@@ -1437,16 +1437,20 @@ def _render_footer(profile: Profile, state: PageState) -> str:
         if mantra else "<span></span>"
     )
     model = profile.frontmatter.get("model_version", "team-pages v1.0")
-    # Audit-2 finding: "sentience dead-period-summer" exposed the
-    # internal anchor_variant state-machine name (kebab-case from
-    # _MONTH_TO_PHASE) to fans in the footer. The "sentience" label is
-    # brand-internal vocabulary (Iteration Log §Sentience). Fans don't
-    # need to see "sentience post-loss-sunday-monday" in their footer.
-    # Keep the version stamp (still useful for debugging via view-source);
-    # drop the anchor_variant tag.
+    # Sprint F: reverse-pointer to the /programs/<slug> historical view so
+    # users on the current-season page can navigate to the multi-decade
+    # history without going through the nav. Closes the audit's "two URL
+    # families, no obvious crosslink" complaint from the team-page side.
+    program_link = (
+        f'<a class="page-footer__link" href="/programs/{html.escape(profile.slug)}.html" '
+        'aria-label="View the multi-decade program history page">'
+        'Historical view →</a>'
+        if profile.slug else ""
+    )
     return f"""<footer class="page-footer">
   <span>CFB Index · {html.escape(model)}</span>
   {mantra_html}
+  {program_link}
 </footer>"""
 
 
