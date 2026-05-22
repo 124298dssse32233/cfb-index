@@ -32,8 +32,9 @@
 </script>
 <link rel="stylesheet" href="/assets/theme_toggle.css">
 <script defer src="/assets/theme_toggle.js"></script>
-    <link rel="stylesheet" href="/assets/cfb-index.a82ef0c2af64.css">
+    <link rel="stylesheet" href="/assets/cfb-index.d7a256aa9aaa.css">
     <link rel="stylesheet" href="/assets/cmdk.css">
+    <link rel="stylesheet" href="/assets/stats_table.css">
     <script src="/assets/js/url-state.js" defer></script>
     <script src="/assets/js/the-room.js" defer></script>
     <script src="/assets/js/subnav.js" defer></script>
@@ -44,7 +45,7 @@
     <script src="/assets/js/bets/scenario-explorer.js" defer></script>
     <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
     <script src="/assets/js/bets/context-menu.js" defer></script>
-    <script src="/assets/alpine.min.js" defer></script>
+    <script src="/assets/stat_definitions.js" defer></script>    <script src="/assets/alpine.min.js" defer></script>
     <script src="/assets/cmdk.js" defer></script>
   
 <!-- wcfb-enhancements -->
@@ -88,7 +89,7 @@
         
       <div class="phase-banner" role="note"><span class="phase-banner__label">OFFSEASON &middot; SUMMER 2026 &middot; COMMITMENT SEASON</span></div>
       
-      <script type="application/json" id="page-state" data-player-slug="hollywood-smothers-48501">{"heisman_heat":null,"standing_rung":7,"room_mentions":null,"outlook_updates":[],"achievements":["{'achievement_id': 'achievement_program_benchmark', 'display_name': 'Program Benchmark', 'icon_slug': 'program', 'description': \"Season leader for the program at the player's position across the headline volume metric (passing yards / rushing yards / receiving yards).\", 'unlock_context': 'Team leader in rushing yards (939).', 'rarity_pct': 5.55, 'meta': {'team_id': 61, 'position': 'RB', 'metric': 'rushing yards'}}"],"version":"975f320e8571","generated_at":"2026-05-18T17:35:17Z"}</script>
+      <script type="application/json" id="page-state" data-player-slug="hollywood-smothers-48501">{"heisman_heat":null,"standing_rung":7,"room_mentions":null,"outlook_updates":[],"achievements":["{'achievement_id': 'achievement_program_benchmark', 'display_name': 'Program Benchmark', 'icon_slug': 'program', 'description': \"Season leader for the program at the player's position across the headline volume metric (passing yards / rushing yards / receiving yards).\", 'unlock_context': 'Team leader in rushing yards (939).', 'rarity_pct': 5.55, 'meta': {'team_id': 61, 'position': 'RB', 'metric': 'rushing yards'}}"],"version":"975f320e8571","generated_at":"2026-05-22T00:04:52Z"}</script>
       <div data-what-changed aria-live="polite"></div>
       <section class="team-shell" style="--team-accent:#19423f; --team-accent-soft:#b98343;">
         <div class="team-breadcrumbs">
@@ -482,101 +483,98 @@
                   <span class="player-stat-module-chip">Career row</span>
                 </div>
               </div>
-              
-    <div class="player-stat-season-table">
-      <div class="player-stat-section-head">
-        <div>
-          <h4>Rushing</h4>
-          <p>Classic running back rushing table with season and career context.</p>
-        </div>
-      </div>
-      <div class="table-wrap compact-table-wrap player-stat-season-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Team</th>
-              <th>CAR</th><th>YDS</th><th>AVG</th><th>TD</th><th>LNG</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr class="">
-              <td data-label="Season">2025</td>
-              <td data-label="Team"><a class="team-link" href="../teams/nc-state.html">NC State</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">160</td><td class="metric-cell" data-label="YDS">939</td><td class="metric-cell" data-label="AVG">5.9</td><td class="metric-cell" data-label="TD">6</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2024</td>
-              <td data-label="Team"><a class="team-link" href="../teams/nc-state.html">NC State</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">89</td><td class="metric-cell" data-label="YDS">571</td><td class="metric-cell" data-label="AVG">6.4</td><td class="metric-cell" data-label="TD">6</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2023</td>
-              <td data-label="Team"><a class="team-link" href="../teams/oklahoma.html">Oklahoma</a><span class="submetric">Week 19 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">11</td><td class="metric-cell" data-label="YDS">42</td><td class="metric-cell" data-label="AVG">3.8</td><td class="metric-cell" data-label="TD">0</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="player-stat-season-summary-row">
-              <td data-label="Season">Career</td>
-              <td data-label="Team"><strong>3 loaded seasons</strong><span class="submetric">Career row reflects the stat seasons currently loaded in this database.</span></td>
-              <td class="metric-cell" data-label="CAR">260</td><td class="metric-cell" data-label="YDS">1,552</td><td class="metric-cell" data-label="AVG">6.0</td><td class="metric-cell" data-label="TD">12</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
+              <div class="wcfb-stats-wrap" id="player-stats-0-wrap">
+<table class="wcfb-stats-table" id="player-stats-0">
+<thead><tr><th>Season</th><th>Team</th><th class="wcfb-align-right" data-sort="car">
+  <button class="wcfb-sort-btn" type="button">
+    <span>CAR</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
     
-    <div class="player-stat-season-table">
-      <div class="player-stat-section-head">
-        <div>
-          <h4>Receiving</h4>
-          <p>Passing-game production that separates pure runners from all-purpose backs.</p>
-        </div>
-      </div>
-      <div class="table-wrap compact-table-wrap player-stat-season-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Team</th>
-              <th>REC</th><th>YDS</th><th>AVG</th><th>TD</th><th>LNG</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr class="">
-              <td data-label="Season">2025</td>
-              <td data-label="Team"><a class="team-link" href="../teams/nc-state.html">NC State</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="REC">37</td><td class="metric-cell" data-label="YDS">189</td><td class="metric-cell" data-label="AVG">5.1</td><td class="metric-cell" data-label="TD">1</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2024</td>
-              <td data-label="Team"><a class="team-link" href="../teams/nc-state.html">NC State</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="REC">19</td><td class="metric-cell" data-label="YDS">263</td><td class="metric-cell" data-label="AVG">13.8</td><td class="metric-cell" data-label="TD">2</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2023</td>
-              <td data-label="Team"><a class="team-link" href="../teams/oklahoma.html">Oklahoma</a><span class="submetric">Week 19 snapshot</span></td>
-              <td class="metric-cell" data-label="REC">1</td><td class="metric-cell" data-label="YDS">1</td><td class="metric-cell" data-label="AVG">1.0</td><td class="metric-cell" data-label="TD">0</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="player-stat-season-summary-row">
-              <td data-label="Season">Career</td>
-              <td data-label="Team"><strong>3 loaded seasons</strong><span class="submetric">Career row reflects the stat seasons currently loaded in this database.</span></td>
-              <td class="metric-cell" data-label="REC">57</td><td class="metric-cell" data-label="YDS">453</td><td class="metric-cell" data-label="AVG">7.9</td><td class="metric-cell" data-label="TD">3</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
+  </button>
+</th><th class="wcfb-align-right" data-sort="yds" aria-sort="descending">
+  <button class="wcfb-sort-btn" type="button">
+    <span>YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
     
+  </button>
+</th><th class="wcfb-align-right" data-sort="avg">
+  <button class="wcfb-sort-btn" type="button">
+    <span>AVG</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="td">
+  <button class="wcfb-sort-btn" type="button">
+    <span>TD</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="lng">
+  <button class="wcfb-sort-btn" type="button">
+    <span>LNG</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th></tr></thead>
+<tbody><tr><td class="wcfb-align-left">2025</td><td class="wcfb-align-left"><a href="../players/hollywood-smothers-48501.html" class="wcfb-cross-link">NC State</a></td><td class="wcfb-align-right">160</td><td class="wcfb-align-right">939</td><td class="wcfb-align-right">5.9</td><td class="wcfb-align-right">6</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2024</td><td class="wcfb-align-left"><a href="../players/hollywood-smothers-48501.html" class="wcfb-cross-link">NC State</a></td><td class="wcfb-align-right">89</td><td class="wcfb-align-right">571</td><td class="wcfb-align-right">6.4</td><td class="wcfb-align-right">6</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2023</td><td class="wcfb-align-left"><a href="../players/hollywood-smothers-48501.html" class="wcfb-cross-link">Oklahoma</a></td><td class="wcfb-align-right">11</td><td class="wcfb-align-right">42</td><td class="wcfb-align-right">3.8</td><td class="wcfb-align-right">0</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">Career</td><td class="wcfb-align-left">3 loaded seasons</td><td class="wcfb-align-right">260</td><td class="wcfb-align-right">1,552</td><td class="wcfb-align-right">6.0</td><td class="wcfb-align-right">12</td><td class="wcfb-align-right">--</td></tr></tbody>
+</table>
+</div>
+<div class="wcfb-stats-wrap" id="player-stats-1-wrap">
+<table class="wcfb-stats-table" id="player-stats-1">
+<thead><tr><th>Season</th><th>Team</th><th class="wcfb-align-right" data-sort="rec">
+  <button class="wcfb-sort-btn" type="button">
+    <span>REC</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="yds" aria-sort="descending">
+  <button class="wcfb-sort-btn" type="button">
+    <span>YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="avg">
+  <button class="wcfb-sort-btn" type="button">
+    <span>AVG</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="td">
+  <button class="wcfb-sort-btn" type="button">
+    <span>TD</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="lng">
+  <button class="wcfb-sort-btn" type="button">
+    <span>LNG</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th></tr></thead>
+<tbody><tr><td class="wcfb-align-left">2025</td><td class="wcfb-align-left"><a href="../players/hollywood-smothers-48501.html" class="wcfb-cross-link">NC State</a></td><td class="wcfb-align-right">37</td><td class="wcfb-align-right">189</td><td class="wcfb-align-right">5.1</td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2024</td><td class="wcfb-align-left"><a href="../players/hollywood-smothers-48501.html" class="wcfb-cross-link">NC State</a></td><td class="wcfb-align-right">19</td><td class="wcfb-align-right">263</td><td class="wcfb-align-right">13.8</td><td class="wcfb-align-right">2</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2023</td><td class="wcfb-align-left"><a href="../players/hollywood-smothers-48501.html" class="wcfb-cross-link">Oklahoma</a></td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">1.0</td><td class="wcfb-align-right">0</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">Career</td><td class="wcfb-align-left">3 loaded seasons</td><td class="wcfb-align-right">57</td><td class="wcfb-align-right">453</td><td class="wcfb-align-right">7.9</td><td class="wcfb-align-right">3</td><td class="wcfb-align-right">--</td></tr></tbody>
+</table>
+</div>
             </div>
           </details>
           <details class="player-stats-drawer">
@@ -641,111 +639,7 @@
         </article>
         
               </div>
-              <div class="table-wrap compact-table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Metric</th>
-                      <th class="metric-cell">Value</th>
-                      <th class="metric-cell">Peer context</th>
-                      <th>Why it matters</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Rushing WEPA</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Rushing WEPA">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Opponent-adjusted rushing value. It rewards carries and runs that create actual offensive value, not just raw volume.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">+0.09</td>
-              <td class="metric-cell">#246/362 (38th pct)</td>
-              <td>Opponent-adjusted rushing value | 157 weighted plays</td>
-            </tr>
-            
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Role share</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Role share">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Estimated share of the team&#x27;s offense owned by this player after combining the ways the ball flows through them.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">28.8%</td>
-              <td class="metric-cell">#18/737 (98th pct)</td>
-              <td>Share of team offense</td>
-            </tr>
-            
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Rush share</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Rush share">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Share of the team&#x27;s rushing-game involvement. Useful for spotting true workload backs and designed-run quarterbacks.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">47.2%</td>
-              <td class="metric-cell">#25/737 (97th pct)</td>
-              <td>Ground-game usage</td>
-            </tr>
-            
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Pass share</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Pass share">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Share of the team&#x27;s passing-game involvement. Useful for separating featured targets or pass-heavy quarterbacks from lower-volume roles.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">11.6%</td>
-              <td class="metric-cell">#10/737 (99th pct)</td>
-              <td>Air-game usage</td>
-            </tr>
-            
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Yards / carry</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Yards / carry">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Yards per carry. It is not perfect on its own, but it quickly signals whether the rushing profile is efficient or grinding for volume.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">5.9</td>
-              <td class="metric-cell">#138/735 (83rd pct)</td>
-              <td>Efficiency</td>
-            </tr>
-            
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Yards / catch</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Yards / catch">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Yards per catch. A fast indicator of how much vertical or chunk-play value a receiver creates.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">5.1</td>
-              <td class="metric-cell">#405/548 (27th pct)</td>
-              <td>Efficiency</td>
-            </tr>
-            
-                  </tbody>
-                </table>
-              </div>
+              
             </div>
           </details>
           <details class="player-stats-explorer">

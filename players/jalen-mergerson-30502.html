@@ -32,8 +32,9 @@
 </script>
 <link rel="stylesheet" href="/assets/theme_toggle.css">
 <script defer src="/assets/theme_toggle.js"></script>
-    <link rel="stylesheet" href="/assets/cfb-index.a82ef0c2af64.css">
+    <link rel="stylesheet" href="/assets/cfb-index.d7a256aa9aaa.css">
     <link rel="stylesheet" href="/assets/cmdk.css">
+    <link rel="stylesheet" href="/assets/stats_table.css">
     <script src="/assets/js/url-state.js" defer></script>
     <script src="/assets/js/the-room.js" defer></script>
     <script src="/assets/js/subnav.js" defer></script>
@@ -44,7 +45,7 @@
     <script src="/assets/js/bets/scenario-explorer.js" defer></script>
     <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
     <script src="/assets/js/bets/context-menu.js" defer></script>
-    <script src="/assets/alpine.min.js" defer></script>
+    <script src="/assets/stat_definitions.js" defer></script>    <script src="/assets/alpine.min.js" defer></script>
     <script src="/assets/cmdk.js" defer></script>
   
 <!-- wcfb-enhancements -->
@@ -88,7 +89,7 @@
         
       <div class="phase-banner" role="note"><span class="phase-banner__label">OFFSEASON &middot; SUMMER 2026 &middot; COMMITMENT SEASON</span></div>
       
-      <script type="application/json" id="page-state" data-player-slug="jalen-mergerson-30502">{"heisman_heat":null,"standing_rung":2,"room_mentions":null,"outlook_updates":[],"achievements":[],"version":"f552a7dca305","generated_at":"2026-05-18T17:35:31Z"}</script>
+      <script type="application/json" id="page-state" data-player-slug="jalen-mergerson-30502">{"heisman_heat":null,"standing_rung":2,"room_mentions":null,"outlook_updates":[],"achievements":[],"version":"f552a7dca305","generated_at":"2026-05-22T00:05:08Z"}</script>
       <div data-what-changed aria-live="polite"></div>
       <section class="team-shell" style="--team-accent:#003087; --team-accent-soft:#b98343;">
         <div class="team-breadcrumbs">
@@ -441,54 +442,68 @@
                   <span class="player-stat-module-chip">Career row</span>
                 </div>
               </div>
-              
-    <div class="player-stat-season-table">
-      <div class="player-stat-section-head">
-        <div>
-          <h4>Defense</h4>
-          <p>Season-by-season defensive box score for disruption and splash plays.</p>
-        </div>
-      </div>
-      <div class="table-wrap compact-table-wrap player-stat-season-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Team</th>
-              <th>TOT</th><th>SOLO</th><th>TFL</th><th>SACK</th><th>PD</th><th>INT</th><th>FF</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr class="">
-              <td data-label="Season">2023</td>
-              <td data-label="Team"><a class="team-link" href="../teams/air-force.html">Air Force</a><span class="submetric">Week 19 snapshot</span></td>
-              <td class="metric-cell" data-label="TOT">41</td><td class="metric-cell" data-label="SOLO">22</td><td class="metric-cell" data-label="TFL">1.0</td><td class="metric-cell" data-label="SACK">0.0</td><td class="metric-cell" data-label="PD">2</td><td class="metric-cell" data-label="INT">1</td><td class="metric-cell" data-label="FF">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2022</td>
-              <td data-label="Team"><a class="team-link" href="../teams/air-force.html">Air Force</a><span class="submetric">Week 20 snapshot</span></td>
-              <td class="metric-cell" data-label="TOT">7</td><td class="metric-cell" data-label="SOLO">4</td><td class="metric-cell" data-label="TFL">0.0</td><td class="metric-cell" data-label="SACK">0.0</td><td class="metric-cell" data-label="PD">--</td><td class="metric-cell" data-label="INT">--</td><td class="metric-cell" data-label="FF">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2021</td>
-              <td data-label="Team"><a class="team-link" href="../teams/air-force.html">Air Force</a><span class="submetric">Week 20 snapshot</span></td>
-              <td class="metric-cell" data-label="TOT">7</td><td class="metric-cell" data-label="SOLO">3</td><td class="metric-cell" data-label="TFL">0.0</td><td class="metric-cell" data-label="SACK">0.0</td><td class="metric-cell" data-label="PD">1</td><td class="metric-cell" data-label="INT">--</td><td class="metric-cell" data-label="FF">--</td>
-            </tr>
-            
-            <tr class="player-stat-season-summary-row">
-              <td data-label="Season">Career</td>
-              <td data-label="Team"><strong>3 loaded seasons</strong><span class="submetric">Career row reflects the stat seasons currently loaded in this database.</span></td>
-              <td class="metric-cell" data-label="TOT">55</td><td class="metric-cell" data-label="SOLO">29</td><td class="metric-cell" data-label="TFL">1.0</td><td class="metric-cell" data-label="SACK">0.0</td><td class="metric-cell" data-label="PD">3</td><td class="metric-cell" data-label="INT">1</td><td class="metric-cell" data-label="FF">--</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
+              <div class="wcfb-stats-wrap" id="player-stats-0-wrap">
+<table class="wcfb-stats-table" id="player-stats-0">
+<thead><tr><th>Season</th><th>Team</th><th class="wcfb-align-right" data-sort="tot">
+  <button class="wcfb-sort-btn" type="button">
+    <span>TOT</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
     
+  </button>
+</th><th class="wcfb-align-right" data-sort="solo">
+  <button class="wcfb-sort-btn" type="button">
+    <span>SOLO</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="tfl">
+  <button class="wcfb-sort-btn" type="button">
+    <span>TFL</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="sack">
+  <button class="wcfb-sort-btn" type="button">
+    <span>SACK</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="pd">
+  <button class="wcfb-sort-btn" type="button">
+    <span>PD</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="int">
+  <button class="wcfb-sort-btn" type="button">
+    <span>INT</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="ff">
+  <button class="wcfb-sort-btn" type="button">
+    <span>FF</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th></tr></thead>
+<tbody><tr><td class="wcfb-align-left">2023</td><td class="wcfb-align-left"><a href="../players/jalen-mergerson-30502.html" class="wcfb-cross-link">Air Force</a></td><td class="wcfb-align-right">41</td><td class="wcfb-align-right">22</td><td class="wcfb-align-right">1.0</td><td class="wcfb-align-right">0.0</td><td class="wcfb-align-right">2</td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2022</td><td class="wcfb-align-left"><a href="../players/jalen-mergerson-30502.html" class="wcfb-cross-link">Air Force</a></td><td class="wcfb-align-right">7</td><td class="wcfb-align-right">4</td><td class="wcfb-align-right">0.0</td><td class="wcfb-align-right">0.0</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2021</td><td class="wcfb-align-left"><a href="../players/jalen-mergerson-30502.html" class="wcfb-cross-link">Air Force</a></td><td class="wcfb-align-right">7</td><td class="wcfb-align-right">3</td><td class="wcfb-align-right">0.0</td><td class="wcfb-align-right">0.0</td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">Career</td><td class="wcfb-align-left">3 loaded seasons</td><td class="wcfb-align-right">55</td><td class="wcfb-align-right">29</td><td class="wcfb-align-right">1.0</td><td class="wcfb-align-right">0.0</td><td class="wcfb-align-right">3</td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">--</td></tr></tbody>
+</table>
+</div>
             </div>
           </details>
           <details class="player-stats-drawer">
@@ -553,49 +568,7 @@
         </article>
         
               </div>
-              <div class="table-wrap compact-table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Metric</th>
-                      <th class="metric-cell">Value</th>
-                      <th class="metric-cell">Peer context</th>
-                      <th>Why it matters</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-            <tr>
-              <td>TFL</td>
-              <td class="metric-cell">1.0</td>
-              <td class="metric-cell">#2657/4972 (59th pct)</td>
-              <td>Disruption</td>
-            </tr>
-            
-            <tr>
-              <td>Sacks</td>
-              <td class="metric-cell">0.0</td>
-              <td class="metric-cell">#4972/4972 (65th pct)</td>
-              <td>Disruption</td>
-            </tr>
-            
-            <tr>
-              <td>Pass breakups</td>
-              <td class="metric-cell">2</td>
-              <td class="metric-cell">#1240/2184 (64th pct)</td>
-              <td>Coverage</td>
-            </tr>
-            
-            <tr>
-              <td>Interceptions</td>
-              <td class="metric-cell">1</td>
-              <td class="metric-cell">#869/869 (65th pct)</td>
-              <td>Takeaways</td>
-            </tr>
-            
-                  </tbody>
-                </table>
-              </div>
+              
             </div>
           </details>
           <details class="player-stats-explorer">

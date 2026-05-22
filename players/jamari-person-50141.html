@@ -32,8 +32,9 @@
 </script>
 <link rel="stylesheet" href="/assets/theme_toggle.css">
 <script defer src="/assets/theme_toggle.js"></script>
-    <link rel="stylesheet" href="/assets/cfb-index.a82ef0c2af64.css">
+    <link rel="stylesheet" href="/assets/cfb-index.d7a256aa9aaa.css">
     <link rel="stylesheet" href="/assets/cmdk.css">
+    <link rel="stylesheet" href="/assets/stats_table.css">
     <script src="/assets/js/url-state.js" defer></script>
     <script src="/assets/js/the-room.js" defer></script>
     <script src="/assets/js/subnav.js" defer></script>
@@ -44,7 +45,7 @@
     <script src="/assets/js/bets/scenario-explorer.js" defer></script>
     <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
     <script src="/assets/js/bets/context-menu.js" defer></script>
-    <script src="/assets/alpine.min.js" defer></script>
+    <script src="/assets/stat_definitions.js" defer></script>    <script src="/assets/alpine.min.js" defer></script>
     <script src="/assets/cmdk.js" defer></script>
   
 <!-- wcfb-enhancements -->
@@ -88,7 +89,7 @@
         
       <div class="phase-banner" role="note"><span class="phase-banner__label">OFFSEASON &middot; SUMMER 2026 &middot; COMMITMENT SEASON</span></div>
       
-      <script type="application/json" id="page-state" data-player-slug="jamari-person-50141">{"heisman_heat":null,"standing_rung":6,"room_mentions":null,"outlook_updates":[],"achievements":[],"version":"3c77188adc9e","generated_at":"2026-05-18T17:35:18Z"}</script>
+      <script type="application/json" id="page-state" data-player-slug="jamari-person-50141">{"heisman_heat":null,"standing_rung":6,"room_mentions":null,"outlook_updates":[],"achievements":[],"version":"3c77188adc9e","generated_at":"2026-05-22T00:04:54Z"}</script>
       <div data-what-changed aria-live="polite"></div>
       <section class="team-shell" style="--team-accent:#002147; --team-accent-soft:#b98343;">
         <div class="team-breadcrumbs">
@@ -470,101 +471,98 @@
                   <span class="player-stat-module-chip">Career row</span>
                 </div>
               </div>
-              
-    <div class="player-stat-season-table">
-      <div class="player-stat-section-head">
-        <div>
-          <h4>Receiving</h4>
-          <p>Traditional receiver line with season-by-season growth baked in.</p>
-        </div>
-      </div>
-      <div class="table-wrap compact-table-wrap player-stat-season-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Team</th>
-              <th>REC</th><th>YDS</th><th>AVG</th><th>TD</th><th>LNG</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr class="">
-              <td data-label="Season">2025</td>
-              <td data-label="Team"><a class="team-link" href="../teams/liberty.html">Liberty</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="REC">28</td><td class="metric-cell" data-label="YDS">315</td><td class="metric-cell" data-label="AVG">11.2</td><td class="metric-cell" data-label="TD">0</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2024</td>
-              <td data-label="Team"><a class="team-link" href="../teams/colorado-state.html">Colorado State</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="REC">35</td><td class="metric-cell" data-label="YDS">373</td><td class="metric-cell" data-label="AVG">10.7</td><td class="metric-cell" data-label="TD">1</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2023</td>
-              <td data-label="Team"><a class="team-link" href="../teams/colorado-state.html">Colorado State</a><span class="submetric">Week 19 snapshot</span></td>
-              <td class="metric-cell" data-label="REC">1</td><td class="metric-cell" data-label="YDS">8</td><td class="metric-cell" data-label="AVG">8.0</td><td class="metric-cell" data-label="TD">0</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-            <tr class="player-stat-season-summary-row">
-              <td data-label="Season">Career</td>
-              <td data-label="Team"><strong>3 loaded seasons</strong><span class="submetric">Career row reflects the stat seasons currently loaded in this database.</span></td>
-              <td class="metric-cell" data-label="REC">64</td><td class="metric-cell" data-label="YDS">696</td><td class="metric-cell" data-label="AVG">10.9</td><td class="metric-cell" data-label="TD">1</td><td class="metric-cell" data-label="LNG">--</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
+              <div class="wcfb-stats-wrap" id="player-stats-0-wrap">
+<table class="wcfb-stats-table" id="player-stats-0">
+<thead><tr><th>Season</th><th>Team</th><th class="wcfb-align-right" data-sort="rec">
+  <button class="wcfb-sort-btn" type="button">
+    <span>REC</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
     
-    <div class="player-stat-season-table">
-      <div class="player-stat-section-head">
-        <div>
-          <h4>Rushing &amp; Returns</h4>
-          <p>Extra-touch value for all-purpose profiles.</p>
-        </div>
-      </div>
-      <div class="table-wrap compact-table-wrap player-stat-season-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Team</th>
-              <th>CAR</th><th>RUSH YDS</th><th>KR YDS</th><th>PR YDS</th><th>RET TD</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr class="">
-              <td data-label="Season">2025</td>
-              <td data-label="Team"><a class="team-link" href="../teams/liberty.html">Liberty</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">--</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">--</td><td class="metric-cell" data-label="RET TD">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2024</td>
-              <td data-label="Team"><a class="team-link" href="../teams/colorado-state.html">Colorado State</a><span class="submetric">Week 21 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">6</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">--</td><td class="metric-cell" data-label="RET TD">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2023</td>
-              <td data-label="Team"><a class="team-link" href="../teams/colorado-state.html">Colorado State</a><span class="submetric">Week 19 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">--</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">--</td><td class="metric-cell" data-label="RET TD">--</td>
-            </tr>
-            
-            <tr class="player-stat-season-summary-row">
-              <td data-label="Season">Career</td>
-              <td data-label="Team"><strong>3 loaded seasons</strong><span class="submetric">Career row reflects the stat seasons currently loaded in this database.</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">6</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">--</td><td class="metric-cell" data-label="RET TD">--</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
+  </button>
+</th><th class="wcfb-align-right" data-sort="yds" aria-sort="descending">
+  <button class="wcfb-sort-btn" type="button">
+    <span>YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
     
+  </button>
+</th><th class="wcfb-align-right" data-sort="avg">
+  <button class="wcfb-sort-btn" type="button">
+    <span>AVG</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="td">
+  <button class="wcfb-sort-btn" type="button">
+    <span>TD</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="lng">
+  <button class="wcfb-sort-btn" type="button">
+    <span>LNG</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th></tr></thead>
+<tbody><tr><td class="wcfb-align-left">2025</td><td class="wcfb-align-left"><a href="../players/jamari-person-50141.html" class="wcfb-cross-link">Liberty</a></td><td class="wcfb-align-right">28</td><td class="wcfb-align-right">315</td><td class="wcfb-align-right">11.2</td><td class="wcfb-align-right">0</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2024</td><td class="wcfb-align-left"><a href="../players/jamari-person-50141.html" class="wcfb-cross-link">Colorado State</a></td><td class="wcfb-align-right">35</td><td class="wcfb-align-right">373</td><td class="wcfb-align-right">10.7</td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2023</td><td class="wcfb-align-left"><a href="../players/jamari-person-50141.html" class="wcfb-cross-link">Colorado State</a></td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">8</td><td class="wcfb-align-right">8.0</td><td class="wcfb-align-right">0</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">Career</td><td class="wcfb-align-left">3 loaded seasons</td><td class="wcfb-align-right">64</td><td class="wcfb-align-right">696</td><td class="wcfb-align-right">10.9</td><td class="wcfb-align-right">1</td><td class="wcfb-align-right">--</td></tr></tbody>
+</table>
+</div>
+<div class="wcfb-stats-wrap" id="player-stats-1-wrap">
+<table class="wcfb-stats-table" id="player-stats-1">
+<thead><tr><th>Season</th><th>Team</th><th class="wcfb-align-right" data-sort="car" aria-sort="descending">
+  <button class="wcfb-sort-btn" type="button">
+    <span>CAR</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="rush-yds">
+  <button class="wcfb-sort-btn" type="button">
+    <span>RUSH YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="kr-yds">
+  <button class="wcfb-sort-btn" type="button">
+    <span>KR YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="pr-yds">
+  <button class="wcfb-sort-btn" type="button">
+    <span>PR YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="ret-td">
+  <button class="wcfb-sort-btn" type="button">
+    <span>RET TD</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th></tr></thead>
+<tbody><tr><td class="wcfb-align-left">2025</td><td class="wcfb-align-left"><a href="../players/jamari-person-50141.html" class="wcfb-cross-link">Liberty</a></td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2024</td><td class="wcfb-align-left"><a href="../players/jamari-person-50141.html" class="wcfb-cross-link">Colorado State</a></td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">6</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2023</td><td class="wcfb-align-left"><a href="../players/jamari-person-50141.html" class="wcfb-cross-link">Colorado State</a></td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">Career</td><td class="wcfb-align-left">3 loaded seasons</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">6</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr></tbody>
+</table>
+</div>
             </div>
           </details>
           <details class="player-stats-drawer">
@@ -629,66 +627,7 @@
         </article>
         
               </div>
-              <div class="table-wrap compact-table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Metric</th>
-                      <th class="metric-cell">Value</th>
-                      <th class="metric-cell">Peer context</th>
-                      <th>Why it matters</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Pass share</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Pass share">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Share of the team&#x27;s passing-game involvement. Useful for separating featured targets or pass-heavy quarterbacks from lower-volume roles.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">15.6%</td>
-              <td class="metric-cell">#220/1134 (81st pct)</td>
-              <td>Air-game usage</td>
-            </tr>
-            
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Role share</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Role share">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Estimated share of the team&#x27;s offense owned by this player after combining the ways the ball flows through them.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">6.2%</td>
-              <td class="metric-cell">#349/1134 (70th pct)</td>
-              <td>Share of team offense</td>
-            </tr>
-            
-            <tr>
-              <td>
-      <span class="metric-label-wrap">
-        <span>Yards / catch</span>
-        <span class="metric-help" tabindex="0" aria-label="Explain Yards / catch">
-          <span class="metric-help-dot">?</span>
-          <span class="metric-help-bubble">Yards per catch. A fast indicator of how much vertical or chunk-play value a receiver creates.</span>
-        </span>
-      </span>
-    </td>
-              <td class="metric-cell">11.3</td>
-              <td class="metric-cell">#618/1106 (45th pct)</td>
-              <td>Efficiency</td>
-            </tr>
-            
-                  </tbody>
-                </table>
-              </div>
+              
             </div>
           </details>
           <details class="player-stats-explorer">

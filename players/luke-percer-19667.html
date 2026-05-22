@@ -32,8 +32,9 @@
 </script>
 <link rel="stylesheet" href="/assets/theme_toggle.css">
 <script defer src="/assets/theme_toggle.js"></script>
-    <link rel="stylesheet" href="/assets/cfb-index.a82ef0c2af64.css">
+    <link rel="stylesheet" href="/assets/cfb-index.d7a256aa9aaa.css">
     <link rel="stylesheet" href="/assets/cmdk.css">
+    <link rel="stylesheet" href="/assets/stats_table.css">
     <script src="/assets/js/url-state.js" defer></script>
     <script src="/assets/js/the-room.js" defer></script>
     <script src="/assets/js/subnav.js" defer></script>
@@ -44,7 +45,7 @@
     <script src="/assets/js/bets/scenario-explorer.js" defer></script>
     <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
     <script src="/assets/js/bets/context-menu.js" defer></script>
-    <script src="/assets/alpine.min.js" defer></script>
+    <script src="/assets/stat_definitions.js" defer></script>    <script src="/assets/alpine.min.js" defer></script>
     <script src="/assets/cmdk.js" defer></script>
   
 <!-- wcfb-enhancements -->
@@ -88,7 +89,7 @@
         
       <div class="phase-banner" role="note"><span class="phase-banner__label">OFFSEASON &middot; SUMMER 2026 &middot; COMMITMENT SEASON</span></div>
       
-      <script type="application/json" id="page-state" data-player-slug="luke-percer-19667">{"heisman_heat":null,"standing_rung":1,"room_mentions":null,"outlook_updates":[],"achievements":[],"version":"aa89cf09ba95","generated_at":"2026-05-18T17:35:33Z"}</script>
+      <script type="application/json" id="page-state" data-player-slug="luke-percer-19667">{"heisman_heat":null,"standing_rung":1,"room_mentions":null,"outlook_updates":[],"achievements":[],"version":"aa89cf09ba95","generated_at":"2026-05-22T00:05:11Z"}</script>
       <div data-what-changed aria-live="polite"></div>
       <section class="team-shell" style="--team-accent:#19423f; --team-accent-soft:#b98343;">
         <div class="team-breadcrumbs">
@@ -441,54 +442,52 @@
                   <span class="player-stat-module-chip">Career row</span>
                 </div>
               </div>
-              
-    <div class="player-stat-season-table">
-      <div class="player-stat-section-head">
-        <div>
-          <h4>Rushing &amp; Returns</h4>
-          <p>Extra-touch value for all-purpose profiles.</p>
-        </div>
-      </div>
-      <div class="table-wrap compact-table-wrap player-stat-season-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Team</th>
-              <th>CAR</th><th>RUSH YDS</th><th>KR YDS</th><th>PR YDS</th><th>RET TD</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr class="">
-              <td data-label="Season">2022</td>
-              <td data-label="Team"><a class="team-link" href="../teams/uab.html">UAB</a><span class="submetric">Week 20 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">--</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">14</td><td class="metric-cell" data-label="RET TD">1</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2021</td>
-              <td data-label="Team"><a class="team-link" href="../teams/uab.html">UAB</a><span class="submetric">Week 20 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">--</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">--</td><td class="metric-cell" data-label="RET TD">--</td>
-            </tr>
-            
-            <tr class="">
-              <td data-label="Season">2020</td>
-              <td data-label="Team"><a class="team-link" href="../teams/uab.html">UAB</a><span class="submetric">Week 38 snapshot</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">--</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">--</td><td class="metric-cell" data-label="RET TD">--</td>
-            </tr>
-            
-            <tr class="player-stat-season-summary-row">
-              <td data-label="Season">Career</td>
-              <td data-label="Team"><strong>3 loaded seasons</strong><span class="submetric">Career row reflects the stat seasons currently loaded in this database.</span></td>
-              <td class="metric-cell" data-label="CAR">--</td><td class="metric-cell" data-label="RUSH YDS">--</td><td class="metric-cell" data-label="KR YDS">--</td><td class="metric-cell" data-label="PR YDS">14</td><td class="metric-cell" data-label="RET TD">1</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
+              <div class="wcfb-stats-wrap" id="player-stats-0-wrap">
+<table class="wcfb-stats-table" id="player-stats-0">
+<thead><tr><th>Season</th><th>Team</th><th class="wcfb-align-right" data-sort="car" aria-sort="descending">
+  <button class="wcfb-sort-btn" type="button">
+    <span>CAR</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
     
+  </button>
+</th><th class="wcfb-align-right" data-sort="rush-yds">
+  <button class="wcfb-sort-btn" type="button">
+    <span>RUSH YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="kr-yds">
+  <button class="wcfb-sort-btn" type="button">
+    <span>KR YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="pr-yds">
+  <button class="wcfb-sort-btn" type="button">
+    <span>PR YDS</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th><th class="wcfb-align-right" data-sort="ret-td">
+  <button class="wcfb-sort-btn" type="button">
+    <span>RET TD</span>
+    <svg class="wcfb-sort-icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
+      <path d="M4 0L0 6h8L4 0z"/>
+    </svg>
+    
+  </button>
+</th></tr></thead>
+<tbody><tr><td class="wcfb-align-left">2022</td><td class="wcfb-align-left"><a href="../players/luke-percer-19667.html" class="wcfb-cross-link">UAB</a></td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">14</td><td class="wcfb-align-right">1</td></tr><tr><td class="wcfb-align-left">2021</td><td class="wcfb-align-left"><a href="../players/luke-percer-19667.html" class="wcfb-cross-link">UAB</a></td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">2020</td><td class="wcfb-align-left"><a href="../players/luke-percer-19667.html" class="wcfb-cross-link">UAB</a></td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td></tr><tr><td class="wcfb-align-left">Career</td><td class="wcfb-align-left">3 loaded seasons</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">--</td><td class="wcfb-align-right">14</td><td class="wcfb-align-right">1</td></tr></tbody>
+</table>
+</div>
             </div>
           </details>
           <details class="player-stats-drawer">
@@ -553,28 +552,7 @@
         </article>
         
               </div>
-              <div class="table-wrap compact-table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Metric</th>
-                      <th class="metric-cell">Value</th>
-                      <th class="metric-cell">Peer context</th>
-                      <th>Why it matters</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-            <tr>
-              <td>Punt return avg</td>
-              <td class="metric-cell">14.0</td>
-              <td class="metric-cell">#30/222 (87th pct)</td>
-              <td>Efficiency</td>
-            </tr>
-            
-                  </tbody>
-                </table>
-              </div>
+              
             </div>
           </details>
           <details class="player-stats-explorer">
