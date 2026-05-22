@@ -16883,7 +16883,7 @@ def render_heisman_page_html(
     table_rows = (
         "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in _board_rows_inline) + _truncation_note_row
         if board_rows
-        else f'<tr><td colspan="{10 if has_market_data else 9}">Heisman model rows have not been loaded yet for this season.</td></tr>'
+        else f'<tr><td colspan="{10 if has_market_data else 9}">The Heisman model has no published board for this season yet.</td></tr>'
     )
     # Lazy-load payload: render each tail row server-side as an HTML
     # string, then ship the concatenated string as a JSON literal in a
@@ -17887,12 +17887,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     heisman_year_rows = (
         "".join(_render_player_heisman_year_row(row) for row in heisman_years)
         if heisman_years
-        else '<tr><td colspan="10">This player does not have Heisman tracking or official result rows loaded yet.</td></tr>'
+        else '<tr><td colspan="10">This player hasn&rsquo;t appeared on a Heisman ballot tracked by the model.</td></tr>'
     )
     roster_rows = (
         "".join(_render_player_roster_history_row(row) for row in roster_history)
         if roster_history
-        else '<tr><td colspan="6">Roster history will appear after player-season records are loaded.</td></tr>'
+        else '<tr><td colspan="6">Roster history fills in once this player has measured player-season rows on the board.</td></tr>'
     )
     roadmap_cards = "".join(
         f"""
@@ -18089,7 +18089,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             """
             for row in (recruiting_profile.get("rows") or [])
         )
-        or '<tr><td colspan="3">No recruiting profile has been loaded for this player yet.</td></tr>'
+        or '<tr><td colspan="3">No recruiting profile is on file for this player.</td></tr>'
     )
     transfer_cards = "".join(
         f"""
