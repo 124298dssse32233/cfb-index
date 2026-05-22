@@ -2,7 +2,7 @@
 team_id: 245
 program_name: Texas A&M
 display_name: Texas A&M
-program_slug: texas-am
+program_slug: texas-a-m
 program_tier: 2
 voice_register: aspirational-aggie-cathedral
 tonal_template: aspirational-aggie-cathedral
