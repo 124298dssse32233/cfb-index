@@ -439,4 +439,39 @@ These are NOT in the priority matrix above; they're observations to track separa
 
 ---
 
-**Bottom line:** v1's audit was 22 copy bugs + 5 structural points. v2 finds **4 Tier-−1 blockers** (broken navigation), **22 Tier-0 copy bugs**, **4 Tier-1 polish items**, **6 Tier-2 structural rewrites**, **5 Tier-3 backlog items**. Plus a list of 7 things I genuinely can't audit without browser automation or assistive tech.
+## Discovered during session 5 execution (2026-05-22 PM)
+
+These are NEW findings surfaced while closing the residual ~5% of session 4's punch list. They do NOT supersede prior items — they're additions worth tracking.
+
+### Axis M follow-up — Receipt-density measurement: ZERO citations across recent editions
+
+Per `docs/design-system/32-receipt-pattern.md`, editorial body must carry ≥1 citation marker per 200 words. Session 5 sampled 3 recent edition essays via live WebFetch:
+
+| Edition | Essay | Approx body words | Citation markers | Words/marker |
+|---------|-------|-------------------|------------------|--------------|
+| 2026-w19 | `three-weeks-before-camp-whispers` | ~1,100 | 0 | n/a (spec requires ≤200) |
+| 2026-w18 | `receipts-two-months-past-pre-draft-boards` | ~65 (placeholder) | 0 | n/a |
+| 2026-w17 | `after-the-bracket-three-conversations` | ~1,100 | 0 | n/a |
+
+**Verdict:** systemic violation of the receipt-pattern spec. Cover essays are running ~1,100 words with ZERO superscript/bracketed/inline citation markers; spec requires roughly 5 per essay at that length. This is editorial-pipeline work (the LLM scaffolds in `editions/cover_essay.py` aren't emitting `<sup>` markers and the `editorial_citations` table from `migrations/20260601_01_editorial_citations.sql` is unpopulated for these slugs). Not fixable from the renderer — needs the cover-essay generator to start emitting receipt markers and citation list rows.
+
+**Cross-reference:** the audit's Axis M (line ~322) said "Density not measured on live editions" — that gap is now closed; the answer is "zero, hard violation."
+
+### Axis A follow-up — Profile-archetype consolidation scaffold landed (partial)
+
+Per Tier-2's "Profile archetype consolidation" item (line ~396), session 5 shipped a starter `cfb_rankings.profile` module modeled after the existing `cfb_rankings.dashboards` scaffold. It exposes four primitives any renderer can call without dragging the full team_pages CSS bundle in:
+
+- `render_awaiting_module(title, body, action_label?, action_href?)`
+- `render_profile_identity_strip(eyebrow, name, key_meta?, chips?)`
+- `render_module_grid_open(columns=2)` / `render_module_grid_close()`
+- `render_profile_meta_footer(methodology_label, methodology_href, updated_text?, sample_text?)`
+
+Backed by a `_PROFILE_PRIMITIVES_CSS_BLOCK` appended to the global stylesheet (`.profile-awaiting`, `.profile-identity-strip`, `.profile-module-grid`, `.profile-meta-footer`). These rules deliberately use new class names so they don't collide with legacy `.team-shell` / `.premium-team-grid` styling — both can co-exist while consolidation happens incrementally.
+
+Initial application: the methodology-footer primitive ships on `/conferences/` and `/programs/` (the two Profile-archetype directory pages without one). 17,836 player pages, 665 program pages, ~662 unprofiled team pages, and conference detail pages are **not yet adopting** any of the new primitives — that's the full consolidation work still owed and remains genuinely multi-week.
+
+**Status against the 95% number:** the audit was at ~95% closed after session 4. The Profile primitive scaffold + two adopters land in session 5; the full consolidation is still the explicit Tier-2 multi-week item it was before. Honest delta: ~+1% (we shipped reusable plumbing + two adopters; the bulk of the surfaces still flow through the legacy aesthetic).
+
+---
+
+**Bottom line:** v1's audit was 22 copy bugs + 5 structural points. v2 finds **4 Tier-−1 blockers** (broken navigation), **22 Tier-0 copy bugs**, **4 Tier-1 polish items**, **6 Tier-2 structural rewrites**, **5 Tier-3 backlog items**. Plus a list of 7 things I genuinely can't audit without browser automation or assistive tech. Session 5 adds: receipt-density measurement (hard violation) + Profile primitives scaffold (initial 2 adopters).

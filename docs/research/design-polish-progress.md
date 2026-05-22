@@ -7,6 +7,14 @@
 ## Done
 (newest at top)
 
+### [2026-05-22 PM] Session 5 — Profile-archetype primitives scaffold + receipt-density audit
+- **Receipt-density measurement** on 3 recent edition essays (2026-w17, -w18, -w19): 0 citation markers across ~2,265 words. Hard violation of `docs/design-system/32-receipt-pattern.md` (spec floor: ≥1 per 200 words ≈ 11 expected). Documented in `docs/research/design-audit-2026-05-22-v2.md` §"Discovered during session 5 execution" — not renderer-fixable; needs the cover-essay LLM pipeline to start emitting `<sup>` markers + populate `editorial_citations`.
+- **Profile primitives scaffold landed:** new `src/cfb_rankings/profile/__init__.py` module exposing `render_awaiting_module`, `render_profile_identity_strip`, `render_module_grid_open/close`, `render_profile_meta_footer`. Modeled on existing `cfb_rankings.dashboards` scaffold pattern.
+- **CSS support:** `_PROFILE_PRIMITIVES_CSS_BLOCK` appended to the global stylesheet via `_compose_global_css()`. Adds `.profile-awaiting`, `.profile-identity-strip`, `.profile-module-grid`, `.profile-meta-footer` rules. Deliberately scoped to new class names so legacy `.team-shell` / `.premium-team-grid` styling is unaffected.
+- **Initial adopters:** `render_conferences_index_html` and `render_programs_index_html` in `reporting.py` now render a `profile-meta-footer` block just above the global footer. Purely additive — no removal of existing content. Demonstrates the primitive working in the legacy renderer.
+- **What's still owed:** full Profile-archetype consolidation across 17,836 player pages + 665 program pages + ~662 unprofiled team pages + conference detail pages. Genuinely multi-week. Primitives are now available for that work.
+- **Files:** `src/cfb_rankings/profile/__init__.py` (NEW), `src/cfb_rankings/reporting.py` (CSS block + 2 call-sites), `docs/research/design-audit-2026-05-22-v2.md` (new §), `docs/research/design-polish-progress.md` (this entry).
+
 ### [2026-05-22 04:55 UTC] commit 814e2d77178
 - **Phase C partial:** filter-strip h2→h3 (Heisman + Rankings), Heisman hero finding zone, stale absolute Vercel URL fix in common/head_chrome.py
 - **Files:** src/cfb_rankings/reporting.py, src/cfb_rankings/common/head_chrome.py
