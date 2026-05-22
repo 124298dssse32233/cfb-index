@@ -672,11 +672,54 @@ deployed:
   * Phase 7b brand tagline visible at ≥768px
   * Phase 9a aria-live="polite" on filter result counts
   * Phase 4 Article archetype on /daily/ + /mailbag/
-  * Phase 6 Database meta-footer on /wire/, /storylines/,
-    /portal-heat/, /recruit-board/
+  * Phase 6 Database meta-footer on /storylines/ (already verified
+    live via storylines/index.html)
   * Phase 7a /about/ has 500+ words (already verified via static
     review)
+
+NOT in 0a982b10cbe deploy (those renderers aren't called by publish-
+site by default): /wire/, /daily/, /portal-heat/, /recruit-board/
+Database meta-footers. Each has its own dedicated render workflow
+(wire-daily-04am-et, the-daily-06am-et, transfer_portal_heat,
+recruiting_pulse). Code changes ship through publish-site but the
+output HTML doesn't re-render until those crons fire.
+
+Fix: commit d98c1f7a21d adds a "Refresh Database-archetype surfaces"
+step to publish-site that calls render-wire + refresh-portal-heat +
+refresh-recruiting-pulse + render-daily explicitly. The NEXT publish-
+site after this one will re-render all four surfaces using their
+current code state, shipping the missing Database meta-footers.
 
 Expected runtime ~40 min. After it lands, the post-deploy
 validation phases (2, 8, 9b/c/d, 10, 11) can run against the
 new architectural state.
+
+---
+
+## Continuation 5: Wakeup verification + publish-site enhancement
+
+Wakeup at 17:53 UTC asked to verify post-deploy state. Results:
+
+| Item | Status |
+|---|---|
+| /editions/2026-w18/the-quiet-week/ citations + Sources footer | ✓ verified live (continuation 4) |
+| /editions/2026-w19/three-weeks-before-camp-whispers/ same | ✓ verified live (continuation 4) |
+| Touch-target a11y CSS class loaded | ✓ verified live (.nav-link min-height:44px in CSS) |
+| Homepage `.methodology-footer` block | ✓ verified live (between #voices and global footer) |
+| /storylines/ `.database-archetype__meta-footer` | ✓ verified live ("8 active threads" pill) |
+| /portal-heat/ Database meta-footer | ✗ not live — renderer not in publish-site |
+| /recruit-board/ Database meta-footer | ✗ not live — same |
+| /wire/ Database meta-footer | ✗ not live — same |
+| /daily/archive Database meta-footer | ✗ not live — same |
+
+Triggered transfer_portal_heat + recruiting_pulse workflows manually
+but the site-deploy concurrency group cancelled them since the next
+publish-site (26304080630) was queued.
+
+**Durable fix landed at d98c1f7a21d:** publish-site now explicitly
+calls render-wire + refresh-portal-heat + refresh-recruiting-pulse +
+render-daily as a new step. Future publish-site dispatches will
+re-render all four surfaces.
+
+Latest SHA on master: d98c1f7a21d. The current in-flight publish-site
+(at 0a982b10cbe) won't include this fix, but the next one after will.
