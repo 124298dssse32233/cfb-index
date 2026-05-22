@@ -1121,3 +1121,89 @@ The session has now produced visible top-of-page changes on every
 Profile-archetype surface (~18,000 pages) + player-specific module
 backfill (Standing Rail + Selector Grid + QB Fingerprint hero), all
 mapped to the brief verbatim.
+
+---
+
+## Continuation-13 — Sprint E + Sprint F-lite + canon-rebuild fix (21:25 UTC)
+
+User followed-up: "ok please continue until completion." Drove three
+additional pieces of work on top of the Sprints A/B/C batch.
+
+**Canon rebuild workflow fix** (commit `37aac4bdb6f`):
+
+Verified Phase 9 a11y on live deploy `52c0aa8af11`:
+- /methodology/ ✅ skip-link + main + 5a/595 contrast
+- /storylines/ ✅ skip-link + aria-label + breadcrumb nav
+- /compare/ ✅ wcfb-skip-link + main id + #5e muted
+- /canon/ ❌ STILL missing canon-skip-link despite the source commit
+  having landed.
+
+Root cause: the canon renderer is invoked only by
+`python manage.py render-canon-all`, which the publish-site workflow
+never called. So template edits in src/canon/templates/*.html landed
+in source but the rebuild never reached output/canon/. Same pattern
+as the daily/wire renderer gaps fixed earlier this session.
+
+Fix: added explicit `Refresh Canon pages` step to publish_site.yml
+after `Refresh Database-archetype surfaces`. Falls back to "skipped"
+on error so a transient canon failure doesn't break the publish.
+Closes the template-→-output gap for the canon module.
+
+**Sprint E — Hero Arc 13-brick CFP-era stripe** (commit `eba325a36e5`):
+
+The brief's named "screenshot-virality" identity strip per
+TEAM_PAGE_WORLD_CLASS_BRIEF §20. Iteration Log §4 locked v1.0 scope
+= 13 bricks for 2014-2026; 131-bar climate stripe deferred to v2.
+
+New file: `src/cfb_rankings/team_pages/hero_arc_stripe.py` (~280 LOC)
+  - HERO_ARC_STRIPE_CSS (~3 KB) — reads --accent-primary /
+    --accent-secondary from body for per-team brand gradient.
+  - render_hero_arc_stripe(profile, arc_rows, current_season=…)
+  - 13 bricks (2014..2026), each:
+    * Height: scales with composite season-strength (quality_score
+      with derived fallback). Floor 18% so even 0-12 seasons render.
+    * Color: red→navy diverging via --pct-low/mid/high tokens.
+    * Gold border + amber glow when had CFP appearance.
+    * Outline highlight on current season.
+    * Tooltip + aria-label: `2024 · 11-2 · #5 AP · CFP`.
+  - Reuses arc_rows from season_arc_loader — zero new data fetches.
+
+team_pages/renderer.py wires the stripe between hero_html and
+pulse_html ("ABOVE the fold" per brief §20).
+
+For Notre Dame 2025: 12 visible bricks + 1 empty 2026 placeholder,
+2025 outlined as current, 3 gold-outlined CFP years (2018/2020/2024),
+peak in 2024 at 14-2 / #2 AP.
+
+Closes brief §20 v1.0 scope.
+
+**Sprint F-lite — pointer banner on /programs/<slug>** (commit `0d3f0cb9003`):
+
+Audit §Part 4 root-cause #5 named "two URL families, two renderers,
+one user mental model" as a top-5 reason team pages feel ugly. The
+user explicitly opened `/programs/notre-dame.html` and called it
+ugly — that page is the legacy thin-history renderer; the
+world-class team page lives at `/teams/notre-dame.html`.
+
+Full IA consolidation (Sprint F) is 5 days. Lite version: surface a
+prominent pointer banner above the identity strip on the 17
+profiled slugs' program pages, plus relabel the primary action
+button "World-Class Team Page →" for those slugs.
+
+Banner copy: *"This is the historical view. For Notre Dame's 2025
+season — Pulse, Chronicle, Rivalry, Savant card, and the 13-brick
+CFP-era arc — visit the world-class team page."* Per-team accent
+gradient + 44px CTA button.
+
+For unprofiled slugs (~660 long-tail teams) nothing changes — they
+have no world-class equivalent until Sprint G ships.
+
+**Master state at end of continuation-13:** `0d3f0cb9003` — 6
+commits ahead of in-flight deploy `26311806685`. After that completes
+will dispatch ONE more publish-site to ship Sprints C/E/F-lite +
+canon-rebuild fix.
+
+Total Sprint A/B/C/E/F-lite work shipped in ~4 hours from the
+audit's §5 plan. Sprint D (Team Pulse 5-axis strip) deferred per
+"need new metrics" complexity; Sprint G (long-tail team coverage)
+is the 6-week parallel sprint per audit estimate.
