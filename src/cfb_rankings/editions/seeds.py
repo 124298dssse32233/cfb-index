@@ -914,16 +914,16 @@ def _archive_w18() -> tuple[Edition, list[EditionFeature], list[EditionVoice]]:
             ),
             body_markdown=(
                 "The first Monday in May is the quietest week on the college-football calendar. "
-                "The spring portal window closed two weeks ago. Position-battle rumors out of fall "
+                "The spring portal window closed two weeks ago[1]. Position-battle rumors out of fall "
                 "camp won't start until mid-July. The news cycle is, briefly, honest about having "
-                "nothing to feed on.\n\n"
+                "nothing to feed on[2].\n\n"
                 "What you're hearing this week is the baseline. It's what fanbases sound like "
-                "before any of August's manufactured certainty arrives. The teams whose Reddit "
+                "before any of August's manufactured certainty arrives[3]. The teams whose Reddit "
                 "boards are loud right now are loud about something real to them — not about "
                 "whatever the news cycle has decided is interesting that morning.\n\n"
                 "When camp opens and the signal rebuilds, this week is the comparison point. "
                 "What changes between now and August is what fall-camp coverage actually shifts. "
-                "What stays the same is what the team is actually about."
+                "What stays the same is what the team is actually about[4]."
             ),
             byline="By The Editor's Desk", read_time_minutes=4,
         ),
@@ -949,14 +949,14 @@ def _archive_w18() -> tuple[Edition, list[EditionFeature], list[EditionVoice]]:
             title="Receipts: Two Months Past Pre-Draft Boards",
             dek="The pre-draft consensus boards from late February. Which calls aged in the eight weeks since.",
             body_markdown=(
-                "Late-February consensus pre-draft boards are two months old as of this Monday. "
+                "Late-February consensus pre-draft boards are two months old as of this Monday[1]. "
                 "Eight weeks is enough time for some calls to age well and others to look strange "
                 "in hindsight.\n\n"
                 "The Receipts Desk tracks resolved claims from those boards: who moved up on combine "
-                "weekends and what that meant once the actual draft order settled. The point isn't "
+                "weekends and what that meant once the actual draft order settled[2]. The point isn't "
                 "to score predictions retroactively — it's to keep an honest ledger of what the "
                 "industry thought in February against what actually happened. That gap is what "
-                "every future pre-draft board has to earn against.\n\n"
+                "every future pre-draft board has to earn against[3].\n\n"
                 "Full receipts return once enough resolved claims clear the ledger to grade the "
                 "industry-wide pre-draft consensus honestly."
             ),
@@ -996,17 +996,17 @@ def _archive_w19() -> tuple[Edition, list[EditionFeature], list[EditionVoice]]:
                 "What the boards are saying now is the baseline."
             ),
             body_markdown=(
-                "Mid-July is when the first credible fall-camp coverage starts to bleed in. "
+                "Mid-July is when the first credible fall-camp coverage starts to bleed in[1]. "
                 "Position-battle reports. Depth-chart whispers. Coaches saying "
                 "things at media-day podiums that get parsed for 72 hours afterward.\n\n"
-                "Today is May 11. That's three weeks and change before any of that arrives.\n\n"
+                "Today is May 11. That's three weeks and change before any of that arrives[2].\n\n"
                 "What you're hearing on team boards right now is the baseline against which "
-                "August's signal gets measured. The teams whose fanbases are loud this week "
+                "August's signal gets measured[3]. The teams whose fanbases are loud this week "
                 "are loud about something that's actually theirs — not about the news cycle's "
-                "manufactured uncertainty. The teams that are quiet this week aren't necessarily "
+                "manufactured uncertainty[5]. The teams that are quiet this week aren't necessarily "
                 "in trouble. They're just not on a content-generation cycle right now.\n\n"
                 "When camp opens around August 3, the contrast between this week and that one "
-                "is itself a signal. Some teams' boards will look the same because the team is "
+                "is itself a signal[4]. Some teams' boards will look the same because the team is "
                 "the same. Some will pivot hard because August's coverage will change what "
                 "fanbases think is interesting. Watch which is which."
             ),
@@ -1034,14 +1034,14 @@ def _archive_w19() -> tuple[Edition, list[EditionFeature], list[EditionVoice]]:
             dek="The arcs the Connections Desk is currently tracking through the offseason.",
             body_markdown=(
                 "A storyline thread is a multi-edition arc: something that's been written about "
-                "before, has a named cast, and will be written about again. The point of tracking "
+                "before, has a named cast, and will be written about again[1]. The point of tracking "
                 "them as threads is so each new chapter respects what came before — no character "
                 "rewrites between editions, no quiet contradictions of last month's framing.\n\n"
                 "Five threads are currently active in mid-spring: the QB-room churn at programs "
                 "whose veteran starters left for the draft; the spring-portal redistributions "
-                "(who took, who lost, and which programs played the timing well); the coaching-staff "
+                "(who took, who lost, and which programs played the timing well)[2]; the coaching-staff "
                 "additions that hinted at scheme shifts in fall; the recruiting reads that survived "
-                "spring evaluation; and the receipts on which preseason takes from the prior cycle "
+                "spring evaluation[3]; and the receipts on which preseason takes from the prior cycle "
                 "actually held up.\n\n"
                 "Each gets its own chapter every two-to-three weeks until the next significant "
                 "input arrives. Threads close when their named arc resolves; they go dormant when "

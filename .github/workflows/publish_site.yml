@@ -246,6 +246,20 @@ jobs:
         run: |
           set +e
           python manage.py seed-editions || echo "seed-editions skipped"
+          # Session 6 (2026-05-22): receipt-pattern backfill + W18/W19
+          # force-reseed. The seed bodies for W18/W19 now embed [N]
+          # markers; force-reseed bypasses upsert preservation so the
+          # marker-bearing seed wins back. Then backfill citation rows
+          # so the inline markers anchor to a populated footer. All
+          # three CLIs are idempotent and `|| true` so a single-edition
+          # failure doesn't break the whole publish.
+          python manage.py force-reseed-feature --slug 2026-w18 --feature-order 1 || true
+          python manage.py force-reseed-feature --slug 2026-w18 --feature-order 3 || true
+          python manage.py force-reseed-feature --slug 2026-w19 --feature-order 1 || true
+          python manage.py force-reseed-feature --slug 2026-w19 --feature-order 3 || true
+          python manage.py backfill-edition-citations --slug 2026-w17 || true
+          python manage.py backfill-edition-citations --slug 2026-w18 || true
+          python manage.py backfill-edition-citations --slug 2026-w19 || true
           # Hotfix-11: iterate over all editions in the DB instead of a
           # hardcoded slug list. The old loop was pinned to W14-W17 and
           # missed every subsequent edition (W18, W19, ...), so the

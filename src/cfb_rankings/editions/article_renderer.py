@@ -17,11 +17,28 @@ from pathlib import Path
 
 from cfb_rankings.common.head_chrome import render_head_chrome
 from cfb_rankings.db import Database
+from cfb_rankings.citations import (
+    annotate_body_markdown as _annotate_body_markdown,
+    render_citation_footer as _render_citation_footer,
+    load_citations as _load_citations,
+)
 
 from .data import (
     Edition, EditionFeature,
     fetch_edition, fetch_edition_features,
 )
+
+
+def _load_citation_css() -> str:
+    """Read the locked citations.css asset for inline-embed in article
+    pages. Reading at import time would cache stale content during
+    development; we read each render so a hot-reload picks up changes.
+    Returns empty string if the asset file is missing (degrades gracefully)."""
+    css_path = Path(__file__).resolve().parent.parent / "citations" / "assets" / "citations.css"
+    try:
+        return css_path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return ""
 
 
 _ARTICLE_CSS = """
@@ -82,7 +99,13 @@ def render_articles_for_edition(db: Database, edition_slug: str) -> list[Path]:
         feature_slug = _slugify(f.title)
         target = out_dir / feature_slug / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(_render_article(edition, f), encoding="utf-8")
+        # Receipt-pattern integration (Track 1, Session 6):
+        # generation_id = the feature's row id. Soft-fail when no
+        # citations exist (the spec compliance gap closes incrementally
+        # as bodies get attached). Uses the locked cfb_rankings.citations
+        # package — Citations are matched by [N] markers in body_markdown.
+        feat_citations = _load_citations(db, int(f.id or 0))
+        target.write_text(_render_article(edition, f, feat_citations), encoding="utf-8")
         paths.append(target)
 
     # Also emit an edition-root index.html listing all features. Without
@@ -172,8 +195,21 @@ def _render_edition_index(edition: Edition, features: list[EditionFeature]) -> s
 """
 
 
-def _render_article(edition: Edition, feature: EditionFeature) -> str:
-    body_html = _markdown_to_html(feature.body_markdown)
+def _render_article(
+    edition: Edition,
+    feature: EditionFeature,
+    feature_citations: list = (),
+) -> str:
+    # Annotate [N] markers before markdown→HTML pass. The locked
+    # citations package uses [1], [2], [3] brackets in body markdown.
+    # Unknown markers are LEFT as plain [N] for auditor visibility
+    # (intentional — see citations/render.py docstring).
+    body_with_markers = _annotate_body_markdown(
+        feature.body_markdown, list(feature_citations)
+    )
+    body_html = _markdown_to_html(body_with_markers)
+    citation_footer_html = _render_citation_footer(list(feature_citations))
+    citations_css = _load_citation_css() if feature_citations else ""
     kind_label = feature.feature_kind.replace("_", " ").upper()
     _article_head = render_head_chrome(
         page_path=f"/editions/{edition.edition_slug}/{_slugify(feature.title)}/",
@@ -187,7 +223,8 @@ def _render_article(edition: Edition, feature: EditionFeature) -> str:
 <title>{html.escape(feature.title)} · CFB Index</title>
 <meta name="description" content="{html.escape(feature.dek)}">
 {_article_head}
-<style>{_ARTICLE_CSS}</style>
+<style>{_ARTICLE_CSS}
+{citations_css}</style>
 </head><body>
 <div class="page">
   <a class="up" href="/">← {html.escape(edition.theme_title.upper())}</a>
@@ -200,6 +237,7 @@ def _render_article(edition: Edition, feature: EditionFeature) -> str:
     <span style="margin-left:auto;color:var(--muted);">VOL. I · NO. {edition.edition_number}</span>
   </div>
   <article class="body">{body_html}</article>
+  {citation_footer_html}
 </div>
 </body></html>"""
 
@@ -241,12 +279,43 @@ def _markdown_to_html(md: str) -> str:
 
 _ITALIC = re.compile(r"\*([^*\n]+)\*")
 _BOLD = re.compile(r"\*\*([^*\n]+)\*\*")
+# Inline-html passthrough: the citations package's `annotate_body_
+# markdown` injects `<sup class="citation" data-cite-*>...</sup>`
+# markers into the body BEFORE the markdown→HTML pass. The marker is
+# already-rendered HTML — we must not escape it. Stash each marker under
+# a sentinel token, escape the prose, then restore the markers verbatim.
+# Multi-attribute, multi-line-tolerant; the locked treatment in
+# citations/render.py:render_inline_marker is the source of truth for
+# the produced HTML.
+_INLINE_CITE_MARKER = re.compile(
+    r'<sup class="citation"[^>]*>\s*<a href="#cite-\d+"[^>]*>\[\d+\]</a>\s*</sup>'
+)
+# Use private-use unicode codepoints as sentinels — they're vanishingly
+# unlikely to appear in real prose and survive html.escape unchanged.
+_CITE_SENTINEL_OPEN = ""
+_CITE_SENTINEL_CLOSE = ""
 
 
 def _inline(s: str) -> str:
+    # 1. Stash any inline citation markers under sentinels.
+    stash: list[str] = []
+    def _stash(match: re.Match) -> str:
+        stash.append(match.group(0))
+        return f"{_CITE_SENTINEL_OPEN}{len(stash)-1}{_CITE_SENTINEL_CLOSE}"
+    s = _INLINE_CITE_MARKER.sub(_stash, s)
+    # 2. Standard escape + markdown inline transforms.
     s = html.escape(s)
     s = _BOLD.sub(r"<strong>\1</strong>", s)
     s = _ITALIC.sub(r"<em>\1</em>", s)
+    # 3. Restore the markers verbatim.
+    if stash:
+        def _restore(match: re.Match) -> str:
+            idx = int(match.group(1))
+            return stash[idx] if 0 <= idx < len(stash) else ""
+        s = re.sub(
+            f"{_CITE_SENTINEL_OPEN}(\\d+){_CITE_SENTINEL_CLOSE}",
+            _restore, s,
+        )
     return s
 
 

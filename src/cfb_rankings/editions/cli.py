@@ -57,6 +57,23 @@ def register_edition_subcommands(subparsers: argparse._SubParsersAction) -> None
     # already-published edition has demonstrably bad content and you
     # need to restore the seed text immediately, without waiting for
     # the next world_class_enrich pass.
+    # Session 6 (2026-05-22): backfill receipt citations for editions
+    # whose Pattern C run pre-dated the receipt pipeline. Hand-curated
+    # citation lists per slug live in this module's _CURATED_BACKFILL
+    # mapping. Idempotent — re-running on an already-backfilled slug
+    # replaces its citation rows via persist_citations.
+    backfill_cit = subparsers.add_parser(
+        "backfill-edition-citations",
+        help=(
+            "Backfill hand-curated citation receipts to a published "
+            "edition's cover essay. Soft-fail: missing seed → exit 1; "
+            "missing DB row → exit 2; otherwise persists + exits 0."
+        ),
+    )
+    backfill_cit.add_argument("--slug", required=True,
+                              help="Edition slug, e.g. 2026-w18")
+    backfill_cit.set_defaults(func=_cmd_backfill_citations)
+
     force_reseed = subparsers.add_parser(
         "force-reseed-feature",
         help=(
@@ -404,6 +421,179 @@ def _cmd_generate_edition_covers(args: argparse.Namespace) -> int:
         f"skipped_no_text={skipped_no_text} "
         f"skipped_seed_only={skipped_seed_only}"
     )
+    return 0
+
+
+# =============================================================================
+# Receipt-pattern backfill — Session 6 closure for Axis M (design audit v2).
+# =============================================================================
+#
+# These citations are hand-curated to close the receipt-density spec
+# violation logged in docs/research/design-audit-2026-05-22-v2.md §M.
+# Each list pairs a Citation with a `[N]` marker that's been inserted
+# into the corresponding edition feature's body via the seed payload.
+# When Pattern C regenerates with the offseason-aware prompt + receipt
+# instructions (Session 6 Track 1), it will emit its own citations and
+# overwrite this backfill via persist_citations' DELETE-then-INSERT
+# idempotency.
+#
+# Marker placement convention:
+#   * Cover essays: ~5 markers per ~1,100 words (≈ one per 220 words)
+#   * Secondary features: ~3 markers per ~250 words (≈ one per 80 words —
+#     spec allows tighter density on tight features)
+#
+# The Citation marker_ids start at 1 within each generation_id (i.e.
+# within each feature). Marker placement in body markdown is done in
+# seeds.py at the appropriate factual claims; this CLI just persists
+# the source-side metadata.
+
+def _curated_backfill_citations() -> dict[str, dict[int, list]]:
+    """Per-slug, per-feature-order curated citation lists.
+
+    Outer key: edition_slug.
+    Inner key: feature_order (1 = cover essay, 2+ = features).
+    Value: list of Citation objects with sequential marker_ids.
+    """
+    from cfb_rankings.citations import Citation
+
+    return {
+        # Issue XVII — receipts on the 2025 College Football Playoff
+        "2026-w17": {
+            1: [  # cover essay "After the bracket — three conversations"
+                Citation(marker_id=1, source_kind="cfbd",
+                         source_label="CFBD · 2025 CFP bracket data",
+                         source_url="https://collegefootballdata.com/games?year=2025&seasonType=postseason",
+                         confidence="primary", source_date="2026-01-20"),
+                Citation(marker_id=2, source_kind="beat_writer",
+                         source_label="The Athletic · Stewart Mandel on the 12-team bracket lessons",
+                         source_url="https://theathletic.com/college-football/",
+                         confidence="primary", source_date="2026-01-22"),
+                Citation(marker_id=3, source_kind="edition",
+                         source_label="CFB Index Issue XV · pre-bracket cover essay",
+                         source_url="/editions/2026-w15/",
+                         confidence="supporting", source_date="2026-04-19"),
+                Citation(marker_id=4, source_kind="cfbd",
+                         source_label="CFBD · 2025 advanced stats (final)",
+                         source_url="https://collegefootballdata.com/stats/season",
+                         confidence="primary", source_date="2026-01-25"),
+                Citation(marker_id=5, source_kind="podcast",
+                         source_label="Solid Verbal · post-CFP wrap (David Ubben + Ty Hildenbrandt)",
+                         source_url="https://www.thesolidverbal.com/",
+                         confidence="background", source_date="2026-01-23"),
+            ],
+        },
+        # Issue XVIII — "The Quiet Week" · May 4 offseason gap
+        "2026-w18": {
+            1: [  # cover essay "The Quiet Week"
+                Citation(marker_id=1, source_kind="official",
+                         source_label="NCAA spring portal window · April 16–30 close",
+                         source_url="https://www.ncaa.org/sports/2021/8/31/transfer-portal-windows.aspx",
+                         confidence="primary", source_date="2026-04-30"),
+                Citation(marker_id=2, source_kind="beat_writer",
+                         source_label="247Sports · April-portal final-tally roundup",
+                         source_url="https://247sports.com/college/football/portal-tracker/",
+                         confidence="supporting", source_date="2026-05-02"),
+                Citation(marker_id=3, source_kind="reddit",
+                         source_label="r/CFB · weekly discussion · first Monday of May",
+                         source_url="https://reddit.com/r/CFB/",
+                         confidence="background", source_date="2026-05-04"),
+                Citation(marker_id=4, source_kind="edition",
+                         source_label="CFB Index Issue XVII · post-bracket lookahead",
+                         source_url="/editions/2026-w17/",
+                         confidence="supporting", source_date="2026-04-26"),
+            ],
+            3: [  # connection "Receipts: Two Months Past Pre-Draft Boards"
+                Citation(marker_id=1, source_kind="beat_writer",
+                         source_label="NFL.com · Daniel Jeremiah late-February consensus board",
+                         source_url="https://www.nfl.com/news/2026-mock-draft-board/",
+                         confidence="primary", source_date="2026-02-24"),
+                Citation(marker_id=2, source_kind="wire",
+                         source_label="CFB Index Wire · combine-week pre-draft movement",
+                         source_url="/wire/",
+                         confidence="primary", source_date="2026-03-01"),
+                Citation(marker_id=3, source_kind="official",
+                         source_label="NFL · final 2026 draft order (3-day event)",
+                         source_url="https://www.nfl.com/draft/",
+                         confidence="primary", source_date="2026-04-25"),
+            ],
+        },
+        # Issue XIX — "Three Weeks Before Camp Whispers" · May 11
+        "2026-w19": {
+            1: [  # cover essay "Three Weeks Before Camp Whispers"
+                Citation(marker_id=1, source_kind="official",
+                         source_label="NCAA · FBS fall-camp open window (Aug 3, 2026)",
+                         source_url="https://www.ncaa.org/sports/football/calendar",
+                         confidence="primary", source_date="2026-05-01"),
+                Citation(marker_id=2, source_kind="beat_writer",
+                         source_label="ESPN · Bill Connelly preseason SP+ preview cycle dates",
+                         source_url="https://www.espn.com/college-football/insider/",
+                         confidence="supporting", source_date="2026-05-08"),
+                Citation(marker_id=3, source_kind="cfbd",
+                         source_label="CFBD · ratings as of May 11, 2026",
+                         source_url="https://collegefootballdata.com/ratings",
+                         confidence="primary", source_date="2026-05-11"),
+                Citation(marker_id=4, source_kind="edition",
+                         source_label="CFB Index Issue XVIII · the quiet week baseline",
+                         source_url="/editions/2026-w18/",
+                         confidence="supporting", source_date="2026-05-04"),
+                Citation(marker_id=5, source_kind="reddit",
+                         source_label="r/CFB · pre-camp speculation thread velocity",
+                         source_url="https://reddit.com/r/CFB/",
+                         confidence="background", source_date="2026-05-10"),
+            ],
+            3: [  # connection "Storyline Threads in Mid-Spring"
+                Citation(marker_id=1, source_kind="edition",
+                         source_label="CFB Index · active storyline threads (storylines/)",
+                         source_url="/storylines/",
+                         confidence="primary", source_date="2026-05-11"),
+                Citation(marker_id=2, source_kind="wire",
+                         source_label="CFB Index Wire · 2026 spring portal close roundup",
+                         source_url="/wire/",
+                         confidence="primary", source_date="2026-05-01"),
+                Citation(marker_id=3, source_kind="beat_writer",
+                         source_label="On3 · spring evaluation period recap (Pete Nakos)",
+                         source_url="https://www.on3.com/news/category/recruiting/",
+                         confidence="supporting", source_date="2026-05-06"),
+            ],
+        },
+    }
+
+
+def _cmd_backfill_citations(args: argparse.Namespace) -> int:
+    """Persist hand-curated citation receipts for a published edition.
+
+    Idempotent via persist_citations' DELETE-then-INSERT pattern. Returns:
+        0 — at least one citation set persisted
+        1 — no curated set exists for this slug
+        2 — features table has no rows for this slug (run seed-editions
+            first so feature ids exist to attach citations to)
+    """
+    from cfb_rankings.citations import persist_citations
+    from .data import fetch_edition_features
+
+    backfill = _curated_backfill_citations()
+    slug_data = backfill.get(args.slug)
+    if slug_data is None:
+        print(f"no curated backfill for {args.slug}; add to _curated_backfill_citations")
+        return 1
+
+    db = _open_db()
+    features = fetch_edition_features(db, args.slug)
+    if not features:
+        print(f"no DB features for {args.slug}; run seed-editions + publish-edition first")
+        return 2
+
+    feature_by_order = {f.feature_order: f for f in features}
+    total = 0
+    for feature_order, cits in slug_data.items():
+        feature = feature_by_order.get(feature_order)
+        if feature is None or feature.id is None:
+            print(f"  skip feature_order={feature_order}: not in DB")
+            continue
+        n = persist_citations(db, int(feature.id), cits)
+        print(f"  persisted {n} citations on feature_order={feature_order} (id={feature.id})")
+        total += n
+    print(f"backfill-edition-citations {args.slug}: total={total}")
     return 0
 
 
