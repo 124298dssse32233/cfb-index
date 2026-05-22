@@ -291,11 +291,14 @@ def render_global_footer(
     from datetime import date
     year = date.today().year
     vol = edition_vol or "I"
-    no = edition_number or "—"
+    # Pages that aren't a specific edition (rankings, players, teams,
+    # programs, conferences) omit the NO. segment instead of rendering
+    # an em-dash placeholder that looks like missing data.
+    vol_no_label = f"VOL. {vol} · NO. {edition_number}" if edition_number else f"VOL. {vol}"
     return f"""<footer class="footer">
   <div class="page">
     <div class="chrome">
-      <span>VOL. {vol} · NO. {no}</span>
+      <span>{vol_no_label}</span>
       <span>CFB / INDEX</span>
       <span>{year}</span>
     </div>
@@ -346,7 +349,7 @@ def render_global_footer(
     </div>
     <div class="bottom-chrome">
       <span>© {year} CFB INDEX · WHERE EVERY TEAM STANDS</span>
-      <span>VOL. {vol} · NO. {no}</span>
+      <span>{vol_no_label}</span>
     </div>
   </div>
 </footer>"""
