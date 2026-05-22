@@ -456,7 +456,7 @@ def entries() -> list[CanonEntry]:
         _e(
             rank=17,
             entity_slug="eli-drinkwitz-missouri-2020",
-            entity_display_name="Eliah Drinkwitz — Missouri, December 2019",
+            entity_display_name="Eli Drinkwitz — Missouri, December 2019",
             program_label="Missouri",
             era_label="2020–",
             statline="Year-3: 11-2 · '23 Cotton Bowl · stable 8-4 since",
