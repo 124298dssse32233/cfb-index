@@ -39,13 +39,13 @@
     "away": [
       {"label": "RUSH YPC", "value": "3.1", "band": "concern", "caption": "worst IB since 2013"},
       {"label": "3RD-DOWN%", "value": "29%", "band": "bad", "caption": "below season avg of 44"},
-      {"label": "PASS YPA", "value": "8.2", "band": "ok", "caption": "near season median"},
+      {"label": "PASS Y/A", "value": "8.2", "band": "ok", "caption": "near season median"},
       {"label": "TO MARGIN", "value": "-2", "band": "concern", "caption": "two 4Q INTs"}
     ],
     "home": [
       {"label": "RUSH YPC", "value": "5.8", "band": "strength", "caption": "best of season"},
       {"label": "3RD-DOWN%", "value": "47%", "band": "ok", "caption": "matches season avg"},
-      {"label": "PASS YPA", "value": "10.4", "band": "strength", "caption": "season high"},
+      {"label": "PASS Y/A", "value": "10.4", "band": "strength", "caption": "season high"},
       {"label": "TO MARGIN", "value": "+2", "band": "strength", "caption": "two takeaways"}
     ]
   },

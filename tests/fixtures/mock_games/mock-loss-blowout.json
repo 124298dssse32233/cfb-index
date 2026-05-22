@@ -41,7 +41,7 @@
     ],
     "home": [
       {"label": "RUSH YPC", "value": "5.9", "band": "strength", "caption": "above season avg"},
-      {"label": "PASS YPA", "value": "11.2", "band": "strength", "caption": "season high"},
+      {"label": "PASS Y/A", "value": "11.2", "band": "strength", "caption": "season high"},
       {"label": "RED-ZONE TD%", "value": "100%", "band": "strength", "caption": "five-for-five"},
       {"label": "TO MARGIN", "value": "+3", "band": "strength", "caption": "all in second half"}
     ]

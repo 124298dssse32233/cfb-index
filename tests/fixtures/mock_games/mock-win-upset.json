@@ -37,7 +37,7 @@
       {"label": "RUSH YPC", "value": "5.4", "band": "strength", "caption": "season high"},
       {"label": "3RD-DOWN%", "value": "55%", "band": "strength", "caption": "well above season"},
       {"label": "TO MARGIN", "value": "+2", "band": "strength", "caption": "OT INT iced it"},
-      {"label": "PASS YPA", "value": "7.8", "band": "ok", "caption": "matches season avg"}
+      {"label": "PASS Y/A", "value": "7.8", "band": "ok", "caption": "matches season avg"}
     ],
     "home": [
       {"label": "RUSH YPC", "value": "3.4", "band": "concern", "caption": "below season avg"},
