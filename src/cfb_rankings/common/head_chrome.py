@@ -1,7 +1,7 @@
 """Canonical URL composition + head chrome helpers.
 
 The site has no custom domain — it runs on
-``wonderful-margulis-8ec96b.vercel.app``. Every renderer that emits an
+``wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app``. Every renderer that emits an
 absolute URL (canonical link, ``og:url``, ``og:image``, ``twitter:url``,
 sitemap entries, JSON-LD ``@id``) MUST route through this module so a
 future domain swap is a one-line code change (the ``DEFAULT_BASE_URL``
@@ -43,7 +43,7 @@ from urllib.parse import urljoin
 
 #: The default canonical host. Change this single string when registering a
 #: custom domain — every renderer picks the new value up on next build.
-DEFAULT_BASE_URL = "https://wonderful-margulis-8ec96b.vercel.app"
+DEFAULT_BASE_URL = "https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app"
 
 #: The default OG image path when a renderer doesn't pass an explicit card.
 DEFAULT_OG_IMAGE = "/og/default.png"
@@ -94,13 +94,13 @@ def absolute_url(path: str | None) -> str:
     """Join a site-relative path to :func:`base_url`.
 
     >>> absolute_url("/teams/alabama.html")
-    'https://wonderful-margulis-8ec96b.vercel.app/teams/alabama.html'
+    'https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/teams/alabama.html'
     >>> absolute_url("teams/alabama.html")        # leading slash optional
-    'https://wonderful-margulis-8ec96b.vercel.app/teams/alabama.html'
+    'https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/teams/alabama.html'
     >>> absolute_url("https://other.example/x")   # passthrough
     'https://other.example/x'
     >>> absolute_url("")                           # empty → base url itself
-    'https://wonderful-margulis-8ec96b.vercel.app'
+    'https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app'
 
     Notes
     -----

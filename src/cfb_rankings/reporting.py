@@ -14971,12 +14971,9 @@ def render_rankings_page_html(
 
         <section class="section">
           <article class="panel">
-            <div class="section-head">
-              <div>
-                <h2>Rankings Board Controls</h2>
-                <p class="section-note">Keep the official board visible, but slice it the way fans actually browse: by level, league, rank range, or argument style.</p>
-              </div>
-              <a class="text-link" href="../compare/index.html">Open Compare</a>
+            <div class="filter-strip-head">
+              <h3 class="filter-strip-label">Filter the rankings</h3>
+              <p class="section-note">Slice the board the way fans actually browse: by level, league, rank range, or argument style. <a class="text-link" href="../compare/index.html">Open Compare →</a></p>
             </div>
             {_metric_guide_strip()}
             <div class="board-utility">
@@ -16517,6 +16514,32 @@ def render_heisman_page_html(
         )
     else:
         vote_note = "The probabilities reflect the live vote-eligible data horizon for this week."
+
+    # Hero finding zone (Dashboard archetype, per docs/design-system/30-page-archetypes.md):
+    # one big number + sentence + caption. Picks the top board candidate's win
+    # equity, if available; otherwise the hero finding section is suppressed.
+    _hero_finding_html = ""
+    if board_rows and board_rows[0].win_probability is not None:
+        _top = board_rows[0]
+        _win_pct = float(_top.win_probability) * 100
+        _hero_eyebrow_txt = (
+            f"Final {season_year_value} Heisman" if season_is_completed else "Heisman Tracker"
+        )
+        _hero_caption = (
+            f"Model believed {escape(_top.player_name)} would win the {season_year_value} race "
+            f"({escape(_top.team_name or '')}); sample = {len(board_rows):,} ranked players."
+            if season_is_completed else
+            f"{escape(_top.player_name)} leads ({escape(_top.team_name or '')}); "
+            f"sample = {len(board_rows):,} ranked players this week."
+        )
+        _hero_finding_html = f"""
+      <section class="hero-finding" aria-label="Top of the board">
+        <p class="hero-finding__eyebrow">{escape(_hero_eyebrow_txt)}</p>
+        <p class="hero-finding__number">{_win_pct:.1f}%</p>
+        <p class="hero-finding__sentence">Win equity for the top candidate.</p>
+        <p class="hero-finding__caption">{_hero_caption}</p>
+      </section>"""
+
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -16529,6 +16552,7 @@ def render_heisman_page_html(
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="heisman")}
+      {_hero_finding_html}
       <section class="hero">
         <p class="eyebrow">{"Final " + str(season_year_value) + " Heisman Tracker" if season_is_completed else "Heisman Tracker"}</p>
         <h1>{"How the model called the " + str(season_year_value) + " Heisman race." if season_is_completed else "A full-board Heisman model, not just a top-three list."}</h1>
@@ -16579,11 +16603,9 @@ def render_heisman_page_html(
 
       <section class="section">
         <article class="panel">
-          <div class="section-head">
-            <div>
-              <h2>Board Controls</h2>
-              <p class="section-note">Search the full board by player, team, conference, or position, then flip between raw order and probability views.</p>
-            </div>
+          <div class="filter-strip-head">
+            <h3 class="filter-strip-label">Filter the board</h3>
+            <p class="section-note">Search by player, team, conference, or position; flip between raw order and probability views.</p>
           </div>
           <p class="section-note">{escape(market_note)}</p>
           <p class="section-note">{escape(vote_note)}</p>
@@ -24969,6 +24991,71 @@ def _site_css() -> str:
         font-size: 15px;
       }
       .compact-head h2 { font-size: clamp(22px, 2.5vw, 28px); }
+
+      /* Dashboard hero-finding: per docs/design-system/30-page-archetypes.md:67-98.
+         Single big number + 1-sentence finding + caption. Sits ABOVE the
+         existing .hero on Dashboard pages (/, /heisman/, /rankings/, /hub/). */
+      .hero-finding {
+        padding: clamp(24px, 5vw, 56px) clamp(20px, 4vw, 48px);
+        border-bottom: 1px solid var(--rule, rgba(28,28,31,0.12));
+        text-align: left;
+      }
+      .hero-finding__eyebrow {
+        font-family: var(--font-ui);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted-foreground);
+        font-weight: 600;
+        margin: 0 0 12px;
+      }
+      .hero-finding__number {
+        font-family: var(--font-display);
+        font-size: clamp(36px, 9vw, 88px);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.01em;
+        margin: 0 0 12px;
+        font-variant-numeric: tabular-nums;
+      }
+      .hero-finding__sentence {
+        font-family: var(--font-serif, "Source Serif Pro", Georgia, serif);
+        font-size: clamp(16px, 2.2vw, 22px);
+        line-height: 1.35;
+        margin: 0 0 8px;
+        max-width: 60ch;
+      }
+      .hero-finding__caption {
+        font-family: var(--font-ui);
+        font-size: 12px;
+        color: var(--muted-foreground);
+        margin: 0;
+      }
+
+      /* Filter widget heads: visually subordinate to editorial sections.
+         A filter form is a utility — its label should NOT shout at the
+         same hierarchy as "Fast Read" or other content sections. */
+      .filter-strip-head {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--rule, rgba(28,28,31,0.12));
+      }
+      .filter-strip-label {
+        font-family: var(--font-ui);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted-foreground);
+        font-weight: 600;
+        margin: 0;
+      }
+      .filter-strip-head .section-note {
+        margin: 0;
+        font-size: 13px;
+      }
 
       .footer-note,
       .muted-note,
