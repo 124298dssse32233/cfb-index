@@ -270,6 +270,12 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
             dek = case
                 when coalesce(edition_features.dek, '') = '' then excluded.dek
                 when edition_features.dek like 'Cover essay scaffold — auto-filled%' then excluded.dek
+                -- Also catch dek strings that expose internal sprint /
+                -- pattern identifiers ("Pattern C", "Pattern E", "Sprint 13").
+                -- These shipped as authored deks but read as dev-vocab.
+                when edition_features.dek like '%Pattern C %' then excluded.dek
+                when edition_features.dek like '%Pattern E %' then excluded.dek
+                when edition_features.dek like '%Sprint 1%' then excluded.dek
                 else edition_features.dek
             end,
             body_markdown = case
@@ -277,6 +283,10 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
                     then excluded.body_markdown
                 when edition_features.body_markdown like '[Auto-generated content placeholder%'
                     then excluded.body_markdown
+                -- Same internal-jargon detection on body_markdown.
+                when edition_features.body_markdown like '%Pattern C cover essay generator%' then excluded.body_markdown
+                when edition_features.body_markdown like '%Pattern E continuity loop%' then excluded.body_markdown
+                when edition_features.body_markdown like '%world_class_enrich%' then excluded.body_markdown
                 else edition_features.body_markdown
             end,
             byline = excluded.byline,
