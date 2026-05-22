@@ -55,6 +55,7 @@ from .trajectory_chip import render_trajectory_chip, TRAJECTORY_CHIP_CSS
 from .kickoff_countdown import render_kickoff_countdown, KICKOFF_COUNTDOWN_CSS
 from .peer_comparator import render_peer_comparator, PEER_COMPARATOR_CSS
 from .on_this_day import render_on_this_day, ON_THIS_DAY_CSS
+from .wrapped_stack import render_wrapped_stack, WRAPPED_STACK_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -472,6 +473,9 @@ def _render_page(
     # On This Day — Brief §25.3. Daily-rotated historical artifact. Pulls
     # past games on today's MM-DD, falls back to deterministic rotation.
     on_this_day_html = render_on_this_day(db, profile, today=state.today) if db is not None else ""
+    # Wrapped stack — Brief §21.3. Spotify-Wrapped-styled retrospective.
+    # Only renders in the Jan-Mar window; returns "" outside that.
+    wrapped_html = render_wrapped_stack(profile, snapshot, arc_rows, today=state.today)
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -552,6 +556,9 @@ body {{
 /* On This Day — Brief §25.3 */
 {ON_THIS_DAY_CSS}
 
+/* Wrapped stack — Brief §21.3 */
+{WRAPPED_STACK_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -604,6 +611,7 @@ body {{
     {trajectory_chip_html}
     {peer_comparator_html}
     {on_this_day_html}
+    {wrapped_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
