@@ -53,6 +53,7 @@ from .program_prestige_bar import (
 from .page_tone_strip import render_page_tone_strip, PAGE_TONE_STRIP_CSS
 from .trajectory_chip import render_trajectory_chip, TRAJECTORY_CHIP_CSS
 from .kickoff_countdown import render_kickoff_countdown, KICKOFF_COUNTDOWN_CSS
+from .peer_comparator import render_peer_comparator, PEER_COMPARATOR_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -417,6 +418,9 @@ def _render_page(
     trajectory_chip_html = ""
     if arc_rows:
         trajectory_chip_html = render_trajectory_chip(profile, arc_rows)
+    # Program Peer Comparator — Brief §26 static-attribute variant. "What
+    # does this team remind us of?" answered with 3 peer-program tiles.
+    peer_comparator_html = render_peer_comparator(profile)
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -491,6 +495,9 @@ body {{
 /* Kickoff Countdown — Brief §22.1 */
 {KICKOFF_COUNTDOWN_CSS}
 
+/* Program Peer Comparator — Brief §26 */
+{PEER_COMPARATOR_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -541,6 +548,7 @@ body {{
     {season_standing_html}
     {program_prestige_html}
     {trajectory_chip_html}
+    {peer_comparator_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
