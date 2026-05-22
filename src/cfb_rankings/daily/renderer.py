@@ -91,7 +91,15 @@ def _entity_link_html(slug: str, entity_type: str, conn=None) -> str:
         href = f"/players/{resolved}.html"
         label = resolved.rsplit("-", 1)[0].replace("-", " ").title() if "-" in resolved else resolved
     elif entity_type == "conference":
-        href = f"/conferences/{slug}.html"
+        # Conference pages live at /conferences/<level-code>-<bare-slug>.html
+        # (e.g. /conferences/fbs-sec.html). If the upstream take stored a
+        # bare slug like "sec" instead of the canonical "fbs-sec", the link
+        # 404s. Normalize: bare slugs get the "fbs-" prefix; already-prefixed
+        # ones pass through.
+        norm = slug.strip().lower()
+        if not norm.startswith(("fbs-", "fcs-", "dii-", "diii-", "naia-")):
+            norm = f"fbs-{norm}"
+        href = f"/conferences/{norm}.html"
         label = slug.upper()
     else:
         return ""

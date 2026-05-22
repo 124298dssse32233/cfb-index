@@ -125,6 +125,26 @@ FACTUALITY
 - If a fact would require information that isn't in the source block, \
   write around it.
 
+CALENDAR AWARENESS (read this carefully — wrong-season drift breaks the \
+issue)
+- A CALENDAR CONTEXT block in the user prompt tells you the actual publish \
+  date and whether the sport is in-season or offseason. RESPECT IT.
+- The "WEEK" number is the ISO calendar week of the publish date — not a \
+  football week. ISO week 18 is the first Monday of May. Football week 18 \
+  is championship/CFP week. They are NOT the same.
+- If CALENDAR CONTEXT says OFFSEASON: no games are being played this \
+  week, no press boxes are full, no current quotes from coaches exist, no \
+  Saturday slate is happening. Do not write a regular-season recap or a \
+  championship-week scene-setter. The offseason has its own subjects: \
+  portal closures, recruiting cycles, coaching changes, the absence of \
+  forced news cycles, what fanbases choose to talk about when there is \
+  nothing to talk about. The SOURCE OBSERVATIONS block is your factual \
+  ground; if it is sparse, write about the offseason rhythm itself, not \
+  about invented mid-season scenes.
+- If CALENDAR CONTEXT says IN-SEASON: write the regular-season piece. The \
+  ISO week and football week roughly align in fall; the distinction \
+  matters most in spring.
+
 CONTINUITY
 - Read the PRIOR 4 COVERS block. Don't restate. Build on. If a previous \
   cover already framed a question, advance it.
@@ -179,7 +199,44 @@ def compose_prompt_body(context: dict[str, Any]) -> str:
     week = context.get("week", "")
     parts: list[str] = []
     parts.append("SOURCE OBSERVATIONS — every claim in the cover essay must trace to this block.")
-    parts.append(f"SEASON: {season}\nWEEK: {week}")
+    parts.append(f"SEASON: {season}\nWEEK (ISO calendar week of publish date): {week}")
+
+    # CALENDAR CONTEXT — Session 6 fix for wrong-season Pattern C drift.
+    # Before this block existed, the LLM saw only "WEEK: 18" and
+    # interpreted it as football week 18 (mid-November championship
+    # week) rather than ISO calendar week 18 (first Monday of May).
+    # The live W18 cover essay shipped 1,100 words set in mid-November
+    # on a May 4 publish date. This block tells the LLM the actual
+    # calendar position so it can ground its scene-setting correctly.
+    publish_date = context.get("publish_date")
+    is_offseason = context.get("is_offseason")
+    days_to_kickoff = context.get("days_to_kickoff")
+    if publish_date is not None:
+        phase = "OFFSEASON" if is_offseason else "IN-SEASON"
+        kickoff_line = (
+            f"DAYS TO NEXT KICKOFF: {days_to_kickoff}"
+            if days_to_kickoff is not None else ""
+        )
+        offseason_note = (
+            "This is an OFFSEASON edition. No games are being played this week. "
+            "No press boxes are full. No current coach quotes exist. "
+            "Do NOT write a regular-season recap or a championship-week "
+            "scene-setter. Offseason subjects: portal closures, recruiting, "
+            "coaching changes, the absence of forced news cycles. If "
+            "SOURCE OBSERVATIONS is sparse, write about the offseason "
+            "rhythm itself."
+        ) if is_offseason else (
+            "This is an IN-SEASON edition. Games are happening. Write the "
+            "regular-season piece."
+        )
+        parts.append(
+            "CALENDAR CONTEXT:\n"
+            f"PUBLISH DATE: {publish_date}\n"
+            f"SEASON PHASE: {phase}\n"
+            f"{kickoff_line}\n"
+            f"{offseason_note}".rstrip()
+        )
+
     parts.append(_format_section("SEASON PHASE", context.get("season_phase")))
     parts.append(_format_section(
         "PRIOR 4 COVERS (continuity context — do not restate)",

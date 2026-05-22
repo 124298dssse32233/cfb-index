@@ -740,13 +740,59 @@ def build_edition_cover_context(
 
     See ``DESIGN_AUDIT_2026_05_15_v5_3.md`` Part 4 §"Edition cover
     essay" for the manifest spec.
+
+    Session 6 addendum (2026-05-22): also surface calendar context
+    (``publish_date``, ``is_offseason``, ``days_to_kickoff``). Prior
+    behavior passed only ``(season, week)`` to the prompt, which let
+    Pattern C interpret an offseason edition's calendar ISO week
+    number ("week 18" = first Monday of May) as a football week ("week
+    18" = mid-November championship week). The live W18 cover essay
+    shipped a 1,100-word essay set in mid-November on a May 4
+    publishing date. Surfacing the calendar context lets ``compose_
+    prompt_body`` emit a CALENDAR CONTEXT block the LLM can ground in.
     """
+    from datetime import date as _date
+    from cfb_rankings.common.cfb_calendar import (
+        is_offseason as _is_offseason,
+        days_to_kickoff as _days_to_kickoff,
+    )
+
     # Compute the week's ISO date string for cohort lookups.
     # week_iso is treated as a free-text key in team_cohort_week.
     week_iso = f"{season}-W{int(week):02d}"
+
+    # Calendar context. Best-effort: derive publish_date from the
+    # edition row when available; otherwise default to today (the
+    # build-time date), which is the next best anchor for "where in
+    # the calendar is this edition publishing."
+    publish_date: _date | None = None
+    try:
+        row = db.execute(
+            "select publish_date from editions where edition_slug = ?",
+            (f"{season}-w{int(week):02d}",),
+        ).fetchone()
+        if row and row[0]:
+            publish_date = _date.fromisoformat(str(row[0]))
+    except Exception:
+        publish_date = None
+    if publish_date is None:
+        publish_date = _date.today()
+
+    try:
+        offseason_flag = _is_offseason(publish_date, db)
+    except Exception:
+        offseason_flag = publish_date.month < 8 or publish_date.month >= 1
+    try:
+        kickoff_days = _days_to_kickoff(publish_date, db=db)
+    except Exception:
+        kickoff_days = None
+
     return {
         "season": season,
         "week": week,
+        "publish_date": publish_date.isoformat(),
+        "is_offseason": offseason_flag,
+        "days_to_kickoff": kickoff_days,
         "prior_4_covers": _q_prior_covers(db, season, week, limit=4),
         "cohort_mood_dumbbell": _q_cohort_mood_dumbbell(db, week_iso),
         "rank_disagreements": _q_rank_disagreements(db, season, week, limit=10),

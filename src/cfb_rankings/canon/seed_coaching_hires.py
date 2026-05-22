@@ -545,8 +545,8 @@ def entries() -> list[CanonEntry]:
                 "(4-8) reflects the Big-12 schedule's first-time "
                 "punishment more than the program's trajectory. The "
                 "five-year window is the right horizon to grade the "
-                "Fritz hire; one season of evidence puts it on this "
-                "list as a placeholder."
+                "Fritz hire; one season of evidence makes this an "
+                "early-look entry — re-graded as more years compound."
             ),
         ),
         _e(

@@ -276,6 +276,12 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
                 when edition_features.dek like '%Pattern C %' then excluded.dek
                 when edition_features.dek like '%Pattern E %' then excluded.dek
                 when edition_features.dek like '%Sprint 1%' then excluded.dek
+                -- Session 6 addendum: catch wrong-season Pattern C drift
+                -- in the dek too (the dek is derived from the bad body's
+                -- first paragraph by _persist_cover_body, so it shows
+                -- the same wrong-season scene-setting).
+                when edition_features.dek like '%press box at any stadium in mid-November%' then excluded.dek
+                when edition_features.dek like '%week the College Football Playoff field locks%' then excluded.dek
                 else edition_features.dek
             end,
             body_markdown = case
@@ -287,6 +293,21 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
                 when edition_features.body_markdown like '%Pattern C cover essay generator%' then excluded.body_markdown
                 when edition_features.body_markdown like '%Pattern E continuity loop%' then excluded.body_markdown
                 when edition_features.body_markdown like '%world_class_enrich%' then excluded.body_markdown
+                -- Session 6 addendum (2026-05-22): catch wrong-season
+                -- Pattern C drift. The live W18 cover essay shipped a
+                -- 1,100-word mid-November / CFP-week scene-setter on a
+                -- May 4 (offseason) publish date because Pattern C
+                -- interpreted ISO calendar week 18 as football week 18.
+                -- These distinctive phrases reveal a regular-season-
+                -- season scene on what should be an offseason edition.
+                -- Pattern C is now offseason-aware (see cover_essay.py
+                -- CALENDAR AWARENESS), but these detectors stay as a
+                -- safety net against future drift. Real essays — even
+                -- in-season — never produce all of these markers.
+                when edition_features.body_markdown like '%week the College Football Playoff field locks%' then excluded.body_markdown
+                when edition_features.body_markdown like '%Week 18 means in a sport that no longer has a Week 19%' then excluded.body_markdown
+                when edition_features.body_markdown like '%Beat writing built on fabrication is not beat writing%' then excluded.body_markdown
+                when edition_features.body_markdown like '%press box at any stadium in mid-November%' then excluded.body_markdown
                 else edition_features.body_markdown
             end,
             byline = excluded.byline,

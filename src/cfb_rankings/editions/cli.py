@@ -49,6 +49,29 @@ def register_edition_subcommands(subparsers: argparse._SubParsersAction) -> None
     )
     archive.set_defaults(func=_cmd_build_archive)
 
+    # Session 6 (2026-05-22): one-shot recovery for editions whose
+    # Pattern C output drifted off-topic (wrong season, wrong scene,
+    # invented facts). Direct-UPDATEs body_markdown + dek from the
+    # seed payload, bypassing upsert detection. Does not change
+    # status — published editions stay published. Use when an
+    # already-published edition has demonstrably bad content and you
+    # need to restore the seed text immediately, without waiting for
+    # the next world_class_enrich pass.
+    force_reseed = subparsers.add_parser(
+        "force-reseed-feature",
+        help=(
+            "One-shot direct-UPDATE of an edition feature's body+dek "
+            "from seeds.py, bypassing upsert preservation logic. "
+            "Use to recover from off-topic Pattern C drift on an "
+            "already-published edition."
+        ),
+    )
+    force_reseed.add_argument("--slug", required=True,
+                              help="Edition slug, e.g. 2026-w18")
+    force_reseed.add_argument("--feature-order", type=int, default=1,
+                              help="Feature order to reset (default: 1, the cover essay)")
+    force_reseed.set_defaults(func=_cmd_force_reseed_feature)
+
     # Sprint v5-2: LLM-driven Edition cover essay synthesis.
     # Routes through quality_loop.loop_c_critic_revise when the feature
     # flag is set in config.QUALITY_LOOP_FLAGS, otherwise falls back to
@@ -380,6 +403,81 @@ def _cmd_generate_edition_covers(args: argparse.Namespace) -> int:
         f"persisted_no_promote={persisted_no_promote} "
         f"skipped_no_text={skipped_no_text} "
         f"skipped_seed_only={skipped_seed_only}"
+    )
+    return 0
+
+
+def _cmd_force_reseed_feature(args: argparse.Namespace) -> int:
+    """Session 6 recovery tool — direct-UPDATE a feature's body+dek
+    from the seed payload, bypassing upsert preservation logic.
+
+    Used to recover from off-topic Pattern C drift on an already-
+    published edition (e.g. W18 shipped a mid-November scene-setter
+    on a May 4 publish date because Pattern C interpreted ISO calendar
+    week 18 as football week 18). The new offseason-aware Pattern C
+    prompt prevents this from recurring; this command restores the
+    seed body so the live site reads correctly while the next
+    world_class_enrich run hasn't fired yet.
+
+    Idempotent: if the seed has no payload for this slug+order, exits
+    1. If the row doesn't exist in the DB yet, exits 2. Otherwise
+    UPDATEs body_markdown + dek from the seed and exits 0.
+    """
+    from .seeds import _archive_edition_payload, _w17_payload
+
+    # Dispatch to the right seed loader. w17 is the canonical large
+    # seed (its own _w17_payload); the rest live under
+    # _archive_edition_payload(slug).
+    try:
+        if args.slug == "2026-w17":
+            _, features, _ = _w17_payload()
+        else:
+            _, features, _ = _archive_edition_payload(args.slug)
+    except KeyError:
+        print(f"no seed payload for {args.slug}; add a seed loader first")
+        return 1
+    target = next(
+        (f for f in features if f.feature_order == args.feature_order),
+        None,
+    )
+    if target is None:
+        print(f"no seed feature with order={args.feature_order} for {args.slug}")
+        return 1
+
+    db = _open_db()
+    existing = db.query_one(
+        "select id from edition_features where edition_slug = :slug "
+        "and feature_order = :ord",
+        {"slug": args.slug, "ord": args.feature_order},
+    )
+    if not existing:
+        print(f"no DB row for {args.slug} order={args.feature_order}; run seed-editions first")
+        return 2
+
+    db.execute(
+        """
+        update edition_features
+           set body_markdown = :body,
+               dek = :dek,
+               title = :title,
+               byline = :byline,
+               read_time_minutes = :read_time
+         where edition_slug = :slug
+           and feature_order = :ord
+        """,
+        {
+            "slug": args.slug,
+            "ord": args.feature_order,
+            "body": target.body_markdown,
+            "dek": target.dek,
+            "title": target.title,
+            "byline": target.byline,
+            "read_time": target.read_time_minutes,
+        },
+    )
+    print(
+        f"force-reseeded {args.slug} order={args.feature_order} "
+        f"(title={target.title!r}, body_len={len(target.body_markdown)})"
     )
     return 0
 

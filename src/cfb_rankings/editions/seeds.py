@@ -957,8 +957,8 @@ def _archive_w18() -> tuple[Edition, list[EditionFeature], list[EditionVoice]]:
                 "to score predictions retroactively — it's to keep an honest ledger of what the "
                 "industry thought in February against what actually happened. That gap is what "
                 "every future pre-draft board has to earn against.\n\n"
-                "Full receipts return when the receipts-pattern citation pipeline finishes wiring "
-                "claim resolution into the editorial generator."
+                "Full receipts return once enough resolved claims clear the ledger to grade the "
+                "industry-wide pre-draft consensus honestly."
             ),
             byline="By The Receipts Desk", read_time_minutes=3,
         ),
