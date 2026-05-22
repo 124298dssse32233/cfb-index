@@ -390,7 +390,7 @@ def _render_meetings(profile: Profile, opp: str, meetings: list[dict[str, Any]])
         if commentary:
             body_html = html.escape(commentary)
         elif year and result_label:
-            body_html = f'<span class="rivalry-card__meeting-body--placeholder">{result_label} on file &mdash; commentary pending.</span>'
+            body_html = f'<span class="rivalry-card__meeting-body--placeholder">{result_label} recorded.</span>'
         else:
             body_html = ''
         rows_html.append(f"""<li class="rivalry-card__meeting">

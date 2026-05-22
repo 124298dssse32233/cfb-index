@@ -3799,8 +3799,9 @@ def render_scenario_explorer_card(payload: Any | None) -> str:
             '<article class="scenario-explorer scenario-explorer--empty" '
             'data-module="scenario-explorer" data-state="empty">'
             '  <p class="scenario-explorer__eyebrow">Scenario Explorer</p>'
-            '  <p>Lights up once the player has a qualifying signature '
-            'metric. Use the slider to project a season finish.</p>'
+            '  <p>Available for players with a qualifying signature metric '
+            '(passing yards, rushing yards, receiving yards, sacks, etc.). '
+            'The slider projects how a season finishes if the current pace holds.</p>'
             '</article>'
         )
     from cfb_rankings.bets.scenario_explorer import payload_to_dict
@@ -3917,8 +3918,8 @@ def render_signature_play_card(moment: Any | None, opp_tier: str = "") -> str:
             '<article class="signature-play signature-play--empty" '
             'data-module="signature-play" data-state="empty">'
             '  <p class="signature-play__eyebrow">Signature Moment</p>'
-            '  <p class="signature-play__headline">Lights up once multi-game coverage loads.</p>'
-            '  <p class="signature-play__sub">Today\'s player_game_stats only carries 2025 Week 1 — we ship when the next weeks land.</p>'
+            '  <p class="signature-play__headline">No signature moment on the ledger yet.</p>'
+            '  <p class="signature-play__sub">Returns once this player puts together a multi-game body of work — single-game flashes alone don\'t clear the bar.</p>'
             '</article>'
         )
     stripe_cls = f" opp-stripe opp-stripe--{opp_tier}" if opp_tier else ""
@@ -10990,8 +10991,8 @@ def _build_player_trophy_case(heisman_years: list[dict[str, Any]], honors_histor
         items.append(
             {
                 "kicker": "Honors",
-                "title": "Honors pipeline is ready",
-                "body": "This card is now structured to absorb All-America, all-conference, player-of-the-week, watch-list, and postseason award rows as soon as those sources are imported.",
+                "title": "No formal honors on the ledger yet",
+                "body": "All-America, all-conference, player-of-the-week, watch-list, and postseason awards land here when they're earned. The absence is the signal: most players never collect formal honors, and that's its own kind of context.",
             }
         )
     return items
@@ -17541,7 +17542,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
               <h2 class="the-room__title">The Room on {escape(player_name)}</h2>
               <p class="the-room__sub">Fan sentiment · Awaiting signal</p>
             </header>
-            <p class="the-room__empty-body">Belief tracking publishes once player-mention sample + author counts clear the floor. Check back as in-season chatter density rises.</p>
+            <p class="the-room__empty-body">The Room reads fan conversation around a player — who&rsquo;s talking, what they believe, and how that shifts. It publishes once weekly volume rebuilds; for most players that&rsquo;s in-season, when game-week chatter spikes.</p>
           </article>
         """
 
