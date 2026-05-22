@@ -1,8 +1,8 @@
 # CFB Index — Launch Roadmap & Working Memory
 
 **Owner of this doc:** Claude (working memory). User reads + redirects.
-**Last updated:** 2026-05-21 (session 2)
-**Status:** AUDIT IN PROGRESS — verifying claims from session-1's 72% readiness number before any launch execution.
+**Last updated:** 2026-05-22 (session 3 — autonomous late-night sprint)
+**Status:** LIVE + STRUCTURALLY HARDENED. CI is unblocked (notify_failure permission fix), production deploy path is closed (publish-site now calls vercel deploy directly), DB-artifact loss is fail-loud across 19 workflows. Player ID stability scoped (less urgent than estimated; see [docs/research/player-id-stability-scoping-2026-05-21.md](docs/research/player-id-stability-scoping-2026-05-21.md)).
 
 > **Read this first every session.** This doc is the single source of truth for project state. Memory pointers in `~/.claude/projects/.../memory/MEMORY.md` reference it. If a claim in this doc is wrong, fix this doc *first* before acting on it.
 
@@ -141,6 +141,86 @@ What's actually missing isn't a launch ceremony — it's three known credibility
 
 ---
 
+## 4-bis. MVK ROADMAP (LOCKED 2026-05-21 session 3 via /octo:embrace)
+
+> Output of a full Double Diamond pass (Discover → Define → Debate Gate → Develop). Multi-LLM consensus was degraded (Codex hit OpenAI cap until 2026-05-25; Gemini 503 high-demand; Sonnet timed out at 180s) so the synthesis is single-perspective from Claude+Sonnet probe, validated by an adversarial debate gate that surfaced 2 real plan-misses (custom domain; monitoring overreach). Full artifacts at `~/.claude-octopus/results/1fbafad8-a617-4cfd-bc58-d46b257219ac/`.
+
+### THE HIGHEST-LEVERAGE NEXT ACTION (next ≤ 7 days)
+
+**Time-boxed CI startup_failure diagnosis** — ✅ DONE 2026-05-21 session 3 in ~20 min (well under the 2hr cap). **Strong diagnosis: GHA private-repo monthly minute quota exhaustion.**
+
+Evidence (across last 40 workflow runs):
+- 75% failure rate (30 of 40 failed)
+- 20 of 30 failures are `startup_failure` (runner couldn't even allocate)
+- Most failures complete in 0-2 seconds (zero execution time)
+- Inconsistent pattern: same workflow succeeds at off-hours, fails at peak — matches "minutes burst-available when budget refreshes briefly"
+- Only `fanintel-ingest-hourly` succeeds reliably, only at 00:15 / 05:17 / 09:59 UTC (off-peak)
+- Self-hosted smoketest worked flawlessly with `billable: {total_ms: 0}` — confirms self-hosted bypasses the quota
+- Repo is private (`githubRepoVisibility: private` per Vercel metadata)
+- Free GHA = 2000 min/mo for private repos; Pro = 3000; ~70% through May → consistent with depletion
+- worst offenders by minute consumption: `digest_reactions_poll` (hourly = 720 runs/mo × ~2 min each ≈ 1440 min alone), `fanintel-ingest-hourly` (same)
+
+Caveat: token lacks `read:billing` scope, so I couldn't pull exact usage. **User should verify in [GitHub billing dashboard](https://github.com/settings/billing/summary)** — if May usage is at/near 2000 min (Free) or 3000 (Pro), diagnosis confirmed.
+
+**Three remediation paths (pending user decision):**
+1. **Upgrade to GitHub Pro** (~$4/mo) → 3000 min/mo. Solves symptom without architectural work.
+2. **Migrate hourly workflows to self-hosted runner** → free + reliable, but requires per-workflow Windows-portability fix (~4-6 hr/workflow).
+3. **Reduce workflow frequency** → cut `digest_reactions_poll` from hourly to every 4 hr (-75% minutes). Cheapest, reduces freshness.
+
+Side findings worth flagging:
+- `DIGEST_ISSUE_NUMBER` repo variable is missing — workflow `digest_reactions_poll` runs with empty value (won't function correctly even when it does run)
+- `ARCTIC_SHIFT_API_KEY` secret is missing — workflow `archive_retro_daily` requires it
+- The Mendoza-quote bug from earlier sessions is moot: he has no published player page on live (player_id changed across enrich runs — same root cause as MVK #2)
+
+### MVK — Minimum Viable Kickoff (must land by 2026-08-22)
+
+> Game day is 2026-08-30. ~3 months of offseason runway as of 2026-05-21.
+
+| # | Item | Effort | Acceptance criterion |
+|---|------|--------|---------------------|
+| 1 | CI startup_failure resolution (or documented workaround) | 2-4 hr cap | 7-day rolling success rate on scheduled workflows ≥ 95% |
+| 2 | Player ID stability (upsert pattern) | 2-3 days | 3 consecutive enrich runs produce identical player IDs; URLs unchanged after full rebuild |
+| 3 | .vercelignore deploy verification | 5 min after next CI cron | 15/15 random player URLs from /heisman/ return 200 (was 0/15) |
+| 4 | Defensive renderer call-site integration (scaffold from session 1) | 4-6 hr | Player/team pages render correctly with deliberately-malformed rows |
+| 5 | Untracked theme files committed | 15 min | ✅ DONE 2026-05-21 session 3 (commit db35af0f065) |
+| 6 | Custom domain wired to Vercel | 30 min + ~$15/year | Site reachable at cfbindex.com (or chosen domain), HTTPS active |
+
+### Reframed rationale (post-debate)
+
+- **#2 Player IDs**: rationale is NOT "Google indexing" (debate-challenger correctly noted low Domain Authority + Heisman board rebuilds weekly so URL drift is mostly internal). Real rationale: **share-link stability** (iMessage previews + Reddit cache + AI crawler caches all fire BEFORE the site has SEO weight). Cost-of-delay is cumulative; cost-of-fix is bounded.
+- **#6 Custom domain (NEW from debate)**: Single biggest "feels legitimate" lift the project can get. `cfbindex.com` vs `wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app` is a credibility chasm at zero engineering cost. See [docs/research/domain-options.md](docs/research/domain-options.md).
+
+### Demoted to Tier 2 (post-MVK, pre-season polish in June-July)
+
+- ~~#4 (original) Post-enrich health check + Discord/Slack webhook~~ — debate-challenger was right; this is best-practice cargo-culted from team contexts. Solo-dev site with no users yet doesn't need 3am-Saturday paging. Add post-MVK.
+- Bottom-sheet tooltip on legacy `.table-wrap` tables (Cheap Win #3 deployment): 2-3 hr, nice UX, not load-bearing.
+- Vercel tier audit: bandwidth + deployment-count headroom under current Vercel plan.
+- Secret rotation audit: 24+ workflows, document expiry dates.
+- Pre-kickoff smoke test of ALL 24+ workflows: 3 hr, August.
+
+### Time-boxed: self-hosted runner
+
+- Per-workflow Windows-portability triage capped at **4 hours / 1 successfully migrated workflow**. If that one workflow doesn't migrate cleanly in 4 hours, deprecate the Alienware runner from CI use (keep for Ollama only post-season).
+- The smoke-test workflow already proves the runner is healthy. The blocker is Windows bash vs Linux bash differences in individual workflows.
+
+### Post-season (November 2026+)
+
+- Heisman page pagination (15 MB)
+- Two-renderer split unification (profiled vs legacy team pages)
+- reporting.py decomposition
+- Fan-intel entity matching improvements
+- Ollama tier-B integration
+
+### Hidden risks identified by the audit (track but don't fix yet)
+
+- **Vercel tier limits**: 100 deploys/day Hobby cap; 69k pages; kickoff-weekend bandwidth spike. Audit in July.
+- **SQLite concurrency during enrich**: 24+ workflows, WAL mode question. Audit if any race condition surfaces.
+- **Alienware as SPOF**: Windows Updates, ISP outages, gaming-GPU contention. Mitigation: never make Alienware primary for deploy-critical workflows.
+- **Secret rotation**: 24+ workflows accumulate API keys; silent failures on stale tokens. Audit in July.
+- **Enrich-vs-traffic timing**: kickoff Saturday CPU-bound enrich could delay Sunday-morning deploys. Audit pattern: enrich runs early-Saturday-morning, deploys done by noon.
+
+---
+
 ## 4. Roadmap (REVISED 2026-05-21 session 2)
 
 > The "launch" framing was wrong. The site IS live and auto-deploying. The work in front of us is fixing the three credibility bugs identified above, then ramping into pre-kickoff content quality work. Sequenced milestones below.
@@ -243,6 +323,9 @@ Done. §3 above is the verified picture; session-1's 72%-and-Phase-1 framing is 
 | 2026-05-21 | Window A/B coordination model retired; Claude drives as single track | User | Consolidation |
 | 2026-05-21 | Create this master plan doc + verify before any launch execution | User | Doesn't trust 72% number from single-agent assessment |
 | 2026-05-21 | Re-frame "launch readiness" as "credibility-bug fixes on already-live site" | Claude (after 4-agent verification + discover.md re-read) | Site is provably live & auto-deploying; the "First Live Cycle" ceremony is historical, not pending |
+| 2026-05-21 | Disconnect Vercel git auto-deploy entirely; all production deploys go through `vercel deploy --prod` in workflows | Claude (session 2/3) | Master pushes were producing content-less production deploys because output/ is gitignored. Fixing by routing deploys through workflows that build first |
+| 2026-05-21 | MVK #2 player ID stability: implement Option B (CI fail-loud) THIS session; defer Option A (stable URL slug from cfbd_player_id) to a future session | Claude (autonomous, session 3) | Scoping showed existing `_get_or_create_player` upsert is already largely correct. Drift risk is narrower than originally estimated; Option B captures most of the value at 19 × 6 lines of YAML |
+| 2026-05-21 | MVK #4 defensive renderer integration deferred — turned out to be ~a week of work, not 4-6 hours, because the "scaffold" exists but nothing in reporting.py or team_pages/renderer.py calls it; wiring is full-codebase | Claude (autonomous, session 3) | Sized correctly for next planning conversation rather than committed-to autonomously |
 
 ---
 
@@ -251,7 +334,8 @@ Done. §3 above is the verified picture; session-1's 72%-and-Phase-1 framing is 
 | Session | Date | What got done | Handoff doc |
 |---------|------|---------------|-------------|
 | 1 | 2026-05-21 AM | Research deliverables (4 docs, ~18.2k words); audit punch list; P1 abbreviation fixes; P0 tabular-nums extension; Cheap Win #1 sticky-first-col; print stylesheet; stat-definitions extension; defensive position-group scaffold (7 ColumnDefs + 7 render fns); 3 builds; 72% readiness number (now under audit) | [docs/research/session-handoff-2026-05-21.md](docs/research/session-handoff-2026-05-21.md) |
-| 2 | 2026-05-21 PM | Master plan doc created; 4-agent verification audit completed; discover.md read directly; ALL THREE claimed P0s falsified via live-site fetch (Heisman 2025 IS live; Chronicle IS rendering on all 5 supposedly-broken programs; Mendoza bug can't manifest because his page 404s). Vercel SSO disabled via API; site now publicly viewable. Found + fixed the REAL P0: every Heisman → player link 404'd because .vercelignore allowlist had stale player IDs. Commit 7a384ce pushed (pending GH auth handoff) replacing the 15k-line allowlist with minimal exclusions. | (this doc) |
+| 2 | 2026-05-21 PM | Master plan doc created; 4-agent verification audit completed; discover.md read directly; ALL THREE claimed P0s falsified via live-site fetch (Heisman 2025 IS live; Chronicle IS rendering on all 5 supposedly-broken programs; Mendoza bug can't manifest because his page 404s). Vercel SSO disabled via API; site now publicly viewable. Found the REAL P0: every Heisman → player link 404'd because .vercelignore allowlist had stale player IDs. Committed 3-commit fix batch (7a384ce vercelignore + fbdbe52 session-1 conformance + 5982416 docs) and pushed to master. Direct push triggered Vercel auto-deploy from git which produced a near-empty broken site (output/site is gitignored, so git-pull deploys get only source code). Rolled back via Vercel API promote; disconnected Vercel git integration to prevent recurrence. Fix is queued in master and will deploy at next successful CI cron — blocked by pre-existing intermittent CI workflow failures (task #23). | (this doc) |
+| 3 | 2026-05-21/22 (late-night autonomous) | **(1) Real fix to CI startup_failure** — root-caused as `notify_failure.yml` reusable workflow's `issues:write` permission contract being unsatisfiable by 7 calling workflows whose `notify` job had no permissions block; GitHub rejected at startup with `total_count=0` jobs. Patched all 7 callers with `permissions: { issues: write, contents: read }` (commit `80b1ff8ff1e`). Validated by triggering `digest_reactions_poll` on the new SHA — workflow ran for the first time ever (66/66 historical = startup_failure), notify job opened automation-failure issue successfully. **(2) Production deploy was broken in a different way** — Vercel git auto-deploy was firing from master pushes, which lack `output/site/` (gitignored), serving content-less builds where every player page 404'd. Promoted a healthy `published`-branch deploy back to production via `vercel CLI`; verified 8/8 sample URLs return 200. **(3) Closed the deploy gap** — Added `vercel deploy --prod` step to `publish_site.yml` (commit `440ea9a3684`), mirroring the pattern in daily/wire/mailbag. Vercel CLI auth verified via existing repo secrets. **(4) Player ID stability scoping done** — found `_get_or_create_player` in ingest/cfbd.py already does the right external-id-first upsert pattern; URL drift is narrower than feared. Wrote scoping note at [docs/research/player-id-stability-scoping-2026-05-21.md](docs/research/player-id-stability-scoping-2026-05-21.md) (commit `cd552c5d40d`). **(5) Option B fail-loud landed** — added `python scripts/verify_db_artifact_healthy.py cfb_rankings.db` step right after the cfb-rankings-db download in 19 workflows. Refuses to run when artifact is missing or poisoned, preventing init-db from seeding a fresh schema and corrupting the rolling artifact (commit `81ab2c31af2`). Backfill workflows intentionally skipped. **(6) Cleaned up 3 stale `automation-failure` GitHub issues** that opened during CI-fix validation. Open MVKs that remain: #2 player ID stability Option A (stable URL slug via cfbd_player_id, 1 day), #4 defensive renderer call-site integration (turns out to be ~a week given reporting.py is 26k lines; needs user gut-check on approach), #6 custom domain wiring (needs user to pick a domain from [docs/research/domain-options.md](docs/research/domain-options.md)). | (this doc) |
 
 ---
 
