@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | CFB Index</title>
+<meta name="description" content="CFB Index is one football universe for FBS through Division III, paired with a fan-intelligence layer that reads belief, respect, and rivalry heat around every team.">
+<link rel="canonical" href="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/about/">
+<meta property="og:title" content="About | CFB Index">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/og-image.svg">
+<link rel="stylesheet" href="/assets/tokens-bridge.css">
+    <script>/* Theme init — FOUC prevention. MUST load synchronously in <head>.
+ * -------------------------------------------------------------------------
+ * Reads cfb-theme-pref from localStorage. If "light" or "dark", sets
+ * data-theme on <html> BEFORE first paint, so the page renders correctly.
+ * If "system" or unset, removes data-theme and lets prefers-color-scheme
+ * decide.
+ *
+ * Keep this script tiny. The full toggle UI loads via theme_toggle.js
+ * (deferred). This is just the synchronous attribute-setter.
+ *
+ * Spec: docs/octopus/v5_11_5_sprint_brief.md §"Part 2 — Path C"
+ */
+(function () {
+  try {
+    var pref = localStorage.getItem('cfb-theme-pref');
+    var root = document.documentElement;
+    if (pref === 'light' || pref === 'dark') {
+      root.setAttribute('data-theme', pref);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  } catch (e) { /* localStorage unavailable — silently fall through to OS pref */ }
+})();
+</script>
+<link rel="stylesheet" href="/assets/theme_toggle.css">
+<script defer src="/assets/theme_toggle.js"></script>
+    <link rel="stylesheet" href="/assets/cfb-index.9b7f0baf95f3.css">
+    <link rel="stylesheet" href="/assets/cmdk.css">
+    <link rel="stylesheet" href="/assets/stats_table.css">
+    <script src="/assets/js/url-state.js" defer></script>
+    <script src="/assets/js/the-room.js" defer></script>
+    <script src="/assets/js/subnav.js" defer></script>
+    <script src="/assets/js/bets/fi-glossary-data.js" defer></script>
+    <script src="/assets/js/bets/glossary.js" defer></script>
+    <script src="/assets/js/bets/what-changed.js" defer></script>
+    <script src="/assets/js/bets/signal-flow.js" defer></script>
+    <script src="/assets/js/bets/scenario-explorer.js" defer></script>
+    <script src="/assets/js/bets/keyboard-shortcuts.js" defer></script>
+    <script src="/assets/js/bets/context-menu.js" defer></script>
+    <script src="/assets/stat_definitions.js" defer></script>    <script src="/assets/alpine.min.js" defer></script>
+    <script src="/assets/cmdk.js" defer></script>
+
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+<body>
+<main class="site-shell" id="main-content">
+<a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="../index.html"><span class="brand__mark">THE CFB INDEX</span><span class="brand__tagline">Where every team stands &middot; what every fanbase thinks</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button><div class="topbar-panels"><nav class="nav" id="site-nav-links"><a class="nav-link" href="../rankings/index.html">Power Rankings</a><a class="nav-link" href="../teams/index.html">Teams</a><a class="nav-link" href="../players/spotlight.html">Players</a><a class="nav-link" href="../heisman/index.html">Heisman</a><a class="nav-link" href="../hub/vibe-shifts/index.html">Vibe Shifts</a><a class="nav-link" href="../programs/index.html">Programs</a><a class="nav-link" href="../history/index.html">History</a><a class="nav-link" href="../nfl-pipeline/index.html">NFL Pipeline</a><a class="nav-link is-current" href="../about-model/index.html">The Model</a><a class="nav-link" href="../conferences/index.html">Analysis</a><a class="nav-link" href="../archive/index.html">Weekly Archive</a></nav><div class="nav-actions"><a class="nav-action" href="../matchups/index.html">Matchup Simulator</a><a class="nav-action" href="../compare/index.html">Compare Teams</a><button class="cmdk-trigger nav-action" data-cmdk-trigger type="button" aria-label="Search (Ctrl-K / Cmd-K)" title="Search (Ctrl-K / Cmd-K)">⌘K</button><button class="theme-toggle nav-action" data-theme-toggle aria-label="Toggle theme" type="button"></button></div></div></header>
+        <script>
+          (() => {
+            const topbars = Array.from(document.querySelectorAll('.topbar'));
+            topbars.forEach((topbar) => {
+              const toggle = topbar.querySelector('.nav-toggle');
+              if (!toggle || toggle.dataset.bound === 'true') return;
+              toggle.dataset.bound = 'true';
+              const close = () => {
+                topbar.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+              };
+              toggle.addEventListener('click', () => {
+                const isOpen = topbar.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              });
+              topbar.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+              document.addEventListener('click', (event) => {
+                if (!topbar.contains(event.target)) {
+                  close();
+                }
+              });
+              window.addEventListener('resize', () => {
+                if (window.innerWidth > 860) {
+                  close();
+                }
+              });
+            });
+          })();
+        </script>
+        
+  <section class="hero">
+    <p class="eyebrow">About</p>
+    <h1>One football universe. One fan-intelligence layer. One argument.</h1>
+    <p class="lede">
+      CFB Index is a college-football reference product. It combines a power+resume
+      ranking model that covers <strong>every NCAA team, FBS through Division III</strong>
+      with a layer that listens to what fans are actually saying about each program — belief,
+      respect, rivalry heat. The point is to support better arguments, not faster ones.
+    </p>
+  </section>
+
+  <section class="section">
+    <article class="panel">
+      <div class="section-head"><h2>What you'll find</h2></div>
+      <ul class="about-list">
+        <li><strong><a href="/rankings/">Power Rankings</a></strong> — a single board ranking every team across every level, with a Power side (predictive) and a Resume side (earned).</li>
+        <li><strong><a href="/heisman/">Heisman Tracker</a></strong> — a full-board Heisman model, not just a top-three list. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender.</li>
+        <li><strong><a href="/teams/">Team Pages</a></strong> — one per program, including a deep-treatment design for 17 profiled teams (mood, chronicle, savant, rivalry).</li>
+        <li><strong><a href="/players/">Player Pages</a></strong> — 17,000+ player profiles with percentile context and signature stories.</li>
+        <li><strong><a href="/hub/vibe-shifts/">Vibe Shifts</a></strong> — what's moving in the conversation, weekly.</li>
+        <li><strong><a href="/wire/">The Wire</a></strong> — transactions and news rolled forward.</li>
+        <li><strong><a href="/editions/">Editions</a></strong> — the weekly editorial issue.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="section">
+    <article class="panel">
+      <div class="section-head"><h2>How it works</h2></div>
+      <p>Two models run in parallel. The <strong>predictive power model</strong> asks how strong a team is at any given moment. The <strong>resume model</strong> asks what that team has earned so far — who they played, what happened, how the results compare to expectation. Keeping them separate matches one of the most useful distinctions in serious college-football analytics.</p>
+      <p>On top of the models, a <strong>fan-intelligence layer</strong> ingests Reddit, mainstream coverage, betting markets, and recruiting signal. The result is what each fanbase actually believes, not just what the box score says.</p>
+      <p>Full methodology at <a href="/about-model/">/about-model/</a> and <a href="/methodology/">/methodology/</a>.</p>
+    </article>
+  </section>
+
+  <section class="section">
+    <article class="panel">
+      <div class="section-head"><h2>Who it's for</h2></div>
+      <p>Fans who want to argue with more receipts. Analysts who want one place to check both the model and the mood. Anyone who likes their college football served with a perspective.</p>
+    </article>
+  </section>
+
+  <p class="back"><a href="/">&larr; back to the front page</a></p>
+</main>
+<footer class="footer">
+  <div class="page">
+    <div class="chrome">
+      <span>VOL. I · NO. —</span>
+      <span>CFB / INDEX</span>
+      <span>2026</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>DEPARTMENTS</h4>
+        <ul>
+          <li><a href="/editions/">Editions Archive</a></li>
+          <li><a href="/daily/">The Daily</a></li>
+          <li><a href="/wire/">The Wire</a></li>
+          <li><a href="/mailbag/">The Mailbag</a></li>
+          <li><a href="/storylines/">Storyline Threads</a></li>
+          <li><a href="/canon/">The Canon</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>REFERENCE</h4>
+        <ul>
+          <li><a href="/rankings/">Rankings</a></li>
+          <li><a href="/teams/">Team Pages</a></li>
+          <li><a href="/players/">Player Pages</a></li>
+          <li><a href="/conferences/">Conferences</a></li>
+          <li><a href="/heisman/">Heisman</a></li>
+          <li><a href="/about/">About CFB Index</a></li>
+          <li><a href="/about-model/">The Model</a></li>
+          <li><a href="/methodology/">Methodology</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>SUBSCRIBE</h4>
+        <ul>
+          <li>Saturday morning · 06:00 ET</li>
+          <li>Weekly cover essay</li>
+          <li>The Daily — every morning</li>
+          <li>The Wire — continuous</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>MASTHEAD</h4>
+        <ul>
+          <li>Editor's Desk</li>
+          <li>Receipts Desk</li>
+          <li>Cohort Desk</li>
+          <li>Connections Desk</li>
+          <li>Fan-Voice Desk</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-chrome">
+      <span>© 2026 CFB INDEX · BUILT FOR THE OFFSEASON</span>
+      <span>VOL. I · NO. —</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
