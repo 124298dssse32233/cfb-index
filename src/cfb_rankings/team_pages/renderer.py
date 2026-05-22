@@ -50,6 +50,7 @@ from .program_prestige_bar import (
     render_program_prestige_bar,
     PROGRAM_PRESTIGE_BAR_CSS,
 )
+from .page_tone_strip import render_page_tone_strip, PAGE_TONE_STRIP_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -419,6 +420,10 @@ def _render_page(
     # "what kind of program is this, historically?" Sits next to Season
     # Standing so the fast + slow signals read together.
     program_prestige_html = render_program_prestige_bar(profile)
+    # Page Tone Strip — Brief Part III §32. Makes seasonal sentience visible:
+    # offseason vs gameday vs rivalry-peak read differently AND look
+    # differently. The strip surfaces phase + tone + outcome + live state.
+    page_tone_html = render_page_tone_strip(state)
     footer_html = _render_footer(profile, state)
 
     head_chrome_block = render_head_chrome(
@@ -466,6 +471,9 @@ body {{
 /* Program Prestige Bar — Brief §3.2 */
 {PROGRAM_PRESTIGE_BAR_CSS}
 
+/* Page Tone Strip — Brief Part III §32 (seasonal sentience visible) */
+{PAGE_TONE_STRIP_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -497,7 +505,10 @@ body {{
 <script defer>{theme_toggle_js}</script>
 <script defer>{cmdk_js}</script>
 </head>
-<body>
+<body data-page-tone="{state.accent_key}"
+      data-page-phase="{state.season_phase}"
+      data-page-anchor="{state.anchor_variant}"
+      data-in-season="{'true' if state.is_in_season else 'false'}">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="profile-page-controls" role="group" aria-label="Page controls">
   <button class="cmdk-trigger" data-cmdk-trigger type="button"
@@ -508,6 +519,7 @@ body {{
 <main id="main-content" class="team-page">
   <div class="content">
     {hero_html}
+    {page_tone_html}
     {season_standing_html}
     {program_prestige_html}
     {hero_arc_stripe_html}
