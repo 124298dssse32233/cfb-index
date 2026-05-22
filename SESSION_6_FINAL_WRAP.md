@@ -47,8 +47,11 @@ Chrome MCP browser validation caught it; one-line fix in
 | `132d3fe6c59` | 2 | feat(track-2): Dashboard archetype primitives on /hub/vibe-shifts/ |
 | `e1cb83a2351` | 5/6/7 | feat(tracks-5-6-7): Profile awaiting-module adoption + Database/Article archetype starter scaffolds |
 | `a3cce88737c` | 4 | fix(track-4): W19 wrong-season detection + global footer on edition article pages |
+| `66a6dd51ef7` | docs | docs(session6): comprehensive wrap doc |
+| `1800d7bd37a` | a11y+6 | fix(a11y,track-6): WCAG 2.5.5 touch targets + homepage methodology footer + footer heading hierarchy + Database archetype adopter |
+| `a44e1eb64ec` | 6 | feat(track-6): Database archetype meta-footer on /daily/archive |
 
-5 commits this session. All work landed under SHA `a3cce88737c`.
+8 commits this session. Latest SHA: `a44e1eb64ec`.
 
 ---
 
@@ -186,6 +189,51 @@ After both deploy, the post-validation pass should confirm:
   camp coverage starts to bleed in." (with [1]-[5] markers)
 - /editions/2026-w18/the-quiet-week/ has a site-wide `<footer>` block
 - /hub/vibe-shifts/ shows the hero finding zone above the ledger
+
+---
+
+## Session 6 continuation (post-initial-wrap)
+
+After the first wrap doc landed (66a6dd51ef7), the user asked to
+continue. The continuation closed three more findings the Track 4
+validation pass logged plus added a second Database-archetype
+adopter:
+
+**1800d7bd37a — A11y + homepage methodology footer + Database adopter**
+
+- **WCAG 2.5.5 touch-target fix.** New `_TOUCH_TARGET_A11Y_CSS_BLOCK`
+  emits `min-height: 44px; display: inline-flex; align-items: center;`
+  on the ~14 standalone interactive classes (nav-link, nav-action,
+  cmdk-trigger, theme-toggle, methodology-footer link, button-primary,
+  etc.). Inline body links intentionally exempt per the spec's inline
+  target exception. Should drop the post-deploy "100% sub-44px" reading
+  from the Chrome MCP audit to near-zero on standalone targets.
+
+- **Homepage methodology footer.** Track 4 caught
+  `.methodology-footer` missing from the editions homepage; added a
+  `render_methodology_footer` call between voices section and the
+  global site footer in `editions/homepage_renderer.render_homepage`.
+  Sample reads "Issue N · theme title"; link goes to `/methodology/`.
+
+- **Heading-order fix.** Player page had H4-after-H2 (footer
+  DEPARTMENTS H4 follows content H2). Converted the four footer-column
+  headings from H4 to H3 in both `nav.render_global_footer` and
+  `editions/homepage_renderer._render_footer`. H3 footer headings are
+  consistent with H1→H2→H3 content flow on every other surface.
+
+- **Editions archive Database meta-footer.** First Database-archetype
+  concrete adopter (Track 6). `editions/archive_renderer` now emits a
+  `render_database_meta_footer` between the issues list and the
+  surrounding custom site footer. Shows total-issues count + "How
+  the editions cycle works →" + Updated timestamp.
+
+**a44e1eb64ec — /daily/archive Database meta-footer**
+
+- Second Database-archetype concrete adopter. `daily/renderer._render_
+  archive_index` now emits `render_database_meta_footer` after the
+  archive table. CSS inlined into the page's `<style>` block since
+  the daily archive doesn't load the global stylesheet. Shows
+  "N editions tracked" + "How The Daily ships →" + Updated date.
 
 ---
 
