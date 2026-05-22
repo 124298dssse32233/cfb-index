@@ -22,6 +22,7 @@ from cfb_rankings.citations import (
     render_citation_footer as _render_citation_footer,
     load_citations as _load_citations,
 )
+from cfb_rankings.nav import render_global_footer as _render_global_footer
 
 from .data import (
     Edition, EditionFeature,
@@ -191,6 +192,7 @@ def _render_edition_index(edition: Edition, features: list[EditionFeature]) -> s
   </header>
   <ul class="toc-list">{feature_list_html}</ul>
 </main>
+{_render_global_footer(edition_number=str(edition.edition_number) if edition.edition_number else None, edition_vol='I')}
 </body></html>
 """
 
@@ -239,6 +241,7 @@ def _render_article(
   <article class="body">{body_html}</article>
   {citation_footer_html}
 </div>
+{_render_global_footer(edition_number=str(edition.edition_number) if edition.edition_number else None, edition_vol='I')}
 </body></html>"""
 
 

@@ -282,6 +282,8 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
                 -- the same wrong-season scene-setting).
                 when edition_features.dek like '%press box at any stadium in mid-November%' then excluded.dek
                 when edition_features.dek like '%week the College Football Playoff field locks%' then excluded.dek
+                when edition_features.dek like '%press box at Bryant-Denny was nearly empty%' then excluded.dek
+                when edition_features.dek like '%cleaning crews started rolling carts%' then excluded.dek
                 else edition_features.dek
             end,
             body_markdown = case
@@ -308,6 +310,15 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
                 when edition_features.body_markdown like '%Week 18 means in a sport that no longer has a Week 19%' then excluded.body_markdown
                 when edition_features.body_markdown like '%Beat writing built on fabrication is not beat writing%' then excluded.body_markdown
                 when edition_features.body_markdown like '%press box at any stadium in mid-November%' then excluded.body_markdown
+                -- W19 also drifted: live body opens with a post-game press
+                -- box scene at Bryant-Denny on what should be a May 11
+                -- offseason edition. "cleaning crews started rolling
+                -- carts down the aisles" is a uniquely-distinctive
+                -- post-game phrase that wouldn't appear in a real
+                -- offseason cover.
+                when edition_features.body_markdown like '%cleaning crews started rolling carts down the aisles%' then excluded.body_markdown
+                when edition_features.body_markdown like '%press box at Bryant-Denny was nearly empty%' then excluded.body_markdown
+                when edition_features.body_markdown like '%We''ll find out next Saturday, when the noise comes back%' then excluded.body_markdown
                 else edition_features.body_markdown
             end,
             byline = excluded.byline,
