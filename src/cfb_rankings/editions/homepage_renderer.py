@@ -421,7 +421,8 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .chrome { font-family: var(--sans); font-size: 11px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase;
   display: flex; justify-content: space-between; padding: 12px 0;
-  color: var(--ink); }
+  color: var(--ink); gap: 16px; flex-wrap: wrap; }
+.chrome .chrome-countdown { color: var(--gold); font-weight: 700; }
 .brand-row { display: flex; align-items: baseline; justify-content: space-between;
   padding: 24px 0; }
 .brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
@@ -673,9 +674,27 @@ def _render_head(edition: Edition) -> str:
 
 def _render_masthead(edition: Edition, publish_label: str) -> str:
     from cfb_rankings.nav import render_global_nav, render_global_nav_actions
+    from cfb_rankings.common.cfb_calendar import days_to_kickoff
 
     vol = _ROMAN[edition.volume] if edition.volume < len(_ROMAN) else str(edition.volume)
     publish_time = (edition.published_at_utc or "").split(" ")[1][:5] if edition.published_at_utc else "06:00"
+
+    # Days-to-kickoff chrome line — the most natural "where are we in
+    # the cycle?" anchor on a college-football homepage. Renders only
+    # offseason (1-365 days). Computes the upcoming-kickoff year from
+    # the date arithmetic so it stays correct across years without
+    # year-specific hardcoding.
+    try:
+        from datetime import date as _date
+        dtk = days_to_kickoff(_date.today(), db=None)
+    except Exception:
+        dtk = 0
+    if 1 <= dtk <= 365:
+        kickoff_chrome = (
+            f'<span class="chrome-countdown">{dtk} DAYS TO KICKOFF</span>'
+        )
+    else:
+        kickoff_chrome = ""
 
     # Use shared navigation component for consistency across all pages
     nav_html = render_global_nav(current_page="/", variant="desktop")
@@ -691,6 +710,7 @@ def _render_masthead(edition: Edition, publish_label: str) -> str:
       <span>VOL. {vol} · NO. {edition.edition_number}</span>
       <span>{publish_label}</span>
       <span>PUBLISHED {publish_time} ET</span>
+      {kickoff_chrome}
     </div>
     <hr class="rule">
     <div class="brand-row">
