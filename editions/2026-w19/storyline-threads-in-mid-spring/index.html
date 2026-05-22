@@ -61,6 +61,10 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   .dek { font-size: 18px; }
 }
 
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px;
+  height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; left: auto; width: auto; height: auto;
+  background: var(--ink); color: var(--paper); padding: 8px 16px; }
 /* Receipt pattern — citation styles (Sprint v5-6a.5)
  * -------------------------------------------------------------------------
  * Inline citation superscript markers + Wikipedia-style footer list.
@@ -295,7 +299,8 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
 <link rel="stylesheet" href="/assets/wcfb-enhancements.css">
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head><body>
-<div class="page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="page" id="main-content">
   <a class="up" href="/">← THREE WEEKS BEFORE CAMP WHISPERS</a>
   <span class="kind-pill">CONNECTION</span>
   <h1 class="article-title">Storyline Threads in Mid-Spring</h1>
@@ -307,7 +312,7 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   </div>
   <article class="body"><p>A storyline thread is a multi-edition arc: something that&#x27;s been written about before, has a named cast, and will be written about again<sup class="citation" data-cite-id="1" data-cite-kind="edition" data-cite-label="CFB Index · active storyline threads (storylines/)" data-cite-url="/storylines/" data-cite-date="2026-05-11"><a href="#cite-1" aria-describedby="cite-1">[1]</a></sup>. The point of tracking them as threads is so each new chapter respects what came before — no character rewrites between editions, no quiet contradictions of last month&#x27;s framing.</p><p>Five threads are currently active in mid-spring: the QB-room churn at programs whose veteran starters left for the draft; the spring-portal redistributions (who took, who lost, and which programs played the timing well)<sup class="citation" data-cite-id="2" data-cite-kind="wire" data-cite-label="CFB Index Wire · 2026 spring portal close roundup" data-cite-url="/wire/" data-cite-date="2026-05-01"><a href="#cite-2" aria-describedby="cite-2">[2]</a></sup>; the coaching-staff additions that hinted at scheme shifts in fall; the recruiting reads that survived spring evaluation<sup class="citation" data-cite-id="3" data-cite-kind="beat_writer" data-cite-label="On3 · spring evaluation period recap (Pete Nakos)" data-cite-url="https://www.on3.com/news/category/recruiting/" data-cite-date="2026-05-06"><a href="#cite-3" aria-describedby="cite-3">[3]</a></sup>; and the receipts on which preseason takes from the prior cycle actually held up.</p><p>Each gets its own chapter every two-to-three weeks until the next significant input arrives. Threads close when their named arc resolves; they go dormant when there&#x27;s nothing new to say.</p></article>
   <footer class="article-citations" aria-labelledby="citations-header">
-  <h3 id="citations-header" class="citations-header">Sources</h3>
+  <h2 id="citations-header" class="citations-header">Sources</h2>
   <ol class="citations-list">
     <li id="cite-1" class="citation-entry citation-entry--primary"><span class="cite-num">[1]</span> <span class="cite-kind cite-kind--edition">Prior edition</span> <span class="cite-label">CFB Index · active storyline threads (storylines/)</span> <a href="/storylines/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-11 &rarr;</a></li>
     <li id="cite-2" class="citation-entry citation-entry--primary"><span class="cite-num">[2]</span> <span class="cite-kind cite-kind--wire">CFB Index Wire</span> <span class="cite-label">CFB Index Wire · 2026 spring portal close roundup</span> <a href="/wire/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-01 &rarr;</a></li>

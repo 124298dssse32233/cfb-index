@@ -61,6 +61,10 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   .dek { font-size: 18px; }
 }
 
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px;
+  height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; left: auto; width: auto; height: auto;
+  background: var(--ink); color: var(--paper); padding: 8px 16px; }
 /* Receipt pattern — citation styles (Sprint v5-6a.5)
  * -------------------------------------------------------------------------
  * Inline citation superscript markers + Wikipedia-style footer list.
@@ -295,7 +299,8 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
 <link rel="stylesheet" href="/assets/wcfb-enhancements.css">
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head><body>
-<div class="page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="page" id="main-content">
   <a class="up" href="/">← THE QUIET WEEK</a>
   <span class="kind-pill">COVER ESSAY</span>
   <h1 class="article-title">The Quiet Week</h1>
@@ -307,7 +312,7 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   </div>
   <article class="body"><p>The first Monday in May is the quietest week on the college-football calendar. The spring portal window closed two weeks ago<sup class="citation" data-cite-id="1" data-cite-kind="official" data-cite-label="NCAA spring portal window · April 16–30 close" data-cite-url="https://www.ncaa.org/sports/2021/8/31/transfer-portal-windows.aspx" data-cite-date="2026-04-30"><a href="#cite-1" aria-describedby="cite-1">[1]</a></sup>. Position-battle rumors out of fall camp won&#x27;t start until mid-July. The news cycle is, briefly, honest about having nothing to feed on<sup class="citation" data-cite-id="2" data-cite-kind="beat_writer" data-cite-label="247Sports · April-portal final-tally roundup" data-cite-url="https://247sports.com/college/football/portal-tracker/" data-cite-date="2026-05-02"><a href="#cite-2" aria-describedby="cite-2">[2]</a></sup>.</p><p>What you&#x27;re hearing this week is the baseline. It&#x27;s what fanbases sound like before any of August&#x27;s manufactured certainty arrives<sup class="citation" data-cite-id="3" data-cite-kind="reddit" data-cite-label="r/CFB · weekly discussion · first Monday of May" data-cite-url="https://reddit.com/r/CFB/" data-cite-date="2026-05-04"><a href="#cite-3" aria-describedby="cite-3">[3]</a></sup>. The teams whose Reddit boards are loud right now are loud about something real to them — not about whatever the news cycle has decided is interesting that morning.</p><p>When camp opens and the signal rebuilds, this week is the comparison point. What changes between now and August is what fall-camp coverage actually shifts. What stays the same is what the team is actually about<sup class="citation" data-cite-id="4" data-cite-kind="edition" data-cite-label="CFB Index Issue XVII · post-bracket lookahead" data-cite-url="/editions/2026-w17/" data-cite-date="2026-04-26"><a href="#cite-4" aria-describedby="cite-4">[4]</a></sup>.</p></article>
   <footer class="article-citations" aria-labelledby="citations-header">
-  <h3 id="citations-header" class="citations-header">Sources</h3>
+  <h2 id="citations-header" class="citations-header">Sources</h2>
   <ol class="citations-list">
     <li id="cite-1" class="citation-entry citation-entry--primary"><span class="cite-num">[1]</span> <span class="cite-kind cite-kind--official">Official</span> <span class="cite-label">NCAA spring portal window · April 16–30 close</span> <a href="https://www.ncaa.org/sports/2021/8/31/transfer-portal-windows.aspx" class="cite-link" rel="noopener noreferrer" target="_blank">2026-04-30 &rarr;</a></li>
     <li id="cite-2" class="citation-entry citation-entry--supporting"><span class="cite-num">[2]</span> <span class="cite-kind cite-kind--beat_writer">Beat writer</span> <span class="cite-label">247Sports · April-portal final-tally roundup</span> <a href="https://247sports.com/college/football/portal-tracker/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-02 &rarr;</a></li>

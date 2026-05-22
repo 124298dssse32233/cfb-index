@@ -56,6 +56,14 @@
   --rule: #1a1a1a;
   --rule-soft: rgba(26,26,26,0.18);
   --gold: #c9a24a;
+  /* Phase 9c — darker amber for foreground text on the cream paper
+   * background. The brand gold (#c9a24a on #f6f1e6) gives only 2.14:1
+   * contrast — fails WCAG AA 4.5:1 for normal text. This deeper
+   * variant (#8a6a2d on #f6f1e6 = 5.5:1) passes AA. Use --gold for
+   * decorative accents (bars, borders, hover) where contrast doesn't
+   * apply; use --gold-deep wherever the gold IS the text color.
+   */
+  --gold-deep: #8a6a2d;
   --navy: #1f2c4d;
   --muted: #7a7a7a;
   --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
@@ -73,7 +81,7 @@ html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
 a { color: inherit; text-decoration: none; }
 a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 a.cta { font-family: var(--sans); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-deep);
   border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
 a.text-link { border-bottom: 1px dotted currentColor; }
 
@@ -82,12 +90,20 @@ a.text-link { border-bottom: 1px dotted currentColor; }
   letter-spacing: 0.16em; text-transform: uppercase;
   display: flex; justify-content: space-between; padding: 12px 0;
   color: var(--ink); gap: 16px; flex-wrap: wrap; }
-.chrome .chrome-countdown { color: var(--gold); font-weight: 700; }
+.chrome .chrome-countdown { color: var(--gold-deep); font-weight: 700; }
 .brand-row { display: flex; align-items: baseline; justify-content: space-between;
   padding: 24px 0; }
 .brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
-  letter-spacing: 0.04em; }
+  letter-spacing: 0.04em; display: flex; flex-direction: column; gap: 4px;
+  line-height: 1; }
 .brand .slash { color: var(--gold); margin: 0 6px; }
+.brand__mark { display: inline-flex; align-items: baseline; }
+.brand__tagline { display: none; font-family: var(--sans); font-size: 11px;
+  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin: 0; }
+@media (min-width: 768px) {
+  .brand__tagline { display: inline-flex; align-items: center; }
+}
 .nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase; }
 .nav a { margin-left: 28px; color: var(--ink); }
@@ -186,7 +202,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .wire-table .program { font-weight: 700; color: var(--ink); }
 .wire-table .why { font-family: var(--serif); font-style: italic;
   color: var(--ink); }
-.wire-table .impact { font-weight: 700; text-align: right; color: var(--gold); }
+.wire-table .impact { font-weight: 700; text-align: right; color: var(--gold-deep); }
 
 /* Active Threads */
 .threads-grid { display: grid; grid-template-columns: 740px 1fr; gap: 48px; }
@@ -208,7 +224,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .thread-list .thread-row:first-of-type { border-top: 0; }
 .thread-list .thread-name { font-family: var(--serif); font-size: 16px; font-weight: 600; }
 .thread-list .chapters { font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); }
 .thread-list .last-updated { font-family: var(--sans); font-size: 10px; color: var(--muted);
   letter-spacing: 0.14em; text-transform: uppercase; }
 
@@ -261,7 +277,11 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .footer .chrome { color: var(--paper); border-bottom: 1px solid var(--paper);
   padding-bottom: 24px; margin-bottom: 32px; }
 .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
-.footer-col h4 { font-family: var(--sans); font-size: 11px;
+/* Footer column heading — supports both legacy <h4> markup and the
+ * post-heading-order-fix <h3 class="footer-col__heading"> markup. */
+.footer-col h4,
+.footer-col h3,
+.footer-col .footer-col__heading { font-family: var(--sans); font-size: 11px;
   font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gold); margin: 0 0 16px; }
 .footer-col ul { list-style: none; padding: 0; margin: 0; }
@@ -315,7 +335,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
     </div>
     <hr class="rule">
     <div class="brand-row">
-      <div class="brand">CFB<span class="slash">/</span>INDEX</div>
+      <div class="brand"><span class="brand__mark">CFB<span class="slash">/</span>INDEX</span><span class="brand__tagline">Where every team stands &middot; what every fanbase thinks</span></div>
       
       <nav class="nav" role="navigation">
                 <a class="nav-link" href="/rankings/">Rankings</a>
@@ -501,55 +521,16 @@ We&#x27;re sitting in that weird purgatory between…</div>
       <thead><tr>
         <th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th>
       </tr></thead>
-      <tbody><tr>
-          <td class="when">May 22</td>
-          <td class="program">Miami</td>
-          <td>Five-star OT Jackson Cantwell commits 2026</td>
-          <td class="why">Miami: Five-star OT Jackson Cantwell commits 2026.</td>
-          <td class="impact">MOVES ACC</td>
-        </tr><tr>
-          <td class="when">May 22</td>
-          <td class="program">Nebraska</td>
-          <td>Four-star CB Danny Odem commits 2026</td>
-          <td class="why">Nebraska: Four-star CB Danny Odem commits 2026.</td>
-          <td class="impact">MINOR</td>
-        </tr><tr>
-          <td class="when">May 22</td>
-          <td class="program">Tennessee</td>
-          <td>Four-star OT Kamari Blair commits 2026</td>
-          <td class="why">Tennessee: Four-star OT Kamari Blair commits 2026.</td>
-          <td class="impact">MINOR</td>
-        </tr><tr>
-          <td class="when">May 22</td>
-          <td class="program">Texas</td>
-          <td>Five-star QB Dia Bell commits 2026</td>
-          <td class="why">Texas: Five-star QB Dia Bell commits 2026.</td>
-          <td class="impact">MOVES SEC</td>
-        </tr><tr>
-          <td class="when">May 22</td>
-          <td class="program">Georgia</td>
-          <td>Four-star DL Valdin Sone commits 2026</td>
-          <td class="why">Georgia: Four-star DL Valdin Sone commits 2026.</td>
-          <td class="impact">MINOR</td>
-        </tr><tr>
-          <td class="when">May 22</td>
-          <td class="program">Tennessee</td>
-          <td>Four-star LB Brayden Rouse commits 2026</td>
-          <td class="why">Tennessee: Four-star LB Brayden Rouse commits 2026.</td>
-          <td class="impact">MINOR</td>
-        </tr><tr>
-          <td class="when">May 22</td>
-          <td class="program">Miami</td>
-          <td>Four-star WR Milan Parris commits 2026</td>
-          <td class="why">Miami: Four-star WR Milan Parris commits 2026.</td>
-          <td class="impact">MINOR</td>
-        </tr><tr>
-          <td class="when">May 22</td>
-          <td class="program">Notre Dame</td>
-          <td>Five-star TE Ian Premer commits 2026</td>
-          <td class="why">Notre Dame: Five-star TE Ian Premer commits 2026.</td>
-          <td class="impact">MAJOR</td>
-        </tr></tbody>
+      <tbody>
+<tr><td class="when">08:08 ET</td><td class="program"><a href="/teams/miami.html">Miami</a></td><td class="action">Five-star OT Jackson Cantwell commits 2026</td><td class="why">Miami: Five-star OT Jackson Cantwell commits 2026.</td><td class="impact amber">MOVES ACC</td></tr>
+<tr><td class="when">05:18 ET</td><td class="program"><a href="/teams/nebraska.html">Nebraska</a></td><td class="action">Four-star CB Danny Odem commits 2026</td><td class="why">Nebraska: Four-star CB Danny Odem commits 2026.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">04:36 ET</td><td class="program"><a href="/teams/tennessee.html">Tennessee</a></td><td class="action">Four-star OT Kamari Blair commits 2026</td><td class="why">Tennessee: Four-star OT Kamari Blair commits 2026.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">01:43 ET</td><td class="program"><a href="/teams/texas.html">Texas</a></td><td class="action">Five-star QB Dia Bell commits 2026</td><td class="why">Texas: Five-star QB Dia Bell commits 2026.</td><td class="impact amber">MOVES SEC</td></tr>
+<tr><td class="when">01:37 ET</td><td class="program"><a href="/teams/georgia.html">Georgia</a></td><td class="action">Four-star DL Valdin Sone commits 2026</td><td class="why">Georgia: Four-star DL Valdin Sone commits 2026.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">01:23 ET</td><td class="program"><a href="/teams/tennessee.html">Tennessee</a></td><td class="action">Four-star LB Brayden Rouse commits 2026</td><td class="why">Tennessee: Four-star LB Brayden Rouse commits 2026.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">01:14 ET</td><td class="program"><a href="/teams/miami.html">Miami</a></td><td class="action">Four-star WR Milan Parris commits 2026</td><td class="why">Miami: Four-star WR Milan Parris commits 2026.</td><td class="impact muted">MINOR</td></tr>
+<tr><td class="when">00:29 ET</td><td class="program"><a href="/teams/notre-dame.html">Notre Dame</a></td><td class="action">Five-star TE Ian Premer commits 2026</td><td class="why">Notre Dame: Five-star TE Ian Premer commits 2026.</td><td class="impact amber">MAJOR</td></tr>
+</tbody>
     </table>
   </div>
 </section>

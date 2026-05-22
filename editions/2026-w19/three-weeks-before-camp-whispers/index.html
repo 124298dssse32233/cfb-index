@@ -61,6 +61,10 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   .dek { font-size: 18px; }
 }
 
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px;
+  height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; left: auto; width: auto; height: auto;
+  background: var(--ink); color: var(--paper); padding: 8px 16px; }
 /* Receipt pattern — citation styles (Sprint v5-6a.5)
  * -------------------------------------------------------------------------
  * Inline citation superscript markers + Wikipedia-style footer list.
@@ -295,7 +299,8 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
 <link rel="stylesheet" href="/assets/wcfb-enhancements.css">
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head><body>
-<div class="page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="page" id="main-content">
   <a class="up" href="/">← THREE WEEKS BEFORE CAMP WHISPERS</a>
   <span class="kind-pill">COVER ESSAY</span>
   <h1 class="article-title">Three Weeks Before Camp Whispers</h1>
@@ -307,7 +312,7 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   </div>
   <article class="body"><p>Mid-July is when the first credible fall-camp coverage starts to bleed in<sup class="citation" data-cite-id="1" data-cite-kind="official" data-cite-label="NCAA · FBS fall-camp open window (Aug 3, 2026)" data-cite-url="https://www.ncaa.org/sports/football/calendar" data-cite-date="2026-05-01"><a href="#cite-1" aria-describedby="cite-1">[1]</a></sup>. Position-battle reports. Depth-chart whispers. Coaches saying things at media-day podiums that get parsed for 72 hours afterward.</p><p>Today is May 11. That&#x27;s three weeks and change before any of that arrives<sup class="citation" data-cite-id="2" data-cite-kind="beat_writer" data-cite-label="ESPN · Bill Connelly preseason SP+ preview cycle dates" data-cite-url="https://www.espn.com/college-football/insider/" data-cite-date="2026-05-08"><a href="#cite-2" aria-describedby="cite-2">[2]</a></sup>.</p><p>What you&#x27;re hearing on team boards right now is the baseline against which August&#x27;s signal gets measured<sup class="citation" data-cite-id="3" data-cite-kind="cfbd" data-cite-label="CFBD · ratings as of May 11, 2026" data-cite-url="https://collegefootballdata.com/ratings" data-cite-date="2026-05-11"><a href="#cite-3" aria-describedby="cite-3">[3]</a></sup>. The teams whose fanbases are loud this week are loud about something that&#x27;s actually theirs — not about the news cycle&#x27;s manufactured uncertainty<sup class="citation" data-cite-id="5" data-cite-kind="reddit" data-cite-label="r/CFB · pre-camp speculation thread velocity" data-cite-url="https://reddit.com/r/CFB/" data-cite-date="2026-05-10"><a href="#cite-5" aria-describedby="cite-5">[5]</a></sup>. The teams that are quiet this week aren&#x27;t necessarily in trouble. They&#x27;re just not on a content-generation cycle right now.</p><p>When camp opens around August 3, the contrast between this week and that one is itself a signal<sup class="citation" data-cite-id="4" data-cite-kind="edition" data-cite-label="CFB Index Issue XVIII · the quiet week baseline" data-cite-url="/editions/2026-w18/" data-cite-date="2026-05-04"><a href="#cite-4" aria-describedby="cite-4">[4]</a></sup>. Some teams&#x27; boards will look the same because the team is the same. Some will pivot hard because August&#x27;s coverage will change what fanbases think is interesting. Watch which is which.</p></article>
   <footer class="article-citations" aria-labelledby="citations-header">
-  <h3 id="citations-header" class="citations-header">Sources</h3>
+  <h2 id="citations-header" class="citations-header">Sources</h2>
   <ol class="citations-list">
     <li id="cite-1" class="citation-entry citation-entry--primary"><span class="cite-num">[1]</span> <span class="cite-kind cite-kind--official">Official</span> <span class="cite-label">NCAA · FBS fall-camp open window (Aug 3, 2026)</span> <a href="https://www.ncaa.org/sports/football/calendar" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-01 &rarr;</a></li>
     <li id="cite-2" class="citation-entry citation-entry--supporting"><span class="cite-num">[2]</span> <span class="cite-kind cite-kind--beat_writer">Beat writer</span> <span class="cite-label">ESPN · Bill Connelly preseason SP+ preview cycle dates</span> <a href="https://www.espn.com/college-football/insider/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-05-08 &rarr;</a></li>

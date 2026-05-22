@@ -61,6 +61,10 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   .dek { font-size: 18px; }
 }
 
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px;
+  height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; left: auto; width: auto; height: auto;
+  background: var(--ink); color: var(--paper); padding: 8px 16px; }
 /* Receipt pattern — citation styles (Sprint v5-6a.5)
  * -------------------------------------------------------------------------
  * Inline citation superscript markers + Wikipedia-style footer list.
@@ -295,7 +299,8 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
 <link rel="stylesheet" href="/assets/wcfb-enhancements.css">
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head><body>
-<div class="page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="page" id="main-content">
   <a class="up" href="/">← THE QUIET WEEK</a>
   <span class="kind-pill">CONNECTION</span>
   <h1 class="article-title">Receipts: Two Months Past Pre-Draft Boards</h1>
@@ -307,7 +312,7 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   </div>
   <article class="body"><p>Late-February consensus pre-draft boards are two months old as of this Monday<sup class="citation" data-cite-id="1" data-cite-kind="beat_writer" data-cite-label="NFL.com · Daniel Jeremiah late-February consensus board" data-cite-url="https://www.nfl.com/news/2026-mock-draft-board/" data-cite-date="2026-02-24"><a href="#cite-1" aria-describedby="cite-1">[1]</a></sup>. Eight weeks is enough time for some calls to age well and others to look strange in hindsight.</p><p>The Receipts Desk tracks resolved claims from those boards: who moved up on combine weekends and what that meant once the actual draft order settled<sup class="citation" data-cite-id="2" data-cite-kind="wire" data-cite-label="CFB Index Wire · combine-week pre-draft movement" data-cite-url="/wire/" data-cite-date="2026-03-01"><a href="#cite-2" aria-describedby="cite-2">[2]</a></sup>. The point isn&#x27;t to score predictions retroactively — it&#x27;s to keep an honest ledger of what the industry thought in February against what actually happened. That gap is what every future pre-draft board has to earn against<sup class="citation" data-cite-id="3" data-cite-kind="official" data-cite-label="NFL · final 2026 draft order (3-day event)" data-cite-url="https://www.nfl.com/draft/" data-cite-date="2026-04-25"><a href="#cite-3" aria-describedby="cite-3">[3]</a></sup>.</p><p>Full receipts return once enough resolved claims clear the ledger to grade the industry-wide pre-draft consensus honestly.</p></article>
   <footer class="article-citations" aria-labelledby="citations-header">
-  <h3 id="citations-header" class="citations-header">Sources</h3>
+  <h2 id="citations-header" class="citations-header">Sources</h2>
   <ol class="citations-list">
     <li id="cite-1" class="citation-entry citation-entry--primary"><span class="cite-num">[1]</span> <span class="cite-kind cite-kind--beat_writer">Beat writer</span> <span class="cite-label">NFL.com · Daniel Jeremiah late-February consensus board</span> <a href="https://www.nfl.com/news/2026-mock-draft-board/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-02-24 &rarr;</a></li>
     <li id="cite-2" class="citation-entry citation-entry--primary"><span class="cite-num">[2]</span> <span class="cite-kind cite-kind--wire">CFB Index Wire</span> <span class="cite-label">CFB Index Wire · combine-week pre-draft movement</span> <a href="/wire/" class="cite-link" rel="noopener noreferrer" target="_blank">2026-03-01 &rarr;</a></li>

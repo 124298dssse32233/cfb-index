@@ -61,13 +61,18 @@ hr { border:0; height:1px; background:var(--rule); margin:48px 0; }
   .dek { font-size: 18px; }
 }
 
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px;
+  height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; left: auto; width: auto; height: auto;
+  background: var(--ink); color: var(--paper); padding: 8px 16px; }
 </style>
 
 <!-- wcfb-enhancements -->
 <link rel="stylesheet" href="/assets/wcfb-enhancements.css">
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head><body>
-<div class="page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="page" id="main-content">
   <a class="up" href="/">← PORTAL TWO, QUIETLY</a>
   <span class="kind-pill">FEATURE</span>
   <h1 class="article-title">The Three Schools That Won the Window Quietly</h1>
