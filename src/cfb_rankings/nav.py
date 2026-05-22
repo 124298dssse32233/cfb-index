@@ -319,6 +319,7 @@ def render_global_footer(
           <li><a href="/players/">Player Pages</a></li>
           <li><a href="/conferences/">Conferences</a></li>
           <li><a href="/heisman/">Heisman</a></li>
+          <li><a href="/about/">About CFB Index</a></li>
           <li><a href="/about-model/">The Model</a></li>
           <li><a href="/methodology/">Methodology</a></li>
         </ul>
