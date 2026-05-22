@@ -55,8 +55,11 @@ Closed five categories of audit work — three structural (Profile primitives, D
 | `5801c176d1a` | docs(session5): wrap reflects 33 commits + workflow triggers + live-deploy confirmation |
 | `4e20e5c4b61` | fix(homepage): correct upcoming-season year in days-to-kickoff hero finding |
 | `f5a88dcd9cc` | fix(countdown): unhardcode "2026" in kickoff page meta description |
+| `7bd24efef01` | docs(session5): wrap reflects 36 commits including 2 functional year bugs |
+| `0067fa97d38` | docs(session5): final wrap — workflow chain visualization + what's running |
+| `07fac0ab33c` | fix(canon): "Eliah" → "Eli" Drinkwitz + arrow entities on receipts legend |
 
-36 commits this session. Last-touch: `f5a88dcd9cc`.
+40 commits this session. Last-touch: `07fac0ab33c`. (Two more wrap-doc commits after this expected.)
 
 ## Two functional bugs caught + fixed (not just copy)
 
@@ -228,13 +231,19 @@ Per workflow docstring, it covers:
 
 Estimated runtime: 2-4 hours. When it completes, the trailing queued publish-site (run 26275038927) will fire automatically, deploying through commit `f5a88dcd9cc`.
 
-## Deploy chain status
+## Deploy chain status (as of session-end)
 
 - `publish-site` 26272150341: ✅ COMPLETED (~2h runtime). Deployed session 5 commits through `1f1e5a88cf4`. Confirmed live: homepage placeholder text GONE, conferences/programs/teams/players all show new methodology footers.
 - `world-class-enrich` 26274807225: 🔄 IN PROGRESS. Currently on "Reactions auto-generate" step. Will run 2-4 hours total.
-- `publish-site` 26275038927: ⏸ QUEUED. Will fire when world-class-enrich finishes. Will deploy through `f5a88dcd9cc` (covers virtually all session 5 work — copy scrubs, NO— footer fix, BUILT FOR OFFSEASON → WHERE EVERY TEAM STANDS, narrative-arc fixes, etc.).
+- `publish-site` 26275346733: ⏸ QUEUED at SHA `07fac0ab33c` (covers ALL session 5 commits including canon polish + Eli Drinkwitz fix + arrow entities). Will fire automatically when world-class-enrich finishes.
 
-Commits AFTER `f5a88dcd9cc` (the wrap docs + functional bug fixes) will need a manual publish-site trigger to deploy, OR will pick up via the next scheduled cron.
+Total live timeline:
+- T+0 (now): world-class-enrich ~12 min in
+- T+3-4h: world-class-enrich completes + deploys its own enriched content
+- T+4-5h: queued publish-site fires, deploys all remaining session 5 polish
+- T+5h: site fully reflects session 5 work
+
+The full session 5 changeset (40 commits across copy purges, Profile primitives adoption on 8 renderer functions, Dashboard mobile filter strip, 2 functional bug fixes, repo cleanup) will be live before the end of the day.
 
 ---
 
