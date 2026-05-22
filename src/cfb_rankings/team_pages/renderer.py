@@ -58,6 +58,7 @@ from .on_this_day import render_on_this_day, ON_THIS_DAY_CSS
 from .wrapped_stack import render_wrapped_stack, WRAPPED_STACK_CSS
 from .fanbase_health import render_fanbase_health, FANBASE_HEALTH_CSS
 from .conference_standing import render_conference_standing, CONFERENCE_STANDING_CSS
+from .ceiling_floor import render_ceiling_floor, CEILING_FLOOR_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -485,6 +486,8 @@ def _render_page(
     # Conference Standing — Brief §10.2-10.3. Where the focal team sits
     # within its conference cohort. Compact table + positioning summary.
     conference_standing_html = render_conference_standing(db, profile, snapshot) if db is not None else ""
+    # Ceiling/Floor projection — Brief §11.2. Three-scenario next-season band.
+    ceiling_floor_html = render_ceiling_floor(profile, snapshot, arc_rows)
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -574,6 +577,9 @@ body {{
 /* Conference Standing — Brief §10.2-10.3 */
 {CONFERENCE_STANDING_CSS}
 
+/* Ceiling/Floor projection — Brief §11.2 */
+{CEILING_FLOOR_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -629,6 +635,7 @@ body {{
     {wrapped_html}
     {fanbase_health_html}
     {conference_standing_html}
+    {ceiling_floor_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
