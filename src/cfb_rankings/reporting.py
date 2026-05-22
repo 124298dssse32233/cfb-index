@@ -6389,24 +6389,38 @@ def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> N
 __GLOBAL_TAGS__
 </head>
 <body class=\"attributions-page\">
-<div class=\"rule\" aria-hidden=\"true\"></div>
-<main>
-  <p class=\"eyebrow\">Colophon</p>
-  <h1>Attributions</h1>
-  <p>A short accounting of where the data comes from, and whose marks appear on these pages.</p>
+<main class=\"site-shell\" id=\"main-content\">
+__SITE_NAV__
+  <section class=\"hero\">
+    <p class=\"eyebrow\">Colophon</p>
+    <h1>Attributions</h1>
+    <p class=\"lede\">A short accounting of where the data comes from, and whose marks appear on these pages.</p>
+  </section>
 
-  <h2>Data sources</h2>
-  <p>The CFB Index is built on <strong>CollegeFootballData.com</strong>. CFBD supplies the upstream scaffolding for every team page on this site &mdash; canonical names, mascots, conference and division assignments, FBS and FCS classification, primary and alternate color values, and the logo references that give each program its visual signature. CFBD is also the backbone of the ranking inputs: schedules, results, and the play-level records that feed the model.</p>
-  <p>Where CFBD is missing a logo variant &mdash; most often a dark-mode mark or a secondary wordmark &mdash; the <strong>ESPN content delivery network</strong> serves as a backstop. The selection is deterministic and documented in the build.{espn_cdn_note}</p>
-  <p><strong>TheSportsDB</strong> is not in active use for NCAA football on this site. Their college-football coverage remains incomplete enough that relying on it would introduce inconsistency that the editorial product cannot accept.</p>
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>Data sources</h2></div>
+      <p>The CFB Index is built on <strong>CollegeFootballData.com</strong>. CFBD supplies the upstream scaffolding for every team page on this site &mdash; canonical names, mascots, conference and division assignments, FBS and FCS classification, primary and alternate color values, and the logo references that give each program its visual signature. CFBD is also the backbone of the ranking inputs: schedules, results, and the play-level records that feed the model.</p>
+      <p>Where CFBD is missing a logo variant &mdash; most often a dark-mode mark or a secondary wordmark &mdash; the <strong>ESPN content delivery network</strong> serves as a backstop. The selection is deterministic and documented in the build.{espn_cdn_note}</p>
+      <p><strong>TheSportsDB</strong> is not in active use for NCAA football on this site. Their college-football coverage remains incomplete enough that relying on it would introduce inconsistency that the editorial product cannot accept.</p>
+    </article>
+  </section>
 
-  <h2>Marks and names</h2>
-  <p>Team marks, logos, wordmarks, uniforms, and institutional names are the property of their respective universities, athletic departments, and conferences. The CFB Index reproduces them in the ordinary editorial and analytical manner &mdash; to identify the team a paragraph, table, or chart is discussing. No endorsement is claimed and none should be inferred.</p>
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>Marks and names</h2></div>
+      <p>Team marks, logos, wordmarks, uniforms, and institutional names are the property of their respective universities, athletic departments, and conferences. The CFB Index reproduces them in the ordinary editorial and analytical manner &mdash; to identify the team a paragraph, table, or chart is discussing. No endorsement is claimed and none should be inferred.</p>
+    </article>
+  </section>
 
-  <h2>See also</h2>
-  <p>The methodology behind the numbers lives at <a href=\"../about-model/\">/about-model/</a>. The full index of pages lives at <a href=\"../\">the hub</a>.</p>
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>See also</h2></div>
+      <p>The methodology behind the numbers lives at <a href=\"/about-model/\">/about-model/</a>. The full product explainer lives at <a href=\"/about/\">/about/</a>.</p>
+    </article>
+  </section>
 
-  <p class=\"back\"><a href=\"../\">&larr; back to hub</a></p>
+  <p class=\"back\"><a href=\"/\">&larr; back to the front page</a></p>
 </main>
 __GLOBAL_FOOTER__
 </body>
@@ -6419,6 +6433,7 @@ __GLOBAL_FOOTER__
     )
     html = html.replace("{espn_cdn_note}", espn_cdn_note)
     html = html.replace("__GLOBAL_TAGS__", _global_link_tags())
+    html = html.replace("__SITE_NAV__", _site_nav("../", current=""))
     html = html.replace("__GLOBAL_FOOTER__", render_global_footer())
     (attributions_dir / "index.html").write_text(html, encoding="utf-8")
 
