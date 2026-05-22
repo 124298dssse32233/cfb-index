@@ -22854,8 +22854,8 @@ def _render_power_resume_plot(team_pages: list[dict[str, Any]], prefix: str = ""
 
         <aside class="power-resume-focus" id="powerResumeFocus">
           <span class="feature-rank">Chart Focus</span>
-          <h3>Loading team context...</h3>
-          <p class="section-note">The chart will load the currently selected team here.</p>
+          <h3>Click any point on the chart</h3>
+          <p class="section-note">Tap a team to lock its context card here — power, resume, and the quadrant it sits in.</p>
         </aside>
       </div>
 

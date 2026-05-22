@@ -281,8 +281,8 @@ def render_methodology_html(db: Database) -> str:
              f"<style>{_CSS}</style>",
              "</head><body>"]
     parts.append("<h1>Fan Intelligence — Methodology</h1>")
-    parts.append(f"<p class='subtitle'>Auto-generated from <code>source_registry</code>. "
-                 f"Last build: {_utcnow_iso()}. "
+    parts.append(f"<p class='subtitle'>Sourced from the live signal registry. "
+                 f"Last updated: {_utcnow_iso()}. "
                  f"{active_count} active sources across {len(sources)} registered.</p>")
     parts.append("<p class='subtitle'><a href='freshness.html'>→ Data freshness "
                  "(last-run-per-source)</a></p>")

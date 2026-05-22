@@ -109,22 +109,21 @@ def render_methodology_index_html(output_dir: Path | None = None) -> str:
        floor, the cohort weight matrix, known coverage gaps, the glossary
        backing every <code>?</code> popover, and the source catalog grouped
        by tier.</p>
-    <p class="meta">Auto-generated from <code>source_registry</code> &middot;
-       last built {html.escape(fan_intel_mtime)}</p>
+    <p class="meta">Sourced from the live signal registry &middot;
+       last updated {html.escape(fan_intel_mtime)}</p>
   </div>
 
   <div class="page">
     <h2><a href="freshness.html">Data source freshness</a></h2>
     <p>Last successful run per registered source, with status and rows
-       inserted. Refreshed by the weekly cron. Useful for diagnosing why a
+       inserted. Refreshed automatically each week. Useful for diagnosing why a
        cohort cell is showing &ldquo;Awaiting Signal&rdquo; — usually it&rsquo;s
        an ingest that hasn&rsquo;t run, not a real data gap.</p>
-    <p class="meta">Last built {html.escape(freshness_mtime)}</p>
+    <p class="meta">Last updated {html.escape(freshness_mtime)}</p>
   </div>
 
   <footer>
-    Methodology index &middot; generated {html.escape(generated_at)} &middot;
-    source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> in the repo.
+    Methodology index &middot; updated {html.escape(generated_at)}
   </footer>
 </body>
 </html>
