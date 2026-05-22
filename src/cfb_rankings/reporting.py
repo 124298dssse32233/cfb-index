@@ -13903,6 +13903,7 @@ def _render_conference_parity_section(conference: dict[str, Any]) -> str:
 
 
 def render_conference_page_html(summary: dict[str, Any], conference: dict[str, Any]) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     top_team = conference["top_team"]
@@ -13919,6 +13920,12 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
             + _render_conference_parity_section(conference)
             + _load_conference_pulse_fragment(conference.get("slug", ""))  # Sprint 8.5 hook
         )
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we measure conference strength",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{int(conference.get('team_count') or 0)} teams · {escape(conference.get('level_code') or '')} · {escape(season_name)}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -14023,6 +14030,8 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
         </div>
       </section>
       {extra_sections}
+
+      {profile_meta_footer}
     </main>
     {render_global_footer()}
   </body>
@@ -15720,6 +15729,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
 
 
 def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     ranking: RankingRow = team_data["ranking"]
     team = team_data["team"]
     season_summary = team_data["season_summary"]
@@ -16063,6 +16073,13 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           </table>
         </div>
       </section>
+
+      {render_profile_meta_footer(
+          methodology_label="How we measure team strength",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{escape(conference)} · {escape(season_name)}",
+      )}
     </main>
     <script>{_team_journey_script()}</script>
     {render_global_footer()}
@@ -16385,6 +16402,7 @@ def _teams_index_script() -> str:
 
 
 def render_program_page_html(summary: dict[str, Any], program_data: dict[str, Any]) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     team = program_data.get("team") or {}
     history = program_data.get("history") or []
     history_profile = program_data.get("history_profile") or {}
@@ -16479,6 +16497,12 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
     </div>
     """
     season_name = season_label(int(summary["season_year"]))
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we measure program signals",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{int(history_profile.get('loaded_seasons') or 0)} loaded seasons · {escape(level_code)}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -16686,6 +16710,8 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
           </table>
         </div>
       </section>
+
+      {profile_meta_footer}
     </main>
     <script>{_program_page_script()}</script>
     {render_global_footer()}
