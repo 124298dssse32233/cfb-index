@@ -975,3 +975,54 @@ All flip to ✅ after the next publish-site dispatch.
 of in-flight deploy 26306953962 (which is at 7ae757feb52). Will trigger
 ONE more publish-site after the current one completes, no sooner (concurrency
 group would cancel it).
+
+---
+
+## Continuation-11 — Phase 10 perf + Phase 12 smoke test (19:30-19:50 UTC)
+
+While the publish-site at 7ae757feb52 was still on Build step (~35 min in),
+shipped Phase 10 (Performance hardening) wins and a Phase 12 smoke test:
+
+**Phase 10 commits:**
+- `f4c85968ddd` perf: font @import slim + decoding=async on all `<img>` tags
+  - Removed Anton (unused) + redundant Inter 5-weight load from the
+    Google Fonts @import inside _site_css(); kept only Bebas Neue (used
+    by team-archetype-name + .attributions-page). Saves ~30KB redundant
+    font requests per page load.
+  - Added `decoding="async"` to every `<img>` emitted by reporting.py
+    team-hero-logo, hub_page.py (rubric/totem/glyph), and vibe_shifts.py.
+    Pages that already had it (rankings table logo, team_pages hero)
+    untouched.
+- `b2e1ff0e7d9` perf: skip wcfb-bottom-nav DOM injection on desktop
+  - The bottom-nav `<nav>` was being created via JS on every page even
+    at desktop widths where CSS hides it. Gated behind matchMedia
+    `(max-width: 720px)` check — no more wasted DOM nodes on desktop.
+
+**Phase 12 commits (50-URL smoke test):**
+- `c5090e79278` feat: `scripts/phase12_50url_smoke.py` — 52 URLs across
+  every archetype (Profile/Dashboard/Database/Article + Canon entries +
+  Storylines + Compare + Infrastructure + Conference detail + Team detail
+  + Players spotlight). Stdlib-only, parallel (8 threads), 95% pass
+  threshold.
+- `9506bedf220` fix: smoke test passes **51/51 (100%)** against live deploy
+  `0a982b10cbe`. Three fixes: conference slugs use FBS-prefix form
+  (fbs-sec.html), removed wrong W17 slug guess, accept meta-refresh
+  redirect pages as PASS, plus Windows cp1252 encoding fix.
+
+**Smoke test result vs current live (deploy `0a982b10cbe`):**
+
+```
+Phase 12 50-URL smoke @ https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app
+Total: 51 | Pass: 51 | Fail: 0
+Pass rate: 100.0%  (threshold: 95.0%)
+PASS
+```
+
+Every archetype + infrastructure URL is alive, has `<main>` or `<h1>`,
+and no dev-leak text. The current live deploy is production-ready even
+before the in-flight deploy ships the additional 14 queued commits.
+
+**Master state at end of continuation-11:** `9506bedf220` — 14 commits
+ahead of in-flight deploy 26306953962. Will dispatch ONE final publish-site
+after current finishes to ship the Phase 9 a11y batch + Phase 10 perf
+wins + Phase 12 smoke test script.
