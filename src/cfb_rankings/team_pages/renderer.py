@@ -688,6 +688,14 @@ def _render_hero(
     state_paragraph_html = _render_state_paragraph(state_of_team, profile, state)
     metrics_html = _render_metric_tiles(profile, snap, sp_rating, state)
 
+    # Identity phrase below the wordmark — gives every team a one-line
+    # voice anchor (hand-authored profiles have bespoke phrases; synth
+    # profiles get a register-templated phrase per Sprint H+).
+    identity_html = (
+        f'<p class="hero__identity-phrase">{html.escape(profile.identity_phrase)}</p>'
+        if profile.identity_phrase else ""
+    )
+
     return f"""<section class="hero" aria-labelledby="hero-wordmark">
   <div>
     <div class="hero__eyebrow">{html.escape(eyebrow_text)}</div>
@@ -697,6 +705,7 @@ def _render_hero(
       <span class="hero__record" aria-label="Season record">{html.escape(record)}</span>
       {chips_html}
     </div>
+    {identity_html}
   </div>
   {heritage_html}
   {state_paragraph_html}

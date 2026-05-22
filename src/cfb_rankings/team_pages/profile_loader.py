@@ -317,6 +317,57 @@ _CONFERENCE_TIER_HINTS: dict[str, int] = {
     "C-USA": 6,
 }
 
+# Conference-keyed voice register defaults. Synthesized teams pick up the
+# regional/tonal flavor of their conference instead of all sharing
+# "plain-honest". Authored YAMLs override this.
+_CONFERENCE_VOICE_REGISTER: dict[str, str] = {
+    "Southeastern Conference":      "sec-southern-faith",
+    "SEC":                          "sec-southern-faith",
+    "Big Ten Conference":           "midwest-grit-and-tradition",
+    "Big Ten":                      "midwest-grit-and-tradition",
+    "Atlantic Coast Conference":    "acc-coastal-academic",
+    "ACC":                          "acc-coastal-academic",
+    "Big 12 Conference":            "great-plains-wide-open",
+    "Big 12":                       "great-plains-wide-open",
+    "FBS Independents":             "independent-pragmatic",
+    "American Athletic Conference": "g5-ambitious-rising",
+    "American Athletic":            "g5-ambitious-rising",
+    "Mountain West Conference":     "western-spare-honest",
+    "Mountain West":                "western-spare-honest",
+    "Sun Belt Conference":          "sunbelt-scrappy-warm",
+    "Sun Belt":                     "sunbelt-scrappy-warm",
+    "Mid-American Conference":      "mac-tuesday-night-faithful",
+    "MAC":                          "mac-tuesday-night-faithful",
+    "Conference USA":               "c-usa-overlooked-honest",
+    "C-USA":                        "c-usa-overlooked-honest",
+}
+
+# Per-register identity-phrase template. Filled with program_name +
+# conference. Beats the previous generic "...known for its faithful
+# following." Default template still applies to unmapped conferences.
+_REGISTER_IDENTITY_TEMPLATE: dict[str, str] = {
+    "sec-southern-faith":
+        "{program_name} is the {conf} program whose Saturdays carry the weight of an SEC Saturday.",
+    "midwest-grit-and-tradition":
+        "{program_name} is the {conf} program built on tradition, weather, and the long game.",
+    "acc-coastal-academic":
+        "{program_name} is the {conf} program balancing the classroom with a national football identity.",
+    "great-plains-wide-open":
+        "{program_name} is the {conf} program where the playbook opens and the field never closes.",
+    "independent-pragmatic":
+        "{program_name} is the program that schedules itself, on its own terms.",
+    "g5-ambitious-rising":
+        "{program_name} is the {conf} program building toward the next conference cycle.",
+    "western-spare-honest":
+        "{program_name} is the {conf} program whose climate, terrain, and roster all read mountain-time honest.",
+    "sunbelt-scrappy-warm":
+        "{program_name} is the {conf} program where the weather and the ambition both turn up year-round.",
+    "mac-tuesday-night-faithful":
+        "{program_name} is the {conf} program whose Tuesday-night cult turns midweek into a season.",
+    "c-usa-overlooked-honest":
+        "{program_name} is the {conf} program competing for attention against the giants of its region.",
+}
+
 
 def _safe_color(hex_in: str | None, fallback: str) -> str:
     if not hex_in:
@@ -380,9 +431,20 @@ def synthesize_profile(slug: str, db) -> Profile:
     # the complexity — let the user override later with a YAML.
     tier = _CONFERENCE_TIER_HINTS.get(conference, 6)
 
-    # Identity phrase: a plain, honest descriptor. Authored YAMLs will replace
-    # this with bespoke voice; for the long tail this beats nothing.
-    if conference:
+    # Voice register from conference. Beats the previous all-purpose
+    # "plain-honest" default by giving the synthesized 89 long-tail
+    # programs regional/tonal flavor.
+    voice_register = _CONFERENCE_VOICE_REGISTER.get(conference, "plain-honest")
+
+    # Identity phrase: per-register template when available, otherwise the
+    # plain-honest fallback. Authored YAMLs will replace either.
+    template = _REGISTER_IDENTITY_TEMPLATE.get(voice_register)
+    if template:
+        identity_phrase = template.format(
+            program_name=program_name,
+            conf=conference,
+        )
+    elif conference:
         identity_phrase = (
             f"{program_name} is the {conference} program known for "
             f"{('the ' + mascot.lower()) if mascot else 'its faithful following'}."
@@ -403,8 +465,8 @@ def synthesize_profile(slug: str, db) -> Profile:
         "display_name": program_name,
         "program_slug": slug,
         "program_tier": tier,
-        "voice_register": "plain-honest",
-        "tonal_template": "plain-honest",
+        "voice_register": voice_register,
+        "tonal_template": voice_register,
         "identity_phrase": identity_phrase,
         "mantra": mantra,
         "authored_by": "synthesized",
@@ -473,8 +535,8 @@ def synthesize_profile(slug: str, db) -> Profile:
         slug=slug,
         team_id=int(inputs["team_id"]),
         program_tier=tier,
-        voice_register="plain-honest",
-        tonal_template="plain-honest",
+        voice_register=voice_register,
+        tonal_template=voice_register,
         identity_phrase=identity_phrase,
         mantra=mantra,
         frontmatter=frontmatter,

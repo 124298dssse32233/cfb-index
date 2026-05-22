@@ -85,6 +85,19 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
+/* Identity phrase — one-line voice anchor below the wordmark.
+ * Hand-authored profiles surface their bespoke identity_phrase here;
+ * synthesized profiles surface a conference-register template phrase. */
+.hero__identity-phrase {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: clamp(15px, 0.5vw + 14px, 19px);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: clamp(6px, 1vw, 12px) 0 0 0;
+  max-width: 70ch;
+}
+
 .hero__record {
   /* Sprint B 2026-05-22: was --font-mono. The record (10-2) is the loudest
    * single stat on the page and the brief calls for "big display-font
