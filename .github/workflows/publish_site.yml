@@ -89,6 +89,17 @@ jobs:
           workflow_conclusion: success
           if_no_artifact_found: ignore
 
+      # Option B fail-loud: refuse to run against a missing or poisoned DB.
+      # The dawidd6 download is continue-on-error: it silently falls through
+      # to "no DB" if the artifact can't be fetched. Without this gate,
+      # init-db would create an empty schema, the build would proceed, and
+      # we'd assign fresh autoincrement player_ids — turning every existing
+      # /players/<name>-<id>.html URL into a 404. Fail-loud here so the
+      # rolling artifact stays at its last healthy state.
+      # See docs/research/player-id-stability-scoping-2026-05-21.md.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db

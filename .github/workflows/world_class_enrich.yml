@@ -87,6 +87,15 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
+      # Option B fail-loud (added 2026-05-21): refuse to run against a
+      # missing or poisoned DB. world_class_enrich is the heaviest writer
+      # to the rolling artifact (Heisman + savant models) — if it ran
+      # against an empty DB it would re-seed player_ids from 1 and
+      # corrupt every existing /players/<name>-<id>.html URL.
+      # See docs/research/player-id-stability-scoping-2026-05-21.md.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db
