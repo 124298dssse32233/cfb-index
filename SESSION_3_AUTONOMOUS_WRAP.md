@@ -9,7 +9,9 @@ Read this first when you're back. Then [CLAUDE_CODE_LAUNCH_ROADMAP.md](CLAUDE_CO
 
 ## TL;DR
 
-**Production is healthy. CI is unblocked. Deploy chain is closed.** All commits below are on `master` and pushed. Site at https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app — 28/28 smoke-tested URLs return 200. Three structural problems that had been silent landmines are now defused.
+**Production is healthy. CI is unblocked. Deploy chain is closed and PROVEN.** All commits below are on `master` and pushed. Site at https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app — 29/29 smoke-tested URLs return 200. Three structural problems that had been silent landmines are now defused.
+
+**Publish-site Vercel deploy step VALIDATED end-to-end.** Run 26265078018 completed=success in ~52 min. Created new production deployment `dpl_21RHE1bztqUbEwfdzyQ2cvDwtS1b` directly from inside the workflow via `vercel deploy --prod`. Going forward, every cron'd publish-site run will deploy automatically — no more manual promotes.
 
 ---
 
@@ -35,7 +37,7 @@ Read this first when you're back. Then [CLAUDE_CODE_LAUNCH_ROADMAP.md](CLAUDE_CO
 | `digest_reactions_poll` (sha 80b1ff8) | 26258782085 | First-ever success — poll job ran, notify job opened automation-failure issue #167 (closed as test), 0 startup_failures since |
 | `ingest_hourly` (sha 81ab2c31af2 + Option B) | 26265377184 | Option B fail-loud step PASSED (rolling artifact is healthy); workflow ran clean end-to-end |
 | `digest_reactions_poll` (sha 876391586da + CLI stub) | 26265803420 | Workflow succeeded end-to-end. Stub CLI exits 0, no auto-issue opened, no spam. |
-| `publish-site` (sha 440ea9a3684 + Vercel step) | 26265078018 | **STILL BUILDING at handoff time** (~27 min elapsed; historical successes were 48-92 min). Validation of the new Vercel deploy step pending — monitor `bs9tg6mtl` will fire when it terminates. |
+| `publish-site` (sha 440ea9a3684 + Vercel step) | 26265078018 | **VALIDATED SUCCESS** — completed in 52 min. All 32 steps green: 1960s build, 320s Vercel deploy, 436s push to published branch. Created new production deployment `dpl_21RHE1bztqUbEwfdzyQ2cvDwtS1b`. The deploy chain is now closed and proven. |
 
 ---
 
@@ -62,7 +64,7 @@ Read this first when you're back. Then [CLAUDE_CODE_LAUNCH_ROADMAP.md](CLAUDE_CO
 
 | Finding | Where | Why deferred |
 |---------|-------|--------------|
-| `tag-player-names` in 2 workflows refers to a CLI command that doesn't exist (real name: `tag-player-mentions`). Has been silently `|| echo skipped` for who-knows-how-long. | reddit_deep_2026_offseason.yml:261, ingest_daily.yml:86 | Tracked as task #35. Fixing requires also passing `--season` which it currently doesn't, so the rename alone wouldn't help. Wants a deliberate human moment because turning this on after months of silent no-op could surface latent data issues. |
+| ~~`tag-player-names` in 2 workflows~~ | ~~reddit_deep + ingest_daily~~ | **FIXED in commit fa337f6665d.** Both workflows now call `tag-player-mentions --season=$SEASON --commit`. Latent data issues will surface in workflow logs going forward — that's intended. |
 | MVK #4 (defensive renderer call-site integration) is actually ~a week of work, not 4-6 hours | reporting.py is 26k lines; the "scaffold" exists in theme/stats_table.py but nothing calls it | Sized correctly for a focused session, not autonomous time |
 | MVK #6 (custom domain) | Needs you to pick from options in [docs/research/domain-options.md](docs/research/domain-options.md) | User decision |
 | 25 stale agent worktrees in `.claude/worktrees/` | Disk usage, not load-bearing | Probably someone else's WIP; not safe to autonomously delete |
