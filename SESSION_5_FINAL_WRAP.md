@@ -40,8 +40,10 @@ Closed five categories of audit work — three structural (Profile primitives, D
 | `c07894eca39` | fix(copy): scrub Sprint-13 references from storyline-thread receipt stubs |
 | `be3598744d2` | fix(footer): omit "NO. —" placeholder on pages without an edition number |
 | `d63b108c895` | chore(docs): archive 7 more historical CLAUDE_CODE_*.md planning docs |
+| `044fb67e45b` | docs(session5): wrap reflects all 20 commits + 8 Profile renderer adopters |
+| `e7998d2340e` | fix(copy): scrub remaining table-name leaks on NFL pipeline + Dynasty Heatmap |
 
-20 commits this session. Last-touch: `d63b108c895`.
+22 commits this session. Last-touch: `e7998d2340e`.
 
 ---
 
