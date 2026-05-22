@@ -52,8 +52,19 @@ Closed five categories of audit work — three structural (Profile primitives, D
 | `190f31570cb` | fix(copy): scrub "ingests" dev-verb on /about/ page |
 | `30a8026264e` | fix(copy): scrub 4 more "loaded yet/for this" leaks on Heisman + player tabs |
 | `cb5113a7011` | fix(copy): "Rows inserted" → "Items captured" on freshness page table |
+| `5801c176d1a` | docs(session5): wrap reflects 33 commits + workflow triggers + live-deploy confirmation |
+| `4e20e5c4b61` | fix(homepage): correct upcoming-season year in days-to-kickoff hero finding |
+| `f5a88dcd9cc` | fix(countdown): unhardcode "2026" in kickoff page meta description |
 
-33 commits this session. Last-touch: `cb5113a7011`.
+36 commits this session. Last-touch: `f5a88dcd9cc`.
+
+## Two functional bugs caught + fixed (not just copy)
+
+Beyond the dev-vocab purges, this extended session also caught two real functional bugs:
+
+1. **Homepage days-to-kickoff hero said the wrong year.** Was reading "until the {season_year_value + (1 if month >= 8 else 0)} season starts." That heuristic gave the wrong year regardless of the season_year semantics. Today (May 22, 2026) it would render "until the 2025 season starts" — but 2025 is the LAST completed season; the upcoming kickoff is the 2026 season. Fix: derive the upcoming-kickoff year directly from `today + days_to_kickoff` instead of reasoning about `summary.season_year`. Now reads "until the 2026 season starts" correctly.
+
+2. **`/kickoff/` countdown landing page had "2026" hardcoded** in the meta description. Fix: derive from `kickoff_date.year`.
 
 ## Workflow triggers (continuation of session)
 
