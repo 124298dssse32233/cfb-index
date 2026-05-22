@@ -12,7 +12,7 @@
 <style>{{HEAD_STYLE}}</style>
 </head><body>
 <a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
-<div class="page" id="main-content">
+<div class="page">
   <div class="chrome">
     <span><a href="/">CFB INDEX</a></span>
     <span>{{UPDATED_AT}}</span>
@@ -23,6 +23,7 @@
     {{NAV_ACTIONS}}
   </div>
   <hr class="rule">
+  <main id="main-content">
   <header class="hero">
     <div class="eyebrow">Transfer Portal Heat Index</div>
     <h1>Transfer Portal Heat Index &mdash; Last {{WINDOW_DAYS}} days</h1>
@@ -34,6 +35,7 @@
     <div class="board">{{BOARD_OR_EMPTY}}</div>
   </section>
   {{DATABASE_META_FOOTER}}
+  </main>
   <footer class="footer">
     <hr class="rule soft">
     <p class="eyebrow muted">CFB INDEX · {{UPDATED_AT}}</p>
