@@ -2999,6 +2999,72 @@ from cfb_rankings.profile.selector_grid import (
     render_selector_grid as _render_selector_grid,
 )
 
+# Sprint F lite 2026-05-22: pointer banner on /programs/<slug> pages
+# that surfaces the world-class /teams/<slug>.html page for profiled
+# slugs. Closes the UX confusion the audit flagged at §2.4 (the
+# "FIU has more visible design than ND" complaint — actually because
+# the user landed on /programs/notre-dame.html, not /teams/notre-dame.html).
+_WORLD_CLASS_POINTER_CSS_BLOCK = """
+/* World-Class Team Page pointer banner — Sprint F lite */
+.world-class-pointer {
+  margin: 0 0 clamp(20px, 3vw, 32px);
+  padding: clamp(16px, 2vw, 24px) clamp(20px, 2.4vw, 32px);
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--accent-primary, #c9a24a) 14%, transparent) 0%,
+    color-mix(in oklab, var(--accent-secondary, #c9a24a) 8%, transparent) 70%,
+    transparent 100%
+  );
+  border: 1px solid color-mix(in oklab, var(--accent-primary, #c9a24a) 40%, transparent);
+  border-left: 6px solid var(--accent-primary, #c9a24a);
+  border-radius: 12px;
+}
+.world-class-pointer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 880px;
+}
+.world-class-pointer__eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #c9a24a);
+}
+.world-class-pointer__body {
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: clamp(15px, 0.4vw + 13px, 17px);
+  line-height: 1.5;
+  color: var(--fg-primary, inherit);
+  margin: 0;
+}
+.world-class-pointer__cta {
+  display: inline-block;
+  align-self: start;
+  margin-top: 4px;
+  padding: 10px 18px;
+  background: var(--accent-primary, #c9a24a);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: filter 120ms ease;
+}
+.world-class-pointer__cta:hover,
+.world-class-pointer__cta:focus-visible {
+  filter: brightness(1.12);
+}
+"""
+
+
 
 _PROFILE_IDENTITY_V2_CSS_BLOCK = """
 /* Profile-archetype identity-strip v2 — the richer variant with
@@ -6009,6 +6075,8 @@ def _compose_global_css() -> str:
         + _STANDING_RAIL_CSS_BLOCK
         + "\n/* === Selector Grid — Sprint C (2026-05-22) === */\n"
         + _SELECTOR_GRID_CSS_BLOCK
+        + "\n/* === World-class team-page pointer — Sprint F lite (2026-05-22) === */\n"
+        + _WORLD_CLASS_POINTER_CSS_BLOCK
         + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
         + _TOUCH_TARGET_A11Y_CSS_BLOCK
         + "\n/* === Global footer column heading (Session 6 H4→H3 fix) === */\n"
@@ -17266,6 +17334,14 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
         render_profile_meta_footer,
         render_profile_identity_strip_v2,
     )
+    # Sprint F lite (2026-05-22) — for the 17 profiled slugs, the world-
+    # class team page at /teams/<slug>.html carries Pulse + Chronicle +
+    # Savant + Rivalry + Hero Arc and is significantly richer than this
+    # legacy program-history view. Surface a prominent banner above the
+    # identity strip that points to the world-class page so visitors who
+    # land here from external links + the legacy "Programs" nav don't
+    # think the thin history page is the canonical team experience.
+    from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS as _PROFILED_SLUGS
     team = program_data.get("team") or {}
     history = program_data.get("history") or []
     history_profile = program_data.get("history_profile") or {}
@@ -17378,6 +17454,18 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="programs")}
+      {f'''
+      <aside class="world-class-pointer" aria-label="World-class team page available">
+        <div class="world-class-pointer__inner">
+          <span class="world-class-pointer__eyebrow">2025 Season · live</span>
+          <p class="world-class-pointer__body">
+            This is the historical view. For {escape(team_name)}'s 2025 season — Pulse, Chronicle, Rivalry, Savant card, and the 13-brick CFP-era arc — visit the world-class team page.
+          </p>
+          <a class="world-class-pointer__cta" href="../teams/{escape(team_slug)}.html">
+            See the world-class {escape(team_name)} page &rarr;
+          </a>
+        </div>
+      </aside>''' if team_slug in _PROFILED_SLUGS else ''}
       <section class="team-shell" style="--team-accent:{team_theme['accent']}; --team-accent-soft:{team_theme['accent_soft']};">
         <div class="team-breadcrumbs">
           <a href="../programs/index.html">Programs</a>
@@ -17402,7 +17490,9 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
                  "value": best_finish_text},
             ],
             action_buttons=([
-                {"label": f"{season_name} Page",
+                {"label": ("World-Class Team Page →"
+                          if team_slug in _PROFILED_SLUGS
+                          else f"{season_name} Page"),
                  "href": program_data.get("current_season_url"),
                  "variant": "primary"},
             ] if program_data.get("current_season_url") else []) + [
