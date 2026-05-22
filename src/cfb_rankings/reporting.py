@@ -16335,7 +16335,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
 
 
 def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) -> str:
-    from cfb_rankings.profile import render_profile_meta_footer
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip_v2,
+    )
     ranking: RankingRow = team_data["ranking"]
     team = team_data["team"]
     season_summary = team_data["season_summary"]
@@ -16428,56 +16431,40 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <span>/</span>
           <strong>{escape(season_name)}</strong>
         </div>
-        <section class="hero team-hero premium-team-hero">
-          <div class="team-hero-top">
-            <div class="team-hero-heading">
-              {hero_logo_html}
-              <div>
-                <h1>{escape(team_name)}</h1>
-                <p class="team-hero-sub">{escape(conference)} Conference</p>
-              </div>
-            </div>
-            <div class="team-rank-chip">Rank #{ranking.rank}</div>
-          </div>
-          <div class="team-stat-ribbon">
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Record</span>
-                <strong>{wins}-{losses}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Power</span>
-                <strong>{_public_power_text(ranking.power_display)}</strong>
-                <span class="submetric">pts vs avg NCAA team</span>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Resume</span>
-                <strong>{_public_resume_text(ranking.resume_display)}</strong>
-                <span class="submetric">{_public_resume_percentile_label(ranking.resume_display)}</span>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Net Points</span>
-                <strong>{net_points:+d}</strong>
-              </div>
-            </article>
-          </div>
-          <div class="team-hero-actions">
-            <a class="button button-primary" href="../programs/{escape(ranking.slug)}.html">Program History</a>
-            <a class="button button-primary" href="../matchups/index.html">Matchup Simulator</a>
-            <a class="button button-secondary" href="../compare/index.html">Compare Teams</a>
-            <a class="button button-secondary" href="../rankings/index.html">Back To Rankings</a>
-          </div>
-        </section>
+        {render_profile_identity_strip_v2(
+            eyebrow=f"{conference.upper()} CONFERENCE · {season_name.upper()}",
+            name=team_name,
+            sub_meta=f"#{ranking.rank} in current rankings",
+            team_mark_html=hero_logo_html or escape(team_mark),
+            stat_tiles=[
+                {"label": "Record", "value": f"{wins}-{losses}"},
+                {"label": "Power",
+                 "value": _public_power_text(ranking.power_display),
+                 "sub": "pts vs avg NCAA team"},
+                {"label": "Resume",
+                 "value": _public_resume_text(ranking.resume_display),
+                 "sub": _public_resume_percentile_label(ranking.resume_display)},
+                {"label": "Net Points", "value": f"{net_points:+d}"},
+            ],
+            action_buttons=[
+                {"label": "Program History",
+                 "href": f"../programs/{ranking.slug}.html",
+                 "variant": "primary"},
+                {"label": "Matchup Simulator",
+                 "href": "../matchups/index.html",
+                 "variant": "primary"},
+                {"label": "Compare Teams",
+                 "href": "../compare/index.html",
+                 "variant": "secondary"},
+                {"label": "Back To Rankings",
+                 "href": "../rankings/index.html",
+                 "variant": "secondary"},
+            ],
+            chips=[f"Rank #{ranking.rank}"],
+            accent_color=team_theme['accent'],
+            accent_color_soft=team_theme['accent_soft'],
+            aria_label=f"{team_name} {season_name} identity",
+        )}
       </section>
 
       {mood_card}
@@ -18347,7 +18334,10 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
 
 
 def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]) -> str:
-    from cfb_rankings.profile import render_profile_meta_footer
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip_v2,
+    )
     player = player_data.get("player") or {}
     primary_team = player_data.get("primary_team") or {}
     current_snapshot = player_data.get("current_snapshot") or {}
@@ -18715,52 +18705,37 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <span>/</span>
           <strong>{escape(player_name)}</strong>
         </div>
-        <section class="hero team-hero premium-team-hero">
-          <div class="team-hero-top">
-            <div>
-              <h1>{escape(player_name)}</h1>
-              <p class="team-hero-sub">{escape(position)} | {escape(team_name)} | {escape(conference_name)}</p>
-              {f'<div class="player-hero-facts">{hero_facts}</div>' if hero_facts else ''}
-              {render_this_day_chip(player_data.get("this_day_moment"))}
-            </div>
-            <div class="team-rank-chip">Player Card</div>
-          </div>
-          <div class="team-stat-ribbon">
-            <article class="team-stat-tile" data-metric="Current nowcast|{escape(current_rank_text)}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Current nowcast</span>
-                <strong>{escape(current_rank_text)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile" data-metric="Season forecast|{escape(forecast_text)}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Season forecast</span>
-                <strong>{escape(forecast_text)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile" data-metric="Win probability|{escape(_probability_text(current_snapshot.get('win_probability')))}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Win probability</span>
-                <strong>{escape(_probability_text(current_snapshot.get("win_probability")))}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile" data-metric="Best official finish|{escape(best_finish_text)}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Best official finish</span>
-                <strong>{escape(best_finish_text)}</strong>
-              </div>
-            </article>
-          </div>
-          <div class="team-hero-actions">
-            <a class="button button-primary" href="../heisman/index.html">Heisman Board</a>
-            <a class="button button-secondary" href="../players/index.html">All Player Cards</a>
-            {f'<a class="button button-secondary" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)} team page</a>' if _valid_team_slug(team_slug) else ''}
-          </div>
-        </section>
+        {render_profile_identity_strip_v2(
+            eyebrow=f"{position} · {team_name.upper()} · {conference_name.upper()}",
+            name=player_name,
+            sub_meta="",
+            team_mark_html=escape(team_mark),
+            stat_tiles=[
+                {"label": "Current nowcast", "value": current_rank_text},
+                {"label": "Season forecast", "value": forecast_text},
+                {"label": "Win probability",
+                 "value": _probability_text(current_snapshot.get("win_probability"))},
+                {"label": "Best official finish", "value": best_finish_text},
+            ],
+            action_buttons=[
+                {"label": "Heisman Board",
+                 "href": "../heisman/index.html",
+                 "variant": "primary"},
+                {"label": "All Player Cards",
+                 "href": "../players/index.html",
+                 "variant": "secondary"},
+            ] + ([
+                {"label": f"{team_name} team page",
+                 "href": f"../teams/{team_slug}.html",
+                 "variant": "secondary"},
+            ] if _valid_team_slug(team_slug) else []),
+            chips=["Player Card"],
+            accent_color=team_theme['accent'],
+            accent_color_soft=team_theme['accent_soft'],
+            aria_label=f"{player_name} player identity",
+        )}
+        {f'<div class="player-hero-facts">{hero_facts}</div>' if hero_facts else ''}
+        {render_this_day_chip(player_data.get("this_day_moment"))}
       </section>
 
       <section class="section">
