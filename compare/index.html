@@ -23,10 +23,31 @@
 :root {
   --bg: #f6f1e6;
   --ink: #1a1a1a;
-  --muted: #7a7a7a;
+  /* Phase 9 a11y: WCAG AA 4.5:1 — was #7a7a7a (4.06:1 borderline on cream) */
+  --muted: #5e5e5e;
   --card: #ffffff;
   --stroke: rgba(26,26,26,0.14);
   --accent: #c9a24a;
+}
+/* Phase 9 a11y: skip-link */
+.wcfb-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.wcfb-skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  padding: 8px 14px;
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 700;
+  border-radius: 4px;
 }
 html, body {
   margin: 0; padding: 0;
@@ -171,11 +192,12 @@ h1.wcfb-compare__title { letter-spacing: -0.01em; }
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head>
 <body>
+<a href="#main-content" class="wcfb-skip-link">Skip to main content</a>
 <div class="page">
 
   <header class="chrome">
     <a href="/" class="brand">CFB<span class="slash">/</span>Index</a>
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <a href="/">Home</a>
       <a href="/rankings/">Rankings</a>
       <a href="/hub/">Hub</a>
@@ -184,7 +206,7 @@ h1.wcfb-compare__title { letter-spacing: -0.01em; }
     </nav>
   </header>
 
-  <main class="wcfb-compare">
+  <main id="main-content" class="wcfb-compare">
     <h1 class="wcfb-compare__title">Compare two programs.</h1>
     <p class="lede">Identity, mantra, and a link to the full profile — laid out side by side. Picks are remembered in the URL, so you can share a comparison.</p>
 

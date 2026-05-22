@@ -49,7 +49,8 @@ code { background: #f4f4f8; padding: 1px 5px; border-radius: 3px; font-size: 13p
 .source-activity th, .source-activity td { padding: 4px 10px; font-size: 13px; }
 .divergence-leaderboard td:nth-child(3), .source-activity td:nth-child(2),
 .source-activity td:nth-child(3), .divergence-leaderboard td:nth-child(4) { font-variant-numeric: tabular-nums; text-align: right; }
-footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
+/* Phase 9 a11y: WCAG AA 4.5:1 contrast — was #888 (3.55:1 fail on #fff) */
+footer { color: #595959; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
 </style>
 
 <!-- wcfb-enhancements -->
@@ -57,13 +58,13 @@ footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #
 <script src="/assets/wcfb-enhancements.js" defer></script>
 </head><body>
 <h1>Fan Intelligence — Methodology</h1>
-<p class='subtitle'>Sourced from the live signal registry. Last updated: 2026-05-22 19:49 UTC. 72 active sources across 72 registered.</p>
+<p class='subtitle'>Sourced from the live signal registry. Last updated: 2026-05-22 20:53 UTC. 72 active sources across 72 registered.</p>
 <p class='subtitle'><a href='freshness.html'>→ Data freshness (last-run-per-source)</a></p>
 <h2>0. Current coverage</h2>
 <p>Live counts, refreshed on every methodology build.</p>
 <ul class='coverage-stats'><li><strong>16,636</strong> fan-conversation documents indexed under the fan-intelligence layer</li><li><strong>32,916</strong> tier-A numeric observations (industry-grade ratings, market lines)</li><li><strong>0</strong> team-by-week cohort sentiment cells</li><li><strong>0</strong> team-by-week divergence rows (where the cohorts disagree)</li></ul>
 <h3>Sources with runs in the last 7 days</h3>
-<table class='source-activity'><thead><tr><th>source_id</th><th>runs</th><th>rows (ok)</th><th>latest run</th></tr></thead><tbody>
+<table class='source-activity'><thead><tr><th scope="col">source_id</th><th scope="col">runs</th><th scope="col">rows (ok)</th><th scope="col">latest run</th></tr></thead><tbody>
 <tr><td><code>youtube_meta</code></td><td>6</td><td>6842</td><td>2026-05-22</td></tr>
 <tr><td><code>locked_on_notre-dame</code></td><td>2</td><td>244</td><td>2026-05-17</td></tr>
 <tr><td><code>locked_on_michigan</code></td><td>2</td><td>234</td><td>2026-05-17</td></tr>
@@ -116,7 +117,7 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <h3>Tier A</h3>
 <p class='tier-explainer'>Numeric publication OK — raw values like pageviews, get-in price, volume are displayed directly.</p>
 <table class='sources'><thead><tr>
-<th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
+<th scope="col">source_id</th><th scope="col">name</th><th scope="col">cadence / method</th><th scope="col">license</th><th scope="col">publication form</th><th scope="col">last successful fetch</th></tr></thead><tbody>
 <tr><td><code>cfbd</code></td><td>College Football Data API (Patreon tier)</td><td>api_official</td><td>Patreon-$10/mo</td><td>numeric</td><td>2026-05-17 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> CFBD lines/volume data is analytics- and gambling-tilted by nature; audience is media + bettors, per Pew 2023 sports-bettor demographics.</td></tr>
 <tr><td><code>gdelt_volume</code></td><td>GDELT 2.0 article counts per entity</td><td>api_official</td><td>GDELT-free-research</td><td>numeric</td><td>2026-05-22 <span class='status ok'>(ok)</span></td></tr>
@@ -140,7 +141,7 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <h3>Tier B</h3>
 <p class='tier-explainer'>Aggregated signal only — sample size and effective-N are always shown; individual posts appear as pseudonymous citations.</p>
 <table class='sources'><thead><tr>
-<th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
+<th scope="col">source_id</th><th scope="col">name</th><th scope="col">cadence / method</th><th scope="col">license</th><th scope="col">publication form</th><th scope="col">last successful fetch</th></tr></thead><tbody>
 <tr><td><code>beat_alabama_al_com_alabama</code></td><td>beat — alabama / al_com_alabama</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-17 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits from beat_template. Feed URL: https://www.al.com/arc/outboundfeeds/rss/category/sports/alabama-football/</td></tr>
 <tr><td><code>beat_alabama_roll_bama_roll</code></td><td>beat — alabama / roll_bama_roll</td><td>rss</td><td>public-RSS</td><td>aggregate</td><td>2026-05-17 <span class='status ok'>(ok)</span></td></tr>
@@ -234,7 +235,7 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <h3>Tier C</h3>
 <p class='tier-explainer'>Rank or trend only — we publish where a source ranks relative to itself or others, never the raw number.</p>
 <table class='sources'><thead><tr>
-<th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
+<th scope="col">source_id</th><th scope="col">name</th><th scope="col">cadence / method</th><th scope="col">license</th><th scope="col">publication form</th><th scope="col">last successful fetch</th></tr></thead><tbody>
 <tr><td><code>gdelt_tone</code></td><td>GDELT tone score (weekly aggregate only)</td><td>api_official</td><td>GDELT-free-research</td><td>rank</td><td>2026-05-17 <span class='status ok'>(ok)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits gdelt_volume; tone is noisy, rank-only per STRATEGY §6.</td></tr>
 <tr><td><code>google_trends_dma</code></td><td>Google Trends DMA-level regional rank (Cowork export)</td><td>cowork_manual</td><td>Google-Trends-public</td><td>rank</td><td>2026-05-17 <span class='status ok'>(ok)</span></td></tr>
@@ -248,7 +249,7 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <h3>Tier D</h3>
 <p class='tier-explainer'>Editorial citation only — quoted text with a backlink, never included in numeric aggregates.</p>
 <table class='sources'><thead><tr>
-<th>source_id</th><th>name</th><th>cadence / method</th><th>license</th><th>publication form</th><th>last successful fetch</th></tr></thead><tbody>
+<th scope="col">source_id</th><th scope="col">name</th><th scope="col">cadence / method</th><th scope="col">license</th><th scope="col">publication form</th><th scope="col">last successful fetch</th></tr></thead><tbody>
 <tr><td><code>beat_articles</code></td><td>Beat-writer article quotes via RSS</td><td>rss</td><td>fair-use-quote</td><td>citation</td><td>2026-05-17 <span class='status muted'>(skipped)</span></td></tr>
 <tr class='rationale'><td colspan='6'><em>Rationale:</em> Inherits beat_template; citation-only form.</td></tr>
 <tr><td><code>board_quotes</code></td><td>Message-board pull-quotes (pseudonym + backlink)</td><td>cowork_manual</td><td>fair-use-quote</td><td>citation</td><td>2026-05-17 <span class='status muted'>(skipped)</span></td></tr>
@@ -282,7 +283,7 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 </tbody></table></section>
 <h2>4. Cohort weight matrix</h2>
 <p>Each source contributes to cohort aggregates with weights drawn from the matrix below. Weights do not sum to 1 within an axis — a Reddit r/CFB post is simultaneously millennial and national-narrative and mildly analytics-tilted, and the weights reflect that. Tier D sources are excluded from numeric aggregation.</p>
-<table class='weights'><thead><tr><th>source_id</th>
+<table class='weights'><thead><tr><th scope="col">source_id</th>
 <th class='cohort-col'>boomer_gen_x</th>
 <th class='cohort-col'>millennial</th>
 <th class='cohort-col'>gen_z</th>
@@ -1278,5 +1279,5 @@ never contribute to numeric aggregates — they appear only as pull-quote citati
 <p>Swing is the signed change in a cohort&#x27;s Fan Pulse from the prior publication window. Large positive swings flag breakout moments; large negative swings flag backlash. We publish swing alongside the current Pulse so a reader can see both the level and the trajectory without chart-reading, and we floor-rule both independently.</p>
 <p><em>Example &middot;</em> Swing +18 after the Texas A&amp;M game — the inflection point that turned a question-mark QB into a starter.</p>
 <p class='tier-explainer'>See also &middot; <a href='#glossary-fan-pulse'>Fan Pulse</a> &middot; <a href='#glossary-belief-dial'>Belief Dial</a> &middot; <a href='#glossary-main-character'>Main Character</a></p>
-<footer>Fan Intelligence methodology page — last updated 2026-05-22 19:49 UTC.</footer>
+<footer>Fan Intelligence methodology page — last updated 2026-05-22 20:53 UTC.</footer>
 </body></html>
