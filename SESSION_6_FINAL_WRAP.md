@@ -53,8 +53,16 @@ Chrome MCP browser validation caught it; one-line fix in
 | `bd129e41fb2` | docs | docs(session6): wrap doc reflects continuation work |
 | `758036c07c3` | 6 | feat(track-6): Database archetype meta-footer on /wire/ |
 | `1db0f307e83` | 1 | feat(track-1): Pattern C citation emission — LLM auto-cites future editions |
+| `fff2b13deed` | docs | docs(session6): wrap doc reflects 11 commits |
+| `fb6b97067a2` | 6+7 | feat(tracks-6-7): /storylines/ Database + /reactions/ Article adopters |
+| `330ef13fc4c` | 6 | feat(track-6): Database meta-footer on /portal-heat/ |
+| `1be54c42777` | 6 | feat(track-6): Database meta-footer on /recruit-board/ |
 
-11 commits this session. Latest SHA: `1db0f307e83`.
+15 functional commits this session (+ wrap docs). Latest SHA:
+`1be54c42777`. Total Database-archetype concrete adopters: 6
+(editions, daily/archive, wire, storylines, portal-heat,
+recruit-board). Total Article-archetype concrete adopters: 2
+(editions essays, reactions).
 
 ---
 
@@ -264,6 +272,54 @@ adopter:
 - After this lands, every future world_class_enrich run will
   auto-emit citations + auto-persist them. No more hand-curated
   backfill needed for new editions.
+
+**fb6b97067a2 — Storylines Database + Reactions Article adopters**
+
+- `/storylines/index.html` gains the Database meta-footer (4th
+  Database adopter); thread_index.html template gets a
+  `${database_meta_footer}` placeholder.
+- `/reactions/<slug>/` pages gain `render_article_footer` above
+  the existing chrome timestamp (1st Article-archetype concrete
+  adopter beyond the Edition essays already covered by Track 1).
+
+**330ef13fc4c — /portal-heat/ Database adopter (5th)**
+
+- `portal_heat.html` template gets a `{{DATABASE_META_FOOTER}}`
+  placeholder; the renderer surfaces program count + methodology
+  pointer + Updated timestamp.
+
+**1be54c42777 — /recruit-board/ Database adopter (6th)**
+
+- `_HTML_TEMPLATE` gets a `{meta_footer}` placeholder; the renderer
+  surfaces tracked-program count + "How the recruit board is
+  weighted →" methodology link.
+
+---
+
+## Track 6 + 7 adopter coverage (post-session-6)
+
+**Track 6 (Database archetype) — all 7 spec surfaces have
+methodology-pointer + sample-size footer treatment:**
+
+| Surface | Treatment |
+|---|---|
+| `/editions/` | Database meta-footer (1800d7bd37a) |
+| `/wire/` | Database meta-footer (758036c07c3) |
+| `/canon/` | Pre-existing `canon-footer` block (equivalent role) |
+| `/players/` (directory) | Profile meta-footer (session 5) |
+| `/portal-heat/` | Database meta-footer (330ef13fc4c) |
+| `/recruit-board/` | Database meta-footer (1be54c42777) |
+| `/storylines/` | Database meta-footer (fb6b97067a2) |
+
+**Track 7 (Article archetype) — Editions covered via Track 1
+citation pipeline + global footer; /reactions/ wired:**
+
+| Surface | Treatment |
+|---|---|
+| `/editions/<n>/<slug>/` | Citation pipeline + global footer (Track 1) |
+| `/reactions/<slug>/` | render_article_footer (fb6b97067a2) |
+| `/daily/<edition>/` | Native daily renderer (own footer + methodology link) |
+| `/mailbag/<edition>/` | Native mailbag renderer (own footer + methodology link) |
 
 ---
 
