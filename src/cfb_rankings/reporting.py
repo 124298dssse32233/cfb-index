@@ -5528,6 +5528,7 @@ __GLOBAL_TAGS__
 
   <p class=\"back\"><a href=\"../\">&larr; back to hub</a></p>
 </main>
+__GLOBAL_FOOTER__
 </body>
 </html>
 """
@@ -5538,6 +5539,7 @@ __GLOBAL_TAGS__
     )
     html = html.replace("{espn_cdn_note}", espn_cdn_note)
     html = html.replace("__GLOBAL_TAGS__", _global_link_tags())
+    html = html.replace("__GLOBAL_FOOTER__", render_global_footer())
     (attributions_dir / "index.html").write_text(html, encoding="utf-8")
 
 
