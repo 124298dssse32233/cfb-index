@@ -463,6 +463,15 @@ def _full_page_html(
         f'<meta name="twitter:description" content="{safe_desc}">\n'
         f'<meta name="twitter:image" content="{safe_og}">\n'
     )
+    # Phase 4: Article-archetype footer adopter. Mailbag has its own
+    # chrome + brand row + footer; the Article archetype primitive
+    # surfaces the methodology pointer below the existing footer for
+    # cross-surface consistency.
+    from cfb_rankings.article_archetype import render_article_footer
+    _article_footer = render_article_footer(
+        methodology_label="How the Mailbag works",
+        methodology_href="/methodology/",
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -477,6 +486,7 @@ def _full_page_html(
 {_brand_row_html()}
 {body}
 {_footer_html()}
+{_article_footer}
 </div>
 </body>
 </html>"""

@@ -360,6 +360,16 @@ def _render_one(
     canonical_path = (
         f"/daily/{edition_date}/" if is_archive_entry else "/daily/"
     )
+    # Phase 4: Article-archetype footer adopter. The Daily already has
+    # its own archive-footer chrome (yesterday's takes + view all); the
+    # Article archetype primitive adds the methodology pointer +
+    # optional share link below it for cross-surface consistency with
+    # /editions/<n>/<slug>/ + /reactions/<slug>/.
+    from cfb_rankings.article_archetype import render_article_footer
+    _article_footer = render_article_footer(
+        methodology_label="How The Daily is sourced",
+        methodology_href="/methodology/",
+    )
     html = tpl.substitute(
         title=f"The Daily — {_long_date(edition_date)}",
         long_date=_long_date(edition_date),
@@ -367,6 +377,7 @@ def _render_one(
         takes_html=takes_html or "<p>No takes available for this edition.</p>",
         watching_html=_watching_html(),
         archive_links=_archive_links_html(recent_editions),
+        article_archetype_footer=_article_footer,
         page_description=(
             f"The Daily for {_long_date(edition_date)} — overnight CFB "
             f"takes, wire-event reactions, and the day's argument theater."
