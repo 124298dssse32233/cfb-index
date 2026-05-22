@@ -54,6 +54,7 @@ from .page_tone_strip import render_page_tone_strip, PAGE_TONE_STRIP_CSS
 from .trajectory_chip import render_trajectory_chip, TRAJECTORY_CHIP_CSS
 from .kickoff_countdown import render_kickoff_countdown, KICKOFF_COUNTDOWN_CSS
 from .peer_comparator import render_peer_comparator, PEER_COMPARATOR_CSS
+from .on_this_day import render_on_this_day, ON_THIS_DAY_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -248,6 +249,7 @@ def render_team_page(
         live_game_meta=live_game_meta,
         game_recap_state_para=game_recap_state_para,
         game_recap_diagnosis=game_recap_diagnosis,
+        db=db,
     )
 
     out = Path(output_dir)
@@ -357,6 +359,7 @@ def _render_page(
     live_game_meta: dict[str, Any] | None = None,
     game_recap_state_para: dict[str, Any] | None = None,
     game_recap_diagnosis: list[dict[str, Any]] | None = None,
+    db=None,  # Sprint I — On This Day needs DB to query past games
 ) -> str:
     tokens_css = (_ASSETS_DIR / "tokens.css").read_text(encoding="utf-8")
     styles_css = (_ASSETS_DIR / "styles.css").read_text(encoding="utf-8")
@@ -466,6 +469,9 @@ def _render_page(
     # Program Peer Comparator — Brief §26 static-attribute variant. "What
     # does this team remind us of?" answered with 3 peer-program tiles.
     peer_comparator_html = render_peer_comparator(profile)
+    # On This Day — Brief §25.3. Daily-rotated historical artifact. Pulls
+    # past games on today's MM-DD, falls back to deterministic rotation.
+    on_this_day_html = render_on_this_day(db, profile, today=state.today) if db is not None else ""
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -543,6 +549,9 @@ body {{
 /* Program Peer Comparator — Brief §26 */
 {PEER_COMPARATOR_CSS}
 
+/* On This Day — Brief §25.3 */
+{ON_THIS_DAY_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -594,6 +603,7 @@ body {{
     {program_prestige_html}
     {trajectory_chip_html}
     {peer_comparator_html}
+    {on_this_day_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
