@@ -565,3 +565,46 @@ two real bugs the previous-session WebFetch-based audits missed.
 The audit's Tier-1 punch list is now empty. Tier-2 architectural
 migrations remain, with scaffolds in place for all four archetypes
 (Profile, Dashboard, Database, Article).
+
+---
+
+## Continuation 3: Phase 4/5b/5c/6d closures
+
+After verifying the e1cb83a2351 deploy (Track 2 + 3 live, Track 1
++ 4 pending the in-flight deploy at 1f1ea21ae6d), executed
+additional roadmap phases without triggering a publish-site:
+
+**14881463c88 — Phase 4 Article archetype on /daily/ + /mailbag/**
+
+After this commit, all 4 Article-archetype spec surfaces have the
+methodology-pointer footer primitive adopted:
+* /editions/<n>/<slug>/ — Track 1 citation pipeline
+* /reactions/<slug>/ — fb6b97067a2 (earlier continuation)
+* /daily/<edition>/ — 14881463c88
+* /mailbag/<edition>/ — 14881463c88
+
+**Phase 5b + 5c — Editorial corpus voice scan + body grading (done)**
+
+Walked 6 published editions via Vercel MCP. Grading:
+* W14 (Spring-Game Issue): REAL
+* W15 (Portal Two, Quietly): REAL
+* W16 (Post-Draft Reset): REAL
+* W17 (After the Bracket): REAL — ~1,100 words, no banned phrases
+* W18 (The Quiet Week): REAL (Track 3 force-reseed restored seed body)
+* W19 (Three Weeks Before Camp Whispers): WRONG-SEASON pending
+  in-flight deploy
+
+**Phase 6d — Deploy chain healthcheck verified clean**
+
+* 21 workflows reference verify_db_artifact_healthy (audit's 19
+  Option B gate; 21 is healthy growth)
+* 26 workflows have permissions blocks or notify_failure callers
+* live_smoke_test.yml runs every 30min on 28 URLs with <95% gate
+
+**Roadmap status: ~9 of 12 phases done or in flight.**
+
+Remaining substantive work: Phase 2 browser audit + Phase 9b/c/d
+keyboard/contrast/SR + Phase 10 performance + Phase 11 mockup-
+diff + Phase 12 final consolidation. All require the in-flight
+deploy to land first because they're validation passes against
+the post-Phase-3 architectural state.
