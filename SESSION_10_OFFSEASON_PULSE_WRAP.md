@@ -63,9 +63,9 @@ Ran `python manage.py ingest-cfbd-preseason --season 2025 --classification fbs`:
 Player recruiting profiles for years 2020-2025 all populated. This is a
 **6-year backfill** of individual-recruit data.
 
-### Hand-authored profile YAMLs (55 → 85) — **70% audit threshold REACHED**
+### Hand-authored profile YAMLs (55 → 90) — **70% audit threshold REACHED & EXCEEDED**
 
-30 new YAMLs across 6 sprints:
+35 new YAMLs across 7 sprints:
 
 - Sprint AA (60): boise-state, smu, army, memphis, northwestern
 - Sprint AE (65): minnesota, purdue, syracuse, rutgers, illinois
@@ -73,9 +73,10 @@ Player recruiting profiles for years 2020-2025 all populated. This is a
 - Sprint AG (75): california, oregon-state, washington-state, navy, liberty
 - Sprint AH (80): app-state, marshall, coastal-carolina, south-florida, air-force
 - Sprint AI (85): east-carolina, miami-oh, toledo, western-kentucky, sam-houston
+- Sprint AJ (90): georgia-tech, james-madison, ohio, jacksonville-state, new-mexico
 
-**Coverage: 85/119 FBS = 71.4%** — audit threshold of ≥70% achieved.
-Remaining 34/119 (28.6%) covered by synthesizer with conference-keyed
+**Coverage: 90/119 FBS = 75.6%** — audit threshold of ≥70% achieved and exceeded.
+Remaining 29/119 (24.4%) covered by synthesizer with conference-keyed
 voice register + mascot voice library.
 
 ### Renderer wiring
@@ -157,8 +158,8 @@ After 26320064509 success, visit:
 | Category | Status | Count |
 |---|---|---|
 | Team-page modules built | ✅ | 19 (was 14 last session: +offseason_pulse, recent_form, bowl_history, statement_wins, top_commits) |
-| Hand-authored profile YAMLs | ✅ | **85 / 119 FBS (71.4%) — audit threshold reached** |
-| Synthesized fallback | ✅ | 34 of 119 FBS auto-generated |
+| Hand-authored profile YAMLs | ✅ | **90 / 119 FBS (75.6%) — audit threshold reached** |
+| Synthesized fallback | ✅ | 29 of 119 FBS auto-generated |
 | CFBD 2025 data ingested | ✅ | recruiting + returning + talent + portal + 14k+ recruit profiles |
 | Live smoke test | ⏸ | Pending publish-site 26320522810 |
 
