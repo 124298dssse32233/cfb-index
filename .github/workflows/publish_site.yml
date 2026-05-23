@@ -206,6 +206,15 @@ jobs:
             echo "::warning::Only $MODIFIED files freshly modified — incremental sync may have been a no-op or skipped most pages"
           fi
 
+      - name: Verify world-class team pages
+        # 2026-05-23: Catches the silent-fail bug where render_all_profiled_pages
+        # drops some slugs in CI and the legacy reporting.py output stays in
+        # place (because prior-site overlay seeded a legacy file and the
+        # delete-sweep preserved it). Fails the build if any real FBS team
+        # ships premium-team-hero chrome instead of team-page chrome.
+        run: |
+          python scripts/verify_world_class_team_pages.py --site-dir output/site --db cfb_rankings.db
+
       - name: Build Cmd-K search index
         # Ships output/site/search-index.json so the Cmd-K overlay's
         # client-side search has a real dataset (~500KB-1MB depending
