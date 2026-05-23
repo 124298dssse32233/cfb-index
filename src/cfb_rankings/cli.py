@@ -589,6 +589,17 @@ def build_parser() -> argparse.ArgumentParser:
     draft_parser.add_argument("--end-year", type=int, default=None,
         help="End year (inclusive) for range ingest.")
 
+    coaches_parser = subparsers.add_parser(
+        "ingest-cfbd-coaches",
+        help="Fetch CFBD /coaches; UPDATEs team_seasons.head_coach for matched rows.",
+    )
+    coaches_parser.add_argument("--year", type=int, default=None,
+        help="Single year to ingest.")
+    coaches_parser.add_argument("--start-year", type=int, default=None,
+        help="Start year (inclusive) for range ingest.")
+    coaches_parser.add_argument("--end-year", type=int, default=None,
+        help="End year (inclusive) for range ingest.")
+
     wiki_awards_parser = subparsers.add_parser(
         "scrape-wiki-awards",
         help="Scrape Wikipedia All-America / All-Conference / Position Awards "
@@ -3461,6 +3472,24 @@ def main() -> None:
                       f"upserted={s['rows_upserted']} "
                       f"player_hits={s['resolved_player_ids']} "
                       f"team_hits={s['resolved_team_ids']}")
+        else:
+            raise RuntimeError("Provide either --year N or --start-year X --end-year Y.")
+        return
+
+    if args.command == "ingest-cfbd-coaches":
+        from cfb_rankings.clients.cfbd import CfbdClient
+        from cfb_rankings.ingest.coaches import ingest_coaches_range, ingest_coaches_year
+
+        if not config.cfbd_api_key:
+            raise RuntimeError("CFBD_API_KEY not set — cannot fetch coaches.")
+        cfbd = CfbdClient(config.cfbd_api_key, config.cfbd_base_url, config.request_timeout_seconds)
+
+        if args.year:
+            summary = ingest_coaches_year(db, cfbd, args.year)
+            print(f"ingest-cfbd-coaches year={args.year}: {summary}")
+        elif args.start_year and args.end_year:
+            summary = ingest_coaches_range(db, cfbd, args.start_year, args.end_year)
+            print(f"ingest-cfbd-coaches {args.start_year}-{args.end_year}: {summary}")
         else:
             raise RuntimeError("Provide either --year N or --start-year X --end-year Y.")
         return

@@ -384,6 +384,27 @@ class CfbdClient(JsonApiClient):
         name / position / round / pick / overall / nflTeam."""
         return self.get_json("/draft/picks", params={"year": year})
 
+    def get_coaches(
+        self,
+        year: int | None = None,
+        first_name: str | None = None,
+        last_name: str | None = None,
+        team: str | None = None,
+    ) -> list[dict[str, Any]]:
+        """Fetch head-coach records. CFBD /coaches returns a list of
+        coaches with `seasons[]` (one entry per season at the team).
+        Each season has team, year, games, wins, losses, ties, etc."""
+        params: dict[str, Any] = {}
+        if year is not None:
+            params["year"] = year
+        if first_name:
+            params["firstName"] = first_name
+        if last_name:
+            params["lastName"] = last_name
+        if team:
+            params["team"] = team
+        return self.get_json("/coaches", params=params)
+
     def get_teams(
         self,
         year: int | None = None,

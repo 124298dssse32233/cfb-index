@@ -68,6 +68,7 @@ from .bowl_history import render_bowl_history, BOWL_HISTORY_CSS
 from .statement_wins import render_statement_wins, STATEMENT_WINS_CSS
 from .top_commits import render_top_commits, TOP_COMMITS_CSS
 from .nfl_draft_pipeline import render_nfl_draft_pipeline, NFL_DRAFT_PIPELINE_CSS
+from .coaching_era import render_coaching_era_strip, COACHING_ERA_STRIP_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -542,6 +543,8 @@ def _render_page(
     top_commits_html = render_top_commits(db, profile, snapshot) if db is not None else ""
     # NFL Draft Pipeline — last 5 cycles of draft picks (CFBD player_nfl_draft).
     nfl_draft_html = render_nfl_draft_pipeline(db, profile, snapshot) if db is not None else ""
+    # Coaching Era Strip — current HC + tenure length + previous HC (CFBD coaches).
+    coaching_era_html = render_coaching_era_strip(db, profile, snapshot) if db is not None else ""
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -661,6 +664,9 @@ body {{
 /* NFL Draft Pipeline — last 5 cycles of draft picks */
 {NFL_DRAFT_PIPELINE_CSS}
 
+/* Coaching Era Strip — current HC + tenure */
+{COACHING_ERA_STRIP_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -711,6 +717,7 @@ body {{
     {offseason_pulse_html}
     {top_commits_html}
     {nfl_draft_html}
+    {coaching_era_html}
     {recent_form_html}
     {season_standing_html}
     {program_prestige_html}

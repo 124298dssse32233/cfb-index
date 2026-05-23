@@ -162,6 +162,8 @@ jobs:
           for yr in 2018 2019 2020 2021 2022 2023 2024; do
             python manage.py ingest-cfbd-week --season $yr --week 1 --season-type postseason --skip-play-level --skip-lines --skip-weather --skip-advanced-stats 2>&1 | tail -1
           done
+          echo "[enrich] Coaches 2018-2024..."
+          python manage.py ingest-cfbd-coaches --start-year 2018 --end-year 2024 2>&1 | tail -10
           echo "[enrich] done"
 
       - name: Build or incrementally sync
