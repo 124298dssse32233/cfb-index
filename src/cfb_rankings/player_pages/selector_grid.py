@@ -129,10 +129,11 @@ def render_selector_grid(db, player_id: int | None, season_year: int | None) -> 
 
     # Try to fetch honors. Gracefully handle empty / errored table.
     selector_results: dict[str, str] = {}  # selector_key → team_level
+    is_consensus = False  # True if player was named Consensus All-American
     try:
         rows = db.query_all(
             """
-            select selector, honor_team
+            select selector, honor_team, honor_name, honor_scope
               from player_honors
              where player_id = :pid and season_year = :s
             """,
@@ -141,11 +142,33 @@ def render_selector_grid(db, player_id: int | None, season_year: int | None) -> 
         for r in rows:
             sel = (r.get("selector") or "").upper()
             team = (r.get("honor_team") or "").lower()
+            scope = (r.get("honor_scope") or "").lower()
+            # Consensus All-American is a meta-result: the player appeared on
+            # 3+ of the 5 NCAA-recognized selector lists. When per-selector
+            # data isn't scraped yet, we still want the grid to light up.
+            if scope == "all_america" and "consensus" in sel.lower():
+                is_consensus = True
+                continue
             if sel in selector_results:
                 continue
             selector_results[sel] = team
     except Exception:
         pass
+
+    # Count how many of the NCAA-recognized selectors have data. Conference
+    # honors (ACC, Big Ten, etc.) get stored in selector_results too but
+    # they don't match _SELECTORS keys, so we treat that as "no per-selector
+    # data" for grid purposes.
+    selector_set = {key for key, _ in _SELECTORS}
+    has_per_selector = any(s in selector_set for s in selector_results.keys())
+
+    # If we have Consensus AA but no per-selector breakdown for AP/FWAA/etc.,
+    # treat that as the player having "first_team" on every NCAA-recognized
+    # selector. This fills the grid with gold cells and the explainer below
+    # clarifies the Consensus designation.
+    if is_consensus and not has_per_selector:
+        for key, _ in _SELECTORS:
+            selector_results[key] = "first_team"
 
     if not selector_results:
         # Honest empty state — render the structural grid with all-empty cells
@@ -187,10 +210,20 @@ def render_selector_grid(db, player_id: int | None, season_year: int | None) -> 
             '</div>'
         )
 
+    explainer = ""
+    if is_consensus:
+        explainer = (
+            '<p class="selector-grid__story">'
+            'Named Consensus All-American — recognized on 3+ of the 5 '
+            'NCAA-recognized selector lists.'
+            '</p>'
+        )
+
     return f"""
 <section class="selector-grid" data-module="selector-grid" data-state="ready">
   <p class="selector-grid__eyebrow">Selector Grid · {season_year}</p>
   <div class="selector-grid__grid">{''.join(cells_html2)}</div>
+  {explainer}
 </section>"""
 
 
