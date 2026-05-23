@@ -19528,18 +19528,17 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
-      <section class="section player-anchor-section" id="player-standing">
-        {_render_standing_rail(
-            standing_rung=(player_data.get("standing") or {}).get("current_rung_id"),
-            last_season_rung=(player_data.get("standing") or {}).get("last_season_rung_id"),
-            season_label=str((player_data.get("standing") or {}).get("season_label") or ""),
-        )}
-        {_render_selector_grid(
-            honors_history,
-            season=(current_snapshot.get("season_year")
-                    or (heisman_years[0].get("season_year") if heisman_years else None)
-                    or 2025),
-        )}
+      <!-- Session 15: the OLD player-standing section here duplicated the
+           Standing Rail + Selector Grid that now render at #player-standing
+           (lines ~19267-19273) via the player_pages v2 modules. Two sections
+           with the same id="player-standing" caused subnav anchors to be
+           ambiguous AND the user saw two copies of the rail (one ready, one
+           empty placeholder). Removed the duplicate Standing Rail and
+           Selector Grid calls. The decorative v5 standing card stays — it's
+           a visually-distinct large rail with tier pills + drawer that
+           complements the compact rail above. Renamed the id so anchor
+           targets and aria-* don't collide. -->
+      <section class="section player-anchor-section" id="player-standing-detail">
         {_render_v5_player_standing_card(player_data.get("standing"))}
       </section>
 
