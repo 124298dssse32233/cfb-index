@@ -63,15 +63,20 @@ Ran `python manage.py ingest-cfbd-preseason --season 2025 --classification fbs`:
 Player recruiting profiles for years 2020-2025 all populated. This is a
 **6-year backfill** of individual-recruit data.
 
-### Hand-authored profile YAMLs (55 → 65)
+### Hand-authored profile YAMLs (55 → 85) — **70% audit threshold REACHED**
 
-10 new YAMLs across 2 sprints:
+30 new YAMLs across 6 sprints:
 
-Sprint AA (60): boise-state, smu, army, memphis, northwestern
-Sprint AE (65): minnesota, purdue, syracuse, rutgers, illinois
+- Sprint AA (60): boise-state, smu, army, memphis, northwestern
+- Sprint AE (65): minnesota, purdue, syracuse, rutgers, illinois
+- Sprint AF (70): arizona-state, houston, kansas, ucf, arizona
+- Sprint AG (75): california, oregon-state, washington-state, navy, liberty
+- Sprint AH (80): app-state, marshall, coastal-carolina, south-florida, air-force
+- Sprint AI (85): east-carolina, miami-oh, toledo, western-kentucky, sam-houston
 
-Coverage: 65/119 FBS = **54.6%** hand-authored, remaining 54 synthesized.
-Threshold of 70% (84 YAMLs) still to go — 19 more needed.
+**Coverage: 85/119 FBS = 71.4%** — audit threshold of ≥70% achieved.
+Remaining 34/119 (28.6%) covered by synthesizer with conference-keyed
+voice register + mascot voice library.
 
 ### Renderer wiring
 
@@ -119,14 +124,15 @@ Items that moved from "Not present" / "Blocked" to "Shipped":
 ## Deploys
 
 - **Run 26317323896** (completed) — shipped Schedule Strength + 5 YAMLs (55)
-- **Run 26317552902** (cancelled — stalled at 1h42m) — would have shipped
-  Offseason Pulse if not stalled
+- **Run 26317552902** (cancelled — stalled at 1h42m)
 - **Run 26320000089** (cancelled mid-run) — pre-Top-Commits commit
-- **Run 26320064509** (currently queued, started 2026-05-23T01:40 UTC) —
-  ships Offseason Pulse + Recent Form + Statement Wins + Top Commits + 10 YAMLs
+- **Run 26320064509** (cancelled at 21m to pick up additional YAMLs)
+- **Run 26320522810** (currently queued, started 2026-05-23T02:01 UTC) —
+  ships Offseason Pulse + Recent Form + Statement Wins + Bowl History +
+  Top Commits + all 85 hand-authored YAMLs.
 
-Once 26320064509 completes (~50 min from start), every FBS team page will
-have the Offseason Pulse module live.
+Once 26320522810 completes (~50 min from start), every FBS team page will
+have the Offseason Pulse module live + 85/119 hand-authored profiles.
 
 ## Verification (post-deploy expected)
 
@@ -151,10 +157,10 @@ After 26320064509 success, visit:
 | Category | Status | Count |
 |---|---|---|
 | Team-page modules built | ✅ | 19 (was 14 last session: +offseason_pulse, recent_form, bowl_history, statement_wins, top_commits) |
-| Hand-authored profile YAMLs | 🟡 | 65 / 119 FBS (54.6%) |
-| Synthesized fallback | ✅ | 54 of 119 FBS auto-generated |
+| Hand-authored profile YAMLs | ✅ | **85 / 119 FBS (71.4%) — audit threshold reached** |
+| Synthesized fallback | ✅ | 34 of 119 FBS auto-generated |
 | CFBD 2025 data ingested | ✅ | recruiting + returning + talent + portal + 14k+ recruit profiles |
-| Live smoke test | ⏸ | Pending publish-site 26320064509 |
+| Live smoke test | ⏸ | Pending publish-site 26320522810 |
 
 ## Next session priorities
 
