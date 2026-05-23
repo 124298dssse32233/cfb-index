@@ -40,9 +40,12 @@ jobs:
         uses: actions/setup-python@v5
         with: { python-version: "3.12" }
 
-      - name: Run smoke test (fail under 95%)
+      - name: Run smoke test (fail under 95%, check chrome regression)
+        # 2026-05-23: --check-chrome catches the Vercel alias rotation bug
+        # class. Previously the smoke only checked HTTP status, which always
+        # passed even when alias was pointing at stale legacy chrome.
         run: |
-          python scripts/smoke_test_live.py --fail-under 95
+          python scripts/smoke_test_live.py --fail-under 95 --check-chrome
 
   notify:
     if: failure()
