@@ -5,7 +5,7 @@
 <title>Marshall — CFB Index</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Marshall — state of the program, the Pulse, the Chronicle, the Savant card, and the Rivalry card.">
-<meta name="theme-color" content="#1d1d1f">
+<meta name="theme-color" content="#00A651">
 <link rel="canonical" href="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/teams/marshall.html">
 <meta property="og:url" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/teams/marshall.html">
 <meta property="og:type" content="article">
@@ -522,9 +522,9 @@
 
 
 body {
-  --accent-primary: #1d1d1f;
-  --accent-secondary: #8a8a8a;
-  --accent-gradient: linear-gradient(135deg, #1d1d1f, #8a8a8a);
+  --accent-primary: #00A651;
+  --accent-secondary: #000000;
+  --accent-gradient: linear-gradient(135deg, #00A651, #000000);
 }
 
 /* Team-Pages Component Styles
@@ -3908,6 +3908,884 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 }
 
 
+/* Schedule Strength chip */
+
+/* Schedule Strength chip */
+.schedule-strength {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 18px;
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.schedule-strength__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.schedule-strength__band {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(22px, 1.6vw + 10px, 30px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.schedule-strength__band--brutal   { color: #c95151; }
+.schedule-strength__band--hard     { color: #c98c1a; }
+.schedule-strength__band--balanced { color: var(--accent-primary, #c9a24a); }
+.schedule-strength__band--soft     { color: var(--fg-secondary); }
+
+.schedule-strength__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 56ch;
+}
+
+.schedule-strength__stats {
+  display: grid;
+  gap: 4px;
+  text-align: right;
+  min-width: 120px;
+}
+.schedule-strength__stat-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: baseline;
+}
+.schedule-strength__stat-label {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.schedule-strength__stat-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+@media (max-width: 640px) {
+  .schedule-strength { grid-template-columns: 1fr; }
+  .schedule-strength__stats { text-align: left; }
+  .schedule-strength__stat-row { justify-content: flex-start; }
+}
+
+
+/* Offseason Pulse — recruiting + returning + talent + portal (Audit T9) */
+
+/* Offseason Pulse module */
+.offseason-pulse {
+  margin-bottom: clamp(20px, 3vw, 32px);
+  padding: clamp(16px, 2.2vw, 24px) clamp(18px, 2.4vw, 28px);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.015) 50%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.offseason-pulse__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: clamp(12px, 1.6vw, 18px);
+  border-bottom: 1px dashed var(--stroke-subtle, rgba(255,255,255,0.07));
+  padding-bottom: 10px;
+}
+.offseason-pulse__title {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(18px, 1.2vw + 10px, 24px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.offseason-pulse__cycle {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.offseason-pulse__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(10px, 1.4vw, 16px);
+}
+@media (max-width: 720px) {
+  .offseason-pulse__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 380px) {
+  .offseason-pulse__grid { grid-template-columns: 1fr; }
+}
+.offseason-pulse__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(10px, 1.4vw, 14px) clamp(12px, 1.6vw, 16px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+  border-radius: 10px;
+  min-height: 88px;
+}
+.offseason-pulse__cell--empty {
+  background: rgba(255, 255, 255, 0.012);
+  border-style: dashed;
+}
+.offseason-pulse__cell-eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.offseason-pulse__cell-headline {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(22px, 1.6vw + 8px, 32px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--fg-primary);
+  margin: 2px 0 0 0;
+}
+.offseason-pulse__cell-headline--positive { color: #4f9d6b; }
+.offseason-pulse__cell-headline--warning  { color: #c98c1a; }
+.offseason-pulse__cell-headline--negative { color: #c95151; }
+
+.offseason-pulse__cell-context {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+.offseason-pulse__cell-narrative {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--fg-secondary);
+  margin: 4px 0 0 0;
+}
+.offseason-pulse__cell-empty-pill {
+  display: inline-block;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+  padding: 3px 8px;
+  margin-top: 4px;
+}
+
+
+/* Recent Form chip — last 10 games */
+
+/* Recent Form chip */
+.recent-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px 22px;
+  align-items: center;
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.recent-form__head {
+  display: grid;
+  gap: 4px;
+}
+.recent-form__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.recent-form__verdict {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(22px, 1.4vw + 10px, 28px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0;
+}
+.recent-form__verdict--hot         { color: #4f9d6b; }
+.recent-form__verdict--warming     { color: var(--accent-primary, #c9a24a); }
+.recent-form__verdict--mixed       { color: var(--fg-primary); }
+.recent-form__verdict--cooling     { color: #c98c1a; }
+.recent-form__verdict--cold        { color: #c95151; }
+.recent-form__verdict--hibernating { color: var(--fg-secondary); }
+.recent-form__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 56ch;
+}
+
+.recent-form__glyphs {
+  display: flex;
+  gap: 5px;
+  align-items: end;
+}
+.recent-form__glyph {
+  width: 14px;
+  height: 28px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.recent-form__glyph--w { background: var(--accent-primary, #c9a24a); }
+.recent-form__glyph--l { background: rgba(255, 255, 255, 0.14); }
+.recent-form__glyph--t { background: #c98c1a; }
+.recent-form__glyph-row { display: flex; gap: 5px; align-items: end; }
+
+.recent-form__meta {
+  display: grid;
+  gap: 4px;
+  margin-top: 6px;
+}
+.recent-form__chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  color: var(--fg-secondary);
+}
+.recent-form__chip {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.recent-form__chip--win  { color: #4f9d6b; border-color: rgba(79, 157, 107, 0.35); }
+.recent-form__chip--loss { color: #c95151; border-color: rgba(201, 81, 81, 0.35); }
+
+@media (max-width: 640px) {
+  .recent-form { grid-template-columns: 1fr; }
+}
+
+
+/* Bowl History chip — postseason ledger */
+
+/* Bowl History chip */
+.bowl-history {
+  display: grid;
+  gap: 8px;
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.bowl-history__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.bowl-history__verdict {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(22px, 1.4vw + 10px, 30px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.bowl-history__recent {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+.bowl-history__row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.bowl-history__year {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  background: rgba(255, 255, 255, 0.025);
+}
+.bowl-history__year--win  { color: #4f9d6b; border-color: rgba(79, 157, 107, 0.35); }
+.bowl-history__year--loss { color: #c95151; border-color: rgba(201, 81, 81, 0.35); }
+
+
+/* Statement Wins counter — top-25 wins this season */
+
+/* Statement Wins counter */
+.statement-wins {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px 22px;
+  align-items: center;
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.statement-wins__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.statement-wins__count {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(36px, 3vw + 12px, 56px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--accent-primary, #c9a24a);
+  margin: 0;
+}
+.statement-wins__count--zero { color: var(--fg-secondary); }
+.statement-wins__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 6px 0 0 0;
+  max-width: 56ch;
+}
+.statement-wins__opponents {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.statement-wins__opponent {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  color: var(--fg-secondary);
+}
+@media (max-width: 640px) {
+  .statement-wins { grid-template-columns: 1fr; }
+}
+
+
+/* Top Commits — 3 highest-rated recruits per class */
+
+/* Top Commits module */
+.top-commits {
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.top-commits__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.top-commits__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.top-commits__class-tag {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.top-commits__list {
+  display: grid;
+  gap: 10px;
+}
+.top-commits__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px 14px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+}
+.top-commits__stars {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--accent-primary, #c9a24a);
+  font-weight: 600;
+  min-width: 56px;
+}
+.top-commits__name {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(15px, 0.9vw + 9px, 19px);
+  letter-spacing: 0.02em;
+  color: var(--fg-primary);
+  line-height: 1.1;
+}
+.top-commits__meta {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  color: var(--fg-secondary);
+  margin-top: 2px;
+}
+.top-commits__rank {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  color: var(--fg-muted);
+  text-align: right;
+}
+.top-commits__rank strong {
+  color: var(--fg-primary);
+  font-weight: 600;
+}
+@media (max-width: 540px) {
+  .top-commits__row { grid-template-columns: auto minmax(0, 1fr); }
+  .top-commits__rank { grid-column: 2 / 3; text-align: left; }
+}
+
+
+/* NFL Draft Pipeline — last 5 cycles of draft picks */
+
+/* NFL Draft Pipeline chip */
+.nfl-draft-pipeline {
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  gap: 10px;
+}
+.nfl-draft-pipeline__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1px dashed var(--stroke-subtle, rgba(255,255,255,0.07));
+  padding-bottom: 8px;
+}
+.nfl-draft-pipeline__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.nfl-draft-pipeline__window {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.nfl-draft-pipeline__verdict {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 16px;
+  align-items: baseline;
+}
+.nfl-draft-pipeline__band {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(22px, 1.6vw + 8px, 32px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.nfl-draft-pipeline__band--elite      { color: #4f9d6b; }
+.nfl-draft-pipeline__band--strong     { color: var(--accent-primary, #c9a24a); }
+.nfl-draft-pipeline__band--steady     { color: var(--fg-primary); }
+.nfl-draft-pipeline__band--developing { color: var(--fg-secondary); }
+.nfl-draft-pipeline__band--thin       { color: var(--fg-secondary); }
+
+.nfl-draft-pipeline__count {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(28px, 2vw + 10px, 40px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--accent-primary, #c9a24a);
+}
+.nfl-draft-pipeline__count-label {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  text-align: right;
+  display: block;
+}
+
+.nfl-draft-pipeline__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 56ch;
+}
+.nfl-draft-pipeline__marquee {
+  display: grid;
+  gap: 6px;
+  margin-top: 4px;
+}
+.nfl-draft-pipeline__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: baseline;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+}
+.nfl-draft-pipeline__pick {
+  color: var(--accent-primary, #c9a24a);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.nfl-draft-pipeline__name {
+  color: var(--fg-primary);
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-weight: 600;
+}
+.nfl-draft-pipeline__pos {
+  color: var(--fg-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+
+/* Coaching Era Strip — current HC + tenure */
+
+/* Coaching Era Strip chip */
+.coaching-era {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px 22px;
+  align-items: center;
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.coaching-era__head { display: grid; gap: 4px; }
+.coaching-era__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.coaching-era__name {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(22px, 1.4vw + 10px, 30px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.coaching-era__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 56ch;
+}
+.coaching-era__chips {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.coaching-era__chip {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  color: var(--fg-secondary);
+}
+.coaching-era__chip--era {
+  color: var(--accent-primary, #c9a24a);
+  border-color: rgba(201, 162, 74, 0.35);
+}
+.coaching-era__tenure {
+  display: grid;
+  gap: 4px;
+  text-align: right;
+}
+.coaching-era__tenure-years {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(28px, 2vw + 10px, 40px);
+  line-height: 1;
+  color: var(--accent-primary, #c9a24a);
+}
+.coaching-era__tenure-label {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+}
+@media (max-width: 640px) {
+  .coaching-era { grid-template-columns: 1fr; }
+  .coaching-era__tenure { text-align: left; }
+}
+
+
+/* Recruiting Footprint — geographic class distribution */
+
+/* Recruiting Footprint chip */
+.recruit-footprint {
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.recruit-footprint__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--stroke-subtle, rgba(255,255,255,0.07));
+  padding-bottom: 8px;
+}
+.recruit-footprint__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.recruit-footprint__total {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(22px, 1.4vw + 8px, 28px);
+  color: var(--accent-primary, #c9a24a);
+  line-height: 1;
+}
+.recruit-footprint__states {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.recruit-footprint__state {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  color: var(--fg-secondary);
+}
+.recruit-footprint__state--home {
+  border-color: var(--accent-primary, #c9a24a);
+  color: var(--accent-primary, #c9a24a);
+  font-weight: 600;
+}
+.recruit-footprint__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 8px 0 0 0;
+  max-width: 56ch;
+}
+
+
+/* Top Players — 5-row stat leaders */
+
+/* Top Players chip */
+.top-players {
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.top-players__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1px dashed var(--stroke-subtle, rgba(255,255,255,0.07));
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+.top-players__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.top-players__year {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.top-players__list {
+  display: grid;
+  gap: 6px;
+}
+.top-players__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  gap: 12px 14px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+  border-radius: 6px;
+  align-items: baseline;
+}
+.top-players__rank {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 13px;
+  color: var(--accent-primary, #c9a24a);
+  font-weight: 700;
+  min-width: 22px;
+}
+.top-players__name {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(14px, 0.9vw + 8px, 17px);
+  letter-spacing: 0.02em;
+  color: var(--fg-primary);
+  line-height: 1.1;
+}
+.top-players__pos {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.top-players__stat {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  color: var(--fg-secondary);
+  text-align: right;
+  min-width: 96px;
+}
+.top-players__stat strong {
+  color: var(--accent-primary, #c9a24a);
+  font-weight: 700;
+}
+
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 /* Theme toggle (Sprint v5-11.5 dark mode foundation)
  * -------------------------------------------------------------------------
@@ -5026,10 +5904,10 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
       <span class="hero__record" aria-label="Season record">5-7</span>
       
     </div>
-    <p class="hero__identity-phrase">Marshall is the Conference USA program competing for attention against the giants of its region.</p>
+    <p class="hero__identity-phrase">Marshall is the program whose 1970 plane-crash tragedy + &#x27;We Are Marshall&#x27; film + Bob Pruett dynasty + Randy Moss / Chad Pennington era + 2024 Sun Belt championship define what football-resurrection looks like.</p>
   </div>
   
-  <p class="hero__state">Awaiting signal — voice not yet authored.</p>
+  <p class="hero__state">Marco the Bison is patient.</p>
   <div class="hero__metrics"><div class="metric-tile">
   <div class="metric-tile__label">RECORD</div>
   <div class="metric-tile__value metric-tile__value--accent">5-7</div>
@@ -5039,18 +5917,167 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <div class="metric-tile__value">+0.1</div>
   
 </div><div class="metric-tile">
-  <div class="metric-tile__label">BOWL ODDS</div>
-  <div class="metric-tile__value">Season closed</div>
+  <div class="metric-tile__label">AP / COACHES</div>
+  <div class="metric-tile__value">—</div>
   
 </div><div class="metric-tile">
-  <div class="metric-tile__label">YEAR-OVER-YEAR</div>
-  <div class="metric-tile__value">5 wins</div>
+  <div class="metric-tile__label">BOWL STATUS</div>
+  <div class="metric-tile__value">Season closed</div>
   
 </div></div>
 </section>
 
     <section class="page-tone-strip" role="status" aria-live="polite" aria-label="Page mode for dead-period-heritage" data-tone="gray" data-anchor="dead-period-summer"><span class="page-tone-strip__chip page-tone-strip__chip--accent">Dead Period</span><span class="page-tone-strip__chip">Offseason</span><span class="page-tone-strip__chip">Patient</span><span class="page-tone-strip__chip page-tone-strip__chip--live">Post-loss — reckoning</span></section>
     <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">99 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
+    
+<section class="offseason-pulse" aria-labelledby="offseason-pulse-h"
+         data-module="offseason-pulse" data-state="ready" data-signal-count="4">
+  <div class="offseason-pulse__header">
+    <h2 id="offseason-pulse-h" class="offseason-pulse__title">Offseason Pulse · Marshall</h2>
+    <span class="offseason-pulse__cycle">Roster · Recruiting · Portal</span>
+  </div>
+  <div class="offseason-pulse__grid">
+    <div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Recruiting Class</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--warning">#120 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite rating 118.4</p><p class="offseason-pulse__cell-narrative">Outside the recruiting top 60. Roster gaps must close via portal.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Returning Production</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">100%</p><p class="offseason-pulse__cell-context">2025 cycle · CFBD weighted</p><p class="offseason-pulse__cell-narrative">Top-tier continuity. QB returns.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Talent Composite</p><p class="offseason-pulse__cell-headline">#89 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite 590.6</p><p class="offseason-pulse__cell-narrative">Outside the talent top 60. The wins must be earned in development.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Transfer Activity</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">+5 net</p><p class="offseason-pulse__cell-context">2026 cycle · in 27 / out 22</p><p class="offseason-pulse__cell-narrative">Net positive portal cycle. Roster augmented at need positions.</p></div>
+  </div>
+</section>
+    
+<section class="top-commits" aria-labelledby="top-commits-h"
+         data-module="top-commits" data-state="ready" data-class-year="2026">
+  <div class="top-commits__head">
+    <p class="top-commits__eyebrow" id="top-commits-h">Top 3 commits</p>
+    <span class="top-commits__class-tag">2026 class</span>
+  </div>
+  <div class="top-commits__list">
+    <div class="top-commits__row">
+  <span class="top-commits__stars" aria-label="3 star">★★★☆☆</span>
+  <div>
+    <div class="top-commits__name">Brennan Chambers</div>
+    <div class="top-commits__meta">WR · Kinston, NC</div>
+  </div>
+  <div class="top-commits__rank"><strong>#1750</strong> national</div>
+</div><div class="top-commits__row">
+  <span class="top-commits__stars" aria-label="3 star">★★★☆☆</span>
+  <div>
+    <div class="top-commits__name">Jaycee Houston</div>
+    <div class="top-commits__meta">S · Cincinnati, OH</div>
+  </div>
+  <div class="top-commits__rank"><strong>#1903</strong> national</div>
+</div><div class="top-commits__row">
+  <span class="top-commits__stars" aria-label="3 star">★★★☆☆</span>
+  <div>
+    <div class="top-commits__name">Andre Parker</div>
+    <div class="top-commits__meta">LB · Cincinnati, OH</div>
+  </div>
+  <div class="top-commits__rank"><strong>#1924</strong> national</div>
+</div>
+  </div>
+</section>
+    
+<section class="recruit-footprint" aria-labelledby="recruit-footprint-h"
+         data-module="recruiting-footprint" data-state="ready" data-class-year="2026">
+  <div class="recruit-footprint__head">
+    <p class="recruit-footprint__eyebrow" id="recruit-footprint-h">Recruiting Footprint · 2026</p>
+    <span class="recruit-footprint__total">12</span>
+  </div>
+  <div class="recruit-footprint__states"><span class="recruit-footprint__state">FL · 2</span><span class="recruit-footprint__state">GA · 2</span><span class="recruit-footprint__state">OH · 2</span><span class="recruit-footprint__state">WV · 2</span><span class="recruit-footprint__state">DC · 1</span><span class="recruit-footprint__state">KY · 1</span><span class="recruit-footprint__state">MI · 1</span><span class="recruit-footprint__state">NC · 1</span></div>
+  <p class="recruit-footprint__story">FL leads the 2026 class with 2 commits. National footprint reaching 8 states.</p>
+</section>
+    
+<section class="top-players" aria-labelledby="top-players-h"
+         data-module="top-players" data-state="ready">
+  <div class="top-players__head">
+    <p class="top-players__eyebrow" id="top-players-h">Top Players · 2025</p>
+    <span class="top-players__year">2025</span>
+  </div>
+  <div class="top-players__list"><div class="top-players__row">
+  <span class="top-players__rank">1.</span>
+  <span class="top-players__name">Boogie Trotter</span>
+  <span class="top-players__pos">DB</span>
+  <span class="top-players__stat"><strong>73.0</strong> tot (def)</span>
+</div><div class="top-players__row">
+  <span class="top-players__rank">2.</span>
+  <span class="top-players__name">Kerion Martin</span>
+  <span class="top-players__pos">LB</span>
+  <span class="top-players__stat"><strong>67.0</strong> tot (def)</span>
+</div><div class="top-players__row">
+  <span class="top-players__rank">3.</span>
+  <span class="top-players__name">Cameron Smith</span>
+  <span class="top-players__pos">DB</span>
+  <span class="top-players__stat"><strong>66.0</strong> tot (def)</span>
+</div><div class="top-players__row">
+  <span class="top-players__rank">4.</span>
+  <span class="top-players__name">Demarcus Lacey</span>
+  <span class="top-players__pos">WR</span>
+  <span class="top-players__stat"><strong>769</strong> yds (rec)</span>
+</div><div class="top-players__row">
+  <span class="top-players__rank">5.</span>
+  <span class="top-players__name">Javae Gilmore</span>
+  <span class="top-players__pos">LB</span>
+  <span class="top-players__stat"><strong>56.0</strong> tot (def)</span>
+</div></div>
+</section>
+    
+<section class="nfl-draft-pipeline" aria-labelledby="nfl-draft-pipeline-h"
+         data-module="nfl-draft-pipeline" data-state="ready" data-band="developing">
+  <div class="nfl-draft-pipeline__head">
+    <p class="nfl-draft-pipeline__eyebrow" id="nfl-draft-pipeline-h">NFL Draft Pipeline</p>
+    <span class="nfl-draft-pipeline__window">2021–2025</span>
+  </div>
+  <div class="nfl-draft-pipeline__verdict">
+    <div>
+      <h2 class="nfl-draft-pipeline__band nfl-draft-pipeline__band--developing">Developing</h2>
+      <p class="nfl-draft-pipeline__story">5 picks last 5 cycles. Pipeline emerging.</p>
+    </div>
+    <div>
+      <span class="nfl-draft-pipeline__count">5</span>
+      <span class="nfl-draft-pipeline__count-label">picks · 0 R1</span>
+    </div>
+  </div>
+  <div class="nfl-draft-pipeline__marquee">
+    <div class="nfl-draft-pipeline__row">
+  <span class="nfl-draft-pipeline__pick">#59</span>
+  <span class="nfl-draft-pipeline__name">Mike Green</span>
+  <span class="nfl-draft-pipeline__pos">Defensive Edge · 2025 · Baltimore</span>
+</div><div class="nfl-draft-pipeline__row">
+  <span class="nfl-draft-pipeline__pick">#138</span>
+  <span class="nfl-draft-pipeline__name">Josh Ball</span>
+  <span class="nfl-draft-pipeline__pos">Offensive Tackle · 2021 · Dallas</span>
+</div><div class="nfl-draft-pipeline__row">
+  <span class="nfl-draft-pipeline__pick">#165</span>
+  <span class="nfl-draft-pipeline__name">Rasheen Ali</span>
+  <span class="nfl-draft-pipeline__pos">Running Back · 2024 · Baltimore</span>
+</div>
+  </div>
+</section>
+    
+<section class="coaching-era" aria-labelledby="coaching-era-h"
+         data-module="coaching-era" data-state="ready" data-tenure-years="4">
+  <div class="coaching-era__head">
+    <p class="coaching-era__eyebrow">Coaching Era · Marshall</p>
+    <h2 id="coaching-era-h" class="coaching-era__name">Charles Huff</h2>
+    <p class="coaching-era__story">Charles Huff has held the program for 4 seasons — the era is established.</p>
+    <div class="coaching-era__chips"><span class="coaching-era__chip coaching-era__chip--era">Era Charles Huff · 2021–present</span><span class="coaching-era__chip">Prev: Doc Holliday (2018–2020)</span></div>
+  </div>
+  <div class="coaching-era__tenure">
+    <span class="coaching-era__tenure-years">4</span>
+    <span class="coaching-era__tenure-label">years · era</span>
+  </div>
+</section>
+    
+<section class="recent-form" aria-labelledby="recent-form-h"
+         data-module="recent-form" data-state="ready" data-verdict="cold">
+  <div class="recent-form__head">
+    <p class="recent-form__eyebrow">Recent Form · last 10 games</p>
+    <h2 id="recent-form-h" class="recent-form__verdict recent-form__verdict--cold">Cold</h2>
+    <p class="recent-form__story">One of five. The film room is busy this week.</p>
+    <div class="recent-form__chips"><span class="recent-form__chip recent-form__chip--loss">Streak L2</span><span class="recent-form__chip">Last 5 · 1-4</span><span class="recent-form__chip">Last 10 · 5-5</span></div>
+  </div>
+  <div class="recent-form__meta">
+    <div class="recent-form__glyph-row" role="img" aria-label="Game results oldest to newest: WWLWWLLWLL">
+      <span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
     
 <section class="season-standing-rail" aria-labelledby="season-standing-rail-h"
          data-module="season-standing-rail" data-state="ready">
@@ -5072,12 +6099,12 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
          data-module="program-prestige-bar" data-state="ready">
   <div class="program-prestige-bar__header">
     <p class="program-prestige-bar__eyebrow">Program Prestige · Marshall</p>
-    <h2 id="program-prestige-bar-h" class="program-prestige-bar__tier-name">Mid-Major Contender</h2>
-    <p class="program-prestige-bar__narrative">Mid-Major Contender — G5 force with occasional national attention.</p>
-    
+    <h2 id="program-prestige-bar-h" class="program-prestige-bar__tier-name">Power Program</h2>
+    <p class="program-prestige-bar__narrative">Power Program — consistent P4 presence and regional brand strength.</p>
+    <p class="program-prestige-bar__peak">Historical peak: <strong>Tier 4 · National Program</strong> (1996-2002 Bob Pruett dynasty (six MAC championships + Randy Moss/Chad Pennington years); 2024 10-3 + Sun Belt championship under Charles Huff). Current tier: Tier 3.</p>
   </div>
   <div class="program-prestige-bar__bar" role="list" aria-label="Program prestige tiers">
-    <div class="program-prestige-bar__segment" data-tier="1" title="Tier 1 · Regional"><span class="program-prestige-bar__segment-num">T1</span><span>Regional</span></div><div class="program-prestige-bar__segment" data-tier="2" data-current="true" title="Tier 2 · Mid-Major Contender"><span class="program-prestige-bar__segment-num">T2</span><span>Mid-Major</span></div><div class="program-prestige-bar__segment" data-tier="3" title="Tier 3 · Power Program"><span class="program-prestige-bar__segment-num">T3</span><span>Power</span></div><div class="program-prestige-bar__segment" data-tier="4" title="Tier 4 · National Program"><span class="program-prestige-bar__segment-num">T4</span><span>National</span></div><div class="program-prestige-bar__segment" data-tier="5" title="Tier 5 · Blue Blood"><span class="program-prestige-bar__segment-num">T5</span><span>Blue Blood</span></div><div class="program-prestige-bar__segment" data-tier="6" title="Tier 6 · Dynasty Active"><span class="program-prestige-bar__segment-num">T6</span><span>Dynasty</span></div><div class="program-prestige-bar__segment" data-tier="7" title="Tier 7 · All-Time Great Era"><span class="program-prestige-bar__segment-num">T7</span><span>All-Time</span></div>
+    <div class="program-prestige-bar__segment" data-tier="1" title="Tier 1 · Regional"><span class="program-prestige-bar__segment-num">T1</span><span>Regional</span></div><div class="program-prestige-bar__segment" data-tier="2" title="Tier 2 · Mid-Major Contender"><span class="program-prestige-bar__segment-num">T2</span><span>Mid-Major</span></div><div class="program-prestige-bar__segment" data-tier="3" data-current="true" title="Tier 3 · Power Program"><span class="program-prestige-bar__segment-num">T3</span><span>Power</span></div><div class="program-prestige-bar__segment" data-tier="4" data-peak="true" title="Tier 4 · National Program"><span class="program-prestige-bar__segment-num">T4</span><span>National</span></div><div class="program-prestige-bar__segment" data-tier="5" title="Tier 5 · Blue Blood"><span class="program-prestige-bar__segment-num">T5</span><span>Blue Blood</span></div><div class="program-prestige-bar__segment" data-tier="6" title="Tier 6 · Dynasty Active"><span class="program-prestige-bar__segment-num">T6</span><span>Dynasty</span></div><div class="program-prestige-bar__segment" data-tier="7" title="Tier 7 · All-Time Great Era"><span class="program-prestige-bar__segment-num">T7</span><span>All-Time</span></div>
   </div>
 </section>
     
@@ -5087,7 +6114,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <p class="peer-comparator__eyebrow">Most Similar Programs · Marshall</p>
   <h2 id="peer-comparator-h" class="peer-comparator__title">Reads Like</h2>
   <div class="peer-comparator__peers" role="list" aria-label="Three most similar programs">
-    <a class="peer-comparator__peer" href="/teams/maryland.html" aria-label="Peer program: Maryland"><span class="peer-comparator__peer-name">Maryland</span><span class="peer-comparator__peer-reason">Adjacent tier</span></a><a class="peer-comparator__peer" href="/teams/uconn.html" aria-label="Peer program: UConn"><span class="peer-comparator__peer-name">UConn</span><span class="peer-comparator__peer-reason">Adjacent tier</span></a><a class="peer-comparator__peer" href="/teams/vanderbilt.html" aria-label="Peer program: Vanderbilt"><span class="peer-comparator__peer-name">Vanderbilt</span><span class="peer-comparator__peer-reason">Adjacent tier</span></a>
+    <a class="peer-comparator__peer" href="/teams/air-force.html" aria-label="Peer program: Air Force"><span class="peer-comparator__peer-name">Air Force</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a><a class="peer-comparator__peer" href="/teams/app-state.html" aria-label="Peer program: App State"><span class="peer-comparator__peer-name">App State</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a><a class="peer-comparator__peer" href="/teams/arizona.html" aria-label="Peer program: Arizona"><span class="peer-comparator__peer-name">Arizona</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a>
   </div>
   <p class="peer-comparator__caveat">Static-attribute similarity across tier, archetype, conference, and voice. Not a prediction — a calibration.</p>
 </section>
@@ -5095,9 +6122,9 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 <section class="on-this-day" aria-labelledby="on-this-day-h"
          data-module="on-this-day" data-state="rotated">
   <p class="on-this-day__eyebrow">From the Archive — Marshall</p>
-  <h2 id="on-this-day-h" class="on-this-day__headline">2014: Won 63-17 at Southern Miss</h2>
-  <p class="on-this-day__story">In 2014, the program won 63-17 at Southern Miss — a blowout road result that left the 46-point margin on the books.</p>
-  <p class="on-this-day__voice">Win in the books.</p>
+  <h2 id="on-this-day-h" class="on-this-day__headline">2015: Lost 3-27 at Florida</h2>
+  <p class="on-this-day__story">In 2015, the program lost 3-27 at Florida — a stinging road result, 24 points either way.</p>
+  <p class="on-this-day__voice">We Are Marshall. The Herd cheers.</p>
 </section>
     
     
@@ -5124,16 +6151,16 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 <section class="conference-standing" aria-labelledby="conference-standing-h"
          data-module="conference-standing" data-state="ready">
   <div class="conference-standing__header">
-    <p class="conference-standing__eyebrow">Conference USA Standing · 2025</p>
+    <p class="conference-standing__eyebrow">Sun Belt Standing · 2025</p>
     <h2 id="conference-standing-h" class="conference-standing__title">
-      8th in the Conference USA
+      10th in the Sun Belt
     </h2>
-    <p class="conference-standing__summary">Marshall is 8th of 14 in the Conference USA at 5-7. The path to the title is steep — the focus is on bowl access and rivalry wins.</p>
+    <p class="conference-standing__summary">Marshall is 10th of 14 in the Sun Belt at 5-7. The path to the title is steep — the focus is on bowl access and rivalry wins.</p>
   </div>
-  <table class="conference-standing__table" aria-label="Conference USA standings">
+  <table class="conference-standing__table" aria-label="Sun Belt standings">
     <thead><tr><th scope="col">#</th><th scope="col">Program</th><th scope="col">Record</th></tr></thead>
     <tbody>
-      <tr class="conference-standing__row"><td><span class="conference-standing__rank">1</span></td><td><a class="conference-standing__team-link" href="/teams/north-texas.html">North Texas</a></td><td><span class="conference-standing__record">12-2</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">2</span></td><td><a class="conference-standing__team-link" href="/teams/old-dominion.html">Old Dominion</a></td><td><span class="conference-standing__record">10-3</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">3</span></td><td><a class="conference-standing__team-link" href="/teams/western-kentucky.html">Western Kentucky</a></td><td><span class="conference-standing__record">9-4</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">4</span></td><td><a class="conference-standing__team-link" href="/teams/louisiana-tech.html">Louisiana Tech</a></td><td><span class="conference-standing__record">8-5</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">5</span></td><td><a class="conference-standing__team-link" href="/teams/florida-international.html">Florida International</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">6</span></td><td><a class="conference-standing__team-link" href="/teams/southern-miss.html">Southern Miss</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">7</span></td><td><a class="conference-standing__team-link" href="/teams/utsa.html">UTSA</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row conference-standing__row--focal"><td><span class="conference-standing__rank">8</span></td><td><a class="conference-standing__team-link" href="/teams/marshall.html">Marshall</a></td><td><span class="conference-standing__record">5-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">9</span></td><td><a class="conference-standing__team-link" href="/teams/rice.html">Rice</a></td><td><span class="conference-standing__record">5-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">10</span></td><td><a class="conference-standing__team-link" href="/teams/florida-atlantic.html">Florida Atlantic</a></td><td><span class="conference-standing__record">4-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">11</span></td><td><a class="conference-standing__team-link" href="/teams/uab.html">UAB</a></td><td><span class="conference-standing__record">4-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">12</span></td><td><a class="conference-standing__team-link" href="/teams/middle-tennessee.html">Middle Tennessee</a></td><td><span class="conference-standing__record">3-9</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">13</span></td><td><a class="conference-standing__team-link" href="/teams/utep.html">UTEP</a></td><td><span class="conference-standing__record">2-10</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">14</span></td><td><a class="conference-standing__team-link" href="/teams/charlotte.html">Charlotte</a></td><td><span class="conference-standing__record">1-11</span></td></tr>
+      <tr class="conference-standing__row"><td><span class="conference-standing__rank">1</span></td><td><a class="conference-standing__team-link" href="/teams/james-madison.html">James Madison</a></td><td><span class="conference-standing__record">12-2</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">2</span></td><td><a class="conference-standing__team-link" href="/teams/old-dominion.html">Old Dominion</a></td><td><span class="conference-standing__record">10-3</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">3</span></td><td><a class="conference-standing__team-link" href="/teams/troy.html">Troy</a></td><td><span class="conference-standing__record">8-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">4</span></td><td><a class="conference-standing__team-link" href="/teams/arkansas-state.html">Arkansas State</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">5</span></td><td><a class="conference-standing__team-link" href="/teams/georgia-southern.html">Georgia Southern</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">6</span></td><td><a class="conference-standing__team-link" href="/teams/southern-miss.html">Southern Miss</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">7</span></td><td><a class="conference-standing__team-link" href="/teams/texas-state.html">Texas State</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">8</span></td><td><a class="conference-standing__team-link" href="/teams/coastal-carolina.html">Coastal Carolina</a></td><td><span class="conference-standing__record">6-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">9</span></td><td><a class="conference-standing__team-link" href="/teams/louisiana.html">Louisiana</a></td><td><span class="conference-standing__record">6-7</span></td></tr><tr class="conference-standing__row conference-standing__row--focal"><td><span class="conference-standing__rank">10</span></td><td><a class="conference-standing__team-link" href="/teams/marshall.html">Marshall</a></td><td><span class="conference-standing__record">5-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">11</span></td><td><a class="conference-standing__team-link" href="/teams/app-state.html">App State</a></td><td><span class="conference-standing__record">5-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">12</span></td><td><a class="conference-standing__team-link" href="/teams/south-alabama.html">South Alabama</a></td><td><span class="conference-standing__record">4-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">13</span></td><td><a class="conference-standing__team-link" href="/teams/ul-monroe.html">UL Monroe</a></td><td><span class="conference-standing__record">3-9</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">14</span></td><td><a class="conference-standing__team-link" href="/teams/georgia-state.html">Georgia State</a></td><td><span class="conference-standing__record">1-11</span></td></tr>
     </tbody>
   </table>
 </section>
@@ -5184,6 +6211,27 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <div class="moment-of-year__meta"><span class="moment-of-year__chip">Decisive Margin</span><span class="moment-of-year__chip">vs Top-5 (#5)</span></div>
 </section>
     
+<section class="schedule-strength" aria-labelledby="schedule-strength-h"
+         data-module="schedule-strength" data-state="ready" data-band="hard">
+  <div>
+    <p class="schedule-strength__eyebrow">Schedule Strength · Marshall · 2025</p>
+    <h2 id="schedule-strength-h" class="schedule-strength__band schedule-strength__band--hard">Hard</h2>
+    <p class="schedule-strength__story">Average opponent win rate 51% across 12 finalized games. 2 AP top-25 opponents played (Georgia, James Madison).</p>
+  </div>
+  <div class="schedule-strength__stats"><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Opp Win %</span><span class="schedule-strength__stat-value">0.513</span></div><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Top-25</span><span class="schedule-strength__stat-value">2</span></div><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Top-10</span><span class="schedule-strength__stat-value">1</span></div></div>
+</section>
+    
+    
+<section class="bowl-history" aria-labelledby="bowl-history-h"
+         data-module="bowl-history" data-state="ready">
+  <p class="bowl-history__eyebrow">Bowl / Postseason Ledger</p>
+  <h2 id="bowl-history-h" class="bowl-history__verdict">5-4 all-time on the ledger</h2>
+  <p class="bowl-history__recent">Most recent: 2023 — loss 17-35 (home). Last 5 postseason: 1-4.</p>
+  <div class="bowl-history__row" aria-label="Recent postseason appearances">
+    <span class="bowl-history__year bowl-history__year--loss">2023</span><span class="bowl-history__year bowl-history__year--win">2022</span><span class="bowl-history__year bowl-history__year--loss">2021</span><span class="bowl-history__year bowl-history__year--loss">2020</span><span class="bowl-history__year bowl-history__year--loss">2019</span>
+  </div>
+</section>
+    
     <section class="pulse" aria-labelledby="pulse-title">
   <div class="pulse__header">
     <span class="pulse__live-dot pulse__live-dot--quiet" aria-hidden="true"></span>
@@ -5193,7 +6241,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <div class="pulse__grid">
     <div class="pulse__mood-card">
       <div class="pulse__mood-number">—</div>
-      <div class="pulse__mood-delta">Awaiting signal — voice not yet authored.</div>
+      <div class="pulse__mood-delta">Marco the Bison is patient.</div>
       
       
     </div>
@@ -5211,7 +6259,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
     </div>
   </div>
       <div class="pulse__top-take" style="margin-top: var(--sp-4);">
-        <em>"Go Marshall."</em>
+        <em>"Huntington"</em>
         <span class="pulse__top-take-attr">— Marshall fanbase · recurring line</span>
       </div>
     </div>
@@ -5228,22 +6276,47 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
     <p class="aspiration-ladder__eyebrow">Brief Part III §33.4 · Marshall</p>
   </div>
   <div class="aspiration-ladder__rungs">
-    <div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">First bowl since program-stated year</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">The baseline goal — bowl access matters.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Beat a rival</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">The narrative win the season is graded by.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Statement year</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Exceed last season by 2+ wins.</p></div><div class="aspiration-ladder__rung aspiration-ladder__rung--locked"><span class="aspiration-ladder__rung-name">Conference championship<span class="aspiration-ladder__locked-chip">Locked</span></span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Out of reach without a transformative year.</p></div>
+    <div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">8 wins</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Above the program&#x27;s recent baseline.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Beat a top-10 opponent</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Statement win that reshapes recruiting.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Conference championship game appearance</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Plausible breakthrough.</p></div><div class="aspiration-ladder__rung aspiration-ladder__rung--locked"><span class="aspiration-ladder__rung-name">NY6 bowl<span class="aspiration-ladder__locked-chip">Locked</span></span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Beyond modern reach without a transformative year.</p></div>
   </div>
 </section>
-    
+    <section class="rituals program-section" aria-label="Marshall rituals">
+  <div class="program-section__head">
+    <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
+    <p class="caption" style="max-width: 36ch;">Three gameday rituals — the ones outsiders never quite catch.</p>
+  </div>
+  <div class="rituals-track" role="list">
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">1P<small>permanent program </small></div>
+      <h3 class="ritual-card__name">1970 Plane Crash</h3>
+      <p class="ritual-card__since">since 1970</p>
+      <p class="ritual-card__description visually-hidden">Marshall&#x27;s team plane crashed on November 14, 1970, killing all 75 aboard — 37 players, 8 coaches, 25 boosters, and 5 crew. The single-largest sports-team disaster in U.S. history. The rebuild over the next 5 years + the &#x27;We Are Marshall&#x27; (2006) film + the annual memorial service make the tragedy permanent program identity. Every game starts with the moment of silence.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">BP<small>permanent program </small></div>
+      <h3 class="ritual-card__name">Bob Pruett Dynasty (1996-2004)</h3>
+      <p class="ritual-card__since">since 1996</p>
+      <p class="ritual-card__description visually-hidden">Bob Pruett&#x27;s tenure produced six MAC championships, multiple top-25 finishes, and developed Randy Moss + Chad Pennington as NFL stars. The 1999-2000 back-to-back seasons (with Pennington at QB) produced #11 and #8 final AP ranks. The dynasty era is the program&#x27;s modern peak.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">RM<small>permanent star-pow</small></div>
+      <h3 class="ritual-card__name">Randy Moss + Chad Pennington Era (1996-1999)</h3>
+      <p class="ritual-card__since">since 1996</p>
+      <p class="ritual-card__description visually-hidden">Randy Moss (1996-1997, 1997 Heisman finalist) + Chad Pennington (1995-1999, first-round NFL draft 2000) — two of CFB&#x27;s most-iconic late-1990s players both at Marshall. The Moss-Pennington connection produced multiple NCAA records + a national-buzz spotlight that no MAC program had achieved before.</p>
+    </article>
+  </div>
+</section>
     <aside class="cultural-anchors" aria-label="Cultural identity">
-  <p class="cultural-anchors__one-sentence">Marshall is a program whose voice hasn&#x27;t been authored yet — this page renders from database signal alone until the editorial profile is filed.</p>
-  
-  
+  <p class="cultural-anchors__one-sentence">Marshall is the football-resurrection program — 1970 plane crash + 5-year rebuild + Bob Pruett dynasty + Randy Moss / Chad Pennington era + 2024 Sun Belt championship that completed the multi-era ascent.</p>
+  <dl class="cultural-anchors__archetypes"><dt>From inside</dt><dd>Huntington-Herd-Survivor</dd><dt>From outside</dt><dd>MAC-Refugee-Diminisher</dd></dl>
+  <p class="cultural-anchors__if-lost"><strong>If the program didn't exist, CFB would lose</strong> <span>The 1970 plane-crash memorial + &#x27;We Are Marshall&#x27; as one of CFB&#x27;s most-iconic films + the Randy Moss / Chad Pennington Marshall-era canon + the 1996 promotion from FCS to FBS + the 2024 Sun Belt championship as multi-decade ascent narrative.</span></p>
 </aside>
     
     
     
     
     <footer class="page-footer">
-  <span>CFB Index · team-pages synth v1.0</span>
-  <span class="page-footer__mantra">“Go Marshall.”</span>
+  <span>CFB Index · team-pages v1.0</span>
+  <span class="page-footer__mantra">“We Are Marshall.”</span>
   <a class="page-footer__link" href="/programs/marshall.html" aria-label="View the multi-decade program history page">Historical view →</a>
 </footer>
   </div>
