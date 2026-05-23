@@ -5212,6 +5212,23 @@ def render_achievements_ribbon(achievements: list[dict[str, Any]] | None) -> str
 
 
 # Mirror Match — Signature Bets S2.5 / §4 Bet #4. Small card nested
+# Player-pages v2 (2026-05-23) — CSS bundle for the new clean modules:
+# Standing Rail (17-rung) / Coaching Lineage / Mirror Match / Live Signal Flow.
+# These augment / replace the legacy Signature Bets implementations and
+# read directly from db queries instead of pre-computed page_data fields.
+def _player_pages_v2_css() -> str:
+    try:
+        from cfb_rankings.player_pages import (
+            STANDING_RAIL_CSS as _SR_CSS,
+            COACHING_LINEAGE_CSS as _CL_CSS,
+            MIRROR_MATCH_CSS as _MM_CSS,
+            LIVE_SIGNAL_FLOW_CSS as _LSF_CSS,
+        )
+        return _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS
+    except Exception:
+        return ""
+
+
 # in the Peer Comparator section showing the closest historical
 # statistical fingerprint. Renders empty state when no match clears
 # the 75-similarity floor (today's data reality for most players).
@@ -6071,6 +6088,8 @@ def _compose_global_css() -> str:
         + _PREDICTION_MARKETS_CSS_BLOCK
         + "\n/* === Coaching Lineage (S2.9) === */\n"
         + _COACHING_LINEAGE_CSS_BLOCK
+        + "\n/* === Player Pages v2 (2026-05-23): Standing Rail / Mirror Match / Coaching Lineage / Live Signal Flow === */\n"
+        + _player_pages_v2_css()
         + "\n/* === Cohort Divergence Map (S3.1) === */\n"
         + _COHORT_DIVERGENCE_CSS_BLOCK
         + "\n/* === Signature Moment (S3.2) === */\n"
@@ -9022,6 +9041,50 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["coaching_lineage"] = None
+        # Player-pages v2 modules (2026-05-23) — compute fresh HTML for each
+        # module using db-direct queries. Stored as pre-rendered HTML in
+        # page_data so render_player_page_html can drop it into the template
+        # without needing a db handle.
+        try:
+            from cfb_rankings.player_pages import (
+                render_standing_rail as _render_standing_v2,
+                render_coaching_lineage as _render_coaching_v2,
+                render_mirror_match as _render_mirror_v2,
+                render_live_signal_flow as _render_signal_v2,
+            )
+            _primary_team_id = (
+                int((page_data.get("primary_team") or {}).get("team_id"))
+                if (page_data.get("primary_team") or {}).get("team_id") else None
+            )
+            _position = (
+                (page_data.get("player") or {}).get("position")
+                or (page_data.get("primary_team") or {}).get("position")
+                or ""
+            )
+            _standing_rung_val = (
+                page_data.get("standing_rung")
+                or page_data.get("page_state", {}).get("standing_rung")
+                if isinstance(page_data.get("page_state"), dict) else page_data.get("standing_rung")
+            )
+            page_data["new_standing_rail_html"] = _render_standing_v2(
+                _standing_rung_val,
+                str((page_data.get("player") or {}).get("full_name") or ""),
+            )
+            page_data["new_coaching_lineage_html"] = _render_coaching_v2(
+                db, player_id, _primary_team_id, None,
+            )
+            page_data["new_mirror_match_html"] = _render_mirror_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_live_signal_flow_html"] = _render_signal_v2(
+                db, player_id,
+            )
+        except Exception as _exc:
+            print(f"  player-pages v2: {player_id} failed — {type(_exc).__name__}: {_exc}", flush=True)
+            page_data["new_standing_rail_html"] = ""
+            page_data["new_coaching_lineage_html"] = ""
+            page_data["new_mirror_match_html"] = ""
+            page_data["new_live_signal_flow_html"] = ""
         # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
         try:
             from cfb_rankings.bets.cohort_divergence import compute_cohort_divergence
@@ -19126,6 +19189,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="player")}
       {_render_phase_banner(player_data.get("phase"))}
+      {player_data.get("new_live_signal_flow_html") or ""}
       {_signal_flow_html}
       {_what_changed_script}
       <div data-what-changed aria-live="polite"></div>
@@ -19155,6 +19219,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             aria_label=f"{player_name} fingerprint",
         )}
         {render_this_day_chip(player_data.get("this_day_moment"))}
+      </section>
+
+      <section class="section player-anchor-section" id="player-standing">
+        {player_data.get("new_standing_rail_html") or ""}
       </section>
 
       <section class="section">
@@ -19444,12 +19512,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section{_gilded_class('mirror-match', _gilded)}" id="peer-comparator">
         {_render_v5_peer_comparator_card(player_data.get("peers"))}
-        {render_mirror_match_card(player_data.get("mirror_matches"))}
+        {player_data.get("new_mirror_match_html") or render_mirror_match_card(player_data.get("mirror_matches"))}
       </section>
 
       <section class="section player-anchor-section" id="supporting-cast">
         {_render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
-        {render_coaching_lineage_card(player_data.get("coaching_lineage"), team_name)}
+        {player_data.get("new_coaching_lineage_html") or render_coaching_lineage_card(player_data.get("coaching_lineage"), team_name)}
       </section>
 
       <section class="section player-anchor-section" id="bio-tabs">
