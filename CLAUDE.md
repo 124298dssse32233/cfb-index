@@ -1,6 +1,31 @@
 # CFB Index — Agent Orientation
 
-_Last refreshed 2026-05-22. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
+_Last refreshed 2026-05-23. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
+
+## 🚨 Vercel alias rotation gotcha (2026-05-23)
+- The user-facing alias `wonderful-margulis-8ec96b.vercel.app` did NOT auto-rotate when `vercel deploy --prod` created new deployments.
+- Per-deploy URLs (e.g. `wonderful-margulis-8ec96b-h3ulpujuj-...vercel.app`) had the latest content. Short alias was pinned to an old deployment.
+- Fix shipped 2026-05-23 in `publish_site.yml`: capture deploy URL via `vercel deploy` stdout, then explicitly run `vercel alias set <deploy-url> wonderful-margulis-8ec96b.vercel.app` after.
+- If users report "page looks like before" after a deploy, check the per-deploy URL FIRST — content is almost always correct there.
+
+## Module inventory (2026-05-23)
+- **Team pages** (`src/cfb_rankings/team_pages/`): 22 modules across the world-class chrome.
+  - Above-the-fold: Page Tone Strip · Kickoff Countdown · Offseason Pulse · Top Commits · Recruiting Footprint · Top Players · NFL Draft Pipeline · Coaching Era Strip · Recent Form · Season Standing · Program Prestige · Trajectory chip
+  - Mid-page: Peer Comparator · On This Day · Wrapped · Fanbase Health · Conference Standing · Ceiling/Floor · Home-Field Advantage · Moment of the Year · Schedule Strength · Statement Wins · Bowl History
+- **Player pages** (`src/cfb_rankings/player_pages/`): 8 new v2 modules injected into legacy `reporting.py` render via `page_data["new_*_html"]` keys:
+  - `standing_rail.py` (17-rung)
+  - `mirror_match.py` (statistical fingerprint)
+  - `coaching_lineage.py` (year-by-year HC)
+  - `live_signal_flow.py` (placeholder)
+  - `heisman_trajectory.py` (week-by-week or single-snapshot)
+  - `career_arc.py` (HS → CFB → NFL)
+  - `development_trajectory.py` (multi-season bars)
+  - `selector_grid.py` (6-cell honors grid)
+- Profile YAMLs: **127 hand-authored, 100% real-FBS coverage** (119/119 FBS slugs in `profiles/`).
+- CFBD data feeds active (auto-ingested in publish_site enrich step): NFL Draft 2018-2025, Postseason games 2018-2024, Coaches 2018-2024, Returning Production / Talent / Recruiting Class / Transfer Portal / Recruit profiles 2018-2025.
+
+## CI guardrail
+- `scripts/verify_world_class_team_pages.py` runs after build verification. Hard-fails the build if any real FBS team page ships `premium-team-hero` legacy chrome instead of `team-page` world-class chrome.
 
 ## What this is
 Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~69k HTML pages in `output/site/`.
