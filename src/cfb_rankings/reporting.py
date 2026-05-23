@@ -5225,8 +5225,9 @@ def _player_pages_v2_css() -> str:
             LIVE_SIGNAL_FLOW_CSS as _LSF_CSS,
             HEISMAN_TRAJECTORY_CSS as _HT_CSS,
             CAREER_ARC_CSS as _CA_CSS,
+            DEVELOPMENT_TRAJECTORY_CSS as _DT_CSS,
         )
-        return _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS
+        return _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS
     except Exception:
         return ""
 
@@ -9055,6 +9056,7 @@ def build_player_page_data_map(
                 render_live_signal_flow as _render_signal_v2,
                 render_heisman_trajectory as _render_heisman_traj_v2,
                 render_career_arc as _render_career_arc_v2,
+                render_development_trajectory as _render_dev_traj_v2,
             )
             _primary_team_id = (
                 int((page_data.get("primary_team") or {}).get("team_id"))
@@ -9089,6 +9091,9 @@ def build_player_page_data_map(
             page_data["new_career_arc_html"] = _render_career_arc_v2(
                 db, player_id,
             )
+            page_data["new_dev_traj_html"] = _render_dev_traj_v2(
+                db, player_id, _position,
+            )
         except Exception as _exc:
             print(f"  player-pages v2: {player_id} failed — {type(_exc).__name__}: {_exc}", flush=True)
             page_data["new_standing_rail_html"] = ""
@@ -9097,6 +9102,7 @@ def build_player_page_data_map(
             page_data["new_live_signal_flow_html"] = ""
             page_data["new_heisman_trajectory_html"] = ""
             page_data["new_career_arc_html"] = ""
+            page_data["new_dev_traj_html"] = ""
         # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
         try:
             from cfb_rankings.bets.cohort_divergence import compute_cohort_divergence
@@ -19236,6 +19242,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section" id="player-standing">
         {player_data.get("new_standing_rail_html") or ""}
         {player_data.get("new_heisman_trajectory_html") or ""}
+        {player_data.get("new_dev_traj_html") or ""}
         {player_data.get("new_career_arc_html") or ""}
       </section>
 

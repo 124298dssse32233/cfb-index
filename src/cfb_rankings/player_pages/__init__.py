@@ -18,6 +18,7 @@ from .live_signal_flow import render_live_signal_flow, LIVE_SIGNAL_FLOW_CSS
 from .standing_rail import render_standing_rail, STANDING_RAIL_CSS
 from .heisman_trajectory import render_heisman_trajectory, HEISMAN_TRAJECTORY_CSS
 from .career_arc import render_career_arc, CAREER_ARC_CSS
+from .development_trajectory import render_development_trajectory, DEVELOPMENT_TRAJECTORY_CSS
 
 
 __all__ = [
@@ -33,4 +34,6 @@ __all__ = [
     "HEISMAN_TRAJECTORY_CSS",
     "render_career_arc",
     "CAREER_ARC_CSS",
+    "render_development_trajectory",
+    "DEVELOPMENT_TRAJECTORY_CSS",
 ]
