@@ -19233,7 +19233,6 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="player")}
       {_render_phase_banner(player_data.get("phase"))}
-      {player_data.get("new_live_signal_flow_html") or ""}
       {_signal_flow_html}
       {_what_changed_script}
       <div data-what-changed aria-live="polite"></div>
@@ -19270,6 +19269,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {player_data.get("new_heisman_trajectory_html") or ""}
         {player_data.get("new_dev_traj_html") or ""}
         {player_data.get("new_career_arc_html") or ""}
+        {player_data.get("new_live_signal_flow_html") or ""}
       </section>
 
       <section class="section">

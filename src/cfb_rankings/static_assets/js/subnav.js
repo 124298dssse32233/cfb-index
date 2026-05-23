@@ -21,6 +21,19 @@
     });
     var sections = Object.keys(sectionMap).map(function (id) { return document.getElementById(id); });
     if (!sections.length || typeof IntersectionObserver === 'undefined') return;
+    // Detect touch-primary devices. On iOS Safari, calling
+    // `nav.scrollTo({ left: ..., behavior: 'smooth' })` during an active
+    // touch scroll can interrupt the user's vertical scroll momentum and
+    // pop the page back upward — the original "scroll-jacking" complaint.
+    // The previous fix (only-horizontal) still hit this because Safari
+    // does not isolate vertical/horizontal smooth scroll animations
+    // reliably inside an overflow-x container that has any vertical
+    // layout activity. Safest behavior on touch: never auto-center; let
+    // users tap the link directly if they want to navigate.
+    var isTouchPrimary = (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(hover: none) and (pointer: coarse)').matches
+    );
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -30,30 +43,21 @@
         // Clear all aria-current first, then set on the active.
         links.forEach(function (l) { l.removeAttribute('aria-current'); });
         link.setAttribute('aria-current', 'page');
-        // Center the active link horizontally inside the subnav strip,
-        // WITHOUT touching the page's vertical scroll. Using
-        // scrollIntoView with block:'nearest' would re-scroll the page
-        // back to the active link whenever the user scrolls a new
-        // section into view — that's the scroll-jacking the user
-        // reported on player pages (subnav fights vertical scroll).
+        // Skip horizontal auto-center on touch-primary devices entirely.
+        if (isTouchPrimary) return;
         try {
-          // The subnav is the nearest scrollable ancestor with overflow-x.
-          // Compute target scrollLeft so the link is centered in `nav`.
+          // Center the active link horizontally inside the subnav strip.
+          // Use scrollLeft assignment (synchronous, no animation) instead
+          // of scrollTo with smooth — even pointer:fine browsers can hit
+          // momentum scroll interruption with smooth-behavior.
           var navRect = nav.getBoundingClientRect();
           var linkRect = link.getBoundingClientRect();
           var currentScrollLeft = nav.scrollLeft || 0;
           var linkCenter = linkRect.left + linkRect.width / 2;
           var navCenter = navRect.left + navRect.width / 2;
           var delta = linkCenter - navCenter;
-          var target = Math.max(0, currentScrollLeft + delta);
           if (Math.abs(delta) > 4) {
-            // Only adjust horizontally; never vertically. Use smooth
-            // behavior when supported.
-            if (typeof nav.scrollTo === 'function') {
-              nav.scrollTo({ left: target, behavior: 'smooth' });
-            } else {
-              nav.scrollLeft = target;
-            }
+            nav.scrollLeft = Math.max(0, currentScrollLeft + delta);
           }
         } catch (_e) {}
       });

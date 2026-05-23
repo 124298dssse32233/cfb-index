@@ -322,12 +322,22 @@ QB_FINGERPRINT_CSS_BLOCK = """
     flex-wrap: wrap;
     gap: 6px;
   }
+  /* Override desktop's 2-column grid layout — at ~33% width the label
+   * column collides with the value column, causing the overlap users
+   * saw on Mendoza's page (Heisman over 14.3%, Consensus over
+   * All-American). Mobile uses a vertical stack: eyebrow → label →
+   * value. */
   .qb-fingerprint__accolade {
     flex: 1 1 calc(33% - 6px);
     padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
   }
-  .qb-fingerprint__accolade-label { font-size: 13px; }
-  .qb-fingerprint__accolade-value { font-size: 18px; }
+  .qb-fingerprint__accolade-eyebrow { grid-column: auto; }
+  .qb-fingerprint__accolade-label { font-size: 13px; line-height: 1.25; }
+  .qb-fingerprint__accolade-value { font-size: 18px; line-height: 1.1; }
 }
 """
 
@@ -345,6 +355,13 @@ def _signed_int(v: Any) -> str | None:
 
 
 def _pct(v: Any) -> str | None:
+    """Format a probability as a percentage string.
+
+    Accepts 0..1 (probability) or 0..100 (already-percentage) and emits
+    "14.3%" / "14%" / "<1%". Previously this used a broken rstrip chain
+    that always concatenated a second "%" (producing "14.3%%") because
+    the conditional check ran against the unsuffixed format string.
+    """
     try:
         f = float(v)
     except (TypeError, ValueError):
@@ -353,7 +370,10 @@ def _pct(v: Any) -> str | None:
         f *= 100.0
     if f < 0.05:
         return "<1%"
-    return f"{f:.1f}%".rstrip("0").rstrip(".") + ("%" if not f"{f:.1f}".endswith("%") else "")
+    # Drop the decimal when value is a whole number; otherwise 1 decimal.
+    if abs(f - round(f)) < 0.05:
+        return f"{int(round(f))}%"
+    return f"{f:.1f}%"
 
 
 def _rank_text(v: Any) -> str | None:
