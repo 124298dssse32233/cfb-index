@@ -241,6 +241,15 @@ jobs:
         run: |
           python scripts/verify_world_class_team_pages.py --site-dir output/site --db cfb_rankings.db
 
+      - name: Verify world-class player pages
+        # Session 14: Catches silent regressions in render_player_page_html
+        # injection of the 8 player-pages v2 modules (Standing Rail, Mirror
+        # Match, Career Arc, Coaching Lineage, Heisman Trajectory, Dev
+        # Trajectory, Selector Grid, Live Signal Flow). Samples top players
+        # from heisman_rankings_weekly and verifies required v2 markers.
+        run: |
+          python scripts/verify_world_class_player_pages.py --site-dir output/site --db cfb_rankings.db --sample-size 20
+
       - name: Build Cmd-K search index
         # Ships output/site/search-index.json so the Cmd-K overlay's
         # client-side search has a real dataset (~500KB-1MB depending
