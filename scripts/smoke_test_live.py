@@ -35,7 +35,25 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
-DEFAULT_BASE = "https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app"
+# NOTE 2026-05-23: Use the user-facing short URL by default. The longer
+# scoped URL DOES auto-rotate on every Vercel deploy, but the short alias
+# wonderful-margulis-8ec96b.vercel.app didn't rotate for several deploys —
+# so smoke-testing the short URL is the only way to catch the alias rotation
+# bug class. The DEFAULT_BASE constant below points at the live URL users
+# actually hit.
+DEFAULT_BASE = "https://wonderful-margulis-8ec96b.vercel.app"
+DEFAULT_BASE_SCOPED = "https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app"
+
+# Team pages that MUST ship with world-class chrome (team-page class) and
+# never the legacy 'premium-team-hero' class. Anything regressing back to
+# legacy is a deploy failure even if the HTTP status is 200.
+CHROME_CHECK_TEAMS = [
+    "alabama",      # original 17 PROFILED_SLUGS — should always be world-class
+    "cincinnati",   # newer profile — canary for the silent-fail bug class
+    "indiana",      # newer profile — also a canary
+    "ohio-state",
+    "notre-dame",
+]
 
 # Curated representative URL set per section. Adding URLs here is cheap;
 # removing them costs coverage. Each entry is (path, category, why-included).
@@ -138,6 +156,10 @@ def main(argv: list[str] | None = None) -> int:
                         help="Output JSON instead of human-readable table")
     parser.add_argument("--category", default=None,
                         help="Only test URLs in this category")
+    parser.add_argument("--check-chrome", action="store_true",
+                        help="ALSO fetch CHROME_CHECK_TEAMS team pages and verify "
+                             "they ship world-class chrome (team-page class, no "
+                             "premium-team-hero). Catches the alias rotation bug.")
     args = parser.parse_args(argv)
 
     base = args.base.rstrip("/")
@@ -151,6 +173,29 @@ def main(argv: list[str] | None = None) -> int:
         results.append(Result(path=path, category=category,
                               status=status, elapsed_ms=elapsed_ms,
                               error=error))
+
+    # Chrome regression check (post-2026-05-23). Pulls the full body of
+    # known-canary team pages and asserts they're world-class, not legacy.
+    chrome_failures: list[str] = []
+    if args.check_chrome:
+        try:
+            from urllib.request import Request, urlopen
+            for slug in CHROME_CHECK_TEAMS:
+                url = f"{base}/teams/{slug}.html"
+                try:
+                    req = Request(url, headers={"User-Agent": "cfb-smoke-chrome/1.0"})
+                    with urlopen(req, timeout=20) as resp:
+                        body = resp.read().decode("utf-8", errors="ignore")
+                except Exception as exc:
+                    chrome_failures.append(f"{slug}: fetch failed — {type(exc).__name__}: {exc}")
+                    continue
+                has_world_class = "team-page" in body and "premium-team-hero" not in body
+                if not has_world_class:
+                    has_premium = "premium-team-hero" in body
+                    reason = "premium-team-hero present" if has_premium else "team-page missing"
+                    chrome_failures.append(f"{slug}: legacy chrome — {reason}")
+        except Exception as exc:
+            chrome_failures.append(f"chrome check setup failed: {exc}")
 
     pass_count = sum(1 for r in results if r.ok)
     fail_count = len(results) - pass_count
@@ -183,8 +228,17 @@ def main(argv: list[str] | None = None) -> int:
         print("-" * 80)
         print(f"Pass: {pass_count}/{len(results)} ({pass_rate:.1f}%) "
               f"-- threshold {args.fail_under:.1f}%")
+        if args.check_chrome:
+            if chrome_failures:
+                print(f"\nCHROME CHECK FAILED ({len(chrome_failures)} regressions):")
+                for f in chrome_failures:
+                    print(f"  X {f}")
+            else:
+                print(f"\nChrome check: all {len(CHROME_CHECK_TEAMS)} canary pages world-class")
 
-    return 0 if pass_rate >= args.fail_under else 1
+    http_ok = pass_rate >= args.fail_under
+    chrome_ok = not chrome_failures
+    return 0 if (http_ok and chrome_ok) else 1
 
 
 if __name__ == "__main__":
