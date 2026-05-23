@@ -170,11 +170,7 @@ jobs:
           # Only run weeks not already in the DB. Each week takes ~5 min;
           # skipping existing ones keeps the enrich step short on most runs.
           for wk in 6 8 10 12 14 16; do
-            count=$(python -c "
-import sqlite3, sys
-c = sqlite3.connect('cfb_rankings.db').cursor()
-c.execute('SELECT COUNT(*) FROM heisman_rankings_weekly WHERE season_year=2024 AND week=?', ($wk,))
-print(c.fetchone()[0])" 2>/dev/null || echo 0)
+            count=$(python -c "import sqlite3; print(sqlite3.connect('cfb_rankings.db').cursor().execute('SELECT COUNT(*) FROM heisman_rankings_weekly WHERE season_year=2024 AND week='+str($wk)).fetchone()[0])" 2>/dev/null || echo 0)
             if [ "$count" -lt 1000 ]; then
               echo "[enrich] Heisman model 2024 week $wk (count=$count, backfilling)..."
               python -u manage.py run-heisman-model --season 2024 --through-week $wk 2>&1 | tail -3
