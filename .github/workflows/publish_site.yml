@@ -29,6 +29,8 @@ jobs:
       # otherwise publish-site updates the `published` branch but the live
       # URL never moves.
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+      CFBD_PATREON_KEY: ${{ secrets.CFBD_PATREON_KEY }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     # CURRENT_CFB_SEASON intentionally NOT pinned: the inline Python
@@ -141,6 +143,26 @@ jobs:
           mkdir -p output/site
           cp -r prior-site/* output/site/ 2>/dev/null || true
           echo "Seeded output/site with $(find output/site -type f | wc -l) files from prior state"
+
+      - name: Enrich CFBD data (NFL Draft + postseason)
+        # 2026-05-23: Activates NFL Draft Pipeline + Bowl History modules on
+        # every team page. Both ingests are non-fatal — if CFBD is rate-limited
+        # or down the rest of the publish still ships. NFL draft is 8 years
+        # of data + ~2,000 picks. Postseason is 7 years of bowl/CFP games.
+        # Both upsert idempotently so re-running is cheap.
+        run: |
+          set +e
+          if [ -z "$CFBD_API_KEY" ]; then
+            echo "::warning::CFBD_API_KEY not set — skipping enrich ingests"
+            exit 0
+          fi
+          echo "[enrich] NFL Draft 2018-2025..."
+          python manage.py ingest-nfl-draft --start-year 2018 --end-year 2025 2>&1 | tail -5
+          echo "[enrich] Postseason backfill 2018-2024..."
+          for yr in 2018 2019 2020 2021 2022 2023 2024; do
+            python manage.py ingest-cfbd-week --season $yr --week 1 --season-type postseason --skip-play-level --skip-lines --skip-weather --skip-advanced-stats 2>&1 | tail -1
+          done
+          echo "[enrich] done"
 
       - name: Build or incrementally sync
         id: site_build
