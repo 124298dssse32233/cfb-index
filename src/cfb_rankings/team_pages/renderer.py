@@ -62,6 +62,10 @@ from .ceiling_floor import render_ceiling_floor, CEILING_FLOOR_CSS
 from .home_field_advantage import render_home_field_advantage, HOME_FIELD_ADVANTAGE_CSS
 from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
 from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
+from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
+from .recent_form import render_recent_form, RECENT_FORM_CSS
+from .bowl_history import render_bowl_history, BOWL_HISTORY_CSS
+from .statement_wins import render_statement_wins, STATEMENT_WINS_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -500,6 +504,16 @@ def _render_page(
     moment_of_year_html = render_moment_of_year(db, profile, snapshot) if db is not None else ""
     # Schedule Strength chip — opponent quality from games table.
     schedule_strength_html = render_schedule_strength(db, profile, snapshot) if db is not None else ""
+    # Offseason Pulse — combines 4 CFBD tier-2 data feeds (recruiting class,
+    # returning production, talent composite, transfer activity). Audit T9
+    # resolution at team level. Above-the-fold in offseason.
+    offseason_pulse_html = render_offseason_pulse(db, profile, snapshot) if db is not None else ""
+    # Recent Form chip — last 10 finalized games as W/L glyph row.
+    recent_form_html = render_recent_form(db, profile, snapshot) if db is not None else ""
+    # Bowl History chip — postseason ledger from season_type='postseason' games.
+    bowl_history_html = render_bowl_history(db, profile, snapshot) if db is not None else ""
+    # Statement Wins counter — wins over AP top-25 ranked opponents.
+    statement_wins_html = render_statement_wins(db, profile, snapshot) if db is not None else ""
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -601,6 +615,18 @@ body {{
 /* Schedule Strength chip */
 {SCHEDULE_STRENGTH_CSS}
 
+/* Offseason Pulse — recruiting + returning + talent + portal (Audit T9) */
+{OFFSEASON_PULSE_CSS}
+
+/* Recent Form chip — last 10 games */
+{RECENT_FORM_CSS}
+
+/* Bowl History chip — postseason ledger */
+{BOWL_HISTORY_CSS}
+
+/* Statement Wins counter — top-25 wins this season */
+{STATEMENT_WINS_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -648,6 +674,8 @@ body {{
     {hero_html}
     {page_tone_html}
     {kickoff_html}
+    {offseason_pulse_html}
+    {recent_form_html}
     {season_standing_html}
     {program_prestige_html}
     {trajectory_chip_html}
@@ -660,6 +688,8 @@ body {{
     {home_field_html}
     {moment_of_year_html}
     {schedule_strength_html}
+    {statement_wins_html}
+    {bowl_history_html}
     {hero_arc_stripe_html}
     {pulse_html}
     {aspiration_ladder_html}
