@@ -9089,11 +9089,22 @@ def build_player_page_data_map(
                 or (page_data.get("primary_team") or {}).get("position")
                 or ""
             )
-            _standing_rung_val = (
-                page_data.get("standing_rung")
-                or page_data.get("page_state", {}).get("standing_rung")
-                if isinstance(page_data.get("page_state"), dict) else page_data.get("standing_rung")
-            )
+            # Session 15: previously this ternary had wrong precedence and
+            # almost always evaluated to None (page_data has a "standing"
+            # dict with "current_rung_id", not a top-level "standing_rung").
+            # Result: every player who DID have a computed rung still saw
+            # the "Player Standing rail computes once enough usage data is
+            # available." empty placeholder. Mendoza's page-state JSON
+            # carried standing_rung=15 but the rail rendered empty.
+            _standing_dict = page_data.get("standing")
+            _page_state = page_data.get("page_state")
+            _standing_rung_val = None
+            if isinstance(_standing_dict, dict):
+                _standing_rung_val = _standing_dict.get("current_rung_id")
+            if _standing_rung_val is None and isinstance(_page_state, dict):
+                _standing_rung_val = _page_state.get("standing_rung")
+            if _standing_rung_val is None:
+                _standing_rung_val = page_data.get("standing_rung")
             page_data["new_standing_rail_html"] = _render_standing_v2(
                 _standing_rung_val,
                 str((page_data.get("player") or {}).get("full_name") or ""),
