@@ -422,14 +422,35 @@ jobs:
 
       - name: Deploy to Vercel
         if: steps.site_check.outputs.healthy == 'true'
+        id: vercel_deploy
         # Run from repo root so vercel.json (outputDirectory: output/site)
         # applies — matches the-daily-06am-et.yml pattern. Adding
         # working-directory: output/site would break the deploy because
         # vercel.json doesn't live there.
+        #
+        # 2026-05-23: Capture the deployment URL so we can alias the short
+        # public URL to it. Vercel's --prod flag aliases to a scoped URL but
+        # the user-facing wonderful-margulis-8ec96b.vercel.app short alias
+        # apparently doesn't auto-rotate on every deploy.
         run: |
-          vercel deploy --prod --yes --archive=tgz \
+          DEPLOY_URL=$(vercel deploy --prod --yes --archive=tgz \
             --token=$VERCEL_TOKEN \
-            --scope=$VERCEL_ORG_ID
+            --scope=$VERCEL_ORG_ID | tail -1 | tr -d '[:space:]')
+          echo "Deployed: $DEPLOY_URL"
+          echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Alias short public URL to new deployment
+        if: steps.site_check.outputs.healthy == 'true' && steps.vercel_deploy.outputs.deploy_url
+        # 2026-05-23: Force the short alias to the new deployment so the
+        # public-facing URL serves the freshly-built content.
+        run: |
+          set +e
+          DEPLOY_URL="${{ steps.vercel_deploy.outputs.deploy_url }}"
+          echo "Aliasing wonderful-margulis-8ec96b.vercel.app → $DEPLOY_URL"
+          vercel alias set "$DEPLOY_URL" wonderful-margulis-8ec96b.vercel.app \
+            --token=$VERCEL_TOKEN \
+            --scope=$VERCEL_ORG_ID || echo "::warning::vercel alias set failed (may need manual rotation)"
+          echo "done"
 
       - name: Upload site artifact
         if: always() && steps.site_check.outputs.healthy == 'true'
