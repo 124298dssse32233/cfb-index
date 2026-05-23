@@ -614,6 +614,19 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
+/* Identity phrase — one-line voice anchor below the wordmark.
+ * Hand-authored profiles surface their bespoke identity_phrase here;
+ * synthesized profiles surface a conference-register template phrase. */
+.hero__identity-phrase {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: clamp(15px, 0.5vw + 14px, 19px);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: clamp(6px, 1vw, 12px) 0 0 0;
+  max-width: 70ch;
+}
+
 .hero__record {
   /* Sprint B 2026-05-22: was --font-mono. The record (10-2) is the loudest
    * single stat on the page and the brief calls for "big display-font
@@ -1149,6 +1162,18 @@ a { color: inherit; text-decoration: none; }
   text-transform: none;
   letter-spacing: var(--ls-normal);
   font-size: var(--fs-body);
+}
+
+.page-footer__link {
+  color: var(--accent-primary, #c9a24a);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  transition: opacity 0.18s ease;
+}
+.page-footer__link:hover {
+  opacity: 0.75;
+  text-decoration: underline;
 }
 
 /* ------------------------------------------------------------------ */
@@ -3249,6 +3274,640 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 }
 
 
+/* On This Day — Brief §25.3 */
+
+/* On This Day — Brief §25.3
+ * A compact retrospective card. Reads --accent-primary from the body.
+ */
+.on-this-day {
+  display: grid;
+  gap: clamp(8px, 1.2vw, 14px);
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.2vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-secondary, var(--accent-primary, #c9a24a));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.on-this-day__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.on-this-day__headline {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(20px, 1.6vw + 8px, 26px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.on-this-day__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: clamp(14px, 0.4vw + 13px, 16px);
+  line-height: 1.5;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 60ch;
+}
+.on-this-day__voice {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--fg-secondary);
+  margin: 0;
+  padding-top: 4px;
+  border-top: 1px dashed var(--stroke-subtle, rgba(255,255,255,0.08));
+}
+.on-this-day--awaiting .on-this-day__headline {
+  font-size: clamp(18px, 1.2vw + 8px, 22px);
+  color: var(--fg-muted);
+}
+
+
+/* Wrapped stack — Brief §21.3 */
+
+/* Wrapped stack — Brief §21.3
+ * Vertical card stack, each card claims its own viewport vibe.
+ */
+.wrapped-stack {
+  display: grid;
+  gap: clamp(10px, 1.4vw, 18px);
+  padding: clamp(18px, 2.4vw, 28px) clamp(18px, 2.6vw, 32px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.0));
+  border: 1px solid var(--stroke-default, rgba(255,255,255,0.10));
+  border-radius: 16px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.wrapped-stack__header {
+  display: grid;
+  gap: 4px;
+}
+.wrapped-stack__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.wrapped-stack__title {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(28px, 2.5vw + 12px, 42px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.wrapped-stack__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(8px, 1.2vw, 14px);
+}
+.wrapped-stack__card {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 10px;
+}
+.wrapped-stack__card[data-card-kind="win"]       { border-left-color: #2c8f5a; }
+.wrapped-stack__card[data-card-kind="loss"]      { border-left-color: #c95151; }
+.wrapped-stack__card[data-card-kind="rivalry"]   { border-left-color: #c98c1a; }
+.wrapped-stack__card[data-card-kind="trajectory"]{ border-left-color: var(--accent-secondary, var(--accent-primary, #c9a24a)); }
+.wrapped-stack__card[data-card-kind="forward"]   { border-left-color: #5a7fc9; }
+.wrapped-stack__card-kind {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.wrapped-stack__card-headline {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(18px, 1.2vw + 8px, 22px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+}
+.wrapped-stack__card-story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--fg-secondary);
+}
+
+
+/* Fanbase Health Index — Brief §11.1 */
+
+/* Fanbase Health Index — Brief §11.1 */
+.fanbase-health {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 14px);
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.fanbase-health__header {
+  display: grid;
+  gap: 4px;
+}
+.fanbase-health__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.fanbase-health__band {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(22px, 1.8vw + 10px, 30px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.fanbase-health__band--declining { color: #c95151; }
+.fanbase-health__band--stable    { color: var(--accent-primary, #c9a24a); }
+.fanbase-health__band--growing   { color: #2c8f5a; }
+.fanbase-health__band--surging   { color: #c98c1a; }
+
+.fanbase-health__gauge {
+  position: relative;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.fanbase-health__gauge-fill {
+  position: absolute;
+  inset: 0;
+  width: calc(var(--health-score, 50) * 1%);
+  background: linear-gradient(90deg, #c95151 0%, var(--accent-primary, #c9a24a) 50%, #2c8f5a 100%);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.fanbase-health__gauge-needle {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: calc(var(--health-score, 50) * 1%);
+  width: 3px;
+  background: var(--fg-primary);
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+
+.fanbase-health__legend {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.fanbase-health__legend span { text-align: center; }
+.fanbase-health__legend span:nth-child(1) { text-align: left; }
+.fanbase-health__legend span:nth-child(4) { text-align: right; }
+
+.fanbase-health__components {
+  display: grid;
+  gap: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--stroke-subtle, rgba(255,255,255,0.08));
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--fg-secondary);
+}
+.fanbase-health__components-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px;
+}
+.fanbase-health__components-row strong {
+  font-style: normal;
+  color: var(--fg-primary);
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fanbase-health__components-row em {
+  font-style: normal;
+  color: var(--accent-primary, #c9a24a);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* Conference Standing — Brief §10.2-10.3 */
+
+/* Conference Standing — Brief §10.2-10.3 */
+.conference-standing {
+  display: grid;
+  gap: clamp(10px, 1.4vw, 16px);
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.conference-standing__header {
+  display: grid;
+  gap: 4px;
+}
+.conference-standing__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.conference-standing__title {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(22px, 1.8vw + 10px, 30px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.conference-standing__summary {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+.conference-standing__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+}
+.conference-standing__table thead th {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+}
+.conference-standing__table tbody td {
+  padding: 8px;
+  font-size: 13px;
+  color: var(--fg-secondary);
+  border-bottom: 1px solid var(--stroke-subtle, rgba(255,255,255,0.05));
+}
+.conference-standing__table tbody tr:last-child td {
+  border-bottom: none;
+}
+.conference-standing__table .conference-standing__row--focal {
+  background: color-mix(in oklab, var(--accent-primary, #c9a24a) 12%, transparent);
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+}
+.conference-standing__table .conference-standing__row--focal td {
+  color: var(--fg-primary);
+  font-weight: 700;
+}
+.conference-standing__table .conference-standing__rank {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  color: var(--accent-primary, #c9a24a);
+  font-weight: 400;
+}
+.conference-standing__table .conference-standing__team-link {
+  color: inherit;
+  text-decoration: none;
+}
+.conference-standing__table .conference-standing__team-link:hover {
+  text-decoration: underline;
+}
+.conference-standing__table .conference-standing__record {
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+}
+
+
+/* Ceiling/Floor projection — Brief §11.2 */
+
+/* Ceiling/Floor projection — Brief §11.2 */
+.ceiling-floor {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 16px);
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.ceiling-floor__header {
+  display: grid;
+  gap: 4px;
+}
+.ceiling-floor__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.ceiling-floor__title {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(20px, 1.5vw + 10px, 26px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+
+/* Probability band — bell curve via gradient */
+.ceiling-floor__band {
+  position: relative;
+  height: 56px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(201,162,74,0.32), transparent 65%),
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02));
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+}
+.ceiling-floor__band::before {
+  /* The bell curve "spine" */
+  content: "";
+  position: absolute;
+  inset: 8px 0;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, #c95151 60%, transparent) 0%,
+    color-mix(in oklab, var(--accent-primary, #c9a24a) 70%, transparent) 50%,
+    color-mix(in oklab, #2c8f5a 60%, transparent) 100%);
+  border-radius: 999px;
+  filter: blur(8px);
+  opacity: 0.45;
+}
+.ceiling-floor__marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--fg-primary);
+}
+.ceiling-floor__marker-label {
+  position: absolute;
+  top: 4px;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+.ceiling-floor__marker-label--base {
+  color: var(--accent-primary, #c9a24a);
+}
+
+/* Scenario cards */
+.ceiling-floor__scenarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.ceiling-floor__scenario {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  border-top: 3px solid var(--accent-primary, #c9a24a);
+}
+.ceiling-floor__scenario[data-kind="floor"]   { border-top-color: #c95151; }
+.ceiling-floor__scenario[data-kind="base"]    { border-top-color: var(--accent-primary, #c9a24a); }
+.ceiling-floor__scenario[data-kind="ceiling"] { border-top-color: #2c8f5a; }
+.ceiling-floor__scenario-kind {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.ceiling-floor__scenario-record {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(20px, 1.4vw + 10px, 26px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--fg-primary);
+}
+.ceiling-floor__scenario-story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+}
+.ceiling-floor__caveat {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-style: italic;
+  color: var(--fg-muted);
+  margin: 0;
+  opacity: 0.7;
+}
+@media (max-width: 640px) {
+  .ceiling-floor__scenarios { grid-template-columns: 1fr; }
+}
+
+
+/* Home-Field Advantage — Brief §11.3 */
+
+/* Home-Field Advantage — Brief §11.3 */
+.home-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 18px;
+  padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.home-field__main {
+  display: grid;
+  gap: 4px;
+}
+.home-field__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.home-field__band {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(22px, 1.6vw + 10px, 30px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.home-field__band--elite     { color: #2c8f5a; }
+.home-field__band--strong    { color: var(--accent-primary, #c9a24a); }
+.home-field__band--average   { color: var(--fg-secondary); }
+.home-field__band--soft      { color: #c98c1a; }
+.home-field__band--reversed  { color: #c95151; }
+
+.home-field__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 56ch;
+}
+
+.home-field__stats {
+  display: grid;
+  gap: 4px;
+  align-self: center;
+  text-align: right;
+  min-width: 130px;
+}
+.home-field__stat-label {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.home-field__stat-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+@media (max-width: 640px) {
+  .home-field { grid-template-columns: 1fr; }
+  .home-field__stats { text-align: left; }
+}
+
+
+/* Moment of the Year — Brief §11.7 approximation */
+
+/* Moment of the Year — Brief §11.7 adaptation */
+.moment-of-year {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 14px);
+  padding: clamp(16px, 2.0vw, 22px) clamp(18px, 2.2vw, 26px);
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--accent-primary, #c9a24a) 6%, transparent),
+    rgba(255,255,255,0.02));
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 4px solid var(--accent-primary, #c9a24a);
+  border-radius: 12px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.moment-of-year__eyebrow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.moment-of-year__headline {
+  font-family: var(--font-display, 'Bebas Neue', 'Inter Display', system-ui, sans-serif);
+  font-size: clamp(24px, 1.8vw + 12px, 34px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.moment-of-year__headline--win  { color: #2c8f5a; }
+.moment-of-year__headline--loss { color: #c95151; }
+.moment-of-year__story {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: clamp(14px, 0.4vw + 13px, 17px);
+  line-height: 1.45;
+  color: var(--fg-secondary);
+  margin: 0;
+  max-width: 64ch;
+}
+.moment-of-year__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.moment-of-year__chip {
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+  color: var(--accent-primary, #c9a24a);
+}
+
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 /* Theme toggle (Sprint v5-11.5 dark mode foundation)
  * -------------------------------------------------------------------------
@@ -4360,13 +5019,14 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <div class="content">
     <section class="hero" aria-labelledby="hero-wordmark">
   <div>
-    <div class="hero__eyebrow">MAY 22, 2026 · DEAD PERIOD · HERITAGE WINDOW · 2025 SEASON</div>
+    <div class="hero__eyebrow">MAY 23, 2026 · DEAD PERIOD · HERITAGE WINDOW · 2025 SEASON</div>
     <div class="hero__identity-bar">
       <img class="hero__logo" src="../assets/team-art/south-carolina/logo_primary.png" alt="South Carolina logo" width="80" height="80" loading="eager" decoding="async" onerror="this.style.display='none'">
       <h1 id="hero-wordmark" class="hero__wordmark">South Carolina</h1>
       <span class="hero__record" aria-label="Season record">4-8</span>
       <span class="hero__rank-chip">AP #11</span><span class="hero__rank-chip">COACHES #24</span>
     </div>
+    <p class="hero__identity-phrase">South Carolina is the program waiting for its second 11-win season since 1903.</p>
   </div>
   
   <p class="hero__state">Cocky&#x27;s circling. Big game coming.</p>
@@ -4390,7 +5050,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 </section>
 
     <section class="page-tone-strip" role="status" aria-live="polite" aria-label="Page mode for dead-period-heritage" data-tone="gray" data-anchor="dead-period-summer"><span class="page-tone-strip__chip page-tone-strip__chip--accent">Dead Period</span><span class="page-tone-strip__chip">Offseason</span><span class="page-tone-strip__chip">Patient</span><span class="page-tone-strip__chip page-tone-strip__chip--live">Post-loss — diagnostic</span></section>
-    <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">100 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
+    <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">99 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
     
 <section class="season-standing-rail" aria-labelledby="season-standing-rail-h"
          data-module="season-standing-rail" data-state="ready">
@@ -4427,9 +5087,94 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <p class="peer-comparator__eyebrow">Most Similar Programs · South Carolina</p>
   <h2 id="peer-comparator-h" class="peer-comparator__title">Reads Like</h2>
   <div class="peer-comparator__peers" role="list" aria-label="Three most similar programs">
-    <a class="peer-comparator__peer" href="/teams/iowa.html" aria-label="Peer program: Iowa"><span class="peer-comparator__peer-name">Iowa</span><span class="peer-comparator__peer-reason">Tier 3</span></a><a class="peer-comparator__peer" href="/teams/michigan-state.html" aria-label="Peer program: Michigan State"><span class="peer-comparator__peer-name">Michigan State</span><span class="peer-comparator__peer-reason">Tier 3</span></a><a class="peer-comparator__peer" href="/teams/ole-miss.html" aria-label="Peer program: Ole Miss"><span class="peer-comparator__peer-name">Ole Miss</span><span class="peer-comparator__peer-reason">Tier 3</span></a>
+    <a class="peer-comparator__peer" href="/teams/arkansas.html" aria-label="Peer program: Arkansas"><span class="peer-comparator__peer-name">Arkansas</span><span class="peer-comparator__peer-reason">Tier 3</span></a><a class="peer-comparator__peer" href="/teams/byu.html" aria-label="Peer program: BYU"><span class="peer-comparator__peer-name">BYU</span><span class="peer-comparator__peer-reason">Tier 3</span></a><a class="peer-comparator__peer" href="/teams/baylor.html" aria-label="Peer program: Baylor"><span class="peer-comparator__peer-name">Baylor</span><span class="peer-comparator__peer-reason">Tier 3</span></a>
   </div>
   <p class="peer-comparator__caveat">Static-attribute similarity across tier, archetype, conference, and voice. Not a prediction — a calibration.</p>
+</section>
+    <section class="on-this-day on-this-day--awaiting" aria-labelledby="on-this-day-h" data-module="on-this-day" data-state="empty"><p class="on-this-day__eyebrow">On This Program</p><h2 id="on-this-day-h" class="on-this-day__headline">South Carolina · Awaiting season archive</h2><p class="on-this-day__story">No finalized game rows have been ingested for this program yet — the calendar history fills in once the season archive lands.</p><p class="on-this-day__voice">Forever to thee. Spurs up.</p></section>
+    
+    
+<section class="fanbase-health" aria-labelledby="fanbase-health-h"
+         data-module="fanbase-health" data-state="ready"
+         data-confidence="low"
+         style="--health-score: 48;">
+  <div class="fanbase-health__header">
+    <p class="fanbase-health__eyebrow">Fanbase Health Index · South Carolina · low confidence</p>
+    <h2 id="fanbase-health-h" class="fanbase-health__band fanbase-health__band--stable">Stable (48)</h2>
+  </div>
+  <div class="fanbase-health__gauge" role="img" aria-label="Fanbase health 48 out of 100">
+    <div class="fanbase-health__gauge-fill"></div>
+    <div class="fanbase-health__gauge-needle"></div>
+  </div>
+  <div class="fanbase-health__legend">
+    <span>Declining</span><span>Stable</span><span>Growing</span><span>Surging</span>
+  </div>
+  <div class="fanbase-health__components">
+    <div class="fanbase-health__components-row"><span><strong>On-Field</strong> — 4-8 (33% win rate)</span><em>48</em></div>
+  </div>
+</section>
+    
+<section class="conference-standing" aria-labelledby="conference-standing-h"
+         data-module="conference-standing" data-state="ready">
+  <div class="conference-standing__header">
+    <p class="conference-standing__eyebrow">SEC Standing · 2025</p>
+    <h2 id="conference-standing-h" class="conference-standing__title">
+      13th in the SEC
+    </h2>
+    <p class="conference-standing__summary">South Carolina is 13th of 14 in the SEC at 4-8. The path to the title is steep — the focus is on bowl access and rivalry wins.</p>
+  </div>
+  <table class="conference-standing__table" aria-label="SEC standings">
+    <thead><tr><th scope="col">#</th><th scope="col">Program</th><th scope="col">Record</th></tr></thead>
+    <tbody>
+      <tr class="conference-standing__row"><td><span class="conference-standing__rank">1</span></td><td><a class="conference-standing__team-link" href="/teams/ole-miss.html">Ole Miss</a></td><td><span class="conference-standing__record">13-2</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">2</span></td><td><a class="conference-standing__team-link" href="/teams/georgia.html">Georgia</a></td><td><span class="conference-standing__record">12-2</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">3</span></td><td><a class="conference-standing__team-link" href="/teams/texas-a-m.html">Texas A&amp;M</a></td><td><span class="conference-standing__record">11-2</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">4</span></td><td><a class="conference-standing__team-link" href="/teams/alabama.html">Alabama</a></td><td><span class="conference-standing__record">11-4</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">5</span></td><td><a class="conference-standing__team-link" href="/teams/vanderbilt.html">Vanderbilt</a></td><td><span class="conference-standing__record">10-3</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">6</span></td><td><a class="conference-standing__team-link" href="/teams/missouri.html">Missouri</a></td><td><span class="conference-standing__record">8-5</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">7</span></td><td><a class="conference-standing__team-link" href="/teams/tennessee.html">Tennessee</a></td><td><span class="conference-standing__record">8-5</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">8</span></td><td><a class="conference-standing__team-link" href="/teams/lsu.html">LSU</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">9</span></td><td><a class="conference-standing__team-link" href="/teams/auburn.html">Auburn</a></td><td><span class="conference-standing__record">5-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">10</span></td><td><a class="conference-standing__team-link" href="/teams/kentucky.html">Kentucky</a></td><td><span class="conference-standing__record">5-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">11</span></td><td><a class="conference-standing__team-link" href="/teams/mississippi-state.html">Mississippi State</a></td><td><span class="conference-standing__record">5-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">12</span></td><td><a class="conference-standing__team-link" href="/teams/florida.html">Florida</a></td><td><span class="conference-standing__record">4-8</span></td></tr><tr class="conference-standing__row conference-standing__row--focal"><td><span class="conference-standing__rank">13</span></td><td><a class="conference-standing__team-link" href="/teams/south-carolina.html">South Carolina</a></td><td><span class="conference-standing__record">4-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">14</span></td><td><a class="conference-standing__team-link" href="/teams/arkansas.html">Arkansas</a></td><td><span class="conference-standing__record">2-10</span></td></tr>
+    </tbody>
+  </table>
+</section>
+    
+<section class="ceiling-floor" aria-labelledby="ceiling-floor-h"
+         data-module="ceiling-floor" data-state="ready">
+  <div class="ceiling-floor__header">
+    <p class="ceiling-floor__eyebrow">South Carolina · Next-Season Outcome Band</p>
+    <h2 id="ceiling-floor-h" class="ceiling-floor__title">Floor / Base / Ceiling</h2>
+  </div>
+  <div class="ceiling-floor__band" role="img" aria-label="Floor 2 wins, base 4 wins, ceiling 7 wins">
+    <div class="ceiling-floor__marker" style="left: 16.7%;">
+      <span class="ceiling-floor__marker-label">Floor 2-10</span>
+    </div>
+    <div class="ceiling-floor__marker" style="left: 33.3%;">
+      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base 4-8</span>
+    </div>
+    <div class="ceiling-floor__marker" style="left: 58.3%;">
+      <span class="ceiling-floor__marker-label">Ceiling 7-5</span>
+    </div>
+  </div>
+  <div class="ceiling-floor__scenarios">
+    <div class="ceiling-floor__scenario" data-kind="floor"><span class="ceiling-floor__scenario-kind">floor</span><span class="ceiling-floor__scenario-record">2-10</span><span class="ceiling-floor__scenario-story">Rebuild year. Bowl access uncertain.</span></div><div class="ceiling-floor__scenario" data-kind="base"><span class="ceiling-floor__scenario-kind">base</span><span class="ceiling-floor__scenario-record">4-8</span><span class="ceiling-floor__scenario-story">Bowl access depends on the closing run.</span></div><div class="ceiling-floor__scenario" data-kind="ceiling"><span class="ceiling-floor__scenario-kind">ceiling</span><span class="ceiling-floor__scenario-record">7-5</span><span class="ceiling-floor__scenario-story">Upside scenario: bowl + a signature win.</span></div>
+  </div>
+  <p class="ceiling-floor__caveat">
+    Variance assumed at ±2 wins from last-season record. Replace with SP+ projection band
+    once preseason ratings publish.
+  </p>
+</section>
+    
+<section class="home-field" aria-labelledby="home-field-h"
+         data-module="home-field-advantage" data-state="ready"
+         data-band="strong">
+  <div class="home-field__main">
+    <p class="home-field__eyebrow">Home-Field Advantage · South Carolina · 2018-present</p>
+    <h2 id="home-field-h" class="home-field__band home-field__band--strong">Strong</h2>
+    <p class="home-field__story">59% home win rate vs 32% on the road. margin runs +13.2 better at home.</p>
+  </div>
+  <div class="home-field__stats"><span class="home-field__stat-label">Home</span><span class="home-field__stat-value">32-22</span><span class="home-field__stat-label">Away</span><span class="home-field__stat-value">12-25</span></div>
+</section>
+    
+<section class="moment-of-year" aria-labelledby="moment-of-year-h"
+         data-module="moment-of-year" data-state="ready"
+         data-score="8">
+  <p class="moment-of-year__eyebrow">Moment of the Year · South Carolina · 2025</p>
+  <h2 id="moment-of-year-h" class="moment-of-year__headline moment-of-year__headline--loss">Lost 22-29 vs Alabama</h2>
+  <p class="moment-of-year__story">Week 9 of 2025. The single game that defined the season&#x27;s arc.</p>
+  <div class="moment-of-year__meta"><span class="moment-of-year__chip">vs Top-5 (#4)</span></div>
 </section>
     
     <section class="pulse" aria-labelledby="pulse-title">
@@ -4454,12 +5199,12 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
       <span class="pulse__event-delta ">—</span>
     </div><div class="pulse__event">
       <span class="pulse__event-time">Camp</span>
-      <span class="pulse__event-text">Fall camp ~71 days out</span>
+      <span class="pulse__event-text">Fall camp ~70 days out</span>
       <span class="pulse__event-delta"></span>
     </div>
   </div>
       <div class="pulse__top-take" style="margin-top: var(--sp-4);">
-        <em>"Forever to thee"</em>
+        <em>"Spurs up"</em>
         <span class="pulse__top-take-attr">— South Carolina fanbase · recurring line</span>
       </div>
     </div>
@@ -4517,6 +5262,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
     <footer class="page-footer">
   <span>CFB Index · team-pages v1.0</span>
   <span class="page-footer__mantra">“Forever to thee.”</span>
+  <a class="page-footer__link" href="/programs/south-carolina.html" aria-label="View the multi-decade program history page">Historical view →</a>
 </footer>
   </div>
 </main>
