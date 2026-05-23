@@ -7014,10 +7014,30 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         render_players_index_html(summary, player_directory_rows, heisman_snapshot),
         encoding="utf-8",
     )
+    _player_render_errors = 0
     for player_slug, player_data in player_pages.items():
-        (players_dir / f"{player_slug}.html").write_text(
-            render_player_page_html(summary, player_data),
-            encoding="utf-8",
+        # 2026-05-23: Per-slug try/except so one broken player_pages v2 module
+        # injection doesn't crash the entire build. Print eager + flush so
+        # CI logs show exactly which slug failed and why.
+        try:
+            (players_dir / f"{player_slug}.html").write_text(
+                render_player_page_html(summary, player_data),
+                encoding="utf-8",
+            )
+        except Exception as _exc:
+            _player_render_errors += 1
+            print(
+                f"  player-render: {player_slug} failed — {type(_exc).__name__}: {_exc}",
+                flush=True,
+            )
+            if _player_render_errors <= 5:
+                import traceback
+                traceback.print_exc()
+    if _player_render_errors > 0:
+        print(
+            f"  player-render: {_player_render_errors} failures across "
+            f"{len(player_pages)} pages",
+            flush=True,
         )
 
     teams_dir = site_root / "teams"
