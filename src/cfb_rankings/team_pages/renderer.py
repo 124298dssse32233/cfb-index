@@ -96,14 +96,29 @@ def render_all_profiled_pages(
     FBS programs share the world-class chrome; only the 30 profiled ones
     carry hand-authored voice on top.
     """
-    from .profile_loader import PROFILED_SLUGS, list_real_fbs_slugs
+    from .profile_loader import PROFILED_SLUGS, list_real_fbs_slugs, PROFILES_DIR
     from .historical_season_page import render_all_historical_seasons
+    import sys
+
+    # Diagnostic: surface PROFILED_SLUGS contents + count at runtime so CI logs
+    # show what the discovery actually found. The silent-fail bug (2026-05-23)
+    # where CI rendered only 50 of 55 hand-authored slugs needed this visibility.
+    profiled_sorted = sorted(PROFILED_SLUGS)
+    print(
+        f"  team-pages v2: PROFILES_DIR={PROFILES_DIR} "
+        f"PROFILED_SLUGS={len(profiled_sorted)} slugs",
+        flush=True,
+    )
+    print(
+        f"  team-pages v2: slugs = {profiled_sorted}",
+        flush=True,
+    )
 
     count = 0
     profiled_count = 0
     synthesized_count = 0
     errors: list[tuple[str, str]] = []
-    for slug in sorted(PROFILED_SLUGS):
+    for slug in profiled_sorted:
         try:
             render_team_page(
                 db, slug, output_dir,
@@ -113,6 +128,13 @@ def render_all_profiled_pages(
             profiled_count += 1
         except Exception as exc:
             errors.append((slug, f"{type(exc).__name__}: {exc}"))
+            # Eager print + flush so an OOM / SIGTERM mid-loop still leaves
+            # a trail of which slugs we'd already tried.
+            print(
+                f"  team-pages v2: {slug} failed — {type(exc).__name__}: {exc}",
+                flush=True,
+            )
+            sys.stdout.flush()
 
     if include_unprofiled_fbs:
         try:

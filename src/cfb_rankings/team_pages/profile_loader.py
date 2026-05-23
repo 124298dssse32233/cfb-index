@@ -31,6 +31,24 @@ import yaml
 
 PROFILES_DIR = Path(__file__).resolve().parents[3] / "profiles"
 
+# Try the editable-install relative path first, but fall back to CWD-relative
+# if PROFILES_DIR doesn't exist or is empty (caught a CI bug where pip's
+# editable install resolved __file__ to a path where parents[3] didn't reach
+# the repo root).
+def _resolve_profiles_dir() -> Path:
+    if PROFILES_DIR.exists() and any(PROFILES_DIR.glob("*.md")):
+        return PROFILES_DIR
+    # Fallback 1: CWD/profiles (matches how CI / build-site is invoked)
+    cwd_profiles = Path.cwd() / "profiles"
+    if cwd_profiles.exists() and any(cwd_profiles.glob("*.md")):
+        return cwd_profiles.resolve()
+    return PROFILES_DIR
+
+
+_resolved_profiles_dir = _resolve_profiles_dir()
+if _resolved_profiles_dir != PROFILES_DIR:
+    PROFILES_DIR = _resolved_profiles_dir
+
 PROFILED_SLUGS: set[str] = {
     p.stem.replace("_", "-")
     for p in PROFILES_DIR.glob("*.md")
