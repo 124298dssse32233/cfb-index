@@ -428,15 +428,25 @@ jobs:
         # working-directory: output/site would break the deploy because
         # vercel.json doesn't live there.
         #
-        # 2026-05-23: Capture the deployment URL so we can alias the short
-        # public URL to it. Vercel's --prod flag aliases to a scoped URL but
-        # the user-facing wonderful-margulis-8ec96b.vercel.app short alias
-        # apparently doesn't auto-rotate on every deploy.
+        # 2026-05-23: Capture the production deployment URL so we can alias
+        # the short public URL to it. Vercel's --prod aliases to a scoped URL
+        # but the user-facing wonderful-margulis-8ec96b.vercel.app short alias
+        # doesn't auto-rotate on every deploy.
         run: |
-          DEPLOY_URL=$(vercel deploy --prod --yes --archive=tgz \
+          set +e
+          DEPLOY_LOG=$(mktemp)
+          vercel deploy --prod --yes --archive=tgz \
             --token=$VERCEL_TOKEN \
-            --scope=$VERCEL_ORG_ID | tail -1 | tr -d '[:space:]')
-          echo "Deployed: $DEPLOY_URL"
+            --scope=$VERCEL_ORG_ID 2>&1 | tee "$DEPLOY_LOG"
+          # Find the production deployment URL — it's the FIRST https://... vercel.app
+          # URL that contains a deployment hash (e.g. h3ulpujuj). Strip ANSI codes,
+          # extract just the URL on the line starting with "Production" or matching
+          # the production pattern.
+          DEPLOY_URL=$(sed -E 's/\x1B\[[0-9;]*[mGKHFJ]//g' "$DEPLOY_LOG" \
+            | grep -oE 'https://wonderful-margulis-8ec96b-[a-z0-9]+-[a-z0-9-]+\.vercel\.app' \
+            | head -1)
+          rm -f "$DEPLOY_LOG"
+          echo "Captured DEPLOY_URL=[$DEPLOY_URL]"
           echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
 
       - name: Alias short public URL to new deployment
@@ -449,8 +459,12 @@ jobs:
           echo "Aliasing wonderful-margulis-8ec96b.vercel.app → $DEPLOY_URL"
           vercel alias set "$DEPLOY_URL" wonderful-margulis-8ec96b.vercel.app \
             --token=$VERCEL_TOKEN \
-            --scope=$VERCEL_ORG_ID || echo "::warning::vercel alias set failed (may need manual rotation)"
-          echo "done"
+            --scope=$VERCEL_ORG_ID
+          STATUS=$?
+          if [ $STATUS -ne 0 ]; then
+            echo "::warning::vercel alias set returned $STATUS — may need manual rotation"
+          fi
+          echo "done (exit $STATUS)"
 
       - name: Upload site artifact
         if: always() && steps.site_check.outputs.healthy == 'true'
