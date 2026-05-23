@@ -87,6 +87,66 @@ _AA_HEADER_TO_SELECTOR = {
 }
 
 
+def scrape_consensus_all_america(year: int) -> list[dict[str, Any]]:
+    """Scrape the 'Consensus All-Americans' table from the YYYY All-America
+    article. 2026-05-23: Added because the per-selector grid scraper
+    (`scrape_all_america`) returns 0 rows for 2024 — the Wikipedia table
+    format has changed. The Consensus table is structurally simpler and
+    captures the most-impactful tier of recognition.
+
+    Each row: Name (with wiki link), Position, Year (class), University.
+
+    Returns one dict per consensus player. Selector = "Consensus" which is
+    sufficient to populate the Selector Grid's gold cells.
+    """
+    title = f"{year} College Football All-America Team"
+    try:
+        html = _fetch_html(title)
+    except Exception as exc:
+        log.warning("scrape_consensus_all_america %d: fetch failed: %s", year, exc)
+        return []
+    soup = BeautifulSoup(html, "lxml")
+    out: list[dict[str, Any]] = []
+    for table in soup.find_all("table", class_=lambda c: c and "wikitable" in c):
+        caption = table.find("caption")
+        if not caption:
+            continue
+        cap_text = _cell_text(caption)
+        if "consensus" not in cap_text.lower():
+            continue
+        # This is the Consensus All-Americans table. Use first + last cells
+        # only — those are the most reliable across rowspan-rich rows.
+        # Middle cells (position, year) sometimes rowspan multiple players
+        # which makes naive cell-indexing wrong; we leave position blank and
+        # let the players table provide it via player_id resolution.
+        rows = table.find_all("tr")
+        for tr in rows[1:]:  # Skip header
+            cells = tr.find_all("td")
+            if len(cells) < 2:
+                continue
+            cell_texts = [_cell_text(c) for c in cells]
+            name = cell_texts[0]
+            school = cell_texts[-1]
+            # Strip asterisks/footnotes from name
+            name = re.sub(r"\*", "", name).strip()
+            if not name:
+                continue
+            out.append({
+                "season_year": year,
+                "player_name": name,
+                "position": "",   # Left blank — see comment above
+                "team_name": school,
+                "honor_scope": "all_america",
+                "honor_name": "All-America (Consensus)",
+                "selector": "Consensus",
+                "placement": "first_team",
+                "source_name": "wikipedia",
+                "source_url": _wiki_url(title),
+            })
+        break  # First consensus table is the canonical one
+    return out
+
+
 def scrape_all_america(year: int) -> list[dict[str, Any]]:
     """Scrape the 'YYYY College Football All-America Team' Wikipedia article.
 
@@ -358,10 +418,20 @@ def emit_honor_csvs(years: Iterable[int], out_dir: str | Path = "data/scraped_ho
     summary: dict[str, int] = {}
 
     for year in years:
-        # All-America
+        # All-America (per-selector grid; format-fragile, 0 rows for 2024)
         rows = scrape_all_america(year)
         if rows:
             p = out_root / f"all_america_{year}.csv"
+            _write_csv(p, rows)
+            summary[p.name] = len(rows)
+        time.sleep(1.0)
+
+        # All-America Consensus (single canonical table — more reliable).
+        # 2026-05-23: Added because the per-selector grid scraper above
+        # silently returned 0 rows for 2024 due to Wikipedia format change.
+        rows = scrape_consensus_all_america(year)
+        if rows:
+            p = out_root / f"all_america_consensus_{year}.csv"
             _write_csv(p, rows)
             summary[p.name] = len(rows)
         time.sleep(1.0)
