@@ -67,6 +67,7 @@ from .recent_form import render_recent_form, RECENT_FORM_CSS
 from .bowl_history import render_bowl_history, BOWL_HISTORY_CSS
 from .statement_wins import render_statement_wins, STATEMENT_WINS_CSS
 from .top_commits import render_top_commits, TOP_COMMITS_CSS
+from .nfl_draft_pipeline import render_nfl_draft_pipeline, NFL_DRAFT_PIPELINE_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -539,6 +540,8 @@ def _render_page(
     statement_wins_html = render_statement_wins(db, profile, snapshot) if db is not None else ""
     # Top Commits — 3 highest-rated incoming recruits (CFBD player_recruiting_profiles).
     top_commits_html = render_top_commits(db, profile, snapshot) if db is not None else ""
+    # NFL Draft Pipeline — last 5 cycles of draft picks (CFBD player_nfl_draft).
+    nfl_draft_html = render_nfl_draft_pipeline(db, profile, snapshot) if db is not None else ""
     # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
     aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
     # Season Standing 9-rung rail — Brief §3.1. Team analog of player
@@ -655,6 +658,9 @@ body {{
 /* Top Commits — 3 highest-rated recruits per class */
 {TOP_COMMITS_CSS}
 
+/* NFL Draft Pipeline — last 5 cycles of draft picks */
+{NFL_DRAFT_PIPELINE_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -704,6 +710,7 @@ body {{
     {kickoff_html}
     {offseason_pulse_html}
     {top_commits_html}
+    {nfl_draft_html}
     {recent_form_html}
     {season_standing_html}
     {program_prestige_html}
