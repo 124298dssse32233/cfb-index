@@ -149,7 +149,21 @@ def render_selector_grid(db, player_id: int | None, season_year: int | None) -> 
             if scope == "all_america" and "consensus" in sel.lower():
                 is_consensus = True
                 continue
-            if sel in selector_results:
+            # Prefer a row with a non-empty honor_team. Some imports
+            # produce duplicate rows where the first is empty (legacy
+            # scraper) and the second carries the actual "first" / "second"
+            # designation (per-selector scraper). Without this guard the
+            # Selector Grid stayed empty even when first-team data WAS
+            # present — observed for every Cam Ward / Ashton Jeanty-tier
+            # AA after the per-selector wiki scrape landed.
+            existing = selector_results.get(sel)
+            if existing and team and existing != team:
+                # Prefer non-empty when the new value has a designation
+                if not existing.strip() and team.strip():
+                    selector_results[sel] = team
+                continue
+            if sel in selector_results and selector_results[sel]:
+                # Already have a designation — don't overwrite with empty
                 continue
             selector_results[sel] = team
     except Exception:
