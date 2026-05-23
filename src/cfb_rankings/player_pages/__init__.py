@@ -19,6 +19,7 @@ from .standing_rail import render_standing_rail, STANDING_RAIL_CSS
 from .heisman_trajectory import render_heisman_trajectory, HEISMAN_TRAJECTORY_CSS
 from .career_arc import render_career_arc, CAREER_ARC_CSS
 from .development_trajectory import render_development_trajectory, DEVELOPMENT_TRAJECTORY_CSS
+from .selector_grid import render_selector_grid, SELECTOR_GRID_CSS
 
 
 __all__ = [
@@ -36,4 +37,6 @@ __all__ = [
     "CAREER_ARC_CSS",
     "render_development_trajectory",
     "DEVELOPMENT_TRAJECTORY_CSS",
+    "render_selector_grid",
+    "SELECTOR_GRID_CSS",
 ]

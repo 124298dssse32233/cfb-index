@@ -5226,8 +5226,9 @@ def _player_pages_v2_css() -> str:
             HEISMAN_TRAJECTORY_CSS as _HT_CSS,
             CAREER_ARC_CSS as _CA_CSS,
             DEVELOPMENT_TRAJECTORY_CSS as _DT_CSS,
+            SELECTOR_GRID_CSS as _SG_CSS,
         )
-        return _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS
+        return _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS
     except Exception:
         return ""
 
@@ -9057,6 +9058,7 @@ def build_player_page_data_map(
                 render_heisman_trajectory as _render_heisman_traj_v2,
                 render_career_arc as _render_career_arc_v2,
                 render_development_trajectory as _render_dev_traj_v2,
+                render_selector_grid as _render_selector_v2,
             )
             _primary_team_id = (
                 int((page_data.get("primary_team") or {}).get("team_id"))
@@ -9094,6 +9096,9 @@ def build_player_page_data_map(
             page_data["new_dev_traj_html"] = _render_dev_traj_v2(
                 db, player_id, _position,
             )
+            page_data["new_selector_grid_html"] = _render_selector_v2(
+                db, player_id, int(summary["season_year"]),
+            )
         except Exception as _exc:
             print(f"  player-pages v2: {player_id} failed — {type(_exc).__name__}: {_exc}", flush=True)
             page_data["new_standing_rail_html"] = ""
@@ -9103,6 +9108,7 @@ def build_player_page_data_map(
             page_data["new_heisman_trajectory_html"] = ""
             page_data["new_career_arc_html"] = ""
             page_data["new_dev_traj_html"] = ""
+            page_data["new_selector_grid_html"] = ""
         # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
         try:
             from cfb_rankings.bets.cohort_divergence import compute_cohort_divergence
@@ -19264,6 +19270,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section{_gilded_class('achievements', _gilded)}" id="achievements">
         {render_prediction_markets_card(player_data.get("market_signal"))}
         {render_achievements_ribbon(player_data.get("achievements"))}
+        {player_data.get("new_selector_grid_html") or ""}
       </section>
 
       <section class="section player-anchor-section{_gilded_class('hot-take', _gilded)}" id="the-room">
