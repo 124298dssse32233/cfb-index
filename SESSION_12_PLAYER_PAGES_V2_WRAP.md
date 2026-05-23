@@ -190,3 +190,45 @@ are outside the autonomous-driver scope.
 Every visible team-page and player-page module from the brief that doesn't require a new
 external data pipeline is now shipped. The bottleneck shifts from "code missing" to
 "data missing" — which is a healthier state to be in.
+
+## 🚨 CRITICAL FINDING — Vercel alias rotation broken
+
+After deploy `26322759129` completed at 04:41 UTC:
+
+**The new deployment URL HAS all the new modules:**
+- https://wonderful-margulis-8ec96b-h3ulpujuj-kevins-projects-9307a84f.vercel.app/teams/cincinnati.html
+  shows 6,134 lines including:
+    - 47 `offseason-pulse` class matches
+    - 45 `nfl-draft-pipeline` class matches
+    - 28 `coaching-era` class matches
+    - 2 `hero__identity-phrase` matches
+    - 7 Bearcat / 4 Luke Fickell mentions
+    - 8 `team-page` class matches
+
+**The user-facing alias does NOT serve the new deploy:**
+- https://wonderful-margulis-8ec96b.vercel.app/teams/cincinnati.html
+  still shows 2,030 lines legacy chrome (premium-team-hero)
+- ETag pinned at `48bca2f2f89957ee4fe16f1592d0922d`
+- Age = 12,693 seconds (3.5 hours stale)
+
+**Vercel CLI log shows:**
+```
+▲ Production  https://wonderful-margulis-8ec96b-h3ulpujuj-kevins-projects-9307a84f.vercel.app
+▲ Aliased     https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app
+```
+
+Vercel created a per-deploy URL + aliased to the `kevins-projects-9307a84f` scoped URL, but
+did NOT update the user-facing `wonderful-margulis-8ec96b.vercel.app` short alias. That short
+alias appears pinned to an old deployment.
+
+**Fix options (next session):**
+
+1. Run `vercel alias <new-deploy-url> wonderful-margulis-8ec96b.vercel.app` manually
+2. Add an `alias` field to vercel.json so future deploys auto-rotate
+3. Inspect Vercel dashboard to see if the short URL is a "Production Domain" assignment
+   that needs to be set as default for the project
+4. The `--scope=$VERCEL_ORG_ID` flag may be limiting alias scope; try removing it
+
+This explains why the user saw the legacy Cincinnati page in their screenshot. Every
+deploy this session was actually correctly producing world-class chrome, but the user-facing
+alias wasn't rotating. Once the alias is fixed, ALL 12 sessions of work goes live instantly.
