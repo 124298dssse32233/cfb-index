@@ -868,6 +868,26 @@ def build_parser() -> argparse.ArgumentParser:
 
     site_parser = subparsers.add_parser("build-site")
     site_parser.add_argument("--output-dir", default="output/site")
+    site_parser.add_argument(
+        "--use-lkg-only",
+        action="store_true",
+        default=False,
+        help=(
+            "Emergency mode: read chronicle cards only from Last-Known-Good cache, "
+            "skipping fresh LLM generation entirely. Intended for the "
+            "emergency_publish.ps1 failure-handler path."
+        ),
+    )
+    site_parser.add_argument(
+        "--no-llm",
+        action="store_true",
+        default=False,
+        help=(
+            "Belt-and-suspenders guard: hard-disable every LLM call path in the "
+            "chronicle pipeline. --use-lkg-only should already skip LLM calls, "
+            "but this flag enforces the constraint at each call site."
+        ),
+    )
 
     audit_links_parser = subparsers.add_parser("audit-links")
     audit_links_parser.add_argument("--site-dir", default="output/site")
@@ -1765,6 +1785,39 @@ def build_parser() -> argparse.ArgumentParser:
     quality_loop_reenable_parser.add_argument(
         "surface", type=str,
         help="Surface key, e.g. 'tier1.edition_cover' or 'tier1.reaction_story'.",
+    )
+
+    # Chronicle Visuals — v3 visual-first deterministic SVG generation.
+    # See CHRONICLE_QUALITY_PROPOSAL_v3.md + migrations/20260526_01_chronicle_visual_cache.sql.
+    chronicle_visuals_parser = subparsers.add_parser(
+        "generate-chronicle-visuals",
+        help="Generate Chronicle Visuals (Statement Win Ladder, Returning Production X-Ray, "
+             "Heisman Race Braid, Roster Replacement Grid) into chronicle_visual_cache.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--season", type=int, required=True,
+        help="Season year (e.g. 2024).",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--week", type=int, default=None,
+        help="Optional week cutoff. If omitted, uses the most recent week.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--slug", type=str, default=None,
+        help="Limit to a single team slug. If omitted, runs across all active FBS teams.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--visual", type=str, default=None,
+        help="Limit to a single visual id (e.g. statement_win_ladder, "
+             "returning_production_xray, heisman_race_braid, roster_replacement_grid).",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--force", action="store_true",
+        help="Bypass cache lookup and regenerate.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--limit-teams", type=int, default=None,
+        help="Cap teams processed (useful for smoke tests).",
     )
 
     return parser
@@ -4554,8 +4607,18 @@ def main() -> None:
         return
 
     if args.command == "build-site":
+        from cfb_rankings.chronicle.config import configure as configure_chronicle
         from cfb_rankings.reporting import build_static_site
         from cfb_rankings.retro_render import build_retro_pages
+
+        # Apply LKG / no-LLM runtime flags before any chronicle import runs.
+        use_lkg_only = getattr(args, "use_lkg_only", False)
+        no_llm = getattr(args, "no_llm", False)
+        configure_chronicle(use_lkg_only=use_lkg_only, no_llm=no_llm)
+        if use_lkg_only:
+            print("[build-site] LKG-only mode: chronicle cards will be served from Last-Known-Good cache.")
+        if no_llm:
+            print("[build-site] no-LLM mode: all LLM call paths are hard-disabled.")
 
         output_path = build_static_site(db=db, output_dir=args.output_dir)
         build_retro_pages(db, output_dir=args.output_dir)
@@ -5452,6 +5515,57 @@ def main() -> None:
                 f"quality-loop-reenable: no degrade marker found for "
                 f"{args.surface!r} (already enabled or never tripped)."
             )
+        return
+
+    if args.command == "generate-chronicle-visuals":
+        from cfb_rankings.chronicle.visuals import (
+            VisualId,
+            generate_visuals_for_team,
+            generate_all_visuals,
+        )
+        # Resolve which visuals to run
+        visual_ids = None
+        if args.visual:
+            try:
+                visual_ids = [VisualId(args.visual)]
+            except ValueError:
+                raise RuntimeError(
+                    f"unknown visual id {args.visual!r}. Try one of: "
+                    f"{[v.value for v in VisualId]}"
+                )
+
+        if args.slug:
+            results = generate_visuals_for_team(
+                db,
+                slug=args.slug,
+                season_year=args.season,
+                week_number=args.week,
+                visual_ids=visual_ids,
+                force_regenerate=args.force,
+            )
+            print(f"generate-chronicle-visuals slug={args.slug}: {len(results)} visuals")
+            for r in results:
+                print(
+                    f"  {r.spec.visual_id.value:30s} "
+                    f"score={r.score.total:.2f}  n={r.receipt.sample_n}  "
+                    f"suppressed={r.suppressed}"
+                )
+            return
+
+        # Batch across all FBS
+        by_slug = generate_all_visuals(
+            db,
+            season_year=args.season,
+            week_number=args.week,
+            force_regenerate=args.force,
+            limit_teams=args.limit_teams,
+        )
+        teams_with_visuals = sum(1 for slugs in by_slug.values() if slugs)
+        total_visuals = sum(len(v) for v in by_slug.values())
+        print(
+            f"generate-chronicle-visuals: {teams_with_visuals} teams · "
+            f"{total_visuals} visuals generated for season {args.season}"
+        )
         return
 
     raise RuntimeError(f"Unsupported command: {args.command}")

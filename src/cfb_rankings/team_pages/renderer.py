@@ -473,6 +473,19 @@ def _render_page(
     llm_chronicle_html = _render_llm_chronicle_section(
         llm_chronicle_cards or [], profile
     )
+    # Chronicle Visuals — v3 visual-first module (deterministic SVG renderer).
+    # Reads from chronicle_visual_cache. Hidden when no visuals have been
+    # generated yet for this team.
+    try:
+        from cfb_rankings.chronicle.visuals import fetch_visual_cards as _fetch_chronicle_visuals
+        chronicle_visual_cards = _fetch_chronicle_visuals(
+            db, profile.slug, season_year=snapshot.season_year, limit=6,
+        ) if db is not None else []
+    except Exception:
+        chronicle_visual_cards = []
+    chronicle_visuals_html = _render_chronicle_visuals_section(
+        chronicle_visual_cards, profile
+    )
     savant_html = render_savant_card(
         profile, savant_rows,
         narrative=savant_narrative,
@@ -694,6 +707,9 @@ body {{
 /* LLM Chronicle AI Narratives — Mistral Nemo + Qwen3 pipeline */
 {LLM_CHRONICLE_CSS}
 
+/* Chronicle Visuals — v3 visual-first deterministic SVG cards */
+{CHRONICLE_VISUALS_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -769,6 +785,7 @@ body {{
     {cultural_anchors_html}
     {chronicle_html}
     {llm_chronicle_html}
+    {chronicle_visuals_html}
     {savant_html}
     {rivalry_html}
     {arc_html}
@@ -1647,6 +1664,148 @@ LLM_CHRONICLE_CSS = """
   color: #c89744;
 }
 """
+
+
+CHRONICLE_VISUALS_CSS = """
+.chronicle-visuals {
+  display: block;
+  margin-top: var(--sp-8, 32px);
+  padding-top: var(--sp-6, 24px);
+  border-top: 1px solid var(--border, rgba(0,0,0,0.1));
+}
+.chronicle-visuals__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5, 20px);
+}
+.chronicle-visuals__title {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.chronicle-visuals__meta {
+  font-size: 11px;
+  color: var(--fg-2, #6a6a6a);
+  font-style: italic;
+}
+.chronicle-visuals__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5, 20px);
+}
+@media (min-width: 960px) {
+  .chronicle-visuals__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.visual-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
+  border-radius: 6px;
+  padding: var(--sp-4, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3, 12px);
+}
+.visual-card__headline {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--fg-0, #111);
+}
+.visual-card__svg {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.visual-card__svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+.visual-card__meta {
+  display: flex;
+  gap: var(--sp-2, 8px);
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: var(--fg-2, #6a6a6a);
+}
+.visual-card__badge {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.04);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.visual-card__badge--lkg {
+  background: rgba(74,140,90,0.15);
+  color: #4a8;
+}
+.visual-card__badge--score {
+  font-family: ui-monospace, Menlo, monospace;
+}
+"""
+
+
+def _render_chronicle_visuals_section(
+    cards: list[dict[str, Any]],
+    profile: Profile,
+) -> str:
+    """Render Chronicle Visuals (v3 visual-first module) from chronicle_visual_cache.
+
+    Returns "" when no visuals exist so the page stays clean.
+    """
+    if not cards:
+        return ""
+
+    grid_html = "".join(_render_visual_card(c) for c in cards)
+    n = len(cards)
+    return f"""<section class="chronicle-visuals" aria-labelledby="chronicle-visuals-title">
+  <div class="chronicle-visuals__header">
+    <h2 id="chronicle-visuals-title" class="chronicle-visuals__title">Chronicle Visuals</h2>
+    <span class="chronicle-visuals__meta">{n} deterministic SVG · provenance-gated</span>
+  </div>
+  <div class="chronicle-visuals__grid">
+    {grid_html}
+  </div>
+</section>"""
+
+
+def _render_visual_card(card: dict[str, Any]) -> str:
+    headline = card.get("headline_finding") or ""
+    svg_html = card.get("svg_html") or ""
+    family = card.get("chart_family") or ""
+    confidence = card.get("confidence_band") or "unset"
+    score = card.get("visual_quality_score") or 0
+    is_lkg = card.get("is_lkg", 0)
+    sample_n = card.get("sample_n") or 0
+
+    lkg_badge = '<span class="visual-card__badge visual-card__badge--lkg">✓ LKG</span>' if is_lkg else ""
+    family_badge = f'<span class="visual-card__badge">{html.escape(family.replace("_", " "))}</span>'
+    conf_badge = f'<span class="visual-card__badge">{html.escape(confidence)}</span>'
+    sample_badge = f'<span class="visual-card__badge">n={sample_n}</span>'
+    score_badge = f'<span class="visual-card__badge visual-card__badge--score">q={score:.2f}</span>'
+
+    headline_html = (
+        f'<h3 class="visual-card__headline">{html.escape(headline)}</h3>'
+        if headline else ""
+    )
+    svg_div = f'<div class="visual-card__svg">{svg_html}</div>' if svg_html else ""
+
+    return f"""<article class="visual-card">
+  {headline_html}
+  {svg_div}
+  <div class="visual-card__meta">
+    {lkg_badge}{family_badge}{conf_badge}{sample_badge}{score_badge}
+  </div>
+</article>"""
 
 
 def _render_llm_chronicle_section(
