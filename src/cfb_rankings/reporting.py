@@ -5228,7 +5228,15 @@ def _player_pages_v2_css() -> str:
             DEVELOPMENT_TRAJECTORY_CSS as _DT_CSS,
             SELECTOR_GRID_CSS as _SG_CSS,
         )
-        return _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS
+        # Accolade tabs — nested inside the v5 Player Standing card; styles
+        # live in the accolade_streams module so they ship with the same fix.
+        try:
+            from cfb_rankings.player_pages.accolade_streams import ACCOLADE_TABS_CSS as _ACC_CSS
+        except Exception:
+            _ACC_CSS = ""
+        return (
+            _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _ACC_CSS
+        )
     except Exception:
         return ""
 
@@ -9130,6 +9138,32 @@ def build_player_page_data_map(
             page_data["new_selector_grid_html"] = _render_selector_v2(
                 db, player_id, int(summary["season_year"]),
             )
+            # Standing payload — computes the 17-rung classification +
+            # per-position accolade streams (Heisman finalist %, AA selector
+            # grid, position-award status). Populates page_data["standing"]
+            # so _render_v5_player_standing_card shows real content instead
+            # of the awaiting-tracker placeholder. New 2026-05-24.
+            try:
+                from cfb_rankings.player_pages.standing_aggregator import (
+                    build_standing_payload as _build_standing_payload,
+                )
+                _new_standing = _build_standing_payload(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+                if _new_standing:
+                    # Merge into existing standing dict so legacy keys survive
+                    existing = page_data.get("standing") or {}
+                    if isinstance(existing, dict):
+                        existing.update(_new_standing)
+                        page_data["standing"] = existing
+                    else:
+                        page_data["standing"] = _new_standing
+            except Exception as _exc:
+                print(
+                    f"  player-pages v2 standing: {player_id} failed "
+                    f"— {type(_exc).__name__}: {_exc}",
+                    flush=True,
+                )
         except Exception as _exc:
             print(f"  player-pages v2: {player_id} failed — {type(_exc).__name__}: {_exc}", flush=True)
             page_data["new_standing_rail_html"] = ""
@@ -21117,14 +21151,31 @@ def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
             '</div>'
         )
 
+    # Accolade streams — per-position award tabs (Heisman + AA + position
+    # awards). New 2026-05-24: replaces the hardcoded 4-tab QB-only block.
+    # Falls back to the legacy hardcoded list if the new payload key isn't
+    # present (e.g., for tests or older callers).
+    accolade_streams_html = ""
+    streams = payload.get("accolade_streams") if isinstance(payload, dict) else None
+    if streams:
+        try:
+            from cfb_rankings.player_pages.accolade_streams import (
+                render_accolade_tabs_html as _render_accolade_tabs,
+            )
+            accolade_streams_html = _render_accolade_tabs(streams)
+        except Exception:
+            accolade_streams_html = ""
+
     accolade_tabs_html: list[str] = []
-    for idx, tab_label in enumerate(("Heisman", "Davey O'Brien", "Manning", "Unitas")):
-        is_active = idx == 0
-        cls = "standing__accolade-tab is-active" if is_active else "standing__accolade-tab"
-        aria = "true" if is_active else "false"
-        accolade_tabs_html.append(
-            f'<button type="button" class="{cls}" aria-pressed="{aria}">{escape(tab_label)}</button>'
-        )
+    if not accolade_streams_html:
+        # Legacy fallback — keeps the empty-state visual for now.
+        for idx, tab_label in enumerate(("Heisman", "Davey O'Brien", "Manning", "Unitas")):
+            is_active = idx == 0
+            cls = "standing__accolade-tab is-active" if is_active else "standing__accolade-tab"
+            aria = "true" if is_active else "false"
+            accolade_tabs_html.append(
+                f'<button type="button" class="{cls}" aria-pressed="{aria}">{escape(tab_label)}</button>'
+            )
 
     return f"""
       <article class="standing" data-module="player-standing" data-state="ready">
@@ -21148,10 +21199,7 @@ def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
         {rung_drawer_html}
         <div>
           <p class="standing__drawer-eyebrow">Accolade streams</p>
-          <div class="standing__accolade-tabs" role="tablist">{"".join(accolade_tabs_html)}</div>
-          <div class="standing__accolade-body" role="tabpanel">
-            All-America selector grid + probability tiles + ladder progress populate when the per-award tracker runs (Heisman ballot model + AA selector ingestion).
-          </div>
+          {accolade_streams_html if accolade_streams_html else f'<div class="standing__accolade-tabs" role="tablist">{"".join(accolade_tabs_html)}</div><div class="standing__accolade-body" role="tabpanel">All-America selector grid + probability tiles + ladder progress populate when the per-award tracker runs (Heisman ballot model + AA selector ingestion).</div>'}
         </div>
       </article>
     """
