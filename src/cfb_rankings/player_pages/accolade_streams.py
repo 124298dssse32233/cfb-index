@@ -279,8 +279,17 @@ def build_all_america_stream(
     n_third = 0
 
     for r in rows or []:
-        sel = (r.get("selector") or "").strip().upper()
-        placement = ((r.get("placement") or r.get("honor_team")) or "").strip()
+        sel = str(r.get("selector") or "").strip().upper()
+        # placement is sometimes int (1/2/3) and sometimes string ('first', '1st team').
+        raw_placement = r.get("placement")
+        if raw_placement is None or (isinstance(raw_placement, str) and not raw_placement.strip()):
+            raw_placement = r.get("honor_team")
+        if raw_placement is None:
+            placement = ""
+        elif isinstance(raw_placement, int):
+            placement = {1: "1st team", 2: "2nd team", 3: "3rd team"}.get(raw_placement, str(raw_placement))
+        else:
+            placement = str(raw_placement).strip()
         if not sel:
             continue
         if "CONSENSUS" in sel or r.get("consensus_flag"):

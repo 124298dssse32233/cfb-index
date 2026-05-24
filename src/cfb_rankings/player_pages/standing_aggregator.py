@@ -23,8 +23,10 @@ log = logging.getLogger("cfb_rankings.player_pages.standing_aggregator")
 
 
 def _query_all(db, sql, params):
+    # Delegate to the project Database wrapper when present; otherwise drop
+    # to raw sqlite3.Connection.execute. The hasattr check decides which path.
     if hasattr(db, "query_all"):
-        return _query_all(db,sql, params)
+        return db.query_all(sql, params)  # noqa: this is the wrapper's own method
     cur = db.execute(sql, params)
     cols = [d[0] for d in cur.description] if cur.description else []
     return [dict(zip(cols, row)) for row in cur.fetchall()]
@@ -62,9 +64,17 @@ RUNG_TABLE: list[tuple[int, str, int, str]] = [
 ]
 
 
-def _placement_signal(placement: str | None) -> str:
-    """Normalize honor_team / placement strings to {'first','second','third','other'}."""
-    s = (placement or "").lower()
+def _placement_signal(placement) -> str:
+    """Normalize honor_team / placement values to {'first','second','third','other'}.
+
+    Accepts None, int (1/2/3), or str ('first', '1st team', '2'). Coerces
+    safely — player_honors.placement is sometimes integer in the DB.
+    """
+    if placement is None:
+        return "other"
+    if isinstance(placement, int):
+        return {1: "first", 2: "second", 3: "third"}.get(placement, "other")
+    s = str(placement).strip().lower()
     if "1st" in s or "first" in s or s == "1":
         return "first"
     if "2nd" in s or "second" in s or s == "2":
@@ -88,19 +98,41 @@ def classify_rung(
     if db is None or player_id is None or season_year is None:
         return None
 
-    # 1. Heisman tier (R15/R16) — final ballot finish
+    # 1. Heisman tier (R15/R16) — rank from the in-season Heisman model is
+    # the model's nowcast, not the official ballot. We treat model #1 as
+    # finalist-tier (R15) unless we have a confirmed-winner signal from
+    # player_honors (honor_name LIKE '%Heisman%' AND placement signals
+    # winner). Reserved R16 for actual trophy winners.
     try:
-        r = _query_one(db,
+        winner_row = _query_one(
+            db,
+            """
+            SELECT 1 AS w FROM player_honors
+             WHERE player_id = :pid AND season_year = :s
+               AND lower(honor_name) LIKE '%heisman%'
+               AND (lower(coalesce(honor_team, '')) = 'winner'
+                    OR lower(coalesce(honor_name, '')) LIKE '%winner%'
+                    OR lower(coalesce(placement, '')) = 'winner')
+             LIMIT 1
+            """,
+            {"pid": player_id, "s": season_year},
+        )
+        if winner_row:
+            return 16  # Confirmed Heisman trophy winner
+    except Exception:
+        pass
+
+    try:
+        r = _query_one(
+            db,
             "SELECT MIN(rank_overall) AS r FROM heisman_rankings_weekly "
             "WHERE player_id = :pid AND season_year = :s AND rank_overall IS NOT NULL",
             {"pid": player_id, "s": season_year},
         )
         if r and r.get("r"):
             rank = int(r["r"])
-            if rank == 1:
-                return 16          # Heisman winner
             if rank <= 5:
-                return 15          # Heisman finalist (top 5 in voting)
+                return 15          # Heisman finalist tier
             if rank <= 25:
                 return 13          # Watch-list rung
     except Exception:
