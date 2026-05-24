@@ -62,6 +62,78 @@ def _cell_text(cell) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+# Valid position codes for all-conference tables. Exact-match against the
+# cell text (case-insensitive). Maps abbreviations + Wikipedia long forms to a
+# canonical short code. Anything not in here is rejected — this is the guard
+# that keeps schedule/TV tables (kickoff times, month names, "vs.") out.
+_CONFERENCE_POSITION_CANON: dict[str, str] = {
+    "QB": "QB", "QUARTERBACK": "QB",
+    "RB": "RB", "RUNNING BACK": "RB", "TAILBACK": "RB", "FULLBACK": "FB", "FB": "FB",
+    "WR": "WR", "WIDE RECEIVER": "WR", "RECEIVER": "WR", "FL": "WR", "FLANKER": "WR",
+    "TE": "TE", "TIGHT END": "TE",
+    "OL": "OL", "OT": "OT", "OG": "OG", "C": "C", "G": "OG", "T": "OT",
+    "OFFENSIVE LINE": "OL", "OFFENSIVE LINEMAN": "OL", "OFFENSIVE TACKLE": "OT",
+    "OFFENSIVE GUARD": "OG", "GUARD": "OG", "TACKLE": "OT", "CENTER": "C",
+    "DL": "DL", "DE": "DE", "DT": "DT", "NT": "DT", "EDGE": "EDGE",
+    "DEFENSIVE LINE": "DL", "DEFENSIVE LINEMAN": "DL", "DEFENSIVE END": "DE",
+    "DEFENSIVE TACKLE": "DT", "NOSE TACKLE": "DT", "NOSE GUARD": "DT",
+    "LB": "LB", "ILB": "LB", "OLB": "LB", "MLB": "LB", "LINEBACKER": "LB",
+    "DB": "DB", "CB": "DB", "S": "DB", "FS": "DB", "SS": "DB",
+    "DEFENSIVE BACK": "DB", "CORNERBACK": "DB", "CORNER": "DB", "SAFETY": "DB",
+    "K": "K", "PK": "K", "KICKER": "K", "PLACEKICKER": "K",
+    "P": "P", "PUNTER": "P",
+    "LS": "LS", "LONG SNAPPER": "LS",
+    "AP": "AP", "ALL-PURPOSE": "AP", "ALL PURPOSE": "AP",
+    "RET": "RET", "RETURNER": "RET", "RETURN SPECIALIST": "RET",
+    "KR": "RET", "PR": "RET", "KICK RETURNER": "RET", "PUNT RETURNER": "RET",
+    "ATH": "ATH", "ATHLETE": "ATH",
+}
+
+
+def _canonical_conference_position(text: str) -> str | None:
+    """Return the canonical position code for an all-conference cell, or None.
+
+    Exact-match (case-insensitive, whitespace-trimmed) against the known
+    position vocabulary. Returns None for anything else — months, kickoff
+    times, opponent names, "vs.", etc. — so non-roster tables are skipped.
+    """
+    if not text:
+        return None
+    key = text.strip().upper()
+    # Some cells carry trailing markers like "QB*" or "WR (1)"; take the
+    # leading token only when it is itself a valid code.
+    direct = _CONFERENCE_POSITION_CANON.get(key)
+    if direct:
+        return direct
+    # Try the first whitespace-delimited token (e.g. "QB Jr." -> "QB")
+    head = key.split()[0] if key.split() else ""
+    head = head.strip(".,*()")
+    return _CONFERENCE_POSITION_CANON.get(head)
+
+
+# Reject obvious non-player strings: kickoff times, dates, "vs.", "TBD".
+_NON_PLAYER_RE = re.compile(
+    r"(\d{1,2}:\d{2}\s*[ap]\.?m\.?"      # 7:00 p.m.
+    r"|^noon$|^tbd$|^tba$|^bye$|^canceled$|^postponed$"
+    r"|^vs\.?$|^at$"
+    r"|^(january|february|march|april|may|june|july|august|september|october|november|december))",
+    re.I,
+)
+
+
+def _looks_like_player_name(name: str) -> bool:
+    """Heuristic: a real player name has letters and isn't a schedule fragment."""
+    if not name or len(name.strip()) < 2:
+        return False
+    s = name.strip()
+    if _NON_PLAYER_RE.search(s):
+        return False
+    # Needs at least one alphabetic word of length >= 2 (filters "7", ":")
+    if not re.search(r"[A-Za-z]{2,}", s):
+        return False
+    return True
+
+
 # ---------------------------------------------------------------------------
 # TASK 4.1 — All-America Team scraper
 # ---------------------------------------------------------------------------
@@ -520,7 +592,6 @@ def scrape_all_conference(year: int, conference: str) -> list[dict[str, Any]]:
             continue
         soup = BeautifulSoup(html, "lxml")
         out: list[dict[str, Any]] = []
-        position_re = re.compile(r"(QB|RB|WR|TE|OL|OT|OG|C|DL|DE|DT|LB|ILB|OLB|DB|CB|S|K|P|LS|AP|ATH)", re.I)
         for table in soup.find_all("table", class_=lambda c: c and "wikitable" in c):
             heading = table.find_previous(["h2", "h3", "h4"])
             heading_text = heading.get_text(" ").lower() if heading else ""
@@ -537,16 +608,23 @@ def scrape_all_conference(year: int, conference: str) -> list[dict[str, Any]]:
                 if len(cells) < 2:
                     continue
                 pos_text = _cell_text(cells[0])
-                if not position_re.search(pos_text):
+                pos_code = _canonical_conference_position(pos_text)
+                if pos_code is None:
+                    # Cell-0 is not a real position code — this row (or whole
+                    # table) is not an honors table. Skip. Guards against the
+                    # 2024 bug where a TV-schedule table (col0 = kickoff time,
+                    # col1 = "Noon"/"7:00 p.m.") was parsed as a roster and the
+                    # old unanchored case-insensitive regex matched the 's' in
+                    # "August", the 'c' in "October", etc.
                     continue
                 name_cell_text = _cell_text(cells[1]) if len(cells) > 1 else ""
                 team_cell_text = _cell_text(cells[2]) if len(cells) > 2 else ""
-                if not name_cell_text:
+                if not name_cell_text or not _looks_like_player_name(name_cell_text):
                     continue
                 out.append({
                     "season_year": year,
                     "player_name": name_cell_text,
-                    "position": pos_text.upper()[:4],
+                    "position": pos_code,
                     "team_name": team_cell_text,
                     "honor_scope": "all_conference",
                     "honor_name": f"All-{conference}",

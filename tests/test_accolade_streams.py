@@ -103,6 +103,28 @@ def test_standing_payload_classifies_heisman_winner(db):
     ]
 
 
+def test_position_resolves_from_honors_when_hint_blank(db):
+    """Corrupted/blank players.position must fall back to clean AA-honors position."""
+    cur = db.execute(
+        "SELECT player_id FROM player_honors WHERE honor_scope='all_america' "
+        "AND position='QB' LIMIT 1"
+    )
+    row = cur.fetchone()
+    if not row:
+        pytest.skip("no QB all-america honors in DB")
+    from cfb_rankings.player_pages.accolade_streams import (
+        resolve_player_position, build_accolade_streams_for_position,
+    )
+    pid = row["player_id"]
+    # Blank hint should resolve to QB from honors, yielding the 5-tab QB set
+    resolved = resolve_player_position(db, pid, 2024, "")
+    assert resolved == "QB"
+    streams = build_accolade_streams_for_position(db, pid, 2024, "")
+    keys = [s["award_key"] for s in streams]
+    assert "davey_obrien" in keys, "QB-specific award missing after position resolution"
+    assert keys[-1] == "all_america"
+
+
 def test_v5_standing_card_renders_populated_payload(db):
     """End-to-end: aggregator -> v5 renderer produces real tab body."""
     cur = db.execute(

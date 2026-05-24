@@ -413,12 +413,44 @@ def build_position_award_stream(
     }
 
 
+def resolve_player_position(db: Any, player_id: int, season_year: int, hint: str | None) -> str:
+    """Resolve a clean position for a player.
+
+    Prefers the caller's hint when it maps to a known bucket. Otherwise falls
+    back to player_honors.position from the All-America scope — which is the
+    clean source (the all_conference scrape historically corrupted
+    players.position with month names / opponent fragments; see
+    migrations/20260526_02). Returns "" if nothing resolves (-> ATH bucket).
+    """
+    if hint and _normalize_position(hint) in POSITION_AWARDS:
+        return hint
+    try:
+        rows = _query_all(
+            db,
+            """
+            SELECT position FROM player_honors
+            WHERE player_id = :pid AND season_year = :s
+              AND honor_scope = 'all_america'
+              AND position IS NOT NULL AND position != ''
+            """,
+            {"pid": player_id, "s": season_year},
+        )
+        for r in rows or []:
+            cand = (r.get("position") or "").strip()
+            if cand and _normalize_position(cand) in POSITION_AWARDS:
+                return cand
+    except Exception:
+        pass
+    return hint or ""
+
+
 def build_accolade_streams_for_position(
     db: Any,
     player_id: int,
     season_year: int,
     position: str | None,
 ) -> list[dict[str, Any]]:
+    position = resolve_player_position(db, player_id, season_year, position)
     awards = awards_for_position(position)
     streams: list[dict[str, Any]] = []
     for award_key, award_name in awards:
