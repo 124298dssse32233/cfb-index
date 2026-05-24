@@ -15,13 +15,24 @@ CFB Index ships an LLM-generated narrative module called **Chronicle**. Cards ap
 2. **Same-team cards are near-duplicates.** Generating 3 cards for Auburn yields 3 paraphrases of the same season-record observation.
 
 **Your mission:** Read the codebase, read the live site, scan the competitive landscape, and produce a single deliverable that proposes:
-- New card *categories* (specific shapes of insight nobody else does)
+- New card *categories* (specific shapes of insight nobody else publishes)
 - Anti-duplication architecture (mechanical guarantees, not just "ask the LLM nicely")
 - World-class data visualizations paired with cards
 - A pipeline refactor plan that lands on local hardware + selective paid-LLM spend
 - A sprint-by-sprint implementation roadmap
 
-The user wants Chronicle to be the thing 2026 CFB fans *screenshot and tweet*. Aim for "I've never seen anyone else do this," not "this is a competent ESPN clone."
+**Uniqueness comes from the *treatment*, not the data.** You are free to use *any* data source we have access to or can reasonably acquire — including:
+- **CFBD API tier 2** (PPA / advanced box scores / recruits / coaches / talent / returning production / portal / draft / SP+ / Elo / FPI mirror / play-by-play / drives / lines / venues / weather — basically the whole stack). Already wired in `src/cfb_rankings/ingest/sources/cfbd_*.py`.
+- Polymarket prediction-market feeds (already wired)
+- Reddit /r/CFB JSON (free)
+- News scrapes / RSS (whatever's permitted)
+- Wikipedia
+- Sports Reference (within ToS)
+- Any other paid API the user is willing to add ($20/mo tier is fair game; flag bigger spends)
+
+What competitors *also* have (ESPN, Athletic, On3, PFF, 247) is mostly the same raw data. They don't all do the *interesting things* with it. **That's the gap.** Chronicle's edge is in synthesis, comparison, counterfactuals, voice, framing, and pairing-with-viz — not in owning a secret stat. Don't pretend we have a moat we don't.
+
+The user wants Chronicle to be the thing 2026 CFB fans *screenshot and tweet*. Aim for "I've never seen anyone else frame it that way," not "this is a competent ESPN clone."
 
 ---
 
@@ -68,43 +79,81 @@ Walk every file in `src/cfb_rankings/chronicle/`:
 
 Then trace one card end-to-end: pick `auburn` echo card week 14 2024, follow Planner→Writer→FactCritic→VoiceCritic→cache. Quote the actual prompt strings, the actual evidence pool, the actual generated body. That trace becomes Section 2 of your deliverable.
 
-### 1c. Data inventory (what we OWN that competitors don't)
+### 1c. Data inventory (everything we have or can get)
 
-Walk these to build a complete asset inventory:
+Walk these to build a complete asset inventory. The goal is **not** to find a proprietary moat — it's to know every lever you can pull when synthesizing.
 
-- `migrations/` — every table the DB has. Pay special attention to:
-  - `chronicle_card_cache` (existing LLM outputs — N samples to study)
-  - `season_narrative_arc`, `narrative_frame_stack`, `season_narrative_state`
-  - `editorial_citations`, `confidence_calibration`
-  - `games`, `team_chronicle_observations`
-  - `narrative_phrase_tokens`, `chronicle_slop_observations`
-  - `pipeline_checkpoints`, `calendar_pressure`
-- `src/cfb_rankings/ingest/sources/` — every external feed
-- `src/cfb_rankings/ingest/honors.py` — award winners
-- `profiles/*.md` — 127 hand-authored fanbase identity YAMLs (mascot voice, ritual, fight song, aspiration ladder)
+**Local DB tables** (walk `migrations/` for the complete schema):
+- `chronicle_card_cache` (existing LLM outputs — sample 30+ to study quality baseline)
+- `season_narrative_arc`, `narrative_frame_stack`, `season_narrative_state`
+- `editorial_citations`, `confidence_calibration`
+- `games`, `team_chronicle_observations`
+- `narrative_phrase_tokens`, `chronicle_slop_observations`
+- `pipeline_checkpoints`, `calendar_pressure`
+- Plus everything CFBD ingests have written to (look for it)
+
+**CFBD API tier 2 (full access; we pay for it)** — `src/cfb_rankings/ingest/sources/cfbd_*.py`. Endpoints to know:
+- `/games` + `/games/teams` (schedule, results)
+- `/games/players` (per-game player stat lines)
+- `/play/types` + `/plays` (play-by-play)
+- `/drives` (drive-by-drive)
+- `/ppa/games` / `/ppa/players/season` / `/ppa/predicted` (Predicted Points Added — the modern EPA equivalent)
+- `/stats/season/advanced` + `/stats/game/advanced` (success rate, explosiveness, finishing-drives, havoc, line yards, stuff rate, second-level / open-field yards)
+- `/lines` (Vegas spreads / O-U / moneyline history per game)
+- `/venues` + `/games/weather` (yes, weather)
+- `/recruiting/players` + `/recruiting/teams` + `/recruiting/groups`
+- `/player/portal` (transfer portal in/out, per year)
+- `/player/returning` (returning production %)
+- `/talent` (composite team talent)
+- `/draft/picks` + `/draft/positions` + `/draft/teams` (NFL Draft 2002-present)
+- `/coaches` (HC tenure)
+- `/ratings/sp` + `/ratings/sp/conferences` + `/ratings/srs` + `/ratings/elo` + `/ratings/fpi` (SP+, SRS, Elo, FPI — yes, all of them)
+- `/metrics/wp` + `/metrics/wp/pregame` (win probability per play and pregame)
+- `/conferences` + `/teams` + `/teams/matchup` + `/teams/fbs`
+- `/calendar` (week boundaries, postseason dates)
+- Most of these have multi-decade history.
+
+**Already-wired external feeds:**
+- Polymarket prediction-market quotes (already in DB)
+- Reddit /r/CFB free JSON endpoints
+- News scrapes (whichever feeds `fan_intelligence`)
+- Honors / awards scraping (`ingest/honors.py`)
+
+**Editorial assets we authored:**
+- `profiles/*.md` — 127 hand-authored fanbase identity YAMLs (mascot voice, ritual, fight song, aspiration ladder, fanbase identity, page tone strip)
 - `data/voice_corpus.jsonl` — 329 voice passages with [CFB-INDEX-VOICE] sentinel
-- `data/` — any other authored corpora
 - `src/cfb_rankings/fan_intelligence.py` — mood-card + belief computation
-- `src/cfb_rankings/team_pages/` — 23 modules already on team pages
-- `src/cfb_rankings/player_pages/` — 8 new v2 modules
-- `src/cfb_rankings/reporting.py` — 26.8k-line generator (grep only; do not read whole)
+- `editorial_citations` table — pre-built receipt pool
+- 23 team-page modules, 8 player-page v2 modules — these compute derived metrics Chronicle can ref
 
-Pay attention to data that exists but is **not currently used by Chronicle**:
-- Aspiration ladder framework (in profiles)
-- Per-team mascot voice & fight song
+**External you should propose adding** (flag spend if any):
+- Massey Composite / Sagarin (free; scrape or RSS)
+- Bart Torvik's CFB ratings (free; scrape)
+- ESPN unofficial JSON endpoints (free; standings, schedule, transactions)
+- The Athletic RSS / Substack RSS for editorial pulse (free)
+- DraftKings / FanDuel public odds feeds (free or low-tier paid)
+- Twitter/X via a low-volume search API or `r/CFB` discussion mining (light)
+- Wikipedia REST API for historical anchor facts (free)
+- Football Outsiders / FEI archive (paid; flag cost)
+- Pro Football Focus team grades (paid; flag cost; valuable for "graded badly but won" cards)
+
+**Data currently sitting in DB but Chronicle ISN'T using:**
+- Aspiration ladder (`profiles`)
+- Per-team mascot voice & fight song (`profiles`)
 - Heisman model probabilities + per-week trajectory
-- NFL Draft pipeline (`draft_picks` 2018-2025 from CFBD)
-- Recruiting class strength (`sp_plus_recruiting`)
+- NFL Draft pipeline (`draft_picks` 2018-2025)
+- Recruiting class strength (`sp_plus_recruiting` + CFBD recruits)
 - Transfer portal in/out (2018-2025)
 - Returning production / talent metrics
 - Coaches table (HC tenure, scheme, era)
-- Polymarket prediction market data
-- Bowl game history (`postseason_games` 2018-2024)
+- Polymarket quotes
+- Bowl history (`postseason_games`)
 - Conference standings history
 - `fan_intelligence` Reddit/news/betting signals
 - `confidence_calibration` per-team-week distribution data
-- Hand-authored profile YAMLs (program prestige, fanbase health, identity strip text)
 - `editorial_citations` receipt pool
+
+**The leverage isn't "we have rare data."** It's "we have *all* the data, *all* in one place, with a voice register + design system + 119-team coverage." Use that.
 
 This inventory matters. Every proposed card type must name which datasets feed it.
 
@@ -161,10 +210,17 @@ Survey what competitors offer for the same teams. Do at least these:
 
 For each, note:
 - 3 things they do well
-- 1–2 *gaps* — angles that nobody covers — that Chronicle could exploit
+- 1–2 *gaps* — angles that nobody covers, or that everyone covers but badly — that Chronicle could exploit
 - 1 visualization they use (or notably lack)
 
-**Then ask the meta-question:** What does no one cover because the data is too proprietary, too painful to gather, or too unique to one site's editorial framework? Chronicle should live in that space.
+**Then run the novelty triangulation.** Most CFB sites have access to the *same* underlying data (CFBD, ESPN feeds, Vegas lines). The differentiator is treatment. For each candidate card type you'll later propose in §3A, classify it:
+
+- **A. Nobody does this** — the angle doesn't exist on the public web. Highest value, hardest to defend you didn't miss it.
+- **B. One niche outlet does it** (e.g., Bill Connelly's SP+ posts cover identity-style stats; Bart Torvik does pace splits) — but their audience is small and they don't pair with voice / viz / fanbase-specific framing.
+- **C. Many do it but poorly** — e.g., "team X had a rollercoaster season" is everywhere; Chronicle's version must do it 10× better via specificity, comparison, and voice.
+- **D. Mainstream covers it well** — drop or only include if Chronicle's voice/viz materially elevates it.
+
+Anything you propose that lands in (D) without a clear "here's what we add" should be cut. Anything in (A) needs an explicit "I checked these 5 outlets, none of them publish this angle" footnote.
 
 ### 1f. Recent CFB context as of May 23, 2026
 
@@ -218,11 +274,13 @@ Current types (per `EVIDENCE_SOURCE_ROUTING` in `evidence_sources.py`): echo, fl
 |-------|------|
 | Name | E.g., "Counterfactual Ladder", "Decade Echo", "Market Arbitrage Watch" |
 | One-paragraph spec | What kind of claim, what shape, what tone |
-| Primary data sources | Concrete table names from the migration files |
+| Primary data sources | Concrete table names AND/OR CFBD endpoints AND/OR external feeds |
 | 2 example bodies | 60–80 words each, for REAL teams using REAL 2025 data. Voice-correct. |
 | Viz pairing | Which proposed viz (from §3C) attaches |
 | Tier | S / T1 / T2 / T3 (cost-tier; what model writes it) |
 | Anti-duplication slot | What "angle slot" it occupies (so a team's 6 cards span 6 different angles) |
+| Novelty class (A/B/C/D per §1e) | A = nobody, B = niche, C = many do it badly, D = mainstream covers well |
+| Competitive footnote | 1 line: which competitor(s) (if any) do something similar, and how Chronicle differs |
 
 **Seeds (you should produce 30+ — these are just to calibrate):**
 
@@ -286,18 +344,31 @@ Current vocab (per `docs/design-system/31-chart-vocabulary.md`): percentile bar,
 - **Transfer Portal Net** — In vs. out arrows, per position group, with star-rating weights.
 - **Schedule-Strength Bracket** — 12 games sorted by opponent quality; each cell = result with EPA delta.
 
-### 3D. New evidence sources to wire
+### 3D. Evidence-source-to-card-type map
 
-Map every dataset from §1c that Chronicle doesn't use today to the §3A card types they enable. Output a table:
+Map every dataset from §1c — local DB, CFBD tier 2 endpoints, Polymarket, free external feeds, and any new sources you propose adding — to the §3A card types they enable. Output a table:
 
-| Dataset | Source file / table | Currently used by Chronicle? | Card types it unlocks |
-|---------|---------------------|------------------------------|----------------------|
-| `profiles/<slug>.md` aspiration ladder | `team_pages/data.py` Profile dataclass | No | Mascot Voice, Identity Crisis, Anniversary Trap |
-| `draft_picks` 2018-2025 | `ingest/sources/cfbd_draft.py` | No | NFL Pipeline Audit, Recruit-to-Result |
-| `fan_intelligence` Reddit+news+betting | `fan_intelligence.py` | No | Fan Mood Index Backward, Market Arbitrage |
-| ... | ... | ... | ... |
+| Dataset / endpoint | Source file or API path | Already in DB? | Card types it unlocks | Acquisition cost |
+|--------------------|-------------------------|----------------|----------------------|------------------|
+| `profiles/<slug>.md` aspiration ladder | `team_pages/data.py` Profile dataclass | Yes | Mascot Voice, Identity Crisis, Anniversary Trap | $0 |
+| `draft_picks` 2018-2025 | `ingest/sources/cfbd_draft.py` | Yes (CFBD ingest) | NFL Pipeline Audit, Recruit-to-Result | $0 (CFBD tier 2 paid) |
+| `fan_intelligence` Reddit+news+betting | `fan_intelligence.py` | Yes | Fan Mood Index Backward, Market Arbitrage | $0 |
+| CFBD `/plays` (PBP) | `cfbd_plays.py` (or wire if not) | Probably partial | The Hinge, Counterfactual Ladder, Win-Prob Flip | $0 (CFBD tier 2) |
+| CFBD `/ppa/players/season` | wire if needed | TBD | PPA Outlier, Hidden Star, Replacement-Cost | $0 (CFBD tier 2) |
+| CFBD `/stats/season/advanced` | wire if needed | TBD | Identity Crisis (havoc/explosiveness/success rate angles) | $0 (CFBD tier 2) |
+| CFBD `/lines` | wire if needed | TBD | Market Arbitrage Watch, Cover-Rate Trail, Closing-Line Value | $0 (CFBD tier 2) |
+| CFBD `/games/weather` | wire if needed | TBD | Weather Anomaly, "Played in 17 mph wind, threw 47 times" | $0 (CFBD tier 2) |
+| Polymarket quotes | `polymarket_*` table | Yes | Market Arbitrage, Crystal Ball Recall | $0 |
+| Massey Composite / Sagarin | scrape (propose) | No | Rating Disagreement, "The Models Are Split" | $0 (free scrape) |
+| Bart Torvik CFB ratings | scrape (propose) | No | Style-Mismatch Tag, Pace Anomaly | $0 (free) |
+| /r/CFB top posts | Reddit JSON | Partial via fan_intel | Fan Sentiment Anomaly, "What Reddit Cared About" | $0 |
+| Wikipedia historical | REST API (propose) | No | Decade Echo, Anniversary Trap (historical anchors) | $0 |
+| ESPN unofficial JSON | propose | No | Cross-sport callbacks, transaction timeline | $0 |
+| ... | ... | ... | ... | ... |
 
-This table is mission-critical. The user's request is "use our proprietary data sets." This is where you prove it.
+This table is mission-critical. **You are not limited to data we already ingest.** If a CFBD tier 2 endpoint or a free scrape unlocks a great card, propose wiring it. Flag any paid-tier external (PFF, FEI) with explicit cost.
+
+The user's request is "use any data, but do unique things with it." This table is where you show what unique syntheses become possible when you combine 3+ sources nobody else combines (e.g., CFBD PPA × Polymarket × per-team voice register = a "market-vs-PPA-vs-fanbase-mood" card no other site can produce, not because the data is proprietary but because nobody else has stitched those three sources together with a 127-fanbase voice library).
 
 ### 3E. Pipeline architecture refactor
 
@@ -398,22 +469,26 @@ Required sections:
 - **You read the codebase yourself.** Do not ask the user for code paths; explore them.
 - **You read the live site yourself.** WebFetch `https://wonderful-margulis-8ec96b.vercel.app/...`
 - **Date is May 23, 2026.** All competitive references should be current (PFF College's May 2026 takes, /r/CFB top posts last 30 days, etc.).
-- **Numbers must be real or marked as TODO.** No hallucinated stats.
+- **Data is wide-open.** Use any source — local DB, CFBD tier 2 (we pay for it), Polymarket, Reddit, free scrapes, Wikipedia, ESPN unofficial endpoints, anything ToS-compliant. Flag any paid external (PFF, FEI, Sportradar) with explicit per-month cost. The constraint is "is the *synthesis* unique," not "is the *data* unique."
+- **Numbers must be real or marked as TODO.** No hallucinated stats. If you don't yet have a number for an example body, write the body with `[TODO: pull X from CFBD /ppa/players/season]` inline.
 - **Voice must match.** If you propose a "Mascot Voice Card," write it in that mascot's actual voice — check `profiles/<slug>.md`.
 - **Stay scoped.** This is a brainstorm + architecture proposal. Don't write production code. Pseudo-code only.
 - **Be greedy.** 30+ card ideas, 15+ viz ideas, then triage to top 15 + top 15. Show your work — list the cut ideas in an appendix with one-line reasons.
-- **Be honest.** If the answer to "what's the unique angle Chronicle should own" is "the per-fanbase voice register driven by hand-authored profiles," say that loudly. If you find a dataset that's a sleeping competitive moat, name it.
+- **Be honest.** Don't pretend we have a moat we don't. Don't pretend a card is novel when ESPN already does it. If a competitor already publishes the angle you're proposing, say so and explain how Chronicle's take is materially different (voice / framing / pairing / depth).
 
 ---
 
 ## Success criteria
 
 The user reads the proposal and reacts:
-1. "I never thought of half of these card types."
+1. "I haven't seen these angles anywhere on the CFB web — and Codex showed me the receipts that nobody else does them."
 2. "The anti-duplication mechanism actually solves the problem I had."
 3. "I can see exactly how to build the top 5 things this sprint."
 4. "These viz ideas would make Chronicle the most visually arresting CFB editorial product on the web."
 5. "The cost estimate is realistic and the local-vs-paid split makes sense."
+6. "The new CFBD endpoints to wire are concrete and the synthesis examples are believable."
+
+If half your top-15 cards are class C/D (mainstream covers it) without a clearly differentiated treatment, the proposal fails. Push hard for class A and B with explicit competitive footnotes.
 
 If your proposal hits all five, it ships and the user spends the next quarter implementing it. If it's a generic "use better prompts" doc, it goes in the trash.
 
