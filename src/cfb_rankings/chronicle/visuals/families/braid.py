@@ -127,9 +127,10 @@ def render_heisman_race_braid(
         latest_p = hist[-1].get("finalist_probability", 0) or 0
         y = strip_y + idx * 30
         parts.append(rect(strip_x, y, 80, 22, fill="#fff", opacity=0.7))
+        # `text()` already escapes — pass raw, truncated.
         parts.append(text(
             strip_x + 6, y + 14,
-            html.escape(r["player_name"])[:14],
+            (r["player_name"] or "")[:14],
             font_size=10, color=PALETTE_INK,
         ))
         parts.append(text(

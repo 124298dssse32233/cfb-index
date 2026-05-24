@@ -476,13 +476,21 @@ def _render_page(
     # Chronicle Visuals — v3 visual-first module (deterministic SVG renderer).
     # Reads from chronicle_visual_cache. Hidden when no visuals have been
     # generated yet for this team.
-    try:
-        from cfb_rankings.chronicle.visuals import fetch_visual_cards as _fetch_chronicle_visuals
-        chronicle_visual_cards = _fetch_chronicle_visuals(
-            db, profile.slug, season_year=snapshot.season_year, limit=6,
-        ) if db is not None else []
-    except Exception:
-        chronicle_visual_cards = []
+    chronicle_visual_cards: list[dict[str, Any]] = []
+    if db is not None:
+        try:
+            from cfb_rankings.chronicle.visuals import (
+                fetch_visual_cards as _fetch_chronicle_visuals,
+            )
+            chronicle_visual_cards = _fetch_chronicle_visuals(
+                db, profile.slug, season_year=snapshot.season_year, limit=6,
+            )
+        except Exception as exc:
+            # Don't silently hide schema-drift / missing-migration bugs — log
+            # so post-deploy verification can see why a team has no visuals.
+            print(
+                f"  team-pages: chronicle visuals fetch failed for {profile.slug} — {exc}"
+            )
     chronicle_visuals_html = _render_chronicle_visuals_section(
         chronicle_visual_cards, profile
     )

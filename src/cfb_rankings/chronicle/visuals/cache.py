@@ -61,13 +61,34 @@ def compute_visual_cache_key(
 
 
 def compute_data_fingerprint(query_result: dict[str, Any]) -> str:
-    """Hash of the deterministic query output (rows + summary_stats)."""
+    """Hash of the deterministic query output (rows + summary_stats).
+
+    Uses an isoformat-coercing default so datetime/decimal values produce a
+    stable string regardless of locale or timezone-printout flavor (e.g.
+    `+00:00` vs `Z`). Without this, two equivalent query runs can produce
+    different fingerprints and the cache stops hitting.
+    """
     payload = {
         "rows": query_result.get("rows", []),
         "summary_stats": query_result.get("summary_stats", {}),
     }
-    canonical = json.dumps(payload, sort_keys=True, default=str)
+    canonical = json.dumps(payload, sort_keys=True, default=_stable_repr)
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:16]
+
+
+def _stable_repr(obj: Any) -> str:
+    """Locale-stable str() fallback for json.dumps default=."""
+    from decimal import Decimal
+    if isinstance(obj, datetime):
+        # Always UTC isoformat with explicit Z suffix
+        if obj.tzinfo is None:
+            return obj.replace(tzinfo=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        return obj.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    if isinstance(obj, Decimal):
+        return format(obj, "f")
+    if isinstance(obj, (bytes, bytearray)):
+        return obj.hex()
+    return str(obj)
 
 
 def compute_thesis_hash(visual_id: str, thesis_direction: str, primary_source: str) -> str:
@@ -144,6 +165,17 @@ def store_visual(db: Any, result: VisualResult) -> None:
     receipt = result.receipt
     score = result.score
 
+    # Preserve LKG status across forced regenerates with identical cache key —
+    # INSERT OR REPLACE drops the prior row entirely, so any is_lkg=1 flag
+    # would be lost. Read it back first and re-apply on insert.
+    prior_lkg = _query_one(
+        db,
+        "SELECT is_lkg, lkg_promoted_at_utc FROM chronicle_visual_cache WHERE visual_cache_key = :key",
+        {"key": result.visual_cache_key},
+    ) or {}
+    preserved_is_lkg = int(prior_lkg.get("is_lkg") or 0)
+    preserved_lkg_at = prior_lkg.get("lkg_promoted_at_utc")
+
     # Supersede prior active rows for the same scope but a DIFFERENT cache_key
     # (i.e. data fingerprint or renderer version changed — old row is now stale).
     _execute(
@@ -180,7 +212,8 @@ def store_visual(db: Any, result: VisualResult) -> None:
             visual_quality_score, clarity_score, fan_relevance_score,
             data_depth_score, novelty_score, mobile_legibility_score,
             screenshot_value_score, evidence_strength_score, voice_fit_score,
-            suppressed, suppression_reason, is_lkg, wall_clock_ms, created_at_utc
+            suppressed, suppression_reason, is_lkg, lkg_promoted_at_utc,
+            wall_clock_ms, created_at_utc
         ) VALUES (
             :visual_cache_key, :slug, :entity_kind, :season_year, :week_number,
             :card_cache_key, :visual_id, :chart_family, :data_query_id,
@@ -190,7 +223,8 @@ def store_visual(db: Any, result: VisualResult) -> None:
             :visual_quality_score, :clarity_score, :fan_relevance_score,
             :data_depth_score, :novelty_score, :mobile_legibility_score,
             :screenshot_value_score, :evidence_strength_score, :voice_fit_score,
-            :suppressed, :suppression_reason, 0, :wall_clock_ms, :now
+            :suppressed, :suppression_reason, :is_lkg, :lkg_promoted_at_utc,
+            :wall_clock_ms, :now
         )
         """,
         {
@@ -225,6 +259,8 @@ def store_visual(db: Any, result: VisualResult) -> None:
             "voice_fit_score": score.voice_fit,
             "suppressed": 1 if result.suppressed else 0,
             "suppression_reason": result.suppression_reason,
+            "is_lkg": preserved_is_lkg,
+            "lkg_promoted_at_utc": preserved_lkg_at,
             "wall_clock_ms": result.wall_clock_ms,
             "now": _now_utc(),
         },

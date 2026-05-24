@@ -93,8 +93,9 @@ def render_statement_win_ladder(
             fill=PALETTE_INK if r.get("is_top_result") else bar_color,
         ))
 
-        # Result + opponent label (left rail)
-        label_text = f"{r['result_text']}  vs {html.escape(r['opponent_name'])[:18]}"
+        # Result + opponent label (left rail) — `text()` already escapes; don't double-escape.
+        opponent_short = (r["opponent_name"] or "")[:18]
+        label_text = f"{r['result_text']}  vs {opponent_short}"
         if r.get("is_top_result"):
             parts.append(text(20, y + 5, label_text, font_size=13, weight="700"))
         else:

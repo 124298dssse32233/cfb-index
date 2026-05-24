@@ -141,6 +141,78 @@ def test_alabama_full_pipeline(db):
         assert c["visual_quality_score"] is not None
 
 
+def test_force_regenerate_preserves_lkg_flag(db):
+    """Regression: INSERT OR REPLACE must not nuke prior is_lkg=1 on force-regen."""
+    cur = db.execute("SELECT 1 FROM team_rating_deltas LIMIT 1")
+    if not cur.fetchone():
+        pytest.skip("team_rating_deltas empty — skipping LKG test")
+
+    from cfb_rankings.chronicle.visuals import (
+        generate_visuals_for_team, promote_visual_lkg, VisualId,
+    )
+    # First pass — ensure a row exists
+    results = generate_visuals_for_team(
+        db, slug="alabama", season_year=2024,
+        visual_ids=[VisualId.STATEMENT_WIN_LADDER],
+        force_regenerate=True,
+    )
+    assert results
+    key = results[0].visual_cache_key
+
+    # Promote to LKG
+    assert promote_visual_lkg(db, key)
+    row = db.execute(
+        "SELECT is_lkg, lkg_promoted_at_utc FROM chronicle_visual_cache WHERE visual_cache_key = ?",
+        (key,),
+    ).fetchone()
+    assert row["is_lkg"] == 1
+    promoted_at = row["lkg_promoted_at_utc"]
+    assert promoted_at
+
+    # Force-regenerate — LKG MUST survive
+    generate_visuals_for_team(
+        db, slug="alabama", season_year=2024,
+        visual_ids=[VisualId.STATEMENT_WIN_LADDER],
+        force_regenerate=True,
+    )
+    after = db.execute(
+        "SELECT is_lkg, lkg_promoted_at_utc FROM chronicle_visual_cache WHERE visual_cache_key = ?",
+        (key,),
+    ).fetchone()
+    assert after["is_lkg"] == 1, "force-regenerate erased the LKG flag"
+    assert after["lkg_promoted_at_utc"] == promoted_at, "LKG promotion timestamp was reset"
+
+
+def test_no_double_escape_in_svg():
+    """Regression: text() already escapes; renderers must not pre-escape."""
+    from cfb_rankings.chronicle.visuals.families import ladder, braid
+    # Opponent name with ampersand — single escape -> &amp; ; double escape -> &amp;amp;
+    fake_ladder = {
+        "rows": [{
+            "game_id": 1, "week": 1, "opponent_slug": "tam",
+            "opponent_name": "Texas A&M", "result_text": "W 10-3",
+            "total_delta": 1.0, "power_delta": 0.5, "resume_delta": 0.5,
+            "offense_delta": 0.5, "defense_delta": 0.5, "is_win": True,
+            "is_top_result": True,
+        }],
+        "summary_stats": {},
+    }
+    out = ladder.render_statement_win_ladder(fake_ladder)
+    assert "&amp;amp;" not in out["svg_html"], "ladder double-escapes opponent name"
+    assert "Texas A&amp;M" in out["svg_html"], "ladder lost the ampersand entirely"
+
+    fake_braid = {
+        "rows": [{
+            "player_id": 1, "player_name": "T&J Henderson",
+            "team_slug": "alabama", "current_rank": 1,
+            "history": [{"week": 1, "rank": 1, "latent_score": 1.0, "finalist_probability": 0.5}],
+        }],
+        "summary_stats": {"season_year": 2024, "snapshot_week": 1},
+    }
+    out2 = braid.render_heisman_race_braid(fake_braid)
+    assert "&amp;amp;" not in out2["svg_html"], "braid double-escapes player name"
+
+
 def test_renderer_produces_inline_svg():
     """Smoke renderer with synthetic data — no DB."""
     from cfb_rankings.chronicle.visuals.families import ladder

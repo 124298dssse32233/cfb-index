@@ -131,10 +131,13 @@ def _generate_one(
     query_result = query_fn(db, slug=slug, season_year=season_year, week_number=week_number)
     data_fingerprint = compute_data_fingerprint(query_result)
 
-    # Step 2: compute cache key
+    # Step 2: compute cache key — entity_kind defaults to 'team' for this
+    # call site but is derived from spec.entity_scope shape so player/league
+    # visuals get a distinct key namespace and can't collide via shared slugs.
+    entity_kind = "team"  # generate_visuals_for_team contract
     cache_key = compute_visual_cache_key(
         slug=slug,
-        entity_kind="team",
+        entity_kind=entity_kind,
         season_year=season_year,
         week_number=week_number,
         visual_id=visual_id.value,
