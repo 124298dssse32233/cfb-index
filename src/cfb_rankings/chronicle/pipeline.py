@@ -1310,7 +1310,7 @@ def _select_entities_for_tier(
         # Teams: top 50 from teams table
         try:
             rows = db.query_all(
-                "SELECT slug FROM teams WHERE classification = 'fbs' LIMIT 50"
+                "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1 LIMIT 50"
             )
             for r in rows:
                 if r.get("slug"):
@@ -1355,7 +1355,7 @@ def _select_entities_for_tier(
         # Teams: rank 51-100
         try:
             rows = db.query_all(
-                "SELECT slug FROM teams WHERE classification = 'fbs' LIMIT 50 OFFSET 50"
+                "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1 LIMIT 50 OFFSET 50"
             )
             for r in rows:
                 if r.get("slug"):
@@ -1373,7 +1373,7 @@ def _select_entities_for_tier(
     else:  # T3 — all remaining FBS
         try:
             rows = db.query_all(
-                "SELECT slug FROM teams WHERE classification = 'fbs'"
+                "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1"
             )
             for r in rows:
                 if r.get("slug"):
@@ -1390,7 +1390,16 @@ def _select_entities_for_tier(
 
         try:
             rows = db.query_all(
-                "SELECT slug FROM players WHERE classification = 'fbs' OR classification IS NULL LIMIT 2000"
+                # Players table has no classification column — use slug presence as a proxy.
+                # Limit to player slugs that have at least one row in player_season_stats
+                # for the current season so we don't try to write cards for orphan slugs.
+                """
+                SELECT DISTINCT p.slug FROM players p
+                JOIN player_season_stats pss ON pss.player_id = p.player_id
+                WHERE pss.season_year = ? AND p.slug IS NOT NULL
+                LIMIT 2000
+                """,
+                (season_year,),
             )
             for r in rows:
                 if r.get("slug"):
@@ -1424,6 +1433,18 @@ def _infer_season_year(db: Any) -> int:
     import datetime as _dt
 
     for table in ("player_season_summary", "team_savant_weekly", "heisman_market_odds_weekly"):
+        try:
+            row = db.query_one(
+                f"SELECT MAX(season_year) AS yr FROM {table}"
+            )
+            if row and row.get("yr"):
+                return int(row["yr"])
+        except Exception:
+            continue
+
+    # Fallback to ratings tables — these are reliably populated even when the
+    # higher-level summary tables haven't been backfilled yet.
+    for table in ("power_ratings_weekly", "resume_ratings_weekly", "heisman_rankings_weekly"):
         try:
             row = db.query_one(
                 f"SELECT MAX(season_year) AS yr FROM {table}"
