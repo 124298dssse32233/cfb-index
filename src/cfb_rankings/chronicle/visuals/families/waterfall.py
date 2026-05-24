@@ -40,12 +40,14 @@ def render_returning_production_xray(
 
     width = 600
     height = 280
+    season = summary.get("season_year", "")
+    sr_title = f"Returning Production X-Ray — {season} season"
+
     parts: list[str] = []
-    parts.append(svg_open(width, height))
+    parts.append(svg_open(width, height, title=sr_title))
     parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
 
     parts.append(text(20, 28, "Returning Production X-Ray", font_size=16, weight="700"))
-    season = summary.get("season_year", "")
     parts.append(text(
         20, 48,
         f"{season} returning value vs FBS average",

@@ -45,8 +45,15 @@ def render_statement_win_ladder(
     bottom_pad = 36
     height = top_pad + bottom_pad + (row_h * len(rows))
 
+    # Headline finding gets generated next; build a placeholder for the title
+    # that the screen reader will hear ("Statement Win Ladder — <top result>").
+    sr_title = (
+        f"Statement Win Ladder — top result: {rows[0]['result_text']} vs "
+        f"{rows[0]['opponent_name']}"
+    )
+
     parts: list[str] = []
-    parts.append(svg_open(width, height))
+    parts.append(svg_open(width, height, title=sr_title))
     parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
 
     # Title + caption row

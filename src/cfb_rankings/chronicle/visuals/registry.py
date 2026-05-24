@@ -9,7 +9,7 @@ from typing import Callable
 
 from .models import VisualId, ChartFamily
 from . import queries
-from .families import ladder, waterfall, braid, tilemosaic
+from .families import ladder, waterfall, braid, tilemosaic, scatter
 
 
 # Each entry: (chart_family, query_fn, renderer_fn)
@@ -33,6 +33,16 @@ _REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
         ChartFamily.TILE_MOSAIC,
         queries.query_roster_replacement_grid,
         tilemosaic.render_roster_replacement_grid,
+    ),
+    VisualId.CFP_BUBBLE_WALL: (
+        ChartFamily.ANNOTATED_SCATTER,
+        queries.query_cfp_bubble_wall,
+        scatter.render_cfp_bubble_wall,
+    ),
+    VisualId.TALENT_YIELD_CURVE: (
+        ChartFamily.ANNOTATED_SCATTER,
+        queries.query_talent_yield_curve,
+        scatter.render_talent_yield_curve,
     ),
 }
 

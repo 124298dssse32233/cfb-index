@@ -20,9 +20,44 @@ from __future__ import annotations
 
 __version__ = "1.0.0"
 
-# Renderer version — bump to force cache invalidation.
-RENDERER_VERSION = "v1.0.0"
 SCHEMA_VERSION = "v3.0"
+
+
+def _compute_renderer_version() -> str:
+    """Derive renderer version from a short hash of the renderer modules.
+
+    Bumps automatically when any chart family or the dispatch pipeline
+    changes — no manual version bump required. Falls back to a static
+    string if the package is read-only or files can't be hashed.
+    """
+    import hashlib
+    from pathlib import Path
+
+    here = Path(__file__).parent
+    # Files whose content determines visual output
+    targets = [
+        here / "pipeline.py",
+        here / "scorer.py",
+        here / "queries.py",
+        here / "share_renderer.py",
+        here / "families" / "ladder.py",
+        here / "families" / "waterfall.py",
+        here / "families" / "braid.py",
+        here / "families" / "tilemosaic.py",
+    ]
+    h = hashlib.sha256()
+    try:
+        for p in targets:
+            if p.exists():
+                h.update(p.read_bytes())
+        return f"v1.{h.hexdigest()[:8]}"
+    except Exception:
+        return "v1.0.0"
+
+
+# Renderer version derived from module bytes — changing any renderer file
+# automatically invalidates the visual cache for affected entries.
+RENDERER_VERSION = _compute_renderer_version()
 
 from .models import (
     VisualSpec,

@@ -1759,6 +1759,15 @@ CHRONICLE_VISUALS_CSS = """
 .visual-card__badge--score {
   font-family: ui-monospace, Menlo, monospace;
 }
+.visual-card__badge--share {
+  background: rgba(201,162,74,0.18);
+  color: #8a6b1f;
+  text-decoration: none;
+  cursor: pointer;
+}
+.visual-card__badge--share:hover {
+  background: rgba(201,162,74,0.32);
+}
 """
 
 
@@ -1794,12 +1803,19 @@ def _render_visual_card(card: dict[str, Any]) -> str:
     score = card.get("visual_quality_score") or 0
     is_lkg = card.get("is_lkg", 0)
     sample_n = card.get("sample_n") or 0
+    share_path = card.get("share_asset_path")
 
     lkg_badge = '<span class="visual-card__badge visual-card__badge--lkg">✓ LKG</span>' if is_lkg else ""
     family_badge = f'<span class="visual-card__badge">{html.escape(family.replace("_", " "))}</span>'
     conf_badge = f'<span class="visual-card__badge">{html.escape(confidence)}</span>'
     sample_badge = f'<span class="visual-card__badge">n={sample_n}</span>'
     score_badge = f'<span class="visual-card__badge visual-card__badge--score">q={score:.2f}</span>'
+    share_badge = (
+        f'<a class="visual-card__badge visual-card__badge--share" '
+        f'href="/{html.escape(share_path)}" download '
+        f'title="Download share image (1200×675 PNG)">⤓ share</a>'
+        if share_path else ""
+    )
 
     headline_html = (
         f'<h3 class="visual-card__headline">{html.escape(headline)}</h3>'
@@ -1811,7 +1827,7 @@ def _render_visual_card(card: dict[str, Any]) -> str:
   {headline_html}
   {svg_div}
   <div class="visual-card__meta">
-    {lkg_badge}{family_badge}{conf_badge}{sample_badge}{score_badge}
+    {lkg_badge}{family_badge}{conf_badge}{sample_badge}{score_badge}{share_badge}
   </div>
 </article>"""
 

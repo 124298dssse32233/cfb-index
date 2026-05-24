@@ -34,6 +34,7 @@ from .cache import (
     store_visual,
     get_cached_visual,
 )
+from .share_renderer import write_share_png
 
 log = logging.getLogger("cfb_rankings.chronicle.visuals.pipeline")
 
@@ -51,6 +52,7 @@ def generate_visuals_for_team(
     if visual_ids is None:
         visual_ids = list_registered_visuals()
 
+    seen_theses: set[str] = set()
     results: list[VisualResult] = []
     for vid in visual_ids:
         try:
@@ -62,8 +64,21 @@ def generate_visuals_for_team(
                 week_number=week_number,
                 force_regenerate=force_regenerate,
             )
-            if result:
-                results.append(result)
+            if not result:
+                continue
+            # Cross-visual thesis dedup: if two visuals on the same team page
+            # would carry the same thesis (visual_id + thesis_direction + primary
+            # source) the second one is marked suppressed so only one ships.
+            if result.visual_thesis_hash in seen_theses and not result.suppressed:
+                result.suppressed = True
+                result.suppression_reason = "duplicate thesis on same team-page run"
+                log.info(
+                    "visual %s for %s suppressed — duplicate thesis hash %s",
+                    vid.value, slug, result.visual_thesis_hash,
+                )
+            else:
+                seen_theses.add(result.visual_thesis_hash)
+            results.append(result)
         except Exception as exc:
             log.exception("visual %s failed for %s: %s", vid, slug, exc)
     return results
@@ -197,13 +212,26 @@ def _generate_one(
         primary_source=primary_source,
     )
 
+    # Share-card PNG export (deferred-friendly: returns None if resvg-py absent
+    # or any rendering failure happens; the visual still ships as inline SVG).
+    share_asset_path = None
+    if not suppressed:
+        share_asset_path = write_share_png(
+            slug=slug,
+            visual_id=visual_id.value,
+            inner_svg=rendered["svg_html"],
+            headline=rendered["headline_finding"],
+            sample_n=receipt.sample_n,
+            confidence=receipt.confidence.value,
+        )
+
     result = VisualResult(
         visual_cache_key=cache_key,
         spec=spec,
         receipt=receipt,
         score=score,
         svg_html=rendered["svg_html"],
-        share_asset_path=None,  # PNG export deferred (cairosvg not installed)
+        share_asset_path=share_asset_path,
         visual_thesis_hash=thesis_hash,
         visual_data_fingerprint=data_fingerprint,
         suppressed=suppressed,

@@ -287,6 +287,7 @@ def fetch_visual_cards(
                season_year, week_number, created_at_utc, is_lkg
         FROM chronicle_visual_cache
         WHERE {' AND '.join(where)}
+          AND COALESCE(suppressed, 0) = 0
         ORDER BY is_lkg DESC, visual_quality_score DESC, season_year DESC, week_number DESC
         LIMIT :limit
     """

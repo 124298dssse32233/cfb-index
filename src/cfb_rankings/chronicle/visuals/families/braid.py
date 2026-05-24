@@ -39,12 +39,16 @@ def render_heisman_race_braid(
 
     width = 720
     height = 380
-    parts: list[str] = []
-    parts.append(svg_open(width, height))
-    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
-
     snapshot_week = summary.get("snapshot_week", "?")
     season = summary.get("season_year", "")
+    sr_title = (
+        f"Heisman Race Braid — {season} season through week {snapshot_week}; "
+        f"top {len(rows)} contenders"
+    )
+
+    parts: list[str] = []
+    parts.append(svg_open(width, height, title=sr_title))
+    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
     parts.append(text(20, 28, "Heisman Race Braid", font_size=16, weight="700"))
     parts.append(text(
         20, 48,

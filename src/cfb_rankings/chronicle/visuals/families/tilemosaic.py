@@ -41,14 +41,16 @@ def render_roster_replacement_grid(
     bottom_pad = 36
     height = top_pad + bottom_pad + row_h * len(rows)
 
-    parts: list[str] = []
-    parts.append(svg_open(width, height))
-    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
-
-    parts.append(text(20, 28, "Roster Replacement Grid", font_size=16, weight="700"))
     season = summary.get("season_year", "")
     n_in = summary.get("total_incoming", 0)
     n_out = summary.get("total_outgoing", 0)
+    sr_title = f"Roster Replacement Grid — {season}: {n_in} in, {n_out} out across {len(rows)} positions"
+
+    parts: list[str] = []
+    parts.append(svg_open(width, height, title=sr_title))
+    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
+
+    parts.append(text(20, 28, "Roster Replacement Grid", font_size=16, weight="700"))
     parts.append(text(
         20, 48,
         f"{season} portal: {n_out} out · {n_in} in by position",

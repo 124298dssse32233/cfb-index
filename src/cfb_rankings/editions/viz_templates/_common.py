@@ -21,12 +21,33 @@ PALETTE_MUTED = "#7a7a7a"
 PALETTE_CREAM = "#f6f1e6"
 
 
-def svg_open(width: int, height: int, viewbox: tuple[int, int, int, int] | None = None) -> str:
+def svg_open(
+    width: int,
+    height: int,
+    viewbox: tuple[int, int, int, int] | None = None,
+    *,
+    title: str | None = None,
+    desc: str | None = None,
+) -> str:
+    """Open an SVG root element.
+
+    When `title` is provided, the SVG gets `role="img"` plus a `<title>` /
+    optional `<desc>` child — these are the WCAG 2.1 SC 1.1.1 requirements
+    for inline SVG to act as a labelled image for screen readers.
+    """
     vb = viewbox or (0, 0, width, height)
+    role_bits = ""
+    label_children = ""
+    if title:
+        role_bits = ' role="img" aria-labelledby="svg-title' + (' svg-desc' if desc else '') + '"'
+        label_children = f'<title id="svg-title">{html.escape(title)}</title>'
+        if desc:
+            label_children += f'<desc id="svg-desc">{html.escape(desc)}</desc>'
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb[0]} {vb[1]} {vb[2]} {vb[3]}" '
         f'width="100%" preserveAspectRatio="xMidYMid meet" '
-        f'style="background:transparent;font-family:Georgia,serif;">'
+        f'style="background:transparent;font-family:Georgia,serif;"{role_bits}>'
+        f'{label_children}'
     )
 
 

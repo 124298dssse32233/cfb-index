@@ -427,6 +427,187 @@ def query_roster_replacement_grid(
 
 
 # ---------------------------------------------------------------------------
+# Query: CFP Bubble Wall
+# ---------------------------------------------------------------------------
+
+
+def query_cfp_bubble_wall(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,
+) -> dict[str, Any]:
+    query_id = "cfp_bubble_wall_v1"
+    source_tables = ["official_rankings", "power_ratings_weekly", "resume_ratings_weekly", "teams"]
+
+    anchor_team_id = _team_id_for_slug(db, slug)
+
+    # Pick the most-recent week that has all three sources (or week_number override)
+    if week_number is None:
+        wk_row = _query_one(
+            db,
+            """
+            SELECT MAX(week) AS w FROM power_ratings_weekly WHERE season_year = ?
+            """,
+            (season_year,),
+        )
+        week_number = (wk_row or {}).get("w") or 0
+    if week_number == 0:
+        return _empty_result(query_id, source_tables, "no power ratings for season")
+
+    # Pull top-25 candidates by resume_ratings for the snapshot week
+    sql = """
+    SELECT r.team_id, r.resume_score, r.season_year, r.week,
+           p.power_rating,
+           t.canonical_name AS team_name, t.slug
+    FROM resume_ratings_weekly r
+    JOIN power_ratings_weekly p
+      ON p.team_id = r.team_id AND p.season_year = r.season_year AND p.week = r.week
+    JOIN teams t ON t.team_id = r.team_id
+    WHERE r.season_year = :season_year AND r.week = :week
+      AND t.level_code = 'FBS' AND t.is_active = 1
+    ORDER BY r.resume_score DESC
+    LIMIT 25
+    """
+    raw = _query_all(db, sql, {"season_year": season_year, "week": week_number})
+    if not raw:
+        return _empty_result(query_id, source_tables, "no resume+power rows for week")
+
+    # Percentile rank within the snapshot set
+    res_sorted = sorted([r["resume_score"] or 0 for r in raw])
+    pow_sorted = sorted([r["power_rating"] or 0 for r in raw])
+    n = len(raw)
+
+    def pctile(values: list[float], v: float) -> float:
+        # Linear pctile in [0,1]
+        i = sum(1 for x in values if x <= v)
+        return (i - 0.5) / max(1, n)
+
+    rows: list[dict] = []
+    for r in raw:
+        x = pctile(res_sorted, r["resume_score"] or 0)
+        y = pctile(pow_sorted, r["power_rating"] or 0)
+        is_anchor = r["team_id"] == anchor_team_id
+        # Top-5 of either axis = peer-label
+        peer = (r["resume_score"] in res_sorted[-5:]) or (r["power_rating"] in pow_sorted[-5:])
+        rows.append({
+            "slug": r["slug"],
+            "label": r["team_name"],
+            "x": x,
+            "y": y,
+            "peer_label": peer,
+            "anchor": is_anchor,
+        })
+
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": rows,
+        "summary_stats": {
+            "season_year": season_year,
+            "snapshot_week": week_number,
+            "anchor_slug": slug,
+            "n_teams": n,
+        },
+        "sample_n": n,
+        "confidence": "high" if n >= 15 else "medium",
+        "limitations": [],
+        "as_of_utc": _now_utc(),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Query: Talent Yield Curve
+# ---------------------------------------------------------------------------
+
+
+def query_talent_yield_curve(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,  # ignored
+) -> dict[str, Any]:
+    query_id = "talent_yield_curve_v1"
+    source_tables = ["team_talent_snapshots", "player_nfl_draft", "teams"]
+
+    anchor_team_id = _team_id_for_slug(db, slug)
+
+    # x-axis: talent rank percentile (1.0 = top talent class) at season
+    # y-axis: 3-year rolling NFL draft yield percentile
+
+    # Pull all FBS team talent for season
+    talent_sql = """
+    SELECT t.team_id, t.slug, t.canonical_name AS team_name,
+           tt.talent_score, tt.talent_rank
+    FROM teams t
+    JOIN team_talent_snapshots tt
+      ON tt.team_id = t.team_id AND tt.season_year = :season_year
+    WHERE t.level_code = 'FBS' AND t.is_active = 1
+    """
+    talent_rows = _query_all(db, talent_sql, {"season_year": season_year})
+    if not talent_rows:
+        return _empty_result(query_id, source_tables, "no talent snapshot for season")
+
+    # Pull 3-year rolling draft picks per team (draft_year in [season-2, season])
+    draft_sql = """
+    SELECT college_team_id, COUNT(*) AS picks
+    FROM player_nfl_draft
+    WHERE college_team_id IS NOT NULL
+      AND draft_year BETWEEN :y_start AND :y_end
+    GROUP BY college_team_id
+    """
+    draft_rows = _query_all(
+        db, draft_sql,
+        {"y_start": season_year - 2, "y_end": season_year},
+    )
+    draft_by_team: dict[int, int] = {int(r["college_team_id"]): int(r["picks"]) for r in draft_rows}
+
+    # Compute percentiles within the talent universe
+    talent_scores = sorted([r["talent_score"] or 0 for r in talent_rows])
+    draft_counts = sorted([draft_by_team.get(r["team_id"], 0) for r in talent_rows])
+    n = len(talent_rows)
+
+    def pctile(values: list[float], v: float) -> float:
+        i = sum(1 for x in values if x <= v)
+        return (i - 0.5) / max(1, n)
+
+    rows: list[dict] = []
+    for r in talent_rows:
+        team_id = r["team_id"]
+        x = pctile(talent_scores, r["talent_score"] or 0)
+        picks = draft_by_team.get(team_id, 0)
+        y = pctile(draft_counts, picks)
+        is_anchor = team_id == anchor_team_id
+        # Top 8 either axis -> peer label
+        peer = (r["talent_score"] in talent_scores[-8:]) or (picks in draft_counts[-8:])
+        rows.append({
+            "slug": r["slug"],
+            "label": r["team_name"],
+            "x": x,
+            "y": y,
+            "peer_label": peer,
+            "anchor": is_anchor,
+        })
+
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": rows,
+        "summary_stats": {
+            "season_year": season_year,
+            "anchor_slug": slug,
+            "n_teams": n,
+        },
+        "sample_n": n,
+        "confidence": "high" if n >= 50 else "medium",
+        "limitations": [],
+        "as_of_utc": _now_utc(),
+    }
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
