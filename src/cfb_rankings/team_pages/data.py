@@ -519,6 +519,69 @@ def fetch_chronicle_cards(
     return out
 
 
+def fetch_llm_chronicle_cards(
+    db,
+    slug: str,
+    limit: int = 6,
+) -> list[dict[str, Any]]:
+    """Read LLM-generated Chronicle cards from chronicle_card_cache.
+
+    These are the Mistral Nemo / Qwen3 generated narrative cards from the
+    autonomous pipeline — flashpoint, echo, devil_card, player_arc, etc.
+    Prefers is_lkg=1 cards first (fact-critic approved), then by
+    season_year + week desc so the freshest content surfaces.
+
+    Uses raw sqlite3 since db.query_all may not be available in all call sites.
+    """
+    import sqlite3 as _sqlite3
+    import json as _json
+
+    # The db object wraps sqlite3.Connection; reach through to it.
+    # Supports both: raw sqlite3.Connection and the project's DB wrapper.
+    try:
+        # Project DB wrapper exposes .query_all(sql, params)
+        rows = db.query_all(
+            """
+            SELECT card_type, card_content_json, word_count,
+                   fact_critic_score, voice_critic_score,
+                   season_year, week_number, is_lkg,
+                   confidence_band, prompt_template_id
+            FROM chronicle_card_cache
+            WHERE slug = :slug
+              AND word_count > 0
+            ORDER BY is_lkg DESC, season_year DESC, week_number DESC
+            LIMIT :lim
+            """,
+            {"slug": slug, "lim": limit},
+        )
+    except Exception:
+        return []
+
+    out = []
+    for r in rows:
+        try:
+            content = _json.loads(r["card_content_json"] or "{}")
+        except Exception:
+            content = {}
+        body = content.get("body_text") or content.get("body_md") or ""
+        headline = content.get("headline") or ""
+        if not body:
+            continue
+        out.append({
+            "card_type": r["card_type"] or "echo",
+            "headline": headline,
+            "body": body,
+            "word_count": r["word_count"],
+            "fact_critic_score": r["fact_critic_score"],
+            "season_year": r["season_year"],
+            "week_number": r["week_number"],
+            "is_lkg": bool(r["is_lkg"]),
+            "confidence_band": r["confidence_band"] or "medium",
+            "prompt_template_id": r["prompt_template_id"] or "",
+        })
+    return out
+
+
 def fetch_savant_rows(
     db,
     team_id: int,

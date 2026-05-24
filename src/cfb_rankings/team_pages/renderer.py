@@ -31,6 +31,7 @@ from .data import (
     FLOOR_AWAITING, FLOOR_GROWING,
     GameResult, TeamSnapshot, fetch_team_snapshot, fetch_mood_snapshot,
     fetch_divergence, fetch_state_of_team, fetch_chronicle_cards,
+    fetch_llm_chronicle_cards,
     fetch_last_sp_rating,
     fetch_savant_rows, fetch_savant_narrative, fetch_savant_echo,
     fetch_rivalry_posture, fetch_rivalry_stakes, fetch_rivalry_quote,
@@ -216,6 +217,9 @@ def render_team_page(
     sp_rating = fetch_last_sp_rating(db, snapshot.team_id, snapshot.season_year)
     state_of_team = fetch_state_of_team(db, snapshot.team_id, snapshot.season_year)
     chronicle_cards = fetch_chronicle_cards(db, snapshot.team_id, snapshot.season_year, limit=5)
+    # LLM-generated Chronicle cards (chronicle_card_cache) — Mistral Nemo + Qwen3 pipeline.
+    # Keyed by slug rather than team_id since the cache was built before team-ID joins existed.
+    llm_chronicle_cards = fetch_llm_chronicle_cards(db, slug, limit=6)
 
     # Savant card data — falls back to the latest season that has rows so
     # the card renders even when the current-season ingest is incomplete.
@@ -276,6 +280,7 @@ def render_team_page(
         sp_rating=sp_rating,
         state_of_team=state_of_team,
         chronicle_cards=chronicle_cards,
+        llm_chronicle_cards=llm_chronicle_cards,
         savant_rows=savant_rows,
         savant_narrative=savant_narrative,
         savant_echo=savant_echo,
@@ -386,6 +391,7 @@ def _render_page(
     sp_rating: dict[str, Any] | None,
     state_of_team: dict[str, Any] | None,
     chronicle_cards: list[dict[str, Any]],
+    llm_chronicle_cards: list[dict[str, Any]] | None = None,
     savant_rows: list[dict[str, Any]],
     savant_narrative: str | None,
     savant_echo: dict[str, Any] | None,
@@ -461,6 +467,12 @@ def _render_page(
     rituals_html = render_rituals_strip(profile)
     cultural_anchors_html = render_cultural_anchors(profile)
     chronicle_html = _render_chronicle_section(chronicle_cards, profile, state)
+    # LLM-generated Chronicle AI Narratives module — Mistral Nemo + Qwen3 pipeline.
+    # Shows only when cards exist; falls back silently to "" when the pipeline
+    # hasn't run for this team yet.
+    llm_chronicle_html = _render_llm_chronicle_section(
+        llm_chronicle_cards or [], profile
+    )
     savant_html = render_savant_card(
         profile, savant_rows,
         narrative=savant_narrative,
@@ -679,6 +691,9 @@ body {{
 /* Top Players — 5-row stat leaders */
 {TOP_PLAYERS_CSS}
 
+/* LLM Chronicle AI Narratives — Mistral Nemo + Qwen3 pipeline */
+{LLM_CHRONICLE_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -753,6 +768,7 @@ body {{
     {rituals_html}
     {cultural_anchors_html}
     {chronicle_html}
+    {llm_chronicle_html}
     {savant_html}
     {rivalry_html}
     {arc_html}
@@ -1526,6 +1542,173 @@ def _render_chronicle_card(card: dict[str, Any]) -> str:
   <h3 class="chronicle-card__headline">{html.escape(card.get('headline', ''))}</h3>
   <p class="chronicle-card__body">{html.escape(card.get('body_md', ''))}</p>
   <span class="chronicle-card__source">{html.escape(card.get('source', '') or '')}</span>
+</article>"""
+
+
+# ----------------------------------------------------------------------------
+# LLM-generated Chronicle AI Narratives
+# Reads from chronicle_card_cache (Mistral Nemo / Qwen3 pipeline).
+# Distinct from the older team_chronicle_observations section above.
+# ----------------------------------------------------------------------------
+
+LLM_CHRONICLE_CSS = """
+.llm-chronicle {
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.llm-chronicle__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.llm-chronicle__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--accent-primary, var(--accent));
+  margin: 0;
+}
+.llm-chronicle__meta {
+  font-size: 11px;
+  color: var(--fg-muted, #888);
+  font-family: ui-monospace, monospace;
+}
+.llm-chronicle__more {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--accent-primary, var(--accent));
+  text-decoration: none;
+  opacity: 0.8;
+}
+.llm-chronicle__more:hover { opacity: 1; }
+.llm-chronicle__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.llm-card {
+  background: var(--bg-card, var(--bg-1, #14141a));
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid var(--accent-primary, var(--accent));
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+.llm-card__type {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #888);
+  margin-bottom: 6px;
+}
+.llm-card__headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--fg, #e7e7e9);
+  margin: 0 0 8px 0;
+}
+.llm-card__body {
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg, #e7e7e9);
+  margin: 0 0 10px 0;
+}
+.llm-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 8px;
+}
+.llm-badge {
+  font-size: 9px;
+  font-family: ui-monospace, monospace;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  color: var(--fg-muted, #888);
+}
+.llm-badge--lkg {
+  background: rgba(74,140,90,0.2);
+  color: #4a8;
+}
+.llm-badge--high {
+  background: rgba(74,140,90,0.15);
+  color: #4a8;
+}
+.llm-badge--medium {
+  background: rgba(200,151,68,0.15);
+  color: #c89744;
+}
+"""
+
+
+def _render_llm_chronicle_section(
+    cards: list[dict[str, Any]],
+    profile: Profile,
+) -> str:
+    """Render LLM-generated Chronicle cards from chronicle_card_cache.
+
+    Returns "" when no cards exist for this team so the page stays clean.
+    """
+    if not cards:
+        return ""
+
+    slug = profile.slug
+    cards_html = "".join(_render_llm_card(c) for c in cards)
+    more_link = (
+        f'<a class="llm-chronicle__more" href="/chronicle/{html.escape(slug)}.html">'
+        f'All Chronicle cards →</a>'
+    )
+    n = len(cards)
+    return f"""<section class="llm-chronicle" aria-labelledby="llm-chronicle-title">
+  <div class="llm-chronicle__header">
+    <h2 id="llm-chronicle-title" class="llm-chronicle__title">AI Narratives</h2>
+    <span class="llm-chronicle__meta">{n} AI-generated · local Mistral Nemo</span>
+    {more_link}
+  </div>
+  <div class="llm-chronicle__grid">
+    {cards_html}
+  </div>
+</section>"""
+
+
+def _render_llm_card(card: dict[str, Any]) -> str:
+    ct = card.get("card_type", "echo")
+    type_label = ct.replace("_", " ").upper()
+    headline = card.get("headline") or ""
+    body = card.get("body") or ""
+    week = card.get("week_number")
+    season = card.get("season_year")
+    is_lkg = card.get("is_lkg", False)
+    band = card.get("confidence_band") or "medium"
+    fc = card.get("fact_critic_score")
+
+    week_label = f"Wk {week} {season}" if week else str(season or "")
+    fc_label = f"fc:{fc:.2f}" if fc is not None else ""
+    lkg_badge = '<span class="llm-badge llm-badge--lkg">✓ LKG</span>' if is_lkg else ""
+    band_badge = f'<span class="llm-badge llm-badge--{html.escape(band)}">{html.escape(band)}</span>'
+    fc_badge = f'<span class="llm-badge">{html.escape(fc_label)}</span>' if fc_label else ""
+    wk_badge = f'<span class="llm-badge">{html.escape(week_label)}</span>' if week_label else ""
+
+    headline_html = (
+        f'<h3 class="llm-card__headline">{html.escape(headline)}</h3>'
+        if headline else ""
+    )
+
+    return f"""<article class="llm-card">
+  <div class="llm-card__type">{html.escape(type_label)}</div>
+  {headline_html}
+  <p class="llm-card__body">{html.escape(body)}</p>
+  <div class="llm-card__footer">
+    {lkg_badge}{band_badge}{wk_badge}{fc_badge}
+  </div>
 </article>"""
 
 
