@@ -183,6 +183,39 @@ jobs:
           done
           echo "[enrich] done"
 
+      - name: Regenerate Chronicle Visuals (apply relevance gates + retire dead cards)
+        run: |
+          # Deterministic SVG regen (~80s for ~190 teams, no LLM / no API cost).
+          # --force is required so previously-cached dead cards (e.g. a Heisman
+          # braid on a team with no contender) re-run their relevance gate and
+          # get retired; without --force the cache hit short-circuits the gate.
+          # Non-fatal: the team-page renderer degrades gracefully if visuals are
+          # missing, so a regen hiccup must never block the whole publish.
+          python <<'PY'
+          import sqlite3, subprocess
+          try:
+              con = sqlite3.connect("cfb_rankings.db")
+              row = con.execute("SELECT MAX(season_year) FROM games").fetchone()
+              con.close()
+              max_games = row[0] if row and row[0] else None
+          except Exception as exc:
+              print(f"[visuals] could not read latest games season ({exc}) — skipping regen")
+              raise SystemExit(0)
+          if not max_games:
+              print("[visuals] no games season found — skipping regen")
+              raise SystemExit(0)
+          # Preview season = latest completed games season + 1, so retrospective
+          # visuals (effective season-1) always have game data and forward
+          # visuals read the freshest recruiting/portal/returning cycle.
+          preview = int(max_games) + 1
+          print(f"[visuals] force-regen preview season={preview} (max games={max_games})")
+          subprocess.run(
+              ["python", "-u", "manage.py", "generate-chronicle-visuals",
+               "--season", str(preview), "--force"],
+              check=False,
+          )
+          PY
+
       - name: Build or incrementally sync
         id: site_build
         run: |
