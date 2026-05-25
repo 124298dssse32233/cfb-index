@@ -377,6 +377,7 @@ def _render_document(edition: Edition, features: list[EditionFeature],
     parts.append(_render_running_departments_divider())
     parts.append(_render_the_daily(daily_data, is_live=daily_is_live))
     parts.append(_render_the_wire(wire_data, is_live=wire_is_live))
+    parts.append(_render_offseason_teaser())
     parts.append(_render_active_threads(threads_data, is_live=threads_is_live))
     parts.append(_render_the_canon(canon_data, is_live=canon_is_live))
     parts.append(_render_voices(voices))
@@ -786,12 +787,28 @@ def _render_masthead(edition: Edition, publish_label: str) -> str:
 
 def _render_hero(edition: Edition) -> str:
     roman = _ROMAN[edition.edition_number] if edition.edition_number < len(_ROMAN) else str(edition.edition_number)
+    # Calendar-aware cover eyebrow: the label reflects the visitor's "right now"
+    # (today), not the active edition's publish month — the active edition can
+    # lag the calendar. In the deep offseason the homepage leads with forward
+    # 2026 framing instead of a static "offseason issue" label.
+    _yr = date.today().year
+    _m = date.today().month
+    if _m in (5, 6):
+        cover_label = f"THIS MONTH'S COVER · THE {_yr} PRESEASON PREVIEW"
+    elif _m in (7, 8):
+        cover_label = f"THIS MONTH'S COVER · {_yr} KICKOFF COUNTDOWN"
+    elif _m in (9, 10, 11, 12):
+        cover_label = "THIS WEEK'S COVER · THE SEASON ISSUE"
+    elif _m == 1:
+        cover_label = "THIS WEEK'S COVER · THE POSTSEASON ISSUE"
+    else:  # Feb–Apr
+        cover_label = "THIS MONTH'S COVER · THE OFFSEASON ISSUE"
     return f"""
 <section class="hero">
   <div class="page">
     <div class="roman-big">{roman}</div>
     <hr class="rule gold">
-    <div class="eyebrow" style="margin-top:24px;">THIS WEEK'S COVER · THE OFFSEASON ISSUE</div>
+    <div class="eyebrow" style="margin-top:24px;">{cover_label}</div>
     <h1 class="theme-title">{html.escape(edition.theme_title)}</h1>
     <p class="theme-dek">{html.escape(edition.theme_dek)}</p>
   </div>
@@ -916,6 +933,24 @@ def _render_the_daily(daily: dict[str, Any], is_live: bool = False) -> str:
       </aside>
     </div>
     {footer_html}
+  </div>
+</section>"""
+
+
+def _render_offseason_teaser() -> str:
+    """Discoverability card for the /offseason/ leaderboards hub — the flagship
+    horizontal-discovery surface ("who won the offseason, where does my team
+    rank?"). Rendered as a distinct gold CTA card (no roman numeral) so it reads
+    as an editorial callout rather than a numbered department."""
+    return """
+<section class="dept">
+  <div class="page">
+    <div style="border:1px solid var(--gold); border-left:4px solid var(--gold); background:rgba(201,162,74,0.06); padding:28px 32px;">
+      <div class="eyebrow" style="color:var(--gold-deep);">NEW · NATIONAL OFFSEASON BOARDS</div>
+      <h2 style="font-family:var(--serif); font-size:30px; font-weight:700; line-height:1.15; margin:12px 0 8px;">Who won the 2026 offseason?</h2>
+      <p style="font-family:var(--serif); font-size:17px; color:var(--ink); margin:0 0 18px; max-width:60ch;">Portal winners, returning production, NFL exits, roster talent, and the biggest reloads &mdash; ranked nationally and by conference.</p>
+      <a class="cta" href="/offseason/index.html">OPEN THE OFFSEASON LEADERBOARDS &rarr;</a>
+    </div>
   </div>
 </section>"""
 

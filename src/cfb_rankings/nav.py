@@ -102,9 +102,11 @@ NavPath = Literal[
 # Labels should be concise and descriptive
 NAV_ITEMS = [
     {"path": "/rankings/", "label": "Rankings"},
+    {"path": "/offseason/", "label": "Offseason"},
     {"path": "/teams/", "label": "Teams"},
     {"path": "/players/spotlight.html", "label": "Players"},
     {"path": "/heisman/", "label": "Heisman"},
+    {"path": "/film-room/", "label": "Film Room"},
     {"path": "/programs/", "label": "Programs"},
     {"path": "/history/", "label": "History"},
     {"path": "/editions/", "label": "Editions"},
