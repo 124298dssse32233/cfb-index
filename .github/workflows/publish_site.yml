@@ -17,7 +17,13 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # 180, not 90: the enrich step's first-time Heisman weekly backfill (~65 min)
+    # + build (~30 min) + deploy exceeded 90 min, so the job was cancelled before
+    # uploading the enriched DB artifact. That deadlocked every run — the next run
+    # restarted from the same stale artifact and re-ran the full backfill. Once one
+    # run completes and persists the enriched DB, steady-state runs skip the backfill
+    # and finish well under 90; 180 is corrective headroom.
+    timeout-minutes: 180
     permissions:
       contents: write   # pushes to `published` branch
       actions: read     # cross-workflow artifact download via dawidd6 action
