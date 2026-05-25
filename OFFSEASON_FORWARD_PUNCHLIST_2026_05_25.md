@@ -52,3 +52,52 @@ effort, exploit proprietary model outputs, no new data feeds needed).
   FOREIGN KEY constraint in _ingest_player_recruiting (cfbd.py:831 →
   _upsert_player_source_ids). Blocks 2026 roster/recruiting refresh. Needs a fix
   before fresh 2026 forward-table ingest.
+
+## Ideation round 2 (2026-05-25) — "what else?" Octopus probe
+
+**Core verdict:** biggest gap is HORIZONTAL DISCOVERY. Site wins the vertical
+question ("everything about my team/player") but lacks the league-wide one
+("who's #1 at X nationally, where does my team rank?"). Shift from "rich
+dossier" to "debate engine." Winning loop: leaderboard → team/player page →
+compare → share.
+
+**Top 10 adds (impact/effort):**
+1. National Offseason Leaderboards Hub (med) — sortable team+player boards:
+   portal gain/loss, returning production, replacement burden, continuity,
+   draft returner value, talent yield, mood swing. ← BUILD FIRST.
+2. Portal Impact Index (med) — national incoming/outgoing/net/room-by-room.
+3. Offseason Winners / Roster Change Index (med) — before vs after "who
+   improved most."
+4. Compare + What-If Studio (med-high) — 2-8 team/player compare + roster sandbox.
+5. Breakout Board (med) — league-wide player discovery / "who's next".
+6. Returner Value / Draft Decision Hub (low-med).
+7. Conference Power Map (med).
+8. Coach Reset Lab (med).
+9. Chronicle Summer Franchise (low) — recurring boards: Portal Kings, Most
+   Fragile Top 15, Fake Continuity, Draft Returners Who Matter.
+10. Fan Ballot + Sharecard layer (low-med).
+
+**Don't build (missing data):** season-win sims, schedule playoff odds, SOS,
+NIL trackers. Roster-profile sandbox IS fair (only moves our own inputs).
+
+## Model-history product ideas (2026-05-25 deep research)
+MOAT = archived model belief over time (weekly Heisman latent scores, weekly
+power vs resume, per-game team_rating_deltas) — competitors publish snapshots,
+not the historical path. Best first bets: 1,2,3,5.
+1. **Best Loss / Worst Win Board** (S) — per-game resume/power deltas: games
+   that made a team look better in a loss / worse in a win. Viral, attacks a cliché.
+2. **Heisman Truth Serum** (S) — weekly latent_score trajectories: "when did the
+   model know first?" + best/worst Heisman calls ever (publish misses too).
+3. **Fork Point Index** (M) — the one game that bent a season (pre/post model state).
+4. **Volatility DNA** (M) — chaos merchants vs slow-burn vs fake hot starters
+   (multi-year per-game swing signatures). [Delta DNA per-team visual is a seed.]
+5. **Power vs Resume Divorce Court** (M) — who was actually good vs who stacked
+   wins; preseason regression/"fraud or buy-low" engine. Power-resume gap + roster bridge.
+6. Coach Shock Profiles (M). 7. Portal Translation Index (L). 8. Fan Panic Index (M, compliance-sensitive).
+
+## Built 2026-05-25 (deployed)
+- National + Conference Offseason Leaderboards Hub at /offseason/ — flagship
+  Portal Kings board + 2x2 (Returning, Draft Factories, Talent, Reloads) +
+  #1 leader spotlights + mini-bars; conference-grouped section w/ chip jump-rail
+  (10 conferences, 2 mini-boards each). Built to the Octopus UI/UX design pass.
+  TODO: wire into global _site_nav + homepage link (needs build-site rerun).

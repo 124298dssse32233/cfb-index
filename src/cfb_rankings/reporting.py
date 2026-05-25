@@ -22446,6 +22446,7 @@ def _site_nav(prefix: str, current: str) -> str:
         "matchups": "matchups",
         "vibe-shifts": "vibe-shifts",
         "nfl-pipeline": "nfl-pipeline",
+        "offseason": "offseason",
     }.get(current, current)
     # Two new entries (Vibe Shifts + NFL Pipeline) surface the Octopus
     # roadmap features. Methodology dropped from main nav — it's already
@@ -22454,6 +22455,7 @@ def _site_nav(prefix: str, current: str) -> str:
     # surfaces. See docs/octopus/next-roadmap.md for the feature specs.
     links = [
         ("rankings", "Power Rankings", f"{prefix}rankings/index.html"),
+        ("offseason", "Offseason", f"{prefix}offseason/index.html"),
         ("teams", "Teams", f"{prefix}teams/index.html"),
         ("players", "Players", f"{prefix}players/spotlight.html"),
         ("heisman", "Heisman", f"{prefix}heisman/index.html"),
