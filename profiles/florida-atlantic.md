@@ -77,7 +77,7 @@ never_use:
 always_surface:
   - 2017 11-3 + Conference USA championship + Boca Raton Bowl + #24 AP under Lane Kiffin
   - Howard Schnellenberger 2001 program founding
-  - 'Winning In Paradise' identity (Lane Kiffin era)
+  - "'Winning In Paradise' identity (Lane Kiffin era)"
 
 # Body
 ---

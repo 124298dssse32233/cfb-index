@@ -77,7 +77,7 @@ never_use:
 always_surface:
   - 1959 9-0 + #20 AP under Doyt Perry
   - Urban Meyer 2001-2002 launchpad era
-  - 'Ay Ziggy Zoomba' fight song (since 1923)
+  - "'Ay Ziggy Zoomba' fight song (since 1923)"
 
 # Body
 ---

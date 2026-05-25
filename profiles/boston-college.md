@@ -77,7 +77,7 @@ never_use:
 always_surface:
   - 1984 10-2 + Cotton Bowl + Doug Flutie Heisman + Hail Mary
   - 2007 Matt Ryan era + 11-3 + ACC Atlantic championship
-  - 'For Boston' fight-song identity (since 1880s)
+  - "'For Boston' fight-song identity (since 1880s)"
 
 # Body
 ---

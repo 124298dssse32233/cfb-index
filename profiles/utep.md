@@ -77,7 +77,7 @@ never_use:
 always_surface:
   - Sun Bowl Stadium dual-use heritage (since 1963)
   - Mike Price 2004-2012 era + 2005 Houston Bowl
-  - 'Picks Up' fan-identity hand sign
+  - "'Picks Up' fan-identity hand sign"
 
 # Body
 ---

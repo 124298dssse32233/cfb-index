@@ -77,7 +77,7 @@ never_use:
 always_surface:
   - 2012 12-1 + MAC championship + Orange Bowl + #15 AP (first MAC BCS bowl)
   - Jordan Lynch 2013 Heisman finalist (highest MAC player ever)
-  - 'Forward, Together Forward' post-2008 institutional identity
+  - "'Forward, Together Forward' post-2008 institutional identity"
 
 # Body
 ---

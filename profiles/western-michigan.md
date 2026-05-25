@@ -76,7 +76,7 @@ never_use:
 
 always_surface:
   - 2016 13-1 + MAC championship + Cotton Bowl appearance + #15 AP under P.J. Fleck
-  - 'Row the Boat' origin (P.J. Fleck, 2013)
+  - "'Row the Boat' origin (P.J. Fleck, 2013)"
   - Waldo Stadium 1939 historic venue
 
 # Body

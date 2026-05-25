@@ -77,7 +77,7 @@ never_use:
 always_surface:
   - 2012 FBS reclassification (most-recent Sun Belt FBS entry)
   - 2023 8-5 + First Responder Bowl championship under GJ Kinne
-  - 'Eat 'Em Up Cats' fight song (since 1920s)
+  - "'Eat 'Em Up Cats' fight song (since 1920s)"
 
 # Body
 ---
