@@ -233,6 +233,12 @@ def _render_card_html(c: sqlite3.Row) -> str:
     fc_str = f" fc:{fc:.2f}" if fc is not None else ""
     week = c["week_number"]
     season = c["season_year"]
+    # Offseason cards (week 0/None) shouldn't show a misleading "wk 12 2024"
+    # badge — they cite current offseason evidence. Show a season-only label.
+    if week and int(week) > 0:
+        when_badge = f"{season or ''} · wk {week}".strip(" ·")
+    else:
+        when_badge = f"{season or ''} offseason".strip()
 
     return f"""<article class="card">
   <div class="card-type">{escape(c['card_type'] or '')}</div>
@@ -241,7 +247,7 @@ def _render_card_html(c: sqlite3.Row) -> str:
   <div class="card-meta">
     {' '.join(badges)}
     <span class="badge">{c['word_count']}w</span>
-    <span class="badge">wk {week or '?'} {season or ''}</span>
+    <span class="badge">{escape(when_badge)}</span>
     <span class="badge">{fc_str.strip() or 'no critic'}</span>
   </div>
 </article>"""
@@ -259,7 +265,7 @@ def _page_shell(title: str, content_html: str, breadcrumb: str = "") -> str:
 <body>
 <div class="nav-strip">
   <a href="/">← CFB Index</a>
-  <a href="/chronicle/">Chronicle Cards</a>
+  <a href="/chronicle/">The Chronicle</a>
   {breadcrumb}
 </div>
 <div class="container">
@@ -312,10 +318,9 @@ def main() -> int:
 
     # --- Landing page ---
     parts = [
-        f'<h1>Chronicle Cards</h1>',
-        f'<p class="subtitle">LLM-generated narrative content from the CFB Index pipeline. '
-        f'Each card is grounded in real evidence (Polymarket data, conversation docs, signature plays) '
-        f'and validated by FactCritic + topical-drift detector.</p>',
+        f'<h1>The Chronicle</h1>',
+        f'<p class="subtitle">Storylines and narrative intel across college football — '
+        f'every card grounded in real evidence and fact-checked before it ships.</p>',
         f'<div class="stats">',
         f'  <div><strong>{n_total}</strong>cards generated</div>',
         f'  <div><strong>{n_teams}</strong>teams covered</div>',
@@ -352,7 +357,7 @@ def main() -> int:
 
     landing_path = SITE_BASE / "index.html"
     landing_path.write_text(
-        _page_shell("Chronicle Cards · CFB Index", "\n".join(parts)),
+        _page_shell("The Chronicle · CFB Index", "\n".join(parts)),
         encoding="utf-8",
     )
 
@@ -373,9 +378,9 @@ def main() -> int:
         team_path = SITE_BASE / f"{team}.html"
         team_path.write_text(
             _page_shell(
-                f"{team} · Chronicle Cards · CFB Index",
+                f"{team} · The Chronicle · CFB Index",
                 "\n".join(parts),
-                f'<a href="/chronicle/">All Chronicle Cards</a> · '
+                f'<a href="/chronicle/">All Chronicle storylines</a> · '
                 f'<a href="/teams/{escape(team)}.html">{escape(team)} Team Page</a>',
             ),
             encoding="utf-8",
