@@ -922,8 +922,13 @@ def query_continuity_stress_test(
     if not row:
         return _empty_result(query_id, source_tables, "no returning-production snapshot")
 
-    def _pct(v) -> float:
-        x = float(v or 0)
+    def _pct(v):
+        # Return None for missing data so the renderer can show "n/a" rather
+        # than a misleading 0% bar (audit: North Texas O-line/Defense were NULL
+        # and rendered as 0%, which reads as broken).
+        if v is None:
+            return None
+        x = float(v)
         return x if 0 <= x <= 1 else (x / 100.0 if x > 1 else 0.0)
 
     # League averages for context.
@@ -944,10 +949,16 @@ def query_continuity_stress_test(
         {"key": "DEF", "label": "Defense", "value": _pct(row.get("returning_defense")), "league_avg": _pct(avg.get("d"))},
         {"key": "TOT", "label": "Overall", "value": _pct(row.get("returning_total")), "league_avg": _pct(avg.get("t"))},
     ]
-    # Weakest link (biggest stress) = lowest returning vs league avg.
-    stressed = min(bars, key=lambda b: b["value"] - b["league_avg"])
-    anchored = max(bars, key=lambda b: b["value"] - b["league_avg"])
+    # Weakest link (biggest stress) = lowest returning vs league avg. Only
+    # consider units that actually have data (value not None); a NULL unit is
+    # "n/a", not a 0% stress point.
+    scored = [b for b in bars if b["value"] is not None and b["league_avg"] is not None]
+    stressed = min(scored, key=lambda b: b["value"] - b["league_avg"]) if scored else None
+    anchored = max(scored, key=lambda b: b["value"] - b["league_avg"]) if scored else None
 
+    if not scored:
+        return _empty_result(query_id, source_tables, "no returning-production unit data")
+    overall = _pct(row.get("returning_total"))
     return {
         "query_id": query_id,
         "source_tables": source_tables,
@@ -955,13 +966,13 @@ def query_continuity_stress_test(
         "summary_stats": {
             "team_id": team_id,
             "season_year": season_year,
-            "stressed_key": stressed["key"],
-            "stressed_label": stressed["label"],
-            "stressed_value": stressed["value"],
-            "anchored_key": anchored["key"],
-            "anchored_label": anchored["label"],
-            "overall_value": _pct(row.get("returning_total")),
-            "overall_avg": _pct(avg.get("t")),
+            "stressed_key": stressed["key"] if stressed else None,
+            "stressed_label": stressed["label"] if stressed else "",
+            "stressed_value": stressed["value"] if stressed else None,
+            "anchored_key": anchored["key"] if anchored else None,
+            "anchored_label": anchored["label"] if anchored else "",
+            "overall_value": overall if overall is not None else 0.0,
+            "overall_avg": _pct(avg.get("t")) or 0.0,
         },
         "sample_n": 1,
         "confidence": "high",

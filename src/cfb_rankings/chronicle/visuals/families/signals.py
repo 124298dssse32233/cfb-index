@@ -120,14 +120,19 @@ def render_continuity_stress_test(query_result: dict[str, Any], spec_meta: dict[
     stressed_key = s.get("stressed_key")
     for i, b in enumerate(bars):
         y = pad_t + row_h * i
+        parts.append(text(20, y + 18, b["label"], font_size=12, weight="700" if b["key"] == "TOT" else "400"))
+        parts.append(rect(bar_x0, y + 6, bw, 18, fill="#fff", opacity=0.6))
+        if b.get("value") is None:
+            # Missing unit data — show an honest n/a, not a misleading 0% bar.
+            parts.append(text(width - 16, y + 18, "n/a", font_size=11, anchor="end",
+                              family="ui-monospace,Menlo,monospace", color=PALETTE_MUTED, italic=True))
+            continue
         v = max(0.0, min(1.0, b["value"]))
         is_stress = b["key"] == stressed_key
         col = "#b3402f" if is_stress else (PALETTE_GOLD if b["key"] == "TOT" else PALETTE_NAVY)
-        parts.append(text(20, y + 18, b["label"], font_size=12, weight="700" if b["key"] == "TOT" else "400"))
-        parts.append(rect(bar_x0, y + 6, bw, 18, fill="#fff", opacity=0.6))
         parts.append(rect(bar_x0, y + 6, bw * v, 18, fill=col, opacity=0.9))
         # league avg tick
-        la = max(0.0, min(1.0, b.get("league_avg", 0)))
+        la = max(0.0, min(1.0, b.get("league_avg") or 0))
         tx = bar_x0 + bw * la
         parts.append(line(tx, y + 2, tx, y + 28, color=PALETTE_INK, width=1.0, dasharray="2,2"))
         parts.append(text(width - 16, y + 18, f"{v*100:.0f}%", font_size=12, anchor="end",

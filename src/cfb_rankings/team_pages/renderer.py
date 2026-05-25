@@ -891,6 +891,13 @@ def _eyebrow_text(state: PageState, snap: TeamSnapshot) -> str:
         "bowl-and-carousel": "BOWLS · COACHING CAROUSEL",
     }
     phase = phase_map.get(state.season_phase, state.season_phase.upper())
+    # In the offseason, fans want the forward outlook, not last season's label.
+    # Derive the upcoming season from the calendar (Aug+ = this year, else this
+    # year — the preview cycle), so May 2026 reads "2026 OUTLOOK" rather than
+    # the stale "2024 SEASON" of the latest completed data (audit 2026-05-25).
+    if not getattr(state, "is_in_season", False):
+        forward_year = state.today.year if state.today.month < 8 else state.today.year
+        return f"{today_str} · {phase} · {forward_year} OUTLOOK"
     return f"{today_str} · {phase} · {snap.season_year} SEASON"
 
 
@@ -1223,20 +1230,22 @@ def _render_five_axis_strip(
             '</div>'
         )
 
-    axes_html = "".join([
-        _axis("Reality Gap", reality_pct,
-              "How far fan belief diverges from the structural model."),
-        _axis("Respect Gap", respect_pct,
-              "Fan score minus national score for this team's brand."),
-        _axis("Cohort Divergence", divergence_pct,
-              "Spread between sub-fanbase cohorts in the Pulse window."),
-        _axis("Rival Heat", rival_pct,
-              "How much rival fanbases are mentioning this team."),
-        _axis("Volatility", volatility_pct,
-              "Week-over-week mood swing magnitude."),
-    ])
-    return f"""<div class="pulse-five-axis" aria-label="Five-axis Pulse strip" data-state="{('ready' if show_live else 'empty')}">
-    <p class="pulse-five-axis__eyebrow">FIVE-AXIS · Brief §4.2 Panel 2</p>
+    # Hide the whole strip when no axis has data — a wall of 5 "awaiting" bars
+    # with an internal codename reads as broken to a fan (audit 2026-05-25).
+    # Only render axes that actually have a signal; if none do, return "".
+    axis_specs = [
+        ("Reality Gap", reality_pct, "How far fan belief diverges from the structural model."),
+        ("Respect Gap", respect_pct, "Fan score minus national score for this team's brand."),
+        ("Cohort Divergence", divergence_pct, "Spread between sub-fanbase cohorts in the Pulse window."),
+        ("Rival Heat", rival_pct, "How much rival fanbases are mentioning this team."),
+        ("Volatility", volatility_pct, "Week-over-week mood swing magnitude."),
+    ]
+    live_axes = [(lbl, pct, desc) for (lbl, pct, desc) in axis_specs if pct is not None]
+    if not live_axes:
+        return ""
+    axes_html = "".join(_axis(lbl, pct, desc) for (lbl, pct, desc) in live_axes)
+    return f"""<div class="pulse-five-axis" aria-label="Fanbase signal strip" data-state="ready">
+    <p class="pulse-five-axis__eyebrow">Fanbase Signals</p>
     {axes_html}
   </div>"""
 
@@ -1831,11 +1840,14 @@ def _render_visual_card(card: dict[str, Any]) -> str:
         season_lbl = f"{card_season} season" if card_season else "last season"
         posture_badge = f'<span class="visual-card__badge visual-card__badge--retro">{html.escape(season_lbl)}</span>'
 
-    lkg_badge = '<span class="visual-card__badge visual-card__badge--lkg">✓ LKG</span>' if is_lkg else ""
-    family_badge = f'<span class="visual-card__badge">{html.escape(family.replace("_", " "))}</span>'
-    conf_badge = f'<span class="visual-card__badge">{html.escape(confidence)}</span>'
-    sample_badge = f'<span class="visual-card__badge">n={sample_n}</span>'
-    score_badge = f'<span class="visual-card__badge visual-card__badge--score">q={score:.2f}</span>'
+    # Fan-facing meta only. Chart-family ("percentile bar"/"tile mosaic"),
+    # the quality score (q=), and raw sample (n=1) are internal QA fields —
+    # stripped from the public card per the 2026-05-25 fan audit. Keep the
+    # posture chip, a plain-English confidence cue, and the share link.
+    conf_label = {"high": "model-confident", "medium": "solid read", "low": "early signal"}.get(
+        (confidence or "").lower(), ""
+    )
+    conf_badge = f'<span class="visual-card__badge">{html.escape(conf_label)}</span>' if conf_label else ""
     share_badge = (
         f'<a class="visual-card__badge visual-card__badge--share" '
         f'href="/{html.escape(share_path)}" download '
@@ -1854,7 +1866,7 @@ def _render_visual_card(card: dict[str, Any]) -> str:
   {headline_html}
   {svg_div}
   <div class="visual-card__meta">
-    {lkg_badge}{family_badge}{conf_badge}{sample_badge}{score_badge}{share_badge}
+    {conf_badge}{share_badge}
   </div>
 </article>"""
 
