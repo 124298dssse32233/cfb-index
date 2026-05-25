@@ -42,25 +42,31 @@ def _query_one(db, sql, params):
 # ---------------------------------------------------------------------------
 
 # Rung -> (label, tier_id, tier_label).
-# Tier 1 floor, 2 established, 3 quality starter, 4 all-conf, 5 nat'l recog, 6 nat'l honors.
+# CANONICAL ladder — matches PLAYER_PAGE_WORLD_CLASS_BRIEF.md §7.2 exactly,
+# and the render-side _STANDING_RUNGS table in reporting.py. Do not diverge:
+# the renderer indexes its label table by this rung number, so a mismatch
+# here mislabels every player (the 2026-05-26 "All-Americans shown as
+# National watch" bug came from an earlier non-canonical version of this
+# table).
+# Tier 0 Not-on-team, 1 2-deep, 2 Starter, 3 Recognized, 4 Elite, 5 Apex.
 RUNG_TABLE: list[tuple[int, str, int, str]] = [
-    (0,  "Walk-on",                    1, "Floor"),
-    (1,  "Backup",                     1, "Floor"),
-    (2,  "Rotation",                   1, "Floor"),
-    (3,  "Starter",                    2, "Established"),
-    (4,  "Regular contributor",        2, "Established"),
-    (5,  "Solid starter",              3, "Quality starter"),
-    (6,  "Quality starter",            3, "Quality starter"),
-    (7,  "All-Conference 2nd team",    4, "All-Conference"),
-    (8,  "All-Conference 1st team",    4, "All-Conference"),
-    (9,  "All-American 3rd team",      5, "National recognition"),
-    (10, "All-American 2nd team",      5, "National recognition"),
-    (11, "All-American 1st team",      5, "National recognition"),
-    (12, "Position-of-the-Year",       6, "National honors"),
-    (13, "Watch-list honoree",         6, "National honors"),
-    (14, "POTY finalist",              6, "National honors"),
-    (15, "Heisman finalist",           6, "National honors"),
-    (16, "Heisman winner",             6, "National honors"),
+    (0,  "Walk-on",                       0, "Not on team"),
+    (1,  "Scout team / redshirt",         0, "Not on team"),
+    (2,  "Deep reserve",                  1, "2-deep"),
+    (3,  "Backup",                        1, "2-deep"),
+    (4,  "Rotational",                    1, "2-deep"),
+    (5,  "Part-time starter",             2, "Starter"),
+    (6,  "Starter",                       2, "Starter"),
+    (7,  "Impact starter",                2, "Starter"),
+    (8,  "Watch-list name",               3, "Recognized"),
+    (9,  "All-Conference HM / 2nd team",  3, "Recognized"),
+    (10, "All-Conference 1st team",       3, "Recognized"),
+    (11, "National watch / fringe AA",    3, "Recognized"),
+    (12, "All-American",                  4, "Elite"),
+    (13, "Consensus All-American",        4, "Elite"),
+    (14, "Unanimous All-American",        4, "Elite"),
+    (15, "POTY finalist",                 5, "Apex"),
+    (16, "POTY / Heisman winner",         5, "Apex"),
 ]
 
 
@@ -84,44 +90,65 @@ def _placement_signal(placement) -> str:
     return "other"
 
 
+# NCAA-recognized All-America selectors (the canonical 5). Consensus = 3 of 5,
+# Unanimous = all 5. Per brief §7.2 / §7.3 step 2.
+_NCAA_AA_SELECTORS = {"AP", "AFCA", "FWAA", "WCFF", "WALTER CAMP", "SN", "SPORTING NEWS"}
+
+
 def classify_rung(
     db: Any,
     player_id: int,
     season_year: int,
 ) -> int | None:
-    """Compute the 17-rung classification for a player+season.
+    """Compute the 17-rung classification — PLAYER_PAGE_WORLD_CLASS_BRIEF.md §7.3.
 
-    Cascade: Heisman finals > All-America 1st/2nd/3rd > POTY finalist >
-    Watch-list > All-Conference 1st/2nd > stat-based rotation tiers >
-    walk-on baseline. Returns None if not enough signal exists yet.
+    Short-circuit cascade, first rule that applies wins:
+      1. Official POTY: trophy winner -> R16, finalist -> R15
+      2. All-America: unanimous -> R14, consensus -> R13, 1+ selector -> R12,
+         fringe/midseason -> R11
+      3. All-Conference: 1st -> R10, HM/2nd -> R09
+      4. Watch-list -> R08
+      5. Production gates (G5-safe fallback on games + usage when snap% absent):
+         impact -> R07, starter -> R06, part-time -> R05, rotational -> R04,
+         spot -> R03
+      6. Roster-only: deep reserve -> R02, scout/redshirt -> R01, walk-on -> R00
+    Returns None when no signal at all (UI renders awaiting state).
     """
     if db is None or player_id is None or season_year is None:
         return None
 
-    # 1. Heisman tier (R15/R16) — rank from the in-season Heisman model is
-    # the model's nowcast, not the official ballot. We treat model #1 as
-    # finalist-tier (R15) unless we have a confirmed-winner signal from
-    # player_honors (honor_name LIKE '%Heisman%' AND placement signals
-    # winner). Reserved R16 for actual trophy winners.
+    # ---- Step 1: Official POTY outcomes -----------------------------------
     try:
-        winner_row = _query_one(
+        honors = _query_all(
             db,
             """
-            SELECT 1 AS w FROM player_honors
-             WHERE player_id = :pid AND season_year = :s
-               AND lower(honor_name) LIKE '%heisman%'
-               AND (lower(coalesce(honor_team, '')) = 'winner'
-                    OR lower(coalesce(honor_name, '')) LIKE '%winner%'
-                    OR lower(coalesce(placement, '')) = 'winner')
-             LIMIT 1
+            SELECT honor_scope, honor_name, honor_team, placement, selector,
+                   consensus_flag, unanimous_flag
+            FROM player_honors
+            WHERE player_id = :pid AND season_year = :s
             """,
             {"pid": player_id, "s": season_year},
         )
-        if winner_row:
-            return 16  # Confirmed Heisman trophy winner
     except Exception:
-        pass
+        honors = []
+    honors = honors or []
 
+    for h in honors:
+        name = (h.get("honor_name") or "").lower()
+        plc = str(h.get("placement") or h.get("honor_team") or "").lower()
+        # Trophy winner: a position/POTY award (not All-* team) marked winner.
+        is_award = ("award" in name or "trophy" in name or "heisman" in name
+                    or "player of the year" in name)
+        if is_award and ("winner" in name or plc == "winner"):
+            return 16
+        if is_award and "finalist" in plc:
+            return 15
+
+    # Heisman model nowcast as a POTY-finalist proxy (model rank, not ballot):
+    # top-5 model rank -> finalist tier R15; top-25 -> watch-list R08 (handled
+    # later only if nothing higher fires). We DON'T promote model #1 to R16 —
+    # that requires a confirmed trophy honor above.
+    heisman_rank = None
     try:
         r = _query_one(
             db,
@@ -130,78 +157,72 @@ def classify_rung(
             {"pid": player_id, "s": season_year},
         )
         if r and r.get("r"):
-            rank = int(r["r"])
-            if rank <= 5:
-                return 15          # Heisman finalist tier
-            if rank <= 25:
-                return 13          # Watch-list rung
+            heisman_rank = int(r["r"])
     except Exception:
         pass
+    if heisman_rank is not None and heisman_rank <= 5:
+        return 15
 
-    # 2. Honor-based rungs (R9-R14 + R7-R8)
-    try:
-        honors = _query_all(db,
-            """
-            SELECT honor_scope, honor_name, honor_team, placement, consensus_flag
-            FROM player_honors
-            WHERE player_id = :pid AND season_year = :s
-            """,
-            {"pid": player_id, "s": season_year},
-        )
-    except Exception:
-        honors = []
-
-    has_aa_first = False
-    has_aa_second = False
-    has_aa_third = False
-    has_poty_finalist = False
-    has_watchlist = False
+    # ---- Step 2: All-America outcomes -------------------------------------
+    aa_first_selectors: set[str] = set()
+    any_aa = False
+    any_aa_nonfirst = False
+    consensus_flag = False
+    unanimous_flag = False
     has_conf_first = False
-    has_conf_second = False
+    has_conf_hm_second = False
+    has_watchlist = False
 
-    for h in honors or []:
+    for h in honors:
         scope = (h.get("honor_scope") or "").lower()
         placement = _placement_signal(h.get("placement") or h.get("honor_team"))
+        selector = str(h.get("selector") or "").strip().upper()
         name = (h.get("honor_name") or "").lower()
-        # Position-of-the-Year markers
-        if "winner" in name and "finalist" not in name:
-            return 12  # POTY winner sits at rung 12
-        if "finalist" in name:
-            has_poty_finalist = True
-        if "watch" in name or "watchlist" in name:
+        if h.get("consensus_flag") or selector == "CONSENSUS":
+            consensus_flag = True
+        if h.get("unanimous_flag"):
+            unanimous_flag = True
+        if "watch" in name:
             has_watchlist = True
         if scope == "all_america":
+            any_aa = True
             if placement == "first":
-                has_aa_first = True
-            elif placement == "second":
-                has_aa_second = True
-            elif placement == "third":
-                has_aa_third = True
+                if selector in _NCAA_AA_SELECTORS:
+                    aa_first_selectors.add(selector)
+            else:
+                any_aa_nonfirst = True
         elif scope == "all_conference":
             if placement == "first":
                 has_conf_first = True
-            elif placement == "second":
-                has_conf_second = True
+            elif placement in ("second", "third", "other"):
+                has_conf_hm_second = True
 
-    if has_aa_first:
-        return 11
-    if has_aa_second:
-        return 10
-    if has_aa_third:
-        return 9
-    if has_poty_finalist:
-        return 14
-    if has_watchlist:
-        return 13
+    n_first = len(aa_first_selectors)
+    if unanimous_flag or n_first >= 5:
+        return 14   # Unanimous All-American
+    if consensus_flag or n_first >= 3:
+        return 13   # Consensus All-American
+    if n_first >= 1:
+        return 12   # All-American (1+ NCAA-recognized selector)
+    if any_aa or any_aa_nonfirst:
+        return 11   # National watch / fringe All-America (non-NCAA or 2nd/3rd)
+
+    # ---- Step 3: All-Conference outcomes ----------------------------------
     if has_conf_first:
-        return 8
-    if has_conf_second:
-        return 7
+        return 10
+    if has_conf_hm_second:
+        return 9
 
-    # 3. Stat-based rotation tiers (R3-R6) — derive from games-played
-    # heuristics. Conservative: enough snaps in season_stats = starter.
+    # ---- Step 4: Watch-list / preseason -----------------------------------
+    if has_watchlist or (heisman_rank is not None and heisman_rank <= 25):
+        return 8
+
+    # ---- Step 5: Production gates (G5-safe games+usage fallback) ----------
+    # Snap% from PBP isn't reliably available, so we approximate with
+    # games_played + total opportunities (the brief sanctions this fallback).
     try:
-        row = _query_one(db,
+        row = _query_one(
+            db,
             """
             SELECT MAX(games_played) AS gp, MAX(passing_attempts) AS pa,
                    MAX(rushing_attempts) AS ra, MAX(receiving_targets) AS rt
@@ -212,111 +233,112 @@ def classify_rung(
         ) or {}
         gp = int(row.get("gp") or 0)
         usage = (int(row.get("pa") or 0) + int(row.get("ra") or 0) + int(row.get("rt") or 0))
-        if gp >= 11 and usage >= 200:
-            return 5      # Solid starter
-        if gp >= 9 and usage >= 80:
-            return 4      # Regular contributor
-        if gp >= 6 and usage >= 30:
-            return 3      # Starter
-        if gp >= 4:
-            return 2      # Rotation
+        if gp >= 11 and usage >= 250:
+            return 7      # Impact starter
+        if gp >= 10 and usage >= 120:
+            return 6      # Starter
+        if gp >= 7 and usage >= 50:
+            return 5      # Part-time starter
+        if gp >= 4 and usage >= 15:
+            return 4      # Rotational
         if gp >= 1:
-            return 1      # Backup
+            return 3      # Spot / situational
     except Exception:
         pass
 
-    return None  # Unknown — render UI in awaiting state
+    return None  # No signal — UI renders awaiting state
 
 
 # ---------------------------------------------------------------------------
 # Narratives — generated from the cascade above
 # ---------------------------------------------------------------------------
 
+# Narratives keyed to the CANONICAL §7.2 ladder.
 _RUNG_NARRATIVES: dict[int, dict[str, str]] = {
     16: {
-        "why_here": "Won the Heisman Trophy — the season's defining player at the position.",
-        "moves_up": "Already at the ceiling. A second Heisman would be without modern precedent.",
-        "moves_down": "Subsequent seasons reset to projection; this rung is forever for the trophy year.",
+        "why_here": "National Player-of-the-Year / Heisman winner — the season's defining player.",
+        "moves_up": "Already at the ceiling; the trophy is in the case.",
+        "moves_down": "Subsequent seasons reset to projection — this rung is forever for the trophy year.",
     },
     15: {
-        "why_here": "Heisman finalist — top 5 in the closing-night ballot.",
-        "moves_up": "Win the trophy on Saturday in December.",
-        "moves_down": "A late-season slump or championship-game letdown drops the finish into top-10 watch territory.",
+        "why_here": "National Player-of-the-Year finalist — invited to the closing-night ceremony.",
+        "moves_up": "Win the award on Saturday in December.",
+        "moves_down": "A late slump or title-game letdown drops the finish out of the finalist set.",
     },
     14: {
-        "why_here": "Named POTY finalist — among three nationally for the position award.",
-        "moves_up": "Win the position award or punch a Heisman-finalist invite.",
-        "moves_down": "Miss the closing weekend window with a quiet November.",
+        "why_here": "Unanimous All-American — 1st team on all five NCAA-recognized selectors.",
+        "moves_up": "The only step up is a Player-of-the-Year invite.",
+        "moves_down": "Losing a selector drops this to Consensus.",
     },
     13: {
-        "why_here": "Multiple major-award watch lists — national writers are watching.",
-        "moves_up": "Convert watch-list status into a finalist invite.",
-        "moves_down": "Watch-lists get pruned as the season progresses.",
+        "why_here": "Consensus All-American — 1st team on at least three of the five NCAA selectors.",
+        "moves_up": "Sweep the remaining selectors for Unanimous status.",
+        "moves_down": "Fall below three selectors and this returns to plain All-American.",
     },
     12: {
-        "why_here": "Won a Position-of-the-Year award — best at the position nationally.",
-        "moves_up": "Add a Heisman finalist invite to the trophy case.",
-        "moves_down": "Subsequent seasons reset to projection.",
+        "why_here": "All-American — named 1st team by at least one NCAA-recognized selector.",
+        "moves_up": "Add selectors to reach Consensus (3 of 5).",
+        "moves_down": "Lose the selector and this slips to national-watch territory.",
     },
     11: {
-        "why_here": "All-American 1st team — elite-tier national recognition.",
-        "moves_up": "Climb into POTY finalist or Heisman watch territory.",
-        "moves_down": "Drop to 2nd team if peer-rank slips on the closing weekends.",
+        "why_here": "National watch / fringe All-American — on the edge of a 1st-team nod.",
+        "moves_up": "Convert a fringe mention into a 1st-team NCAA-selector All-American spot.",
+        "moves_down": "A quiet close drops this back to the conference honors.",
     },
     10: {
-        "why_here": "All-American 2nd team — among the country's best at the position.",
-        "moves_up": "Top-of-position production in November lifts to 1st team.",
-        "moves_down": "Slip to 3rd team or just All-Conference if the resume thins.",
+        "why_here": "All-Conference 1st team — among the conference's best at the position.",
+        "moves_up": "A national All-America nod is the next jump.",
+        "moves_down": "A quiet stretch returns this to HM / 2nd-team consideration.",
     },
     9: {
-        "why_here": "All-American 3rd team — national recognition has arrived.",
-        "moves_up": "Sustain elite per-game value into November to climb the AA tiers.",
-        "moves_down": "Drop to All-Conference if signature wins or stats fade.",
-    },
-    8: {
-        "why_here": "All-Conference 1st team — among the conference's best at the position.",
-        "moves_up": "An All-American nod takes the next jump.",
-        "moves_down": "Quiet stretch returns this to 2nd-team consideration.",
-    },
-    7: {
-        "why_here": "All-Conference 2nd team — the recognition has started.",
-        "moves_up": "Best-at-position run in November lifts to 1st team.",
+        "why_here": "All-Conference honorable mention / 2nd team — the recognition has started.",
+        "moves_up": "A best-at-position run lifts to 1st team.",
         "moves_down": "A back-end conference finish drops out of the honor list.",
     },
+    8: {
+        "why_here": "Watch-list name — on at least one major award watch list, no hardware yet.",
+        "moves_up": "Convert watch-list status into an All-Conference or All-America nod.",
+        "moves_down": "Watch lists get pruned as the season progresses.",
+    },
+    7: {
+        "why_here": "Impact starter — above-average production for the conference.",
+        "moves_up": "A signature stretch puts this player on award watch lists.",
+        "moves_down": "Regression to the mean returns this to plain-starter territory.",
+    },
     6: {
-        "why_here": "Quality starter producing measurable value above replacement.",
-        "moves_up": "Sustain per-game production into the All-Conference watch.",
-        "moves_down": "Injuries or platoon situations cap the trajectory.",
+        "why_here": "Starter — over 60% of the snaps, holding the job.",
+        "moves_up": "A production leap lifts into impact-starter territory.",
+        "moves_down": "Lose snap share and this slips to a part-time role.",
     },
     5: {
-        "why_here": "Solid starter — the kind of player every program builds around.",
-        "moves_up": "A breakout statistical run lifts into Quality-Starter / All-Conference territory.",
-        "moves_down": "Lose the starting nod to depth competition.",
+        "why_here": "Part-time starter — splitting the role or filling in on injury.",
+        "moves_up": "Win the job outright for a full starter rung.",
+        "moves_down": "Return to a rotational package role.",
     },
     4: {
-        "why_here": "Regular contributor on a competitive roster. Quietly productive.",
-        "moves_up": "Earn the full-time starting role.",
-        "moves_down": "Snap share drifts back to rotation as depth strengthens.",
+        "why_here": "Rotational — a 15-40% snap-share package player.",
+        "moves_up": "Earn a larger role to climb to part-time starter.",
+        "moves_down": "Drop back to spot duty as depth strengthens.",
     },
     3: {
-        "why_here": "Starting role secured. Year-over-year improvement is the next bet.",
-        "moves_up": "A statistical leap turns starter snaps into Solid-Starter trajectory.",
-        "moves_down": "Lose snaps to a transfer or freshman.",
+        "why_here": "Spot / situational — on the gameday roster with limited snaps.",
+        "moves_up": "Earn rotation reps to climb the 2-deep.",
+        "moves_down": "Roster moves can shift this back to deep reserve.",
     },
     2: {
-        "why_here": "Earned snaps in the rotation. Pushing for the starting nod.",
-        "moves_up": "Win the depth-chart battle through camp.",
-        "moves_down": "Drop back to the backup tier if rotation snaps thin.",
+        "why_here": "Deep reserve — rostered, no meaningful snaps yet.",
+        "moves_up": "Win a package role in fall camp.",
+        "moves_down": "Roster churn sets the floor.",
     },
     1: {
-        "why_here": "Snap-by-snap rotation player. Working on the next step.",
-        "moves_up": "Earn rotation reps in fall camp.",
-        "moves_down": "Roster moves can shift this back to the floor.",
+        "why_here": "Scout team / redshirt development — building toward the 2-deep.",
+        "moves_up": "Earn gameday-roster reps.",
+        "moves_down": "Redshirt-year reality sets the floor.",
     },
     0: {
-        "why_here": "Roster reality. The starting block is honest.",
+        "why_here": "Walk-on (preferred / recruited / invited). The starting block is honest.",
         "moves_up": "Snap counts and special-teams reps are the leading indicators.",
-        "moves_down": "Roster cuts and walk-on policies set the floor.",
+        "moves_down": "Walk-on policies set the floor.",
     },
 }
 
