@@ -331,6 +331,46 @@ def fetch_visual_cards(
     return deduped[:limit]
 
 
+def retire_visual_scope(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int | None,
+    week_number: int | None,
+    visual_id: str,
+) -> int:
+    """Supersede all active cached rows for a (slug, season, week, visual_id).
+
+    Used when a visual that was previously cached now gates to an empty result
+    (e.g. a team-relevance gate fires) and so will not be re-stored. Without
+    this, the stale row stays active and the dead card keeps shipping. LKG rows
+    are NOT exempt — a gated-empty visual is no longer a valid fallback.
+    """
+    cur = _execute(
+        db,
+        """
+        UPDATE chronicle_visual_cache
+        SET superseded_at_utc = :now
+        WHERE slug = :slug
+          AND COALESCE(season_year, -1) = COALESCE(:season, -1)
+          AND COALESCE(week_number, -1) = COALESCE(:week, -1)
+          AND visual_id = :vid
+          AND superseded_at_utc IS NULL
+        """,
+        {
+            "now": _now_utc(),
+            "slug": slug,
+            "season": season_year,
+            "week": week_number,
+            "vid": visual_id,
+        },
+    )
+    try:
+        return cur.rowcount
+    except Exception:
+        return 0
+
+
 def promote_visual_lkg(db: Any, visual_cache_key: str) -> bool:
     cur = _execute(
         db,

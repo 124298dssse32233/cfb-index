@@ -33,6 +33,7 @@ from .cache import (
     compute_thesis_hash,
     store_visual,
     get_cached_visual,
+    retire_visual_scope,
 )
 from .share_renderer import write_share_png
 
@@ -177,9 +178,25 @@ def _generate_one(
         if cached:
             return _hydrate_cached(cached, query_result)
 
-    # Step 4: data-floor gate — skip empty results
+    # Step 4: data-floor gate — skip empty results. Retire any previously
+    # cached row for this scope first, so a visual that used to generate but
+    # now gates to empty (e.g. a team-relevance gate fired) stops shipping the
+    # stale card instead of leaving the old active row in place.
     if query_result["sample_n"] == 0:
-        log.debug("visual %s: empty query, skipping for %s", visual_id.value, slug)
+        retired = retire_visual_scope(
+            db,
+            slug=slug,
+            season_year=effective_season,
+            week_number=week_number,
+            visual_id=visual_id.value,
+        )
+        if retired:
+            log.info(
+                "visual %s: empty query for %s — retired %d stale cache row(s)",
+                visual_id.value, slug, retired,
+            )
+        else:
+            log.debug("visual %s: empty query, skipping for %s", visual_id.value, slug)
         return None
 
     # Step 5: render
