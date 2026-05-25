@@ -362,6 +362,19 @@ def query_roster_replacement_grid(
     if team_id is None:
         return _empty_result(query_id, source_tables, "team slug not found")
 
+    # Use the latest portal cycle that actually has data for this team (>= the
+    # requested preview season), so the freshest portal class surfaces even
+    # when it's newer than the global preview season. e.g. with 2026 transfer
+    # data ingested, a preview-season=2025 request still shows the 2026 portal.
+    latest = _query_one(
+        db,
+        "SELECT MAX(season_year) AS sy FROM transfer_entries "
+        "WHERE (to_team_id = :tid OR from_team_id = :tid) AND season_year >= :sy",
+        {"tid": team_id, "sy": season_year},
+    )
+    if latest and latest.get("sy"):
+        season_year = int(latest["sy"])
+
     # Incoming transfers (gains)
     in_sql = """
     SELECT position, COUNT(*) AS n, AVG(transfer_points) AS avg_points,
