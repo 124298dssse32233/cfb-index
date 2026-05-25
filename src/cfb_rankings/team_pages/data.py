@@ -558,6 +558,7 @@ def fetch_llm_chronicle_cards(
         return []
 
     out = []
+    seen_keys: set[str] = set()
     for r in rows:
         try:
             content = _json.loads(r["card_content_json"] or "{}")
@@ -567,6 +568,12 @@ def fetch_llm_chronicle_cards(
         headline = content.get("headline") or ""
         if not body:
             continue
+        # Dedup: the same headline (or near-identical body opening) can appear
+        # across regenerations / card types and rendered twice on the page.
+        dedup_key = (headline.strip().lower() or body.strip()[:80].lower())
+        if dedup_key in seen_keys:
+            continue
+        seen_keys.add(dedup_key)
         out.append({
             "card_type": r["card_type"] or "echo",
             "headline": headline,

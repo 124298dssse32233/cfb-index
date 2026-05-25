@@ -269,6 +269,24 @@ def query_heisman_race_braid(
     if week_number == 0:
         return _empty_result(query_id, source_tables, "no Heisman rankings for season")
 
+    # Team-relevance gate: on a TEAM page this visual is only worth showing if
+    # that team actually has a Heisman contender. Otherwise it renders the
+    # NATIONAL race (e.g. Oregon's QB on North Texas's page) — irrelevant and
+    # confusing. Suppress when the anchor team has no top-40 player.
+    # Gate to top_n (the braid only DISPLAYS the top N). A team with a #22
+    # player isn't in the rendered race, so showing the national top-8 on its
+    # page is still irrelevant — require a player within the displayed band.
+    anchor_team_id = _team_id_for_slug(db, slug) if slug else None
+    if anchor_team_id is not None:
+        rel = _query_one(
+            db,
+            "SELECT 1 AS x FROM heisman_rankings_weekly "
+            "WHERE season_year = :s AND team_id = :tid AND rank_overall <= :tn LIMIT 1",
+            {"s": season_year, "tid": anchor_team_id, "tn": top_n},
+        )
+        if not rel:
+            return _empty_result(query_id, source_tables, "no Heisman contender on this team")
+
     # Top N at the snapshot week
     top_sql = """
     SELECT h.player_id, h.team_id, h.rank_overall, h.latent_score,
@@ -510,6 +528,12 @@ def query_cfp_bubble_wall(
     if not raw:
         return _empty_result(query_id, source_tables, "no resume+power rows for week")
 
+    # Team-relevance gate: only show the bubble wall on a team page if that
+    # team is actually in the at-large field (top-25 resume). For a 6-7 G5
+    # team it would otherwise render a dead "not in the field" card.
+    if anchor_team_id is not None and not any(r["team_id"] == anchor_team_id for r in raw):
+        return _empty_result(query_id, source_tables, "team not in the CFP at-large field")
+
     # Percentile rank within the snapshot set
     res_sorted = sorted([r["resume_score"] or 0 for r in raw])
     pow_sorted = sorted([r["power_rating"] or 0 for r in raw])
@@ -672,7 +696,10 @@ def query_draft_pipeline_conveyor(
     if team_id is None:
         return _empty_result(query_id, source_tables, "team slug not found")
 
-    # Use the most recent draft year available for this team (latest cycle).
+    # Use the most recent draft year available for this team — but only if it's
+    # RECENT (this or last cycle). A page viewed in 2026 shouldn't headline a
+    # team's lone 2021 pick as "2026 reload" content; suppress stale/old draft
+    # classes so the card stays relevant to the current offseason.
     dy_row = _query_one(
         db,
         "SELECT MAX(draft_year) AS dy FROM player_nfl_draft WHERE college_team_id = ?",
@@ -681,6 +708,11 @@ def query_draft_pipeline_conveyor(
     draft_year = (dy_row or {}).get("dy")
     if not draft_year:
         return _empty_result(query_id, source_tables, "no NFL draft picks for this program")
+    # Latest draft in the DB overall = the current cycle; require this team's
+    # most recent class to be within 1 year of it.
+    latest_overall = (_query_one(db, "SELECT MAX(draft_year) AS dy FROM player_nfl_draft", ()) or {}).get("dy") or draft_year
+    if draft_year < latest_overall - 1:
+        return _empty_result(query_id, source_tables, "no recent NFL draft departures")
 
     picks = _query_all(
         db,

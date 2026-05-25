@@ -109,6 +109,9 @@ jobs:
           python manage.py seed-source-registry
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
+          # Self-heal stale current-conference identity from latest team_seasons
+          # (realignment: Texas/OU->SEC, Oregon/USC/UW/UCLA->Big Ten, etc.)
+          python manage.py repair-team-current-identity
 
       # Start from the last healthy site state. If build-site fails
       # (FK constraint, etc.), this preserves all the team / player /

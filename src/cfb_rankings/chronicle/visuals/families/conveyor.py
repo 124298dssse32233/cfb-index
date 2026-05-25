@@ -139,7 +139,8 @@ def _headline(rows: list[dict], summary: dict) -> str:
         return f"A first-rounder gone at {top} headlines {n} {dy} draft departures to replace."
     if top and top_n >= 2:
         return f"{top} took the biggest {dy} draft hit ({top_n} picks) — reload watch is on."
-    return f"{n} players drafted in {dy}; the roster reload runs through the portal and recruiting."
+    player_word = "player" if n == 1 else "players"
+    return f"{n} {player_word} drafted in {dy}; the roster reload runs through the portal and recruiting."
 
 
 def _empty_render(msg: str) -> dict[str, Any]:
