@@ -16289,7 +16289,7 @@ def render_rankings_page_html(
             {_rankings_freshness_lede(season_year_value, summary["week"], latest_local_week)}
           </p>
           <p class="section-note">
-            {"The last completed board — the baseline every 2026 debate starts from. How strong teams finished, and what they actually earned heading into the new season."
+            {"The " + season_name + " board — the baseline every 2026 debate starts from. How strong teams finished, and what they earned heading into the new season."
              if is_offseason(date.today(), db=None) else
              "The list is meant to read like a clean selection-room board: how strong teams look right now, and what they have actually earned."}
           </p>
@@ -16985,9 +16985,12 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <strong>{escape(season_name)}</strong>
         </div>
         {render_profile_identity_strip_v2(
-            eyebrow=f"{conference.upper()} CONFERENCE · {season_name.upper()}",
+            eyebrow=(f"{conference.upper()} CONFERENCE · {season_name.upper()} BASELINE · 2026 OUTLOOK"
+                     if is_offseason(date.today(), db=None)
+                     else f"{conference.upper()} CONFERENCE · {season_name.upper()}"),
             name=team_name,
-            sub_meta=f"#{ranking.rank} in current rankings",
+            sub_meta=(f"#{ranking.rank} entering 2026" if is_offseason(date.today(), db=None)
+                      else f"#{ranking.rank} in current rankings"),
             team_mark_html=hero_logo_html or escape(team_mark),
             stat_tiles=[
                 {"label": "Record", "value": f"{wins}-{losses}"},
@@ -19265,6 +19268,76 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     )
     _player_canonical_path = f"/players/{_player_slug}.html" if _player_slug else None
 
+    # Offseason forward-orientation: in the offseason, lead the analytical
+    # stack with the durable forward layer (Identity & Role, Recruiting
+    # Pedigree, Transfer Arc) ABOVE the last-season Heisman Lens, so the page
+    # reads as a 2026 preview rather than a recap. In-season, keep these in
+    # their original position below the live modules.
+    _is_off = is_offseason(date.today(), db=None)
+    _forward_role_blocks_html = f"""
+      <section class="section player-anchor-section" id="identity-role">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Identity &amp; Role</h2>
+            <p class="section-note">The durable bio layer: position, size, hometown, and roster role.</p>
+          </div>
+          {identity_cards}
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Recruiting Pedigree</h2>
+            <p class="section-note">How big the prospect was before college, and whether the later career arc beat that expectation.</p>
+          </div>
+          <div class="feature-grid history-snapshot-grid">
+            {recruiting_cards}
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Class</th>
+                  <th scope="col">Profile</th>
+                  <th scope="col">Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recruiting_rows}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Transfer Arc</h2>
+            <p class="section-note">Portal movement changes role, context, and perception. This keeps that path in one place.</p>
+          </div>
+          <div class="feature-grid history-snapshot-grid">
+            {transfer_cards}
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Season</th>
+                  <th scope="col">Move</th>
+                  <th scope="col">Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transfer_rows}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+"""
+
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -19324,7 +19397,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section">
         {player_subnav}
       </section>
-
+      {_forward_role_blocks_html if _is_off else ''}
       <section class="section player-anchor-section" id="current-heisman-lens">
         <article class="panel">
           <div class="section-head">
@@ -19372,67 +19445,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
-      <section class="section player-anchor-section" id="identity-role">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Identity & Role</h2>
-            <p class="section-note">The durable bio layer: position, size, hometown, and roster role.</p>
-          </div>
-          {identity_cards}
-        </article>
-      </section>
-
-      <section class="section">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Recruiting Pedigree</h2>
-            <p class="section-note">How big the prospect was before college, and whether the later career arc beat that expectation.</p>
-          </div>
-          <div class="feature-grid history-snapshot-grid">
-            {recruiting_cards}
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Class</th>
-                  <th scope="col">Profile</th>
-                  <th scope="col">Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recruiting_rows}
-              </tbody>
-            </table>
-          </div>
-        </article>
-      </section>
-
-      <section class="section">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Transfer Arc</h2>
-            <p class="section-note">Portal movement changes role, context, and perception. This keeps that path in one place.</p>
-          </div>
-          <div class="feature-grid history-snapshot-grid">
-            {transfer_cards}
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Season</th>
-                  <th scope="col">Move</th>
-                  <th scope="col">Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transfer_rows}
-              </tbody>
-            </table>
-          </div>
-        </article>
-      </section>
+      {_forward_role_blocks_html if not _is_off else ''}
 
       <section class="section player-anchor-section" id="current-season-production">
         <article class="panel">
@@ -19443,9 +19456,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <div class="player-stats-shell">
             <div class="player-stats-topline">
               <div class="player-stats-copy">
-                <p class="player-stats-eyebrow">Current stats</p>
+                <p class="player-stats-eyebrow">{("Last season" if _is_off else "Current stats")}</p>
                 <h3>{escape(_position_filter_bucket(position))} season snapshot</h3>
-                <p>{escape(str(stat_profile.get("snapshot_note") or "Current season snapshot"))}</p>
+                <p>{escape(str(stat_profile.get("snapshot_note") or ("Last season's production" if _is_off else "Current season snapshot")))}</p>
               </div>
             </div>
             <div class="player-stats-trust-strip">
