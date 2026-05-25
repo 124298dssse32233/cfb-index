@@ -9,7 +9,7 @@ from typing import Callable
 
 from .models import VisualId, ChartFamily
 from . import queries
-from .families import ladder, waterfall, braid, tilemosaic, scatter
+from .families import ladder, waterfall, braid, tilemosaic, scatter, conveyor
 
 
 # Each entry: (chart_family, query_fn, renderer_fn)
@@ -44,6 +44,11 @@ _REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
         queries.query_talent_yield_curve,
         scatter.render_talent_yield_curve,
     ),
+    VisualId.DRAFT_PIPELINE_CONVEYOR: (
+        ChartFamily.DOT_PLOT,
+        queries.query_draft_pipeline_conveyor,
+        conveyor.render_draft_pipeline_conveyor,
+    ),
 }
 
 
@@ -58,6 +63,7 @@ RETROSPECTIVE = "retrospective"
 VISUAL_POSTURE: dict[VisualId, str] = {
     VisualId.RETURNING_PRODUCTION_XRAY: PREVIEW,
     VisualId.ROSTER_REPLACEMENT_GRID: PREVIEW,
+    VisualId.DRAFT_PIPELINE_CONVEYOR: PREVIEW,
     VisualId.TALENT_YIELD_CURVE: PREVIEW,
     VisualId.STATEMENT_WIN_LADDER: RETROSPECTIVE,
     VisualId.CFP_BUBBLE_WALL: RETROSPECTIVE,
@@ -68,10 +74,11 @@ VISUAL_POSTURE: dict[VisualId, str] = {
 VISUAL_DISPLAY_ORDER: dict[VisualId, int] = {
     VisualId.RETURNING_PRODUCTION_XRAY: 0,
     VisualId.ROSTER_REPLACEMENT_GRID: 1,
-    VisualId.TALENT_YIELD_CURVE: 2,
-    VisualId.STATEMENT_WIN_LADDER: 3,
-    VisualId.HEISMAN_RACE_BRAID: 4,
-    VisualId.CFP_BUBBLE_WALL: 5,
+    VisualId.DRAFT_PIPELINE_CONVEYOR: 2,
+    VisualId.TALENT_YIELD_CURVE: 3,
+    VisualId.STATEMENT_WIN_LADDER: 4,
+    VisualId.HEISMAN_RACE_BRAID: 5,
+    VisualId.CFP_BUBBLE_WALL: 6,
 }
 
 

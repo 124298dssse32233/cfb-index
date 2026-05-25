@@ -64,6 +64,7 @@ def score_fan_relevance(spec: VisualSpec) -> float:
         "market_vs_model_board",
         "portal_flow_ledger",
         "roster_replacement_grid",
+        "draft_pipeline_conveyor",
     }
     medium_impact = {
         "returning_production_xray",

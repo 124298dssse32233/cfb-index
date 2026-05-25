@@ -631,6 +631,154 @@ def query_talent_yield_curve(
 
 
 # ---------------------------------------------------------------------------
+# Query: Draft Pipeline Conveyor
+# ---------------------------------------------------------------------------
+#
+# "Who did the draft take, and who's left to replace them?" — pairs the most
+# recent NFL-draft departures by position (draft capital lost) with the
+# portal + returning replacements at those positions. Serves the #10 fan
+# interest (draft aftermath -> replacement pipeline) from the 2026-05-25
+# research. Forward-looking: it frames last cycle's losses against the
+# 2026 roster answer.
+#
+# Draft capital weight: round-weighted (R1=7 ... R7=1) so losing a 1st-rounder
+# at a position counts far more than a 7th-rounder.
+
+
+def query_draft_pipeline_conveyor(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,  # ignored
+) -> dict[str, Any]:
+    query_id = "draft_pipeline_conveyor_v1"
+    source_tables = ["player_nfl_draft", "transfer_entries", "teams"]
+
+    team_id = _team_id_for_slug(db, slug)
+    if team_id is None:
+        return _empty_result(query_id, source_tables, "team slug not found")
+
+    # Use the most recent draft year available for this team (latest cycle).
+    dy_row = _query_one(
+        db,
+        "SELECT MAX(draft_year) AS dy FROM player_nfl_draft WHERE college_team_id = ?",
+        (team_id,),
+    )
+    draft_year = (dy_row or {}).get("dy")
+    if not draft_year:
+        return _empty_result(query_id, source_tables, "no NFL draft picks for this program")
+
+    picks = _query_all(
+        db,
+        """
+        SELECT position, round, pick, overall, player_name
+        FROM player_nfl_draft
+        WHERE college_team_id = :tid AND draft_year = :dy
+        ORDER BY overall ASC
+        """,
+        {"tid": team_id, "dy": draft_year},
+    )
+    if not picks:
+        return _empty_result(query_id, source_tables, "no draft picks for latest cycle")
+
+    def _pos_bucket(p: str | None) -> str:
+        # Handles both short codes (LB, OT) and CFBD full names (LINEBACKER,
+        # OFFENSIVE TACKLE) — draft rows carry full names, transfer rows carry
+        # codes, so both must normalize to the same bucket or the
+        # replacement-match logic silently fails.
+        s = (p or "").strip().upper()
+        if s in ("QB", "QUARTERBACK"): return "QB"
+        if s in ("RB", "HB", "FB", "RUNNING BACK", "TAILBACK", "FULLBACK"): return "RB"
+        if s in ("WR", "FL", "WIDE RECEIVER", "RECEIVER", "FLANKER"): return "WR"
+        if s in ("TE", "TIGHT END"): return "TE"
+        if s in ("OT", "OG", "C", "OL", "G", "T", "IOL", "OFFENSIVE TACKLE",
+                 "OFFENSIVE GUARD", "OFFENSIVE LINE", "OFFENSIVE LINEMAN",
+                 "CENTER", "GUARD", "TACKLE"): return "OL"
+        if s in ("DT", "DE", "DL", "NT", "EDGE", "DEFENSIVE TACKLE",
+                 "DEFENSIVE END", "DEFENSIVE LINE", "DEFENSIVE LINEMAN",
+                 "NOSE TACKLE", "EDGE RUSHER"): return "DL"
+        if s in ("LB", "ILB", "OLB", "MLB", "LINEBACKER"): return "LB"
+        if s in ("CB", "S", "DB", "FS", "SS", "CORNERBACK", "SAFETY",
+                 "DEFENSIVE BACK", "CORNER"): return "DB"
+        if s in ("K", "P", "LS", "KICKER", "PUNTER", "PLACEKICKER",
+                 "LONG SNAPPER"): return "ST"
+        return s or "ATH"
+
+    def _round_weight(rd: int | None) -> int:
+        try:
+            return max(1, 8 - int(rd))
+        except (TypeError, ValueError):
+            return 1
+
+    # Draft capital lost by position bucket.
+    by_pos: dict[str, dict] = {}
+    for pk in picks:
+        bucket = _pos_bucket(pk.get("position"))
+        d = by_pos.setdefault(bucket, {"position": bucket, "picks": 0, "capital": 0, "top_pick": None, "names": []})
+        d["picks"] += 1
+        d["capital"] += _round_weight(pk.get("round"))
+        if d["top_pick"] is None or (pk.get("overall") or 999) < d["top_pick"]:
+            d["top_pick"] = pk.get("overall")
+        if len(d["names"]) < 3:
+            d["names"].append(pk.get("player_name") or "")
+
+    # Portal replacements at those positions (incoming transfers, latest cycle).
+    portal_year = _query_one(
+        db,
+        "SELECT MAX(season_year) AS sy FROM transfer_entries WHERE to_team_id = ?",
+        (team_id,),
+    )
+    psy = (portal_year or {}).get("sy")
+    incoming: dict[str, int] = {}
+    if psy:
+        for r in _query_all(
+            db,
+            """
+            SELECT position, COUNT(*) AS n FROM transfer_entries
+            WHERE to_team_id = :tid AND season_year = :sy AND position IS NOT NULL
+            GROUP BY position
+            """,
+            {"tid": team_id, "sy": psy},
+        ):
+            incoming[_pos_bucket(r.get("position"))] = incoming.get(_pos_bucket(r.get("position")), 0) + int(r["n"])
+
+    rows = sorted(by_pos.values(), key=lambda d: d["capital"], reverse=True)
+    for d in rows:
+        d["incoming_replacements"] = incoming.get(d["position"], 0)
+        d["first_rounder"] = bool(d["top_pick"] and d["top_pick"] <= 32)
+
+    total_picks = sum(d["picks"] for d in rows)
+    total_capital = sum(d["capital"] for d in rows)
+    # Position with most capital lost AND no portal replacement = the exposed hole.
+    exposed = next(
+        (d for d in rows if d["incoming_replacements"] == 0 and d["capital"] >= 4),
+        None,
+    )
+
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": rows,
+        "summary_stats": {
+            "team_id": team_id,
+            "draft_year": draft_year,
+            "portal_year": psy,
+            "total_picks": total_picks,
+            "total_capital": total_capital,
+            "top_position": rows[0]["position"] if rows else None,
+            "top_position_picks": rows[0]["picks"] if rows else 0,
+            "top_position_first_rounder": rows[0]["first_rounder"] if rows else False,
+            "exposed_position": exposed["position"] if exposed else None,
+        },
+        "sample_n": total_picks,
+        "confidence": "high" if total_picks >= 5 else ("medium" if total_picks >= 2 else "low"),
+        "limitations": [] if total_picks >= 2 else ["small draft class"],
+        "as_of_utc": _now_utc(),
+    }
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 

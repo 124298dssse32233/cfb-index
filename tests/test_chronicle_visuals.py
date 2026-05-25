@@ -137,7 +137,7 @@ def test_alabama_full_pipeline(db):
 
     # Round-trip via fetch (season_year=None -> posture-aware cross-season).
     # fetch dedups by visual_id, so it returns one card per distinct visual.
-    cards = fetch_visual_cards(db, "alabama", season_year=None)
+    cards = fetch_visual_cards(db, "alabama", season_year=None, limit=20)
     distinct_ids = {r.spec.visual_id.value for r in results if not r.suppressed}
     assert len(cards) == len(distinct_ids)
     for c in cards:

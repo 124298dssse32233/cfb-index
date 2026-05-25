@@ -63,6 +63,7 @@ class VisualId(str, Enum):
     MARKET_VS_MODEL_BOARD = "market_vs_model_board"
     PORTAL_FLOW_LEDGER = "portal_flow_ledger"
     TALENT_YIELD_CURVE = "talent_yield_curve"
+    DRAFT_PIPELINE_CONVEYOR = "draft_pipeline_conveyor"
 
 
 class ConfidenceBand(str, Enum):
