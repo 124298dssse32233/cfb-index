@@ -124,7 +124,9 @@ def test_alabama_full_pipeline(db):
         pytest.skip("team_rating_deltas empty — live pipeline test skipped")
 
     from cfb_rankings.chronicle.visuals import generate_visuals_for_team, fetch_visual_cards
-    results = generate_visuals_for_team(db, slug="alabama", season_year=2024, force_regenerate=True)
+    # Pass the PREVIEW season (2025): preview visuals query 2025, retrospective
+    # visuals auto-resolve to 2024 (posture-aware seasoning).
+    results = generate_visuals_for_team(db, slug="alabama", season_year=2025, force_regenerate=True)
     assert len(results) >= 1, "expected at least 1 visual generated"
 
     # Every result has SVG content and a score
@@ -133,9 +135,11 @@ def test_alabama_full_pipeline(db):
         assert 0.0 <= r.score.total <= 1.0
         assert r.spec.headline_finding
 
-    # Round-trip via fetch
-    cards = fetch_visual_cards(db, "alabama", season_year=2024)
-    assert len(cards) == len(results)
+    # Round-trip via fetch (season_year=None -> posture-aware cross-season).
+    # fetch dedups by visual_id, so it returns one card per distinct visual.
+    cards = fetch_visual_cards(db, "alabama", season_year=None)
+    distinct_ids = {r.spec.visual_id.value for r in results if not r.suppressed}
+    assert len(cards) == len(distinct_ids)
     for c in cards:
         assert c["svg_html"] and "<svg" in c["svg_html"]
         assert c["visual_quality_score"] is not None
@@ -150,9 +154,10 @@ def test_force_regenerate_preserves_lkg_flag(db):
     from cfb_rankings.chronicle.visuals import (
         generate_visuals_for_team, promote_visual_lkg, VisualId,
     )
-    # First pass — ensure a row exists
+    # First pass — ensure a row exists. STATEMENT_WIN_LADDER is retrospective,
+    # so passing preview-season 2025 makes it query 2024 (which has data).
     results = generate_visuals_for_team(
-        db, slug="alabama", season_year=2024,
+        db, slug="alabama", season_year=2025,
         visual_ids=[VisualId.STATEMENT_WIN_LADDER],
         force_regenerate=True,
     )
@@ -171,7 +176,7 @@ def test_force_regenerate_preserves_lkg_flag(db):
 
     # Force-regenerate — LKG MUST survive
     generate_visuals_for_team(
-        db, slug="alabama", season_year=2024,
+        db, slug="alabama", season_year=2025,
         visual_ids=[VisualId.STATEMENT_WIN_LADDER],
         force_regenerate=True,
     )

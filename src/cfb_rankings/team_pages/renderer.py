@@ -482,8 +482,11 @@ def _render_page(
             from cfb_rankings.chronicle.visuals import (
                 fetch_visual_cards as _fetch_chronicle_visuals,
             )
+            # season_year=None -> posture-aware fetch across seasons: preview
+            # (forward-season) visuals lead, retrospective ("last season")
+            # visuals follow. See chronicle/visuals/cache.fetch_visual_cards.
             chronicle_visual_cards = _fetch_chronicle_visuals(
-                db, profile.slug, season_year=snapshot.season_year, limit=6,
+                db, profile.slug, season_year=None, limit=6,
             )
         except Exception as exc:
             # Don't silently hide schema-drift / missing-migration bugs — log
@@ -1768,6 +1771,15 @@ CHRONICLE_VISUALS_CSS = """
 .visual-card__badge--share:hover {
   background: rgba(201,162,74,0.32);
 }
+.visual-card__badge--preview {
+  background: rgba(46,139,87,0.16);
+  color: #2e8b57;
+  font-weight: 700;
+}
+.visual-card__badge--retro {
+  background: rgba(120,120,120,0.14);
+  color: #6a6a6a;
+}
 """
 
 
@@ -1805,6 +1817,20 @@ def _render_visual_card(card: dict[str, Any]) -> str:
     sample_n = card.get("sample_n") or 0
     share_path = card.get("share_asset_path")
 
+    # Posture badge: forward-looking preview vs "last season" retrospective.
+    visual_id = card.get("visual_id") or ""
+    card_season = card.get("season_year")
+    try:
+        from cfb_rankings.chronicle.visuals.registry import posture_for_id, PREVIEW
+        is_preview = posture_for_id(visual_id) == PREVIEW
+    except Exception:
+        is_preview = True
+    if is_preview:
+        posture_badge = '<span class="visual-card__badge visual-card__badge--preview">2026 preview</span>'
+    else:
+        season_lbl = f"{card_season} season" if card_season else "last season"
+        posture_badge = f'<span class="visual-card__badge visual-card__badge--retro">{html.escape(season_lbl)}</span>'
+
     lkg_badge = '<span class="visual-card__badge visual-card__badge--lkg">✓ LKG</span>' if is_lkg else ""
     family_badge = f'<span class="visual-card__badge">{html.escape(family.replace("_", " "))}</span>'
     conf_badge = f'<span class="visual-card__badge">{html.escape(confidence)}</span>'
@@ -1823,7 +1849,8 @@ def _render_visual_card(card: dict[str, Any]) -> str:
     )
     svg_div = f'<div class="visual-card__svg">{svg_html}</div>' if svg_html else ""
 
-    return f"""<article class="visual-card">
+    return f"""<article class="visual-card" data-posture="{'preview' if is_preview else 'retro'}">
+  {posture_badge}
   {headline_html}
   {svg_div}
   <div class="visual-card__meta">

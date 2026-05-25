@@ -274,7 +274,15 @@ def fetch_visual_cards(
     season_year: int | None = None,
     limit: int = 6,
 ) -> list[dict[str, Any]]:
-    """Fetch the active visual cards for a slug. Consumer hook for team_pages."""
+    """Fetch the active visual cards for a slug. Consumer hook for team_pages.
+
+    Posture-aware ordering: forward-looking PREVIEW visuals lead, then
+    RETROSPECTIVE ("last season") visuals — each group in its configured
+    display order. When `season_year` is None (the offseason default), cards
+    across seasons are returned (preview at the forward season + retrospective
+    at the prior season). A non-None `season_year` still filters to that
+    season for callers that want a single-season view.
+    """
     where = ["slug = :slug", "superseded_at_utc IS NULL", "suppressed = 0", "svg_html IS NOT NULL"]
     params: dict[str, Any] = {"slug": slug, "limit": limit}
     if season_year is not None:
@@ -288,11 +296,39 @@ def fetch_visual_cards(
         FROM chronicle_visual_cache
         WHERE {' AND '.join(where)}
           AND COALESCE(suppressed, 0) = 0
-        ORDER BY is_lkg DESC, visual_quality_score DESC, season_year DESC, week_number DESC
-        LIMIT :limit
+        ORDER BY visual_quality_score DESC
+        LIMIT 50
     """
     rows = _query_all(db, sql, params)
-    return rows
+
+    # Posture-aware sort: preview first, then by configured display order.
+    try:
+        from .registry import posture_for_id, VISUAL_DISPLAY_ORDER, PREVIEW, VisualId
+
+        def _sort_key(r: dict) -> tuple:
+            vid = r.get("visual_id") or ""
+            posture_rank = 0 if posture_for_id(vid) == PREVIEW else 1
+            try:
+                order = VISUAL_DISPLAY_ORDER.get(VisualId(vid), 99)
+            except ValueError:
+                order = 99
+            return (posture_rank, order)
+
+        rows.sort(key=_sort_key)
+    except Exception:
+        pass
+
+    # Dedup by visual_id (keep the highest-quality / first-sorted instance),
+    # then cap at limit.
+    seen: set[str] = set()
+    deduped: list[dict[str, Any]] = []
+    for r in rows:
+        vid = r.get("visual_id") or ""
+        if vid in seen:
+            continue
+        seen.add(vid)
+        deduped.append(r)
+    return deduped[:limit]
 
 
 def promote_visual_lkg(db: Any, visual_cache_key: str) -> bool:

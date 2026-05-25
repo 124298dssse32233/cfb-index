@@ -142,8 +142,17 @@ def _generate_one(
     render_fn = get_renderer_function(visual_id)
     chart_family = get_chart_family(visual_id)
 
+    # Posture-aware season: the caller passes the PREVIEW season (e.g. 2025).
+    # Preview visuals query that season; retrospective visuals query the
+    # latest completed-game season (preview - 1). See registry.VISUAL_POSTURE
+    # and memory project-offseason-preview-posture.
+    from .registry import get_posture, RETROSPECTIVE
+    effective_season = season_year
+    if get_posture(visual_id) == RETROSPECTIVE:
+        effective_season = season_year - 1
+
     # Step 1: data query
-    query_result = query_fn(db, slug=slug, season_year=season_year, week_number=week_number)
+    query_result = query_fn(db, slug=slug, season_year=effective_season, week_number=week_number)
     data_fingerprint = compute_data_fingerprint(query_result)
 
     # Step 2: compute cache key — entity_kind defaults to 'team' for this
@@ -153,7 +162,7 @@ def _generate_one(
     cache_key = compute_visual_cache_key(
         slug=slug,
         entity_kind=entity_kind,
-        season_year=season_year,
+        season_year=effective_season,
         week_number=week_number,
         visual_id=visual_id.value,
         data_query_id=query_result["query_id"],
@@ -182,7 +191,7 @@ def _generate_one(
         chart_family=chart_family,
         headline_finding=rendered["headline_finding"],
         data_query_id=query_result["query_id"],
-        entity_scope=EntityScope(slug=slug, season_year=season_year, week_number=week_number),
+        entity_scope=EntityScope(slug=slug, season_year=effective_season, week_number=week_number),
         annotations=rendered.get("annotations", []),
         required_sources=query_result.get("source_tables", []),
         alt_text=rendered.get("alt_text", ""),

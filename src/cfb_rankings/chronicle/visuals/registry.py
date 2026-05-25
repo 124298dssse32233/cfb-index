@@ -47,6 +47,46 @@ _REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
 }
 
 
+# Posture: which visuals are forward-looking PREVIEW content vs backward
+# RETROSPECTIVE recaps. In the offseason (mid-year) the preview set leads and
+# queries the latest forward-data season; the retrospective set is labeled
+# "Last season" and queries the latest completed-game season.
+# See memory: project-offseason-preview-posture.
+PREVIEW = "preview"
+RETROSPECTIVE = "retrospective"
+
+VISUAL_POSTURE: dict[VisualId, str] = {
+    VisualId.RETURNING_PRODUCTION_XRAY: PREVIEW,
+    VisualId.ROSTER_REPLACEMENT_GRID: PREVIEW,
+    VisualId.TALENT_YIELD_CURVE: PREVIEW,
+    VisualId.STATEMENT_WIN_LADDER: RETROSPECTIVE,
+    VisualId.CFP_BUBBLE_WALL: RETROSPECTIVE,
+    VisualId.HEISMAN_RACE_BRAID: RETROSPECTIVE,
+}
+
+# Display order within each posture group (lower sorts first).
+VISUAL_DISPLAY_ORDER: dict[VisualId, int] = {
+    VisualId.RETURNING_PRODUCTION_XRAY: 0,
+    VisualId.ROSTER_REPLACEMENT_GRID: 1,
+    VisualId.TALENT_YIELD_CURVE: 2,
+    VisualId.STATEMENT_WIN_LADDER: 3,
+    VisualId.HEISMAN_RACE_BRAID: 4,
+    VisualId.CFP_BUBBLE_WALL: 5,
+}
+
+
+def get_posture(visual_id: VisualId) -> str:
+    return VISUAL_POSTURE.get(visual_id, RETROSPECTIVE)
+
+
+def posture_for_id(visual_id_str: str) -> str:
+    """Posture lookup by raw visual_id string (for render-time labeling)."""
+    try:
+        return VISUAL_POSTURE.get(VisualId(visual_id_str), RETROSPECTIVE)
+    except ValueError:
+        return RETROSPECTIVE
+
+
 def list_registered_visuals() -> list[VisualId]:
     return list(_REGISTRY.keys())
 
