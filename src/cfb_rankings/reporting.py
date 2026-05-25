@@ -19311,11 +19311,15 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="player-standing">
         {player_data.get("new_standing_rail_html") or ""}
-        {player_data.get("new_heisman_trajectory_html") or ""}
         {player_data.get("new_dev_traj_html") or ""}
         {player_data.get("new_career_arc_html") or ""}
         {player_data.get("new_live_signal_flow_html") or ""}
       </section>
+      {(
+        '<section class="section player-anchor-section" id="accolade-trajectory">'
+        + (player_data.get("new_heisman_trajectory_html") or "")
+        + '</section>'
+      ) if (player_data.get("new_heisman_trajectory_html") or "").strip() else ""}
 
       <section class="section">
         {player_subnav}
