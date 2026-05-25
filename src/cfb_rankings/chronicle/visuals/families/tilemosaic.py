@@ -109,10 +109,18 @@ def render_roster_replacement_grid(
             family="ui-monospace,Menlo,monospace",
         ))
 
-    # Footer
+    # Footer — lead with the QUALITY story (talent upgraded / hole), which is
+    # what fans actually want post-portal, not just headcount.
+    up_pos = summary.get("biggest_upgrade_pos")
+    hole_pos = summary.get("biggest_hole_pos")
+    footer_bits = [f"Net movement: {summary.get('net_movement', 0):+d}"]
+    if up_pos:
+        footer_bits.append(f"upgraded {up_pos}")
+    if hole_pos:
+        footer_bits.append(f"hole at {hole_pos}")
     parts.append(text(
         20, height - 12,
-        f"Net movement: {summary.get('net_movement', 0):+d}",
+        " · ".join(footer_bits),
         font_size=11, color=PALETTE_MUTED, italic=True,
     ))
 
@@ -121,16 +129,20 @@ def render_roster_replacement_grid(
 
     headline = _headline_for_grid(rows, summary)
     annotations: list[Annotation] = []
-    # Highlight largest net swing position
-    if rows:
-        biggest = max(rows, key=lambda r: abs(r["net_n"]))
-        if abs(biggest["net_n"]) >= 2:
-            direction = "net gain" if biggest["net_n"] > 0 else "net loss"
-            annotations.append(Annotation(
-                target=biggest["position"],
-                text=f"{biggest['position']}: {direction} of {abs(biggest['net_n'])}",
-                reason="largest net positional swing in portal flow",
-            ))
+    # Surface the biggest talent upgrade + the hidden hole (the underserved
+    # fan question per 2026-05-25 research).
+    if up_pos:
+        annotations.append(Annotation(
+            target=up_pos,
+            text=f"{up_pos}: biggest talent upgrade",
+            reason="highest net transfer-points gain by position",
+        ))
+    if hole_pos:
+        annotations.append(Annotation(
+            target=hole_pos,
+            text=f"{hole_pos}: biggest talent hole",
+            reason="largest net transfer-points loss by position",
+        ))
 
     alt_text = (
         f"Roster Replacement Grid for {season}: "
@@ -146,11 +158,24 @@ def render_roster_replacement_grid(
 
 
 def _headline_for_grid(rows: list[dict], summary: dict) -> str:
-    net = summary.get("net_movement", 0)
     n_in = summary.get("total_incoming", 0)
     n_out = summary.get("total_outgoing", 0)
     if n_in == 0 and n_out == 0:
         return "No portal activity recorded for this season."
+
+    # Lead with the talent-QUALITY story (what fans actually argue about
+    # post-portal): which room got better, where the hidden hole is.
+    up_pos = summary.get("biggest_upgrade_pos")
+    hole_pos = summary.get("biggest_hole_pos")
+    if up_pos and hole_pos:
+        return f"The portal upgraded the {up_pos} room but opened a hole at {hole_pos}."
+    if up_pos:
+        return f"The portal's biggest win was at {up_pos} — the room got better on paper."
+    if hole_pos:
+        return f"The portal left a hole at {hole_pos} the roster still has to answer."
+
+    # Fall back to count-based language when talent signal is flat.
+    net = summary.get("net_movement", 0)
     biggest = max(rows, key=lambda r: abs(r["net_n"])) if rows else None
     if biggest and abs(biggest["net_n"]) >= 3:
         direction = "added" if biggest["net_n"] > 0 else "lost"

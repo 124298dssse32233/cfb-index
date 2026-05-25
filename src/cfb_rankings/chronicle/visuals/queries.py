@@ -394,19 +394,37 @@ def query_roster_replacement_grid(
     for pos in positions:
         in_row = next((r for r in incoming if r["position"] == pos), None)
         out_row = next((r for r in outgoing if r["position"] == pos), None)
+        in_n = int(in_row["n"]) if in_row else 0
+        out_n = int(out_row["n"]) if out_row else 0
+        # Per-position talent value = avg transfer_points * headcount. This is
+        # the QUALITY dimension (not just bodies): a position can be net-negative
+        # on count but net-positive on talent if the incoming pieces are rated
+        # higher than the departures. Serves the "who actually improved / where
+        # are the hidden holes" fan question (research 2026-05-25).
+        in_pts = (float(in_row["avg_points"] or 0) * in_n) if in_row else 0.0
+        out_pts = (float(out_row["avg_points"] or 0) * out_n) if out_row else 0.0
+        net_talent = in_pts - out_pts
         rows.append({
             "position": pos,
-            "incoming_n": int(in_row["n"]) if in_row else 0,
+            "incoming_n": in_n,
             "incoming_avg_rating": float(in_row["avg_rating"] or 0) if in_row else 0.0,
-            "outgoing_n": int(out_row["n"]) if out_row else 0,
+            "incoming_avg_points": float(in_row["avg_points"] or 0) if in_row else 0.0,
+            "outgoing_n": out_n,
             "outgoing_avg_rating": float(out_row["avg_rating"] or 0) if out_row else 0.0,
-            "net_n": (int(in_row["n"]) if in_row else 0) - (int(out_row["n"]) if out_row else 0),
+            "outgoing_avg_points": float(out_row["avg_points"] or 0) if out_row else 0.0,
+            "net_n": in_n - out_n,
+            "net_talent": net_talent,
         })
 
     total_in = sum(r["incoming_n"] for r in rows)
     total_out = sum(r["outgoing_n"] for r in rows)
     sample_n = total_in + total_out
     confidence = "high" if sample_n >= 12 else ("medium" if sample_n >= 4 else "low")
+
+    # Identify the biggest position upgrade + biggest hole by talent value.
+    rows_with_talent = [r for r in rows if abs(r["net_talent"]) > 0.001]
+    biggest_upgrade = max(rows_with_talent, key=lambda r: r["net_talent"], default=None)
+    biggest_hole = min(rows_with_talent, key=lambda r: r["net_talent"], default=None)
 
     return {
         "query_id": query_id,
@@ -418,6 +436,11 @@ def query_roster_replacement_grid(
             "total_incoming": total_in,
             "total_outgoing": total_out,
             "net_movement": total_in - total_out,
+            "net_talent_total": sum(r["net_talent"] for r in rows),
+            "biggest_upgrade_pos": biggest_upgrade["position"] if biggest_upgrade and biggest_upgrade["net_talent"] > 0 else None,
+            "biggest_upgrade_val": biggest_upgrade["net_talent"] if biggest_upgrade and biggest_upgrade["net_talent"] > 0 else 0.0,
+            "biggest_hole_pos": biggest_hole["position"] if biggest_hole and biggest_hole["net_talent"] < 0 else None,
+            "biggest_hole_val": biggest_hole["net_talent"] if biggest_hole and biggest_hole["net_talent"] < 0 else 0.0,
         },
         "sample_n": sample_n,
         "confidence": confidence,
