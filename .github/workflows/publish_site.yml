@@ -427,6 +427,20 @@ jobs:
           python tools/wcfb_enhancements/build_compare.py
           echo "done"
 
+      - name: Build /offseason/ + /film-room/ hubs (committed nav links)
+        # Both are linked from the global _site_nav (reporting.py _site_nav)
+        # but generated only by standalone scripts, NOT by build-site. Without
+        # regenerating them here, a fresh build (or a build seeded from a
+        # rolling artifact that predates these pages) ships nav links that
+        # 404 sitewide. Non-fatal: a hub failure must not block the deploy.
+        run: |
+          set +e
+          python scripts/build_offseason_leaderboards.py
+          echo "offseason hub: $(ls -la output/site/offseason/index.html 2>/dev/null || echo missing)"
+          python scripts/build_film_room.py
+          echo "film-room: $(ls -la output/site/film-room/index.html 2>/dev/null || echo missing)"
+          echo "done"
+
       - name: Install World-Class enhancement layer (CSS+JS+HTML inject)
         run: python tools/wcfb_enhancements/install.py
 
