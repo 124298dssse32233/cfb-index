@@ -115,6 +115,15 @@ a { color: inherit; text-decoration: none; }
   line-height: 1;
 }
 
+.hero__record-qualifier {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-2, #6a6a6a);
+  align-self: center;
+}
+
 .hero__rank-chip {
   font-family: var(--font-display);
   font-weight: 600;

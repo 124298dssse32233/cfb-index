@@ -615,6 +615,57 @@ def _render_page(
         og_type="article",
     )
 
+    # ---- 3-Act assembly (Octopus review b12529c0a) -------------------------
+    # Group the modules by time-horizon so the page reads as a narrative, not a
+    # flat wall. Empty acts (sparse/legacy slugs) collapse to nothing.
+    def _act(num: str, title: str, *module_parts: str) -> str:
+        body = "".join(p for p in module_parts if p and p.strip())
+        if not body:
+            return ""
+        return (
+            f'<section class="act act--{num.lower()}">'
+            f'<div class="act__head"><span class="act__num">Act {num}</span>'
+            f'<h2 class="act__title">{html.escape(title)}</h2></div>'
+            f'{body}</section>'
+        )
+
+    act_outlook = _act(
+        "I", "The 2026 Outlook",
+        offseason_pulse_html, pulse_html, aspiration_ladder_html,
+        ceiling_floor_html, top_commits_html, recruit_footprint_html,
+    )
+    act_identity = _act(
+        "II", "Who We Are",
+        program_prestige_html, trajectory_chip_html, hero_arc_stripe_html,
+        peer_comparator_html, coaching_era_html, rituals_html,
+        cultural_anchors_html, fanbase_health_html, home_field_html,
+        statement_wins_html, chronicle_html, chronicle_visuals_html,
+        savant_html, rivalry_html, llm_chronicle_html,
+    )
+    review_season = snapshot.season_year if snapshot else None
+    review_hint = (
+        f"{review_season} season · tap to expand"
+        if review_season else "tap to expand"
+    )
+    review_body = "".join(
+        p for p in (
+            recent_form_html, season_standing_html, conference_standing_html,
+            schedule_strength_html, top_players_html, nfl_draft_html,
+            moment_of_year_html, bowl_history_html, on_this_day_html,
+            wrapped_html, arc_html,
+        ) if p and p.strip()
+    )
+    act_review = ""
+    if review_body:
+        act_review = (
+            '<details class="act act--review">'
+            '<summary class="act__head act__head--summary">'
+            '<span class="act__num">Act III</span>'
+            '<h2 class="act__title">Last Season Reviewed</h2>'
+            f'<span class="act__hint">{html.escape(review_hint)}</span></summary>'
+            f'<div class="act__body">{review_body}</div></details>'
+        )
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -721,6 +772,9 @@ body {{
 /* Chronicle Visuals — v3 visual-first deterministic SVG cards */
 {CHRONICLE_VISUALS_CSS}
 
+/* 3-Act page structure — Profile-archetype zoning (Octopus review) */
+{ACT_STRUCTURE_CSS}
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
 {cmdk_css}
@@ -768,38 +822,9 @@ body {{
     {hero_html}
     {page_tone_html}
     {kickoff_html}
-    {offseason_pulse_html}
-    {top_commits_html}
-    {recruit_footprint_html}
-    {top_players_html}
-    {nfl_draft_html}
-    {coaching_era_html}
-    {recent_form_html}
-    {season_standing_html}
-    {program_prestige_html}
-    {trajectory_chip_html}
-    {peer_comparator_html}
-    {on_this_day_html}
-    {wrapped_html}
-    {fanbase_health_html}
-    {conference_standing_html}
-    {ceiling_floor_html}
-    {home_field_html}
-    {moment_of_year_html}
-    {schedule_strength_html}
-    {statement_wins_html}
-    {bowl_history_html}
-    {hero_arc_stripe_html}
-    {pulse_html}
-    {aspiration_ladder_html}
-    {rituals_html}
-    {cultural_anchors_html}
-    {chronicle_html}
-    {llm_chronicle_html}
-    {chronicle_visuals_html}
-    {savant_html}
-    {rivalry_html}
-    {arc_html}
+    {act_outlook}
+    {act_identity}
+    {act_review}
     {footer_html}
   </div>
 </main>
@@ -820,6 +845,13 @@ def _render_hero(
     sp_rating: dict[str, Any] | None,
 ) -> str:
     record = f"{snap.wins}-{snap.losses}" + (f"-{snap.ties}" if snap.ties else "")
+    # In the offseason the record + rank chips are last season's — label them
+    # so the forward-framed page never reads as if this were the live standing.
+    offseason = not getattr(state, "is_in_season", False)
+    record_qualifier = (
+        f'<span class="hero__record-qualifier">{snap.season_year} final</span>'
+        if offseason else ""
+    )
 
     chips: list[str] = []
     if snap.ap_rank:
@@ -865,6 +897,7 @@ def _render_hero(
       {logo_html}
       <h1 id="hero-wordmark" class="hero__wordmark">{html.escape(profile.display_name)}</h1>
       <span class="hero__record" aria-label="Season record">{html.escape(record)}</span>
+      {record_qualifier}
       {chips_html}
     </div>
     {identity_html}
@@ -1580,6 +1613,80 @@ def _render_chronicle_card(card: dict[str, Any]) -> str:
   <p class="chronicle-card__body">{html.escape(card.get('body_md', ''))}</p>
   <span class="chronicle-card__source">{html.escape(card.get('source', '') or '')}</span>
 </article>"""
+
+
+# ----------------------------------------------------------------------------
+# 3-Act page structure — Profile-archetype zoning (Octopus review b12529c0a).
+# Replaces the flat ~33-module wall with: HERO answer card → Act I (forward
+# Outlook) → Act II (timeless identity) → Act III (retrospective, collapsed).
+# Each act gets a display-font divider; Act III is a native <details> drawer
+# so casual fans get a clean top-to-bottom narrative and die-hards can open
+# last season with one tap. Empty acts collapse to nothing (no header) so
+# legacy/sparse slugs never render a bare label.
+# ----------------------------------------------------------------------------
+
+ACT_STRUCTURE_CSS = """
+.act { display: block; }
+.act + .act { margin-top: var(--sp-9, 40px); }
+.act__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin: var(--sp-6, 24px) 0 var(--sp-4, 16px);
+  padding-bottom: var(--sp-2, 8px);
+  border-bottom: 2px solid var(--accent-primary, #1f2c4d);
+}
+.act__num {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #1f2c4d);
+  opacity: 0.7;
+}
+.act__title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+.act__hint {
+  font-size: 12px;
+  color: var(--fg-2, #6a6a6a);
+  font-style: italic;
+  margin-left: auto;
+}
+/* Act III review drawer */
+details.act--review { margin-top: var(--sp-9, 40px); }
+details.act--review > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin: var(--sp-6, 24px) 0 0;
+  padding-bottom: var(--sp-2, 8px);
+  border-bottom: 2px dashed var(--border, rgba(0,0,0,0.2));
+}
+details.act--review > summary::-webkit-details-marker { display: none; }
+details.act--review > summary::after {
+  content: "▸";
+  margin-left: var(--sp-2, 8px);
+  color: var(--fg-2, #6a6a6a);
+  transition: transform 0.18s ease;
+}
+details.act--review[open] > summary::after { transform: rotate(90deg); }
+details.act--review > summary:hover .act__title { color: var(--accent-primary, #1f2c4d); }
+.act--review .act__body { margin-top: var(--sp-5, 20px); }
+.act--review .act__body > * { opacity: 0.94; }
+@media (max-width: 640px) {
+  .act__head, details.act--review > summary { margin-top: var(--sp-5, 20px); }
+}
+"""
 
 
 # ----------------------------------------------------------------------------
