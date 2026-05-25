@@ -486,7 +486,7 @@ def _render_page(
             # (forward-season) visuals lead, retrospective ("last season")
             # visuals follow. See chronicle/visuals/cache.fetch_visual_cards.
             chronicle_visual_cards = _fetch_chronicle_visuals(
-                db, profile.slug, season_year=None, limit=8,
+                db, profile.slug, season_year=None, limit=10,
             )
         except Exception as exc:
             # Don't silently hide schema-drift / missing-migration bugs — log

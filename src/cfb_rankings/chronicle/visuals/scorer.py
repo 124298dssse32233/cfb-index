@@ -70,6 +70,8 @@ def score_fan_relevance(spec: VisualSpec) -> float:
         "returning_production_xray",
         "talent_yield_curve",
         "schedule_stress_map",
+        "delta_dna",
+        "continuity_stress_test",
     }
     vid = spec.visual_id.value if hasattr(spec.visual_id, "value") else str(spec.visual_id)
     if vid in high_impact:

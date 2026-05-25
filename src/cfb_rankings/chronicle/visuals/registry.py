@@ -9,7 +9,7 @@ from typing import Callable
 
 from .models import VisualId, ChartFamily
 from . import queries
-from .families import ladder, waterfall, braid, tilemosaic, scatter, conveyor
+from .families import ladder, waterfall, braid, tilemosaic, scatter, conveyor, signals
 
 
 # Each entry: (chart_family, query_fn, renderer_fn)
@@ -49,6 +49,16 @@ _REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
         queries.query_draft_pipeline_conveyor,
         conveyor.render_draft_pipeline_conveyor,
     ),
+    VisualId.DELTA_DNA: (
+        ChartFamily.ANNOTATED_LINE,
+        queries.query_delta_dna,
+        signals.render_delta_dna,
+    ),
+    VisualId.CONTINUITY_STRESS_TEST: (
+        ChartFamily.PERCENTILE_BAR,
+        queries.query_continuity_stress_test,
+        signals.render_continuity_stress_test,
+    ),
 }
 
 
@@ -62,9 +72,11 @@ RETROSPECTIVE = "retrospective"
 
 VISUAL_POSTURE: dict[VisualId, str] = {
     VisualId.RETURNING_PRODUCTION_XRAY: PREVIEW,
+    VisualId.CONTINUITY_STRESS_TEST: PREVIEW,
     VisualId.ROSTER_REPLACEMENT_GRID: PREVIEW,
     VisualId.DRAFT_PIPELINE_CONVEYOR: PREVIEW,
     VisualId.TALENT_YIELD_CURVE: PREVIEW,
+    VisualId.DELTA_DNA: RETROSPECTIVE,  # uses 2024 per-game deltas, framed forward
     VisualId.STATEMENT_WIN_LADDER: RETROSPECTIVE,
     VisualId.CFP_BUBBLE_WALL: RETROSPECTIVE,
     VisualId.HEISMAN_RACE_BRAID: RETROSPECTIVE,
@@ -73,12 +85,14 @@ VISUAL_POSTURE: dict[VisualId, str] = {
 # Display order within each posture group (lower sorts first).
 VISUAL_DISPLAY_ORDER: dict[VisualId, int] = {
     VisualId.RETURNING_PRODUCTION_XRAY: 0,
-    VisualId.ROSTER_REPLACEMENT_GRID: 1,
-    VisualId.DRAFT_PIPELINE_CONVEYOR: 2,
-    VisualId.TALENT_YIELD_CURVE: 3,
-    VisualId.STATEMENT_WIN_LADDER: 4,
-    VisualId.HEISMAN_RACE_BRAID: 5,
-    VisualId.CFP_BUBBLE_WALL: 6,
+    VisualId.CONTINUITY_STRESS_TEST: 1,
+    VisualId.ROSTER_REPLACEMENT_GRID: 2,
+    VisualId.DRAFT_PIPELINE_CONVEYOR: 3,
+    VisualId.TALENT_YIELD_CURVE: 4,
+    VisualId.DELTA_DNA: 5,
+    VisualId.STATEMENT_WIN_LADDER: 6,
+    VisualId.HEISMAN_RACE_BRAID: 7,
+    VisualId.CFP_BUBBLE_WALL: 8,
 }
 
 

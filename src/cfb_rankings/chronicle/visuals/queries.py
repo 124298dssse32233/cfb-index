@@ -779,6 +779,185 @@ def query_draft_pipeline_conveyor(
 
 
 # ---------------------------------------------------------------------------
+# Query: Delta DNA (team swing signature)
+# ---------------------------------------------------------------------------
+#
+# Per-game power_delta series for a team's most recent completed season — the
+# program's "swing signature." High volatility = boom/bust; low volatility +
+# positive mean = steadily-built; low volatility + negative mean = fake-stable.
+# Exploits the proprietary team_rating_deltas (per-game power change) that
+# ESPN/On3 don't expose. Retrospective data (2024) but framed as a
+# built-to-leap-vs-fake-stable read into 2026.
+
+
+def query_delta_dna(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,
+) -> dict[str, Any]:
+    query_id = "delta_dna_v1"
+    source_tables = ["team_rating_deltas", "games", "teams"]
+
+    team_id = _team_id_for_slug(db, slug)
+    if team_id is None:
+        return _empty_result(query_id, source_tables, "team slug not found")
+
+    rows_raw = _query_all(
+        db,
+        """
+        SELECT d.power_delta, d.offense_delta, d.defense_delta, d.resume_delta,
+               g.week
+        FROM team_rating_deltas d
+        JOIN games g ON g.game_id = d.game_id
+        WHERE d.team_id = :tid AND g.season_year = :sy
+          AND d.power_delta IS NOT NULL
+        ORDER BY g.week ASC
+        """,
+        {"tid": team_id, "sy": season_year},
+    )
+    if len(rows_raw) < 3:
+        return _empty_result(query_id, source_tables, "not enough game deltas for a signature")
+
+    deltas = [float(r["power_delta"] or 0) for r in rows_raw]
+    n = len(deltas)
+    mean = sum(deltas) / n
+    var = sum((d - mean) ** 2 for d in deltas) / n
+    std = var ** 0.5
+    biggest_up = max(deltas)
+    biggest_down = min(deltas)
+
+    rows = [
+        {
+            "week": r["week"],
+            "power_delta": float(r["power_delta"] or 0),
+            "offense_delta": float(r["offense_delta"] or 0),
+            "defense_delta": float(r["defense_delta"] or 0),
+        }
+        for r in rows_raw
+    ]
+
+    # Archetype from mean + volatility.
+    if std >= 1.2 and mean > 0.2:
+        archetype = "boom-built"
+    elif std >= 1.2:
+        archetype = "boom-bust"
+    elif mean > 0.2:
+        archetype = "steadily-built"
+    elif mean < -0.2:
+        archetype = "fake-stable"
+    else:
+        archetype = "flat-line"
+
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": rows,
+        "summary_stats": {
+            "team_id": team_id,
+            "season_year": season_year,
+            "games": n,
+            "mean_delta": mean,
+            "volatility": std,
+            "biggest_up": biggest_up,
+            "biggest_down": biggest_down,
+            "archetype": archetype,
+        },
+        "sample_n": n,
+        "confidence": "high" if n >= 10 else "medium",
+        "limitations": [],
+        "as_of_utc": _now_utc(),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Query: Continuity Stress Test
+# ---------------------------------------------------------------------------
+#
+# Returning-production stress bars weighting QB / OL / offense / defense, from
+# returning_production. Richer than ESPN's single returning-production number:
+# shows WHERE the continuity is and where the stress (turnover) sits. Forward
+# preview data (2025 = the upcoming-season returning production).
+
+
+def query_continuity_stress_test(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,  # ignored
+) -> dict[str, Any]:
+    query_id = "continuity_stress_test_v1"
+    source_tables = ["returning_production", "teams"]
+
+    team_id = _team_id_for_slug(db, slug)
+    if team_id is None:
+        return _empty_result(query_id, source_tables, "team slug not found")
+
+    row = _query_one(
+        db,
+        """
+        SELECT returning_total, returning_offense, returning_defense,
+               returning_qb, returning_ol
+        FROM returning_production
+        WHERE team_id = :tid AND season_year = :sy
+        LIMIT 1
+        """,
+        {"tid": team_id, "sy": season_year},
+    )
+    if not row:
+        return _empty_result(query_id, source_tables, "no returning-production snapshot")
+
+    def _pct(v) -> float:
+        x = float(v or 0)
+        return x if 0 <= x <= 1 else (x / 100.0 if x > 1 else 0.0)
+
+    # League averages for context.
+    avg = _query_one(
+        db,
+        """
+        SELECT AVG(returning_total) t, AVG(returning_offense) o,
+               AVG(returning_defense) d, AVG(returning_qb) q, AVG(returning_ol) l
+        FROM returning_production WHERE season_year = :sy
+        """,
+        {"sy": season_year},
+    ) or {}
+
+    bars = [
+        {"key": "QB", "label": "QB room", "value": _pct(row.get("returning_qb")), "league_avg": _pct(avg.get("q"))},
+        {"key": "OL", "label": "O-line", "value": _pct(row.get("returning_ol")), "league_avg": _pct(avg.get("l"))},
+        {"key": "OFF", "label": "Offense", "value": _pct(row.get("returning_offense")), "league_avg": _pct(avg.get("o"))},
+        {"key": "DEF", "label": "Defense", "value": _pct(row.get("returning_defense")), "league_avg": _pct(avg.get("d"))},
+        {"key": "TOT", "label": "Overall", "value": _pct(row.get("returning_total")), "league_avg": _pct(avg.get("t"))},
+    ]
+    # Weakest link (biggest stress) = lowest returning vs league avg.
+    stressed = min(bars, key=lambda b: b["value"] - b["league_avg"])
+    anchored = max(bars, key=lambda b: b["value"] - b["league_avg"])
+
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": bars,
+        "summary_stats": {
+            "team_id": team_id,
+            "season_year": season_year,
+            "stressed_key": stressed["key"],
+            "stressed_label": stressed["label"],
+            "stressed_value": stressed["value"],
+            "anchored_key": anchored["key"],
+            "anchored_label": anchored["label"],
+            "overall_value": _pct(row.get("returning_total")),
+            "overall_avg": _pct(avg.get("t")),
+        },
+        "sample_n": 1,
+        "confidence": "high",
+        "limitations": [],
+        "as_of_utc": _now_utc(),
+    }
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 

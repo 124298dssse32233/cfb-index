@@ -64,6 +64,8 @@ class VisualId(str, Enum):
     PORTAL_FLOW_LEDGER = "portal_flow_ledger"
     TALENT_YIELD_CURVE = "talent_yield_curve"
     DRAFT_PIPELINE_CONVEYOR = "draft_pipeline_conveyor"
+    DELTA_DNA = "delta_dna"
+    CONTINUITY_STRESS_TEST = "continuity_stress_test"
 
 
 class ConfidenceBand(str, Enum):
