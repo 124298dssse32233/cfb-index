@@ -16289,7 +16289,7 @@ def render_rankings_page_html(
             {_rankings_freshness_lede(season_year_value, summary["week"], latest_local_week)}
           </p>
           <p class="section-note">
-            {"A clean selection-room board for the just-completed " + season_name + ": how strong teams looked, and what they actually earned."
+            {"The last completed board — the baseline every 2026 debate starts from. How strong teams finished, and what they actually earned heading into the new season."
              if is_offseason(date.today(), db=None) else
              "The list is meant to read like a clean selection-room board: how strong teams look right now, and what they have actually earned."}
           </p>
@@ -18064,7 +18064,7 @@ def render_heisman_page_html(
       {_site_nav("../", current="heisman")}
       {_hero_finding_html}
       <section class="hero">
-        <p class="eyebrow">{"Final " + str(season_year_value) + " Heisman Tracker" if season_is_completed else "Heisman Tracker"}</p>
+        <p class="eyebrow">{str(season_year_value) + " Heisman Tracker &middot; archived race" if season_is_completed else "Heisman Tracker"}</p>
         <h1>{"How the model called the " + str(season_year_value) + " Heisman race." if season_is_completed else "A full-board Heisman model, not just a top-three list."}</h1>
         <p class="lede">
           {("These are the model's final " + str(season_year_value) + " vote-eligible inputs &mdash; the last live read on the race before the trophy was awarded. Treat this as a retrospective: where did the model think every player landed, and how much actual win equity did each candidacy carry?")
