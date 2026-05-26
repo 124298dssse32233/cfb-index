@@ -358,5 +358,8 @@ def _load_dotenv() -> None:
         key, value = line.split("=", 1)
         key = key.strip()
         value = value.strip().strip('"').strip("'")
-        if key and key not in os.environ:
+        # Set from .env if missing OR empty — an empty env var shouldn't
+        # prevent the real value from .env being applied (e.g. ANTHROPIC_API_KEY
+        # set to "" by the shell before the process starts).
+        if key and not os.environ.get(key):
             os.environ[key] = value
