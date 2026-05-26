@@ -762,6 +762,11 @@ class OllamaBackend(LLMBackend):
             "options": options,
             "keep_alive": self.keep_alive,
         }
+        # Disable Qwen3 thinking mode — prevents <think>...</think> token
+        # generation entirely, saving 200-2000 tokens per call and eliminating
+        # the post-processing strip. Applies to any qwen3 model variant.
+        if "qwen3" in self.model_id.lower():
+            body["think"] = False
         # When constrained-decoding requested: use Ollama's native `format`
         # parameter — accepts "json" (free-form) or a full JSON schema dict.
         if config.json_schema:
@@ -944,15 +949,21 @@ class Router:
 def build_default_router(allow_cloud: bool = True) -> Router:
     """Construct the canonical router for CFB Index.
 
-    Backend preference order (per role):
+    Backend preference order (per role) — default (Ollama-first):
       1. OllamaBackend (if Ollama daemon is running AND the model is pulled)
-      2. LocalLlamaBackend (if llama-server is reachable on the expected port)
+      2. LocalLlamaBackend (if llama-server is reachable on expected port)
       3. DeepInfraBackend (cloud fallback, requires DEEPINFRA_API_KEY)
       4. NullBackend (graceful degradation, returns empty drafts)
 
-    Ollama is checked first because it's the lowest-friction local path on
-    Windows / consumer GPUs. If Ollama is present with the right models pulled,
-    we don't even try llama-server.
+    Set CHRONICLE_PREFER_LLAMASERVER=1 to flip the local priority:
+      1. LocalLlamaBackend (llama-server) — 8-10% faster, supports --parallel N
+         and --cont-batching; preferred when running start_llama_server.ps1
+      2. OllamaBackend (fallback if llama-server not reachable)
+      3. DeepInfraBackend / NullBackend as above
+
+    Model env overrides:
+      CHRONICLE_OLLAMA_WRITER   — Ollama model tag for writer role
+      CHRONICLE_OLLAMA_PLANNER  — Ollama model tag for planner/critic role
     """
     # Preferred Ollama model IDs (override via env if user has different names)
     OLLAMA_WRITER_MODEL = os.environ.get(
@@ -961,6 +972,8 @@ def build_default_router(allow_cloud: bool = True) -> Router:
     OLLAMA_PLANNER_MODEL = os.environ.get(
         "CHRONICLE_OLLAMA_PLANNER", "qwen3:8b"
     )
+    # When True, llama-server is tried before Ollama (faster, parallel-capable)
+    prefer_llamaserver = os.environ.get("CHRONICLE_PREFER_LLAMASERVER", "0") == "1"
 
     def _maybe_ollama(model_id: str, mv: str) -> LLMBackend | None:
         try:
@@ -984,18 +997,30 @@ def build_default_router(allow_cloud: bool = True) -> Router:
         return None
 
     def _resolve_writer() -> LLMBackend:
-        be = _maybe_ollama(OLLAMA_WRITER_MODEL, "2407")
-        if be: return be
-        be = _maybe_llama_server("mistral-nemo-12b-q5km", 8001, "2407")
-        if be: return be
+        if prefer_llamaserver:
+            be = _maybe_llama_server("mistral-nemo-12b-q5km", 8001, "2407")
+            if be: return be
+            be = _maybe_ollama(OLLAMA_WRITER_MODEL, "2407")
+            if be: return be
+        else:
+            be = _maybe_ollama(OLLAMA_WRITER_MODEL, "2407")
+            if be: return be
+            be = _maybe_llama_server("mistral-nemo-12b-q5km", 8001, "2407")
+            if be: return be
         log.warning("No local Writer backend — using NullBackend (install Ollama + pull %s)", OLLAMA_WRITER_MODEL)
         return NullBackend(model_id="writer-unavailable")
 
     def _resolve_planner() -> LLMBackend:
-        be = _maybe_ollama(OLLAMA_PLANNER_MODEL, "3.0")
-        if be: return be
-        be = _maybe_llama_server("qwen3-8b-thinking-q4km", 8002, "3.0")
-        if be: return be
+        if prefer_llamaserver:
+            be = _maybe_llama_server("qwen3-8b-thinking-q4km", 8002, "3.0")
+            if be: return be
+            be = _maybe_ollama(OLLAMA_PLANNER_MODEL, "3.0")
+            if be: return be
+        else:
+            be = _maybe_ollama(OLLAMA_PLANNER_MODEL, "3.0")
+            if be: return be
+            be = _maybe_llama_server("qwen3-8b-thinking-q4km", 8002, "3.0")
+            if be: return be
         log.warning("No local Planner backend — using NullBackend (install Ollama + pull %s)", OLLAMA_PLANNER_MODEL)
         return NullBackend(model_id="planner-unavailable")
 

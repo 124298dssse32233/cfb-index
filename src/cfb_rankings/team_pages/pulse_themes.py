@@ -291,6 +291,7 @@ def _haiku_extract_candidates(
     *,
     _meter: Any = None,
 ) -> list[dict]:
+    from cfb_rankings.llm_local import is_local_enabled, local_generate
     from cfb_rankings.llm_runtime import generate_with_voice_check
 
     if not excerpts:
@@ -303,14 +304,25 @@ def _haiku_extract_candidates(
         f"Fan conversation excerpts about {entity_name}:\n\n{numbered}\n\n"
         f"Identify 5-8 recurring discussion themes as JSON."
     )
-    result = generate_with_voice_check(
-        prompt,
-        system=_HAIKU_SYSTEM,
-        model=_HAIKU_MODEL,
-        max_tokens=800,
-        max_retries=1,
-        fallback_to_offline=True,
-    )
+
+    # Route to local LLM if available — Stage 1 candidate extraction is a
+    # pure JSON classification task where local Q4-Q5 models perform well.
+    if is_local_enabled():
+        result = local_generate(
+            prompt,
+            system=_HAIKU_SYSTEM,
+            max_tokens=800,
+            temperature=0.3,   # Mild creativity for theme generation
+        )
+    else:
+        result = generate_with_voice_check(
+            prompt,
+            system=_HAIKU_SYSTEM,
+            model=_HAIKU_MODEL,
+            max_tokens=800,
+            max_retries=1,
+            fallback_to_offline=True,
+        )
     # Pattern B cost recording for Stage-1 Haiku candidate extraction.
     if _meter is not None and result.get("mode") == "live":
         tokens = result.get("tokens_used") or {}

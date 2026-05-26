@@ -14,7 +14,9 @@ Public API:
 """
 from __future__ import annotations
 
+import concurrent.futures
 import logging
+import os
 import re
 import time
 import uuid
@@ -1510,25 +1512,40 @@ def run_tier_batch(
             for t in targets
         ]
 
+    # CHRONICLE_PARALLEL_WORKERS: how many page targets to process concurrently.
+    # Default 1 = fully serial (backward-compatible).
+    # Set to 4 when running llama-server with --parallel 4 to saturate all GPU
+    # slots. Do NOT combine with MTP (speculative decoding) — they conflict.
+    # Database is thread-safe (new sqlite3 connection per call). Router and
+    # config are read-only and safe to share across threads.
+    n_workers = max(1, int(os.environ.get("CHRONICLE_PARALLEL_WORKERS", "1")))
+
     log.info(
-        "run_tier_batch: tier=%s batch_id=%s targets=%d",
-        tier.value, batch_id, len(targets),
+        "run_tier_batch: tier=%s batch_id=%s targets=%d workers=%d",
+        tier.value, batch_id, len(targets), n_workers,
     )
 
-    results: list[PageResult] = []
-    for target in targets:
+    def _process_one(target: PageTarget) -> PageResult:
         log.info(
             "run_tier_batch: processing %s/%s", target.entity_kind, target.slug
         )
         page_result = generate_page_cards(db, target, router, config)
         page_result.batch_id = batch_id
-        results.append(page_result)
         log.info(
             "run_tier_batch: %s/%s done — shipped=%d suppressed=%d failed=%d ms=%d",
             target.entity_kind, target.slug,
             page_result.shipped_count, page_result.suppressed_count,
             page_result.failed_count, page_result.wall_clock_ms,
         )
+        return page_result
+
+    if n_workers == 1:
+        # Serial path — identical to original behaviour, no overhead
+        results: list[PageResult] = [_process_one(t) for t in targets]
+    else:
+        # Parallel path — ThreadPoolExecutor preserves submission order via map()
+        with concurrent.futures.ThreadPoolExecutor(max_workers=n_workers) as pool:
+            results = list(pool.map(_process_one, targets))
 
     total_shipped = sum(r.shipped_count for r in results)
     total_suppressed = sum(r.suppressed_count for r in results)

@@ -178,20 +178,17 @@ def _voice_summary(
     """Generate a short voice/style summary for a tracked Receipts source.
 
     ``_meter`` (Pattern A, optional): records this Sonnet call's cost.
+
+    Routes to a local LLM (zero API cost) when LOCAL_LLM_URL is set;
+    the 2-sentence plain-text task is a good local-model candidate.
     """
+    from cfb_rankings.llm_local import is_local_enabled, local_generate
     from cfb_rankings.llm_runtime import CostMeter
     meter = _meter or CostMeter(
         ceiling_usd=0.3,
         label=f"receipts.source_voice.{agg.source_slug}",
     )
 
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        return _stub_voice_summary(agg, sample)
-    try:
-        import anthropic  # noqa: WPS433
-    except ImportError:
-        return _stub_voice_summary(agg, sample)
-    client = anthropic.Anthropic()
     bullets = "\n".join(
         f"- ({r['outcome_verdict'] or 'pending'}, surprise={r['surprise_index'] or 0:.0f}) "
         f"{r['claim_summary_short'][:140]}"
@@ -208,6 +205,27 @@ def _voice_summary(
         f"program_focus: {agg.program_focus_slugs}\n\n"
         f"Sample claims:\n{bullets}"
     )
+
+    # Local path — 2-sentence editorial summary with no API cost
+    if is_local_enabled():
+        result = local_generate(
+            user,
+            system=_VOICE_SYSTEM,
+            max_tokens=240,
+            temperature=0.5,   # Mild creativity for editorial voice
+        )
+        if result["text"]:
+            return result["text"].strip() or _stub_voice_summary(agg, sample)
+        return _stub_voice_summary(agg, sample)
+
+    # Anthropic SDK path
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        return _stub_voice_summary(agg, sample)
+    try:
+        import anthropic  # noqa: WPS433
+    except ImportError:
+        return _stub_voice_summary(agg, sample)
+    client = anthropic.Anthropic()
     model_id = os.environ.get("RECEIPTS_SONNET_MODEL", "claude-sonnet-4-6")
     resp = client.messages.create(
         model=model_id,
