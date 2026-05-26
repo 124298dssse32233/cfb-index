@@ -21,6 +21,12 @@ import json
 import logging
 from typing import Any
 
+# Load .env at module level so LOCAL_LLM_URL is in os.environ before
+# is_local_enabled() is checked. _load_dotenv() is normally only called from
+# AppConfig.from_env(), so pulse_themes has to trigger it explicitly here.
+from cfb_rankings.config import _load_dotenv as _load_dotenv_once
+_load_dotenv_once()
+
 log = logging.getLogger(__name__)
 
 _HAIKU_MODEL = "claude-haiku-4-5-20251001"

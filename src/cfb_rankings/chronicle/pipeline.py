@@ -1198,6 +1198,7 @@ def _select_entities_for_tier(
     """
     season_year = _infer_season_year(db)
     entities: list[PageTarget] = []
+    fbs_slugs = _real_fbs_slugs()  # authoritative FBS team slug set from profiles/
 
     tier_val = tier.value
     card_types = _TIER_DEFAULT_CARD_TYPES.get(tier_val, _TIER_DEFAULT_CARD_TYPES["T3"])
@@ -1309,21 +1310,30 @@ def _select_entities_for_tier(
         except Exception as exc:
             log.debug("_select_entities_for_tier T1 players: %s", exc)
 
-        # Teams: top 50 from teams table
+        # Teams: top 50 from teams table, filtered against the authoritative
+        # profiles/ slug set so mislabelled non-FBS programs are excluded.
         try:
             rows = db.query_all(
-                "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1 LIMIT 50"
+                "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1"
             )
+            added = 0
             for r in rows:
-                if r.get("slug"):
-                    entities.append(PageTarget(
-                        entity_kind="team",
-                        slug=r["slug"],
-                        season_year=season_year,
-                        n_slots=team_slots,
-                        card_types=card_types,
-                        tier=tier,
-                    ))
+                slug = r.get("slug")
+                if not slug:
+                    continue
+                if fbs_slugs and slug not in fbs_slugs:
+                    continue  # not a real FBS program
+                entities.append(PageTarget(
+                    entity_kind="team",
+                    slug=slug,
+                    season_year=season_year,
+                    n_slots=team_slots,
+                    card_types=card_types,
+                    tier=tier,
+                ))
+                added += 1
+                if added >= 50:
+                    break
         except Exception as exc:
             log.debug("_select_entities_for_tier T1 teams: %s", exc)
 
@@ -1354,39 +1364,55 @@ def _select_entities_for_tier(
         except Exception as exc:
             log.debug("_select_entities_for_tier T2 players: %s", exc)
 
-        # Teams: rank 51-100
+        # Teams: rank 51-100, filtered against the authoritative profiles/ slug set.
         try:
             rows = db.query_all(
-                "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1 LIMIT 50 OFFSET 50"
+                "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1"
             )
+            added = 0
+            skipped = 0
             for r in rows:
-                if r.get("slug"):
-                    entities.append(PageTarget(
-                        entity_kind="team",
-                        slug=r["slug"],
-                        season_year=season_year,
-                        n_slots=team_slots,
-                        card_types=card_types,
-                        tier=tier,
-                    ))
+                slug = r.get("slug")
+                if not slug:
+                    continue
+                if fbs_slugs and slug not in fbs_slugs:
+                    continue  # not a real FBS program
+                if skipped < 50:
+                    skipped += 1
+                    continue  # skip T1 slice
+                entities.append(PageTarget(
+                    entity_kind="team",
+                    slug=slug,
+                    season_year=season_year,
+                    n_slots=team_slots,
+                    card_types=card_types,
+                    tier=tier,
+                ))
+                added += 1
+                if added >= 50:
+                    break
         except Exception as exc:
             log.debug("_select_entities_for_tier T2 teams: %s", exc)
 
-    else:  # T3 — all remaining FBS
+    else:  # T3 — all remaining FBS, filtered against profiles/ slug set
         try:
             rows = db.query_all(
                 "SELECT slug FROM teams WHERE level_code = 'FBS' AND is_active = 1"
             )
             for r in rows:
-                if r.get("slug"):
-                    entities.append(PageTarget(
-                        entity_kind="team",
-                        slug=r["slug"],
-                        season_year=season_year,
-                        n_slots=team_slots,
-                        card_types=card_types,
-                        tier=tier,
-                    ))
+                slug = r.get("slug")
+                if not slug:
+                    continue
+                if fbs_slugs and slug not in fbs_slugs:
+                    continue  # not a real FBS program
+                entities.append(PageTarget(
+                    entity_kind="team",
+                    slug=slug,
+                    season_year=season_year,
+                    n_slots=team_slots,
+                    card_types=card_types,
+                    tier=tier,
+                ))
         except Exception as exc:
             log.debug("_select_entities_for_tier T3 teams: %s", exc)
 
@@ -1424,6 +1450,36 @@ def _select_entities_for_tier(
         tier.value, season_year, len(entities),
     )
     return entities
+
+
+def _real_fbs_slugs() -> frozenset[str]:
+    """Return the authoritative set of real FBS team slugs.
+
+    Reads from the profiles/ directory (one .md file per team), which is the
+    canonical FBS coverage list maintained by hand. This is used to filter out
+    teams that have level_code='FBS' in the DB due to ingest data quality issues
+    (e.g. NAIA/DII schools incorrectly tagged as FBS).
+
+    Falls back to an empty frozenset (no filtering) if the directory is missing.
+    """
+    import os
+    import pathlib
+
+    # Walk up from this file to find the repo root, then locate profiles/
+    here = pathlib.Path(__file__).resolve()
+    for parent in [here.parent, here.parent.parent, here.parent.parent.parent,
+                   here.parent.parent.parent.parent]:
+        profiles_dir = parent / "profiles"
+        if profiles_dir.is_dir():
+            slugs = frozenset(
+                f.stem for f in profiles_dir.iterdir() if f.suffix == ".md"
+            )
+            if slugs:
+                return slugs
+            break
+
+    log.warning("_real_fbs_slugs: profiles/ directory not found — FBS filter disabled")
+    return frozenset()
 
 
 def _infer_season_year(db: Any) -> int:
