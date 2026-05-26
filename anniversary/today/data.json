@@ -1,78 +1,78 @@
 {
-  "generated_at_utc": "2026-05-22T11:50:40Z",
-  "today": "2026-05-22",
-  "week_label": "Late Spring (92 days to kickoff)",
+  "generated_at_utc": "2026-05-25T12:33:27Z",
+  "today": "2026-05-25",
+  "week_label": "Late Spring (89 days to kickoff)",
   "phase_label": "Late Spring",
-  "days_to_kickoff": 92,
+  "days_to_kickoff": 89,
   "cards": [
     {
-      "year": 2025,
-      "years_ago": 1,
+      "year": 2023,
+      "years_ago": 3,
       "source": "archive_threads",
-      "headline": "The 12-team College Football Playoff will move to a straight seeding model this fall, rewarding the selection committee’s top four teams with the top four seeds and a first-round bye, multiple sources told ESPN.",
+      "headline": "Oklahoma Legislature overwhelmingly (120-13) overrides Gov. Kevin Stitt's veto of NIL bill. Oklahoma Law now allows college players to have agents for NIL deals and blocks NCAA investigations into NIL deals.",
       "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/1ksxl6u/the_12team_college_football_playoff_will_move_to/",
-      "attribution": "r/CFB · 2,376 upvotes",
-      "score": 2376,
+      "url": "https://www.reddit.com/r/CFB/comments/13rxf1s/oklahoma_legislature_overwhelmingly_12013/",
+      "attribution": "r/CFB · 1,029 upvotes",
+      "score": 1029,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "1ksxl6u"
-      }
-    },
-    {
-      "year": 2025,
-      "years_ago": 1,
-      "source": "archive_threads",
-      "headline": "According to sources on both sides, Ohio State proposed moving the Week 1 game with Texas back to a later kickoff time, but the Longhorns have said no.",
-      "body": "https://x.com/_Pat_Murphy/status/1925570832350216587",
-      "url": "https://www.reddit.com/r/CFB/comments/1kstv3d/according_to_sources_on_both_sides_ohio_state/",
-      "attribution": "r/CFB · 753 upvotes",
-      "score": 753,
-      "extra": {
-        "subreddit": "CFB",
-        "external_id": "1kstv3d"
-      }
-    },
-    {
-      "year": 2025,
-      "years_ago": 1,
-      "source": "archive_threads",
-      "headline": "CFP leaders are having a call today and are expected to talk about potentially changing the seeding for this fall. It’s possible they could vote on a straight seeding model, where the selection committee’s top four teams would earn the top four seeds, according to sources.",
-      "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/1kspqgn/cfp_leaders_are_having_a_call_today_and_are/",
-      "attribution": "r/CFB · 383 upvotes",
-      "score": 383,
-      "extra": {
-        "subreddit": "CFB",
-        "external_id": "1kspqgn"
+        "external_id": "13rxf1s"
       }
     },
     {
       "year": 2021,
       "years_ago": 5,
       "source": "archive_threads",
-      "headline": "Auburn CB Marco Domio transfers to UCF",
-      "body": "[deleted]",
-      "url": "https://www.reddit.com/r/CFB/comments/niq8jj/auburn_cb_marco_domio_transfers_to_ucf/",
-      "attribution": "r/CFB · 495 upvotes",
-      "score": 495,
+      "headline": "University of West Florida Football will play first ever game on Pensacola campus.",
+      "body": "",
+      "url": "https://www.reddit.com/r/CFB/comments/nl0rar/university_of_west_florida_football_will_play/",
+      "attribution": "r/CFB · 1,289 upvotes",
+      "score": 1289,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "niq8jj"
+        "external_id": "nl0rar"
       }
     },
     {
-      "year": 2021,
-      "years_ago": 5,
+      "year": 2020,
+      "years_ago": 6,
       "source": "archive_threads",
-      "headline": "The Oklahoma State Senate passed a measure that would allow state college athletes to profit from their name, image and likeness.",
+      "headline": "Michigan Tight End Thought He Was Getting Physicals. He Was Being Abused.",
       "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/ni8h5o/the_oklahoma_state_senate_passed_a_measure_that/",
-      "attribution": "r/CFB · 408 upvotes",
-      "score": 408,
+      "url": "https://www.reddit.com/r/CFB/comments/gqjdoh/michigan_tight_end_thought_he_was_getting/",
+      "attribution": "r/CFB · 1,863 upvotes",
+      "score": 1863,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "ni8h5o"
+        "external_id": "gqjdoh"
+      }
+    },
+    {
+      "year": 2019,
+      "years_ago": 7,
+      "source": "archive_threads",
+      "headline": "Texas signee Derrian Brown, who suffered a life-threatening stroke in January, graduated high school this morning.",
+      "body": "",
+      "url": "https://www.reddit.com/r/CFB/comments/bsxrxz/texas_signee_derrian_brown_who_suffered_a/",
+      "attribution": "r/CFB · 955 upvotes",
+      "score": 955,
+      "extra": {
+        "subreddit": "CFB",
+        "external_id": "bsxrxz"
+      }
+    },
+    {
+      "year": 2017,
+      "years_ago": 9,
+      "source": "archive_threads",
+      "headline": "Devon Gales, Southern player paralyzed by hit vs UGA, walking again",
+      "body": "",
+      "url": "https://www.reddit.com/r/CFB/comments/6dctqc/devon_gales_southern_player_paralyzed_by_hit_vs/",
+      "attribution": "r/CFB · 1,301 upvotes",
+      "score": 1301,
+      "extra": {
+        "subreddit": "CFB",
+        "external_id": "6dctqc"
       }
     }
   ]

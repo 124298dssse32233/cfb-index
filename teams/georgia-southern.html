@@ -644,6 +644,15 @@ a { color: inherit; text-decoration: none; }
   line-height: 1;
 }
 
+.hero__record-qualifier {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-2, #6a6a6a);
+  align-self: center;
+}
+
 .hero__rank-chip {
   font-family: var(--font-display);
   font-weight: 600;
@@ -4786,6 +4795,274 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 }
 
 
+/* LLM Chronicle AI Narratives — Mistral Nemo + Qwen3 pipeline */
+
+.llm-chronicle {
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.llm-chronicle__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.llm-chronicle__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--accent-primary, var(--accent));
+  margin: 0;
+}
+.llm-chronicle__meta {
+  font-size: 11px;
+  color: var(--fg-muted, #888);
+  font-family: ui-monospace, monospace;
+}
+.llm-chronicle__more {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--accent-primary, var(--accent));
+  text-decoration: none;
+  opacity: 0.8;
+}
+.llm-chronicle__more:hover { opacity: 1; }
+.llm-chronicle__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.llm-card {
+  background: var(--bg-card, var(--bg-1, #14141a));
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid var(--accent-primary, var(--accent));
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+.llm-card__type {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #888);
+  margin-bottom: 6px;
+}
+.llm-card__headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--fg, #e7e7e9);
+  margin: 0 0 8px 0;
+}
+.llm-card__body {
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg, #e7e7e9);
+  margin: 0 0 10px 0;
+}
+.llm-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 8px;
+}
+.llm-badge {
+  font-size: 9px;
+  font-family: ui-monospace, monospace;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  color: var(--fg-muted, #888);
+}
+.llm-badge--lkg {
+  background: rgba(74,140,90,0.2);
+  color: #4a8;
+}
+.llm-badge--high {
+  background: rgba(74,140,90,0.15);
+  color: #4a8;
+}
+.llm-badge--medium {
+  background: rgba(200,151,68,0.15);
+  color: #c89744;
+}
+
+
+/* Chronicle Visuals — v3 visual-first deterministic SVG cards */
+
+.chronicle-visuals {
+  display: block;
+  margin-top: var(--sp-8, 32px);
+  padding-top: var(--sp-6, 24px);
+  border-top: 1px solid var(--border, rgba(0,0,0,0.1));
+}
+.chronicle-visuals__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5, 20px);
+}
+.chronicle-visuals__title {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.chronicle-visuals__meta {
+  font-size: 11px;
+  color: var(--fg-2, #6a6a6a);
+  font-style: italic;
+}
+.chronicle-visuals__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5, 20px);
+}
+@media (min-width: 960px) {
+  .chronicle-visuals__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.visual-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
+  border-radius: 6px;
+  padding: var(--sp-4, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3, 12px);
+}
+.visual-card__headline {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--fg-0, #111);
+}
+.visual-card__svg {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.visual-card__svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+.visual-card__meta {
+  display: flex;
+  gap: var(--sp-2, 8px);
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: var(--fg-2, #6a6a6a);
+}
+.visual-card__badge {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.04);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.visual-card__badge--lkg {
+  background: rgba(74,140,90,0.15);
+  color: #4a8;
+}
+.visual-card__badge--score {
+  font-family: ui-monospace, Menlo, monospace;
+}
+.visual-card__badge--share {
+  background: rgba(201,162,74,0.18);
+  color: #8a6b1f;
+  text-decoration: none;
+  cursor: pointer;
+}
+.visual-card__badge--share:hover {
+  background: rgba(201,162,74,0.32);
+}
+.visual-card__badge--preview {
+  background: rgba(46,139,87,0.16);
+  color: #2e8b57;
+  font-weight: 700;
+}
+.visual-card__badge--retro {
+  background: rgba(120,120,120,0.14);
+  color: #6a6a6a;
+}
+
+
+/* 3-Act page structure — Profile-archetype zoning (Octopus review) */
+
+.act { display: block; }
+.act + .act { margin-top: var(--sp-9, 40px); }
+.act__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin: var(--sp-6, 24px) 0 var(--sp-4, 16px);
+  padding-bottom: var(--sp-2, 8px);
+  border-bottom: 2px solid var(--accent-primary, #1f2c4d);
+}
+.act__num {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #1f2c4d);
+  opacity: 0.7;
+}
+.act__title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+.act__hint {
+  font-size: 12px;
+  color: var(--fg-2, #6a6a6a);
+  font-style: italic;
+  margin-left: auto;
+}
+/* Act III review drawer */
+details.act--review { margin-top: var(--sp-9, 40px); }
+details.act--review > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin: var(--sp-6, 24px) 0 0;
+  padding-bottom: var(--sp-2, 8px);
+  border-bottom: 2px dashed var(--border, rgba(0,0,0,0.2));
+}
+details.act--review > summary::-webkit-details-marker { display: none; }
+details.act--review > summary::after {
+  content: "▸";
+  margin-left: var(--sp-2, 8px);
+  color: var(--fg-2, #6a6a6a);
+  transition: transform 0.18s ease;
+}
+details.act--review[open] > summary::after { transform: rotate(90deg); }
+details.act--review > summary:hover .act__title { color: var(--accent-primary, #1f2c4d); }
+.act--review .act__body { margin-top: var(--sp-5, 20px); }
+.act--review .act__body > * { opacity: 0.94; }
+@media (max-width: 640px) {
+  .act__head, details.act--review > summary { margin-top: var(--sp-5, 20px); }
+}
+
+
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 /* Theme toggle (Sprint v5-11.5 dark mode foundation)
  * -------------------------------------------------------------------------
@@ -5897,11 +6174,12 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <div class="content">
     <section class="hero" aria-labelledby="hero-wordmark">
   <div>
-    <div class="hero__eyebrow">MAY 23, 2026 · DEAD PERIOD · HERITAGE WINDOW · 2025 SEASON</div>
+    <div class="hero__eyebrow">MAY 25, 2026 · DEAD PERIOD · HERITAGE WINDOW · 2026 OUTLOOK</div>
     <div class="hero__identity-bar">
       <img class="hero__logo" src="../assets/team-art/georgia-southern/logo_primary.png" alt="Georgia Southern logo" width="80" height="80" loading="eager" decoding="async" onerror="this.style.display='none'">
       <h1 id="hero-wordmark" class="hero__wordmark">Georgia Southern</h1>
       <span class="hero__record" aria-label="Season record">7-6</span>
+      <span class="hero__record-qualifier">2025 final</span>
       
     </div>
     <p class="hero__identity-phrase">Georgia Southern is the Sun Belt program whose 1985-2000 6 FCS national championships dynasty + 2014 FBS reclassification + 2014 Sun Belt championship in first FBS season define what historic-Statesboro-football looks like.</p>
@@ -5928,8 +6206,8 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 </section>
 
     <section class="page-tone-strip" role="status" aria-live="polite" aria-label="Page mode for dead-period-heritage" data-tone="gray" data-anchor="dead-period-summer"><span class="page-tone-strip__chip page-tone-strip__chip--accent">Dead Period</span><span class="page-tone-strip__chip">Offseason</span><span class="page-tone-strip__chip">Patient</span><span class="page-tone-strip__chip page-tone-strip__chip--live">Post-win — basking</span></section>
-    <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">99 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
-    
+    <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">97 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
+    <section class="act act--i"><div class="act__head"><span class="act__num">Act I</span><h2 class="act__title">The 2026 Outlook</h2></div>
 <section class="offseason-pulse" aria-labelledby="offseason-pulse-h"
          data-module="offseason-pulse" data-state="ready" data-signal-count="4">
   <div class="offseason-pulse__header">
@@ -5939,8 +6217,74 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <div class="offseason-pulse__grid">
     <div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Recruiting Class</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--warning">#80 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite rating 165.3</p><p class="offseason-pulse__cell-narrative">Outside the recruiting top 60. Roster gaps must close via portal.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Returning Production</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">92%</p><p class="offseason-pulse__cell-context">2025 cycle · CFBD weighted</p><p class="offseason-pulse__cell-narrative">Top-tier continuity. QB room mostly intact.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Talent Composite</p><p class="offseason-pulse__cell-headline">#93 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite 574.5</p><p class="offseason-pulse__cell-narrative">Outside the talent top 60. The wins must be earned in development.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Transfer Activity</p><p class="offseason-pulse__cell-headline">-1 net</p><p class="offseason-pulse__cell-context">2026 cycle · in 17 / out 18</p><p class="offseason-pulse__cell-narrative">Mildly negative cycle. Departure outpaced arrivals.</p></div>
   </div>
+</section><section class="pulse" aria-labelledby="pulse-title">
+  <div class="pulse__header">
+    <span class="pulse__live-dot pulse__live-dot--quiet" aria-hidden="true"></span>
+    <h2 id="pulse-title" class="pulse__title">The Pulse on Georgia Southern</h2>
+    <span class="pulse__meta">QUIET · dead period heritage · signal ramps back in camp</span>
+  </div>
+  <div class="pulse__grid">
+    <div class="pulse__mood-card">
+      <div class="pulse__mood-number">—</div>
+      <div class="pulse__mood-delta">Gus the Eagle is patient.</div>
+      
+      
+    </div>
+    <div>
+      <div class="pulse__event-log">
+    <p class="pulse__event-log-title">What moved it — offseason · last 30 days</p>
+    <div class="pulse__event">
+      <span class="pulse__event-time">June</span>
+      <span class="pulse__event-text">Dead-period quiet — official-visit + heritage window</span>
+      <span class="pulse__event-delta ">—</span>
+    </div><div class="pulse__event">
+      <span class="pulse__event-time">Camp</span>
+      <span class="pulse__event-text">Fall camp ~68 days out</span>
+      <span class="pulse__event-delta"></span>
+    </div>
+  </div>
+      <div class="pulse__top-take" style="margin-top: var(--sp-4);">
+        <em>"GS"</em>
+        <span class="pulse__top-take-attr">— Georgia Southern fanbase · recurring line</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="pulse__badge-row"><span class="pulse__badge pulse__badge--awaiting">0 mentions · awaiting signal</span></div>
+</section><section class="aspiration-ladder" aria-labelledby="aspiration-ladder-h">
+  <div class="aspiration-ladder__header">
+    <h2 id="aspiration-ladder-h" class="aspiration-ladder__title">Aspiration Ladder</h2>
+    <p class="aspiration-ladder__eyebrow">Brief Part III §33.4 · Georgia Southern</p>
+  </div>
+  <div class="aspiration-ladder__rungs">
+    <div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">8 wins</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Above the program&#x27;s recent baseline.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Beat a top-10 opponent</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Statement win that reshapes recruiting.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Conference championship game appearance</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Plausible breakthrough.</p></div><div class="aspiration-ladder__rung aspiration-ladder__rung--locked"><span class="aspiration-ladder__rung-name">NY6 bowl<span class="aspiration-ladder__locked-chip">Locked</span></span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Beyond modern reach without a transformative year.</p></div>
+  </div>
 </section>
-    
+<section class="ceiling-floor" aria-labelledby="ceiling-floor-h"
+         data-module="ceiling-floor" data-state="ready">
+  <div class="ceiling-floor__header">
+    <p class="ceiling-floor__eyebrow">Georgia Southern · Next-Season Outcome Band</p>
+    <h2 id="ceiling-floor-h" class="ceiling-floor__title">Floor / Base / Ceiling</h2>
+  </div>
+  <div class="ceiling-floor__band" role="img" aria-label="Floor 5 wins, base 7 wins, ceiling 10 wins">
+    <div class="ceiling-floor__marker" style="left: 41.7%;">
+      <span class="ceiling-floor__marker-label">Floor 5-7</span>
+    </div>
+    <div class="ceiling-floor__marker" style="left: 58.3%;">
+      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base 7-5</span>
+    </div>
+    <div class="ceiling-floor__marker" style="left: 83.3%;">
+      <span class="ceiling-floor__marker-label">Ceiling 10-2</span>
+    </div>
+  </div>
+  <div class="ceiling-floor__scenarios">
+    <div class="ceiling-floor__scenario" data-kind="floor"><span class="ceiling-floor__scenario-kind">floor</span><span class="ceiling-floor__scenario-record">5-7</span><span class="ceiling-floor__scenario-story">Below .500. Bowl eligibility comes down to the closing run.</span></div><div class="ceiling-floor__scenario" data-kind="base"><span class="ceiling-floor__scenario-kind">base</span><span class="ceiling-floor__scenario-record">7-5</span><span class="ceiling-floor__scenario-story">Bowl eligible. The realistic plateau.</span></div><div class="ceiling-floor__scenario" data-kind="ceiling"><span class="ceiling-floor__scenario-kind">ceiling</span><span class="ceiling-floor__scenario-record">10-2</span><span class="ceiling-floor__scenario-story">Double-digit wins. Conference title-game conversation.</span></div>
+  </div>
+  <p class="ceiling-floor__caveat">
+    Variance assumed at ±2 wins from last-season record. Replace with SP+ projection band
+    once preseason ratings publish.
+  </p>
+</section>
 <section class="top-commits" aria-labelledby="top-commits-h"
          data-module="top-commits" data-state="ready" data-class-year="2026">
   <div class="top-commits__head">
@@ -5972,7 +6316,6 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 </div>
   </div>
 </section>
-    
 <section class="recruit-footprint" aria-labelledby="recruit-footprint-h"
          data-module="recruiting-footprint" data-state="ready" data-class-year="2026">
   <div class="recruit-footprint__head">
@@ -5981,8 +6324,184 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   </div>
   <div class="recruit-footprint__states"><span class="recruit-footprint__state">GA · 10</span><span class="recruit-footprint__state">FL · 3</span><span class="recruit-footprint__state">SC · 2</span></div>
   <p class="recruit-footprint__story">GA leads the 2026 class with 10 commits. National footprint reaching 3 states.</p>
+</section></section>
+    <section class="act act--ii"><div class="act__head"><span class="act__num">Act II</span><h2 class="act__title">Who We Are</h2></div>
+<section class="program-prestige-bar" aria-labelledby="program-prestige-bar-h"
+         data-module="program-prestige-bar" data-state="ready">
+  <div class="program-prestige-bar__header">
+    <p class="program-prestige-bar__eyebrow">Program Prestige · Georgia Southern</p>
+    <h2 id="program-prestige-bar-h" class="program-prestige-bar__tier-name">Power Program</h2>
+    <p class="program-prestige-bar__narrative">Power Program — consistent P4 presence and regional brand strength.</p>
+    <p class="program-prestige-bar__peak">Historical peak: <strong>Tier 5 · Blue Blood</strong> (1985, 1986, 1989, 1990, 1999, 2000 — 6 FCS national championships under Erk Russell + Paul Johnson + Mike Sewak). Current tier: Tier 3.</p>
+  </div>
+  <div class="program-prestige-bar__bar" role="list" aria-label="Program prestige tiers">
+    <div class="program-prestige-bar__segment" data-tier="1" title="Tier 1 · Regional"><span class="program-prestige-bar__segment-num">T1</span><span>Regional</span></div><div class="program-prestige-bar__segment" data-tier="2" title="Tier 2 · Mid-Major Contender"><span class="program-prestige-bar__segment-num">T2</span><span>Mid-Major</span></div><div class="program-prestige-bar__segment" data-tier="3" data-current="true" title="Tier 3 · Power Program"><span class="program-prestige-bar__segment-num">T3</span><span>Power</span></div><div class="program-prestige-bar__segment" data-tier="4" title="Tier 4 · National Program"><span class="program-prestige-bar__segment-num">T4</span><span>National</span></div><div class="program-prestige-bar__segment" data-tier="5" data-peak="true" title="Tier 5 · Blue Blood"><span class="program-prestige-bar__segment-num">T5</span><span>Blue Blood</span></div><div class="program-prestige-bar__segment" data-tier="6" title="Tier 6 · Dynasty Active"><span class="program-prestige-bar__segment-num">T6</span><span>Dynasty</span></div><div class="program-prestige-bar__segment" data-tier="7" title="Tier 7 · All-Time Great Era"><span class="program-prestige-bar__segment-num">T7</span><span>All-Time</span></div>
+  </div>
 </section>
-    
+<section class="peer-comparator" aria-labelledby="peer-comparator-h"
+         data-module="peer-comparator" data-state="ready">
+  <p class="peer-comparator__eyebrow">Most Similar Programs · Georgia Southern</p>
+  <h2 id="peer-comparator-h" class="peer-comparator__title">Reads Like</h2>
+  <div class="peer-comparator__peers" role="list" aria-label="Three most similar programs">
+    <a class="peer-comparator__peer" href="/teams/air-force.html" aria-label="Peer program: Air Force"><span class="peer-comparator__peer-name">Air Force</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a><a class="peer-comparator__peer" href="/teams/app-state.html" aria-label="Peer program: App State"><span class="peer-comparator__peer-name">App State</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a><a class="peer-comparator__peer" href="/teams/arizona.html" aria-label="Peer program: Arizona"><span class="peer-comparator__peer-name">Arizona</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a>
+  </div>
+  <p class="peer-comparator__caveat">Static-attribute similarity across tier, archetype, conference, and voice. Not a prediction — a calibration.</p>
+</section>
+<section class="coaching-era" aria-labelledby="coaching-era-h"
+         data-module="coaching-era" data-state="ready" data-tenure-years="3">
+  <div class="coaching-era__head">
+    <p class="coaching-era__eyebrow">Coaching Era · Georgia Southern</p>
+    <h2 id="coaching-era-h" class="coaching-era__name">Clay Helton</h2>
+    <p class="coaching-era__story">Clay Helton in year 3 of the rebuild. The methodology is taking shape.</p>
+    <div class="coaching-era__chips"><span class="coaching-era__chip coaching-era__chip--era">Era Clay Helton · 2022–present</span><span class="coaching-era__chip">Prev: Kevin Whitley (2021)</span></div>
+  </div>
+  <div class="coaching-era__tenure">
+    <span class="coaching-era__tenure-years">3</span>
+    <span class="coaching-era__tenure-label">years · era</span>
+  </div>
+</section><section class="rituals program-section" aria-label="Georgia Southern rituals">
+  <div class="program-section__head">
+    <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
+    <p class="caption" style="max-width: 36ch;">Three gameday rituals — the ones outsiders never quite catch.</p>
+  </div>
+  <div class="rituals-track" role="list">
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">6F<small>permanent program </small></div>
+      <h3 class="ritual-card__name">6 FCS National Championships (1985-2000)</h3>
+      <p class="ritual-card__since">since 1985</p>
+      <p class="ritual-card__description visually-hidden">Georgia Southern won 6 FCS national championships (1985, 1986, 1989, 1990, 1999, 2000) — the most FCS championships of any program — under Erk Russell, Paul Johnson, and Mike Sewak. The dynasty + the Triple-Option offensive identity (Paul Johnson era) + the Erk Russell coaching tree make GSU permanent G5 historical canon.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">TO<small>permanent program </small></div>
+      <h3 class="ritual-card__name">Triple-Option Offense Heritage</h3>
+      <p class="ritual-card__since">since 1980s</p>
+      <p class="ritual-card__description visually-hidden">Paul Johnson (1997-2000) ran the Triple-Option offense at GSU producing 2 FCS national championships + multiple records. Johnson took the scheme to Navy + Georgia Tech, where it influenced multiple modern programs. The Triple-Option as living scheme makes GSU + Navy + Air Force the keepers of the tradition.</p>
+    </article>
+    <article class="ritual-card" role="listitem" data-significance="high">
+      <div class="ritual-card__glyph" aria-hidden="true">2F<small>permanent program </small></div>
+      <h3 class="ritual-card__name">2014 FBS Reclassification + Sun Belt Title</h3>
+      <p class="ritual-card__since">since 2014</p>
+      <p class="ritual-card__description visually-hidden">Georgia Southern reclassified from FCS to FBS in 2014 + IMMEDIATELY won the Sun Belt championship in its first FBS season — an unprecedented feat. The 9-3 record + Sun Belt title made GSU one of the more-improbable FBS-newcomer breakthroughs. The 2014 season is permanent program identity.</p>
+    </article>
+  </div>
+</section><aside class="cultural-anchors" aria-label="Cultural identity">
+  <p class="cultural-anchors__one-sentence">Georgia Southern is the Statesboro Sun Belt program — 6 FCS national championships dynasty + Triple-Option heritage + 2014 first-FBS-season Sun Belt championship that anchor the historic dominance arc.</p>
+  <dl class="cultural-anchors__archetypes"><dt>From inside</dt><dd>Statesboro-Eagle-Hail-Southern</dd><dt>From outside</dt><dd>FCS-Refugee-Diminisher</dd></dl>
+  <p class="cultural-anchors__if-lost"><strong>If the program didn't exist, CFB would lose</strong> <span>The 6 FCS national championships record + Erk Russell coaching tree + Paul Johnson Triple-Option scheme heritage + 2014 first-FBS-season Sun Belt championship as unprecedented breakthrough.</span></p>
+</aside>
+<section class="fanbase-health" aria-labelledby="fanbase-health-h"
+         data-module="fanbase-health" data-state="ready"
+         data-confidence="low"
+         style="--health-score: 60;">
+  <div class="fanbase-health__header">
+    <p class="fanbase-health__eyebrow">Fanbase Health Index · Georgia Southern · low confidence</p>
+    <h2 id="fanbase-health-h" class="fanbase-health__band fanbase-health__band--growing">Growing (60)</h2>
+  </div>
+  <div class="fanbase-health__gauge" role="img" aria-label="Fanbase health 60 out of 100">
+    <div class="fanbase-health__gauge-fill"></div>
+    <div class="fanbase-health__gauge-needle"></div>
+  </div>
+  <div class="fanbase-health__legend">
+    <span>Declining</span><span>Stable</span><span>Growing</span><span>Surging</span>
+  </div>
+  <div class="fanbase-health__components">
+    <div class="fanbase-health__components-row"><span><strong>On-Field</strong> — 7-6 (54% win rate)</span><em>60</em></div>
+  </div>
+</section>
+<section class="home-field" aria-labelledby="home-field-h"
+         data-module="home-field-advantage" data-state="ready"
+         data-band="elite">
+  <div class="home-field__main">
+    <p class="home-field__eyebrow">Home-Field Advantage · Georgia Southern · 2018-present</p>
+    <h2 id="home-field-h" class="home-field__band home-field__band--elite">Elite</h2>
+    <p class="home-field__story">71% home win rate vs 36% on the road. margin runs +17.3 better at home.</p>
+  </div>
+  <div class="home-field__stats"><span class="home-field__stat-label">Home</span><span class="home-field__stat-value">35-14</span><span class="home-field__stat-label">Away</span><span class="home-field__stat-value">17-30</span></div>
+</section><section class="chronicle-visuals" aria-labelledby="chronicle-visuals-title">
+  <div class="chronicle-visuals__header">
+    <h2 id="chronicle-visuals-title" class="chronicle-visuals__title">Chronicle Visuals</h2>
+    <span class="chronicle-visuals__meta">3 deterministic SVG · provenance-gated</span>
+  </div>
+  <div class="chronicle-visuals__grid">
+    <article class="visual-card" data-posture="preview">
+  <span class="visual-card__badge visual-card__badge--preview">2026 preview</span>
+  <h3 class="visual-card__headline">The portal upgraded the CB room but opened a hole at EDGE.</h3>
+  <div class="visual-card__svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 466" width="100%" preserveAspectRatio="xMidYMid meet" style="background:transparent;font-family:Georgia,serif;" role="img" aria-labelledby="svg-title"><title id="svg-title">Roster Replacement Grid — 2026: 17 in, 18 out across 12 positions</title><rect x="0.0" y="0.0" width="600.0" height="466.0" fill="#f6f1e6" opacity="1.00"/><text x="20.0" y="28.0" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">Roster Replacement Grid</text><text x="20.0" y="48.0" font-family="Georgia,serif" font-size="12" font-weight="normal" font-style="italic" fill="#7a7a7a" text-anchor="start">2026 portal: 18 out · 17 in by position</text><text x="288.0" y="58.0" font-family="Georgia,serif" font-size="10" font-weight="normal" font-style="normal" fill="#7a7a7a" text-anchor="end">OUT</text><text x="312.0" y="58.0" font-family="Georgia,serif" font-size="10" font-weight="normal" font-style="normal" fill="#7a7a7a" text-anchor="start">IN</text><line x1="300.0" y1="62.0" x2="300.0" y2="434.0" stroke="#1a1a1a" stroke-width="1.0"/><text x="20.0" y="88.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">ATH</text><rect x="268.6" y="76.0" width="31.4" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="88.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">1</text><text x="576.0" y="88.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -1</text><text x="20.0" y="118.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">CB</text><rect x="300.0" y="106.0" width="125.7" height="18.0" fill="#c9a24a" opacity="0.82"/><text x="306.0" y="118.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">4</text><text x="576.0" y="118.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#c9a24a" text-anchor="end">net +4</text><text x="20.0" y="148.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">DL</text><rect x="237.1" y="136.0" width="62.9" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="148.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">2</text><text x="576.0" y="148.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -2</text><text x="20.0" y="178.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">EDGE</text><rect x="174.3" y="166.0" width="125.7" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="178.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">4</text><rect x="300.0" y="166.0" width="31.4" height="18.0" fill="#c9a24a" opacity="0.82"/><text x="306.0" y="178.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">1</text><text x="576.0" y="178.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -3</text><text x="20.0" y="208.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">IOL</text><rect x="205.7" y="196.0" width="94.3" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="208.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">3</text><rect x="300.0" y="196.0" width="62.9" height="18.0" fill="#c9a24a" opacity="0.82"/><text x="306.0" y="208.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">2</text><text x="576.0" y="208.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -1</text><text x="20.0" y="238.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">K</text><rect x="300.0" y="226.0" width="31.4" height="18.0" fill="#c9a24a" opacity="0.82"/><text x="306.0" y="238.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">1</text><text x="576.0" y="238.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#c9a24a" text-anchor="end">net +1</text><text x="20.0" y="268.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">LB</text><rect x="300.0" y="256.0" width="31.4" height="18.0" fill="#c9a24a" opacity="0.82"/><text x="306.0" y="268.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">1</text><text x="576.0" y="268.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#c9a24a" text-anchor="end">net +1</text><text x="20.0" y="298.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">OT</text><rect x="268.6" y="286.0" width="31.4" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="298.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">1</text><text x="576.0" y="298.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -1</text><text x="20.0" y="328.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">QB</text><rect x="237.1" y="316.0" width="62.9" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="328.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">2</text><rect x="300.0" y="316.0" width="31.4" height="18.0" fill="#c9a24a" opacity="0.82"/><text x="306.0" y="328.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">1</text><text x="576.0" y="328.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -1</text><text x="20.0" y="358.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">RB</text><rect x="268.6" y="346.0" width="31.4" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="358.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">1</text><text x="576.0" y="358.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -1</text><text x="20.0" y="388.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">S</text><rect x="268.6" y="376.0" width="31.4" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="388.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">1</text><text x="576.0" y="388.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#1f2c4d" text-anchor="end">net -1</text><text x="20.0" y="418.0" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">WR</text><rect x="205.7" y="406.0" width="94.3" height="18.0" fill="#1f2c4d" opacity="0.82"/><text x="294.0" y="418.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="end">3</text><rect x="300.0" y="406.0" width="220.0" height="18.0" fill="#c9a24a" opacity="0.82"/><text x="306.0" y="418.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">7</text><text x="576.0" y="418.0" font-family="ui-monospace,Menlo,monospace" font-size="11" font-weight="normal" font-style="normal" fill="#c9a24a" text-anchor="end">net +4</text><text x="20.0" y="454.0" font-family="Georgia,serif" font-size="11" font-weight="normal" font-style="italic" fill="#7a7a7a" text-anchor="start">Net movement: -1 · upgraded CB · hole at EDGE</text></svg></div>
+  <div class="visual-card__meta">
+    <span class="visual-card__badge">model-confident</span>
+  </div>
+</article><article class="visual-card" data-posture="retro">
+  <span class="visual-card__badge visual-card__badge--retro">2025 season</span>
+  <h3 class="visual-card__headline">A flat-line 2025 signature — little real week-to-week movement either way.</h3>
+  <div class="visual-card__svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="100%" preserveAspectRatio="xMidYMid meet" style="background:transparent;font-family:Georgia,serif;" role="img" aria-labelledby="svg-title"><title id="svg-title">Delta DNA — 2025 per-game power swing signature (flat-line)</title><rect x="0.0" y="0.0" width="640.0" height="240.0" fill="#f6f1e6" opacity="1.00"/><text x="20.0" y="28.0" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">Delta DNA</text><text x="20.0" y="48.0" font-family="Georgia,serif" font-size="12" font-weight="normal" font-style="italic" fill="#7a7a7a" text-anchor="start">2025 per-game power swing · flat-line</text><line x1="24.0" y1="134.0" x2="616.0" y2="134.0" stroke="#1a1a1a" stroke-width="1.0" stroke-dasharray="2,3"/><path d="M24.0,144.3 L73.3,157.3 L122.7,141.7 L172.0,138.5 L221.3,159.6 L270.7,143.8 L320.0,113.3 L369.3,148.3 L418.7,113.2 L468.0,134.8 L517.3,204.0 L566.7,106.7 L616.0,81.4" fill="none" stroke="#1f2c4d" stroke-width="1.8" stroke-linejoin="round"/><circle cx="24.0" cy="144.3" r="3.0" fill="#b3402f"/><circle cx="73.3" cy="157.3" r="3.0" fill="#b3402f"/><circle cx="122.7" cy="141.7" r="3.0" fill="#b3402f"/><circle cx="172.0" cy="138.5" r="3.0" fill="#b3402f"/><circle cx="221.3" cy="159.6" r="3.0" fill="#b3402f"/><circle cx="270.7" cy="143.8" r="3.0" fill="#b3402f"/><circle cx="320.0" cy="113.3" r="3.0" fill="#c9a24a"/><circle cx="369.3" cy="148.3" r="3.0" fill="#b3402f"/><circle cx="418.7" cy="113.2" r="3.0" fill="#c9a24a"/><circle cx="468.0" cy="134.8" r="3.0" fill="#b3402f"/><circle cx="517.3" cy="204.0" r="3.0" fill="#b3402f"/><circle cx="566.7" cy="106.7" r="3.0" fill="#c9a24a"/><circle cx="616.0" cy="81.4" r="3.0" fill="#c9a24a"/><text x="620.0" y="56.0" font-family="Georgia,serif" font-size="10" font-weight="normal" font-style="normal" fill="#7a7a7a" text-anchor="end">volatility 0.83 · mean -0.10</text><text x="20.0" y="228.0" font-family="Georgia,serif" font-size="11" font-weight="normal" font-style="italic" fill="#7a7a7a" text-anchor="start">flat-line — little real movement either direction</text></svg></div>
+  <div class="visual-card__meta">
+    <span class="visual-card__badge">model-confident</span>
+  </div>
+</article><article class="visual-card" data-posture="retro">
+  <span class="visual-card__badge visual-card__badge--retro">2025 season</span>
+  <h3 class="visual-card__headline">W 29-10 vs App State moved the resume more than the next 4 wins combined.</h3>
+  <div class="visual-card__svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="100%" preserveAspectRatio="xMidYMid meet" style="background:transparent;font-family:Georgia,serif;" role="img" aria-labelledby="svg-title"><title id="svg-title">Statement Win Ladder — top result: W 29-10 vs App State</title><rect x="0.0" y="0.0" width="600.0" height="320.0" fill="#f6f1e6" opacity="1.00"/><text x="20.0" y="28.0" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">Statement Win Ladder</text><text x="20.0" y="48.0" font-family="Georgia,serif" font-size="12" font-weight="normal" font-style="italic" fill="#7a7a7a" text-anchor="start">Top 5 results by combined power + resume delta</text><line x1="360.0" y1="56.0" x2="360.0" y2="288.0" stroke="#1a1a1a" stroke-width="1.0" stroke-dasharray="2,3"/><rect x="360.0" y="78.0" width="160.0" height="16.0" fill="#c9a24a" opacity="0.85"/><circle cx="520.0" cy="86.0" r="5.0" fill="#1a1a1a"/><text x="20.0" y="91.0" font-family="Georgia,serif" font-size="13" font-weight="700" font-style="normal" fill="#1a1a1a" text-anchor="start">W 29-10  vs App State</text><text x="588.0" y="91.0" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="end">+1.63</text><rect x="360.0" y="122.0" width="89.7" height="16.0" fill="#c9a24a" opacity="0.85"/><circle cx="449.7" cy="130.0" r="3.5" fill="#c9a24a"/><text x="20.0" y="135.0" font-family="Georgia,serif" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="start">W 24-19  vs Marshall</text><text x="588.0" y="135.0" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="end">+0.91</text><rect x="360.0" y="166.0" width="73.8" height="16.0" fill="#c9a24a" opacity="0.85"/><circle cx="433.8" cy="174.0" r="3.5" fill="#c9a24a"/><text x="20.0" y="179.0" font-family="Georgia,serif" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="start">W 41-24  vs Georgia State</text><text x="588.0" y="179.0" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="end">+0.75</text><rect x="360.0" y="210.0" width="69.9" height="16.0" fill="#c9a24a" opacity="0.85"/><circle cx="429.9" cy="218.0" r="3.5" fill="#c9a24a"/><text x="20.0" y="223.0" font-family="Georgia,serif" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="start">W 25-23  vs App State</text><text x="588.0" y="223.0" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="end">+0.71</text><rect x="360.0" y="254.0" width="62.1" height="16.0" fill="#c9a24a" opacity="0.85"/><circle cx="422.1" cy="262.0" r="3.5" fill="#c9a24a"/><text x="20.0" y="267.0" font-family="Georgia,serif" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="start">W 41-34  vs Jacksonville State</text><text x="588.0" y="267.0" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="normal" font-style="normal" fill="#1a1a1a" text-anchor="end">+0.63</text><text x="20.0" y="310.0" font-family="Georgia,serif" font-size="11" font-weight="normal" font-style="italic" fill="#7a7a7a" text-anchor="start">Top result moved the resume 2.2× the rest combined.</text></svg></div>
+  <div class="visual-card__meta">
+    <span class="visual-card__badge">model-confident</span>
+  </div>
+</article>
+  </div>
+</section></section>
+    <details class="act act--review"><summary class="act__head act__head--summary"><span class="act__num">Act III</span><h2 class="act__title">Last Season Reviewed</h2><span class="act__hint">2025 season · tap to expand</span></summary><div class="act__body">
+<section class="recent-form" aria-labelledby="recent-form-h"
+         data-module="recent-form" data-state="ready" data-verdict="warming">
+  <div class="recent-form__head">
+    <p class="recent-form__eyebrow">Recent Form · last 10 games</p>
+    <h2 id="recent-form-h" class="recent-form__verdict recent-form__verdict--warming">Warming</h2>
+    <p class="recent-form__story">Four of five. The board favors this trend.</p>
+    <div class="recent-form__chips"><span class="recent-form__chip recent-form__chip--win">Streak W2</span><span class="recent-form__chip">Last 5 · 4-1</span><span class="recent-form__chip">Last 10 · 6-4</span></div>
+  </div>
+  <div class="recent-form__meta">
+    <div class="recent-form__glyph-row" role="img" aria-label="Game results oldest to newest: WLLWLWWLWW">
+      <span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+<section class="season-standing-rail" aria-labelledby="season-standing-rail-h"
+         data-module="season-standing-rail" data-state="ready">
+  <div class="season-standing-rail__header">
+    <p class="season-standing-rail__eyebrow">Season Standing · 2025 · 7-6</p>
+    <h2 id="season-standing-rail-h" class="season-standing-rail__rung-name">Bowl eligible</h2>
+    <p class="season-standing-rail__rung-narrative">Georgia Southern: 6+ wins, bowl access secured. The baseline of a successful FBS year.</p>
+  </div>
+  <div class="season-standing-rail__rail" role="img"
+       aria-label="Season standing rail — Georgia Southern at rung 3, Bowl eligible">
+    <span class="season-standing-rail__tick" data-rung="0" aria-label="Rung 0 — Sub-FBS" title="R0 · Sub-FBS"><span class="season-standing-rail__rung-num">R0</span></span><span class="season-standing-rail__tick" data-rung="1" aria-label="Rung 1 — FBS sub-.500" title="R1 · FBS sub-.500"><span class="season-standing-rail__rung-num">R1</span></span><span class="season-standing-rail__tick" data-rung="2" aria-label="Rung 2 — FBS competitive" title="R2 · FBS competitive"><span class="season-standing-rail__rung-num">R2</span></span><span class="season-standing-rail__tick" data-rung="3" data-current="true" aria-label="Rung 3 — Bowl eligible" title="R3 · Bowl eligible"><span class="season-standing-rail__rung-num">R3</span></span><span class="season-standing-rail__tick" data-rung="4" aria-label="Rung 4 — Ranked (25-16)" title="R4 · Ranked (25-16)"><span class="season-standing-rail__rung-num">R4</span></span><span class="season-standing-rail__tick" data-rung="5" aria-label="Rung 5 — Top 15" title="R5 · Top 15"><span class="season-standing-rail__rung-num">R5</span></span><span class="season-standing-rail__tick" data-rung="6" aria-label="Rung 6 — CFP contender" title="R6 · CFP contender"><span class="season-standing-rail__rung-num">R6</span></span><span class="season-standing-rail__tick" data-rung="7" aria-label="Rung 7 — CFP quarterfinal/semi" title="R7 · CFP quarterfinal/semi"><span class="season-standing-rail__rung-num">R7</span></span><span class="season-standing-rail__tick" data-rung="8" aria-label="Rung 8 — CFP title game" title="R8 · CFP title game"><span class="season-standing-rail__rung-num">R8</span></span><span class="season-standing-rail__tick" data-rung="9" aria-label="Rung 9 — National champion" title="R9 · National champion"><span class="season-standing-rail__rung-num">R9</span></span>
+  </div>
+  <div class="season-standing-rail__tiers" role="list" aria-label="Season standing tiers">
+    <span class="season-standing-rail__tier">Sub-FBS</span><span class="season-standing-rail__tier">Building</span><span class="season-standing-rail__tier" data-current="true">Bowl</span><span class="season-standing-rail__tier">Ranked</span><span class="season-standing-rail__tier">Contender</span><span class="season-standing-rail__tier">Playoff</span>
+  </div>
+</section>
+<section class="conference-standing" aria-labelledby="conference-standing-h"
+         data-module="conference-standing" data-state="ready">
+  <div class="conference-standing__header">
+    <p class="conference-standing__eyebrow">Sun Belt Standing · 2025</p>
+    <h2 id="conference-standing-h" class="conference-standing__title">
+      5th in the Sun Belt
+    </h2>
+    <p class="conference-standing__summary">Georgia Southern sits 5th of 14 in the Sun Belt at 7-6. Mid-conference — moves up or down depend on rivalry results and the late-season closing run.</p>
+  </div>
+  <table class="conference-standing__table" aria-label="Sun Belt standings">
+    <thead><tr><th scope="col">#</th><th scope="col">Program</th><th scope="col">Record</th></tr></thead>
+    <tbody>
+      <tr class="conference-standing__row"><td><span class="conference-standing__rank">1</span></td><td><a class="conference-standing__team-link" href="/teams/james-madison.html">James Madison</a></td><td><span class="conference-standing__record">12-2</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">2</span></td><td><a class="conference-standing__team-link" href="/teams/old-dominion.html">Old Dominion</a></td><td><span class="conference-standing__record">10-3</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">3</span></td><td><a class="conference-standing__team-link" href="/teams/troy.html">Troy</a></td><td><span class="conference-standing__record">8-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">4</span></td><td><a class="conference-standing__team-link" href="/teams/arkansas-state.html">Arkansas State</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row conference-standing__row--focal"><td><span class="conference-standing__rank">5</span></td><td><a class="conference-standing__team-link" href="/teams/georgia-southern.html">Georgia Southern</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">6</span></td><td><a class="conference-standing__team-link" href="/teams/southern-miss.html">Southern Miss</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">7</span></td><td><a class="conference-standing__team-link" href="/teams/texas-state.html">Texas State</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">8</span></td><td><a class="conference-standing__team-link" href="/teams/coastal-carolina.html">Coastal Carolina</a></td><td><span class="conference-standing__record">6-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">9</span></td><td><a class="conference-standing__team-link" href="/teams/louisiana.html">Louisiana</a></td><td><span class="conference-standing__record">6-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">10</span></td><td><a class="conference-standing__team-link" href="/teams/marshall.html">Marshall</a></td><td><span class="conference-standing__record">5-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">11</span></td><td><a class="conference-standing__team-link" href="/teams/app-state.html">App State</a></td><td><span class="conference-standing__record">5-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">12</span></td><td><a class="conference-standing__team-link" href="/teams/south-alabama.html">South Alabama</a></td><td><span class="conference-standing__record">4-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">13</span></td><td><a class="conference-standing__team-link" href="/teams/ul-monroe.html">UL Monroe</a></td><td><span class="conference-standing__record">3-9</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">14</span></td><td><a class="conference-standing__team-link" href="/teams/georgia-state.html">Georgia State</a></td><td><span class="conference-standing__record">1-11</span></td></tr>
+    </tbody>
+  </table>
+</section>
+<section class="schedule-strength" aria-labelledby="schedule-strength-h"
+         data-module="schedule-strength" data-state="ready" data-band="hard">
+  <div>
+    <p class="schedule-strength__eyebrow">Schedule Strength · Georgia Southern · 2025</p>
+    <h2 id="schedule-strength-h" class="schedule-strength__band schedule-strength__band--hard">Hard</h2>
+    <p class="schedule-strength__story">Average opponent win rate 54% across 12 finalized games. 2 AP top-25 opponents played (James Madison, USC).</p>
+  </div>
+  <div class="schedule-strength__stats"><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Opp Win %</span><span class="schedule-strength__stat-value">0.548</span></div><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Top-25</span><span class="schedule-strength__stat-value">2</span></div><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Top-10</span><span class="schedule-strength__stat-value">0</span></div></div>
+</section>
 <section class="top-players" aria-labelledby="top-players-h"
          data-module="top-players" data-state="ready">
   <div class="top-players__head">
@@ -6016,160 +6535,6 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <span class="top-players__stat"><strong>74.0</strong> tot (def)</span>
 </div></div>
 </section>
-    
-    
-<section class="coaching-era" aria-labelledby="coaching-era-h"
-         data-module="coaching-era" data-state="ready" data-tenure-years="3">
-  <div class="coaching-era__head">
-    <p class="coaching-era__eyebrow">Coaching Era · Georgia Southern</p>
-    <h2 id="coaching-era-h" class="coaching-era__name">Clay Helton</h2>
-    <p class="coaching-era__story">Clay Helton in year 3 of the rebuild. The methodology is taking shape.</p>
-    <div class="coaching-era__chips"><span class="coaching-era__chip coaching-era__chip--era">Era Clay Helton · 2022–present</span><span class="coaching-era__chip">Prev: Kevin Whitley (2021)</span></div>
-  </div>
-  <div class="coaching-era__tenure">
-    <span class="coaching-era__tenure-years">3</span>
-    <span class="coaching-era__tenure-label">years · era</span>
-  </div>
-</section>
-    
-<section class="recent-form" aria-labelledby="recent-form-h"
-         data-module="recent-form" data-state="ready" data-verdict="warming">
-  <div class="recent-form__head">
-    <p class="recent-form__eyebrow">Recent Form · last 10 games</p>
-    <h2 id="recent-form-h" class="recent-form__verdict recent-form__verdict--warming">Warming</h2>
-    <p class="recent-form__story">Four of five. The board favors this trend.</p>
-    <div class="recent-form__chips"><span class="recent-form__chip recent-form__chip--win">Streak W2</span><span class="recent-form__chip">Last 5 · 4-1</span><span class="recent-form__chip">Last 10 · 6-4</span></div>
-  </div>
-  <div class="recent-form__meta">
-    <div class="recent-form__glyph-row" role="img" aria-label="Game results oldest to newest: WLLWLWWLWW">
-      <span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--l" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span><span class="recent-form__glyph recent-form__glyph--w" aria-hidden="true"></span>
-    </div>
-  </div>
-</section>
-    
-<section class="season-standing-rail" aria-labelledby="season-standing-rail-h"
-         data-module="season-standing-rail" data-state="ready">
-  <div class="season-standing-rail__header">
-    <p class="season-standing-rail__eyebrow">Season Standing · 2025 · 7-6</p>
-    <h2 id="season-standing-rail-h" class="season-standing-rail__rung-name">Bowl eligible</h2>
-    <p class="season-standing-rail__rung-narrative">Georgia Southern: 6+ wins, bowl access secured. The baseline of a successful FBS year.</p>
-  </div>
-  <div class="season-standing-rail__rail" role="img"
-       aria-label="Season standing rail — Georgia Southern at rung 3, Bowl eligible">
-    <span class="season-standing-rail__tick" data-rung="0" aria-label="Rung 0 — Sub-FBS" title="R0 · Sub-FBS"><span class="season-standing-rail__rung-num">R0</span></span><span class="season-standing-rail__tick" data-rung="1" aria-label="Rung 1 — FBS sub-.500" title="R1 · FBS sub-.500"><span class="season-standing-rail__rung-num">R1</span></span><span class="season-standing-rail__tick" data-rung="2" aria-label="Rung 2 — FBS competitive" title="R2 · FBS competitive"><span class="season-standing-rail__rung-num">R2</span></span><span class="season-standing-rail__tick" data-rung="3" data-current="true" aria-label="Rung 3 — Bowl eligible" title="R3 · Bowl eligible"><span class="season-standing-rail__rung-num">R3</span></span><span class="season-standing-rail__tick" data-rung="4" aria-label="Rung 4 — Ranked (25-16)" title="R4 · Ranked (25-16)"><span class="season-standing-rail__rung-num">R4</span></span><span class="season-standing-rail__tick" data-rung="5" aria-label="Rung 5 — Top 15" title="R5 · Top 15"><span class="season-standing-rail__rung-num">R5</span></span><span class="season-standing-rail__tick" data-rung="6" aria-label="Rung 6 — CFP contender" title="R6 · CFP contender"><span class="season-standing-rail__rung-num">R6</span></span><span class="season-standing-rail__tick" data-rung="7" aria-label="Rung 7 — CFP quarterfinal/semi" title="R7 · CFP quarterfinal/semi"><span class="season-standing-rail__rung-num">R7</span></span><span class="season-standing-rail__tick" data-rung="8" aria-label="Rung 8 — CFP title game" title="R8 · CFP title game"><span class="season-standing-rail__rung-num">R8</span></span><span class="season-standing-rail__tick" data-rung="9" aria-label="Rung 9 — National champion" title="R9 · National champion"><span class="season-standing-rail__rung-num">R9</span></span>
-  </div>
-  <div class="season-standing-rail__tiers" role="list" aria-label="Season standing tiers">
-    <span class="season-standing-rail__tier">Sub-FBS</span><span class="season-standing-rail__tier">Building</span><span class="season-standing-rail__tier" data-current="true">Bowl</span><span class="season-standing-rail__tier">Ranked</span><span class="season-standing-rail__tier">Contender</span><span class="season-standing-rail__tier">Playoff</span>
-  </div>
-</section>
-    
-<section class="program-prestige-bar" aria-labelledby="program-prestige-bar-h"
-         data-module="program-prestige-bar" data-state="ready">
-  <div class="program-prestige-bar__header">
-    <p class="program-prestige-bar__eyebrow">Program Prestige · Georgia Southern</p>
-    <h2 id="program-prestige-bar-h" class="program-prestige-bar__tier-name">Power Program</h2>
-    <p class="program-prestige-bar__narrative">Power Program — consistent P4 presence and regional brand strength.</p>
-    <p class="program-prestige-bar__peak">Historical peak: <strong>Tier 5 · Blue Blood</strong> (1985, 1986, 1989, 1990, 1999, 2000 — 6 FCS national championships under Erk Russell + Paul Johnson + Mike Sewak). Current tier: Tier 3.</p>
-  </div>
-  <div class="program-prestige-bar__bar" role="list" aria-label="Program prestige tiers">
-    <div class="program-prestige-bar__segment" data-tier="1" title="Tier 1 · Regional"><span class="program-prestige-bar__segment-num">T1</span><span>Regional</span></div><div class="program-prestige-bar__segment" data-tier="2" title="Tier 2 · Mid-Major Contender"><span class="program-prestige-bar__segment-num">T2</span><span>Mid-Major</span></div><div class="program-prestige-bar__segment" data-tier="3" data-current="true" title="Tier 3 · Power Program"><span class="program-prestige-bar__segment-num">T3</span><span>Power</span></div><div class="program-prestige-bar__segment" data-tier="4" title="Tier 4 · National Program"><span class="program-prestige-bar__segment-num">T4</span><span>National</span></div><div class="program-prestige-bar__segment" data-tier="5" data-peak="true" title="Tier 5 · Blue Blood"><span class="program-prestige-bar__segment-num">T5</span><span>Blue Blood</span></div><div class="program-prestige-bar__segment" data-tier="6" title="Tier 6 · Dynasty Active"><span class="program-prestige-bar__segment-num">T6</span><span>Dynasty</span></div><div class="program-prestige-bar__segment" data-tier="7" title="Tier 7 · All-Time Great Era"><span class="program-prestige-bar__segment-num">T7</span><span>All-Time</span></div>
-  </div>
-</section>
-    
-    
-<section class="peer-comparator" aria-labelledby="peer-comparator-h"
-         data-module="peer-comparator" data-state="ready">
-  <p class="peer-comparator__eyebrow">Most Similar Programs · Georgia Southern</p>
-  <h2 id="peer-comparator-h" class="peer-comparator__title">Reads Like</h2>
-  <div class="peer-comparator__peers" role="list" aria-label="Three most similar programs">
-    <a class="peer-comparator__peer" href="/teams/air-force.html" aria-label="Peer program: Air Force"><span class="peer-comparator__peer-name">Air Force</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a><a class="peer-comparator__peer" href="/teams/app-state.html" aria-label="Peer program: App State"><span class="peer-comparator__peer-name">App State</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a><a class="peer-comparator__peer" href="/teams/arizona.html" aria-label="Peer program: Arizona"><span class="peer-comparator__peer-name">Arizona</span><span class="peer-comparator__peer-reason">Tier 3 · Prestige T3</span></a>
-  </div>
-  <p class="peer-comparator__caveat">Static-attribute similarity across tier, archetype, conference, and voice. Not a prediction — a calibration.</p>
-</section>
-    
-<section class="on-this-day" aria-labelledby="on-this-day-h"
-         data-module="on-this-day" data-state="rotated">
-  <p class="on-this-day__eyebrow">From the Archive — Georgia Southern</p>
-  <h2 id="on-this-day-h" class="on-this-day__headline">2014: Won 31-28 at Notre Dame</h2>
-  <p class="on-this-day__story">In 2014, the program won 31-28 at Notre Dame — a tight road result that left the 3-point margin on the books.</p>
-  <p class="on-this-day__voice">Hail Southern. Statesboro roars.</p>
-</section>
-    
-    
-<section class="fanbase-health" aria-labelledby="fanbase-health-h"
-         data-module="fanbase-health" data-state="ready"
-         data-confidence="low"
-         style="--health-score: 60;">
-  <div class="fanbase-health__header">
-    <p class="fanbase-health__eyebrow">Fanbase Health Index · Georgia Southern · low confidence</p>
-    <h2 id="fanbase-health-h" class="fanbase-health__band fanbase-health__band--growing">Growing (60)</h2>
-  </div>
-  <div class="fanbase-health__gauge" role="img" aria-label="Fanbase health 60 out of 100">
-    <div class="fanbase-health__gauge-fill"></div>
-    <div class="fanbase-health__gauge-needle"></div>
-  </div>
-  <div class="fanbase-health__legend">
-    <span>Declining</span><span>Stable</span><span>Growing</span><span>Surging</span>
-  </div>
-  <div class="fanbase-health__components">
-    <div class="fanbase-health__components-row"><span><strong>On-Field</strong> — 7-6 (54% win rate)</span><em>60</em></div>
-  </div>
-</section>
-    
-<section class="conference-standing" aria-labelledby="conference-standing-h"
-         data-module="conference-standing" data-state="ready">
-  <div class="conference-standing__header">
-    <p class="conference-standing__eyebrow">Sun Belt Standing · 2025</p>
-    <h2 id="conference-standing-h" class="conference-standing__title">
-      5th in the Sun Belt
-    </h2>
-    <p class="conference-standing__summary">Georgia Southern sits 5th of 14 in the Sun Belt at 7-6. Mid-conference — moves up or down depend on rivalry results and the late-season closing run.</p>
-  </div>
-  <table class="conference-standing__table" aria-label="Sun Belt standings">
-    <thead><tr><th scope="col">#</th><th scope="col">Program</th><th scope="col">Record</th></tr></thead>
-    <tbody>
-      <tr class="conference-standing__row"><td><span class="conference-standing__rank">1</span></td><td><a class="conference-standing__team-link" href="/teams/james-madison.html">James Madison</a></td><td><span class="conference-standing__record">12-2</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">2</span></td><td><a class="conference-standing__team-link" href="/teams/old-dominion.html">Old Dominion</a></td><td><span class="conference-standing__record">10-3</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">3</span></td><td><a class="conference-standing__team-link" href="/teams/troy.html">Troy</a></td><td><span class="conference-standing__record">8-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">4</span></td><td><a class="conference-standing__team-link" href="/teams/arkansas-state.html">Arkansas State</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row conference-standing__row--focal"><td><span class="conference-standing__rank">5</span></td><td><a class="conference-standing__team-link" href="/teams/georgia-southern.html">Georgia Southern</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">6</span></td><td><a class="conference-standing__team-link" href="/teams/southern-miss.html">Southern Miss</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">7</span></td><td><a class="conference-standing__team-link" href="/teams/texas-state.html">Texas State</a></td><td><span class="conference-standing__record">7-6</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">8</span></td><td><a class="conference-standing__team-link" href="/teams/coastal-carolina.html">Coastal Carolina</a></td><td><span class="conference-standing__record">6-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">9</span></td><td><a class="conference-standing__team-link" href="/teams/louisiana.html">Louisiana</a></td><td><span class="conference-standing__record">6-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">10</span></td><td><a class="conference-standing__team-link" href="/teams/marshall.html">Marshall</a></td><td><span class="conference-standing__record">5-7</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">11</span></td><td><a class="conference-standing__team-link" href="/teams/app-state.html">App State</a></td><td><span class="conference-standing__record">5-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">12</span></td><td><a class="conference-standing__team-link" href="/teams/south-alabama.html">South Alabama</a></td><td><span class="conference-standing__record">4-8</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">13</span></td><td><a class="conference-standing__team-link" href="/teams/ul-monroe.html">UL Monroe</a></td><td><span class="conference-standing__record">3-9</span></td></tr><tr class="conference-standing__row"><td><span class="conference-standing__rank">14</span></td><td><a class="conference-standing__team-link" href="/teams/georgia-state.html">Georgia State</a></td><td><span class="conference-standing__record">1-11</span></td></tr>
-    </tbody>
-  </table>
-</section>
-    
-<section class="ceiling-floor" aria-labelledby="ceiling-floor-h"
-         data-module="ceiling-floor" data-state="ready">
-  <div class="ceiling-floor__header">
-    <p class="ceiling-floor__eyebrow">Georgia Southern · Next-Season Outcome Band</p>
-    <h2 id="ceiling-floor-h" class="ceiling-floor__title">Floor / Base / Ceiling</h2>
-  </div>
-  <div class="ceiling-floor__band" role="img" aria-label="Floor 5 wins, base 7 wins, ceiling 10 wins">
-    <div class="ceiling-floor__marker" style="left: 41.7%;">
-      <span class="ceiling-floor__marker-label">Floor 5-7</span>
-    </div>
-    <div class="ceiling-floor__marker" style="left: 58.3%;">
-      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base 7-5</span>
-    </div>
-    <div class="ceiling-floor__marker" style="left: 83.3%;">
-      <span class="ceiling-floor__marker-label">Ceiling 10-2</span>
-    </div>
-  </div>
-  <div class="ceiling-floor__scenarios">
-    <div class="ceiling-floor__scenario" data-kind="floor"><span class="ceiling-floor__scenario-kind">floor</span><span class="ceiling-floor__scenario-record">5-7</span><span class="ceiling-floor__scenario-story">Below .500. Bowl eligibility comes down to the closing run.</span></div><div class="ceiling-floor__scenario" data-kind="base"><span class="ceiling-floor__scenario-kind">base</span><span class="ceiling-floor__scenario-record">7-5</span><span class="ceiling-floor__scenario-story">Bowl eligible. The realistic plateau.</span></div><div class="ceiling-floor__scenario" data-kind="ceiling"><span class="ceiling-floor__scenario-kind">ceiling</span><span class="ceiling-floor__scenario-record">10-2</span><span class="ceiling-floor__scenario-story">Double-digit wins. Conference title-game conversation.</span></div>
-  </div>
-  <p class="ceiling-floor__caveat">
-    Variance assumed at ±2 wins from last-season record. Replace with SP+ projection band
-    once preseason ratings publish.
-  </p>
-</section>
-    
-<section class="home-field" aria-labelledby="home-field-h"
-         data-module="home-field-advantage" data-state="ready"
-         data-band="elite">
-  <div class="home-field__main">
-    <p class="home-field__eyebrow">Home-Field Advantage · Georgia Southern · 2018-present</p>
-    <h2 id="home-field-h" class="home-field__band home-field__band--elite">Elite</h2>
-    <p class="home-field__story">71% home win rate vs 36% on the road. margin runs +17.3 better at home.</p>
-  </div>
-  <div class="home-field__stats"><span class="home-field__stat-label">Home</span><span class="home-field__stat-value">35-14</span><span class="home-field__stat-label">Away</span><span class="home-field__stat-value">17-30</span></div>
-</section>
-    
 <section class="moment-of-year" aria-labelledby="moment-of-year-h"
          data-module="moment-of-year" data-state="ready"
          data-score="10">
@@ -6178,18 +6543,6 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   <p class="moment-of-year__story">Week 18 of 2025. Postseason win — the season-defining moment.</p>
   <div class="moment-of-year__meta"><span class="moment-of-year__chip">Decisive Margin</span><span class="moment-of-year__chip">Postseason</span></div>
 </section>
-    
-<section class="schedule-strength" aria-labelledby="schedule-strength-h"
-         data-module="schedule-strength" data-state="ready" data-band="hard">
-  <div>
-    <p class="schedule-strength__eyebrow">Schedule Strength · Georgia Southern · 2025</p>
-    <h2 id="schedule-strength-h" class="schedule-strength__band schedule-strength__band--hard">Hard</h2>
-    <p class="schedule-strength__story">Average opponent win rate 54% across 12 finalized games. 2 AP top-25 opponents played (James Madison, USC).</p>
-  </div>
-  <div class="schedule-strength__stats"><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Opp Win %</span><span class="schedule-strength__stat-value">0.548</span></div><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Top-25</span><span class="schedule-strength__stat-value">2</span></div><div class="schedule-strength__stat-row"><span class="schedule-strength__stat-label">Top-10</span><span class="schedule-strength__stat-value">0</span></div></div>
-</section>
-    
-    
 <section class="bowl-history" aria-labelledby="bowl-history-h"
          data-module="bowl-history" data-state="ready">
   <p class="bowl-history__eyebrow">Bowl / Postseason Ledger</p>
@@ -6199,89 +6552,13 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
     <span class="bowl-history__year bowl-history__year--win">2025</span><span class="bowl-history__year bowl-history__year--loss">2024</span><span class="bowl-history__year bowl-history__year--loss">2023</span><span class="bowl-history__year bowl-history__year--loss">2022</span><span class="bowl-history__year bowl-history__year--win">2020</span>
   </div>
 </section>
-    
-    <section class="pulse" aria-labelledby="pulse-title">
-  <div class="pulse__header">
-    <span class="pulse__live-dot pulse__live-dot--quiet" aria-hidden="true"></span>
-    <h2 id="pulse-title" class="pulse__title">The Pulse on Georgia Southern</h2>
-    <span class="pulse__meta">QUIET · dead period heritage · signal ramps back in camp</span>
-  </div>
-  <div class="pulse__grid">
-    <div class="pulse__mood-card">
-      <div class="pulse__mood-number">—</div>
-      <div class="pulse__mood-delta">Gus the Eagle is patient.</div>
-      
-      
-    </div>
-    <div>
-      <div class="pulse__event-log">
-    <p class="pulse__event-log-title">What moved it — offseason · last 30 days</p>
-    <div class="pulse__event">
-      <span class="pulse__event-time">June</span>
-      <span class="pulse__event-text">Dead-period quiet — official-visit + heritage window</span>
-      <span class="pulse__event-delta ">—</span>
-    </div><div class="pulse__event">
-      <span class="pulse__event-time">Camp</span>
-      <span class="pulse__event-text">Fall camp ~70 days out</span>
-      <span class="pulse__event-delta"></span>
-    </div>
-  </div>
-      <div class="pulse__top-take" style="margin-top: var(--sp-4);">
-        <em>"Eagles"</em>
-        <span class="pulse__top-take-attr">— Georgia Southern fanbase · recurring line</span>
-      </div>
-    </div>
-  </div>
-  <div class="pulse-five-axis" aria-label="Five-axis Pulse strip" data-state="empty">
-    <p class="pulse-five-axis__eyebrow">FIVE-AXIS · Brief §4.2 Panel 2</p>
-    <div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Reality Gap</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">How far fan belief diverges from the structural model.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Respect Gap</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Fan score minus national score for this team&#x27;s brand.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Cohort Divergence</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Spread between sub-fanbase cohorts in the Pulse window.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Rival Heat</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">How much rival fanbases are mentioning this team.</span></div><div class="pulse-axis pulse-axis--awaiting"><span class="pulse-axis__label">Volatility</span><div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div><span class="pulse-axis__chip">awaiting</span><span class="pulse-axis__desc">Week-over-week mood swing magnitude.</span></div>
-  </div>
-  <div class="pulse__badge-row"><span class="pulse__badge pulse__badge--awaiting">0 mentions · awaiting signal</span></div>
-</section>
-    <section class="aspiration-ladder" aria-labelledby="aspiration-ladder-h">
-  <div class="aspiration-ladder__header">
-    <h2 id="aspiration-ladder-h" class="aspiration-ladder__title">Aspiration Ladder</h2>
-    <p class="aspiration-ladder__eyebrow">Brief Part III §33.4 · Georgia Southern</p>
-  </div>
-  <div class="aspiration-ladder__rungs">
-    <div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">8 wins</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Above the program&#x27;s recent baseline.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Beat a top-10 opponent</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Statement win that reshapes recruiting.</p></div><div class="aspiration-ladder__rung"><span class="aspiration-ladder__rung-name">Conference championship game appearance</span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Plausible breakthrough.</p></div><div class="aspiration-ladder__rung aspiration-ladder__rung--locked"><span class="aspiration-ladder__rung-name">NY6 bowl<span class="aspiration-ladder__locked-chip">Locked</span></span><span class="aspiration-ladder__rung-odds">—</span><p class="aspiration-ladder__rung-context">Beyond modern reach without a transformative year.</p></div>
-  </div>
-</section>
-    <section class="rituals program-section" aria-label="Georgia Southern rituals">
-  <div class="program-section__head">
-    <h2 class="section-title">Rituals<span class="section-title__rule"></span></h2>
-    <p class="caption" style="max-width: 36ch;">Three gameday rituals — the ones outsiders never quite catch.</p>
-  </div>
-  <div class="rituals-track" role="list">
-    <article class="ritual-card" role="listitem" data-significance="high">
-      <div class="ritual-card__glyph" aria-hidden="true">6F<small>permanent program </small></div>
-      <h3 class="ritual-card__name">6 FCS National Championships (1985-2000)</h3>
-      <p class="ritual-card__since">since 1985</p>
-      <p class="ritual-card__description visually-hidden">Georgia Southern won 6 FCS national championships (1985, 1986, 1989, 1990, 1999, 2000) — the most FCS championships of any program — under Erk Russell, Paul Johnson, and Mike Sewak. The dynasty + the Triple-Option offensive identity (Paul Johnson era) + the Erk Russell coaching tree make GSU permanent G5 historical canon.</p>
-    </article>
-    <article class="ritual-card" role="listitem" data-significance="high">
-      <div class="ritual-card__glyph" aria-hidden="true">TO<small>permanent program </small></div>
-      <h3 class="ritual-card__name">Triple-Option Offense Heritage</h3>
-      <p class="ritual-card__since">since 1980s</p>
-      <p class="ritual-card__description visually-hidden">Paul Johnson (1997-2000) ran the Triple-Option offense at GSU producing 2 FCS national championships + multiple records. Johnson took the scheme to Navy + Georgia Tech, where it influenced multiple modern programs. The Triple-Option as living scheme makes GSU + Navy + Air Force the keepers of the tradition.</p>
-    </article>
-    <article class="ritual-card" role="listitem" data-significance="high">
-      <div class="ritual-card__glyph" aria-hidden="true">2F<small>permanent program </small></div>
-      <h3 class="ritual-card__name">2014 FBS Reclassification + Sun Belt Title</h3>
-      <p class="ritual-card__since">since 2014</p>
-      <p class="ritual-card__description visually-hidden">Georgia Southern reclassified from FCS to FBS in 2014 + IMMEDIATELY won the Sun Belt championship in its first FBS season — an unprecedented feat. The 9-3 record + Sun Belt title made GSU one of the more-improbable FBS-newcomer breakthroughs. The 2014 season is permanent program identity.</p>
-    </article>
-  </div>
-</section>
-    <aside class="cultural-anchors" aria-label="Cultural identity">
-  <p class="cultural-anchors__one-sentence">Georgia Southern is the Statesboro Sun Belt program — 6 FCS national championships dynasty + Triple-Option heritage + 2014 first-FBS-season Sun Belt championship that anchor the historic dominance arc.</p>
-  <dl class="cultural-anchors__archetypes"><dt>From inside</dt><dd>Statesboro-Eagle-Hail-Southern</dd><dt>From outside</dt><dd>FCS-Refugee-Diminisher</dd></dl>
-  <p class="cultural-anchors__if-lost"><strong>If the program didn't exist, CFB would lose</strong> <span>The 6 FCS national championships record + Erk Russell coaching tree + Paul Johnson Triple-Option scheme heritage + 2014 first-FBS-season Sun Belt championship as unprecedented breakthrough.</span></p>
-</aside>
-    
-    
-    
-    
+<section class="on-this-day" aria-labelledby="on-this-day-h"
+         data-module="on-this-day" data-state="rotated">
+  <p class="on-this-day__eyebrow">From the Archive — Georgia Southern</p>
+  <h2 id="on-this-day-h" class="on-this-day__headline">2014: Lost 31-42 vs Florida State</h2>
+  <p class="on-this-day__story">In 2014, the program lost 31-42 vs Florida State — a one to file away home result, 11 points either way.</p>
+  <p class="on-this-day__voice">Hail Southern. Statesboro roars.</p>
+</section></div></details>
     <footer class="page-footer">
   <span>CFB Index · team-pages v1.0</span>
   <span class="page-footer__mantra">“Hail Southern.”</span>

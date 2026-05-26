@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Film Room · Model Receipts · CFB Index</title>
+<meta name="description" content="The CFB Index model's receipts: best losses and worst wins of 2025, plus when the Heisman model knew first. Archived per-game and weekly model history no one else publishes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#c9a24a;--navy:#1f2c4d;--ink:#1a1a1a;--muted:#7a7a7a;--cream:#f6f1e6;--pos:#3f7d54;--neg:#b3402f;}
+  *{box-sizing:border-box;} body{margin:0;background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;}
+  .nav-strip{padding:11px 20px;border-bottom:1px solid rgba(0,0,0,.1);font:600 13px Inter,sans-serif;}
+  .nav-strip a{color:var(--navy);text-decoration:none;margin-right:16px;}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 72px;}
+  .hero{border-bottom:2px solid var(--gold);padding-bottom:16px;margin-bottom:24px;}
+  h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(34px,6vw,56px);letter-spacing:.03em;margin:.1em 0;line-height:1;}
+  .thesis{max-width:64ch;margin:6px 0 10px;font-size:16px;}
+  .stamp{font:600 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .jumps{margin-top:12px;} .jumps a{font:700 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);text-decoration:none;margin-right:14px;border-bottom:2px solid var(--gold);}
+  h2.sec{font-family:'Bebas Neue',Impact,sans-serif;font-size:26px;letter-spacing:.04em;margin:30px 0 6px;border-left:4px solid var(--gold);padding-left:10px;}
+  .sec-note{color:var(--muted);font-style:italic;font-size:13px;margin:0 0 14px;padding-left:14px;}
+  .grid{display:grid;grid-template-columns:1fr;gap:18px;} @media(min-width:840px){.grid{grid-template-columns:1fr 1fr;}}
+  .board{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px 18px;}
+  .board-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .board h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:.03em;margin:0;}
+  .meth{font:600 10px Inter,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+  .dek{color:var(--muted);font-style:italic;font-size:13px;margin:2px 0 12px;}
+  .spot{display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 14%,#fff),#fff);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:8px;padding:10px 12px;margin-bottom:10px;}
+  .spot-rk{font-family:'Bebas Neue',Impact,sans-serif;font-size:34px;line-height:1;color:var(--gold);text-align:center;}
+  .spot-team{font:700 16px Inter,sans-serif;} .spot-team a{color:var(--navy);text-decoration:none;}
+  .spot-blurb{font-size:12.5px;opacity:.85;margin-top:2px;line-height:1.35;}
+  .spot-val{font:700 22px Inter,sans-serif;font-variant-numeric:tabular-nums lining-nums;}
+  .conf{font:600 10px Inter,sans-serif;color:var(--muted);margin-left:7px;letter-spacing:.03em;}
+  ol.rows{list-style:none;margin:0;padding:0;}
+  .row{display:grid;grid-template-columns:24px minmax(0,1fr) 58px 72px auto;align-items:center;gap:8px;padding:5px 2px;border-bottom:1px solid rgba(0,0,0,.05);}
+  .row .rk{font:600 13px Inter,sans-serif;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .row .tm{font:600 13.5px Inter,sans-serif;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} .row .tm a{color:var(--navy);text-decoration:none;}
+  .row .val{text-align:right;font:700 14px Inter,sans-serif;font-variant-numeric:tabular-nums lining-nums;}
+  .val.pos{color:var(--pos);} .val.neg{color:var(--neg);}
+  .mb{display:inline-block;height:7px;background:rgba(0,0,0,.07);border-radius:4px;overflow:hidden;}
+  .mb-fill{display:block;height:100%;background:var(--navy);border-radius:4px;}
+  .db{position:relative;display:inline-block;height:10px;width:100%;}
+  .db-axis{position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(0,0,0,.25);}
+  .db-pos{position:absolute;top:1px;bottom:1px;background:var(--pos);border-radius:0 3px 3px 0;}
+  .db-neg{position:absolute;top:1px;bottom:1px;background:var(--neg);border-radius:3px 0 0 3px;}
+  .row .sub{font:400 10px Inter,sans-serif;color:var(--muted);text-align:right;white-space:nowrap;}
+  @media(max-width:520px){.row{grid-template-columns:20px minmax(0,1fr) auto;row-gap:2px;}.row .mb,.row .sub{grid-column:2/-1;justify-self:start;}.row .mb{width:55%;}}
+</style>
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head><body>
+<div class="nav-strip"><a href="/">← CFB Index</a><a href="/offseason/index.html">Offseason</a><a href="/rankings/index.html">Rankings</a><a href="/chronicle/">The Chronicle</a><strong>Film Room</strong></div>
+<div class="wrap">
+  <header class="hero">
+    <div class="stamp">Model receipts · 2025 season</div>
+    <h1>Film Room</h1>
+    <p class="thesis">What our model saw that the scoreboard and the polls didn't. Archived per-game and week-by-week model history — the kind of receipts no other site keeps.</p>
+    <div class="jumps"><a href="#scoreboard-lies">Scoreboard Lies</a><a href="#truth-serum">Heisman Truth Serum</a></div>
+  </header>
+
+  <h2 class="sec" id="scoreboard-lies">Scoreboard Lies</h2>
+  <p class="sec-note">The model grades the performance, not the final score. These are the 2025 games where the two disagreed most.</p>
+  <div class="grid"><section class="board" id="best-loss">
+  <div class="board-head"><h3>Best Losses</h3><span class="meth">resume delta in a loss · 2025</span></div>
+  <p class="dek">Defeats the model refused to punish — close fights with strong teams that still raised the resume.</p>
+  <div class="spot"><div class="spot-rk">L</div>
+      <div class="spot-main"><div class="spot-team"><a href="/teams/akron.html">Akron</a> <span class="conf">vs UAB</span></div><div class="spot-blurb">Lost 28-31, but the model still credited the performance — its best loss of 2025.</div></div>
+      <div class="spot-val">+0.42</div></div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/langston-university.html">Langston University</a><span class="conf">L 0-80 vs UT Rio Grande Valley</span></span><span class="val pos">+0.30</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:36.1%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/eastern-michigan.html">Eastern Michigan</a><span class="conf">L 23-48 vs Kentucky</span></span><span class="val pos">+0.26</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:30.5%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/virginia-tech.html">Virginia Tech</a><span class="conf">L 26-45 vs Old Dominion</span></span><span class="val pos">+0.22</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:26.6%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/kent-state.html">Kent State</a><span class="conf">L 28-31 vs Buffalo</span></span><span class="val pos">+0.22</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:26.1%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">6</span><span class="tm"><a href="/teams/oregon-state.html">Oregon State</a><span class="conf">L 14-45 vs Texas Tech</span></span><span class="val pos">+0.16</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:18.6%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">7</span><span class="tm"><a href="/teams/nevada.html">Nevada</a><span class="conf">L 13-14 vs Middle Tennessee</span></span><span class="val pos">+0.15</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:18.2%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">8</span><span class="tm"><a href="/teams/kansas-state.html">Kansas State</a><span class="conf">L 17-23 vs Arizona</span></span><span class="val pos">+0.15</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:18.2%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">9</span><span class="tm"><a href="/teams/miami-oh.html">Miami (OH)</a><span class="conf">L 38-41 vs UNLV</span></span><span class="val pos">+0.15</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:18.1%"></span></span><span class="sub">resume still rose</span></li><li class="row"><span class="rk">10</span><span class="tm"><a href="/teams/massachusetts.html">Massachusetts</a><span class="conf">L 7-47 vs Iowa</span></span><span class="val pos">+0.15</span><span class="db"><span class="db-axis"></span><span class="db-pos" style="left:50%;width:18.0%"></span></span><span class="sub">resume still rose</span></li></ol>
+</section><section class="board" id="worst-win">
+  <div class="board-head"><h3>Worst Wins</h3><span class="meth">resume delta in a win · 2025</span></div>
+  <p class="dek">Victories the model saw through — wins that quietly cost a team resume value.</p>
+  <div class="spot"><div class="spot-rk">W</div>
+      <div class="spot-main"><div class="spot-team"><a href="/teams/tcu.html">TCU</a> <span class="conf">vs Abilene Christian</span></div><div class="spot-blurb">Won 42-21, but the model docked it — the emptiest win of 2025.</div></div>
+      <div class="spot-val">-0.35</div></div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/rutgers.html">Rutgers</a><span class="conf">W 60-10 vs Norfolk State</span></span><span class="val neg">-0.29</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:40.8%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/indiana.html">Indiana</a><span class="conf">W 73-0 vs Indiana State</span></span><span class="val neg">-0.24</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:33.6%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/penn-state.html">Penn State</a><span class="conf">W 52-6 vs Villanova</span></span><span class="val neg">-0.23</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:33.0%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/temple.html">Temple</a><span class="conf">W 55-7 vs Howard</span></span><span class="val neg">-0.15</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:22.0%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">6</span><span class="tm"><a href="/teams/michigan-state.html">Michigan State</a><span class="conf">W 41-24 vs Youngstown State</span></span><span class="val neg">-0.15</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:21.4%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">7</span><span class="tm"><a href="/teams/auburn.html">Auburn</a><span class="conf">W 31-15 vs South Alabama</span></span><span class="val neg">-0.12</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:17.1%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">8</span><span class="tm"><a href="/teams/app-state.html">App State</a><span class="conf">W 20-13 vs Lindenwood</span></span><span class="val neg">-0.11</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:15.9%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">9</span><span class="tm"><a href="/teams/maryland.html">Maryland</a><span class="conf">W 44-17 vs Towson</span></span><span class="val neg">-0.07</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:10.1%"></span></span><span class="sub">resume slipped</span></li><li class="row"><span class="rk">10</span><span class="tm"><a href="/teams/mississippi-state.html">Mississippi State</a><span class="conf">W 63-0 vs Alcorn State</span></span><span class="val neg">-0.07</span><span class="db"><span class="db-axis"></span><span class="db-neg" style="right:50%;width:9.6%"></span></span><span class="sub">resume slipped</span></li></ol>
+</section></div>
+
+  <h2 class="sec" id="truth-serum">Heisman Truth Serum</h2>
+  <p class="sec-note">Week-by-week, the Heisman model leaves a paper trail. Here's when it knew — and who it warmed to fastest.</p>
+  <div class="grid"><section class="board" id="first-knew">
+  <div class="board-head"><h3>When the Model Knew</h3><span class="meth">first top-5 week · 2025</span></div>
+  <p class="dek">The week each contender first cracked the model&#x27;s top five — its earliest reads on the race.</p>
+  <div class="spot"><div class="spot-rk">W16</div>
+      <div class="spot-main"><div class="spot-team"><a href="/teams/indiana.html">Fernando Mendoza</a> <span class="conf">Indiana</span></div><div class="spot-blurb">The model had Mendoza in its top five by Week 16 — earlier than the national conversation.</div></div>
+      <div class="spot-val">pk 4.1</div></div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/ole-miss.html">Trinidad Chambliss</a><span class="conf">Ole Miss</span></span><span class="val">W16</span><span class="mb"><span class="mb-fill" style="width:96.9%"></span></span><span class="sub">peak #2</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/georgia.html">Gunner Stockton</a><span class="conf">Georgia</span></span><span class="val">W16</span><span class="mb"><span class="mb-fill" style="width:96.1%"></span></span><span class="sub">peak #3</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/vanderbilt.html">Diego Pavia</a><span class="conf">Vanderbilt</span></span><span class="val">W16</span><span class="mb"><span class="mb-fill" style="width:96.0%"></span></span><span class="sub">peak #4</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/south-florida.html">Byrum Brown</a><span class="conf">South Florida</span></span><span class="val">W16</span><span class="mb"><span class="mb-fill" style="width:91.4%"></span></span><span class="sub">peak #5</span></li></ol>
+</section></div>
+</div></body></html>

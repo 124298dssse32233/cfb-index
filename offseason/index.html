@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offseason Leaderboards · 2026 · CFB Index</title>
+<meta name="description" content="National and conference college football offseason leaderboards: portal winners, returning production, NFL draft factories, roster talent, biggest reloads — every FBS team ranked heading into 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#c9a24a;--navy:#1f2c4d;--ink:#1a1a1a;--muted:#7a7a7a;--cream:#f6f1e6;--pos:#3f7d54;--neg:#b3402f;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;}
+  .nav-strip{padding:11px 20px;border-bottom:1px solid rgba(0,0,0,.1);font:600 13px Inter,sans-serif;}
+  .nav-strip a{color:var(--navy);text-decoration:none;margin-right:16px;}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 72px;}
+  .hero{border-bottom:2px solid var(--gold);padding-bottom:16px;margin-bottom:24px;}
+  h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(34px,6vw,56px);letter-spacing:.03em;margin:.1em 0;line-height:1;}
+  .thesis{color:var(--ink);max-width:62ch;margin:6px 0 10px;font-size:16px;}
+  .stamp{font:600 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .jumps{margin-top:12px;} .jumps a{font:700 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);text-decoration:none;margin-right:14px;border-bottom:2px solid var(--gold);}
+  h2.sec{font-family:'Bebas Neue',Impact,sans-serif;font-size:26px;letter-spacing:.04em;margin:30px 0 14px;border-left:4px solid var(--gold);padding-left:10px;}
+  .grid{display:grid;grid-template-columns:1fr;gap:18px;}
+  @media(min-width:840px){.grid{grid-template-columns:1fr 1fr;}}
+  .board{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px 18px;}
+  .board.flagship{border-left:4px solid var(--gold);}
+  .board-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .board h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:.03em;margin:0;}
+  .meth{font:600 10px Inter,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+  .dek{color:var(--muted);font-style:italic;font-size:13px;margin:2px 0 12px;}
+  .spot{display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 14%,#fff),#fff);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:8px;padding:10px 12px;margin-bottom:10px;}
+  .spot-rk{font-family:'Bebas Neue',Impact,sans-serif;font-size:40px;line-height:1;color:var(--gold);text-align:center;}
+  .spot-team{font:700 17px Inter,sans-serif;} .spot-team a{color:var(--navy);text-decoration:none;}
+  .spot-blurb{font-family:'Source Serif 4',Georgia,serif;font-size:12.5px;color:var(--ink);opacity:.85;margin-top:2px;line-height:1.35;}
+  .spot-val{font:700 26px Inter,sans-serif;font-variant-numeric:tabular-nums lining-nums;color:var(--ink);}
+  .conf{font:600 10px Inter,sans-serif;color:var(--muted);margin-left:7px;letter-spacing:.04em;}
+  ol.rows{list-style:none;margin:0;padding:0;}
+  .row{display:grid;grid-template-columns:26px minmax(0,1fr) 64px 72px auto;align-items:center;gap:8px;padding:5px 2px;border-bottom:1px solid rgba(0,0,0,.05);}
+  .row .rk{font:600 13px Inter,sans-serif;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .row .tm{font:600 14px Inter,sans-serif;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} .row .tm a{color:var(--navy);text-decoration:none;}
+  .row .val{text-align:right;font:700 14px Inter,sans-serif;font-variant-numeric:tabular-nums lining-nums;}
+  .mb{display:inline-block;height:7px;background:rgba(0,0,0,.07);border-radius:4px;overflow:hidden;}
+  .mb-fill{display:block;height:100%;background:var(--navy);border-radius:4px;}
+  .row .sub{font:400 10px Inter,sans-serif;color:var(--muted);text-align:right;white-space:nowrap;}
+  .chip-rail{display:flex;gap:7px;overflow-x:auto;padding:4px 0 12px;-webkit-overflow-scrolling:touch;}
+  .chip{flex:0 0 auto;font:700 12px Inter,sans-serif;text-decoration:none;color:var(--navy);background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:999px;padding:5px 12px;}
+  .chip:hover{border-color:var(--gold);}
+  .conf-sec{margin:18px 0 6px;scroll-margin-top:16px;}
+  .conf-title{font-family:'Bebas Neue',Impact,sans-serif;font-size:20px;letter-spacing:.03em;margin:0 0 8px;}
+  .conf-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:760px){.conf-grid{grid-template-columns:1fr 1fr;}}
+  .board.compact .spot{grid-template-columns:38px 1fr auto;padding:8px 10px;} .board.compact .spot-rk{font-size:32px;} .board.compact .spot-val{font-size:20px;}
+  @media(max-width:520px){
+    .row{grid-template-columns:22px minmax(0,1fr) auto;row-gap:2px;}
+    .row .mb,.row .sub{grid-column:2 / -1;justify-self:start;width:100%;}
+    .row .mb{width:60%;}
+  }
+</style>
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head><body>
+<div class="nav-strip"><a href="/">← CFB Index</a><a href="/rankings/">Rankings</a><a href="/chronicle/">The Chronicle</a><strong>Offseason Leaderboards</strong></div>
+<div class="wrap">
+  <header class="hero">
+    <div class="stamp">Updated May 25, 2026 · 2026 offseason</div>
+    <h1>Offseason Leaderboards</h1>
+    <p class="thesis">Who won the offseason? National and conference boards for the transfer portal, returning production, NFL exits, and roster talent — every FBS team ranked heading into 2026. Tap a team for the full file.</p>
+    <div class="jumps"><a href="#national">National</a><a href="#conference">By Conference</a></div>
+  </header>
+
+  <h2 class="sec" id="national">National Boards</h2>
+  <section class="board flagship" id="board-portal">
+  <div class="board-head"><h3>Portal Kings</h3><span class="meth">net transfer points, 2026 cycle</span></div>
+  <p class="dek">Who won the transfer portal — net talent added, not just bodies.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/north-texas.html">North Texas</a><span class="conf">American Athletic</span></div>
+        <div class="spot-blurb">North Texas added the most net portal talent in the country — +22 points clear of the field.</div>
+      </div>
+      <div class="spot-val">+22</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/jacksonville-state.html">Jacksonville State</a><span class="conf">Conference USA</span></span><span class="val">+16</span><span class="mb"><span class="mb-fill" style="width:73.8%"></span></span><span class="sub">20 in · 13 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/memphis.html">Memphis</a><span class="conf">American Athletic</span></span><span class="val">+15</span><span class="mb"><span class="mb-fill" style="width:67.1%"></span></span><span class="sub">51 in · 47 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/uconn.html">UConn</a><span class="conf">FBS Independents</span></span><span class="val">+14</span><span class="mb"><span class="mb-fill" style="width:63.3%"></span></span><span class="sub">53 in · 45 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/james-madison.html">James Madison</a><span class="conf">Sun Belt</span></span><span class="val">+13</span><span class="mb"><span class="mb-fill" style="width:59.3%"></span></span><span class="sub">37 in · 30 out</span></li><li class="row"><span class="rk">6</span><span class="tm"><a href="/teams/kennesaw-state.html">Kennesaw State</a><span class="conf">Conference USA</span></span><span class="val">+9</span><span class="mb"><span class="mb-fill" style="width:43.8%"></span></span><span class="sub">29 in · 19 out</span></li><li class="row"><span class="rk">7</span><span class="tm"><a href="/teams/marshall.html">Marshall</a><span class="conf">Sun Belt</span></span><span class="val">+9</span><span class="mb"><span class="mb-fill" style="width:42.3%"></span></span><span class="sub">27 in · 22 out</span></li><li class="row"><span class="rk">8</span><span class="tm"><a href="/teams/missouri-state.html">Missouri State</a><span class="conf">Conference USA</span></span><span class="val">+7</span><span class="mb"><span class="mb-fill" style="width:35.9%"></span></span><span class="sub">19 in · 11 out</span></li><li class="row"><span class="rk">9</span><span class="tm"><a href="/teams/hawai-i.html">Hawai&#x27;i</a><span class="conf">Mountain West</span></span><span class="val">+7</span><span class="mb"><span class="mb-fill" style="width:34.9%"></span></span><span class="sub">16 in · 9 out</span></li><li class="row"><span class="rk">10</span><span class="tm"><a href="/teams/utah-state.html">Utah State</a><span class="conf">Mountain West</span></span><span class="val">+6</span><span class="mb"><span class="mb-fill" style="width:31.7%"></span></span><span class="sub">29 in · 19 out</span></li><li class="row"><span class="rk">11</span><span class="tm"><a href="/teams/tulane.html">Tulane</a><span class="conf">American Athletic</span></span><span class="val">+6</span><span class="mb"><span class="mb-fill" style="width:29.0%"></span></span><span class="sub">20 in · 27 out</span></li><li class="row"><span class="rk">12</span><span class="tm"><a href="/teams/liberty.html">Liberty</a><span class="conf">Conference USA</span></span><span class="val">+4</span><span class="mb"><span class="mb-fill" style="width:22.3%"></span></span><span class="sub">26 in · 19 out</span></li></ol>
+</section>
+  <div class="grid"><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>Most Returning Production</h3><span class="meth">returning production %, 2025</span></div>
+  <p class="dek">The rosters bringing back the most from last season.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/houston.html">Houston</a><span class="conf">American Athletic</span></div>
+        <div class="spot-blurb">Houston returns 100% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">100%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/marshall.html">Marshall</a><span class="conf">Sun Belt</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:100.0%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/utep.html">UTEP</a><span class="conf">Conference USA</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:100.0%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/south-florida.html">South Florida</a><span class="conf">American Athletic</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:99.5%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/temple.html">Temple</a><span class="conf">American Athletic</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:99.5%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">6</span><span class="tm"><a href="/teams/western-michigan.html">Western Michigan</a><span class="conf">Mid-American</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:99.5%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">7</span><span class="tm"><a href="/teams/liberty.html">Liberty</a><span class="conf">Conference USA</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:98.1%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">8</span><span class="tm"><a href="/teams/middle-tennessee.html">Middle Tennessee</a><span class="conf">Conference USA</span></span><span class="val">99%</span><span class="mb"><span class="mb-fill" style="width:95.4%"></span></span><span class="sub">QB 100% back</span></li></ol>
+</section><section class="board compact" id="board-draft">
+  <div class="board-head"><h3>NFL Draft Factories</h3><span class="meth">2025 draft picks (round-weighted)</span></div>
+  <p class="dek">Most talent sent to the NFL — and now to replace.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/ohio-state.html">Ohio State</a><span class="conf">Big Ten</span></div>
+        <div class="spot-blurb">Ohio State sent 14 players to the NFL — the most draft talent any program has to replace.</div>
+      </div>
+      <div class="spot-val">14</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/georgia.html">Georgia</a><span class="conf">SEC</span></span><span class="val">13</span><span class="mb"><span class="mb-fill" style="width:90.9%"></span></span><span class="sub">3 first-round</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/texas.html">Texas</a><span class="conf">SEC</span></span><span class="val">12</span><span class="mb"><span class="mb-fill" style="width:81.8%"></span></span><span class="sub">3 first-round</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/oregon.html">Oregon</a><span class="conf">Big Ten</span></span><span class="val">10</span><span class="mb"><span class="mb-fill" style="width:63.6%"></span></span><span class="sub">2 first-round</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/ole-miss.html">Ole Miss</a><span class="conf">SEC</span></span><span class="val">8</span><span class="mb"><span class="mb-fill" style="width:45.5%"></span></span><span class="sub">2 first-round</span></li><li class="row"><span class="rk">6</span><span class="tm"><a href="/teams/michigan.html">Michigan</a><span class="conf">Big Ten</span></span><span class="val">7</span><span class="mb"><span class="mb-fill" style="width:36.4%"></span></span><span class="sub">3 first-round</span></li><li class="row"><span class="rk">7</span><span class="tm"><a href="/teams/alabama.html">Alabama</a><span class="conf">SEC</span></span><span class="val">7</span><span class="mb"><span class="mb-fill" style="width:36.4%"></span></span><span class="sub">2 first-round</span></li><li class="row"><span class="rk">8</span><span class="tm"><a href="/teams/lsu.html">LSU</a><span class="conf">SEC</span></span><span class="val">7</span><span class="mb"><span class="mb-fill" style="width:36.4%"></span></span><span class="sub">1 first-round</span></li></ol>
+</section><section class="board compact" id="board-talent">
+  <div class="board-head"><h3>Roster Talent</h3><span class="meth">talent composite, 2025</span></div>
+  <p class="dek">Composite recruiting talent on hand entering 2026.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/georgia.html">Georgia</a><span class="conf">SEC</span></div>
+        <div class="spot-blurb">Georgia carries the top recruiting-talent composite on hand entering 2026.</div>
+      </div>
+      <div class="spot-val">1003</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/alabama.html">Alabama</a><span class="conf">SEC</span></span><span class="val">994</span><span class="mb"><span class="mb-fill" style="width:96.0%"></span></span><span class="sub">talent composite</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/ohio-state.html">Ohio State</a><span class="conf">Big Ten</span></span><span class="val">974</span><span class="mb"><span class="mb-fill" style="width:87.6%"></span></span><span class="sub">talent composite</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/texas.html">Texas</a><span class="conf">SEC</span></span><span class="val">974</span><span class="mb"><span class="mb-fill" style="width:87.5%"></span></span><span class="sub">talent composite</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/oregon.html">Oregon</a><span class="conf">Big Ten</span></span><span class="val">941</span><span class="mb"><span class="mb-fill" style="width:73.9%"></span></span><span class="sub">talent composite</span></li><li class="row"><span class="rk">6</span><span class="tm"><a href="/teams/lsu.html">LSU</a><span class="conf">SEC</span></span><span class="val">920</span><span class="mb"><span class="mb-fill" style="width:64.9%"></span></span><span class="sub">talent composite</span></li><li class="row"><span class="rk">7</span><span class="tm"><a href="/teams/clemson.html">Clemson</a><span class="conf">ACC</span></span><span class="val">918</span><span class="mb"><span class="mb-fill" style="width:64.2%"></span></span><span class="sub">talent composite</span></li><li class="row"><span class="rk">8</span><span class="tm"><a href="/teams/texas-a-m.html">Texas A&amp;M</a><span class="conf">SEC</span></span><span class="val">917</span><span class="mb"><span class="mb-fill" style="width:63.7%"></span></span><span class="sub">talent composite</span></li></ol>
+</section><section class="board compact" id="board-reload">
+  <div class="board-head"><h3>Biggest Reloads</h3><span class="meth">returning production %, 2025</span></div>
+  <p class="dek">Fewest returners — the rebuild jobs of the offseason.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/colorado.html">Colorado</a><span class="conf">Big 12</span></div>
+        <div class="spot-blurb">Colorado brings back the least production in FBS — the offseason&#x27;s biggest rebuild.</div>
+      </div>
+      <div class="spot-val">7%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/ball-state.html">Ball State</a><span class="conf">Mid-American</span></span><span class="val">8%</span><span class="mb"><span class="mb-fill" style="width:97.3%"></span></span><span class="sub">QB -1% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/bowling-green.html">Bowling Green</a><span class="conf">Mid-American</span></span><span class="val">8%</span><span class="mb"><span class="mb-fill" style="width:95.9%"></span></span><span class="sub">QB 2% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/central-michigan.html">Central Michigan</a><span class="conf">Mid-American</span></span><span class="val">10%</span><span class="mb"><span class="mb-fill" style="width:79.5%"></span></span><span class="sub">QB 57% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/kent-state.html">Kent State</a><span class="conf">Mid-American</span></span><span class="val">11%</span><span class="mb"><span class="mb-fill" style="width:72.6%"></span></span><span class="sub">QB -5% back</span></li><li class="row"><span class="rk">6</span><span class="tm"><a href="/teams/memphis.html">Memphis</a><span class="conf">American Athletic</span></span><span class="val">12%</span><span class="mb"><span class="mb-fill" style="width:68.5%"></span></span><span class="sub">QB 2% back</span></li><li class="row"><span class="rk">7</span><span class="tm"><a href="/teams/miami.html">Miami</a><span class="conf">ACC</span></span><span class="val">12%</span><span class="mb"><span class="mb-fill" style="width:64.4%"></span></span><span class="sub">QB 6% back</span></li><li class="row"><span class="rk">8</span><span class="tm"><a href="/teams/new-mexico.html">New Mexico</a><span class="conf">Mountain West</span></span><span class="val">12%</span><span class="mb"><span class="mb-fill" style="width:64.4%"></span></span><span class="sub">QB 0% back</span></li></ol>
+</section></div>
+
+  <h2 class="sec" id="conference">By Conference</h2>
+  <nav class="chip-rail" aria-label="Jump to conference"><a class="chip" href="#conf-16">Big Ten</a><a class="chip" href="#conf-7">ACC</a><a class="chip" href="#conf-35">SEC</a><a class="chip" href="#conf-6">Conference USA</a><a class="chip" href="#conf-30">Sun Belt</a><a class="chip" href="#conf-12">American Athletic</a><a class="chip" href="#conf-17">Mid-American</a><a class="chip" href="#conf-1">Big 12</a><a class="chip" href="#conf-3">Mountain West</a></nav><div class="conf-sec" id="conf-16"><h3 class="conf-title">Big Ten</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>Big Ten Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the Big Ten.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/iowa.html">Iowa</a><span class="conf">Big Ten</span></div>
+        <div class="spot-blurb">Iowa added the most net portal talent in the country — +4 points clear of the field.</div>
+      </div>
+      <div class="spot-val">+4</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/northwestern.html">Northwestern</a><span class="conf">Big Ten</span></span><span class="val">+2</span><span class="mb"><span class="mb-fill" style="width:71.4%"></span></span><span class="sub">17 in · 8 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/rutgers.html">Rutgers</a><span class="conf">Big Ten</span></span><span class="val">-4</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">15 in · 15 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/wisconsin.html">Wisconsin</a><span class="conf">Big Ten</span></span><span class="val">-4</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">33 in · 25 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/indiana.html">Indiana</a><span class="conf">Big Ten</span></span><span class="val">-4</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">17 in · 16 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>Big Ten Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the Big Ten.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/michigan-state.html">Michigan State</a><span class="conf">Big Ten</span></div>
+        <div class="spot-blurb">Michigan State returns 69% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">69%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/northwestern.html">Northwestern</a><span class="conf">Big Ten</span></span><span class="val">68%</span><span class="mb"><span class="mb-fill" style="width:94.3%"></span></span><span class="sub">QB 41% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/rutgers.html">Rutgers</a><span class="conf">Big Ten</span></span><span class="val">67%</span><span class="mb"><span class="mb-fill" style="width:89.3%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/nebraska.html">Nebraska</a><span class="conf">Big Ten</span></span><span class="val">59%</span><span class="mb"><span class="mb-fill" style="width:23.0%"></span></span><span class="sub">QB 88% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/penn-state.html">Penn State</a><span class="conf">Big Ten</span></span><span class="val">56%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 88% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-7"><h3 class="conf-title">ACC</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>ACC Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the ACC.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/miami.html">Miami</a><span class="conf">ACC</span></div>
+        <div class="spot-blurb">Miami added the most net portal talent in the country — -3 points clear of the field.</div>
+      </div>
+      <div class="spot-val">-3</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/wake-forest.html">Wake Forest</a><span class="conf">ACC</span></span><span class="val">-6</span><span class="mb"><span class="mb-fill" style="width:48.6%"></span></span><span class="sub">24 in · 23 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/virginia.html">Virginia</a><span class="conf">ACC</span></span><span class="val">-7</span><span class="mb"><span class="mb-fill" style="width:26.0%"></span></span><span class="sub">30 in · 22 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/clemson.html">Clemson</a><span class="conf">ACC</span></span><span class="val">-8</span><span class="mb"><span class="mb-fill" style="width:22.7%"></span></span><span class="sub">11 in · 15 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/duke.html">Duke</a><span class="conf">ACC</span></span><span class="val">-9</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">19 in · 17 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>ACC Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the ACC.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/nc-state.html">NC State</a><span class="conf">ACC</span></div>
+        <div class="spot-blurb">NC State returns 95% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">95%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/clemson.html">Clemson</a><span class="conf">ACC</span></span><span class="val">83%</span><span class="mb"><span class="mb-fill" style="width:62.8%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/georgia-tech.html">Georgia Tech</a><span class="conf">ACC</span></span><span class="val">81%</span><span class="mb"><span class="mb-fill" style="width:58.2%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/pittsburgh.html">Pittsburgh</a><span class="conf">ACC</span></span><span class="val">75%</span><span class="mb"><span class="mb-fill" style="width:39.3%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/boston-college.html">Boston College</a><span class="conf">ACC</span></span><span class="val">62%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 39% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-35"><h3 class="conf-title">SEC</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>SEC Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the SEC.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/kentucky.html">Kentucky</a><span class="conf">SEC</span></div>
+        <div class="spot-blurb">Kentucky added the most net portal talent in the country — -1 points clear of the field.</div>
+      </div>
+      <div class="spot-val">-1</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/south-carolina.html">South Carolina</a><span class="conf">SEC</span></span><span class="val">-1</span><span class="mb"><span class="mb-fill" style="width:96.5%"></span></span><span class="sub">25 in · 24 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/texas-a-m.html">Texas A&amp;M</a><span class="conf">SEC</span></span><span class="val">-4</span><span class="mb"><span class="mb-fill" style="width:51.1%"></span></span><span class="sub">19 in · 21 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/alabama.html">Alabama</a><span class="conf">SEC</span></span><span class="val">-7</span><span class="mb"><span class="mb-fill" style="width:23.7%"></span></span><span class="sub">17 in · 24 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/ole-miss.html">Ole Miss</a><span class="conf">SEC</span></span><span class="val">-8</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">28 in · 25 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>SEC Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the SEC.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/vanderbilt.html">Vanderbilt</a><span class="conf">SEC</span></div>
+        <div class="spot-blurb">Vanderbilt returns 86% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">86%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/texas-a-m.html">Texas A&amp;M</a><span class="conf">SEC</span></span><span class="val">75%</span><span class="mb"><span class="mb-fill" style="width:65.7%"></span></span><span class="sub">QB 97% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/lsu.html">LSU</a><span class="conf">SEC</span></span><span class="val">66%</span><span class="mb"><span class="mb-fill" style="width:35.6%"></span></span><span class="sub">QB 95% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/south-carolina.html">South Carolina</a><span class="conf">SEC</span></span><span class="val">62%</span><span class="mb"><span class="mb-fill" style="width:24.3%"></span></span><span class="sub">QB 84% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/florida.html">Florida</a><span class="conf">SEC</span></span><span class="val">55%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 73% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-6"><h3 class="conf-title">Conference USA</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>Conference USA Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the Conference USA.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/jacksonville-state.html">Jacksonville State</a><span class="conf">Conference USA</span></div>
+        <div class="spot-blurb">Jacksonville State added the most net portal talent in the country — +16 points clear of the field.</div>
+      </div>
+      <div class="spot-val">+16</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/kennesaw-state.html">Kennesaw State</a><span class="conf">Conference USA</span></span><span class="val">+9</span><span class="mb"><span class="mb-fill" style="width:52.7%"></span></span><span class="sub">29 in · 19 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/missouri-state.html">Missouri State</a><span class="conf">Conference USA</span></span><span class="val">+7</span><span class="mb"><span class="mb-fill" style="width:40.3%"></span></span><span class="sub">19 in · 11 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/liberty.html">Liberty</a><span class="conf">Conference USA</span></span><span class="val">+4</span><span class="mb"><span class="mb-fill" style="width:18.8%"></span></span><span class="sub">26 in · 19 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/delaware.html">Delaware</a><span class="conf">Conference USA</span></span><span class="val">+1</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">13 in · 8 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>Conference USA Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the Conference USA.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/utep.html">UTEP</a><span class="conf">Conference USA</span></div>
+        <div class="spot-blurb">UTEP returns 100% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">100%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/liberty.html">Liberty</a><span class="conf">Conference USA</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:97.5%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/middle-tennessee.html">Middle Tennessee</a><span class="conf">Conference USA</span></span><span class="val">99%</span><span class="mb"><span class="mb-fill" style="width:93.6%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/sam-houston.html">Sam Houston</a><span class="conf">Conference USA</span></span><span class="val">90%</span><span class="mb"><span class="mb-fill" style="width:36.9%"></span></span><span class="sub">QB 94% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/jacksonville-state.html">Jacksonville State</a><span class="conf">Conference USA</span></span><span class="val">84%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 100% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-30"><h3 class="conf-title">Sun Belt</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>Sun Belt Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the Sun Belt.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/james-madison.html">James Madison</a><span class="conf">Sun Belt</span></div>
+        <div class="spot-blurb">James Madison added the most net portal talent in the country — +13 points clear of the field.</div>
+      </div>
+      <div class="spot-val">+13</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/marshall.html">Marshall</a><span class="conf">Sun Belt</span></span><span class="val">+9</span><span class="mb"><span class="mb-fill" style="width:80.1%"></span></span><span class="sub">27 in · 22 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/louisiana.html">Louisiana</a><span class="conf">Sun Belt</span></span><span class="val">-6</span><span class="mb"><span class="mb-fill" style="width:5.9%"></span></span><span class="sub">5 in · 7 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/georgia-southern.html">Georgia Southern</a><span class="conf">Sun Belt</span></span><span class="val">-7</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">17 in · 18 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/southern-miss.html">Southern Miss</a><span class="conf">Sun Belt</span></span><span class="val">-7</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">37 in · 28 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>Sun Belt Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the Sun Belt.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/marshall.html">Marshall</a><span class="conf">Sun Belt</span></div>
+        <div class="spot-blurb">Marshall returns 100% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">100%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/coastal-carolina.html">Coastal Carolina</a><span class="conf">Sun Belt</span></span><span class="val">97%</span><span class="mb"><span class="mb-fill" style="width:85.6%"></span></span><span class="sub">QB 84% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/texas-state.html">Texas State</a><span class="conf">Sun Belt</span></span><span class="val">93%</span><span class="mb"><span class="mb-fill" style="width:66.2%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/georgia-southern.html">Georgia Southern</a><span class="conf">Sun Belt</span></span><span class="val">92%</span><span class="mb"><span class="mb-fill" style="width:63.9%"></span></span><span class="sub">QB 85% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/james-madison.html">James Madison</a><span class="conf">Sun Belt</span></span><span class="val">78%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 96% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-12"><h3 class="conf-title">American Athletic</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>American Athletic Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the American Athletic.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/north-texas.html">North Texas</a><span class="conf">American Athletic</span></div>
+        <div class="spot-blurb">North Texas added the most net portal talent in the country — +22 points clear of the field.</div>
+      </div>
+      <div class="spot-val">+22</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/memphis.html">Memphis</a><span class="conf">American Athletic</span></span><span class="val">+15</span><span class="mb"><span class="mb-fill" style="width:68.1%"></span></span><span class="sub">51 in · 47 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/tulane.html">Tulane</a><span class="conf">American Athletic</span></span><span class="val">+6</span><span class="mb"><span class="mb-fill" style="width:31.4%"></span></span><span class="sub">20 in · 27 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/south-florida.html">South Florida</a><span class="conf">American Athletic</span></span><span class="val">+2</span><span class="mb"><span class="mb-fill" style="width:16.6%"></span></span><span class="sub">43 in · 34 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/army.html">Army</a><span class="conf">American Athletic</span></span><span class="val">-2</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">0 in · 2 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>American Athletic Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the American Athletic.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/houston.html">Houston</a><span class="conf">American Athletic</span></div>
+        <div class="spot-blurb">Houston returns 100% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">100%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/south-florida.html">South Florida</a><span class="conf">American Athletic</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:96.3%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/temple.html">Temple</a><span class="conf">American Athletic</span></span><span class="val">100%</span><span class="mb"><span class="mb-fill" style="width:96.3%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/tulsa.html">Tulsa</a><span class="conf">American Athletic</span></span><span class="val">99%</span><span class="mb"><span class="mb-fill" style="width:63.0%"></span></span><span class="sub">QB 92% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/navy.html">Navy</a><span class="conf">American Athletic</span></span><span class="val">97%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 100% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-17"><h3 class="conf-title">Mid-American</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>Mid-American Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the Mid-American.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/ball-state.html">Ball State</a><span class="conf">Mid-American</span></div>
+        <div class="spot-blurb">Ball State added the most net portal talent in the country — +3 points clear of the field.</div>
+      </div>
+      <div class="spot-val">+3</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/miami-oh.html">Miami (OH)</a><span class="conf">Mid-American</span></span><span class="val">+3</span><span class="mb"><span class="mb-fill" style="width:94.0%"></span></span><span class="sub">16 in · 14 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/ohio.html">Ohio</a><span class="conf">Mid-American</span></span><span class="val">-1</span><span class="mb"><span class="mb-fill" style="width:56.7%"></span></span><span class="sub">18 in · 16 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/massachusetts.html">Massachusetts</a><span class="conf">Mid-American</span></span><span class="val">-4</span><span class="mb"><span class="mb-fill" style="width:29.4%"></span></span><span class="sub">22 in · 19 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/kent-state.html">Kent State</a><span class="conf">Mid-American</span></span><span class="val">-6</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">11 in · 15 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>Mid-American Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the Mid-American.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/western-michigan.html">Western Michigan</a><span class="conf">Mid-American</span></div>
+        <div class="spot-blurb">Western Michigan returns 100% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">100%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/massachusetts.html">Massachusetts</a><span class="conf">Mid-American</span></span><span class="val">76%</span><span class="mb"><span class="mb-fill" style="width:32.8%"></span></span><span class="sub">QB 95% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/toledo.html">Toledo</a><span class="conf">Mid-American</span></span><span class="val">68%</span><span class="mb"><span class="mb-fill" style="width:10.5%"></span></span><span class="sub">QB 81% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/buffalo.html">Buffalo</a><span class="conf">Mid-American</span></span><span class="val">66%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 36% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/ohio.html">Ohio</a><span class="conf">Mid-American</span></span><span class="val">65%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 97% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-1"><h3 class="conf-title">Big 12</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>Big 12 Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the Big 12.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/colorado.html">Colorado</a><span class="conf">Big 12</span></div>
+        <div class="spot-blurb">Colorado added the most net portal talent in the country — -2 points clear of the field.</div>
+      </div>
+      <div class="spot-val">-2</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/arizona-state.html">Arizona State</a><span class="conf">Big 12</span></span><span class="val">-8</span><span class="mb"><span class="mb-fill" style="width:51.8%"></span></span><span class="sub">24 in · 21 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/tcu.html">TCU</a><span class="conf">Big 12</span></span><span class="val">-12</span><span class="mb"><span class="mb-fill" style="width:26.8%"></span></span><span class="sub">12 in · 14 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/kansas.html">Kansas</a><span class="conf">Big 12</span></span><span class="val">-12</span><span class="mb"><span class="mb-fill" style="width:25.9%"></span></span><span class="sub">31 in · 26 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/ucf.html">UCF</a><span class="conf">Big 12</span></span><span class="val">-15</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">31 in · 35 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>Big 12 Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the Big 12.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/byu.html">BYU</a><span class="conf">Big 12</span></div>
+        <div class="spot-blurb">BYU returns 87% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">87%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/baylor.html">Baylor</a><span class="conf">Big 12</span></span><span class="val">82%</span><span class="mb"><span class="mb-fill" style="width:82.6%"></span></span><span class="sub">QB 98% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/arizona-state.html">Arizona State</a><span class="conf">Big 12</span></span><span class="val">70%</span><span class="mb"><span class="mb-fill" style="width:33.6%"></span></span><span class="sub">QB 90% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/kansas-state.html">Kansas State</a><span class="conf">Big 12</span></span><span class="val">69%</span><span class="mb"><span class="mb-fill" style="width:31.7%"></span></span><span class="sub">QB 93% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/tcu.html">TCU</a><span class="conf">Big 12</span></span><span class="val">61%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 96% back</span></li></ol>
+</section></div></div>
+<div class="conf-sec" id="conf-3"><h3 class="conf-title">Mountain West</h3><div class="conf-grid"><section class="board compact" id="board-portal">
+  <div class="board-head"><h3>Mountain West Portal Kings</h3><span class="meth">net transfer points, 2026</span></div>
+  <p class="dek">Top net-talent portal hauls in the Mountain West.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/hawai-i.html">Hawai&#x27;i</a><span class="conf">Mountain West</span></div>
+        <div class="spot-blurb">Hawai&#x27;i added the most net portal talent in the country — +7 points clear of the field.</div>
+      </div>
+      <div class="spot-val">+7</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/utah-state.html">Utah State</a><span class="conf">Mountain West</span></span><span class="val">+6</span><span class="mb"><span class="mb-fill" style="width:93.5%"></span></span><span class="sub">29 in · 19 out</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/wyoming.html">Wyoming</a><span class="conf">Mountain West</span></span><span class="val">+1</span><span class="mb"><span class="mb-fill" style="width:46.0%"></span></span><span class="sub">19 in · 16 out</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/new-mexico.html">New Mexico</a><span class="conf">Mountain West</span></span><span class="val">-2</span><span class="mb"><span class="mb-fill" style="width:21.7%"></span></span><span class="sub">15 in · 14 out</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/san-jos-state.html">San José State</a><span class="conf">Mountain West</span></span><span class="val">-4</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">17 in · 16 out</span></li></ol>
+</section><section class="board compact" id="board-returning">
+  <div class="board-head"><h3>Mountain West Returning Most</h3><span class="meth">returning %, 2025</span></div>
+  <p class="dek">Most production back in the Mountain West.</p>
+  
+    <div class="spot">
+      <div class="spot-rk">1</div>
+      <div class="spot-main">
+        <div class="spot-team"><a href="/teams/san-diego-state.html">San Diego State</a><span class="conf">Mountain West</span></div>
+        <div class="spot-blurb">San Diego State returns 80% of last season&#x27;s production, among the most continuous rosters in FBS.</div>
+      </div>
+      <div class="spot-val">80%</div>
+    </div>
+  <ol class="rows"><li class="row"><span class="rk">2</span><span class="tm"><a href="/teams/wyoming.html">Wyoming</a><span class="conf">Mountain West</span></span><span class="val">77%</span><span class="mb"><span class="mb-fill" style="width:83.2%"></span></span><span class="sub">QB 100% back</span></li><li class="row"><span class="rk">3</span><span class="tm"><a href="/teams/nevada.html">Nevada</a><span class="conf">Mountain West</span></span><span class="val">66%</span><span class="mb"><span class="mb-fill" style="width:16.2%"></span></span><span class="sub">QB 18% back</span></li><li class="row"><span class="rk">4</span><span class="tm"><a href="/teams/utah-state.html">Utah State</a><span class="conf">Mountain West</span></span><span class="val">63%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 96% back</span></li><li class="row"><span class="rk">5</span><span class="tm"><a href="/teams/air-force.html">Air Force</a><span class="conf">Mountain West</span></span><span class="val">63%</span><span class="mb"><span class="mb-fill" style="width:4.0%"></span></span><span class="sub">QB 23% back</span></li></ol>
+</section></div></div>
+</div></body></html>
