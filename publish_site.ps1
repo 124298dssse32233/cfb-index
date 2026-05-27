@@ -5,6 +5,7 @@ Set-Location $repoRoot
 $env:PYTHONUNBUFFERED = "1"
 
 Write-Host "Publishing college football site outputs from current local data..." -ForegroundColor Cyan
+python -u manage.py build-team-preview-layer
 python -u manage.py build-published
 
 Write-Host ""

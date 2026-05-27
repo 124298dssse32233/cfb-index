@@ -222,6 +222,12 @@ jobs:
           )
           PY
 
+      - name: Build team preview truth layer
+        # A+B+C render from deterministic preview tables. Keep this before the
+        # direct out-of-season build-site path so production never ships the new
+        # modules with only heuristic fallbacks.
+        run: python -u manage.py build-team-preview-layer
+
       - name: Build or incrementally sync
         id: site_build
         run: |

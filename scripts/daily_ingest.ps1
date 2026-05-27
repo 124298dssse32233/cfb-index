@@ -174,6 +174,7 @@ Run "board: build-methodology" { python manage.py build-methodology }
 # =========================================================================
 # I. Full static site rebuild - the main product output
 # =========================================================================
+Run "team-preview: build-team-preview-layer" { python manage.py build-team-preview-layer }
 Run "site: build-site" { python manage.py build-site }
 Run "site: build-editions-archive" { python manage.py build-editions-archive }
 

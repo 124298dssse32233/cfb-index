@@ -1850,6 +1850,27 @@ def build_parser() -> argparse.ArgumentParser:
     )
     _add_preview_common(rrs_parser)
 
+    preview_layer_parser = subparsers.add_parser(
+        "build-team-preview-layer",
+        help="Team Preview: run all deterministic preview builders for publish.",
+    )
+    preview_layer_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Preview season year. Defaults to the current calendar year.",
+    )
+    preview_layer_parser.add_argument(
+        "--as-of", default=None,
+        help="As-of date YYYY-MM-DD. Defaults to today's date.",
+    )
+    preview_layer_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Limit to specific team slugs (default: canonical FBS set).",
+    )
+    preview_layer_parser.add_argument(
+        "--allow-empty", action="store_true",
+        help="Exit successfully even if no preview rows were written.",
+    )
+
     bowl_parser = subparsers.add_parser(
         "import-bowl-record-ledger",
         help="Team Preview: import an all-time bowl-record seed (CSV/JSON).",
@@ -5646,6 +5667,26 @@ def main() -> None:
         )
         return
 
+    if args.command == "build-team-preview-layer":
+        result = _build_team_preview_layer(
+            db,
+            season_year=args.season,
+            as_of_date=args.as_of,
+            slugs=args.slug,
+        )
+        _print_team_preview_layer_result(result)
+        minimum_written = min(
+            int(result["snapshots"]["written"]),
+            int(result["season_path"]["written"]),
+            int(result["roster_reload"]["written"]),
+        )
+        if minimum_written <= 0 and not args.allow_empty:
+            raise RuntimeError(
+                "Team-preview layer wrote zero rows for at least one builder. "
+                "Re-run with --allow-empty only for empty/dev databases."
+            )
+        return
+
     if args.command == "import-bowl-record-ledger":
         from cfb_rankings.team_preview.bowl_ledger import import_bowl_ledger
         result = import_bowl_ledger(db, args.source, as_of=args.as_of)
@@ -6127,6 +6168,7 @@ def _publish_outputs(
 ) -> tuple[Path, Path]:
     from cfb_rankings.reporting import build_static_site, write_latest_rankings_report
 
+    _try_build_team_preview_layer_for_publish(db)
     report_output = write_latest_rankings_report(db=db, output_path=output_path, limit=limit)
     site_output = build_static_site(db=db, output_dir=site_output_dir)
     print(f"Built rankings report: {report_output}", flush=True)
@@ -6134,6 +6176,67 @@ def _publish_outputs(
     if open_report:
         webbrowser.open(Path(report_output).resolve().as_uri())
     return report_output, site_output
+
+
+def _default_team_preview_context(
+    season_year: int | None,
+    as_of_date: str | None,
+) -> tuple[int, str]:
+    today = date.today()
+    return season_year or today.year, as_of_date or today.isoformat()
+
+
+def _build_team_preview_layer(
+    db: "Database",
+    *,
+    season_year: int | None = None,
+    as_of_date: str | None = None,
+    slugs: list[str] | None = None,
+) -> dict[str, object]:
+    from cfb_rankings.team_preview import (
+        build_roster_reload_snapshots,
+        build_team_preview_snapshots,
+        compute_season_path_projections,
+    )
+
+    season, as_of = _default_team_preview_context(season_year, as_of_date)
+    snapshots = build_team_preview_snapshots(db, season, as_of, slugs=slugs)
+    season_path = compute_season_path_projections(db, season, as_of, slugs=slugs)
+    roster_reload = build_roster_reload_snapshots(db, season, as_of, slugs=slugs)
+    return {
+        "season": season,
+        "as_of": as_of,
+        "snapshots": snapshots,
+        "season_path": season_path,
+        "roster_reload": roster_reload,
+    }
+
+
+def _print_team_preview_layer_result(result: dict[str, object]) -> None:
+    snapshots = result["snapshots"]
+    season_path = result["season_path"]
+    roster_reload = result["roster_reload"]
+    print(
+        f"build-team-preview-layer season={result['season']} as-of={result['as_of']}: "
+        f"snapshots={snapshots['written']}/{snapshots['targets']} "
+        f"season_path={season_path['written']}/{season_path['targets']} "
+        f"roster_reload={roster_reload['written']}/{roster_reload['targets']} "
+        f"position_rows={roster_reload['position_rows']}",
+        flush=True,
+    )
+
+
+def _try_build_team_preview_layer_for_publish(db: "Database") -> None:
+    try:
+        result = _build_team_preview_layer(db)
+    except Exception as exc:
+        print(
+            f"[team-preview] warning: preview layer refresh failed before render: "
+            f"{type(exc).__name__}: {exc}",
+            flush=True,
+        )
+        return
+    _print_team_preview_layer_result(result)
 
 
 def _latest_model_summary(db: "Database", season: int) -> dict[str, int | str] | None:
