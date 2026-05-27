@@ -1,0 +1,58 @@
+player_id,full_name_for_audit,position_group,slot_rank,starter_status,confidence,source,source_url,as_of,notes
+# 2026 depth chart projections — top-50 program returning starters.
+# Sources: On3 spring practice reports, 247Sports depth-chart projections,
+# Phil Steele 2026 Preview, school media days, official spring game depth charts.
+# Confidence "confirmed" = announced or returning incumbent. "projected" = spring lean.
+# Refreshed before fall camp (early August) and after.
+# === Power 4 QB1s — returning ===
+13074,Arch Manning,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas QB1 — heir apparent finally takes over full-time
+13243,Cade Klubnik,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Clemson QB1 — fourth-year starter
+13989,Garrett Nussmeier,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,LSU QB1 — returning incumbent
+8280,Lanorris Sellers,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,South Carolina QB1 — dual-threat dynamism returns
+64120,DJ Lagway,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Florida QB1 — projected to break out
+9245,Sam Leavitt,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Arizona State QB1 — Big 12 title core
+11807,Maddux Madsen,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Boise State QB1 — G5 Heisman dark horse
+9132,John Mateer,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Oklahoma QB1 — transferred in from Washington State
+9515,Avery Johnson,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Kansas State QB1 — Big 12 contender
+15185,Marcel Reed,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas A&M QB1 — second year as starter
+13699,Dylan Raiola,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Nebraska QB1 — second-year starter
+10457,Jackson Arnold,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Auburn QB1 — transferred in from Oklahoma
+9019,Beau Pribula,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Missouri QB1 — transferred in from Penn State
+11684,Sawyer Robertson,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Baylor QB1 — multi-year starter
+5944,Nico Iamaleava,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,UCLA QB1 — transferred in from Tennessee
+53823,Bryce Underwood,QB,1,projected_starter,projected,manual_editorial,,2026-05-27,Michigan QB1 — five-star true freshman projected starter
+10046,Behren Morton,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas Tech QB1 — Big 12 contender QB
+12226,Conner Weigman,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Houston QB1 — transferred from Texas A&M
+11883,Demond Williams Jr.,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Washington QB1 — second-year starter
+8888,Devon Dampier,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Utah QB1 — transferred in from New Mexico
+13076,Quinn Ewers,QB,1,projected_starter,projected,manual_editorial,,2026-05-27,Texas backup behind Manning — depth/insurance role
+# === Marquee skill returning ===
+3830,Jeremiah Smith,WR,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Ohio State WR1 — All-American returning
+12194,Jeremiyah Love,RB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Notre Dame RB1 — All-ACC returning
+3744,Caleb Downs,DB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Ohio State S — All-American DB
+4452,Ryan Williams,WR,2,returning_starter,confirmed,manual_editorial,,2026-05-27,Alabama WR — sophomore breakout
+# === Marquee defense returning ===
+13080,Anthony Hill Jr.,LB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas LB — Butkus watch
+13102,Colin Simmons,DL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas EDGE — Bednarik watch
+9838,David Bailey,DL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas Tech EDGE — transferred from Stanford
+8993,Dani Dennis-Sutton,DL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Penn State EDGE
+13264,Peter Woods,DL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Clemson DT
+6059,Jermod McCoy,DB,2,returning_starter,confirmed,manual_editorial,,2026-05-27,Tennessee CB — Thorpe watch
+9631,Dillon Thieneman,DB,3,returning_starter,confirmed,manual_editorial,,2026-05-27,Oregon S
+4541,Malachi Moore,DB,4,returning_starter,confirmed,manual_editorial,,2026-05-27,Alabama S
+13977,Whit Weeks,LB,2,returning_starter,confirmed,manual_editorial,,2026-05-27,LSU LB
+10053,Jacob Rodriguez,LB,3,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas Tech LB
+9485,Caleb Banks,DL,2,returning_starter,confirmed,manual_editorial,,2026-05-27,Florida DL
+# === Marquee OL returning ===
+28416,Kadyn Proctor,OL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Alabama OT
+16506,Spencer Fano,OL,2,returning_starter,confirmed,manual_editorial,,2026-05-27,Utah OT
+31869,Olaivavega Ioane,OL,3,returning_starter,confirmed,manual_editorial,,2026-05-27,Penn State OG
+27690,Jake Slaughter,OL,4,returning_starter,confirmed,manual_editorial,,2026-05-27,Florida C — Rimington watch
+29069,Connor Lew,OL,5,returning_starter,confirmed,manual_editorial,,2026-05-27,Auburn C
+# === Marquee TE returning ===
+13150,Eli Stowers,TE,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Vanderbilt TE — Mackey watch
+15250,Oscar Delp,TE,2,returning_starter,confirmed,manual_editorial,,2026-05-27,Georgia TE
+# === Marquee specialists returning ===
+15903,Will Stone,K,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas K — Groza watch
+6148,Ryan Fitzgerald,K,2,returning_starter,confirmed,manual_editorial,,2026-05-27,FSU K
+10691,Ryan Eckley,P,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Michigan State P — Ray Guy watch

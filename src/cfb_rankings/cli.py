@@ -170,6 +170,34 @@ def build_parser() -> argparse.ArgumentParser:
              "Also regenerates /methodology/freshness.html (TASK 8.7).",
     )
 
+    # Wave 25 — refresh 2026 award watch + depth chart from CSV source-of-truth.
+    refresh_award_parser = subparsers.add_parser(
+        "refresh-award-watch",
+        help="Reload data/award_watch_2026.csv into player_award_watch_2026. Idempotent.",
+    )
+    refresh_award_parser.add_argument("--csv", type=str, default="data/award_watch_2026.csv")
+    refresh_award_parser.add_argument("--dry-run", action="store_true")
+    refresh_award_parser.add_argument(
+        "--prune-source", type=str, default="consensus_may_2026",
+        help="Delete rows from this source not present in the CSV (default: consensus_may_2026)",
+    )
+
+    refresh_depth_parser = subparsers.add_parser(
+        "refresh-depth-chart",
+        help="Reload data/depth_chart_2026.csv into player_depth_chart_2026. Idempotent.",
+    )
+    refresh_depth_parser.add_argument("--csv", type=str, default="data/depth_chart_2026.csv")
+    refresh_depth_parser.add_argument("--dry-run", action="store_true")
+    refresh_depth_parser.add_argument(
+        "--prune-source", type=str, default="manual_editorial",
+        help="Delete rows from this source not present in the CSV (default: manual_editorial)",
+    )
+
+    subparsers.add_parser(
+        "verify-wave25",
+        help="Audit Wave 25 modules — every status code, marquee players, override counts.",
+    )
+
     # Sprint v5-11.5 pre-work — Cmd-K search index.
     build_search_parser = subparsers.add_parser(
         "build-search-index",
@@ -2693,6 +2721,38 @@ def main() -> None:
         print(f"methodology index written: {idx}")
         return
 
+    if args.command == "refresh-award-watch":
+        import importlib.util as _ilu
+        from pathlib import Path as _P
+        _spec = _ilu.spec_from_file_location(
+            "load_award_watch", _P(__file__).resolve().parent.parent.parent / "scripts" / "load_award_watch.py"
+        )
+        _mod = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_mod)
+        _mod.load(_P(args.csv), _P(getattr(db, "_db_path", None) or "cfb_rankings.db"),
+                  args.dry_run, args.prune_source)
+        return
+
+    if args.command == "refresh-depth-chart":
+        import importlib.util as _ilu
+        from pathlib import Path as _P
+        _spec = _ilu.spec_from_file_location(
+            "load_depth_chart", _P(__file__).resolve().parent.parent.parent / "scripts" / "load_depth_chart.py"
+        )
+        _mod = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_mod)
+        _mod.load(_P(args.csv), _P(getattr(db, "_db_path", None) or "cfb_rankings.db"),
+                  args.dry_run, args.prune_source)
+        return
+
+    if args.command == "verify-wave25":
+        import importlib.util as _ilu
+        from pathlib import Path as _P
+        _spec = _ilu.spec_from_file_location(
+            "verify_wave25", _P(__file__).resolve().parent.parent.parent / "scripts" / "verify_wave25.py"
+        )
+        _mod = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_mod)
+        import sys as _sys
+        _sys.exit(0 if _mod.verify(_P(getattr(db, "_db_path", None) or "cfb_rankings.db")) else 1)
+
     if args.command == "build-freshness":
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         out = write_freshness_page(db)
@@ -4931,6 +4991,41 @@ def main() -> None:
             print("[build-site] LKG-only mode: chronicle cards will be served from Last-Known-Good cache.")
         if no_llm:
             print("[build-site] no-LLM mode: all LLM call paths are hard-disabled.")
+
+        # Wave 25 — materialize player_current_status_view into a cache table.
+        # The view's nested CTEs cost minutes per WHERE player_id=X. Building
+        # it once at start drops 7000 × 4-per-player lookups from "hours" to
+        # "sub-second total."
+        try:
+            import sqlite3 as _sqlite3, time as _time
+            _db_path = getattr(db, "_db_path", None) or "cfb_rankings.db"
+            _t0 = _time.perf_counter()
+            _con = _sqlite3.connect(str(_db_path), timeout=300)
+            _con.execute("PRAGMA busy_timeout=300000")
+            _con.executescript("""
+DROP TABLE IF EXISTS player_current_status_cache;
+CREATE TABLE player_current_status_cache AS
+SELECT * FROM (
+    SELECT v.*,
+           ROW_NUMBER() OVER (
+               PARTITION BY player_id
+               ORDER BY CASE WHEN current_team_id IS NULL THEN 1 ELSE 0 END,
+                        CASE WHEN status_code='TRANSFERRED_COLLEGE' THEN 0
+                             WHEN status_code='RETURNING_2026' THEN 1
+                             ELSE 2 END
+           ) AS rn
+    FROM player_current_status_view v
+) WHERE rn = 1;
+ALTER TABLE player_current_status_cache DROP COLUMN rn;
+CREATE UNIQUE INDEX idx_player_current_status_cache_pid
+    ON player_current_status_cache(player_id);
+""")
+            _con.commit()
+            _n = _con.execute("SELECT COUNT(*) FROM player_current_status_cache").fetchone()[0]
+            _con.close()
+            print(f"[build-site] Wave 25 status cache: {_n:,} rows in {_time.perf_counter()-_t0:.1f}s")
+        except Exception as _exc:
+            print(f"[build-site] WARN: status cache build failed — {type(_exc).__name__}: {_exc}")
 
         output_path = build_static_site(db=db, output_dir=args.output_dir)
         build_retro_pages(db, output_dir=args.output_dir)

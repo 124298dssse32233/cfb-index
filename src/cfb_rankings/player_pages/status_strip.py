@@ -233,6 +233,18 @@ def _as_of_display(row: dict[str, Any]) -> tuple[str, bool]:
 def fetch_status_row(db, player_id: int | None) -> dict[str, Any] | None:
     if db is None or player_id is None:
         return None
+    # Prefer the materialized cache table (built by scripts/wave25_build_status_cache.py
+    # at build start). Falls back to the view if cache missing — view is correct
+    # but ~minutes per query, so cache is essential for the 7k-player build loop.
+    try:
+        rows = db.query_all(
+            "select * from player_current_status_cache where player_id = :pid",
+            {"pid": int(player_id)},
+        )
+        if rows:
+            return dict(rows[0])
+    except Exception:
+        pass
     rows = db.query_all(
         "select * from player_current_status_view where player_id = :pid",
         {"pid": int(player_id)},

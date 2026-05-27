@@ -238,6 +238,7 @@ def _award_display_name(award_slug: str) -> str:
     return {
         "heisman":         "Heisman Watch",
         "maxwell":         "Maxwell Watch",
+        "walter_camp":     "Walter Camp",
         "davey_obrien":    "Davey O'Brien",
         "manning":         "Manning Award",
         "doak_walker":     "Doak Walker",
@@ -251,6 +252,10 @@ def _award_display_name(award_slug: str) -> str:
         "rimington":       "Rimington",
         "lou_groza":       "Groza",
         "ray_guy":         "Ray Guy",
+        "lott":            "Lott IMPACT",
+        "hornung":         "Hornung",
+        "wuerffel":        "Wuerffel",
+        "burlsworth":      "Burlsworth",
     }.get(award_slug, award_slug.replace("_", " ").title())
 
 
