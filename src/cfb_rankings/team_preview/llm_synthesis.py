@@ -21,7 +21,15 @@ from cfb_rankings.team_preview.prompts import (
     build_preview_claim_prompt,
     build_preview_evidence,
 )
-from cfb_rankings.team_preview.validators import validate_preview_claim
+from cfb_rankings.team_preview.validators import (
+    _allowed_numbers,
+    _is_internal_decimal_score,
+    _is_year_token,
+    _number_candidates,
+    _number_supported,
+    _numbers_in_text,
+    validate_preview_claim,
+)
 
 
 SURFACE_PREVIEW_THESIS = "preview_thesis"
@@ -94,6 +102,7 @@ def generate_team_preview_claims(
                 continue
 
             candidate = _normalise_candidate_text(_candidate_to_dict(candidate_model))
+            candidate = _autofill_numeric_receipts(candidate, evidence)
             validation = validate_preview_claim(candidate, evidence)
             _log_usage(
                 model_id=generation.model_id,
@@ -208,6 +217,76 @@ def _normalise_candidate_text(candidate: dict[str, Any]) -> dict[str, Any]:
         return value
 
     return norm(candidate)
+
+
+def _autofill_numeric_receipts(candidate: dict, evidence: dict) -> dict:
+    """Auto-populate supporting_claims.numeric_values with evidenced numbers.
+
+    qwen3 reliably uses correct numbers from evidence but forgets to list them
+    in numeric_values. We scan each supporting_claim.text (plus headline/body)
+    for non-year, non-decimal-score numerals that ARE present in the evidence
+    packet and add them to the appropriate numeric_values list.  This turns
+    formatting failures into passes without changing any factual content.
+    """
+    allowed = _allowed_numbers(evidence)
+    supporting = candidate.get("supporting_claims")
+    if not isinstance(supporting, list) or not supporting:
+        return candidate
+
+    def _coerce_numeric_list(nums: object) -> list[float]:
+        if not isinstance(nums, list):
+            return []
+        out: list[float] = []
+        for n in nums:
+            try:
+                out.append(float(n))
+            except (TypeError, ValueError):
+                pass
+        return out
+
+    def _add_evidenced_numbers(text: str, nums: list[float]) -> list[float]:
+        existing_candidates: set[str] = set()
+        for n in nums:
+            existing_candidates.update(_number_candidates(n))
+        for token in _numbers_in_text(text):
+            if _is_year_token(token):
+                continue
+            if _is_internal_decimal_score(token):
+                continue
+            if not _number_supported(token, allowed):
+                continue
+            # Already covered by an existing numeric_value?
+            if _number_supported(token, existing_candidates):
+                continue
+            try:
+                fval = float(token)
+            except (TypeError, ValueError):
+                continue
+            nums.append(fval)
+            existing_candidates.update(_number_candidates(fval))
+        return nums
+
+    # Collect all numbers from headline + body and attach to first claim
+    headline = str(candidate.get("headline") or "")
+    body = str(candidate.get("body") or "")
+    first_claim = supporting[0]
+    if isinstance(first_claim, dict):
+        first_claim["numeric_values"] = _add_evidenced_numbers(
+            headline + " " + body,
+            _coerce_numeric_list(first_claim.get("numeric_values")),
+        )
+
+    # Per-claim: add numbers from its own text
+    for claim in supporting:
+        if not isinstance(claim, dict):
+            continue
+        text = str(claim.get("text") or "")
+        claim["numeric_values"] = _add_evidenced_numbers(
+            text,
+            _coerce_numeric_list(claim.get("numeric_values")),
+        )
+
+    return candidate
 
 
 def _repair_prompt(original_prompt: str, violations: list[str]) -> str:

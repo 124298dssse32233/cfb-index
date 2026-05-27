@@ -71,7 +71,11 @@ def validate_preview_claim(candidate: dict[str, Any], evidence: dict[str, Any]) 
         if not key:
             errors.append(f"supporting_claim_{idx}_missing_evidence_key")
         elif key not in known_keys:
-            errors.append(f"unsupported_evidence_key:{key}")
+            # Try inserting a list index — models often omit the index in paths
+            # like "transfer_positions.net_count" vs "transfer_positions.0.net_count"
+            fuzzy_key = _fuzzy_list_key(key, known_keys)
+            if fuzzy_key is None:
+                errors.append(f"unsupported_evidence_key:{key}")
         text = _text(item.get("text"))
         if text:
             combined_parts.append(text)
@@ -231,3 +235,19 @@ def _allowed_numbers(evidence: dict[str, Any]) -> set[str]:
 
     walk(evidence)
     return allowed
+
+
+def _fuzzy_list_key(key: str, known_keys: set[str]) -> str | None:
+    """Try inserting a numeric list index into a key that skipped it.
+
+    Models often write 'transfer_positions.net_count' when the evidence
+    structure requires 'transfer_positions.0.net_count'.  We try inserting
+    indices 0-5 at each segment boundary and return the first match.
+    """
+    parts = key.split(".")
+    for insert_at in range(1, len(parts)):
+        for idx in range(6):
+            candidate = ".".join(parts[:insert_at] + [str(idx)] + parts[insert_at:])
+            if candidate in known_keys:
+                return candidate
+    return None

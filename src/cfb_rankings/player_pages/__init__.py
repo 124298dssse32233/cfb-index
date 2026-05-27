@@ -33,6 +33,7 @@ from .scenario_explorer import render_scenario_explorer, SCENARIO_EXPLORER_CSS
 from .career_standing import render_career_standing, CAREER_STANDING_CSS
 from .trophy_case import render_trophy_case, TROPHY_CASE_CSS
 from .sparklines import build_stat_sparklines, SPARKLINE_CSS
+from .pass_profile import render_pass_profile, PASS_PROFILE_CSS
 
 
 __all__ = [
@@ -76,4 +77,6 @@ __all__ = [
     "TROPHY_CASE_CSS",
     "build_stat_sparklines",
     "SPARKLINE_CSS",
+    "render_pass_profile",
+    "PASS_PROFILE_CSS",
 ]
