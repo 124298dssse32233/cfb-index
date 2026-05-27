@@ -26,6 +26,7 @@ from cfb_rankings.team_preview.validators import validate_preview_claim
 
 SURFACE_PREVIEW_THESIS = "preview_thesis"
 CLAIM_TYPE_THESIS = "team_preview_thesis"
+MAX_VALIDATION_ATTEMPTS = 2
 
 
 @dataclass
@@ -58,61 +59,69 @@ def generate_team_preview_claims(
             report.errors.append({"slug": slug, "error": "missing_evidence"})
             continue
         prompt = build_preview_claim_prompt(evidence)
-        started = time.perf_counter()
-        try:
-            candidate_model, generation = backend.generate_structured(
-                prompt,
-                PreviewClaimCandidate,
-                GenerationConfig(
-                    max_tokens=520,
-                    temperature=0.25,
-                    top_p=0.8,
-                    wall_clock_budget_s=45.0,
-                ),
-            )
-            duration_s = max(0.0, time.perf_counter() - started)
-        except Exception as exc:
-            report.rejected += 1
-            report.errors.append({
-                "slug": slug,
-                "error": f"generation:{type(exc).__name__}",
-                "detail": str(exc),
-            })
-            _log_usage(
-                model_id=getattr(backend, "model_id", "unknown"),
-                backend_name=getattr(backend, "name", "unknown"),
-                prompt_tokens=max(1, len(prompt) // 4),
-                completion_tokens=0,
-                duration_s=max(0.0, time.perf_counter() - started),
-                success=False,
-                error_kind=type(exc).__name__,
-                evidence_hash=str(evidence.get("evidence_hash") or ""),
-            )
-            continue
+        candidate = None
+        generation = None
+        validation = None
+        last_errors: list[str] = []
+        for attempt in range(1, MAX_VALIDATION_ATTEMPTS + 1):
+            started = time.perf_counter()
+            try:
+                candidate_model, generation = backend.generate_structured(
+                    prompt,
+                    PreviewClaimCandidate,
+                    GenerationConfig(
+                        max_tokens=520,
+                        temperature=0.2 if attempt > 1 else 0.25,
+                        top_p=0.75 if attempt > 1 else 0.8,
+                        wall_clock_budget_s=45.0,
+                    ),
+                )
+                duration_s = max(0.0, time.perf_counter() - started)
+            except Exception as exc:
+                _log_usage(
+                    model_id=getattr(backend, "model_id", "unknown"),
+                    backend_name=getattr(backend, "name", "unknown"),
+                    prompt_tokens=max(1, len(prompt) // 4),
+                    completion_tokens=0,
+                    duration_s=max(0.0, time.perf_counter() - started),
+                    success=False,
+                    error_kind=type(exc).__name__,
+                    evidence_hash=str(evidence.get("evidence_hash") or ""),
+                )
+                last_errors = [f"generation:{type(exc).__name__}"]
+                if attempt < MAX_VALIDATION_ATTEMPTS:
+                    prompt = _repair_prompt(prompt, last_errors)
+                continue
 
-        candidate = _normalise_candidate_text(_candidate_to_dict(candidate_model))
-        validation = validate_preview_claim(candidate, evidence)
-        _log_usage(
-            model_id=generation.model_id,
-            backend_name=generation.backend,
-            prompt_tokens=generation.tokens_in,
-            completion_tokens=generation.tokens_out,
-            duration_s=duration_s,
-            success=validation.passed,
-            error_kind=None if validation.passed else "validator_reject",
-            evidence_hash=str(evidence.get("evidence_hash") or ""),
-            validator_scores={
-                "voice": validation.voice_score,
-                "fact": validation.fact_score,
-                "slop": validation.slop_score,
-            },
-        )
-        if not validation.passed:
+            candidate = _normalise_candidate_text(_candidate_to_dict(candidate_model))
+            validation = validate_preview_claim(candidate, evidence)
+            _log_usage(
+                model_id=generation.model_id,
+                backend_name=generation.backend,
+                prompt_tokens=generation.tokens_in,
+                completion_tokens=generation.tokens_out,
+                duration_s=duration_s,
+                success=validation.passed,
+                error_kind=None if validation.passed else "validator_reject",
+                evidence_hash=str(evidence.get("evidence_hash") or ""),
+                validator_scores={
+                    "voice": validation.voice_score,
+                    "fact": validation.fact_score,
+                    "slop": validation.slop_score,
+                },
+            )
+            if validation.passed:
+                break
+            last_errors = validation.errors
+            if attempt < MAX_VALIDATION_ATTEMPTS:
+                prompt = _repair_prompt(prompt, last_errors)
+
+        if not candidate or not generation or not validation or not validation.passed:
             report.rejected += 1
             report.errors.append({
                 "slug": slug,
                 "error": "validator_reject",
-                "violations": validation.errors,
+                "violations": last_errors,
             })
             continue
 
@@ -199,6 +208,26 @@ def _normalise_candidate_text(candidate: dict[str, Any]) -> dict[str, Any]:
         return value
 
     return norm(candidate)
+
+
+def _repair_prompt(original_prompt: str, violations: list[str]) -> str:
+    violation_text = "\n".join(f"- {v}" for v in violations[:12])
+    return f"""{original_prompt}
+
+The previous JSON candidate failed validation:
+{violation_text}
+
+Return a corrected JSON object only.
+Rules for the repair:
+- Remove unsupported claims instead of explaining them.
+- Use only ASCII text.
+- Use only numeric values present in the evidence.
+- Put every number used in headline/body/supporting text into supporting_claims.numeric_values.
+- Use one evidence_key path exactly as it appears in the evidence packet; do not comma-join paths.
+- Headline must not end with a dangling word like despite, while, with, and, or but.
+- Body must start with an uppercase letter and stand alone as complete prose.
+- Use exact ranks like #3; do not write approximate phrases like top-10.
+"""
 
 
 def _log_usage(

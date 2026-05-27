@@ -192,12 +192,16 @@ Output JSON only, matching the supplied schema.
 Hard rules:
 - Use only facts present in <evidence>.
 - Every numeric value in headline, body, and supporting_claims must appear in <evidence>.
-- Every supporting_claim.evidence_key must be a dotted path inside <evidence>.
+- Every numeric value in headline, body, and supporting_claims.text must also appear in supporting_claims.numeric_values.
+- Every supporting_claim.evidence_key must be one single dotted path inside <evidence>; do not comma-join paths.
 - Do not make fan-intel, fanbase, boards, Reddit, mood, or belief claims unless evidence.fan_intel.ready is true.
 - Do not claim all-time bowl scope unless evidence.bowl_ledger.verification_status supports it.
 - If evidence is thin, write a narrower thesis instead of filling gaps.
 - Keep body to 2 concise sentences.
 - Use ASCII characters only.
+- Headline must not end with a conjunction or preposition.
+- Body must start with an uppercase letter and read as standalone prose.
+- Use exact ranks like #3; do not write approximate phrases like top-10.
 
 <evidence>
 {packet}
