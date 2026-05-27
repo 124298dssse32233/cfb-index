@@ -197,7 +197,7 @@ def render_selector_grid(db, player_id: int | None, season_year: int | None) -> 
             )
         return f"""
 <section class="selector-grid" data-module="selector-grid" data-state="empty">
-  <p class="selector-grid__eyebrow">Selector Grid · {season_year}</p>
+  <p class="selector-grid__eyebrow">Selector Grid &middot; {season_year}</p>
   <div class="selector-grid__grid">{''.join(cells_html)}</div>
   <p class="selector-grid__story">
     Selector recognition fills in once the major honors lists (AP, FWAA, AFCA,
@@ -235,7 +235,7 @@ def render_selector_grid(db, player_id: int | None, season_year: int | None) -> 
 
     return f"""
 <section class="selector-grid" data-module="selector-grid" data-state="ready">
-  <p class="selector-grid__eyebrow">Selector Grid · {season_year}</p>
+  <p class="selector-grid__eyebrow">Selector Grid &middot; {season_year}</p>
   <div class="selector-grid__grid">{''.join(cells_html2)}</div>
   {explainer}
 </section>"""

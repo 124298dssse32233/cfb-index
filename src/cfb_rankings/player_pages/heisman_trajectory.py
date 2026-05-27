@@ -155,10 +155,10 @@ def render_heisman_trajectory(
 <section class="heisman-traj" data-module="heisman-trajectory" data-state="snapshot"
          data-final="{rank}">
   <div class="heisman-traj__head">
-    <p class="heisman-traj__eyebrow">Final Heisman Position · {season_year}</p>
+    <p class="heisman-traj__eyebrow">Final Heisman Position &middot; {season_year}</p>
     <h3 class="heisman-traj__peak">#{rank}</h3>
   </div>
-  <p class="heisman-traj__story">{escape(label)} · finalist probability {finalist*100:.0f}%.</p>
+  <p class="heisman-traj__story">{escape(label)} &middot; finalist probability {finalist*100:.0f}%.</p>
 </section>"""
 
     weeks = [int(r.get("week") or 0) for r in rows]
@@ -203,7 +203,7 @@ def render_heisman_trajectory(
 <section class="heisman-traj" data-module="heisman-trajectory" data-state="ready"
          data-peak="{peak_rank}" data-final="{final_rank}">
   <div class="heisman-traj__head">
-    <p class="heisman-traj__eyebrow">Heisman Trajectory · {season_year}</p>
+    <p class="heisman-traj__eyebrow">Heisman Trajectory &middot; {season_year}</p>
     <h3 class="heisman-traj__peak">Peak #{peak_rank}</h3>
   </div>
   <div class="heisman-traj__body">

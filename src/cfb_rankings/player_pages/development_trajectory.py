@@ -206,7 +206,7 @@ def render_development_trajectory(
 <section class="dev-traj" data-module="development-trajectory" data-state="ready"
          data-position="{escape(pos)}">
   <div class="dev-traj__head">
-    <p class="dev-traj__eyebrow">Development Trajectory · {escape(metric_label)}</p>
+    <p class="dev-traj__eyebrow">Development Trajectory &middot; {escape(metric_label)}</p>
     <span class="dev-traj__metric">{escape(span_chunk)}</span>
   </div>
   <div class="dev-traj__body">

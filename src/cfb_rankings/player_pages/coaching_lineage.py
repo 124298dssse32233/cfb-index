@@ -218,7 +218,7 @@ def render_coaching_lineage(
     return f"""
 <section class="coaching-lineage" data-module="coaching-lineage" data-state="ready">
   <div class="coaching-lineage__head">
-    <p class="coaching-lineage__eyebrow">Coaching Lineage · {escape(span_chunk)}</p>
+    <p class="coaching-lineage__eyebrow">Coaching Lineage &middot; {escape(span_chunk)}</p>
     <span class="coaching-lineage__total">{len(coaches_seen)} coach{'es' if len(coaches_seen) != 1 else ''}</span>
   </div>
   <div class="coaching-lineage__rows">{''.join(row_html)}</div>

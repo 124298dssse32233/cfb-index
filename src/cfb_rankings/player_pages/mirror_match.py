@@ -16,7 +16,7 @@ For RBs:
   - rushing_touchdowns
 
 The match returns a similarity percentage 0-100. Brief target: "Closest
-historical match: Bo Nix, Oregon 2023 · 94% similar."
+historical match: Bo Nix, Oregon 2023 &middot; 94% similar."
 
 Falls back to "Awaiting Signal" when no metrics exist for the focal
 player or no candidate pool exists.
@@ -292,12 +292,12 @@ def render_mirror_match(
 <section class="mirror-match" data-module="mirror-match" data-state="ready"
          data-similarity="{sim:.1f}">
   <div class="mirror-match__head">
-    <p class="mirror-match__eyebrow">Mirror Match · Statistical fingerprint</p>
+    <p class="mirror-match__eyebrow">Mirror Match &middot; Statistical fingerprint</p>
   </div>
   <div class="mirror-match__match">
     <div>
       <h3 class="mirror-match__name">{escape(str(name))}</h3>
-      <div class="mirror-match__meta">{escape(str(team))} · {escape(str(cand_year))}</div>
+      <div class="mirror-match__meta">{escape(str(team))} &middot; {escape(str(cand_year))}</div>
       <p class="mirror-match__story">{escape(story)}</p>
     </div>
     <div>

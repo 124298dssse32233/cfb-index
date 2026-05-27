@@ -172,20 +172,21 @@ def render_season_context(db, player_id: int | None) -> str:
         )
         detail_bits: list[str] = []
         if staff.get("hc"):
-            detail_bits.append(f"HC: {staff['hc']}")
+            detail_bits.append(f"HC: {escape(str(staff['hc']))}")
         if staff.get("oc") and staff["oc"] != staff.get("hc"):
-            detail_bits.append(f"OC: {staff['oc']}")
+            detail_bits.append(f"OC: {escape(str(staff['oc']))}")
         if scheme:
-            detail_bits.append(scheme)
-        detail = " · ".join(detail_bits)
+            detail_bits.append(escape(str(scheme)))
+        # Join with HTML entity — bits are already escaped, do NOT re-escape
+        detail_html = " &middot; ".join(detail_bits)
 
         cards.append(
             '<div class="season-context__row">'
             f'<span class="season-context__year">{year}</span>'
             f'<span class="season-context__team">{escape(team)}</span>'
             f'{rec_html}'
-            + (f'<span class="season-context__detail">{escape(detail)}</span>'
-               if detail else "")
+            + (f'<span class="season-context__detail">{detail_html}</span>'
+               if detail_html else "")
             + '</div>'
         )
 
@@ -193,7 +194,7 @@ def render_season_context(db, player_id: int | None) -> str:
         return ""
     return (
         '<section class="season-context" data-module="season-context" data-state="ready">'
-        '<p class="season-context__head">Season context · Team result + system</p>'
+        '<p class="season-context__head">Season context &middot; Team result + system</p>'
         f'<div class="season-context__rows">{"".join(cards)}</div>'
         '</section>'
     )

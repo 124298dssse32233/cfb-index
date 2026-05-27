@@ -243,10 +243,10 @@ def render_standing_rail(standing_rung: int | None, player_name: str = "") -> st
 <section class="player-standing" data-module="player-standing" data-state="ready"
          data-rung="{rung}" data-tier="{tier}">
   <div class="player-standing__head">
-    <p class="player-standing__eyebrow">Player Standing · {len(_RUNG_CATALOG)} rungs</p>
-    <span class="player-standing__tier-label">Tier {tier} · {escape(tier_label)}</span>
+    <p class="player-standing__eyebrow">Player Standing &middot; {len(_RUNG_CATALOG)} rungs</p>
+    <span class="player-standing__tier-label">Tier {tier} &middot; {escape(tier_label)}</span>
   </div>
-  <h3 class="player-standing__rung-label">R{rung_id:02d} · {escape(label)}</h3>
+  <h3 class="player-standing__rung-label">R{rung_id:02d} &middot; {escape(label)}</h3>
   <p class="player-standing__story">{escape(story)}</p>
   <div class="player-standing__rail" role="img" aria-label="Standing rung {rung} of 16">
     {''.join(rail_html)}
