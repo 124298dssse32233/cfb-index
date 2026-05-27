@@ -15,7 +15,8 @@ from html import escape
 from typing import Any
 
 from .profile_loader import Profile
-from .data import TeamSnapshot
+from .data import TeamSnapshot, fetch_bowl_ledger_row
+from cfb_rankings.team_preview.bowl_ledger import resolve_bowl_record_display
 
 
 BOWL_HISTORY_CSS = """
@@ -131,8 +132,27 @@ def render_bowl_history(db, profile: Profile, snapshot: TeamSnapshot | None) -> 
         1 for r in rows
         if (r.get("home_team_id") == snapshot.team_id) == (r.get("home_points") > r.get("away_points"))
     )
+    total_losses = total_games - total_wins
 
-    verdict = f"{total_wins}-{total_games - total_wins} all-time on the ledger"
+    # Honest scope resolution (spec §1.5): the games table only holds CFBD-era
+    # (~2018+) postseason results, so it must NEVER be labelled "all-time". Hand
+    # the recent-era tally + any verified ledger row to resolve_bowl_record_display,
+    # which decides whether an all-time, recent-era, or unavailable label is honest.
+    era_years = sorted({int(r.get("season_year")) for r in rows})
+    recent_era_label = (
+        f"{era_years[0]}-{era_years[-1]}" if len(era_years) > 1
+        else (str(era_years[0]) if era_years else "recent")
+    )
+    ledger_row = fetch_bowl_ledger_row(db, snapshot.slug)
+    display = resolve_bowl_record_display(
+        ledger_row,
+        recent_postseason_wins=total_wins,
+        recent_postseason_losses=total_losses,
+        recent_era_label=recent_era_label,
+    )
+    if display.suppress:
+        return ""
+    verdict = display.label
     recent_line = (
         f"Most recent: {recent_year} — {'win' if won else 'loss'} {hp}-{ap} "
         f"({'home' if is_home else 'away'})."

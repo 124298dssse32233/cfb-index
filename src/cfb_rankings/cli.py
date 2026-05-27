@@ -1820,6 +1820,53 @@ def build_parser() -> argparse.ArgumentParser:
         help="Cap teams processed (useful for smoke tests).",
     )
 
+    # =========================================================================
+    # Team Preview — deterministic truth layer (Milestone A).
+    # Spec: docs/specs/team-preview-implementation-plan-2026-05-26.md
+    # =========================================================================
+    def _add_preview_common(p: argparse.ArgumentParser) -> None:
+        p.add_argument("--season", type=int, required=True,
+                       help="Preview season year, e.g. 2026.")
+        p.add_argument("--as-of", required=True,
+                       help="As-of date YYYY-MM-DD (e.g. 2026-05-25).")
+        p.add_argument("--slug", nargs="*", default=None,
+                       help="Limit to specific team slugs (default: canonical FBS set).")
+
+    tps_parser = subparsers.add_parser(
+        "build-team-preview-snapshots",
+        help="Team Preview: build deterministic team_preview_snapshot rows.",
+    )
+    _add_preview_common(tps_parser)
+
+    spp_parser = subparsers.add_parser(
+        "compute-season-path-projections",
+        help="Team Preview: compute final-season-aware floor/base/ceiling records.",
+    )
+    _add_preview_common(spp_parser)
+
+    rrs_parser = subparsers.add_parser(
+        "build-roster-reload-snapshots",
+        help="Team Preview: build transfer position flow + roster reload summary.",
+    )
+    _add_preview_common(rrs_parser)
+
+    bowl_parser = subparsers.add_parser(
+        "import-bowl-record-ledger",
+        help="Team Preview: import an all-time bowl-record seed (CSV/JSON).",
+    )
+    bowl_parser.add_argument("--source", required=True,
+                             help="Path to a bowl-ledger seed CSV or JSON.")
+    bowl_parser.add_argument("--as-of", default=None,
+                             help="Retrieval date YYYY-MM-DD (stamped when seed omits it).")
+
+    audit_parser = subparsers.add_parser(
+        "audit-team-preview-readiness",
+        help="Team Preview: report missing vs low-confidence preview data per team.",
+    )
+    _add_preview_common(audit_parser)
+    audit_parser.add_argument("--json", action="store_true",
+                              help="Emit the full per-team report as JSON.")
+
     return parser
 
 
@@ -5566,6 +5613,65 @@ def main() -> None:
             f"generate-chronicle-visuals: {teams_with_visuals} teams · "
             f"{total_visuals} visuals generated for season {args.season}"
         )
+        return
+
+    # ------------------------------------------------ team preview (Milestone A)
+    if args.command == "build-team-preview-snapshots":
+        from cfb_rankings.team_preview import build_team_preview_snapshots
+        result = build_team_preview_snapshots(db, args.season, args.as_of, slugs=args.slug)
+        print(
+            f"build-team-preview-snapshots season={args.season} as-of={args.as_of}: "
+            f"written={result['written']} skipped={result['skipped']} "
+            f"targets={result['targets']}"
+        )
+        return
+
+    if args.command == "compute-season-path-projections":
+        from cfb_rankings.team_preview import compute_season_path_projections
+        result = compute_season_path_projections(db, args.season, args.as_of, slugs=args.slug)
+        print(
+            f"compute-season-path-projections season={args.season} as-of={args.as_of}: "
+            f"written={result['written']} skipped={result['skipped']} "
+            f"targets={result['targets']}"
+        )
+        return
+
+    if args.command == "build-roster-reload-snapshots":
+        from cfb_rankings.team_preview import build_roster_reload_snapshots
+        result = build_roster_reload_snapshots(db, args.season, args.as_of, slugs=args.slug)
+        print(
+            f"build-roster-reload-snapshots season={args.season} as-of={args.as_of}: "
+            f"written={result['written']} skipped={result['skipped']} "
+            f"position_rows={result['position_rows']} targets={result['targets']}"
+        )
+        return
+
+    if args.command == "import-bowl-record-ledger":
+        from cfb_rankings.team_preview.bowl_ledger import import_bowl_ledger
+        result = import_bowl_ledger(db, args.source, as_of=args.as_of)
+        print(
+            f"import-bowl-record-ledger source={args.source}: "
+            f"rows={result['rows']} matched_team_id={result['matched_team_id']} "
+            f"unmatched={result['unmatched']}"
+        )
+        return
+
+    if args.command == "audit-team-preview-readiness":
+        from cfb_rankings.team_preview.readiness import audit_team_preview_readiness
+        report = audit_team_preview_readiness(db, args.season, args.as_of, slugs=args.slug)
+        counts = report.counts()
+        if getattr(args, "json", False):
+            import dataclasses
+            print(json.dumps(
+                {"counts": counts, "teams": [dataclasses.asdict(t) for t in report.teams]},
+                indent=2,
+            ))
+        else:
+            print(
+                f"audit-team-preview-readiness season={args.season} as-of={args.as_of}"
+            )
+            for key, val in counts.items():
+                print(f"  {key}: {val}")
         return
 
     raise RuntimeError(f"Unsupported command: {args.command}")

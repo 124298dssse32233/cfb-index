@@ -36,6 +36,7 @@ from .data import (
     fetch_savant_rows, fetch_savant_narrative, fetch_savant_echo,
     fetch_rivalry_posture, fetch_rivalry_stakes, fetch_rivalry_quote,
     fetch_season_arc, fetch_arc_narrative,
+    fetch_team_season_path, fetch_bowl_ledger_row,
 )
 from .state_resolver import PageState, resolve_state
 from .savant_card import render_savant_card
@@ -557,7 +558,10 @@ def _render_page(
     # within its conference cohort. Compact table + positioning summary.
     conference_standing_html = render_conference_standing(db, profile, snapshot) if db is not None else ""
     # Ceiling/Floor projection — Brief §11.2. Three-scenario next-season band.
-    ceiling_floor_html = render_ceiling_floor(profile, snapshot, arc_rows)
+    # Prefer the deterministic season-path projection (team-preview truth layer,
+    # Milestone B) so a ceiling can exceed 12 games; falls back to the heuristic.
+    season_path = fetch_team_season_path(db, snapshot.team_id) if db is not None and snapshot else None
+    ceiling_floor_html = render_ceiling_floor(profile, snapshot, arc_rows, season_path=season_path)
     # Home-Field Advantage — Brief §11.3. Home vs away win-share + margin
     # differential from games table. Honest empty when sample < 6 games.
     home_field_html = render_home_field_advantage(db, profile, snapshot) if db is not None else ""

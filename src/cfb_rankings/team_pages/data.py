@@ -519,6 +519,73 @@ def fetch_chronicle_cards(
     return out
 
 
+def fetch_team_season_path(db, team_id: int) -> dict[str, dict[str, Any]] | None:
+    """Read the latest floor/base/ceiling season-path projection set.
+
+    Sourced from the deterministic team-preview truth layer
+    (team_season_path_projection, Milestone A). Returns a dict keyed by scenario
+    ('floor'/'base'/'ceiling') for the most recent (season_year, as_of_date)
+    projection on file for this team, or None when none exist — in which case
+    the renderer falls back to its heuristic band.
+
+    The final_wins/final_losses here are *final-season-aware*: they include a
+    conference title game and CFP rounds, so a ceiling can legitimately exceed
+    the 12-game regular season.
+    """
+    if db is None:
+        return None
+    try:
+        latest = db.query_one(
+            "select season_year, as_of_date from team_season_path_projection "
+            "where team_id = :tid order by season_year desc, as_of_date desc limit 1",
+            {"tid": team_id},
+        )
+    except Exception:
+        # Table absent (migrations not applied) — degrade gracefully.
+        return None
+    if not latest:
+        return None
+    rows = db.query_all(
+        """
+        select scenario, regular_season_wins, regular_season_losses,
+               conference_title_game, conference_title_result, bowl_or_cfp_path,
+               postseason_wins, postseason_losses, final_wins, final_losses,
+               final_ties, path_label, rationale, confidence_band,
+               season_year, as_of_date
+        from team_season_path_projection
+        where team_id = :tid and season_year = :sy and as_of_date = :ad
+        """,
+        {"tid": team_id, "sy": latest["season_year"], "ad": latest["as_of_date"]},
+    )
+    by_scenario = {r["scenario"]: dict(r) for r in rows}
+    return by_scenario or None
+
+
+def fetch_bowl_ledger_row(db, slug: str) -> dict[str, Any] | None:
+    """Read the most-trustworthy all-time bowl-record ledger row for a slug.
+
+    Sourced from team_bowl_record_ledger (Milestone A). A slug can have several
+    source rows; prefer verified > single_source > conflict > missing. Returns
+    None when the table is absent or no row exists — the renderer then falls
+    back to an honestly-scoped recent-era record.
+    """
+    if db is None:
+        return None
+    try:
+        rows = db.query_all(
+            "select slug, wins, losses, ties, appearances, last_bowl_year, "
+            "last_bowl_name, last_bowl_result, source_name, verification_status "
+            "from team_bowl_record_ledger where slug = :slug",
+            {"slug": slug},
+        )
+    except Exception:
+        return None
+    if not rows:
+        return None
+    trust = {"verified": 0, "single_source": 1, "conflict": 2, "missing": 3}
+    return min(rows, key=lambda r: trust.get(r["verification_status"], 9))
+
+
 def fetch_llm_chronicle_cards(
     db,
     slug: str,

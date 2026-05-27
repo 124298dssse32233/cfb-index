@@ -197,6 +197,61 @@ def _baseline_wins(snapshot: TeamSnapshot, arc_rows: list[dict[str, Any]]) -> tu
     return None
 
 
+_PATH_DESCRIPTOR = {
+    "national_champion": "National champion.",
+    "cfp_title": "CFP title game.",
+    "cfp_semifinal": "CFP semifinal.",
+    "cfp_quarterfinal": "CFP quarterfinal.",
+    "cfp_first_round": "CFP first round.",
+    "bowl": "Bowl game.",
+    "none": "No postseason.",
+}
+
+
+def _projection_story(kind: str, row: dict[str, Any]) -> str:
+    """Story line for a projection-backed scenario.
+
+    Prefers the deterministic path_label/rationale from the truth layer so the
+    prose tracks the actual projected postseason path (which can extend past 12
+    games), rather than the win-count heuristic.
+    """
+    path = row.get("bowl_or_cfp_path") or "none"
+    ccg_win = row.get("conference_title_result") == "win"
+    desc = _PATH_DESCRIPTOR.get(path, "")
+    if ccg_win and path not in ("none", "bowl"):
+        return f"Conference title + {desc[:1].lower()}{desc[1:]}" if desc else "Conference title."
+    if ccg_win:
+        return "Conference title game appearance."
+    return desc or _scenario_story(kind, int(row.get("final_wins") or 0), 12)
+
+
+def _scenarios_from_projection(
+    season_path: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]] | None:
+    """Build floor/base/ceiling render rows from a projection set.
+
+    Returns None unless all three scenarios are present, so a partial set never
+    renders a misleading band.
+    """
+    out: list[dict[str, Any]] = []
+    for kind in ("floor", "base", "ceiling"):
+        row = season_path.get(kind)
+        if not row:
+            return None
+        fw = int(row.get("final_wins") or 0)
+        fl = int(row.get("final_losses") or 0)
+        ft = int(row.get("final_ties") or 0)
+        out.append({
+            "kind": kind,
+            "wins": fw,
+            "losses": fl,
+            "ties": ft,
+            "games": fw + fl + ft,
+            "story": _projection_story(kind, row),
+        })
+    return out
+
+
 def _scenario_story(kind: str, wins: int, games: int) -> str:
     losses = games - wins
     if kind == "floor":
@@ -231,68 +286,102 @@ def render_ceiling_floor(
     profile: Profile,
     snapshot: TeamSnapshot | None,
     arc_rows: list[dict[str, Any]] | None = None,
+    season_path: dict[str, dict[str, Any]] | None = None,
 ) -> str:
-    """Render the Ceiling/Floor projection band (Brief §11.2)."""
+    """Render the Ceiling/Floor projection band (Brief §11.2).
+
+    When a deterministic season-path projection set is supplied (the
+    team-preview truth layer, Milestone A/B), the band uses final-season-aware
+    records that can exceed 12 games — a ceiling can show e.g. 15-1 for a
+    projected national-title run (regular season + conference title + CFP).
+    Otherwise it falls back to the ±2-win heuristic off last season's record.
+    """
     if snapshot is None:
         return ""
-    base_info = _baseline_wins(snapshot, arc_rows or [])
-    if base_info is None:
-        return ""
-    base_wins, total_games = base_info
-    # Normalize total_games to a 12-game baseline so the rendered scenarios
-    # match the regular-season frame fans expect (CFB is 12 games + bowl).
-    games = 12
 
-    # Variance ±2.5 wins. Floor = base - 2 wins (clamped), Ceiling = base + 2.
-    floor = max(0, base_wins - 2)
-    ceiling = min(games, base_wins + 3)
-    base = max(0, min(games, base_wins))
+    scenarios = _scenarios_from_projection(season_path) if season_path else None
+    projection_backed = scenarios is not None
 
-    # Pin marker positions (% across the bar) — 0 wins on the left, games on right.
+    if scenarios is None:
+        base_info = _baseline_wins(snapshot, arc_rows or [])
+        if base_info is None:
+            return ""
+        base_wins, _ = base_info
+        # Heuristic fallback: normalise to a 12-game regular-season frame.
+        games = 12
+        floor = max(0, base_wins - 2)
+        ceiling = min(games, base_wins + 3)
+        base = max(0, min(games, base_wins))
+        scenarios = [
+            {"kind": "floor", "wins": floor, "losses": games - floor, "ties": 0,
+             "games": games, "story": _scenario_story("floor", floor, games)},
+            {"kind": "base", "wins": base, "losses": games - base, "ties": 0,
+             "games": games, "story": _scenario_story("base", base, games)},
+            {"kind": "ceiling", "wins": ceiling, "losses": games - ceiling, "ties": 0,
+             "games": games, "story": _scenario_story("ceiling", ceiling, games)},
+        ]
+
+    # Band scale: widest projected game total (>=12) so a deep-CFP ceiling has
+    # room past the regular-season frame. Markers position by wins on that scale.
+    scale = max(12, max(s["games"] for s in scenarios))
+
     def pct(n: int) -> float:
-        return 100.0 * n / games
+        return 100.0 * n / scale if scale else 0.0
 
-    floor_pct = pct(floor)
-    base_pct = pct(base)
-    ceiling_pct = pct(ceiling)
+    by_kind = {s["kind"]: s for s in scenarios}
+    floor_s, base_s, ceiling_s = by_kind["floor"], by_kind["base"], by_kind["ceiling"]
+
+    def record(s: dict[str, Any]) -> str:
+        return f'{s["wins"]}-{s["losses"]}-{s["ties"]}' if s["ties"] else f'{s["wins"]}-{s["losses"]}'
 
     program = escape(profile.program_name)
 
     scenarios_html = []
-    for kind, wins in (("floor", floor), ("base", base), ("ceiling", ceiling)):
-        story = _scenario_story(kind, wins, games)
+    for s in scenarios:
         scenarios_html.append(
-            f'<div class="ceiling-floor__scenario" data-kind="{kind}">'
-            f'<span class="ceiling-floor__scenario-kind">{kind}</span>'
-            f'<span class="ceiling-floor__scenario-record">{wins}-{games - wins}</span>'
-            f'<span class="ceiling-floor__scenario-story">{escape(story)}</span>'
+            f'<div class="ceiling-floor__scenario" data-kind="{s["kind"]}">'
+            f'<span class="ceiling-floor__scenario-kind">{s["kind"]}</span>'
+            f'<span class="ceiling-floor__scenario-record">{record(s)}</span>'
+            f'<span class="ceiling-floor__scenario-story">{escape(s["story"])}</span>'
             '</div>'
+        )
+
+    if projection_backed:
+        caveat = (
+            "Final-season-aware projection: floor / base / ceiling include "
+            "conference title and CFP games where the model supports them, so "
+            "a ceiling can exceed a 12-game regular season."
+        )
+    else:
+        caveat = (
+            "Variance assumed at ±2 wins from last-season record. Replace "
+            "with the season-path projection once preview data is built."
         )
 
     return f"""
 <section class="ceiling-floor" aria-labelledby="ceiling-floor-h"
-         data-module="ceiling-floor" data-state="ready">
+         data-module="ceiling-floor" data-state="ready"
+         data-source="{'projection' if projection_backed else 'heuristic'}">
   <div class="ceiling-floor__header">
     <p class="ceiling-floor__eyebrow">{program} · Next-Season Outcome Band</p>
     <h2 id="ceiling-floor-h" class="ceiling-floor__title">Floor / Base / Ceiling</h2>
   </div>
-  <div class="ceiling-floor__band" role="img" aria-label="Floor {floor} wins, base {base} wins, ceiling {ceiling} wins">
-    <div class="ceiling-floor__marker" style="left: {floor_pct:.1f}%;">
-      <span class="ceiling-floor__marker-label">Floor {floor}-{games - floor}</span>
+  <div class="ceiling-floor__band" role="img" aria-label="Floor {record(floor_s)}, base {record(base_s)}, ceiling {record(ceiling_s)}">
+    <div class="ceiling-floor__marker" style="left: {pct(floor_s['wins']):.1f}%;">
+      <span class="ceiling-floor__marker-label">Floor {record(floor_s)}</span>
     </div>
-    <div class="ceiling-floor__marker" style="left: {base_pct:.1f}%;">
-      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base {base}-{games - base}</span>
+    <div class="ceiling-floor__marker" style="left: {pct(base_s['wins']):.1f}%;">
+      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base {record(base_s)}</span>
     </div>
-    <div class="ceiling-floor__marker" style="left: {ceiling_pct:.1f}%;">
-      <span class="ceiling-floor__marker-label">Ceiling {ceiling}-{games - ceiling}</span>
+    <div class="ceiling-floor__marker" style="left: {pct(ceiling_s['wins']):.1f}%;">
+      <span class="ceiling-floor__marker-label">Ceiling {record(ceiling_s)}</span>
     </div>
   </div>
   <div class="ceiling-floor__scenarios">
     {''.join(scenarios_html)}
   </div>
   <p class="ceiling-floor__caveat">
-    Variance assumed at ±2 wins from last-season record. Replace with SP+ projection band
-    once preseason ratings publish.
+    {escape(caveat)}
   </p>
 </section>"""
 
