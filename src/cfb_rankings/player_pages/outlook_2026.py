@@ -47,6 +47,14 @@ OUTLOOK_2026_CSS = """
   font-size: 1.05rem; font-weight: 600; margin: 0;
   color: var(--text-bright, rgba(255,255,255,0.92));
 }
+.outlook-2026__updated {
+  font-size: 0.66rem; letter-spacing: 0.06em;
+  color: var(--text-quiet, rgba(255,255,255,0.55));
+  background: rgba(255,255,255,0.04);
+  padding: 2px 8px; border-radius: 99px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
 .outlook-2026__lede {
   font-size: 0.88rem; line-height: 1.5;
   color: var(--text-soft, rgba(255,255,255,0.82));
@@ -168,7 +176,7 @@ def _depth_chart_for_player(db, player_id: int) -> dict[str, Any] | None:
     rows = db.query_all(
         """
         select position_group, slot_rank, starter_status, confidence,
-               source, source_url, notes
+               source, source_url, notes, as_of
           from player_depth_chart_2026
          where player_id = :pid and season_year = 2026
          order by slot_rank asc
@@ -223,7 +231,7 @@ def _resolve_team_name(db, team_id: int | None) -> str | None:
 def _award_watch_for(db, player_id: int) -> list[dict[str, Any]]:
     rows = db.query_all(
         """
-        select award_slug, list_type, position_rank
+        select award_slug, list_type, position_rank, as_of
           from player_award_watch_2026
          where player_id = :pid and season_year = 2026
          order by priority asc
@@ -232,6 +240,42 @@ def _award_watch_for(db, player_id: int) -> list[dict[str, Any]]:
         {"pid": int(player_id)},
     )
     return [dict(r) for r in rows]
+
+
+def _most_recent_as_of(*sources: Any) -> str | None:
+    """Return the most recent as_of date string across depth/award rows.
+
+    Accepts dicts and lists-of-dicts. Returns ISO date string (YYYY-MM-DD) or None.
+    """
+    candidates: list[str] = []
+    for src in sources:
+        if src is None:
+            continue
+        if isinstance(src, dict):
+            v = src.get("as_of")
+            if v:
+                candidates.append(str(v)[:10])
+        elif isinstance(src, list):
+            for row in src:
+                v = row.get("as_of") if isinstance(row, dict) else None
+                if v:
+                    candidates.append(str(v)[:10])
+    return max(candidates) if candidates else None
+
+
+def _format_as_of_pill(as_of_str: str | None) -> str:
+    """Render an 'Updated MMM DD' pill. Empty string if no date."""
+    if not as_of_str:
+        return ""
+    try:
+        from datetime import datetime as _dt
+        d = _dt.fromisoformat(as_of_str[:10])
+        return (
+            f'<span class="outlook-2026__updated" title="Refreshed {as_of_str[:10]}">'
+            f'Updated {d.strftime("%b ")}{d.day}</span>'
+        )
+    except (TypeError, ValueError):
+        return ""
 
 
 def _award_display_name(award_slug: str) -> str:
@@ -405,6 +449,9 @@ def render_outlook_2026(db, player_id: int | None) -> str:
                 f'</p>'
             )
 
+    # "Updated MMM DD" pill — most recent as_of across depth chart + award rows.
+    updated_pill = _format_as_of_pill(_most_recent_as_of(depth, awards))
+
     return (
         '<section class="outlook-2026" '
         f'data-module="outlook-2026" data-state="ready" '
@@ -416,6 +463,7 @@ def render_outlook_2026(db, player_id: int | None) -> str:
         f'Returning to {escape(team_name)} for 2026'
         '</p>'
         '</div>'
+        f'{updated_pill}'
         '</header>'
         '<div class="outlook-2026__cells">'
         '<div class="outlook-2026__cell">'

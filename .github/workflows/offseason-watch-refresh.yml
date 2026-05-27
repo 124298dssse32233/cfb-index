@@ -156,3 +156,4 @@ jobs:
       contents: read
     with:
       workflow_name: offseason-watch-refresh
+      run_id: ${{ github.run_id }}

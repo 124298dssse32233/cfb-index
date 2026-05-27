@@ -39,9 +39,25 @@ def load(csv_path: Path, db_path: Path, dry_run: bool, prune_source: str | None)
     # Build pid validation cache
     valid_pids: set[int] = {r[0] for r in cur.execute("SELECT player_id FROM players").fetchall()}
 
+    # Skip players whose current status indicates they're not on a 2026 college roster.
+    # The cache table is the canonical source. Falls back to view if cache missing.
+    try:
+        ineligible_pids = {
+            r[0] for r in cur.execute(
+                "SELECT player_id FROM player_current_status_cache "
+                "WHERE status_code IN ('NFL_DRAFTED_2026','NFL_DRAFTED_PRIOR','NFL_UDFA',"
+                "                      'EXHAUSTED_ELIGIBILITY','MEDICAL_RETIREMENT','HISTORICAL_ALUM')"
+            ).fetchall()
+        }
+    except sqlite3.OperationalError:
+        ineligible_pids = set()
+        print("  WARN: player_current_status_cache missing — drafted-player guard disabled")
+
     rows_written = 0
     rows_skipped_missing_pid = 0
     rows_skipped_audit_mismatch = 0
+    rows_skipped_ineligible = 0
+    ineligible_examples: list[str] = []
     seen_keys: set[tuple] = set()
     name_warnings: list[str] = []
 
@@ -60,6 +76,12 @@ def load(csv_path: Path, db_path: Path, dry_run: bool, prune_source: str | None)
                 continue
             if pid not in valid_pids:
                 rows_skipped_missing_pid += 1
+                continue
+            if pid in ineligible_pids:
+                rows_skipped_ineligible += 1
+                audit_name = (row.get("full_name_for_audit") or "").strip()
+                if len(ineligible_examples) < 10:
+                    ineligible_examples.append(f"pid={pid} {audit_name}")
                 continue
 
             audit_name = (row.get("full_name_for_audit") or "").strip()
@@ -125,7 +147,12 @@ def load(csv_path: Path, db_path: Path, dry_run: bool, prune_source: str | None)
     print(f"Award watch load: wrote {rows_written}, "
           f"skipped_missing_pid={rows_skipped_missing_pid}, "
           f"skipped_audit_mismatch={rows_skipped_audit_mismatch}, "
+          f"skipped_ineligible(drafted/exhausted)={rows_skipped_ineligible}, "
           f"pruned={pruned}")
+    if ineligible_examples:
+        print("Ineligible (player drafted/exhausted — remove from CSV):")
+        for ex in ineligible_examples:
+            print(f"  {ex}")
     if name_warnings:
         print("Audit mismatches (first 10):")
         for w in name_warnings[:10]:
