@@ -481,6 +481,37 @@ def _accolade(eyebrow: str, label: str, value: str | None) -> str:
 # Public API
 # ---------------------------------------------------------------------------
 
+_POSITION_TOP_AWARD = {
+    "QB":   ("TOP QB AWARD",     "Davey O'Brien"),
+    "RB":   ("TOP RB AWARD",     "Doak Walker"),
+    "TB":   ("TOP RB AWARD",     "Doak Walker"),
+    "FB":   ("TOP RB AWARD",     "Doak Walker"),
+    "WR":   ("TOP WR AWARD",     "Biletnikoff"),
+    "TE":   ("TOP TE AWARD",     "Mackey"),
+    "DE":   ("TOP DEFENSE AWARD","Nagurski"),
+    "EDGE": ("TOP DEFENSE AWARD","Nagurski"),
+    "DT":   ("TOP DEFENSE AWARD","Nagurski"),
+    "DL":   ("TOP DEFENSE AWARD","Nagurski"),
+    "NT":   ("TOP DEFENSE AWARD","Nagurski"),
+    "LB":   ("TOP LB AWARD",     "Butkus"),
+    "ILB":  ("TOP LB AWARD",     "Butkus"),
+    "OLB":  ("TOP LB AWARD",     "Butkus"),
+    "MLB":  ("TOP LB AWARD",     "Butkus"),
+    "CB":   ("TOP DB AWARD",     "Jim Thorpe"),
+    "S":    ("TOP DB AWARD",     "Jim Thorpe"),
+    "DB":   ("TOP DB AWARD",     "Jim Thorpe"),
+    "OT":   ("TOP OL AWARD",     "Outland"),
+    "OG":   ("TOP OL AWARD",     "Outland"),
+    "OL":   ("TOP OL AWARD",     "Outland"),
+    "IOL":  ("TOP OL AWARD",     "Outland"),
+    "C":    ("TOP OL AWARD",     "Rimington"),
+    "K":    ("TOP K AWARD",      "Lou Groza"),
+    "PK":   ("TOP K AWARD",      "Lou Groza"),
+    "P":    ("TOP P AWARD",      "Ray Guy"),
+    "ATH":  ("TOP AWARD",        "Position award"),
+}
+
+
 def render_qb_fingerprint_hero(
     *,
     player_name: str,
@@ -492,6 +523,8 @@ def render_qb_fingerprint_hero(
     signature_story: dict[str, Any] | None = None,
     the_room: dict[str, Any] | None = None,
     cohort_divergence: dict[str, Any] | None = None,
+    cfb_index_score: dict[str, Any] | None = None,
+    position: str = "",
     aria_label: str = "",
 ) -> str:
     """Render the QB Fingerprint hero block.
@@ -512,24 +545,34 @@ def render_qb_fingerprint_hero(
         return getattr(cohort_divergence, key, None)
 
     # === Cell 1: CFB Index QB Score (composite 0-100) ===
-    # Source priority: signature_story.percentile (0-100), else current_snapshot
-    # ballot_probability scaled, else None.
+    # Source priority: cfb_index_score payload (Wave 1c composite), then
+    # signature_story.percentile, then None ("Awaiting").
     qb_score = None
     qb_score_narr = ""
-    pct = signature_story.get("percentile")
-    if pct is not None:
+    cis = cfb_index_score or {}
+    if cis and cis.get("score") is not None:
         try:
-            pct_f = float(pct)
-            if pct_f <= 1.0 + 1e-9:
-                pct_f *= 100.0
-            qb_score = f"{int(round(pct_f))}"
-            qb_score_narr = (
-                f"{signature_story.get('metric_label') or 'Headline metric'} "
-                f"at the {int(round(pct_f))}th percentile."
-            )
+            qb_score = f"{int(round(float(cis['score'])))}"
+            qb_score_narr = str(cis.get("narrative") or "")
         except (TypeError, ValueError):
-            pass
-    cell_score = _cell("CFB Index QB Score", qb_score, qb_score_narr,
+            qb_score = None
+    if qb_score is None:
+        pct = signature_story.get("percentile")
+        if pct is not None:
+            try:
+                pct_f = float(pct)
+                if pct_f <= 1.0 + 1e-9:
+                    pct_f *= 100.0
+                qb_score = f"{int(round(pct_f))}"
+                qb_score_narr = (
+                    f"{signature_story.get('metric_label') or 'Headline metric'} "
+                    f"at the {int(round(pct_f))}th percentile."
+                )
+            except (TypeError, ValueError):
+                pass
+    # Score label uses the position-aware composite name when supplied.
+    score_label = "CFB Index Score" if cis else "CFB Index QB Score"
+    cell_score = _cell(score_label, qb_score, qb_score_narr,
                        awaiting=qb_score is None)
 
     # === Cell 2: Heisman Heat ===
@@ -672,6 +715,12 @@ def render_qb_fingerprint_hero(
     consensus_value: str | None = None  # placeholder — wired from
     # honors_history in caller when available
 
+    # Position-aware top award label for cell #2.
+    _pos_key = (position or "").upper().strip()
+    top_eyebrow, top_award = _POSITION_TOP_AWARD.get(
+        _pos_key, ("TOP POSITION AWARD", "Position award")
+    )
+
     accolades_html = "\n".join([
         _accolade(
             "ACCOLADE PROBABILITY",
@@ -679,8 +728,8 @@ def render_qb_fingerprint_hero(
             heisman_win or heisman_finalist or heisman_ballot or None,
         ),
         _accolade(
-            "TOP QB AWARD",
-            "Davey O'Brien",
+            top_eyebrow,
+            top_award,
             davey_value,
         ),
         _accolade(

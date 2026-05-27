@@ -352,14 +352,25 @@ def tag_player_mentions(
     commit: bool = False,
     preview: bool = False,
     include_last_name_matches: bool = True,
+    player_pool_season: int | None = None,
 ) -> dict[str, int]:
     """Scan conversation_documents for player-name mentions and either
     report (dry-run) or insert conversation_document_targets rows.
 
+    `player_pool_season` (optional) lets the doc-side season differ from
+    the player-index season — useful in offseason mode where the docs
+    are tagged to the upcoming season but player stats only exist for
+    the last completed season. When None, defaults to `season_year`.
+
     Returns counts: {'docs_scanned': N, 'matches': M,
                      'skipped_ambiguous': S, 'rows_written': W}.
     """
-    index = build_player_name_index(db, season_year)
+    pool_season = player_pool_season if player_pool_season is not None else season_year
+    index = build_player_name_index(db, pool_season)
+    if not index and pool_season != season_year:
+        # Last-resort fallback to docs-season if the user passed a pool
+        # season that has no stats — keeps the dry-run informative.
+        index = build_player_name_index(db, season_year)
     if not index:
         return {"docs_scanned": 0, "matches": 0, "skipped_ambiguous": 0, "rows_written": 0}
     if include_last_name_matches:

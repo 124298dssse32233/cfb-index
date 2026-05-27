@@ -103,6 +103,11 @@ def build_parser() -> argparse.ArgumentParser:
     tag_players_parser.add_argument("--no-last-name", action="store_true",
                                     help="Disable last-name-only matching (TASK 5.2 strict mode — "
                                          "full-name match required; higher precision, lower recall).")
+    tag_players_parser.add_argument("--player-pool-season", type=int, default=None,
+                                    help=("Optional override: build the player-name index from this "
+                                          "season's stats instead of --season. Use in offseason mode "
+                                          "when docs are tagged to next-season but stats only exist "
+                                          "for last-season."))
 
     compute_player_advanced_parser = subparsers.add_parser(
         "compute-player-advanced",
@@ -410,6 +415,54 @@ def build_parser() -> argparse.ArgumentParser:
     )
     cmm_parser.add_argument("--season", type=int, default=None)
     cmm_parser.add_argument("-k", type=int, default=10)
+
+    # Wave 10 — CFBD play-by-play ingest + per-player metrics.
+    pbp_ingest_parser = subparsers.add_parser(
+        "ingest-cfbd-pbp",
+        help=("Pull /plays from CFBD for (season, weeks) and upsert into "
+              "cfbd_pbp_plays + cfbd_pbp_play_actors."),
+    )
+    pbp_ingest_parser.add_argument("--season", type=int, required=True)
+    pbp_ingest_parser.add_argument("--weeks", type=int, nargs="*", default=None,
+                                   help="Specific weeks to pull. Default = 1..16 regular.")
+    pbp_ingest_parser.add_argument("--season-type", type=str, default="regular",
+                                   choices=["regular", "postseason", "both"])
+    pbp_ingest_parser.add_argument("--classification", type=str, default="fbs")
+    pbp_ingest_parser.add_argument("--skip-actors", action="store_true",
+                                   help="Skip play-text parsing (raw plays only).")
+
+    compute_pbp_parser = subparsers.add_parser(
+        "compute-player-pbp-metrics",
+        help=("Derive per-player PBP metrics (EPA/db, CPOE, success, "
+              "explosive, aDOT, etc.) and write player_pbp_metrics_season."),
+    )
+    compute_pbp_parser.add_argument("--season", type=int, required=True)
+
+    # Wave 15 — Narrative Arc LLM generator batch CLI.
+    garc_parser = subparsers.add_parser(
+        "generate-player-narrative-arcs",
+        help=("Generate 3-act season narrative arcs for top-N players using "
+              "local Ollama. Writes to player_narrative_arc cache."),
+    )
+    garc_parser.add_argument("--season", type=int, required=True)
+    garc_parser.add_argument("--top", type=int, default=100)
+    garc_parser.add_argument("--player-ids", type=int, nargs="*", default=None)
+    garc_parser.add_argument("--model", type=str, default=None)
+    garc_parser.add_argument("--force-refresh", action="store_true")
+
+    # Wave 8 — Signature Story LLM generator batch CLI.
+    gpsig_parser = subparsers.add_parser(
+        "generate-player-signatures",
+        help=("Generate Signature Story prose for top-N players using local "
+              "Ollama (mistral-nemo). Writes to player_signature_story cache."),
+    )
+    gpsig_parser.add_argument("--season", type=int, required=True)
+    gpsig_parser.add_argument("--top", type=int, default=100,
+                              help="Top N players by Heisman volume / Savant lead.")
+    gpsig_parser.add_argument("--player-ids", type=int, nargs="*", default=None,
+                              help="Explicit player_id filter.")
+    gpsig_parser.add_argument("--model", type=str, default=None)
+    gpsig_parser.add_argument("--force-refresh", action="store_true")
 
     # Signature Bets S2.7 — Achievements CLI.
     cach_parser = subparsers.add_parser(
@@ -2566,6 +2619,7 @@ def main() -> None:
             doc_limit=args.limit, commit=args.commit,
             preview=getattr(args, "preview", False),
             include_last_name_matches=not getattr(args, "no_last_name", False),
+            player_pool_season=getattr(args, "player_pool_season", None),
         )
         mode = "COMMIT" if args.commit else "DRY-RUN"
         print(
@@ -2941,6 +2995,165 @@ def main() -> None:
         )["y"] or 2025)
         n = compute_mirror_matches(db, season, k=args.k)
         print(f"computed + cached matches for {n} player(s), season={season}")
+        return
+
+    if args.command == "ingest-cfbd-pbp":
+        import os
+        env_path = os.path.join(os.getcwd(), ".env")
+        if os.path.exists(env_path):
+            with open(env_path) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        os.environ.setdefault(k, v)
+        from cfb_rankings.clients.cfbd import CfbdClient
+        from cfb_rankings.ingest.cfbd_pbp import ingest_cfbd_pbp_week
+        api_key = os.environ.get("CFBD_PATREON_KEY") or os.environ.get("CFBD_API_KEY")
+        base_url = os.environ.get("CFBD_BASE_URL", "https://api.collegefootballdata.com")
+        if not api_key:
+            raise SystemExit("CFBD_API_KEY (or CFBD_PATREON_KEY) not in env.")
+        client = CfbdClient(api_key=api_key, base_url=base_url)
+        weeks = args.weeks if args.weeks else list(range(1, 17))
+        season_types = (["regular", "postseason"] if args.season_type == "both"
+                        else [args.season_type])
+        total_plays = 0; total_actors = 0
+        for st in season_types:
+            for w in weeks:
+                result = ingest_cfbd_pbp_week(
+                    db, client, args.season, w, st,
+                    classification=args.classification,
+                    parse_actors=not args.skip_actors,
+                )
+                total_plays += result["plays"]
+                total_actors += result["actors"]
+                print(f"  [{st} w{w:02d}] plays={result['plays']} "
+                      f"actors={result['actors']}", flush=True)
+        print(f"ingest-cfbd-pbp season={args.season}: "
+              f"plays={total_plays} actors={total_actors}")
+        return
+
+    if args.command == "compute-player-pbp-metrics":
+        from cfb_rankings.metrics.player_pbp_metrics import (
+            compute_player_pbp_metrics_season,
+        )
+        r = compute_player_pbp_metrics_season(db, args.season)
+        print(f"compute-player-pbp-metrics season={args.season}: {r}")
+        return
+
+    if args.command == "generate-player-narrative-arcs":
+        from cfb_rankings.player_pages.narrative_arc_generator import (
+            generate_narrative_arc,
+        )
+        season = int(args.season)
+        if args.player_ids:
+            targets = [(int(pid), None) for pid in args.player_ids]
+        else:
+            rows = db.query_all(
+                """
+                with player_latest as (
+                    select player_id, max(week) as max_week, position
+                      from player_season_stats
+                     where season_year = :s
+                       and category in ('passing','rushing','receiving','defensive')
+                       and stat_type in ('ATT','CAR','REC','TOT')
+                     group by player_id, position
+                ),
+                vol as (
+                    select pss.player_id, pss.position, pss.stat_value_num as v
+                      from player_season_stats pss
+                      join player_latest pl on pl.player_id = pss.player_id
+                                           and pl.max_week  = pss.week
+                                           and pl.position  = pss.position
+                     where pss.season_year = :s
+                       and (
+                         (pss.position = 'QB' and pss.category='passing' and pss.stat_type='ATT')
+                         or (pss.position in ('RB','TB','FB','HB') and pss.category='rushing' and pss.stat_type='CAR')
+                         or (pss.position in ('WR','TE') and pss.category='receiving' and pss.stat_type='REC')
+                         or (pss.position in ('CB','S','DB','LB','ILB','OLB','MLB','DL','DE','DT','NT','EDGE')
+                             and pss.category='defensive' and pss.stat_type='TOT')
+                       )
+                       and pss.stat_value_num is not null
+                )
+                select v.player_id, v.position, v.v
+                  from vol v order by v.v desc limit :lim
+                """,
+                {"s": season, "lim": int(args.top)},
+            )
+            targets = [(int(r["player_id"]), str(r["position"] or "")) for r in rows]
+        ok = 0; fail = 0
+        for i, (pid, pos) in enumerate(targets, 1):
+            r = generate_narrative_arc(
+                db, pid, season, pos or "",
+                model_id=args.model, force_refresh=args.force_refresh,
+            )
+            if r:
+                ok += 1
+                preview = (r.get("opening_text") or "")[:60].replace("\n", " ")
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} OK: {preview}...", flush=True)
+            else:
+                fail += 1
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} FAILED", flush=True)
+        print(f"generate-player-narrative-arcs season={season}: ok={ok} failed={fail}")
+        return
+
+    if args.command == "generate-player-signatures":
+        from cfb_rankings.player_pages.signature_story_generator import (
+            generate_signature_story,
+        )
+        season = int(args.season)
+        if args.player_ids:
+            targets = [(int(pid), None, None) for pid in args.player_ids]
+        else:
+            # Top-N by gate-metric volume across each position cohort.
+            rows = db.query_all(
+                """
+                with player_latest as (
+                    select player_id, max(week) as max_week, position
+                      from player_season_stats
+                     where season_year = :s
+                       and category in ('passing','rushing','receiving','defensive')
+                       and stat_type in ('ATT','CAR','REC','TOT')
+                     group by player_id, position
+                ),
+                vol as (
+                    select pss.player_id, pss.position, pss.stat_value_num as v
+                      from player_season_stats pss
+                      join player_latest pl on pl.player_id = pss.player_id
+                                           and pl.max_week  = pss.week
+                                           and pl.position  = pss.position
+                     where pss.season_year = :s
+                       and (
+                         (pss.position in ('QB') and pss.category='passing' and pss.stat_type='ATT')
+                         or (pss.position in ('RB','TB','FB','HB') and pss.category='rushing' and pss.stat_type='CAR')
+                         or (pss.position in ('WR','TE') and pss.category='receiving' and pss.stat_type='REC')
+                         or (pss.position in ('CB','S','DB','LB','ILB','OLB','MLB','DL','DE','DT','NT','EDGE')
+                             and pss.category='defensive' and pss.stat_type='TOT')
+                       )
+                       and pss.stat_value_num is not null
+                )
+                select v.player_id, v.position, v.v
+                  from vol v
+                 order by v.v desc
+                 limit :lim
+                """,
+                {"s": season, "lim": int(args.top)},
+            )
+            targets = [(int(r["player_id"]), str(r["position"] or ""), float(r["v"])) for r in rows]
+        ok = 0; fail = 0
+        for i, (pid, pos, _vol) in enumerate(targets, 1):
+            r = generate_signature_story(
+                db, pid, season, pos or "",
+                model_id=args.model, force_refresh=args.force_refresh,
+            )
+            if r:
+                ok += 1
+                preview = (r.get("story_text") or "")[:80].replace("\n", " ")
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} OK: {preview}...", flush=True)
+            else:
+                fail += 1
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} FAILED", flush=True)
+        print(f"generate-player-signatures season={season}: ok={ok} failed={fail}")
         return
 
     if args.command == "compute-achievements":

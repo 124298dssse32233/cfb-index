@@ -5227,6 +5227,17 @@ def _player_pages_v2_css() -> str:
             CAREER_ARC_CSS as _CA_CSS,
             DEVELOPMENT_TRAJECTORY_CSS as _DT_CSS,
             SELECTOR_GRID_CSS as _SG_CSS,
+            GAME_LOG_CSS as _GL_CSS,
+            BOX_SAVANT_CSS as _BS_CSS,
+            SPLITS_CSS as _SP_CSS,
+            PEER_COMPARATOR_CSS as _PC_CSS,
+            PLAYER_PAGE_TOKENS_CSS as _PT_CSS,
+            SUPPORTING_CAST_CSS as _SC_CSS,
+            NARRATIVE_ARC_CSS as _NA_CSS,
+            NIL_DRAFT_CSS as _ND_CSS,
+            SCENARIO_EXPLORER_CSS as _SE_CSS,
+            CAREER_STANDING_CSS as _CS2_CSS,
+            TROPHY_CASE_CSS as _TC_CSS,
         )
         # Accolade tabs — nested inside the v5 Player Standing card; styles
         # live in the accolade_streams module so they ship with the same fix.
@@ -5234,8 +5245,9 @@ def _player_pages_v2_css() -> str:
             from cfb_rankings.player_pages.accolade_streams import ACCOLADE_TABS_CSS as _ACC_CSS
         except Exception:
             _ACC_CSS = ""
+        # Tokens come FIRST so module-level CSS can reference --pct-* / --belief-* / --accolade-* vars.
         return (
-            _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _ACC_CSS
+            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _ACC_CSS
         )
     except Exception:
         return ""
@@ -9087,6 +9099,18 @@ def build_player_page_data_map(
                 render_career_arc as _render_career_arc_v2,
                 render_development_trajectory as _render_dev_traj_v2,
                 render_selector_grid as _render_selector_v2,
+                render_game_log as _render_game_log_v2,
+                render_box_savant as _render_box_savant_v2,
+                render_splits as _render_splits_v2,
+                render_peer_comparator as _render_peer_comparator_v2,
+                render_supporting_cast as _render_supporting_cast_v2,
+                render_narrative_arc as _render_narrative_arc_v2,
+                fetch_narrative_arc as _fetch_narrative_arc_v2,
+                render_nil_draft as _render_nil_draft_v2,
+                render_scenario_explorer as _render_scenario_v2,
+                render_career_standing as _render_career_standing_v2,
+                render_trophy_case as _render_trophy_case_v2,
+                build_stat_sparklines as _build_stat_sparklines_v2,
             )
             _primary_team_id = (
                 int((page_data.get("primary_team") or {}).get("team_id"))
@@ -9138,6 +9162,47 @@ def build_player_page_data_map(
             page_data["new_selector_grid_html"] = _render_selector_v2(
                 db, player_id, int(summary["season_year"]),
             )
+            page_data["new_game_log_html"] = _render_game_log_v2(
+                db, player_id, int(summary["season_year"]),
+                _position, _primary_team_id,
+            )
+            page_data["new_box_savant_html"] = _render_box_savant_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_splits_html"] = _render_splits_v2(
+                db, player_id, int(summary["season_year"]),
+                _position, _primary_team_id,
+            )
+            page_data["new_peer_comparator_html"] = _render_peer_comparator_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_supporting_cast_html"] = _render_supporting_cast_v2(
+                db, player_id, int(summary["season_year"]), _primary_team_id,
+            )
+            try:
+                _arc = _fetch_narrative_arc_v2(
+                    db, player_id, int(summary["season_year"]),
+                )
+                page_data["new_narrative_arc_html"] = _render_narrative_arc_v2(_arc)
+            except Exception:
+                page_data["new_narrative_arc_html"] = ""
+            page_data["new_nil_draft_html"] = _render_nil_draft_v2(db, player_id)
+            page_data["new_scenario_explorer_html"] = _render_scenario_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_career_standing_html"] = _render_career_standing_v2(
+                db, player_id,
+            )
+            page_data["new_trophy_case_html"] = _render_trophy_case_v2(db, player_id)
+            try:
+                from cfb_rankings.player_pages.composite_score import (
+                    compute_cfb_index_score as _compute_cfb_index_score_v2,
+                )
+                page_data["cfb_index_score"] = _compute_cfb_index_score_v2(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+            except Exception:
+                page_data["cfb_index_score"] = None
             # Standing payload — computes the 17-rung classification +
             # per-position accolade streams (Heisman finalist %, AA selector
             # grid, position-award status). Populates page_data["standing"]
@@ -9174,6 +9239,17 @@ def build_player_page_data_map(
             page_data["new_career_arc_html"] = ""
             page_data["new_dev_traj_html"] = ""
             page_data["new_selector_grid_html"] = ""
+            page_data["new_game_log_html"] = ""
+            page_data["new_box_savant_html"] = ""
+            page_data["new_splits_html"] = ""
+            page_data["new_peer_comparator_html"] = ""
+            page_data["new_supporting_cast_html"] = ""
+            page_data["new_narrative_arc_html"] = ""
+            page_data["new_nil_draft_html"] = ""
+            page_data["new_scenario_explorer_html"] = ""
+            page_data["new_career_standing_html"] = ""
+            page_data["new_trophy_case_html"] = ""
+            page_data["cfb_index_score"] = None
         # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
         try:
             from cfb_rankings.bets.cohort_divergence import compute_cohort_divergence
@@ -9932,6 +10008,29 @@ def _assemble_player_page_data(
         transfer_profile=transfer_profile,
         honors_history=honors_history,
     )
+    # Wave 8 — Override legacy signature_story.body with LLM-cached story
+    # when one exists for this player+season.
+    try:
+        from cfb_rankings.player_pages.signature_story_generator import (
+            fetch_signature_story as _fetch_llm_sig_story,
+        )
+        _llm_story = _fetch_llm_sig_story(
+            db, int(player_row.get("player_id") or 0),
+            int(summary.get("season_year") or 0),
+        )
+        if _llm_story and _llm_story.get("story_text"):
+            if isinstance(signature_story, dict):
+                signature_story["body"] = _llm_story["story_text"]
+                signature_story["source"] = _llm_story.get("model_id") or "ollama"
+                if _llm_story.get("headline"):
+                    signature_story["title"] = _llm_story["headline"]
+            else:
+                signature_story = {
+                    "body": _llm_story["story_text"],
+                    "source": _llm_story.get("model_id") or "ollama",
+                }
+    except Exception:
+        pass
     honors_history = _filter_projected_heisman_honors(honors_history, current_season)
     trophy_case = _build_player_trophy_case(heisman_years, honors_history)
 
@@ -19377,6 +19476,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             signature_story=signature_story,
             the_room=player_data.get("the_room") or {},
             cohort_divergence=player_data.get("cohort_divergence") or {},
+            cfb_index_score=player_data.get("cfb_index_score") or {},
+            position=position or "",
             aria_label=f"{player_name} fingerprint",
         )}
         {render_this_day_chip(player_data.get("this_day_moment"))}
@@ -19384,6 +19485,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="player-standing">
         {player_data.get("new_standing_rail_html") or ""}
+        {player_data.get("new_career_standing_html") or ""}
         {player_data.get("new_dev_traj_html") or ""}
         {player_data.get("new_career_arc_html") or ""}
         {player_data.get("new_live_signal_flow_html") or ""}
@@ -19413,6 +19515,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {render_prediction_markets_card(player_data.get("market_signal"))}
         {render_achievements_ribbon(player_data.get("achievements"))}
         {player_data.get("new_selector_grid_html") or ""}
+        {player_data.get("new_nil_draft_html") or ""}
       </section>
 
       <section class="section player-anchor-section{_gilded_class('hot-take', _gilded)}" id="the-room">
@@ -19430,7 +19533,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
         {render_signature_play_card(player_data.get("signature_moment"), player_data.get("signature_moment_opp_tier") or "")}
         {render_narrative_arc_card(player_data.get("narrative_arc"))}
+        {player_data.get("new_narrative_arc_html") or ""}
         {render_scenario_explorer_card(player_data.get("scenario_payload"))}
+        {player_data.get("new_scenario_explorer_html") or ""}
         <article class="panel">
           <div class="section-head">
             <h2>{escape(str(signature_story.get("title") or ("What made this player interesting" if is_offseason(date.today(), db=None) else "What makes this player interesting right now")))}</h2>
@@ -19485,6 +19590,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             </details>
           </div>
           {traditional_sections_html}
+          {player_data.get("new_game_log_html") or ""}
           <details class="player-stats-drawer player-stats-drawer-open" open>
             <summary>
               <span>Season-by-season tables</span>
@@ -19605,10 +19711,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="splits">
+        {player_data.get("new_splits_html") or ""}
         {_render_v5_splits_card(player_data.get("splits"))}
       </section>
 
       <section class="section player-anchor-section" id="advanced-savant">
+        {player_data.get("new_box_savant_html") or ""}
         {_render_player_savant_card(
             player_data.get("savant"),
             season=(current_snapshot.get("season_year")
@@ -19620,11 +19728,13 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section{_gilded_class('mirror-match', _gilded)}" id="peer-comparator">
+        {player_data.get("new_peer_comparator_html") or ""}
         {_render_v5_peer_comparator_card(player_data.get("peers"))}
         {player_data.get("new_mirror_match_html") or render_mirror_match_card(player_data.get("mirror_matches"))}
       </section>
 
       <section class="section player-anchor-section" id="supporting-cast">
+        {player_data.get("new_supporting_cast_html") or ""}
         {_render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
         {player_data.get("new_coaching_lineage_html") or render_coaching_lineage_card(player_data.get("coaching_lineage"), team_name)}
       </section>
@@ -19639,10 +19749,11 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="trophy-case">
+        {player_data.get("new_trophy_case_html") or ""}
         <article class="panel">
           <div class="section-head">
-            <h2>Trophy Case</h2>
-            <p class="section-note">Major honors at a glance, with Heisman results and selector-grade awards in the same place.</p>
+            <h2>Trophy Case · Detail</h2>
+            <p class="section-note">Every honor on the ledger, broken out by stream and selector.</p>
           </div>
           <div class="feature-grid team-story-grid">
             {trophy_case_cards}
