@@ -56,7 +56,15 @@ class TestVoiceRetryLoop:
         """Construct a mock Anthropic Message-like object."""
         msg = mock.MagicMock()
         msg.content = [mock.MagicMock(text=text)]
-        msg.usage = mock.MagicMock(input_tokens=in_toks, output_tokens=out_toks)
+        # Provide concrete int values for all usage fields that _emit_telemetry
+        # passes to json.dumps(). Without these, MagicMock auto-attrs are
+        # returned and JSON serialization raises TypeError.
+        msg.usage = mock.MagicMock(
+            input_tokens=in_toks,
+            output_tokens=out_toks,
+            cache_creation_input_tokens=0,
+            cache_read_input_tokens=0,
+        )
         return msg
 
     def test_voice_pass_first_try_returns_success(self):

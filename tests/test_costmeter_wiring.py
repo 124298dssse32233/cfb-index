@@ -75,6 +75,10 @@ class TestPatternA:
         """receipts.extract.classify_batch_haiku records cost when given a meter."""
         from cfb_rankings.receipts import extract as receipts_extract
 
+        # Ensure we stay on the Anthropic SDK path even if LOCAL_LLM_URL was
+        # injected into os.environ by _load_dotenv() in a prior test.
+        monkeypatch.delenv("LOCAL_LLM_URL", raising=False)
+
         # Mock the anthropic client + response.
         fake_resp = _fake_sdk_response(text='{"i":0,"is_prediction":false}',
                                        input_tokens=2000, output_tokens=400)
@@ -103,6 +107,10 @@ class TestPatternA:
         """When ``_meter`` is omitted the module creates its own per-call meter,
         so standalone calls still hard-fail on runaway spend."""
         from cfb_rankings.receipts import extract as receipts_extract
+
+        # Ensure we stay on the Anthropic SDK path even if LOCAL_LLM_URL was
+        # injected into os.environ by _load_dotenv() in a prior test.
+        monkeypatch.delenv("LOCAL_LLM_URL", raising=False)
 
         fake_resp = _fake_sdk_response(text='{"i":0,"is_prediction":false}',
                                        input_tokens=100, output_tokens=10)
@@ -265,6 +273,10 @@ class TestCeilingBreachPropagation:
         """Pattern A modules: meter.record raises CostCeilingExceeded
         which must NOT be swallowed."""
         from cfb_rankings.receipts import extract as receipts_extract
+
+        # Ensure we stay on the Anthropic SDK path even if LOCAL_LLM_URL was
+        # injected into os.environ by _load_dotenv() in a prior test.
+        monkeypatch.delenv("LOCAL_LLM_URL", raising=False)
 
         fake_resp = _fake_sdk_response(input_tokens=100_000_000,
                                        output_tokens=100_000_000)
