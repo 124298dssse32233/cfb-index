@@ -45,7 +45,7 @@ OFFSEASON_PULSE_CSS = """
   );
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
   border-left: 3px solid var(--accent-primary, #c9a24a);
-  border-radius: 14px;
+  border-radius: 8px;
   font-variant-numeric: tabular-nums;
 }
 .offseason-pulse__header {
@@ -92,8 +92,9 @@ OFFSEASON_PULSE_CSS = """
   padding: clamp(10px, 1.4vw, 14px) clamp(12px, 1.6vw, 16px);
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
-  border-radius: 10px;
+  border-radius: 8px;
   min-height: 88px;
+  overflow-wrap: anywhere;
 }
 .offseason-pulse__cell--empty {
   background: rgba(255, 255, 255, 0.012);

@@ -6,6 +6,7 @@ $env:PYTHONUNBUFFERED = "1"
 
 Write-Host "Publishing college football site outputs from current local data..." -ForegroundColor Cyan
 python -u manage.py build-team-preview-layer
+python -u manage.py generate-team-preview-claims --season (Get-Date -Format yyyy) --as-of (Get-Date -Format yyyy-MM-dd)
 python -u manage.py build-published
 
 Write-Host ""

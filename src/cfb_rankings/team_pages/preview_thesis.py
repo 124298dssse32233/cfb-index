@@ -22,6 +22,7 @@ def render_preview_thesis(
     if not headline or not body:
         return ""
     confidence = str(claim.get("confidence_band") or payload.get("confidence_band") or "unset")
+    confidence_label = "Validated" if confidence == "unset" else f"{confidence.title()} confidence"
     source = str(claim.get("model_backend") or "validated")
     date_label = str(claim.get("as_of_date") or "")
     # Label the PREVIEW season the claim targets (e.g. 2026), not the snapshot's
@@ -36,7 +37,7 @@ def render_preview_thesis(
   <h2 class="preview-thesis__title" id="preview-thesis-h">{html.escape(headline)}</h2>
   <p class="preview-thesis__body">{html.escape(body)}</p>
   <div class="preview-thesis__receipt">
-    <span>{html.escape(confidence.title())} confidence</span>
+    <span>{html.escape(confidence_label)}</span>
     <span>{html.escape(source)}</span>
     <span>{html.escape(date_label)}</span>
   </div>
@@ -51,6 +52,7 @@ PREVIEW_THESIS_CSS = """
   border-radius: 8px;
   padding: clamp(1rem, 2vw, 1.4rem);
   background: color-mix(in srgb, var(--accent-primary) 9%, var(--surface));
+  overflow-wrap: anywhere;
 }
 .preview-thesis__meta,
 .preview-thesis__receipt {
@@ -64,7 +66,7 @@ PREVIEW_THESIS_CSS = """
 }
 .preview-thesis__title {
   margin: .45rem 0 .45rem;
-  font: 700 clamp(1.35rem, 2.4vw, 2.1rem)/1.02 var(--font-display);
+  font: 700 clamp(1.28rem, 2.2vw, 1.95rem)/1.08 var(--font-display);
   letter-spacing: 0;
   color: var(--text);
 }
@@ -73,5 +75,20 @@ PREVIEW_THESIS_CSS = """
   margin: 0 0 .9rem;
   font: 500 clamp(.98rem, 1.25vw, 1.08rem)/1.55 var(--font-sans);
   color: var(--text);
+}
+@media (max-width: 540px) {
+  .preview-thesis {
+    padding: 1rem;
+  }
+  .preview-thesis__meta,
+  .preview-thesis__receipt {
+    gap: .4rem .65rem;
+    font-size: .66rem;
+    letter-spacing: .06em;
+  }
+  .preview-thesis__title {
+    font-size: 1.28rem;
+    line-height: 1.12;
+  }
 }
 """

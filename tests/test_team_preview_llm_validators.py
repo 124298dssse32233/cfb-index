@@ -173,6 +173,27 @@ def test_approximate_rank_and_missing_numeric_receipts_are_rejected() -> None:
     assert "numeric_text_missing_receipt:17" in result.errors
 
 
+def test_internal_decimal_scores_are_rejected_from_public_text() -> None:
+    candidate = {
+        "headline": "Alabama reload has a 16-0 ceiling",
+        "body": "The roster reload score is 0.294, while the ceiling remains 16-0.",
+        "supporting_claims": [
+            {
+                "kind": "record_projection",
+                "text": "Ceiling projects to 16-0.",
+                "evidence_key": "season_path.ceiling.final_wins",
+                "numeric_values": [16, 0],
+            }
+        ],
+        "confidence_band": "medium",
+    }
+
+    result = validate_preview_claim(candidate, _evidence())
+
+    assert not result.passed
+    assert "internal_decimal_score:0.294" in result.errors
+
+
 class _FakeBackend:
     name = "fake-local"
     model_id = "fake-model"

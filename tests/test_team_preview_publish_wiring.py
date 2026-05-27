@@ -67,14 +67,28 @@ def test_publish_outputs_refreshes_team_preview_layer_before_render(monkeypatch)
 def test_publish_workflow_runs_team_preview_layer_before_site_build():
     workflow = (ROOT / ".github" / "workflows" / "publish_site.yml").read_text()
     preview_idx = workflow.index("python -u manage.py build-team-preview-layer")
+    claims_idx = workflow.index("python -u manage.py generate-team-preview-claims")
     build_idx = workflow.index("Build or incrementally sync")
 
     assert preview_idx < build_idx
+    assert preview_idx < claims_idx < build_idx
+    assert "continue-on-error: true" in workflow
 
 
 def test_local_daily_ingest_runs_team_preview_layer_before_build_site():
     script = (ROOT / "scripts" / "daily_ingest.ps1").read_text()
     preview_idx = script.index("team-preview: build-team-preview-layer")
+    claims_idx = script.index("team-preview: generate-team-preview-claims")
     build_idx = script.index("site: build-site")
 
     assert preview_idx < build_idx
+    assert preview_idx < claims_idx < build_idx
+
+
+def test_local_publish_script_generates_claims_before_build_published():
+    script = (ROOT / "publish_site.ps1").read_text()
+    preview_idx = script.index("build-team-preview-layer")
+    claims_idx = script.index("generate-team-preview-claims")
+    build_idx = script.index("build-published")
+
+    assert preview_idx < claims_idx < build_idx

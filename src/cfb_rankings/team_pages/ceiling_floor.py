@@ -119,6 +119,12 @@ CEILING_FLOOR_CSS = """
 .ceiling-floor__marker-label--base {
   color: var(--accent-primary, #c9a24a);
 }
+.ceiling-floor__marker:first-child .ceiling-floor__marker-label {
+  transform: translateX(0);
+}
+.ceiling-floor__marker:last-child .ceiling-floor__marker-label {
+  transform: translateX(-100%);
+}
 
 /* Scenario cards */
 .ceiling-floor__scenarios {
@@ -171,6 +177,13 @@ CEILING_FLOOR_CSS = """
 }
 @media (max-width: 640px) {
   .ceiling-floor__scenarios { grid-template-columns: 1fr; }
+  .ceiling-floor {
+    border-radius: 8px;
+  }
+  .ceiling-floor__marker-label {
+    font-size: 8px;
+    letter-spacing: 0.04em;
+  }
 }
 """
 

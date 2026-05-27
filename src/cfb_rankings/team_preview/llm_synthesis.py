@@ -227,6 +227,7 @@ Rules for the repair:
 - Headline must not end with a dangling word like despite, while, with, and, or but.
 - Body must start with an uppercase letter and stand alone as complete prose.
 - Use exact ranks like #3; do not write approximate phrases like top-10.
+- Do not write raw internal decimal scores like 0.294; use the evidence labels instead.
 """
 
 

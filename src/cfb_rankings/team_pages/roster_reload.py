@@ -25,7 +25,7 @@ ROSTER_RELOAD_CSS = """
   background: rgba(255, 255, 255, 0.026);
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
   border-left: 3px solid var(--accent-primary, #c9a24a);
-  border-radius: 10px;
+  border-radius: 8px;
   font-variant-numeric: tabular-nums;
 }
 .roster-reload__head {
@@ -66,6 +66,7 @@ ROSTER_RELOAD_CSS = """
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.02);
+  overflow-wrap: anywhere;
 }
 .roster-reload__metric-label {
   display: block;
@@ -141,6 +142,12 @@ ROSTER_RELOAD_CSS = """
 @media (max-width: 480px) {
   .roster-reload__head { flex-direction: column; align-items: flex-start; }
   .roster-reload__grid { grid-template-columns: 1fr; }
+  .roster-reload__metric { min-height: 0; }
+  .roster-reload__position {
+    grid-template-columns: minmax(38px, auto) minmax(0, 1fr);
+    gap: 8px;
+  }
+  .roster-reload__flow { font-size: 11px; }
 }
 """
 

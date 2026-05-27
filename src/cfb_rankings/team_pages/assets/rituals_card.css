@@ -48,9 +48,14 @@
   margin: 0;
 }
 
+.rituals.program-section {
+  overflow-x: clip;
+}
+
 .rituals-track {
   display: flex;
   gap: var(--sp-4);
+  max-width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: var(--sp-3);

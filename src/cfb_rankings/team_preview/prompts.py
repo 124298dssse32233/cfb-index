@@ -202,6 +202,7 @@ Hard rules:
 - Headline must not end with a conjunction or preposition.
 - Body must start with an uppercase letter and read as standalone prose.
 - Use exact ranks like #3; do not write approximate phrases like top-10.
+- Do not write raw internal decimal scores like 0.294; translate them into labels already present in evidence.
 
 <evidence>
 {packet}

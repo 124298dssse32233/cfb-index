@@ -96,6 +96,8 @@ def validate_preview_claim(candidate: dict[str, Any], evidence: dict[str, Any]) 
     if _APPROX_RANK_RE.search(combined):
         errors.append("approximate_rank_phrase")
     for token in _numbers_in_text(combined):
+        if _is_internal_decimal_score(token):
+            errors.append(f"internal_decimal_score:{token}")
         if not _number_supported(token, allowed_numbers):
             errors.append(f"unsupported_numeric_text:{token}")
         if not _is_year_token(token) and not _number_supported(token, cited_numbers):
@@ -114,7 +116,7 @@ def validate_preview_claim(candidate: dict[str, Any], evidence: dict[str, Any]) 
         errors.append(f"invalid_confidence_band:{confidence}")
 
     fact_score = 1.0 if not any(
-        e.startswith(("unsupported_", "numeric_", "approximate_", "fan_intel_not_ready"))
+        e.startswith(("unsupported_", "numeric_", "approximate_", "internal_", "fan_intel_not_ready"))
         for e in errors
     ) else 0.0
     voice_score = 1.0 if voice_ok else 0.0
@@ -171,6 +173,17 @@ def _is_year_token(value: Any) -> bool:
     except (TypeError, ValueError):
         return False
     return 1900 <= ival <= 2100
+
+
+def _is_internal_decimal_score(value: Any) -> bool:
+    text = str(value).lstrip("#")
+    if "." not in text:
+        return False
+    try:
+        fval = abs(float(text))
+    except (TypeError, ValueError):
+        return False
+    return 0 < fval < 1
 
 
 def _evidence_keys(evidence: dict[str, Any]) -> set[str]:

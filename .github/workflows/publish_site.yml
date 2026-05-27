@@ -228,6 +228,13 @@ jobs:
         # modules with only heuristic fallbacks.
         run: python -u manage.py build-team-preview-layer
 
+      - name: Generate team preview claim cache
+        # Milestone D prose is evidence-gated and non-authoritative. This step
+        # is deliberately non-blocking: CI may not have a local LLM, and the
+        # deterministic preview modules must still ship when no claim passes.
+        continue-on-error: true
+        run: python -u manage.py generate-team-preview-claims --season $(date -u +%Y) --as-of $(date -u +%F)
+
       - name: Build or incrementally sync
         id: site_build
         run: |
