@@ -220,3 +220,11 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 # Outland Trophy — expanded from 5 to 8 candidates (added DT/C)
 # Walter Camp Player of the Year — expanded from 4 to 8 candidates
 # Bednarik Award — expanded from 8 to 10 candidates (added DTs)
+# Biletnikoff Award (wide receiver of year) — expanded from 6 to 10 candidates
+# Sources: PFF WR rankings 2026, On3 WR watch, Phil Steele 2026 WR grades.
+13251,Bryant Wesco Jr.,biletnikoff,watchlist_official,7,2,consensus_may_2026,,2026-05-27,Biletnikoff - Clemson WR; Clemson WR1 top returning target in ACC explosive route runner
+12193,Jaden Greathouse,biletnikoff,watchlist_official,8,2,consensus_may_2026,,2026-05-27,Biletnikoff - Notre Dame WR; Irish WR1 big-play threat high NFL draft upside
+13246,T.J. Moore,biletnikoff,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Biletnikoff - Clemson WR; veteran receiver brings production and YAC ability
+13273,Dillon Bell,biletnikoff,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Biletnikoff - Georgia WR; Bulldogs WR1 returns for sixth season proven possession receiver
+# Doak Walker Award (running back of year) — expanded from 9 to 10 candidates
+4489,Justice Haynes,doak_walker,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Doak Walker - Transfer RB; explosive pass-catching back high production at prior stop
