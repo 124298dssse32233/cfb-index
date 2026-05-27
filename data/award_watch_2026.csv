@@ -102,7 +102,7 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 9855,Josh Hoover,manning,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Manning — TCU
 # Doak Walker (top returning RBs)
 14116,Desmond Reid,doak_walker,watchlist_official,2,2,consensus_may_2026,,2026-05-27,Doak Walker — Pittsburgh RB
-11334,Makhi Hughes,doak_walker,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Doak Walker — Oregon (transferred from Tulane) RB
+11334,Makhi Hughes,doak_walker,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Doak Walker — Houston (transferred from Tulane) RB
 16170,Darius Taylor,doak_walker,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Doak Walker — Minnesota
 6733,Isaac Brown,doak_walker,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Doak Walker — Louisville
 13075,Tre Wisner,doak_walker,watchlist_official,6,3,consensus_may_2026,,2026-05-27,Doak Walker — Texas
@@ -120,14 +120,12 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 26138,Dasan McCullough,butkus,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Butkus - Oklahoma LB; top returning rush linebacker in Big 12
 32566,Payton Pierce,butkus,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Butkus - Ohio State LB; 2025 Big Ten Defensive Player candidate
 31773,Kahanu Kia,butkus,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Butkus - Notre Dame LB; high-motor edge/off-ball hybrid
-28406,Jeremiah Alexander,butkus,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Butkus - Alabama LB; top edge-setting linebacker in SEC
-29043,Jack MacKinnon,butkus,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Butkus - Michigan LB; key returning piece of Wolverines defense
-29604,Xavier Atkins,butkus,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Butkus - LSU LB; fast-flowing inside linebacker
+28406,Jeremiah Alexander,butkus,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Butkus - Clemson LB; top edge-setting linebacker in SEC
+29604,Xavier Atkins,butkus,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Butkus - Auburn LB; fast-flowing inside linebacker
 29608,Davhon Keys,butkus,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Butkus - LSU LB; playmaking sideline-to-sideline
-26139,Emeka Megwa,butkus,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Butkus - Oklahoma LB; blitz package specialist
 # Jim Thorpe Award (defensive back of the year) — preseason 2026 top candidates
 # 0 to 10 candidates. Sources: Phil Steele 2026, On3 DB Watch, ESPN preseason.
-3720,Gabe Powers,thorpe,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Thorpe - Ohio State DB; top returning safety/LB hybrid in B1G
+3720,Gabe Powers,thorpe,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Thorpe - Kansas State DB; top returning safety/LB hybrid in B1G
 27706,Cormani McClain,thorpe,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Thorpe - Florida CB; former No. 1 CB recruit elite cover corner
 29639,Craig Walton Jr.,thorpe,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Thorpe - LSU CB; shutdown corner SEC All-Defensive candidate
 29628,Michael Turner Jr.,thorpe,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Thorpe - LSU CB; press-man specialist high NFL upside
@@ -135,7 +133,7 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 29007,Mason Curtis,thorpe,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Thorpe - Michigan DB; versatile safety/nickel hybrid
 28412,Jahlil Hurley,thorpe,watchlist_official,7,2,consensus_may_2026,,2026-05-27,Thorpe - Alabama DB; lockdown corner returning to Tide
 28445,Dre Kirkpatrick Jr.,thorpe,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Thorpe - Alabama DB; legacy name emerging cornerback
-26150,Makari Vickers,thorpe,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Thorpe - Oklahoma CB; splash-play cornerback in Sooners scheme
+26150,Makari Vickers,thorpe,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Thorpe - Colorado CB; splash-play cornerback in Sooners scheme
 28912,Aaron Flowers,thorpe,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Thorpe - Oregon DB; versatile safety in Oregon defense
 # Bednarik Award (defensive player of the year) — expanded
 # 1 to 8 candidates. Colin Simmons (Texas) already entered.
@@ -157,7 +155,7 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 # Sources: 247Sports TE watch May 2026 On3 TE rankings.
 27768,Jackson Carver,mackey,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Mackey - Miami TE; top returning TE in ACC seam threat
 24925,Henry Delp,mackey,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Mackey - Georgia TE; featured receiving TE returning to Bulldogs
-26639,Johnny Pascuzzi,mackey,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Mackey - Iowa TE; classic Iowa TE mold tight-window catcher
+26639,Johnny Pascuzzi,mackey,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Mackey - Tulane TE; classic Tulane TE mold tight-window catcher
 29033,Zack Marshall,mackey,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Mackey - Michigan TE; pro-style blocker with receiving upside
 28448,Jay Lindsey,mackey,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Mackey - Alabama TE; versatile move-TE in Alabama RPO scheme
 # Ray Guy Award (punter of the year) — new award category 0 to 4 candidates
@@ -174,7 +172,7 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 23315,Ryan Barker,lou_groza,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Groza - Penn State K; accurate medium-range specialist
 # Outland Trophy (interior lineman of year) — new award category 0 to 5 candidates
 # Covers OL (OT/OG/C) and interior DL (DT). Sources: Phil Steele PFF.
-28408,Elijah Pritchett,outland,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Outland - Alabama OL; dominant LT top returning tackle in SEC
+28408,Elijah Pritchett,outland,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Outland - Nebraska OL; dominant LT transferred from Alabama top tackle in Big Ten
 33401,Xavier Gilliam,outland,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Outland - Penn State DT; interior anchor with A-gap control
 32342,Austin Siereveld,outland,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Outland - Ohio State OL; elite guard prospect mauler in run game
 27015,Tristan Leigh,outland,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Outland - Clemson OL; franchise-LT caliber returning starter
@@ -184,7 +182,7 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 13102,Colin Simmons,walter_camp,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Walter Camp - Texas EDGE; top returning pass rusher in Big 12
 # Hornung Award (versatility) — expanded from 2 to 4 candidates
 3830,Jeremiah Smith,hornung,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Hornung - Ohio State WR; reverses screens short-yardage impact
-3720,Gabe Powers,hornung,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Hornung - Ohio State DB; box safety/LB hybrid rare versatility
+3720,Gabe Powers,hornung,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Hornung - Kansas State DB; box safety/LB hybrid rare versatility
 # Dave Rimington Trophy (center of the year) — new award category, 5 candidates
 # Sources: Phil Steele 2026 OL grades, PFF offensive line rankings, On3 center watch.
 31585,Carson Hinzman,rimington,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Rimington - Ohio State C; returning starting center for national-champion Buckeyes
@@ -194,7 +192,7 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 31304,Nolan Rucci,rimington,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Rimington - Penn State OL; elite interior blocker anchors Lions run game
 # Rotary Lombardi Award (lineman of year — OL or DL) — new award category, 7 candidates
 # Sources: Phil Steele 2026 lineman grades, ESPN preseason lineman watch, PFF.
-28408,Elijah Pritchett,lombardi,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Lombardi - Alabama LT; top returning OT in SEC dominant pass protector
+28408,Elijah Pritchett,lombardi,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Lombardi - Nebraska LT; elite pass protector transferred from Alabama dominant Big Ten tackle
 33401,Xavier Gilliam,lombardi,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Lombardi - Penn State DT; interior anchor A-gap control Outland/Bednarik crossover
 13102,Colin Simmons,lombardi,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Lombardi - Texas EDGE; top returning pass rusher Big 12 Bednarik crossover
 32533,Jaylen Harvey,lombardi,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Lombardi - Penn State DE; edge specialist disruption upside
@@ -206,7 +204,7 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 23361,Dominick McKinley,outland,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Outland - LSU DT; interior defensive anchor 4-year starter SEC force
 3732,Tywone Malone,outland,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Outland - Ohio State DT; returning DT for national champion Buckeyes
 # Walter Camp Player of the Year — expanded from 4 to 8 candidates
-11334,Makhi Hughes,walter_camp,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Walter Camp - Oregon RB; top returning rusher Pac-12 powerhouse
+11334,Makhi Hughes,walter_camp,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Walter Camp - Houston RB; top returning rusher Pac-12 powerhouse
 14116,Desmond Reid,walter_camp,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Walter Camp - Pittsburgh RB; all-purpose weapon Hornung/Doak Walker crossover
 26138,Dasan McCullough,walter_camp,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Walter Camp - Nebraska LB; top returning linebacker Butkus/Bednarik crossover
 27706,Cormani McClain,walter_camp,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Walter Camp - Florida CB; former #1 CB recruit elite cover corner Thorpe crossover

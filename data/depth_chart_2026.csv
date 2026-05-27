@@ -48,7 +48,7 @@ player_id,full_name_for_audit,position_group,slot_rank,starter_status,confidence
 11540,Blake Horvath,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Navy QB1 (G5 dual-threat)
 11451,Billy Edwards,QB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Maryland QB1
 14116,Desmond Reid,RB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Pittsburgh RB1 — Hornung watch
-11334,Makhi Hughes,RB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Oregon RB1 (transferred from Tulane)
+11334,Makhi Hughes,RB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Houston RB1 (transferred from Oregon via Tulane) Doak Walker candidate
 16170,Darius Taylor,RB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Minnesota RB1
 6733,Isaac Brown,RB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Louisville RB1
 13075,Tre Wisner,RB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Texas RB1 — paired w/ Manning
@@ -63,7 +63,7 @@ player_id,full_name_for_audit,position_group,slot_rank,starter_status,confidence
 # Sources: On3 spring depth charts Phil Steele 2026 team chapters.
 27768,Jackson Carver,TE,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Miami TE1 — Mackey Award candidate
 24925,Henry Delp,TE,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Georgia TE1 — returning pass-catcher for Bulldogs
-26639,Johnny Pascuzzi,TE,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Iowa TE1 — classic Iowa TE role tight-window target
+26639,Johnny Pascuzzi,TE,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Tulane TE1 (transferred from Iowa) — tight-window catcher Mackey candidate in new system
 29033,Zack Marshall,TE,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Michigan TE1 — lead blocker and seam threat
 28448,Jay Lindsey,TE,1,returning_starter,projected,manual_editorial,,2026-05-27,Alabama TE1 — move-TE in Alabama RPO system
 32629,Justin Fisher,TE,1,returning_starter,projected,manual_editorial,,2026-05-27,Notre Dame TE1 — primary red-zone target for Irish
@@ -81,18 +81,17 @@ player_id,full_name_for_audit,position_group,slot_rank,starter_status,confidence
 26138,Dasan McCullough,LB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Oklahoma LB1 — Butkus candidate top returning LB Big 12
 32566,Payton Pierce,LB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Ohio State LB — key piece of Buckeyes defense
 31773,Kahanu Kia,LB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Notre Dame LB — high-motor hybrid edge/off-ball
-28406,Jeremiah Alexander,LB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Alabama LB — top edge-setting linebacker in SEC
-29043,Jack MacKinnon,LB,1,returning_starter,projected,manual_editorial,,2026-05-27,Michigan LB — key returning piece of Wolverines defense
-29604,Xavier Atkins,LB,1,returning_starter,projected,manual_editorial,,2026-05-27,LSU LB — fast-flowing inside linebacker
+28406,Jeremiah Alexander,LB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Clemson LB — top edge-setting linebacker in SEC
+29604,Xavier Atkins,LB,1,returning_starter,projected,manual_editorial,,2026-05-27,Auburn LB — fast-flowing inside linebacker
 # CB/DB depth chart — top returning cornerbacks and safeties
 27706,Cormani McClain,CB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Florida CB1 — elite cover corner Thorpe candidate
-3720,Gabe Powers,CB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Ohio State DB — Thorpe/Hornung candidate safety-LB hybrid
+3720,Gabe Powers,CB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Kansas State DB — Thorpe/Hornung candidate safety-LB hybrid
 29639,Craig Walton Jr.,CB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,LSU CB1 — shutdown corner Thorpe watch
 29628,Michael Turner Jr.,CB,1,returning_starter,confirmed,manual_editorial,,2026-05-27,LSU CB2 — press-man specialist high NFL upside
 27039,Kylen Webb,S,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Clemson S — ball-hawk safety leads Tigers secondary
-28412,Jahlil Hurley,CB,1,returning_starter,projected,manual_editorial,,2026-05-27,Alabama CB — lockdown corner returning to Tide
+28412,Jahlil Hurley,CB,1,returning_starter,projected,manual_editorial,,2026-05-27,Kansas CB — lockdown corner returning to Tide
 # OL depth chart — top returning offensive linemen
-28408,Elijah Pritchett,OL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Alabama LT — dominant tackle Outland Trophy candidate
+28408,Elijah Pritchett,OL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Nebraska LT — elite pass protector transferred from Alabama Outland/Lombardi candidate
 27015,Tristan Leigh,OL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Clemson LT — franchise-caliber returning starter
 32342,Austin Siereveld,OL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Ohio State OG — elite interior mauler
 24874,Drew Bobo,OL,1,returning_starter,confirmed,manual_editorial,,2026-05-27,Georgia C/OG — versatile interior lineman for Bulldogs
