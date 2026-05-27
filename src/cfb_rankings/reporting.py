@@ -5240,7 +5240,12 @@ def _player_pages_v2_css() -> str:
             TROPHY_CASE_CSS as _TC_CSS,
             SPARKLINE_CSS as _SK_CSS,
             PASS_PROFILE_CSS as _PP_CSS,
+            SEASON_CONTEXT_CSS as _SX_CSS,
         )
+        try:
+            from cfb_rankings.player_pages.composite_score import COMPOSITE_SCORE_CSS as _CMP_CSS
+        except Exception:
+            _CMP_CSS = ""
         # Accolade tabs — nested inside the v5 Player Standing card; styles
         # live in the accolade_streams module so they ship with the same fix.
         try:
@@ -5249,7 +5254,7 @@ def _player_pages_v2_css() -> str:
             _ACC_CSS = ""
         # Tokens come FIRST so module-level CSS can reference --pct-* / --belief-* / --accolade-* vars.
         return (
-            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _SK_CSS + _PP_CSS + _ACC_CSS
+            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _SK_CSS + _PP_CSS + _SX_CSS + _CMP_CSS + _ACC_CSS
         )
     except Exception:
         return ""
@@ -9114,6 +9119,7 @@ def build_player_page_data_map(
                 render_trophy_case as _render_trophy_case_v2,
                 build_stat_sparklines as _build_stat_sparklines_v2,
                 render_pass_profile as _render_pass_profile_v2,
+                render_season_context as _render_season_context_v2,
             )
             _primary_team_id = (
                 int((page_data.get("primary_team") or {}).get("team_id"))
@@ -9224,15 +9230,23 @@ def build_player_page_data_map(
             page_data["new_pass_profile_html"] = _render_pass_profile_v2(
                 db, player_id, int(summary["season_year"]),
             ) if (_position or "").upper() == "QB" else ""
+            page_data["new_season_context_html"] = _render_season_context_v2(
+                db, player_id,
+            )
             try:
                 from cfb_rankings.player_pages.composite_score import (
                     compute_cfb_index_score as _compute_cfb_index_score_v2,
+                    render_composite_score_badge as _render_composite_score_badge_v2,
                 )
                 page_data["cfb_index_score"] = _compute_cfb_index_score_v2(
                     db, player_id, int(summary["season_year"]), _position,
                 )
+                page_data["new_composite_score_badge_html"] = _render_composite_score_badge_v2(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
             except Exception:
                 page_data["cfb_index_score"] = None
+                page_data["new_composite_score_badge_html"] = ""
             # Standing payload — computes the 17-rung classification +
             # per-position accolade streams (Heisman finalist %, AA selector
             # grid, position-award status). Populates page_data["standing"]
@@ -9281,6 +9295,8 @@ def build_player_page_data_map(
             page_data["new_trophy_case_html"] = ""
             page_data["stat_sparklines"] = {}
             page_data["new_pass_profile_html"] = ""
+            page_data["new_season_context_html"] = ""
+            page_data["new_composite_score_badge_html"] = ""
             page_data["cfb_index_score"] = None
         # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
         try:
@@ -19644,6 +19660,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
                   <span class="player-stat-module-chip">Career row</span>
                 </div>
               </div>
+              {player_data.get("new_season_context_html") or ""}
               {season_stat_tables_html}
             </div>
           </details>
@@ -19752,6 +19769,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="advanced-savant">
+        {player_data.get("new_composite_score_badge_html") or ""}
         {player_data.get("new_box_savant_html") or ""}
         {player_data.get("new_pass_profile_html") or ""}
         {_render_player_savant_card(
@@ -21816,6 +21834,7 @@ def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
 def _player_metric_help_text(metric_name: Any) -> str | None:
     metric_key = _board_filter_value(metric_name)
     catalog = {
+        # Existing advanced-metric entries
         "passing-wepa": "Opponent-adjusted passing value. Positive means the player is creating more through the air than a neutral same-role peer would against that schedule.",
         "rushing-wepa": "Opponent-adjusted rushing value. It rewards carries and runs that create actual offensive value, not just raw volume.",
         "role-share": "Estimated share of the team's offense owned by this player after combining the ways the ball flows through them.",
@@ -21826,6 +21845,50 @@ def _player_metric_help_text(metric_name: Any) -> str | None:
         "yards-catch": "Yards per catch. A fast indicator of how much vertical or chunk-play value a receiver creates.",
         "passer-rating": "Passing efficiency formula built from completion rate, yards, touchdowns, and interceptions. It is a familiar summary stat for quarterbacks.",
         "peer-percentile": "Percentile vs same-position players at the same competition level. An FBS quarterback is compared only with other FBS quarterbacks.",
+
+        # Wave 24 — traditional column-header glossary
+        "cmp": "Completions — passes caught by the intended receiver.",
+        "cmp-att": "Completions / attempts. Shows volume and accuracy in one cell.",
+        "c-att": "Completions / attempts. Shows volume and accuracy in one cell.",
+        "att": "Pass attempts — every throw including incompletions and interceptions, excluding sacks.",
+        "yds": "Yards gained on this category. Always a season total when shown in a season row.",
+        "yards": "Yards gained on this category. Always a season total when shown in a season row.",
+        "td": "Touchdowns. For QBs this is passing TDs unless the row is a rushing/receiving subline.",
+        "tds": "Touchdowns. For QBs this is passing TDs unless the row is a rushing/receiving subline.",
+        "int": "Interceptions thrown (for QB rows) or caught (for DB rows).",
+        "ints": "Interceptions thrown (for QB rows) or caught (for DB rows).",
+        "ypa": "Yards per attempt. Quick read on downfield efficiency.",
+        "qbr": "ESPN's Quarterback Rating. 0-100 scale, 50 = average FBS starter.",
+        "rtg": "NCAA passer rating. 100-200 typical; 150+ is excellent.",
+        "rating": "NCAA passer rating. 100-200 typical; 150+ is excellent.",
+        "car": "Carries — designed running plays.",
+        "carries": "Carries — designed running plays.",
+        "ypc": "Yards per carry. Sub-4 is rough, 5+ is strong, 6+ is elite at volume.",
+        "long": "Longest single play in that category for the season.",
+        "rec": "Receptions — catches.",
+        "recs": "Receptions — catches.",
+        "tgts": "Targets — passes thrown his way, regardless of outcome.",
+        "targets": "Targets — passes thrown his way, regardless of outcome.",
+        "ypr": "Yards per reception. Higher = more chunk plays per catch.",
+        "ypc-rec": "Yards per catch. Higher = more chunk plays per catch.",
+        "tot": "Total tackles — solo + assisted.",
+        "tackles": "Total tackles — solo + assisted.",
+        "solo": "Solo tackles — credited entirely to this player.",
+        "ast": "Assisted tackles — shared with at least one teammate.",
+        "tfl": "Tackles for loss. A tackle behind the line of scrimmage on a run or short pass.",
+        "sacks": "Sacks — QB takedowns behind the line on a pass attempt. Half-sacks split credit.",
+        "sk": "Sacks — QB takedowns behind the line on a pass attempt.",
+        "pd": "Passes defended — passes broken up or intercepted at the catch point.",
+        "qb-hur": "QB hurries — disrupting the quarterback into a hurried throw.",
+        "ff": "Forced fumbles — punching the ball loose.",
+        "fr": "Fumble recoveries.",
+        "pct": "Completion percentage — completions / attempts × 100.",
+        "completion-percentage": "Completions / attempts × 100. Floor for FBS starters is ~58%.",
+        "completion": "Completions / attempts × 100. Floor for FBS starters is ~58%.",
+        "fg": "Field goals — made / attempted.",
+        "xp": "Extra points — made / attempted.",
+        "punts": "Punts kicked.",
+        "in-20": "Punts landed inside the opponent 20-yard line.",
     }
     return catalog.get(metric_key)
 

@@ -486,7 +486,7 @@ def render_box_savant(
         f'<p class="box-savant__lede">{lede}</p>'
         f'<div class="box-savant__bars">{bars_html}</div>'
         '<p class="box-savant__footnote">Percentiles versus same-position peers above the snap floor '
-        'for this season. EPA / CPOE / aDOT / pressure splits arrive when CFBD play-by-play '
-        'is wired — these bars use box-score rates in the meantime.</p>'
+        'for this season. Box-score rates; play-by-play depth splits visible in the Pass Profile '
+        'section below for qualifying QBs.</p>'
         '</section>'
     )

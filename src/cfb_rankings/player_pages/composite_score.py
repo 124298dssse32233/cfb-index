@@ -21,6 +21,7 @@ Returns a dict the hero renderer can drop straight into cell #1:
 """
 from __future__ import annotations
 
+from html import escape
 from typing import Any
 
 from .box_savant import compute_savant_bars
@@ -151,3 +152,64 @@ def compute_cfb_index_score(
         "n_metrics": len(bars),
         "cohort_size": max_cohort,
     }
+
+
+_TIER_COLORS = {
+    "elite":  ("var(--accolade-gold-base,#d1a23a)", "#15161a"),
+    "strong": ("var(--accent-green,#22c55e)",        "#0a1a0a"),
+    "solid":  ("var(--accent-primary,#4a78c4)",       "#ffffff"),
+    "mid":    ("var(--text-quiet,rgba(255,255,255,0.55))", "#ffffff"),
+    "below":  ("rgba(239,68,68,0.8)",                 "#ffffff"),
+}
+
+COMPOSITE_SCORE_CSS = """
+/* Composite Score badge inside Box Savant header */
+.composite-score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 8px;
+  border-radius: 999px;
+  background: var(--badge-bg, rgba(255,255,255,0.06));
+  border: 1px solid var(--badge-border, rgba(255,255,255,0.12));
+}
+.composite-score-badge__num {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--badge-color, var(--text-bright, #fff));
+}
+.composite-score-badge__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--badge-color, var(--text-quiet, rgba(255,255,255,0.55)));
+}
+"""
+
+
+def render_composite_score_badge(
+    db, player_id: int | None, season_year: int | None,
+    position: str | None = None,
+) -> str:
+    """Render a compact inline score badge for the box-savant header.
+
+    Returns an empty string when there are insufficient metrics.
+    """
+    result = compute_cfb_index_score(db, player_id, season_year, position)
+    if not result:
+        return ""
+    score = result["score"]
+    tier = result["tier"]
+    tier_label = result["tier_label"]
+    bg, fg = _TIER_COLORS.get(tier, ("rgba(255,255,255,0.08)", "#fff"))
+    narrative_esc = escape(result["narrative"])
+    return (
+        f'<div class="composite-score-badge" '
+        f'style="--badge-bg:{bg};--badge-border:transparent;--badge-color:{fg}" '
+        f'title="{narrative_esc}">'
+        f'<span class="composite-score-badge__num">{score}</span>'
+        f'<span class="composite-score-badge__label">{escape(tier_label)}</span>'
+        '</div>'
+    )
