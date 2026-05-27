@@ -119,6 +119,25 @@ jobs:
           # (realignment: Texas/OU->SEC, Oregon/USC/UW/UCLA->Big Ten, etc.)
           python manage.py repair-team-current-identity
 
+      - name: Seed Wave 25 offseason posture (award watch + depth chart)
+        # Wave 25 — idempotent UPSERT from CSV source-of-truth files.
+        # These CSVs live in the repo; publish-site seeds them every run so the
+        # rolling DB artifact always reflects the latest editorial posture.
+        # Non-fatal: if either CSV is missing the step skips gracefully.
+        run: |
+          if [ -f data/award_watch_2026.csv ]; then
+            python manage.py refresh-award-watch --csv data/award_watch_2026.csv
+            echo "[wave25] award watch seeded"
+          else
+            echo "::warning::data/award_watch_2026.csv not found — skipping"
+          fi
+          if [ -f data/depth_chart_2026.csv ]; then
+            python manage.py refresh-depth-chart --csv data/depth_chart_2026.csv
+            echo "[wave25] depth chart seeded"
+          else
+            echo "::warning::data/depth_chart_2026.csv not found — skipping"
+          fi
+
       # Start from the last healthy site state. If build-site fails
       # (FK constraint, etc.), this preserves all the team / player /
       # rankings pages from the prior healthy artifact. The
