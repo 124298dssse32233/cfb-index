@@ -60,6 +60,12 @@ BOX_SAVANT_CSS = """
   margin: 0;
   color: var(--text-bright, rgba(255,255,255,0.92));
 }
+.box-savant__head-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
 .box-savant__meta {
   font-size: 0.74rem;
   color: var(--text-quiet, rgba(255,255,255,0.5));
@@ -441,6 +447,7 @@ def _build_lede(bars: list[dict[str, Any]]) -> str:
 def render_box_savant(
     db, player_id: int | None, season_year: int | None,
     position: str | None = None,
+    score_badge_html: str = "",
 ) -> str:
     if db is None or player_id is None or season_year is None:
         return ""
@@ -481,7 +488,10 @@ def render_box_savant(
         '<p class="box-savant__eyebrow">Savant &middot; Box-rate percentiles</p>'
         f'<p class="box-savant__title">Where this profile ranks vs the {escape(position or "position")} cohort</p>'
         '</div>'
+        f'<div class="box-savant__head-right">'
+        f'{score_badge_html}'
         f'<span class="box-savant__meta">{n_metrics} metrics &middot; season cumulative</span>'
+        '</div>'
         '</header>'
         f'<p class="box-savant__lede">{lede}</p>'
         f'<div class="box-savant__bars">{bars_html}</div>'

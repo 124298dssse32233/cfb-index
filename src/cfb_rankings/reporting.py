@@ -9196,8 +9196,26 @@ def build_player_page_data_map(
                 db, player_id, int(summary["season_year"]),
                 _position, _primary_team_id,
             )
+            # Compute composite score badge first so it can be embedded in box_savant header
+            try:
+                from cfb_rankings.player_pages.composite_score import (
+                    compute_cfb_index_score as _compute_cfb_index_score_v2,
+                    render_composite_score_badge as _render_composite_score_badge_v2,
+                )
+                page_data["cfb_index_score"] = _compute_cfb_index_score_v2(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+                _score_badge = _render_composite_score_badge_v2(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+                page_data["new_composite_score_badge_html"] = _score_badge
+            except Exception:
+                page_data["cfb_index_score"] = None
+                _score_badge = ""
+                page_data["new_composite_score_badge_html"] = ""
             page_data["new_box_savant_html"] = _render_box_savant_v2(
                 db, player_id, int(summary["season_year"]), _position,
+                score_badge_html=_score_badge,
             )
             page_data["new_splits_html"] = _render_splits_v2(
                 db, player_id, int(summary["season_year"]),
@@ -9233,20 +9251,6 @@ def build_player_page_data_map(
             page_data["new_season_context_html"] = _render_season_context_v2(
                 db, player_id,
             )
-            try:
-                from cfb_rankings.player_pages.composite_score import (
-                    compute_cfb_index_score as _compute_cfb_index_score_v2,
-                    render_composite_score_badge as _render_composite_score_badge_v2,
-                )
-                page_data["cfb_index_score"] = _compute_cfb_index_score_v2(
-                    db, player_id, int(summary["season_year"]), _position,
-                )
-                page_data["new_composite_score_badge_html"] = _render_composite_score_badge_v2(
-                    db, player_id, int(summary["season_year"]), _position,
-                )
-            except Exception:
-                page_data["cfb_index_score"] = None
-                page_data["new_composite_score_badge_html"] = ""
             # Standing payload — computes the 17-rung classification +
             # per-position accolade streams (Heisman finalist %, AA selector
             # grid, position-award status). Populates page_data["standing"]
@@ -19769,7 +19773,6 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="advanced-savant">
-        {player_data.get("new_composite_score_badge_html") or ""}
         {player_data.get("new_box_savant_html") or ""}
         {player_data.get("new_pass_profile_html") or ""}
         {_render_player_savant_card(
