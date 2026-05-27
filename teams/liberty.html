@@ -4118,6 +4118,167 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 }
 
 
+/* Roster Reload - separated continuity, portal, draft, and recruiting */
+
+/* Roster Reload dashboard */
+.roster-reload {
+  margin-bottom: clamp(20px, 3vw, 32px);
+  padding: clamp(16px, 2.2vw, 24px) clamp(18px, 2.4vw, 28px);
+  background: rgba(255, 255, 255, 0.026);
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
+  border-left: 3px solid var(--accent-primary, #c9a24a);
+  border-radius: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.roster-reload__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: clamp(12px, 1.6vw, 18px);
+  border-bottom: 1px dashed var(--stroke-subtle, rgba(255,255,255,0.07));
+  padding-bottom: 10px;
+}
+.roster-reload__title {
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(20px, 1.2vw + 10px, 26px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  margin: 0;
+}
+.roster-reload__tag {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+.roster-reload__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vw, 12px);
+}
+.roster-reload__metric {
+  min-height: 102px;
+  padding: 10px 12px;
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.roster-reload__metric-label {
+  display: block;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 7px;
+}
+.roster-reload__metric-value {
+  display: block;
+  font-family: var(--font-display, 'Bebas Neue', system-ui, sans-serif);
+  font-size: clamp(24px, 1.8vw + 8px, 36px);
+  line-height: 1;
+  color: var(--fg-primary);
+}
+.roster-reload__metric-value--add { color: #4f9d6b; }
+.roster-reload__metric-value--loss { color: #c98c1a; }
+.roster-reload__metric-note {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--fg-secondary);
+}
+.roster-reload__positions {
+  margin-top: clamp(12px, 1.8vw, 18px);
+  display: grid;
+  gap: 8px;
+}
+.roster-reload__position {
+  display: grid;
+  grid-template-columns: minmax(48px, 0.4fr) repeat(2, minmax(0, 1fr)) minmax(0, 1.1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 9px 10px;
+  border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.018);
+}
+.roster-reload__pos {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--fg-primary);
+}
+.roster-reload__flow {
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 12px;
+  color: var(--fg-secondary);
+}
+.roster-reload__flow strong {
+  color: var(--fg-primary);
+  font-weight: 800;
+}
+.roster-reload__flag {
+  justify-self: end;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #c9a24a);
+}
+@media (max-width: 900px) {
+  .roster-reload__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .roster-reload__position { grid-template-columns: minmax(42px, 0.35fr) minmax(0, 1fr); }
+  .roster-reload__flag { justify-self: start; }
+}
+@media (max-width: 480px) {
+  .roster-reload__head { flex-direction: column; align-items: flex-start; }
+  .roster-reload__grid { grid-template-columns: 1fr; }
+}
+
+
+/* Evidence-gated preview thesis */
+
+/* Evidence-gated preview thesis */
+.preview-thesis {
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 36%, var(--border));
+  border-radius: 8px;
+  padding: clamp(1rem, 2vw, 1.4rem);
+  background: color-mix(in srgb, var(--accent-primary) 9%, var(--surface));
+}
+.preview-thesis__meta,
+.preview-thesis__receipt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .8rem;
+  font: 700 .72rem/1.2 var(--font-sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.preview-thesis__title {
+  margin: .45rem 0 .45rem;
+  font: 700 clamp(1.35rem, 2.4vw, 2.1rem)/1.02 var(--font-display);
+  letter-spacing: 0;
+  color: var(--text);
+}
+.preview-thesis__body {
+  max-width: 76ch;
+  margin: 0 0 .9rem;
+  font: 500 clamp(.98rem, 1.25vw, 1.08rem)/1.55 var(--font-sans);
+  color: var(--text);
+}
+
+
 /* Recent Form chip — last 10 games */
 
 /* Recent Form chip */
@@ -6215,7 +6376,20 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
     <span class="offseason-pulse__cycle">Roster · Recruiting · Portal</span>
   </div>
   <div class="offseason-pulse__grid">
-    <div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Recruiting Class</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--warning">#86 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite rating 160.8</p><p class="offseason-pulse__cell-narrative">Outside the recruiting top 60. Roster gaps must close via portal.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Returning Production</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">100%</p><p class="offseason-pulse__cell-context">2025 cycle · CFBD weighted</p><p class="offseason-pulse__cell-narrative">Top-tier continuity. QB returns.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Talent Composite</p><p class="offseason-pulse__cell-headline">#84 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite 599.1</p><p class="offseason-pulse__cell-narrative">Outside the talent top 60. The wins must be earned in development.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Transfer Activity</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">+7 net</p><p class="offseason-pulse__cell-context">2026 cycle · in 26 / out 19</p><p class="offseason-pulse__cell-narrative">Net positive portal cycle. Roster augmented at need positions.</p></div>
+    <div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Recruiting Class</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--warning">#86 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite rating 160.8</p><p class="offseason-pulse__cell-narrative">Outside the recruiting top 60. Roster gaps must close via portal.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Returning Production</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">100%</p><p class="offseason-pulse__cell-context">2025 cycle · CFBD weighted</p><p class="offseason-pulse__cell-narrative">Top-tier continuity. QB returns.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Talent Composite</p><p class="offseason-pulse__cell-headline">#84 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite 599.1</p><p class="offseason-pulse__cell-narrative">Outside the talent top 60. The wins must be earned in development.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Portal Movement</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">26 in / 19 out</p><p class="offseason-pulse__cell-context">2026 cycle · in 26 / out 19</p><p class="offseason-pulse__cell-narrative">Portal additions outpace losses; position detail lives in Roster Reload.</p></div>
+  </div>
+</section>
+<section class="roster-reload" aria-labelledby="roster-reload-h"
+         data-module="roster-reload" data-state="ready" data-season="2026">
+  <div class="roster-reload__head">
+    <h2 class="roster-reload__title" id="roster-reload-h">Roster Reload - Liberty</h2>
+    <span class="roster-reload__tag">2026 snapshot - 2026-05-27</span>
+  </div>
+  <div class="roster-reload__grid">
+    <div class="roster-reload__metric"><span class="roster-reload__metric-label">Returning Production</span><span class="roster-reload__metric-value">100%</span><span class="roster-reload__metric-note">High continuity</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Portal Additions</span><span class="roster-reload__metric-value roster-reload__metric-value--add">26</span><span class="roster-reload__metric-note">Primary repair: RB</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Portal Losses</span><span class="roster-reload__metric-value roster-reload__metric-value--loss">19</span><span class="roster-reload__metric-note">Primary pressure: EDGE</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Draft Loss</span><span class="roster-reload__metric-value">0</span><span class="roster-reload__metric-note">No NFL Draft departures recorded</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Recruiting Reload</span><span class="roster-reload__metric-value">#86</span><span class="roster-reload__metric-note">Depth class (#86)</span></div>
+  </div>
+  <div class="roster-reload__positions" aria-label="Portal position flow">
+    <div class="roster-reload__position"><span class="roster-reload__pos">RB</span><span class="roster-reload__flow">in <strong>5</strong> - Peyton Jones</span><span class="roster-reload__flow">out <strong>3</strong> - Malachi Fannin-Render</span><span class="roster-reload__flag">Repaired</span></div><div class="roster-reload__position"><span class="roster-reload__pos">CB</span><span class="roster-reload__flow">in <strong>4</strong> - Izaiah Guy</span><span class="roster-reload__flow">out <strong>3</strong> - Uriah Points</span><span class="roster-reload__flag">Tracked</span></div><div class="roster-reload__position"><span class="roster-reload__pos">EDGE</span><span class="roster-reload__flow">in <strong>1</strong> - Lorenzo Payne IV</span><span class="roster-reload__flow">out <strong>3</strong> - Brenton Williams</span><span class="roster-reload__flag">Pressure</span></div><div class="roster-reload__position"><span class="roster-reload__pos">TE</span><span class="roster-reload__flow">in <strong>2</strong> - LaKelsey Johnson Jr.</span><span class="roster-reload__flow">out <strong>2</strong> - Eli Sisson</span><span class="roster-reload__flag">Tracked</span></div><div class="roster-reload__position"><span class="roster-reload__pos">QB</span><span class="roster-reload__flow">in <strong>2</strong> - Deshawn Purdie</span><span class="roster-reload__flow">out <strong>2</strong> - Michael Merdinger</span><span class="roster-reload__flag">Tracked</span></div><div class="roster-reload__position"><span class="roster-reload__pos">OT</span><span class="roster-reload__flow">in <strong>2</strong> - Val Erickson</span><span class="roster-reload__flow">out <strong>1</strong> - Da&#x27;Jy&#x27;Quwan Jackson-Payne</span><span class="roster-reload__flag">Tracked</span></div>
   </div>
 </section><section class="pulse" aria-labelledby="pulse-title">
   <div class="pulse__header">
@@ -6261,34 +6435,34 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
   </div>
 </section>
 <section class="ceiling-floor" aria-labelledby="ceiling-floor-h"
-         data-module="ceiling-floor" data-state="ready">
+         data-module="ceiling-floor" data-state="ready"
+         data-source="projection">
   <div class="ceiling-floor__header">
     <p class="ceiling-floor__eyebrow">Liberty · Next-Season Outcome Band</p>
     <h2 id="ceiling-floor-h" class="ceiling-floor__title">Floor / Base / Ceiling</h2>
   </div>
-  <div class="ceiling-floor__band" role="img" aria-label="Floor 2 wins, base 4 wins, ceiling 7 wins">
-    <div class="ceiling-floor__marker" style="left: 16.7%;">
-      <span class="ceiling-floor__marker-label">Floor 2-10</span>
+  <div class="ceiling-floor__band" role="img" aria-label="Floor 5-7, base 8-5, ceiling 10-3">
+    <div class="ceiling-floor__marker" style="left: 38.5%;">
+      <span class="ceiling-floor__marker-label">Floor 5-7</span>
     </div>
-    <div class="ceiling-floor__marker" style="left: 33.3%;">
-      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base 4-8</span>
+    <div class="ceiling-floor__marker" style="left: 61.5%;">
+      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base 8-5</span>
     </div>
-    <div class="ceiling-floor__marker" style="left: 58.3%;">
-      <span class="ceiling-floor__marker-label">Ceiling 7-5</span>
+    <div class="ceiling-floor__marker" style="left: 76.9%;">
+      <span class="ceiling-floor__marker-label">Ceiling 10-3</span>
     </div>
   </div>
   <div class="ceiling-floor__scenarios">
-    <div class="ceiling-floor__scenario" data-kind="floor"><span class="ceiling-floor__scenario-kind">floor</span><span class="ceiling-floor__scenario-record">2-10</span><span class="ceiling-floor__scenario-story">Rebuild year. Bowl access uncertain.</span></div><div class="ceiling-floor__scenario" data-kind="base"><span class="ceiling-floor__scenario-kind">base</span><span class="ceiling-floor__scenario-record">4-8</span><span class="ceiling-floor__scenario-story">Bowl access depends on the closing run.</span></div><div class="ceiling-floor__scenario" data-kind="ceiling"><span class="ceiling-floor__scenario-kind">ceiling</span><span class="ceiling-floor__scenario-record">7-5</span><span class="ceiling-floor__scenario-story">Upside scenario: bowl + a signature win.</span></div>
+    <div class="ceiling-floor__scenario" data-kind="floor"><span class="ceiling-floor__scenario-kind">floor</span><span class="ceiling-floor__scenario-record">5-7</span><span class="ceiling-floor__scenario-story">No postseason.</span></div><div class="ceiling-floor__scenario" data-kind="base"><span class="ceiling-floor__scenario-kind">base</span><span class="ceiling-floor__scenario-record">8-5</span><span class="ceiling-floor__scenario-story">Bowl game.</span></div><div class="ceiling-floor__scenario" data-kind="ceiling"><span class="ceiling-floor__scenario-kind">ceiling</span><span class="ceiling-floor__scenario-record">10-3</span><span class="ceiling-floor__scenario-story">Bowl game.</span></div>
   </div>
   <p class="ceiling-floor__caveat">
-    Variance assumed at ±2 wins from last-season record. Replace with SP+ projection band
-    once preseason ratings publish.
+    Final-season-aware projection: floor / base / ceiling include conference title and CFP games where the model supports them, so a ceiling can exceed a 12-game regular season.
   </p>
 </section>
 <section class="top-commits" aria-labelledby="top-commits-h"
          data-module="top-commits" data-state="ready" data-class-year="2026">
   <div class="top-commits__head">
-    <p class="top-commits__eyebrow" id="top-commits-h">Top 3 commits</p>
+    <p class="top-commits__eyebrow" id="top-commits-h">Recruiting Reload - Top 3 commits</p>
     <span class="top-commits__class-tag">2026 class</span>
   </div>
   <div class="top-commits__list">
@@ -6574,7 +6748,7 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
 <section class="bowl-history" aria-labelledby="bowl-history-h"
          data-module="bowl-history" data-state="ready">
   <p class="bowl-history__eyebrow">Bowl / Postseason Ledger</p>
-  <h2 id="bowl-history-h" class="bowl-history__verdict">3-3 all-time on the ledger</h2>
+  <h2 id="bowl-history-h" class="bowl-history__verdict">Recent postseason (2019-2024): 3-3</h2>
   <p class="bowl-history__recent">Most recent: 2024 — loss 7-26 (home). Last 5 postseason: 2-3.</p>
   <div class="bowl-history__row" aria-label="Recent postseason appearances">
     <span class="bowl-history__year bowl-history__year--loss">2024</span><span class="bowl-history__year bowl-history__year--loss">2023</span><span class="bowl-history__year bowl-history__year--loss">2022</span><span class="bowl-history__year bowl-history__year--win">2021</span><span class="bowl-history__year bowl-history__year--win">2020</span>

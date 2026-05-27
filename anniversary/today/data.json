@@ -1,78 +1,78 @@
 {
-  "generated_at_utc": "2026-05-25T12:33:27Z",
-  "today": "2026-05-25",
-  "week_label": "Late Spring (89 days to kickoff)",
+  "generated_at_utc": "2026-05-27T01:05:50Z",
+  "today": "2026-05-27",
+  "week_label": "Late Spring (87 days to kickoff)",
   "phase_label": "Late Spring",
-  "days_to_kickoff": 89,
+  "days_to_kickoff": 87,
   "cards": [
     {
-      "year": 2023,
-      "years_ago": 3,
+      "year": 2024,
+      "years_ago": 2,
       "source": "archive_threads",
-      "headline": "Oklahoma Legislature overwhelmingly (120-13) overrides Gov. Kevin Stitt's veto of NIL bill. Oklahoma Law now allows college players to have agents for NIL deals and blocks NCAA investigations into NIL deals.",
-      "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/13rxf1s/oklahoma_legislature_overwhelmingly_12013/",
-      "attribution": "r/CFB · 1,029 upvotes",
-      "score": 1029,
+      "headline": "More basketball related than football, but R.I.P Bill Walton",
+      "body": "Days after the end of the Pac it's biggest supporter passes away. Rest easy legend.\n\n\n\n[https://www.espn.com/nba/story/\\_/id/40229031/nba-champion-hall-famer-bill-walton-dies-71](https://www.espn.com/nba/story/_/id/40229031/nba-champion-hall-famer-bill-walton-dies-71)",
+      "url": "https://www.reddit.com/r/CFB/comments/1d1x2vt/more_basketball_related_than_football_but_rip/",
+      "attribution": "r/CFB · 1,272 upvotes",
+      "score": 1272,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "13rxf1s"
+        "external_id": "1d1x2vt"
+      }
+    },
+    {
+      "year": 2022,
+      "years_ago": 4,
+      "source": "archive_threads",
+      "headline": "Former Virginia Tech football player Isimemen Etute found not guilty in beating death of Blacksburg man",
+      "body": "",
+      "url": "https://www.reddit.com/r/CFB/comments/uza9y1/former_virginia_tech_football_player_isimemen/",
+      "attribution": "r/CFB · 1,327 upvotes",
+      "score": 1327,
+      "extra": {
+        "subreddit": "CFB",
+        "external_id": "uza9y1"
       }
     },
     {
       "year": 2021,
       "years_ago": 5,
       "source": "archive_threads",
-      "headline": "University of West Florida Football will play first ever game on Pensacola campus.",
-      "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/nl0rar/university_of_west_florida_football_will_play/",
-      "attribution": "r/CFB · 1,289 upvotes",
-      "score": 1289,
+      "headline": "Oklahoma Football \"Bitterly Disappointed\" with Fox's Decision to Set an 11 AM Kickoff Against Nebraska",
+      "body": "Tweet: https://twitter.com/OU_Athletics/status/1398027906933149702\n\nStatement from Oklahoma Athletics Director Joe Castiglione: \"We are bitterly disappointed that the great Oklahoma-Nebraska rivalry, on the 50th anniversary of the Game of the Century, will kick off at 11 a.m. We",
+      "url": "https://www.reddit.com/r/CFB/comments/nmi7x3/oklahoma_football_bitterly_disappointed_with_foxs/",
+      "attribution": "r/CFB · 1,667 upvotes",
+      "score": 1667,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "nl0rar"
+        "external_id": "nmi7x3"
       }
     },
     {
       "year": 2020,
       "years_ago": 6,
       "source": "archive_threads",
-      "headline": "Michigan Tight End Thought He Was Getting Physicals. He Was Being Abused.",
+      "headline": "Cheez-It Bowl: Orlando game gets new sponsor to replace Camping World",
       "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/gqjdoh/michigan_tight_end_thought_he_was_getting/",
-      "attribution": "r/CFB · 1,863 upvotes",
-      "score": 1863,
+      "url": "https://www.reddit.com/r/CFB/comments/grixty/cheezit_bowl_orlando_game_gets_new_sponsor_to/",
+      "attribution": "r/CFB · 1,782 upvotes",
+      "score": 1782,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "gqjdoh"
+        "external_id": "grixty"
       }
     },
     {
-      "year": 2019,
-      "years_ago": 7,
+      "year": 2018,
+      "years_ago": 8,
       "source": "archive_threads",
-      "headline": "Texas signee Derrian Brown, who suffered a life-threatening stroke in January, graduated high school this morning.",
-      "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/bsxrxz/texas_signee_derrian_brown_who_suffered_a/",
-      "attribution": "r/CFB · 955 upvotes",
-      "score": 955,
+      "headline": "Psyduck's Influence on the Oregon Ducks",
+      "body": "In an effort to understand how Oregon grew from a perennial .500 level team to a national powerhouse, I dove deep into the history of ducks and all duck lore and I may have found the thing that gave Oregon its power over the PAC12. That thing is Psyduck. Psyduck first appeared in",
+      "url": "https://www.reddit.com/r/CFB/comments/8miroa/psyducks_influence_on_the_oregon_ducks/",
+      "attribution": "r/CFB · 2,895 upvotes",
+      "score": 2895,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "bsxrxz"
-      }
-    },
-    {
-      "year": 2017,
-      "years_ago": 9,
-      "source": "archive_threads",
-      "headline": "Devon Gales, Southern player paralyzed by hit vs UGA, walking again",
-      "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/6dctqc/devon_gales_southern_player_paralyzed_by_hit_vs/",
-      "attribution": "r/CFB · 1,301 upvotes",
-      "score": 1301,
-      "extra": {
-        "subreddit": "CFB",
-        "external_id": "6dctqc"
+        "external_id": "8miroa"
       }
     }
   ]
