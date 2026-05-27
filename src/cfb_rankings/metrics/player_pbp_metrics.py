@@ -51,6 +51,32 @@ def _resolve_actors_to_players(
     Strategy: build a (full_name → player_id) map for players who logged
     box-score volume that season, then UPDATE matching actor rows.
     """
+    # Common nickname expansions used in CFBD play-by-play data vs player records.
+    # Key is the short-form (raw PBP) → value is the long-form (players table).
+    _NICK_EXPANSIONS: dict[str, str] = {
+        "cam": "cameron",
+        "aj": "a.j.",
+        "cj": "c.j.",
+        "tj": "t.j.",
+        "dj": "d.j.",
+        "jj": "j.j.",
+        "jr": "jr.",
+        "zach": "zachary",
+        "jake": "jacob",
+        "will": "william",
+        "andy": "andrew",
+        "matt": "matthew",
+        "mike": "michael",
+        "chris": "christopher",
+        "rob": "robert",
+        "dan": "daniel",
+        "josh": "joshua",
+        "ben": "benjamin",
+        "sam": "samuel",
+        "alex": "alexander",
+        "jim": "james",
+    }
+
     name_to_id: dict[str, int] = {}
     rows = db.query_all(
         """
@@ -65,7 +91,17 @@ def _resolve_actors_to_players(
     for r in rows:
         nm = (r["full_name"] or "").strip()
         if nm:
-            name_to_id[nm.lower()] = int(r["player_id"])
+            nm_lower = nm.lower()
+            name_to_id[nm_lower] = int(r["player_id"])
+            # Also register expanded forms so nickname lookups resolve:
+            # e.g. "cameron ward" → also register "cam ward" → same pid
+            parts = nm_lower.split()
+            if parts:
+                for short, long_form in _NICK_EXPANSIONS.items():
+                    if parts[0] == long_form:
+                        alt = short + " " + " ".join(parts[1:])
+                        if alt not in name_to_id:
+                            name_to_id[alt] = int(r["player_id"])
 
     # Pull unresolved actor rows joined to plays of this season.
     unresolved = db.query_all(
