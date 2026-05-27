@@ -10,6 +10,7 @@ rows in place rather than appending duplicates.
 from __future__ import annotations
 
 import json
+import hashlib
 from typing import Any
 
 from cfb_rankings.team_preview.evidence import TeamEvidence
@@ -146,3 +147,86 @@ def upsert_bowl_ledger_rows(db: Any, rows: list[dict[str, Any]]) -> None:
             "where slug = :s and source_name = :src",
             {"s": r["slug"], "src": r["source_name"]},
         )
+
+
+def write_preview_claim_cache(
+    db: Any,
+    *,
+    team_id: int,
+    slug: str,
+    season_year: int,
+    as_of_date: str,
+    surface: str,
+    claim_type: str,
+    claim_payload: dict[str, Any],
+    evidence: dict[str, Any],
+    evidence_hash: str,
+    prompt_template_id: str,
+    model_id: str,
+    model_backend: str,
+    voice_score: float,
+    fact_score: float,
+    slop_score: float,
+    confidence_band: str,
+) -> str:
+    """Persist an approved team-preview claim and supersede the old current row."""
+    claim_text = json.dumps(claim_payload, ensure_ascii=False, sort_keys=True)
+    claim_key = hashlib.sha256(
+        "|".join([
+            slug,
+            str(season_year),
+            as_of_date,
+            surface,
+            claim_type,
+            evidence_hash,
+            claim_text,
+        ]).encode("utf-8")
+    ).hexdigest()[:32]
+    db.execute(
+        """
+        update team_preview_claim_cache
+        set superseded_at_utc = datetime('now'), is_lkg = 0
+        where slug = :slug
+          and season_year = :season_year
+          and as_of_date = :as_of_date
+          and surface = :surface
+          and claim_type = :claim_type
+          and superseded_at_utc is null
+        """,
+        {
+            "slug": slug,
+            "season_year": season_year,
+            "as_of_date": as_of_date,
+            "surface": surface,
+            "claim_type": claim_type,
+        },
+    )
+    row = {
+        "claim_key": claim_key,
+        "team_id": team_id,
+        "slug": slug,
+        "season_year": season_year,
+        "as_of_date": as_of_date,
+        "surface": surface,
+        "claim_type": claim_type,
+        "claim_text": claim_text,
+        "evidence_json": json.dumps(evidence, ensure_ascii=False, sort_keys=True, default=str),
+        "evidence_hash": evidence_hash,
+        "prompt_template_id": prompt_template_id,
+        "model_id": model_id,
+        "model_backend": model_backend,
+        "voice_score": voice_score,
+        "fact_score": fact_score,
+        "slop_score": slop_score,
+        "confidence_band": confidence_band,
+        "approved": 1,
+        "is_lkg": 1,
+        "superseded_at_utc": None,
+    }
+    db.upsert_many(
+        "team_preview_claim_cache",
+        [row],
+        conflict_columns=["claim_key"],
+        update_columns=[c for c in row if c != "claim_key"],
+    )
+    return claim_key

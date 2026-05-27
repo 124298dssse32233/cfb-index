@@ -647,6 +647,78 @@ def fetch_transfer_position_snapshots(
     return [dict(r) for r in rows]
 
 
+def fetch_team_preview_claim(
+    db,
+    team_id: int,
+    *,
+    surface: str = "preview_thesis",
+    claim_type: str = "team_preview_thesis",
+) -> dict[str, Any] | None:
+    """Read the latest approved team-preview claim cache row.
+
+    The renderer consumes only approved cached prose. It never calls an LLM at
+    render time, and falls back silently when no validated claim exists.
+    """
+    if db is None:
+        return None
+    try:
+        row = db.query_one(
+            """
+            select claim_key, team_id, slug, season_year, as_of_date, surface,
+                   claim_type, claim_text, evidence_json, evidence_hash, prompt_template_id,
+                   model_id, model_backend, voice_score, fact_score, slop_score,
+                   confidence_band, created_at_utc
+            from team_preview_claim_cache
+            where team_id = :team_id
+              and surface = :surface
+              and claim_type = :claim_type
+              and approved = 1
+              and superseded_at_utc is null
+            order by season_year desc, as_of_date desc, created_at_utc desc
+            limit 1
+            """,
+            {"team_id": team_id, "surface": surface, "claim_type": claim_type},
+        )
+    except Exception:
+        row = None
+    if not row:
+        try:
+            row = db.query_one(
+                """
+                select claim_key, team_id, slug, season_year, as_of_date, surface,
+                       claim_type, claim_text, evidence_json, evidence_hash, prompt_template_id,
+                       model_id, model_backend, voice_score, fact_score, slop_score,
+                       confidence_band, created_at_utc
+                from team_preview_claim_cache
+                where team_id = :team_id
+                  and surface = :surface
+                  and claim_type = :claim_type
+                  and approved = 1
+                  and is_lkg = 1
+                order by season_year desc, as_of_date desc, created_at_utc desc
+                limit 1
+                """,
+                {"team_id": team_id, "surface": surface, "claim_type": claim_type},
+            )
+        except Exception:
+            return None
+    if not row:
+        return None
+    claim = dict(row)
+    try:
+        claim["payload"] = json.loads(claim.get("claim_text") or "{}")
+    except (TypeError, json.JSONDecodeError):
+        claim["payload"] = {}
+    try:
+        evidence = json.loads(claim.get("evidence_json") or "{}")
+        from cfb_rankings.team_preview.validators import validate_preview_claim
+        if not validate_preview_claim(claim["payload"], evidence).passed:
+            return None
+    except Exception:
+        return None
+    return claim
+
+
 def fetch_llm_chronicle_cards(
     db,
     slug: str,

@@ -19,6 +19,23 @@ def test_build_team_preview_layer_parser_defaults_to_publish_context():
     assert args.allow_empty is False
 
 
+def test_team_preview_claim_cli_commands_parse():
+    parser = build_parser()
+    args = parser.parse_args([
+        "generate-team-preview-claims",
+        "--season", "2026",
+        "--as-of", "2026-05-26",
+        "--slug", "alabama",
+    ])
+    assert args.season == 2026
+    assert args.as_of == "2026-05-26"
+    assert args.slug == ["alabama"]
+    assert args.allow_cloud is False
+
+    status_args = parser.parse_args(["team-preview-llm-status"])
+    assert status_args.allow_cloud is False
+
+
 def test_publish_outputs_refreshes_team_preview_layer_before_render(monkeypatch):
     events: list[str] = []
 

@@ -1871,6 +1871,31 @@ def build_parser() -> argparse.ArgumentParser:
         help="Exit successfully even if no preview rows were written.",
     )
 
+    gen_preview_claims_parser = subparsers.add_parser(
+        "generate-team-preview-claims",
+        help="Team Preview: generate evidence-gated local-LLM preview claim cache rows.",
+    )
+    gen_preview_claims_parser.add_argument("--season", type=int, required=True)
+    gen_preview_claims_parser.add_argument("--as-of", required=True)
+    gen_preview_claims_parser.add_argument("--slug", nargs="*", default=None)
+    gen_preview_claims_parser.add_argument(
+        "--allow-cloud", action="store_true",
+        help="Permit Chronicle router cloud fallback. Default is local-only.",
+    )
+    gen_preview_claims_parser.add_argument(
+        "--json", action="store_true",
+        help="Emit machine-readable generation report.",
+    )
+
+    preview_llm_status_parser = subparsers.add_parser(
+        "team-preview-llm-status",
+        help="Team Preview: show local LLM backend status via the Chronicle router.",
+    )
+    preview_llm_status_parser.add_argument(
+        "--allow-cloud", action="store_true",
+        help="Include cloud fallback routes in status output.",
+    )
+
     bowl_parser = subparsers.add_parser(
         "import-bowl-record-ledger",
         help="Team Preview: import an all-time bowl-record seed (CSV/JSON).",
@@ -5684,6 +5709,42 @@ def main() -> None:
             raise RuntimeError(
                 "Team-preview layer wrote zero rows for at least one builder. "
                 "Re-run with --allow-empty only for empty/dev databases."
+            )
+        return
+
+    if args.command == "generate-team-preview-claims":
+        from cfb_rankings.team_preview.llm_synthesis import generate_team_preview_claims
+        report = generate_team_preview_claims(
+            db,
+            season_year=args.season,
+            as_of_date=args.as_of,
+            slugs=args.slug,
+            allow_cloud=args.allow_cloud,
+        )
+        if args.json:
+            import dataclasses
+            print(json.dumps(dataclasses.asdict(report), indent=2, default=str))
+        else:
+            print(
+                f"generate-team-preview-claims season={args.season} as-of={args.as_of}: "
+                f"targets={report.targets} approved={report.approved} "
+                f"rejected={report.rejected} skipped={report.skipped}"
+            )
+            for item in report.errors[:12]:
+                print(f"  {item}")
+            if len(report.errors) > 12:
+                print(f"  ... {len(report.errors) - 12} more")
+        return
+
+    if args.command == "team-preview-llm-status":
+        from cfb_rankings.team_preview.llm_synthesis import preview_llm_status
+        rows = preview_llm_status(allow_cloud=args.allow_cloud)
+        print("team-preview-llm-status")
+        for row in rows:
+            health = "ok" if row["healthy"] else "down"
+            print(
+                f"  {row['role']:<7} {row['tiers']:<8} {health:<4} "
+                f"{row['backend']} :: {row['model_id']}"
             )
         return
 

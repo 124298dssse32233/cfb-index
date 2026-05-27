@@ -37,7 +37,7 @@ from .data import (
     fetch_rivalry_posture, fetch_rivalry_stakes, fetch_rivalry_quote,
     fetch_season_arc, fetch_arc_narrative,
     fetch_team_season_path, fetch_bowl_ledger_row, fetch_roster_reload_snapshot,
-    fetch_transfer_position_snapshots,
+    fetch_transfer_position_snapshots, fetch_team_preview_claim,
 )
 from .state_resolver import PageState, resolve_state
 from .savant_card import render_savant_card
@@ -67,6 +67,7 @@ from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
 from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
 from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
 from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
+from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
 from .bowl_history import render_bowl_history, BOWL_HISTORY_CSS
 from .statement_wins import render_statement_wins, STATEMENT_WINS_CSS
@@ -577,6 +578,11 @@ def _render_page(
     # returning production, talent composite, transfer activity). Audit T9
     # resolution at team level. Above-the-fold in offseason.
     offseason_pulse_html = render_offseason_pulse(db, profile, snapshot) if db is not None else ""
+    preview_claim = (
+        fetch_team_preview_claim(db, snapshot.team_id)
+        if db is not None and snapshot else None
+    )
+    preview_thesis_html = render_preview_thesis(profile, snapshot, preview_claim)
     roster_reload_html = ""
     if db is not None and snapshot:
         reload_row = fetch_roster_reload_snapshot(db, snapshot.team_id)
@@ -656,8 +662,9 @@ def _render_page(
 
     act_outlook = _act(
         "I", "The 2026 Outlook",
-        offseason_pulse_html, roster_reload_html, pulse_html, aspiration_ladder_html,
-        ceiling_floor_html, top_commits_html, recruit_footprint_html,
+        preview_thesis_html, offseason_pulse_html, roster_reload_html, pulse_html,
+        aspiration_ladder_html, ceiling_floor_html, top_commits_html,
+        recruit_footprint_html,
     )
     act_identity = _act(
         "II", "Who We Are",
@@ -769,6 +776,9 @@ body {{
 
 /* Roster Reload - separated continuity, portal, draft, and recruiting */
 {ROSTER_RELOAD_CSS}
+
+/* Evidence-gated preview thesis */
+{PREVIEW_THESIS_CSS}
 
 /* Recent Form chip — last 10 games */
 {RECENT_FORM_CSS}
