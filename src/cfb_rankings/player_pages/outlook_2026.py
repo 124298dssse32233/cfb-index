@@ -234,8 +234,8 @@ def _award_watch_for(db, player_id: int) -> list[dict[str, Any]]:
         select award_slug, list_type, position_rank, as_of
           from player_award_watch_2026
          where player_id = :pid and season_year = 2026
-         order by priority asc
-         limit 3
+         order by priority asc, position_rank asc
+         limit 5
         """,
         {"pid": int(player_id)},
     )
