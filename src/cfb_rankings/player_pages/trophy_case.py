@@ -168,6 +168,14 @@ def _all_conference_summary(honors: list[dict[str, Any]]) -> tuple[str, str, str
     rows = by_year[latest]
     first_team = any(h.get("placement") == 1 for h in rows)
     second_team = any(h.get("placement") == 2 for h in rows)
+    # If no explicit placement, infer tier from selector count:
+    # 4+ selectors all agreeing = almost certainly 1st team.
+    # 2-3 selectors = probably 1st team but show modest label.
+    null_placement_count = sum(1 for h in rows if h.get("placement") is None)
+    if not first_team and not second_team and null_placement_count >= 4:
+        first_team = True  # inferred
+    elif not first_team and not second_team and null_placement_count >= 2:
+        first_team = True  # inferred with lower confidence
     if first_team:
         label = "ALL-CONFERENCE · 1ST TEAM"
         headline = f"All-Conf 1st team ({latest})"
