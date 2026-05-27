@@ -130,7 +130,11 @@ def _all_america_summary(honors: list[dict[str, Any]]) -> tuple[str, str, str] |
     latest = max(by_year.keys())
     latest_aa = by_year[latest]
     selectors_first = [h for h in latest_aa if h.get("placement") == 1 and h.get("selector")]
-    has_unanimous = any(h.get("unanimous_flag") for h in latest_aa) or len(selectors_first) >= 8
+    # Tier detection: prefer explicit honor-name signals over selector-count heuristics.
+    # unanimous_flag is not yet populated in our data (all 0), so rely on the
+    # "All-America (Consensus)" honor_name as the definitive consensus marker.
+    # Never infer "Unanimous" purely from selector count — that over-promotes consensus picks.
+    has_unanimous = any(h.get("unanimous_flag") for h in latest_aa)
     has_consensus = any("consensus" in (h.get("honor_name") or "").lower() for h in latest_aa)
     has_any = bool(selectors_first) or has_consensus
     if has_unanimous:
@@ -138,9 +142,11 @@ def _all_america_summary(honors: list[dict[str, Any]]) -> tuple[str, str, str] |
                 f"Unanimous AA ({latest})",
                 f"Named to {len(selectors_first)} first-team selectors")
     if has_consensus:
+        n = len(selectors_first)
+        detail = f"{n} first-team selectors" if n else f"{len(latest_aa)} selector mentions"
         return ("ALL-AMERICA · CONSENSUS",
                 f"Consensus AA ({latest})",
-                f"{len(selectors_first)} first-team selectors")
+                detail)
     if has_any:
         return ("ALL-AMERICA",
                 f"Named All-American ({latest})",
@@ -239,15 +245,19 @@ def render_trophy_case(db, player_id: int | None) -> str:
     if not streams:
         return ""
 
+    def _esc(text: str) -> str:
+        """Escape HTML and normalize middle-dot U+00B7 to &middot; entity."""
+        return escape(text).replace('·', '&middot;')
+
     stream_cards: list[str] = []
     for label, headline, detail, is_top, medal in streams:
         cls = " trophy-case-v2__stream--top" if is_top else ""
         stream_cards.append(
             f'<div class="trophy-case-v2__stream{cls}">'
             f'<span class="trophy-case-v2__stream-medal">{medal}</span>'
-            f'<p class="trophy-case-v2__stream-label">{escape(label)}</p>'
-            f'<p class="trophy-case-v2__stream-headline">{escape(headline)}</p>'
-            f'<p class="trophy-case-v2__stream-detail">{escape(detail)}</p>'
+            f'<p class="trophy-case-v2__stream-label">{_esc(label)}</p>'
+            f'<p class="trophy-case-v2__stream-headline">{_esc(headline)}</p>'
+            f'<p class="trophy-case-v2__stream-detail">{_esc(detail)}</p>'
             '</div>'
         )
 
