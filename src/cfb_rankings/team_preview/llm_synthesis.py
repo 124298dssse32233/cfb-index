@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import time
 from dataclasses import dataclass, field
 from typing import Any
@@ -103,6 +104,8 @@ def generate_team_preview_claims(
 
             candidate = _normalise_candidate_text(_candidate_to_dict(candidate_model))
             candidate = _autofill_numeric_receipts(candidate, evidence)
+            candidate = _fix_approximate_ranks(candidate, evidence)
+            candidate = _strip_internal_decimal_scores(candidate, evidence)
             validation = validate_preview_claim(candidate, evidence)
             _log_usage(
                 model_id=generation.model_id,
@@ -287,6 +290,104 @@ def _autofill_numeric_receipts(candidate: dict, evidence: dict) -> dict:
         )
 
     return candidate
+
+
+_APPROX_RANK_RE = re.compile(r"\btop[- ](\d+)\b", re.IGNORECASE)
+
+
+def _fix_approximate_ranks(candidate: dict, evidence: dict) -> dict:
+    """Replace 'top-N' / 'top N' phrases with '#N' when N is evidence-backed.
+
+    The validator rejects approximate_rank_phrase but the model often writes
+    'top-10' or 'top 25' instead of '#10' or '#25'. We repair in-place:
+    only substitute when the integer N appears in allowed_numbers from evidence.
+    """
+    allowed = _allowed_numbers(evidence)
+
+    def _repair_text(text: str) -> str:
+        def _replace(m: "re.Match[str]") -> str:
+            n = m.group(1)
+            if _number_supported(n, allowed):
+                return f"#{n}"
+            return m.group(0)  # leave unchanged if N not in evidence
+        return _APPROX_RANK_RE.sub(_replace, text)
+
+    def _walk(node: object) -> object:
+        if isinstance(node, str):
+            return _repair_text(node)
+        if isinstance(node, list):
+            return [_walk(v) for v in node]
+        if isinstance(node, dict):
+            return {k: _walk(v) for k, v in node.items()}
+        return node
+
+    return _walk(candidate)  # type: ignore[return-value]
+
+
+def _strip_internal_decimal_scores(candidate: dict, evidence: dict) -> dict:
+    """Replace raw internal decimal scores (0.xxx) with evidence labels.
+
+    The model sometimes outputs 'reload_score of 0.662' instead of a human
+    label. We look for the score value in the evidence's label-adjacent keys
+    and substitute when possible, otherwise replace with 'N/A'.
+    """
+    _DECIMAL_RE = re.compile(r"(?<!\d)(0\.\d+)(?!\d)")
+
+    # Build a map: float → nearest label string from evidence text fields
+    def _label_map_from_evidence(ev: dict) -> dict[str, str]:
+        """Walk evidence for paired (score, label) neighbours."""
+        label_map: dict[str, str] = {}
+        # Roster reload summary has convenient pairs like reload_score + label fields
+        reload = ev.get("roster_reload") or {}
+        label_fields = {
+            "reload_score": reload.get("reload_profile_label") or reload.get("returning_profile_label"),
+            "continuity_score": reload.get("continuity_score"),  # no label
+            "volatility_score": reload.get("volatility_score"),  # no label
+            "portal_addition_score": reload.get("portal_addition_score"),
+            "portal_loss_score": reload.get("portal_loss_score"),
+        }
+        for field, label in label_fields.items():
+            score = reload.get(field)
+            if score is not None and label and isinstance(label, str):
+                try:
+                    key = f"{float(score):.3f}"
+                    label_map[key] = label
+                except (TypeError, ValueError):
+                    pass
+        return label_map
+
+    label_map = _label_map_from_evidence(evidence)
+
+    def _repair_text(text: str) -> str:
+        def _replace(m: "re.Match[str]") -> str:
+            raw = m.group(1)
+            try:
+                fval = float(raw)
+            except (TypeError, ValueError):
+                return m.group(0)
+            if not (0 < fval < 1):
+                return m.group(0)
+            # Try to find a label from the evidence
+            key = f"{fval:.3f}"
+            label = label_map.get(key)
+            if label:
+                return f'"{label}"'
+            # No label available — remove the bare score by substituting
+            # its rounded percentage form (e.g. 0.662 → 66%)
+            return f"{round(fval * 100)}%"
+
+        return _DECIMAL_RE.sub(_replace, text)
+
+    def _walk(node: object) -> object:
+        if isinstance(node, str):
+            return _repair_text(node)
+        if isinstance(node, list):
+            return [_walk(v) for v in node]
+        if isinstance(node, dict):
+            return {k: _walk(v) for k, v in node.items()}
+        return node
+
+    return _walk(candidate)  # type: ignore[return-value]
 
 
 def _repair_prompt(original_prompt: str, violations: list[str]) -> str:
