@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily — Wednesday, May 27th, 2026</title>
+<meta name="description" content="The Daily for Wednesday, May 27th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<link rel="canonical" href="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/daily/2026-05-27/">
+<meta property="og:site_name" content="THE CFB INDEX">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/daily/2026-05-27/">
+<meta property="og:title" content="The Daily — Wednesday, May 27th, 2026">
+<meta property="og:description" content="The Daily for Wednesday, May 27th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta property="og:image" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/daily/2026-05-27/">
+<meta name="twitter:title" content="The Daily — Wednesday, May 27th, 2026">
+<meta name="twitter:description" content="The Daily for Wednesday, May 27th, 2026 — overnight CFB takes, wire-event reactions, and the day's argument theater.">
+<meta name="twitter:image" content="https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/og-image.svg">
+<style>
+/* ---- Design tokens (matches Edition / team-page system) ---- */
+:root {
+  --ink:      #1a1a2e;
+  --paper:    #f8f6f0;
+  --gold:     #c9a84c;
+  --navy:     #0f2044;
+  --slate:    #4a5568;
+  --rule:     #e2ddd5;
+  --accent:   #c53030;
+  --serif:    'Georgia', 'Times New Roman', serif;
+  --sans:     'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--serif);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+/* ---- Masthead ---- */
+.masthead {
+  border-bottom: 3px double var(--gold);
+  padding: 2rem 0 1rem;
+  text-align: center;
+  background: var(--navy);
+  color: #fff;
+}
+.masthead__flag {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.masthead__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #fff;
+}
+.masthead__date {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Layout ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr min(680px, 100%) 280px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+.takes-col { grid-column: 2; }
+.sidebar { grid-column: 3; padding-left: 2rem; }
+
+/* ---- Take cards ---- */
+.take {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+.take:last-child { border-bottom: none; }
+
+.take__rank {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.take__numeral {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+.take__headline {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy);
+  margin: 0.75rem 0 1rem;
+}
+.take__body {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+.take__body p { margin-bottom: 0.75rem; }
+
+/* ---- Source pills ---- */
+.source-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.source-pill {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--gold);
+  color: var(--navy);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* ---- Entity link ---- */
+.entity-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--slate);
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+.entity-link:hover { color: var(--navy); text-decoration: underline; }
+
+/* ---- Sidebar ---- */
+.sidebar__section {
+  margin-bottom: 2rem;
+}
+.sidebar__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.sidebar__item {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--slate);
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule);
+  line-height: 1.4;
+}
+.sidebar__item:last-child { border-bottom: none; }
+
+/* ---- Archive footer ---- */
+.archive-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+.archive-footer__label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.archive-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.archive-footer__link {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+}
+.archive-footer__link:hover { color: var(--gold); }
+.archive-all {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.archive-all:hover { color: var(--gold); }
+
+/* ---- Nav ---- */
+.site-nav {
+  background: var(--navy);
+  padding: 0.6rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+.site-nav a { color: rgba(255,255,255,0.65); text-decoration: none; margin-right: 1.2rem; }
+.site-nav a:hover { color: var(--gold); }
+
+/* ---- 30-second auto-summary (Sprint v5-7.6, Pattern 7) ---- */
+.auto-summary {
+  margin: 0 0 1.8rem;
+  padding: 1.1rem 1.3rem;
+  background: var(--cream, #f5f1e8);
+  border-left: 3px solid var(--gold, #a8843c);
+  border-radius: 4px;
+  font-family: var(--sans, "Inter", system-ui, sans-serif);
+}
+.auto-summary__title {
+  margin: 0 0 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy, #1a1a2e);
+}
+.auto-summary__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+.auto-summary__list li {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--navy, #1a1a2e);
+  margin: 0.3rem 0;
+}
+.auto-summary__list li::marker {
+  color: var(--gold, #a8843c);
+}
+.auto-summary__meta {
+  margin: 0.7rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: rgba(26, 26, 46, 0.5);
+  font-style: italic;
+}
+</style>
+
+<!-- wcfb-enhancements -->
+<link rel="stylesheet" href="/assets/wcfb-enhancements.css">
+<script src="/assets/wcfb-enhancements.js" defer></script>
+</head>
+<body class="daily__page">
+
+<nav class="site-nav daily__nav">
+  <a href="/">Home</a>
+  <a href="/rankings/">Rankings</a>
+  <a href="/daily/">Daily</a>
+  <a href="/wire/">Wire</a>
+  <a href="/mailbag/">Mailbag</a>
+  <a href="/editions/">Editions</a>
+  <a href="/methodology/">Methodology</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead__flag">CFB Index · Morning Digest</div>
+  <div class="masthead__title">The Daily</div>
+  <div class="masthead__date">Wednesday, May 27th, 2026 &nbsp;·&nbsp; Published 06:00 ET</div>
+</header>
+
+<div class="layout">
+  <main class="takes-col">
+    
+    <p>No takes available for this edition.</p>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__label">What We're Watching</div>
+      <div class="sidebar__item">Spring practice reports — portal decisions follow coaching feedback</div><div class="sidebar__item">Transfer portal deadline windows — commitment trackers update daily</div><div class="sidebar__item">Draft advisory declarations — underclassmen decisions shape fall depth</div>
+    </div>
+  </aside>
+</div>
+
+<footer class="archive-footer">
+  <div class="archive-footer__label">Yesterday's Takes</div>
+  <div class="archive-footer__links">
+    <a class="archive-footer__link" href="/daily/2026-05-22/">Friday, May 22nd, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-19/">Tuesday, May 19th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-17/">Sunday, May 17th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-16/">Saturday, May 16th, 2026</a>
+<a class="archive-footer__link" href="/daily/2026-05-15/">Friday, May 15th, 2026</a>
+  </div>
+  <a class="archive-all" href="/daily/archive.html">View full archive →</a>
+</footer>
+
+<footer class="article-archetype__footer" aria-label="Article footer">
+  <a class="article-archetype__footer-methodology" href="/methodology/">How The Daily is sourced &rsaquo;</a>
+  
+</footer>
+
+</body>
+</html>
