@@ -586,6 +586,67 @@ def fetch_bowl_ledger_row(db, slug: str) -> dict[str, Any] | None:
     return min(rows, key=lambda r: trust.get(r["verification_status"], 9))
 
 
+def fetch_roster_reload_snapshot(db, team_id: int) -> dict[str, Any] | None:
+    """Read the latest roster-reload summary for a team.
+
+    Sourced from team_roster_reload_snapshot (Milestone C). Returns None when
+    the table is absent or no snapshot has been built yet, letting the page keep
+    rendering without the dashboard.
+    """
+    if db is None:
+        return None
+    try:
+        row = db.query_one(
+            """
+            select team_roster_reload_snapshot_id, team_id, slug, season_year,
+                   as_of_date, returning_profile_label, transfer_profile_label,
+                   draft_loss_label, recruiting_reload_label,
+                   primary_pressure_position, primary_repair_position,
+                   reload_score, continuity_score, volatility_score,
+                   portal_addition_score, portal_loss_score, draft_loss_score,
+                   freshman_injection_score, summary_json, confidence_band
+            from team_roster_reload_snapshot
+            where team_id = :tid
+            order by season_year desc, as_of_date desc
+            limit 1
+            """,
+            {"tid": team_id},
+        )
+    except Exception:
+        return None
+    return dict(row) if row else None
+
+
+def fetch_transfer_position_snapshots(
+    db, team_id: int, season_year: int, as_of_date: str,
+) -> list[dict[str, Any]]:
+    """Read position-level portal additions/losses for a roster snapshot."""
+    if db is None:
+        return []
+    try:
+        rows = db.query_all(
+            """
+            select position, incoming_count, incoming_avg_points,
+                   incoming_total_points, incoming_top_player_name,
+                   incoming_top_player_rating, outgoing_count,
+                   outgoing_avg_points, outgoing_total_points,
+                   outgoing_top_player_name, outgoing_top_player_rating,
+                   net_count, net_points, production_lost, production_added,
+                   starter_risk_flag, need_filled_flag, confidence_band
+            from team_transfer_position_snapshot
+            where team_id = :tid and season_year = :sy and as_of_date = :ad
+            order by
+              (coalesce(incoming_count, 0) + coalesce(outgoing_count, 0)) desc,
+              abs(coalesce(net_points, 0)) desc,
+              position asc
+            """,
+            {"tid": team_id, "sy": season_year, "ad": as_of_date},
+        )
+    except Exception:
+        return []
+    return [dict(r) for r in rows]
+
+
 def fetch_llm_chronicle_cards(
     db,
     slug: str,

@@ -128,12 +128,22 @@ def build_roster_reload_summary(
 
     returning_total = getattr(evidence, "returning_total", None) if evidence else None
     drafted = getattr(evidence, "drafted_count", 0) if evidence else 0
+    recruiting_rank = getattr(evidence, "recruiting_rank", None) if evidence else None
+    recruiting_score = getattr(evidence, "recruiting_score", None) if evidence else None
 
     portal_addition_score = round(in_points, 3)
     portal_loss_score = round(out_points, 3)
     continuity_score = round(returning_total, 3) if returning_total is not None else None
     volatility_score = round((total_in + total_out) / 50.0, 3)  # crude 0..~1 scale
     draft_loss_score = float(drafted)
+    freshman_injection_score = _freshman_injection_score(recruiting_rank)
+    reload_score = _reload_score(
+        continuity_score=continuity_score,
+        portal_addition_score=portal_addition_score,
+        portal_loss_score=portal_loss_score,
+        draft_loss_score=draft_loss_score,
+        freshman_injection_score=freshman_injection_score,
+    )
 
     summary = {
         "transfer_in_total": total_in,
@@ -142,6 +152,8 @@ def build_roster_reload_summary(
         "transfer_out_points": round(out_points, 3),
         "drafted_count": drafted,
         "returning_total": returning_total,
+        "recruiting_rank": recruiting_rank,
+        "recruiting_score": recruiting_score,
     }
 
     return {
@@ -152,16 +164,16 @@ def build_roster_reload_summary(
         "returning_profile_label": _returning_label(returning_total),
         "transfer_profile_label": _transfer_label(total_in, total_out),
         "draft_loss_label": _draft_label(drafted),
-        "recruiting_reload_label": None,
+        "recruiting_reload_label": _recruiting_label(recruiting_rank),
         "primary_pressure_position": primary_pressure,
         "primary_repair_position": primary_repair,
-        "reload_score": None,
+        "reload_score": reload_score,
         "continuity_score": continuity_score,
         "volatility_score": volatility_score,
         "portal_addition_score": portal_addition_score,
         "portal_loss_score": portal_loss_score,
         "draft_loss_score": draft_loss_score,
-        "freshman_injection_score": None,
+        "freshman_injection_score": freshman_injection_score,
         "summary_json": summary,
         "confidence_band": "medium" if (total_in + total_out) >= 5 else "low",
     }
@@ -193,3 +205,44 @@ def _draft_label(drafted: int) -> str | None:
     if drafted >= 6:
         return f"Heavy NFL Draft loss ({drafted})"
     return f"NFL Draft departures ({drafted})"
+
+
+def _recruiting_label(rank: int | None) -> str | None:
+    if rank is None:
+        return None
+    if rank <= 10:
+        return f"Top-10 recruiting reload (#{rank})"
+    if rank <= 25:
+        return f"Top-25 recruiting reload (#{rank})"
+    if rank <= 60:
+        return f"Development class (#{rank})"
+    return f"Depth class (#{rank})"
+
+
+def _freshman_injection_score(rank: int | None) -> float | None:
+    if rank is None:
+        return None
+    return round(max(0.0, min(1.0, 1.0 - (rank - 1) / 130.0)), 3)
+
+
+def _reload_score(
+    *,
+    continuity_score: float | None,
+    portal_addition_score: float,
+    portal_loss_score: float,
+    draft_loss_score: float,
+    freshman_injection_score: float | None,
+) -> float:
+    # Keep this deterministic and conservative: continuity, recruiting, and
+    # portal additions lift the score; portal losses and draft departures lower
+    # it. Point totals are unbounded, so cap their influence.
+    components = []
+    if continuity_score is not None:
+        components.append(max(0.0, min(1.0, continuity_score)))
+    if freshman_injection_score is not None:
+        components.append(freshman_injection_score)
+
+    portal_delta = max(-0.35, min(0.35, (portal_addition_score - portal_loss_score) / 100.0))
+    draft_penalty = min(0.35, draft_loss_score / 20.0)
+    base = sum(components) / len(components) if components else 0.5
+    return round(max(0.0, min(1.0, base + portal_delta - draft_penalty)), 3)

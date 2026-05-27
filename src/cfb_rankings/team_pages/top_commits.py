@@ -201,7 +201,7 @@ def render_top_commits(db, profile: Profile, snapshot: TeamSnapshot | None) -> s
 <section class="top-commits" aria-labelledby="top-commits-h"
          data-module="top-commits" data-state="ready" data-class-year="{yr}">
   <div class="top-commits__head">
-    <p class="top-commits__eyebrow" id="top-commits-h">Top {len(rows)} commits</p>
+    <p class="top-commits__eyebrow" id="top-commits-h">Recruiting Reload - Top {len(rows)} commits</p>
     <span class="top-commits__class-tag">{yr} class</span>
   </div>
   <div class="top-commits__list">

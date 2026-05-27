@@ -7,7 +7,7 @@ Components (all sourced from already-ingested CFBD tables):
   1. Recruiting Class    -- `recruiting_entries` team-aggregate rating + national rank
   2. Returning Production -- `returning_production` total returning % + QB flag
   3. Talent Composite     -- `team_talent_snapshots` 247 composite + national rank
-  4. Transfer Activity    -- `transfer_entries` net incoming/outgoing this cycle
+  4. Portal Movement      -- `transfer_entries` incoming and outgoing counts
 
 The module honors graceful degradation. Any individual cell falls back to an
 "Awaiting Signal" pill in mascot voice when its underlying row is missing.
@@ -412,25 +412,20 @@ def _transfer_cell(db, profile: Profile, team_id: int) -> tuple[str, bool]:
     awaiting = (profile.mascot_voice.get("awaiting_signal", "Awaiting signal.")
                 if profile.mascot_voice else "Awaiting signal.")
     if not row:
-        return _empty_cell("Transfer Activity", awaiting), False
+        return _empty_cell("Portal Movement", awaiting), False
     incoming = int(row.get("incoming") or 0)
     outgoing = int(row.get("outgoing") or 0)
     season = int(row.get("season_year"))
-    net = incoming - outgoing
-
-    if net >= 5:
-        tone, story = "positive", "Net positive portal cycle. Roster augmented at need positions."
-    elif net >= 0:
-        tone, story = "", "Balanced portal cycle. In/out roughly even."
-    elif net >= -5:
-        tone, story = "", "Mildly negative cycle. Departure outpaced arrivals."
+    if incoming >= outgoing + 5:
+        tone, story = "positive", "Portal additions outpace losses; position detail lives in Roster Reload."
+    elif outgoing >= incoming + 5:
+        tone, story = "warning", "Portal losses outpace additions; position detail lives in Roster Reload."
     else:
-        tone, story = "warning", "Heavy outflow cycle. Roster reset under way."
+        tone, story = "", "Incoming and outgoing movement are tracked separately in Roster Reload."
 
-    sign = "+" if net > 0 else ""
     return _cell(
-        eyebrow="Transfer Activity",
-        headline=f"{sign}{net} net",
+        eyebrow="Portal Movement",
+        headline=f"{incoming} in / {outgoing} out",
         context=f"{season} cycle · in {incoming} / out {outgoing}",
         narrative=story,
         tone=tone,

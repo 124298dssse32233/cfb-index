@@ -6,7 +6,7 @@ Renders even with single-game history. Goes empty when zero postseason
 games on the ledger.
 
 Public API:
-    render_bowl_history(db, profile, snapshot) -> str
+    render_bowl_history(db, profile, snapshot, ledger_row=None) -> str
     BOWL_HISTORY_CSS                            -> str
 """
 from __future__ import annotations
@@ -96,7 +96,12 @@ def _fetch_postseason(db, team_id: int) -> list[dict[str, Any]]:
     return rows
 
 
-def render_bowl_history(db, profile: Profile, snapshot: TeamSnapshot | None) -> str:
+def render_bowl_history(
+    db,
+    profile: Profile,
+    snapshot: TeamSnapshot | None,
+    ledger_row: dict[str, Any] | None = None,
+) -> str:
     if db is None or snapshot is None:
         return ""
     rows = _fetch_postseason(db, int(snapshot.team_id))
@@ -143,7 +148,7 @@ def render_bowl_history(db, profile: Profile, snapshot: TeamSnapshot | None) -> 
         f"{era_years[0]}-{era_years[-1]}" if len(era_years) > 1
         else (str(era_years[0]) if era_years else "recent")
     )
-    ledger_row = fetch_bowl_ledger_row(db, snapshot.slug)
+    ledger_row = ledger_row or fetch_bowl_ledger_row(db, snapshot.slug)
     display = resolve_bowl_record_display(
         ledger_row,
         recent_postseason_wins=total_wins,

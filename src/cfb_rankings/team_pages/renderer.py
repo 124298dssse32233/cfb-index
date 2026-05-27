@@ -36,7 +36,8 @@ from .data import (
     fetch_savant_rows, fetch_savant_narrative, fetch_savant_echo,
     fetch_rivalry_posture, fetch_rivalry_stakes, fetch_rivalry_quote,
     fetch_season_arc, fetch_arc_narrative,
-    fetch_team_season_path, fetch_bowl_ledger_row,
+    fetch_team_season_path, fetch_bowl_ledger_row, fetch_roster_reload_snapshot,
+    fetch_transfer_position_snapshots,
 )
 from .state_resolver import PageState, resolve_state
 from .savant_card import render_savant_card
@@ -65,6 +66,7 @@ from .home_field_advantage import render_home_field_advantage, HOME_FIELD_ADVANT
 from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
 from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
 from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
+from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
 from .bowl_history import render_bowl_history, BOWL_HISTORY_CSS
 from .statement_wins import render_statement_wins, STATEMENT_WINS_CSS
@@ -575,10 +577,29 @@ def _render_page(
     # returning production, talent composite, transfer activity). Audit T9
     # resolution at team level. Above-the-fold in offseason.
     offseason_pulse_html = render_offseason_pulse(db, profile, snapshot) if db is not None else ""
+    roster_reload_html = ""
+    if db is not None and snapshot:
+        reload_row = fetch_roster_reload_snapshot(db, snapshot.team_id)
+        position_rows = (
+            fetch_transfer_position_snapshots(
+                db,
+                snapshot.team_id,
+                int(reload_row["season_year"]),
+                str(reload_row["as_of_date"]),
+            )
+            if reload_row else []
+        )
+        roster_reload_html = render_roster_reload(
+            profile, snapshot, reload_row, position_rows
+        )
     # Recent Form chip — last 10 finalized games as W/L glyph row.
     recent_form_html = render_recent_form(db, profile, snapshot) if db is not None else ""
     # Bowl History chip — postseason ledger from season_type='postseason' games.
-    bowl_history_html = render_bowl_history(db, profile, snapshot) if db is not None else ""
+    bowl_ledger_row = fetch_bowl_ledger_row(db, snapshot.slug) if db is not None and snapshot else None
+    bowl_history_html = (
+        render_bowl_history(db, profile, snapshot, ledger_row=bowl_ledger_row)
+        if db is not None else ""
+    )
     # Statement Wins counter — wins over AP top-25 ranked opponents.
     statement_wins_html = render_statement_wins(db, profile, snapshot) if db is not None else ""
     # Top Commits — 3 highest-rated incoming recruits (CFBD player_recruiting_profiles).
@@ -635,7 +656,7 @@ def _render_page(
 
     act_outlook = _act(
         "I", "The 2026 Outlook",
-        offseason_pulse_html, pulse_html, aspiration_ladder_html,
+        offseason_pulse_html, roster_reload_html, pulse_html, aspiration_ladder_html,
         ceiling_floor_html, top_commits_html, recruit_footprint_html,
     )
     act_identity = _act(
@@ -745,6 +766,9 @@ body {{
 
 /* Offseason Pulse — recruiting + returning + talent + portal (Audit T9) */
 {OFFSEASON_PULSE_CSS}
+
+/* Roster Reload - separated continuity, portal, draft, and recruiting */
+{ROSTER_RELOAD_CSS}
 
 /* Recent Form chip — last 10 games */
 {RECENT_FORM_CSS}

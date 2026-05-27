@@ -78,6 +78,7 @@ class SeasonNormContext:
     power_min: float | None = None
     power_max: float | None = None
     power_season: int | None = None
+    resume_season: int | None = None
 
     def talent_norm(self, score: float | None) -> float | None:
         if score is None or self.talent_min_score is None or self.talent_max_score is None:
@@ -247,6 +248,10 @@ def build_norm_context(db: Any, season_year: int) -> SeasonNormContext:
             ctx.power_min = bounds["lo"]
             ctx.power_max = bounds["hi"]
             ctx.power_season = power_season
+
+    ctx.resume_season = latest_season_for_table(
+        db, "resume_ratings_weekly", where=f"season_year <= {season_year}"
+    )
     return ctx
 
 
@@ -476,6 +481,25 @@ def build_team_evidence(
     else:
         missing.append("power_prior")
 
+    if norm.resume_season is not None:
+        max_week = _scalar(
+            db, "select max(week) from resume_ratings_weekly where season_year = :s",
+            {"s": norm.resume_season},
+        )
+        rrow = db.query_one(
+            "select resume_score as resume_rating from resume_ratings_weekly "
+            "where team_id = :t and season_year = :s and week = :w",
+            {"t": team_id, "s": norm.resume_season, "w": max_week},
+        )
+        if rrow:
+            ev.resume_prior_rating = rrow["resume_rating"]
+            if norm.resume_season < season_year:
+                missing.append(f"resume_prior_lag({norm.resume_season})")
+        else:
+            missing.append("resume_prior")
+    else:
+        missing.append("resume_prior")
+
     _compute_strength(ev, norm)
     ev.source_fingerprint = _fingerprint(ev)
     return ev
@@ -545,6 +569,7 @@ def _fingerprint(ev: TeamEvidence) -> str:
         "recruiting_rank": ev.recruiting_rank,
         "returning_total": ev.returning_total,
         "power": ev.power_prior_rating,
+        "resume": ev.resume_prior_rating,
         "transfers": [ev.transfer_in_count, ev.transfer_out_count],
         "drafted": ev.drafted_count,
         "schedule_known": ev.schedule_known,
