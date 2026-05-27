@@ -182,13 +182,14 @@ def write_preview_claim_cache(
             claim_text,
         ]).encode("utf-8")
     ).hexdigest()[:32]
+    # Supersede ALL non-superseded claims for this slug/season/surface regardless
+    # of as_of_date — a regeneration on any date replaces the previous best.
     db.execute(
         """
         update team_preview_claim_cache
         set superseded_at_utc = datetime('now'), is_lkg = 0
         where slug = :slug
           and season_year = :season_year
-          and as_of_date = :as_of_date
           and surface = :surface
           and claim_type = :claim_type
           and superseded_at_utc is null
@@ -196,7 +197,6 @@ def write_preview_claim_cache(
         {
             "slug": slug,
             "season_year": season_year,
-            "as_of_date": as_of_date,
             "surface": surface,
             "claim_type": claim_type,
         },
