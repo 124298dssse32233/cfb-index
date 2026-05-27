@@ -350,6 +350,12 @@ def render_outlook_2026(db, player_id: int | None) -> str:
     depth = _depth_chart_for_player(db, int(player_id))
     if depth:
         starter_label, cell_cls = _starter_status_label(depth.get("starter_status") or "projected_starter")
+        # Prefer the depth chart's manually-curated position_group over the status cache's
+        # position_2026 field (which comes from roster data and can be wrong, e.g. EDGE
+        # players classified as LB).
+        dc_position = (depth.get("position_group") or "").upper()
+        if dc_position:
+            position_label = _POSITION_LABELS.get(dc_position, dc_position or position_label)
         depth_sub = f"{position_label} · {team_name}"
         if depth.get("source") == "manual_editorial":
             depth_sub += " · editorial"
