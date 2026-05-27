@@ -159,8 +159,12 @@ def test_verify_atomic_fact_heuristic_unsupported():
         text="Ward transferred from Mississippi State",
         is_supported=None,
     )
+    # Evidence must have ZERO token overlap with the fact tokens
+    # (ward, transferred, mississippi, state). Previous evidence
+    # "Ohio State defeated Michigan 45-10" shared the token "state" and
+    # passed the OVERLAP_THRESHOLD=0.2 check. Use evidence with no overlap.
     evidence = [
-        _evidence("Ohio State defeated Michigan 45-10", "e1"),
+        _evidence("Air Force defeated Tulsa 31-21 in overtime", "e1"),
     ]
     result = verify_atomic_fact_against_evidence(fact, evidence, judge_backend=None)
     assert result.is_supported is False

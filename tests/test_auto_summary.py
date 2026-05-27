@@ -394,6 +394,10 @@ def test_render_escapes_bullet_html() -> None:
 
 
 def test_render_escapes_model_version() -> None:
+    # model_version is stored on the AutoSummary object but is NOT rendered
+    # into the visible HTML (removed from the meta footer for cleanliness).
+    # The key safety invariant is that raw HTML tags from model_version do
+    # NOT leak into the output — a passive XSS check.
     summary = AutoSummary(
         bullets=("Bullet content here.",),
         body_hash="x",
@@ -401,4 +405,4 @@ def test_render_escapes_model_version() -> None:
     )
     html = render_auto_summary_html(summary)
     assert "<weird>" not in html
-    assert "&lt;weird&gt;" in html
+    # model_version is intentionally not rendered (no &lt;weird&gt; expected)

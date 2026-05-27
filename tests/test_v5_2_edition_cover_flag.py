@@ -224,7 +224,7 @@ class TestFlagSet:
         assert isinstance(prompt_arg, str)
         assert "SOURCE OBSERVATIONS" in prompt_arg
         assert "SEASON: 2026" in prompt_arg
-        assert "WEEK: 17" in prompt_arg
+        assert "WEEK (ISO calendar week of publish date): 17" in prompt_arg
         # Sections from the context manifest land in the prompt body:
         assert "PRIOR 4 COVERS" in prompt_arg
         assert "COHORT MOOD DUMBBELL" in prompt_arg
