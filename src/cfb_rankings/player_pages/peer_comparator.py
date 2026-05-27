@@ -350,7 +350,7 @@ def render_peer_comparator(
             '<span class="peer-comparator__pill">'
             f'{escape(p["full_name"])}'
             f'<span class="peer-comparator__pill-team">{escape(p["team_name"])}</span>'
-            f'<span class="peer-comparator__pill-sim">· {p["similarity"]}% sim</span>'
+            f'<span class="peer-comparator__pill-sim">&middot; {p["similarity"]}% sim</span>'
             '</span>'
         )
 
@@ -397,10 +397,10 @@ def render_peer_comparator(
         f'data-module="peer-comparator-v2" data-state="ready" data-peers="{len(top3)}">'
         '<header class="peer-comparator__head">'
         '<div>'
-        '<p class="peer-comparator__eyebrow">Peer Comparator · Fingerprint match</p>'
+        '<p class="peer-comparator__eyebrow">Peer Comparator &middot; Fingerprint match</p>'
         '<p class="peer-comparator__title">Three closest profiles by box-rate percentile</p>'
         '</div>'
-        f'<span class="peer-comparator__meta">{len(top3)} peers · '
+        f'<span class="peer-comparator__meta">{len(top3)} peers &middot; '
         f'{len(focal_bars)} metric{"s" if len(focal_bars)!=1 else ""}</span>'
         '</header>'
         f'<div class="peer-comparator__pills">{pills_html}</div>'

@@ -257,7 +257,7 @@ def render_trophy_case(db, player_id: int | None) -> str:
         f'data-streams="{len(streams)}">'
         '<header class="trophy-case-v2__head">'
         '<div>'
-        '<p class="trophy-case-v2__eyebrow">Trophy Case · Confirmed honors</p>'
+        '<p class="trophy-case-v2__eyebrow">Trophy Case &middot; Confirmed honors</p>'
         '<p class="trophy-case-v2__title">What the selectors said</p>'
         '</div>'
         f'<span class="trophy-case-v2__count">{len(honors)} entries</span>'

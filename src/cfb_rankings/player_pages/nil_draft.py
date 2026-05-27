@@ -165,8 +165,8 @@ def render_nil_draft(db, player_id: int | None) -> str:
         tiles.append(
             '<div class="nil-draft__tile nil-draft__tile--gold">'
             '<p class="nil-draft__tile-label">NFL Draft</p>'
-            f'<p class="nil-draft__tile-value">{year} · Rd {rd}, Pick {pk}</p>'
-            f'<p class="nil-draft__tile-sub">#{ov} overall · {escape(str(team))}</p>'
+            f'<p class="nil-draft__tile-value">{year} &middot; Rd {rd}, Pick {pk}</p>'
+            f'<p class="nil-draft__tile-sub">#{ov} overall &middot; {escape(str(team))}</p>'
             '</div>'
         )
 
@@ -177,7 +177,7 @@ def render_nil_draft(db, player_id: int | None) -> str:
         '<section class="nil-draft" data-module="nil-draft" data-state="ready">'
         '<header class="nil-draft__head">'
         '<div>'
-        '<p class="nil-draft__eyebrow">Recruiting · NFL Draft</p>'
+        '<p class="nil-draft__eyebrow">Recruiting &middot; NFL Draft</p>'
         '<p class="nil-draft__title">Pre-college pedigree and pro outcome</p>'
         '</div>'
         '</header>'

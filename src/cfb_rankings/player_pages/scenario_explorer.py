@@ -289,7 +289,7 @@ def render_scenario_explorer(
         if achieved >= threshold:
             milestone_lines.append(
                 f'<p class="scenario-explorer-v2__milestone-line">'
-                f'<strong>✓ Hit {label}</strong> · '
+                f'<strong>✓ Hit {label}</strong> &middot; '
                 f'finished with {_fmt_num(achieved, "")}.'
                 f'</p>'
             )
@@ -314,7 +314,7 @@ def render_scenario_explorer(
         f'data-games="{games}">'
         '<header class="scenario-explorer-v2__head">'
         '<div>'
-        '<p class="scenario-explorer-v2__eyebrow">Season Pace · Projection</p>'
+        '<p class="scenario-explorer-v2__eyebrow">Season Pace &middot; Projection</p>'
         f'<p class="scenario-explorer-v2__title">Where the {escape(spec["label"])} totals stand</p>'
         '</div>'
         '<span class="scenario-explorer-v2__meta">'

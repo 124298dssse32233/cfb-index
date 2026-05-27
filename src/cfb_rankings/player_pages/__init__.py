@@ -34,6 +34,7 @@ from .career_standing import render_career_standing, CAREER_STANDING_CSS
 from .trophy_case import render_trophy_case, TROPHY_CASE_CSS
 from .sparklines import build_stat_sparklines, SPARKLINE_CSS
 from .pass_profile import render_pass_profile, PASS_PROFILE_CSS
+from .season_context import render_season_context, SEASON_CONTEXT_CSS
 
 
 __all__ = [
@@ -79,4 +80,6 @@ __all__ = [
     "SPARKLINE_CSS",
     "render_pass_profile",
     "PASS_PROFILE_CSS",
+    "render_season_context",
+    "SEASON_CONTEXT_CSS",
 ]

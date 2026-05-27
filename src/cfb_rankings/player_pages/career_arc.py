@@ -195,8 +195,8 @@ def render_career_arc(db, player_id: int | None) -> str:
         rnd = nfl.get("round") or 0
         team = nfl.get("nfl_team") or ""
         year = nfl.get("draft_year") or ""
-        nfl_headline = f"R{rnd} · #{overall}" if overall else f"R{rnd}"
-        nfl_meta = f"{team} · {year}".strip(" ·")
+        nfl_headline = f"R{rnd} &middot; #{overall}" if overall else f"R{rnd}"
+        nfl_meta = f"{team} &middot; {year}".strip(" &middot;")
     else:
         nfl_headline, nfl_meta = "—", "Not drafted (yet)"
 

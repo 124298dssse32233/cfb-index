@@ -95,7 +95,7 @@ def render_narrative_arc(arc: dict | None) -> str:
         'data-module="narrative-arc-v2" data-state="ready">'
         '<header class="narrative-arc-v2__head">'
         '<div>'
-        '<p class="narrative-arc-v2__eyebrow">Narrative Arc · Season in three acts</p>'
+        '<p class="narrative-arc-v2__eyebrow">Narrative Arc &middot; Season in three acts</p>'
         '<p class="narrative-arc-v2__title">How the season unfolded</p>'
         '</div>'
         '<span class="narrative-arc-v2__meta">AI-written from the game log</span>'

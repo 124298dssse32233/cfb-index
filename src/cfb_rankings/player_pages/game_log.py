@@ -174,6 +174,30 @@ _QB_COLS = [
     ("YPA",     "passing", "AVG",   "float1"),
     ("QBR",     "passing", "QBR",   "float1"),
 ]
+# Column glossary — rendered as native `title` attr on <th>. No JS needed,
+# native browser tooltip on hover/touch-and-hold.
+_COL_TOOLTIPS: dict[str, str] = {
+    "CMP/ATT": "Completions / attempts",
+    "YDS":     "Yards gained in this category",
+    "TD":      "Touchdowns (position-dependent: passing/rushing/receiving)",
+    "INT":     "Interceptions thrown (QB) or picked (DB)",
+    "YPA":     "Yards per pass attempt",
+    "QBR":     "ESPN Quarterback Rating, 0-100",
+    "CAR":     "Carries — designed running plays",
+    "AVG":     "Yards per attempt for that category",
+    "LONG":    "Longest play of the game",
+    "REC":     "Receptions (catches)",
+    "TKL":     "Total tackles (solo + assist)",
+    "SOLO":    "Solo tackles",
+    "TFL":     "Tackles for loss",
+    "SACK":    "Sacks of the opposing QB",
+    "PD":      "Passes defended (broken up or intercepted)",
+    "FGM/FGA": "Field goals made / attempted",
+    "XP":      "Extra points made / attempted",
+    "PUNT":    "Number of punts",
+    "IN20":    "Punts landed inside the 20-yard line",
+    "PTS":     "Points scored by kicking",
+}
 _RB_COLS = [
     ("CAR",  "rushing", "CAR",  "int"),
     ("YDS",  "rushing", "YDS",  "int"),
@@ -560,8 +584,13 @@ def render_game_log(
             '</article>'
         )
 
-    # Header
-    head_cells = "".join(f'<th scope="col">{escape(h)}</th>' for h, *_ in cols)
+    # Header — every column gets a native browser tooltip via title attr.
+    def _th(label: str) -> str:
+        tip = _COL_TOOLTIPS.get(label, "")
+        title_attr = f' title="{escape(tip)}"' if tip else ""
+        cursor_style = ' style="cursor: help; text-decoration: underline dotted rgba(255,255,255,0.25);"' if tip else ""
+        return f'<th scope="col"{title_attr}{cursor_style}>{escape(label)}</th>'
+    head_cells = "".join(_th(h) for h, *_ in cols)
     head_cells += '<th scope="col" class="player-game-log__note-col">Note</th>'
 
     notes_by_week = _compute_game_notes(rows, cols, position or "")
@@ -612,10 +641,10 @@ def render_game_log(
         f'data-module="game-log" data-state="ready" data-games="{n_games}">'
         '<header class="player-game-log__head">'
         '<div>'
-        '<p class="player-game-log__eyebrow">Game Log · Week-by-week</p>'
-        f'<p class="player-game-log__title">{escape(str(season_year))} season · {n_games} games</p>'
+        '<p class="player-game-log__eyebrow">Game Log &middot; Week-by-week</p>'
+        f'<p class="player-game-log__title">{escape(str(season_year))} season &middot; {n_games} games</p>'
         '</div>'
-        f'<span class="player-game-log__meta">Box score · CFBD</span>'
+        f'<span class="player-game-log__meta">Box score &middot; CFBD</span>'
         '</header>'
         '<div class="player-game-log__scroll">'
         '<table class="player-game-log__table">'

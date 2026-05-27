@@ -229,7 +229,7 @@ def render_career_standing(db, player_id: int | None) -> str:
         is_peak = (i == peak_idx)
         rung_id = e["rung_id"]
         rung_text = (
-            f"R{rung_id:02d} · {_RUNG_NAMES.get(int(rung_id), '—')}"
+            f"R{rung_id:02d} &middot; {_RUNG_NAMES.get(int(rung_id), '—')}"
             if isinstance(rung_id, int) else "—"
         )
         cls = " career-standing__season--peak" if is_peak else ""
@@ -240,7 +240,7 @@ def render_career_standing(db, player_id: int | None) -> str:
             f'{pin}'
             f'<p class="career-standing__season-year">{e["year"]}</p>'
             f'<p class="career-standing__season-team">{escape(e["team"] or "—")}'
-            f'{" · " + escape(e["position"]) if e["position"] else ""}</p>'
+            f'{" &middot; " + escape(e["position"]) if e["position"] else ""}</p>'
             f'<p class="career-standing__season-rung">{escape(rung_text)}</p>'
             f'<p class="career-standing__season-tier">'
             f'{escape(e["tier_label"] or "")}'
@@ -252,19 +252,19 @@ def render_career_standing(db, player_id: int | None) -> str:
     if nfl:
         nfl_block = (
             f'<div class="career-standing__nfl-badge">'
-            f'NFL Draft {nfl["draft_year"]} · Rd {nfl["round"]}, Pick {nfl["pick"]} '
-            f'· #{nfl["overall"]} overall · {escape(str(nfl.get("nfl_team") or ""))}'
+            f'NFL Draft {nfl["draft_year"]} &middot; Rd {nfl["round"]}, Pick {nfl["pick"]} '
+            f'&middot; #{nfl["overall"]} overall &middot; {escape(str(nfl.get("nfl_team") or ""))}'
             '</div>'
         )
 
-    peak_label = f"Peak: R{peak_rung:02d} {_RUNG_NAMES.get(peak_rung, '')} · {enriched[peak_idx]['year']}"
+    peak_label = f"Peak: R{peak_rung:02d} {_RUNG_NAMES.get(peak_rung, '')} &middot; {enriched[peak_idx]['year']}"
     return (
         '<section class="career-standing" '
         f'data-module="career-standing" data-state="ready" '
         f'data-seasons="{len(seasons)}">'
         '<header class="career-standing__head">'
         '<div>'
-        '<p class="career-standing__eyebrow">Career arc · Season-by-season Standing</p>'
+        '<p class="career-standing__eyebrow">Career arc &middot; Season-by-season Standing</p>'
         f'<p class="career-standing__title">'
         f'{len(seasons)} seasons on the ladder'
         '</p>'
