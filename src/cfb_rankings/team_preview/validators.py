@@ -238,16 +238,25 @@ def _allowed_numbers(evidence: dict[str, Any]) -> set[str]:
 
 
 def _fuzzy_list_key(key: str, known_keys: set[str]) -> str | None:
-    """Try inserting a numeric list index into a key that skipped it.
+    """Try to resolve an evidence key the model wrote incorrectly.
 
-    Models often write 'transfer_positions.net_count' when the evidence
-    structure requires 'transfer_positions.0.net_count'.  We try inserting
-    indices 0-5 at each segment boundary and return the first match.
+    Two strategies:
+    1. Array-index insertion: model wrote 'transfer_positions.net_count'
+       instead of 'transfer_positions.0.net_count' — try inserting indices 0-5.
+    2. Suffix match: model omitted the parent prefix, e.g. 'transfer_out_total'
+       instead of 'roster_reload.transfer_out_total' — accept only when exactly
+       one known key ends with the suffix to avoid ambiguous resolution.
     """
     parts = key.split(".")
+    # Strategy 1: insert array indices at each segment boundary
     for insert_at in range(1, len(parts)):
         for idx in range(6):
             candidate = ".".join(parts[:insert_at] + [str(idx)] + parts[insert_at:])
             if candidate in known_keys:
                 return candidate
+    # Strategy 2: suffix match (model dropped parent prefix)
+    suffix = "." + key
+    matches = [k for k in known_keys if k.endswith(suffix)]
+    if len(matches) == 1:
+        return matches[0]
     return None

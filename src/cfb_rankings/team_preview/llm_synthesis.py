@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import time
+import unicodedata
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -103,6 +104,7 @@ def generate_team_preview_claims(
                 continue
 
             candidate = _normalise_candidate_text(_candidate_to_dict(candidate_model))
+            candidate = _fix_comma_evidence_keys(candidate, evidence)
             candidate = _autofill_numeric_receipts(candidate, evidence)
             candidate = _fix_approximate_ranks(candidate, evidence)
             candidate = _strip_internal_decimal_scores(candidate, evidence)
@@ -212,6 +214,15 @@ def _normalise_candidate_text(candidate: dict[str, Any]) -> dict[str, Any]:
         if isinstance(value, str):
             for old, new in replacements.items():
                 value = value.replace(old, new)
+            # Final pass: decompose accented chars to ASCII equivalents
+            # (e.g. é→e) then strip any remaining non-ASCII bytes.
+            # This prevents non_ascii_text validator failures from model
+            # output that slips past the explicit replacement map above.
+            value = (
+                unicodedata.normalize("NFKD", value)
+                .encode("ascii", "ignore")
+                .decode("ascii")
+            )
             return value
         if isinstance(value, list):
             return [norm(v) for v in value]
@@ -220,6 +231,44 @@ def _normalise_candidate_text(candidate: dict[str, Any]) -> dict[str, Any]:
         return value
 
     return norm(candidate)
+
+
+def _fix_comma_evidence_keys(candidate: dict, evidence: dict) -> dict:
+    """Split comma-joined evidence_key fields into the first valid single key.
+
+    The model sometimes writes 'evidence_key: "a.b,c.d"' (two paths joined by
+    a comma) which fails the validator's key-existence check.  We split on
+    comma, strip whitespace, and keep the first part that exists in the
+    evidence key set (falling back to the first part unconditionally so the
+    claim doesn't lose its key entirely).
+    """
+    from cfb_rankings.team_preview.validators import _evidence_keys, _fuzzy_list_key
+
+    known = _evidence_keys(evidence)
+    supporting = candidate.get("supporting_claims")
+    if not isinstance(supporting, list):
+        return candidate
+    for claim in supporting:
+        if not isinstance(claim, dict):
+            continue
+        raw_key = claim.get("evidence_key") or ""
+        if "," not in raw_key:
+            continue
+        parts = [p.strip() for p in raw_key.split(",") if p.strip()]
+        chosen = None
+        for part in parts:
+            if part in known:
+                chosen = part
+                break
+            fuzzy = _fuzzy_list_key(part, known)
+            if fuzzy:
+                chosen = fuzzy
+                break
+        if chosen is None and parts:
+            chosen = parts[0]  # fallback: take first segment even if unknown
+        if chosen is not None:
+            claim["evidence_key"] = chosen
+    return candidate
 
 
 def _autofill_numeric_receipts(candidate: dict, evidence: dict) -> dict:
@@ -372,9 +421,19 @@ def _strip_internal_decimal_scores(candidate: dict, evidence: dict) -> dict:
             label = label_map.get(key)
             if label:
                 return f'"{label}"'
-            # No label available — remove the bare score by substituting
-            # its rounded percentage form (e.g. 0.662 → 66%)
-            return f"{round(fval * 100)}%"
+            # No label available — use a qualitative descriptor so we
+            # don't introduce a bare integer that isn't in allowed_numbers
+            # (e.g. "66%" contains "66" which triggers unsupported_numeric_text)
+            if fval < 0.25:
+                return '"low"'
+            elif fval < 0.45:
+                return '"below-average"'
+            elif fval < 0.60:
+                return '"moderate"'
+            elif fval < 0.75:
+                return '"above-average"'
+            else:
+                return '"high"'
 
         return _DECIMAL_RE.sub(_replace, text)
 
