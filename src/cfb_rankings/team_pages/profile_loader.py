@@ -753,7 +753,7 @@ def list_real_fbs_slugs(db) -> list[str]:
               'American Athletic Conference', 'American Athletic',
               'Mountain West Conference', 'Mountain West',
               'Sun Belt Conference', 'Sun Belt',
-              'Mid-American Conference', 'MAC',
+              'Mid-American Conference', 'Mid-American', 'MAC',
               'Conference USA', 'C-USA',
               'FBS Independents',
               'Pac-12 Conference', 'Pac-12'

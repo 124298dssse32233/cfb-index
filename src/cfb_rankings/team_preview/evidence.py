@@ -32,7 +32,6 @@ from cfb_rankings.team_preview.season_path import SeasonPathInputs
 _MIN_REGULAR_GAMES_FOR_PRIOR = 300
 
 _INDEPENDENT_CONFERENCE_NAMES = {"FBS Independents", "Independent", "Independents"}
-
 # Weights for the composite strength scalar. Re-normalised over present signals.
 _STRENGTH_WEIGHTS = {
     "talent": 0.25,
@@ -60,6 +59,43 @@ def canonical_fbs_slugs() -> frozenset[str]:
                 f.stem for f in profiles_dir.iterdir() if f.suffix == ".md"
             )
     return frozenset()
+
+
+def canonical_fbs_slugs_for_db(db: Any) -> list[str]:
+    """Return profile slugs plus DB-confirmed real-FBS teams.
+
+    ``teams.level_code='FBS'`` is polluted locally, so DB additions are gated by
+    known FBS conference names. This lets preview builders cover synthesized
+    FBS pages such as Akron and Kennesaw State without pulling in non-FBS rows.
+    """
+    slugs = set(canonical_fbs_slugs())
+    try:
+        rows = db.query_all(
+            """
+            select t.slug
+            from teams t
+            join conferences c on c.conference_id = t.current_conference_id
+            where t.level_code = 'FBS'
+              and c.conference_name in (
+                  'Southeastern Conference', 'SEC',
+                  'Big Ten Conference', 'Big Ten',
+                  'Atlantic Coast Conference', 'ACC',
+                  'Big 12 Conference', 'Big 12',
+                  'American Athletic Conference', 'American Athletic',
+                  'Mountain West Conference', 'Mountain West',
+                  'Sun Belt Conference', 'Sun Belt',
+                  'Mid-American Conference', 'Mid-American', 'MAC',
+                  'Conference USA', 'C-USA',
+                  'FBS Independents',
+                  'Pac-12 Conference', 'Pac-12'
+              )
+            order by t.slug
+            """
+        )
+    except Exception:
+        rows = []
+    slugs.update(str(r["slug"]) for r in rows if r.get("slug"))
+    return sorted(slugs)
 
 
 @dataclass

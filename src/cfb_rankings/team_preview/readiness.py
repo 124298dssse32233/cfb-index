@@ -18,7 +18,7 @@ from cfb_rankings.team_preview.bowl_ledger import resolve_bowl_record_display
 from cfb_rankings.team_preview.evidence import (
     build_norm_context,
     build_team_evidence,
-    canonical_fbs_slugs,
+    canonical_fbs_slugs_for_db,
 )
 from cfb_rankings.team_preview.schedule import resolve_schedule_status
 
@@ -89,7 +89,7 @@ def audit_team_preview_readiness(
     db: Any, season_year: int, as_of_date: str, slugs: list[str] | None = None,
 ) -> ReadinessReport:
     if slugs is None:
-        slugs = sorted(canonical_fbs_slugs())
+        slugs = canonical_fbs_slugs_for_db(db)
     norm = build_norm_context(db, season_year)
 
     # Pre-load which slugs have an all-time bowl ledger row, keeping the most

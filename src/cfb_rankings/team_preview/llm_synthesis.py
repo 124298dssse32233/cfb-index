@@ -13,7 +13,7 @@ from cfb_rankings.chronicle.runtime import (
     Router,
     build_default_router,
 )
-from cfb_rankings.team_preview.evidence import canonical_fbs_slugs
+from cfb_rankings.team_preview.evidence import canonical_fbs_slugs_for_db
 from cfb_rankings.team_preview.persistence import write_preview_claim_cache
 from cfb_rankings.team_preview.prompts import (
     PROMPT_TEMPLATE_ID,
@@ -47,7 +47,7 @@ def generate_team_preview_claims(
     allow_cloud: bool = False,
     router: Router | None = None,
 ) -> ClaimGenerationReport:
-    targets = list(slugs) if slugs else sorted(canonical_fbs_slugs())
+    targets = list(slugs) if slugs else canonical_fbs_slugs_for_db(db)
     report = ClaimGenerationReport(targets=len(targets))
     router = router or build_default_router(allow_cloud=allow_cloud)
     backend = router.select(CardTier.T3, "writer")

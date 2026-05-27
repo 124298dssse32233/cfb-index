@@ -1195,7 +1195,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     render_all_team_parser = subparsers.add_parser(
         "render-team-pages",
-        help="Render every profiled program (all profiles/*.md) without a full "
+        help="Render every real FBS team page without a full "
              "build-site cycle. Convenience for iteration on the team_pages module.",
     )
     render_all_team_parser.add_argument(
@@ -1209,6 +1209,10 @@ def build_parser() -> argparse.ArgumentParser:
     render_all_team_parser.add_argument(
         "--season", type=int, default=None,
         help="Override season.",
+    )
+    render_all_team_parser.add_argument(
+        "--profiled-only", action="store_true",
+        help="Render only hand-authored profiles/*.md pages.",
     )
 
     simulate_game_parser = subparsers.add_parser(
@@ -2436,15 +2440,20 @@ def main() -> None:
 
     if args.command == "render-team-pages":
         from cfb_rankings.team_pages import render_all_profiled_pages, PROFILED_SLUGS
+        from cfb_rankings.team_pages.profile_loader import list_real_fbs_slugs
         override_date = None
         if getattr(args, "date", None):
             override_date = date.fromisoformat(args.date)
         count = render_all_profiled_pages(
             db, args.output_dir,
             today=override_date, season_year=args.season,
+            include_unprofiled_fbs=not args.profiled_only,
         )
+        target_count = len(PROFILED_SLUGS)
+        if not args.profiled_only:
+            target_count = len(set(PROFILED_SLUGS) | set(list_real_fbs_slugs(db)))
         print(
-            f"render-team-pages: rendered {count}/{len(PROFILED_SLUGS)} profiled programs "
+            f"render-team-pages: rendered {count}/{target_count} team pages "
             f"-> {args.output_dir}"
         )
         return
@@ -3226,7 +3235,6 @@ def main() -> None:
         return
 
     if args.command == "scrape-health":
-        from datetime import date, timedelta
         cutoff = (date.today() - timedelta(days=args.since_days)).isoformat()
         rows = db.query_all(
             """
@@ -3259,7 +3267,6 @@ def main() -> None:
         return
 
     if args.command == "autopilot-status":
-        from datetime import date, timedelta
         print("=" * 64)
         print("Autopilot v1 — one-screen dashboard")
         print("=" * 64)
@@ -3361,7 +3368,6 @@ def main() -> None:
         return
 
     if args.command == "fanintel-status":
-        from datetime import date, timedelta
         print("=" * 64)
         print("Fan Intelligence — operational status")
         print("=" * 64)

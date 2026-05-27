@@ -36,6 +36,15 @@ def test_team_preview_claim_cli_commands_parse():
     assert status_args.allow_cloud is False
 
 
+def test_render_team_pages_defaults_to_all_real_fbs_with_profiled_escape_hatch():
+    parser = build_parser()
+    args = parser.parse_args(["render-team-pages"])
+    profiled_args = parser.parse_args(["render-team-pages", "--profiled-only"])
+
+    assert args.profiled_only is False
+    assert profiled_args.profiled_only is True
+
+
 def test_publish_outputs_refreshes_team_preview_layer_before_render(monkeypatch):
     events: list[str] = []
 
