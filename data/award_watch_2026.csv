@@ -185,3 +185,38 @@ player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source
 # Hornung Award (versatility) — expanded from 2 to 4 candidates
 3830,Jeremiah Smith,hornung,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Hornung - Ohio State WR; reverses screens short-yardage impact
 3720,Gabe Powers,hornung,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Hornung - Ohio State DB; box safety/LB hybrid rare versatility
+# Dave Rimington Trophy (center of the year) — new award category, 5 candidates
+# Sources: Phil Steele 2026 OL grades, PFF offensive line rankings, On3 center watch.
+31585,Carson Hinzman,rimington,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Rimington - Ohio State C; returning starting center for national-champion Buckeyes
+28409,Parker Brailsford,rimington,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Rimington - Alabama C; anchor of Tide interior line multi-year starter
+24874,Drew Bobo,rimington,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Rimington - Georgia C/OG; versatile interior piece Outland/Rimington crossover
+27018,Ryan Linthicum,rimington,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Rimington - Clemson C; Clemson's returning starting center spring depth chart confirmed
+31304,Nolan Rucci,rimington,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Rimington - Penn State OL; elite interior blocker anchors Lions run game
+# Rotary Lombardi Award (lineman of year — OL or DL) — new award category, 7 candidates
+# Sources: Phil Steele 2026 lineman grades, ESPN preseason lineman watch, PFF.
+28408,Elijah Pritchett,lombardi,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Lombardi - Alabama LT; top returning OT in SEC dominant pass protector
+33401,Xavier Gilliam,lombardi,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Lombardi - Penn State DT; interior anchor A-gap control Outland/Bednarik crossover
+13102,Colin Simmons,lombardi,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Lombardi - Texas EDGE; top returning pass rusher Big 12 Bednarik crossover
+32533,Jaylen Harvey,lombardi,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Lombardi - Penn State DE; edge specialist disruption upside
+27015,Tristan Leigh,lombardi,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Lombardi - Clemson LT; franchise-LT caliber pass protector
+32342,Austin Siereveld,lombardi,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Lombardi - Ohio State OG; elite guard mauler in run game Outland crossover
+23361,Dominick McKinley,lombardi,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Lombardi - LSU DT; 4-year starter interior havoc generator All-SEC caliber
+# Outland Trophy — expanded from 5 to 8 candidates (added DT/C)
+31585,Carson Hinzman,outland,watchlist_official,6,3,consensus_may_2026,,2026-05-27,Outland - Ohio State C; returning starting center two-way anchor
+23361,Dominick McKinley,outland,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Outland - LSU DT; interior defensive anchor 4-year starter SEC force
+3732,Tywone Malone,outland,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Outland - Ohio State DT; returning DT for national champion Buckeyes
+# Walter Camp Player of the Year — expanded from 4 to 8 candidates
+11334,Makhi Hughes,walter_camp,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Walter Camp - Oregon RB; top returning rusher Pac-12 powerhouse
+14116,Desmond Reid,walter_camp,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Walter Camp - Pittsburgh RB; all-purpose weapon Hornung/Doak Walker crossover
+26138,Dasan McCullough,walter_camp,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Walter Camp - Nebraska LB; top returning linebacker Butkus/Bednarik crossover
+27706,Cormani McClain,walter_camp,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Walter Camp - Florida CB; former #1 CB recruit elite cover corner Thorpe crossover
+# Bednarik Award — expanded from 8 to 10 candidates (added DTs)
+23361,Dominick McKinley,bednarik,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Bednarik - LSU DT; 4-year starter dominant interior force All-SEC
+3732,Tywone Malone,bednarik,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Bednarik - Ohio State DT; defensive anchor for national-champion Buckeyes
+# Dave Rimington Trophy (center of the year) — new award category, 5 candidates
+# Sources: Phil Steele 2026 OL grades, PFF offensive line rankings, On3 center watch.
+# Rotary Lombardi Award (lineman of year — OL or DL) — new award category, 7 candidates
+# Sources: Phil Steele 2026 lineman grades, ESPN preseason lineman watch, PFF.
+# Outland Trophy — expanded from 5 to 8 candidates (added DT/C)
+# Walter Camp Player of the Year — expanded from 4 to 8 candidates
+# Bednarik Award — expanded from 8 to 10 candidates (added DTs)

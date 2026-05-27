@@ -232,6 +232,12 @@ def _metrics_for_position(position: str) -> list[tuple]:
 # Per-process cache of cohort distributions. Keyed by (season_year, position bucket, category, stat_type).
 _COHORT_CACHE: dict[tuple, list[float]] = {}
 
+# Per-player savant-bars cache. Build-site builds savant bars for the focal
+# player AND every candidate in the peer pool (60 per focal). With 17k players
+# this becomes ~1M redundant recomputations. Caching by (player_id, season,
+# bucket) collapses that to one pass per player. ~50× speedup on build.
+_SAVANT_BARS_CACHE: dict[tuple, list[dict[str, Any]]] = {}
+
 
 _POSITION_BUCKETS = {
     "QB": ("QB",),
@@ -379,6 +385,10 @@ def compute_savant_bars(
     if not metrics:
         return []
     bucket = _position_bucket(position)
+    cache_key = (int(player_id), int(season_year), bucket)
+    cached = _SAVANT_BARS_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
     bars: list[dict[str, Any]] = []
     for label, cat, stype, gate, inverted, fmt in metrics:
         gate_cat, gate_st, gate_min = gate
@@ -405,6 +415,7 @@ def compute_savant_bars(
             "fmt": fmt,
         })
     bars.sort(key=lambda b: b["percentile"], reverse=True)
+    _SAVANT_BARS_CACHE[cache_key] = bars
     return bars
 
 
