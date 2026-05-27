@@ -35,6 +35,10 @@ from .trophy_case import render_trophy_case, TROPHY_CASE_CSS
 from .sparklines import build_stat_sparklines, SPARKLINE_CSS
 from .pass_profile import render_pass_profile, PASS_PROFILE_CSS
 from .season_context import render_season_context, SEASON_CONTEXT_CSS
+from .status_strip import render_status_strip, STATUS_STRIP_CSS, fetch_status_row
+from .where_ended_up import render_where_ended_up, WHERE_ENDED_UP_CSS
+from .outlook_2026 import render_outlook_2026, OUTLOOK_2026_CSS
+from .season_labels import season_context_label, page_title_suffix
 
 
 __all__ = [
@@ -82,4 +86,13 @@ __all__ = [
     "PASS_PROFILE_CSS",
     "render_season_context",
     "SEASON_CONTEXT_CSS",
+    "render_status_strip",
+    "STATUS_STRIP_CSS",
+    "fetch_status_row",
+    "render_where_ended_up",
+    "WHERE_ENDED_UP_CSS",
+    "render_outlook_2026",
+    "OUTLOOK_2026_CSS",
+    "season_context_label",
+    "page_title_suffix",
 ]

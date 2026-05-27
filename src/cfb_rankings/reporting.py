@@ -5241,6 +5241,9 @@ def _player_pages_v2_css() -> str:
             SPARKLINE_CSS as _SK_CSS,
             PASS_PROFILE_CSS as _PP_CSS,
             SEASON_CONTEXT_CSS as _SX_CSS,
+            STATUS_STRIP_CSS as _STSTR_CSS,
+            WHERE_ENDED_UP_CSS as _WEU_CSS,
+            OUTLOOK_2026_CSS as _OL26_CSS,
         )
         try:
             from cfb_rankings.player_pages.composite_score import COMPOSITE_SCORE_CSS as _CMP_CSS
@@ -5254,7 +5257,7 @@ def _player_pages_v2_css() -> str:
             _ACC_CSS = ""
         # Tokens come FIRST so module-level CSS can reference --pct-* / --belief-* / --accolade-* vars.
         return (
-            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _SK_CSS + _PP_CSS + _SX_CSS + _CMP_CSS + _ACC_CSS
+            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _SK_CSS + _PP_CSS + _SX_CSS + _STSTR_CSS + _WEU_CSS + _OL26_CSS + _CMP_CSS + _ACC_CSS
         )
     except Exception:
         return ""
@@ -9120,6 +9123,10 @@ def build_player_page_data_map(
                 build_stat_sparklines as _build_stat_sparklines_v2,
                 render_pass_profile as _render_pass_profile_v2,
                 render_season_context as _render_season_context_v2,
+                render_status_strip as _render_status_strip_v2,
+                fetch_status_row as _fetch_status_row_v2,
+                render_where_ended_up as _render_where_ended_up_v2,
+                render_outlook_2026 as _render_outlook_2026_v2,
             )
             _primary_team_id = (
                 int((page_data.get("primary_team") or {}).get("team_id"))
@@ -9251,6 +9258,11 @@ def build_player_page_data_map(
             page_data["new_season_context_html"] = _render_season_context_v2(
                 db, player_id,
             )
+            # Wave 25 — Player Status Strip + Where They Ended Up
+            page_data["new_status_strip_html"] = _render_status_strip_v2(db, player_id)
+            page_data["player_status_row"] = _fetch_status_row_v2(db, player_id)
+            page_data["new_where_ended_up_html"] = _render_where_ended_up_v2(db, player_id)
+            page_data["new_outlook_2026_html"] = _render_outlook_2026_v2(db, player_id)
             # Standing payload — computes the 17-rung classification +
             # per-position accolade streams (Heisman finalist %, AA selector
             # grid, position-award status). Populates page_data["standing"]
@@ -9300,6 +9312,10 @@ def build_player_page_data_map(
             page_data["stat_sparklines"] = {}
             page_data["new_pass_profile_html"] = ""
             page_data["new_season_context_html"] = ""
+            page_data["new_status_strip_html"] = ""
+            page_data["player_status_row"] = None
+            page_data["new_where_ended_up_html"] = ""
+            page_data["new_outlook_2026_html"] = ""
             page_data["new_composite_score_badge_html"] = ""
             page_data["cfb_index_score"] = None
         # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
@@ -19517,6 +19533,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <span>/</span>
           <strong>{escape(player_name)}</strong>
         </div>
+        {player_data.get("new_status_strip_html") or ""}
+        {player_data.get("new_where_ended_up_html") or ""}
+        {player_data.get("new_outlook_2026_html") or ""}
         {_render_qb_fingerprint_hero(
             player_name=player_name,
             eyebrow=f"{position} · {team_name.upper()} · {conference_name.upper()}",
