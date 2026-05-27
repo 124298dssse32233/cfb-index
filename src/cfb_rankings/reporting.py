@@ -16697,7 +16697,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
 
       <section class="section">
         <article class="panel" style="padding:24px;border:1px solid var(--border,#d8d8d8);border-radius:14px;">
-          <p class="eyebrow" style="font-size:11px;letter-spacing:2px;color:var(--muted-foreground,#666);font-weight:700;">NEW · 2026-05-12</p>
+          <p class="eyebrow" style="font-size:11px;letter-spacing:2px;color:var(--muted-foreground,#666);font-weight:700;">NEW &middot; 2026-05-12</p>
           <h2 style="margin:6px 0 4px;">The Dynasty Heatmap</h2>
           <p style="color:var(--muted-foreground,#555);margin-bottom:12px;">Twelve seasons. Every FBS program. Cells colored by within-year power percentile. The CFP era as a single argument — Alabama at 97th percentile, Stanford as the era's hardest landing, UTSA as the return-to-relevance story.</p>
           <a class="button button-primary" href="../history/heatmap/">Open the heatmap</a>
@@ -17842,7 +17842,7 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
       {f'''
       <aside class="world-class-pointer" aria-label="World-class team page available">
         <div class="world-class-pointer__inner">
-          <span class="world-class-pointer__eyebrow">2025 Season · live</span>
+          <span class="world-class-pointer__eyebrow">2025 Season &middot; live</span>
           <p class="world-class-pointer__body">
             This is the historical view. For {escape(team_name)}'s 2025 season — Pulse, Chronicle, Rivalry, Savant card, and the 13-brick CFP-era arc — visit the world-class team page.
           </p>
@@ -18717,7 +18717,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
                data-metric-id="{escape(str(hs.get('metric_id') or ''))}"
                data-cohort-id="{escape(str(hs.get('cohort_id') or ''))}">
         <header class="signature-story__header">
-          <p class="signature-story__eyebrow">{escape(eyebrow_season)} · {escape(str(story.get('updated_label') or ''))}</p>
+          <p class="signature-story__eyebrow">{escape(eyebrow_season)} &middot; {escape(str(story.get('updated_label') or ''))}</p>
           <h2 class="signature-story__headline">{escape(headline)}</h2>
         </header>
         <div class="signature-story__grid">
@@ -18797,7 +18797,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
                    data-module="the-room" data-state="empty">
             <header class="the-room__header">
               <h2 class="the-room__title">The Room on {escape(player_name)}</h2>
-              <p class="the-room__sub">Fan sentiment · Awaiting signal</p>
+              <p class="the-room__sub">Fan sentiment &middot; Awaiting signal</p>
             </header>
             <p class="the-room__empty-body">The Room reads fan conversation around a player — who&rsquo;s talking, what they believe, and how that shifts. It publishes once weekly volume rebuilds; for most players that&rsquo;s in-season, when game-week chatter spikes.</p>
           </article>
@@ -18964,7 +18964,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
                x-data="theRoom($el.dataset.cohorts, $el.dataset.initial)">
         <header class="the-room__header">
           <h2 class="the-room__title">The Room on {escape(player_name)}</h2>
-          <p class="the-room__sub">Fan sentiment · {escape(updated_label)}</p>
+          <p class="the-room__sub">Fan sentiment &middot; {escape(updated_label)}</p>
         </header>
 
         <div class="the-room__pills" role="tablist" aria-label="Cohort filter">
@@ -19059,7 +19059,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
           {(
             f'<blockquote class="the-room__quote-card">'
             f'<p class="the-room__quote">&ldquo;{escape(quote_payload["text"])}&rdquo;</p>'
-            f'<p class="the-room__quote-attrib">— {quote_attrib_html} · {quote_payload["takeCount"]} similar takes</p>'
+            f'<p class="the-room__quote-attrib">— {quote_attrib_html} &middot; {quote_payload["takeCount"]} similar takes</p>'
             f'</blockquote>'
           ) if quote_payload else ''}
         </noscript>
@@ -19807,7 +19807,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {player_data.get("new_trophy_case_html") or ""}
         <article class="panel">
           <div class="section-head">
-            <h2>Trophy Case · Detail</h2>
+            <h2>Trophy Case &middot; Detail</h2>
             <p class="section-note">Every honor on the ledger, broken out by stream and selector.</p>
           </div>
           <div class="feature-grid team-story-grid">
@@ -21309,7 +21309,7 @@ def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
         n = payload["narratives"]
         rung_drawer_html = f"""
           <div class="standing__drawer">
-            <p class="standing__drawer-eyebrow">{escape(current_rung_label)} · Rung {current_rung} of 16</p>
+            <p class="standing__drawer-eyebrow">{escape(current_rung_label)} &middot; Rung {current_rung} of 16</p>
             <div class="standing__drawer-grid">
               <div>
                 <p class="standing__drawer-cell-label">Why he&rsquo;s here</p>
@@ -21400,7 +21400,7 @@ def _render_v5_splits_card(splits: dict[str, Any] | None) -> str:
           <article class="splits" data-module="splits" data-state="empty">
             <header class="splits__header">
               <h2 class="splits__title">Splits</h2>
-              <p class="splits__sub">Down-distance · Situational · Personnel · Opponent-tier</p>
+              <p class="splits__sub">Down-distance &middot; Situational &middot; Personnel &middot; Opponent-tier</p>
             </header>
             <div class="splits__awaiting" role="status">
               Splits break this player&rsquo;s performance down by situation — down-and-distance, opponent tier, personnel groupings. Returns once the season&rsquo;s play-by-play coverage builds out enough sample to draw real conclusions from.
@@ -21770,7 +21770,7 @@ def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
           <article class="sc" data-module="supporting-cast" data-state="empty">
             <header class="sc__header">
               <h2 class="sc__title">Supporting Cast</h2>
-              <p class="sc__sub">Team context · Awaiting roster + coordinator data</p>
+              <p class="sc__sub">Team context &middot; Awaiting roster + coordinator data</p>
             </header>
             <p class="sc__empty-body">Supporting Cast surfaces the OL pass-protection grade, top three receivers, offensive coordinator, and defensive coordinator that shape this player's environment. Populates when team-context ingestion lands.</p>
           </article>
@@ -21824,7 +21824,7 @@ def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
       <article class="sc" data-module="supporting-cast" data-state="ready">
         <header class="sc__header">
           <h2 class="sc__title">Supporting Cast</h2>
-          <p class="sc__sub">Team context · OL protection · Top receivers · Coordinators</p>
+          <p class="sc__sub">Team context &middot; OL protection &middot; Top receivers &middot; Coordinators</p>
         </header>
         <div class="sc__grid">{"".join(cards)}</div>
       </article>
