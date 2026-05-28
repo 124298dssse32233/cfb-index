@@ -40,6 +40,28 @@ ARC_FRAMES: tuple[str, ...] = (
     "dynasty_status_change",
 )
 
+# Human-readable summary fragments per frame, used when surfacing open arcs to
+# the Chronicle prompt (the normalised arc rows carry no prose summary).
+FRAME_LABELS: dict[str, str] = {
+    "coaching_transition": "new head coach taking over",
+    "coordinator_carousel": "coordinator change reshaping a unit",
+    "nil_collective_swing": "NIL/collective shift reshaping the roster",
+    "portal_class_arrival": "a top transfer-portal class arriving",
+    "recruiting_class_arrival": "a top recruiting class arriving",
+    "rivalry_reset": "a rivalry result reversing the streak",
+    "archetype_transition": "the fanbase's identity shifting",
+    "market_belief_swing": "the betting market's belief swinging",
+    "playoff_path_change": "the playoff path shifting",
+    "dynasty_status_change": "the program's dynasty status changing",
+}
+
+
+def arc_summary(frame: str, tension: float) -> str:
+    """One-line human-readable summary for an open arc (for the prompt block)."""
+    label = FRAME_LABELS.get(frame, frame.replace("_", " "))
+    return f"{label} (tension {float(tension):.2f})"
+
+
 # How many teams a "top-N class secured" frame opens an arc for.
 TOP_CLASS_CUTOFF = 25
 

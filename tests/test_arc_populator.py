@@ -160,3 +160,27 @@ def test_state_cache_holds_open_arcs(db: Database) -> None:
     # alpha's top portal class has tension 1.0 >= the unresolved floor.
     unresolved = json.loads(state["unresolved_tensions_json"])
     assert any(u["frame"] == "portal_class_arrival" for u in unresolved)
+
+
+def test_chronicle_pipeline_surfaces_populated_arcs(db: Database) -> None:
+    # The Chronicle prompt-context builder must actually read the arcs we open
+    # (regression: it previously queried a non-existent season_narrative_state
+    # column shape and silently degraded to []).
+    from cfb_rankings.chronicle.pipeline import PageTarget, _fetch_narrative_state
+
+    _seed_portal(db, 2026)
+    populate_season_arcs(db, 2026)
+
+    team_target = PageTarget(entity_kind="team", slug="alpha", season_year=2026, week_number=0)
+    state = _fetch_narrative_state(db, team_target)
+    open_arcs = state["open_arcs"]
+    assert open_arcs, "team with open arcs must surface them to the prompt"
+    top = open_arcs[0]
+    assert top["frame"] == "portal_class_arrival"
+    assert top["arc_id"] == "alpha-2026-portal-class-arrival"
+    assert top["summary"]  # a non-empty human-readable summary for the prompt
+    assert "tension" in top["summary"]
+
+    # Players are not team-keyed, so they degrade to the empty default.
+    player_target = PageTarget(entity_kind="player", slug="alpha", season_year=2026, week_number=0)
+    assert _fetch_narrative_state(db, player_target)["open_arcs"] == []

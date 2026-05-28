@@ -34,6 +34,7 @@ from cfb_rankings.chronicle.cache import (
     get_cached_card,
     store_card,
 )
+from cfb_rankings.chronicle.arc_populator import arc_summary
 from cfb_rankings.chronicle.eval import EvalReport, evaluate_card
 from cfb_rankings.chronicle.evidence_sources import fetch_evidence_for_card, fetch_team_voice
 from cfb_rankings.chronicle.lkg import promote_to_lkg
@@ -234,19 +235,35 @@ def _fetch_narrative_state(db: Any, target: PageTarget) -> dict:
     except Exception as exc:
         log.debug("_fetch_narrative_state: frame_stack unavailable for %s: %s", target.slug, exc)
 
-    try:
-        rows = db.query_all(
-            """
-            SELECT arc_id, summary, status, started_week
-            FROM season_narrative_state
-            WHERE entity_slug = ? AND season_year = ? AND status = 'open'
-            LIMIT 6
-            """,
-            (target.slug, target.season_year),
-        )
-        result["open_arcs"] = [dict(r) for r in rows]
-    except Exception as exc:
-        log.debug("_fetch_narrative_state: season_narrative_state unavailable for %s: %s", target.slug, exc)
+    # Open narrative arcs (D-010). The arc tables are team-keyed, so only teams
+    # carry arcs; other entity kinds degrade to the empty default.
+    if target.entity_kind == "team":
+        try:
+            rows = db.query_all(
+                """
+                SELECT a.arc_id, a.frame, a.status, a.tension_score, a.opened_at_week
+                FROM season_narrative_arc a
+                JOIN teams t ON t.team_id = a.team_id
+                WHERE t.slug = ? AND a.season_year = ?
+                  AND a.status IN ('open', 'closure_eligible')
+                ORDER BY a.tension_score DESC
+                LIMIT 6
+                """,
+                (target.slug, target.season_year),
+            )
+            result["open_arcs"] = [
+                {
+                    "arc_id": r["arc_id"],
+                    "frame": r["frame"],
+                    "status": r["status"],
+                    "tension_score": float(r["tension_score"]),
+                    "started_week": int(r["opened_at_week"]),
+                    "summary": arc_summary(r["frame"], r["tension_score"]),
+                }
+                for r in rows
+            ]
+        except Exception as exc:
+            log.debug("_fetch_narrative_state: season_narrative_arc unavailable for %s: %s", target.slug, exc)
 
     try:
         row = db.query_one(
