@@ -143,6 +143,31 @@ def build_team_name_blocklist(db: Database) -> set[str]:
     return out
 
 
+def latest_player_stats_season(db: Database) -> int | None:
+    """Most recent season_year that actually has player stats.
+
+    Used as the offseason fallback for the player index: in the months after a
+    season ends, the upcoming season has no `player_value_metrics` /
+    `player_season_stats` yet, so an index built for it is empty. Drawing the
+    index from the last season that *does* have stats keeps the tagger working
+    year-round without a hardcoded offset.
+    """
+    row = db.query_one(
+        """
+        select max(season_year) as y from (
+            select season_year from player_value_metrics
+            union
+            select season_year from player_season_stats
+              where stat_value_num is not null and stat_value_num != 0
+        )
+        """,
+        {},
+    )
+    if not row or row.get("y") is None:
+        return None
+    return int(row["y"])
+
+
 def build_player_name_index(
     db: Database,
     season_year: int,
@@ -368,9 +393,16 @@ def tag_player_mentions(
     pool_season = player_pool_season if player_pool_season is not None else season_year
     index = build_player_name_index(db, pool_season)
     if not index and pool_season != season_year:
-        # Last-resort fallback to docs-season if the user passed a pool
-        # season that has no stats — keeps the dry-run informative.
+        # Explicit pool season had no stats — try the docs-season directly.
         index = build_player_name_index(db, season_year)
+    if not index:
+        # Offseason: neither the docs-season nor an explicit pool season has
+        # stats yet. Fall back to the latest season that does, so the daily CI
+        # call (`--season=<upcoming>` with no pool override) still tags players
+        # instead of silently no-opping. Generic — no hardcoded year.
+        fallback_season = latest_player_stats_season(db)
+        if fallback_season is not None and fallback_season != pool_season:
+            index = build_player_name_index(db, fallback_season)
     if not index:
         return {"docs_scanned": 0, "matches": 0, "skipped_ambiguous": 0, "rows_written": 0}
     if include_last_name_matches:
