@@ -60,6 +60,98 @@ def _latest(c, table, col="season_year"):
     return r["m"] if r else None
 
 
+# --- Portal flow Sankey (WS-08): national level-migration of the cycle -------
+
+_ORIGIN_BUCKETS = ("FBS", "FCS", "Lower")
+_DEST_BUCKETS = ("FBS", "FCS", "Lower", "Uncommitted")
+
+
+def _origin_bucket(level: str | None) -> int:
+    if level == "FBS":
+        return 0
+    if level == "FCS":
+        return 1
+    return 2  # DII / DIII / JUCO / NAIA / unknown
+
+
+def _dest_bucket(level: str | None) -> int:
+    if level == "FBS":
+        return 0
+    if level == "FCS":
+        return 1
+    if level in ("DII", "DIII"):
+        return 2
+    return 3  # to_level NULL -> still uncommitted / not yet landed
+
+
+def _portal_flow_section(c, season) -> str:
+    """National transfer-portal flow Sankey: origin level -> destination level
+    for the given cycle. Powered by the existing flow viz template (WS-08)."""
+    from cfb_rankings.editions.viz_templates import render as render_viz
+
+    raw = c.execute(
+        """
+        SELECT from_level_code AS f, to_level_code AS t, COUNT(*) AS n
+        FROM transfer_entries WHERE season_year = :sy
+        GROUP BY from_level_code, to_level_code
+        """,
+        {"sy": season},
+    ).fetchall()
+    if not raw:
+        return ""
+
+    link_counts: dict[tuple[int, int], int] = {}
+    left_totals = [0] * len(_ORIGIN_BUCKETS)
+    right_totals = [0] * len(_DEST_BUCKETS)
+    for row in raw:
+        i = _origin_bucket(row["f"])
+        j = _dest_bucket(row["t"])
+        n = int(row["n"])
+        link_counts[(i, j)] = link_counts.get((i, j), 0) + n
+        left_totals[i] += n
+        right_totals[j] += n
+
+    left_nodes = [
+        {"label": lbl, "value": left_totals[i], "color": NAVY}
+        for i, lbl in enumerate(_ORIGIN_BUCKETS) if left_totals[i]
+    ]
+    right_nodes = [
+        {"label": lbl, "value": right_totals[j], "color": (MUTED if lbl == "Uncommitted" else GOLD)}
+        for j, lbl in enumerate(_DEST_BUCKETS) if right_totals[j]
+    ]
+    # Re-index after dropping empty buckets.
+    left_remap = {orig: new for new, (orig, _) in enumerate(
+        [(i, t) for i, t in enumerate(left_totals) if t])}
+    right_remap = {orig: new for new, (orig, _) in enumerate(
+        [(j, t) for j, t in enumerate(right_totals) if t])}
+    links = [
+        {"from": left_remap[i], "to": right_remap[j], "value": n}
+        for (i, j), n in sorted(link_counts.items(), key=lambda kv: -kv[1])
+        if i in left_remap and j in right_remap
+    ]
+
+    total = sum(int(r["n"]) for r in raw)
+    fcs_up = link_counts.get((1, 0), 0)
+    uncommitted = right_totals[3]
+    svg = render_viz("flow", {
+        "title": f"Where the {season} portal moved",
+        "left_label": "LEFT THIS LEVEL",
+        "right_label": "LANDED AT",
+        "left_nodes": left_nodes,
+        "right_nodes": right_nodes,
+        "links": links,
+        "caption": (f"{total:,} tracked entries — {fcs_up} climbed FCS→FBS, "
+                    f"{uncommitted:,} still uncommitted."),
+        "source": "CFB Index · transfer_entries",
+    })
+    return f"""
+  <h2 class="sec" id="flow">Talent Migration</h2>
+  <div class="board" style="overflow-x:auto;">
+    <div class="dek">The full {season} portal cycle as a flow — which level each transfer left, and where they landed. Band width is player count.</div>
+    <div style="min-width:680px;">{svg}</div>
+  </div>"""
+
+
 def _pct(v) -> float:
     # returning_production columns are fractions (0..~1.05); a few exceed 1.0
     # slightly. Treat anything <= 1.5 as a fraction to scale to a percent.
@@ -284,6 +376,7 @@ def build() -> None:
     rest = [b for b in nat if b is not flagship]
     flagship_html = _render_board(flagship, compact=False, max_rows=12, flagship=True)
     grid_html = "".join(_render_board(b, compact=True, max_rows=8) for b in rest)
+    flow_html = _portal_flow_section(c, _latest(c, "transfer_entries"))
     conf_html = conference_sections(c)
 
     page = f"""<!DOCTYPE html>
@@ -348,13 +441,13 @@ def build() -> None:
     <div class="stamp">Updated {escape(UPDATED)} · 2026 offseason</div>
     <h1>Offseason Leaderboards</h1>
     <p class="thesis">Who won the offseason? National and conference boards for the transfer portal, returning production, NFL exits, and roster talent — every FBS team ranked heading into 2026. Tap a team for the full file.</p>
-    <div class="jumps"><a href="#national">National</a><a href="#conference">By Conference</a></div>
+    <div class="jumps"><a href="#national">National</a><a href="#flow">Talent Migration</a><a href="#conference">By Conference</a></div>
   </header>
 
   <h2 class="sec" id="national">National Boards</h2>
   {flagship_html}
   <div class="grid">{grid_html}</div>
-
+{flow_html}
   <h2 class="sec" id="conference">By Conference</h2>
   {conf_html}
 </div></body></html>"""

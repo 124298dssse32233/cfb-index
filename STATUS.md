@@ -136,9 +136,10 @@
 
 ### WS-08 — Chart vocabulary expansion (6 → 9)
 - **Last shipped:** Locked vocab at 6 types (`docs/design-system/31-chart-vocabulary.md`)
+- **Shipped (2026-05-28, session 8):** First live Sankey surface. The `flow` viz template (`editions/viz_templates/flow.py`) already existed; wired it to real data via a national portal-flow section on `/offseason/` — origin level (FBS/FCS/Lower) → destination level (FBS/FCS/Lower/Uncommitted) for the latest cycle, band width = player count. 4,422 tracked 2026 entries; honest caption (564 FCS→FBS climbers, 1,011 still uncommitted). Builder `scripts/build_offseason_leaderboards.py` already runs in `publish_site.yml`, so it deploys with no new wiring.
 - **In flight:** None
 - **Blocked:** Not blocked
-- **Next action:** Implement Sankey component (portal flows) as the first new type; add to `charts/__init__.py` whitelist; update lint
+- **Next action:** Optionally add per-team portal-flow (conference→team) on team pages; the two remaining new chart types (beyond Sankey) are unscheduled.
 - **Spec:** [specs/08-chart-vocabulary.md](specs/08-chart-vocabulary.md)
 
 ### WS-09 — Calibration ledger
