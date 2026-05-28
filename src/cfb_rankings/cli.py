@@ -1008,6 +1008,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Also write N prior seasons into fanbase_classification_history using the same classifier.",
     )
 
+    populate_arcs_parser = subparsers.add_parser(
+        "populate-arcs",
+        help="Open/close the 10 D-010 narrative arc frames into season_narrative_arc.",
+    )
+    populate_arcs_parser.add_argument("--season", type=int, required=True)
+    populate_arcs_parser.add_argument(
+        "--week", type=int, default=0,
+        help="Week the arcs open at (0 = preseason/offseason).",
+    )
+
     compute_mood_week_parser = subparsers.add_parser(
         "compute-mood-week",
         help="Compute weekly mood scores for every FBS team (or load the Issue N° 047 seed).",
@@ -5084,6 +5094,22 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
                     classifier_version=f"{args.classifier_version}-hist",
                 )
                 print(f"  Backfilled {backfill_total} history rows for season {backfill_season}.", flush=True)
+        return
+
+    if args.command == "populate-arcs":
+        from cfb_rankings.chronicle.arc_populator import populate_season_arcs
+
+        report = populate_season_arcs(db, season_year=args.season, week=args.week)
+        print(
+            f"Opened {report['arcs_total']} narrative arcs for season {args.season} "
+            f"across {report['teams_with_state']} teams.",
+            flush=True,
+        )
+        for frame, count in report["per_frame"].items():
+            if count:
+                print(f"  {frame}: {count}", flush=True)
+            else:
+                print(f"  {frame}: 0 ({report['empty_reasons'].get(frame, '')})", flush=True)
         return
 
     if args.command == "compute-mood-week":
