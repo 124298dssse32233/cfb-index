@@ -203,6 +203,11 @@ These need resolution before downstream workstreams crystallize. Listed in prior
 **Affects:** `season_narrative_arc` populator (WS-02). Each arc opens/closes via event-ledger triggers.
 **Revisit:** If a major event class emerges that doesn't fit any frame (e.g., the House settlement revenue-share era requires its own treatment), request `/octo:debate` for an 11th frame.
 
+**Execution note (2026-05-28, session 7, `a4f7fb75029`):** Populator shipped at `src/cfb_rankings/chronicle/arc_populator.py` (`populate-arcs` CLI). Of the 10 frames, **5 are data-backed today** and **5 degrade gracefully to empty-with-reason** until their feeds exist:
+- **Live:** `portal_class_arrival` (transfer_entries, top-25 FBS by transfer_points), `archetype_transition` (fanbase_classification season-over-season change), `coaching_transition` (team_seasons head_coach diff), `recruiting_class_arrival` (recruiting_entries top-25 FBS), `rivalry_reset` (team_rivalry_meetings winner reversal).
+- **Data-gated (returns [] + reason):** `coordinator_carousel` (no OC/DC source), `nil_collective_swing` (no NIL event source), `market_belief_swing` (prediction_market_snapshots empty in offseason), `playoff_path_change` (no weekly CFP-projection feed), `dynasty_status_change` (program_tier unpopulated).
+- First local run (season 2026): 110 arcs across 99 teams (25 portal + 85 archetype-transition). Idempotent — re-run preserves arc_ids + opened_at_week. Not yet wired into CI (next action in STATUS WS-02).
+
 ## D-011 — Profile expansion targets — LOCKED
 
 **Date locked:** 2026-05-28 (autonomous best-judgment per user authorization)
