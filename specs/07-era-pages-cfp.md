@@ -2,7 +2,7 @@
 
 **Phase:** 2–3 (Aug–Dec 2026)
 **Owner:** Claude execution
-**Status:** Blocked on WS-03 (profile depth) + structural data validation
+**Status:** Prototype shipped (session 9). Data + renderer + CLI + 9 tests done and verified against the real 12-season prod DB. Build-pipeline rollout to all FBS programs is the next step.
 
 ## Goal
 
@@ -19,9 +19,9 @@ Every FBS program has an era page that tells its CFP-era story in three acts (Fo
 
 ## Current state
 
-- No era pages exist. `historical_season_page.py` exists for individual-season historical pages but not multi-season era summaries.
+- **Prototype built (session 9):** `src/cfb_rankings/era_pages/` package. `build_era_summary(db, slug, *, end_season=2025) -> EraSummary | None` (pure DB reads) + `render_era_page(summary) -> str` (self-contained HTML, inline CSS — renders faithfully from `file://` for local screenshot review). CLI: `python manage.py render-era-page <slug>...` → `output/site/programs/<slug>/era/cfp/index.html`. All 6 sections implemented; three-act trajectory is an SVG annotated line with sub-era colored bands and gold-star title-win markers. Editorial posture per D-004: structural prose only, **no LLM ledes** during offseason (the chart carries the argument). Verified against the real prod DB for Alabama + Georgia (distinct chart shapes). 9 tests in `tests/test_era_pages.py`.
 - Structural data (power ratings, resume, bowls, NFL pipeline) covers 2014-2025 — sufficient for the three-act trajectory chart.
-- 17 hand-authored profiles can support tier-1 era pages; remaining 102 wait on WS-03.
+- 17 hand-authored profiles can support editorial ledes when re-enabled; the structural page needs none of them.
 
 ## Dependencies
 
@@ -30,10 +30,11 @@ Every FBS program has an era page that tells its CFP-era story in three acts (Fo
 
 ## Implementation approach
 
-1. Design + lock the 6-section template. Single shared layout component.
-2. Build Alabama era page as the prototype. Iterate copy, chart density, annotation discipline.
-3. Generate three-paragraph ledes via Chronicle pipeline (one Chronicle card per act). Voice + receipt enforcement.
-4. Roll out to top-25 programs by Sep 30 2026.
+1. ~~Design + lock the 6-section template. Single shared layout component.~~ ✅ `era_pages/renderer.py`.
+2. ~~Build Alabama era page as the prototype. Iterate copy, chart density, annotation discipline.~~ ✅ session 9 — Alabama + Georgia verified against prod DB.
+3. **Next:** Wire `render_all_era_pages(db, programs_dir)` into `build-site` (render every FBS program with ≥`MIN_SEASONS` CFP seasons) + add a crosslink from the team/program page to `/programs/<slug>/era/cfp/`.
+4. Generate three-paragraph ledes via Chronicle pipeline (one card per act) when LLM narration re-enables post-offseason (D-004). Voice + receipt enforcement.
+5. Roll out to top-25 programs by Sep 30 2026.
 5. Roll out to remaining FBS (using `editorial_assisted` and `minimal` profile tiers as input) by Mar 2027.
 6. Era pages get the cross-archetype nav strip (WS-10) linking back to Pulse / Beat / Arc / Season views of same entity.
 

@@ -1372,6 +1372,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="Render only hand-authored profiles/*.md pages.",
     )
 
+    render_era_parser = subparsers.add_parser(
+        "render-era-page",
+        help="Render the CFP-era page (WS-07) for one or more programs to "
+             "output/site/programs/<slug>/era/cfp/index.html.",
+    )
+    render_era_parser.add_argument(
+        "slug", nargs="+", help="Program slug(s), e.g. alabama georgia",
+    )
+    render_era_parser.add_argument(
+        "--output-dir", default="output/site/programs",
+        help="Base programs directory (default: output/site/programs).",
+    )
+    render_era_parser.add_argument(
+        "--end-season", type=int, default=2025,
+        help="Last season to include in the era (default: 2025).",
+    )
+
     simulate_game_parser = subparsers.add_parser(
         "simulate-game",
         help="Simulate a finished game end-to-end against a mock fixture. "
@@ -2680,6 +2697,24 @@ def main() -> None:
             f"render-team-pages: rendered {count}/{target_count} team pages "
             f"-> {args.output_dir}"
         )
+        return
+
+    if args.command == "render-era-page":
+        from pathlib import Path as _Path
+
+        from cfb_rankings.era_pages import build_era_summary, render_era_page
+        rendered = 0
+        for slug in args.slug:
+            summary = build_era_summary(db, slug, end_season=args.end_season)
+            if summary is None:
+                print(f"render-era-page: {slug} skipped (insufficient CFP-era data)")
+                continue
+            dest = _Path(args.output_dir) / slug / "era" / "cfp"
+            dest.mkdir(parents=True, exist_ok=True)
+            (dest / "index.html").write_text(render_era_page(summary), encoding="utf-8")
+            rendered += 1
+            print(f"render-era-page: {slug} -> {dest / 'index.html'}")
+        print(f"render-era-page: rendered {rendered}/{len(args.slug)} era pages")
         return
 
     if args.command == "simulate-game":
