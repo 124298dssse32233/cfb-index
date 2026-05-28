@@ -25,7 +25,8 @@ Sustained editorial cadence across all surfaces with voice enforcement and recei
 - 8 active storyline threads with 32 total chapters. Latest chapter additions 2026-04-21 through 2026-04-23 (over a month stale at time of writing).
 - Voice-validator runs on Chronicle output. Doesn't run on other editorial surfaces.
 - Receipt pattern enforced on Chronicle. Not consistently on Wire or Mailbag.
-- No storyline candidate queue.
+- Storyline candidate queue **shipped** (`storylines/candidate_queue.py`; 67 candidates ranked from live arcs; editor pull-list per D-020). Runs daily in `ingest_daily.yml`.
+- Cadence dashboard **shipped 2026-05-28** (`storylines/cadence_dashboard.py` → `manage.py editorial-cadence`): last-published-per-surface vs staleness thresholds, flags overdue Wire/Daily/Mailbag/chapters/Editions + per-active-thread staleness. Markdown + JSON to `output/editorial-cadence.md`. Runs daily (report-only) in `ingest_daily.yml`; `--strict` exits non-zero for future CI gating. 3 tests.
 
 ## Dependencies
 
@@ -34,7 +35,7 @@ Sustained editorial cadence across all surfaces with voice enforcement and recei
 
 ## Implementation approach
 
-1. Build cadence dashboard: shows last-published timestamp per surface + threshold per surface. Flags stale items.
+1. ~~Build cadence dashboard: shows last-published timestamp per surface + threshold per surface. Flags stale items.~~ **DONE 2026-05-28** — `storylines/cadence_dashboard.py`.
 2. Add Wire + Mailbag + storyline chapters to voice_validator enforcement at write time.
 3. Extend receipt-pattern enforcement to every editorial surface, not just Chronicle. Build-time check fails if density <1/200.
 4. Build storyline candidate queue. Triggers: 3+ archetype transitions same week, season_narrative_arc opened without storyline coverage, coaching change at top-50 program, top-10 portal/recruiting class, etc.

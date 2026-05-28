@@ -1294,6 +1294,22 @@ def build_parser() -> argparse.ArgumentParser:
     review_candidate_parser.add_argument(
         "--status", required=True, choices=["proposed", "promoted", "dismissed"],
     )
+
+    # WS-12: editorial cadence dashboard — surfaces "what's overdue" across surfaces.
+    cadence_parser = subparsers.add_parser(
+        "editorial-cadence",
+        help="Write the editorial cadence dashboard (Markdown + JSON): "
+             "last-published-per-surface vs staleness thresholds, flags overdue.",
+    )
+    cadence_parser.add_argument(
+        "--output", default="output/editorial-cadence.md",
+        help="Output path for the Markdown dashboard (default: "
+             "output/editorial-cadence.md). A .json sidecar is written alongside.",
+    )
+    cadence_parser.add_argument(
+        "--strict", action="store_true",
+        help="Exit non-zero if any surface is overdue (for CI cadence gating).",
+    )
     # ---- end sprint 10: storylines ----
 
     refresh_savant_parser = subparsers.add_parser(
@@ -2510,6 +2526,17 @@ def main() -> None:
             print(f"{args.candidate_id} -> {args.status}")
         else:
             print(f"no candidate with id {args.candidate_id!r}")
+            raise SystemExit(1)
+        return
+
+    if args.command == "editorial-cadence":
+        from cfb_rankings.storylines.cadence_dashboard import render_cadence_dashboard
+        d = render_cadence_dashboard(db, output_path=args.output)
+        print(
+            f"editorial cadence: {d['overdue_count']} overdue surface(s), "
+            f"{d['stale_thread_count']} stale thread(s) -> {d['md_path']}"
+        )
+        if args.strict and d["overdue_count"]:
             raise SystemExit(1)
         return
     # ---- end sprint 10: storylines ----

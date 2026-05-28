@@ -137,6 +137,14 @@ jobs:
           SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
           python manage.py build-storyline-candidates --season=$SEASON --commit --digest || echo "build-storyline-candidates skipped"
 
+      - name: Editorial cadence dashboard (WS-12 "what's overdue")
+        run: |
+          set +e
+          # Surfaces last-published-per-surface vs staleness thresholds so the
+          # chapter-cadence slip (and any missed Wire/Mailbag/Daily) is visible.
+          # Non-strict here: report-only, never fails the daily run.
+          python manage.py editorial-cadence || echo "editorial-cadence skipped"
+
       - name: Compute player week mood (current ISO week)
         run: |
           set +e
