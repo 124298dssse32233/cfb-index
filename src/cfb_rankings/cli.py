@@ -1284,6 +1284,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Also render an editor-facing Markdown digest (+ JSON sidecar) of "
              "the queue. Optional path; defaults to output/storyline-candidates.md.",
     )
+
+    review_candidate_parser = subparsers.add_parser(
+        "review-storyline-candidate",
+        help="Record an editor verdict on a storyline candidate "
+             "(the sanctioned way to set review_status; survives daily re-rank).",
+    )
+    review_candidate_parser.add_argument("--id", required=True, dest="candidate_id")
+    review_candidate_parser.add_argument(
+        "--status", required=True, choices=["proposed", "promoted", "dismissed"],
+    )
     # ---- end sprint 10: storylines ----
 
     refresh_savant_parser = subparsers.add_parser(
@@ -2469,6 +2479,16 @@ def main() -> None:
                 f"  digest: {d['md_path']} "
                 f"({d['proposed']} proposed / {d['net_new']} net-new)"
             )
+        return
+
+    if args.command == "review-storyline-candidate":
+        from cfb_rankings.storylines.candidate_queue import set_review_status
+        found = set_review_status(db, args.candidate_id, args.status)
+        if found:
+            print(f"{args.candidate_id} -> {args.status}")
+        else:
+            print(f"no candidate with id {args.candidate_id!r}")
+            raise SystemExit(1)
         return
     # ---- end sprint 10: storylines ----
 

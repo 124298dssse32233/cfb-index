@@ -44,6 +44,33 @@ COVERED_PENALTY = 0.25
 # Only arcs that are still live are worth pitching as new editorial.
 _CANDIDATE_ARC_STATUSES = ("open", "closure_eligible")
 
+# The editor verdicts a human may set on a candidate.
+VALID_REVIEW_STATUSES = ("proposed", "promoted", "dismissed")
+
+
+def set_review_status(db: Database, candidate_id: str, status: str) -> bool:
+    """Record an editor's verdict on a candidate. Returns False if not found.
+
+    This is the only sanctioned way to mutate review_status (the project forbids
+    hand-editing the DB). The daily populator preserves whatever is set here.
+    """
+    if status not in VALID_REVIEW_STATUSES:
+        raise ValueError(
+            f"invalid review_status {status!r}; expected one of {VALID_REVIEW_STATUSES}"
+        )
+    existing = db.query_one(
+        "select candidate_id from storyline_candidate where candidate_id = :cid",
+        {"cid": candidate_id},
+    )
+    if not existing:
+        return False
+    db.execute(
+        "update storyline_candidate set review_status = :status, "
+        "updated_at_utc = datetime('now') where candidate_id = :cid",
+        {"status": status, "cid": candidate_id},
+    )
+    return True
+
 
 def latest_arc_season(db: Database) -> int | None:
     """Newest season_year that has any live arc.

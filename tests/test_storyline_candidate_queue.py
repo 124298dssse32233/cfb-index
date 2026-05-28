@@ -20,6 +20,7 @@ from cfb_rankings.storylines.candidate_queue import (
     FRAME_WEIGHTS,
     populate_storyline_candidates,
     render_candidate_digest,
+    set_review_status,
 )
 
 SEASON = 2025
@@ -219,6 +220,21 @@ def test_digest_falls_back_to_latest_arc_season(db: Database, tmp_path: Path) ->
     result = render_candidate_digest(db, 2099, output_path=out)
     assert result["season_year"] == SEASON  # fell back to where candidates live
     assert result["proposed"] == 3
+
+
+def test_set_review_status_updates_and_validates(db: Database) -> None:
+    populate_storyline_candidates(db, SEASON, commit=True)
+    assert set_review_status(db, "auburn-2025-portal", "promoted") is True
+    row = db.query_one(
+        "select review_status from storyline_candidate where candidate_id='auburn-2025-portal'",
+        {},
+    )
+    assert row["review_status"] == "promoted"
+    # Unknown id -> False, no raise.
+    assert set_review_status(db, "does-not-exist", "dismissed") is False
+    # Invalid status -> ValueError.
+    with pytest.raises(ValueError):
+        set_review_status(db, "auburn-2025-portal", "bogus")
 
 
 def test_recommit_preserves_editor_review_status(db: Database) -> None:
