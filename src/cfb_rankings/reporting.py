@@ -20,6 +20,7 @@ from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
 from cfb_rankings.nav import render_global_footer, render_methodology_footer
 from cfb_rankings.bets.glossary import glossary_payload_js, load_glossary
+from cfb_rankings.bets.cohort_divergence import player_cohort_divergence_summary
 from cfb_rankings.fan_intelligence import (
     MoodContext,
     build_team_index,
@@ -9903,6 +9904,35 @@ def _classify_player_rung(
     }
 
 
+def _player_cohort_divergence_summary_safe(
+    db: Any,
+    player_id: int,
+    season: int,
+    structural_percentile: float | None = None,
+) -> dict[str, Any]:
+    """Safe wrapper for player_cohort_divergence_summary.
+
+    Keeps the player-page build resilient when the cohort SQL fails
+    (table missing, season has zero rows, etc.). Returns the empty-shaped
+    dict so the QB fingerprint chips fall through to the Awaiting state
+    cleanly rather than the build crashing.
+    """
+    try:
+        return player_cohort_divergence_summary(
+            db, player_id, season, structural_percentile=structural_percentile
+        )
+    except Exception as exc:  # pragma: no cover — defensive
+        print(f"[cohort_divergence] player_id={player_id} failed: {exc}; rendering Awaiting.")
+        return {
+            "respect_gap": None,
+            "reality_gap": None,
+            "applicable": False,
+            "awaiting_reason": "Cohort data unavailable.",
+            "dots": [],
+            "max_mentions": 0,
+        }
+
+
 def _assemble_player_page_data(
     summary: dict[str, Any],
     player_row: dict[str, Any],
@@ -10332,6 +10362,18 @@ def _assemble_player_page_data(
             {**the_room, "buckets": room_buckets}
             if the_room is not None and room_buckets
             else (the_room if the_room is not None else ({"buckets": room_buckets} if room_buckets else None))
+        ),
+        # WS-01 Tier S fix (2026-05-28): wire cohort_divergence into player_data
+        # so the QB fingerprint Respect Gap + Reality Gap chips can populate
+        # when fan-bucket conversation data is available. Today this returns a
+        # dict with respect_gap=None/reality_gap=None (data is all 'national'
+        # bucket), so chips stay Awaiting — but the wiring is in place for
+        # WS-05 adapter ecosystem to light them up automatically.
+        "cohort_divergence": _player_cohort_divergence_summary_safe(
+            db,
+            int(player_row["player_id"]),
+            current_season,
+            structural_percentile=signature_story.get("percentile") if signature_story else None,
         ),
         "stat_profile": stat_profile,
         "season_stat_tables": season_stat_tables,

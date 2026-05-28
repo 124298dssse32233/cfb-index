@@ -166,7 +166,7 @@ jobs:
                           "mode": "subreddit_listing",
                           "team": team_name,
                           "subreddit": sub,
-                          "audience_bucket": "team",
+                          "audience_bucket": "fan",
                           "listing": listing,
                           "limit": LIMIT_PER_QUERY,
                           "require_cfb_context": False,  # team subs are CFB by definition

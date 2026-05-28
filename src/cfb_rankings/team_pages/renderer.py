@@ -1733,6 +1733,17 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
 # Distinct from the older team_chronicle_observations section above.
 # ----------------------------------------------------------------------------
 
+# WS-01 / D-004 (2026-05-28): suppress LKG Chronicle cards during offseason
+# while the pipeline's evidence floor heals. Every current card is a
+# repetitive Polymarket variation; better to show no cards than 5
+# rewrites of the same financial-analyst-voice claim. Flip back to False
+# after Chronicle regenerates with diversified evidence (WS-05 adapters
+# emitting fan-bucket + portal + recruiting + archetype-transition data)
+# AND voice LoRA training reshapes the register. Target re-evaluation:
+# Week 4 of 2026 season per VISION § 12.
+_SUPPRESS_LKG_CHRONICLE_OFFSEASON = True
+
+
 LLM_CHRONICLE_CSS = """
 .llm-chronicle {
   margin: 32px 0;
@@ -2023,7 +2034,16 @@ def _render_llm_chronicle_section(
     """Render LLM-generated Chronicle cards from chronicle_card_cache.
 
     Returns "" when no cards exist for this team so the page stays clean.
+
+    WS-01 / D-004 (2026-05-28): suppressed during offseason while the
+    Chronicle pipeline's evidence floor is healed (today every card is
+    a repetitive Polymarket variation; suppress until offseason evidence
+    sources are wired in per docs/editorial-rhythm.md). Reversible: flip
+    _SUPPRESS_LKG_CHRONICLE_OFFSEASON to False once Chronicle regenerates
+    with diversified evidence (post-WS-05 + voice LoRA training).
     """
+    if _SUPPRESS_LKG_CHRONICLE_OFFSEASON:
+        return ""
     if not cards:
         return ""
 
