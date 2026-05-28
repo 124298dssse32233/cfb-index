@@ -55,24 +55,28 @@ jobs:
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
 
-      - name: Wikipedia pageviews + edits
-        run: |
-          set +e
-          python tools/run_adapter.py wiki_pv
-          python tools/run_adapter.py wiki_edits
-          echo "done"
+      # WS-01 loud-fail (2026-05-28): per-adapter steps so failures surface.
+      - name: wiki_pv
+        continue-on-error: true
+        run: python tools/run_adapter.py wiki_pv
+      - name: wiki_edits
+        continue-on-error: true
+        run: python tools/run_adapter.py wiki_edits
       - name: Campus newspapers
+        continue-on-error: true
         run: python tools/run_adapter.py campus_news_all
       - name: School athletics
+        continue-on-error: true
         run: python tools/run_adapter.py athletics_all
       - name: Locked On team-pod metadata
+        continue-on-error: true
         run: python tools/run_adapter.py locked_on_all
-      - name: Beat writer + substack RSS
-        run: |
-          set +e
-          python tools/run_adapter.py beat_writers_all
-          python tools/run_adapter.py substack_all
-          echo "done"
+      - name: Beat writer RSS
+        continue-on-error: true
+        run: python tools/run_adapter.py beat_writers_all
+      - name: Substack RSS
+        continue-on-error: true
+        run: python tools/run_adapter.py substack_all
 
       # Bridge: transform raw conversation_documents + source_observations
       # into the compute tables that Daily/Wire/Mailbag actually read.

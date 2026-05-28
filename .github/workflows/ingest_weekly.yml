@@ -54,11 +54,12 @@ jobs:
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
 
+      # WS-01 loud-fail (2026-05-28): run_adapter.py exits 1 on adapter
+      # exceptions; continue-on-error lets the workflow finish remaining
+      # steps but the failed step shows in the UI.
       - name: Spotify charts
-        run: |
-          set +e
-          python tools/run_adapter.py spotify_charts
-          echo "done"
+        continue-on-error: true
+        run: python tools/run_adapter.py spotify_charts
 
       - name: Compute prior-week cohort aggregation
         run: |

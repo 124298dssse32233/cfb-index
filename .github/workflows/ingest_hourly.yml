@@ -67,24 +67,40 @@ jobs:
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
 
-      - name: Free / no-auth sources
-        run: |
-          set +e
-          python tools/run_adapter.py kalshi
-          python tools/run_adapter.py polymarket
-          python tools/run_adapter.py gdelt_volume
-          python tools/run_adapter.py bluesky_curated
-          python tools/run_adapter.py bluesky_feeds
-          echo "done"
+      # WS-01 loud-fail (2026-05-28): each adapter is its own step so a
+      # failure surfaces in the UI. run_adapter.py honors AdapterRunResult
+      # status as exit code (ok|empty→0, skipped→0+warn, error→1). Free
+      # adapters that legitimately produce 0 rows on quiet hours still pass
+      # (default --allow-empty); a code/upstream exception fails the step.
+      - name: kalshi
+        continue-on-error: true
+        run: python tools/run_adapter.py kalshi
+      - name: polymarket
+        run: python tools/run_adapter.py polymarket
+      - name: gdelt_volume
+        continue-on-error: true
+        run: python tools/run_adapter.py gdelt_volume
+      - name: bluesky_curated
+        continue-on-error: true
+        run: python tools/run_adapter.py bluesky_curated
+      - name: bluesky_feeds
+        continue-on-error: true
+        run: python tools/run_adapter.py bluesky_feeds
 
-      - name: Auth-required sources (skip if secret absent)
-        run: |
-          set +e
-          python tools/run_adapter.py youtube_meta
-          python tools/run_adapter.py seatgeek
-          echo "done"
+      # Auth-gated. run_adapter.py exit 0 + warn when secret missing
+      # (status=skipped); only a real bug after auth succeeds fails the step.
+      - name: youtube_meta
+        continue-on-error: true
+        run: python tools/run_adapter.py youtube_meta
+      - name: seatgeek
+        continue-on-error: true
+        run: python tools/run_adapter.py seatgeek
 
       - name: Google News RSS per team
+        # google_news_all is a per-team bulk runner that already swallows
+        # per-team failures internally (returns 0). continue-on-error here
+        # is belt-and-suspenders against a future runner regression.
+        continue-on-error: true
         run: python tools/run_adapter.py google_news_all
 
       # Conditional in-season CFBD refresh. Aug–early-Jan is CFB season.
