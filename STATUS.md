@@ -38,7 +38,7 @@
 - YouTube unlocked in CI: 1,143 rows of CFB video metadata
 - Loud-fail UI working: each adapter is now a visible per-step in Actions
 
-**Next execution target:** Two specific debugs (`gdelt_volume` still 0-rowing — suspect payload-shape change; `seatgeek` 0 rows — verify if offseason or bug). Then migrate the 6 cohort-source READER sites (cli.py / reporting.py / pulse_state.py / archetypes.py) to query `team_coverage` instead of importing Python constants — that closes the D-016 loop.
+**Next execution target:** Two items now need a user decision before more code lands (see WS-01 → Blocked): (1) D-016 reader migration is not the simple constant-deletion the spec implied — there's a circular bootstrap dependency, so it needs a corrected, signed-off interpretation; (2) `gdelt_volume` 0-rows is fetch-level IP rate-limiting (429), fixable only via a residential-IP runner — an infra tradeoff. `seatgeek` 0-rows verification remains open and is unblocked.
 
 ---
 
@@ -59,8 +59,14 @@
   - ✅ Code review pass — `octo:droids:octo-code-reviewer` ran, P1.2/P2.1/P2.2/P2.4 applied
   - ✅ `priority_teams` seeded — root-cause fix for 6 silent adapters
 - **In flight:** None
-- **Blocked:** Not blocked
-- **Next action:** Migrate 6 cohort-source readers (cli.py / reporting.py / pulse_state.py / archetypes.py / etc.) to query `team_coverage` instead of importing Python constants. Then fix the 3 real adapter bugs surfaced by the loud-fail (gdelt rate limit, kalshi stale seeds, bluesky_feeds dead URI).
+- **Blocked — two items need a user decision (session 4, 2026-05-28):**
+  1. **D-016 reader migration is NOT a simple "delete constants → readers query table".** Investigation found two hard constraints the locked decision's options didn't anticipate:
+     - **Circular dependency:** `scripts/backfill_team_coverage.py` *imports* `STRUCTURAL_PRIMARIES` / `BLUEBLOOD_PROGRAMS` / `TOP_ENTITIES_*` / `PROFILED_SLUGS` to *populate* `team_coverage`. If those constants instead read from the table, the backfill can never bootstrap. → Those constants must remain the authoring source of truth; `team_coverage` is a *derived read surface*, not a replacement.
+     - **No `db` in scope:** `classify_team()` (archetypes.py:421) is a pure function with no DB handle; migrating its lookups would ripple a `db` arg through all callers and break test purity.
+     - **`team_coverage` is currently an orphan:** nothing reads it, nothing refreshes it (backfill is invoked by no build/workflow). Verified perfect-mirror of authoring sources today (struct 23=23, blueblood 19=19, 213 rows total) but it will silently drift the moment a constant changes, because `INSERT OR IGNORE` never removes rows for *deleted* slugs.
+     - **Feasible completion (needs sign-off, since D-016 is LOCKED):** keep authoring constants; wire the idempotent backfill (with `--delete-first` full-refresh semantics) into the build so the table stays current; provide a thin `coverage.py` read helper *only if* a genuine cross-cutting reader appears (none exists today — building it now is premature). The literal "all consumers query the unified table" wording is partially infeasible.
+  2. **`gdelt_volume` 0-rows root cause = fetch-level rate-limiting, NOT a parse bug.** Live probe from local IP returns HTTP 429; GDELT aggressively throttles datacenter/cloud IP ranges, so GitHub-hosted runners hit the same wall. Parse hardening won't help. Durable fix is an infra tradeoff: run `gdelt_volume` from the self-hosted Alienware runner (residential IP) vs. accept it as degraded/offseason-low-priority. Desktop-uptime fragility makes this your call.
+- **Next action (pending the two decisions above):** if D-016 reinterpretation is approved → wire backfill into build + document corrected understanding in DECISIONS. If gdelt residential-IP is approved → move the daily gdelt step to `[self-hosted, alienware]`. Separately, `seatgeek` 0-rows still unverified (offseason-expected vs. genuine bug).
 - **Spec:** [specs/01-foundation-unblock.md](specs/01-foundation-unblock.md)
 
 ### WS-02 — Classification + state machinery
@@ -103,7 +109,7 @@
     - seatgeek: empty (likely no events in offseason; needs verification)
 - **In flight:** None
 - **Blocked:** Not blocked
-- **Next action:** Two open mysteries — `gdelt_volume` still 0-rowing after throttle bump (suspect payload-shape or query-string change upstream); `seatgeek` 0 rows (offseason expected or genuine bug?). Investigate by running locally with verbose payload dump. Then start cohort-reader migration to `team_coverage` table.
+- **Next action:** `gdelt_volume` 0-rows is now diagnosed — fetch-level HTTP 429 (GDELT throttles datacenter IPs; not a payload/parse issue). Fix is residential-IP runner (infra decision, see WS-01 → Blocked). `seatgeek` 0-rows still needs offseason-vs-bug verification (unblocked).
 - **Spec:** [specs/05-adapter-ecosystem.md](specs/05-adapter-ecosystem.md)
 
 ### WS-06 — Page archetype expansion (Coach / Game / Rivalry / Conference)
