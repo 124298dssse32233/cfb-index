@@ -1,6 +1,22 @@
 # CFB Index — Agent Orientation
 
-_Last refreshed 2026-05-24. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
+_Last refreshed 2026-05-28. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
+
+## 🗺️ Doc Navigation (read in this order)
+
+Five canonical docs, each with a distinct role:
+
+1. **[VISION_2026_2027.md](VISION_2026_2027.md)** — 12-month product vision. The aspirational doc. Quarterly update.
+2. **[CLAUDE_CODE_LAUNCH_ROADMAP.md](CLAUDE_CODE_LAUNCH_ROADMAP.md)** — Operational state, what's live now, current bugs, session log, verification log. Per-session update.
+3. **[DECISIONS.md](DECISIONS.md)** — Append-only ADR log. Why we chose X over Y. Cited as `DECISIONS.md#D-NNN`.
+4. **[STATUS.md](STATUS.md)** — Weekly delta. What shipped, in flight, blocked, next per workstream.
+5. **[specs/](specs/)** — Per-workstream implementation detail. 12 workstreams, one .md each.
+
+**Plus:** [docs/design-system/](docs/design-system/) for locked UI/IA/chart vocabulary; [docs/archive/](docs/archive/) for superseded docs.
+
+**Memory (auto-loaded):** `~/.claude/projects/.../memory/MEMORY.md` — cross-session context.
+
+> If you're picking up cold: read VISION § 1-9 (vision + 12 workstreams) → STATUS § per-workstream (where we are) → DECISIONS open list (what's gating work) → specs for the workstream you're about to touch.
 
 ## 🚨 Vercel alias rotation gotcha (2026-05-23)
 - The user-facing alias `wonderful-margulis-8ec96b.vercel.app` did NOT auto-rotate when `vercel deploy --prod` created new deployments.
