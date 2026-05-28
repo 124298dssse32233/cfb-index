@@ -1265,6 +1265,19 @@ def build_parser() -> argparse.ArgumentParser:
         "--no-seed", action="store_true",
         help="Skip the seed-load step and render from existing DB rows only.",
     )
+
+    # WS-12: data-driven storyline candidate queue (editor pull-list, not auto-publish).
+    storyline_candidates_parser = subparsers.add_parser(
+        "build-storyline-candidates",
+        help="Rank live narrative arcs (season_narrative_arc) into the "
+             "storyline_candidate queue for editorial review. Dry-run by "
+             "default; pass --commit to write.",
+    )
+    storyline_candidates_parser.add_argument("--season", type=int, required=True)
+    storyline_candidates_parser.add_argument(
+        "--commit", action="store_true",
+        help="Write ranked candidates (preserves editor review_status on re-run).",
+    )
     # ---- end sprint 10: storylines ----
 
     refresh_savant_parser = subparsers.add_parser(
@@ -2426,6 +2439,21 @@ def main() -> None:
         print(f"rendered {result['thread_pages_written']} thread pages + index")
         print(f"  index: {result['index_written']}")
         print(f"  contract: {result['homepage_contract_written']}")
+        return
+
+    if args.command == "build-storyline-candidates":
+        from cfb_rankings.storylines.candidate_queue import populate_storyline_candidates
+        summary = populate_storyline_candidates(
+            db, season_year=args.season, commit=args.commit
+        )
+        mode = "committed" if args.commit else "dry-run"
+        print(
+            f"storyline candidates ({mode}): {summary['candidates_ranked']} ranked "
+            f"from {summary['arcs_scanned']} arcs, {summary['covered_count']} already "
+            f"thread-covered, {summary['rows_written']} written"
+        )
+        for cid, score in summary["top"]:
+            print(f"  {score:6.3f}  {cid}")
         return
     # ---- end sprint 10: storylines ----
 
