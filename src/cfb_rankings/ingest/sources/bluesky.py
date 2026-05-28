@@ -167,7 +167,11 @@ class BlueskyCuratedAdapter(_BlueskyWriter):
 
     def fetch(self) -> list[tuple[str, dict[str, Any]]]:
         import os
-        deep_pages = int(os.environ.get("BLUESKY_DEEP_PAGES", "1"))
+        # Bluesky's getAuthorFeed maxes at limit=100 per request — to go
+        # deeper we follow the `cursor` field. Default 5 pages = up to 500
+        # posts/handle on initial backfill; cheap in steady-state hourly
+        # runs because dedup_key on conversation_documents collapses repeats.
+        deep_pages = int(os.environ.get("BLUESKY_DEEP_PAGES", "5"))
         handles = self._gather_handles()
         out: list[tuple[str, dict[str, Any]]] = []
         for _team_id, handle in handles:
