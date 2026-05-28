@@ -289,3 +289,27 @@ def test_summary_empty_is_safe(db: Database) -> None:
     assert summary["resolved"] == 0
     assert summary["mean_accuracy"] is None
     assert summary["band_accuracy"] == {}
+
+
+def test_calibration_page_renders_resolved_and_pending(db: Database) -> None:
+    from cfb_rankings.provenance.calibration_page import render_calibration_html
+
+    # One resolved archetype call (held -> correct) ...
+    _classify(db, 1, 2025, "quiet-professional")
+    record_prediction(
+        db, model_id="fanbase-classifier", entity_type="team", entity_id="alpha",
+        prediction_kind="archetype_assignment", period_key="2025",
+        predicted_value="quiet-professional", confidence_value=0.8,
+        expires_at="2026-02-01 00:00:00",
+    )
+    resolve_due_predictions(db, now="2026-05-28 00:00:00", kinds=["archetype_assignment"])
+    # ... and one still-pending preseason season-win projection.
+    _project(db, "alpha", 2026, wins=10)
+    record_season_win_predictions(db, 2026, fbs_slugs=frozenset({"alpha"}))
+
+    html = render_calibration_html(db)
+    assert "Fanbase archetype assignments" in html
+    assert "Preseason season-win projections" in html
+    assert "100%" in html  # the resolved held call graded correct
+    assert "awaiting their outcome" in html  # the pending season-win surface
+    assert "confusion matrix" in html  # the editorial framing renders

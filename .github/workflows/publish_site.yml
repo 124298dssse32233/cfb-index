@@ -364,6 +364,19 @@ jobs:
           echo "done"
         continue-on-error: true
 
+      - name: Populate + resolve prediction ledger (WS-09 trust spine)
+        # Log standing predictions before outcomes, then grade any due rows.
+        # Must run BEFORE build-methodology so /methodology/calibration.html
+        # renders live data instead of the empty state.
+        run: |
+          set +e
+          SEASON=$(date +%Y)
+          python manage.py prediction-ledger --action record-archetypes --season "$SEASON"
+          python manage.py prediction-ledger --action record-season-wins --season "$SEASON"
+          python manage.py prediction-ledger --action resolve
+          echo "done"
+        continue-on-error: true
+
       - name: Refresh methodology + freshness pages
         run: |
           set +e

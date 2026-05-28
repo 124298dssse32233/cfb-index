@@ -2853,10 +2853,13 @@ def main() -> None:
         from cfb_rankings.provenance.methodology_page import write_methodology_page
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         from cfb_rankings.provenance.methodology_index_page import write_methodology_index_page
+        from cfb_rankings.provenance.calibration_page import write_calibration_page
         out = write_methodology_page(db)
         print(f"methodology page written: {out}")
         fresh = write_freshness_page(db)
         print(f"freshness page written: {fresh}")
+        calib = write_calibration_page(db)
+        print(f"calibration page written: {calib}")
         idx = write_methodology_index_page()
         print(f"methodology index written: {idx}")
         return

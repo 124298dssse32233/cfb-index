@@ -124,6 +124,15 @@ def render_methodology_index_html(output_dir: Path | None = None) -> str:
     </div>
 
     <div class="page">
+      <h2><a href="calibration.html">Calibration track record</a></h2>
+      <p>Our public confusion matrix. Every prediction we publish is logged
+         <em>before</em> the outcome is known, then graded weekly. See how often
+         our calls were right &mdash; broken down by model, prediction kind, and
+         confidence band &mdash; including where our high-confidence calls missed.</p>
+      <p class="meta">Sourced from the live prediction ledger</p>
+    </div>
+
+    <div class="page">
       <h2><a href="freshness.html">Data source freshness</a></h2>
       <p>Last successful run per registered source, with status and rows
          inserted. Refreshed automatically each week. Useful for diagnosing why a
