@@ -1,6 +1,6 @@
 # Status — Week of 2026-05-28
 
-**Last updated:** 2026-05-28 (initial snapshot)
+**Last updated:** 2026-05-28 (autonomous execution session 2)
 **Update cadence:** Every Friday
 **Format:** Per workstream, four buckets — Last shipped / In flight / Blocked / Next action
 
@@ -10,44 +10,54 @@
 
 ## This week's headline
 
-Planning + capture pass complete. 21 stale docs archived. Five canonical docs structured (VISION + LAUNCH_ROADMAP + DECISIONS + STATUS + specs/). 11 architectural decisions locked, 8 still open. 12 workstream specs scaffolded. Editorial rhythm + autonomous operation model both locked.
+**Planning + capture pass complete. WS-01 Tier S execution begun.** 21 stale docs archived. Five canonical docs structured (VISION + LAUNCH_ROADMAP + DECISIONS + STATUS + specs/). **All 21 architectural decisions LOCKED** (D-001 through D-021 — autonomous best-judgment authorization). 12 workstream specs scaffolded. Editorial rhythm + autonomous operation model + hero design locks all committed. 4 doc commits + 1 WS-01 Tier S code commit shipped (not pushed).
 
 **Posture locked:** Compound-ship through 2026, perfect launch summer 2027 (D-002).
 **Rhythm locked:** Day-of-week + season-phase cadence (D-019) — see `docs/editorial-rhythm.md`.
 **Autonomy locked:** Tiered auto-publish with override (D-020).
 **Hero locked:** Homepage + era page designs (D-021).
+**All 18 other decisions:** locked autonomously per user "absolute best judgment" authorization.
 
-**Next execution target:** Workstream 01 (Foundation Unblock) — Tier S mechanical fixes.
+**WS-01 Tier S shipped this session (in commits, not pushed):**
+- Bucket label fix in `reddit_deep_2026_offseason.yml` ("team" → "fan")
+- `cohort_divergence` wiring in `_assemble_player_page_data` + new `player_cohort_divergence_summary` helper in `bets/cohort_divergence.py`
+- Chronicle LKG suppression flag in `team_pages/renderer.py` (`_SUPPRESS_LKG_CHRONICLE_OFFSEASON`)
+
+**Next execution target:** Continue WS-01 Tier S — `numeric_observations` table + adapter loud-fail + `team_coverage` table consolidation.
 
 ---
 
 ## Per-workstream status
 
 ### WS-01 — Foundation unblock
-- **Last shipped:** Nothing yet (workstream just defined)
+- **Last shipped (2026-05-28):**
+  - ✅ Bucket label fix in `reddit_deep_2026_offseason.yml` (commit `0afee863`)
+  - ✅ `cohort_divergence` wiring + new `player_cohort_divergence_summary` helper (commit `0afee863`)
+  - ✅ Chronicle LKG suppression flag in renderer (commit `0afee863`)
+  - ✅ Wave 25 + Player Wave-1 + Milestone A+B previously committed (memory was stale; verified via `git log`)
 - **In flight:** None
 - **Blocked:** Not blocked
-- **Next action:** Bucket label fix in `reddit_deep_2026_offseason.yml` (1-token change); commit uncommitted Wave 25 + Milestone A+B + Player Wave-1 work
+- **Next action:** `numeric_observations` table migration + 7 adapter redirects; loud-fail pattern across `ingest_*.yml` workflows; `team_coverage` table consolidation (D-016)
 - **Spec:** [specs/01-foundation-unblock.md](specs/01-foundation-unblock.md)
 
 ### WS-02 — Classification + state machinery
 - **Last shipped:** N/A — schemas exist (18-archetype taxonomy at `ingest/archetypes.py`, `fanbase_classification` table, `season_narrative_arc` table) but populators have never run
 - **In flight:** None
-- **Blocked:** D-010 (lock the 10 arc frames) before populator can be built
-- **Next action:** Run `seed_taxonomy(db)` + `classify_all_fanbases(db, 2026)` to populate `fanbase_classification` (the existing classifier just needs invocation)
+- **Blocked:** UNBLOCKED — D-010 (10 arc frames) now LOCKED. Ready to start.
+- **Next action:** Run `seed_taxonomy(db)` + `classify_all_fanbases(db, 2026)` to populate `fanbase_classification` (the existing classifier just needs invocation). Then build arc-frame populator per D-010.
 - **Spec:** [specs/02-classification-state.md](specs/02-classification-state.md)
 
 ### WS-03 — Editorial profiles to 119
 - **Last shipped:** 17 hand-authored profiles in `profiles/*.md` (current state, unchanged)
 - **In flight:** None
-- **Blocked:** D-011 (profile expansion target ratios) before pipeline scope can be locked
-- **Next action:** Decide D-011, then build LLM-draft pipeline for tier-2 profiles
+- **Blocked:** UNBLOCKED — D-011 LOCKED (17 + 25 + 77). Voice LoRA training (D-014) feeds into this.
+- **Next action:** Phase 2 (Aug 2026) — build LLM-draft pipeline for the 25 editorial_assisted profiles + voice_validator integration
 - **Spec:** [specs/03-editorial-profiles.md](specs/03-editorial-profiles.md)
 
 ### WS-04 — Historical backfill (pre-2014)
 - **Last shipped:** N/A — Phase 4 work
 - **In flight:** None
-- **Blocked:** D-012 (backfill scope) before scraper plan can be built
+- **Blocked:** UNBLOCKED — D-012 LOCKED (1936-2013 AP poll era first). Still deferred to Phase 4 by sequencing.
 - **Next action:** Phase 4 (Jan 2027) — no action this quarter
 - **Spec:** [specs/04-historical-backfill.md](specs/04-historical-backfill.md)
 
@@ -82,7 +92,7 @@ Planning + capture pass complete. 21 stale docs archived. Five canonical docs st
 ### WS-09 — Calibration ledger
 - **Last shipped:** `confidence_calibration` table exists with 5 rows; design doc `docs/design-system/33-confidence-signaling.md` locked
 - **In flight:** None
-- **Blocked:** D-015 (publication cadence) before public-facing surface can be designed
+- **Blocked:** UNBLOCKED — D-015 LOCKED (continuous writes, Sunday-evening public summary, per-game override).
 - **Next action:** Build `prediction_ledger` table + writer instrumentation across chips; outcome resolver runs weekly
 - **Spec:** [specs/09-calibration-ledger.md](specs/09-calibration-ledger.md)
 
@@ -126,9 +136,9 @@ Planning + capture pass complete. 21 stale docs archived. Five canonical docs st
 - **Next action:** Commit in 2-3 logical PRs this week before any other work touches those files
 
 ### Decisions waiting
-- 10 OPEN decisions in DECISIONS.md (D-009 through D-018)
-- D-013 (refuse list lock) + D-016 (team_coverage migration timing) + D-017 (Octopus policy) can be locked at any time without blocking specific work
-- D-009 (Fan Belief naming) + D-010 (arc frames) are good `/octo:debate` candidates
+- **0 OPEN decisions** — all 21 entries LOCKED as of 2026-05-28 autonomous session.
+- New decisions get logged as encountered.
+- User can request `/octo:debate` to challenge any LOCKED entry; new entry would supersede.
 
 ---
 
