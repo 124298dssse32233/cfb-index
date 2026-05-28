@@ -42,15 +42,17 @@
   - ✅ `cohort_divergence` wiring + new `player_cohort_divergence_summary` helper (commit `0afee863`)
   - ✅ Chronicle LKG suppression flag in renderer (commit `0afee863`)
   - ✅ Wave 25 + Player Wave-1 + Milestone A+B previously committed (memory was stale; verified via `git log`)
-- **Last shipped (2026-05-28, session 3, UNCOMMITTED):**
-  - ✅ Spec correction — `source_observations` already IS the numeric landing table; no parallel migration created
-  - ✅ Adapter loud-fail — `tools/run_adapter.py` honors `AdapterRunResult.status` as exit code; 3 ingest workflows refactored
-  - ✅ Adapter triage — root causes documented for 6 zero-row adapters (all upstream-seed-data issues, no code bugs)
-  - ✅ `team_coverage` table — migration `20260602_05` + `scripts/backfill_team_coverage.py` + 213 live rows
+- **Last shipped (2026-05-28, session 3, PUSHED):**
+  - ✅ Spec correction — `source_observations` already IS the numeric landing table; no parallel migration created (commit `04903727907`)
+  - ✅ Adapter loud-fail — `tools/run_adapter.py` honors `AdapterRunResult.status` as exit code; 3 ingest workflows refactored (commit `e2e23bfaaa7`)
+  - ✅ Adapter triage — root causes documented; smoke test post-seed proved diagnosis: source_observations went 160→333 rows, bluesky alone added 2,163 rows
+  - ✅ `team_coverage` table — migration `20260602_05` + backfill script + 213 live rows / 155 distinct slugs (commit `47984a4f7a3`)
+  - ✅ Test infrastructure unblocked — 3 broken test files fixed (syntax error + 2 importorskip guards); pytest collects 1,306 tests (was: 0) (commit `ea147a7e6a0`)
   - ✅ Code review pass — `octo:droids:octo-code-reviewer` ran, P1.2/P2.1/P2.2/P2.4 applied
-- **In flight:** Commit of session 3 changes (4 logical commits expected, not pushed)
+  - ✅ `priority_teams` seeded — root-cause fix for 6 silent adapters
+- **In flight:** None
 - **Blocked:** Not blocked
-- **Next action:** Migrate 6 cohort-source readers (cli.py / reporting.py / pulse_state.py / archetypes.py / etc.) to query `team_coverage` instead of importing Python constants. Then re-seed `priority_teams` upstream columns for the 7 silent adapters.
+- **Next action:** Migrate 6 cohort-source readers (cli.py / reporting.py / pulse_state.py / archetypes.py / etc.) to query `team_coverage` instead of importing Python constants. Then fix the 3 real adapter bugs surfaced by the loud-fail (gdelt rate limit, kalshi stale seeds, bluesky_feeds dead URI).
 - **Spec:** [specs/01-foundation-unblock.md](specs/01-foundation-unblock.md)
 
 ### WS-02 — Classification + state machinery
@@ -77,11 +79,17 @@
 ### WS-05 — Adapter ecosystem live
 - **Last shipped:** Polymarket adapter (160 rows in `source_observations`); Reddit r/CFB collector (9,212 docs); Substack RSS (110 docs)
 - **Last shipped (session 3):**
-  - ✅ Loud-fail unblock — workflows + runner no longer swallow adapter exceptions, so the next cron run will surface actual failure modes
-  - ✅ Triage diagnoses captured (Wikipedia/GDELT/Bluesky/YouTube/SeatGeek/Spotify all blocked on missing `priority_teams` seed columns, NOT code bugs; Kalshi false-positive path-bug claim from agent verified-and-rejected)
+  - ✅ Loud-fail unblock — workflows + runner no longer swallow adapter exceptions
+  - ✅ Triage diagnoses captured (Wikipedia/GDELT/Bluesky/YouTube/SeatGeek/Spotify blocked on missing `priority_teams` seed columns; Kalshi false-positive path-bug claim verified-and-rejected)
+  - ✅ **`priority_teams` seeded locally (21 rows from `seeds/priority_teams.yaml`)** — root cause of zero rows was empty table, not adapter bugs
+  - ✅ **Adapter smoke test post-seed:** wiki_pv 147 rows, wiki_edits 26 rows, **bluesky_curated 2,163 rows**, polymarket 160 rows (existing). `source_observations` total: 160 → 333. CI cron will pick up the rest on next run.
+- **Real bugs surfaced by the loud-fail (3 followups spawned):**
+  1. `gdelt_volume`: HTTP 429 rate-limited + connection timeouts on >2 teams — needs backoff or per-team throttle
+  2. `kalshi`: seed file `seeds/prediction_market_contracts.yaml` references expired contract IDs (`KXMICHCOACH-26` → 404) — needs refresh
+  3. `bluesky_feeds`: hardcoded feed URI `app.bsky.feed.generator/sports` returns 400 Bad Request — needs valid feed URI
 - **In flight:** None
-- **Blocked:** UNBLOCKED — `source_observations` table already exists and is the correct write target; loud-fail now in place
-- **Next action:** Re-seed `priority_teams` columns: `wiki_team_page`, `wiki_coach_page`, `google_news_query`, `bluesky_beat_handles`, `seatgeek_team_slug`, `youtube_team_channel_id`. Each seeds an adapter that today writes 0 rows. After re-seed, watch the next 24h of `ingest_hourly` runs in CI to confirm rows land.
+- **Blocked:** Not blocked
+- **Next action:** Address the 3 real bugs above; verify YouTube/SeatGeek/Spotify in CI (require GitHub-Actions secrets which aren't in local dev). Then re-run all adapters in CI to confirm `source_observations` keeps growing.
 - **Spec:** [specs/05-adapter-ecosystem.md](specs/05-adapter-ecosystem.md)
 
 ### WS-06 — Page archetype expansion (Coach / Game / Rivalry / Conference)
