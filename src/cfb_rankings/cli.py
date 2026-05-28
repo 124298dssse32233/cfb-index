@@ -1278,6 +1278,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--commit", action="store_true",
         help="Write ranked candidates (preserves editor review_status on re-run).",
     )
+    storyline_candidates_parser.add_argument(
+        "--digest", nargs="?", const="output/storyline-candidates.md",
+        default=None,
+        help="Also render an editor-facing Markdown digest (+ JSON sidecar) of "
+             "the queue. Optional path; defaults to output/storyline-candidates.md.",
+    )
     # ---- end sprint 10: storylines ----
 
     refresh_savant_parser = subparsers.add_parser(
@@ -2442,7 +2448,10 @@ def main() -> None:
         return
 
     if args.command == "build-storyline-candidates":
-        from cfb_rankings.storylines.candidate_queue import populate_storyline_candidates
+        from cfb_rankings.storylines.candidate_queue import (
+            populate_storyline_candidates,
+            render_candidate_digest,
+        )
         summary = populate_storyline_candidates(
             db, season_year=args.season, commit=args.commit
         )
@@ -2454,6 +2463,12 @@ def main() -> None:
         )
         for cid, score in summary["top"]:
             print(f"  {score:6.3f}  {cid}")
+        if args.digest is not None:
+            d = render_candidate_digest(db, season_year=args.season, output_path=args.digest)
+            print(
+                f"  digest: {d['md_path']} "
+                f"({d['proposed']} proposed / {d['net_new']} net-new)"
+            )
         return
     # ---- end sprint 10: storylines ----
 

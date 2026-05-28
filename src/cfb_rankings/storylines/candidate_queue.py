@@ -13,6 +13,8 @@ so a human's promoted/dismissed verdict survives the daily cron.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 from ..db import Database
@@ -202,3 +204,118 @@ def populate_storyline_candidates(
         summary["rows_written"] = len(rows)
 
     return summary
+
+
+def _digest_rows(db: Database, season_year: int) -> list[dict[str, Any]]:
+    return db.query_all(
+        """
+        select candidate_id, team_slug, frame, arc_status, tension_score,
+               frame_weight, priority_score, confirming_evidence_count,
+               covered_by_thread, review_status, headline_hint
+          from storyline_candidate
+         where season_year = :season
+         order by priority_score desc
+        """,
+        {"season": season_year},
+    )
+
+
+def render_candidate_digest(
+    db: Database,
+    season_year: int,
+    output_path: str | Path = "output/storyline-candidates.md",
+    *,
+    top_n: int = 25,
+) -> dict[str, Any]:
+    """Write an editor-facing Markdown digest (+ JSON sidecar) of the queue.
+
+    Reads the committed ``storyline_candidate`` rows so the digest reflects any
+    editor verdicts (promoted / dismissed), not a fresh re-rank. The candidate's
+    own ``season_year`` is used — pass the arc season (or let the populator's
+    fallback have already stamped it). The Markdown lands in ``output/`` beside
+    the other generated audit digests; the JSON sidecar mirrors it for tooling.
+    """
+    rows = _digest_rows(db, season_year)
+    if not rows:
+        fallback = latest_arc_season(db)
+        if fallback is not None and fallback != season_year:
+            rows = _digest_rows(db, fallback)
+            season_year = fallback
+
+    proposed = [r for r in rows if r["review_status"] == "proposed"]
+    promoted = [r for r in rows if r["review_status"] == "promoted"]
+    dismissed = [r for r in rows if r["review_status"] == "dismissed"]
+    net_new = [r for r in proposed if not r["covered_by_thread"]]
+    covered = [r for r in proposed if r["covered_by_thread"]]
+
+    generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    lines: list[str] = [
+        "# Storyline candidate queue",
+        "",
+        f"_Season {season_year} · generated {generated}_",
+        "",
+        "Editor pull-list ranked from live narrative arcs "
+        "(`season_narrative_arc`) by tension × frame-weight. This is a "
+        "**review surface, not auto-publish** (DECISIONS.md#D-020): pull the "
+        "candidates you want to author, and set `review_status` to `promoted` "
+        "or `dismissed` — your verdict survives the daily re-rank.",
+        "",
+        f"**{len(proposed)} proposed** "
+        f"({len(net_new)} net-new · {len(covered)} already thread-covered) · "
+        f"{len(promoted)} promoted · {len(dismissed)} dismissed",
+        "",
+    ]
+
+    def _table(title: str, items: list[dict[str, Any]]) -> None:
+        lines.append(f"## {title}")
+        lines.append("")
+        if not items:
+            lines.append("_None._")
+            lines.append("")
+            return
+        lines.append("| # | Priority | Team | Frame | Tension | Status | Headline hint |")
+        lines.append("|--:|---------:|------|-------|--------:|--------|---------------|")
+        for i, r in enumerate(items[:top_n], start=1):
+            cover = f" ⚠️ `{r['covered_by_thread']}`" if r["covered_by_thread"] else ""
+            lines.append(
+                f"| {i} | {r['priority_score']:.3f} | "
+                f"{r['team_slug'] or '—'} | {r['frame']} | "
+                f"{r['tension_score']:.2f} | {r['arc_status']}{cover} | "
+                f"{r['headline_hint']} |"
+            )
+        lines.append("")
+
+    _table(f"Top net-new candidates (top {top_n})", net_new)
+    _table("Already covered by an active thread", covered)
+    if promoted:
+        _table("Promoted", promoted)
+
+    md_path = Path(output_path)
+    md_path.parent.mkdir(parents=True, exist_ok=True)
+    md_path.write_text("\n".join(lines), encoding="utf-8")
+
+    json_path = md_path.with_suffix(".json")
+    json_payload = {
+        "season_year": season_year,
+        "generated_utc": generated,
+        "counts": {
+            "proposed": len(proposed),
+            "net_new": len(net_new),
+            "covered": len(covered),
+            "promoted": len(promoted),
+            "dismissed": len(dismissed),
+        },
+        "candidates": rows,
+    }
+    json_path.write_text(json.dumps(json_payload, indent=2), encoding="utf-8")
+
+    return {
+        "season_year": season_year,
+        "md_path": str(md_path),
+        "json_path": str(json_path),
+        "proposed": len(proposed),
+        "net_new": len(net_new),
+        "covered": len(covered),
+        "promoted": len(promoted),
+        "dismissed": len(dismissed),
+    }

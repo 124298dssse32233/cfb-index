@@ -135,7 +135,7 @@ jobs:
           # falls back to the latest arc season when the offseason SEASON is
           # empty, so it surfaces upcoming-season arcs without special-casing here.
           SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
-          python manage.py build-storyline-candidates --season=$SEASON --commit || echo "build-storyline-candidates skipped"
+          python manage.py build-storyline-candidates --season=$SEASON --commit --digest || echo "build-storyline-candidates skipped"
 
       - name: Compute player week mood (current ISO week)
         run: |

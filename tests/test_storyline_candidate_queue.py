@@ -19,6 +19,7 @@ from cfb_rankings.db import Database
 from cfb_rankings.storylines.candidate_queue import (
     FRAME_WEIGHTS,
     populate_storyline_candidates,
+    render_candidate_digest,
 )
 
 SEASON = 2025
@@ -182,6 +183,42 @@ def test_offseason_falls_back_to_latest_arc_season(db: Database) -> None:
     rows = db.query_all("select season_year from storyline_candidate", {})
     # Candidates are stamped with the arc's real season, not the requested one.
     assert all(r["season_year"] == SEASON for r in rows)
+
+
+def test_digest_renders_md_and_json(db: Database, tmp_path: Path) -> None:
+    populate_storyline_candidates(db, SEASON, commit=True)
+    # Editor dismisses Alabama; promotes Oregon.
+    db.execute(
+        "update storyline_candidate set review_status='dismissed' "
+        "where candidate_id='alabama-2025-coach'", {})
+    db.execute(
+        "update storyline_candidate set review_status='promoted' "
+        "where candidate_id='oregon-2025-arche'", {})
+
+    out = tmp_path / "candidates.md"
+    result = render_candidate_digest(db, SEASON, output_path=out)
+
+    assert out.exists()
+    assert (tmp_path / "candidates.json").exists()
+    # 1 proposed (auburn), 1 promoted (oregon), 1 dismissed (alabama).
+    assert result["proposed"] == 1
+    assert result["promoted"] == 1
+    assert result["dismissed"] == 1
+    text = out.read_text(encoding="utf-8")
+    assert "Storyline candidate queue" in text
+    assert "auburn" in text          # the lone proposed net-new candidate
+    assert "## Promoted" in text     # promoted section appears
+    # Dismissed Alabama must NOT appear in the proposed tables.
+    assert "alabama" not in text
+
+
+def test_digest_falls_back_to_latest_arc_season(db: Database, tmp_path: Path) -> None:
+    # Candidates were committed for 2025; ask the digest for empty 2099.
+    populate_storyline_candidates(db, SEASON, commit=True)
+    out = tmp_path / "candidates.md"
+    result = render_candidate_digest(db, 2099, output_path=out)
+    assert result["season_year"] == SEASON  # fell back to where candidates live
+    assert result["proposed"] == 3
 
 
 def test_recommit_preserves_editor_review_status(db: Database) -> None:
