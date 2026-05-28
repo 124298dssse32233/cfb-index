@@ -243,11 +243,35 @@ class BlueskyFeedsAdapter(_BlueskyWriter):
 
 
 def _default_feed_uris() -> list[str]:
-    # Known-public CFB feeds. Kept small; expand via quarterly harvest (TASK 3.3).
-    return [
-        # Generic sports
-        "at://did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.feed.generator/sports",
-    ]
+    """Read feed URIs from ``seeds/bluesky_feeds.yaml`` when present.
+
+    Falls back to an empty list — the previously-hardcoded
+    ``did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.feed.generator/sports`` URI
+    started returning 400 Bad Request from the Bluesky AppView in mid-2026
+    (likely deleted upstream), so hardcoding nothing is safer than hardcoding
+    a known-dead URI. Drop a YAML file at ``seeds/bluesky_feeds.yaml`` with::
+
+        feeds:
+        - at://did:plc:<...>/app.bsky.feed.generator/<name>
+
+    to subscribe to live custom feeds. Curate via quarterly harvest (TASK 3.3).
+    """
+    from pathlib import Path
+    try:
+        import yaml  # type: ignore[import-not-found]
+    except ImportError:
+        return []
+    repo_root = Path(__file__).resolve().parents[3].parent
+    yaml_path = repo_root / "seeds" / "bluesky_feeds.yaml"
+    if not yaml_path.exists():
+        return []
+    try:
+        doc = yaml.safe_load(yaml_path.read_text(encoding="utf-8")) or {}
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("bluesky_feeds: failed to load seeds yaml: %s", exc)
+        return []
+    uris = doc.get("feeds") or []
+    return [u for u in uris if isinstance(u, str) and u.startswith("at://")]
 
 
 # ------------------ TASK 3.1: Jetstream firehose (keyword filtered) ------------------

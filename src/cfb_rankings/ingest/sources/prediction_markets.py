@@ -35,10 +35,20 @@ _CONTRACTS_SEED = Path(__file__).resolve().parents[3].parent / "seeds" / "predic
 
 
 def _load_contracts(platform: str) -> list[dict[str, Any]]:
+    """Load active contracts for ``platform``.
+
+    Skips entries flagged ``needs_research: true`` — that flag means the
+    ticker/slug is known-stale (e.g. 2026-04 seeded CFB Kalshi markets all
+    closed by 2026-05; flip back to ``false`` after refreshing the seed
+    from live API). Skipping at load time keeps fetch logs quiet.
+    """
     if not _CONTRACTS_SEED.exists():
         return []
     doc = yaml.safe_load(_CONTRACTS_SEED.read_text(encoding="utf-8")) or {}
-    return [c for c in (doc.get("contracts") or []) if c.get("platform") == platform]
+    return [
+        c for c in (doc.get("contracts") or [])
+        if c.get("platform") == platform and not c.get("needs_research")
+    ]
 
 
 class KalshiAdapter(NumericSourceAdapter):

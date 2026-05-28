@@ -7,63 +7,63 @@ contracts:
 - platform: kalshi
   ticker: KXNCAAF-27
   label: College Football National Championship Winner (2026-27)
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXHEISMAN-26
   label: Heisman Trophy Winner (Dec 2026)
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFSEC-26
   label: SEC Champion 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFB10-26
   label: Big Ten Champion 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFACC-26
   label: ACC Champion 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFB12-26
   label: Big 12 Champion 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFCONF-26
   label: Conference to Win the National Championship 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFCOTY-27
   label: College Football Coach of the Year 2026-27
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFFINALIST-27
   label: Reach the CFP National Championship Game 2026-27
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNDJOINCONF-27
   label: Will Notre Dame Football join a conference 2026-28
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFAAC-26
   label: American Athletic Conference Champion 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXNCAAFMWC-26
   label: Mountain West Champion 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXSECREG-26
   label: SEC Regular-Season Champion 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXCOACHOUTNCAAFB-1-26
   label: College Football Coaches Out Before September 2026
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: kalshi
   ticker: KXMICHCOACH-26
   label: Next Permanent Head Coach of Michigan
-  needs_research: false
+  needs_research: true   # 2026-05-28: all CFB Kalshi tickers 404 — offseason; refresh when 2026-27 markets reopen
 - platform: polymarket
   slug: will-texas-longhorns-win-the-2027-cfp-national-championship
   label: Texas win 2027 CFP National Championship
