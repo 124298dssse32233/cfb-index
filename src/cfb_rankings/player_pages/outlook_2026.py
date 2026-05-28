@@ -172,7 +172,11 @@ _POSITION_LABELS = {
 
 
 def _depth_chart_for_player(db, player_id: int) -> dict[str, Any] | None:
-    """Fetch manually-seeded depth chart row, or None."""
+    """Fetch manually-seeded depth chart row, or None.
+
+    Falls back to a name-JOIN query when the seeded player_id diverges from
+    this DB's player_id (artifact DB vs local DB divergence).
+    """
     rows = db.query_all(
         """
         select position_group, slot_rank, starter_status, confidence,
@@ -180,6 +184,24 @@ def _depth_chart_for_player(db, player_id: int) -> dict[str, Any] | None:
           from player_depth_chart_2026
          where player_id = :pid and season_year = 2026
          order by slot_rank asc
+         limit 1
+        """,
+        {"pid": int(player_id)},
+    )
+    if rows:
+        return dict(rows[0])
+    # Fallback: match on full_name across the seeded rows, handles DB-rebuild
+    # cases where player_id assignments diverged between local and artifact DBs.
+    rows = db.query_all(
+        """
+        select d.position_group, d.slot_rank, d.starter_status, d.confidence,
+               d.source, d.source_url, d.notes, d.as_of
+          from player_depth_chart_2026 d
+          join players p_seed on p_seed.player_id = d.player_id
+          join players p_page on p_page.player_id = :pid
+         where p_seed.full_name = p_page.full_name
+           and d.season_year = 2026
+         order by d.slot_rank asc
          limit 1
         """,
         {"pid": int(player_id)},
@@ -229,12 +251,34 @@ def _resolve_team_name(db, team_id: int | None) -> str | None:
 
 
 def _award_watch_for(db, player_id: int) -> list[dict[str, Any]]:
+    """Fetch award watch rows for this player.
+
+    Falls back to a name-JOIN query when the seeded player_id diverges from
+    this DB's player_id (artifact DB vs local DB divergence).
+    """
     rows = db.query_all(
         """
         select award_slug, list_type, position_rank, as_of
           from player_award_watch_2026
          where player_id = :pid and season_year = 2026
          order by priority asc, position_rank asc
+         limit 5
+        """,
+        {"pid": int(player_id)},
+    )
+    if rows:
+        return [dict(r) for r in rows]
+    # Fallback: match on full_name across the seeded rows, handles DB-rebuild
+    # cases where player_id assignments diverged between local and artifact DBs.
+    rows = db.query_all(
+        """
+        select w.award_slug, w.list_type, w.position_rank, w.as_of
+          from player_award_watch_2026 w
+          join players p_seed on p_seed.player_id = w.player_id
+          join players p_page on p_page.player_id = :pid
+         where p_seed.full_name = p_page.full_name
+           and w.season_year = 2026
+         order by w.priority asc, w.position_rank asc
          limit 5
         """,
         {"pid": int(player_id)},

@@ -39,6 +39,23 @@ def load(csv_path: Path, db_path: Path, dry_run: bool, prune_source: str | None)
     # Build pid validation cache
     valid_pids: set[int] = {r[0] for r in cur.execute("SELECT player_id FROM players").fetchall()}
 
+    # Build name→pid resolution map for self-healing across DB rebuilds.
+    # The artifact DB (used by CI) and local DB can have diverged player_id
+    # assignments (e.g. Arch Manning = 48391 in artifact, 13074 in local).
+    # full_name_for_audit in the CSV is the authoritative identifier; we use
+    # it to resolve to the DB's actual player_id rather than the CSV's stale
+    # hint.  Ambiguous names (multiple players share the same full_name) are
+    # excluded — those fall back to the CSV pid.
+    _name_pid_raw: dict[str, list[int]] = {}
+    for _pid_r, _name_r in cur.execute("SELECT player_id, full_name FROM players"):
+        if not _name_r:
+            continue
+        _key = _name_r.strip().lower()
+        _name_pid_raw.setdefault(_key, []).append(_pid_r)
+    name_to_pid: dict[str, int] = {
+        k: v[0] for k, v in _name_pid_raw.items() if len(v) == 1
+    }
+
     # Skip players whose current status indicates they're not on a 2026 college roster.
     # The cache table is the canonical source. Falls back to view if cache missing.
     try:
@@ -57,6 +74,7 @@ def load(csv_path: Path, db_path: Path, dry_run: bool, prune_source: str | None)
     rows_skipped_missing_pid = 0
     rows_skipped_audit_mismatch = 0
     rows_skipped_ineligible = 0
+    rows_resolved_by_name = 0
     ineligible_examples: list[str] = []
     seen_keys: set[tuple] = set()
     name_warnings: list[str] = []
@@ -74,27 +92,46 @@ def load(csv_path: Path, db_path: Path, dry_run: bool, prune_source: str | None)
                 pid = int(row["player_id"].strip())
             except (ValueError, KeyError):
                 continue
+
+            audit_name = (row.get("full_name_for_audit") or "").strip()
+
+            # Name-based resolution: use the DB's actual player_id for this
+            # name when the CSV pid either doesn't exist in this DB or maps to
+            # a different player.  This makes the seeder self-healing across
+            # DB rebuilds where player_id assignments diverge.
+            if audit_name:
+                db_name_for_pid = (cur.execute(
+                    "SELECT full_name FROM players WHERE player_id=?", (pid,)
+                ).fetchone() or (None,))[0]
+                if db_name_for_pid is None or db_name_for_pid.strip().lower() != audit_name.lower():
+                    # CSV pid doesn't exist or maps to someone else — try name lookup
+                    resolved = name_to_pid.get(audit_name.lower())
+                    if resolved:
+                        if resolved != pid:
+                            print(f"  pid resolved by name: {audit_name!r} "
+                                  f"csv_pid={pid} -> db_pid={resolved}")
+                            rows_resolved_by_name += 1
+                        pid = resolved
+                    elif pid not in valid_pids:
+                        rows_skipped_missing_pid += 1
+                        continue
+                    else:
+                        # pid is valid but name mismatches and name is ambiguous/missing
+                        name_warnings.append(
+                            f"  audit-mismatch (no resolution): pid={pid} "
+                            f"csv={audit_name!r} db={db_name_for_pid!r}"
+                        )
+                        rows_skipped_audit_mismatch += 1
+                        continue
+
             if pid not in valid_pids:
                 rows_skipped_missing_pid += 1
                 continue
             if pid in ineligible_pids:
                 rows_skipped_ineligible += 1
-                audit_name = (row.get("full_name_for_audit") or "").strip()
                 if len(ineligible_examples) < 10:
                     ineligible_examples.append(f"pid={pid} {audit_name}")
                 continue
-
-            audit_name = (row.get("full_name_for_audit") or "").strip()
-            if audit_name:
-                actual = cur.execute(
-                    "SELECT full_name FROM players WHERE player_id=?", (pid,)
-                ).fetchone()
-                if actual and actual[0].strip().lower() != audit_name.lower():
-                    name_warnings.append(
-                        f"  audit-mismatch: pid={pid} csv={audit_name!r} db={actual[0]!r}"
-                    )
-                    rows_skipped_audit_mismatch += 1
-                    continue
 
             award_slug = row["award_slug"].strip()
             list_type = row["list_type"].strip()
@@ -145,6 +182,7 @@ def load(csv_path: Path, db_path: Path, dry_run: bool, prune_source: str | None)
         con.commit()
 
     print(f"Award watch load: wrote {rows_written}, "
+          f"resolved_by_name={rows_resolved_by_name}, "
           f"skipped_missing_pid={rows_skipped_missing_pid}, "
           f"skipped_audit_mismatch={rows_skipped_audit_mismatch}, "
           f"skipped_ineligible(drafted/exhausted)={rows_skipped_ineligible}, "
