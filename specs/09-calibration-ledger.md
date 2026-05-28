@@ -61,9 +61,11 @@ Every published prediction on the site logs to a `prediction_ledger`. Outcomes r
   - `resolve_due_predictions(...)` + `OUTCOME_RESOLVERS` registry (one resolver per kind; `archetype_assignment` implemented).
   - `calibration_summary(...)` — per-model / per-kind / per-band aggregate for the methodology page + Sunday summary.
   - `record_archetype_predictions(db, season)` — first live surface; real-FBS allowlist-gated (profiles/), mirrors the arc populator.
-- CLI: `python -m manage prediction-ledger --action {record-archetypes,resolve,summary}`.
-- `tests/test_prediction_ledger.py` — 8 tests.
-- **Remaining (in-season):** §3 cross-surface instrumentation, §5 resolvers for game/award/season-wins kinds, §7 methodology page renderer, §8 per-team track record.
+  - `record_season_win_predictions(db, season)` — second live surface; logs the latest-snapshot base season-win projection per FBS team, expires mid-January. Resolver `_resolve_season_wins` grades vs `games` (score = `max(0, 1 - |pred-actual|/4)`).
+- CLI: `python -m manage prediction-ledger --action {record-archetypes,record-season-wins,resolve,summary}`.
+- **§7 rendered page shipped (2026-05-28):** `src/cfb_rankings/provenance/calibration_page.py` → `/methodology/calibration.html`, rendered by `build-methodology`, linked from `/methodology/`. Renders `calibration_summary` (overall + per-surface + per-band + pending state). `publish_site.yml` populates + resolves the ledger before `build-methodology` so prod renders live data; rolling `cfb-rankings-db` artifact re-upload preserves first-seen history.
+- `tests/test_prediction_ledger.py` — 12 tests.
+- **Remaining (in-season):** §3 cross-surface instrumentation (Reality Gap etc.), §5 resolvers for game/award kinds, §8 per-team track record. Heisman surface gated until 2026 rankings + `heisman_vote_results` exist.
 
 ## Pointers
 
