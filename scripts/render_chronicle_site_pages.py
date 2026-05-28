@@ -28,6 +28,17 @@ SITE_BASE = Path("output/site/chronicle")
 
 _CITATION_RE = re.compile(r"\[src:[^\]]+\]")
 
+# D-004 (2026-05-28, LOCKED): suppress the current LKG Chronicle cards while the
+# offseason evidence floor is healed — every card today is a near-identical
+# Polymarket-volume restatement. The world-class team-page renderer already
+# suppresses its "AI Narratives" grid via the same switch
+# (`renderer._SUPPRESS_LKG_CHRONICLE_OFFSEASON`); this keeps the *standalone*
+# /chronicle/ pages consistent so a manual or future-CI run of this script can
+# never republish the slop. Reversible: flip to False once Chronicle regenerates
+# with diversified evidence (post-WS-05 + voice corpus). Per D-004's Revisit,
+# re-evaluate after Week 4 of the 2026 season when game evidence is flowing.
+_SUPPRESS_CHRONICLE_OFFSEASON = True
+
 
 PAGE_CSS = """
   :root {
@@ -296,6 +307,32 @@ def main() -> int:
 
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
+
+    if _SUPPRESS_CHRONICLE_OFFSEASON:
+        # Emit a single on-brand landing placeholder and write no per-team card
+        # pages. This guarantees the standalone surface ships nothing repetitive
+        # during the offseason suppression window (D-004), mirroring the
+        # team-page renderer's suppressed AI-Narratives grid.
+        placeholder = (
+            '<h1>The Chronicle</h1>'
+            '<p class="subtitle">The Chronicle returns for the 2026 season. '
+            'Offseason narrative cards are paused while we diversify the evidence '
+            'sources behind them — quality over repetition.</p>'
+            '<div class="stats"><div><strong>Soon</strong>back at kickoff</div></div>'
+        )
+        landing_path = SITE_BASE / "index.html"
+        landing_path.write_text(
+            _page_shell("The Chronicle · CFB Index", placeholder),
+            encoding="utf-8",
+        )
+        # Remove any stale per-team pages a prior unsuppressed run left behind.
+        removed = 0
+        for stale in SITE_BASE.glob("*.html"):
+            if stale.name != "index.html":
+                stale.unlink()
+                removed += 1
+        print(f"D-004 suppression ON — wrote landing placeholder, removed {removed} stale per-team pages")
+        return 0
 
     cards = conn.execute("""
         SELECT slug, entity_kind, season_year, week_number, card_type, slot_index,

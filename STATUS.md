@@ -179,9 +179,9 @@
 - **Next action:** Two-week setup sprint per VISION § 11 build order. Day 1-2: vLLM Blackwell install. Day 3-4: Qwen3-30B-A3B MoE benchmark.
 
 ### Chronicle cards
-- **Current:** 189 LKG cards live on team pages, all repetitive Polymarket variations
-- **Target:** Suppress immediately (D-004); regenerate after Phase 1 evidence diversity
-- **Next action:** Run suppression patch (mark all `is_lkg=0` in `chronicle_card_cache`)
+- **Current (session 8 — VERIFIED LIVE):** ✅ **D-004 suppression satisfied on prod.** Verified `wonderful-margulis-8ec96b.vercel.app/teams/alabama.html` (200) ships **no AI-Narratives section** (renderer flag `_SUPPRESS_LKG_CHRONICLE_OFFSEASON=True`, committed `0afee863cdc`), and the standalone `/chronicle/` + `/chronicle/alabama.html` return **404** (never deployed). The repetitive Polymarket cards only ever existed in stale **local** `output/` — classic local-vs-live trap. Hardened `scripts/render_chronicle_site_pages.py` with a matching `_SUPPRESS_CHRONICLE_OFFSEASON` guard so a manual/CI run can't regress prod (now writes a clean "returns at kickoff" landing placeholder + removes stale per-team pages). 189 LKG rows remain in `chronicle_card_cache` untouched for Phase-2 regeneration.
+- **Target:** Regenerate after Phase 1 evidence diversity (post-WS-05 + voice corpus). Per D-004 Revisit, re-evaluate after Week 4 of the 2026 season once game evidence is flowing.
+- **Next action:** None until regeneration. To reverse suppression, flip both `_SUPPRESS_*` flags to False.
 
 ### Uncommitted work
 - **Risk:** Wave 25 + Milestone A+B + Player Wave-1 work is uncommitted in working tree (per memory notes)
