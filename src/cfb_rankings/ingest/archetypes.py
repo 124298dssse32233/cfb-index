@@ -491,6 +491,27 @@ def _pack(slug: str, conf: float, mods: list[str], taxonomy: dict[str, dict[str,
     }
 
 
+def _percentiles_within_level(value_rows: list[dict[str, Any]], value_key: str) -> dict[int, float]:
+    """Map team_id -> 0..1 percentile, ranked *within each competitive level*.
+
+    The power/resume tables pool FBS + FCS + DII + DIII (~707 teams), and FBS
+    teams cluster at the top of that pool — so a cross-level percentile pushes
+    nearly every FBS team to >=0.80 and collapses the classifier onto the
+    quiet-professional fallback (fixed 2026-05-28). Bucketing by ``level_code``
+    restores a real within-FBS distribution.
+    """
+    by_level: dict[str, list[dict[str, Any]]] = {}
+    for entry in value_rows:
+        by_level.setdefault(str(entry.get("level_code") or "FBS"), []).append(entry)
+    out: dict[int, float] = {}
+    for level_entries in by_level.values():
+        level_entries.sort(key=lambda r: float(r[value_key]))
+        total = len(level_entries)
+        for rank, entry in enumerate(level_entries):
+            out[int(entry["team_id"])] = rank / max(1, total - 1)
+    return out
+
+
 def classify_all_fanbases(db: Database, season_year: int,
                           classifier_version: str = "v1.0") -> int:
     """Run the classifier over every active FBS team and persist results.
@@ -519,34 +540,31 @@ def classify_all_fanbases(db: Database, season_year: int,
 
     power_by_team: dict[int, float] = {}
     resume_by_team: dict[int, float] = {}
+
     if model_run_id is not None:
         power_rows = db.query_all(
             """
-            select team_id, power_rating
-            from power_ratings_weekly
-            where model_run_id = %(model_run_id)s
+            select p.team_id, p.power_rating, t.level_code
+            from power_ratings_weekly p
+            join teams t on t.team_id = p.team_id
+            where p.model_run_id = %(model_run_id)s
             """,
             {"model_run_id": model_run_id},
         )
         if power_rows:
-            sorted_power = sorted(power_rows, key=lambda r: float(r["power_rating"]))
-            total = len(sorted_power)
-            for rank, entry in enumerate(sorted_power):
-                power_by_team[int(entry["team_id"])] = rank / max(1, total - 1)
+            power_by_team = _percentiles_within_level(power_rows, "power_rating")
 
         resume_rows = db.query_all(
             """
-            select team_id, resume_score
-            from resume_ratings_weekly
-            where model_run_id = %(model_run_id)s
+            select r.team_id, r.resume_score, t.level_code
+            from resume_ratings_weekly r
+            join teams t on t.team_id = r.team_id
+            where r.model_run_id = %(model_run_id)s
             """,
             {"model_run_id": model_run_id},
         )
         if resume_rows:
-            sorted_resume = sorted(resume_rows, key=lambda r: float(r["resume_score"]))
-            total = len(sorted_resume)
-            for rank, entry in enumerate(sorted_resume):
-                resume_by_team[int(entry["team_id"])] = rank / max(1, total - 1)
+            resume_by_team = _percentiles_within_level(resume_rows, "resume_score")
 
     # Include all active teams (FBS + FCS + DII + DIII) so that HBCU and Service
     # Academy FCS programs get deterministic structural classifications and appear

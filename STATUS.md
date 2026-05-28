@@ -71,9 +71,10 @@
 ### WS-02 — Classification + state machinery (~25% complete)
 - **Last shipped (session 5, local):** `seed-archetypes` (26 rows), `classify-fanbases` (2,920 rows across 4 seasons), `build-conversation-features` (~858 rows) — confirmed locally against Alienware DB
 - **Last shipped (session 6, wired into CI):** `seed-archetypes` appended to idempotent seed block in `ingest_daily.yml`; new "Classify fanbases" step added after bridge-tables step — runs `classify-fanbases --season=$SEASON --classifier-version v1.0 --backfill-history 1` daily so classifications propagate to production DB
+- **Last shipped (session 4 cont., 2026-05-28):** ✅ **Fixed classifier cross-level percentile skew** — `classify_all_fanbases` ranked every team against the full multi-level `power_ratings_weekly` pool (~707 teams: FBS+FCS+DII+DIII). FBS teams cluster at the top of that pool, so ~80% landed at percentile ≥0.80 → `trajectory-strong` → the `quiet-professional` fallback. For 2024 (the last season with completed model runs) the FBS distribution was 149/189 quiet-professional (79%). Now `_percentiles_within_level()` ranks each team only against `level_code` peers: 2024 FBS rebalances to plurality `content-mid-major` 85, `quiet-professional` 64 (30 legit top-quintile + 30 band-gap fallback + 4 seeded), with the seeded/structural archetypes intact. New `tests/test_archetype_percentiles.py` (2 tests) pins within-level ranking.
 - **In flight:** None
 - **Blocked:** None
-- **Next action:** Build arc-frame populator per D-010 (10 narrative arc frames → `season_narrative_arc` table).
+- **Next action:** (1) Two open classifier-quality gaps remain (not bugs, design choices): **offseason no-model-run** — 2025/2026 have no completed power ratings, so current-season classification falls entirely to seeded+structural+fallback; option is to classify the offseason against the last *completed* season's ratings (2024) per the offseason-preview posture. **Band gaps** — power percentiles in 0.25–0.45 and 0.70–0.80 match no Rule-3 band and drop to fallback. (2) Then build arc-frame populator per D-010 (10 narrative arc frames → `season_narrative_arc` table).
 - **Spec:** [specs/02-classification-state.md](specs/02-classification-state.md)
 
 ### WS-03 — Editorial profiles to 119
