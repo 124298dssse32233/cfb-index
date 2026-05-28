@@ -1,6 +1,6 @@
 # Status — Week of 2026-05-28
 
-**Last updated:** 2026-05-28 (autonomous execution session 4)
+**Last updated:** 2026-05-28 (autonomous execution session 9)
 **Update cadence:** Every Friday
 **Format:** Per workstream, four buckets — Last shipped / In flight / Blocked / Next action
 
@@ -124,8 +124,9 @@
 ### WS-06 — Page archetype expansion (Coach / Game / Rivalry / Conference)
 - **Last shipped:** Conference index pages (basic). Rivalry card module exists for in-team-page rendering.
 - **In flight:** None
-- **Blocked:** WS-02 must populate archetype data before Coach pages can render archetype-driven sections; coaches table doesn't exist yet
-- **Next action:** Build `coaches` table from CFBD coaches data (we already ingest CFBD Coaches 2018-2024); populate `coaching_changes` as diffs
+- **Blocked:** Real WS-06 deliverable (Coach pages) is a Phase-4 design lift, also gated on WS-02 player/coach archetype data.
+- **Finding (session 9):** The previously-planned `coaches` + `coaching_changes` tables were **deprioritized as speculative scaffolding** — no live surface would consume them. The live coaching surface (`team_pages/coaching_era.py`, the Coaching Era Strip on every world-class team page) already derives current coach, tenure length, and previous-coach window by walking `team_seasons.head_coach` inline; it needs no normalized coaching tables. The `coaching_transition` arc frame likewise diffs `team_seasons.head_coach` directly and is gated only on 2025/2026 coach data (CFBD coaches ingest currently covers 2018-2024 — a data-horizon gap, not code). Build the coaches dimension table when Coach *pages* are actually scheduled (Phase 4) and there's a consumer.
+- **Next action:** Phase-4 — design the Coach page archetype template; build the `coaches`/`coaching_changes` tables then, as the page's backing store.
 - **Spec:** [specs/06-page-archetypes.md](specs/06-page-archetypes.md)
 
 ### WS-07 — Era pages (CFP three-act)
