@@ -153,6 +153,42 @@ def test_kalshi_parse() -> None:
     assert metrics["volume_usd"] == 52000.0
 
 
+def test_kalshi_fetch_expands_event_into_markets() -> None:
+    """An event ticker fans out into one (contract, market) pair per active
+    market; settled/closed markets are dropped. Offline — http_get stubbed."""
+    db = _fresh_db()
+    import json as _json
+
+    import cfb_rankings.ingest.sources.prediction_markets as pm
+    pm._load_contracts = lambda platform: [  # type: ignore[assignment]
+        {"platform": "kalshi", "ticker": "KXNCAAF-27", "label": "CFP Champ 2026-27"}
+    ] if platform == "kalshi" else []
+
+    event_payload = {"event": {"event_ticker": "KXNCAAF-27"}, "markets": [
+        {"ticker": "KXNCAAF-27-OSU", "status": "active",
+         "yes_sub_title": "Ohio St.", "last_price": 17, "volume_24h": 9000},
+        {"ticker": "KXNCAAF-27-TEX", "status": "active",
+         "yes_sub_title": "Texas", "last_price": None, "volume_24h": None},
+        {"ticker": "KXNCAAF-27-OLD", "status": "settled",
+         "yes_sub_title": "Defunct", "last_price": 1, "volume_24h": 5},
+    ]}
+
+    adapter = KalshiAdapter(db)
+    adapter.http_get = lambda url, **kw: _json.dumps(event_payload).encode("utf-8")  # type: ignore[assignment]
+
+    pairs = adapter.fetch()
+    assert len(pairs) == 2  # settled market dropped
+    rows = adapter.parse(pairs)
+    by_metric = {(r["entity_id"], r["metric"]): r["value_numeric"] for r in rows}
+    # Liquid market emits both price + volume; illiquid one emits nothing.
+    assert by_metric[("KXNCAAF-27-OSU", "last_price_cents")] == 17.0
+    assert by_metric[("KXNCAAF-27-OSU", "volume_usd")] == 9000.0
+    assert not any(eid == "KXNCAAF-27-TEX" for eid, _ in by_metric)
+    # Label carries the per-outcome sub_title.
+    osu = next(r for r in rows if r["entity_id"] == "KXNCAAF-27-OSU")
+    assert osu["entity_label"] == "CFP Champ 2026-27: Ohio St."
+
+
 def test_polymarket_parse() -> None:
     db = _fresh_db()
     fixture = [{
