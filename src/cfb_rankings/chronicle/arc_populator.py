@@ -287,9 +287,82 @@ def _detect_playoff_path_change(db: Database, season: int, week: int) -> tuple[l
     return [], "no weekly CFP projection feed"
 
 
+# D-022: dynasty status = trailing-window avg of within-season power percentile.
+_DYNASTY_ELITE_PCT = 85.0   # top ~15% of the FBS cohort = "dynasty-caliber"
+_DYNASTY_WINDOW = 3         # trailing seasons averaged (require >= 2 present)
+_DYNASTY_MIN_SEASONS = 2
+
+
+def _trailing_avg(series: dict[int, float], end_season: int) -> float | None:
+    """Mean percentile over the last up-to-_DYNASTY_WINDOW seasons ending at
+    end_season (inclusive). None if fewer than _DYNASTY_MIN_SEASONS present."""
+    vals = [
+        series[y]
+        for y in range(end_season - _DYNASTY_WINDOW + 1, end_season + 1)
+        if y in series
+    ]
+    if len(vals) < _DYNASTY_MIN_SEASONS:
+        return None
+    return sum(vals) / len(vals)
+
+
 def _detect_dynasty_status_change(db: Database, season: int, week: int) -> tuple[list[dict[str, Any]], str]:
-    """dynasty_status_change — prestige tier crossed 5<->6. team_profiles.program_tier empty."""
-    return [], "program_tier unpopulated"
+    """dynasty_status_change — a program's sustained dominance crossed the elite
+    threshold season-over-season (D-022). Sustained = trailing-window average of
+    within-season power-rating percentile (the Dynasty Heatmap signal), so a
+    single big year doesn't trip it. Degrades to a no-op when the DB lacks
+    contiguous seasons (local/early-season); fires in prod where data is dense.
+    """
+    from cfb_rankings.dynasty_heatmap import (
+        compute_year_percentiles,
+        fetch_final_powers,
+    )
+
+    # Need season-3 .. season so both the current and prior trailing windows fill.
+    rows = compute_year_percentiles(
+        fetch_final_powers(db, season - _DYNASTY_WINDOW, season)
+    )
+    if not rows:
+        return [], "no power_ratings_weekly for season window"
+
+    series: dict[str, dict[int, float]] = {}
+    slug_to_id: dict[str, int] = {}
+    for r in rows:
+        slug = str(r["team_slug"])
+        if not slug:
+            continue
+        series.setdefault(slug, {})[int(r["season_year"])] = float(r["percentile"])
+        slug_to_id[slug] = int(r["team_id"])
+
+    openings: list[dict[str, Any]] = []
+    for slug, by_year in series.items():
+        cur = _trailing_avg(by_year, season)
+        prev = _trailing_avg(by_year, season - 1)
+        if cur is None or prev is None:
+            continue
+        crossed_up = prev < _DYNASTY_ELITE_PCT <= cur
+        crossed_down = prev >= _DYNASTY_ELITE_PCT > cur
+        if not (crossed_up or crossed_down):
+            continue
+        direction = "enter" if crossed_up else "exit"
+        # Tension scales with how decisive the crossing is; entering a dynasty is
+        # inherently a louder story than fading out of one.
+        magnitude = abs(cur - prev) / 50.0
+        base = 0.7 if crossed_up else 0.6
+        tension = base + magnitude
+        n_seasons = sum(
+            1 for y in range(season - _DYNASTY_WINDOW + 1, season + 1) if y in by_year
+        )
+        openings.append(
+            _opening(
+                slug_to_id[slug], slug, season, "dynasty_status_change", week,
+                tension=tension, confirming=n_seasons, discriminator=direction,
+            )
+        )
+
+    if not openings:
+        return [], "no programs crossed the dynasty threshold this season"
+    return openings, ""
 
 
 _DETECTORS: dict[str, Callable[[Database, int, int], tuple[list[dict[str, Any]], str]]] = {

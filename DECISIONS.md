@@ -393,6 +393,23 @@ This is an implementation clarification, not a re-litigation: the decision (A �
 
 ---
 
+## D-022 — "Dynasty status" signal definition — LOCKED
+
+**Date locked:** 2026-05-28 (autonomous best-judgment per user authorization)
+**Status:** LOCKED
+**Context:** The `dynasty_status_change` narrative frame (one of `ARC_FRAMES`) shipped with a stub detector returning `[], "program_tier unpopulated"`. `team_profiles.program_tier` is empty AND not season-keyed, so it can never drive a season-over-season *change* event. The frame needs a season-keyed prestige signal. WS-02 spec flagged this as needing a design decision rather than inventing a 6th parallel classification system (5 already exist — see memory `project_existing_classification_systems`).
+**Considered:**
+- A) Populate `team_profiles.program_tier` as a new hand-maintained per-season prestige tier (new parallel system; high maintenance; subjective).
+- B) Derive dynasty status from the existing `power_ratings_weekly` final-season power, ranked into a within-season percentile — the *same* signal that already drives the public Dynasty Heatmap (`/history/heatmap/`).
+- C) Derive from games-record win percentile.
+**Decided:** B.
+**Reason:** B reuses a signal that already exists, is already computed (`dynasty_heatmap.fetch_final_powers` + `compute_year_percentiles`), is already trusted enough to render publicly, and is contiguous 2014-2025 in production (verified via the live heatmap grid — Alabama/Ohio State/Clemson present every season). It adds **no new classification axis**. C was rejected because games coverage is more uneven than power ratings and raw wins ignore strength-of-schedule that power already encodes. A was rejected as a new parallel system the memory explicitly warns against.
+**Locked definition:** Dynasty status = a program's final-week power-rating percentile within its season cohort, **smoothed over a trailing window of the last up-to-3 available seasons (min 2 present)**. A `dynasty_status_change` arc opens when the smoothed percentile crosses the **elite threshold (85th percentile)** season-over-season — `enter` (rose into the top ~15%) or `exit` (fell out). Single-season spikes are smoothed out so "dynasty" means *sustained* dominance, not one good year.
+**Affects:** `chronicle/arc_populator._detect_dynasty_status_change`; WS-02 (Classification + State); WS-12 candidate queue (the frame now surfaces dynasty risers/fallers for editorial). Detector degrades gracefully (no-ops with a reason) when a DB lacks contiguous seasons — fires in CI/prod where the data is dense.
+**Revisit:** If 85th-percentile proves too noisy or too quiet once it runs against the full prod history, tune the threshold or window length (implementation constants `_DYNASTY_ELITE_PCT` / `_DYNASTY_WINDOW`).
+
+---
+
 # DECISION TEMPLATE (copy when adding new)
 
 ```

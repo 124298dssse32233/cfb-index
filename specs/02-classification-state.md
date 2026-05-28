@@ -50,9 +50,12 @@ Take the existing-but-empty classification schemas and actually run them end-to-
 
 - D-003 — No parallel state machine — LOCKED
 - D-010 — 10 arc frames — OPEN (gating)
+- D-022 — "Dynasty status" signal definition — LOCKED (2026-05-28): dynasty status = trailing-3-season average of within-season power-rating percentile (the Dynasty Heatmap signal), elite threshold 85th pct, enter/exit on threshold crossings. Reuses the existing power signal rather than a 6th classification axis (per D-003). Lights up the `dynasty_status_change` arc frame — **6 of 10 frames now data-backed.**
 
 ## Pointers
 
 - `src/cfb_rankings/ingest/archetypes.py` (the classifier)
+- `src/cfb_rankings/chronicle/arc_populator.py` (the 10-frame arc populator; `_detect_dynasty_status_change` per D-022)
+- `src/cfb_rankings/dynasty_heatmap.py` (`fetch_final_powers` + `compute_year_percentiles` — the dynasty signal source)
 - VISION § 4 (5-layer signal model), § 7 (cohesion principle)
-- DECISIONS D-003, D-010
+- DECISIONS D-003, D-010, D-022
