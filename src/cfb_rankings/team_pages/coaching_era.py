@@ -83,6 +83,16 @@ COACHING_ERA_STRIP_CSS = """
   color: var(--accent-primary, #c9a24a);
   border-color: rgba(201, 162, 74, 0.35);
 }
+.coaching-era__era-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-primary, #c9a24a);
+  text-decoration: none;
+}
+.coaching-era__era-link:hover { text-decoration: underline; }
 .coaching-era__tenure {
   display: grid;
   gap: 4px;
@@ -199,6 +209,19 @@ def render_coaching_era_strip(db, profile: Profile, snapshot: TeamSnapshot | Non
 
     chips_html = "".join(chips)
 
+    # Crosslink to the full CFP-era page when the program qualifies (>= MIN_SEASONS).
+    era_link = ""
+    try:
+        from cfb_rankings.era_pages import era_page_available, era_page_relpath
+        if era_page_available(db, int(snapshot.team_id)):
+            era_link = (
+                f'<a class="coaching-era__era-link" '
+                f'href="/{era_page_relpath(profile.slug)}">'
+                f"The full CFP-era story &rarr;</a>"
+            )
+    except Exception:
+        era_link = ""
+
     program = escape(profile.program_name)
     return f"""
 <section class="coaching-era" aria-labelledby="coaching-era-h"
@@ -208,6 +231,7 @@ def render_coaching_era_strip(db, profile: Profile, snapshot: TeamSnapshot | Non
     <h2 id="coaching-era-h" class="coaching-era__name">{escape(current_coach)}</h2>
     <p class="coaching-era__story">{story}</p>
     <div class="coaching-era__chips">{chips_html}</div>
+    {era_link}
   </div>
   <div class="coaching-era__tenure">
     <span class="coaching-era__tenure-years">{tenure_years}</span>

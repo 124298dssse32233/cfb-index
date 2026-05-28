@@ -9,6 +9,12 @@ Public API:
 """
 from __future__ import annotations
 
+from .build import (
+    era_page_available,
+    era_page_relpath,
+    render_all_era_pages,
+    render_era_page_for,
+)
 from .data import (
     ACTS,
     EraAct,
@@ -24,5 +30,9 @@ __all__ = [
     "EraSeason",
     "EraSummary",
     "build_era_summary",
+    "era_page_available",
+    "era_page_relpath",
+    "render_all_era_pages",
     "render_era_page",
+    "render_era_page_for",
 ]

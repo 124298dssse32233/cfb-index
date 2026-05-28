@@ -7178,6 +7178,16 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Team-pages v2 render skipped: {exc}")
 
+    # CFP-era pages (WS-07): /programs/<slug>/era/cfp/ for every FBS program
+    # with >= MIN_SEASONS of CFP-era power history.
+    _report_progress("Writing CFP-era pages (WS-07)...")
+    try:
+        from cfb_rankings.era_pages import render_all_era_pages
+        era_count = render_all_era_pages(db, programs_dir)
+        _report_progress(f"CFP-era pages: rendered {era_count} programs.")
+    except Exception as exc:
+        _report_progress(f"CFP-era pages render skipped: {exc}")
+
     season_year_value = int(summary["season_year"])
     (site_root / "og-image.svg").write_text(
         _render_og_image_svg(

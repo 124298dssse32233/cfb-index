@@ -2700,20 +2700,16 @@ def main() -> None:
         return
 
     if args.command == "render-era-page":
-        from pathlib import Path as _Path
-
-        from cfb_rankings.era_pages import build_era_summary, render_era_page
+        from cfb_rankings.era_pages import render_era_page_for
         rendered = 0
         for slug in args.slug:
-            summary = build_era_summary(db, slug, end_season=args.end_season)
-            if summary is None:
+            ok = render_era_page_for(db, slug, args.output_dir, end_season=args.end_season)
+            if ok:
+                rendered += 1
+                print(f"render-era-page: {slug} -> "
+                      f"{args.output_dir}/{slug}/era/cfp/index.html")
+            else:
                 print(f"render-era-page: {slug} skipped (insufficient CFP-era data)")
-                continue
-            dest = _Path(args.output_dir) / slug / "era" / "cfp"
-            dest.mkdir(parents=True, exist_ok=True)
-            (dest / "index.html").write_text(render_era_page(summary), encoding="utf-8")
-            rendered += 1
-            print(f"render-era-page: {slug} -> {dest / 'index.html'}")
         print(f"render-era-page: rendered {rendered}/{len(args.slug)} era pages")
         return
 
