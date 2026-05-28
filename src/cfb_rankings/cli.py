@@ -2058,6 +2058,28 @@ def build_parser() -> argparse.ArgumentParser:
     audit_parser.add_argument("--json", action="store_true",
                               help="Emit the full per-team report as JSON.")
 
+    # WS-09 — calibration prediction ledger (D-015).
+    ledger_parser = subparsers.add_parser(
+        "prediction-ledger",
+        help="WS-09: record/resolve/summarize the prediction calibration ledger.",
+    )
+    ledger_parser.add_argument(
+        "--action", required=True,
+        choices=["record-archetypes", "resolve", "summary"],
+        help="record-archetypes: log fanbase-archetype predictions; "
+             "resolve: grade due predictions; summary: print calibration aggregate.",
+    )
+    ledger_parser.add_argument("--season", type=int, default=None,
+                               help="Season for record-archetypes (the window predicted).")
+    ledger_parser.add_argument("--model-id", default=None,
+                               help="Filter summary to one model_id.")
+    ledger_parser.add_argument("--kind", default=None,
+                               help="Filter summary/resolve to one prediction_kind.")
+    ledger_parser.add_argument("--last-n", type=int, default=None,
+                               help="Summary over the most recent N resolved predictions.")
+    ledger_parser.add_argument("--json", action="store_true",
+                               help="Emit the summary as JSON.")
+
     return parser
 
 
@@ -6222,6 +6244,48 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
             )
             for key, val in counts.items():
                 print(f"  {key}: {val}")
+        return
+
+    if args.command == "prediction-ledger":
+        from cfb_rankings.calibration import (
+            calibration_summary,
+            record_archetype_predictions,
+            resolve_due_predictions,
+        )
+        if args.action == "record-archetypes":
+            if args.season is None:
+                raise SystemExit("prediction-ledger --action record-archetypes requires --season")
+            result = record_archetype_predictions(db, args.season)
+            print(
+                f"prediction-ledger record-archetypes season={result['season']}: "
+                f"recorded={result['recorded']} (from {result['source_season']})"
+            )
+            return
+        if args.action == "resolve":
+            kinds = [args.kind] if args.kind else None
+            result = resolve_due_predictions(db, kinds=kinds)
+            print(
+                f"prediction-ledger resolve: due={result['due']} "
+                f"resolved={result['resolved']} skipped={result['skipped']} "
+                f"by_kind={result['by_kind']}"
+            )
+            return
+        if args.action == "summary":
+            summary = calibration_summary(
+                db, model_id=args.model_id, prediction_kind=args.kind, last_n=args.last_n
+            )
+            if args.json:
+                print(json.dumps(summary, indent=2))
+            else:
+                print(
+                    f"prediction-ledger summary model={summary['model_id'] or 'ALL'} "
+                    f"kind={summary['prediction_kind'] or 'ALL'}: "
+                    f"logged={summary['total_logged']} resolved={summary['resolved']} "
+                    f"mean_accuracy={summary['mean_accuracy']}"
+                )
+                for band, stats in sorted(summary["band_accuracy"].items()):
+                    print(f"  {band}: n={stats['n']} accuracy={stats['accuracy']}")
+            return
         return
 
     raise RuntimeError(f"Unsupported command: {args.command}")

@@ -142,10 +142,10 @@
 - **Spec:** [specs/08-chart-vocabulary.md](specs/08-chart-vocabulary.md)
 
 ### WS-09 — Calibration ledger
-- **Last shipped:** `confidence_calibration` table exists with 5 rows; design doc `docs/design-system/33-confidence-signaling.md` locked
+- **Last shipped (2026-05-28, session 8):** `prediction_ledger` table FOUNDATION live (migration `20260602_07`). `src/cfb_rankings/calibration/ledger.py` provides the real write path (`record_prediction`, idempotent on a deterministic id, preserves first-seen + resolution across re-records), the weekly outcome resolver (`resolve_due_predictions` + per-kind `OUTCOME_RESOLVERS`), and the methodology/Sunday-summary aggregate (`calibration_summary`, per-model + per-band). First live surface instrumented: fanbase archetype assignments (`record_archetype_predictions`, real-FBS allowlist-gated like the arc populator). CLI: `prediction-ledger --action {record-archetypes,resolve,summary}`. 8 tests pass. End-to-end on real DB: 127 real-FBS predictions for 2025 → 127 resolved against actual 2025 classifications → mean accuracy 0.66 (notable inverted calibration: medium-band held 100%, high-band 63% — exactly the confusion-matrix content WS-09 exists to publish).
 - **In flight:** None
-- **Blocked:** UNBLOCKED — D-015 LOCKED (continuous writes, Sunday-evening public summary, per-game override).
-- **Next action:** Build `prediction_ledger` table + writer instrumentation across chips; outcome resolver runs weekly
+- **Blocked:** Full cross-surface instrumentation (Heisman model, season-wins, Reality Gap) + the rendered methodology calibration page + per-team track-record sections are Phase 2-3 (in-season) — the resolver needs in-season outcome tables and the running gate is "≥10k rows in first in-season month."
+- **Next action:** When the season opens: (1) wrap remaining prediction-rendering chips through `record_prediction`; (2) add resolvers for game/award/season-wins kinds; (3) render `calibration_summary` on the methodology page; (4) wire `resolve` into a Sunday cron (D-015 cadence B).
 - **Spec:** [specs/09-calibration-ledger.md](specs/09-calibration-ledger.md)
 
 ### WS-10 — Cross-archetype + entity graph

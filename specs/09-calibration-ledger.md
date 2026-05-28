@@ -2,7 +2,7 @@
 
 **Phase:** 2–3 (Aug–Dec 2026)
 **Owner:** Claude execution
-**Status:** Blocked on D-015 (publication cadence)
+**Status:** Foundation shipped 2026-05-28 (table + write API + resolver + summary + 1 live surface). Full cross-surface instrumentation + rendered page remain in-season. D-015 LOCKED.
 
 ## Goal
 
@@ -51,7 +51,19 @@ Every published prediction on the site logs to a `prediction_ledger`. Outcomes r
 
 ## Decisions
 
-- D-015 — Publication cadence — OPEN
+- D-015 — Publication cadence — LOCKED (2026-05-28): continuous ledger writes, weekly Sunday-evening public summary, per-game override.
+
+## Foundation shipped (2026-05-28)
+
+- Migration `migrations/20260602_07_prediction_ledger.sql` — `prediction_ledger` table per the schema above + resolution columns.
+- `src/cfb_rankings/calibration/ledger.py`:
+  - `record_prediction(...)` — idempotent on `sha1(model_id|entity_type|entity_id|prediction_kind|period_key)`; refreshes the standing prediction but preserves `observed_at_utc` and any resolution.
+  - `resolve_due_predictions(...)` + `OUTCOME_RESOLVERS` registry (one resolver per kind; `archetype_assignment` implemented).
+  - `calibration_summary(...)` — per-model / per-kind / per-band aggregate for the methodology page + Sunday summary.
+  - `record_archetype_predictions(db, season)` — first live surface; real-FBS allowlist-gated (profiles/), mirrors the arc populator.
+- CLI: `python -m manage prediction-ledger --action {record-archetypes,resolve,summary}`.
+- `tests/test_prediction_ledger.py` — 8 tests.
+- **Remaining (in-season):** §3 cross-surface instrumentation, §5 resolvers for game/award/season-wins kinds, §7 methodology page renderer, §8 per-team track record.
 
 ## Pointers
 
