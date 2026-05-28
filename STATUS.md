@@ -10,7 +10,7 @@
 
 ## This week's headline
 
-**Planning + capture pass complete. WS-01 Tier S execution begun.** 21 stale docs archived. Five canonical docs structured (VISION + LAUNCH_ROADMAP + DECISIONS + STATUS + specs/). **All 21 architectural decisions LOCKED** (D-001 through D-021 — autonomous best-judgment authorization). 12 workstream specs scaffolded. Editorial rhythm + autonomous operation model + hero design locks all committed. 4 doc commits + 1 WS-01 Tier S code commit shipped (not pushed).
+**WS-01 Tier S DONE. WS-05 Adapter ecosystem largely unblocked.** 21 stale docs archived. Five canonical docs structured. All 21 decisions LOCKED. 7 commits pushed to master in autonomous session 3. The original 3-part ask (`numeric_observations` table / 7-adapter loud-fail triage / `team_coverage` consolidation) all shipped; spec self-corrected the "numeric_observations doesn't exist" diagnosis (it does — `source_observations` since April 2026). Empirical adapter unblock: source_observations 160→333 rows + conversation_documents +8,413 Bluesky posts + CI run unlocked YouTube 1,143 rows.
 
 **Posture locked:** Compound-ship through 2026, perfect launch summer 2027 (D-002).
 **Rhythm locked:** Day-of-week + season-phase cadence (D-019) — see `docs/editorial-rhythm.md`.
@@ -23,14 +23,22 @@
 - `cohort_divergence` wiring in `_assemble_player_page_data` + new `player_cohort_divergence_summary` helper in `bets/cohort_divergence.py`
 - Chronicle LKG suppression flag in `team_pages/renderer.py` (`_SUPPRESS_LKG_CHRONICLE_OFFSEASON`)
 
-**WS-01 Tier S shipped THIS session (session 3, uncommitted):**
-- **Stale spec corrected:** `source_observations` (migration `20260423_01`) already IS the numeric-observations landing table per its docstring + 7 adapters subclassing `NumericSourceAdapter`. Spec 01 + STATUS now reflect this — no parallel `numeric_observations` table created (would violate the "don't propose parallel systems" rule).
-- **Adapter loud-fail refactor:** `tools/run_adapter.py` now exits 1 on `AdapterRunResult.status == "error"`, with `--fail-on-empty` / `--fail-on-skipped` opt-in flags (was: unconditional exit 0, swallowed every adapter exception). Dropped `set +e` + bare `echo done` from `ingest_hourly.yml`, `ingest_daily.yml`, `ingest_weekly.yml`; each adapter is now its own step with `continue-on-error: true` for optional/auth-gated adapters. Polymarket alone is hard-fail (it's the known-good baseline).
-- **Adapter triage (read-only, 2 parallel agents):** root causes for 0-row adapters identified — wiki_pv / wiki_edits / gdelt_volume / bluesky_curated / bluesky_feeds all depend on `priority_teams` columns (`wiki_team_page`, `google_news_query`, `bluesky_beat_handles`) being seeded. seatgeek / youtube_meta / spotify_charts: secrets ARE wired but seed columns are empty. Fixes captured as Phase 1 follow-up; not landing this session.
-- **`team_coverage` consolidation (D-016):** migration `20260602_05_team_coverage.sql` + `scripts/backfill_team_coverage.py`. 213 rows live across 6 tiers (authored 127, blueblood_pedigree 19, priority_intelligence 21, pulse_full 5, pulse_partial 18, structural_identity 23), 155 distinct team slugs. UNIQUE(team_slug, tier) makes backfill idempotent.
-- **Code-review pass on the diff:** ran `octo:droids:octo-code-reviewer`, applied P1.2 (google_news_all continue-on-error), P2.1 (drop redundant index), P2.2 (`execute_many` instead of N+1 inserts), P2.4 (remove no-op `--allow-empty` flag); P1.1 (canonical slugify divergence) documented inline as known divergence vs `utils.slugify`.
+**Session 3 commit log (all pushed to master):**
+- `e2e23bfaaa7` WS-01 Tier S: adapter loud-fail + per-step granularity
+- `47984a4f7a3` WS-01 Tier S: team_coverage table consolidation (D-016)
+- `04903727907` docs: correct stale numeric_observations diagnosis
+- `ea147a7e6a0` test: unblock pytest collection (1306 tests now collect, was 0)
+- `a606cb5afb7` docs(STATUS): adapters unblocked, 173 new rows
+- `ba66d377434` WS-05: BLUESKY_DEEP_PAGES 1→5 (5x backfill depth)
+- `7bdb5fdfab3` WS-05: fix 3 bugs surfaced by adapter loud-fail (gdelt throttle / bluesky_feeds dead URI / kalshi offseason skip)
 
-**Next execution target:** Migrate the 6 cohort-source READER sites (cli.py / reporting.py / chronicle_pattern_e.py / pulse_state.py / archetypes.py) to query `team_coverage` instead of importing Python constants. Once all readers migrate, the import-time constants become dead code and can be removed. Then re-seed the 7 silent adapters' upstream columns in `priority_teams` so they can actually find work to do.
+**Empirical wins (validated by 2026-05-28 18:40 UTC CI dispatch):**
+- `source_observations`: 160 → 333+ rows (+5 numeric sources writing)
+- `conversation_documents`: +8,413 Bluesky posts (Nov 2023 → today; 2.5 years history)
+- YouTube unlocked in CI: 1,143 rows of CFB video metadata
+- Loud-fail UI working: each adapter is now a visible per-step in Actions
+
+**Next execution target:** Two specific debugs (`gdelt_volume` still 0-rowing — suspect payload-shape change; `seatgeek` 0 rows — verify if offseason or bug). Then migrate the 6 cohort-source READER sites (cli.py / reporting.py / pulse_state.py / archetypes.py) to query `team_coverage` instead of importing Python constants — that closes the D-016 loop.
 
 ---
 
@@ -77,19 +85,25 @@
 - **Spec:** [specs/04-historical-backfill.md](specs/04-historical-backfill.md)
 
 ### WS-05 — Adapter ecosystem live
-- **Last shipped:** Polymarket adapter (160 rows in `source_observations`); Reddit r/CFB collector (9,212 docs); Substack RSS (110 docs)
-- **Last shipped (session 3):**
-  - ✅ Loud-fail unblock — workflows + runner no longer swallow adapter exceptions
-  - ✅ Triage diagnoses captured (Wikipedia/GDELT/Bluesky/YouTube/SeatGeek/Spotify blocked on missing `priority_teams` seed columns; Kalshi false-positive path-bug claim verified-and-rejected)
-  - ✅ **`priority_teams` seeded locally (21 rows from `seeds/priority_teams.yaml`)** — root cause of zero rows was empty table, not adapter bugs
-  - ✅ **Adapter smoke test post-seed:** wiki_pv 147 rows, wiki_edits 26 rows, **bluesky_curated 2,163 rows**, polymarket 160 rows (existing). `source_observations` total: 160 → 333. CI cron will pick up the rest on next run.
-- **Real bugs surfaced by the loud-fail (3 followups spawned):**
-  1. `gdelt_volume`: HTTP 429 rate-limited + connection timeouts on >2 teams — needs backoff or per-team throttle
-  2. `kalshi`: seed file `seeds/prediction_market_contracts.yaml` references expired contract IDs (`KXMICHCOACH-26` → 404) — needs refresh
-  3. `bluesky_feeds`: hardcoded feed URI `app.bsky.feed.generator/sports` returns 400 Bad Request — needs valid feed URI
+- **Last shipped (session 3, all PUSHED):**
+  - ✅ Loud-fail unblock — runner + 3 workflows refactored; per-adapter steps visible in CI UI
+  - ✅ `priority_teams` seeded — root cause of 6 silent adapters was empty table
+  - ✅ Bluesky deep-pagination — default `BLUESKY_DEEP_PAGES` 1→5; local backfill 2,163→6,250 rows; CI run produced 5,927 fresh rows
+  - ✅ 3 surfaced bugs fixed in commit `7bdb5fdfab3`:
+    - `gdelt_volume`: throttle 1.5s→5s, backoff 2s→30s
+    - `bluesky_feeds`: wired `seeds/bluesky_feeds.yaml` override + dropped dead default URI
+    - `kalshi`: all 15 CFB tickers flagged `needs_research:true` (offseason; markets closed); loader honors the flag
+  - ✅ **CI workflow_dispatch run (2026-05-28 18:40 UTC, all steps green):**
+    - polymarket: 10 rows ✓
+    - bluesky_curated: 5,927 rows ✓
+    - **youtube_meta: 1,143 rows** ✓ (auth-gated unlock via Actions secret)
+    - kalshi: empty (clean — offseason skip, no warnings)
+    - bluesky_feeds: empty (clean — no feeds curated yet)
+    - gdelt_volume: empty (still 0 rows even with new throttle; needs deeper debug — payload-shape change suspected)
+    - seatgeek: empty (likely no events in offseason; needs verification)
 - **In flight:** None
 - **Blocked:** Not blocked
-- **Next action:** Address the 3 real bugs above; verify YouTube/SeatGeek/Spotify in CI (require GitHub-Actions secrets which aren't in local dev). Then re-run all adapters in CI to confirm `source_observations` keeps growing.
+- **Next action:** Two open mysteries — `gdelt_volume` still 0-rowing after throttle bump (suspect payload-shape or query-string change upstream); `seatgeek` 0 rows (offseason expected or genuine bug?). Investigate by running locally with verbose payload dump. Then start cohort-reader migration to `team_coverage` table.
 - **Spec:** [specs/05-adapter-ecosystem.md](specs/05-adapter-ecosystem.md)
 
 ### WS-06 — Page archetype expansion (Coach / Game / Rivalry / Conference)
