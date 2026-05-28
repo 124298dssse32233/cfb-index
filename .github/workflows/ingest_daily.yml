@@ -115,6 +115,12 @@ jobs:
               --classifier-version v1.0 \
               --backfill-history 1 || echo "classify-fanbases skipped"
 
+      - name: Populate narrative arcs
+        run: |
+          set +e
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          python manage.py populate-arcs --season=$SEASON || echo "populate-arcs skipped"
+
       - name: Compute player week mood (current ISO week)
         run: |
           set +e
