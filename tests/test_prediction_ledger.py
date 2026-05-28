@@ -313,3 +313,9 @@ def test_calibration_page_renders_resolved_and_pending(db: Database) -> None:
     assert "100%" in html  # the resolved held call graded correct
     assert "awaiting their outcome" in html  # the pending season-win surface
     assert "confusion matrix" in html  # the editorial framing renders
+    # The pending surface renders a concrete "we said X" receipt: the standing
+    # call, its resolution date, and a team link — not just a generic count.
+    assert "On the record now" in html
+    assert "10 wins" in html
+    assert "/teams/alpha.html" in html
+    assert "January 2027" in html  # season-win projections expire mid-January

@@ -57,6 +57,91 @@ def _model_label(model_id: str) -> str:
     return _MODEL_LABELS.get(model_id, model_id)
 
 
+_BAND_RANK = {"high": 0, "medium": 1, "low": 2, "unset": 3}
+
+
+def _slug_to_name(slug: str) -> str:
+    return slug.replace("-", " ").title()
+
+
+def _format_value(kind: str, value: str) -> str:
+    """Render a stored predicted_value as fan-readable text for a given kind."""
+    if kind == "season_wins":
+        try:
+            n = float(value)
+            n_str = str(int(n)) if n == int(n) else f"{n:g}"
+        except (TypeError, ValueError):
+            n_str = str(value)
+        return f"{n_str} wins"
+    if kind == "archetype_assignment":
+        return _slug_to_name(str(value))
+    return str(value)
+
+
+def _resolution_date(db: Database, model_id: str, kind: str) -> str | None:
+    """Soonest outcome date among this surface's still-pending predictions."""
+    row = db.query_one(
+        """
+        select min(expires_at_utc) as d
+        from prediction_ledger
+        where model_id = :m and prediction_kind = :k and resolved_at_utc is null
+        """,
+        {"m": model_id, "k": kind},
+    )
+    raw = (row or {}).get("d")
+    if not raw:
+        return None
+    try:
+        return _dt.datetime.fromisoformat(str(raw).replace("T", " ")[:19]).strftime("%B %Y")
+    except ValueError:
+        return str(raw)[:10]
+
+
+def _pending_sample(db: Database, model_id: str, kind: str, limit: int = 8) -> list[dict[str, Any]]:
+    rows = db.query_all(
+        """
+        select entity_id, predicted_value, confidence_band
+        from prediction_ledger
+        where model_id = :m and prediction_kind = :k and resolved_at_utc is null
+        """,
+        {"m": model_id, "k": kind},
+    )
+    rows.sort(
+        key=lambda r: (_BAND_RANK.get(str(r.get("confidence_band")), 9), str(r.get("entity_id")))
+    )
+    return rows[:limit]
+
+
+def _render_onrecord(db: Database, model_id: str, kind: str, pending: int) -> str:
+    """A concrete 'we said X' receipt for predictions still awaiting their outcome."""
+    sample = _pending_sample(db, model_id, kind)
+    if not sample:
+        return ""
+    resolves = _resolution_date(db, model_id, kind)
+    when = f" These resolve in <strong>{html.escape(resolves)}</strong>." if resolves else ""
+    items = []
+    for r in sample:
+        entity = str(r["entity_id"])
+        band = str(r.get("confidence_band") or "unset")
+        value = _format_value(kind, str(r["predicted_value"]))
+        href = absolute_url(f"/teams/{entity}.html")
+        items.append(
+            f"<li><a href=\"{html.escape(href, quote=True)}\">{html.escape(_slug_to_name(entity))}</a>"
+            f" &mdash; {html.escape(value)} "
+            f"<span class=\"band band-{html.escape(band)}\">{html.escape(band)}</span></li>"
+        )
+    more = pending - len(sample)
+    more_line = (
+        f"<p class=\"meta\">&hellip; and {more} more on record.</p>" if more > 0 else ""
+    )
+    return (
+        "<div class=\"onrecord\">"
+        f"<p class=\"onrecord-h\">On the record now &mdash; what we said, before the season.{when}</p>"
+        f"<ul class=\"onrecord-list\">{''.join(items)}</ul>"
+        f"{more_line}</div>"
+    )
+
+
 def _surface_rows(db: Database) -> list[dict[str, Any]]:
     """One row per (model_id, prediction_kind) with logged + pending counts."""
     return db.query_all(
@@ -111,6 +196,7 @@ def _render_surface(db: Database, model_id: str, kind: str, logged: int, resolve
         else ""
     )
     band_table = _render_band_table(summary.get("band_accuracy") or {})
+    onrecord = _render_onrecord(db, model_id, kind, pending) if pending else ""
     return f"""
     <div class="surface">
       <h2>{html.escape(title)}</h2>
@@ -118,6 +204,7 @@ def _render_surface(db: Database, model_id: str, kind: str, logged: int, resolve
       <p class="headline">{mean_line}</p>
       {band_table}
       {pending_line}
+      {onrecord}
     </div>"""
 
 
@@ -202,6 +289,14 @@ def render_calibration_html(db: Database) -> str:
     .band-low {{ color: #6e7781; }}
     .band-unset {{ color: #8c959f; }}
     .meta {{ color: #5a5a5a; font-size: 13px; }}
+    .onrecord {{ margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed #dcdcdc; }}
+    .onrecord-h {{ margin: 0 0 0.5rem; font-size: 14px; color: #333; }}
+    .onrecord-list {{ list-style: none; padding: 0; margin: 0; display: grid;
+                      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.35rem 1rem; }}
+    .onrecord-list li {{ font-size: 14px; }}
+    .onrecord-list a {{ color: #0969da; text-decoration: none; font-weight: 600; }}
+    .onrecord-list a:hover, .onrecord-list a:focus-visible {{ text-decoration: underline; }}
+    .onrecord-list .band {{ font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; }}
     footer {{ color: #595959; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee;
              padding-top: 1rem; }}
     footer a {{ color: #0969da; }}
