@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Callable
 
 from cfb_rankings.db import Database
@@ -91,6 +92,9 @@ def _opening(team_id: int, slug: str, season: int, frame: str, week: int,
         "tension_score": round(float(max(0.0, min(1.0, tension))), 3),
         "confirming_evidence_count": int(confirming),
         "disconfirming_evidence_count": int(disconfirming),
+        # Transient: used for the FBS gate only; stripped before the DB upsert
+        # (season_narrative_arc has no slug column).
+        "_slug": slug,
     }
 
 
@@ -314,19 +318,50 @@ def _fbs_slug_to_id(db: Database) -> dict[str, int]:
     return {str(r["slug"]): int(r["team_id"]) for r in rows}
 
 
+def _real_fbs_slugs() -> frozenset[str]:
+    """Authoritative real-FBS slug set, read from the hand-maintained profiles/.
+
+    teams.level_code is unreliable — ~55 NAIA/DII schools (Reinhardt, Jamestown,
+    College of Idaho, …) are mislabeled 'FBS' by ingest, so the detector joins on
+    level_code='FBS' let them through. profiles/ (one .md per covered team) is the
+    canonical list. Mirrors chronicle.pipeline._real_fbs_slugs (kept local to avoid
+    importing the heavy pipeline module). Empty set => filter disabled (fail-open).
+    """
+    here = Path(__file__).resolve()
+    for parent in (here.parent, here.parent.parent, here.parent.parent.parent,
+                   here.parent.parent.parent.parent):
+        profiles_dir = parent / "profiles"
+        if profiles_dir.is_dir():
+            slugs = frozenset(
+                f.stem.replace("_", "-") for f in profiles_dir.glob("*.md")
+            )
+            if slugs:
+                return slugs
+            break
+    return frozenset()
+
+
 # ---------------------------------------------------------------------------
 # Populator
 # ---------------------------------------------------------------------------
 
 
 def populate_season_arcs(db: Database, season_year: int, *, week: int = 0,
-                         frames: tuple[str, ...] = ARC_FRAMES) -> dict[str, Any]:
+                         frames: tuple[str, ...] = ARC_FRAMES,
+                         fbs_slugs: frozenset[str] | None = None) -> dict[str, Any]:
     """Open arcs for every active frame and rebuild the per-team state cache.
 
     Idempotent: arcs key on a deterministic ``arc_id`` so re-running refreshes
     tension/evidence in place without duplicating. Returns a run report with a
     per-frame count and the reason any frame emitted nothing.
+
+    ``fbs_slugs`` is the authoritative real-FBS allowlist applied as a final gate
+    (teams.level_code is unreliable). ``None`` resolves to ``_real_fbs_slugs()``
+    (profiles/); pass an explicit empty frozenset to disable the gate (tests that
+    seed synthetic FBS teams not present in profiles/).
     """
+    if fbs_slugs is None:
+        fbs_slugs = _real_fbs_slugs()
 
     per_frame: dict[str, int] = {}
     reasons: dict[str, str] = {}
@@ -344,10 +379,27 @@ def populate_season_arcs(db: Database, season_year: int, *, week: int = 0,
             reasons[frame] = reason
         all_openings.extend(openings)
 
+    # Authoritative FBS gate: teams.level_code is unreliable, so drop any opening
+    # whose slug isn't a real FBS program even if a detector's level_code='FBS'
+    # join admitted it. Fail-open if the allowlist is empty (gate disabled).
+    if fbs_slugs:
+        before = len(all_openings)
+        all_openings = [o for o in all_openings if o.get("_slug") in fbs_slugs]
+        dropped = before - len(all_openings)
+        if dropped:
+            reasons["_non_fbs_dropped"] = str(dropped)
+            # Recompute per-frame counts to reflect the gate.
+            per_frame = {f: 0 for f in per_frame}
+            for o in all_openings:
+                fr = o.get("frame")
+                if fr in per_frame:
+                    per_frame[fr] += 1
+
     now = _now_iso()
     if all_openings:
         for opening in all_openings:
             opening["updated_at_utc"] = now
+            opening.pop("_slug", None)  # strip transient key before DB upsert
         db.upsert_many(
             "season_narrative_arc",
             all_openings,
@@ -362,12 +414,42 @@ def populate_season_arcs(db: Database, season_year: int, *, week: int = 0,
             ],
         )
 
+    # Self-healing prune: remove arcs for this season whose team isn't a real FBS
+    # program. Catches rows opened before the FBS gate existed (the upsert above
+    # only refreshes current detections; it never deletes). Guarded on a non-empty
+    # allowlist + resolvable allowed ids so a disabled gate can never wipe arcs.
+    pruned = 0
+    if fbs_slugs:
+        allowed_ids = [
+            int(r["team_id"])
+            for r in db.query_all("select team_id, slug from teams")
+            if str(r["slug"]) in fbs_slugs
+        ]
+        if allowed_ids:
+            placeholders = ", ".join(f":id{i}" for i in range(len(allowed_ids)))
+            params: dict[str, Any] = {f"id{i}": tid for i, tid in enumerate(allowed_ids)}
+            params["season"] = season_year
+            stale = db.query_all(
+                f"select arc_id from season_narrative_arc "
+                f"where season_year = :season and team_id not in ({placeholders})",
+                params,
+            )
+            pruned = len(stale)
+            if pruned:
+                db.execute(
+                    f"delete from season_narrative_arc "
+                    f"where season_year = :season and team_id not in ({placeholders})",
+                    params,
+                )
+                reasons["_non_fbs_pruned"] = str(pruned)
+
     teams_touched = _rebuild_state_cache(db, season_year, now)
 
     return {
         "season_year": season_year,
         "week": week,
         "arcs_total": len(all_openings),
+        "arcs_pruned": pruned,
         "per_frame": per_frame,
         "empty_reasons": reasons,
         "teams_with_state": teams_touched,

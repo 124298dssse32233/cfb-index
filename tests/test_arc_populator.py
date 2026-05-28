@@ -21,6 +21,10 @@ from cfb_rankings.migrations import apply_runtime_migrations
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BASE_SCHEMA = REPO_ROOT / "research" / "cfb-data-schema-sqlite.sql"
 
+# Synthetic FBS allowlist for the seeded teams — exercises the real-FBS gate
+# without depending on the production profiles/ directory contents.
+_TEST_FBS = frozenset({"alpha", "bravo", "charlie"})
+
 
 @pytest.fixture
 def db(tmp_path: Path) -> Database:
@@ -85,7 +89,7 @@ def test_arc_frames_are_the_ten_locked_d010_frames() -> None:
 
 def test_portal_class_arrival_opens_fbs_arcs_only(db: Database) -> None:
     _seed_portal(db, 2026)
-    report = populate_season_arcs(db, 2026)
+    report = populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
 
     assert report["per_frame"]["portal_class_arrival"] == 2  # alpha + bravo, NOT delta (FCS)
 
@@ -105,6 +109,49 @@ def test_portal_class_arrival_opens_fbs_arcs_only(db: Database) -> None:
     assert arcs[1]["tension_score"] < 1.0
 
 
+def test_fbs_gate_drops_mislabeled_non_fbs_team(db: Database) -> None:
+    """teams.level_code is dirty — NAIA/DII schools get tagged 'FBS' and pass the
+    detector join. The real-FBS allowlist must drop them. Here charlie is
+    level_code='FBS' with a strong portal class but is NOT in the allowlist."""
+    _seed_portal(db, 2026)  # alpha + bravo (+ delta FCS)
+    db.upsert_many(
+        "transfer_entries",
+        [{"transfer_entry_id": 5, "season_year": 2026, "to_team_id": 3, "transfer_points": 60.0},
+         {"transfer_entry_id": 6, "season_year": 2026, "to_team_id": 3, "transfer_points": 55.0}],
+        conflict_columns=["transfer_entry_id"],
+    )
+    # Allowlist excludes charlie even though it is level_code='FBS' in the DB.
+    report = populate_season_arcs(db, 2026, fbs_slugs=frozenset({"alpha", "bravo"}))
+
+    slugs = [r["slug"] for r in db.query_all(
+        "select t.slug from season_narrative_arc a join teams t on t.team_id = a.team_id "
+        "where a.frame = 'portal_class_arrival' and a.season_year = 2026")]
+    assert "charlie" not in slugs           # dropped by the gate despite level_code='FBS'
+    assert set(slugs) == {"alpha", "bravo"}
+    assert report["empty_reasons"].get("_non_fbs_dropped") == "1"
+
+
+def test_prune_removes_stale_non_fbs_arcs_from_prior_run(db: Database) -> None:
+    """A pre-gate run (or dirty seed) left a non-FBS arc in the table. A later
+    gated run must self-heal: delete arcs whose team is not FBS-allowed, since
+    upsert_many never deletes. delta is FCS, so its arc must be pruned."""
+    db.upsert_many(
+        "season_narrative_arc",
+        [{"arc_id": "delta-2026-archetype-transition", "team_id": 4, "season_year": 2026,
+          "frame": "archetype_transition", "status": "open", "opened_at_week": 0,
+          "tension_score": 0.9}],
+        conflict_columns=["arc_id"],
+    )
+    _seed_portal(db, 2026)
+    report = populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
+
+    assert report["arcs_pruned"] >= 1
+    remaining = db.query_all(
+        "select arc_id from season_narrative_arc where arc_id = 'delta-2026-archetype-transition'")
+    assert remaining == []  # stale FCS arc deleted by the prune
+    assert report["empty_reasons"].get("_non_fbs_pruned")
+
+
 def test_archetype_transition_opens_only_on_change(db: Database) -> None:
     # alpha changes archetype 2025 -> 2026; bravo stays the same.
     _seed_classification(db, 1, 2025, "quiet-professional")
@@ -112,7 +159,7 @@ def test_archetype_transition_opens_only_on_change(db: Database) -> None:
     _seed_classification(db, 2, 2025, "stockholm-syndrome")
     _seed_classification(db, 2, 2026, "stockholm-syndrome")
 
-    report = populate_season_arcs(db, 2026)
+    report = populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
     assert report["per_frame"]["archetype_transition"] == 1
 
     arcs = db.query_all(
@@ -124,7 +171,7 @@ def test_archetype_transition_opens_only_on_change(db: Database) -> None:
 
 
 def test_data_gated_frames_report_empty_with_reason(db: Database) -> None:
-    report = populate_season_arcs(db, 2026)
+    report = populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
     for frame in ("coordinator_carousel", "nil_collective_swing",
                   "market_belief_swing", "playoff_path_change", "dynasty_status_change"):
         assert report["per_frame"][frame] == 0
@@ -136,8 +183,8 @@ def test_idempotent_rerun_does_not_duplicate(db: Database) -> None:
     _seed_classification(db, 1, 2025, "quiet-professional")
     _seed_classification(db, 1, 2026, "content-mid-major")
 
-    first = populate_season_arcs(db, 2026)
-    second = populate_season_arcs(db, 2026)
+    first = populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
+    second = populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
     assert first["arcs_total"] == second["arcs_total"]
 
     distinct = db.query_one(
@@ -148,7 +195,7 @@ def test_idempotent_rerun_does_not_duplicate(db: Database) -> None:
 
 def test_state_cache_holds_open_arcs(db: Database) -> None:
     _seed_portal(db, 2026)
-    populate_season_arcs(db, 2026)
+    populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
 
     state = db.query_one(
         "select open_arcs_json, unresolved_tensions_json from season_narrative_state "
@@ -169,7 +216,7 @@ def test_chronicle_pipeline_surfaces_populated_arcs(db: Database) -> None:
     from cfb_rankings.chronicle.pipeline import PageTarget, _fetch_narrative_state
 
     _seed_portal(db, 2026)
-    populate_season_arcs(db, 2026)
+    populate_season_arcs(db, 2026, fbs_slugs=_TEST_FBS)
 
     team_target = PageTarget(entity_kind="team", slug="alpha", season_year=2026, week_number=0)
     state = _fetch_narrative_state(db, team_target)

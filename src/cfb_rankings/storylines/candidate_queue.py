@@ -226,9 +226,30 @@ def populate_storyline_candidates(
         db.execute(
             "update storyline_candidate set updated_at_utc = datetime('now') "
             "where season_year = :season",
-            {"season": season_year},
+            {"season": arc_season},
         )
         summary["rows_written"] = len(rows)
+
+        # Self-heal: drop candidates whose arc row no longer exists at all (e.g. a
+        # non-FBS arc the arc-populator pruned). upsert never deletes, so without
+        # this an orphaned candidate would haunt the digest forever. Scoped to
+        # truly-missing arc rows only — a mere open->resolved status change leaves
+        # the arc row in place, so an editor's promoted/dismissed verdict on a
+        # still-existing arc is never collaterally pruned here.
+        orphans = db.query_all(
+            "select candidate_id from storyline_candidate "
+            "where season_year = :season and arc_id not in "
+            "(select arc_id from season_narrative_arc)",
+            {"season": arc_season},
+        )
+        if orphans:
+            db.execute(
+                "delete from storyline_candidate "
+                "where season_year = :season and arc_id not in "
+                "(select arc_id from season_narrative_arc)",
+                {"season": arc_season},
+            )
+        summary["candidates_pruned"] = len(orphans)
 
     return summary
 

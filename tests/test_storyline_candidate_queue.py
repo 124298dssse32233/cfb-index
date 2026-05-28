@@ -237,6 +237,31 @@ def test_set_review_status_updates_and_validates(db: Database) -> None:
         set_review_status(db, "auburn-2025-portal", "bogus")
 
 
+def test_recommit_prunes_orphaned_candidate(db: Database) -> None:
+    """An arc the arc-populator deleted (e.g. mislabeled non-FBS) leaves an
+    orphaned candidate. A re-run must drop candidates whose arc row is gone,
+    while leaving candidates whose arc still exists untouched."""
+    populate_storyline_candidates(db, SEASON, commit=True)
+    # Simulate a candidate whose arc was deleted upstream (no matching arc row).
+    db.execute(
+        """insert into storyline_candidate
+           (candidate_id, arc_id, team_id, team_slug, season_year, frame,
+            arc_status, tension_score, frame_weight, priority_score)
+           values ('ghost-2025-arche', 'ghost-2025-arche', 99, 'ghost', :s,
+                   'archetype_transition', 'open', 0.9, 0.85, 0.765)""",
+        {"s": SEASON},
+    )
+    result = populate_storyline_candidates(db, SEASON, commit=True)
+    assert result["candidates_pruned"] == 1
+    gone = db.query_one(
+        "select candidate_id from storyline_candidate where candidate_id='ghost-2025-arche'",
+        {},
+    )
+    assert gone is None  # orphan deleted
+    # The three real arcs' candidates are untouched.
+    assert db.query_one("select count(*) as n from storyline_candidate", {})["n"] == 3
+
+
 def test_recommit_preserves_editor_review_status(db: Database) -> None:
     populate_storyline_candidates(db, SEASON, commit=True)
     # Editor dismisses the Alabama candidate.
