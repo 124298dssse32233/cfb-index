@@ -15,6 +15,7 @@ from cfb_rankings.calibration.ledger import (
     prediction_id_for,
     record_archetype_predictions,
     record_prediction,
+    record_season_win_predictions,
     resolve_due_predictions,
 )
 
@@ -24,5 +25,6 @@ __all__ = [
     "prediction_id_for",
     "record_archetype_predictions",
     "record_prediction",
+    "record_season_win_predictions",
     "resolve_due_predictions",
 ]

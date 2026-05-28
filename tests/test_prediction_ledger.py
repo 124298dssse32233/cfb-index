@@ -21,6 +21,7 @@ from cfb_rankings.calibration import (
     prediction_id_for,
     record_archetype_predictions,
     record_prediction,
+    record_season_win_predictions,
     resolve_due_predictions,
 )
 from cfb_rankings.db import Database
@@ -213,6 +214,74 @@ def test_allowlist_drops_mislabeled_non_fbs_team(db: Database) -> None:
     assert out["recorded"] == 1
     slugs = {r["entity_id"] for r in db.query_all("select entity_id from prediction_ledger", {})}
     assert slugs == {"alpha"}            # charlie dropped despite level_code='FBS'
+
+
+def _project(db: Database, slug: str, season: int, wins: int, band: str = "high") -> None:
+    tid = db.query_one("select team_id from teams where slug = :s", {"s": slug})["team_id"]
+    db.execute(
+        """insert into team_season_path_projection
+           (team_id, slug, season_year, as_of_date, scenario, regular_season_wins,
+            regular_season_losses, final_wins, final_losses, confidence_band, model_version)
+           values (:tid, :slug, :season, '2026-05-25', 'base', :wins, :losses,
+                   :wins, :losses, :band, 'season_path_v1')""",
+        {"tid": tid, "slug": slug, "season": season, "wins": wins,
+         "losses": 12 - wins, "band": band},
+    )
+
+
+def _game(db: Database, season: int, home: int, away: int, hp: int, ap: int) -> None:
+    db.execute(
+        """insert into games
+           (season_year, season_type, status, home_team_id, away_team_id, home_points, away_points)
+           values (:season, 'regular', 'Final', :home, :away, :hp, :ap)""",
+        {"season": season, "home": home, "away": away, "hp": hp, "ap": ap},
+    )
+
+
+def test_record_season_wins_locks_preseason_projection(db: Database) -> None:
+    _project(db, "alpha", 2026, wins=10, band="high")
+    _project(db, "bravo", 2026, wins=4, band="medium")
+    out = record_season_win_predictions(db, 2026, fbs_slugs=frozenset({"alpha", "bravo"}))
+    assert out["recorded"] == 2
+    alpha = db.query_one(
+        "select predicted_value, confidence_band, model_id, expires_at_utc "
+        "from prediction_ledger where entity_id='alpha' and prediction_kind='season_wins'", {})
+    assert alpha["predicted_value"] == "10"
+    assert alpha["confidence_band"] == "high"
+    assert alpha["model_id"] == "season-path"
+    assert alpha["expires_at_utc"] == "2027-01-15 00:00:00"
+
+
+def test_season_wins_resolver_grades_against_games(db: Database) -> None:
+    _project(db, "alpha", 2025, wins=10)   # predicts 10
+    record_season_win_predictions(db, 2025, fbs_slugs=frozenset({"alpha"}))
+    # Force expiry into the past so the resolver picks it up.
+    db.execute("update prediction_ledger set expires_at_utc='2026-01-15 00:00:00' "
+               "where entity_id='alpha' and prediction_kind='season_wins'", {})
+    # alpha actually goes 8-1 in completed regular-season games -> |10-8|/4 = 0.5 score.
+    aid = db.query_one("select team_id from teams where slug='alpha'")["team_id"]
+    bid = db.query_one("select team_id from teams where slug='bravo'")["team_id"]
+    for _ in range(8):
+        _game(db, 2025, home=aid, away=bid, hp=21, ap=7)   # alpha wins
+    _game(db, 2025, home=aid, away=bid, hp=3, ap=24)        # alpha loses
+    result = resolve_due_predictions(db, now="2026-05-28 00:00:00", kinds=["season_wins"])
+    assert result["resolved"] == 1
+    row = db.query_one(
+        "select actual_value, accuracy_score, resolution_note from prediction_ledger "
+        "where entity_id='alpha' and prediction_kind='season_wins'", {})
+    assert row["actual_value"] == "8"
+    assert row["accuracy_score"] == 0.5
+    assert "predicted 10, actual 8" in row["resolution_note"]
+
+
+def test_season_wins_resolver_skips_unplayed_season(db: Database) -> None:
+    _project(db, "alpha", 2026, wins=10)
+    record_season_win_predictions(db, 2026, fbs_slugs=frozenset({"alpha"}))
+    db.execute("update prediction_ledger set expires_at_utc='2025-01-01 00:00:00' "
+               "where prediction_kind='season_wins'", {})  # due, but no 2026 games exist
+    result = resolve_due_predictions(db, now="2026-05-28 00:00:00", kinds=["season_wins"])
+    assert result["resolved"] == 0
+    assert result["skipped"] == 1
 
 
 def test_summary_empty_is_safe(db: Database) -> None:

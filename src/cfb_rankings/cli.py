@@ -2065,12 +2065,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     ledger_parser.add_argument(
         "--action", required=True,
-        choices=["record-archetypes", "resolve", "summary"],
-        help="record-archetypes: log fanbase-archetype predictions; "
+        choices=["record-archetypes", "record-season-wins", "resolve", "summary"],
+        help="record-archetypes / record-season-wins: log predictions; "
              "resolve: grade due predictions; summary: print calibration aggregate.",
     )
     ledger_parser.add_argument("--season", type=int, default=None,
-                               help="Season for record-archetypes (the window predicted).")
+                               help="Season the prediction window is for (record actions).")
     ledger_parser.add_argument("--model-id", default=None,
                                help="Filter summary to one model_id.")
     ledger_parser.add_argument("--kind", default=None,
@@ -6250,6 +6250,7 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         from cfb_rankings.calibration import (
             calibration_summary,
             record_archetype_predictions,
+            record_season_win_predictions,
             resolve_due_predictions,
         )
         if args.action == "record-archetypes":
@@ -6259,6 +6260,15 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
             print(
                 f"prediction-ledger record-archetypes season={result['season']}: "
                 f"recorded={result['recorded']} (from {result['source_season']})"
+            )
+            return
+        if args.action == "record-season-wins":
+            if args.season is None:
+                raise SystemExit("prediction-ledger --action record-season-wins requires --season")
+            result = record_season_win_predictions(db, args.season)
+            print(
+                f"prediction-ledger record-season-wins season={result['season']}: "
+                f"recorded={result['recorded']}"
             )
             return
         if args.action == "resolve":

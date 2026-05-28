@@ -138,8 +138,49 @@ def _resolve_archetype_assignment(
     return actual_slug, score, "held" if score else "revised"
 
 
+def _resolve_season_wins(
+    db: Database, row: dict[str, Any]
+) -> tuple[Optional[str], Optional[float], str]:
+    """Grade a season_wins prediction for season=period_key against actual completed
+    regular-season wins from games. Graded score: 1 - |pred-actual|/4 (clamped 0..1),
+    so a dead-on call scores 1.0 and a miss of 4+ wins scores 0.0. Returns None actual
+    if no completed regular-season game exists for the team (season not played/ingested)."""
+    try:
+        season = int(row["period_key"])
+        predicted = float(row["predicted_value"])
+    except (TypeError, ValueError):
+        return None, None, "non-numeric period_key or predicted_value"
+    tid = db.query_one("select team_id from teams where slug = :slug", {"slug": row["entity_id"]})
+    if not tid:
+        return None, None, "team slug not found"
+    team_id = tid["team_id"]
+    played = db.query_one(
+        """
+        select count(*) as n from games
+        where season_year = :season and season_type = 'regular' and home_points is not null
+          and (home_team_id = :tid or away_team_id = :tid)
+        """,
+        {"season": season, "tid": team_id},
+    )
+    if not played or int(played["n"]) == 0:
+        return None, None, "regular season not yet played"
+    wins = db.query_one(
+        """
+        select count(*) as n from games
+        where season_year = :season and season_type = 'regular' and home_points is not null
+          and ((home_team_id = :tid and home_points > away_points)
+               or (away_team_id = :tid and away_points > home_points))
+        """,
+        {"season": season, "tid": team_id},
+    )
+    actual = int(wins["n"]) if wins else 0
+    score = max(0.0, 1.0 - abs(predicted - actual) / 4.0)
+    return str(actual), round(score, 4), f"predicted {int(predicted)}, actual {actual}"
+
+
 OUTCOME_RESOLVERS: dict[str, Resolver] = {
     "archetype_assignment": _resolve_archetype_assignment,
+    "season_wins": _resolve_season_wins,
 }
 
 
@@ -312,3 +353,58 @@ def record_archetype_predictions(
         )
         recorded += 1
     return {"recorded": recorded, "season": season, "source_season": source_season}
+
+
+# --------------------------------------------------------------------------- #
+# Live instrumented surface #2: preseason season-win projections.
+# --------------------------------------------------------------------------- #
+def record_season_win_predictions(
+    db: Database, season: int, *, fbs_slugs: Optional[frozenset[str]] = None
+) -> dict[str, Any]:
+    """Lock the preseason regular-season-win projection (the 'base' scenario) into the
+    ledger so it can be graded after the season. This MUST run preseason — a calibration
+    ledger is only honest if the prediction is recorded before the outcome is known.
+
+    Reads team_season_path_projection (scenario='base') for `season`; carries the
+    projection's own confidence_band and model_version. Real-FBS allowlist-gated.
+    Resolves after expiry (mid-January) against actual completed regular-season wins.
+    Returns {recorded, season}.
+    """
+    if fbs_slugs is None:
+        from cfb_rankings.chronicle.arc_populator import _real_fbs_slugs
+        fbs_slugs = _real_fbs_slugs()
+    # The projection table keeps multiple as_of snapshots per team; take only the
+    # latest snapshot of the base scenario so the locked prediction is the current one.
+    rows = db.query_all(
+        """
+        select p.slug, p.regular_season_wins as wins, p.confidence_band as band,
+               p.model_version as ver, p.as_of_date
+        from team_season_path_projection p
+        where p.season_year = :season and p.scenario = 'base'
+          and p.as_of_date = (
+              select max(p2.as_of_date) from team_season_path_projection p2
+              where p2.team_id = p.team_id and p2.season_year = :season and p2.scenario = 'base'
+          )
+        """,
+        {"season": season},
+    )
+    if fbs_slugs:
+        rows = [r for r in rows if str(r["slug"]) in fbs_slugs]
+    expires = f"{season + 1}-01-15 00:00:00"  # after the regular season + conf-title weekend
+    recorded = 0
+    for r in rows:
+        record_prediction(
+            db,
+            model_id="season-path",
+            model_version=str(r["ver"] or "season_path_v1"),
+            entity_type="team",
+            entity_id=str(r["slug"]),
+            prediction_kind="season_wins",
+            period_key=str(season),
+            predicted_value=str(int(r["wins"])),
+            confidence_band=str(r["band"] or "unset"),
+            evidence_ref=f"team_season_path_projection:base:{r['as_of_date']}",
+            expires_at=expires,
+        )
+        recorded += 1
+    return {"recorded": recorded, "season": season}
