@@ -538,6 +538,7 @@ body {
 html, body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   background: var(--bg-0);
   color: var(--fg-primary);
   font-family: var(--font-body);
@@ -551,6 +552,7 @@ a { color: inherit; text-decoration: none; }
 
 .team-page {
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(1200px 600px at 10% -10%,
       color-mix(in oklab, var(--accent-primary) 18%, transparent) 0%,
@@ -2235,9 +2237,14 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
+.rituals.program-section {
+  overflow-x: clip;
+}
+
 .rituals-track {
   display: flex;
   gap: var(--sp-4);
+  max-width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: var(--sp-3);
@@ -3717,6 +3724,12 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 .ceiling-floor__marker-label--base {
   color: var(--accent-primary, #c9a24a);
 }
+.ceiling-floor__marker:first-child .ceiling-floor__marker-label {
+  transform: translateX(0);
+}
+.ceiling-floor__marker:last-child .ceiling-floor__marker-label {
+  transform: translateX(-100%);
+}
 
 /* Scenario cards */
 .ceiling-floor__scenarios {
@@ -3769,6 +3782,13 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 }
 @media (max-width: 640px) {
   .ceiling-floor__scenarios { grid-template-columns: 1fr; }
+  .ceiling-floor {
+    border-radius: 8px;
+  }
+  .ceiling-floor__marker-label {
+    font-size: 8px;
+    letter-spacing: 0.04em;
+  }
 }
 
 
@@ -4013,7 +4033,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   );
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
   border-left: 3px solid var(--accent-primary, #c9a24a);
-  border-radius: 14px;
+  border-radius: 8px;
   font-variant-numeric: tabular-nums;
 }
 .offseason-pulse__header {
@@ -4060,8 +4080,9 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   padding: clamp(10px, 1.4vw, 14px) clamp(12px, 1.6vw, 16px);
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
-  border-radius: 10px;
+  border-radius: 8px;
   min-height: 88px;
+  overflow-wrap: anywhere;
 }
 .offseason-pulse__cell--empty {
   background: rgba(255, 255, 255, 0.012);
@@ -4127,7 +4148,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   background: rgba(255, 255, 255, 0.026);
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.08));
   border-left: 3px solid var(--accent-primary, #c9a24a);
-  border-radius: 10px;
+  border-radius: 8px;
   font-variant-numeric: tabular-nums;
 }
 .roster-reload__head {
@@ -4168,6 +4189,7 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   border: 1px solid var(--stroke-subtle, rgba(255,255,255,0.06));
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.02);
+  overflow-wrap: anywhere;
 }
 .roster-reload__metric-label {
   display: block;
@@ -4243,6 +4265,12 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
 @media (max-width: 480px) {
   .roster-reload__head { flex-direction: column; align-items: flex-start; }
   .roster-reload__grid { grid-template-columns: 1fr; }
+  .roster-reload__metric { min-height: 0; }
+  .roster-reload__position {
+    grid-template-columns: minmax(38px, auto) minmax(0, 1fr);
+    gap: 8px;
+  }
+  .roster-reload__flow { font-size: 11px; }
 }
 
 
@@ -4254,28 +4282,94 @@ body[data-page-tone="navy"]  { background-image: radial-gradient(circle at 50% -
   border-radius: 8px;
   padding: clamp(1rem, 2vw, 1.4rem);
   background: color-mix(in srgb, var(--accent-primary) 9%, var(--surface));
+  overflow-wrap: anywhere;
 }
-.preview-thesis__meta,
-.preview-thesis__receipt {
+.preview-thesis__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem .8rem;
+  align-items: center;
+  gap: .4rem .7rem;
   font: 700 .72rem/1.2 var(--font-sans);
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--text-muted);
+  margin-bottom: .2rem;
+}
+.preview-thesis__badge {
+  background: color-mix(in srgb, var(--accent-primary) 22%, transparent);
+  color: var(--accent-primary);
+  border-radius: 4px;
+  padding: .15em .55em;
+  font-size: .68rem;
+  letter-spacing: .06em;
 }
 .preview-thesis__title {
-  margin: .45rem 0 .45rem;
-  font: 700 clamp(1.35rem, 2.4vw, 2.1rem)/1.02 var(--font-display);
+  margin: .45rem 0 .4rem;
+  font: 700 clamp(1.28rem, 2.2vw, 1.95rem)/1.08 var(--font-display);
   letter-spacing: 0;
   color: var(--text);
 }
 .preview-thesis__body {
   max-width: 76ch;
-  margin: 0 0 .9rem;
+  margin: 0 0 .75rem;
   font: 500 clamp(.98rem, 1.25vw, 1.08rem)/1.55 var(--font-sans);
   color: var(--text);
+}
+.preview-thesis__chips {
+  list-style: none;
+  margin: 0 0 .8rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.preview-thesis__chip {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  font-size: .84rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+.preview-thesis__chip-label {
+  flex-shrink: 0;
+  font: 700 .66rem/1.2 var(--font-sans);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  min-width: 6rem;
+}
+.preview-thesis__chip-text {
+  color: var(--text-secondary, var(--text-muted));
+  font-size: .88rem;
+}
+.preview-thesis__receipt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .4rem .6rem;
+  font: 400 .72rem/1.2 var(--font-sans);
+  letter-spacing: .05em;
+  color: var(--text-muted);
+  border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  padding-top: .65rem;
+  margin-top: .2rem;
+}
+@media (max-width: 540px) {
+  .preview-thesis {
+    padding: 1rem;
+  }
+  .preview-thesis__meta {
+    font-size: .66rem;
+    gap: .35rem .55rem;
+  }
+  .preview-thesis__title {
+    font-size: 1.28rem;
+    line-height: 1.12;
+  }
+  .preview-thesis__chip-label {
+    min-width: 5rem;
+  }
 }
 
 
@@ -6335,7 +6429,7 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
   <div class="content">
     <section class="hero" aria-labelledby="hero-wordmark">
   <div>
-    <div class="hero__eyebrow">MAY 27, 2026 · DEAD PERIOD · HERITAGE WINDOW · 2026 OUTLOOK</div>
+    <div class="hero__eyebrow">MAY 28, 2026 · DEAD PERIOD · HERITAGE WINDOW · 2026 OUTLOOK</div>
     <div class="hero__identity-bar">
       <img class="hero__logo" src="../assets/team-art/missouri-state/logo_primary.png" alt="Missouri State logo" width="80" height="80" loading="eager" decoding="async" onerror="this.style.display='none'">
       <h1 id="hero-wordmark" class="hero__wordmark">Missouri State</h1>
@@ -6367,7 +6461,7 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
 </section>
 
     <section class="page-tone-strip" role="status" aria-live="polite" aria-label="Page mode for dead-period-heritage" data-tone="gray" data-anchor="dead-period-summer"><span class="page-tone-strip__chip page-tone-strip__chip--accent">Dead Period</span><span class="page-tone-strip__chip">Offseason</span><span class="page-tone-strip__chip">Patient</span><span class="page-tone-strip__chip page-tone-strip__chip--live">Post-loss — reckoning</span></section>
-    <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">95 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
+    <section class="kickoff-countdown kickoff-countdown--offseason" role="status" aria-live="polite" data-module="kickoff-countdown" data-mode="offseason" data-kickoff-utc="2026-08-30T17:00:00+00:00"><p class="kickoff-countdown__eyebrow">Offseason</p><p class="kickoff-countdown__number">94 days</p><p class="kickoff-countdown__story">until kickoff · Sun Aug 30 · 17:00 UTC</p></section>
     <section class="act act--i"><div class="act__head"><span class="act__num">Act I</span><h2 class="act__title">The 2026 Outlook</h2></div>
 <section class="offseason-pulse" aria-labelledby="offseason-pulse-h"
          data-module="offseason-pulse" data-state="ready" data-signal-count="3">
@@ -6377,6 +6471,19 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
   </div>
   <div class="offseason-pulse__grid">
     <div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Recruiting Class</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--warning">#131 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite rating 52.9</p><p class="offseason-pulse__cell-narrative">Outside the recruiting top 60. Roster gaps must close via portal.</p></div><div class="offseason-pulse__cell offseason-pulse__cell--empty" data-ready="false"><p class="offseason-pulse__cell-eyebrow">Returning Production</p><span class="offseason-pulse__cell-empty-pill">Awaiting signal</span><p class="offseason-pulse__cell-narrative">Awaiting signal — voice not yet authored.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Talent Composite</p><p class="offseason-pulse__cell-headline">#129 nationally</p><p class="offseason-pulse__cell-context">2025 cycle · 247 composite 426.1</p><p class="offseason-pulse__cell-narrative">Outside the talent top 60. The wins must be earned in development.</p></div><div class="offseason-pulse__cell" data-ready="true"><p class="offseason-pulse__cell-eyebrow">Portal Movement</p><p class="offseason-pulse__cell-headline offseason-pulse__cell-headline--positive">19 in / 11 out</p><p class="offseason-pulse__cell-context">2026 cycle · in 19 / out 11</p><p class="offseason-pulse__cell-narrative">Portal additions outpace losses; position detail lives in Roster Reload.</p></div>
+  </div>
+</section>
+<section class="roster-reload" aria-labelledby="roster-reload-h"
+         data-module="roster-reload" data-state="ready" data-season="2026">
+  <div class="roster-reload__head">
+    <h2 class="roster-reload__title" id="roster-reload-h">Roster Reload - Missouri State</h2>
+    <span class="roster-reload__tag">2026 snapshot - 2026-05-28</span>
+  </div>
+  <div class="roster-reload__grid">
+    <div class="roster-reload__metric"><span class="roster-reload__metric-label">Returning Production</span><span class="roster-reload__metric-value">NA</span><span class="roster-reload__metric-note">Continuity signal unavailable</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Portal Additions</span><span class="roster-reload__metric-value roster-reload__metric-value--add">19</span><span class="roster-reload__metric-note">Primary repair: EDGE</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Portal Losses</span><span class="roster-reload__metric-value roster-reload__metric-value--loss">11</span><span class="roster-reload__metric-note">Primary pressure: DL</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Draft Loss</span><span class="roster-reload__metric-value">0</span><span class="roster-reload__metric-note">No NFL Draft departures recorded</span></div><div class="roster-reload__metric"><span class="roster-reload__metric-label">Recruiting Reload</span><span class="roster-reload__metric-value">#131</span><span class="roster-reload__metric-note">Depth class (#131)</span></div>
+  </div>
+  <div class="roster-reload__positions" aria-label="Portal position flow">
+    <div class="roster-reload__position"><span class="roster-reload__pos">EDGE</span><span class="roster-reload__flow">in <strong>4</strong> - Dylan Brooks</span><span class="roster-reload__flow">out <strong>1</strong> - DJ Wesolak</span><span class="roster-reload__flag">Repaired</span></div><div class="roster-reload__position"><span class="roster-reload__pos">DL</span><span class="roster-reload__flow">in <strong>2</strong> - Markell Chapman</span><span class="roster-reload__flow">out <strong>3</strong> - Mitchell Toney</span><span class="roster-reload__flag">Tracked</span></div><div class="roster-reload__position"><span class="roster-reload__pos">WR</span><span class="roster-reload__flow">in <strong>2</strong> - Mekhi Miller</span><span class="roster-reload__flow">out <strong>2</strong> - Ronnel Johnson</span><span class="roster-reload__flag">Tracked</span></div><div class="roster-reload__position"><span class="roster-reload__pos">IOL</span><span class="roster-reload__flow">in <strong>1</strong> - Isaiah Villanueva</span><span class="roster-reload__flow">out <strong>2</strong> - Cash Hudson</span><span class="roster-reload__flag">Tracked</span></div><div class="roster-reload__position"><span class="roster-reload__pos">OT</span><span class="roster-reload__flow">in <strong>2</strong> - William Dixon</span><span class="roster-reload__flow">out <strong>0</strong></span><span class="roster-reload__flag">Repaired</span></div><div class="roster-reload__position"><span class="roster-reload__pos">QB</span><span class="roster-reload__flow">in <strong>2</strong> - Skyler Locklear</span><span class="roster-reload__flow">out <strong>0</strong></span><span class="roster-reload__flag">Repaired</span></div>
   </div>
 </section><section class="pulse" aria-labelledby="pulse-title">
   <div class="pulse__header">
@@ -6400,7 +6507,7 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
       <span class="pulse__event-delta ">—</span>
     </div><div class="pulse__event">
       <span class="pulse__event-time">Camp</span>
-      <span class="pulse__event-text">Fall camp ~66 days out</span>
+      <span class="pulse__event-text">Fall camp ~65 days out</span>
       <span class="pulse__event-delta"></span>
     </div>
   </div>
@@ -6423,27 +6530,27 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
 </section>
 <section class="ceiling-floor" aria-labelledby="ceiling-floor-h"
          data-module="ceiling-floor" data-state="ready"
-         data-source="heuristic">
+         data-source="projection">
   <div class="ceiling-floor__header">
     <p class="ceiling-floor__eyebrow">Missouri State · Next-Season Outcome Band</p>
     <h2 id="ceiling-floor-h" class="ceiling-floor__title">Floor / Base / Ceiling</h2>
   </div>
-  <div class="ceiling-floor__band" role="img" aria-label="Floor 5-7, base 7-5, ceiling 10-2">
-    <div class="ceiling-floor__marker" style="left: 41.7%;">
-      <span class="ceiling-floor__marker-label">Floor 5-7</span>
+  <div class="ceiling-floor__band" role="img" aria-label="Floor 2-10, base 5-7, ceiling 9-4">
+    <div class="ceiling-floor__marker" style="left: 15.4%;">
+      <span class="ceiling-floor__marker-label">Floor 2-10</span>
     </div>
-    <div class="ceiling-floor__marker" style="left: 58.3%;">
-      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base 7-5</span>
+    <div class="ceiling-floor__marker" style="left: 38.5%;">
+      <span class="ceiling-floor__marker-label ceiling-floor__marker-label--base">Base 5-7</span>
     </div>
-    <div class="ceiling-floor__marker" style="left: 83.3%;">
-      <span class="ceiling-floor__marker-label">Ceiling 10-2</span>
+    <div class="ceiling-floor__marker" style="left: 69.2%;">
+      <span class="ceiling-floor__marker-label">Ceiling 9-4</span>
     </div>
   </div>
   <div class="ceiling-floor__scenarios">
-    <div class="ceiling-floor__scenario" data-kind="floor"><span class="ceiling-floor__scenario-kind">floor</span><span class="ceiling-floor__scenario-record">5-7</span><span class="ceiling-floor__scenario-story">Below .500. Bowl eligibility comes down to the closing run.</span></div><div class="ceiling-floor__scenario" data-kind="base"><span class="ceiling-floor__scenario-kind">base</span><span class="ceiling-floor__scenario-record">7-5</span><span class="ceiling-floor__scenario-story">Bowl eligible. The realistic plateau.</span></div><div class="ceiling-floor__scenario" data-kind="ceiling"><span class="ceiling-floor__scenario-kind">ceiling</span><span class="ceiling-floor__scenario-record">10-2</span><span class="ceiling-floor__scenario-story">Double-digit wins. Conference title-game conversation.</span></div>
+    <div class="ceiling-floor__scenario" data-kind="floor"><span class="ceiling-floor__scenario-kind">floor</span><span class="ceiling-floor__scenario-record">2-10</span><span class="ceiling-floor__scenario-story">No postseason.</span></div><div class="ceiling-floor__scenario" data-kind="base"><span class="ceiling-floor__scenario-kind">base</span><span class="ceiling-floor__scenario-record">5-7</span><span class="ceiling-floor__scenario-story">No postseason.</span></div><div class="ceiling-floor__scenario" data-kind="ceiling"><span class="ceiling-floor__scenario-kind">ceiling</span><span class="ceiling-floor__scenario-record">9-4</span><span class="ceiling-floor__scenario-story">Bowl game.</span></div>
   </div>
   <p class="ceiling-floor__caveat">
-    Variance assumed at ±2 wins from last-season record. Replace with the season-path projection once preview data is built.
+    Final-season-aware projection: floor / base / ceiling include conference title and CFP games where the model supports them, so a ceiling can exceed a 12-game regular season.
   </p>
 </section>
 <section class="top-commits" aria-labelledby="top-commits-h"
@@ -6702,8 +6809,8 @@ details.act--review > summary:hover .act__title { color: var(--accent-primary, #
 <section class="on-this-day" aria-labelledby="on-this-day-h"
          data-module="on-this-day" data-state="rotated">
   <p class="on-this-day__eyebrow">From the Archive — Missouri State</p>
-  <h2 id="on-this-day-h" class="on-this-day__headline">2024: Won 46-21 vs Indiana State</h2>
-  <p class="on-this-day__story">In 2024, the program won 46-21 vs Indiana State — a comfortable home result that left the 25-point margin on the books.</p>
+  <h2 id="on-this-day-h" class="on-this-day__headline">2024: Won 41-7 at Illinois State</h2>
+  <p class="on-this-day__story">In 2024, the program won 41-7 at Illinois State — a blowout road result that left the 34-point margin on the books.</p>
   <p class="on-this-day__voice">Win in the books.</p>
 </section></div></details>
     <footer class="page-footer">

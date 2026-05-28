@@ -1,22 +1,36 @@
 {
-  "generated_at_utc": "2026-05-27T01:05:50Z",
+  "generated_at_utc": "2026-05-27T12:27:18Z",
   "today": "2026-05-27",
   "week_label": "Late Spring (87 days to kickoff)",
   "phase_label": "Late Spring",
   "days_to_kickoff": 87,
   "cards": [
     {
-      "year": 2024,
-      "years_ago": 2,
+      "year": 2023,
+      "years_ago": 3,
       "source": "archive_threads",
-      "headline": "More basketball related than football, but R.I.P Bill Walton",
-      "body": "Days after the end of the Pac it's biggest supporter passes away. Rest easy legend.\n\n\n\n[https://www.espn.com/nba/story/\\_/id/40229031/nba-champion-hall-famer-bill-walton-dies-71](https://www.espn.com/nba/story/_/id/40229031/nba-champion-hall-famer-bill-walton-dies-71)",
-      "url": "https://www.reddit.com/r/CFB/comments/1d1x2vt/more_basketball_related_than_football_but_rip/",
-      "attribution": "r/CFB · 1,272 upvotes",
-      "score": 1272,
+      "headline": "Joel Klatt predicts teams will eventually be dropped from Conferences",
+      "body": "",
+      "url": "https://www.reddit.com/r/CFB/comments/13tiupt/joel_klatt_predicts_teams_will_eventually_be/",
+      "attribution": "r/CFB · 696 upvotes",
+      "score": 696,
       "extra": {
         "subreddit": "CFB",
-        "external_id": "1d1x2vt"
+        "external_id": "13tiupt"
+      }
+    },
+    {
+      "year": 2023,
+      "years_ago": 3,
+      "source": "archive_threads",
+      "headline": "Over the past 18 years, the total number of \"power conference\" schools has increased by three. Enter Utah, TCU, BYU, Houston and UCF; exit UConn and USF.",
+      "body": "So many changes over the past 18 years, but for all the shuffling and realignment, only seven schools changed from one realm to the other. (If we include the schools that joined July 1 2005, that expands to Cincy and Louisville, as well.)\n\nSo, if you're a fan of a P5 team that yo",
+      "url": "https://www.reddit.com/r/CFB/comments/13thuyj/over_the_past_18_years_the_total_number_of_power/",
+      "attribution": "r/CFB · 404 upvotes",
+      "score": 404,
+      "extra": {
+        "subreddit": "CFB",
+        "external_id": "13thuyj"
       }
     },
     {
@@ -34,6 +48,20 @@
       }
     },
     {
+      "year": 2022,
+      "years_ago": 4,
+      "source": "archive_threads",
+      "headline": "UCF frankly gets too much respect",
+      "body": "As a not-too recent graduate of the greatest university on earth, I think our school gets more than the respect it deserves. It's an overrated school academically, athletically, and culturally. UCF has produced no presidents, has a pitifully small West Texas and Pennsylvania and",
+      "url": "https://www.reddit.com/r/CFB/comments/uz8fe2/ucf_frankly_gets_too_much_respect/",
+      "attribution": "r/CFB · 523 upvotes",
+      "score": 523,
+      "extra": {
+        "subreddit": "CFB",
+        "external_id": "uz8fe2"
+      }
+    },
+    {
       "year": 2021,
       "years_ago": 5,
       "source": "archive_threads",
@@ -45,34 +73,6 @@
       "extra": {
         "subreddit": "CFB",
         "external_id": "nmi7x3"
-      }
-    },
-    {
-      "year": 2020,
-      "years_ago": 6,
-      "source": "archive_threads",
-      "headline": "Cheez-It Bowl: Orlando game gets new sponsor to replace Camping World",
-      "body": "",
-      "url": "https://www.reddit.com/r/CFB/comments/grixty/cheezit_bowl_orlando_game_gets_new_sponsor_to/",
-      "attribution": "r/CFB · 1,782 upvotes",
-      "score": 1782,
-      "extra": {
-        "subreddit": "CFB",
-        "external_id": "grixty"
-      }
-    },
-    {
-      "year": 2018,
-      "years_ago": 8,
-      "source": "archive_threads",
-      "headline": "Psyduck's Influence on the Oregon Ducks",
-      "body": "In an effort to understand how Oregon grew from a perennial .500 level team to a national powerhouse, I dove deep into the history of ducks and all duck lore and I may have found the thing that gave Oregon its power over the PAC12. That thing is Psyduck. Psyduck first appeared in",
-      "url": "https://www.reddit.com/r/CFB/comments/8miroa/psyducks_influence_on_the_oregon_ducks/",
-      "attribution": "r/CFB · 2,895 upvotes",
-      "score": 2895,
-      "extra": {
-        "subreddit": "CFB",
-        "external_id": "8miroa"
       }
     }
   ]
