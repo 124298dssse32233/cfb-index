@@ -1,6 +1,7 @@
 name: fanintel-ingest-hourly
 # STRATEGY §2 Tier 1, hourly. Adapters that gracefully no-op without secrets
-# stay here (Wikipedia, GDELT, Kalshi, Polymarket, Bluesky — all free/no-auth).
+# stay here (Kalshi, Polymarket, Bluesky — all free/no-auth). GDELT moved to
+# ingest_gdelt_daily.yml (self-hosted, residential IP — datacenter IPs 429).
 # Auth-dependent adapters (CFBD, YouTube, SeatGeek, Spotify) short-circuit
 # to exit 0 when their secret is absent, so a progressive-enable rollout
 # does not flood the Actions tab with errors.
@@ -77,9 +78,10 @@ jobs:
         run: python tools/run_adapter.py kalshi
       - name: polymarket
         run: python tools/run_adapter.py polymarket
-      - name: gdelt_volume
-        continue-on-error: true
-        run: python tools/run_adapter.py gdelt_volume
+      # gdelt_volume moved to ingest_gdelt_daily.yml on the self-hosted
+      # Alienware runner (2026-05-28): GDELT rate-limits datacenter IPs
+      # (HTTP 429), so GitHub-hosted runners always 0-rowed it. Residential
+      # IP + daily cadence (article counts are a daily metric) fixes both.
       - name: bluesky_curated
         continue-on-error: true
         run: python tools/run_adapter.py bluesky_curated

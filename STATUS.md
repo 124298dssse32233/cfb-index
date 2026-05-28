@@ -1,6 +1,6 @@
 # Status — Week of 2026-05-28
 
-**Last updated:** 2026-05-28 (autonomous execution session 3)
+**Last updated:** 2026-05-28 (autonomous execution session 4)
 **Update cadence:** Every Friday
 **Format:** Per workstream, four buckets — Last shipped / In flight / Blocked / Next action
 
@@ -38,7 +38,7 @@
 - YouTube unlocked in CI: 1,143 rows of CFB video metadata
 - Loud-fail UI working: each adapter is now a visible per-step in Actions
 
-**Next execution target:** Two items now need a user decision before more code lands (see WS-01 → Blocked): (1) D-016 reader migration is not the simple constant-deletion the spec implied — there's a circular bootstrap dependency, so it needs a corrected, signed-off interpretation; (2) `gdelt_volume` 0-rows is fetch-level IP rate-limiting (429), fixable only via a residential-IP runner — an infra tradeoff. `seatgeek` 0-rows verification remains open and is unblocked.
+**Next execution target:** Both prior blockers RESOLVED (session 4, 2026-05-28): (1) D-016 closed via the corrected derived-read-surface mechanism — `team_coverage` is auto-synced from the authoring constants on every build via `coverage.sync_team_coverage(db)`, guarded by a CI drift test; (2) `gdelt_volume` moved to the self-hosted Alienware runner (residential IP) on a daily cadence in `ingest_gdelt_daily.yml`. `seatgeek` 0-rows verification remains the only open WS-01 item and is unblocked.
 
 ---
 
@@ -58,15 +58,12 @@
   - ✅ Test infrastructure unblocked — 3 broken test files fixed (syntax error + 2 importorskip guards); pytest collects 1,306 tests (was: 0) (commit `ea147a7e6a0`)
   - ✅ Code review pass — `octo:droids:octo-code-reviewer` ran, P1.2/P2.1/P2.2/P2.4 applied
   - ✅ `priority_teams` seeded — root-cause fix for 6 silent adapters
+- **Last shipped (2026-05-28, session 4):**
+  - ✅ **D-016 CLOSED** — both prior blockers resolved with the corrected mechanism. Authoring constants + `profiles/*.md` stay the source of truth; `team_coverage` is a *derived read surface* re-synced from those sources on every build via `coverage.sync_team_coverage(db)` (atomic truncate-and-reinsert, wired into `reporting.build_static_site`). `coverage.py` provides the canonical read helpers (`slugs_in_tier`, `coverage_tiers`, `archetype_for`); `backfill_team_coverage.py` is now a thin CLI over the same sync. Drift is prevented two ways: build-time full-refresh prunes removed slugs, and `tests/test_team_coverage_sync.py` (5 tests) pins the table as a byte-exact mirror of the authoring sources. Satisfies the D-016 byte-identical gate trivially (no render-path reader repointed). Execution note appended to `DECISIONS.md#D-016`.
+  - ✅ **`gdelt_volume` fixed** — moved out of `ingest_hourly.yml` into new `ingest_gdelt_daily.yml` on `[self-hosted, alienware]` (residential IP, daily cron `0 13 * * *`, `workflow_dispatch` timespan input for backfill). Root cause was fetch-level HTTP 429 throttling of datacenter/cloud IPs; residential IP + daily cadence (article counts are a daily metric) fixes both. Same shared-artifact DB pattern as the other ingest workflows.
 - **In flight:** None
-- **Blocked — two items need a user decision (session 4, 2026-05-28):**
-  1. **D-016 reader migration is NOT a simple "delete constants → readers query table".** Investigation found two hard constraints the locked decision's options didn't anticipate:
-     - **Circular dependency:** `scripts/backfill_team_coverage.py` *imports* `STRUCTURAL_PRIMARIES` / `BLUEBLOOD_PROGRAMS` / `TOP_ENTITIES_*` / `PROFILED_SLUGS` to *populate* `team_coverage`. If those constants instead read from the table, the backfill can never bootstrap. → Those constants must remain the authoring source of truth; `team_coverage` is a *derived read surface*, not a replacement.
-     - **No `db` in scope:** `classify_team()` (archetypes.py:421) is a pure function with no DB handle; migrating its lookups would ripple a `db` arg through all callers and break test purity.
-     - **`team_coverage` is currently an orphan:** nothing reads it, nothing refreshes it (backfill is invoked by no build/workflow). Verified perfect-mirror of authoring sources today (struct 23=23, blueblood 19=19, 213 rows total) but it will silently drift the moment a constant changes, because `INSERT OR IGNORE` never removes rows for *deleted* slugs.
-     - **Feasible completion (needs sign-off, since D-016 is LOCKED):** keep authoring constants; wire the idempotent backfill (with `--delete-first` full-refresh semantics) into the build so the table stays current; provide a thin `coverage.py` read helper *only if* a genuine cross-cutting reader appears (none exists today — building it now is premature). The literal "all consumers query the unified table" wording is partially infeasible.
-  2. **`gdelt_volume` 0-rows root cause = fetch-level rate-limiting, NOT a parse bug.** Live probe from local IP returns HTTP 429; GDELT aggressively throttles datacenter/cloud IP ranges, so GitHub-hosted runners hit the same wall. Parse hardening won't help. Durable fix is an infra tradeoff: run `gdelt_volume` from the self-hosted Alienware runner (residential IP) vs. accept it as degraded/offseason-low-priority. Desktop-uptime fragility makes this your call.
-- **Next action (pending the two decisions above):** if D-016 reinterpretation is approved → wire backfill into build + document corrected understanding in DECISIONS. If gdelt residential-IP is approved → move the daily gdelt step to `[self-hosted, alienware]`. Separately, `seatgeek` 0-rows still unverified (offseason-expected vs. genuine bug).
+- **Blocked:** None
+- **Next action:** Verify `seatgeek` 0-rows (offseason-expected vs. genuine bug) — the only open WS-01 item. Then move to WS-02.
 - **Spec:** [specs/01-foundation-unblock.md](specs/01-foundation-unblock.md)
 
 ### WS-02 — Classification + state machinery

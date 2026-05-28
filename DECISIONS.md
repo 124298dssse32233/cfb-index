@@ -293,6 +293,20 @@ These need resolution before downstream workstreams crystallize. Listed in prior
 **Affects:** WS-01 (Foundation Unblock). 6 cohort sources get deprecated. All consumers query the unified table.
 **Revisit:** If the migration takes >1 week, evaluate whether to pause and split the consumers across multiple PRs.
 
+**Execution note (2026-05-28, session 4) — decision intent preserved, mechanism corrected:**
+During execution the literal "delete the constants, all readers query the table" mechanism proved partly infeasible, for two reasons the Considered options didn't surface:
+1. **Circular bootstrap.** The backfill (`scripts/backfill_team_coverage.py` → `coverage.sync_team_coverage`) *imports* the authoring constants (`PROFILED_SLUGS`, `TOP_ENTITIES_*`, `BLUEBLOOD_PROGRAMS`, `STRUCTURAL_PRIMARIES`) to *populate* `team_coverage`. If those same constants instead read from the table, nothing can ever seed it. `profiles/*.md` is likewise the documented source of truth for the `authored` tier (CLAUDE.md).
+2. **No `db` in the hot path.** `classify_team()` (`ingest/archetypes.py`) is a pure function with no `db` handle; making its lookups query the table would ripple a `db` arg through every caller and break test purity for zero behavior gain.
+
+**Corrected mechanism (intent unchanged — still "one place to query coverage"):**
+- Authoring constants + `profiles/*.md` remain the **source of truth** (the edit point + bootstrap input).
+- `team_coverage` is a **derived, denormalized read surface**, re-synced from the authoring sources on *every build* via `coverage.sync_team_coverage(db)` (wired into `reporting.build_static_site`). Truncate-and-reinsert in one transaction, so it can't drift and a removed slug is pruned.
+- **Cross-cutting** consumers (anything asking "team X's coverage across all dimensions" or "every team in tier Y") query `cfb_rankings.coverage` helpers (`slugs_in_tier`, `coverage_tiers`, `archetype_for`). Per-dimension authoring consumers keep their constants.
+- Drift-guard: `tests/test_team_coverage_sync.py` pins the table == authoring-sources invariant on a temp DB (CI-safe).
+- The "publish_site byte-identical" gate is satisfied trivially: no render-path reader was repointed, so output is unchanged. The benefit ("add a team in one place, it propagates") is delivered because any edit to an authoring source auto-syncs into the unified table on the next build.
+
+This is an implementation clarification, not a re-litigation: the decision (A — consolidate in Phase 1, unified queryable table) stands; only the constant-inversion mechanism was replaced with auto-sync because inversion was circular.
+
 ## D-017 — Octopus invocation policy — LOCKED
 
 **Date locked:** 2026-05-28 (autonomous best-judgment per user authorization)

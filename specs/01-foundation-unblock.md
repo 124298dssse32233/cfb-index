@@ -37,18 +37,18 @@ Ship the mechanical fixes that gate every downstream workstream. None of WS-02 t
 3. **`cohort_divergence` wiring** — ~30 lines added to `build_player_page_data_map` mirroring team-side pattern.
 4. ~~**`numeric_observations` migration**~~ — **CORRECTED 2026-05-28:** unnecessary; `source_observations` already exists and is wired. Step replaced by adapter triage (find why each of the 6 zero-row adapters is silent — secret absent vs. crash vs. upstream-empty).
 5. **Loud-fail pattern** — refactor `tools/run_adapter.py` to honor `AdapterRunResult.status` as a real exit code (ok|empty→0, skipped→0+warn, error→1, config-missing→2). Then refactor the 3 ingest workflows: drop `set +e`, separate steps per adapter, `continue-on-error: true` only on auth-gated adapters that may legitimately skip without a secret.
-6. **`team_coverage` migration** — new table + one-time backfill script + 6-file cleanup to query the table.
+6. **`team_coverage` migration** — **DONE 2026-05-28.** New table + `coverage.sync_team_coverage(db)` derived-read-surface sync wired into the build; `coverage.py` read helpers; CI drift-guard test. The "6-file cleanup to query the table" was dropped: the constants are the authoring source and the table mirrors them, so repointing readers is unnecessary and would have created the circular bootstrap.
 
 ## Running gate
 
 - Maiava's player page renders something non-"Awaiting" in at least 1 chip (Respect Gap or Reality Gap).
 - `numeric_observations` has ≥100 rows from at least 4 distinct adapters within 24h of deploy.
 - Freshness page shows every adapter's last-success timestamp.
-- `team_coverage` is the only place teams get added; no Python file imports from the 6 old cohort sources.
+- ~~`team_coverage` is the only place teams get added; no Python file imports from the 6 old cohort sources.~~ → **CORRECTED 2026-05-28:** the authoring constants/`profiles/*.md` remain the place teams get added; `team_coverage` is the derived mirror, auto-synced every build and drift-guarded by test. Adding a team in one authoring source auto-propagates to the table.
 
 ## Decisions
 
-- D-016 — `team_coverage` migration timing — OPEN. Recommendation: start in week 1.
+- D-016 — `team_coverage` migration — **CLOSED 2026-05-28 (session 4).** Shipped with a corrected mechanism: the literal "delete the constants, point all readers at the table" is infeasible (the backfill *imports* the constants to populate the table — circular bootstrap; `classify_team()` is a pure function with no `db` handle). Instead, authoring constants + `profiles/*.md` stay the source of truth, and `team_coverage` is a *derived read surface* re-synced from them on every build via `coverage.sync_team_coverage(db)` (atomic truncate-and-reinsert, wired into `reporting.build_static_site`). `coverage.py` holds the canonical read helpers; `tests/test_team_coverage_sync.py` pins the table as a byte-exact mirror. Byte-identical publish gate satisfied trivially (no render-path reader repointed). See `DECISIONS.md#D-016` execution note.
 - D-013 — Refuse list lock — OPEN. Doesn't block this WS but should be locked before scope creep starts.
 
 ## Pointers

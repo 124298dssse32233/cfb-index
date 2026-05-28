@@ -6738,6 +6738,18 @@ __GLOBAL_FOOTER__
 
 def build_static_site(db: Database, output_dir: str | Path = "output/site") -> Path:
     _report_progress(f"Building static site at {output_dir}...")
+
+    # D-016: team_coverage is a derived read surface — re-sync it from the
+    # authoring constants on every build so it can never drift. Non-critical
+    # (nothing in the render path hard-depends on it yet), so a failure logs
+    # and the build continues.
+    try:
+        from cfb_rankings.coverage import sync_team_coverage
+        _tc = sync_team_coverage(db)
+        _report_progress(f"team_coverage synced: {sum(_tc.values())} rows across {len(_tc)} tiers.")
+    except Exception as _exc:  # noqa: BLE001
+        _report_progress(f"WARN: team_coverage sync failed — {type(_exc).__name__}: {_exc}")
+
     summary, rankings = fetch_latest_rankings(db, limit=1000)
     site_root = Path(output_dir)
     site_root.mkdir(parents=True, exist_ok=True)
