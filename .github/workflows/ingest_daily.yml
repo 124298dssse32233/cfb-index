@@ -93,6 +93,13 @@ jobs:
           # (so Feb-Jul of YYYY runs against season YYYY-1). Mirrors the same
           # derivation used in publish_site.yml.
           SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          echo "Tagging team mentions on curated feeds for season=$SEASON"
+          # tag-team-mentions must run BEFORE tag-player-mentions: curated feeds
+          # (bluesky_curated, substack_*) arrive with no per-team target, and the
+          # player tagger only scans docs that already carry a team target. This
+          # step writes those team targets so the player tagger — and the whole
+          # mood/cohort pipeline — can then pick the curated docs up.
+          python manage.py tag-team-mentions --season=$SEASON --commit || echo "tag-team-mentions skipped"
           echo "Tagging player mentions for season=$SEASON"
           # tag-player-mentions (NOT tag-player-names — that legacy name has
           # never existed as a CLI subcommand; the prior workflow text was
