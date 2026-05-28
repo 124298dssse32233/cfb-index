@@ -112,9 +112,10 @@
     - bluesky_feeds: empty (clean — no feeds curated yet)
     - gdelt_volume: empty (still 0 rows even with new throttle; needs deeper debug — payload-shape change suspected)
     - seatgeek: empty (likely no events in offseason; needs verification)
+  - ✅ **Curated-feed team tagging gap CLOSED (session 7, PUSHED):** `bluesky_curated` (8,413 docs) + `substack_*` arrived with zero `conversation_document_targets`, so they fed nothing into mood/cohort features. Root cause: reddit tags at collection time; the player tagger only scans docs that already have a team target. New `tag-team-mentions` CLI (`src/cfb_rankings/ingest/team_name_tagger.py`, 11 tests) scans untagged curated docs for team-alias mentions and writes team targets. Precision-first: collision-drop, common-word stoplist + length floor (acronym whitelist), word-boundary match, span-containment suppression of short aliases nested in longer ones ("Florida" in "Florida State") and in NFL team names ("Houston" in "Houston Texans"). Wired into `ingest_daily.yml` BEFORE `tag-player-mentions` (commits `493d72c8e95`, `66b605ed335`).
 - **In flight:** None
 - **Blocked:** Not blocked
-- **Next action:** `gdelt_volume` 0-rows is now diagnosed — fetch-level HTTP 429 (GDELT throttles datacenter IPs; not a payload/parse issue). Fix is residential-IP runner (infra decision, see WS-01 → Blocked). `seatgeek` 0-rows still needs offseason-vs-bug verification (unblocked).
+- **Next action:** `gdelt_volume` 0-rows is now diagnosed — fetch-level HTTP 429 (GDELT throttles datacenter IPs; not a payload/parse issue). Fix is residential-IP runner (infra decision, see WS-01 → Blocked). `seatgeek` 0-rows still needs offseason-vs-bug verification (unblocked). Verify the next `ingest_daily` run actually writes curated-feed team targets (watch the new tag-team-mentions step's `rows_written`).
 - **Spec:** [specs/05-adapter-ecosystem.md](specs/05-adapter-ecosystem.md)
 
 ### WS-06 — Page archetype expansion (Coach / Game / Rivalry / Conference)
