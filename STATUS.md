@@ -1,6 +1,6 @@
 # Status — Week of 2026-05-28
 
-**Last updated:** 2026-05-28 (autonomous execution session 2)
+**Last updated:** 2026-05-28 (autonomous execution session 3)
 **Update cadence:** Every Friday
 **Format:** Per workstream, four buckets — Last shipped / In flight / Blocked / Next action
 
@@ -18,26 +18,39 @@
 **Hero locked:** Homepage + era page designs (D-021).
 **All 18 other decisions:** locked autonomously per user "absolute best judgment" authorization.
 
-**WS-01 Tier S shipped this session (in commits, not pushed):**
+**WS-01 Tier S shipped previously (in commits, not pushed):**
 - Bucket label fix in `reddit_deep_2026_offseason.yml` ("team" → "fan")
 - `cohort_divergence` wiring in `_assemble_player_page_data` + new `player_cohort_divergence_summary` helper in `bets/cohort_divergence.py`
 - Chronicle LKG suppression flag in `team_pages/renderer.py` (`_SUPPRESS_LKG_CHRONICLE_OFFSEASON`)
 
-**Next execution target:** Continue WS-01 Tier S — `numeric_observations` table + adapter loud-fail + `team_coverage` table consolidation.
+**WS-01 Tier S shipped THIS session (session 3, uncommitted):**
+- **Stale spec corrected:** `source_observations` (migration `20260423_01`) already IS the numeric-observations landing table per its docstring + 7 adapters subclassing `NumericSourceAdapter`. Spec 01 + STATUS now reflect this — no parallel `numeric_observations` table created (would violate the "don't propose parallel systems" rule).
+- **Adapter loud-fail refactor:** `tools/run_adapter.py` now exits 1 on `AdapterRunResult.status == "error"`, with `--fail-on-empty` / `--fail-on-skipped` opt-in flags (was: unconditional exit 0, swallowed every adapter exception). Dropped `set +e` + bare `echo done` from `ingest_hourly.yml`, `ingest_daily.yml`, `ingest_weekly.yml`; each adapter is now its own step with `continue-on-error: true` for optional/auth-gated adapters. Polymarket alone is hard-fail (it's the known-good baseline).
+- **Adapter triage (read-only, 2 parallel agents):** root causes for 0-row adapters identified — wiki_pv / wiki_edits / gdelt_volume / bluesky_curated / bluesky_feeds all depend on `priority_teams` columns (`wiki_team_page`, `google_news_query`, `bluesky_beat_handles`) being seeded. seatgeek / youtube_meta / spotify_charts: secrets ARE wired but seed columns are empty. Fixes captured as Phase 1 follow-up; not landing this session.
+- **`team_coverage` consolidation (D-016):** migration `20260602_05_team_coverage.sql` + `scripts/backfill_team_coverage.py`. 213 rows live across 6 tiers (authored 127, blueblood_pedigree 19, priority_intelligence 21, pulse_full 5, pulse_partial 18, structural_identity 23), 155 distinct team slugs. UNIQUE(team_slug, tier) makes backfill idempotent.
+- **Code-review pass on the diff:** ran `octo:droids:octo-code-reviewer`, applied P1.2 (google_news_all continue-on-error), P2.1 (drop redundant index), P2.2 (`execute_many` instead of N+1 inserts), P2.4 (remove no-op `--allow-empty` flag); P1.1 (canonical slugify divergence) documented inline as known divergence vs `utils.slugify`.
+
+**Next execution target:** Migrate the 6 cohort-source READER sites (cli.py / reporting.py / chronicle_pattern_e.py / pulse_state.py / archetypes.py) to query `team_coverage` instead of importing Python constants. Once all readers migrate, the import-time constants become dead code and can be removed. Then re-seed the 7 silent adapters' upstream columns in `priority_teams` so they can actually find work to do.
 
 ---
 
 ## Per-workstream status
 
 ### WS-01 — Foundation unblock
-- **Last shipped (2026-05-28):**
+- **Last shipped (2026-05-28, session 2):**
   - ✅ Bucket label fix in `reddit_deep_2026_offseason.yml` (commit `0afee863`)
   - ✅ `cohort_divergence` wiring + new `player_cohort_divergence_summary` helper (commit `0afee863`)
   - ✅ Chronicle LKG suppression flag in renderer (commit `0afee863`)
   - ✅ Wave 25 + Player Wave-1 + Milestone A+B previously committed (memory was stale; verified via `git log`)
-- **In flight:** None
+- **Last shipped (2026-05-28, session 3, UNCOMMITTED):**
+  - ✅ Spec correction — `source_observations` already IS the numeric landing table; no parallel migration created
+  - ✅ Adapter loud-fail — `tools/run_adapter.py` honors `AdapterRunResult.status` as exit code; 3 ingest workflows refactored
+  - ✅ Adapter triage — root causes documented for 6 zero-row adapters (all upstream-seed-data issues, no code bugs)
+  - ✅ `team_coverage` table — migration `20260602_05` + `scripts/backfill_team_coverage.py` + 213 live rows
+  - ✅ Code review pass — `octo:droids:octo-code-reviewer` ran, P1.2/P2.1/P2.2/P2.4 applied
+- **In flight:** Commit of session 3 changes (4 logical commits expected, not pushed)
 - **Blocked:** Not blocked
-- **Next action:** `numeric_observations` table migration + 7 adapter redirects; loud-fail pattern across `ingest_*.yml` workflows; `team_coverage` table consolidation (D-016)
+- **Next action:** Migrate 6 cohort-source readers (cli.py / reporting.py / pulse_state.py / archetypes.py / etc.) to query `team_coverage` instead of importing Python constants. Then re-seed `priority_teams` upstream columns for the 7 silent adapters.
 - **Spec:** [specs/01-foundation-unblock.md](specs/01-foundation-unblock.md)
 
 ### WS-02 — Classification + state machinery
@@ -63,9 +76,12 @@
 
 ### WS-05 — Adapter ecosystem live
 - **Last shipped:** Polymarket adapter (160 rows in `source_observations`); Reddit r/CFB collector (9,212 docs); Substack RSS (110 docs)
+- **Last shipped (session 3):**
+  - ✅ Loud-fail unblock — workflows + runner no longer swallow adapter exceptions, so the next cron run will surface actual failure modes
+  - ✅ Triage diagnoses captured (Wikipedia/GDELT/Bluesky/YouTube/SeatGeek/Spotify all blocked on missing `priority_teams` seed columns, NOT code bugs; Kalshi false-positive path-bug claim from agent verified-and-rejected)
 - **In flight:** None
-- **Blocked:** Need `numeric_observations` table (Phase 1) for 7 silent adapters to have a write target
-- **Next action:** Create `numeric_observations` migration; redirect Wikipedia/GDELT/SeatGeek/YouTube/Spotify/Kalshi/Bluesky adapters to it; kill `|| echo "skipped"` pattern
+- **Blocked:** UNBLOCKED — `source_observations` table already exists and is the correct write target; loud-fail now in place
+- **Next action:** Re-seed `priority_teams` columns: `wiki_team_page`, `wiki_coach_page`, `google_news_query`, `bluesky_beat_handles`, `seatgeek_team_slug`, `youtube_team_channel_id`. Each seeds an adapter that today writes 0 rows. After re-seed, watch the next 24h of `ingest_hourly` runs in CI to confirm rows land.
 - **Spec:** [specs/05-adapter-ecosystem.md](specs/05-adapter-ecosystem.md)
 
 ### WS-06 — Page archetype expansion (Coach / Game / Rivalry / Conference)
