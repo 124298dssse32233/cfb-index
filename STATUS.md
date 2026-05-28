@@ -162,10 +162,10 @@
 - **Spec:** [specs/11-mobile-a11y-perf.md](specs/11-mobile-a11y-perf.md)
 
 ### WS-12 — Editorial cadence
-- **Last shipped:** Daily/Wire/Mailbag pipelines running on cron (verified live per LAUNCH_ROADMAP). 8 active storyline threads. 32 storyline chapters.
-- **In flight:** Storyline chapters have slipped to ~5 weeks since last update (April 21-23 was last)
+- **Last shipped:** Daily/Wire/Mailbag pipelines running on cron (verified live per LAUNCH_ROADMAP). 8 active storyline threads. 32 storyline chapters. **Data-driven storyline candidate queue LIVE** (commit `4cd39637fc2`): `storyline_candidate` table + `build-storyline-candidates` CLI ranks open `season_narrative_arc` rows by tension×frame-weight, dedupes against active-thread-covered teams, preserves editor `review_status` across re-runs (D-020 human-reviewed lane). Wired into `ingest_daily.yml` after `populate-arcs`. Verified locally: 110 candidates ranked from 110 arcs (top: memphis/uconn/north-texas portal classes).
+- **In flight:** Storyline chapters have slipped to ~5 weeks since last update (April 21-23 was last). Candidate queue has no editor-facing surface/render yet — it's a DB pull-list only.
 - **Blocked:** Not blocked
-- **Next action:** Add chapter-cadence alert. Build data-driven storyline candidate queue (see WS-02 transition events → storyline candidates).
+- **Next action:** Render/surface the candidate queue for editors (an admin view or digest of top `proposed` candidates). Add chapter-cadence alert.
 - **Spec:** [specs/12-editorial-cadence.md](specs/12-editorial-cadence.md)
 
 ---
