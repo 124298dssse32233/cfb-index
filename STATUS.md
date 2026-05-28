@@ -68,11 +68,12 @@
 - **Next action:** Move to WS-02 — run `seed_taxonomy(db)` + `classify_all_fanbases(db, 2026)`.
 - **Spec:** [specs/01-foundation-unblock.md](specs/01-foundation-unblock.md)
 
-### WS-02 — Classification + state machinery
-- **Last shipped:** N/A — schemas exist (18-archetype taxonomy at `ingest/archetypes.py`, `fanbase_classification` table, `season_narrative_arc` table) but populators have never run
+### WS-02 — Classification + state machinery (~25% complete)
+- **Last shipped (session 5, local):** `seed-archetypes` (26 rows), `classify-fanbases` (2,920 rows across 4 seasons), `build-conversation-features` (~858 rows) — confirmed locally against Alienware DB
+- **Last shipped (session 6, wired into CI):** `seed-archetypes` appended to idempotent seed block in `ingest_daily.yml`; new "Classify fanbases" step added after bridge-tables step — runs `classify-fanbases --season=$SEASON --classifier-version v1.0 --backfill-history 1` daily so classifications propagate to production DB
 - **In flight:** None
-- **Blocked:** UNBLOCKED — D-010 (10 arc frames) now LOCKED. Ready to start.
-- **Next action:** Run `seed_taxonomy(db)` + `classify_all_fanbases(db, 2026)` to populate `fanbase_classification` (the existing classifier just needs invocation). Then build arc-frame populator per D-010.
+- **Blocked:** None
+- **Next action:** Build arc-frame populator per D-010 (10 narrative arc frames → `season_narrative_arc` table).
 - **Spec:** [specs/02-classification-state.md](specs/02-classification-state.md)
 
 ### WS-03 — Editorial profiles to 119

@@ -54,6 +54,7 @@ jobs:
           python manage.py seed-source-registry
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
+          python manage.py seed-archetypes
 
       # WS-01 loud-fail (2026-05-28): per-adapter steps so failures surface.
       - name: wiki_pv
@@ -105,6 +106,14 @@ jobs:
           python manage.py compute-surprise-index || echo "compute-surprise-index skipped"
           python manage.py resolve-outcomes || echo "resolve-outcomes skipped"
           echo "fanintel bridge done"
+
+      - name: Classify fanbases
+        run: |
+          set +e
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          python manage.py classify-fanbases --season=$SEASON \
+              --classifier-version v1.0 \
+              --backfill-history 1 || echo "classify-fanbases skipped"
 
       - name: Compute player week mood (current ISO week)
         run: |
