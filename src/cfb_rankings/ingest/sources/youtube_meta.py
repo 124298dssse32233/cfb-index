@@ -16,6 +16,7 @@ import os
 from typing import Any
 
 from cfb_rankings.db import Database
+from cfb_rankings.ingest.sources.base import AdapterConfigError
 from cfb_rankings.ingest.sources.numeric_base import NumericSourceAdapter
 
 logger = logging.getLogger(__name__)
@@ -84,7 +85,7 @@ class YouTubeMetaAdapter(NumericSourceAdapter):
 
     def fetch(self) -> list[dict[str, Any]]:
         if not self.api_key:
-            raise RuntimeError("YOUTUBE_API_KEY env var is required")
+            raise AdapterConfigError("YOUTUBE_API_KEY env var is required")
         teams = self.db.query_all(
             "select team_id, youtube_team_channel_id, youtube_fan_channels from priority_teams"
         )

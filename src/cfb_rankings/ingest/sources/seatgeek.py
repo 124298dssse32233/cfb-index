@@ -14,6 +14,7 @@ import urllib.parse
 from typing import Any
 
 from cfb_rankings.db import Database
+from cfb_rankings.ingest.sources.base import AdapterConfigError
 from cfb_rankings.ingest.sources.numeric_base import NumericSourceAdapter
 
 logger = logging.getLogger(__name__)
@@ -37,7 +38,7 @@ class SeatGeekAdapter(NumericSourceAdapter):
 
     def fetch(self) -> list[tuple[dict[str, Any], dict[str, Any]]]:
         if not self.client_id:
-            raise RuntimeError("SEATGEEK_CLIENT_ID env var is required")
+            raise AdapterConfigError("SEATGEEK_CLIENT_ID env var is required")
         teams = self.db.query_all(
             "select team_id, seatgeek_team_slug from priority_teams "
             "where seatgeek_team_slug is not null"

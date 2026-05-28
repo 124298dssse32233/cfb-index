@@ -243,7 +243,10 @@ def main() -> int:
     try:
         result = adapter.run()
     except RuntimeError as exc:
-        # Typically "missing env var" — treat as skipped status.
+        # Belt-and-suspenders: a missing-secret AdapterConfigError is normally
+        # caught inside adapter.run() and surfaced as status="skipped" (handled
+        # below). This guard only fires if an adapter raises a bare RuntimeError
+        # outside run()'s capture — treat it as skipped too.
         logger.warning("%s skipped: %s", args.adapter_id, exc)
         if args.fail_on_skipped or os.environ.get("FANINTEL_REQUIRED"):
             return 1

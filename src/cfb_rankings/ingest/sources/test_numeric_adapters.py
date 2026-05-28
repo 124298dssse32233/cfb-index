@@ -239,3 +239,23 @@ def test_run_writes_scrape_health_row_for_numeric() -> None:
     assert result.rows_inserted == 1
     health = db.query_one("select * from scrape_health where source_id='gdelt_volume'")
     assert health["status"] == "ok"
+
+
+def test_auth_gated_adapter_missing_secret_skips_not_errors() -> None:
+    """An auth-gated adapter with no secret must surface status='skipped'
+    (graceful no-op, exit 0) — NOT 'error' (exit 1). Otherwise a progressive
+    secrets rollout floods CI with red Xs for keys that simply aren't set yet."""
+    import os
+
+    prior = os.environ.pop("SEATGEEK_CLIENT_ID", None)
+    try:
+        db = _fresh_db()
+        result = SeatGeekAdapter(db).run()  # no client_id arg, env var absent
+        assert result.status == "skipped"
+        assert result.rows_inserted == 0
+        assert "AdapterConfigError" in (result.error_message or "")
+        health = db.query_one("select * from scrape_health where source_id='seatgeek'")
+        assert health["status"] == "skipped"
+    finally:
+        if prior is not None:
+            os.environ["SEATGEEK_CLIENT_ID"] = prior
