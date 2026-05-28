@@ -23,7 +23,7 @@ jobs:
     # restarted from the same stale artifact and re-ran the full backfill. Once one
     # run completes and persists the enriched DB, steady-state runs skip the backfill
     # and finish well under 90; 180 is corrective headroom.
-    timeout-minutes: 180
+    timeout-minutes: 240
     permissions:
       contents: write   # pushes to `published` branch
       actions: read     # cross-workflow artifact download via dawidd6 action
