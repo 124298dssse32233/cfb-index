@@ -109,6 +109,27 @@ def build_parser() -> argparse.ArgumentParser:
                                           "when docs are tagged to next-season but stats only exist "
                                           "for last-season."))
 
+    tag_teams_parser = subparsers.add_parser(
+        "tag-team-mentions",
+        help=("Scan untagged conversation_documents (bluesky_curated, substack_*) "
+              "for team-alias mentions and emit target_type='team' rows. Reddit is "
+              "tagged at collection time and excluded. Dry-run by default; pass "
+              "--commit to insert rows."),
+    )
+    tag_teams_parser.add_argument("--season", type=int, required=True,
+                                  help="Season year the emitted targets are stamped with.")
+    tag_teams_parser.add_argument("--week", type=int, default=0,
+                                  help="Week for the emitted targets (0 = preseason/offseason).")
+    tag_teams_parser.add_argument("--limit", type=int, default=None,
+                                  help="Optional cap on docs scanned (debug/preview).")
+    tag_teams_parser.add_argument("--sources", type=str, default=None,
+                                  help="Comma-separated source_name list to scan. Defaults to the "
+                                       "curated untagged sources (bluesky_curated + substack_*).")
+    tag_teams_parser.add_argument("--commit", action="store_true",
+                                  help="Actually insert rows. Default is dry-run.")
+    tag_teams_parser.add_argument("--preview", action="store_true",
+                                  help="Print each matched (doc, team) pair for eyeball review.")
+
     compute_player_advanced_parser = subparsers.add_parser(
         "compute-player-advanced",
         help=("Compute player_advanced_metrics for a season (optionally "
@@ -2666,6 +2687,30 @@ def main() -> None:
             + f": docs_scanned={result['docs_scanned']}"
             + f" matches={result['matches']}"
             + f" skipped_ambiguous={result['skipped_ambiguous']}"
+            + f" rows_written={result['rows_written']}"
+        )
+        return
+
+    if args.command == "tag-team-mentions":
+        from cfb_rankings.ingest.team_name_tagger import (
+            DEFAULT_UNTAGGED_SOURCES,
+            tag_team_mentions,
+        )
+        sources = (
+            [s.strip() for s in args.sources.split(",") if s.strip()]
+            if args.sources else list(DEFAULT_UNTAGGED_SOURCES)
+        )
+        result = tag_team_mentions(
+            db, season_year=args.season, week=args.week,
+            sources=sources, doc_limit=args.limit,
+            commit=args.commit, preview=getattr(args, "preview", False),
+        )
+        mode = "COMMIT" if args.commit else "DRY-RUN"
+        print(
+            f"[{mode}] tag-team-mentions season={args.season} week={args.week}"
+            + f" sources={','.join(sources)}"
+            + f": docs_scanned={result['docs_scanned']}"
+            + f" matches={result['matches']}"
             + f" rows_written={result['rows_written']}"
         )
         return
