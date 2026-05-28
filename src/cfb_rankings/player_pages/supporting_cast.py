@@ -199,10 +199,20 @@ def _team_year_staff(db, team_id: int, season_year: int) -> dict[str, str]:
     }
 
 
+_PRESSURE_RATE_CACHE: dict[tuple[int, int], tuple[float | None, int]] = {}
+
+
 def _pressure_rate(
     db, team_id: int, season_year: int,
 ) -> tuple[float | None, int]:
-    """OL pressure-allowed rate from PBP sack data. Returns (rate, dropback_count)."""
+    """OL pressure-allowed rate from PBP sack data. Returns (rate, dropback_count).
+
+    Cached per (team_id, season_year) — same team's rate is identical for every
+    player on that roster; was re-querying per-player in render_supporting_cast.
+    """
+    key = (int(team_id), int(season_year))
+    if key in _PRESSURE_RATE_CACHE:
+        return _PRESSURE_RATE_CACHE[key]
     rows = db.query_all(
         """
         select
@@ -218,13 +228,17 @@ def _pressure_rate(
         {"tid": team_id, "s": season_year},
     )
     if not rows:
+        _PRESSURE_RATE_CACHE[key] = (None, 0)
         return (None, 0)
     r = rows[0]
     db_ct = int(r.get("dropbacks") or 0)
     sacks = int(r.get("sacks") or 0)
     if db_ct < 20:
-        return (None, db_ct)
-    return (sacks / db_ct, db_ct)
+        result = (None, db_ct)
+    else:
+        result = (sacks / db_ct, db_ct)
+    _PRESSURE_RATE_CACHE[key] = result
+    return result
 
 
 def render_supporting_cast(

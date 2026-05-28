@@ -119,11 +119,12 @@ jobs:
           # (realignment: Texas/OU->SEC, Oregon/USC/UW/UCLA->Big Ten, etc.)
           python manage.py repair-team-current-identity
 
-      - name: Seed Wave 25 offseason posture (award watch + depth chart)
-        # Wave 25 — idempotent UPSERT from CSV source-of-truth files.
-        # These CSVs live in the repo; publish-site seeds them every run so the
+      - name: Seed Wave 25 offseason posture (award watch + depth chart + alias overrides)
+        # Wave 25 — idempotent UPSERT from CSV source-of-truth files +
+        # auto-derived split-pid status overrides.
+        # These all live in the repo; publish-site seeds them every run so the
         # rolling DB artifact always reflects the latest editorial posture.
-        # Non-fatal: if either CSV is missing the step skips gracefully.
+        # Non-fatal: if any input is missing the step skips gracefully.
         run: |
           if [ -f data/award_watch_2026.csv ]; then
             python manage.py refresh-award-watch --csv data/award_watch_2026.csv
@@ -137,6 +138,15 @@ jobs:
           else
             echo "::warning::data/depth_chart_2026.csv not found — skipping"
           fi
+          # Split-pid alias overrides — Gabriel/Cam Ward/Jeanty/etc. have stats
+          # on one player_id but NFL draft on a different pid. The seeder writes
+          # status_override rows mirroring the draft pid's status onto the
+          # stats pid so the page shows NFL framing, not EXHAUSTED_ELIGIBILITY.
+          if [ -f scripts/wave25_seed_alias_overrides.py ]; then
+            python scripts/wave25_seed_alias_overrides.py || echo "[wave25] alias seeder non-fatal failure"
+          fi
+          # Verify everything landed before the build proceeds (non-fatal).
+          python -X utf8 manage.py verify-wave25 || echo "[wave25] verify reported issues — see log above"
 
       # Start from the last healthy site state. If build-site fails
       # (FK constraint, etc.), this preserves all the team / player /
