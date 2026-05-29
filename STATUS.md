@@ -162,9 +162,10 @@
 
 ### WS-11 — Mobile + a11y + performance
 - **Last shipped:** Static-site generator produces fast pages; mobile-renders mostly work
+- **Audit (2026-05-28, session 9):** Spot-audited the two flagship surfaces against the prod DB at 390px. Both clean — no fixes warranted. Team page (`alabama`): 0 fixed/min-width CSS rules ≥360px (all wide `min-width` values live inside `@media (min-width:…)` breakpoints = mobile-first, not overflow); 1/1 img alt'd, 12/12 SVGs carry `role`+`aria-label`, single `h1`, ordered headings, the lone empty-text button is the theme toggle with `aria-label`. Era page (`era/cfp`): SVG uses `viewBox`+`preserveAspectRatio`+`.era-chart{width:100%;height:auto}` (scales, no overflow), `*{box-sizing:border-box}`, `max-width` containers, viewport meta, single `h1`. No code change — recording evidence so the PR-review enforcement note below is grounded.
 - **In flight:** None
 - **Blocked:** Not blocked (can audit current state anytime)
-- **Next action:** Phase 5 work (March 2027). Until then: enforce mobile-rendering checks in PR review.
+- **Next action:** Phase 5 work (March 2027). Until then: enforce mobile-rendering checks in PR review (baseline = clean per the session-9 audit above).
 - **Spec:** [specs/11-mobile-a11y-perf.md](specs/11-mobile-a11y-perf.md)
 
 ### WS-12 — Editorial cadence
