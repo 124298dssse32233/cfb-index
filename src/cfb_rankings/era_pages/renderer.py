@@ -13,8 +13,13 @@ from __future__ import annotations
 import html
 from typing import Any
 
+from ..charts import ANNOTATION_CSS, Annotation, render_annotation_overlay
 from ..dynasty_heatmap import _percentile_color
 from .data import ACTS, DefiningGame, EraSummary
+
+# A single-season percentile drop must be at least this steep to earn a
+# "steepest fall" callout — keeps the inflection annotation off flat trajectories.
+_FALL_MIN_PCT = 20.0
 
 # --- chart geometry ---------------------------------------------------------
 _CHART_W = 880
@@ -55,9 +60,65 @@ def _x_for(year: int, year_start: int, year_end: int) -> float:
     return _PAD_L + frac * (_CHART_W - _PAD_L - _PAD_R)
 
 
+def _inv_x(x: float, year_start: int, year_end: int) -> float:
+    span = max(1, year_end - year_start)
+    frac = (x - _PAD_L) / (_CHART_W - _PAD_L - _PAD_R)
+    return year_start + frac * span
+
+
 def _y_for(pct: float) -> float:
     frac = pct / 100.0
     return _PAD_T + (1.0 - frac) * (_CHART_H - _PAD_T - _PAD_B)
+
+
+def _select_era_annotations(summary: EraSummary) -> list[Annotation]:
+    """Pick up to three structural callouts for the trajectory (no LLM, D-004).
+
+    Priority: the championship spine (first national title), the peak season,
+    and the steepest single-season fall. Each season is annotated at most once,
+    so a flat or title-less program simply gets fewer callouts.
+    """
+    seasons = [s for s in summary.seasons if s.percentile is not None]
+    if len(seasons) < 2:
+        return []
+    ys, ye = summary.year_start, summary.year_end
+
+    def _xy(s: Any) -> tuple[float, float]:
+        return _x_for(s.year, ys, ye), _y_for(s.percentile)
+
+    by_year = {s.year: s for s in seasons}
+    anns: list[Annotation] = []
+    used: set[int] = set()
+
+    title_years = sorted(g.year for g in summary.defining_games if g.is_title and g.won)
+    if title_years and title_years[0] in by_year:
+        yr = title_years[0]
+        n = len(title_years)
+        x, y = _xy(by_year[yr])
+        head = "National title" if n == 1 else f"{n} national titles"
+        anns.append(Annotation(x, y, [head, f"first in {yr}" if n > 1 else str(yr)],
+                               placement="above-right"))
+        used.add(yr)
+
+    peak = max(seasons, key=lambda s: s.percentile)
+    if peak.year not in used:
+        x, y = _xy(peak)
+        anns.append(Annotation(x, y, ["Peak of the era",
+                                      f"{peak.year} · {peak.wins}–{peak.losses}"]))
+        used.add(peak.year)
+
+    worst_delta, worst = 0.0, None
+    for a, b in zip(seasons, seasons[1:]):
+        delta = a.percentile - b.percentile
+        if delta > worst_delta:
+            worst_delta, worst = delta, b
+    if worst is not None and worst_delta >= _FALL_MIN_PCT and worst.year not in used:
+        x, y = _xy(worst)
+        anns.append(Annotation(x, y, ["Steepest fall", str(worst.year)],
+                               placement="below-right"))
+        used.add(worst.year)
+
+    return anns
 
 
 def _trajectory_svg(summary: EraSummary) -> str:
@@ -109,6 +170,11 @@ def _trajectory_svg(summary: EraSummary) -> str:
             d.append(f'{"M" if i == 0 else "L"}{x:.1f} {y:.1f}')
         parts.append(f'<path d="{" ".join(d)}" class="era-line"/>')
 
+    # Editorial callouts (shared annotation DSL). Years that get a prose
+    # callout skip the bare star — the callout already carries the story.
+    annotations = _select_era_annotations(summary)
+    annotated_years = {int(round(_inv_x(a.x, ys, ye))) for a in annotations}
+
     # title-win seasons get a star marker so the championship spine is legible
     title_win_years = {g.year for g in summary.defining_games if g.is_title and g.won}
     for s in summary.seasons:
@@ -126,11 +192,16 @@ def _trajectory_svg(summary: EraSummary) -> str:
             f'class="era-axis-x">{s.year % 100:02d}</text>'
         )
         # mark national-title seasons with a compact star above the dot
-        if s.year in title_win_years:
+        if s.year in title_win_years and s.year not in annotated_years:
             parts.append(
                 f'<text x="{x:.1f}" y="{y - 10:.1f}" class="era-annot">&#9733;</text>'
             )
 
+    parts.append(
+        render_annotation_overlay(
+            annotations, width=_CHART_W, height=_CHART_H, accent="#c79200"
+        )
+    )
     parts.append("</svg>")
     return "".join(parts)
 
@@ -376,5 +447,5 @@ def render_era_page(summary: EraSummary) -> str:
         "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f"<title>{_esc(summary.program_name)} — The CFP Era</title>"
-        f"<style>{_CSS}</style></head><body>{''.join(body)}</body></html>"
+        f"<style>{_CSS}{ANNOTATION_CSS}</style></head><body>{''.join(body)}</body></html>"
     )

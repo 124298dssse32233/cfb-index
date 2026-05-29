@@ -194,6 +194,28 @@ def test_renderer_emits_sections(db: Database) -> None:
         assert marker in html
 
 
+def test_trajectory_has_annotation_callouts(db: Database) -> None:
+    # The trajectory chart must carry NYT-Upshot callouts via the shared DSL.
+    # alpha won the 2017 title, so the championship-spine callout fires; its
+    # bare star is suppressed (the callout already tells that story), while the
+    # title-loss year keeps no star at all.
+    from cfb_rankings.era_pages.renderer import _select_era_annotations
+
+    summary = build_era_summary(db, "alpha")
+    anns = _select_era_annotations(summary)
+    assert anns, "expected at least the title + peak callouts"
+    flat = " ".join(line for a in anns for line in a.lines)
+    assert "National title" in flat
+    assert "2017" in flat
+
+    html = render_era_page(summary)
+    assert 'class="chart-annotations"' in html
+    assert "Peak of the era" in html
+    # 2017 got a prose callout, so its bare star is dropped; with only one
+    # title win there should be no leftover star glyph.
+    assert "&#9733;" not in html
+
+
 def test_short_history_returns_none(db: Database) -> None:
     # Bravo only has power data via the cohort fillers? No — bravo has no
     # power_ratings rows of its own, so it has 0 era seasons -> None.
