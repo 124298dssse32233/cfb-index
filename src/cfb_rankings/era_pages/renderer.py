@@ -13,7 +13,13 @@ from __future__ import annotations
 import html
 from typing import Any
 
-from ..charts import ANNOTATION_CSS, Annotation, render_annotation_overlay
+from ..charts import (
+    ANNOTATION_CSS,
+    CHART_CARD_CSS,
+    Annotation,
+    render_annotation_overlay,
+    render_chart_card,
+)
 from ..dynasty_heatmap import _percentile_color
 from .data import ACTS, DefiningGame, EraSummary
 
@@ -433,7 +439,11 @@ def render_era_page(summary: EraSummary) -> str:
         _stat_sheet_html(summary),
         '<section class="era-section"><h2>The three-act trajectory</h2>',
         '<div class="era-chart-wrap">',
-        _trajectory_svg(summary),
+        render_chart_card(
+            _trajectory_svg(summary),
+            lede="Within-season power percentile against the FBS cohort, season by season.",
+            source="CFB Index · power ratings",
+        ),
         "</div>",
         _acts_html(summary),
         "</section>",
@@ -447,5 +457,5 @@ def render_era_page(summary: EraSummary) -> str:
         "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f"<title>{_esc(summary.program_name)} — The CFP Era</title>"
-        f"<style>{_CSS}{ANNOTATION_CSS}</style></head><body>{''.join(body)}</body></html>"
+        f"<style>{_CSS}{ANNOTATION_CSS}{CHART_CARD_CSS}</style></head><body>{''.join(body)}</body></html>"
     )
