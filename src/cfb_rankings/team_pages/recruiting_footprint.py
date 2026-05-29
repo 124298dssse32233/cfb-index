@@ -19,11 +19,18 @@ from __future__ import annotations
 from html import escape
 from typing import Any
 
+from ..charts import CHOROPLETH_CSS, render_state_choropleth
 from .profile_loader import Profile
 from .data import TeamSnapshot
 
 
-RECRUITING_FOOTPRINT_CSS = """
+# Number of recent recruiting cycles aggregated into the footprint map. A
+# single class is too sparse in the offseason to read as geography; a few
+# cycles shows where the program actually pulls from.
+_FOOTPRINT_WINDOW = 4
+
+
+_RECRUITING_FOOTPRINT_CSS = """
 /* Recruiting Footprint chip */
 .recruit-footprint {
   padding: clamp(14px, 1.8vw, 20px) clamp(16px, 2.0vw, 24px);
@@ -87,7 +94,14 @@ RECRUITING_FOOTPRINT_CSS = """
   margin: 8px 0 0 0;
   max-width: 56ch;
 }
+.recruit-footprint__map {
+  margin: 12px 0 4px 0;
+}
 """
+
+# Ship the shared choropleth styles alongside the footprint chip so the map
+# renders wherever this module does (the renderer injects this one constant).
+RECRUITING_FOOTPRINT_CSS = _RECRUITING_FOOTPRINT_CSS + CHOROPLETH_CSS
 
 
 # State of the team for "home state" detection. Lazy lookup.
@@ -107,6 +121,30 @@ def _fetch_state_distribution(db, team_id: int, season_year: int) -> list[dict[s
         {"tid": team_id, "s": season_year},
     )
     return rows
+
+
+def _fetch_state_footprint(
+    db, team_id: int, latest_year: int, window: int = _FOOTPRINT_WINDOW
+) -> dict[str, int]:
+    """Recruit counts by state aggregated over the last ``window`` cycles."""
+    rows = db.query_all(
+        """
+        select upper(state_province) as st, count(*) as n
+          from player_recruiting_profiles
+         where team_id = :tid
+           and season_year between :ys and :ye
+           and state_province is not null and state_province != ''
+         group by upper(state_province)
+        """,
+        {"tid": team_id, "ys": latest_year - (window - 1), "ye": latest_year},
+    )
+    out: dict[str, int] = {}
+    for r in rows:
+        code = (r.get("st") or "").strip()
+        n = int(r.get("n") or 0)
+        if code and n > 0:
+            out[code] = n
+    return out
 
 
 def _team_home_state(db, team_id: int) -> str | None:
@@ -196,6 +234,28 @@ def render_recruiting_footprint(
             f"National footprint reaching {len(states)} states."
         )
 
+    # Geography map: aggregate a few cycles so the footprint reads as a region,
+    # not a single (offseason-sparse) class. The text chips above stay as the
+    # accessible, no-SVG fallback.
+    footprint = _fetch_state_footprint(db, team_id, year)
+    map_html = ""
+    if footprint:
+        start_year = year - (_FOOTPRINT_WINDOW - 1)
+        lead_code = max(footprint, key=lambda k: footprint[k])
+        map_caption = (
+            f"{sum(footprint.values())} signees across {len(footprint)} states, "
+            f"{start_year}-{year}. {lead_code} leads the pull."
+        )
+        map_html = (
+            '<div class="recruit-footprint__map">'
+            + render_state_choropleth(
+                footprint,
+                title=f"Where they recruit · {start_year}-{year}",
+                caption=map_caption,
+            )
+            + '</div>'
+        )
+
     return f"""
 <section class="recruit-footprint" aria-labelledby="recruit-footprint-h"
          data-module="recruiting-footprint" data-state="ready" data-class-year="{year}">
@@ -205,6 +265,7 @@ def render_recruiting_footprint(
   </div>
   <div class="recruit-footprint__states">{''.join(chips)}</div>
   <p class="recruit-footprint__story">{escape(story)}</p>
+  {map_html}
 </section>"""
 
 

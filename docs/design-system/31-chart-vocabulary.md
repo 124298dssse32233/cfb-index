@@ -1,10 +1,10 @@
 # Chart Vocabulary
 
-**Locked 2026-05-17 (v2-addendum Sprint v5-5.5)**
+**Locked 2026-05-17 (v2-addendum Sprint v5-5.5). Expanding 6 → 9 per D-007: Sankey (live), Choropleth (live 2026-05-28), Network (pending WS-06 coaches table).**
 
-CFB Index uses exactly six chart types. Any new chart on the site MUST be one of these. The constraint produces a coherent visual vocabulary; drift produces visual chaos.
+CFB Index uses a locked set of chart types. Any new chart on the site MUST be one of these. The constraint produces a coherent visual vocabulary; drift produces visual chaos.
 
-When an engineer asks "what chart should I use here?" the first answer is "which of the six?"
+When an engineer asks "what chart should I use here?" the first answer is "which of the approved types?"
 
 ---
 
@@ -191,6 +191,39 @@ R ░░░░ ░░░░ ░░░░ ▓▓▓▓ ▓▓▓▓ ▓▓▓▓ 
 **When to use:** Play locations, mood-by-week (team-week heatmap), schedule difficulty matrices.
 
 **When NOT to use:** When there's no second dimension (use bar/spark). When data is too sparse (large empty regions). When color-blindness concerns dominate (add pattern + color, or use small multiples instead).
+
+---
+
+### 7. Choropleth (statebins tile grid)
+
+**Use for:** Geography where the geography IS the point — recruiting footprint, fan-density, regional attention pull.
+
+**Visual:**
+```
+WHERE THEY RECRUIT · 2023-2026
+        (tile per state, gold intensity = signee count)
+  WA ID MT ND MN WI MI       NY MA
+  OR NV WY SD IA IL IN OH PA NJ CT
+  CA UT CO NE MO KY WV VA MD DE RI
+     AZ NM KS AR TN NC SC DC
+        OK LA MS [AL] GA
+  AK HI    TX              FL
+  Fewer ▁▂▃▄▅ More (peak 24)
+```
+
+**Required elements:**
+- One tile per state (50 + DC), each in its approximate geographic position
+- Sequential single-hue ramp (faint → accent gold); zero-count states render faint, never absent
+- Legend with the peak value labelled
+- Per-tile `aria-label` ("AL: 24") — the chart is keyboard/SR legible without the visual
+
+**Color encoding:** Sequential single-hue only (color-blind safe; no red/green). `sqrt` spread so a dominant home state doesn't wash out the mid-volume pull.
+
+**Why a tile grid, not true boundaries:** real state shapes collapse below ~360px (RI, DE, DC become invisible), violating the mobile-legibility gate. Uniform tiles stay readable at 320px and keep the SVG small enough for the per-page weight budget. Implementation: `src/cfb_rankings/charts/choropleth.py`.
+
+**When to use:** Recruiting footprint (live on team pages), fan-density maps, transfer origin geography.
+
+**When NOT to use:** When geography is incidental (use a bar of state counts). For flows between places (use Sankey). When fewer than ~5 states have data (use the text-chip list).
 
 ---
 
