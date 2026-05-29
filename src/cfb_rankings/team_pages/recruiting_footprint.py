@@ -19,7 +19,12 @@ from __future__ import annotations
 from html import escape
 from typing import Any
 
-from ..charts import CHOROPLETH_CSS, render_state_choropleth
+from ..charts import (
+    CHART_CARD_CSS,
+    CHOROPLETH_CSS,
+    render_chart_card,
+    render_state_choropleth,
+)
 from .profile_loader import Profile
 from .data import TeamSnapshot
 
@@ -99,9 +104,10 @@ _RECRUITING_FOOTPRINT_CSS = """
 }
 """
 
-# Ship the shared choropleth styles alongside the footprint chip so the map
-# renders wherever this module does (the renderer injects this one constant).
-RECRUITING_FOOTPRINT_CSS = _RECRUITING_FOOTPRINT_CSS + CHOROPLETH_CSS
+# Ship the shared choropleth + chart-card styles alongside the footprint chip so
+# the carded map renders wherever this module does (the renderer injects this
+# one constant).
+RECRUITING_FOOTPRINT_CSS = _RECRUITING_FOOTPRINT_CSS + CHOROPLETH_CSS + CHART_CARD_CSS
 
 
 # State of the team for "home state" detection. Lazy lookup.
@@ -246,12 +252,14 @@ def render_recruiting_footprint(
             f"{sum(footprint.values())} signees across {len(footprint)} states, "
             f"{start_year}-{year}. {lead_code} leads the pull."
         )
+        bare_map = render_state_choropleth(footprint, as_figure=False)
         map_html = (
             '<div class="recruit-footprint__map">'
-            + render_state_choropleth(
-                footprint,
-                title=f"Where they recruit · {start_year}-{year}",
-                caption=map_caption,
+            + render_chart_card(
+                bare_map,
+                eyebrow=f"Where they recruit · {start_year}-{year}",
+                lede=map_caption,
+                source="CFB Index · player_recruiting_profiles",
             )
             + '</div>'
         )

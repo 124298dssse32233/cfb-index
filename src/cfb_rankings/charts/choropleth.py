@@ -71,11 +71,18 @@ def render_state_choropleth(
     title: str | None = None,
     caption: str | None = None,
     accent: str = "#c9a24a",
+    as_figure: bool = True,
 ) -> str:
     """Render a US statebins choropleth. ``counts`` maps 2-letter state -> value.
 
     Returns an empty string when there is nothing to map (no positive counts),
     so callers can treat it like every other optional chip.
+
+    ``as_figure`` (default True) returns the self-contained ``<figure>`` with its
+    own title/caption. Pass ``as_figure=False`` to get the bare svg + legend (no
+    figure/title/caption) so the map can render through the shared
+    ``render_chart_card`` shell without nesting figures — the card then owns the
+    headline/lede/source-receipt.
     """
     norm: dict[str, int] = {}
     for code, n in counts.items():
@@ -149,14 +156,23 @@ def render_state_choropleth(
         '</div>'
     )
 
-    return (
-        f'<figure class="choropleth" data-chart="choropleth">'
-        f'{title_html}'
-        f'<svg class="choropleth__svg" viewBox="0 0 {width} {height}" '
+    svg = (
+        f'<svg class="choropleth__svg" data-chart="choropleth" '
+        f'viewBox="0 0 {width} {height}" '
         f'role="group" aria-label="Recruit counts by U.S. state" '
         f'preserveAspectRatio="xMidYMid meet">'
         f'{"".join(tiles)}'
         f'</svg>'
+    )
+    if not as_figure:
+        # Bare svg + legend (no figure/title/caption) for the shared chart-card
+        # shell — the card owns the headline/lede/source-receipt.
+        return f'{svg}{legend}'
+
+    return (
+        f'<figure class="choropleth" data-chart="choropleth">'
+        f'{title_html}'
+        f'{svg}'
         f'{legend}'
         f'{caption_html}'
         f'</figure>'

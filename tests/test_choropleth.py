@@ -54,6 +54,22 @@ def test_render_emits_svg_tiles_and_peak_legend() -> None:
     assert 'aria-label="WY: 0"' in html
 
 
+def test_as_figure_false_returns_bare_svg_and_legend() -> None:
+    # The card-friendly form drops the figure/title/caption chrome so it can
+    # render through render_chart_card without nesting figures.
+    bare = render_state_choropleth(
+        {"AL": 24, "GA": 12}, title="ignored", caption="ignored",
+        as_figure=False,
+    )
+    assert bare.startswith("<svg")
+    assert "<figure" not in bare and "figcaption" not in bare
+    # Still a real chart: tiles + legend (the ramp scale) remain.
+    assert 'data-chart="choropleth"' in bare
+    assert "choropleth__legend" in bare and "peak 24" in bare
+    # Title/caption are the card's job now, not the bare svg's.
+    assert "ignored" not in bare
+
+
 def test_peak_state_is_brightest() -> None:
     # The peak state should carry the accent (bright) fill; a low state should
     # be visibly dimmer. We just assert distinct fills are emitted.
@@ -108,6 +124,14 @@ def test_footprint_module_embeds_choropleth(tmp_path: Path) -> None:
     # The map is embedded (geography is the point).
     assert 'data-chart="choropleth"' in html
     assert "recruit-footprint__map" in html
+    # The map now renders through the shared chart-card shell: it carries the
+    # card chrome (a single card figure, no nested choropleth figure) and a
+    # source-receipt footer.
+    assert "chart-card" in html
+    assert html.count('<figure class="chart-card"') == 1
+    assert "<figure class=\"choropleth\"" not in html
+    assert "chart-card__source" in html
+    assert "player_recruiting_profiles" in html
     # The text chips remain as the accessible fallback.
     assert "recruit-footprint__states" in html
     # Map aggregates across cycles, so AL=10 is the peak of the window.
