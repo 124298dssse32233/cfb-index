@@ -6955,7 +6955,10 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     for existing_file in compare_dir.glob("*.html"):
         _safe_unlink_generated_file(existing_file)
     (compare_dir / "index.html").write_text(
-        render_compare_page_html(summary, featured_team_pages, site_pulse),
+        render_compare_page_html(
+            summary, featured_team_pages, site_pulse,
+            payload_writer=lambda payload: (compare_dir / "teams.json").write_text(payload, encoding="utf-8"),
+        ),
         encoding="utf-8",
     )
 
@@ -14541,12 +14544,19 @@ def _render_market_feature_cards(team_pages: list[dict[str, Any]], prefix: str =
     return "".join(cards[:4])
 
 
-def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str, Any]], site_pulse: dict[str, Any]) -> str:
+def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str, Any]], site_pulse: dict[str, Any], payload_writer: Any = None) -> str:
     season_name = season_label(int(summary["season_year"]))
     default_a_page, default_b_page = _default_compare_pair(team_pages)
     default_a = _compare_team_snapshot(default_a_page, prefix="../")
     default_b = _compare_team_snapshot(default_b_page, prefix="../")
-    compare_payload = _compare_payload(team_pages, prefix="../")
+    _compare_payload_json = _compare_payload(team_pages, prefix="../")
+    if payload_writer is not None:
+        # External mode: write the all-teams payload to compare/teams.json and
+        # leave the inline <script> out so it isn't shipped on every load.
+        payload_writer(_compare_payload_json)
+        compare_payload_html = ""
+    else:
+        compare_payload_html = f'<script id="comparePayload" type="application/json">{_compare_payload_json}</script>'
     scenarios = _render_compare_scenario_cards(team_pages)
     team_options = "\n".join(
         f'<option value="{escape(team.slug)}">{escape(team.team_name)} ({escape(team.level_code)})</option>'
@@ -14697,7 +14707,7 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
         </div>
       </section>
 
-      <script id="comparePayload" type="application/json">{compare_payload}</script>
+      {compare_payload_html}
       <script>{_compare_tool_script()}</script>
     </main>
     {render_global_footer()}
@@ -14708,13 +14718,11 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
 
 def _compare_tool_script() -> str:
     return """
-      (() => {
-        const payloadNode = document.getElementById('comparePayload');
+      function initCompare(payload) {
         const teamASelect = document.getElementById('compareTeamA');
         const teamBSelect = document.getElementById('compareTeamB');
-        if (!payloadNode || !teamASelect || !teamBSelect) return;
+        if (!teamASelect || !teamBSelect) return;
 
-        const payload = JSON.parse(payloadNode.textContent || '{}');
         const teams = Array.isArray(payload.teams) ? payload.teams : [];
         const teamMap = new Map(teams.map((team) => [team.slug, team]));
         if (!teams.length) return;
@@ -14999,6 +15007,23 @@ def _compare_tool_script() -> str:
         });
 
         render();
+      }
+
+      (() => {
+        // Inline mode (legacy / no payload_writer): payload is in the DOM.
+        const inlineNode = document.getElementById('comparePayload');
+        if (inlineNode) {
+          try { initCompare(JSON.parse(inlineNode.textContent || '{}')); }
+          catch (err) { console.error('compare payload parse failed', err); }
+          return;
+        }
+        // External mode: payload written to compare/teams.json at build time
+        // to keep the initial HTML small (~770-team blob was ~360KB gzipped on
+        // every load). Fetch it on page load. See WS-11 page-weight work.
+        fetch('teams.json')
+          .then((resp) => { if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); })
+          .then((payload) => initCompare(payload))
+          .catch((err) => console.error('compare payload load failed', err));
       })();
     """
 
