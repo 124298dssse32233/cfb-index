@@ -23,6 +23,7 @@ from cfb_rankings.utils import ordinal_suffix as _ordinal
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.charts import CHART_CARD_CSS, render_chart_card
 from cfb_rankings.db import Database
 
 
@@ -336,6 +337,8 @@ _PAGE_TEMPLATE = """<!doctype html>
   .dh-takeaway__label {{ font-size: 11px; letter-spacing: 1.5px; color: var(--muted-foreground, #666); font-weight: 700; }}
   .dh-takeaway__value {{ font-size: 20px; font-weight: 800; margin: 4px 0 6px; }}
   .dh-takeaway__why {{ font-size: 13px; color: var(--muted-foreground, #555); line-height: 1.4; }}
+  .dh-wrap .chart-card {{ margin: 0; }}
+{chart_card_css}
 </style>
 </head>
 <body class="dynasty-heatmap-page">
@@ -362,7 +365,7 @@ _PAGE_TEMPLATE = """<!doctype html>
   <section class="section">
     <h2>How to read it</h2>
     <p>Look for <strong>solid warm bands</strong> — those are dynasties. Look for <strong>swings from cool to warm</strong> — those are turnarounds (Indiana 2024-25, James Madison's FBS arrival). Look for <strong>warm-then-cool collapses</strong> — those are hard landings (USC post-2017, FSU 2024).</p>
-    <p class="muted">Sourced from each program&rsquo;s final-week closing power rating per season. Methodology at <a href="/about-model/">/about-model/</a>.</p>
+    <p class="muted">Full methodology at <a href="/about-model/">/about-model/</a>.</p>
   </section>
 </main>
 </body>
@@ -451,6 +454,13 @@ def render_dynasty_heatmap_page(
     svg = render_dynasty_heatmap_svg(
         rows, year_start=year_start, year_end=year_end,
     )
+    # Route the heatmap through the shared chart-card shell so it carries the
+    # standardized source-receipt footer (WS-08 "every chart renders through
+    # the shared component"). The page hero owns the headline/lede.
+    chart_html = render_chart_card(
+        svg,
+        source=f"CFB Index · final-week closing power rating per season, {year_start}-{year_end}",
+    )
     takeaways_html = _build_takeaways_html(teams, rows)
     head_chrome = render_head_chrome(
         page_path="/history/heatmap/",
@@ -466,9 +476,10 @@ def render_dynasty_heatmap_page(
     return _PAGE_TEMPLATE.format(
         year_start=year_start,
         year_end=year_end,
-        svg_html=svg,
+        svg_html=chart_html,
         takeaways_html=takeaways_html,
         head_chrome=head_chrome,
+        chart_card_css=CHART_CARD_CSS,
     )
 
 
