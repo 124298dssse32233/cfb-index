@@ -127,6 +127,8 @@ ALABAMA POWER RATING — 2014 to 2025
 
 **When NOT to use:** Short-form contexts (use trajectory spark). When you don't have specific events to annotate (you have just a line — use trajectory spark).
 
+**Implemented by:** `cfb_rankings.charts.render_annotation_overlay` (the shared NYT-Upshot callout: marker dot + leader + label box, collision-aware, bounds-clamped, static SVG). Pass it pixel coordinates in your chart's own viewBox; it returns a `<g>` overlay fragment. New annotated charts must reuse it rather than re-rolling dot+label markup.
+
 ---
 
 ### 5. Small Multiples Grid (Tufte / Bloomberg style)

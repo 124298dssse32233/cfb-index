@@ -13,6 +13,13 @@ refactored to the shared component.
 """
 from __future__ import annotations
 
+from .annotation import ANNOTATION_CSS, Annotation, render_annotation_overlay
 from .choropleth import CHOROPLETH_CSS, render_state_choropleth
 
-__all__ = ["render_state_choropleth", "CHOROPLETH_CSS"]
+__all__ = [
+    "render_state_choropleth",
+    "CHOROPLETH_CSS",
+    "Annotation",
+    "render_annotation_overlay",
+    "ANNOTATION_CSS",
+]
