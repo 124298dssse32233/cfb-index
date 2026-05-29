@@ -330,6 +330,8 @@ Per `docs/design-system/00-tokens.md`:
 
 **Critical rule:** When red+green encode meaning (belief ramp), also add shape/icon redundancy for color-blind accessibility. Up-arrow + green for "rising"; down-arrow + red for "falling." Color alone is insufficient.
 
+**Enforced by:** `scripts/check_color_blind.py --enforce` (wired into `publish_site.yml`) simulates deuteranopia/protanopia/tritanopia on the real tokens and fails the build if the percentile ramp loses distinguishability. The belief ramp is the allowlisted exception above — it depends on this shape/icon redundancy.
+
 ---
 
 ## Sample-size signaling on charts

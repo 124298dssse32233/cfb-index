@@ -358,6 +358,17 @@ jobs:
         run: |
           python scripts/check_page_weight.py --site-dir output/site --budget-kb 150 --enforce --max-violations 0
 
+      - name: Enforce color-blind palette safety (WS-11)
+        # Deterministic guard on the checked-in design tokens: simulates
+        # deuteranopia/protanopia/tritanopia (Machado 2009) and fails the build
+        # if the percentile ramp (red->grey->blue, the workhorse encoding) ever
+        # becomes indistinguishable for color-blind users. The belief ramp
+        # (red->grey->green) is the documented exception — it relies on markup
+        # shape/icon redundancy per design-system rule 331 — and is reported,
+        # not failed.
+        run: |
+          python scripts/check_color_blind.py --enforce
+
       - name: Build Cmd-K search index
         # Ships output/site/search-index.json so the Cmd-K overlay's
         # client-side search has a real dataset (~500KB-1MB depending
