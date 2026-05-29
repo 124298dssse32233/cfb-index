@@ -347,6 +347,16 @@ Caption is identity (what's the chart). Annotations are story (what's notable). 
 
 ---
 
+## Chart-card shell (the single shared wrapper)
+
+Every chart should render through **one** shared shell so the surrounding chrome stops drifting (today some charts carry a source-receipt footer, some don't; some bury the data source inside the SVG, some omit it entirely).
+
+**Implemented by:** `cfb_rankings.charts.render_chart_card` (`charts/card.py`). Pure, deterministic string composition — no JS, unit-tested with zero live data. Slots: `eyebrow` → `headline` → `lede`, then the chart (with optional `x_label`/`y_label` axis labels and an optional stacked `annotation_svg` overlay layer), then a `source` **source-receipt footer** (`Source · …`). The card does not draw the chart — pass it a finished SVG string from any renderer in the package.
+
+**Discipline:** new chart surfaces render through `render_chart_card`. Existing hand-rolled chart chrome migrates to it incrementally (same posture as the `PENDING_CENTRALIZATION` registry for renderers). First production consumer: the **Talent Migration** Sankey on `/offseason/` (gained a source-receipt footer it previously lacked; its title + source moved out of the SVG onto the card).
+
+---
+
 ## Color discipline per chart
 
 Per `docs/design-system/00-tokens.md`:

@@ -11,14 +11,17 @@ Locked types (9): Percentile Bar, Trajectory Spark, Bump Chart, Annotated
 Line, Small Multiples, Heatmap (the original 6, rendered inline across
 modules today) + Sankey, Choropleth, Network (the 3 expansion types). This
 package houses the centralised renderers — Choropleth, the Annotation overlay
-(which delivers the Annotated Line type), and the Network chord diagram. The
-original-6 inline renderers migrate here as they are refactored to the shared
-component (their migration debt is tracked in
-``tests/test_chart_governance.py::PENDING_CENTRALIZATION``).
+(which delivers the Annotated Line type), and the Network chord diagram — plus
+``render_chart_card``, the single shared shell every chart renders through
+(eyebrow/headline/lede/chart/axis-labels/source-receipt footer) so the
+surrounding chrome stops drifting. The original-6 inline renderers migrate here
+as they are refactored to the shared component (their migration debt is tracked
+in ``tests/test_chart_governance.py::PENDING_CENTRALIZATION``).
 """
 from __future__ import annotations
 
 from .annotation import ANNOTATION_CSS, Annotation, render_annotation_overlay
+from .card import CHART_CARD_CSS, render_chart_card
 from .choropleth import CHOROPLETH_CSS, render_state_choropleth
 from .network import NETWORK_CSS, NetworkEdge, NetworkNode, render_network
 
@@ -32,4 +35,6 @@ __all__ = [
     "NetworkNode",
     "NetworkEdge",
     "NETWORK_CSS",
+    "render_chart_card",
+    "CHART_CARD_CSS",
 ]

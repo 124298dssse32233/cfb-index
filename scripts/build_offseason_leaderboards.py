@@ -87,6 +87,7 @@ def _dest_bucket(level: str | None) -> int:
 def _portal_flow_section(c, season) -> str:
     """National transfer-portal flow Sankey: origin level -> destination level
     for the given cycle. Powered by the existing flow viz template (WS-08)."""
+    from cfb_rankings.charts import render_chart_card
     from cfb_rankings.editions.viz_templates import render as render_viz
 
     raw = c.execute(
@@ -133,8 +134,8 @@ def _portal_flow_section(c, season) -> str:
     total = sum(int(r["n"]) for r in raw)
     fcs_up = link_counts.get((1, 0), 0)
     uncommitted = right_totals[3]
+    # title + source now live on the shared chart-card shell, not inside the SVG.
     svg = render_viz("flow", {
-        "title": f"Where the {season} portal moved",
         "left_label": "LEFT THIS LEVEL",
         "right_label": "LANDED AT",
         "left_nodes": left_nodes,
@@ -142,14 +143,17 @@ def _portal_flow_section(c, season) -> str:
         "links": links,
         "caption": (f"{total:,} tracked entries — {fcs_up} climbed FCS→FBS, "
                     f"{uncommitted:,} still uncommitted."),
-        "source": "CFB Index · transfer_entries",
     })
+    # Wide diagram → keep it on a horizontal-scroll rail rather than squishing.
+    scroller = f'<div style="overflow-x:auto;"><div style="min-width:680px;">{svg}</div></div>'
+    card = render_chart_card(
+        scroller,
+        source="CFB Index · transfer_entries",
+    )
     return f"""
   <h2 class="sec" id="flow">Talent Migration</h2>
-  <div class="board" style="overflow-x:auto;">
-    <div class="dek">The full {season} portal cycle as a flow — which level each transfer left, and where they landed. Band width is player count.</div>
-    <div style="min-width:680px;">{svg}</div>
-  </div>"""
+  <div class="dek">The full {season} portal cycle as a flow — which level each transfer left, and where they landed. Band width is player count.</div>
+  {card}"""
 
 
 # --- Portal program network (WS-08, chart type #9): who feeds whom ----------
@@ -459,7 +463,7 @@ def build() -> None:
     network_html = _transfer_network_section(c, latest_cycle)
     conf_html = conference_sections(c)
 
-    from cfb_rankings.charts import NETWORK_CSS
+    from cfb_rankings.charts import CHART_CARD_CSS, NETWORK_CSS
 
     page = f"""<!DOCTYPE html>
 <html lang="en"><head>
@@ -517,6 +521,7 @@ def build() -> None:
     .row .mb{{width:60%;}}
   }}
 {NETWORK_CSS}
+{CHART_CARD_CSS}
 </style></head><body>
 <div class="nav-strip"><a href="/">← CFB Index</a><a href="/rankings/">Rankings</a><a href="/chronicle/">The Chronicle</a><strong>Offseason Leaderboards</strong></div>
 <div class="wrap">
