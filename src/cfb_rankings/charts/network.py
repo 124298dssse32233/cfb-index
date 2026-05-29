@@ -97,6 +97,7 @@ def render_network(
     caption: str | None = None,
     accent: str = "#c9a24a",
     label_color: str | None = None,
+    as_figure: bool = True,
 ) -> str:
     """Render a directed circular-chord network.
 
@@ -108,6 +109,12 @@ def render_network(
     ``label_color`` overrides the node-label fill (emitted as ``--net-label``)
     so the same renderer reads correctly on a light host page as well as the
     dark design-system surfaces it defaults to.
+
+    ``as_figure`` (default True) returns the self-contained ``<figure>`` with
+    its own title/caption. Pass ``as_figure=False`` to get just the bare
+    ``<svg>`` (CSS vars applied to the svg element) so the chart can render
+    through the shared ``render_chart_card`` shell without nesting figures —
+    the card then owns the headline/lede/source-receipt.
     """
     seen: set[str] = set()
     order: list[str] = []
@@ -209,12 +216,24 @@ def render_network(
     if label_color:
         style += f";--net-label:{escape(label_color)}"
 
+    aria = escape(title or "Entity relationship network")
+    if not as_figure:
+        # Bare SVG (CSS vars on the svg so they cascade to edges/labels) for the
+        # shared chart-card shell — no figure/title/caption of its own.
+        return (
+            f'<svg class="network__svg" data-chart="network" style="{style}" '
+            f'viewBox="0 0 {_W:.0f} {_H:.0f}" role="group" aria-label="{aria}" '
+            f'preserveAspectRatio="xMidYMid meet">'
+            f'{defs}{"".join(edge_svg)}{"".join(node_svg)}'
+            f'</svg>'
+        )
+
     return (
         f'<figure class="network" data-chart="network" '
         f'style="{style}">'
         f'{title_html}'
         f'<svg class="network__svg" viewBox="0 0 {_W:.0f} {_H:.0f}" '
-        f'role="group" aria-label="{escape(title or "Entity relationship network")}" '
+        f'role="group" aria-label="{aria}" '
         f'preserveAspectRatio="xMidYMid meet">'
         f'{defs}'
         f'{"".join(edge_svg)}'

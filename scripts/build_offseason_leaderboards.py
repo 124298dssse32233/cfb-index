@@ -166,7 +166,12 @@ def _transfer_network_section(c, season) -> str:
     cycle — FBS→FBS player movement among the ``_NET_NODES`` highest-volume
     programs (edges thinned to real pipelines of ≥``_NET_EDGE_MIN`` players).
     Powered by the centralised charts.render_network (WS-08 chart type #9)."""
-    from cfb_rankings.charts import NetworkEdge, NetworkNode, render_network
+    from cfb_rankings.charts import (
+        NetworkEdge,
+        NetworkNode,
+        render_chart_card,
+        render_network,
+    )
 
     raw = c.execute(
         """
@@ -217,21 +222,24 @@ def _transfer_network_section(c, season) -> str:
 
     svg = render_network(
         nodes, edges,
-        caption=(f"Each arc is a portal pipeline of {_NET_EDGE_MIN}+ players "
-                 f"between two of the {len(nodes)} busiest FBS programs this "
-                 f"cycle; the arrow points to where they landed. Dot size = "
-                 f"total portal traffic."),
         accent=NAVY,
         label_color=INK,
+        as_figure=False,  # the shared chart-card owns the chrome
     )
     if not svg:
         return ""
+    card = render_chart_card(
+        svg,
+        lede=(f"Each arc is a portal pipeline of {_NET_EDGE_MIN}+ players "
+              f"between two of the {len(nodes)} busiest FBS programs this "
+              f"cycle; the arrow points to where they landed. Dot size = "
+              f"total portal traffic."),
+        source="CFB Index · transfer_entries",
+    )
     return f"""
   <h2 class="sec" id="network">Portal Pipelines</h2>
-  <div class="board">
-    <div class="dek">The {season} carousel as a web — which programs feed each other. The thickest arcs are the established pipelines.</div>
-    {svg}
-  </div>"""
+  <div class="dek">The {season} carousel as a web — which programs feed each other. The thickest arcs are the established pipelines.</div>
+  {card}"""
 
 
 def _pct(v) -> float:

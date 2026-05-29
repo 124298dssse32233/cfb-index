@@ -123,3 +123,19 @@ def test_deterministic_output() -> None:
     nodes = _nodes("a", "b", "c")
     edges = [NetworkEdge("a", "b"), NetworkEdge("b", "c")]
     assert render_network(nodes, edges) == render_network(nodes, edges)
+
+
+def test_as_figure_false_returns_bare_svg() -> None:
+    nodes = _nodes("a", "b", "c")
+    edges = [NetworkEdge("a", "b"), NetworkEdge("b", "c")]
+    bare = render_network(nodes, edges, accent="#1f2c4d",
+                          label_color="#1a1a1a", as_figure=False)
+    # No surrounding <figure>/<figcaption> chrome — just the svg.
+    assert bare.startswith("<svg")
+    assert bare.rstrip().endswith("</svg>")
+    assert "<figure" not in bare and "figcaption" not in bare
+    # CSS vars land on the svg so edges/labels still resolve their colors.
+    assert "--net-accent:#1f2c4d" in bare
+    assert "--net-label:#1a1a1a" in bare
+    # Still a real chart: arrowhead marker + at least one edge present.
+    assert 'id="net-arrow"' in bare and "network__edge" in bare
