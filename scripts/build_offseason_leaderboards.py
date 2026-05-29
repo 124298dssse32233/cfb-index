@@ -249,6 +249,63 @@ def _transfer_network_section(c, season) -> str:
   {card}"""
 
 
+_STATE_NAME = {
+    "TX": "Texas", "FL": "Florida", "GA": "Georgia", "CA": "California",
+    "OH": "Ohio", "AL": "Alabama", "LA": "Louisiana", "MS": "Mississippi",
+    "NC": "North Carolina", "TN": "Tennessee", "VA": "Virginia", "SC": "South Carolina",
+}
+
+
+def _transfer_origin_geography_section(c, season) -> str:
+    """US statebins choropleth of where this cycle's transfers grew up — joins
+    each portal entrant to the home state on their recruiting profile. Answers
+    "where did the portal grow up?", a question the level-migration Sankey and
+    program network can't (they speak schools, not hometowns). Powered by the
+    centralised charts.render_state_choropleth (WS-08 chart type, 2nd surface).
+
+    Note: this uses the recruiting-profile hometown join, NOT teams.state (which
+    is still empty in prod) — the transfer-origin map is buildable today."""
+    from cfb_rankings.charts import render_chart_card, render_state_choropleth
+
+    raw = c.execute(
+        """
+        SELECT prp.state_province AS st,
+               COUNT(DISTINCT te.transfer_entry_id) AS n
+        FROM transfer_entries te
+        JOIN player_recruiting_profiles prp ON prp.player_id = te.player_id
+        WHERE te.season_year = :sy
+          AND prp.state_province IS NOT NULL AND prp.state_province <> ''
+        GROUP BY prp.state_province
+        """,
+        {"sy": season},
+    ).fetchall()
+    counts = {r["st"].strip().upper(): r["n"] for r in raw if r["st"]}
+    svg = render_state_choropleth(
+        counts, accent=NAVY, as_figure=False, on_dark=False,
+    )
+    if not svg:
+        return ""
+
+    # Self-narrating lede: name the top-3 producing states (the map shows the
+    # ramp but never says which states lead or by how much).
+    top = sorted(counts.items(), key=lambda kv: -kv[1])[:3]
+    named = [f"{_STATE_NAME.get(st, st)} ({n})" for st, n in top]
+    lede = (
+        f"Every {season} FBS transfer mapped to the state they grew up in. "
+        f"The deepest wells: {', '.join(named)}. Darker = more players who "
+        f"entered the portal call that state home."
+    )
+    card = render_chart_card(
+        svg,
+        lede=lede,
+        source="CFB Index · transfer_entries × player_recruiting_profiles",
+    )
+    return f"""
+  <h2 class="sec" id="geography">Where the Portal Grew Up</h2>
+  <div class="dek">The carousel churns schools, but talent has a hometown. This is the {season} portal by home state.</div>
+  {card}"""
+
+
 def _pct(v) -> float:
     # returning_production columns are fractions (0..~1.05); a few exceed 1.0
     # slightly. Treat anything <= 1.5 as a fraction to scale to a percent.
@@ -476,9 +533,15 @@ def build() -> None:
     latest_cycle = _latest(c, "transfer_entries")
     flow_html = _portal_flow_section(c, latest_cycle)
     network_html = _transfer_network_section(c, latest_cycle)
+    geography_html = _transfer_origin_geography_section(c, latest_cycle)
     conf_html = conference_sections(c)
 
-    from cfb_rankings.charts import ANNOTATION_CSS, CHART_CARD_CSS, NETWORK_CSS
+    from cfb_rankings.charts import (
+        ANNOTATION_CSS,
+        CHART_CARD_CSS,
+        CHOROPLETH_CSS,
+        NETWORK_CSS,
+    )
 
     page = f"""<!DOCTYPE html>
 <html lang="en"><head>
@@ -538,6 +601,7 @@ def build() -> None:
 {NETWORK_CSS}
 {CHART_CARD_CSS}
 {ANNOTATION_CSS}
+{CHOROPLETH_CSS}
 </style></head><body>
 <div class="nav-strip"><a href="/">← CFB Index</a><a href="/rankings/">Rankings</a><a href="/chronicle/">The Chronicle</a><strong>Offseason Leaderboards</strong></div>
 <div class="wrap">
@@ -545,7 +609,7 @@ def build() -> None:
     <div class="stamp">Updated {escape(UPDATED)} · 2026 offseason</div>
     <h1>Offseason Leaderboards</h1>
     <p class="thesis">Who won the offseason? National and conference boards for the transfer portal, returning production, NFL exits, and roster talent — every FBS team ranked heading into 2026. Tap a team for the full file.</p>
-    <div class="jumps"><a href="#national">National</a><a href="#flow">Talent Migration</a><a href="#network">Portal Pipelines</a><a href="#conference">By Conference</a></div>
+    <div class="jumps"><a href="#national">National</a><a href="#flow">Talent Migration</a><a href="#network">Portal Pipelines</a><a href="#geography">Where It Grew Up</a><a href="#conference">By Conference</a></div>
   </header>
 
   <h2 class="sec" id="national">National Boards</h2>
@@ -553,6 +617,7 @@ def build() -> None:
   <div class="grid">{grid_html}</div>
 {flow_html}
 {network_html}
+{geography_html}
   <h2 class="sec" id="conference">By Conference</h2>
   {conf_html}
 </div></body></html>"""

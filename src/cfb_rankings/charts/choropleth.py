@@ -72,6 +72,7 @@ def render_state_choropleth(
     caption: str | None = None,
     accent: str = "#c9a24a",
     as_figure: bool = True,
+    on_dark: bool = True,
 ) -> str:
     """Render a US statebins choropleth. ``counts`` maps 2-letter state -> value.
 
@@ -83,6 +84,13 @@ def render_state_choropleth(
     figure/title/caption) so the map can render through the shared
     ``render_chart_card`` shell without nesting figures — the card then owns the
     headline/lede/source-receipt.
+
+    ``on_dark`` (default True) tunes the ramp's dim end + the zero-count tile and
+    low-count label colors for the dark design-system surfaces this chart
+    defaults to. Pass ``on_dark=False`` for a light host page (e.g. the cream
+    ``/offseason/`` page): the ramp blends toward white instead of near-black, and
+    empty tiles get a faint *dark* wash so they read on a light background —
+    mirroring how ``render_network`` takes ``label_color`` for host portability.
     """
     norm: dict[str, int] = {}
     for code, n in counts.items():
@@ -100,8 +108,21 @@ def render_state_choropleth(
         return ""
 
     peak = max(norm.values())
-    lo_rgb = _hex_to_rgb("4a3c18")        # dim end of the gold ramp
     hi_rgb = _hex_to_rgb(accent.lstrip("#") if accent.startswith("#") else accent)
+    if on_dark:
+        lo_rgb = _hex_to_rgb("4a3c18")    # dim end of the ramp toward near-black
+        zero_fill = "rgba(255,255,255,0.03)"
+        zero_stroke = "rgba(255,255,255,0.10)"
+        zero_label_fill = "#9a958a"
+        low_label_fill = "#e9e6dc"        # cream — reads on a dark surface
+    else:
+        # Light host page: ramp from a pale tint of the accent (blend ~22% toward
+        # white) and wash empty tiles faint *dark* so they show on cream/white.
+        lo_rgb = tuple(_lerp(c, 255, 0.78) for c in hi_rgb)
+        zero_fill = "rgba(20,20,24,0.04)"
+        zero_stroke = "rgba(20,20,24,0.12)"
+        zero_label_fill = "#b3ada1"
+        low_label_fill = "#1b1b1b"        # dark — reads on a light surface
 
     width = _COLS * _STEP - _GAP + _PAD * 2
     height = _ROWS * _STEP - _GAP + _PAD * 2
@@ -118,14 +139,14 @@ def render_state_choropleth(
             stroke = accent
             stroke_op = "0.55"
             label_op = "0.92" if t >= 0.45 else "0.7"
-            label_fill = "#1b1b1b" if t >= 0.6 else "#e9e6dc"
+            label_fill = "#1b1b1b" if t >= 0.6 else low_label_fill
             aria = f"{code}: {n}"
         else:
-            fill = "rgba(255,255,255,0.03)"
-            stroke = "rgba(255,255,255,0.10)"
+            fill = zero_fill
+            stroke = zero_stroke
             stroke_op = "1"
             label_op = "0.35"
-            label_fill = "#9a958a"
+            label_fill = zero_label_fill
             aria = f"{code}: 0"
         cx = x + _CELL / 2
         cy = y + _CELL / 2
@@ -147,11 +168,16 @@ def render_state_choropleth(
     caption_html = (
         f'<p class="choropleth__caption">{escape(caption)}</p>' if caption else ""
     )
-    # Legend: faint -> peak, with the peak value labelled.
+    # Legend: faint -> peak, with the peak value labelled. The ramp gradient is
+    # computed inline from the actual lo->accent colors so it stays accurate for
+    # any accent / light-or-dark mode (the CSS gradient is only a fallback).
+    lo_hex = _fill(0.0, lo_rgb, hi_rgb)
+    hi_hex = accent if accent.startswith("#") else f"#{accent}"
     legend = (
         '<div class="choropleth__legend" aria-hidden="true">'
         '<span class="choropleth__legend-label">Fewer</span>'
-        '<span class="choropleth__legend-ramp"></span>'
+        f'<span class="choropleth__legend-ramp" '
+        f'style="background:linear-gradient(90deg,{escape(lo_hex)},{escape(hi_hex)})"></span>'
         f'<span class="choropleth__legend-label">More (peak {peak})</span>'
         '</div>'
     )

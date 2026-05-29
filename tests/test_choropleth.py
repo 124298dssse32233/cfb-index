@@ -70,6 +70,22 @@ def test_as_figure_false_returns_bare_svg_and_legend() -> None:
     assert "ignored" not in bare
 
 
+def test_on_dark_false_uses_light_page_colors() -> None:
+    # Light host page (e.g. the cream /offseason/): empty tiles get a faint
+    # *dark* wash (not the dark-surface white wash) so they read on light, and
+    # the ramp's dim end is a pale tint of the accent (not near-black).
+    light = render_state_choropleth({"AL": 24, "GA": 12}, accent="#1f2c4d",
+                                    as_figure=False, on_dark=False)
+    assert "rgba(20,20,24,0.04)" in light      # faint dark empty-tile wash
+    assert "rgba(255,255,255,0.03)" not in light  # not the dark-surface wash
+    # Legend ramp gradient is inline + accurate (pale tint -> full accent).
+    assert "linear-gradient(90deg,#" in light
+    assert "#1f2c4d" in light                   # the accent (peak) end
+    # The dark default still emits the dark-surface empty wash.
+    dark = render_state_choropleth({"AL": 24, "GA": 12}, as_figure=False)
+    assert "rgba(255,255,255,0.03)" in dark
+
+
 def test_peak_state_is_brightest() -> None:
     # The peak state should carry the accent (bright) fill; a low state should
     # be visibly dimmer. We just assert distinct fills are emitted.
