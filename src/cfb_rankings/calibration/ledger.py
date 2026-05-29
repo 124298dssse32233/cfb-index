@@ -178,9 +178,80 @@ def _resolve_season_wins(
     return str(actual), round(score, 4), f"predicted {int(predicted)}, actual {actual}"
 
 
+def _resolve_game_pick(
+    db: Database, row: dict[str, Any]
+) -> tuple[Optional[str], Optional[float], str]:
+    """Grade a game_pick. ``entity_id`` is the game_id; ``predicted_value`` is the
+    picked winner's team slug. Scores 1.0 for the right side, 0.0 for the wrong side,
+    0.5 for a tie (equal final points). Returns None until the game is final, so an
+    unplayed/unscored game stays unresolved for a later pass."""
+    try:
+        game_id = int(row["entity_id"])
+    except (TypeError, ValueError):
+        return None, None, "non-numeric game_id"
+    game = db.query_one(
+        """
+        select home_team_id, away_team_id, home_points, away_points
+          from games where game_id = :gid
+        """,
+        {"gid": game_id},
+    )
+    if not game:
+        return None, None, "game not found"
+    if game.get("home_points") is None or game.get("away_points") is None:
+        return None, None, "game not yet final"
+    hp, ap = int(game["home_points"]), int(game["away_points"])
+    if hp == ap:
+        return "tie", 0.5, "tie — no winner"
+    winner_id = game["home_team_id"] if hp > ap else game["away_team_id"]
+    win = db.query_one("select slug from teams where team_id = :tid", {"tid": winner_id})
+    winner_slug = str(win["slug"]) if win and win.get("slug") else str(winner_id)
+    score = 1.0 if str(row["predicted_value"]) == winner_slug else 0.0
+    return winner_slug, score, "called it" if score else "wrong side"
+
+
+def _resolve_award_winner(
+    db: Database, row: dict[str, Any]
+) -> tuple[Optional[str], Optional[float], str]:
+    """Grade an award_winner. ``entity_id`` is the award key, ``predicted_value`` is
+    the predicted winner's player_id, ``period_key`` is the season. ``heisman`` grades
+    against ``heisman_vote_results.winner_flag``; any other award against
+    ``player_honors`` (placement=1) matched on ``honor_name``. 1.0 if the pick won,
+    else 0.0. Returns None until a winner is recorded for that season."""
+    try:
+        season = int(row["period_key"])
+    except (TypeError, ValueError):
+        return None, None, "non-numeric period_key"
+    award = str(row["entity_id"] or "").strip().lower()
+    if award == "heisman":
+        win = db.query_one(
+            """
+            select player_id from heisman_vote_results
+             where season_year = :s and winner_flag = 1 limit 1
+            """,
+            {"s": season},
+        )
+    else:
+        win = db.query_one(
+            """
+            select player_id from player_honors
+             where season_year = :s and lower(honor_name) = :a and placement = 1
+             limit 1
+            """,
+            {"s": season, "a": award},
+        )
+    if not win or win.get("player_id") is None:
+        return None, None, "winner not yet recorded"
+    actual = str(win["player_id"])
+    score = 1.0 if str(row["predicted_value"]) == actual else 0.0
+    return actual, score, "called the winner" if score else "missed"
+
+
 OUTCOME_RESOLVERS: dict[str, Resolver] = {
     "archetype_assignment": _resolve_archetype_assignment,
     "season_wins": _resolve_season_wins,
+    "game_pick": _resolve_game_pick,
+    "award_winner": _resolve_award_winner,
 }
 
 

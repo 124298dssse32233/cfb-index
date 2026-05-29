@@ -284,6 +284,125 @@ def test_season_wins_resolver_skips_unplayed_season(db: Database) -> None:
     assert result["skipped"] == 1
 
 
+def _game_id(db: Database, season: int, home: int, away: int, hp, ap) -> int:
+    db.execute(
+        """insert into games
+           (season_year, season_type, status, home_team_id, away_team_id, home_points, away_points)
+           values (:season, 'regular', :status, :home, :away, :hp, :ap)""",
+        {"season": season, "home": home, "away": away, "hp": hp, "ap": ap,
+         "status": "Final" if hp is not None else "Scheduled"},
+    )
+    return int(db.query_one("select max(game_id) as g from games")["g"])
+
+
+def test_game_pick_resolver_grades_both_sides(db: Database) -> None:
+    aid = db.query_one("select team_id from teams where slug='alpha'")["team_id"]
+    bid = db.query_one("select team_id from teams where slug='bravo'")["team_id"]
+    g = _game_id(db, 2025, home=aid, away=bid, hp=28, ap=10)  # alpha (home) wins
+    # one correct pick (alpha), one wrong pick (bravo).
+    record_prediction(db, model_id="picks", entity_type="game", entity_id=str(g),
+                      prediction_kind="game_pick", period_key="2025",
+                      predicted_value="alpha", confidence_value=0.7,
+                      expires_at="2025-12-01 00:00:00")
+    record_prediction(db, model_id="picks", entity_type="game", entity_id=str(g),
+                      prediction_kind="game_pick", period_key="2025-wrong",
+                      predicted_value="bravo", confidence_value=0.7,
+                      expires_at="2025-12-01 00:00:00")
+    out = resolve_due_predictions(db, now="2026-01-01 00:00:00", kinds=["game_pick"])
+    assert out["resolved"] == 2
+    rows = {r["period_key"]: r for r in db.query_all(
+        "select period_key, actual_value, accuracy_score, resolution_note "
+        "from prediction_ledger where prediction_kind='game_pick'", {})}
+    assert rows["2025"]["actual_value"] == "alpha"
+    assert rows["2025"]["accuracy_score"] == 1.0
+    assert rows["2025"]["resolution_note"] == "called it"
+    assert rows["2025-wrong"]["accuracy_score"] == 0.0
+    assert rows["2025-wrong"]["resolution_note"] == "wrong side"
+
+
+def test_game_pick_resolver_handles_tie(db: Database) -> None:
+    aid = db.query_one("select team_id from teams where slug='alpha'")["team_id"]
+    bid = db.query_one("select team_id from teams where slug='bravo'")["team_id"]
+    g = _game_id(db, 2025, home=aid, away=bid, hp=17, ap=17)
+    record_prediction(db, model_id="picks", entity_type="game", entity_id=str(g),
+                      prediction_kind="game_pick", period_key="2025",
+                      predicted_value="alpha", confidence_value=0.7,
+                      expires_at="2025-12-01 00:00:00")
+    resolve_due_predictions(db, now="2026-01-01 00:00:00", kinds=["game_pick"])
+    row = db.query_one("select actual_value, accuracy_score from prediction_ledger "
+                       "where prediction_kind='game_pick'", {})
+    assert row["actual_value"] == "tie"
+    assert row["accuracy_score"] == 0.5
+
+
+def test_game_pick_resolver_skips_unplayed_game(db: Database) -> None:
+    aid = db.query_one("select team_id from teams where slug='alpha'")["team_id"]
+    bid = db.query_one("select team_id from teams where slug='bravo'")["team_id"]
+    g = _game_id(db, 2025, home=aid, away=bid, hp=None, ap=None)  # not final
+    record_prediction(db, model_id="picks", entity_type="game", entity_id=str(g),
+                      prediction_kind="game_pick", period_key="2025",
+                      predicted_value="alpha", confidence_value=0.7,
+                      expires_at="2025-12-01 00:00:00")
+    out = resolve_due_predictions(db, now="2026-01-01 00:00:00", kinds=["game_pick"])
+    assert out["resolved"] == 0
+    assert out["skipped"] == 1
+
+
+def _player(db: Database, player_id: int, name: str) -> None:
+    db.upsert_many("players", [{"player_id": player_id, "full_name": name}],
+                   conflict_columns=["player_id"])
+
+
+def test_award_resolver_heisman(db: Database) -> None:
+    _player(db, 100, "Real Winner")
+    _player(db, 200, "Our Pick")
+    db.execute(
+        """insert into heisman_vote_results (season_year, player_id, team_id, winner_flag)
+           values (2025, 100, 1, 1)""", {})
+    # We picked player 200 (missed) and, separately, player 100 (called it).
+    record_prediction(db, model_id="heisman-model", entity_type="award", entity_id="heisman",
+                      prediction_kind="award_winner", period_key="2025",
+                      predicted_value="200", confidence_value=0.6,
+                      expires_at="2025-12-15 00:00:00")
+    resolve_due_predictions(db, now="2026-01-01 00:00:00", kinds=["award_winner"])
+    row = db.query_one("select actual_value, accuracy_score, resolution_note "
+                       "from prediction_ledger where prediction_kind='award_winner'", {})
+    assert row["actual_value"] == "100"
+    assert row["accuracy_score"] == 0.0
+    assert row["resolution_note"] == "missed"
+
+
+def test_award_resolver_generic_honor_and_correct_call(db: Database) -> None:
+    _player(db, 300, "Biletnikoff Winner")
+    db.execute(
+        """insert into player_honors
+           (player_id, season_year, team_id, honor_scope, honor_name, placement)
+           values (300, 2025, 1, 'national', 'Biletnikoff Award', 1)""", {})
+    record_prediction(db, model_id="awards", entity_type="award", entity_id="Biletnikoff Award",
+                      prediction_kind="award_winner", period_key="2025",
+                      predicted_value="300", confidence_value=0.8,
+                      expires_at="2025-12-15 00:00:00")
+    resolve_due_predictions(db, now="2026-01-01 00:00:00", kinds=["award_winner"])
+    row = db.query_one("select actual_value, accuracy_score, resolution_note "
+                       "from prediction_ledger where prediction_kind='award_winner'", {})
+    assert row["actual_value"] == "300"
+    assert row["accuracy_score"] == 1.0
+    assert row["resolution_note"] == "called the winner"
+
+
+def test_award_resolver_skips_when_no_winner_recorded(db: Database) -> None:
+    record_prediction(db, model_id="heisman-model", entity_type="award", entity_id="heisman",
+                      prediction_kind="award_winner", period_key="2025",
+                      predicted_value="200", confidence_value=0.6,
+                      expires_at="2025-12-15 00:00:00")
+    out = resolve_due_predictions(db, now="2026-01-01 00:00:00", kinds=["award_winner"])
+    assert out["resolved"] == 0
+    assert out["skipped"] == 1
+    row = db.query_one("select resolved_at_utc from prediction_ledger "
+                       "where prediction_kind='award_winner'", {})
+    assert row["resolved_at_utc"] is None
+
+
 def test_summary_empty_is_safe(db: Database) -> None:
     summary = calibration_summary(db)
     assert summary["resolved"] == 0
