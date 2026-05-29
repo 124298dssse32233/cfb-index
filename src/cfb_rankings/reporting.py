@@ -7044,7 +7044,13 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         heisman_team_conference_map[f"slug:{row['slug']}"] = conference_name
         heisman_team_conference_map[f"name:{str(row['team_name']).lower()}"] = conference_name
     (heisman_dir / "index.html").write_text(
-        render_heisman_page_html(summary, heisman_snapshot, player_directory_rows, heisman_team_conference_map),
+        render_heisman_page_html(
+            summary,
+            heisman_snapshot,
+            player_directory_rows,
+            heisman_team_conference_map,
+            tail_writer=lambda payload: (heisman_dir / "board-tail.json").write_text(payload, encoding="utf-8"),
+        ),
         encoding="utf-8",
     )
 
@@ -18135,6 +18141,7 @@ def render_heisman_page_html(
     heisman_snapshot: dict[str, Any],
     player_directory_rows: list[dict[str, Any]],
     team_conference_map: dict[str, str] | None = None,
+    tail_writer: Any = None,
 ) -> str:
     # Use the snapshot's actual data season for labels — not summary's
     # "current site season". When heisman_rankings_weekly has no rows
@@ -18209,11 +18216,21 @@ def render_heisman_page_html(
     if _tail_rows:
         import json as _json
         _tail_html = "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in _tail_rows)
-        _heisman_tail_payload_html = (
-            f'<script type="application/json" id="heisman-tail-payload">'
-            f'{_json.dumps({"tail_rows_html": _tail_html, "tail_count": _truncated_count})}'
-            f'</script>'
-        )
+        _tail_payload_json = _json.dumps({"tail_rows_html": _tail_html, "tail_count": _truncated_count})
+        if tail_writer is not None:
+            # External mode: write the tail payload to a sidecar JSON file
+            # that the "Load full board" JS fetches on demand. This keeps the
+            # ~15k tail rows OUT of the initial HTML transfer (the inline blob
+            # was ~1MB gzipped on every load — fake-lazy, since it deferred
+            # only DOM render, not the byte cost). See WS-11 page-weight work.
+            tail_writer(_tail_payload_json)
+            _heisman_tail_payload_html = ""
+        else:
+            _heisman_tail_payload_html = (
+                f'<script type="application/json" id="heisman-tail-payload">'
+                f'{_tail_payload_json}'
+                f'</script>'
+            )
     else:
         _heisman_tail_payload_html = ""
     featured_cards = _render_heisman_feature_cards(board_rows)
@@ -18450,21 +18467,38 @@ def render_heisman_page_html(
       (() => {{
         const btn = document.querySelector('[data-heisman-load-tail]');
         const anchor = document.querySelector('[data-heisman-tail-anchor]');
+        if (!btn || !anchor) return;
         const payloadNode = document.getElementById('heisman-tail-payload');
-        if (!btn || !anchor || !payloadNode) return;
+        const insertTail = (data) => {{
+          if (!data || !data.tail_rows_html) return;
+          // Insert the tail rows immediately AFTER the anchor row, then
+          // remove the anchor (which holds the button) so the button
+          // can't be clicked again.
+          const tpl = document.createElement('template');
+          tpl.innerHTML = data.tail_rows_html;
+          anchor.parentNode.insertBefore(tpl.content, anchor.nextSibling);
+          anchor.remove();
+          if (payloadNode) payloadNode.remove();
+        }};
         btn.addEventListener('click', () => {{
-          try {{
-            const data = JSON.parse(payloadNode.textContent || '{{}}');
-            if (!data || !data.tail_rows_html) return;
-            // Insert the tail rows immediately AFTER the anchor row, then
-            // remove the anchor (which holds the button) so the button
-            // can't be clicked again.
-            const tpl = document.createElement('template');
-            tpl.innerHTML = data.tail_rows_html;
-            anchor.parentNode.insertBefore(tpl.content, anchor.nextSibling);
-            anchor.remove();
-            payloadNode.remove();
-          }} catch (err) {{ console.error('heisman tail load failed', err); }}
+          if (payloadNode) {{
+            // Inline mode (legacy / non-tail_writer callers): the payload is
+            // already in the DOM.
+            try {{ insertTail(JSON.parse(payloadNode.textContent || '{{}}')); }}
+            catch (err) {{ console.error('heisman tail load failed', err); }}
+            return;
+          }}
+          // External mode: the tail payload was written to a sidecar JSON
+          // file at build time to keep the initial HTML small. Fetch it on
+          // demand. Disable the button while the request is in flight.
+          btn.setAttribute('disabled', 'disabled');
+          fetch('board-tail.json')
+            .then((resp) => {{ if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); }})
+            .then((data) => insertTail(data))
+            .catch((err) => {{
+              console.error('heisman tail load failed', err);
+              btn.removeAttribute('disabled');
+            }});
         }});
       }})();
     </script>
