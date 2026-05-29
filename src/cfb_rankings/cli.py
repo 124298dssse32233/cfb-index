@@ -811,6 +811,10 @@ def build_parser() -> argparse.ArgumentParser:
     sync_team_seasons_parser.add_argument("--end-season", type=int)
     sync_team_seasons_parser.add_argument("--season", action="append", type=int, default=[])
 
+    sync_team_locations_parser = subparsers.add_parser("sync-team-locations")
+    sync_team_locations_parser.add_argument("--season", type=int, default=2025)
+    sync_team_locations_parser.add_argument("--classification", type=str, default=None)
+
     run_models_parser = subparsers.add_parser("run-models")
     run_models_parser.add_argument("--season", type=int, required=True)
     run_models_parser.add_argument("--through-week", type=int, required=True)
@@ -4508,6 +4512,22 @@ def main() -> None:
         seasons = sorted(set(seasons))
         print(f"Refreshing season-aware conference memberships for: {', '.join(str(season) for season in seasons)}", flush=True)
         sync_cfbd_team_seasons(repository=repository, db=db, client=cfbd, seasons=seasons)
+        return
+
+    if args.command == "sync-team-locations":
+        if not config.cfbd_api_key:
+            raise RuntimeError("Missing required environment variable for this command: CFBD_API_KEY")
+        from cfb_rankings.clients.cfbd import CfbdClient
+        from cfb_rankings.ingest.cfbd import sync_cfbd_team_locations
+
+        repository.seed_levels()
+        cfbd = CfbdClient(config.cfbd_api_key, config.cfbd_base_url, config.request_timeout_seconds)
+        print(f"Backfilling team city/state from CFBD /teams (season {args.season})...", flush=True)
+        updated = sync_cfbd_team_locations(
+            repository=repository, db=db, client=cfbd,
+            season=args.season, classification=args.classification,
+        )
+        print(f"Updated location for {updated} teams.", flush=True)
         return
 
     if args.command == "run-models":

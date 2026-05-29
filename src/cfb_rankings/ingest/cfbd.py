@@ -218,6 +218,65 @@ def sync_cfbd_team_seasons(
                 _ingest_games(repository, games, season)
 
 
+def sync_cfbd_team_locations(
+    repository: Repository,
+    db: Database,
+    client: CfbdClient,
+    season: int,
+    classification: str | None = None,
+) -> int:
+    """Backfill ``teams.city`` / ``teams.state`` from the CFBD ``/teams`` endpoint.
+
+    Teams are created from game payloads, which carry no location, so
+    ``teams.state`` is empty site-wide. That silently breaks the Recruiting
+    Footprint home-state highlight and blocks every geography chart. The
+    location-bearing ``/teams`` endpoint is never hit during normal ingest;
+    this closes that gap. Returns the number of teams whose location was set.
+
+    Only fills blanks (``coalesce``) so a future authoritative source can't be
+    clobbered, and never overwrites a non-empty value with an empty one.
+    """
+    teams = _safe_fetch(
+        lambda: client.get_teams(year=season, classification=classification),
+        f"team locations {season}",
+    )
+    updated = 0
+    for team in teams:
+        location = team.get("location") or {}
+        state = str(location.get("state") or "").strip()
+        city = str(location.get("city") or "").strip()
+        if not state and not city:
+            continue
+
+        team_id: int | None = None
+        source_id = team.get("id")
+        if source_id is not None:
+            team_id = repository.find_team_id("cfbd", str(source_id))
+        if team_id is None:
+            school = str(team.get("school") or "").strip()
+            if school:
+                level_code = normalize_cfbd_classification(
+                    team.get("classification"),
+                    str(team.get("conference") or ""),
+                )
+                team_id = repository.match_team_by_name(school, level_code)
+        if team_id is None:
+            continue
+
+        db.execute(
+            """
+            update teams
+            set city = coalesce(nullif(%(city)s, ''), city),
+                state = coalesce(nullif(%(state)s, ''), state),
+                updated_at = CURRENT_TIMESTAMP
+            where team_id = %(team_id)s
+            """,
+            {"city": city, "state": state, "team_id": team_id},
+        )
+        updated += 1
+    return updated
+
+
 def _log_week_step(season: int, week: int, season_type: str, message: str) -> None:
     print(f"[CFBD] {season} {season_type} week {week}: {message}...", flush=True)
 

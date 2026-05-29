@@ -202,6 +202,8 @@ jobs:
           done
           echo "[enrich] Coaches 2018-2024..."
           python manage.py ingest-cfbd-coaches --start-year 2018 --end-year 2024 2>&1 | tail -10
+          echo "[enrich] Team locations (city/state backfill — powers Recruiting Footprint home-state + geo charts)..."
+          python manage.py sync-team-locations --season 2025 2>&1 | tail -3
           echo "[enrich] Wiki All-America consensus 2022-2024..."
           python manage.py scrape-wiki-awards --start-year 2022 --end-year 2024 --auto-import 2>&1 | tail -10
           echo "[enrich] Heisman model weekly backfill (multi-week trajectory)..."
