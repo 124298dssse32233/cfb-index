@@ -134,6 +134,16 @@ ROSTER_RELOAD_CSS = """
   text-transform: uppercase;
   color: var(--accent-primary, #c9a24a);
 }
+.roster-reload__flag--up { color: #4f9d6b; }
+.roster-reload__flag--down { color: #c98c1a; }
+.roster-reload__flag--even { color: var(--fg-muted); }
+.roster-reload__rating {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--fg-muted);
+  margin-left: 2px;
+}
 @media (max-width: 900px) {
   .roster-reload__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .roster-reload__position { grid-template-columns: minmax(42px, 0.35fr) minmax(0, 1fr); }
@@ -278,31 +288,60 @@ def _recruiting_value(summary: dict[str, Any], row: dict[str, Any]) -> str:
     return "NA"
 
 
+def _rating(value: Any) -> str:
+    """Format a composite player rating (~0.80-1.00) as a compact ``.NN`` stamp."""
+    try:
+        r = float(value)
+    except (TypeError, ValueError):
+        return ""
+    if r <= 0:
+        return ""
+    return f'<span class="roster-reload__rating">{r:.2f}</span>'
+
+
+def _quality_verdict(row: dict[str, Any]) -> tuple[str, str]:
+    """Return (label, tone) answering 'better or worse here?' by talent, not headcount.
+
+    Upstream starter-risk / need-filled flags win when set (they fold in
+    production weighting); otherwise fall back to the net rating-points swing.
+    """
+    if int(row.get("starter_risk_flag") or 0):
+        return "Starter Risk", "down"
+    if int(row.get("need_filled_flag") or 0):
+        return "Need Filled", "up"
+    try:
+        net = float(row.get("net_points") or 0)
+    except (TypeError, ValueError):
+        net = 0.0
+    if net >= 0.5:
+        return "Upgrade", "up"
+    if net <= -0.5:
+        return "Downgrade", "down"
+    if int(row.get("incoming_count") or 0) or int(row.get("outgoing_count") or 0):
+        return "Even", "even"
+    return "", ""
+
+
 def _position_row(row: dict[str, Any]) -> str:
     pos = row.get("position") or "UNK"
     incoming = int(row.get("incoming_count") or 0)
     outgoing = int(row.get("outgoing_count") or 0)
     incoming_top = row.get("incoming_top_player_name")
     outgoing_top = row.get("outgoing_top_player_name")
-    flag = ""
-    if int(row.get("starter_risk_flag") or 0):
-        flag = "Pressure"
-    elif int(row.get("need_filled_flag") or 0):
-        flag = "Repaired"
-    elif incoming or outgoing:
-        flag = "Tracked"
+    label, tone = _quality_verdict(row)
+    tone_cls = f" roster-reload__flag--{tone}" if tone else ""
     incoming_note = f"in <strong>{incoming}</strong>"
     if incoming_top:
-        incoming_note += f" - {escape(str(incoming_top))}"
+        incoming_note += f" - {escape(str(incoming_top))}{_rating(row.get('incoming_top_player_rating'))}"
     outgoing_note = f"out <strong>{outgoing}</strong>"
     if outgoing_top:
-        outgoing_note += f" - {escape(str(outgoing_top))}"
+        outgoing_note += f" - {escape(str(outgoing_top))}{_rating(row.get('outgoing_top_player_rating'))}"
     return (
         '<div class="roster-reload__position">'
         f'<span class="roster-reload__pos">{escape(str(pos))}</span>'
         f'<span class="roster-reload__flow">{incoming_note}</span>'
         f'<span class="roster-reload__flow">{outgoing_note}</span>'
-        f'<span class="roster-reload__flag">{escape(flag)}</span>'
+        f'<span class="roster-reload__flag{tone_cls}">{escape(label)}</span>'
         '</div>'
     )
 

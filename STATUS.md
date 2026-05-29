@@ -139,9 +139,10 @@
 ### WS-08 — Chart vocabulary expansion (6 → 9)
 - **Last shipped:** Locked vocab at 6 types (`docs/design-system/31-chart-vocabulary.md`)
 - **Shipped (2026-05-28, session 8):** First live Sankey surface. The `flow` viz template (`editions/viz_templates/flow.py`) already existed; wired it to real data via a national portal-flow section on `/offseason/` — origin level (FBS/FCS/Lower) → destination level (FBS/FCS/Lower/Uncommitted) for the latest cycle, band width = player count. 4,422 tracked 2026 entries; honest caption (564 FCS→FBS climbers, 1,011 still uncommitted). Builder `scripts/build_offseason_leaderboards.py` already runs in `publish_site.yml`, so it deploys with no new wiring.
+- **Shipped (2026-05-28, session 9):** Per-team portal flow was already live (`team_pages/roster_reload.py`, fed by `team_roster_reload_snapshot` + `team_transfer_position_snapshot`, 127 programs / 1,518 position rows in prod). The gap was **quality**: the position ledger showed headcount only (`in 1 · out 6`) and discarded the populated rating/points columns. Enhanced `_position_row` to surface the #1 underserved fan signal — top-player composite ratings inline (`Isaiah Horton 0.96`) plus a per-position **Upgrade / Downgrade / Even / Starter Risk / Need Filled** verdict derived from upstream flags then net rating-points. Verified against prod DB for Alabama (WR Starter Risk after losing a .96 and keeping a .90; OT Downgrade; IOL/DL Upgrade). 4 new tests.
 - **In flight:** None
 - **Blocked:** Not blocked
-- **Next action:** Optionally add per-team portal-flow (conference→team) on team pages; the two remaining new chart types (beyond Sankey) are unscheduled.
+- **Next action:** None required. A single-team origin-level/conference Sankey was considered and **declined** as low-value (one destination node, a few origin buckets — signal already carried by the position ledger + the national flow). The two remaining new chart types (beyond Sankey) are unscheduled.
 - **Spec:** [specs/08-chart-vocabulary.md](specs/08-chart-vocabulary.md)
 
 ### WS-09 — Calibration ledger
@@ -189,8 +190,8 @@
 - **Next action:** None until regeneration. To reverse suppression, flip both `_SUPPRESS_*` flags to False.
 
 ### Uncommitted work
-- **Risk:** Wave 25 + Milestone A+B + Player Wave-1 work is uncommitted in working tree (per memory notes)
-- **Next action:** Commit in 2-3 logical PRs this week before any other work touches those files
+- **Resolved (session 9):** The Wave-25 / Milestone A+B / Player Wave-1 work flagged here is **already committed** (verified `git status` clean of tracked modifications; matches memory `project_team_preview_milestone_a` + `project_player_pages_wave_2026_05_27`). Only untracked items remaining are session-scratch scripts under `.claude/`, two design-spec drafts in `docs/specs/`, and one untracked visual-regression test — none at risk of being clobbered by code work.
+- **Next action:** None — risk cleared.
 
 ### Decisions waiting
 - **0 OPEN decisions** — all 21 entries LOCKED as of 2026-05-28 autonomous session.

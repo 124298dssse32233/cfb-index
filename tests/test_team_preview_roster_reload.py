@@ -4,7 +4,11 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from cfb_rankings.team_pages.roster_reload import render_roster_reload
+from cfb_rankings.team_pages.roster_reload import (
+    _quality_verdict,
+    _rating,
+    render_roster_reload,
+)
 from cfb_rankings.team_preview.roster_reload import build_roster_reload_summary
 
 
@@ -80,3 +84,48 @@ def test_roster_reload_renderer_splits_roster_concepts() -> None:
     assert "9" in html
     assert "#8" in html
     assert "OL" in html and "DL" in html
+
+
+def test_quality_verdict_prefers_upstream_flags() -> None:
+    # Upstream flags win even when net_points would say otherwise.
+    assert _quality_verdict({"starter_risk_flag": 1, "net_points": 5.0}) == ("Starter Risk", "down")
+    assert _quality_verdict({"need_filled_flag": 1, "net_points": -5.0}) == ("Need Filled", "up")
+
+
+def test_quality_verdict_falls_back_to_net_points() -> None:
+    assert _quality_verdict({"net_points": 1.2}) == ("Upgrade", "up")
+    assert _quality_verdict({"net_points": -1.2}) == ("Downgrade", "down")
+    assert _quality_verdict({"net_points": 0.1, "incoming_count": 1}) == ("Even", "even")
+    # No activity at all -> no verdict.
+    assert _quality_verdict({}) == ("", "")
+
+
+def test_rating_stamp_formats_and_guards() -> None:
+    assert "0.96" in _rating(0.96)
+    assert "roster-reload__rating" in _rating(0.96)
+    assert _rating(None) == ""
+    assert _rating(0) == ""
+    assert _rating("bad") == ""
+
+
+def test_renderer_surfaces_quality_signal() -> None:
+    profile = SimpleNamespace(program_name="Alabama")
+    snapshot = SimpleNamespace(team_id=1, season_year=2026)
+    reload_row = {
+        "team_id": 1, "season_year": 2026, "as_of_date": "2026-05-25",
+        "continuity_score": 0.43, "returning_profile_label": "Low continuity",
+        "summary_json": {"transfer_in_total": 17, "transfer_out_total": 24},
+    }
+    positions = [
+        {"position": "WR", "incoming_count": 1, "outgoing_count": 6,
+         "incoming_top_player_name": "Noah Rogers", "incoming_top_player_rating": 0.90,
+         "outgoing_top_player_name": "Isaiah Horton", "outgoing_top_player_rating": 0.96,
+         "net_points": -4.39, "starter_risk_flag": 1, "need_filled_flag": 0},
+    ]
+
+    html = render_roster_reload(profile, snapshot, reload_row, positions)
+
+    assert "Starter Risk" in html
+    assert "roster-reload__flag--down" in html
+    assert "0.96" in html and "0.90" in html
+    assert "roster-reload__rating" in html
