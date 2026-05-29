@@ -345,6 +345,10 @@ followed by Saban's retirement-era decline through 2023."
 
 Caption is identity (what's the chart). Annotations are story (what's notable). They have different jobs.
 
+**Live production examples** (the shared `render_annotation_overlay`): (1) **Era trajectory** (`era_pages/renderer.py`) — first title → peak → steepest fall; (2) **Dynasty heatmap** (`dynasty_heatmap.py`) — the top program's peak season cell; (3) **Portal Pipelines network** (`scripts/build_offseason_leaderboards.py`) — names the single busiest transfer hub, which the dot-sizing alone never states.
+
+**Where NOT to force the overlay (avoid churn):** a chart that already self-narrates does not need a callout — the **recruiting-footprint choropleth** names its peak state in the lede and labels every tile; the **Talent Migration Sankey** states its key flows in the caption. And `season_arc_card.py`'s CFP-era trajectory keeps its own purpose-fit, color-coded (crisis-red / title-gold) single-line annotations: migrating it to the monochrome multi-line box would lose the color semantics and over-weight a dense 210px chart. Reuse the shared overlay where it genuinely adds a missing punchline; don't retrofit it onto charts that already tell their story.
+
 ---
 
 ## Chart-card shell (the single shared wrapper)
