@@ -25,6 +25,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from html import escape
 from math import cos, pi, sin, sqrt
+from typing import Sequence
+
+from .annotation import Annotation, render_annotation_overlay
 
 
 @dataclass(frozen=True)
@@ -98,6 +101,7 @@ def render_network(
     accent: str = "#c9a24a",
     label_color: str | None = None,
     as_figure: bool = True,
+    annotations: list[tuple[str, Sequence[str]]] | None = None,
 ) -> str:
     """Render a directed circular-chord network.
 
@@ -115,6 +119,13 @@ def render_network(
     ``<svg>`` (CSS vars applied to the svg element) so the chart can render
     through the shared ``render_chart_card`` shell without nesting figures —
     the card then owns the headline/lede/source-receipt.
+
+    ``annotations`` attaches in-chart callouts keyed by node id: each
+    ``(node_id, lines)`` pair places a shared annotation-overlay callout on that
+    node's ring position so the chart self-narrates (the locked "annotation
+    discipline" — the story lives on the chart). Pairs whose node id is not on
+    the ring are silently dropped. The host page must ship ``ANNOTATION_CSS`` for
+    the callout to render styled.
     """
     seen: set[str] = set()
     order: list[str] = []
@@ -204,6 +215,17 @@ def render_network(
             f'</g>'
         )
 
+    overlay_svg = ""
+    if annotations:
+        anns = [
+            Annotation(pos[nid][0], pos[nid][1], lines)
+            for nid, lines in annotations
+            if nid in pos
+        ]
+        overlay_svg = render_annotation_overlay(
+            anns, width=_W, height=_H, accent=accent
+        )
+
     title_html = (
         f'<figcaption class="network__title">{escape(title)}</figcaption>'
         if title else ""
@@ -224,7 +246,7 @@ def render_network(
             f'<svg class="network__svg" data-chart="network" style="{style}" '
             f'viewBox="0 0 {_W:.0f} {_H:.0f}" role="group" aria-label="{aria}" '
             f'preserveAspectRatio="xMidYMid meet">'
-            f'{defs}{"".join(edge_svg)}{"".join(node_svg)}'
+            f'{defs}{"".join(edge_svg)}{"".join(node_svg)}{overlay_svg}'
             f'</svg>'
         )
 
@@ -238,6 +260,7 @@ def render_network(
         f'{defs}'
         f'{"".join(edge_svg)}'
         f'{"".join(node_svg)}'
+        f'{overlay_svg}'
         f'</svg>'
         f'{caption_html}'
         f'</figure>'

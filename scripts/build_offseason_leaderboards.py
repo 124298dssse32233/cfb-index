@@ -220,11 +220,18 @@ def _transfer_network_section(c, season) -> str:
     if len(nodes) < 2:
         return ""
 
+    # Self-narrate: name the single busiest hub (the chart sizes dots by traffic
+    # but never says who the #1 is or its count). nodes[0] is highest-volume.
+    hub = int(nodes[0].id)
     svg = render_network(
         nodes, edges,
         accent=NAVY,
         label_color=INK,
         as_figure=False,  # the shared chart-card owns the chrome
+        annotations=[(
+            str(hub),
+            [name[hub], f"{volume[hub]} portal moves — the busiest hub"],
+        )],
     )
     if not svg:
         return ""
@@ -471,7 +478,7 @@ def build() -> None:
     network_html = _transfer_network_section(c, latest_cycle)
     conf_html = conference_sections(c)
 
-    from cfb_rankings.charts import CHART_CARD_CSS, NETWORK_CSS
+    from cfb_rankings.charts import ANNOTATION_CSS, CHART_CARD_CSS, NETWORK_CSS
 
     page = f"""<!DOCTYPE html>
 <html lang="en"><head>
@@ -530,6 +537,7 @@ def build() -> None:
   }}
 {NETWORK_CSS}
 {CHART_CARD_CSS}
+{ANNOTATION_CSS}
 </style></head><body>
 <div class="nav-strip"><a href="/">← CFB Index</a><a href="/rankings/">Rankings</a><a href="/chronicle/">The Chronicle</a><strong>Offseason Leaderboards</strong></div>
 <div class="wrap">

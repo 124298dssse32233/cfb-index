@@ -139,3 +139,36 @@ def test_as_figure_false_returns_bare_svg() -> None:
     assert "--net-label:#1a1a1a" in bare
     # Still a real chart: arrowhead marker + at least one edge present.
     assert 'id="net-arrow"' in bare and "network__edge" in bare
+
+
+def test_node_keyed_annotation_self_narrates_the_hub() -> None:
+    # A callout keyed to a node id rides the shared annotation overlay onto that
+    # node's ring position — the chart names its busiest hub on the chart itself.
+    nodes = _nodes("hub", "s1", "s2", "s3")
+    edges = [NetworkEdge("s1", "hub"), NetworkEdge("s2", "hub"),
+             NetworkEdge("s3", "hub")]
+    svg = render_network(
+        nodes, edges,
+        annotations=[("hub", ["Hub State", "42 portal moves — the busiest hub"])],
+    )
+    assert 'class="chart-annotations"' in svg
+    assert "Hub State" in svg
+    assert "42 portal moves — the busiest hub" in svg
+    # Overlay composites inside the chart's single svg (no nested <svg>).
+    assert svg.count("<svg") == 1
+
+
+def test_annotation_for_unknown_node_is_dropped() -> None:
+    nodes = _nodes("a", "b")
+    edges = [NetworkEdge("a", "b")]
+    svg = render_network(nodes, edges, annotations=[("ghost", ["nope"])])
+    # No ring position for "ghost" → no overlay emitted at all.
+    assert "chart-annotations" not in svg
+    assert "nope" not in svg
+
+
+def test_no_annotations_arg_emits_no_overlay() -> None:
+    nodes = _nodes("a", "b", "c")
+    edges = [NetworkEdge("a", "b"), NetworkEdge("b", "c")]
+    svg = render_network(nodes, edges)
+    assert "chart-annotations" not in svg
