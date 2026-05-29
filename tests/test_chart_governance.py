@@ -100,3 +100,4 @@ def test_charts_package_is_the_canonical_home() -> None:
 
     assert hasattr(charts, "render_state_choropleth")
     assert hasattr(charts, "render_annotation_overlay")
+    assert hasattr(charts, "render_network")

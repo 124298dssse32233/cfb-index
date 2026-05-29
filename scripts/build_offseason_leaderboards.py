@@ -152,6 +152,84 @@ def _portal_flow_section(c, season) -> str:
   </div>"""
 
 
+# --- Portal program network (WS-08, chart type #9): who feeds whom ----------
+_NET_NODES = 16     # busiest programs to put on the ring
+_NET_EDGE_MIN = 2   # a "pipeline" is ≥2 players moving the same direction
+
+
+def _transfer_network_section(c, season) -> str:
+    """Directed circular-chord network of the busiest portal pipelines this
+    cycle — FBS→FBS player movement among the ``_NET_NODES`` highest-volume
+    programs (edges thinned to real pipelines of ≥``_NET_EDGE_MIN`` players).
+    Powered by the centralised charts.render_network (WS-08 chart type #9)."""
+    from cfb_rankings.charts import NetworkEdge, NetworkNode, render_network
+
+    raw = c.execute(
+        """
+        SELECT te.from_team_id AS f, te.to_team_id AS t,
+               COALESCE(NULLIF(tf.short_name, ''), tf.canonical_name) AS fn,
+               COALESCE(NULLIF(tt.short_name, ''), tt.canonical_name) AS tn,
+               COUNT(*) AS n
+        FROM transfer_entries te
+        JOIN teams tf ON tf.team_id = te.from_team_id AND tf.level_code = 'FBS'
+        JOIN teams tt ON tt.team_id = te.to_team_id AND tt.level_code = 'FBS'
+        WHERE te.season_year = :sy
+          AND te.from_team_id IS NOT NULL AND te.to_team_id IS NOT NULL
+          AND te.from_team_id <> te.to_team_id
+        GROUP BY te.from_team_id, te.to_team_id
+        """,
+        {"sy": season},
+    ).fetchall()
+    if not raw:
+        return ""
+
+    name: dict[int, str] = {}
+    volume: dict[int, int] = {}
+    for r in raw:
+        name[r["f"]] = r["fn"]
+        name[r["t"]] = r["tn"]
+        volume[r["f"]] = volume.get(r["f"], 0) + r["n"]
+        volume[r["t"]] = volume.get(r["t"], 0) + r["n"]
+
+    top = [tid for tid, _ in sorted(volume.items(), key=lambda kv: -kv[1])[:_NET_NODES]]
+    keep = set(top)
+    edges = [
+        NetworkEdge(source=str(r["f"]), target=str(r["t"]), weight=float(r["n"]))
+        for r in raw
+        if r["f"] in keep and r["t"] in keep and r["n"] >= _NET_EDGE_MIN
+    ]
+    if not edges:
+        return ""
+
+    # Only ring programs that actually carry a kept pipeline, so the chart never
+    # shows an isolated dot. Order by volume desc for a deterministic layout.
+    linked = {e.source for e in edges} | {e.target for e in edges}
+    nodes = [
+        NetworkNode(id=str(tid), label=name[tid], weight=float(volume[tid]))
+        for tid in top if str(tid) in linked
+    ]
+    if len(nodes) < 2:
+        return ""
+
+    svg = render_network(
+        nodes, edges,
+        caption=(f"Each arc is a portal pipeline of {_NET_EDGE_MIN}+ players "
+                 f"between two of the {len(nodes)} busiest FBS programs this "
+                 f"cycle; the arrow points to where they landed. Dot size = "
+                 f"total portal traffic."),
+        accent=NAVY,
+        label_color=INK,
+    )
+    if not svg:
+        return ""
+    return f"""
+  <h2 class="sec" id="network">Portal Pipelines</h2>
+  <div class="board">
+    <div class="dek">The {season} carousel as a web — which programs feed each other. The thickest arcs are the established pipelines.</div>
+    {svg}
+  </div>"""
+
+
 def _pct(v) -> float:
     # returning_production columns are fractions (0..~1.05); a few exceed 1.0
     # slightly. Treat anything <= 1.5 as a fraction to scale to a percent.
@@ -376,8 +454,12 @@ def build() -> None:
     rest = [b for b in nat if b is not flagship]
     flagship_html = _render_board(flagship, compact=False, max_rows=12, flagship=True)
     grid_html = "".join(_render_board(b, compact=True, max_rows=8) for b in rest)
-    flow_html = _portal_flow_section(c, _latest(c, "transfer_entries"))
+    latest_cycle = _latest(c, "transfer_entries")
+    flow_html = _portal_flow_section(c, latest_cycle)
+    network_html = _transfer_network_section(c, latest_cycle)
     conf_html = conference_sections(c)
+
+    from cfb_rankings.charts import NETWORK_CSS
 
     page = f"""<!DOCTYPE html>
 <html lang="en"><head>
@@ -434,6 +516,7 @@ def build() -> None:
     .row .mb,.row .sub{{grid-column:2 / -1;justify-self:start;width:100%;}}
     .row .mb{{width:60%;}}
   }}
+{NETWORK_CSS}
 </style></head><body>
 <div class="nav-strip"><a href="/">← CFB Index</a><a href="/rankings/">Rankings</a><a href="/chronicle/">The Chronicle</a><strong>Offseason Leaderboards</strong></div>
 <div class="wrap">
@@ -441,13 +524,14 @@ def build() -> None:
     <div class="stamp">Updated {escape(UPDATED)} · 2026 offseason</div>
     <h1>Offseason Leaderboards</h1>
     <p class="thesis">Who won the offseason? National and conference boards for the transfer portal, returning production, NFL exits, and roster talent — every FBS team ranked heading into 2026. Tap a team for the full file.</p>
-    <div class="jumps"><a href="#national">National</a><a href="#flow">Talent Migration</a><a href="#conference">By Conference</a></div>
+    <div class="jumps"><a href="#national">National</a><a href="#flow">Talent Migration</a><a href="#network">Portal Pipelines</a><a href="#conference">By Conference</a></div>
   </header>
 
   <h2 class="sec" id="national">National Boards</h2>
   {flagship_html}
   <div class="grid">{grid_html}</div>
 {flow_html}
+{network_html}
   <h2 class="sec" id="conference">By Conference</h2>
   {conf_html}
 </div></body></html>"""

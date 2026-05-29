@@ -1,6 +1,6 @@
 # Chart Vocabulary
 
-**Locked 2026-05-17 (v2-addendum Sprint v5-5.5). Expanding 6 → 9 per D-007: Sankey (live), Choropleth (live 2026-05-28), Network (pending WS-06 coaches table).**
+**Locked 2026-05-17 (v2-addendum Sprint v5-5.5). Expanded 6 → 9 per D-007: Sankey (live), Choropleth (live 2026-05-28), Network (live 2026-05-28 — portal-pipeline web on `/offseason/`). All 9 types now have a centralised renderer.**
 
 CFB Index uses a locked set of chart types. Any new chart on the site MUST be one of these. The constraint produces a coherent visual vocabulary; drift produces visual chaos.
 
@@ -226,6 +226,36 @@ WHERE THEY RECRUIT · 2023-2026
 **When to use:** Recruiting footprint (live on team pages), fan-density maps, transfer origin geography.
 
 **When NOT to use:** When geography is incidental (use a bar of state counts). For flows between places (use Sankey). When fewer than ~5 states have data (use the text-chip list).
+
+---
+
+### 8. Network (circular chord diagram)
+
+**Use for:** Relationships *between* a bounded set of entities — portal pipelines between programs, coaching carousel, rivalry graphs. The point is who connects to whom and how heavily.
+
+**Visual:**
+```
+        Oklahoma St
+   Baylor  ●   ●  Penn St
+  Miss St ●  ╲│╱  ● UConn
+ Florida ●  ──┼──  ● Memphis      (nodes on a ring; arcs bow
+S Florida ● ╱│╲ ● Iowa St          toward centre; arrow = source→dest;
+  Mich St ●   ●  ● LSU             dot size = total traffic)
+   Colorado ● ● ● Arkansas
+        West Va  N Texas  Auburn
+```
+
+**Required elements:**
+- Nodes evenly spaced on a ring (deterministic, overlap-free — no force simulation, which would need JS and a seed)
+- Directed edges as quadratic-bezier chords bowing toward the centre, with an arrowhead marker (constant size, `markerUnits="userSpaceOnUse"`) encoding direction
+- Node radius ∝ degree/weight; edge stroke-width ∝ weight; thin the edge set to real relationships (e.g. ≥2) so the ring is never a hairball
+- Per-node `aria-label` ("Penn State (N connections)"); labels fan outward, quadrant-anchored
+
+**Why circular, not force-directed:** a force layout is non-deterministic and needs client-side JS to settle — both disqualifying (WS-11 static-SVG bar; the build needs stable, diffable output). A ring is fully deterministic and legible at 320px for the small node counts this chart is meant for (≤ ~20). Cap the node count and edge floor rather than rendering everything.
+
+**Implemented by:** `cfb_rankings.charts.render_network` (`charts/network.py`) — `NetworkNode(id, label, weight)` + `NetworkEdge(source, target, weight)` in, self-contained `<figure>`/SVG out; `label_color` makes it portable to light host pages. Live on `/offseason/` as the 2026 portal-pipeline web (top-16 programs by transfer volume).
+
+**When NOT to use:** As decoration where everything connects to everything (a hairball carries no information). When the relationships are a flow between *stages/levels* rather than a peer graph (use Sankey). When < 2 connected nodes survive the edge floor (omit the chart).
 
 ---
 
