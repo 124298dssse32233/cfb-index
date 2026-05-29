@@ -9063,6 +9063,7 @@ def build_player_page_data_map(
     for row in player_directory_rows:
         player_id = int(row["player_id"])
         page_data = _assemble_player_page_data(
+            db,
             summary,
             row,
             roster_by_player.get(player_id, []),
@@ -9968,6 +9969,7 @@ def _player_cohort_divergence_summary_safe(
 
 
 def _assemble_player_page_data(
+    db: Database,
     summary: dict[str, Any],
     player_row: dict[str, Any],
     roster_history: list[dict[str, Any]],
