@@ -6934,7 +6934,10 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     history_dir = site_root / "history"
     history_dir.mkdir(parents=True, exist_ok=True)
     (history_dir / "index.html").write_text(
-        render_history_index_html(summary, history_hub, site_pulse),
+        render_history_index_html(
+            summary, history_hub, site_pulse,
+            tail_writer=lambda payload: (history_dir / "explorer-tail.json").write_text(payload, encoding="utf-8"),
+        ),
         encoding="utf-8",
     )
 
@@ -16756,7 +16759,7 @@ def _render_dashboard_mobile_strip(*, filter_anchor: str, summary_text: str = ""
     )
 
 
-def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, Any], site_pulse: dict[str, Any]) -> str:
+def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, Any], site_pulse: dict[str, Any], tail_writer: Any = None) -> str:
     from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
@@ -16778,7 +16781,19 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
     season_cards = _render_history_season_summary_cards(history_hub, prefix="../programs/")
     preseason_playbook = _render_preseason_playbook_cards()
     explorer_rows = history_hub.get("explorer_rows") or []
-    explorer_table_rows = _render_history_explorer_rows(explorer_rows)
+    # Page-weight guard (WS-11): the explorer table is ~5k server-rendered rows
+    # (~360KB gzipped). Inline only the first slice for instant paint / SEO /
+    # no-JS, and stream the rest as a fetched sidecar that the filter script
+    # injects on load — preserving full client-side filter+sort over every row.
+    _HISTORY_INLINE_ROWS = 150
+    if tail_writer is not None and len(explorer_rows) > _HISTORY_INLINE_ROWS:
+        import json as _json
+        explorer_table_rows = _render_history_explorer_rows(explorer_rows[:_HISTORY_INLINE_ROWS])
+        tail_writer(_json.dumps({"rows_html": _render_history_explorer_rows(explorer_rows[_HISTORY_INLINE_ROWS:])}))
+        _history_tail_attr = ' data-history-tail="explorer-tail.json"'
+    else:
+        explorer_table_rows = _render_history_explorer_rows(explorer_rows)
+        _history_tail_attr = ""
     explorer_conferences = sorted({str(row.get("conference_name") or "") for row in explorer_rows if row.get("conference_name")})
     return f"""<!doctype html>
 <html lang="en">
@@ -17119,7 +17134,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
                   <th scope="col">Open</th>
                 </tr>
               </thead>
-              <tbody id="historyExplorerBody">
+              <tbody id="historyExplorerBody"{_history_tail_attr}>
                 {explorer_table_rows}
               </tbody>
             </table>
@@ -23037,8 +23052,13 @@ def _render_schedule_row(team_id: int, row: dict[str, Any]) -> str:
 def _history_explorer_script() -> str:
     return """
       (() => {
-        const rows = Array.from(document.querySelectorAll('#historyExplorerBody tr.history-explorer-row'));
-        if (!rows.length) return;
+        const tableBody = document.getElementById('historyExplorerBody');
+        if (!tableBody) return;
+        // External tail (WS-11 page weight): most rows are streamed from a
+        // sidecar JSON and injected on load. Inline rows render immediately.
+        const tailUrl = tableBody.dataset.historyTail || '';
+        let rows = Array.from(tableBody.querySelectorAll('tr.history-explorer-row'));
+        if (!rows.length && !tailUrl) return;
 
         const searchInput = document.getElementById('historyExplorerSearch');
         const levelFilter = document.getElementById('historyExplorerLevelFilter');
@@ -23047,7 +23067,6 @@ def _history_explorer_script() -> str:
         const clearButton = document.getElementById('clearHistoryExplorerFilters');
         const countNode = document.getElementById('historyExplorerCount');
         const chipRow = document.getElementById('historyExplorerActiveFilterRow');
-        const tableBody = document.getElementById('historyExplorerBody');
 
         const normalized = (value) => (value || '').toString().trim().toLowerCase();
         const numericValue = (row, key, fallback) => {
@@ -23128,6 +23147,22 @@ def _history_explorer_script() -> str:
         }
 
         applyState();
+
+        if (tailUrl) {
+          fetch(tailUrl)
+            .then((resp) => { if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); })
+            .then((data) => {
+              if (!data || !data.rows_html) return;
+              const tpl = document.createElement('template');
+              tpl.innerHTML = data.rows_html;
+              tableBody.appendChild(tpl.content);
+              // Rebuild the working set so filter+sort spans every row, then
+              // re-apply the current filter state to the full dataset.
+              rows = Array.from(tableBody.querySelectorAll('tr.history-explorer-row'));
+              applyState();
+            })
+            .catch((err) => console.error('history explorer tail load failed', err));
+        }
       })();
     """
 
