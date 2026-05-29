@@ -58,12 +58,27 @@ def render_all_era_pages(
     end_season: int = 2025,
     slugs: Iterable[str] | None = None,
 ) -> int:
-    """Render era pages for all qualifying FBS programs. Returns the count written."""
+    """Render era pages for all qualifying FBS programs. Returns the count written.
+
+    Build-site hook. Swallows per-slug exceptions so one broken program (e.g. a
+    dirty ``level_code`` row or a malformed game) never fails the whole publish;
+    prints a one-line note per failure. Mirrors ``render_all_profiled_pages``.
+    """
+    import sys
+
     if slugs is None:
         from ..team_pages.profile_loader import list_real_fbs_slugs
         slugs = list_real_fbs_slugs(db)
     count = 0
+    errors: list[tuple[str, str]] = []
     for slug in slugs:
-        if render_era_page_for(db, slug, programs_dir, end_season=end_season):
-            count += 1
+        try:
+            if render_era_page_for(db, slug, programs_dir, end_season=end_season):
+                count += 1
+        except Exception as exc:
+            errors.append((slug, f"{type(exc).__name__}: {exc}"))
+            print(f"  era-pages: {slug} failed — {type(exc).__name__}: {exc}", flush=True)
+            sys.stdout.flush()
+    if len(errors) > 10:
+        print(f"  era-pages: + {len(errors) - 10} more failures suppressed", flush=True)
     return count

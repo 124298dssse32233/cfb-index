@@ -202,3 +202,24 @@ def test_short_history_returns_none(db: Database) -> None:
 
 def test_unknown_slug_returns_none(db: Database) -> None:
     assert build_era_summary(db, "does-not-exist") is None
+
+
+def test_render_all_isolates_a_poison_slug(db: Database, tmp_path: Path, monkeypatch) -> None:
+    # A single broken program must not fail the whole publish: render_all_era_pages
+    # swallows per-slug exceptions and still writes the healthy pages.
+    from cfb_rankings.era_pages import build as era_build
+
+    real = era_build.render_era_page_for
+
+    def flaky(db_, slug, programs_dir, **kw):
+        if slug == "boom":
+            raise RuntimeError("synthetic malformed-row failure")
+        return real(db_, slug, programs_dir, **kw)
+
+    monkeypatch.setattr(era_build, "render_era_page_for", flaky)
+    out = tmp_path / "programs"
+    count = era_build.render_all_era_pages(db, out, slugs=["boom", "alpha"])
+
+    assert count == 1
+    assert (out / "alpha" / "era" / "cfp" / "index.html").exists()
+    assert not (out / "boom" / "era" / "cfp" / "index.html").exists()
