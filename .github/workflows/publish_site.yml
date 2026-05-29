@@ -348,6 +348,16 @@ jobs:
         run: |
           python scripts/verify_world_class_player_pages.py --site-dir output/site --db cfb_rankings.db --sample-size 20
 
+      - name: Enforce per-page weight budget (WS-11)
+        # Vercel serves every static page gzipped, so gzip transfer size is the
+        # number that matters. After the WS-11 fixes (heisman/compare/history
+        # blobs routed to fetched JSON sidecars) the full site has ZERO pages
+        # over 150KB gz — next-worst is players/index.html at ~129KB, so there's
+        # comfortable headroom. This guard fails the build if any HTML page
+        # creeps back over budget (e.g. a new inlined payload regression).
+        run: |
+          python scripts/check_page_weight.py --site-dir output/site --budget-kb 150 --enforce --max-violations 0
+
       - name: Build Cmd-K search index
         # Ships output/site/search-index.json so the Cmd-K overlay's
         # client-side search has a real dataset (~500KB-1MB depending
