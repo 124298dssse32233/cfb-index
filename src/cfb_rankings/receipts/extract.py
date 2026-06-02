@@ -239,12 +239,38 @@ def classify_batch_haiku(
         label="receipts.haiku_classify",
     )
 
-    use_offline = offline if offline is not None else not _have_anthropic()
+    # Hybrid switch (off by default): route this Tier-A Haiku classifier to the
+    # local box when CFB_LOCAL_LLM is enabled — mirrors llm_runtime's shim so
+    # the predictive-claims classifier offloads too. Local routing takes
+    # precedence and does NOT require an Anthropic key.
+    from cfb_rankings.llm_runtime import _maybe_local_model
+    local_tag = _maybe_local_model(HAIKU_MODEL)
+
+    use_offline = offline if offline is not None else (
+        not _have_anthropic() and local_tag is None
+    )
     if use_offline:
         return _stub_classify_haiku(batch), {"input_tokens": 0, "output_tokens": 0}
 
-    client = _anthropic_client()
     user_prompt = _build_haiku_user_prompt(batch)
+
+    if local_tag is not None:
+        from cfb_rankings import local_llm
+        result = local_llm.generate_local(
+            user_prompt, system=_HAIKU_SYSTEM, model=local_tag,
+            max_tokens=2000, max_retries=0, anthropic_model=HAIKU_MODEL,
+        )
+        if result.get("mode") != "offline-stub" and result.get("text"):
+            tk = result.get("tokens_used") or {}
+            return _parse_haiku_response(result["text"], batch), {
+                "input_tokens": int(tk.get("input") or 0),
+                "output_tokens": int(tk.get("output") or 0),
+            }
+        # Local server unreachable: fall back to cloud if we have a key, else stub.
+        if not _have_anthropic():
+            return _stub_classify_haiku(batch), {"input_tokens": 0, "output_tokens": 0}
+
+    client = _anthropic_client()
     resp = client.messages.create(
         model=HAIKU_MODEL,
         max_tokens=2000,

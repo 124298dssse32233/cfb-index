@@ -90,7 +90,7 @@ Ollama's Windows app runs in the background while you're logged in. For start-on
 
 ## Expanding later (optional)
 
-- **More Tier-A surfaces:** theme extraction and critic passes are also Haiku-tier, so they route local automatically once `CFB_LOCAL_LLM=1` — no extra work.
+- **It already covers all Tier-A surfaces.** Once `CFB_LOCAL_LLM=1`, every Haiku-tier call routes local automatically — sentiment classification, theme-extraction Stage-1, the Haiku critic passes, **and** the predictive-claims classifier (`receipts/extract.py`). Opus/Sonnet editorial stays on Claude. No per-surface wiring needed.
 - **Bigger/better local model:** point `CFB_LOCAL_LLM_MODEL` at `qwen3:14b` or `qwen3:32b` — the 3090's 24 GB fits up to the 32B at Q4. Bigger = slower but higher quality; fine for nightly batch.
 - **Faster batch throughput:** if the 19k-row job is slow on Ollama, graduate to **vLLM** (in WSL2/Docker) — same `CFB_LOCAL_LLM_BASE_URL`, just repoint it. No code change.
 - **Playground:** LM Studio or Open WebUI for chat; Qwen2.5-Coder-32B + Continue.dev for a local coding assistant. All optional.
