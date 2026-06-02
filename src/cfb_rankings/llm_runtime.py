@@ -394,6 +394,36 @@ def _resolve_api_key() -> str | None:
         return None
 
 
+def _maybe_local_model(model: str) -> str | None:
+    """Return a LOCAL model tag if Tier-A local routing is enabled for ``model``.
+
+    OFF by default — returns ``None`` (cloud path) unless ``CFB_LOCAL_LLM`` is
+    truthy AND ``model`` is in the local-eligible allowlist. This is the hybrid
+    switch from ``docs/research/local-llm-stack-2026-06.md``: Tier-A bulk work
+    (sentiment, theme extraction, critic passes — all Haiku-tier) routes to the
+    local box; Tier-B editorial (Opus / Sonnet) is never routed local.
+
+    Eligibility:
+      - ``CFB_LOCAL_LLM_ANTHROPIC_MODELS`` (comma list) — exact model ids to
+        route local, if set.
+      - otherwise the default: any model whose id contains ``"haiku"``.
+    The local tag served is ``CFB_LOCAL_LLM_MODEL`` (default ``qwen3:8b``).
+    """
+    flag = os.environ.get("CFB_LOCAL_LLM", "").strip().lower()
+    if flag not in ("1", "true", "yes", "on"):
+        return None
+
+    eligible = os.environ.get("CFB_LOCAL_LLM_ANTHROPIC_MODELS", "").strip()
+    if eligible:
+        allow = {m.strip() for m in eligible.split(",") if m.strip()}
+        if model not in allow:
+            return None
+    elif "haiku" not in model.lower():
+        return None
+
+    return os.environ.get("CFB_LOCAL_LLM_MODEL", "qwen3:8b")
+
+
 def _empty_result(model: str, reason: str) -> dict[str, Any]:
     """Standard offline-stub result. Logged + returned."""
     payload = {
@@ -440,6 +470,7 @@ def generate_with_voice_check(
     max_tokens: int = 4000,
     max_retries: int = 1,
     fallback_to_offline: bool = True,
+    response_format: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Generate text via Anthropic SDK, gate against voice validator.
 
@@ -465,6 +496,27 @@ def generate_with_voice_check(
     """
     import uuid
     call_id = uuid.uuid4().hex
+
+    # Hybrid switch (off by default): route Tier-A bulk work to the local box.
+    # Returns the identical result dict, so all downstream callers, the voice
+    # validator, and cost/usage telemetry are unaffected. See _maybe_local_model
+    # and docs/research/local-llm-stack-2026-06.md.
+    local_model = _maybe_local_model(model)
+    if local_model is not None:
+        from cfb_rankings import local_llm
+        result = local_llm.generate_local(
+            prompt,
+            system=system,
+            model=local_model,
+            max_tokens=max_tokens,
+            max_retries=max_retries,
+            fallback_to_offline=fallback_to_offline,
+            response_format=response_format,
+            anthropic_model=model,
+        )
+        result.setdefault("call_id", call_id)
+        return result
+
     api_key = _resolve_api_key()
     if not api_key:
         if not fallback_to_offline:
