@@ -107,11 +107,17 @@ def _fetch_live_games(api_key: str, season_year: int, week: int) -> list[dict[st
     games = json.loads(body)
     if not isinstance(games, list):
         return []
-    # Keep only games that are mid-game or finished (skip scheduled).
+    # CFBD /games has no live "status" field — it exposes a `completed` bool
+    # (camelCase) plus homePoints/awayPoints once a game has a score. Keep games
+    # that are finished (completed) or have started (have a score); skip the rest
+    # as scheduled. (NOTE: /games is not a true live feed, so in-progress quarter/
+    # clock/win-probability won't populate; final-game capture + the post-game
+    # render cadence DO work.)
     out: list[dict[str, Any]] = []
     for g in games:
-        status = (g.get("status") or "").lower()
-        if status in ("in_progress", "final"):
+        completed = bool(g.get("completed"))
+        started = g.get("homePoints") is not None or g.get("awayPoints") is not None
+        if completed or started:
             out.append(g)
     return out
 
@@ -133,18 +139,25 @@ def _current_week(today_utc: datetime) -> int:
 
 def _upsert_game(db, game: dict[str, Any], season_year: int, week: int) -> dict[str, Any]:
     """Idempotent upsert. Returns dict with games_live_id + transition flag."""
-    home_team = (game.get("home_team") or "").strip()
-    away_team = (game.get("away_team") or "").strip()
+    # CFBD /games uses camelCase keys (homeTeam/awayTeam/homePoints/awayPoints/
+    # startDate) and a `completed` bool rather than a live status string. Keep
+    # snake_case fallbacks in case a caller passes a pre-normalized dict.
+    home_team = (game.get("homeTeam") or game.get("home_team") or "").strip()
+    away_team = (game.get("awayTeam") or game.get("away_team") or "").strip()
     home_slug = _slugify(home_team)
     away_slug = _slugify(away_team)
     if not home_slug or not away_slug:
         raise ValueError("missing team identifiers")
 
-    status = _normalize_status(game.get("status"))
-    home_score = game.get("home_points")
-    away_score = game.get("away_points")
+    home_score = game.get("homePoints")
+    if home_score is None:
+        home_score = game.get("home_points")
+    away_score = game.get("awayPoints")
+    if away_score is None:
+        away_score = game.get("away_points")
+    status = _status_from_game(game, home_score, away_score)
     final_at = game.get("completion_time") or game.get("end_time") or None
-    kickoff = game.get("start_time") or game.get("start_time_utc") or ""
+    kickoff = game.get("startDate") or game.get("start_time") or ""
 
     home_wp = _extract_current_home_wp(game)
     wp_ts = _extract_wp_timeseries(game)
@@ -243,6 +256,17 @@ def _normalize_status(s: Any) -> str:
     return "scheduled"
 
 
+def _status_from_game(game: dict[str, Any], home_score: Any, away_score: Any) -> str:
+    """Derive status from CFBD /games fields: the `completed` bool plus whether a
+    score exists yet. /games has no live in-progress status, so in-progress is
+    inferred from a present score on a not-yet-completed game."""
+    if bool(game.get("completed")):
+        return "final"
+    if home_score is not None or away_score is not None:
+        return "in_progress"
+    return "scheduled"
+
+
 def _extract_current_home_wp(game: dict[str, Any]) -> float | None:
     wp = game.get("home_win_probability")
     if isinstance(wp, dict):
@@ -332,8 +356,8 @@ def enqueue_post_game_jobs(db, games_live_id: int, game: dict[str, Any]) -> int:
     Idempotent — same (games_live_id, team_slug, t_offset_minutes) is a
     no-op. Returns the count of new rows.
     """
-    home_slug = _slugify(game.get("home_team") or "")
-    away_slug = _slugify(game.get("away_team") or "")
+    home_slug = _slugify(game.get("homeTeam") or game.get("home_team") or "")
+    away_slug = _slugify(game.get("awayTeam") or game.get("away_team") or "")
     final_at = game.get("completion_time") or game.get("end_time")
     if not final_at:
         final_at = datetime.now(timezone.utc).isoformat()

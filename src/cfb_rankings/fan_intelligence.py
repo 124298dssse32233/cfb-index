@@ -789,7 +789,10 @@ def _reality_gap(belief: dict[str, Any], context: MoodContext) -> dict[str, Any]
         }
 
     belief_percentile = (belief["score"] + 100.0) / 2.0  # map -100..100 → 0..100
-    structural = float(context.power_percentile) * 100.0
+    # power_percentile is ALREADY a 0..100 percentile (reporting._rank_percentile
+    # returns 0..100); do NOT multiply by 100 again, or the gap is ~always huge-
+    # negative and every team reads "Doomer Ball".
+    structural = float(context.power_percentile)
     gap = belief_percentile - structural
 
     if gap >= 22:
@@ -889,7 +892,11 @@ def _cohesion_from_row(row: dict[str, Any]) -> dict[str, Any]:
 def _swing_from_history(history: list[dict[str, Any]], current_belief: float) -> dict[str, Any]:
     scores: list[float] = []
     if history:
-        scores = [_belief_from_row(row)["score"] for row in history]
+        # history arrives newest→oldest (order by week desc); reverse to
+        # chronological so adjacent deltas are true consecutive weeks and the
+        # week-over-week delta compares against the immediately prior week (not
+        # the oldest week in the window).
+        scores = [_belief_from_row(row)["score"] for row in reversed(history)]
     scores.append(current_belief)
 
     if len(scores) < 2:

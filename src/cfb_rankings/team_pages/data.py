@@ -294,8 +294,13 @@ def _mood_from_cohort_week(db, team_id: int) -> dict[str, Any] | None:
         })
 
     mood_delta: float | None = None
-    if len(rows) > 1:
-        prev = rows[1]
+    # Compare the headline week against the NEXT-older week, not a fixed rows[1]:
+    # headline_idx can be > 0 when the most recent weeks are below the floor, in
+    # which case rows[1] would be a self-compare (delta 0) or a sign-flipped,
+    # wrong-week delta.
+    prev_idx = headline_idx + 1
+    if prev_idx < len(rows):
+        prev = rows[prev_idx]
         prev_n_sent = float(prev["eff_n_with_sent"] or 0.0)
         if prev_n_sent > 0 and prev["wsent"] is not None:
             prev_sent = float(prev["wsent"]) / prev_n_sent

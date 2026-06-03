@@ -78,8 +78,20 @@ jobs:
       - name: Compute fanintel bridge tables
         run: |
           set +e
-          python manage.py tag-player-names || echo "tag-player-names skipped"
-          python manage.py build-conversation-features || echo "build-conversation-features skipped"
+          # Derive CFB season + season-week the same way scripts/daily_ingest.ps1 does
+          # (season = year if month>=7 else year-1; week = weeks since Aug 26).
+          python - <<'PY' > /tmp/cfb_cal.env
+          from datetime import date
+          t = date.today()
+          season = t.year if t.month >= 7 else t.year - 1
+          start = date(season, 8, 26)
+          week = max(1, (t - start).days // 7 + 1)
+          print(f"{season} {week}")
+          PY
+          read SEASON WEEK < /tmp/cfb_cal.env
+          echo "season=$SEASON week=$WEEK"
+          python manage.py tag-player-mentions --season "$SEASON" --commit || echo "tag-player-mentions skipped"
+          python manage.py build-conversation-features --season "$SEASON" --week "$WEEK" || echo "build-conversation-features skipped"
           python manage.py prepare-pulse || echo "prepare-pulse skipped"
           python manage.py classify-player-sentiment || echo "classify-player-sentiment skipped"
           python manage.py extract-predictive-claims || echo "extract-predictive-claims skipped"

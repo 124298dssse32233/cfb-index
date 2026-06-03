@@ -117,13 +117,6 @@ def compute_sentiment_distribution(
         return {"positive": pos, "neutral": neutral, "negative": neg}, mean, total
 
     elif entity_type == "player":
-        cur.execute(
-            """
-            SELECT player_id FROM players
-            WHERE player_id = ?
-            """,
-            (entity_slug,),
-        )
         # entity_slug for players is the player_id (int)
         try:
             player_id = int(entity_slug)

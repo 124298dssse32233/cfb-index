@@ -336,8 +336,11 @@ def _haiku_extract_candidates(
             text = text.split("```")[1]
             if text.startswith("json"):
                 text = text[4:]
-        return json.loads(text)
-    except (json.JSONDecodeError, IndexError):
+        candidates = json.loads(text)
+        if not isinstance(candidates, list):
+            raise ValueError("expected a JSON array of candidates")
+        return candidates
+    except (json.JSONDecodeError, IndexError, ValueError, TypeError):
         log.warning("haiku theme parse failed for %s", entity_name)
         return []
 
@@ -436,11 +439,14 @@ def _sonnet_rank_and_write(
             if text.startswith("json"):
                 text = text[4:]
         themes = json.loads(text)
+        if not isinstance(themes, list):
+            raise ValueError("expected a JSON array of themes")
         # Ensure rank field exists
         for i, t in enumerate(themes, start=1):
-            t.setdefault("rank", i)
+            if isinstance(t, dict):
+                t.setdefault("rank", i)
         return themes[:n], passed
-    except (json.JSONDecodeError, IndexError):
+    except (json.JSONDecodeError, IndexError, ValueError, TypeError, AttributeError):
         log.warning("sonnet theme parse failed for %s", entity_name)
         return [], False
 
@@ -599,8 +605,11 @@ def extract_entities_themes_batch(
                 if text.startswith("json"):
                     text = text[4:]
             themes = json.loads(text)
+            if not isinstance(themes, list):
+                raise ValueError("expected a JSON array of themes")
             for i, t in enumerate(themes, start=1):
-                t.setdefault("rank", i)
+                if isinstance(t, dict):
+                    t.setdefault("rank", i)
             themes = themes[:n_themes]
             out[(slug, etype)] = themes
             if themes:
@@ -613,7 +622,7 @@ def extract_entities_themes_batch(
                     _store_conference_themes(slug, themes, db_conn, True)
                 else:
                     _store_team_themes(slug, etype, themes, db_conn, True)
-        except (json.JSONDecodeError, IndexError) as exc:
+        except (json.JSONDecodeError, IndexError, ValueError, TypeError, AttributeError) as exc:
             log.warning("pulse_themes batch parse failed for %s: %s", slug, exc)
             out[(slug, etype)] = []
     return out

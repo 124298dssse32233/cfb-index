@@ -11,8 +11,11 @@ name: digest_reactions_poll
 # workflow shell so the schedule exists at Sprint v5-1 close).
 
 on:
-  schedule:
-    - cron: "0 * * * *"   # hourly
+  # Schedule DISABLED: `manage.py sync-digest-reactions` is not implemented yet
+  # (TODO Sprint v5-8). With the cron enabled this hard-failed (set -e) every
+  # hour and opened a failure issue each run. Re-enable once the CLI lands.
+  # schedule:
+  #   - cron: "0 * * * *"   # hourly
   workflow_dispatch:
 
 jobs:

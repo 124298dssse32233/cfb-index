@@ -15559,7 +15559,6 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <p class="section-sub">How this fanbase sorts in the Fan Intelligence taxonomy (N\u00b0 04 on the Hub).</p>
         </div>
         {archetype_module}
-        <link rel="stylesheet" href="../hub/archetype-module.css" onerror="this.remove()">
       </section>
 
       <section class="section premium-team-grid">
@@ -19156,6 +19155,17 @@ def _render_player_directory_row(row: dict[str, Any]) -> str:
         if team_slug
         else escape(team_name)
     )
+    # Guard the missing-slug case the same way team_cell does — otherwise an
+    # absent player_slug renders a broken href=".html" self-link.
+    player_slug = str(row.get("player_slug") or "").strip()
+    full_name = str(row.get("full_name") or "")
+    class_year = str(row.get("class_year") or "--")
+    if player_slug:
+        name_cell = f'<a class="team-link" href="{escape(player_slug)}.html">{escape(full_name)}</a>'
+        open_cell = f'<a class="text-link" href="{escape(player_slug)}.html">Open card</a>'
+    else:
+        name_cell = escape(full_name)
+        open_cell = '<span class="text-link muted">--</span>'
     return f"""
     <tr
       class="player-directory-row"
@@ -19166,14 +19176,14 @@ def _render_player_directory_row(row: dict[str, Any]) -> str:
       data-tracked-seasons="{int(row.get('tracked_heisman_seasons') or 0)}"
       data-forecast="{'' if row.get('forecast_rank') is None else int(row.get('forecast_rank') or 0)}"
     >
-      <td><a class="team-link" href="{escape(str(row.get('player_slug') or ''))}.html">{escape(str(row.get("full_name") or ""))}</a><span class="submetric">{escape(str(row.get("class_year") or "--"))}</span></td>
+      <td>{name_cell}<span class="submetric">{escape(class_year)}</span></td>
       <td>{team_cell}<span class="submetric">{escape(str(row.get("conference_name") or row.get("primary_conference_name") or ""))}</span></td>
       <td class="metric-cell">{escape(position or '--')}</td>
       <td class="metric-cell">{escape(_display_rank_text(row.get("current_heisman_rank")))}</td>
       <td class="metric-cell">{escape(_display_rank_text(row.get("official_best_finish")))}</td>
       <td class="metric-cell">{int(row.get("tracked_heisman_seasons") or 0)}</td>
       <td class="metric-cell">{escape(_display_rank_text(row.get("forecast_rank")))}</td>
-      <td><a class="text-link" href="{escape(str(row.get('player_slug') or ''))}.html">Open card</a></td>
+      <td>{open_cell}</td>
     </tr>
     """
 

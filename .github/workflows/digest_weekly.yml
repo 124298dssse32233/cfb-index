@@ -13,8 +13,11 @@ name: digest_weekly
 # workflow shell so the schedule history exists at Sprint v5-1 close).
 
 on:
-  schedule:
-    - cron: "0 21 * * 5"   # Fri 17:00 ET / 21:00 UTC
+  # Schedule DISABLED: `manage.py build-weekly-digest` is not implemented yet
+  # (TODO Sprint v5-8). With the cron enabled this hard-failed (set -e) every
+  # Friday and opened a failure issue. Re-enable once the CLI lands.
+  # schedule:
+  #   - cron: "0 21 * * 5"   # Fri 17:00 ET / 21:00 UTC
   workflow_dispatch:
 
 jobs:
