@@ -204,4 +204,15 @@ Run "site: build-editions-archive" { python manage.py build-editions-archive }
 # =========================================================================
 Run "status: fanintel-status" { python manage.py fanintel-status }
 
+# =========================================================================
+# K. Publish the freshly-built site to Vercel (Option A: the box is the
+#    source of truth; the cloud deploy crons are disabled). Deploys
+#    output/site directly, atomic + alias-gated, with a >=3500-file sanity
+#    gate so a broken/empty build can never reach the live URL. Logs to its
+#    own publish_vercel_*.log.
+# =========================================================================
+Log "== publish: scripts\publish_to_vercel.ps1 =="
+& (Join-Path $RepoRoot "scripts\publish_to_vercel.ps1") *>&1 | Tee-Object -FilePath $LogPath -Append
+Log "   publish_to_vercel returned $LASTEXITCODE"
+
 Log "==== daily_ingest end ===="
