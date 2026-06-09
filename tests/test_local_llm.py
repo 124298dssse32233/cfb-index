@@ -120,3 +120,108 @@ class TestGracefulDegradation:
         assert health["ok"] is False
         assert health["models"] is None
         assert health["error"]
+
+
+class TestMaxTokensFloor:
+    """A Haiku-tuned caller cap (e.g. 256) must be raised so local reasoning
+    models have room for their stripped <think> pass plus the answer. Otherwise
+    a 50-doc batch truncates to empty and every row silently skips."""
+
+    @staticmethod
+    def _capture_post(monkeypatch):
+        captured: dict = {}
+
+        class _Resp:
+            status_code = 200
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return {
+                    "choices": [{"message": {"content": '["positive"]'}}],
+                    "usage": {"prompt_tokens": 1, "completion_tokens": 1},
+                }
+
+        def _fake_post(url, headers=None, json=None, timeout=None):
+            captured.update(json or {})
+            return _Resp()
+
+        import requests
+        monkeypatch.setattr(requests, "post", _fake_post)
+        # Keep the unit hermetic: no telemetry side effects, validator passes.
+        monkeypatch.setattr("cfb_rankings.llm_runtime._emit_telemetry", lambda *a, **k: None)
+        monkeypatch.setattr(
+            "cfb_rankings.llm_runtime._load_validator",
+            lambda: (lambda text, source=None: (True, [])),
+        )
+        return captured
+
+    def test_small_cap_raised_to_default_floor(self, monkeypatch):
+        captured = self._capture_post(monkeypatch)
+        local_llm.generate_local("p", model="qwen3:8b", max_tokens=256, max_retries=0)
+        assert captured["max_tokens"] >= 1024
+
+    def test_floor_is_env_tunable(self, monkeypatch):
+        monkeypatch.setenv("CFB_LOCAL_LLM_MIN_TOKENS", "2000")
+        captured = self._capture_post(monkeypatch)
+        local_llm.generate_local("p", model="qwen3:8b", max_tokens=256, max_retries=0)
+        assert captured["max_tokens"] == 2000
+
+    def test_large_cap_is_preserved(self, monkeypatch):
+        captured = self._capture_post(monkeypatch)
+        local_llm.generate_local("p", model="qwen3:8b", max_tokens=4000, max_retries=0)
+        assert captured["max_tokens"] == 4000
+
+    def test_reasoning_effort_default_none(self, monkeypatch):
+        # The real off-switch for Qwen3-class thinking; defaults to disabling it.
+        captured = self._capture_post(monkeypatch)
+        local_llm.generate_local("p", model="qwen3:8b", max_retries=0)
+        assert captured.get("reasoning_effort") == "none"
+
+    def test_reasoning_effort_env_override(self, monkeypatch):
+        monkeypatch.setenv("CFB_LOCAL_LLM_REASONING_EFFORT", "low")
+        captured = self._capture_post(monkeypatch)
+        local_llm.generate_local("p", model="qwen3:8b", max_retries=0)
+        assert captured.get("reasoning_effort") == "low"
+
+    def test_reasoning_effort_omitted_when_blank(self, monkeypatch):
+        monkeypatch.setenv("CFB_LOCAL_LLM_REASONING_EFFORT", "")
+        captured = self._capture_post(monkeypatch)
+        local_llm.generate_local("p", model="qwen3:8b", max_retries=0)
+        assert "reasoning_effort" not in captured
+
+    def test_unsupported_field_falls_back_gracefully(self, monkeypatch):
+        # A server that 400s on reasoning_effort must still succeed via the bare
+        # payload — never hard-fail on an unsupported optional field.
+        calls = {"payloads": []}
+
+        class _Resp:
+            def __init__(self, status):
+                self.status_code = status
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return {
+                    "choices": [{"message": {"content": '["positive"]'}}],
+                    "usage": {"prompt_tokens": 1, "completion_tokens": 1},
+                }
+
+        def _fake_post(url, headers=None, json=None, timeout=None):
+            calls["payloads"].append(json or {})
+            status = 400 if "reasoning_effort" in (json or {}) else 200
+            return _Resp(status)
+
+        import requests
+        monkeypatch.setattr(requests, "post", _fake_post)
+        monkeypatch.setattr("cfb_rankings.llm_runtime._emit_telemetry", lambda *a, **k: None)
+        monkeypatch.setattr(
+            "cfb_rankings.llm_runtime._load_validator",
+            lambda: (lambda text, source=None: (True, [])),
+        )
+        result = local_llm.generate_local("p", model="qwen3:8b", max_retries=0)
+        assert result["mode"] == "live"
+        assert len(calls["payloads"]) == 2  # featured (400) then bare (200)
+        assert "reasoning_effort" not in calls["payloads"][-1]

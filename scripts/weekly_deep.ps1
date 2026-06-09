@@ -10,6 +10,18 @@ $ErrorActionPreference = "Continue"
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $RepoRoot
 
+# --- Self-contained scheduled-task runtime: project venv + UTF-8 --------------
+# Task Scheduler launches a bare shell with no venv active, so bare `python`
+# would hit the system interpreter, which lacks this project's deps (.venv has
+# them from `pip install -e .`). Prepend the venv, and force UTF-8 (a fresh
+# Windows box defaults to cp1252 and crashes on non-ASCII log output). No-op if
+# .venv is absent, so this stays portable to a system-Python setup.
+$env:PYTHONUTF8 = "1"
+$VenvPython = Join-Path $RepoRoot ".venv\Scripts\python.exe"
+if (Test-Path $VenvPython) {
+    $env:Path = (Split-Path -Parent $VenvPython) + ";" + $env:Path
+}
+
 if (Test-Path ".env") {
     Get-Content ".env" | ForEach-Object {
         if ($_ -match '^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)\s*$') {

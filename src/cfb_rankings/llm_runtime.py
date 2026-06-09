@@ -155,6 +155,13 @@ class CostMeter:
         cache_ttl: str | None = None,
     ) -> float:
         """Compute USD cost for one call WITHOUT recording it. Pure func."""
+        # Local models (served on our own GPU via Ollama; model_id like
+        # "local/qwen3:14b") cost nothing per token. Never bill them or count
+        # them against the ceiling — otherwise a large local batch (e.g. the
+        # sentiment classifier over thousands of rows) gets billed at cloud
+        # Sonnet rates and falsely trips CostCeilingExceeded mid-run.
+        if model_id and model_id.startswith("local/"):
+            return 0.0
         rates = MODEL_RATES.get(model_id)
         if rates is None:
             # Unknown model — log and bail with a conservative non-zero

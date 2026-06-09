@@ -41,7 +41,15 @@ from cfb_rankings.team_pages.sentiment_classifier import (  # noqa: E402
 _VALID = ("positive", "neutral", "negative")
 
 
-def _fetch_sample(db_path: str, sample: int) -> list[str]:
+def _fetch_sample(db_path: str, sample: int) -> tuple[list[str], str]:
+    """Return (texts, source_label).
+
+    Prefer the player-target docs that ``classify-player-sentiment`` actually
+    labels. If none are tagged yet — e.g. on a fresh box before
+    ``tag-player-mentions`` has run — fall back to any conversation document with
+    body text, so the smoke check can still exercise the model on real fan
+    chatter instead of failing with "nothing to sample."
+    """
     con = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
     try:
         cur = con.cursor()
@@ -59,7 +67,21 @@ def _fetch_sample(db_path: str, sample: int) -> list[str]:
             """,
             (int(sample),),
         )
-        return [r[0] for r in cur.fetchall()]
+        rows = [r[0] for r in cur.fetchall()]
+        if rows:
+            return rows, "player-target docs"
+        cur.execute(
+            """
+            SELECT body_text
+            FROM conversation_documents
+            WHERE body_text IS NOT NULL AND body_text != ''
+            ORDER BY conversation_document_id
+            LIMIT ?
+            """,
+            (int(sample),),
+        )
+        rows = [r[0] for r in cur.fetchall()]
+        return rows, "any conversation docs (player targets not tagged yet)"
     finally:
         con.close()
 
@@ -91,13 +113,14 @@ def main() -> int:
     if not Path(args.db).exists():
         print(f"FAIL: database not found at {args.db} (pass --db)", file=sys.stderr)
         return 2
-    texts = _fetch_sample(args.db, args.sample)
+    texts, sample_source = _fetch_sample(args.db, args.sample)
     if not texts:
-        print("FAIL: no player-target documents with body_text found to sample.", file=sys.stderr)
+        print("FAIL: no conversation documents with body_text found to sample.", file=sys.stderr)
         return 2
 
+    print(f"     sampling from: {sample_source}")
     print(f"     classifying {len(texts)} real docs with local={args.local_model} "
-          f"(temp 0, /no_think, <think> stripped)\n")
+          f"(temp 0, reasoning disabled, <think> stripped)\n")
 
     # --- run (exactly the production local path) -------------------------
     labels: list[str | None] = []

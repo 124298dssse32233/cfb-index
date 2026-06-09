@@ -34,6 +34,14 @@ logger = logging.getLogger(__name__)
 # routes through head_chrome.base_url() so a domain swap is a one-line change.
 _DEFAULT_USER_AGENT = f"CFBIndex-FanIntel/0.1 (+{base_url()})"
 
+# Fallback UA for hosts that 403 a non-browser User-Agent (Substack RSS, some
+# beat-writer feeds). http_get retries once with this on an HTTP 403, so the
+# courteous identifying UA stays the default and we only spoof when blocked.
+_BROWSER_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
+
 
 @dataclasses.dataclass(frozen=True)
 class AdapterRunResult:
@@ -105,6 +113,8 @@ class SourceAdapter(ABC):
         merged = {"User-Agent": self.user_agent, "Accept": "*/*"}
         if headers:
             merged.update(headers)
+        caller_set_ua = bool(headers and "User-Agent" in headers)
+        tried_browser_ua = False
         last_exc: Exception | None = None
         for attempt in range(1, self.max_attempts + 1):
             self._inter_request_sleep()
@@ -114,6 +124,14 @@ class SourceAdapter(ABC):
                     return resp.read()
             except Exception as exc:  # noqa: BLE001 — retries cover all network failures
                 last_exc = exc
+                # Many feeds (e.g. Substack RSS) 403 a non-browser User-Agent.
+                # Fall back to a standard browser UA once, then keep retrying.
+                if (getattr(exc, "code", None) == 403 and not tried_browser_ua
+                        and not caller_set_ua):
+                    merged["User-Agent"] = _BROWSER_USER_AGENT
+                    tried_browser_ua = True
+                    logger.info("http_get: 403 for %s — retrying with browser User-Agent", url)
+                    continue
                 logger.warning(
                     "http_get failed (attempt %d/%d) for %s: %s",
                     attempt, self.max_attempts, url, exc,

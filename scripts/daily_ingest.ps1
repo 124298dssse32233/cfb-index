@@ -13,6 +13,19 @@ $ErrorActionPreference = "Continue"
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $RepoRoot
 
+# --- Self-contained scheduled-task runtime: project venv + UTF-8 --------------
+# Task Scheduler launches a bare shell with no venv active, so bare `python`
+# would resolve to the system interpreter, which lacks this project's deps (they
+# live in .venv from `pip install -e .`). Prepend the venv so every `python`
+# below is the project interpreter. Also force UTF-8 so non-ASCII log output
+# can't crash Python on a fresh Windows box (cp1252 default). No-op if .venv is
+# absent, so this stays portable to a system-Python setup.
+$env:PYTHONUTF8 = "1"
+$VenvPython = Join-Path $RepoRoot ".venv\Scripts\python.exe"
+if (Test-Path $VenvPython) {
+    $env:Path = (Split-Path -Parent $VenvPython) + ";" + $env:Path
+}
+
 # --- Load .env into process so API keys are visible to python -----------------
 if (Test-Path ".env") {
     Get-Content ".env" | ForEach-Object {
@@ -81,15 +94,20 @@ foreach ($s in $authSources) { Run-Adapter $s }
 $bulkFamilies = @("google_news_all", "campus_news_all", "athletics_all", "locked_on_all")
 foreach ($s in $bulkFamilies) { Run-Adapter $s }
 
+# Coaching carousel (FootballScoop RSS — feed moved /feed/ -> /rss/, fixed 2026-06).
+# Captures hires/fires going forward; the offseason carousel itself can't be
+# backfilled (247Sports tracker is bot-blocked, RSS is recent-only).
+Run "coaching: coaching-fetch-news" { python manage.py coaching-fetch-news --days 7 }
+
 # =========================================================================
-# B. Reddit (Arctic Shift provider = free, no auth required)
+# B. Reddit (PullPush provider = free; Arctic Shift text-search returns HTTP 422 as of 2026-06)
 # =========================================================================
 Run "reddit: collect-reddit-watchlist" {
     python manage.py collect-reddit-watchlist `
         --season $CurSeason --week $SeasonWeek `
         --subreddit CFB `
         --audience-bucket national `
-        --provider arctic-shift `
+        --provider pullpush `
         --search-limit 15
 }
 

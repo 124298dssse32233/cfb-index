@@ -43,7 +43,7 @@ from typing import Any, Iterable
 log = logging.getLogger(__name__)
 
 
-FOOTBALLSCOOP_RSS = "https://footballscoop.com/feed/"
+FOOTBALLSCOOP_RSS = "https://www.footballscoop.com/rss/"  # moved from /feed/ (now 404) — fixed 2026-06
 TWO_FOUR_SEVEN_TRACKER = "https://247sports.com/Article/college-football-coaching-changes/"
 
 # Headline keywords. Lowercase compare. ``contract`` + ``dismissed`` + ``named``
@@ -67,6 +67,11 @@ from cfb_rankings.common.head_chrome import base_url
 
 # Routes through head_chrome.base_url() so a domain swap is a one-line change.
 _UA = f"CFBIndex-coaching-tracker/1.0 (+{base_url()})"
+# Some feeds block non-browser User-Agents; feedparser uses this for footballscoop.
+_BROWSER_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
 
 
 # ---------------------------------------------------------------------------
@@ -157,7 +162,7 @@ def _fetch_footballscoop(cutoff: datetime) -> list[dict[str, Any]]:
     """
     import feedparser  # local import — heavy dep, only needed at run time
 
-    feed = feedparser.parse(FOOTBALLSCOOP_RSS)
+    feed = feedparser.parse(FOOTBALLSCOOP_RSS, agent=_BROWSER_UA)
     # feedparser surfaces transport errors via feed.bozo / feed.bozo_exception
     # but it still returns a parsed structure. We treat the entry list as
     # ground truth; an empty list is a no-op.

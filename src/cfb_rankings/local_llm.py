@@ -38,6 +38,12 @@ Environment variables:
     CFB_LOCAL_LLM_TIMEOUT    per-request seconds (default 120).
     CFB_LOCAL_LLM_TEMPERATURE  sampling temperature (default 0 — deterministic).
     CFB_LOCAL_LLM_NO_THINK   "1" (default) appends "/no_think" to the system prompt.
+    CFB_LOCAL_LLM_REASONING_EFFORT  OpenAI-standard reasoning level; default "none",
+                             which disables the hidden reasoning pass on Qwen3-class
+                             models (Ollama maps "none" -> no thinking). Set "" to omit.
+    CFB_LOCAL_LLM_MIN_TOKENS floor for max_tokens (default 2048) — a safety net for a
+                             server that ignores reasoning_effort and still emits a
+                             token-hungry reasoning pass; only a ceiling otherwise.
     CFB_LOCAL_LLM_ANTHROPIC_MODELS  comma list of Anthropic model ids eligible
                              for local routing (default: any id containing "haiku").
 """
@@ -70,6 +76,8 @@ def _resolve_local_config() -> dict[str, Any]:
         "timeout": float(os.environ.get("CFB_LOCAL_LLM_TIMEOUT", "120")),
         "temperature": float(os.environ.get("CFB_LOCAL_LLM_TEMPERATURE", "0")),
         "no_think": _truthy(os.environ.get("CFB_LOCAL_LLM_NO_THINK", "1")),
+        "min_tokens": int(os.environ.get("CFB_LOCAL_LLM_MIN_TOKENS", "2048")),
+        "reasoning_effort": os.environ.get("CFB_LOCAL_LLM_REASONING_EFFORT", "none").strip(),
     }
 
 
@@ -133,10 +141,24 @@ def _chat_completion(
         messages.append({"role": "system", "content": system})
     messages.append({"role": "user", "content": prompt})
 
+    # Reasoning models (Qwen3, DeepSeek-R1) waste output tokens — and add latency
+    # plus run-to-run nondeterminism — on a hidden reasoning pass before they
+    # answer; Tier-A classification wants none of it. Two defenses, primary first:
+    #   1. reasoning_effort="none" (built into the payload below) — the OpenAI-
+    #      standard off-switch; Ollama maps it to disabling thinking. The soft
+    #      "/no_think" system hint is NOT honored on current Ollama: it hides the
+    #      <think> block but still SPENDS the tokens, so the reply randomly
+    #      truncates. reasoning_effort actually stops the reasoning generation
+    #      (~100 output tokens for a 50-doc batch instead of ~1300).
+    #   2. this max_tokens floor — a safety net for a server that ignores
+    #      reasoning_effort and keeps thinking; without headroom the truncated,
+    #      stripped reply is empty and every row silently skips.
+    effective_max_tokens = max(int(max_tokens), int(cfg.get("min_tokens", 2048)))
+
     base_payload = {
         "model": model,
         "messages": messages,
-        "max_tokens": max_tokens,
+        "max_tokens": effective_max_tokens,
         "temperature": cfg["temperature"],
         "stream": False,
     }
@@ -146,11 +168,31 @@ def _chat_completion(
         "Content-Type": "application/json",
     }
 
-    for attempt_payload in ([{**base_payload, "response_format": response_format}]
-                            if response_format else []) + [base_payload]:
+    # Try the most-featured payload first; on an HTTP 400/422 (a server rejecting
+    # an unknown optional field) strip one field and retry, ending at the bare
+    # payload every OpenAI-compatible server accepts — so the call never hard-
+    # fails on an unsupported parameter.
+    reasoning_effort = cfg.get("reasoning_effort") or ""
+    featured = dict(base_payload)
+    if reasoning_effort:
+        featured["reasoning_effort"] = reasoning_effort
+    if response_format:
+        featured["response_format"] = response_format
+
+    variants: list[dict[str, Any]] = []
+    if featured != base_payload:
+        variants.append(featured)
+        if reasoning_effort and response_format:
+            # Intermediate: keep the broadly-supported response_format, drop the
+            # newer reasoning_effort, before falling back to the bare payload.
+            variants.append({**base_payload, "response_format": response_format})
+    variants.append(base_payload)
+
+    for i, attempt_payload in enumerate(variants):
+        is_last = i == len(variants) - 1
         resp = requests.post(url, headers=headers, json=attempt_payload, timeout=cfg["timeout"])
-        if resp.status_code in (400, 422) and "response_format" in attempt_payload:
-            log.warning("local_llm: server rejected response_format (%s); retrying without it",
+        if resp.status_code in (400, 422) and not is_last:
+            log.warning("local_llm: server rejected an optional field (%s); retrying with fewer",
                         resp.status_code)
             continue
         resp.raise_for_status()
@@ -164,8 +206,6 @@ def _chat_completion(
             int(usage.get("completion_tokens") or 0),
         )
 
-    # Unreachable in practice (the no-response_format payload always runs), but
-    # keeps type-checkers happy.
     raise RuntimeError("local_llm: no payload variant succeeded")
 
 
