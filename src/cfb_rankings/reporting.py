@@ -16504,12 +16504,167 @@ def render_home_html(
 """
 
 
+_CFP_BRACKET_SVG = (
+    '<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" '
+    'stroke="currentColor" stroke-width="1.6" stroke-linecap="round" '
+    'stroke-linejoin="round" aria-hidden="true"><path d="M3 4v6h4M3 20v-6h4M21 '
+    '4v6h-4M21 20v-6h-4M7 7h3v10h-3M17 7h-3v10h3M10 12h4"/></svg>'
+)
+
+# Conferences offered as quick-filter chips on the board, in display order.
+# Only those actually present in the ranked set are emitted (real data only).
+_BOARD_FILTER_CONFERENCES = ["SEC", "Big Ten", "Big 12", "ACC"]
+
+
+def _render_rankings_board(
+    rankings: list[RankingRow],
+    season_name: str,
+    season_year_value: int,
+    conferences: list[str],
+    mood_for,
+) -> str:
+    """Assemble the v5 `.cfb-rkx` board (frozen mockups): finding banner, lens
+    tablist, filter chips, the card-feed `.sheet` AND the KenPom `.board-table`
+    (both in the DOM, width-toggled by rankings-board.css), a provenance line,
+    and Top-25 ItemList JSON-LD. Placed board-first inside <main>."""
+    if not rankings:
+        return (
+            '<div class="cfb-rkx" data-board-root>'
+            '<section class="finding"><div class="kick">The board</div>'
+            '<p>No ranked teams are available yet.</p></section></div>'
+        )
+
+    top = rankings[0]
+    n_ranked = len(rankings)
+
+    # --- finding banner ------------------------------------------------------
+    finding = (
+        '<section class="finding"><div class="kick">The board</div>'
+        f'<p><b>{escape(top.team_name)} leads the board</b> on the predictive side.</p>'
+        '</section>'
+    )
+
+    # --- lens tablist --------------------------------------------------------
+    lens_specs = [
+        ("power", "Power"),
+        ("resume", "Résumé"),
+        ("bettor", "Bettor"),
+        ("belief", "Belief"),
+    ]
+    lens_buttons = "".join(
+        f'<button role="tab" data-lens="{key}" '
+        f'aria-selected="{"true" if key == "power" else "false"}" '
+        f'tabindex="{"0" if key == "power" else "-1"}">{label}</button>'
+        for key, label in lens_specs
+    )
+    lens = f'<div class="lens" role="tablist" aria-label="Ranking lens">{lens_buttons}</div>'
+
+    # --- filter bar ----------------------------------------------------------
+    present_conf = {
+        _clean_conference_name(str(r.conference_name or f"{r.level_code} Independents"))
+        for r in rankings
+    }
+    chips = [
+        '<button class="fchip" aria-pressed="true" data-filter-type="tier" '
+        'data-filter-value="elite">Top 25 <span class="x">×</span></button>',
+        '<button class="fchip" aria-pressed="false" data-filter-type="level" '
+        'data-filter-value="fbs">FBS</button>',
+    ]
+    for conf in _BOARD_FILTER_CONFERENCES:
+        if conf in present_conf:
+            chips.append(
+                '<button class="fchip" aria-pressed="false" '
+                f'data-filter-type="conf" data-filter-value="{escape(_conf_slug(conf))}">'
+                f'{escape(conf)}</button>'
+            )
+    chips.append(
+        '<button class="fchip" aria-pressed="false" data-filter-type="level" '
+        'data-filter-value="all">All divisions</button>'
+    )
+    result_count = (
+        f'<span class="result-count" data-result-count aria-live="polite">'
+        f'{n_ranked} teams</span>'
+    )
+    filterbar = f'<div class="filterbar">{"".join(chips)}</div>{result_count}'
+
+    # --- card feed (cutline after rank 12) -----------------------------------
+    colhead = (
+        '<div class="colhead"><span></span><span style="text-align:center">Rk</span>'
+        '<span>Team</span><span class="c-pow">Power</span><span></span></div>'
+    )
+    cutline_card = (
+        f'<div class="cutline">{_CFP_BRACKET_SVG}College Football Playoff cutline '
+        '&middot; top 12 in</div>'
+    )
+    card_parts: list[str] = []
+    for row in rankings:
+        card_parts.append(_render_rankings_row(row, mood_for(row)))
+        if row.rank == 12:
+            card_parts.append(cutline_card)
+    sheet = (
+        f'<main class="sheet" id="rankingsBoard" data-board>{"".join(card_parts)}</main>'
+    )
+
+    # --- KenPom table (cutline <tr> after rank 12) ---------------------------
+    cutline_tr = (
+        '<tr class="cut"><td colspan="6"><div class="cutbar">'
+        f'{_CFP_BRACKET_SVG}College Football Playoff cutline &middot; top 12 in'
+        '</div></td></tr>'
+    )
+    table_parts: list[str] = []
+    for row in rankings:
+        table_parts.append(_render_rankings_table_row(row, mood_for(row)))
+        if row.rank == 12:
+            table_parts.append(cutline_tr)
+    table = (
+        '<div class="tablecard"><table class="board-table"><thead><tr>'
+        '<th class="l" style="width:34px">Rk</th><th style="width:42px">Δ</th>'
+        '<th class="l">Team</th><th class="l">Conf</th>'
+        '<th>Power<span class="ar">▾</span></th><th class="l">Belief</th>'
+        f'</tr></thead><tbody>{"".join(table_parts)}</tbody></table></div>'
+    )
+
+    # --- provenance ----------------------------------------------------------
+    provenance = (
+        f'<p class="result-count">Final {season_year_value} · {n_ranked} ranked teams</p>'
+    )
+
+    # --- ItemList JSON-LD (Top 25) -------------------------------------------
+    import json as _json
+    list_items = [
+        {
+            "@type": "ListItem",
+            "position": r.rank,
+            "name": r.team_name,
+            "url": f"../teams/{r.slug}.html",
+        }
+        for r in rankings[:25]
+    ]
+    json_ld = _json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": f"{season_name} College Football Power Rankings",
+            "itemListElement": list_items,
+        },
+        ensure_ascii=False,
+    )
+    json_ld_block = f'<script type="application/ld+json">{json_ld}</script>'
+
+    return (
+        '<div class="cfb-rkx" data-board-root>'
+        f'{finding}{lens}{filterbar}{colhead}{sheet}{table}{provenance}{json_ld_block}'
+        '</div>'
+    )
+
+
 def render_rankings_page_html(
     summary: dict[str, Any],
     rankings: list[RankingRow],
     latest_local_week: int,
     featured_team_pages: list[dict[str, Any]] | None = None,
     history_hub: dict[str, Any] | None = None,
+    mood_index: dict | None = None,
 ) -> str:
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
@@ -16525,7 +16680,19 @@ def render_rankings_page_html(
         else:
             row.tier = "all"
 
-    table_rows = "\n".join(_render_rankings_row(row) for row in rankings)
+    # v5 board (frozen mockups): card-feed + KenPom table both live in the DOM
+    # and toggle by width. mood_index defaults to None → every belief chip reads
+    # "Awaiting signal" for Phase 1.
+    mood_index = mood_index or {}
+
+    def _mood_for(row: RankingRow) -> tuple | None:
+        return mood_index.get(row.slug)
+
+    rankings_board = _render_rankings_board(
+        rankings, season_name, season_year_value, conferences, _mood_for
+    )
+
+    # Legacy <tr> board removed in Phase 1; the v5 card/table feeds replace it.
     movement_dashboard = _render_movement_dashboard(rankings)
     summary_cards = _render_summary_cards(featured_team_pages, prefix="../teams/") if featured_team_pages else ""
     compare_cards = _render_compare_feature_cards(featured_team_pages, prefix="../") if featured_team_pages else ""
@@ -16542,20 +16709,16 @@ def render_rankings_page_html(
     <title>{escape(season_name)} Rankings</title>
     {_meta_tags(f"Power and Resume rankings for all NCAA football teams in {season_name}. FBS, FCS, Division II, and Division III on one board with filterable sort and conference views.", title=f"{season_name} Rankings | THE CFB INDEX", image_path="../og-image.svg", canonical_path="/rankings/", og_image_url="/og-image.svg")}
     {_global_link_tags()}
+    <link rel="stylesheet" href="/assets/css/cfb-tokens.css">
+    <link rel="stylesheet" href="/assets/css/rankings-board.css">
+    <script src="/assets/js/rankings-board.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#rankingsTableBody">Skip to Rankings</a>
+    <a class="skip-link" href="#rankingsBoard">Skip to Rankings</a>
     <div aria-live="polite" aria-atomic="true" class="sr-only" id="rankingsAnnouncer"></div>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="rankings")}
-      {(
-        f'<section class="hero-finding" aria-label="Top of the board">'
-        f'<p class="hero-finding__eyebrow">{escape(season_name)} Power Rankings</p>'
-        f'<p class="hero-finding__number">{_public_power_text(rankings[0].power_display) if rankings else "—"}</p>'
-        f'<p class="hero-finding__sentence">{escape(rankings[0].team_name)} leads the board on the predictive side.</p>'
-        f'<p class="hero-finding__caption">Sample: {len(rankings):,} ranked teams across every level &middot; resume {_public_resume_text(rankings[0].resume_display)}/100.</p>'
-        f'</section>'
-      ) if rankings else ''}
+      {rankings_board}
         <section class="hero">
           <p class="eyebrow">Power Rankings</p>
           <h1>{escape(season_name)} across every level.</h1>
@@ -16714,32 +16877,6 @@ def render_rankings_page_html(
           </article>
         </section>
 
-        <section class="section">
-          <div class="rankings-quick-filters">
-            <button class="filter-chip" data-filter="risers">Big Risers ↑</button>
-            <button class="filter-chip" data-filter="fallers">Big Fallers ↓</button>
-            <button class="filter-chip" data-filter="fbs">FBS Only</button>
-            <button class="filter-chip" data-filter="power-leaders">Power Leaders</button>
-            <button class="filter-chip" data-filter="resume-leaders">Resume Leaders</button>
-          </div>
-          <div class="table-wrap">
-            <table>
-            <thead>
-              <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">Change</th>
-                <th scope="col">Team</th>
-                <th scope="col">Level</th>
-                <th scope="col">Power</th>
-                <th scope="col">Resume</th>
-              </tr>
-            </thead>
-            <tbody id="rankingsTableBody">
-              {table_rows}
-            </tbody>
-          </table>
-        </div>
-      </section>
       {render_methodology_footer(
           page="Rankings",
           sample_summary=f"Sample: {len(rankings):,} ranked teams across FBS, FCS, Division II, and Division III",
@@ -22921,44 +23058,225 @@ def _site_nav(prefix: str, current: str) -> str:
     )
 
 
-def _render_rankings_row(row: RankingRow) -> str:
-    conference = _clean_conference_name(str(row.conference_name or f"{row.level_code} Independents"))
-    delta_class = _rank_change_class(row.rank_change)
-    delta_text = _rank_change_text(row.rank_change)
-    search_blob = escape(f"{row.team_name} {conference} {row.level_code}".lower())
+# Short conference labels for the v5 board chips (frozen-mockup vocabulary).
+# Falls back to the team's level_code for the long tail of leagues.
+_CONF_SHORT_LABELS: dict[str, str] = {
+    "Big Ten": "B1G",
+    "SEC": "SEC",
+    "ACC": "ACC",
+    "Big 12": "B12",
+    "Pac-12": "PAC",
+    "American Athletic": "AAC",
+    "Mountain West": "MWC",
+    "Conference USA": "CUSA",
+    "Mid-American": "MAC",
+    "Sun Belt": "SBC",
+    "FBS Independents": "IND",
+    "FBS": "IND",
+    "FCS Independents": "IND",
+    "Independent DII": "IND",
+    "Independent DIII": "IND",
+}
 
-    # Get tier attribute for progressive disclosure
-    tier = getattr(row, 'tier', 'all')
-    tier_class = f"rankings-row--{tier}"
 
-    # Enhanced rank change with magnitude
-    magnitude = _rank_change_magnitude(row.rank_change)
-    direction = "up" if row.rank_change > 0 else "down" if row.rank_change < 0 else "flat"
-    magnitude_class = f"rank-delta--{magnitude}" if magnitude != "small" else ""
+def _conf_short(conference: str, level_code: str) -> str:
+    """Short conference label for the board, falling back to the level code."""
+    return _CONF_SHORT_LABELS.get(conference, level_code)
 
-    # Division color coding
-    level_color = _level_color(row.level_code)
 
-    # Team logo for visual identification (graceful: blank if missing).
-    # Rankings page is rendered at output/site/rankings/index.html, so `../`
-    # prefix turns the site-root path returned by team_logo_src into one that
-    # resolves from /rankings/.
+def _conf_slug(conference: str) -> str:
+    """Stable slug for the data-conf attribute the shipping JS filters on."""
+    slug = re.sub(r"[^a-z0-9]+", "-", str(conference or "").lower()).strip("-")
+    return slug or "independent"
+
+
+def _team_color(slug: str | None) -> str:
+    """Team primary hex for the --tc accent. Never raises; falls back to navy.
+
+    The generic registry primary (#5A5954) is treated as "no real brand color"
+    so unbranded slugs render with the design-system navy rather than mud.
+    """
+    try:
+        from cfb_rankings.visual_assets import resolve_team_brand
+        brand = resolve_team_brand(slug)
+        color = brand.primary_color
+        if color and color != "#5A5954":
+            return color
+    except Exception:  # noqa: BLE001 — color lookup must never break the board
+        pass
+    return "var(--color-navy-600)"
+
+
+def _team_monogram(team_name: str) -> str:
+    """Two-letter uppercase monogram for the logo fallback chip."""
+    parts = [p for p in re.split(r"[^A-Za-z0-9]+", team_name) if p]
+    if not parts:
+        return "?"
+    if len(parts) == 1:
+        return parts[0][:2].upper()
+    return (parts[0][0] + parts[1][0]).upper()
+
+
+def _mom_color(rank_change: int) -> str:
+    """Momentum tick color: green up, red down, gray flat (design tokens)."""
+    if rank_change > 0:
+        return "var(--color-green-400)"
+    if rank_change < 0:
+        return "var(--color-red-400)"
+    return "var(--color-gray-200)"
+
+
+_RANK_STAR_SVG = (
+    '<svg class="star" viewBox="0 0 24 24" width="13" height="13" '
+    'fill="currentColor" aria-hidden="true"><path d="M12 3l2.6 5.7 6.2.6-4.7 '
+    '4.1 1.4 6.1L12 16.9 6.5 19.6l1.4-6.1L3.2 9.4l6.2-.6z"/></svg>'
+)
+
+
+def _rankings_logo_markup(slug: str, tc: str, monogram: str) -> str:
+    """Card logo span (.logo wrapper) — sized 30px by .cfb-rkx .logo.
+
+    Rankings page lives at /rankings/index.html, so the site-root path from
+    team_logo_src is prefixed with `../`. When no logo exists, only the .fb
+    monogram chip shows (CSS reveals it on <img> error).
+    """
     from cfb_rankings.visual_assets import team_logo_src
-    _logo_path = team_logo_src(row.slug)
-    logo_html = (
-        f'<img class="rankings__team-logo" src="../{_logo_path.lstrip("/")}" '
-        f'alt="" width="24" height="24" loading="lazy" decoding="async" aria-hidden="true">'
-        if _logo_path else ""
+    logo_path = team_logo_src(slug)
+    img = (
+        f'<img class="" src="../{logo_path.lstrip("/")}" alt="" loading="lazy" '
+        f'decoding="async" onerror="this.style.display=\'none\';'
+        f"this.nextElementSibling.style.display='grid'\">"
+        if logo_path else ""
+    )
+    fb_style = "background:" + tc + (";display:grid" if not logo_path else "")
+    return (
+        f'<span class="logo">{img}'
+        f'<span class="fb" style="{fb_style}">{escape(monogram)}</span></span>'
     )
 
+
+def _rankings_table_logo_markup(slug: str, tc: str, monogram: str) -> str:
+    """Table logo — <img> + .fb as DIRECT children of .team (24px), matching
+    .cfb-rkx .board-table .team img / .fb in the desktop mockup. No .logo
+    wrapper (which would force the 30px card sizing)."""
+    from cfb_rankings.visual_assets import team_logo_src
+    logo_path = team_logo_src(slug)
+    img = (
+        f'<img src="../{logo_path.lstrip("/")}" alt="" loading="lazy" '
+        f'decoding="async" onerror="this.style.display=\'none\';'
+        f"this.nextElementSibling.style.display='grid'\">"
+        if logo_path else ""
+    )
+    fb_style = "background:" + tc + (";display:grid" if not logo_path else "")
+    return f'{img}<span class="fb" style="{fb_style}">{escape(monogram)}</span>'
+
+
+def _belief_chip(mood: tuple | None) -> str:
+    """Phase-1 belief chip.
+
+    `mood` is an (archetype_label, mentions) tuple. With >=12 mentions we show
+    the aligned label; otherwise (and whenever mood is None, the Phase-1
+    default) we emit the exact "Awaiting signal" fallback.
+    """
+    if mood is not None:
+        try:
+            label, mentions = mood
+            if int(mentions) >= 12:
+                return f'<span class="bchip align">{escape(str(label))}</span>'
+        except Exception:  # noqa: BLE001 — malformed mood degrades to awaiting
+            pass
+    return (
+        '<span class="bchip awaiting" title="Not enough fan conversation yet '
+        'to read a mood.">Awaiting signal</span>'
+    )
+
+
+def _render_rankings_row(row: RankingRow, mood: tuple | None = None) -> str:
+    """v5 card-feed article for one ranked team (mobile / card representation).
+
+    1:1 with docs/octopus/mockups/rankings-mobile.html row(); classes match
+    src/cfb_rankings/static_assets/css/rankings-board.css under .cfb-rkx.
+    """
+    conference = _clean_conference_name(str(row.conference_name or f"{row.level_code} Independents"))
+    tier = getattr(row, "tier", "all")
+    tc = _team_color(row.slug)
+    conf_short = _conf_short(conference, row.level_code)
+    conf_slug = _conf_slug(conference)
+    monogram = _team_monogram(row.team_name)
+    power_value = _public_power_value(row.power_display)
+    power_text = f"{power_value:.1f}" if power_value is not None else "--"
+    resume_value = _public_resume_value(row.resume_display)
+    lead_class = " lead" if row.rank == 1 else ""
+    star = _RANK_STAR_SVG if row.rank == 1 else ""
+
+    logo_html = _rankings_logo_markup(row.slug, tc, monogram)
+    bchip = _belief_chip(mood)
+
     return f"""
-    <tr class="{tier_class}" data-rank="{row.rank}" data-power="{float(row.power_display or 0.0):.4f}" data-resume="{float(row.resume_display or 0.0):.4f}" data-team="{escape(row.team_name.lower())}" data-level="{escape(row.level_code)}" data-conference="{escape(conference)}" data-search="{search_blob}" data-tier="{tier}" data-rank-change="{row.rank_change}" data-level-color="{level_color}">
-      <td class="rank-cell">#{row.rank}</td>
-      <td class="metric-cell"><span class="rank-delta {delta_class} {magnitude_class}">{escape(delta_text)}</span></td>
-      <td class="team-cell">{logo_html}<a class="team-link" href="../teams/{escape(row.slug)}.html">{escape(row.team_name)}</a><span class="submetric">{escape(conference)}</span></td>
-      <td><span class="pill level-{escape(row.level_code)}">{escape(row.level_code)}</span></td>
-      <td class="metric-cell">{_public_power_text(row.power_display)}</td>
-      <td class="metric-cell">{_public_resume_text(row.resume_display)}</td>
+    <article class="row{lead_class}" data-rank="{row.rank}" data-level="{escape(row.level_code.lower())}" data-conf="{escape(conf_slug)}" data-tier="{escape(str(tier))}" data-rank-change="{row.rank_change}" data-sort-power="{float(power_value or 0.0):.4f}" data-sort-resume="{float(resume_value or 0.0):.4f}" style="--tc:{tc}">
+      <div class="row-main" role="button" tabindex="0" aria-expanded="false" aria-label="Show {escape(row.team_name)} detail">
+        <span class="tcr" style="background:{tc}"></span>
+        <div class="rk num">{row.rank}<span class="mom" style="background:{_mom_color(row.rank_change)}"></span></div>
+        <div class="idb">{logo_html}<div class="idtext">
+          <div class="nm">{star}<span class="t">{escape(row.team_name)}</span></div>
+          <div class="meta"><span class="conf">{escape(conf_short)}</span><span class="dvr">·</span>{bchip}</div>
+        </div></div>
+        <div class="pow"><div class="v num">{power_text}</div><div class="l">Power · <b>#{row.rank}</b></div></div>
+        <span class="chev" aria-hidden="true">&rsaquo;</span>
+      </div>
+      <div class="detail"><div class="detail-in"><div class="dpad">{_rankings_detail_stub(row, conference)}<a href="../teams/{escape(row.slug)}.html">Open team page &rarr;</a></div></div></div>
+    </article>
+    """
+
+
+def _rankings_detail_stub(row: RankingRow, conference: str) -> str:
+    """One factual line for the Phase-1 drawer stub (no net-new modules)."""
+    power_value = _public_power_value(row.power_display)
+    resume_value = _public_resume_value(row.resume_display)
+    bits: list[str] = [f"#{row.rank} {escape(conference)}"]
+    if power_value is not None:
+        bits.append(f"power {power_value:.1f}")
+    if resume_value is not None:
+        bits.append(f"résumé {round(resume_value):d}/100")
+    return f'<p class="why">{" · ".join(bits)}</p>'
+
+
+def _render_rankings_table_row(row: RankingRow, mood: tuple | None = None) -> str:
+    """Desktop KenPom <tr> for one ranked team (table representation).
+
+    1:1 with docs/octopus/mockups/desktop-board.html rowHTML(); carries the
+    SAME data-* attributes as the card so the shipping JS filters both feeds.
+    """
+    conference = _clean_conference_name(str(row.conference_name or f"{row.level_code} Independents"))
+    tier = getattr(row, "tier", "all")
+    tc = _team_color(row.slug)
+    conf_short = _conf_short(conference, row.level_code)
+    conf_slug = _conf_slug(conference)
+    monogram = _team_monogram(row.team_name)
+    power_value = _public_power_value(row.power_display)
+    power_text = f"{power_value:.1f}" if power_value is not None else "--"
+    resume_value = _public_resume_value(row.resume_display)
+    lead_class = " lead" if row.rank == 1 else ""
+    star = _RANK_STAR_SVG if row.rank == 1 else ""
+
+    logo_html = _rankings_table_logo_markup(row.slug, tc, monogram)
+    delta_class = _rank_change_class(row.rank_change)
+    if row.rank_change > 0:
+        delta_text = f"&#9650;{row.rank_change}"
+    elif row.rank_change < 0:
+        delta_text = f"&#9660;{abs(row.rank_change)}"
+    else:
+        delta_text = "&mdash;"
+    bchip = _belief_chip(mood)
+
+    return f"""
+    <tr class="{lead_class.strip()}" data-rank="{row.rank}" data-level="{escape(row.level_code.lower())}" data-conf="{escape(conf_slug)}" data-tier="{escape(str(tier))}" data-rank-change="{row.rank_change}" data-sort-power="{float(power_value or 0.0):.4f}" data-sort-resume="{float(resume_value or 0.0):.4f}" style="--tc:{tc}">
+      <td class="l rk num">{row.rank}</td>
+      <td><span class="delta {delta_class}">{delta_text}</span></td>
+      <td class="l"><span class="team">{star}{logo_html}<span class="nm">{escape(row.team_name)}</span></span></td>
+      <td class="l"><span class="conf">{escape(conf_short)}</span></td>
+      <td><span class="v num" aria-label="Power {power_text}, rank {row.rank}">{power_text}<span class="rk2">·{row.rank}</span></span></td>
+      <td>{bchip}</td>
     </tr>
     """
 
