@@ -69,6 +69,19 @@ class Database:
         connection.row_factory = sqlite3.Row
         connection.execute("pragma foreign_keys = on")
         connection.execute("pragma busy_timeout = 30000")
+        # Read-side perf for the large (>1GB) local DB. This module opens a
+        # fresh connection per query, so a per-connection page cache never
+        # warms; memory-mapping the file instead lets the OS page cache stay
+        # shared across connections (huge win for the build's millions of
+        # small indexed reads), and temp_store=memory keeps GROUP BY / ORDER BY
+        # temp b-trees in RAM. Both are pure read optimizations — no durability
+        # or behavior change — and each is wrapped so an unsupported pragma can
+        # never break a connection. mmap_size is an upper bound, not a reserve.
+        for _pragma in ("pragma mmap_size = 2147483648", "pragma temp_store = memory"):
+            try:
+                connection.execute(_pragma)
+            except sqlite3.Error:
+                pass
         try:
             yield connection
         finally:
