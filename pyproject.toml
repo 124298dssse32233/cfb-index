@@ -20,6 +20,11 @@ dependencies = [
   # campus_news, athletics, substack). Added defensively — same missing-dep
   # class of bug was about to bite the daily-cron pipeline.
   "feedparser>=6.0.0",
+  # tzdata supplies the IANA tz database for zoneinfo. Linux runners get it from
+  # the OS, but Windows has no system tz DB, so ZoneInfo("America/New_York") in
+  # ingest/conversation.py raises ZoneInfoNotFoundError at import without this.
+  # Required for the 24/7 Windows box's fan-intel/conversation ingest. Added 2026-06-08.
+  "tzdata>=2024.1",
 ]
 
 [project.scripts]
