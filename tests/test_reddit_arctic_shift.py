@@ -1,8 +1,13 @@
 from __future__ import annotations
 
-import responses
+import pytest
 
-from cfb_rankings.clients.reddit_arctic_shift import ArcticShiftClient
+responses = pytest.importorskip(
+    "responses",
+    reason="responses package not installed in this environment",
+)
+
+from cfb_rankings.clients.reddit_arctic_shift import ArcticShiftClient  # noqa: E402
 
 
 @responses.activate

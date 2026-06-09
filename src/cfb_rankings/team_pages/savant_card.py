@@ -24,6 +24,8 @@ import html
 import json
 from typing import Any
 
+from cfb_rankings.utils import ordinal_suffix as _ordinal_suffix
+
 from .profile_loader import Profile
 
 
@@ -109,7 +111,8 @@ def _render_narrative(narrative: str | None, rows: list[dict[str, Any]], profile
     bottom = ranked[-1]
     top_txt = " and ".join(f"{lbl.lower()} (top {100 - int(p):d}%)" for lbl, p in top)
     bot_lbl, bot_p = bottom
-    crux = f"the crux lives in {bot_lbl.lower()}, where {profile.program_name} sits at the {int(bot_p):d}th percentile."
+    _bp = int(bot_p)
+    crux = f"the crux lives in {bot_lbl.lower()}, where {profile.program_name} sits at the {_bp}{_ordinal_suffix(_bp)} percentile."
     text = f"{profile.program_name} reads strongest in {top_txt}; {crux}"
     return f'<p class="savant-card__narrative savant-card__narrative--fallback">{html.escape(text)}</p>'
 
@@ -174,7 +177,7 @@ def _render_metric_bar(row: dict[str, Any]) -> str:
         <div class="savant-bar__midline" aria-hidden="true"></div>
       </div>
       <div class="savant-bar__value" aria-label="Percentile">
-        <span class="savant-bar__pct">{int(round(pct_main))}</span><span class="savant-bar__pct-sup">th</span>
+        <span class="savant-bar__pct">{int(round(pct_main))}</span><span class="savant-bar__pct-sup">{_ordinal_suffix(int(round(pct_main)))}</span>
       </div>
     </div>"""
 
@@ -217,6 +220,15 @@ def _percentile_band(pct: float) -> str:
 
 _SAVANT_TOGGLE_JS = """<script>
 (function(){
+  function ordinal(n){
+    var m100 = n % 100;
+    if (m100 >= 10 && m100 <= 13) return 'th';
+    var m10 = n % 10;
+    if (m10 === 1) return 'st';
+    if (m10 === 2) return 'nd';
+    if (m10 === 3) return 'rd';
+    return 'th';
+  }
   var cards = document.querySelectorAll('.savant-card');
   cards.forEach(function(card){
     var chips = card.querySelectorAll('.savant-card__chip');
@@ -226,14 +238,18 @@ _SAVANT_TOGGLE_JS = """<script>
         var v = bar.getAttribute('data-pct-' + peer);
         var fill = bar.querySelector('.savant-bar__fill');
         var pct = bar.querySelector('.savant-bar__pct');
+        var sup = bar.querySelector('.savant-bar__pct-sup');
         var num = v && v.length ? parseFloat(v) : null;
         if (num === null || isNaN(num)) {
           if (fill) fill.style.width = '0%';
           if (pct) pct.textContent = '—';
+          if (sup) sup.textContent = '';
           bar.setAttribute('data-band','missing');
         } else {
           if (fill) fill.style.width = num.toFixed(1) + '%';
-          if (pct) pct.textContent = Math.round(num);
+          var rounded = Math.round(num);
+          if (pct) pct.textContent = rounded;
+          if (sup) sup.textContent = ordinal(rounded);
           var band = num >= 90 ? 'elite' : num >= 70 ? 'strong' : num >= 40 ? 'average' : num >= 10 ? 'concern' : 'bottom';
           bar.setAttribute('data-band', band);
         }

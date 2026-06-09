@@ -1,0 +1,228 @@
+player_id,full_name_for_audit,award_slug,list_type,position_rank,priority,source,source_url,as_of,notes
+# Heisman Trophy — preseason consensus top 25 as of 2026-05-27.
+# Sources: ESPN BET futures, On3 May 2026 watch, 247Sports, Phil Steele 2026 preview, Paul Finebaum forecast.
+# Reflects post-2026-draft, post-portal (Jan 2-16 2026) landscape. Players drafted or out of eligibility excluded.
+13074,Arch Manning,heisman,odds_top10,1,1,consensus_may_2026,,2026-05-27,#1 Heisman favorite — Texas QB1 returning
+8280,Lanorris Sellers,heisman,odds_top10,4,1,consensus_may_2026,,2026-05-27,#4 — South Carolina QB w/ rushing upside
+64120,DJ Lagway,heisman,odds_top10,5,1,consensus_may_2026,,2026-05-27,#5 — Florida QB1
+3830,Jeremiah Smith,heisman,odds_top10,6,1,consensus_may_2026,,2026-05-27,#6 — Ohio State WR, can break the QB lock
+9245,Sam Leavitt,heisman,odds_top10,7,2,consensus_may_2026,,2026-05-27,#7 — Arizona State QB
+9132,John Mateer,heisman,odds_top10,9,2,consensus_may_2026,,2026-05-27,#9 — Oklahoma QB (transferred from Wazzu)
+9515,Avery Johnson,heisman,odds_top10,10,2,consensus_may_2026,,2026-05-27,#10 — Kansas State QB
+# Rest of top 25 (priority 3 — shown only if no top-10 mention)
+13699,Dylan Raiola,heisman,media_predict,11,3,consensus_may_2026,,2026-05-27,Nebraska QB returning
+15185,Marcel Reed,heisman,media_predict,12,3,consensus_may_2026,,2026-05-27,Texas A&M QB
+5944,Nico Iamaleava,heisman,media_predict,13,3,consensus_may_2026,,2026-05-27,UCLA QB (transferred from Tennessee)
+10457,Jackson Arnold,heisman,media_predict,14,3,consensus_may_2026,,2026-05-27,Auburn QB (transferred from OU)
+9019,Beau Pribula,heisman,media_predict,15,3,consensus_may_2026,,2026-05-27,Missouri QB (transferred from PSU)
+11684,Sawyer Robertson,heisman,media_predict,16,3,consensus_may_2026,,2026-05-27,Baylor QB returning
+11807,Maddux Madsen,heisman,media_predict,17,3,consensus_may_2026,,2026-05-27,Boise State QB (G5 dark horse)
+# Maxwell Award (overall player of the year)
+13074,Arch Manning,maxwell,watchlist_official,1,2,consensus_may_2026,,2026-05-27,Maxwell watch — Texas QB
+3830,Jeremiah Smith,maxwell,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Maxwell watch — Ohio State WR
+8280,Lanorris Sellers,maxwell,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Maxwell watch — South Carolina QB
+64120,DJ Lagway,maxwell,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Maxwell watch — Florida QB
+9245,Sam Leavitt,maxwell,watchlist_official,8,2,consensus_may_2026,,2026-05-27,Maxwell watch — Arizona State QB
+9132,John Mateer,maxwell,watchlist_official,9,2,consensus_may_2026,,2026-05-27,Maxwell watch — Oklahoma QB
+9515,Avery Johnson,maxwell,watchlist_official,10,2,consensus_may_2026,,2026-05-27,Maxwell watch — Kansas State QB
+# Davey O'Brien Award (top QB)
+13074,Arch Manning,davey_obrien,watchlist_official,1,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Texas QB
+8280,Lanorris Sellers,davey_obrien,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Davey O'Brien — South Carolina QB
+64120,DJ Lagway,davey_obrien,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Florida QB
+9245,Sam Leavitt,davey_obrien,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Arizona State QB
+9132,John Mateer,davey_obrien,watchlist_official,7,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Oklahoma QB
+9515,Avery Johnson,davey_obrien,watchlist_official,8,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Kansas State QB
+15185,Marcel Reed,davey_obrien,watchlist_official,9,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Texas A&M QB
+13699,Dylan Raiola,davey_obrien,watchlist_official,10,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Nebraska QB
+11807,Maddux Madsen,davey_obrien,watchlist_official,11,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Boise State QB
+5944,Nico Iamaleava,davey_obrien,watchlist_official,12,2,consensus_may_2026,,2026-05-27,Davey O'Brien — UCLA QB
+10457,Jackson Arnold,davey_obrien,watchlist_official,13,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Auburn QB
+9019,Beau Pribula,davey_obrien,watchlist_official,14,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Missouri QB
+11684,Sawyer Robertson,davey_obrien,watchlist_official,15,2,consensus_may_2026,,2026-05-27,Davey O'Brien — Baylor QB
+# Manning Award (top QB — passing focus)
+13074,Arch Manning,manning,watchlist_official,1,3,consensus_may_2026,,2026-05-27,Manning Award — Texas
+8280,Lanorris Sellers,manning,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Manning Award — South Carolina
+64120,DJ Lagway,manning,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Manning Award — Florida
+# Walter Camp Award (overall player of the year — equivalent to Maxwell)
+13074,Arch Manning,walter_camp,watchlist_official,1,3,consensus_may_2026,,2026-05-27,Walter Camp — Texas QB
+3830,Jeremiah Smith,walter_camp,watchlist_official,3,3,consensus_may_2026,,2026-05-27,Walter Camp — Ohio State WR
+# Doak Walker Award (top RB)
+# Biletnikoff Award (top WR)
+3830,Jeremiah Smith,biletnikoff,watchlist_official,1,2,consensus_may_2026,,2026-05-27,Biletnikoff — Ohio State WR1 (returning All-American)
+4452,Ryan Williams,biletnikoff,watchlist_official,2,3,consensus_may_2026,,2026-05-27,Biletnikoff — Alabama WR breakout
+# Doak Walker (top RB) — Notre Dame's Love already listed. Add returning depth.
+# Bednarik Award + Nagurski Trophy (defensive POY — overlap heavily)
+13102,Colin Simmons,bednarik,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Bednarik — Texas EDGE
+13102,Colin Simmons,nagurski,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Nagurski — Texas EDGE
+# Butkus Award (top LB)
+13977,Whit Weeks,butkus,watchlist_official,2,2,consensus_may_2026,,2026-05-27,Butkus — LSU LB
+# Jim Thorpe Award (top DB)
+# Outland Trophy (top interior lineman — both OL + DL eligible)
+# Rimington Trophy (top center)
+# Lou Groza Award (top K)
+15903,Will Stone,lou_groza,watchlist_official,1,3,consensus_may_2026,,2026-05-27,Groza — Texas K
+# Ray Guy Award (top P)
+# Lott IMPACT Trophy (defense + character)
+# Hornung Award (most versatile)
+8280,Lanorris Sellers,hornung,watchlist_official,2,3,consensus_may_2026,,2026-05-27,Hornung — South Carolina QB dual-threat
+14116,Desmond Reid,hornung,watchlist_official,1,2,consensus_may_2026,,2026-05-27,Hornung — Pitt RB/return man, 7600 career YfS
+# === Additional returning marquee — verified RETURNING_2026 via DB cache ===
+# Heisman expansion (returning starters w/ Power 4 platform or huge 2024 production)
+13154,Diego Pavia,heisman,media_predict,18,3,consensus_may_2026,,2026-05-27,Vanderbilt QB — 11k pass / 4k rush career, dark horse
+14116,Desmond Reid,heisman,media_predict,19,3,consensus_may_2026,,2026-05-27,Pitt RB — All-Purpose YfS leader returning
+8851,Noah Fifita,heisman,media_predict,20,3,consensus_may_2026,,2026-05-27,Arizona QB — 14k career passing
+9799,Haynes King,heisman,media_predict,21,3,consensus_may_2026,,2026-05-27,Georgia Tech QB — dual-threat, returning
+14022,Miller Moss,heisman,media_predict,22,3,consensus_may_2026,,2026-05-27,USC QB — fourth-year starter
+13779,Luke Altmyer,heisman,media_predict,23,3,consensus_may_2026,,2026-05-27,Illinois QB — 12k career passing
+14173,Jalon Daniels,heisman,media_predict,24,3,consensus_may_2026,,2026-05-27,Kansas QB — Big 12 sleeper
+10805,Brendan Sorsby,heisman,media_predict,25,3,consensus_may_2026,,2026-05-27,Cincinnati QB — Big 12 dark horse
+# Davey O'Brien expansion (top returning QBs)
+13154,Diego Pavia,davey_obrien,watchlist_official,16,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Vanderbilt
+8851,Noah Fifita,davey_obrien,watchlist_official,17,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Arizona
+9799,Haynes King,davey_obrien,watchlist_official,18,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Georgia Tech
+14022,Miller Moss,davey_obrien,watchlist_official,19,3,consensus_may_2026,,2026-05-27,Davey O'Brien — USC
+13779,Luke Altmyer,davey_obrien,watchlist_official,20,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Illinois
+14173,Jalon Daniels,davey_obrien,watchlist_official,21,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Kansas
+10805,Brendan Sorsby,davey_obrien,watchlist_official,22,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Cincinnati
+13402,Rocco Becht,davey_obrien,watchlist_official,23,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Iowa State
+12170,Maalik Murphy,davey_obrien,watchlist_official,24,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Duke
+11451,Billy Edwards,davey_obrien,watchlist_official,25,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Maryland (transferred from Wisconsin)
+14110,Eli Holstein,davey_obrien,watchlist_official,26,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Pittsburgh
+9855,Josh Hoover,davey_obrien,watchlist_official,27,3,consensus_may_2026,,2026-05-27,Davey O'Brien — TCU
+10866,Kaidon Salter,davey_obrien,watchlist_official,28,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Liberty (G5)
+11540,Blake Horvath,davey_obrien,watchlist_official,29,3,consensus_may_2026,,2026-05-27,Davey O'Brien — Navy (G5 dual-threat)
+# Maxwell expansion
+13154,Diego Pavia,maxwell,watchlist_official,11,3,consensus_may_2026,,2026-05-27,Maxwell — Vanderbilt QB
+14116,Desmond Reid,maxwell,watchlist_official,12,3,consensus_may_2026,,2026-05-27,Maxwell — Pittsburgh RB
+# Manning Award expansion (passing-focused QBs)
+13154,Diego Pavia,manning,watchlist_official,6,3,consensus_may_2026,,2026-05-27,Manning — Vanderbilt
+14022,Miller Moss,manning,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Manning — USC
+8851,Noah Fifita,manning,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Manning — Arizona
+13779,Luke Altmyer,manning,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Manning — Illinois
+9855,Josh Hoover,manning,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Manning — TCU
+# Doak Walker (top returning RBs)
+14116,Desmond Reid,doak_walker,watchlist_official,2,2,consensus_may_2026,,2026-05-27,Doak Walker — Pittsburgh RB
+11334,Makhi Hughes,doak_walker,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Doak Walker — Houston (transferred from Tulane) RB
+16170,Darius Taylor,doak_walker,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Doak Walker — Minnesota
+6733,Isaac Brown,doak_walker,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Doak Walker — Louisville
+13075,Tre Wisner,doak_walker,watchlist_official,6,3,consensus_may_2026,,2026-05-27,Doak Walker — Texas
+3848,Ahmad Hardy,doak_walker,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Doak Walker — Missouri (transferred from ULM)
+9641,Devin Mockobee,doak_walker,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Doak Walker — Purdue
+16252,Bryson Washington,doak_walker,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Doak Walker — Baylor
+14472,Anthony Hankerson,doak_walker,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Doak Walker — Oregon State
+# Biletnikoff expansion
+13984,Aaron Anderson,biletnikoff,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Biletnikoff — LSU WR
+9973,Devonte Ross,biletnikoff,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Biletnikoff — Troy WR (G5 dynamo)
+13654,Trebor Pena,biletnikoff,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Biletnikoff — Syracuse WR (transferred to PSU)
+14434,Junior Vandeross,biletnikoff,watchlist_official,6,3,consensus_may_2026,,2026-05-27,Biletnikoff — Toledo WR (G5)
+# Butkus Award (linebacker of the year) — preseason 2026 top candidates
+# Expanded from 1 to 9 candidates. Sources: Phil Steele 2026, On3 LB watch, 247Sports.
+26138,Dasan McCullough,butkus,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Butkus - Oklahoma LB; top returning rush linebacker in Big 12
+32566,Payton Pierce,butkus,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Butkus - Ohio State LB; 2025 Big Ten Defensive Player candidate
+31773,Kahanu Kia,butkus,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Butkus - Notre Dame LB; high-motor edge/off-ball hybrid
+28406,Jeremiah Alexander,butkus,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Butkus - Clemson LB; top edge-setting linebacker in SEC
+29604,Xavier Atkins,butkus,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Butkus - Auburn LB; fast-flowing inside linebacker
+29608,Davhon Keys,butkus,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Butkus - LSU LB; playmaking sideline-to-sideline
+# Jim Thorpe Award (defensive back of the year) — preseason 2026 top candidates
+# 0 to 10 candidates. Sources: Phil Steele 2026, On3 DB Watch, ESPN preseason.
+3720,Gabe Powers,thorpe,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Thorpe - Kansas State DB; top returning safety/LB hybrid in B1G
+27706,Cormani McClain,thorpe,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Thorpe - Florida CB; former No. 1 CB recruit elite cover corner
+29639,Craig Walton Jr.,thorpe,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Thorpe - LSU CB; shutdown corner SEC All-Defensive candidate
+29628,Michael Turner Jr.,thorpe,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Thorpe - LSU CB; press-man specialist high NFL upside
+27039,Kylen Webb,thorpe,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Thorpe - Clemson S; ball-hawk safety leads Tigers secondary
+29007,Mason Curtis,thorpe,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Thorpe - Michigan DB; versatile safety/nickel hybrid
+28412,Jahlil Hurley,thorpe,watchlist_official,7,2,consensus_may_2026,,2026-05-27,Thorpe - Alabama DB; lockdown corner returning to Tide
+28445,Dre Kirkpatrick Jr.,thorpe,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Thorpe - Alabama DB; legacy name emerging cornerback
+26150,Makari Vickers,thorpe,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Thorpe - Colorado CB; splash-play cornerback in Sooners scheme
+28912,Aaron Flowers,thorpe,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Thorpe - Oregon DB; versatile safety in Oregon defense
+# Bednarik Award (defensive player of the year) — expanded
+# 1 to 8 candidates. Colin Simmons (Texas) already entered.
+32533,Jaylen Harvey,bednarik,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Bednarik - Penn State DE; off-ball pressure specialist
+32383,Jordan Mayer,bednarik,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Bednarik - Penn State DE; versatile edge player with disruption upside
+33391,Dominic Kirks,bednarik,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Bednarik - Ohio State DE; elite motor penetrating 3-tech
+33401,Xavier Gilliam,bednarik,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Bednarik - Penn State DT; interior anchor with pass-rush ability
+27059,Darien Mayo,bednarik,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Bednarik - Clemson DE; active edge 2025 postseason performer
+4521,Lebbeus Overton,bednarik,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Bednarik - Alabama DL; versatile rusher off the edge
+26138,Dasan McCullough,bednarik,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Bednarik - Oklahoma LB; all-conference rush linebacker
+# Nagurski Award (defensive player of the year) — expanded
+# 1 to 6 candidates. Colin Simmons already entered.
+32533,Jaylen Harvey,nagurski,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Nagurski - Penn State DE
+32383,Jordan Mayer,nagurski,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Nagurski - Penn State DE
+33401,Xavier Gilliam,nagurski,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Nagurski - Penn State DT interior havoc player
+4521,Lebbeus Overton,nagurski,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Nagurski - Alabama DL
+26138,Dasan McCullough,nagurski,watchlist_official,6,3,consensus_may_2026,,2026-05-27,Nagurski - Oklahoma LB
+# Mackey Award (tight end of the year) — new award category 0 to 5 candidates
+# Sources: 247Sports TE watch May 2026 On3 TE rankings.
+27768,Jackson Carver,mackey,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Mackey - Miami TE; top returning TE in ACC seam threat
+24925,Henry Delp,mackey,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Mackey - Georgia TE; featured receiving TE returning to Bulldogs
+26639,Johnny Pascuzzi,mackey,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Mackey - Tulane TE; classic Tulane TE mold tight-window catcher
+29033,Zack Marshall,mackey,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Mackey - Michigan TE; pro-style blocker with receiving upside
+28448,Jay Lindsey,mackey,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Mackey - Alabama TE; versatile move-TE in Alabama RPO scheme
+# Ray Guy Award (punter of the year) — new award category 0 to 4 candidates
+# Sources: Kohl Kicking preseason P rankings Phil Steele punter grades.
+13305,Brett Thorson,ray_guy,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Ray Guy - Georgia P; elite directional punter field-position weapon
+12199,James Rendell,ray_guy,watchlist_official,2,2,consensus_may_2026,,2026-05-27,Ray Guy - Notre Dame P; high-hang-time punter top 5 nationally
+3840,Joe McGuire,ray_guy,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Ray Guy - Ohio State P; pin-deep specialist high gross average
+11808,James Ferguson-Reynolds,ray_guy,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Ray Guy - Boise State P; Mountain West top punter 2024
+# Lou Groza Award (placekicker) — expanded from 1 to 5 candidates
+# Note: Will Stone (15903) is TRANSFERRED will be pruned by clean_watch_csvs.py
+13306,Peyton Woodring,lou_groza,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Groza - Georgia K; elite accuracy 50-plus yard range
+4663,Conor Talty,lou_groza,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Groza - Alabama K; returning starter clutch-game track record
+12365,Drew Stevens,lou_groza,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Groza - Iowa K; Hawkeyes workhorse kicker
+23315,Ryan Barker,lou_groza,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Groza - Penn State K; accurate medium-range specialist
+# Outland Trophy (interior lineman of year) — new award category 0 to 5 candidates
+# Covers OL (OT/OG/C) and interior DL (DT). Sources: Phil Steele PFF.
+28408,Elijah Pritchett,outland,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Outland - Nebraska OL; dominant LT transferred from Alabama top tackle in Big Ten
+33401,Xavier Gilliam,outland,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Outland - Penn State DT; interior anchor with A-gap control
+32342,Austin Siereveld,outland,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Outland - Ohio State OL; elite guard prospect mauler in run game
+27015,Tristan Leigh,outland,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Outland - Clemson OL; franchise-LT caliber returning starter
+24874,Drew Bobo,outland,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Outland - Georgia OL; versatile interior lineman
+# Walter Camp Player of the Year — expanded from 2 to 6 candidates
+8280,Lanorris Sellers,walter_camp,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Walter Camp - South Carolina QB; dual threat with Heisman upside
+13102,Colin Simmons,walter_camp,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Walter Camp - Texas EDGE; top returning pass rusher in Big 12
+# Hornung Award (versatility) — expanded from 2 to 4 candidates
+3830,Jeremiah Smith,hornung,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Hornung - Ohio State WR; reverses screens short-yardage impact
+3720,Gabe Powers,hornung,watchlist_official,4,3,consensus_may_2026,,2026-05-27,Hornung - Kansas State DB; box safety/LB hybrid rare versatility
+# Dave Rimington Trophy (center of the year) — new award category, 5 candidates
+# Sources: Phil Steele 2026 OL grades, PFF offensive line rankings, On3 center watch.
+31585,Carson Hinzman,rimington,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Rimington - Ohio State C; returning starting center for national-champion Buckeyes
+28409,Parker Brailsford,rimington,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Rimington - Alabama C; anchor of Tide interior line multi-year starter
+24874,Drew Bobo,rimington,watchlist_official,3,2,consensus_may_2026,,2026-05-27,Rimington - Georgia C/OG; versatile interior piece Outland/Rimington crossover
+27018,Ryan Linthicum,rimington,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Rimington - Clemson C; Clemson's returning starting center spring depth chart confirmed
+31304,Nolan Rucci,rimington,watchlist_official,5,3,consensus_may_2026,,2026-05-27,Rimington - Penn State OL; elite interior blocker anchors Lions run game
+# Rotary Lombardi Award (lineman of year — OL or DL) — new award category, 7 candidates
+# Sources: Phil Steele 2026 lineman grades, ESPN preseason lineman watch, PFF.
+28408,Elijah Pritchett,lombardi,watchlist_official,1,1,consensus_may_2026,,2026-05-27,Lombardi - Nebraska LT; elite pass protector transferred from Alabama dominant Big Ten tackle
+33401,Xavier Gilliam,lombardi,watchlist_official,2,1,consensus_may_2026,,2026-05-27,Lombardi - Penn State DT; interior anchor A-gap control Outland/Bednarik crossover
+13102,Colin Simmons,lombardi,watchlist_official,3,1,consensus_may_2026,,2026-05-27,Lombardi - Texas EDGE; top returning pass rusher Big 12 Bednarik crossover
+32533,Jaylen Harvey,lombardi,watchlist_official,4,2,consensus_may_2026,,2026-05-27,Lombardi - Penn State DE; edge specialist disruption upside
+27015,Tristan Leigh,lombardi,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Lombardi - Clemson LT; franchise-LT caliber pass protector
+32342,Austin Siereveld,lombardi,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Lombardi - Ohio State OG; elite guard mauler in run game Outland crossover
+23361,Dominick McKinley,lombardi,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Lombardi - LSU DT; 4-year starter interior havoc generator All-SEC caliber
+# Outland Trophy — expanded from 5 to 8 candidates (added DT/C)
+31585,Carson Hinzman,outland,watchlist_official,6,3,consensus_may_2026,,2026-05-27,Outland - Ohio State C; returning starting center two-way anchor
+23361,Dominick McKinley,outland,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Outland - LSU DT; interior defensive anchor 4-year starter SEC force
+3732,Tywone Malone,outland,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Outland - Ohio State DT; returning DT for national champion Buckeyes
+# Walter Camp Player of the Year — expanded from 4 to 8 candidates
+11334,Makhi Hughes,walter_camp,watchlist_official,5,2,consensus_may_2026,,2026-05-27,Walter Camp - Houston RB; top returning rusher Pac-12 powerhouse
+14116,Desmond Reid,walter_camp,watchlist_official,6,2,consensus_may_2026,,2026-05-27,Walter Camp - Pittsburgh RB; all-purpose weapon Hornung/Doak Walker crossover
+26138,Dasan McCullough,walter_camp,watchlist_official,7,3,consensus_may_2026,,2026-05-27,Walter Camp - Nebraska LB; top returning linebacker Butkus/Bednarik crossover
+27706,Cormani McClain,walter_camp,watchlist_official,8,3,consensus_may_2026,,2026-05-27,Walter Camp - Florida CB; former #1 CB recruit elite cover corner Thorpe crossover
+# Bednarik Award — expanded from 8 to 10 candidates (added DTs)
+23361,Dominick McKinley,bednarik,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Bednarik - LSU DT; 4-year starter dominant interior force All-SEC
+3732,Tywone Malone,bednarik,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Bednarik - Ohio State DT; defensive anchor for national-champion Buckeyes
+# Dave Rimington Trophy (center of the year) — new award category, 5 candidates
+# Sources: Phil Steele 2026 OL grades, PFF offensive line rankings, On3 center watch.
+# Rotary Lombardi Award (lineman of year — OL or DL) — new award category, 7 candidates
+# Sources: Phil Steele 2026 lineman grades, ESPN preseason lineman watch, PFF.
+# Outland Trophy — expanded from 5 to 8 candidates (added DT/C)
+# Walter Camp Player of the Year — expanded from 4 to 8 candidates
+# Bednarik Award — expanded from 8 to 10 candidates (added DTs)
+# Biletnikoff Award (wide receiver of year) — expanded from 6 to 10 candidates
+# Sources: PFF WR rankings 2026, On3 WR watch, Phil Steele 2026 WR grades.
+13251,Bryant Wesco Jr.,biletnikoff,watchlist_official,7,2,consensus_may_2026,,2026-05-27,Biletnikoff - Clemson WR; Clemson WR1 top returning target in ACC explosive route runner
+12193,Jaden Greathouse,biletnikoff,watchlist_official,8,2,consensus_may_2026,,2026-05-27,Biletnikoff - Notre Dame WR; Irish WR1 big-play threat high NFL draft upside
+13246,T.J. Moore,biletnikoff,watchlist_official,9,3,consensus_may_2026,,2026-05-27,Biletnikoff - Clemson WR; veteran receiver brings production and YAC ability
+13273,Dillon Bell,biletnikoff,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Biletnikoff - Georgia WR; Bulldogs WR1 returns for sixth season proven possession receiver
+# Doak Walker Award (running back of year) — expanded from 9 to 10 candidates
+4489,Justice Haynes,doak_walker,watchlist_official,10,3,consensus_may_2026,,2026-05-27,Doak Walker - Transfer RB; explosive pass-catching back high production at prior stop

@@ -91,7 +91,8 @@ def compute_cohort_divergence(
         return CohortDivergenceMap(
             applicable=False,
             awaiting_reason=(
-                "Per-cohort mention data hasn't landed for this player yet."
+                "Cohort divergence reads how different fanbases talk about this "
+                "player. Returns once weekly mentions clear the publish floor."
             ),
             dots=[],
             max_mentions=0,
@@ -141,3 +142,68 @@ def compute_cohort_divergence(
         dots=dots,
         max_mentions=max_mentions,
     )
+
+
+def player_cohort_divergence_summary(
+    db: Database,
+    player_id: int,
+    season: int,
+    structural_percentile: float | None = None,
+) -> dict[str, Any]:
+    """Chip-shaped cohort divergence summary for a player page.
+
+    Wraps compute_cohort_divergence() and derives the two scalar
+    metrics the QB fingerprint chips consume:
+
+      respect_gap = fan_belief - national_belief
+      reality_gap = fan_belief - structural_percentile
+
+    Returns a dict (not the dataclass) so the qb_fingerprint's _cd_get()
+    helper finds the keys via dict.get() naturally. Both metrics fall
+    back to None when the necessary buckets / structural data are
+    insufficient — the renderer then shows the "Awaiting" shell.
+
+    This is the wiring fix for WS-01: the player page's
+    build_player_page_data_map now passes a populated dict so the
+    chip auto-lights when fan-bucket data starts flowing from the
+    deep workflow (post the audience_bucket='fan' label fix). Until
+    fan-bucket rows exist, respect_gap stays None and the chip
+    correctly shows Awaiting.
+    """
+    cd_map = compute_cohort_divergence(db, player_id, season)
+    by_bucket = {d.bucket: d.belief for d in cd_map.dots}
+
+    fan_belief = by_bucket.get("fan")
+    national_belief = by_bucket.get("national")
+
+    respect_gap: float | None = None
+    if fan_belief is not None and national_belief is not None:
+        respect_gap = fan_belief - national_belief
+
+    reality_gap: float | None = None
+    if fan_belief is not None and structural_percentile is not None:
+        try:
+            sp = float(structural_percentile)
+            if sp <= 1.0 + 1e-9:
+                sp *= 100.0  # accept 0-1 fractions
+            reality_gap = fan_belief - sp
+        except (TypeError, ValueError):
+            reality_gap = None
+
+    return {
+        "respect_gap": respect_gap,
+        "reality_gap": reality_gap,
+        "applicable": cd_map.applicable,
+        "awaiting_reason": cd_map.awaiting_reason,
+        "dots": [
+            {
+                "bucket": d.bucket,
+                "label": d.label,
+                "belief": d.belief,
+                "intensity": d.intensity,
+                "mention_count": d.mention_count,
+            }
+            for d in cd_map.dots
+        ],
+        "max_mentions": cd_map.max_mentions,
+    }

@@ -48,6 +48,15 @@ from .stats_table import (
     render_receiving_table,
     render_team_offense_table,
     render_team_defense_table,
+    # Defensive position groups (conformance spec §1.4-1.6)
+    render_dl_table,
+    render_lb_table,
+    render_db_table,
+    # Kicking / punting / returns (conformance spec §1.7-1.9, §1.11)
+    render_kicking_table,
+    render_punting_table,
+    render_returning_table,
+    render_team_special_teams_table,
     render_stats_assets_head,
 )
 from .percentile_bar import (
@@ -88,6 +97,13 @@ __all__ = [
     "render_receiving_table",
     "render_team_offense_table",
     "render_team_defense_table",
+    "render_dl_table",
+    "render_lb_table",
+    "render_db_table",
+    "render_kicking_table",
+    "render_punting_table",
+    "render_returning_table",
+    "render_team_special_teams_table",
     "render_stats_assets_head",
     # Percentile bar
     "PercentileBand",

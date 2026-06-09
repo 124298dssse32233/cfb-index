@@ -29,6 +29,8 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Any
 
+from cfb_rankings.utils import ordinal_suffix as _ordinal
+
 
 # --------------------------------------------------------------------------
 # Candidate observation — what streams emit
@@ -201,7 +203,7 @@ def savant_stream(
                 stream="savant",
                 notes=(
                     f"{_SAVANT_ANOMALY_LABEL.get(mk, mlabel)} sits at the "
-                    f"{int(round(pf))}th percentile of FBS — {direction}."
+                    f"{int(round(pf))}{_ordinal(int(round(pf)))} percentile of FBS — {direction}."
                 ),
             ))
 

@@ -103,6 +103,32 @@ def build_parser() -> argparse.ArgumentParser:
     tag_players_parser.add_argument("--no-last-name", action="store_true",
                                     help="Disable last-name-only matching (TASK 5.2 strict mode — "
                                          "full-name match required; higher precision, lower recall).")
+    tag_players_parser.add_argument("--player-pool-season", type=int, default=None,
+                                    help=("Optional override: build the player-name index from this "
+                                          "season's stats instead of --season. Use in offseason mode "
+                                          "when docs are tagged to next-season but stats only exist "
+                                          "for last-season."))
+
+    tag_teams_parser = subparsers.add_parser(
+        "tag-team-mentions",
+        help=("Scan untagged conversation_documents (bluesky_curated, substack_*) "
+              "for team-alias mentions and emit target_type='team' rows. Reddit is "
+              "tagged at collection time and excluded. Dry-run by default; pass "
+              "--commit to insert rows."),
+    )
+    tag_teams_parser.add_argument("--season", type=int, required=True,
+                                  help="Season year the emitted targets are stamped with.")
+    tag_teams_parser.add_argument("--week", type=int, default=0,
+                                  help="Week for the emitted targets (0 = preseason/offseason).")
+    tag_teams_parser.add_argument("--limit", type=int, default=None,
+                                  help="Optional cap on docs scanned (debug/preview).")
+    tag_teams_parser.add_argument("--sources", type=str, default=None,
+                                  help="Comma-separated source_name list to scan. Defaults to the "
+                                       "curated untagged sources (bluesky_curated + substack_*).")
+    tag_teams_parser.add_argument("--commit", action="store_true",
+                                  help="Actually insert rows. Default is dry-run.")
+    tag_teams_parser.add_argument("--preview", action="store_true",
+                                  help="Print each matched (doc, team) pair for eyeball review.")
 
     compute_player_advanced_parser = subparsers.add_parser(
         "compute-player-advanced",
@@ -165,6 +191,34 @@ def build_parser() -> argparse.ArgumentParser:
              "Also regenerates /methodology/freshness.html (TASK 8.7).",
     )
 
+    # Wave 25 — refresh 2026 award watch + depth chart from CSV source-of-truth.
+    refresh_award_parser = subparsers.add_parser(
+        "refresh-award-watch",
+        help="Reload data/award_watch_2026.csv into player_award_watch_2026. Idempotent.",
+    )
+    refresh_award_parser.add_argument("--csv", type=str, default="data/award_watch_2026.csv")
+    refresh_award_parser.add_argument("--dry-run", action="store_true")
+    refresh_award_parser.add_argument(
+        "--prune-source", type=str, default="consensus_may_2026",
+        help="Delete rows from this source not present in the CSV (default: consensus_may_2026)",
+    )
+
+    refresh_depth_parser = subparsers.add_parser(
+        "refresh-depth-chart",
+        help="Reload data/depth_chart_2026.csv into player_depth_chart_2026. Idempotent.",
+    )
+    refresh_depth_parser.add_argument("--csv", type=str, default="data/depth_chart_2026.csv")
+    refresh_depth_parser.add_argument("--dry-run", action="store_true")
+    refresh_depth_parser.add_argument(
+        "--prune-source", type=str, default="manual_editorial",
+        help="Delete rows from this source not present in the CSV (default: manual_editorial)",
+    )
+
+    subparsers.add_parser(
+        "verify-wave25",
+        help="Audit Wave 25 modules — every status code, marquee players, override counts.",
+    )
+
     # Sprint v5-11.5 pre-work — Cmd-K search index.
     build_search_parser = subparsers.add_parser(
         "build-search-index",
@@ -217,6 +271,25 @@ def build_parser() -> argparse.ArgumentParser:
         "--day-window", type=int, default=2,
         help="Inclusive +/- day window around target MM-DD (default: 2).",
     )
+
+    # Stubs for workflow CLIs that haven't been implemented yet (Sprint v5-8
+    # follow-ups). The schedule slots fire hourly/weekly and were silently
+    # failing → opening one automation-failure issue per cron firing once
+    # notify_failure.yml started working (2026-05-22). Until the real
+    # implementation lands, log a stub message and exit 0 so the workflow
+    # stays green.
+    subparsers.add_parser(
+        "sync-digest-reactions",
+        help="STUB. Sync 👍/👎 reactions on the rolling digest issue into "
+             "editorial_overrides. Real implementation lands Sprint v5-8.",
+    )
+    weekly_digest_parser = subparsers.add_parser(
+        "build-weekly-digest",
+        help="STUB. Build the weekly digest markdown body. Real "
+             "implementation lands Sprint v5-8.",
+    )
+    weekly_digest_parser.add_argument("--out", type=str, default="digest.md")
+    weekly_digest_parser.add_argument("--look-ahead-days", type=int, default=7)
 
     # Sprint v5-1 Day 4 — S5 Today in CFB History renderer.
     render_today_history_parser = subparsers.add_parser(
@@ -391,6 +464,54 @@ def build_parser() -> argparse.ArgumentParser:
     )
     cmm_parser.add_argument("--season", type=int, default=None)
     cmm_parser.add_argument("-k", type=int, default=10)
+
+    # Wave 10 — CFBD play-by-play ingest + per-player metrics.
+    pbp_ingest_parser = subparsers.add_parser(
+        "ingest-cfbd-pbp",
+        help=("Pull /plays from CFBD for (season, weeks) and upsert into "
+              "cfbd_pbp_plays + cfbd_pbp_play_actors."),
+    )
+    pbp_ingest_parser.add_argument("--season", type=int, required=True)
+    pbp_ingest_parser.add_argument("--weeks", type=int, nargs="*", default=None,
+                                   help="Specific weeks to pull. Default = 1..16 regular.")
+    pbp_ingest_parser.add_argument("--season-type", type=str, default="regular",
+                                   choices=["regular", "postseason", "both"])
+    pbp_ingest_parser.add_argument("--classification", type=str, default="fbs")
+    pbp_ingest_parser.add_argument("--skip-actors", action="store_true",
+                                   help="Skip play-text parsing (raw plays only).")
+
+    compute_pbp_parser = subparsers.add_parser(
+        "compute-player-pbp-metrics",
+        help=("Derive per-player PBP metrics (EPA/db, CPOE, success, "
+              "explosive, aDOT, etc.) and write player_pbp_metrics_season."),
+    )
+    compute_pbp_parser.add_argument("--season", type=int, required=True)
+
+    # Wave 15 — Narrative Arc LLM generator batch CLI.
+    garc_parser = subparsers.add_parser(
+        "generate-player-narrative-arcs",
+        help=("Generate 3-act season narrative arcs for top-N players using "
+              "local Ollama. Writes to player_narrative_arc cache."),
+    )
+    garc_parser.add_argument("--season", type=int, required=True)
+    garc_parser.add_argument("--top", type=int, default=100)
+    garc_parser.add_argument("--player-ids", type=int, nargs="*", default=None)
+    garc_parser.add_argument("--model", type=str, default=None)
+    garc_parser.add_argument("--force-refresh", action="store_true")
+
+    # Wave 8 — Signature Story LLM generator batch CLI.
+    gpsig_parser = subparsers.add_parser(
+        "generate-player-signatures",
+        help=("Generate Signature Story prose for top-N players using local "
+              "Ollama (mistral-nemo). Writes to player_signature_story cache."),
+    )
+    gpsig_parser.add_argument("--season", type=int, required=True)
+    gpsig_parser.add_argument("--top", type=int, default=100,
+                              help="Top N players by Heisman volume / Savant lead.")
+    gpsig_parser.add_argument("--player-ids", type=int, nargs="*", default=None,
+                              help="Explicit player_id filter.")
+    gpsig_parser.add_argument("--model", type=str, default=None)
+    gpsig_parser.add_argument("--force-refresh", action="store_true")
 
     # Signature Bets S2.7 — Achievements CLI.
     cach_parser = subparsers.add_parser(
@@ -570,6 +691,17 @@ def build_parser() -> argparse.ArgumentParser:
     draft_parser.add_argument("--end-year", type=int, default=None,
         help="End year (inclusive) for range ingest.")
 
+    coaches_parser = subparsers.add_parser(
+        "ingest-cfbd-coaches",
+        help="Fetch CFBD /coaches; UPDATEs team_seasons.head_coach for matched rows.",
+    )
+    coaches_parser.add_argument("--year", type=int, default=None,
+        help="Single year to ingest.")
+    coaches_parser.add_argument("--start-year", type=int, default=None,
+        help="Start year (inclusive) for range ingest.")
+    coaches_parser.add_argument("--end-year", type=int, default=None,
+        help="End year (inclusive) for range ingest.")
+
     wiki_awards_parser = subparsers.add_parser(
         "scrape-wiki-awards",
         help="Scrape Wikipedia All-America / All-Conference / Position Awards "
@@ -678,6 +810,10 @@ def build_parser() -> argparse.ArgumentParser:
     sync_team_seasons_parser.add_argument("--start-season", type=int)
     sync_team_seasons_parser.add_argument("--end-season", type=int)
     sync_team_seasons_parser.add_argument("--season", action="append", type=int, default=[])
+
+    sync_team_locations_parser = subparsers.add_parser("sync-team-locations")
+    sync_team_locations_parser.add_argument("--season", type=int, default=2025)
+    sync_team_locations_parser.add_argument("--classification", type=str, default=None)
 
     run_models_parser = subparsers.add_parser("run-models")
     run_models_parser.add_argument("--season", type=int, required=True)
@@ -838,6 +974,26 @@ def build_parser() -> argparse.ArgumentParser:
 
     site_parser = subparsers.add_parser("build-site")
     site_parser.add_argument("--output-dir", default="output/site")
+    site_parser.add_argument(
+        "--use-lkg-only",
+        action="store_true",
+        default=False,
+        help=(
+            "Emergency mode: read chronicle cards only from Last-Known-Good cache, "
+            "skipping fresh LLM generation entirely. Intended for the "
+            "emergency_publish.ps1 failure-handler path."
+        ),
+    )
+    site_parser.add_argument(
+        "--no-llm",
+        action="store_true",
+        default=False,
+        help=(
+            "Belt-and-suspenders guard: hard-disable every LLM call path in the "
+            "chronicle pipeline. --use-lkg-only should already skip LLM calls, "
+            "but this flag enforces the constraint at each call site."
+        ),
+    )
 
     audit_links_parser = subparsers.add_parser("audit-links")
     audit_links_parser.add_argument("--site-dir", default="output/site")
@@ -875,6 +1031,16 @@ def build_parser() -> argparse.ArgumentParser:
     classify_fanbases_parser.add_argument(
         "--backfill-history", type=int, default=0,
         help="Also write N prior seasons into fanbase_classification_history using the same classifier.",
+    )
+
+    populate_arcs_parser = subparsers.add_parser(
+        "populate-arcs",
+        help="Open/close the 10 D-010 narrative arc frames into season_narrative_arc.",
+    )
+    populate_arcs_parser.add_argument("--season", type=int, required=True)
+    populate_arcs_parser.add_argument(
+        "--week", type=int, default=0,
+        help="Week the arcs open at (0 = preseason/offseason).",
     )
 
     compute_mood_week_parser = subparsers.add_parser(
@@ -1103,6 +1269,51 @@ def build_parser() -> argparse.ArgumentParser:
         "--no-seed", action="store_true",
         help="Skip the seed-load step and render from existing DB rows only.",
     )
+
+    # WS-12: data-driven storyline candidate queue (editor pull-list, not auto-publish).
+    storyline_candidates_parser = subparsers.add_parser(
+        "build-storyline-candidates",
+        help="Rank live narrative arcs (season_narrative_arc) into the "
+             "storyline_candidate queue for editorial review. Dry-run by "
+             "default; pass --commit to write.",
+    )
+    storyline_candidates_parser.add_argument("--season", type=int, required=True)
+    storyline_candidates_parser.add_argument(
+        "--commit", action="store_true",
+        help="Write ranked candidates (preserves editor review_status on re-run).",
+    )
+    storyline_candidates_parser.add_argument(
+        "--digest", nargs="?", const="output/storyline-candidates.md",
+        default=None,
+        help="Also render an editor-facing Markdown digest (+ JSON sidecar) of "
+             "the queue. Optional path; defaults to output/storyline-candidates.md.",
+    )
+
+    review_candidate_parser = subparsers.add_parser(
+        "review-storyline-candidate",
+        help="Record an editor verdict on a storyline candidate "
+             "(the sanctioned way to set review_status; survives daily re-rank).",
+    )
+    review_candidate_parser.add_argument("--id", required=True, dest="candidate_id")
+    review_candidate_parser.add_argument(
+        "--status", required=True, choices=["proposed", "promoted", "dismissed"],
+    )
+
+    # WS-12: editorial cadence dashboard — surfaces "what's overdue" across surfaces.
+    cadence_parser = subparsers.add_parser(
+        "editorial-cadence",
+        help="Write the editorial cadence dashboard (Markdown + JSON): "
+             "last-published-per-surface vs staleness thresholds, flags overdue.",
+    )
+    cadence_parser.add_argument(
+        "--output", default="output/editorial-cadence.md",
+        help="Output path for the Markdown dashboard (default: "
+             "output/editorial-cadence.md). A .json sidecar is written alongside.",
+    )
+    cadence_parser.add_argument(
+        "--strict", action="store_true",
+        help="Exit non-zero if any surface is overdue (for CI cadence gating).",
+    )
     # ---- end sprint 10: storylines ----
 
     refresh_savant_parser = subparsers.add_parser(
@@ -1145,7 +1356,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     render_all_team_parser = subparsers.add_parser(
         "render-team-pages",
-        help="Render every profiled program (all profiles/*.md) without a full "
+        help="Render every real FBS team page without a full "
              "build-site cycle. Convenience for iteration on the team_pages module.",
     )
     render_all_team_parser.add_argument(
@@ -1159,6 +1370,27 @@ def build_parser() -> argparse.ArgumentParser:
     render_all_team_parser.add_argument(
         "--season", type=int, default=None,
         help="Override season.",
+    )
+    render_all_team_parser.add_argument(
+        "--profiled-only", action="store_true",
+        help="Render only hand-authored profiles/*.md pages.",
+    )
+
+    render_era_parser = subparsers.add_parser(
+        "render-era-page",
+        help="Render the CFP-era page (WS-07) for one or more programs to "
+             "output/site/programs/<slug>/era/cfp/index.html.",
+    )
+    render_era_parser.add_argument(
+        "slug", nargs="+", help="Program slug(s), e.g. alabama georgia",
+    )
+    render_era_parser.add_argument(
+        "--output-dir", default="output/site/programs",
+        help="Base programs directory (default: output/site/programs).",
+    )
+    render_era_parser.add_argument(
+        "--end-season", type=int, default=2025,
+        help="Last season to include in the era (default: 2025).",
     )
 
     simulate_game_parser = subparsers.add_parser(
@@ -1737,6 +1969,154 @@ def build_parser() -> argparse.ArgumentParser:
         help="Surface key, e.g. 'tier1.edition_cover' or 'tier1.reaction_story'.",
     )
 
+    # Chronicle Visuals — v3 visual-first deterministic SVG generation.
+    # See CHRONICLE_QUALITY_PROPOSAL_v3.md + migrations/20260526_01_chronicle_visual_cache.sql.
+    chronicle_visuals_parser = subparsers.add_parser(
+        "generate-chronicle-visuals",
+        help="Generate Chronicle Visuals (Statement Win Ladder, Returning Production X-Ray, "
+             "Heisman Race Braid, Roster Replacement Grid) into chronicle_visual_cache.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--season", type=int, required=True,
+        help="Season year (e.g. 2024).",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--week", type=int, default=None,
+        help="Optional week cutoff. If omitted, uses the most recent week.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--slug", type=str, default=None,
+        help="Limit to a single team slug. If omitted, runs across all active FBS teams.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--visual", type=str, default=None,
+        help="Limit to a single visual id (e.g. statement_win_ladder, "
+             "returning_production_xray, heisman_race_braid, roster_replacement_grid).",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--force", action="store_true",
+        help="Bypass cache lookup and regenerate.",
+    )
+    chronicle_visuals_parser.add_argument(
+        "--limit-teams", type=int, default=None,
+        help="Cap teams processed (useful for smoke tests).",
+    )
+
+    # =========================================================================
+    # Team Preview — deterministic truth layer (Milestone A).
+    # Spec: docs/specs/team-preview-implementation-plan-2026-05-26.md
+    # =========================================================================
+    def _add_preview_common(p: argparse.ArgumentParser) -> None:
+        p.add_argument("--season", type=int, required=True,
+                       help="Preview season year, e.g. 2026.")
+        p.add_argument("--as-of", required=True,
+                       help="As-of date YYYY-MM-DD (e.g. 2026-05-25).")
+        p.add_argument("--slug", nargs="*", default=None,
+                       help="Limit to specific team slugs (default: canonical FBS set).")
+
+    tps_parser = subparsers.add_parser(
+        "build-team-preview-snapshots",
+        help="Team Preview: build deterministic team_preview_snapshot rows.",
+    )
+    _add_preview_common(tps_parser)
+
+    spp_parser = subparsers.add_parser(
+        "compute-season-path-projections",
+        help="Team Preview: compute final-season-aware floor/base/ceiling records.",
+    )
+    _add_preview_common(spp_parser)
+
+    rrs_parser = subparsers.add_parser(
+        "build-roster-reload-snapshots",
+        help="Team Preview: build transfer position flow + roster reload summary.",
+    )
+    _add_preview_common(rrs_parser)
+
+    preview_layer_parser = subparsers.add_parser(
+        "build-team-preview-layer",
+        help="Team Preview: run all deterministic preview builders for publish.",
+    )
+    preview_layer_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Preview season year. Defaults to the current calendar year.",
+    )
+    preview_layer_parser.add_argument(
+        "--as-of", default=None,
+        help="As-of date YYYY-MM-DD. Defaults to today's date.",
+    )
+    preview_layer_parser.add_argument(
+        "--slug", nargs="*", default=None,
+        help="Limit to specific team slugs (default: canonical FBS set).",
+    )
+    preview_layer_parser.add_argument(
+        "--allow-empty", action="store_true",
+        help="Exit successfully even if no preview rows were written.",
+    )
+
+    gen_preview_claims_parser = subparsers.add_parser(
+        "generate-team-preview-claims",
+        help="Team Preview: generate evidence-gated local-LLM preview claim cache rows.",
+    )
+    gen_preview_claims_parser.add_argument("--season", type=int, required=True)
+    gen_preview_claims_parser.add_argument("--as-of", required=True)
+    gen_preview_claims_parser.add_argument("--slug", nargs="*", default=None)
+    gen_preview_claims_parser.add_argument(
+        "--allow-cloud", action="store_true",
+        help="Permit Chronicle router cloud fallback. Default is local-only.",
+    )
+    gen_preview_claims_parser.add_argument(
+        "--json", action="store_true",
+        help="Emit machine-readable generation report.",
+    )
+
+    preview_llm_status_parser = subparsers.add_parser(
+        "team-preview-llm-status",
+        help="Team Preview: show local LLM backend status via the Chronicle router.",
+    )
+    preview_llm_status_parser.add_argument(
+        "--allow-cloud", action="store_true",
+        help="Include cloud fallback routes in status output.",
+    )
+
+    bowl_parser = subparsers.add_parser(
+        "import-bowl-record-ledger",
+        help="Team Preview: import an all-time bowl-record seed (CSV/JSON).",
+    )
+    bowl_parser.add_argument("--source", required=True,
+                             help="Path to a bowl-ledger seed CSV or JSON.")
+    bowl_parser.add_argument("--as-of", default=None,
+                             help="Retrieval date YYYY-MM-DD (stamped when seed omits it).")
+
+    audit_parser = subparsers.add_parser(
+        "audit-team-preview-readiness",
+        help="Team Preview: report missing vs low-confidence preview data per team.",
+    )
+    _add_preview_common(audit_parser)
+    audit_parser.add_argument("--json", action="store_true",
+                              help="Emit the full per-team report as JSON.")
+
+    # WS-09 — calibration prediction ledger (D-015).
+    ledger_parser = subparsers.add_parser(
+        "prediction-ledger",
+        help="WS-09: record/resolve/summarize the prediction calibration ledger.",
+    )
+    ledger_parser.add_argument(
+        "--action", required=True,
+        choices=["record-archetypes", "record-season-wins", "resolve", "summary"],
+        help="record-archetypes / record-season-wins: log predictions; "
+             "resolve: grade due predictions; summary: print calibration aggregate.",
+    )
+    ledger_parser.add_argument("--season", type=int, default=None,
+                               help="Season the prediction window is for (record actions).")
+    ledger_parser.add_argument("--model-id", default=None,
+                               help="Filter summary to one model_id.")
+    ledger_parser.add_argument("--kind", default=None,
+                               help="Filter summary/resolve to one prediction_kind.")
+    ledger_parser.add_argument("--last-n", type=int, default=None,
+                               help="Summary over the most recent N resolved predictions.")
+    ledger_parser.add_argument("--json", action="store_true",
+                               help="Emit the summary as JSON.")
+
     return parser
 
 
@@ -2135,6 +2515,51 @@ def main() -> None:
         print(f"  index: {result['index_written']}")
         print(f"  contract: {result['homepage_contract_written']}")
         return
+
+    if args.command == "build-storyline-candidates":
+        from cfb_rankings.storylines.candidate_queue import (
+            populate_storyline_candidates,
+            render_candidate_digest,
+        )
+        summary = populate_storyline_candidates(
+            db, season_year=args.season, commit=args.commit
+        )
+        mode = "committed" if args.commit else "dry-run"
+        print(
+            f"storyline candidates ({mode}): {summary['candidates_ranked']} ranked "
+            f"from {summary['arcs_scanned']} arcs, {summary['covered_count']} already "
+            f"thread-covered, {summary['rows_written']} written"
+        )
+        for cid, score in summary["top"]:
+            print(f"  {score:6.3f}  {cid}")
+        if args.digest is not None:
+            d = render_candidate_digest(db, season_year=args.season, output_path=args.digest)
+            print(
+                f"  digest: {d['md_path']} "
+                f"({d['proposed']} proposed / {d['net_new']} net-new)"
+            )
+        return
+
+    if args.command == "review-storyline-candidate":
+        from cfb_rankings.storylines.candidate_queue import set_review_status
+        found = set_review_status(db, args.candidate_id, args.status)
+        if found:
+            print(f"{args.candidate_id} -> {args.status}")
+        else:
+            print(f"no candidate with id {args.candidate_id!r}")
+            raise SystemExit(1)
+        return
+
+    if args.command == "editorial-cadence":
+        from cfb_rankings.storylines.cadence_dashboard import render_cadence_dashboard
+        d = render_cadence_dashboard(db, output_path=args.output)
+        print(
+            f"editorial cadence: {d['overdue_count']} overdue surface(s), "
+            f"{d['stale_thread_count']} stale thread(s) -> {d['md_path']}"
+        )
+        if args.strict and d["overdue_count"]:
+            raise SystemExit(1)
+        return
     # ---- end sprint 10: storylines ----
 
     if args.command == "refresh-savant":
@@ -2260,17 +2685,36 @@ def main() -> None:
 
     if args.command == "render-team-pages":
         from cfb_rankings.team_pages import render_all_profiled_pages, PROFILED_SLUGS
+        from cfb_rankings.team_pages.profile_loader import list_real_fbs_slugs
         override_date = None
         if getattr(args, "date", None):
             override_date = date.fromisoformat(args.date)
         count = render_all_profiled_pages(
             db, args.output_dir,
             today=override_date, season_year=args.season,
+            include_unprofiled_fbs=not args.profiled_only,
         )
+        target_count = len(PROFILED_SLUGS)
+        if not args.profiled_only:
+            target_count = len(set(PROFILED_SLUGS) | set(list_real_fbs_slugs(db)))
         print(
-            f"render-team-pages: rendered {count}/{len(PROFILED_SLUGS)} profiled programs "
+            f"render-team-pages: rendered {count}/{target_count} team pages "
             f"-> {args.output_dir}"
         )
+        return
+
+    if args.command == "render-era-page":
+        from cfb_rankings.era_pages import render_era_page_for
+        rendered = 0
+        for slug in args.slug:
+            ok = render_era_page_for(db, slug, args.output_dir, end_season=args.end_season)
+            if ok:
+                rendered += 1
+                print(f"render-era-page: {slug} -> "
+                      f"{args.output_dir}/{slug}/era/cfp/index.html")
+            else:
+                print(f"render-era-page: {slug} skipped (insufficient CFP-era data)")
+        print(f"render-era-page: rendered {rendered}/{len(args.slug)} era pages")
         return
 
     if args.command == "simulate-game":
@@ -2381,6 +2825,7 @@ def main() -> None:
             doc_limit=args.limit, commit=args.commit,
             preview=getattr(args, "preview", False),
             include_last_name_matches=not getattr(args, "no_last_name", False),
+            player_pool_season=getattr(args, "player_pool_season", None),
         )
         mode = "COMMIT" if args.commit else "DRY-RUN"
         print(
@@ -2389,6 +2834,30 @@ def main() -> None:
             + f": docs_scanned={result['docs_scanned']}"
             + f" matches={result['matches']}"
             + f" skipped_ambiguous={result['skipped_ambiguous']}"
+            + f" rows_written={result['rows_written']}"
+        )
+        return
+
+    if args.command == "tag-team-mentions":
+        from cfb_rankings.ingest.team_name_tagger import (
+            DEFAULT_UNTAGGED_SOURCES,
+            tag_team_mentions,
+        )
+        sources = (
+            [s.strip() for s in args.sources.split(",") if s.strip()]
+            if args.sources else list(DEFAULT_UNTAGGED_SOURCES)
+        )
+        result = tag_team_mentions(
+            db, season_year=args.season, week=args.week,
+            sources=sources, doc_limit=args.limit,
+            commit=args.commit, preview=getattr(args, "preview", False),
+        )
+        mode = "COMMIT" if args.commit else "DRY-RUN"
+        print(
+            f"[{mode}] tag-team-mentions season={args.season} week={args.week}"
+            + f" sources={','.join(sources)}"
+            + f": docs_scanned={result['docs_scanned']}"
+            + f" matches={result['matches']}"
             + f" rows_written={result['rows_written']}"
         )
         return
@@ -2446,13 +2915,48 @@ def main() -> None:
         from cfb_rankings.provenance.methodology_page import write_methodology_page
         from cfb_rankings.provenance.freshness_page import write_freshness_page
         from cfb_rankings.provenance.methodology_index_page import write_methodology_index_page
+        from cfb_rankings.provenance.calibration_page import write_calibration_page
         out = write_methodology_page(db)
         print(f"methodology page written: {out}")
         fresh = write_freshness_page(db)
         print(f"freshness page written: {fresh}")
+        calib = write_calibration_page(db)
+        print(f"calibration page written: {calib}")
         idx = write_methodology_index_page()
         print(f"methodology index written: {idx}")
         return
+
+    if args.command == "refresh-award-watch":
+        import importlib.util as _ilu
+        from pathlib import Path as _P
+        _spec = _ilu.spec_from_file_location(
+            "load_award_watch", _P(__file__).resolve().parent.parent.parent / "scripts" / "load_award_watch.py"
+        )
+        _mod = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_mod)
+        _mod.load(_P(args.csv), _P(getattr(db, "_db_path", None) or "cfb_rankings.db"),
+                  args.dry_run, args.prune_source)
+        return
+
+    if args.command == "refresh-depth-chart":
+        import importlib.util as _ilu
+        from pathlib import Path as _P
+        _spec = _ilu.spec_from_file_location(
+            "load_depth_chart", _P(__file__).resolve().parent.parent.parent / "scripts" / "load_depth_chart.py"
+        )
+        _mod = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_mod)
+        _mod.load(_P(args.csv), _P(getattr(db, "_db_path", None) or "cfb_rankings.db"),
+                  args.dry_run, args.prune_source)
+        return
+
+    if args.command == "verify-wave25":
+        import importlib.util as _ilu
+        from pathlib import Path as _P
+        _spec = _ilu.spec_from_file_location(
+            "verify_wave25", _P(__file__).resolve().parent.parent.parent / "scripts" / "verify_wave25.py"
+        )
+        _mod = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_mod)
+        import sys as _sys
+        _sys.exit(0 if _mod.verify(_P(getattr(db, "_db_path", None) or "cfb_rankings.db")) else 1)
 
     if args.command == "build-freshness":
         from cfb_rankings.provenance.freshness_page import write_freshness_page
@@ -2495,6 +2999,36 @@ def main() -> None:
             f"posts_archived_low_engagement={result['posts_archived_low_engagement']} "
             f"errors={result['errors']}"
         )
+        return
+
+    # Sprint v5-8 stub commands (added 2026-05-22 to silence hourly/weekly
+    # cron failure noise once notify_failure.yml started working). Real
+    # implementations TBD; until then the workflows exit 0 with a log
+    # message and the rolling artifact stays untouched.
+    if args.command == "sync-digest-reactions":
+        print("sync-digest-reactions: STUB -- no-op until Sprint v5-8.")
+        print("  Real implementation will poll the rolling digest issue for")
+        print("  thumbs-up/thumbs-down reactions, parse :thumbsdown: into")
+        print("  editorial_overrides (override_kind='reject'), idempotent by")
+        print("  (item_id, user_id).")
+        return
+
+    if args.command == "build-weekly-digest":
+        print("build-weekly-digest: STUB -- no-op until Sprint v5-8.")
+        print(f"  Args parsed: out={getattr(args, 'out', None)!r} "
+              f"look_ahead_days={getattr(args, 'look_ahead_days', None)!r}")
+        # Touch the output path so the downstream "Post comment to rolling
+        # digest issue" workflow step has a file to read. An empty-ish body
+        # is a valid no-op comment that won't pollute the digest thread.
+        out_path = getattr(args, "out", None) or "digest.md"
+        try:
+            Path(out_path).write_text(
+                "_(build-weekly-digest is a stub awaiting Sprint v5-8; "
+                "this run produced no digest body.)_\n",
+                encoding="utf-8",
+            )
+        except Exception as exc:
+            print(f"  warning: failed to write stub body to {out_path}: {exc}")
         return
 
     if args.command == "render-today-in-history":
@@ -2726,6 +3260,165 @@ def main() -> None:
         )["y"] or 2025)
         n = compute_mirror_matches(db, season, k=args.k)
         print(f"computed + cached matches for {n} player(s), season={season}")
+        return
+
+    if args.command == "ingest-cfbd-pbp":
+        import os
+        env_path = os.path.join(os.getcwd(), ".env")
+        if os.path.exists(env_path):
+            with open(env_path) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        os.environ.setdefault(k, v)
+        from cfb_rankings.clients.cfbd import CfbdClient
+        from cfb_rankings.ingest.cfbd_pbp import ingest_cfbd_pbp_week
+        api_key = os.environ.get("CFBD_PATREON_KEY") or os.environ.get("CFBD_API_KEY")
+        base_url = os.environ.get("CFBD_BASE_URL", "https://api.collegefootballdata.com")
+        if not api_key:
+            raise SystemExit("CFBD_API_KEY (or CFBD_PATREON_KEY) not in env.")
+        client = CfbdClient(api_key=api_key, base_url=base_url)
+        weeks = args.weeks if args.weeks else list(range(1, 17))
+        season_types = (["regular", "postseason"] if args.season_type == "both"
+                        else [args.season_type])
+        total_plays = 0; total_actors = 0
+        for st in season_types:
+            for w in weeks:
+                result = ingest_cfbd_pbp_week(
+                    db, client, args.season, w, st,
+                    classification=args.classification,
+                    parse_actors=not args.skip_actors,
+                )
+                total_plays += result["plays"]
+                total_actors += result["actors"]
+                print(f"  [{st} w{w:02d}] plays={result['plays']} "
+                      f"actors={result['actors']}", flush=True)
+        print(f"ingest-cfbd-pbp season={args.season}: "
+              f"plays={total_plays} actors={total_actors}")
+        return
+
+    if args.command == "compute-player-pbp-metrics":
+        from cfb_rankings.metrics.player_pbp_metrics import (
+            compute_player_pbp_metrics_season,
+        )
+        r = compute_player_pbp_metrics_season(db, args.season)
+        print(f"compute-player-pbp-metrics season={args.season}: {r}")
+        return
+
+    if args.command == "generate-player-narrative-arcs":
+        from cfb_rankings.player_pages.narrative_arc_generator import (
+            generate_narrative_arc,
+        )
+        season = int(args.season)
+        if args.player_ids:
+            targets = [(int(pid), None) for pid in args.player_ids]
+        else:
+            rows = db.query_all(
+                """
+                with player_latest as (
+                    select player_id, max(week) as max_week, position
+                      from player_season_stats
+                     where season_year = :s
+                       and category in ('passing','rushing','receiving','defensive')
+                       and stat_type in ('ATT','CAR','REC','TOT')
+                     group by player_id, position
+                ),
+                vol as (
+                    select pss.player_id, pss.position, pss.stat_value_num as v
+                      from player_season_stats pss
+                      join player_latest pl on pl.player_id = pss.player_id
+                                           and pl.max_week  = pss.week
+                                           and pl.position  = pss.position
+                     where pss.season_year = :s
+                       and (
+                         (pss.position = 'QB' and pss.category='passing' and pss.stat_type='ATT')
+                         or (pss.position in ('RB','TB','FB','HB') and pss.category='rushing' and pss.stat_type='CAR')
+                         or (pss.position in ('WR','TE') and pss.category='receiving' and pss.stat_type='REC')
+                         or (pss.position in ('CB','S','DB','LB','ILB','OLB','MLB','DL','DE','DT','NT','EDGE')
+                             and pss.category='defensive' and pss.stat_type='TOT')
+                       )
+                       and pss.stat_value_num is not null
+                )
+                select v.player_id, v.position, v.v
+                  from vol v order by v.v desc limit :lim
+                """,
+                {"s": season, "lim": int(args.top)},
+            )
+            targets = [(int(r["player_id"]), str(r["position"] or "")) for r in rows]
+        ok = 0; fail = 0
+        for i, (pid, pos) in enumerate(targets, 1):
+            r = generate_narrative_arc(
+                db, pid, season, pos or "",
+                model_id=args.model, force_refresh=args.force_refresh,
+            )
+            if r:
+                ok += 1
+                preview = (r.get("opening_text") or "")[:60].replace("\n", " ")
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} OK: {preview}...", flush=True)
+            else:
+                fail += 1
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} FAILED", flush=True)
+        print(f"generate-player-narrative-arcs season={season}: ok={ok} failed={fail}")
+        return
+
+    if args.command == "generate-player-signatures":
+        from cfb_rankings.player_pages.signature_story_generator import (
+            generate_signature_story,
+        )
+        season = int(args.season)
+        if args.player_ids:
+            targets = [(int(pid), None, None) for pid in args.player_ids]
+        else:
+            # Top-N by gate-metric volume across each position cohort.
+            rows = db.query_all(
+                """
+                with player_latest as (
+                    select player_id, max(week) as max_week, position
+                      from player_season_stats
+                     where season_year = :s
+                       and category in ('passing','rushing','receiving','defensive')
+                       and stat_type in ('ATT','CAR','REC','TOT')
+                     group by player_id, position
+                ),
+                vol as (
+                    select pss.player_id, pss.position, pss.stat_value_num as v
+                      from player_season_stats pss
+                      join player_latest pl on pl.player_id = pss.player_id
+                                           and pl.max_week  = pss.week
+                                           and pl.position  = pss.position
+                     where pss.season_year = :s
+                       and (
+                         (pss.position in ('QB') and pss.category='passing' and pss.stat_type='ATT')
+                         or (pss.position in ('RB','TB','FB','HB') and pss.category='rushing' and pss.stat_type='CAR')
+                         or (pss.position in ('WR','TE') and pss.category='receiving' and pss.stat_type='REC')
+                         or (pss.position in ('CB','S','DB','LB','ILB','OLB','MLB','DL','DE','DT','NT','EDGE')
+                             and pss.category='defensive' and pss.stat_type='TOT')
+                       )
+                       and pss.stat_value_num is not null
+                )
+                select v.player_id, v.position, v.v
+                  from vol v
+                 order by v.v desc
+                 limit :lim
+                """,
+                {"s": season, "lim": int(args.top)},
+            )
+            targets = [(int(r["player_id"]), str(r["position"] or ""), float(r["v"])) for r in rows]
+        ok = 0; fail = 0
+        for i, (pid, pos, _vol) in enumerate(targets, 1):
+            r = generate_signature_story(
+                db, pid, season, pos or "",
+                model_id=args.model, force_refresh=args.force_refresh,
+            )
+            if r:
+                ok += 1
+                preview = (r.get("story_text") or "")[:80].replace("\n", " ")
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} OK: {preview}...", flush=True)
+            else:
+                fail += 1
+                print(f"  [{i}/{len(targets)}] pid={pid} pos={pos} FAILED", flush=True)
+        print(f"generate-player-signatures season={season}: ok={ok} failed={fail}")
         return
 
     if args.command == "compute-achievements":
@@ -3020,7 +3713,6 @@ def main() -> None:
         return
 
     if args.command == "scrape-health":
-        from datetime import date, timedelta
         cutoff = (date.today() - timedelta(days=args.since_days)).isoformat()
         rows = db.query_all(
             """
@@ -3053,7 +3745,6 @@ def main() -> None:
         return
 
     if args.command == "autopilot-status":
-        from datetime import date, timedelta
         print("=" * 64)
         print("Autopilot v1 — one-screen dashboard")
         print("=" * 64)
@@ -3155,7 +3846,6 @@ def main() -> None:
         return
 
     if args.command == "fanintel-status":
-        from datetime import date, timedelta
         print("=" * 64)
         print("Fan Intelligence — operational status")
         print("=" * 64)
@@ -3412,6 +4102,24 @@ def main() -> None:
                       f"upserted={s['rows_upserted']} "
                       f"player_hits={s['resolved_player_ids']} "
                       f"team_hits={s['resolved_team_ids']}")
+        else:
+            raise RuntimeError("Provide either --year N or --start-year X --end-year Y.")
+        return
+
+    if args.command == "ingest-cfbd-coaches":
+        from cfb_rankings.clients.cfbd import CfbdClient
+        from cfb_rankings.ingest.coaches import ingest_coaches_range, ingest_coaches_year
+
+        if not config.cfbd_api_key:
+            raise RuntimeError("CFBD_API_KEY not set — cannot fetch coaches.")
+        cfbd = CfbdClient(config.cfbd_api_key, config.cfbd_base_url, config.request_timeout_seconds)
+
+        if args.year:
+            summary = ingest_coaches_year(db, cfbd, args.year)
+            print(f"ingest-cfbd-coaches year={args.year}: {summary}")
+        elif args.start_year and args.end_year:
+            summary = ingest_coaches_range(db, cfbd, args.start_year, args.end_year)
+            print(f"ingest-cfbd-coaches {args.start_year}-{args.end_year}: {summary}")
         else:
             raise RuntimeError("Provide either --year N or --start-year X --end-year Y.")
         return
@@ -3804,6 +4512,22 @@ def main() -> None:
         seasons = sorted(set(seasons))
         print(f"Refreshing season-aware conference memberships for: {', '.join(str(season) for season in seasons)}", flush=True)
         sync_cfbd_team_seasons(repository=repository, db=db, client=cfbd, seasons=seasons)
+        return
+
+    if args.command == "sync-team-locations":
+        if not config.cfbd_api_key:
+            raise RuntimeError("Missing required environment variable for this command: CFBD_API_KEY")
+        from cfb_rankings.clients.cfbd import CfbdClient
+        from cfb_rankings.ingest.cfbd import sync_cfbd_team_locations
+
+        repository.seed_levels()
+        cfbd = CfbdClient(config.cfbd_api_key, config.cfbd_base_url, config.request_timeout_seconds)
+        print(f"Backfilling team city/state from CFBD /teams (season {args.season})...", flush=True)
+        updated = sync_cfbd_team_locations(
+            repository=repository, db=db, client=cfbd,
+            season=args.season, classification=args.classification,
+        )
+        print(f"Updated location for {updated} teams.", flush=True)
         return
 
     if args.command == "run-models":
@@ -4476,8 +5200,53 @@ def main() -> None:
         return
 
     if args.command == "build-site":
+        from cfb_rankings.chronicle.config import configure as configure_chronicle
         from cfb_rankings.reporting import build_static_site
         from cfb_rankings.retro_render import build_retro_pages
+
+        # Apply LKG / no-LLM runtime flags before any chronicle import runs.
+        use_lkg_only = getattr(args, "use_lkg_only", False)
+        no_llm = getattr(args, "no_llm", False)
+        configure_chronicle(use_lkg_only=use_lkg_only, no_llm=no_llm)
+        if use_lkg_only:
+            print("[build-site] LKG-only mode: chronicle cards will be served from Last-Known-Good cache.")
+        if no_llm:
+            print("[build-site] no-LLM mode: all LLM call paths are hard-disabled.")
+
+        # Wave 25 — materialize player_current_status_view into a cache table.
+        # The view's nested CTEs cost minutes per WHERE player_id=X. Building
+        # it once at start drops 7000 × 4-per-player lookups from "hours" to
+        # "sub-second total."
+        try:
+            import sqlite3 as _sqlite3, time as _time
+            _db_path = getattr(db, "_db_path", None) or "cfb_rankings.db"
+            _t0 = _time.perf_counter()
+            _con = _sqlite3.connect(str(_db_path), timeout=300)
+            _con.execute("PRAGMA busy_timeout=300000")
+            _con.executescript("""
+DROP TABLE IF EXISTS player_current_status_cache;
+CREATE TABLE player_current_status_cache AS
+SELECT * FROM (
+    SELECT v.*,
+           ROW_NUMBER() OVER (
+               PARTITION BY player_id
+               ORDER BY CASE WHEN current_team_id IS NULL THEN 1 ELSE 0 END,
+                        CASE WHEN status_code='TRANSFERRED_COLLEGE' THEN 0
+                             WHEN status_code='RETURNING_2026' THEN 1
+                             ELSE 2 END
+           ) AS rn
+    FROM player_current_status_view v
+) WHERE rn = 1;
+ALTER TABLE player_current_status_cache DROP COLUMN rn;
+CREATE UNIQUE INDEX idx_player_current_status_cache_pid
+    ON player_current_status_cache(player_id);
+""")
+            _con.commit()
+            _n = _con.execute("SELECT COUNT(*) FROM player_current_status_cache").fetchone()[0]
+            _con.close()
+            print(f"[build-site] Wave 25 status cache: {_n:,} rows in {_time.perf_counter()-_t0:.1f}s")
+        except Exception as _exc:
+            print(f"[build-site] WARN: status cache build failed — {type(_exc).__name__}: {_exc}")
 
         output_path = build_static_site(db=db, output_dir=args.output_dir)
         build_retro_pages(db, output_dir=args.output_dir)
@@ -4536,6 +5305,22 @@ def main() -> None:
                     classifier_version=f"{args.classifier_version}-hist",
                 )
                 print(f"  Backfilled {backfill_total} history rows for season {backfill_season}.", flush=True)
+        return
+
+    if args.command == "populate-arcs":
+        from cfb_rankings.chronicle.arc_populator import populate_season_arcs
+
+        report = populate_season_arcs(db, season_year=args.season, week=args.week)
+        print(
+            f"Opened {report['arcs_total']} narrative arcs for season {args.season} "
+            f"across {report['teams_with_state']} teams.",
+            flush=True,
+        )
+        for frame, count in report["per_frame"].items():
+            if count:
+                print(f"  {frame}: {count}", flush=True)
+            else:
+                print(f"  {frame}: 0 ({report['empty_reasons'].get(frame, '')})", flush=True)
         return
 
     if args.command == "compute-mood-week":
@@ -4687,6 +5472,18 @@ def main() -> None:
         # auto-fill draft stubs.)
         "generate-edition-cover",
         "generate-edition-covers",
+        # Session 6 (2026-05-22) — wire two new editions subcommands
+        # into dispatch. Without these entries, publish-site failed with
+        # "Unsupported command: backfill-edition-citations" / "...
+        # force-reseed-feature" and the W18/W19 wrong-season fix +
+        # citation backfill silently no-op'd through the workflow's
+        # `|| true` swallowers. Symptom: live W18 dek + body got the
+        # seed fix from the upsert detection (which fires in seed-
+        # editions, a different command), but inline [N] markers
+        # showed as plain text because the citations were never
+        # persisted.
+        "backfill-edition-citations",
+        "force-reseed-feature",
     ):
         rc = args.func(args)
         raise SystemExit(rc or 0)
@@ -5364,6 +6161,224 @@ def main() -> None:
             )
         return
 
+    if args.command == "generate-chronicle-visuals":
+        from cfb_rankings.chronicle.visuals import (
+            VisualId,
+            generate_visuals_for_team,
+            generate_all_visuals,
+        )
+        # Resolve which visuals to run
+        visual_ids = None
+        if args.visual:
+            try:
+                visual_ids = [VisualId(args.visual)]
+            except ValueError:
+                raise RuntimeError(
+                    f"unknown visual id {args.visual!r}. Try one of: "
+                    f"{[v.value for v in VisualId]}"
+                )
+
+        if args.slug:
+            results = generate_visuals_for_team(
+                db,
+                slug=args.slug,
+                season_year=args.season,
+                week_number=args.week,
+                visual_ids=visual_ids,
+                force_regenerate=args.force,
+            )
+            print(f"generate-chronicle-visuals slug={args.slug}: {len(results)} visuals")
+            for r in results:
+                print(
+                    f"  {r.spec.visual_id.value:30s} "
+                    f"score={r.score.total:.2f}  n={r.receipt.sample_n}  "
+                    f"suppressed={r.suppressed}"
+                )
+            return
+
+        # Batch across all FBS
+        by_slug = generate_all_visuals(
+            db,
+            season_year=args.season,
+            week_number=args.week,
+            force_regenerate=args.force,
+            limit_teams=args.limit_teams,
+        )
+        teams_with_visuals = sum(1 for slugs in by_slug.values() if slugs)
+        total_visuals = sum(len(v) for v in by_slug.values())
+        print(
+            f"generate-chronicle-visuals: {teams_with_visuals} teams · "
+            f"{total_visuals} visuals generated for season {args.season}"
+        )
+        return
+
+    # ------------------------------------------------ team preview (Milestone A)
+    if args.command == "build-team-preview-snapshots":
+        from cfb_rankings.team_preview import build_team_preview_snapshots
+        result = build_team_preview_snapshots(db, args.season, args.as_of, slugs=args.slug)
+        print(
+            f"build-team-preview-snapshots season={args.season} as-of={args.as_of}: "
+            f"written={result['written']} skipped={result['skipped']} "
+            f"targets={result['targets']}"
+        )
+        return
+
+    if args.command == "compute-season-path-projections":
+        from cfb_rankings.team_preview import compute_season_path_projections
+        result = compute_season_path_projections(db, args.season, args.as_of, slugs=args.slug)
+        print(
+            f"compute-season-path-projections season={args.season} as-of={args.as_of}: "
+            f"written={result['written']} skipped={result['skipped']} "
+            f"targets={result['targets']}"
+        )
+        return
+
+    if args.command == "build-roster-reload-snapshots":
+        from cfb_rankings.team_preview import build_roster_reload_snapshots
+        result = build_roster_reload_snapshots(db, args.season, args.as_of, slugs=args.slug)
+        print(
+            f"build-roster-reload-snapshots season={args.season} as-of={args.as_of}: "
+            f"written={result['written']} skipped={result['skipped']} "
+            f"position_rows={result['position_rows']} targets={result['targets']}"
+        )
+        return
+
+    if args.command == "build-team-preview-layer":
+        result = _build_team_preview_layer(
+            db,
+            season_year=args.season,
+            as_of_date=args.as_of,
+            slugs=args.slug,
+        )
+        _print_team_preview_layer_result(result)
+        minimum_written = min(
+            int(result["snapshots"]["written"]),
+            int(result["season_path"]["written"]),
+            int(result["roster_reload"]["written"]),
+        )
+        if minimum_written <= 0 and not args.allow_empty:
+            raise RuntimeError(
+                "Team-preview layer wrote zero rows for at least one builder. "
+                "Re-run with --allow-empty only for empty/dev databases."
+            )
+        return
+
+    if args.command == "generate-team-preview-claims":
+        from cfb_rankings.team_preview.llm_synthesis import generate_team_preview_claims
+        report = generate_team_preview_claims(
+            db,
+            season_year=args.season,
+            as_of_date=args.as_of,
+            slugs=args.slug,
+            allow_cloud=args.allow_cloud,
+        )
+        if args.json:
+            import dataclasses
+            print(json.dumps(dataclasses.asdict(report), indent=2, default=str))
+        else:
+            print(
+                f"generate-team-preview-claims season={args.season} as-of={args.as_of}: "
+                f"targets={report.targets} approved={report.approved} "
+                f"rejected={report.rejected} skipped={report.skipped}"
+            )
+            for item in report.errors[:12]:
+                print(f"  {item}")
+            if len(report.errors) > 12:
+                print(f"  ... {len(report.errors) - 12} more")
+        return
+
+    if args.command == "team-preview-llm-status":
+        from cfb_rankings.team_preview.llm_synthesis import preview_llm_status
+        rows = preview_llm_status(allow_cloud=args.allow_cloud)
+        print("team-preview-llm-status")
+        for row in rows:
+            health = "ok" if row["healthy"] else "down"
+            print(
+                f"  {row['role']:<7} {row['tiers']:<8} {health:<4} "
+                f"{row['backend']} :: {row['model_id']}"
+            )
+        return
+
+    if args.command == "import-bowl-record-ledger":
+        from cfb_rankings.team_preview.bowl_ledger import import_bowl_ledger
+        result = import_bowl_ledger(db, args.source, as_of=args.as_of)
+        print(
+            f"import-bowl-record-ledger source={args.source}: "
+            f"rows={result['rows']} matched_team_id={result['matched_team_id']} "
+            f"unmatched={result['unmatched']}"
+        )
+        return
+
+    if args.command == "audit-team-preview-readiness":
+        from cfb_rankings.team_preview.readiness import audit_team_preview_readiness
+        report = audit_team_preview_readiness(db, args.season, args.as_of, slugs=args.slug)
+        counts = report.counts()
+        if getattr(args, "json", False):
+            import dataclasses
+            print(json.dumps(
+                {"counts": counts, "teams": [dataclasses.asdict(t) for t in report.teams]},
+                indent=2,
+            ))
+        else:
+            print(
+                f"audit-team-preview-readiness season={args.season} as-of={args.as_of}"
+            )
+            for key, val in counts.items():
+                print(f"  {key}: {val}")
+        return
+
+    if args.command == "prediction-ledger":
+        from cfb_rankings.calibration import (
+            calibration_summary,
+            record_archetype_predictions,
+            record_season_win_predictions,
+            resolve_due_predictions,
+        )
+        if args.action == "record-archetypes":
+            if args.season is None:
+                raise SystemExit("prediction-ledger --action record-archetypes requires --season")
+            result = record_archetype_predictions(db, args.season)
+            print(
+                f"prediction-ledger record-archetypes season={result['season']}: "
+                f"recorded={result['recorded']} (from {result['source_season']})"
+            )
+            return
+        if args.action == "record-season-wins":
+            if args.season is None:
+                raise SystemExit("prediction-ledger --action record-season-wins requires --season")
+            result = record_season_win_predictions(db, args.season)
+            print(
+                f"prediction-ledger record-season-wins season={result['season']}: "
+                f"recorded={result['recorded']}"
+            )
+            return
+        if args.action == "resolve":
+            kinds = [args.kind] if args.kind else None
+            result = resolve_due_predictions(db, kinds=kinds)
+            print(
+                f"prediction-ledger resolve: due={result['due']} "
+                f"resolved={result['resolved']} skipped={result['skipped']} "
+                f"by_kind={result['by_kind']}"
+            )
+            return
+        if args.action == "summary":
+            summary = calibration_summary(
+                db, model_id=args.model_id, prediction_kind=args.kind, last_n=args.last_n
+            )
+            if args.json:
+                print(json.dumps(summary, indent=2))
+            else:
+                print(
+                    f"prediction-ledger summary model={summary['model_id'] or 'ALL'} "
+                    f"kind={summary['prediction_kind'] or 'ALL'}: "
+                    f"logged={summary['total_logged']} resolved={summary['resolved']} "
+                    f"mean_accuracy={summary['mean_accuracy']}"
+                )
+                for band, stats in sorted(summary["band_accuracy"].items()):
+                    print(f"  {band}: n={stats['n']} accuracy={stats['accuracy']}")
+            return
+        return
+
     raise RuntimeError(f"Unsupported command: {args.command}")
 
 
@@ -5817,6 +6832,7 @@ def _publish_outputs(
 ) -> tuple[Path, Path]:
     from cfb_rankings.reporting import build_static_site, write_latest_rankings_report
 
+    _try_build_team_preview_layer_for_publish(db)
     report_output = write_latest_rankings_report(db=db, output_path=output_path, limit=limit)
     site_output = build_static_site(db=db, output_dir=site_output_dir)
     print(f"Built rankings report: {report_output}", flush=True)
@@ -5824,6 +6840,67 @@ def _publish_outputs(
     if open_report:
         webbrowser.open(Path(report_output).resolve().as_uri())
     return report_output, site_output
+
+
+def _default_team_preview_context(
+    season_year: int | None,
+    as_of_date: str | None,
+) -> tuple[int, str]:
+    today = date.today()
+    return season_year or today.year, as_of_date or today.isoformat()
+
+
+def _build_team_preview_layer(
+    db: "Database",
+    *,
+    season_year: int | None = None,
+    as_of_date: str | None = None,
+    slugs: list[str] | None = None,
+) -> dict[str, object]:
+    from cfb_rankings.team_preview import (
+        build_roster_reload_snapshots,
+        build_team_preview_snapshots,
+        compute_season_path_projections,
+    )
+
+    season, as_of = _default_team_preview_context(season_year, as_of_date)
+    snapshots = build_team_preview_snapshots(db, season, as_of, slugs=slugs)
+    season_path = compute_season_path_projections(db, season, as_of, slugs=slugs)
+    roster_reload = build_roster_reload_snapshots(db, season, as_of, slugs=slugs)
+    return {
+        "season": season,
+        "as_of": as_of,
+        "snapshots": snapshots,
+        "season_path": season_path,
+        "roster_reload": roster_reload,
+    }
+
+
+def _print_team_preview_layer_result(result: dict[str, object]) -> None:
+    snapshots = result["snapshots"]
+    season_path = result["season_path"]
+    roster_reload = result["roster_reload"]
+    print(
+        f"build-team-preview-layer season={result['season']} as-of={result['as_of']}: "
+        f"snapshots={snapshots['written']}/{snapshots['targets']} "
+        f"season_path={season_path['written']}/{season_path['targets']} "
+        f"roster_reload={roster_reload['written']}/{roster_reload['targets']} "
+        f"position_rows={roster_reload['position_rows']}",
+        flush=True,
+    )
+
+
+def _try_build_team_preview_layer_for_publish(db: "Database") -> None:
+    try:
+        result = _build_team_preview_layer(db)
+    except Exception as exc:
+        print(
+            f"[team-preview] warning: preview layer refresh failed before render: "
+            f"{type(exc).__name__}: {exc}",
+            flush=True,
+        )
+        return
+    _print_team_preview_layer_result(result)
 
 
 def _latest_model_summary(db: "Database", season: int) -> dict[str, int | str] | None:

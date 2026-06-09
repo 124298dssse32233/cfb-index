@@ -292,8 +292,16 @@ def render_index(
     rows = fetch_program_churn(db, days=days, limit=25, now=now)
 
     week_label = _safe_label(today, db, fn=cfb_week_label)
+    # cfb_week_label already appends "(N days to kickoff)" during the
+    # offseason, so the template's separate DAYS_TO_KICKOFF_PAREN slot
+    # would duplicate it. Pass empty in that case.
     dtk = _safe_dtk(today, db)
-    dtk_paren = f"({dtk} days to kickoff)" if dtk is not None else ""
+    if dtk is not None and f"({dtk} days to kickoff)" in week_label:
+        dtk_paren = ""
+    elif dtk is not None:
+        dtk_paren = f"({dtk} days to kickoff)"
+    else:
+        dtk_paren = ""
 
     if rows:
         body = _board_html(rows)
@@ -312,7 +320,22 @@ def render_index(
         )
 
     from cfb_rankings.nav import render_global_head_chrome, render_global_nav_actions
+    from cfb_rankings.database_archetype import (
+        render_database_meta_footer as _db_archetype_footer,
+    )
     template = _load_template("portal_heat.html")
+    # Database-archetype meta-footer (Session 6 Track 6 adopter #5).
+    # Surfaces top-25-programs sample size + methodology pointer + Updated.
+    _db_meta = _db_archetype_footer(
+        label=(
+            "program ranked" if len(rows) == 1
+            else "programs ranked"
+        ),
+        total_rows=len(rows),
+        methodology_label="How the portal heat index is built",
+        methodology_href="/methodology/",
+        updated_text=f"Updated {now.strftime('%Y-%m-%d')}",
+    )
     rendered = _substitute(template, {
         "TITLE": "Transfer Portal Heat Index",
         "UPDATED_AT": now.strftime("%Y-%m-%d %H:%M UTC"),
@@ -325,6 +348,7 @@ def render_index(
         "WINDOW_DAYS": str(days),
         "LEDE": html.escape(lede),
         "BOARD_OR_EMPTY": body,
+        "DATABASE_META_FOOTER": _db_meta,
     })
 
     out_path = output_dir / "index.html"

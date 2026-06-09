@@ -40,6 +40,7 @@ class GameResult:
     status: str
     margin: int | None = None
     outcome: str | None = None  # 'W' / 'L' / 'T' / 'upcoming'
+    start_time_utc: str | None = None  # ISO 8601, when known
 
     def label(self) -> str:
         if self.outcome in (None, "upcoming"):
@@ -161,6 +162,7 @@ def _fetch_games(db, team_id: int, season_year: int) -> list[GameResult]:
     rows = db.query_all(
         """
         select g.season_year, g.week, g.status,
+               g.start_time_utc,
                g.home_team_id, g.away_team_id,
                g.home_points, g.away_points,
                ht.canonical_name as home_name, ht.slug as home_slug,
@@ -201,6 +203,7 @@ def _fetch_games(db, team_id: int, season_year: int) -> list[GameResult]:
                 status=r["status"] or "",
                 margin=margin,
                 outcome=outcome,
+                start_time_utc=r["start_time_utc"] if "start_time_utc" in r.keys() else None,
             )
         )
     return out
@@ -517,6 +520,276 @@ def fetch_chronicle_cards(
             "body_md": r["body_md"],
             "source": r["source_attribution"],
             "week": r["week"],
+        })
+    return out
+
+
+def fetch_team_season_path(db, team_id: int) -> dict[str, dict[str, Any]] | None:
+    """Read the latest floor/base/ceiling season-path projection set.
+
+    Sourced from the deterministic team-preview truth layer
+    (team_season_path_projection, Milestone A). Returns a dict keyed by scenario
+    ('floor'/'base'/'ceiling') for the most recent (season_year, as_of_date)
+    projection on file for this team, or None when none exist — in which case
+    the renderer falls back to its heuristic band.
+
+    The final_wins/final_losses here are *final-season-aware*: they include a
+    conference title game and CFP rounds, so a ceiling can legitimately exceed
+    the 12-game regular season.
+    """
+    if db is None:
+        return None
+    try:
+        latest = db.query_one(
+            "select season_year, as_of_date from team_season_path_projection "
+            "where team_id = :tid order by season_year desc, as_of_date desc limit 1",
+            {"tid": team_id},
+        )
+    except Exception:
+        # Table absent (migrations not applied) — degrade gracefully.
+        return None
+    if not latest:
+        return None
+    rows = db.query_all(
+        """
+        select scenario, regular_season_wins, regular_season_losses,
+               conference_title_game, conference_title_result, bowl_or_cfp_path,
+               postseason_wins, postseason_losses, final_wins, final_losses,
+               final_ties, path_label, rationale, confidence_band,
+               season_year, as_of_date
+        from team_season_path_projection
+        where team_id = :tid and season_year = :sy and as_of_date = :ad
+        """,
+        {"tid": team_id, "sy": latest["season_year"], "ad": latest["as_of_date"]},
+    )
+    by_scenario = {r["scenario"]: dict(r) for r in rows}
+    return by_scenario or None
+
+
+def fetch_bowl_ledger_row(db, slug: str) -> dict[str, Any] | None:
+    """Read the most-trustworthy all-time bowl-record ledger row for a slug.
+
+    Sourced from team_bowl_record_ledger (Milestone A). A slug can have several
+    source rows; prefer verified > single_source > conflict > missing. Returns
+    None when the table is absent or no row exists — the renderer then falls
+    back to an honestly-scoped recent-era record.
+    """
+    if db is None:
+        return None
+    try:
+        rows = db.query_all(
+            "select slug, wins, losses, ties, appearances, last_bowl_year, "
+            "last_bowl_name, last_bowl_result, source_name, verification_status "
+            "from team_bowl_record_ledger where slug = :slug",
+            {"slug": slug},
+        )
+    except Exception:
+        return None
+    if not rows:
+        return None
+    trust = {"verified": 0, "single_source": 1, "conflict": 2, "missing": 3}
+    return min(rows, key=lambda r: trust.get(r["verification_status"], 9))
+
+
+def fetch_roster_reload_snapshot(db, team_id: int) -> dict[str, Any] | None:
+    """Read the latest roster-reload summary for a team.
+
+    Sourced from team_roster_reload_snapshot (Milestone C). Returns None when
+    the table is absent or no snapshot has been built yet, letting the page keep
+    rendering without the dashboard.
+    """
+    if db is None:
+        return None
+    try:
+        row = db.query_one(
+            """
+            select team_roster_reload_snapshot_id, team_id, slug, season_year,
+                   as_of_date, returning_profile_label, transfer_profile_label,
+                   draft_loss_label, recruiting_reload_label,
+                   primary_pressure_position, primary_repair_position,
+                   reload_score, continuity_score, volatility_score,
+                   portal_addition_score, portal_loss_score, draft_loss_score,
+                   freshman_injection_score, summary_json, confidence_band
+            from team_roster_reload_snapshot
+            where team_id = :tid
+            order by season_year desc, as_of_date desc
+            limit 1
+            """,
+            {"tid": team_id},
+        )
+    except Exception:
+        return None
+    return dict(row) if row else None
+
+
+def fetch_transfer_position_snapshots(
+    db, team_id: int, season_year: int, as_of_date: str,
+) -> list[dict[str, Any]]:
+    """Read position-level portal additions/losses for a roster snapshot."""
+    if db is None:
+        return []
+    try:
+        rows = db.query_all(
+            """
+            select position, incoming_count, incoming_avg_points,
+                   incoming_total_points, incoming_top_player_name,
+                   incoming_top_player_rating, outgoing_count,
+                   outgoing_avg_points, outgoing_total_points,
+                   outgoing_top_player_name, outgoing_top_player_rating,
+                   net_count, net_points, production_lost, production_added,
+                   starter_risk_flag, need_filled_flag, confidence_band
+            from team_transfer_position_snapshot
+            where team_id = :tid and season_year = :sy and as_of_date = :ad
+            order by
+              (coalesce(incoming_count, 0) + coalesce(outgoing_count, 0)) desc,
+              abs(coalesce(net_points, 0)) desc,
+              position asc
+            """,
+            {"tid": team_id, "sy": season_year, "ad": as_of_date},
+        )
+    except Exception:
+        return []
+    return [dict(r) for r in rows]
+
+
+def fetch_team_preview_claim(
+    db,
+    team_id: int,
+    *,
+    surface: str = "preview_thesis",
+    claim_type: str = "team_preview_thesis",
+) -> dict[str, Any] | None:
+    """Read the latest approved team-preview claim cache row.
+
+    The renderer consumes only approved cached prose. It never calls an LLM at
+    render time, and falls back silently when no validated claim exists.
+    """
+    if db is None:
+        return None
+    try:
+        row = db.query_one(
+            """
+            select claim_key, team_id, slug, season_year, as_of_date, surface,
+                   claim_type, claim_text, evidence_json, evidence_hash, prompt_template_id,
+                   model_id, model_backend, voice_score, fact_score, slop_score,
+                   confidence_band, created_at_utc
+            from team_preview_claim_cache
+            where team_id = :team_id
+              and surface = :surface
+              and claim_type = :claim_type
+              and approved = 1
+              and superseded_at_utc is null
+            order by season_year desc, as_of_date desc, created_at_utc desc
+            limit 1
+            """,
+            {"team_id": team_id, "surface": surface, "claim_type": claim_type},
+        )
+    except Exception:
+        row = None
+    if not row:
+        try:
+            row = db.query_one(
+                """
+                select claim_key, team_id, slug, season_year, as_of_date, surface,
+                       claim_type, claim_text, evidence_json, evidence_hash, prompt_template_id,
+                       model_id, model_backend, voice_score, fact_score, slop_score,
+                       confidence_band, created_at_utc
+                from team_preview_claim_cache
+                where team_id = :team_id
+                  and surface = :surface
+                  and claim_type = :claim_type
+                  and approved = 1
+                  and is_lkg = 1
+                order by season_year desc, as_of_date desc, created_at_utc desc
+                limit 1
+                """,
+                {"team_id": team_id, "surface": surface, "claim_type": claim_type},
+            )
+        except Exception:
+            return None
+    if not row:
+        return None
+    claim = dict(row)
+    try:
+        claim["payload"] = json.loads(claim.get("claim_text") or "{}")
+    except (TypeError, json.JSONDecodeError):
+        claim["payload"] = {}
+    try:
+        evidence = json.loads(claim.get("evidence_json") or "{}")
+        from cfb_rankings.team_preview.validators import validate_preview_claim
+        if not validate_preview_claim(claim["payload"], evidence).passed:
+            return None
+    except Exception:
+        return None
+    return claim
+
+
+def fetch_llm_chronicle_cards(
+    db,
+    slug: str,
+    limit: int = 6,
+) -> list[dict[str, Any]]:
+    """Read LLM-generated Chronicle cards from chronicle_card_cache.
+
+    These are the Mistral Nemo / Qwen3 generated narrative cards from the
+    autonomous pipeline — flashpoint, echo, devil_card, player_arc, etc.
+    Prefers is_lkg=1 cards first (fact-critic approved), then by
+    season_year + week desc so the freshest content surfaces.
+
+    Uses raw sqlite3 since db.query_all may not be available in all call sites.
+    """
+    import sqlite3 as _sqlite3
+    import json as _json
+
+    # The db object wraps sqlite3.Connection; reach through to it.
+    # Supports both: raw sqlite3.Connection and the project's DB wrapper.
+    try:
+        # Project DB wrapper exposes .query_all(sql, params)
+        rows = db.query_all(
+            """
+            SELECT card_type, card_content_json, word_count,
+                   fact_critic_score, voice_critic_score,
+                   season_year, week_number, is_lkg,
+                   confidence_band, prompt_template_id
+            FROM chronicle_card_cache
+            WHERE slug = :slug
+              AND word_count > 0
+            ORDER BY is_lkg DESC, season_year DESC, week_number DESC
+            LIMIT :lim
+            """,
+            {"slug": slug, "lim": limit},
+        )
+    except Exception:
+        return []
+
+    out = []
+    seen_keys: set[str] = set()
+    for r in rows:
+        try:
+            content = _json.loads(r["card_content_json"] or "{}")
+        except Exception:
+            content = {}
+        body = content.get("body_text") or content.get("body_md") or ""
+        headline = content.get("headline") or ""
+        if not body:
+            continue
+        # Dedup: the same headline (or near-identical body opening) can appear
+        # across regenerations / card types and rendered twice on the page.
+        dedup_key = (headline.strip().lower() or body.strip()[:80].lower())
+        if dedup_key in seen_keys:
+            continue
+        seen_keys.add(dedup_key)
+        out.append({
+            "card_type": r["card_type"] or "echo",
+            "headline": headline,
+            "body": body,
+            "word_count": r["word_count"],
+            "fact_critic_score": r["fact_critic_score"],
+            "season_year": r["season_year"],
+            "week_number": r["week_number"],
+            "is_lkg": bool(r["is_lkg"]),
+            "confidence_band": r["confidence_band"] or "medium",
+            "prompt_template_id": r["prompt_template_id"] or "",
         })
     return out
 

@@ -81,7 +81,9 @@ def classify_player_targets(
     this invocation. The sentiment classifier is Haiku-only and per-row
     cost is tiny, so the ceiling here is conservatively low.
     """
+    from cfb_rankings.llm_local import is_local_enabled, local_generate
     from cfb_rankings.llm_runtime import CostMeter, generate_with_voice_check
+    _use_local = is_local_enabled()
     meter = _meter or CostMeter(
         ceiling_usd=0.2,
         label="sentiment.player_targets",
@@ -131,17 +133,30 @@ def classify_player_targets(
         texts = [r[1] for r in batch]
 
         prompt = _build_batch_prompt(texts)
-        result = generate_with_voice_check(
-            prompt,
-            system=_SYSTEM_PROMPT,
-            model=_HAIKU_MODEL,
-            max_tokens=256,
-            max_retries=0,
-            fallback_to_offline=True,
-        )
+
+        # Route to local LLM if LOCAL_LLM_URL is configured — zero API cost.
+        # Batch size 50 with max_tokens=256 is well within any local model's
+        # capability; the JSON array output format is simple enough that even
+        # Q4_K_M models maintain near-100% parse success.
+        if _use_local:
+            result = local_generate(
+                prompt,
+                system=_SYSTEM_PROMPT,
+                max_tokens=256,
+                temperature=0.0,   # Classification: deterministic
+            )
+        else:
+            result = generate_with_voice_check(
+                prompt,
+                system=_SYSTEM_PROMPT,
+                model=_HAIKU_MODEL,
+                max_tokens=256,
+                max_retries=0,
+                fallback_to_offline=True,
+            )
         batches += 1
 
-        # Pattern B cost recording — skip offline-stub.
+        # Pattern B cost recording — Anthropic path only (local has no API cost).
         if result.get("mode") == "live":
             tokens = result.get("tokens_used") or {}
             in_toks = int(tokens.get("input") or 0)

@@ -1,0 +1,59 @@
+name: live-smoke-test
+# Periodic live-site smoke test. Hits scripts/smoke_test_live.py against
+# production every 30 minutes and opens an automation-failure issue if
+# the pass-rate dips below 95%.
+#
+# Stdlib-only Python — no deps install needed. Runs fast (~30 seconds).
+# Cheap heartbeat that catches "production fell over" within 30 min of
+# the regression.
+#
+# Added 2026-05-22 as part of the structural-deploy-hardening pass.
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # every 30 minutes
+  workflow_dispatch:
+
+concurrency:
+  # Don't pile up if a prior run is still going (shouldn't take >30s
+  # normally, but defensive).
+  group: live-smoke-test
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Sparse checkout — we only need the script. Saves clone time
+          # on a heartbeat workflow.
+          sparse-checkout: |
+            scripts/smoke_test_live.py
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Run smoke test (fail under 95%, check chrome regression)
+        # 2026-05-23: --check-chrome catches the Vercel alias rotation bug
+        # class. Previously the smoke only checked HTTP status, which always
+        # passed even when alias was pointing at stale legacy chrome.
+        run: |
+          python scripts/smoke_test_live.py --fail-under 95 --check-chrome
+
+  notify:
+    if: failure()
+    needs: smoke
+    permissions:
+      issues: write
+      contents: read
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      run_id: ${{ github.run_id }}
+      workflow_name: ${{ github.workflow }}

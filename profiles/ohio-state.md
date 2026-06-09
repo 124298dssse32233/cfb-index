@@ -16,6 +16,13 @@ accent_hex: "#BB0000"
 accent_hex_secondary: "#666666"
 gradient_hex_pair: "#BB0000,#4a0000"
 
+# Brief §3.2 — Program Prestige.
+# Ohio State is the structural Blue Blood — perpetually elite, often Dynasty Active.
+prestige_tier: 6
+prestige_historical_peak:
+  tier: 7
+  label: "2012-2020 Meyer-Day era"
+
 vocab:
   signoff: "Go Bucks."
   greeting: "O-H"

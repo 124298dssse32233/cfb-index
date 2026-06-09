@@ -1,0 +1,124 @@
+"""Visual registry — maps VisualId -> (query function, renderer function).
+
+Adding a new visual = add the mapping here. The pipeline never reaches into
+queries.py or families/ directly — it goes through this registry.
+"""
+from __future__ import annotations
+
+from typing import Callable
+
+from .models import VisualId, ChartFamily
+from . import queries
+from .families import ladder, waterfall, braid, tilemosaic, scatter, conveyor, signals
+
+
+# Each entry: (chart_family, query_fn, renderer_fn)
+_REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
+    VisualId.STATEMENT_WIN_LADDER: (
+        ChartFamily.WATERFALL,  # waterfall-style ladder showing delta magnitudes
+        queries.query_statement_win_ladder,
+        ladder.render_statement_win_ladder,
+    ),
+    VisualId.RETURNING_PRODUCTION_XRAY: (
+        ChartFamily.WATERFALL,
+        queries.query_returning_production_xray,
+        waterfall.render_returning_production_xray,
+    ),
+    VisualId.HEISMAN_RACE_BRAID: (
+        ChartFamily.BRAID,
+        queries.query_heisman_race_braid,
+        braid.render_heisman_race_braid,
+    ),
+    VisualId.ROSTER_REPLACEMENT_GRID: (
+        ChartFamily.TILE_MOSAIC,
+        queries.query_roster_replacement_grid,
+        tilemosaic.render_roster_replacement_grid,
+    ),
+    VisualId.CFP_BUBBLE_WALL: (
+        ChartFamily.ANNOTATED_SCATTER,
+        queries.query_cfp_bubble_wall,
+        scatter.render_cfp_bubble_wall,
+    ),
+    VisualId.TALENT_YIELD_CURVE: (
+        ChartFamily.ANNOTATED_SCATTER,
+        queries.query_talent_yield_curve,
+        scatter.render_talent_yield_curve,
+    ),
+    VisualId.DRAFT_PIPELINE_CONVEYOR: (
+        ChartFamily.DOT_PLOT,
+        queries.query_draft_pipeline_conveyor,
+        conveyor.render_draft_pipeline_conveyor,
+    ),
+    VisualId.DELTA_DNA: (
+        ChartFamily.ANNOTATED_LINE,
+        queries.query_delta_dna,
+        signals.render_delta_dna,
+    ),
+    VisualId.CONTINUITY_STRESS_TEST: (
+        ChartFamily.PERCENTILE_BAR,
+        queries.query_continuity_stress_test,
+        signals.render_continuity_stress_test,
+    ),
+}
+
+
+# Posture: which visuals are forward-looking PREVIEW content vs backward
+# RETROSPECTIVE recaps. In the offseason (mid-year) the preview set leads and
+# queries the latest forward-data season; the retrospective set is labeled
+# "Last season" and queries the latest completed-game season.
+# See memory: project-offseason-preview-posture.
+PREVIEW = "preview"
+RETROSPECTIVE = "retrospective"
+
+VISUAL_POSTURE: dict[VisualId, str] = {
+    VisualId.RETURNING_PRODUCTION_XRAY: PREVIEW,
+    VisualId.CONTINUITY_STRESS_TEST: PREVIEW,
+    VisualId.ROSTER_REPLACEMENT_GRID: PREVIEW,
+    VisualId.DRAFT_PIPELINE_CONVEYOR: PREVIEW,
+    VisualId.TALENT_YIELD_CURVE: PREVIEW,
+    VisualId.DELTA_DNA: RETROSPECTIVE,  # uses 2024 per-game deltas, framed forward
+    VisualId.STATEMENT_WIN_LADDER: RETROSPECTIVE,
+    VisualId.CFP_BUBBLE_WALL: RETROSPECTIVE,
+    VisualId.HEISMAN_RACE_BRAID: RETROSPECTIVE,
+}
+
+# Display order within each posture group (lower sorts first).
+VISUAL_DISPLAY_ORDER: dict[VisualId, int] = {
+    VisualId.RETURNING_PRODUCTION_XRAY: 0,
+    VisualId.CONTINUITY_STRESS_TEST: 1,
+    VisualId.ROSTER_REPLACEMENT_GRID: 2,
+    VisualId.DRAFT_PIPELINE_CONVEYOR: 3,
+    VisualId.TALENT_YIELD_CURVE: 4,
+    VisualId.DELTA_DNA: 5,
+    VisualId.STATEMENT_WIN_LADDER: 6,
+    VisualId.HEISMAN_RACE_BRAID: 7,
+    VisualId.CFP_BUBBLE_WALL: 8,
+}
+
+
+def get_posture(visual_id: VisualId) -> str:
+    return VISUAL_POSTURE.get(visual_id, RETROSPECTIVE)
+
+
+def posture_for_id(visual_id_str: str) -> str:
+    """Posture lookup by raw visual_id string (for render-time labeling)."""
+    try:
+        return VISUAL_POSTURE.get(VisualId(visual_id_str), RETROSPECTIVE)
+    except ValueError:
+        return RETROSPECTIVE
+
+
+def list_registered_visuals() -> list[VisualId]:
+    return list(_REGISTRY.keys())
+
+
+def get_query_function(visual_id: VisualId) -> Callable:
+    return _REGISTRY[visual_id][1]
+
+
+def get_renderer_function(visual_id: VisualId) -> Callable:
+    return _REGISTRY[visual_id][2]
+
+
+def get_chart_family(visual_id: VisualId) -> ChartFamily:
+    return _REGISTRY[visual_id][0]

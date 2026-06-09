@@ -13,6 +13,8 @@ Layout: two panels.
 
 from __future__ import annotations
 
+from cfb_rankings.utils import ordinal_suffix as _ordinal
+
 from html import escape
 from pathlib import Path
 from typing import Any
@@ -192,8 +194,8 @@ def render_players_landing_html(payload: dict[str, Any], season_year: int) -> st
       <p class="prose-panel">
         Two lenses on every player worth watching. <strong>Signature
         Stories</strong> are the engine's top statistical case — the
-        single number that makes the strongest argument for that player
-        right now. <strong>The Room</strong> tracks who fans are
+        single number that makes the strongest argument for that player.
+        <strong>The Room</strong> tracks who fans are
         actually <em>talking about</em> — own fans, rivals, national
         media — with a belief score that quantifies whether the
         conversation runs warm or cold. Together they answer two
@@ -306,7 +308,11 @@ def render_home_player_spotlight(
     if best_ss is not None:
         val = _fmt_value(best_ss.get("value"), best_ss.get("unit") or "")
         pct = best_ss.get("percentile")
-        pct_txt = f"{float(pct):.0f}th percentile" if pct is not None else ""
+        if pct is not None:
+            _p = int(float(pct))
+            pct_txt = f"{_p}{_ordinal(_p)} percentile"
+        else:
+            pct_txt = ""
         rank_txt = ""
         if best_ss.get("rank") and best_ss.get("cohort_size"):
             rank_txt = f"#{best_ss['rank']} of {best_ss['cohort_size']}"

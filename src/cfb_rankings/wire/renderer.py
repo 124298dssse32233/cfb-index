@@ -366,6 +366,9 @@ def render_wire_index(
         )
 
     from cfb_rankings.nav import render_global_head_chrome, render_global_nav_actions
+    from cfb_rankings.database_archetype import (
+        render_database_meta_footer as _db_archetype_footer,
+    )
     template = _load_template("wire.html")
     rendered = _substitute(template, {
         "TITLE": "The Wire",
@@ -379,6 +382,18 @@ def render_wire_index(
         "ENTRY_COUNT": str(len(rows)),
         "WINDOW_DAYS": str(days),
         "WIRE_LEDE": wire_lede,
+        # Database-archetype meta-footer (Session 6 Track 6 adopter #3).
+        # Surfaces total entries in the window + methodology pointer.
+        "DATABASE_META_FOOTER": _db_archetype_footer(
+            label=(
+                "entry in the window" if len(rows) == 1
+                else "entries in the window"
+            ),
+            total_rows=len(rows),
+            methodology_label="How The Wire is curated",
+            methodology_href="/methodology/",
+            updated_text=f"Updated {(now or datetime.utcnow()).strftime('%Y-%m-%d')}",
+        ),
         # OG / Twitter share-card tokens (PR # — parallel to mailbag OG).
         "PAGE_CANONICAL": absolute_url("/wire/"),
         "OG_IMAGE_URL": absolute_url("/og-image.svg"),

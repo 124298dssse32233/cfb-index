@@ -11,8 +11,12 @@ name: recruiting_pulse
 # Day 4 afternoon).
 
 on:
-  schedule:
-    - cron: "0 6 * * *"   # 06:00 UTC daily (gated to May-Aug in step below)
+  # 2026-05-22: schedule disabled — workflow was 5/5 failing because the
+  # refresh-recruiting-pulse CLI never landed (Sprint v5-1 Day 4 TODO).
+  # Gated to workflow_dispatch only until the CLI ships. Restore cron when
+  # ready.
+  # schedule:
+  #   - cron: "0 6 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -70,6 +74,12 @@ jobs:
           workflow_search: true
           search_artifacts: true
           if_no_artifact_found: warn
+
+      # Option B fail-loud (added 2026-05-21): refuse to run against a
+      # missing or poisoned DB.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        if: steps.gate.outputs.skip != 'true'
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
 
       - name: Apply migrations + seed (idempotent)
         if: steps.gate.outputs.skip != 'true'
@@ -159,6 +169,9 @@ jobs:
   notify:
     if: failure()
     needs: refresh
+    permissions:
+      issues: write
+      contents: read
     uses: ./.github/workflows/notify_failure.yml
     with:
       run_id: ${{ github.run_id }}

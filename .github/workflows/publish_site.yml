@@ -17,10 +17,28 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # 180, not 90: the enrich step's first-time Heisman weekly backfill (~65 min)
+    # + build (~30 min) + deploy exceeded 90 min, so the job was cancelled before
+    # uploading the enriched DB artifact. That deadlocked every run — the next run
+    # restarted from the same stale artifact and re-ran the full backfill. Once one
+    # run completes and persists the enriched DB, steady-state runs skip the backfill
+    # and finish well under 90; 180 is corrective headroom.
+    timeout-minutes: 800
     permissions:
       contents: write   # pushes to `published` branch
       actions: read     # cross-workflow artifact download via dawidd6 action
+    env:
+      # Vercel git integration was disconnected 2026-05-21 to stop master
+      # auto-deploys from publishing a content-less site (output/ is
+      # gitignored). With git disconnected, this workflow must call the
+      # Vercel CLI directly to ship the built site to production —
+      # otherwise publish-site updates the `published` branch but the live
+      # URL never moves.
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+      CFBD_PATREON_KEY: ${{ secrets.CFBD_PATREON_KEY }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     # CURRENT_CFB_SEASON intentionally NOT pinned: the inline Python
     # below derives season from today.year so the workflow self-rolls.
     # Previously this was env: CURRENT_CFB_SEASON: "2026" which silently
@@ -79,6 +97,17 @@ jobs:
           workflow_conclusion: success
           if_no_artifact_found: ignore
 
+      # Option B fail-loud: refuse to run against a missing or poisoned DB.
+      # The dawidd6 download is continue-on-error: it silently falls through
+      # to "no DB" if the artifact can't be fetched. Without this gate,
+      # init-db would create an empty schema, the build would proceed, and
+      # we'd assign fresh autoincrement player_ids — turning every existing
+      # /players/<name>-<id>.html URL into a 404. Fail-loud here so the
+      # rolling artifact stays at its last healthy state.
+      # See docs/research/player-id-stability-scoping-2026-05-21.md.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db
@@ -86,6 +115,38 @@ jobs:
           python manage.py seed-source-registry
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
+          # Self-heal stale current-conference identity from latest team_seasons
+          # (realignment: Texas/OU->SEC, Oregon/USC/UW/UCLA->Big Ten, etc.)
+          python manage.py repair-team-current-identity
+
+      - name: Seed Wave 25 offseason posture (award watch + depth chart + alias overrides)
+        # Wave 25 — idempotent UPSERT from CSV source-of-truth files +
+        # auto-derived split-pid status overrides.
+        # These all live in the repo; publish-site seeds them every run so the
+        # rolling DB artifact always reflects the latest editorial posture.
+        # Non-fatal: if any input is missing the step skips gracefully.
+        run: |
+          if [ -f data/award_watch_2026.csv ]; then
+            python manage.py refresh-award-watch --csv data/award_watch_2026.csv
+            echo "[wave25] award watch seeded"
+          else
+            echo "::warning::data/award_watch_2026.csv not found — skipping"
+          fi
+          if [ -f data/depth_chart_2026.csv ]; then
+            python manage.py refresh-depth-chart --csv data/depth_chart_2026.csv
+            echo "[wave25] depth chart seeded"
+          else
+            echo "::warning::data/depth_chart_2026.csv not found — skipping"
+          fi
+          # Split-pid alias overrides — Gabriel/Cam Ward/Jeanty/etc. have stats
+          # on one player_id but NFL draft on a different pid. The seeder writes
+          # status_override rows mirroring the draft pid's status onto the
+          # stats pid so the page shows NFL framing, not EXHAUSTED_ELIGIBILITY.
+          if [ -f scripts/wave25_seed_alias_overrides.py ]; then
+            python scripts/wave25_seed_alias_overrides.py || echo "[wave25] alias seeder non-fatal failure"
+          fi
+          # Verify everything landed before the build proceeds (non-fatal).
+          python -X utf8 manage.py verify-wave25 || echo "[wave25] verify reported issues — see log above"
 
       # Start from the last healthy site state. If build-site fails
       # (FK constraint, etc.), this preserves all the team / player /
@@ -120,6 +181,90 @@ jobs:
           mkdir -p output/site
           cp -r prior-site/* output/site/ 2>/dev/null || true
           echo "Seeded output/site with $(find output/site -type f | wc -l) files from prior state"
+
+      - name: Enrich CFBD data (NFL Draft + postseason)
+        # 2026-05-23: Activates NFL Draft Pipeline + Bowl History modules on
+        # every team page. Both ingests are non-fatal — if CFBD is rate-limited
+        # or down the rest of the publish still ships. NFL draft is 8 years
+        # of data + ~2,000 picks. Postseason is 7 years of bowl/CFP games.
+        # Both upsert idempotently so re-running is cheap.
+        run: |
+          set +e
+          if [ -z "$CFBD_API_KEY" ]; then
+            echo "::warning::CFBD_API_KEY not set — skipping enrich ingests"
+            exit 0
+          fi
+          echo "[enrich] NFL Draft 2018-2025..."
+          python manage.py ingest-nfl-draft --start-year 2018 --end-year 2025 2>&1 | tail -5
+          echo "[enrich] Postseason backfill 2018-2024..."
+          for yr in 2018 2019 2020 2021 2022 2023 2024; do
+            python manage.py ingest-cfbd-week --season $yr --week 1 --season-type postseason --skip-play-level --skip-lines --skip-weather --skip-advanced-stats 2>&1 | tail -1
+          done
+          echo "[enrich] Coaches 2018-2024..."
+          python manage.py ingest-cfbd-coaches --start-year 2018 --end-year 2024 2>&1 | tail -10
+          echo "[enrich] Team locations (city/state backfill — powers Recruiting Footprint home-state + geo charts)..."
+          python manage.py sync-team-locations --season 2025 2>&1 | tail -3
+          echo "[enrich] Wiki All-America consensus 2022-2024..."
+          python manage.py scrape-wiki-awards --start-year 2022 --end-year 2024 --auto-import 2>&1 | tail -10
+          echo "[enrich] Heisman model weekly backfill (multi-week trajectory)..."
+          # Only run weeks not already in the DB. Each week takes ~5 min;
+          # skipping existing ones keeps the enrich step short on most runs.
+          for wk in 6 8 10 12 14 16; do
+            count=$(python -c "import sqlite3; print(sqlite3.connect('cfb_rankings.db').cursor().execute('SELECT COUNT(*) FROM heisman_rankings_weekly WHERE season_year=2024 AND week='+str($wk)).fetchone()[0])" 2>/dev/null || echo 0)
+            if [ "$count" -lt 1000 ]; then
+              echo "[enrich] Heisman model 2024 week $wk (count=$count, backfilling)..."
+              python -u manage.py run-heisman-model --season 2024 --through-week $wk 2>&1 | tail -3
+            else
+              echo "[enrich] Heisman model 2024 week $wk already has $count rows — skip"
+            fi
+          done
+          echo "[enrich] done"
+
+      - name: Regenerate Chronicle Visuals (apply relevance gates + retire dead cards)
+        run: |
+          # Deterministic SVG regen (~80s for ~190 teams, no LLM / no API cost).
+          # --force is required so previously-cached dead cards (e.g. a Heisman
+          # braid on a team with no contender) re-run their relevance gate and
+          # get retired; without --force the cache hit short-circuits the gate.
+          # Non-fatal: the team-page renderer degrades gracefully if visuals are
+          # missing, so a regen hiccup must never block the whole publish.
+          python <<'PY'
+          import sqlite3, subprocess
+          try:
+              con = sqlite3.connect("cfb_rankings.db")
+              row = con.execute("SELECT MAX(season_year) FROM games").fetchone()
+              con.close()
+              max_games = row[0] if row and row[0] else None
+          except Exception as exc:
+              print(f"[visuals] could not read latest games season ({exc}) — skipping regen")
+              raise SystemExit(0)
+          if not max_games:
+              print("[visuals] no games season found — skipping regen")
+              raise SystemExit(0)
+          # Preview season = latest completed games season + 1, so retrospective
+          # visuals (effective season-1) always have game data and forward
+          # visuals read the freshest recruiting/portal/returning cycle.
+          preview = int(max_games) + 1
+          print(f"[visuals] force-regen preview season={preview} (max games={max_games})")
+          subprocess.run(
+              ["python", "-u", "manage.py", "generate-chronicle-visuals",
+               "--season", str(preview), "--force"],
+              check=False,
+          )
+          PY
+
+      - name: Build team preview truth layer
+        # A+B+C render from deterministic preview tables. Keep this before the
+        # direct out-of-season build-site path so production never ships the new
+        # modules with only heuristic fallbacks.
+        run: python -u manage.py build-team-preview-layer
+
+      - name: Generate team preview claim cache
+        # Milestone D prose is evidence-gated and non-authoritative. This step
+        # is deliberately non-blocking: CI may not have a local LLM, and the
+        # deterministic preview modules must still ship when no claim passes.
+        continue-on-error: true
+        run: python -u manage.py generate-team-preview-claims --season $(date -u +%Y) --as-of $(date -u +%F)
 
       - name: Build or incrementally sync
         id: site_build
@@ -185,6 +330,45 @@ jobs:
             echo "::warning::Only $MODIFIED files freshly modified — incremental sync may have been a no-op or skipped most pages"
           fi
 
+      - name: Verify world-class team pages
+        # 2026-05-23: Catches the silent-fail bug where render_all_profiled_pages
+        # drops some slugs in CI and the legacy reporting.py output stays in
+        # place (because prior-site overlay seeded a legacy file and the
+        # delete-sweep preserved it). Fails the build if any real FBS team
+        # ships premium-team-hero chrome instead of team-page chrome.
+        run: |
+          python scripts/verify_world_class_team_pages.py --site-dir output/site --db cfb_rankings.db
+
+      - name: Verify world-class player pages
+        # Session 14: Catches silent regressions in render_player_page_html
+        # injection of the 8 player-pages v2 modules (Standing Rail, Mirror
+        # Match, Career Arc, Coaching Lineage, Heisman Trajectory, Dev
+        # Trajectory, Selector Grid, Live Signal Flow). Samples top players
+        # from heisman_rankings_weekly and verifies required v2 markers.
+        run: |
+          python scripts/verify_world_class_player_pages.py --site-dir output/site --db cfb_rankings.db --sample-size 20
+
+      - name: Enforce per-page weight budget (WS-11)
+        # Vercel serves every static page gzipped, so gzip transfer size is the
+        # number that matters. After the WS-11 fixes (heisman/compare/history
+        # blobs routed to fetched JSON sidecars) the full site has ZERO pages
+        # over 150KB gz — next-worst is players/index.html at ~129KB, so there's
+        # comfortable headroom. This guard fails the build if any HTML page
+        # creeps back over budget (e.g. a new inlined payload regression).
+        run: |
+          python scripts/check_page_weight.py --site-dir output/site --budget-kb 150 --enforce --max-violations 0
+
+      - name: Enforce color-blind palette safety (WS-11)
+        # Deterministic guard on the checked-in design tokens: simulates
+        # deuteranopia/protanopia/tritanopia (Machado 2009) and fails the build
+        # if the percentile ramp (red->grey->blue, the workhorse encoding) ever
+        # becomes indistinguishable for color-blind users. The belief ramp
+        # (red->grey->green) is the documented exception — it relies on markup
+        # shape/icon redundancy per design-system rule 331 — and is reported,
+        # not failed.
+        run: |
+          python scripts/check_color_blind.py --enforce
+
       - name: Build Cmd-K search index
         # Ships output/site/search-index.json so the Cmd-K overlay's
         # client-side search has a real dataset (~500KB-1MB depending
@@ -200,6 +384,19 @@ jobs:
           else
             echo "::warning::search-index.json missing — Cmd-K overlay will degrade gracefully"
           fi
+          echo "done"
+        continue-on-error: true
+
+      - name: Populate + resolve prediction ledger (WS-09 trust spine)
+        # Log standing predictions before outcomes, then grade any due rows.
+        # Must run BEFORE build-methodology so /methodology/calibration.html
+        # renders live data instead of the empty state.
+        run: |
+          set +e
+          SEASON=$(date +%Y)
+          python manage.py prediction-ledger --action record-archetypes --season "$SEASON"
+          python manage.py prediction-ledger --action record-season-wins --season "$SEASON"
+          python manage.py prediction-ledger --action resolve
           echo "done"
         continue-on-error: true
 
@@ -225,6 +422,20 @@ jobs:
         run: |
           set +e
           python manage.py seed-editions || echo "seed-editions skipped"
+          # Session 6 (2026-05-22): receipt-pattern backfill + W18/W19
+          # force-reseed. The seed bodies for W18/W19 now embed [N]
+          # markers; force-reseed bypasses upsert preservation so the
+          # marker-bearing seed wins back. Then backfill citation rows
+          # so the inline markers anchor to a populated footer. All
+          # three CLIs are idempotent and `|| true` so a single-edition
+          # failure doesn't break the whole publish.
+          python manage.py force-reseed-feature --slug 2026-w18 --feature-order 1 || true
+          python manage.py force-reseed-feature --slug 2026-w18 --feature-order 3 || true
+          python manage.py force-reseed-feature --slug 2026-w19 --feature-order 1 || true
+          python manage.py force-reseed-feature --slug 2026-w19 --feature-order 3 || true
+          python manage.py backfill-edition-citations --slug 2026-w17 || true
+          python manage.py backfill-edition-citations --slug 2026-w18 || true
+          python manage.py backfill-edition-citations --slug 2026-w19 || true
           # Hotfix-11: iterate over all editions in the DB instead of a
           # hardcoded slug list. The old loop was pinned to W14-W17 and
           # missed every subsequent edition (W18, W19, ...), so the
@@ -255,6 +466,32 @@ jobs:
           python manage.py render-storylines
           echo "done"
 
+      # Session 6 — re-render the four Database-archetype surfaces that
+      # have their own dedicated renderers + workflows. Without these
+      # calls inside publish-site, code changes to wire/daily/portal-
+      # heat/recruit-board renderers don't deploy until the surface's
+      # own cron fires. All idempotent + `|| true` so a single-surface
+      # failure doesn't break the publish.
+      - name: Refresh Database-archetype surfaces (Session 6)
+        run: |
+          set +e
+          python manage.py render-wire --days 30 || echo "render-wire skipped"
+          python manage.py refresh-portal-heat || echo "refresh-portal-heat skipped"
+          python manage.py refresh-recruiting-pulse || echo "refresh-recruiting-pulse skipped"
+          python manage.py render-daily || echo "render-daily skipped"
+          echo "done"
+
+      - name: Refresh Canon pages (Phase 9 a11y template fix)
+        # The canon renderer (canon/templates/*.html → output/site/canon/)
+        # isn't invoked by build-site. Phase 9 added canon-skip-link +
+        # id="main-content" to the templates but the live HTML lagged
+        # because there was no rebuild step. Run render-canon-all so
+        # every template change ships on the next publish.
+        run: |
+          set +e
+          python manage.py render-canon-all --output-dir output/site || echo "render-canon-all skipped"
+          echo "done"
+
       # ====================================================================
       # POST-PROCESS LAYER — must run AFTER all renderers that write
       # files in output/site/, otherwise their writes will erase the
@@ -272,6 +509,20 @@ jobs:
           set +e
           python -m pip install pyyaml --quiet 2>&1 | tail -3
           python tools/wcfb_enhancements/build_compare.py
+          echo "done"
+
+      - name: Build /offseason/ + /film-room/ hubs (committed nav links)
+        # Both are linked from the global _site_nav (reporting.py _site_nav)
+        # but generated only by standalone scripts, NOT by build-site. Without
+        # regenerating them here, a fresh build (or a build seeded from a
+        # rolling artifact that predates these pages) ships nav links that
+        # 404 sitewide. Non-fatal: a hub failure must not block the deploy.
+        run: |
+          set +e
+          python scripts/build_offseason_leaderboards.py
+          echo "offseason hub: $(ls -la output/site/offseason/index.html 2>/dev/null || echo missing)"
+          python scripts/build_film_room.py
+          echo "film-room: $(ls -la output/site/film-room/index.html 2>/dev/null || echo missing)"
           echo "done"
 
       - name: Install World-Class enhancement layer (CSS+JS+HTML inject)
@@ -316,6 +567,61 @@ jobs:
           else
             echo "healthy=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # ---- Vercel deploy ----
+      # Added 2026-05-21 after disconnecting Vercel git integration. Without
+      # this, publish-site updates the cfb-rankings-site artifact and the
+      # `published` branch but the live URL never moves. Mirrors the pattern
+      # in the-daily-06am-et.yml / wire-daily-04am-et.yml / mailbag.
+      - name: Install Vercel CLI
+        if: steps.site_check.outputs.healthy == 'true'
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        if: steps.site_check.outputs.healthy == 'true'
+        id: vercel_deploy
+        # Run from repo root so vercel.json (outputDirectory: output/site)
+        # applies — matches the-daily-06am-et.yml pattern. Adding
+        # working-directory: output/site would break the deploy because
+        # vercel.json doesn't live there.
+        #
+        # 2026-05-23: Capture the production deployment URL so we can alias
+        # the short public URL to it. Vercel's --prod aliases to a scoped URL
+        # but the user-facing wonderful-margulis-8ec96b.vercel.app short alias
+        # doesn't auto-rotate on every deploy.
+        run: |
+          set +e
+          DEPLOY_LOG=$(mktemp)
+          vercel deploy --prod --yes --archive=tgz \
+            --token=$VERCEL_TOKEN \
+            --scope=$VERCEL_ORG_ID 2>&1 | tee "$DEPLOY_LOG"
+          # Find the production deployment URL — it's the FIRST https://... vercel.app
+          # URL that contains a deployment hash (e.g. h3ulpujuj). Strip ANSI codes,
+          # extract just the URL on the line starting with "Production" or matching
+          # the production pattern.
+          DEPLOY_URL=$(sed -E 's/\x1B\[[0-9;]*[mGKHFJ]//g' "$DEPLOY_LOG" \
+            | grep -oE 'https://wonderful-margulis-8ec96b-[a-z0-9]+-[a-z0-9-]+\.vercel\.app' \
+            | head -1)
+          rm -f "$DEPLOY_LOG"
+          echo "Captured DEPLOY_URL=[$DEPLOY_URL]"
+          echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Alias short public URL to new deployment
+        if: steps.site_check.outputs.healthy == 'true' && steps.vercel_deploy.outputs.deploy_url
+        # 2026-05-23: Force the short alias to the new deployment so the
+        # public-facing URL serves the freshly-built content.
+        run: |
+          set +e
+          DEPLOY_URL="${{ steps.vercel_deploy.outputs.deploy_url }}"
+          echo "Aliasing wonderful-margulis-8ec96b.vercel.app → $DEPLOY_URL"
+          vercel alias set "$DEPLOY_URL" wonderful-margulis-8ec96b.vercel.app \
+            --token=$VERCEL_TOKEN \
+            --scope=$VERCEL_ORG_ID
+          STATUS=$?
+          if [ $STATUS -ne 0 ]; then
+            echo "::warning::vercel alias set returned $STATUS — may need manual rotation"
+          fi
+          echo "done (exit $STATUS)"
 
       - name: Upload site artifact
         if: always() && steps.site_check.outputs.healthy == 'true'

@@ -43,6 +43,16 @@ _BROWSER_USER_AGENT = (
 )
 
 
+class AdapterConfigError(RuntimeError):
+    """Raised by ``fetch()`` when a required secret/config is absent.
+
+    ``run()`` maps this to ``status='skipped'`` (a graceful no-op) rather than
+    ``'error'``, so a progressive secrets rollout doesn't flood CI with red Xs
+    for adapters whose key simply isn't set yet. A genuine bug still raises a
+    plain exception and surfaces as ``'error'`` (exit 1).
+    """
+
+
 @dataclasses.dataclass(frozen=True)
 class AdapterRunResult:
     source_id: str
@@ -185,6 +195,18 @@ class SourceAdapter(ABC):
                 source_id=self.source_id,
                 status=status,
                 rows_inserted=n,
+                adapter_version=self.adapter_version,
+                run_started_at_utc=started,
+                run_finished_at_utc=_utcnow_iso(),
+            )
+        except AdapterConfigError as exc:
+            # Missing secret/config → graceful skip, not a failure.
+            logger.warning("adapter %s skipped: %s", self.source_id, exc)
+            result = AdapterRunResult(
+                source_id=self.source_id,
+                status="skipped",
+                rows_inserted=0,
+                error_message=f"{type(exc).__name__}: {exc}",
                 adapter_version=self.adapter_version,
                 run_started_at_utc=started,
                 run_finished_at_utc=_utcnow_iso(),

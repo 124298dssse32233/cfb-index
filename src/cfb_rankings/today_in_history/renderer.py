@@ -297,7 +297,7 @@ def render_today_in_history_html(
     <div class="page">
       <span>CFB · INDEX</span> &nbsp;·&nbsp;
       <span>Today in CFB History</span> &nbsp;·&nbsp;
-      <span>Generated {html.escape(generated_at)}</span> &nbsp;·&nbsp;
+      <span>Updated {html.escape(generated_at)}</span> &nbsp;·&nbsp;
       <a href="/">Home</a> &nbsp;·&nbsp;
       <a href="/methodology/">Methodology</a>
     </div>

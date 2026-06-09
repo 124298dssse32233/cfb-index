@@ -16,6 +16,13 @@ accent_hex: "#BA0C2F"
 accent_hex_secondary: "#000000"
 gradient_hex_pair: "#BA0C2F,#000000"
 
+# Brief §3.2 — Program Prestige.
+# Georgia entered Dynasty Active in the 2021-2023 back-to-back run.
+prestige_tier: 6
+prestige_historical_peak:
+  tier: 6
+  label: "2021-2023 Smart back-to-back titles"
+
 vocab:
   signoff: "Go Dawgs."
   greeting: "GO DAWGS"

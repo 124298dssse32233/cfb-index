@@ -75,6 +75,11 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
+      # Option B fail-loud (added 2026-05-21): refuse to run against a
+      # missing or poisoned DB.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db

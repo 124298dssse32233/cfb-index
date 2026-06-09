@@ -232,43 +232,35 @@ def classify_batch_haiku(
     ``_meter`` (Pattern A, optional): if supplied, records this call's
     Haiku cost. Defaults to a per-call meter so standalone use still
     enforces a ceiling.
+
+    Routes to a local LLM (zero API cost) when LOCAL_LLM_URL is set;
+    falls through to Anthropic SDK otherwise.
     """
+    from cfb_rankings.llm_local import is_local_enabled, local_generate
     from cfb_rankings.llm_runtime import CostMeter
     meter = _meter or CostMeter(
         ceiling_usd=0.2,
         label="receipts.haiku_classify",
     )
 
-    # Hybrid switch (off by default): route this Tier-A Haiku classifier to the
-    # local box when CFB_LOCAL_LLM is enabled — mirrors llm_runtime's shim so
-    # the predictive-claims classifier offloads too. Local routing takes
-    # precedence and does NOT require an Anthropic key.
-    from cfb_rankings.llm_runtime import _maybe_local_model
-    local_tag = _maybe_local_model(HAIKU_MODEL)
-
-    use_offline = offline if offline is not None else (
-        not _have_anthropic() and local_tag is None
-    )
-    if use_offline:
-        return _stub_classify_haiku(batch), {"input_tokens": 0, "output_tokens": 0}
-
     user_prompt = _build_haiku_user_prompt(batch)
 
-    if local_tag is not None:
-        from cfb_rankings import local_llm
-        result = local_llm.generate_local(
-            user_prompt, system=_HAIKU_SYSTEM, model=local_tag,
-            max_tokens=2000, max_retries=0, anthropic_model=HAIKU_MODEL,
+    # Local path — NDJSON classification with no API cost
+    if is_local_enabled():
+        result = local_generate(
+            user_prompt,
+            system=_HAIKU_SYSTEM,
+            max_tokens=2000,
+            temperature=0.0,   # Classification: deterministic
         )
-        if result.get("mode") != "offline-stub" and result.get("text"):
-            tk = result.get("tokens_used") or {}
-            return _parse_haiku_response(result["text"], batch), {
-                "input_tokens": int(tk.get("input") or 0),
-                "output_tokens": int(tk.get("output") or 0),
-            }
-        # Local server unreachable: fall back to cloud if we have a key, else stub.
-        if not _have_anthropic():
-            return _stub_classify_haiku(batch), {"input_tokens": 0, "output_tokens": 0}
+        if result["text"]:
+            return _parse_haiku_response(result["text"], batch), {"input_tokens": 0, "output_tokens": 0}
+        return _stub_classify_haiku(batch), {"input_tokens": 0, "output_tokens": 0}
+
+    # Anthropic SDK path
+    use_offline = offline if offline is not None else not _have_anthropic()
+    if use_offline:
+        return _stub_classify_haiku(batch), {"input_tokens": 0, "output_tokens": 0}
 
     client = _anthropic_client()
     resp = client.messages.create(
@@ -457,24 +449,42 @@ def review_batch_sonnet(
     """Review medium-confidence Haiku drafts and refine.
 
     ``_meter`` (Pattern A, optional): records this Sonnet call's cost.
+
+    Routes to a local LLM (zero API cost) when LOCAL_LLM_URL is set;
+    the review task is structured NDJSON and works well with local models.
     """
+    from cfb_rankings.llm_local import is_local_enabled, local_generate
     from cfb_rankings.llm_runtime import CostMeter
     meter = _meter or CostMeter(
         ceiling_usd=0.5,
         label="receipts.sonnet_review",
     )
 
-    use_offline = offline if offline is not None else not _have_anthropic()
-    if use_offline:
-        return _stub_review_sonnet(drafts), {"input_tokens": 0, "output_tokens": 0}
-
-    client = _anthropic_client()
     user_lines = [
         f"[{i}] kind={d.prediction_kind} | text={d.candidate.sentence} | "
         f"programs={d.entities_mentioned['programs']} | confidence={d.confidence}"
         for i, d in enumerate(drafts)
     ]
     user_prompt = "Drafts:\n" + "\n".join(user_lines)
+
+    # Local path — structured NDJSON review with no API cost
+    if is_local_enabled():
+        result = local_generate(
+            user_prompt,
+            system=_SONNET_SYSTEM,
+            max_tokens=2400,
+            temperature=0.0,   # Review: deterministic
+        )
+        if result["text"]:
+            return _parse_sonnet_response(result["text"], drafts), {"input_tokens": 0, "output_tokens": 0}
+        return _stub_review_sonnet(drafts), {"input_tokens": 0, "output_tokens": 0}
+
+    # Anthropic SDK path
+    use_offline = offline if offline is not None else not _have_anthropic()
+    if use_offline:
+        return _stub_review_sonnet(drafts), {"input_tokens": 0, "output_tokens": 0}
+
+    client = _anthropic_client()
     resp = client.messages.create(
         model=SONNET_MODEL,
         max_tokens=2400,

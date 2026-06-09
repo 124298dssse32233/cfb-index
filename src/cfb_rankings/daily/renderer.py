@@ -91,7 +91,15 @@ def _entity_link_html(slug: str, entity_type: str, conn=None) -> str:
         href = f"/players/{resolved}.html"
         label = resolved.rsplit("-", 1)[0].replace("-", " ").title() if "-" in resolved else resolved
     elif entity_type == "conference":
-        href = f"/conferences/{slug}.html"
+        # Conference pages live at /conferences/<level-code>-<bare-slug>.html
+        # (e.g. /conferences/fbs-sec.html). If the upstream take stored a
+        # bare slug like "sec" instead of the canonical "fbs-sec", the link
+        # 404s. Normalize: bare slugs get the "fbs-" prefix; already-prefixed
+        # ones pass through.
+        norm = slug.strip().lower()
+        if not norm.startswith(("fbs-", "fcs-", "dii-", "diii-", "naia-")):
+            norm = f"fbs-{norm}"
+        href = f"/conferences/{norm}.html"
         label = slug.upper()
     else:
         return ""
@@ -352,6 +360,16 @@ def _render_one(
     canonical_path = (
         f"/daily/{edition_date}/" if is_archive_entry else "/daily/"
     )
+    # Phase 4: Article-archetype footer adopter. The Daily already has
+    # its own archive-footer chrome (yesterday's takes + view all); the
+    # Article archetype primitive adds the methodology pointer +
+    # optional share link below it for cross-surface consistency with
+    # /editions/<n>/<slug>/ + /reactions/<slug>/.
+    from cfb_rankings.article_archetype import render_article_footer
+    _article_footer = render_article_footer(
+        methodology_label="How The Daily is sourced",
+        methodology_href="/methodology/",
+    )
     html = tpl.substitute(
         title=f"The Daily — {_long_date(edition_date)}",
         long_date=_long_date(edition_date),
@@ -359,6 +377,7 @@ def _render_one(
         takes_html=takes_html or "<p>No takes available for this edition.</p>",
         watching_html=_watching_html(),
         archive_links=_archive_links_html(recent_editions),
+        article_archetype_footer=_article_footer,
         page_description=(
             f"The Daily for {_long_date(edition_date)} — overnight CFB "
             f"takes, wire-event reactions, and the day's argument theater."
@@ -416,6 +435,17 @@ def _render_archive_index(conn, base: Path, limit: int = 30) -> Path:
             f'</tr>\n'
         )
 
+    from cfb_rankings.database_archetype import (
+        render_database_meta_footer as _db_archetype_footer,
+    )
+    from datetime import datetime as _dt, timezone as _tz
+    _meta_footer = _db_archetype_footer(
+        label=("edition tracked" if len(editions) == 1 else "editions tracked"),
+        total_rows=len(editions),
+        methodology_label="How The Daily ships",
+        methodology_href="/methodology/",
+        updated_text=f"Updated {_dt.now(_tz.utc).strftime('%Y-%m-%d')}",
+    )
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -431,6 +461,13 @@ th{{text-align:left;border-bottom:2px solid #c9a84c;padding:0.5rem;color:#0f2044
 td{{padding:0.5rem;border-bottom:1px solid #e2ddd5;}}
 a{{color:#0f2044;}}
 a:hover{{color:#c9a84c;}}
+/* Inline Database-archetype meta-footer styles so the archive page
+ * doesn't depend on the global stylesheet being loaded. Mirrors the
+ * locked treatment in reporting._DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK. */
+.database-archetype__meta-footer{{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 0;margin-top:32px;border-top:1px solid rgba(15,32,68,0.12);font-size:12px;color:#4a5568;}}
+.database-archetype__meta-link{{font-weight:700;color:#c9a84c;text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;}}
+.database-archetype__meta-link:hover{{text-decoration:underline;}}
+.database-archetype__meta-pill{{padding:4px 10px;border-radius:999px;background:rgba(15,32,68,0.04);border:1px solid rgba(15,32,68,0.08);font-size:11px;letter-spacing:0.04em;}}
 </style>
 </head>
 <body class="daily__archive">
@@ -440,9 +477,10 @@ a:hover{{color:#c9a84c;}}
 <h1>The Daily — Archive</h1>
 <p class="sub">Last {limit} editions · <a href="/daily/">← Current edition</a></p>
 <table>
-<thead><tr><th>Edition</th><th>Status</th><th>Takes</th><th>Voice OK</th></tr></thead>
+<thead><tr><th scope="col">Edition</th><th scope="col">Status</th><th scope="col">Takes</th><th scope="col">Voice OK</th></tr></thead>
 <tbody>{rows_html}</tbody>
 </table>
+{_meta_footer}
 </body>
 </html>"""
 

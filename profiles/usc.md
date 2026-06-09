@@ -16,6 +16,13 @@ accent_hex: "#990000"
 accent_hex_secondary: "#FFC72C"
 gradient_hex_pair: "#990000,#FFC72C"
 
+# Brief §3.2 — Program Prestige.
+# USC is a Blue Blood (T5) currently rebuilding from the Pete Carroll peak.
+prestige_tier: 5
+prestige_historical_peak:
+  tier: 7
+  label: "2002-2008 Pete Carroll era"
+
 vocab:
   signoff: "Fight On."
   greeting: "FIGHT ON"

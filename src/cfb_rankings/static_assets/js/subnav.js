@@ -21,6 +21,19 @@
     });
     var sections = Object.keys(sectionMap).map(function (id) { return document.getElementById(id); });
     if (!sections.length || typeof IntersectionObserver === 'undefined') return;
+    // Detect touch-primary devices. On iOS Safari, calling
+    // `nav.scrollTo({ left: ..., behavior: 'smooth' })` during an active
+    // touch scroll can interrupt the user's vertical scroll momentum and
+    // pop the page back upward — the original "scroll-jacking" complaint.
+    // The previous fix (only-horizontal) still hit this because Safari
+    // does not isolate vertical/horizontal smooth scroll animations
+    // reliably inside an overflow-x container that has any vertical
+    // layout activity. Safest behavior on touch: never auto-center; let
+    // users tap the link directly if they want to navigate.
+    var isTouchPrimary = (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(hover: none) and (pointer: coarse)').matches
+    );
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -30,8 +43,23 @@
         // Clear all aria-current first, then set on the active.
         links.forEach(function (l) { l.removeAttribute('aria-current'); });
         link.setAttribute('aria-current', 'page');
-        // Auto-scroll the active link into view in the horizontal strip.
-        try { link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } catch (_e) {}
+        // Skip horizontal auto-center on touch-primary devices entirely.
+        if (isTouchPrimary) return;
+        try {
+          // Center the active link horizontally inside the subnav strip.
+          // Use scrollLeft assignment (synchronous, no animation) instead
+          // of scrollTo with smooth — even pointer:fine browsers can hit
+          // momentum scroll interruption with smooth-behavior.
+          var navRect = nav.getBoundingClientRect();
+          var linkRect = link.getBoundingClientRect();
+          var currentScrollLeft = nav.scrollLeft || 0;
+          var linkCenter = linkRect.left + linkRect.width / 2;
+          var navCenter = navRect.left + navRect.width / 2;
+          var delta = linkCenter - navCenter;
+          if (Math.abs(delta) > 4) {
+            nav.scrollLeft = Math.max(0, currentScrollLeft + delta);
+          }
+        } catch (_e) {}
       });
     }, { rootMargin: '-30% 0px -60% 0px' });
     sections.forEach(function (s) { observer.observe(s); });

@@ -1,0 +1,551 @@
+name: chronicle-weekly
+# Chronicle card-generation pipeline on the Alienware self-hosted runner.
+#
+# Staggered cron calendar (Architecture v3):
+#   Sun 22:00 ET  → Tier S Flashpoint (top-25 players + top-10 teams)
+#   Mon 02:00 ET  → Tier 1 refresh
+#   Mon 16:00 ET  → Player Arc updates
+#   Tue 03:00 ET  → Tier 2 recruiting
+#   Wed 02:00 ET  → Tier 3 sweep
+#   Wed 07:00 ET  → Retroactive (anniversary)
+#   Wed 22:00 ET  → Tier S mid-week
+#   Thu 11:00 ET  → Matchup Echo
+#   Fri 16:00 ET  → Heisman trajectory
+#   Sat 08:00 ET  → Pre-game position cards
+#
+# DST note: cron strings target EDT (UTC-4). During EST (UTC-5, Nov–Mar)
+# each slot fires 1 hour earlier local time. This ±1h drift is accepted —
+# content quality is not sensitive to the exact hour.
+
+on:
+  schedule:
+    # Sun 22:00 ET → Mon 02:00 UTC (EDT) — Tier S Flashpoint
+    - cron: '0 2 * * 1'
+    # Mon 02:00 ET → Mon 06:00 UTC (EDT) — Tier 1 refresh
+    - cron: '0 6 * * 1'
+    # Mon 16:00 ET → Mon 20:00 UTC (EDT) — Player Arc updates
+    - cron: '0 20 * * 1'
+    # Tue 03:00 ET → Tue 07:00 UTC (EDT) — Tier 2 recruiting
+    - cron: '0 7 * * 2'
+    # Wed 02:00 ET → Wed 06:00 UTC (EDT) — Tier 3 sweep
+    - cron: '0 6 * * 3'
+    # Wed 07:00 ET → Wed 11:00 UTC (EDT) — Retroactive anniversary
+    - cron: '0 11 * * 3'
+    # Wed 22:00 ET → Thu 02:00 UTC (EDT) — Tier S mid-week
+    - cron: '0 2 * * 4'
+    # Thu 11:00 ET → Thu 15:00 UTC (EDT) — Matchup Echo
+    - cron: '0 15 * * 4'
+    # Fri 16:00 ET → Fri 20:00 UTC (EDT) — Heisman trajectory
+    - cron: '0 20 * * 5'
+    # Sat 08:00 ET → Sat 12:00 UTC (EDT) — Pre-game position cards
+    - cron: '0 12 * * 6'
+
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: 'Tier to run (S, T1, T2, T3)'
+        required: true
+        default: 'S'
+        type: choice
+        options: ['S', 'T1', 'T2', 'T3']
+      card_types:
+        description: 'Comma-separated card types (empty = tier defaults)'
+        required: false
+        default: ''
+      max_cards:
+        description: 'Cap on number of cards generated (0 = no cap)'
+        required: false
+        default: '0'
+      use_lkg_only:
+        description: 'Skip generation, use LKG only'
+        required: false
+        type: boolean
+        default: false
+      allow_cloud:
+        description: 'Allow DeepInfra fallback for tier 2/3'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  issues: write
+
+# One chronicle run at a time. cancel-in-progress: false so a slow
+# generation run is never silently killed by an overlapping cron slot.
+concurrency:
+  group: chronicle-weekly
+  cancel-in-progress: false
+
+jobs:
+  # ──────────────────────────────────────────────────────────────────────────
+  # JOB 1: Map the cron timestamp (or dispatch input) to a tier + options.
+  # Runs on ubuntu-latest (fast, no GPU needed, no DB needed).
+  # ──────────────────────────────────────────────────────────────────────────
+  determine-mode:
+    name: Determine run mode from cron / dispatch
+    runs-on: ubuntu-latest
+    outputs:
+      tier: ${{ steps.detect.outputs.tier }}
+      card_types: ${{ steps.detect.outputs.card_types }}
+      max_cards: ${{ steps.detect.outputs.max_cards }}
+      use_lkg_only: ${{ steps.detect.outputs.use_lkg_only }}
+      allow_cloud: ${{ steps.detect.outputs.allow_cloud }}
+    steps:
+      - name: Map cron to mode
+        id: detect
+        shell: bash
+        run: |
+          # workflow_dispatch: pass inputs straight through.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            tier="${{ github.event.inputs.tier }}"
+            card_types="${{ github.event.inputs.card_types }}"
+            max_cards="${{ github.event.inputs.max_cards }}"
+            use_lkg_only="${{ github.event.inputs.use_lkg_only }}"
+            allow_cloud="${{ github.event.inputs.allow_cloud }}"
+          else
+            # Scheduled run — map cron string to tier + defaults.
+            # github.event.schedule is the matching cron expression.
+            schedule="${{ github.event.schedule }}"
+            card_types=""
+            max_cards="0"
+            use_lkg_only="false"
+            allow_cloud="true"
+
+            case "$schedule" in
+              "0 2 * * 1")
+                # Sun 22:00 ET — Tier S Flashpoint
+                tier="S"
+                card_types="flashpoint"
+                ;;
+              "0 6 * * 1")
+                # Mon 02:00 ET — Tier 1 refresh
+                tier="T1"
+                card_types=""
+                ;;
+              "0 20 * * 1")
+                # Mon 16:00 ET — Player Arc updates
+                tier="T1"
+                card_types="player_arc"
+                ;;
+              "0 7 * * 2")
+                # Tue 03:00 ET — Tier 2 recruiting
+                tier="T2"
+                card_types="recruiting"
+                allow_cloud="true"
+                ;;
+              "0 6 * * 3")
+                # Wed 02:00 ET — Tier 3 sweep
+                tier="T3"
+                card_types=""
+                allow_cloud="true"
+                ;;
+              "0 11 * * 3")
+                # Wed 07:00 ET — Retroactive / anniversary
+                tier="T3"
+                card_types="retroactive"
+                allow_cloud="true"
+                ;;
+              "0 2 * * 4")
+                # Wed 22:00 ET — Tier S mid-week
+                tier="S"
+                card_types="midweek"
+                ;;
+              "0 15 * * 4")
+                # Thu 11:00 ET — Matchup Echo
+                tier="T1"
+                card_types="matchup_echo"
+                ;;
+              "0 20 * * 5")
+                # Fri 16:00 ET — Heisman trajectory
+                tier="T1"
+                card_types="heisman_trajectory"
+                ;;
+              "0 12 * * 6")
+                # Sat 08:00 ET — Pre-game position cards
+                tier="T1"
+                card_types="pregame_position"
+                ;;
+              *)
+                # Unknown cron — default to Tier S, no override
+                echo "::warning::Unknown cron expression '$schedule', defaulting to Tier S"
+                tier="S"
+                card_types=""
+                ;;
+            esac
+          fi
+
+          echo "tier=$tier"             >> "$GITHUB_OUTPUT"
+          echo "card_types=$card_types" >> "$GITHUB_OUTPUT"
+          echo "max_cards=$max_cards"   >> "$GITHUB_OUTPUT"
+          echo "use_lkg_only=$use_lkg_only" >> "$GITHUB_OUTPUT"
+          echo "allow_cloud=$allow_cloud"   >> "$GITHUB_OUTPUT"
+
+          echo "Resolved: tier=$tier card_types='$card_types' max_cards=$max_cards use_lkg_only=$use_lkg_only allow_cloud=$allow_cloud"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # JOB 2: Preflight — GPU, VRAM, disk, llama-server, DB health.
+  # Hard-fails the run before we ever touch generation if the host is unfit.
+  # ──────────────────────────────────────────────────────────────────────────
+  preflight-check:
+    name: Preflight (DB + GPU + disk)
+    needs: determine-mode
+    runs-on: [self-hosted, alienware]
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 10
+    outputs:
+      preflight_ok: ${{ steps.checks.outputs.ok }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download cfb-rankings-db artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
+      - name: Run preflight checks
+        id: checks
+        run: |
+          set -e
+
+          # 1. GPU available
+          if ! nvidia-smi >/dev/null 2>&1; then
+            echo "::error::GPU not available — nvidia-smi failed"
+            exit 1
+          fi
+          echo "[preflight] GPU detected: $(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)"
+
+          # 2. Free VRAM >= 10 GB (10000 MiB)
+          free_vram=$(nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits | head -1 | tr -d ' ')
+          echo "[preflight] Free VRAM: ${free_vram} MiB"
+          if [ "$free_vram" -lt 10000 ]; then
+            echo "::error::Insufficient free VRAM: ${free_vram}MiB (need >=10000 MiB)"
+            exit 1
+          fi
+
+          # 3. Disk space >= 20 GB free on working volume
+          free_disk_kb=$(df --output=avail . | tail -1 | tr -d ' ')
+          free_disk_gb=$(( free_disk_kb / 1048576 ))
+          echo "[preflight] Free disk: ${free_disk_gb} GB"
+          if [ "$free_disk_gb" -lt 20 ]; then
+            echo "::error::Insufficient free disk: ${free_disk_gb}GB (need >=20GB)"
+            exit 1
+          fi
+
+          # 4. llama-server reachable on :8001 and :8002 (skip if LKG-only)
+          if [ "${{ needs.determine-mode.outputs.use_lkg_only }}" != "true" ]; then
+            if ! curl -sf http://localhost:8001/health >/dev/null; then
+              echo "::error::llama-server :8001 is not reachable — is the Tier S/T1 model loaded?"
+              exit 1
+            fi
+            echo "[preflight] llama-server :8001 OK"
+
+            if ! curl -sf http://localhost:8002/health >/dev/null; then
+              echo "::error::llama-server :8002 is not reachable — is the Tier 2/3 model loaded?"
+              exit 1
+            fi
+            echo "[preflight] llama-server :8002 OK"
+          else
+            echo "[preflight] LKG-only mode — skipping llama-server checks"
+          fi
+
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+          echo "[preflight] All checks passed."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # JOB 3: Generate Chronicle cards.
+  # 4-hour hard cap — the longest Tier S run is ~3h for 50 cards.
+  # ──────────────────────────────────────────────────────────────────────────
+  generate-cards:
+    name: Generate Chronicle cards (tier ${{ needs.determine-mode.outputs.tier }})
+    needs: [determine-mode, preflight-check]
+    if: needs.preflight-check.outputs.preflight_ok == 'true'
+    runs-on: [self-hosted, alienware]
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 240
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download cfb-rankings-db artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
+      - name: Install project deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Import LKG from disk (covers fresh-clone)
+        # Silently continue if the LKG directory doesn't exist yet —
+        # first-run bootstrap will write the initial LKG after generation.
+        run: python -m cfb_rankings.chronicle.lkg --import-from-disk || true
+
+      - name: Run Chronicle pipeline
+        env:
+          DEEPINFRA_API_KEY: ${{ secrets.DEEPINFRA_API_KEY }}
+          LANGFUSE_HOST: ${{ secrets.LANGFUSE_HOST }}
+          LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+          LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          TIER="${{ needs.determine-mode.outputs.tier }}"
+          CARD_TYPES="${{ needs.determine-mode.outputs.card_types }}"
+          MAX_CARDS="${{ needs.determine-mode.outputs.max_cards }}"
+          USE_LKG="${{ needs.determine-mode.outputs.use_lkg_only }}"
+          ALLOW_CLOUD="${{ needs.determine-mode.outputs.allow_cloud }}"
+          BATCH_ID="$(date -u +%Y-w%V)-${TIER}"
+
+          CMD=(
+            python -m cfb_rankings.chronicle.run generate
+            --tier "$TIER"
+            --max-cards "$MAX_CARDS"
+            --batch-id "$BATCH_ID"
+          )
+
+          [ -n "$CARD_TYPES" ] && CMD+=(--card-types "$CARD_TYPES")
+          [ "$USE_LKG" = "true" ]    && CMD+=(--use-lkg-only)
+          [ "$ALLOW_CLOUD" = "true" ] && CMD+=(--allow-cloud) || CMD+=(--no-cloud)
+
+          echo "Running: ${CMD[*]}"
+          "${CMD[@]}"
+
+      - name: Export LKG to disk (post-generation)
+        if: always()
+        run: python -m cfb_rankings.chronicle.lkg --export-to-disk
+
+      - name: Upload Chronicle batch logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chronicle-logs-${{ github.run_id }}
+          path: logs/chronicle/
+          retention-days: 14
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # JOB 4: Build site + ship to Vercel.
+  # Only runs after successful card generation.
+  # ──────────────────────────────────────────────────────────────────────────
+  build-and-ship:
+    name: Build site + ship to Vercel
+    needs: [determine-mode, generate-cards]
+    runs-on: [self-hosted, alienware]
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download cfb-rankings-db artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
+      - name: Install project deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Download prior site state
+        id: dl_site
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-site
+          path: prior-site/
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Seed output/site from prior state
+        run: |
+          mkdir -p output/site
+          cp -r prior-site/* output/site/ 2>/dev/null || true
+          echo "Seeded output/site with $(find output/site -type f | wc -l) files from prior state"
+
+      - name: Build site
+        run: python -u manage.py build-site
+
+      - name: Ensure custom 404 ships with deploy
+        run: cp -f static/404.html output/site/404.html || true
+
+      - name: Commit LKG dump to repo
+        # Persists the LKG snapshot so a fresh clone on a new runner
+        # can seed from git instead of waiting for artifact download.
+        run: |
+          git config user.name "chronicle-bot"
+          git config user.email "chronicle@cfbindex.local"
+          git add output/site/_cards_lkg/ 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: chronicle LKG snapshot $(date -u +%Y-%m-%dT%H:%M)Z"
+            git push origin HEAD
+          else
+            echo "No LKG changes to commit."
+          fi
+
+      - name: Sanity-check site before deploy
+        id: site_check
+        run: |
+          set +e
+          FILE_COUNT=$(find output/site -type f 2>/dev/null | wc -l)
+          echo "Found $FILE_COUNT files in output/site"
+          if [ "$FILE_COUNT" -lt 3500 ]; then
+            echo "::warning::output/site has only $FILE_COUNT files — may be near-empty; skipping deploy"
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Vercel CLI
+        if: steps.site_check.outputs.healthy == 'true'
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        if: steps.site_check.outputs.healthy == 'true'
+        id: vercel_deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          set +e
+          DEPLOY_LOG=$(mktemp)
+          vercel deploy --prod --yes --archive=tgz \
+            --token="$VERCEL_TOKEN" \
+            --scope="$VERCEL_ORG_ID" 2>&1 | tee "$DEPLOY_LOG"
+          # Strip ANSI codes, extract the per-deploy URL (contains a hash segment)
+          DEPLOY_URL=$(sed -E 's/\x1B\[[0-9;]*[mGKHFJ]//g' "$DEPLOY_LOG" \
+            | grep -oE 'https://wonderful-margulis-8ec96b-[a-z0-9]+-[a-z0-9-]+\.vercel\.app' \
+            | head -1)
+          rm -f "$DEPLOY_LOG"
+          echo "Captured DEPLOY_URL=[$DEPLOY_URL]"
+          echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Alias short public URL to new deployment (MANDATORY — per CLAUDE.md)
+        # Per CLAUDE.md 2026-05-23: the short alias wonderful-margulis-8ec96b.vercel.app
+        # does NOT auto-rotate. Must be set explicitly after every deploy.
+        if: steps.site_check.outputs.healthy == 'true' && steps.vercel_deploy.outputs.deploy_url != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        run: |
+          set +e
+          DEPLOY_URL="${{ steps.vercel_deploy.outputs.deploy_url }}"
+          echo "Aliasing wonderful-margulis-8ec96b.vercel.app → $DEPLOY_URL"
+          vercel alias set "$DEPLOY_URL" wonderful-margulis-8ec96b.vercel.app \
+            --token="$VERCEL_TOKEN" \
+            --scope="$VERCEL_ORG_ID"
+          STATUS=$?
+          if [ "$STATUS" -ne 0 ]; then
+            echo "::warning::vercel alias set returned $STATUS — may need manual rotation"
+          fi
+          echo "Alias done (exit $STATUS)"
+
+      - name: Upload site artifact
+        if: always() && steps.site_check.outputs.healthy == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-site
+          path: output/site/
+          retention-days: 14
+          overwrite: true
+
+      - name: Verify DB artifact healthy before upload
+        if: always()
+        id: db_sanity
+        continue-on-error: true
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
+      - name: Upload DB artifact
+        if: steps.db_sanity.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 90
+          overwrite: true
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # JOB 5: Emergency recovery — LKG-only publish when generation fails.
+  # Only fires if generate-cards or build-and-ship failed AND we're not
+  # already in LKG-only mode (no point retrying a LKG-only run with LKG).
+  # ──────────────────────────────────────────────────────────────────────────
+  emergency-recovery:
+    name: Emergency LKG-only ship on failure
+    needs: [determine-mode, preflight-check, generate-cards, build-and-ship]
+    if: >
+      failure() &&
+      needs.determine-mode.outputs.use_lkg_only != 'true' &&
+      needs.preflight-check.outputs.preflight_ok == 'true'
+    runs-on: [self-hosted, alienware]
+    defaults:
+      run:
+        shell: pwsh
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download cfb-rankings-db artifact
+        uses: dawidd6/action-download-artifact@v6
+        continue-on-error: true
+        with:
+          name: cfb-rankings-db
+          path: .
+          workflow_search: true
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Execute emergency LKG-only publish
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: pwsh scripts/emergency_publish.ps1
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # JOB 6: Notify on any failure via the reusable notify_failure workflow.
+  # ──────────────────────────────────────────────────────────────────────────
+  notify-on-failure:
+    name: Notify on failure
+    if: failure()
+    needs: [determine-mode, preflight-check, generate-cards, build-and-ship]
+    uses: ./.github/workflows/notify_failure.yml
+    with:
+      workflow_name: chronicle-weekly
+      run_id: ${{ github.run_id }}
+    permissions:
+      issues: write
+      contents: read

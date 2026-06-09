@@ -457,27 +457,41 @@ def classify_team(slug: str, *, power_percentile: float | None = None,
         }
 
     # Rule 3 — trajectory-based default for non-seeded FBS teams.
-    # Use power/resume percentiles when present.
+    # Use power/resume percentiles when present. The four bands are *contiguous*
+    # (>=0.70 / 0.45-0.70 / 0.25-0.45 / <0.25) so no percentile slips through to
+    # the undifferentiated fallback — earlier the 0.25-0.45 and 0.70-0.80 ranges
+    # matched no band and silently collapsed to quiet-professional (fixed
+    # 2026-05-28).
     power = float(power_percentile) if power_percentile is not None else None
     resume = float(resume_percentile) if resume_percentile is not None else None
 
-    if power is not None and power >= 0.80:
-        # Top-quintile programs without a seeded archetype read as Quiet Professional.
-        if slug_norm in BLUEBLOOD_PROGRAMS:
-            return _pack("petulant-blueblood", 0.68, ["entrenched"], taxonomy, "trajectory-blueblood")
-        return _pack("quiet-professional", 0.72, ["entrenched"], taxonomy, "trajectory-strong")
+    if power is not None:
+        if power >= 0.70:
+            # Strong programs without a seeded archetype: "good enough to win
+            # 8-10, not enough to win it all" — read as Quiet Professional,
+            # bluebloods as Petulant Blueblood.
+            if slug_norm in BLUEBLOOD_PROGRAMS:
+                return _pack("petulant-blueblood", 0.68, ["entrenched"], taxonomy, "trajectory-blueblood")
+            return _pack("quiet-professional", 0.72, ["entrenched"], taxonomy, "trajectory-strong")
 
-    if power is not None and power <= 0.25:
-        # Bottom-quartile programs read as Stockholm Syndrome or Sleeper depending
-        # on resume percentile vs power (a positive gap = outperforming = sleeper).
-        if resume is not None and power is not None and resume - power >= 0.10:
+        if power >= 0.45:
+            # Solid middle: proud, realistic, knows the ceiling.
+            return _pack("content-mid-major", 0.68, ["entrenched"], taxonomy, "trajectory-middle")
+
+        if power >= 0.25:
+            # Lower-middle: a positive resume-power gap means the team is
+            # outperforming its rating (a sleeper); otherwise a mid-major in a
+            # down phase.
+            if resume is not None and resume - power >= 0.10:
+                return _pack("sleeper", 0.64, ["emerging"], taxonomy, "trajectory-rising")
+            return _pack("content-mid-major", 0.64, ["rebuilding"], taxonomy, "trajectory-lower-mid")
+
+        # Basement (power < 0.25): Sleeper if outperforming, else Stockholm.
+        if resume is not None and resume - power >= 0.10:
             return _pack("sleeper", 0.66, ["emerging"], taxonomy, "trajectory-underrated")
         return _pack("stockholm-syndrome", 0.65, ["entrenched"], taxonomy, "trajectory-floor")
 
-    if power is not None and 0.45 <= power <= 0.70:
-        return _pack("content-mid-major", 0.68, ["entrenched"], taxonomy, "trajectory-middle")
-
-    # Rule 4 — offseason fallback
+    # Rule 4 — offseason fallback (no percentile available for this team at all)
     return _pack(FALLBACK_ARCHETYPE_SLUG, FALLBACK_CONFIDENCE, [], taxonomy, "fallback")
 
 
@@ -491,6 +505,27 @@ def _pack(slug: str, conf: float, mods: list[str], taxonomy: dict[str, dict[str,
     }
 
 
+def _percentiles_within_level(value_rows: list[dict[str, Any]], value_key: str) -> dict[int, float]:
+    """Map team_id -> 0..1 percentile, ranked *within each competitive level*.
+
+    The power/resume tables pool FBS + FCS + DII + DIII (~707 teams), and FBS
+    teams cluster at the top of that pool — so a cross-level percentile pushes
+    nearly every FBS team to >=0.80 and collapses the classifier onto the
+    quiet-professional fallback (fixed 2026-05-28). Bucketing by ``level_code``
+    restores a real within-FBS distribution.
+    """
+    by_level: dict[str, list[dict[str, Any]]] = {}
+    for entry in value_rows:
+        by_level.setdefault(str(entry.get("level_code") or "FBS"), []).append(entry)
+    out: dict[int, float] = {}
+    for level_entries in by_level.values():
+        level_entries.sort(key=lambda r: float(r[value_key]))
+        total = len(level_entries)
+        for rank, entry in enumerate(level_entries):
+            out[int(entry["team_id"])] = rank / max(1, total - 1)
+    return out
+
+
 def classify_all_fanbases(db: Database, season_year: int,
                           classifier_version: str = "v1.0") -> int:
     """Run the classifier over every active FBS team and persist results.
@@ -498,55 +533,63 @@ def classify_all_fanbases(db: Database, season_year: int,
     Returns the number of rows written to fanbase_classification.
     """
 
-    # Pull the latest model-run power rating ranking for the season so we can
-    # derive a structural percentile without schema assumptions. Falls back
-    # gracefully when there's no model run yet (every team gets None percentile
-    # and classifies via the seeded/structural rules only).
+    # Pull the latest model-run power rating ranking so we can derive a
+    # structural percentile without schema assumptions. We accept the most
+    # recent run from the requested season OR any prior season — during the
+    # offseason 2025/2026 have no completed power_ratings_weekly, so per the
+    # offseason-preview posture we classify against the last *completed*
+    # season's ratings (e.g. 2024) rather than collapsing every team onto the
+    # seeded/structural/fallback rules. The `<=` + season_year-desc ordering
+    # picks the requested season when it has runs and walks back otherwise.
     latest_run = db.query_one(
         """
-        select mr.model_run_id
+        select mr.model_run_id, mr.season_year as ratings_season
         from model_runs mr
-        where mr.season_year = %(season_year)s
+        where mr.season_year <= %(season_year)s
           and exists (
             select 1 from power_ratings_weekly p where p.model_run_id = mr.model_run_id
           )
-        order by mr.week desc, mr.model_run_id desc
+        order by mr.season_year desc, mr.week desc, mr.model_run_id desc
         limit 1
         """,
         {"season_year": season_year},
     )
     model_run_id = int(latest_run["model_run_id"]) if latest_run else None
+    ratings_season = int(latest_run["ratings_season"]) if latest_run else None
+    if ratings_season is not None and ratings_season != season_year:
+        print(
+            f"  [classify-fanbases] season {season_year} has no completed model run; "
+            f"using {ratings_season} ratings (offseason-preview posture).",
+            flush=True,
+        )
 
     power_by_team: dict[int, float] = {}
     resume_by_team: dict[int, float] = {}
+
     if model_run_id is not None:
         power_rows = db.query_all(
             """
-            select team_id, power_rating
-            from power_ratings_weekly
-            where model_run_id = %(model_run_id)s
+            select p.team_id, p.power_rating, t.level_code
+            from power_ratings_weekly p
+            join teams t on t.team_id = p.team_id
+            where p.model_run_id = %(model_run_id)s
             """,
             {"model_run_id": model_run_id},
         )
         if power_rows:
-            sorted_power = sorted(power_rows, key=lambda r: float(r["power_rating"]))
-            total = len(sorted_power)
-            for rank, entry in enumerate(sorted_power):
-                power_by_team[int(entry["team_id"])] = rank / max(1, total - 1)
+            power_by_team = _percentiles_within_level(power_rows, "power_rating")
 
         resume_rows = db.query_all(
             """
-            select team_id, resume_score
-            from resume_ratings_weekly
-            where model_run_id = %(model_run_id)s
+            select r.team_id, r.resume_score, t.level_code
+            from resume_ratings_weekly r
+            join teams t on t.team_id = r.team_id
+            where r.model_run_id = %(model_run_id)s
             """,
             {"model_run_id": model_run_id},
         )
         if resume_rows:
-            sorted_resume = sorted(resume_rows, key=lambda r: float(r["resume_score"]))
-            total = len(sorted_resume)
-            for rank, entry in enumerate(sorted_resume):
-                resume_by_team[int(entry["team_id"])] = rank / max(1, total - 1)
+            resume_by_team = _percentiles_within_level(resume_rows, "resume_score")
 
     # Include all active teams (FBS + FCS + DII + DIII) so that HBCU and Service
     # Academy FCS programs get deterministic structural classifications and appear

@@ -16,6 +16,14 @@ accent_hex: "#9E1B32"
 accent_hex_secondary: "#FFFFFF"
 gradient_hex_pair: "#9E1B32,#4a0d17"
 
+# Brief §3.2 — Program Prestige.
+# program_tier 1 (internal Blue Blood) → T5 brief default. Override:
+# Alabama is the canonical Dynasty Active program — six titles in 13 years.
+prestige_tier: 6
+prestige_historical_peak:
+  tier: 7
+  label: "2009-2020 Saban era — six titles, twelve straight top-5s"
+
 vocab:
   signoff: "Roll Tide."
   greeting: "RTR"

@@ -62,6 +62,78 @@ def _cell_text(cell) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+# Valid position codes for all-conference tables. Exact-match against the
+# cell text (case-insensitive). Maps abbreviations + Wikipedia long forms to a
+# canonical short code. Anything not in here is rejected — this is the guard
+# that keeps schedule/TV tables (kickoff times, month names, "vs.") out.
+_CONFERENCE_POSITION_CANON: dict[str, str] = {
+    "QB": "QB", "QUARTERBACK": "QB",
+    "RB": "RB", "RUNNING BACK": "RB", "TAILBACK": "RB", "FULLBACK": "FB", "FB": "FB",
+    "WR": "WR", "WIDE RECEIVER": "WR", "RECEIVER": "WR", "FL": "WR", "FLANKER": "WR",
+    "TE": "TE", "TIGHT END": "TE",
+    "OL": "OL", "OT": "OT", "OG": "OG", "C": "C", "G": "OG", "T": "OT",
+    "OFFENSIVE LINE": "OL", "OFFENSIVE LINEMAN": "OL", "OFFENSIVE TACKLE": "OT",
+    "OFFENSIVE GUARD": "OG", "GUARD": "OG", "TACKLE": "OT", "CENTER": "C",
+    "DL": "DL", "DE": "DE", "DT": "DT", "NT": "DT", "EDGE": "EDGE",
+    "DEFENSIVE LINE": "DL", "DEFENSIVE LINEMAN": "DL", "DEFENSIVE END": "DE",
+    "DEFENSIVE TACKLE": "DT", "NOSE TACKLE": "DT", "NOSE GUARD": "DT",
+    "LB": "LB", "ILB": "LB", "OLB": "LB", "MLB": "LB", "LINEBACKER": "LB",
+    "DB": "DB", "CB": "DB", "S": "DB", "FS": "DB", "SS": "DB",
+    "DEFENSIVE BACK": "DB", "CORNERBACK": "DB", "CORNER": "DB", "SAFETY": "DB",
+    "K": "K", "PK": "K", "KICKER": "K", "PLACEKICKER": "K",
+    "P": "P", "PUNTER": "P",
+    "LS": "LS", "LONG SNAPPER": "LS",
+    "AP": "AP", "ALL-PURPOSE": "AP", "ALL PURPOSE": "AP",
+    "RET": "RET", "RETURNER": "RET", "RETURN SPECIALIST": "RET",
+    "KR": "RET", "PR": "RET", "KICK RETURNER": "RET", "PUNT RETURNER": "RET",
+    "ATH": "ATH", "ATHLETE": "ATH",
+}
+
+
+def _canonical_conference_position(text: str) -> str | None:
+    """Return the canonical position code for an all-conference cell, or None.
+
+    Exact-match (case-insensitive, whitespace-trimmed) against the known
+    position vocabulary. Returns None for anything else — months, kickoff
+    times, opponent names, "vs.", etc. — so non-roster tables are skipped.
+    """
+    if not text:
+        return None
+    key = text.strip().upper()
+    # Some cells carry trailing markers like "QB*" or "WR (1)"; take the
+    # leading token only when it is itself a valid code.
+    direct = _CONFERENCE_POSITION_CANON.get(key)
+    if direct:
+        return direct
+    # Try the first whitespace-delimited token (e.g. "QB Jr." -> "QB")
+    head = key.split()[0] if key.split() else ""
+    head = head.strip(".,*()")
+    return _CONFERENCE_POSITION_CANON.get(head)
+
+
+# Reject obvious non-player strings: kickoff times, dates, "vs.", "TBD".
+_NON_PLAYER_RE = re.compile(
+    r"(\d{1,2}:\d{2}\s*[ap]\.?m\.?"      # 7:00 p.m.
+    r"|^noon$|^tbd$|^tba$|^bye$|^canceled$|^postponed$"
+    r"|^vs\.?$|^at$"
+    r"|^(january|february|march|april|may|june|july|august|september|october|november|december))",
+    re.I,
+)
+
+
+def _looks_like_player_name(name: str) -> bool:
+    """Heuristic: a real player name has letters and isn't a schedule fragment."""
+    if not name or len(name.strip()) < 2:
+        return False
+    s = name.strip()
+    if _NON_PLAYER_RE.search(s):
+        return False
+    # Needs at least one alphabetic word of length >= 2 (filters "7", ":")
+    if not re.search(r"[A-Za-z]{2,}", s):
+        return False
+    return True
+
+
 # ---------------------------------------------------------------------------
 # TASK 4.1 — All-America Team scraper
 # ---------------------------------------------------------------------------
@@ -85,6 +157,331 @@ _AA_HEADER_TO_SELECTOR = {
     "Athlon": "Athlon",
     "Phil Steele": "Phil Steele",
 }
+
+
+def scrape_per_selector_all_america(year: int) -> list[dict[str, Any]]:
+    """Scrape per-selector All-America picks from the YYYY article.
+
+    Wikipedia's 2024+ format dropped the per-selector grid table in favor
+    of position-section <ul> lists, where each player's <li> has a
+    <small>(SEL1, SEL2, ...)</small> parenthetical listing every selector
+    that picked them. Bold selector codes inside that small element mean
+    first-team; non-bold means second-team or honorable mention.
+
+    Tries the URL ``YYYY_All-America_college_football_team`` first (the
+    canonical post-2024 page title) and falls back to
+    ``YYYY_College_Football_All-America_Team`` (the pre-2024 form, which
+    sometimes 301s).
+
+    Emits one CandidateObservation-shaped dict per (player, selector)
+    pair, normalised to the selectors used by the Selector Grid module.
+
+    Selector code normalisation:
+        AP    -> "AP"      (Associated Press, NCAA-recognized)
+        AFCA  -> "AFCA"    (Coaches, NCAA-recognized)
+        FWAA  -> "FWAA"    (Football Writers, NCAA-recognized)
+        TSN   -> "SN"      (Sporting News, NCAA-recognized — aliased)
+        WCFF  -> "WCFF"    (Walter Camp, NCAA-recognized)
+        SI    -> "SI"      (Sports Illustrated)
+        plus passthroughs for CBS/Athletic/ESPN/PFF/USAT/Athlon/Steele.
+
+    Placement (first_team / second_team) derives from whether the
+    selector code in the parenthetical is wrapped in <b>...</b>.
+    """
+    # 2024+ canonical title.
+    titles_to_try = (
+        f"{year} All-America college football team",
+        f"{year} College Football All-America Team",
+    )
+    html = None
+    used_title = None
+    for title in titles_to_try:
+        try:
+            html = _fetch_html(title)
+            used_title = title
+            break
+        except Exception as exc:
+            log.debug(
+                "scrape_per_selector_all_america %d: %s failed: %s",
+                year, title, exc,
+            )
+    if html is None:
+        log.warning(
+            "scrape_per_selector_all_america %d: no Wikipedia article reachable",
+            year,
+        )
+        return []
+
+    soup = BeautifulSoup(html, "lxml")
+    out: list[dict[str, Any]] = []
+    source_url = _wiki_url(used_title)
+
+    # Selector code normalisation map. Keys are wikipedia bare-strings;
+    # values are the canonical selector code stored in player_honors.
+    selector_normalise = {
+        "AP":     "AP",
+        "AFCA":   "AFCA",
+        "FWAA":   "FWAA",
+        "TSN":    "SN",   # The Sporting News — also "Sporting News" elsewhere
+        "SN":     "SN",
+        "Sporting News": "SN",
+        "WCFF":   "WCFF",
+        "Walter Camp": "WCFF",
+        "SI":     "SI",
+        "Sports Illustrated": "SI",
+        "CBS":    "CBS",
+        "ESPN":   "ESPN",
+        "PFF":    "PFF",
+        "Athletic": "The Athletic",
+        "The Athletic": "The Athletic",
+        "USAT":   "USA Today",
+        "USA Today": "USA Today",
+        "Athlon": "Athlon",
+        "Phil Steele": "Phil Steele",
+    }
+    # Patterns for position canonicalisation
+    position_canonical = {
+        "Quarterback": "QB",
+        "Running back": "RB",
+        "Wide receiver": "WR",
+        "Tight end": "TE",
+        "Offensive line": "OL",
+        "Offensive tackle": "OT",
+        "Tackle": "OT",
+        "Guard": "OG",
+        "Offensive guard": "OG",
+        "Center": "C",
+        "Defensive line": "DL",
+        "Defensive end": "DE",
+        "Defensive tackle": "DT",
+        "Edge": "EDGE",
+        "Linebacker": "LB",
+        "Defensive back": "DB",
+        "Cornerback": "CB",
+        "Safety": "S",
+        "Kicker": "K",
+        "Punter": "P",
+        "Long snapper": "LS",
+        "All-purpose": "AP-RET",
+        "All-purpose / return specialist": "AP-RET",
+        "Return specialist": "RET",
+    }
+
+    # Walk every h3 in the article — each is a position section. Modern
+    # Wikipedia wraps headings in <div class="mw-heading mw-heading3"> so
+    # we have to look for the h3 inside the div OR a bare h3.
+    for h3 in soup.find_all("h3"):
+        position_label = h3.get_text(" ", strip=True)
+        if not position_label:
+            continue
+        # Only process actual position headings.
+        if not any(position_label.startswith(k) for k in position_canonical):
+            continue
+        pos_code = next(
+            (v for k, v in position_canonical.items() if position_label.startswith(k)),
+            "",
+        )
+        # Find the FIRST <ul> after this h3 that's still inside the same
+        # section. Walk forward sibling-by-sibling from the h3's wrapping
+        # mw-heading div (modern Wikipedia format), stopping at the next
+        # mw-heading wrapper.
+        parent_wrapper = h3.find_parent("div", class_=lambda c: c and "mw-heading" in c)
+        anchor = parent_wrapper or h3
+        ul = None
+        cursor = anchor
+        for _ in range(10):
+            cursor = cursor.find_next_sibling()
+            if cursor is None:
+                break
+            cls = cursor.get("class") if hasattr(cursor, "get") else None
+            if cls and any("mw-heading" in c for c in cls):
+                break
+            if cursor.name == "ul":
+                ul = cursor
+                break
+        if ul is None:
+            # Fallback: any ul up to the next h3 anywhere in the tree
+            ul = anchor.find_next("ul")
+            if ul is not None:
+                # Verify it precedes the next h3 (i.e., is in our section).
+                next_heading_div = anchor.find_next("div", class_=lambda c: c and "mw-heading" in c)
+                if next_heading_div is not None:
+                    # Compare positions: ul must come before next heading
+                    ul_pos = sum(1 for _ in ul.find_all_previous())
+                    nh_pos = sum(1 for _ in next_heading_div.find_all_previous())
+                    if ul_pos > nh_pos:
+                        ul = None
+        if ul is None:
+            continue
+
+        for li in ul.find_all("li", recursive=False):
+            # Skip nested-ul li children (some pages have sub-bullets).
+            # The player name is the first <a> or <b> in the li.
+            # Team is the SECOND link (the team-season article).
+            anchors = li.find_all("a", recursive=False)
+            # Some pages wrap the player name in <b>; the <a> may be inside.
+            # Walk the li children in order and find the first non-trivial
+            # <a> for player name, and the first link with "football team"
+            # in href for the team.
+            player_a = None
+            team_a = None
+            for a in li.find_all("a"):
+                href = a.get("href", "")
+                title_attr = a.get("title", "")
+                text = a.get_text(" ", strip=True)
+                if not text:
+                    continue
+                # Player anchor: linked to a player article. Heuristic:
+                # NOT a year/team page, NOT a navigation link.
+                if "football_team" in href or "football team" in title_attr:
+                    if team_a is None:
+                        team_a = a
+                elif player_a is None and not href.startswith("#"):
+                    player_a = a
+            if player_a is None:
+                continue
+            player_name = re.sub(r"\*", "", player_a.get_text(" ", strip=True)).strip()
+            if not player_name:
+                continue
+            # Team name: prefer team-page link; else fall back to the next
+            # text node after the player name.
+            if team_a is not None:
+                team_text = team_a.get_text(" ", strip=True)
+                # Strip leading "YYYY " season prefix if present.
+                team_name = re.sub(r"^\d{4}\s+", "", team_text)
+                # Strip trailing " football team" suffix.
+                team_name = re.sub(r"\s+football\s+team\s*$", "", team_name, flags=re.I)
+            else:
+                team_name = ""
+
+            # Find the parenthetical <small>. Selectors are the codes inside.
+            small = li.find("small")
+            if small is None:
+                continue
+            small_html = str(small)
+            # Pull out bold selector codes (first-team) and plain codes
+            # (second-team or "also-rec'd"). Bold is detected via <b>.
+            first_team_codes: list[str] = []
+            second_team_codes: list[str] = []
+            for tag in small.find_all(["b", "a"]):
+                # Direct child of small only (skip nested <b><a>)
+                if tag.name == "b":
+                    code = tag.get_text(" ", strip=True).strip(",. ")
+                    if code:
+                        first_team_codes.append(code)
+            # Plain codes: text inside small that's NOT inside a <b>
+            # Strategy: get the small's text, remove the bold-text, parse
+            # the leftover for codes.
+            small_text = small.get_text(" ", strip=True).strip("()")
+            for bold_code in first_team_codes:
+                small_text = small_text.replace(bold_code, "")
+            # Remaining tokens, comma-or-space-separated
+            for tok in re.split(r"[,\s]+", small_text):
+                tok = tok.strip(".,()")
+                if tok and tok not in first_team_codes:
+                    second_team_codes.append(tok)
+
+            # All listed selectors on the 2024+ unified page are FIRST-TEAM
+            # picks by that selector. The bold-vs-plain distinction is NCAA-
+            # recognition (bold = AP/FWAA/AFCA/WCFF/TSN — the 5 selectors
+            # that drive Consensus computation), NOT placement. We mark all
+            # selectors as first_team. If a separate "Second team" section
+            # exists on a future page version, the section header logic
+            # would need updating.
+            for code, placement in (
+                *((c, "first_team") for c in first_team_codes),
+                *((c, "first_team") for c in second_team_codes),
+            ):
+                # Normalise selector code
+                sel = selector_normalise.get(code)
+                if sel is None:
+                    # Try uppercase form
+                    sel = selector_normalise.get(code.upper())
+                if sel is None:
+                    continue  # Unknown selector — skip rather than pollute
+                # honor_team carries the "first" / "second" team designation
+                # that the Selector Grid module reads to pick a gold/silver
+                # medal class. The CSV's `placement` column is INT in the DB
+                # schema (1/2/3) and the importer's maybe_int(placement)
+                # would silently nullify "first_team" strings — so we set
+                # both fields and let downstream consumers pick the form
+                # they need.
+                honor_team_text = "first" if placement == "first_team" else "second"
+                out.append({
+                    "season_year": year,
+                    "player_name": player_name,
+                    "position": pos_code,
+                    "team_name": team_name,
+                    "honor_scope": "all_america",
+                    "honor_name": f"All-America ({sel})",
+                    "selector": sel,
+                    "honor_team": honor_team_text,
+                    "placement": 1 if placement == "first_team" else 2,
+                    "source_name": "wikipedia",
+                    "source_url": source_url,
+                })
+
+    return out
+
+
+def scrape_consensus_all_america(year: int) -> list[dict[str, Any]]:
+    """Scrape the 'Consensus All-Americans' table from the YYYY All-America
+    article. 2026-05-23: Added because the per-selector grid scraper
+    (`scrape_all_america`) returns 0 rows for 2024 — the Wikipedia table
+    format has changed. The Consensus table is structurally simpler and
+    captures the most-impactful tier of recognition.
+
+    Each row: Name (with wiki link), Position, Year (class), University.
+
+    Returns one dict per consensus player. Selector = "Consensus" which is
+    sufficient to populate the Selector Grid's gold cells.
+    """
+    title = f"{year} College Football All-America Team"
+    try:
+        html = _fetch_html(title)
+    except Exception as exc:
+        log.warning("scrape_consensus_all_america %d: fetch failed: %s", year, exc)
+        return []
+    soup = BeautifulSoup(html, "lxml")
+    out: list[dict[str, Any]] = []
+    for table in soup.find_all("table", class_=lambda c: c and "wikitable" in c):
+        caption = table.find("caption")
+        if not caption:
+            continue
+        cap_text = _cell_text(caption)
+        if "consensus" not in cap_text.lower():
+            continue
+        # This is the Consensus All-Americans table. Use first + last cells
+        # only — those are the most reliable across rowspan-rich rows.
+        # Middle cells (position, year) sometimes rowspan multiple players
+        # which makes naive cell-indexing wrong; we leave position blank and
+        # let the players table provide it via player_id resolution.
+        rows = table.find_all("tr")
+        for tr in rows[1:]:  # Skip header
+            cells = tr.find_all("td")
+            if len(cells) < 2:
+                continue
+            cell_texts = [_cell_text(c) for c in cells]
+            name = cell_texts[0]
+            school = cell_texts[-1]
+            # Strip asterisks/footnotes from name
+            name = re.sub(r"\*", "", name).strip()
+            if not name:
+                continue
+            out.append({
+                "season_year": year,
+                "player_name": name,
+                "position": "",   # Left blank — see comment above
+                "team_name": school,
+                "honor_scope": "all_america",
+                "honor_name": "All-America (Consensus)",
+                "selector": "Consensus",
+                "placement": "first_team",
+                "source_name": "wikipedia",
+                "source_url": _wiki_url(title),
+            })
+        break  # First consensus table is the canonical one
+    return out
 
 
 def scrape_all_america(year: int) -> list[dict[str, Any]]:
@@ -195,7 +592,6 @@ def scrape_all_conference(year: int, conference: str) -> list[dict[str, Any]]:
             continue
         soup = BeautifulSoup(html, "lxml")
         out: list[dict[str, Any]] = []
-        position_re = re.compile(r"(QB|RB|WR|TE|OL|OT|OG|C|DL|DE|DT|LB|ILB|OLB|DB|CB|S|K|P|LS|AP|ATH)", re.I)
         for table in soup.find_all("table", class_=lambda c: c and "wikitable" in c):
             heading = table.find_previous(["h2", "h3", "h4"])
             heading_text = heading.get_text(" ").lower() if heading else ""
@@ -212,16 +608,23 @@ def scrape_all_conference(year: int, conference: str) -> list[dict[str, Any]]:
                 if len(cells) < 2:
                     continue
                 pos_text = _cell_text(cells[0])
-                if not position_re.search(pos_text):
+                pos_code = _canonical_conference_position(pos_text)
+                if pos_code is None:
+                    # Cell-0 is not a real position code — this row (or whole
+                    # table) is not an honors table. Skip. Guards against the
+                    # 2024 bug where a TV-schedule table (col0 = kickoff time,
+                    # col1 = "Noon"/"7:00 p.m.") was parsed as a roster and the
+                    # old unanchored case-insensitive regex matched the 's' in
+                    # "August", the 'c' in "October", etc.
                     continue
                 name_cell_text = _cell_text(cells[1]) if len(cells) > 1 else ""
                 team_cell_text = _cell_text(cells[2]) if len(cells) > 2 else ""
-                if not name_cell_text:
+                if not name_cell_text or not _looks_like_player_name(name_cell_text):
                     continue
                 out.append({
                     "season_year": year,
                     "player_name": name_cell_text,
-                    "position": pos_text.upper()[:4],
+                    "position": pos_code,
                     "team_name": team_cell_text,
                     "honor_scope": "all_conference",
                     "honor_name": f"All-{conference}",
@@ -358,10 +761,32 @@ def emit_honor_csvs(years: Iterable[int], out_dir: str | Path = "data/scraped_ho
     summary: dict[str, int] = {}
 
     for year in years:
-        # All-America
+        # All-America (per-selector grid; format-fragile, 0 rows for 2024)
         rows = scrape_all_america(year)
         if rows:
             p = out_root / f"all_america_{year}.csv"
+            _write_csv(p, rows)
+            summary[p.name] = len(rows)
+        time.sleep(1.0)
+
+        # All-America Consensus (single canonical table — more reliable).
+        # 2026-05-23: Added because the per-selector grid scraper above
+        # silently returned 0 rows for 2024 due to Wikipedia format change.
+        rows = scrape_consensus_all_america(year)
+        if rows:
+            p = out_root / f"all_america_consensus_{year}.csv"
+            _write_csv(p, rows)
+            summary[p.name] = len(rows)
+        time.sleep(1.0)
+
+        # Per-selector All-America (2024+ Wikipedia unified-page format).
+        # Each player's <li> includes a <small>(SEL1, SEL2, ...)</small>
+        # parenthetical with every selector that picked them. Emits one
+        # row per (player, selector) pair — activates the Selector Grid
+        # module's gold cells beyond just the Consensus aggregate.
+        rows = scrape_per_selector_all_america(year)
+        if rows:
+            p = out_root / f"all_america_per_selector_{year}.csv"
             _write_csv(p, rows)
             summary[p.name] = len(rows)
         time.sleep(1.0)

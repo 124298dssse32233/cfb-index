@@ -9,6 +9,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   background: var(--bg-0);
   color: var(--fg-primary);
   font-family: var(--font-body);
@@ -22,6 +23,7 @@ a { color: inherit; text-decoration: none; }
 
 .team-page {
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(1200px 600px at 10% -10%,
       color-mix(in oklab, var(--accent-primary) 18%, transparent) 0%,
@@ -85,15 +87,43 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
-.hero__record {
-  font-family: var(--font-mono);
-  font-size: var(--fs-headline-sm);
+/* Identity phrase — one-line voice anchor below the wordmark.
+ * Hand-authored profiles surface their bespoke identity_phrase here;
+ * synthesized profiles surface a conference-register template phrase. */
+.hero__identity-phrase {
+  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-size: clamp(15px, 0.5vw + 14px, 19px);
+  font-style: italic;
+  line-height: 1.4;
   color: var(--fg-secondary);
+  margin: clamp(6px, 1vw, 12px) 0 0 0;
+  max-width: 70ch;
+}
+
+.hero__record {
+  /* Sprint B 2026-05-22: was --font-mono. The record (10-2) is the loudest
+   * single stat on the page and the brief calls for "big display-font
+   * number" treatment. Promoted to --font-display (Bebas Neue) at the
+   * --fs-headline scale so it lands as the visual anchor below the
+   * wordmark, not as quiet pill text next to it. */
+  font-family: var(--font-display);
+  font-size: var(--fs-headline);
+  color: var(--accent-primary);
   padding: var(--sp-1) var(--sp-3);
-  border: 1px solid var(--stroke-default);
+  border: 1px solid var(--accent-primary);
   border-radius: var(--radius-pill);
   background: var(--bg-card);
-  letter-spacing: var(--ls-wide);
+  letter-spacing: var(--ls-normal);
+  line-height: 1;
+}
+
+.hero__record-qualifier {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-2, #6a6a6a);
+  align-self: center;
 }
 
 .hero__rank-chip {
@@ -379,6 +409,95 @@ a { color: inherit; text-decoration: none; }
   font-style: normal;
 }
 
+/* ============================================================================
+ * Five-axis Pulse strip — Brief §4.2 Panel 2 (Sprint D)
+ * Reality Gap / Respect Gap / Cohort Divergence / Rival Heat / Volatility
+ * ========================================================================= */
+
+.pulse-five-axis {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  margin-top: var(--sp-4);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--stroke-default);
+  border-radius: var(--radius-md);
+}
+.pulse-five-axis__eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.pulse-axis {
+  display: grid;
+  grid-template-columns: minmax(0, 120px) 1fr auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--stroke-subtle);
+}
+.pulse-axis:first-of-type { border-top: 0; }
+.pulse-axis__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+.pulse-axis__bar {
+  position: relative;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.pulse-axis__fill {
+  position: absolute;
+  inset: 0;
+  width: var(--pct, 0%);
+  background: var(--pct-mid);
+  border-radius: 5px;
+  transition: width 240ms ease-out;
+}
+.pulse-axis[data-band="high"] .pulse-axis__fill { background: var(--pct-high); }
+.pulse-axis[data-band="mid"]  .pulse-axis__fill { background: var(--pct-mid); }
+.pulse-axis[data-band="low"]  .pulse-axis__fill { background: var(--pct-low); }
+.pulse-axis__chip {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.pulse-axis__desc {
+  grid-column: 1 / -1;
+  font-family: var(--font-serif);
+  font-size: var(--fs-label);
+  color: var(--fg-muted);
+  line-height: 1.4;
+  font-style: italic;
+}
+.pulse-axis--awaiting .pulse-axis__label,
+.pulse-axis--awaiting .pulse-axis__desc {
+  color: var(--fg-muted);
+}
+.pulse-axis--awaiting .pulse-axis__fill {
+  opacity: 0.45;
+}
+.pulse-axis--awaiting .pulse-axis__chip {
+  font-style: italic;
+}
+@media (max-width: 720px) {
+  .pulse-axis {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .pulse-axis__bar { grid-column: 1 / -1; }
+}
+
 .pulse__velocity {
   display: flex;
   align-items: baseline;
@@ -525,6 +644,18 @@ a { color: inherit; text-decoration: none; }
   text-transform: none;
   letter-spacing: var(--ls-normal);
   font-size: var(--fs-body);
+}
+
+.page-footer__link {
+  color: var(--accent-primary, #c9a24a);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  transition: opacity 0.18s ease;
+}
+.page-footer__link:hover {
+  opacity: 0.75;
+  text-decoration: underline;
 }
 
 /* ------------------------------------------------------------------ */

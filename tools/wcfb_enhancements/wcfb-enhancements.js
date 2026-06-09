@@ -156,6 +156,12 @@
 
   function injectBottomNav() {
     if (document.querySelector('.wcfb-bottom-nav')) return;
+    // Phase 10 perf: don't inject DOM nodes when the bottom nav is hidden.
+    // CSS hides .wcfb-bottom-nav above 720px — skip the DOM build entirely
+    // on desktop to spare DOM nodes + body padding-bottom calc.
+    if (window.matchMedia && !window.matchMedia('(max-width: 720px)').matches) {
+      return;
+    }
     var nav = document.createElement('nav');
     nav.className = 'wcfb-bottom-nav';
     nav.setAttribute('aria-label', 'Primary mobile navigation');

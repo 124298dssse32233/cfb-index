@@ -123,8 +123,24 @@ def _page_head(title: str, *, description: str = "", canonical_path: str | None 
 
 
 def _page_foot() -> str:
+    """Render the page closer.
+
+    Session 6 Track 7: prepend the Article-archetype footer (methodology
+    pointer) above the existing "regenerated" chrome. Both render —
+    the archetype primitive gives readers a methodology link; the
+    chrome timestamp tells them when the page was rebuilt.
+    """
+    from cfb_rankings.article_archetype import render_article_footer
+    archetype_footer = render_article_footer(
+        methodology_label="How Reaction Stories are sourced",
+        methodology_href="/methodology/",
+    )
     now = datetime.utcnow().strftime("%Y-%m-%d %H:%M")
-    return f'<div class="footer">CFB Index · Reaction Stories · regenerated {now} UTC</div>\n</div></body></html>\n'
+    return (
+        f'{archetype_footer}'
+        f'<div class="footer">CFB Index · Reaction Stories · regenerated {now} UTC</div>\n'
+        f'</div></body></html>\n'
+    )
 
 
 # ── Markdown → HTML (minimal inline converter) ──────────────────────────────

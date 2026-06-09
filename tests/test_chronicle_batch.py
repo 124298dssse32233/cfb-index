@@ -98,6 +98,10 @@ def test_build_chronicle_batch_jobs_shape():
 def test_write_cards_batch_three_team_mock(monkeypatch):
     """3 teams × 1 card each → submit_batch_offline_safe is called once,
     payloads come back as parsed JSON dicts in input order."""
+    # Ensure we stay on the batch SDK path even if LOCAL_LLM_URL was
+    # injected into os.environ by _load_dotenv() in a prior test.
+    monkeypatch.delenv("LOCAL_LLM_URL", raising=False)
+
     plan = []
     for slug in ("alabama", "georgia", "michigan"):
         profile = _make_profile_stub(slug)
@@ -166,6 +170,10 @@ def test_write_cards_batch_three_team_mock(monkeypatch):
 def test_write_cards_batch_partial_failure_per_card(monkeypatch):
     """One card succeeds, one fails — both come back with the expected
     success/error markers."""
+    # Ensure we stay on the batch SDK path even if LOCAL_LLM_URL was
+    # injected into os.environ by _load_dotenv() in a prior test.
+    monkeypatch.delenv("LOCAL_LLM_URL", raising=False)
+
     plan = []
     for slug in ("alabama", "georgia"):
         profile = _make_profile_stub(slug)

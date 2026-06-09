@@ -1,16 +1,34 @@
 """Runner used by the GitHub Actions workflows — ``python tools/run_adapter.py <adapter-id>``.
 
 Looks up the adapter class, constructs it against the production DB, calls
-``.run()``. Exits 0 on ok/empty/skipped so upstream cron keeps running even
-when a single source's API is flaky. Exits 2 on hard config errors (missing
-env var for an adapter that can't run without it).
+``.run()``, and returns an exit code that honors ``AdapterRunResult.status``:
+
+    ok       → 0          (rows written)
+    empty    → 0 + warn   (no rows; legitimate quiet upstream)
+    skipped  → 0 + warn   (graceful no-op, e.g. secret absent)
+    error    → 1          (caught exception → loud-fail, surfaces in CI)
+
+Hard config errors (missing env var for an adapter that can't run without it)
+exit 2.
+
+Per WS-01 spec (`specs/01-foundation-unblock.md`), this replaces the prior
+``set +e`` + ``echo done`` pattern that silently swallowed adapter failures —
+6 of 7 numeric adapters wrote 0 rows for months under the old swallow. Now
+a real exception in ``fetch()`` or ``parse()`` propagates as workflow failure.
 
 Usage from a workflow step:
 
     - name: wiki pageviews
       run: python tools/run_adapter.py wiki_pv
 
-Set ``FANINTEL_REQUIRED=1`` to turn missing-env errors into exit-1 instead
+Optional flags:
+
+    --fail-on-empty     treat ``empty`` as exit 1 (use on adapters that should ALWAYS
+                        produce rows, e.g. wiki_pv for the priority-teams set —
+                        default tolerates empty since most upstreams have quiet hours)
+    --fail-on-skipped   treat ``skipped`` as exit 1 (use in secrets-smoke workflow)
+
+Set ``FANINTEL_REQUIRED=1`` env to turn missing-env errors into exit-1 instead
 of exit-0 (useful for a dedicated secrets-smoke workflow).
 """
 from __future__ import annotations
@@ -202,6 +220,10 @@ def main() -> int:
                         help="source_id of a single adapter, or a bulk family like "
                              "'campus_news_all', 'google_news_all', 'athletics_all', "
                              "'locked_on_all'.")
+    parser.add_argument("--fail-on-empty", action="store_true",
+                        help="Treat empty result (0 rows, no exception) as failure (exit 1).")
+    parser.add_argument("--fail-on-skipped", action="store_true",
+                        help="Treat skipped result (e.g. missing env) as failure (exit 1).")
     args = parser.parse_args()
 
     config = AppConfig.from_env()
@@ -221,13 +243,41 @@ def main() -> int:
     try:
         result = adapter.run()
     except RuntimeError as exc:
-        # Typically "missing env var"
-        logger.warning("%s could not run: %s", args.adapter_id, exc)
-        return 1 if os.environ.get("FANINTEL_REQUIRED") else 0
+        # Belt-and-suspenders: a missing-secret AdapterConfigError is normally
+        # caught inside adapter.run() and surfaced as status="skipped" (handled
+        # below). This guard only fires if an adapter raises a bare RuntimeError
+        # outside run()'s capture — treat it as skipped too.
+        logger.warning("%s skipped: %s", args.adapter_id, exc)
+        if args.fail_on_skipped or os.environ.get("FANINTEL_REQUIRED"):
+            return 1
+        return 0
 
     logger.info("%s: status=%s rows=%d", args.adapter_id,
                 result.status, result.rows_inserted)
-    # scrape_health has the row; always exit 0 so cron continues
+
+    # Loud-fail on real exceptions caught inside SourceAdapter.run().
+    if result.status == "error":
+        logger.error("%s ERROR: %s", args.adapter_id, result.error_message)
+        return 1
+
+    # Empty: wrote 0 rows but no exception. Default tolerates this (some
+    # upstream feeds are legitimately quiet on a given hour). Opt-in
+    # --fail-on-empty for adapters that should always produce something.
+    if result.status == "empty":
+        logger.warning("%s wrote 0 rows (status=empty)", args.adapter_id)
+        if args.fail_on_empty:
+            return 1
+        return 0
+
+    # Skipped: adapter chose to no-op (e.g. its run() returned skipped
+    # without raising — not currently used by Tier-A adapters but reserved).
+    if result.status == "skipped":
+        logger.warning("%s skipped (status=skipped)", args.adapter_id)
+        if args.fail_on_skipped:
+            return 1
+        return 0
+
+    # ok → 0 (rows written)
     return 0
 
 

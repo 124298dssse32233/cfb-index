@@ -388,6 +388,18 @@ blogger for {profile.program_name}. Would you post this? If the answer is
 "yeah, I'd post this," return. Otherwise rewrite once and return."""
 
 
+_CARD_JSON_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "headline": {"type": "string"},
+        "body": {"type": "string"},
+        "attribution": {"type": "string"},
+    },
+    "required": ["headline", "body", "attribution"],
+    "additionalProperties": False,
+}
+
+
 def write_card(
     candidate: CandidateObservation,
     profile: Profile,
@@ -396,11 +408,17 @@ def write_card(
     model: str = CLAUDE_MODEL_SONNET,
     timeout_s: float = 180.0,
 ) -> tuple[dict[str, str] | None, dict[str, Any]]:
-    """Invoke the claude CLI to write the card. Returns (payload, metadata).
+    """Write a Chronicle card. Returns (payload, metadata).
 
     payload = {"headline": str, "body": str, "attribution": str} on success,
     None on failure. metadata includes duration, model, prompt length.
+
+    When LOCAL_LLM_URL is set, routes to the local llama-server / Ollama
+    endpoint instead of the claude CLI — zero API cost, ~15-20s/card on
+    RTX 5070.  Falls back to the claude CLI path if the local call fails.
     """
+    from cfb_rankings.llm_local import is_local_enabled, local_generate_json
+
     prompt = build_write_prompt(candidate, profile, snapshot)
     meta: dict[str, Any] = {
         "model": model,
@@ -408,9 +426,29 @@ def write_card(
         "duration_s": 0.0,
         "error": None,
     }
+
+    # --- Local LLM path (zero API cost) ------------------------------------
+    if is_local_enabled():
+        start = time.time()
+        result = local_generate_json(
+            prompt,
+            max_tokens=512,
+            json_schema=_CARD_JSON_SCHEMA,
+        )
+        meta["duration_s"] = round(time.time() - start, 2)
+        meta["model"] = result.get("model_used", "local")
+        if result["mode"] != "offline-stub" and result["text"]:
+            payload = _parse_json_from_model_output(result["text"])
+            if payload is not None:
+                return payload, meta
+        # Local call failed or returned unparseable output — fall through
+        meta["error"] = "local_generate_json failed; falling back to claude CLI"
+
+    # --- claude CLI path ---------------------------------------------------
     claude_bin = shutil.which("claude")
     if not claude_bin:
-        meta["error"] = "claude CLI not on PATH"
+        if meta["error"] is None:
+            meta["error"] = "claude CLI not on PATH"
         return None, meta
 
     # Strip env variables that prevent nested `claude` subprocesses when
@@ -621,6 +659,10 @@ def write_cards_batch(
     ``meta`` carries error string + token counts so the orchestrator can
     log the same telemetry shape as the sync path.
 
+    When LOCAL_LLM_URL is set, routes to the local endpoint using
+    ThreadPoolExecutor (up to CHRONICLE_PARALLEL_WORKERS parallel slots)
+    instead of the Anthropic Batch API — zero API cost, ~15-20s/card.
+
     Voice-validator runs inside submit_batch but its result is informational
     only at this stage — the per-card regex ``validate_card`` is still the
     authoritative gate downstream.
@@ -628,11 +670,52 @@ def write_cards_batch(
     ``_meter`` (Pattern A, optional): single meter spans the batch — per-run
     ceiling caps the whole batch. CostCeilingExceeded propagates.
     """
+    from cfb_rankings.llm_local import is_local_enabled, local_generate_json
     from cfb_rankings.llm_runtime import CostMeter
     meter = _meter or CostMeter(
         ceiling_usd=5.0,
         label="chronicle.batch",
     )
+
+    # --- Local parallel path (zero API cost) --------------------------------
+    if is_local_enabled():
+        n_workers = max(1, int(os.environ.get("CHRONICLE_PARALLEL_WORKERS", "4")))
+
+        def _write_one_local(
+            item: tuple[CandidateObservation, Profile, TeamSnapshot, str],
+        ) -> tuple[CandidateObservation, Profile, TeamSnapshot, str, dict[str, str] | None, dict[str, Any]]:
+            cand, profile, snapshot, mdl = item
+            prompt = build_write_prompt(cand, profile, snapshot)
+            meta: dict[str, Any] = {
+                "model": mdl,
+                "mode": "local",
+                "prompt_chars": len(prompt),
+                "duration_s": 0.0,
+                "error": None,
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+            }
+            start = time.time()
+            result = local_generate_json(
+                prompt,
+                max_tokens=512,
+                json_schema=_CARD_JSON_SCHEMA,
+            )
+            meta["duration_s"] = round(time.time() - start, 2)
+            meta["model"] = result.get("model_used", "local")
+            if result["mode"] != "offline-stub" and result["text"]:
+                payload = _parse_json_from_model_output(result["text"])
+                if payload is not None:
+                    return cand, profile, snapshot, mdl, payload, meta
+            meta["error"] = "local_generate_json failed or unparseable"
+            return cand, profile, snapshot, mdl, None, meta
+
+        with ThreadPoolExecutor(max_workers=n_workers) as pool:
+            return list(pool.map(_write_one_local, plan))
+
+    # --- Anthropic Batch API path -------------------------------------------
     from cfb_rankings.llm_runtime_batch import submit_batch_offline_safe
 
     jobs = build_chronicle_batch_jobs(plan, max_tokens=max_tokens)

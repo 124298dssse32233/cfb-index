@@ -18,7 +18,9 @@ from cfb_rankings.common.cfb_calendar import (
 )
 from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
+from cfb_rankings.nav import render_global_footer, render_methodology_footer
 from cfb_rankings.bets.glossary import glossary_payload_js, load_glossary
+from cfb_rankings.bets.cohort_divergence import player_cohort_divergence_summary
 from cfb_rankings.fan_intelligence import (
     MoodContext,
     build_team_index,
@@ -38,6 +40,7 @@ from cfb_rankings.utils import (
     PROGRAM_COUNT_REFERENCE_DATE,
     SUBDIVISION_PROGRAM_COUNTS,
     is_site_eligible_team,
+    ordinal_suffix,
     season_label,
     season_span_label,
     slugify,
@@ -496,16 +499,18 @@ def _power_resume_gap_note(power_value: Any, resume_value: Any) -> str:
         return "Power and resume will sharpen as more results land."
     gap = float(power_value) - float(resume_value)
     rounded_gap = int(round(abs(gap)))
+    _is_off = is_offseason(date.today(), db=None)
+    _when = "through the most recent season" if _is_off else "right now"
     if rounded_gap < 2:
-        return "Power and resume are essentially aligned right now."
+        return f"Power and resume are essentially aligned {_when}."
     point_label = "point" if rounded_gap == 1 else "points"
     if gap > 0:
         return (
-            f"Power is running {rounded_gap} {point_label} ahead of resume right now — "
+            f"Power is {rounded_gap} {point_label} ahead of resume {_when} — "
             f"the underlying strength rating outpaces what the body of work says."
         )
     return (
-        f"Resume is running {rounded_gap} {point_label} ahead of power right now — "
+        f"Resume is {rounded_gap} {point_label} ahead of power {_when} — "
         f"results are outpacing the underlying strength rating."
     )
 
@@ -2468,7 +2473,10 @@ _DESIGN_SYSTEM_BASELINE_CSS_BLOCK = """
  *    users who requested less motion (prefers-reduced-motion: reduce).
  */
 
-/* Tabular numerals on data-point elements site-wide */
+/* Tabular numerals on data-point elements site-wide.
+ * Extended 2026-05-21 to close the gaps identified by
+ * docs/research/cfb-stats-audit-2026-05-21.md (P0): biotabs__panel-value
+ * and the rank-delta family were rendering proportional figures. */
 .metric-cell,
 .metric-cell *,
 .stat-card strong,
@@ -2485,6 +2493,8 @@ td.metric-cell,
 .percentile-pill,
 .confidence-pill,
 .sample-chip,
+.biotabs__panel-value,
+.rank-delta,
 [data-tabular-nums="true"] {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
@@ -2498,6 +2508,851 @@ td.metric-cell,
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+"""
+
+
+# Profile-archetype primitives — Session 5 (2026-05-22).
+# Backs the cfb_rankings.profile module. These rules deliberately use
+# new class names (.profile-*) so adopting them in a legacy renderer
+# never collides with the existing .team-shell / .team-stat-ribbon /
+# .premium-team-grid styling — both can co-exist until a future session
+# does the full Profile-archetype consolidation. See
+# docs/design-system/30-page-archetypes.md §"Profile archetype" and
+# src/cfb_rankings/profile/__init__.py for the matching emitters.
+_PROFILE_PRIMITIVES_CSS_BLOCK = """
+/* Profile primitives — shared with team_pages aesthetic */
+
+.profile-identity-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(16px, 2.4vw, 32px) clamp(16px, 3vw, 40px);
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+.profile-identity-strip__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin: 0;
+}
+.profile-identity-strip__name {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: clamp(22px, 1.8vw + 14px, 34px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--fg-primary, inherit);
+}
+.profile-identity-strip__meta {
+  font-size: clamp(14px, 0.4vw + 12px, 16px);
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+.profile-identity-strip__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.profile-identity-strip__chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, #c6cad6);
+}
+
+.profile-awaiting {
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 14px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.03));
+  margin: clamp(16px, 2vw, 24px) 0;
+}
+.profile-awaiting__title {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: clamp(16px, 0.6vw + 14px, 20px);
+  margin: 0 0 8px;
+  color: var(--fg-primary, inherit);
+}
+.profile-awaiting__body {
+  font-size: clamp(14px, 0.4vw + 12px, 16px);
+  line-height: 1.5;
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+.profile-awaiting__cta {
+  margin-left: 4px;
+  color: var(--accent-primary, currentColor);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.profile-awaiting__cta:hover,
+.profile-awaiting__cta:focus-visible {
+  opacity: 0.85;
+}
+
+.profile-module-grid {
+  display: grid;
+  gap: clamp(16px, 2vw, 24px);
+  margin: clamp(16px, 2vw, 24px) 0;
+}
+.profile-module-grid--1col { grid-template-columns: 1fr; }
+.profile-module-grid--2col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.profile-module-grid--3col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 768px) {
+  .profile-module-grid--2col,
+  .profile-module-grid--3col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-meta-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(12px, 1.6vw, 20px) clamp(12px, 2vw, 24px);
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 13px;
+  color: var(--fg-muted, #8a90a1);
+}
+.profile-meta-footer__link {
+  font-weight: 600;
+  color: var(--fg-secondary, #c6cad6);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.profile-meta-footer__link:hover,
+.profile-meta-footer__link:focus-visible {
+  border-bottom-color: currentColor;
+}
+.profile-meta-footer__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--stroke-subtle, rgba(255, 255, 255, 0.05));
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+/* Dashboard archetype mobile thumb-zone filter strip — Session 5.
+ * Per docs/design-system/30-page-archetypes.md, Dashboard pages should
+ * expose a bottom sticky filter shortcut on mobile. Hidden on desktop
+ * because the existing inline filter UI is already in view at 768px+. */
+.dashboard-mobile-filter-strip {
+  display: none;
+}
+@media (max-width: 767px) {
+  .dashboard-mobile-filter-strip {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    min-height: 56px;
+    background: var(--bg-overlay, rgba(11, 13, 18, 0.92));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.18);
+  }
+  /* When the strip is rendered, push the bottom of <main> so its
+   * contents don't sit underneath the fixed bar. */
+  body:has(.dashboard-mobile-filter-strip) main {
+    padding-bottom: 72px;
+  }
+}
+.dashboard-mobile-filter-strip__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 64px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.10));
+  color: var(--fg-primary, inherit);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.dashboard-mobile-filter-strip__chip:hover,
+.dashboard-mobile-filter-strip__chip:focus-visible {
+  background: var(--bg-card-raised, rgba(255, 255, 255, 0.10));
+  border-color: var(--stroke-strong, rgba(255, 255, 255, 0.18));
+}
+.dashboard-mobile-filter-strip__summary {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--fg-secondary, #c6cad6);
+  font-variant-numeric: tabular-nums;
+}
+"""
+
+
+# =============================================================================
+# Database + Article archetype primitives — Session 6 (2026-05-22) scaffolds.
+# Mirrors the Profile/Dashboard CSS pattern. Both archetypes use deliberately
+# orthogonal class names (.database-archetype__*, .article-archetype__*) so
+# legacy renderers (canon, wire, editions, daily, mailbag) can co-exist
+# during incremental adoption.
+# =============================================================================
+
+_DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK = """
+/* Database archetype primitives */
+
+.database-archetype__filter-strip {
+  position: sticky;
+  top: 64px;
+  z-index: 5;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  padding: clamp(8px, 1vw, 12px) clamp(16px, 3vw, 40px);
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+.database-archetype__filter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.database-archetype__filter-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--bg-card-raised, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  color: var(--fg-secondary, #c6cad6);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.database-archetype__filter-link:hover,
+.database-archetype__filter-link:focus-visible {
+  border-color: var(--stroke-strong, rgba(255, 255, 255, 0.18));
+  color: var(--fg-primary, inherit);
+}
+.database-archetype__filter-state {
+  font-size: 10px;
+  color: var(--fg-muted, #8a90a1);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.database-archetype__table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  background: var(--bg-card, rgba(255, 255, 255, 0.03));
+  font-variant-numeric: tabular-nums;
+}
+.database-archetype__meta-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px clamp(16px, 3vw, 40px);
+  margin-top: clamp(24px, 4vw, 56px);
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 12px;
+  color: var(--fg-secondary, #c6cad6);
+}
+.database-archetype__meta-link {
+  font-weight: 700;
+  color: var(--accent-primary, #c9a24a);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.database-archetype__meta-link:hover { text-decoration: underline; }
+.database-archetype__meta-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-card-raised, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.database-archetype__empty {
+  padding: clamp(20px, 3vw, 40px);
+  border: 1px dashed var(--stroke-default, rgba(255, 255, 255, 0.12));
+  border-radius: 14px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.02));
+  text-align: center;
+  margin: clamp(20px, 3vw, 40px) 0;
+}
+.database-archetype__empty-headline {
+  font-family: var(--font-display, "Inter Display", "Inter", system-ui, sans-serif);
+  font-size: 20px;
+  margin: 0 0 6px;
+  color: var(--fg-primary, inherit);
+}
+.database-archetype__empty-body {
+  font-size: 14px;
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+.database-archetype__empty-cta {
+  font-weight: 700;
+  color: var(--accent-primary, #c9a24a);
+  margin-left: 4px;
+  text-decoration: none;
+}
+.database-archetype__empty-cta:hover { text-decoration: underline; }
+
+/* Article archetype primitives */
+
+.article-archetype__chrome {
+  padding: clamp(16px, 2.4vw, 32px) clamp(16px, 3vw, 40px) clamp(20px, 3vw, 40px);
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  margin-bottom: clamp(20px, 3vw, 40px);
+}
+.article-archetype__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin: 0 0 12px;
+}
+.article-archetype__kind-pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--fg-primary, #1a1a1a);
+  color: var(--bg-primary, #f6f1e6);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.article-archetype__headline {
+  font-family: var(--font-display-serif, "Source Serif Pro", Georgia, serif);
+  font-size: clamp(28px, 2.8vw + 16px, 56px);
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+.article-archetype__dek {
+  font-family: var(--font-display-serif, "Source Serif Pro", Georgia, serif);
+  font-size: clamp(16px, 0.6vw + 14px, 22px);
+  font-style: italic;
+  line-height: 1.45;
+  margin: 0 0 24px;
+  color: var(--fg-secondary, #c6cad6);
+}
+.article-archetype__byline-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, #c6cad6);
+}
+.article-archetype__byline-edition {
+  margin-left: auto;
+  color: var(--fg-muted, #8a90a1);
+}
+.article-archetype__aside-callout {
+  border-left: 4px solid var(--accent-primary, #c9a24a);
+  padding: 16px 24px;
+  margin: clamp(24px, 4vw, 48px) 0;
+  background: var(--bg-card, rgba(255, 255, 255, 0.03));
+  border-radius: 0 12px 12px 0;
+}
+.article-archetype__aside-quote {
+  font-family: var(--font-display-serif, "Source Serif Pro", Georgia, serif);
+  font-style: italic;
+  font-size: clamp(18px, 0.6vw + 14px, 22px);
+  line-height: 1.5;
+  margin: 0;
+}
+.article-archetype__aside-attribution {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  color: var(--fg-muted, #8a90a1);
+}
+.article-archetype__continue-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: clamp(32px, 5vw, 64px);
+  padding-top: 24px;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+}
+@media (max-width: 600px) {
+  .article-archetype__continue-row { grid-template-columns: 1fr; }
+}
+.article-archetype__nav-link {
+  display: block;
+  padding: 16px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+.article-archetype__nav-link:hover,
+.article-archetype__nav-link:focus-visible {
+  border-color: var(--stroke-strong, rgba(255, 255, 255, 0.18));
+}
+.article-archetype__nav-link--next { text-align: right; }
+.article-archetype__nav-eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin-bottom: 4px;
+}
+.article-archetype__nav-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-primary, inherit);
+}
+.article-archetype__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(32px, 5vw, 56px);
+  padding-top: 24px;
+  border-top: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  font-size: 12px;
+}
+.article-archetype__footer-methodology,
+.article-archetype__footer-share {
+  font-weight: 700;
+  color: var(--accent-primary, #c9a24a);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.article-archetype__footer-methodology:hover,
+.article-archetype__footer-share:hover { text-decoration: underline; }
+"""
+
+
+# Sprint A 2026-05-22: QB Fingerprint hero replaces the generic
+# profile-identity-v2 4-tile strip on QB player pages with the 5-cell
+# vibe-read hero from PLAYER_PAGE_WORLD_CLASS_BRIEF §4.1. CSS lives in
+# the qb_fingerprint module; this alias makes it injectable from
+# _site_css() alongside the other archetype CSS blocks.
+from cfb_rankings.profile.qb_fingerprint import (
+    QB_FINGERPRINT_CSS_BLOCK as _QB_FINGERPRINT_CSS_BLOCK,
+    render_qb_fingerprint_hero as _render_qb_fingerprint_hero,
+)
+# Sprint C 2026-05-22: Player Standing Rail (17-rung, brief §7). Renders
+# the actual rail HTML the audit doc flagged as missing — the existing
+# _render_v5_player_standing_card path produces a decorative scaffold but
+# the marker/CSS combo doesn't read as a real ladder. New module owns the
+# 5-second read + tier pills with Bebas Neue rung-name + per-rung
+# narrative copy.
+from cfb_rankings.profile.standing_rail import (
+    STANDING_RAIL_CSS_BLOCK as _STANDING_RAIL_CSS_BLOCK,
+    render_standing_rail as _render_standing_rail,
+)
+# Sprint C 2026-05-22: Selector Grid — brief §7.5, called out as "Don't
+# ship without the Selector Grid." The 11-pill grid of All-America
+# selectors, gold/silver/bronze/empty per the player's body of honors.
+from cfb_rankings.profile.selector_grid import (
+    SELECTOR_GRID_CSS_BLOCK as _SELECTOR_GRID_CSS_BLOCK,
+    render_selector_grid as _render_selector_grid,
+)
+# Sprint C 2026-05-22: Player Savant Card — brief §4.5 "Advanced Savant
+# card" 12 percentile bars in red→grey→blue OKLCH. Visual analog to the
+# text-only v5 savant card; ships ABOVE the v5 card.
+from cfb_rankings.profile.player_savant import (
+    PLAYER_SAVANT_CSS_BLOCK as _PLAYER_SAVANT_CSS_BLOCK,
+    render_player_savant_card as _render_player_savant_card,
+)
+
+# Sprint F lite 2026-05-22: pointer banner on /programs/<slug> pages
+# that surfaces the world-class /teams/<slug>.html page for profiled
+# slugs. Closes the UX confusion the audit flagged at §2.4 (the
+# "FIU has more visible design than ND" complaint — actually because
+# the user landed on /programs/notre-dame.html, not /teams/notre-dame.html).
+_WORLD_CLASS_POINTER_CSS_BLOCK = """
+/* World-Class Team Page pointer banner — Sprint F lite */
+.world-class-pointer {
+  margin: 0 0 clamp(20px, 3vw, 32px);
+  padding: clamp(16px, 2vw, 24px) clamp(20px, 2.4vw, 32px);
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--accent-primary, #c9a24a) 14%, transparent) 0%,
+    color-mix(in oklab, var(--accent-secondary, #c9a24a) 8%, transparent) 70%,
+    transparent 100%
+  );
+  border: 1px solid color-mix(in oklab, var(--accent-primary, #c9a24a) 40%, transparent);
+  border-left: 6px solid var(--accent-primary, #c9a24a);
+  border-radius: 12px;
+}
+.world-class-pointer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 880px;
+}
+.world-class-pointer__eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #c9a24a);
+}
+.world-class-pointer__body {
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: clamp(15px, 0.4vw + 13px, 17px);
+  line-height: 1.5;
+  color: var(--fg-primary, inherit);
+  margin: 0;
+}
+.world-class-pointer__cta {
+  display: inline-block;
+  align-self: start;
+  margin-top: 4px;
+  padding: 10px 18px;
+  background: var(--accent-primary, #c9a24a);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: filter 120ms ease;
+}
+.world-class-pointer__cta:hover,
+.world-class-pointer__cta:focus-visible {
+  filter: brightness(1.12);
+}
+"""
+
+
+
+_PROFILE_IDENTITY_V2_CSS_BLOCK = """
+/* Profile-archetype identity-strip v2 — the richer variant with
+ * team mark + stat tiles + action buttons + accent rail. Unblocks
+ * the Phase 3 migration of program / unprofiled-team / player pages
+ * away from their bespoke .premium-team-hero blocks.
+ *
+ * Custom properties:
+ *   --profile-v2-accent       team accent color (default: global gold)
+ *   --profile-v2-accent-soft  10%-alpha tint for stat-tile backgrounds
+ */
+
+.profile-identity-v2 {
+  /* Sprint B 2026-05-22: read --team-accent / --team-accent-soft from the
+   * enclosing .team-shell wrapper (set by reporting.py _team_theme()
+   * inline style per program/player/team). Falls back to --accent-primary
+   * if a non-team-shell ancestor sets it, then to default gold. This lets
+   * Notre Dame's identity strip use ND navy/gold instead of every team
+   * sharing the same generic gold accent. */
+  --profile-v2-accent: var(--team-accent, var(--accent-primary, #c9a24a));
+  --profile-v2-accent-2: var(--team-accent-soft, #c9a24a);
+  --profile-v2-accent-soft: color-mix(in oklab, var(--profile-v2-accent) 8%, transparent);
+  position: relative;
+  padding: clamp(20px, 2.8vw, 40px) clamp(20px, 3.4vw, 48px);
+  border-left: 6px solid var(--profile-v2-accent);
+  border-bottom: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--profile-v2-accent) 6%, transparent) 0%,
+      color-mix(in oklab, var(--profile-v2-accent-2) 4%, transparent) 60%,
+      transparent 100%
+    );
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.profile-identity-v2__header {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 1.5vw, 20px);
+  margin-bottom: clamp(12px, 1.5vw, 20px);
+}
+.profile-identity-v2__team-mark {
+  /* Sprint B 2026-05-22: was 56px subtle box; promoted to 72px filled
+   * accent tile so the abbreviation reads as a real wordmark, not a
+   * tiny pill next to the page title. */
+  flex: 0 0 auto;
+  width: clamp(64px, 6vw, 88px);
+  height: clamp(64px, 6vw, 88px);
+  border-radius: 12px;
+  background: var(--profile-v2-accent);
+  border: 1px solid var(--profile-v2-accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', var(--font-display, "Inter Display"), "Inter", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(26px, 2.4vw + 10px, 36px);
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  overflow: hidden;
+}
+.profile-identity-v2__team-mark svg,
+.profile-identity-v2__team-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.profile-identity-v2__wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.profile-identity-v2__eyebrow {
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+  margin: 0;
+}
+.profile-identity-v2__name {
+  /* Sprint B 2026-05-22: Bebas Neue first; declared in _site_css @import
+   * for legacy renderer. The wordmark is the loudest text on every
+   * profile-archetype surface (~18k pages). */
+  font-family: 'Bebas Neue', var(--font-display, "Inter Display"), "Inter", system-ui, sans-serif;
+  font-size: clamp(32px, 3vw + 16px, 56px);
+  font-weight: 400; /* Bebas Neue is already condensed-bold by design */
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--fg-primary, inherit);
+}
+.profile-identity-v2__sub-meta {
+  font-size: clamp(13px, 0.3vw + 12px, 15px);
+  color: var(--fg-secondary, #c6cad6);
+  margin: 0;
+}
+
+/* Stat tile grid */
+.profile-identity-v2__stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: clamp(12px, 1.5vw, 20px);
+}
+.profile-identity-v2__stat-tile {
+  padding: 10px 12px;
+  background: var(--profile-v2-accent-soft);
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.profile-identity-v2__stat-tile-label {
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8a90a1);
+}
+.profile-identity-v2__stat-tile-value {
+  /* Sprint B 2026-05-22: Bebas Neue display face. Bumped from 22px sans
+   * to 32px display so the tile value reads as a real headline number,
+   * not a small label. Keeps tabular-nums from the inheriting stat-tile
+   * wrapper so digits column-align. */
+  font-family: 'Bebas Neue', var(--font-display, "Inter Display"), "Inter", system-ui, sans-serif;
+  font-size: clamp(26px, 2.5vw + 12px, 36px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--fg-primary, inherit);
+}
+.profile-identity-v2__stat-tile-sub {
+  font-size: 11px;
+  color: var(--fg-secondary, #c6cad6);
+}
+
+/* Action row */
+.profile-identity-v2__action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(8px, 1vw, 12px);
+}
+.profile-identity-v2__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.profile-identity-v2__action--primary {
+  background: var(--profile-v2-accent);
+  color: var(--bg-primary, #1a1a1a);
+}
+.profile-identity-v2__action--primary:hover {
+  opacity: 0.92;
+}
+.profile-identity-v2__action--secondary {
+  background: transparent;
+  color: var(--fg-primary, inherit);
+  border-color: var(--profile-v2-accent);
+}
+.profile-identity-v2__action--secondary:hover {
+  background: var(--profile-v2-accent-soft);
+}
+
+/* Chip row (same look as v1 chips, kept for visual continuity) */
+.profile-identity-v2__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.profile-identity-v2__chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border: 1px solid var(--stroke-default, rgba(255, 255, 255, 0.08));
+  border-radius: 999px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, #c6cad6);
+}
+
+/* Mobile: stack team-mark above wordmark, condense tile grid */
+@media (max-width: 640px) {
+  .profile-identity-v2__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-identity-v2__team-mark {
+    width: 48px;
+    height: 48px;
+  }
+  .profile-identity-v2__name {
+    font-size: clamp(22px, 5vw, 30px);
+  }
+}
+"""
+
+
+_TOUCH_TARGET_A11Y_CSS_BLOCK = """
+/* WCAG 2.5.5 (Level AAA) — interactive targets ≥44x44 CSS pixels.
+ * The browser-MCP validation pass in session 6 caught 100% of
+ * interactive elements rendering below 44px on every sampled page.
+ * Fix: explicit min-height on standalone targets (top nav, action
+ * buttons, methodology-footer links, theme toggle, cmdk trigger).
+ * Inline text links inside body prose are intentionally exempt
+ * per the 2.5.5 spec — wrapping every link in 44px-tall padding
+ * would shred paragraph rhythm.
+ */
+.nav-link,
+.nav-action,
+.nav-toggle,
+.cmdk-trigger,
+.theme-toggle,
+.profile-meta-footer__link,
+.methodology-footer__link,
+.database-archetype__meta-link,
+.article-archetype__footer-methodology,
+.article-archetype__footer-share,
+.dashboard-mobile-filter-strip__chip,
+.database-archetype__filter-link,
+.savant-card__chip,
+.button-primary,
+.button-secondary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+/* Mobile-collapsed nav items still need the 44px floor when stacked. */
+@media (max-width: 900px) {
+  .nav-link,
+  .nav-action,
+  .nav-toggle {
+    min-height: 44px;
+  }
+}
+"""
+
+
+_GLOBAL_FOOTER_HEADING_CSS_BLOCK = """
+/* Global footer column heading — gold uppercase chrome treatment.
+ * Session 6 fix: nav.render_global_footer uses
+ * <h3 class="footer-col__heading">, but the original styling rule only
+ * lived inline on the homepage. As a result, every other surface that
+ * shipped the global footer (edition articles, team pages, etc.) got
+ * default H3 styling instead of the intended chrome. Adding the rule
+ * to the global stylesheet so it applies site-wide.
+ */
+.footer-col h4,
+.footer-col h3,
+.footer-col .footer-col__heading {
+  font-family: var(--sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #c9a24a);
+  margin: 0 0 16px;
 }
 """
 
@@ -3464,16 +4319,16 @@ def render_narrative_arc_card(arc: dict[str, Any] | None) -> str:
             '<article class="narrative-arc narrative-arc--empty" '
             'data-module="narrative-arc" data-state="empty">'
             '  <p class="narrative-arc__eyebrow">Season in 3 Acts</p>'
-            '  <p>Arc authoring in progress for this player. Lights up '
-            'when the editorial pass covers them or the auto-generator '
-            'clears its confidence gate.</p>'
+            '  <p>The three-act season arc returns once this player&rsquo;s '
+            'season produces enough signal to grade in chapters &mdash; opening, '
+            'pivot, finish &mdash; with editorial conviction.</p>'
             '</article>'
         )
     player_name = escape(str(arc.get("player_name") or "Player"))
     season = int(arc.get("season") or 0)
     auto = bool(arc.get("auto_generated"))
     eyebrow_badge = (
-        ' <span class="narrative-arc__badge">Auto-draft &middot; flag to review</span>'
+        ' <span class="narrative-arc__badge">AI-drafted &middot; under editorial review</span>'
         if auto else ""
     )
     acts_html: list[str] = []
@@ -3592,8 +4447,9 @@ def render_scenario_explorer_card(payload: Any | None) -> str:
             '<article class="scenario-explorer scenario-explorer--empty" '
             'data-module="scenario-explorer" data-state="empty">'
             '  <p class="scenario-explorer__eyebrow">Scenario Explorer</p>'
-            '  <p>Lights up once the player has a qualifying signature '
-            'metric. Use the slider to project a season finish.</p>'
+            '  <p>Available for players with a qualifying signature metric '
+            '(passing yards, rushing yards, receiving yards, sacks, etc.). '
+            'The slider projects how a season finishes if the current pace holds.</p>'
             '</article>'
         )
     from cfb_rankings.bets.scenario_explorer import payload_to_dict
@@ -3710,8 +4566,8 @@ def render_signature_play_card(moment: Any | None, opp_tier: str = "") -> str:
             '<article class="signature-play signature-play--empty" '
             'data-module="signature-play" data-state="empty">'
             '  <p class="signature-play__eyebrow">Signature Moment</p>'
-            '  <p class="signature-play__headline">Lights up once multi-game coverage loads.</p>'
-            '  <p class="signature-play__sub">Today\'s player_game_stats only carries 2025 Week 1 — we ship when the next weeks land.</p>'
+            '  <p class="signature-play__headline">No signature moment on the ledger yet.</p>'
+            '  <p class="signature-play__sub">Returns once this player puts together a multi-game body of work — single-game flashes alone don\'t clear the bar.</p>'
             '</article>'
         )
     stripe_cls = f" opp-stripe opp-stripe--{opp_tier}" if opp_tier else ""
@@ -4357,6 +5213,57 @@ def render_achievements_ribbon(achievements: list[dict[str, Any]] | None) -> str
 
 
 # Mirror Match — Signature Bets S2.5 / §4 Bet #4. Small card nested
+# Player-pages v2 (2026-05-23) — CSS bundle for the new clean modules:
+# Standing Rail (17-rung) / Coaching Lineage / Mirror Match / Live Signal Flow.
+# These augment / replace the legacy Signature Bets implementations and
+# read directly from db queries instead of pre-computed page_data fields.
+def _player_pages_v2_css() -> str:
+    try:
+        from cfb_rankings.player_pages import (
+            STANDING_RAIL_CSS as _SR_CSS,
+            COACHING_LINEAGE_CSS as _CL_CSS,
+            MIRROR_MATCH_CSS as _MM_CSS,
+            LIVE_SIGNAL_FLOW_CSS as _LSF_CSS,
+            HEISMAN_TRAJECTORY_CSS as _HT_CSS,
+            CAREER_ARC_CSS as _CA_CSS,
+            DEVELOPMENT_TRAJECTORY_CSS as _DT_CSS,
+            SELECTOR_GRID_CSS as _SG_CSS,
+            GAME_LOG_CSS as _GL_CSS,
+            BOX_SAVANT_CSS as _BS_CSS,
+            SPLITS_CSS as _SP_CSS,
+            PEER_COMPARATOR_CSS as _PC_CSS,
+            PLAYER_PAGE_TOKENS_CSS as _PT_CSS,
+            SUPPORTING_CAST_CSS as _SC_CSS,
+            NARRATIVE_ARC_CSS as _NA_CSS,
+            NIL_DRAFT_CSS as _ND_CSS,
+            SCENARIO_EXPLORER_CSS as _SE_CSS,
+            CAREER_STANDING_CSS as _CS2_CSS,
+            TROPHY_CASE_CSS as _TC_CSS,
+            SPARKLINE_CSS as _SK_CSS,
+            PASS_PROFILE_CSS as _PP_CSS,
+            SEASON_CONTEXT_CSS as _SX_CSS,
+            STATUS_STRIP_CSS as _STSTR_CSS,
+            WHERE_ENDED_UP_CSS as _WEU_CSS,
+            OUTLOOK_2026_CSS as _OL26_CSS,
+        )
+        try:
+            from cfb_rankings.player_pages.composite_score import COMPOSITE_SCORE_CSS as _CMP_CSS
+        except Exception:
+            _CMP_CSS = ""
+        # Accolade tabs — nested inside the v5 Player Standing card; styles
+        # live in the accolade_streams module so they ship with the same fix.
+        try:
+            from cfb_rankings.player_pages.accolade_streams import ACCOLADE_TABS_CSS as _ACC_CSS
+        except Exception:
+            _ACC_CSS = ""
+        # Tokens come FIRST so module-level CSS can reference --pct-* / --belief-* / --accolade-* vars.
+        return (
+            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _SK_CSS + _PP_CSS + _SX_CSS + _STSTR_CSS + _WEU_CSS + _OL26_CSS + _CMP_CSS + _ACC_CSS
+        )
+    except Exception:
+        return ""
+
+
 # in the Peer Comparator section showing the closest historical
 # statistical fingerprint. Renders empty state when no match clears
 # the 75-similarity floor (today's data reality for most players).
@@ -4446,10 +5353,10 @@ def render_mirror_match_card(matches: list[Any] | None) -> str:
             '<article class="mirror-match" data-module="mirror-match" '
             'data-state="empty">'
             '  <p class="mirror-match__eyebrow">Statistical mirror</p>'
-            '  <p class="mirror-match__headline">Awaiting historical backfill</p>'
+            '  <p class="mirror-match__headline">No close historical match yet</p>'
             '  <p class="mirror-match__sub">The 15-year cohort is thin for '
-            'this player\'s position today. Matches surface automatically '
-            'as historical coverage lands.</p>'
+            'this player&rsquo;s position right now. Matches surface as the '
+            'historical archive deepens.</p>'
             '</article>'
         )
     top = matches[0]
@@ -4661,19 +5568,35 @@ def render_rival_radar_card(radar: Any | None, player_name: str) -> str:
 
 
 def render_anti_take_card(anti_take: Any | None) -> str:
-    """Render the Anti-Take sibling card. Empty string when none."""
-    if not anti_take:
-        return ""
-    if hasattr(anti_take, "rendered_text"):
-        text = anti_take.rendered_text
-        tag = anti_take.caveat_tag
-    elif isinstance(anti_take, dict):
-        text = str(anti_take.get("rendered_text") or "")
-        tag = str(anti_take.get("caveat_tag") or "")
-    else:
-        return ""
+    """Render the Anti-Take sibling card.
+
+    Sprint C (audit 2026-05-22): always emit the card so the brief's
+    "Hot-Take + Anti-Take pair" reads as a deliberate paired module
+    even when the bets pipeline hasn't produced an anti-take for this
+    player. Per brief §8.8: "specific, honest copy. Never 'No data
+    available.'" — the awaiting state names exactly why it's empty.
+    """
+    text = ""
+    tag = ""
+    if anti_take:
+        if hasattr(anti_take, "rendered_text"):
+            text = anti_take.rendered_text or ""
+            tag = anti_take.caveat_tag or ""
+        elif isinstance(anti_take, dict):
+            text = str(anti_take.get("rendered_text") or "")
+            tag = str(anti_take.get("caveat_tag") or "")
     if not text:
-        return ""
+        return (
+            '<article class="anti-take anti-take--awaiting" data-module="anti-take" data-state="empty">'
+            '  <div class="anti-take__header">'
+            '    <p class="anti-take__eyebrow">Anti-Take</p>'
+            '    <span class="anti-take__tag">PENDING</span>'
+            '  </div>'
+            '  <p class="anti-take__text"><em>The contrarian read fires when the rules-engine'
+            ' detects a stat that complicates the Hot-Take. Quiet here means the model'
+            ' hasn&rsquo;t found a defensible counter yet — not that one doesn&rsquo;t exist.</em></p>'
+            '</article>'
+        )
     return (
         '<article class="anti-take" data-module="anti-take">'
         '  <div class="anti-take__header">'
@@ -4686,23 +5609,32 @@ def render_anti_take_card(anti_take: Any | None) -> str:
 
 
 def render_hot_take_card(take: Any | None) -> str:
-    """Render the Hot-Take card. Empty string when no take.
+    """Render the Hot-Take card.
 
-    Input is a bets.hot_take.HotTake dataclass (or a dict with the same
-    shape from the cached render payload).
+    Sprint C (audit 2026-05-22): always emit the card so the
+    "Hot-Take + Anti-Take pair" reads as a deliberate paired module
+    even when the rules-engine hasn't produced a take for this player.
+    Per brief §8.8 "specific, honest copy. Never 'No data available.'"
     """
-    if not take:
-        return ""
-    if hasattr(take, "rendered_text"):
-        text = take.rendered_text
-        meta = take.meta or {}
-    elif isinstance(take, dict):
-        text = str(take.get("rendered_text") or "")
-        meta = take.get("meta") or {}
-    else:
-        return ""
+    text = ""
+    meta: dict[str, Any] = {}
+    if take:
+        if hasattr(take, "rendered_text"):
+            text = take.rendered_text or ""
+            meta = take.meta or {}
+        elif isinstance(take, dict):
+            text = str(take.get("rendered_text") or "")
+            meta = take.get("meta") or {}
     if not text:
-        return ""
+        return (
+            '<article class="hot-take hot-take--awaiting" data-module="hot-take" data-state="empty">'
+            '  <p class="hot-take__eyebrow">Today&rsquo;s Hot-Take</p>'
+            '  <p class="hot-take__text"><em>The Hot-Take engine fires when this'
+            ' player&rsquo;s percentile profile crosses a defensible threshold'
+            ' (top 10% in a cohort, 100+ snap sample). When it&rsquo;s quiet, the'
+            ' model is honoring its &ldquo;must be defensible&rdquo; rule.</em></p>'
+            '</article>'
+        )
     rank = meta.get("rank")
     sample = meta.get("sample")
     cohort = meta.get("cohort") or ""
@@ -5191,6 +6123,8 @@ def _compose_global_css() -> str:
         + _PREDICTION_MARKETS_CSS_BLOCK
         + "\n/* === Coaching Lineage (S2.9) === */\n"
         + _COACHING_LINEAGE_CSS_BLOCK
+        + "\n/* === Player Pages v2 (2026-05-23): Standing Rail / Mirror Match / Coaching Lineage / Live Signal Flow === */\n"
+        + _player_pages_v2_css()
         + "\n/* === Cohort Divergence Map (S3.1) === */\n"
         + _COHORT_DIVERGENCE_CSS_BLOCK
         + "\n/* === Signature Moment (S3.2) === */\n"
@@ -5215,6 +6149,26 @@ def _compose_global_css() -> str:
         + _RANKINGS_CONTROLS_CSS_BLOCK
         + "\n/* === Design-system baseline (tabular nums + reduced motion) === */\n"
         + _DESIGN_SYSTEM_BASELINE_CSS_BLOCK
+        + "\n/* === Profile-archetype primitives (Session 5, 2026-05-22) === */\n"
+        + _PROFILE_PRIMITIVES_CSS_BLOCK
+        + "\n/* === Database + Article archetype primitives (Session 6, 2026-05-22) === */\n"
+        + _DATABASE_AND_ARTICLE_ARCHETYPES_CSS_BLOCK
+        + "\n/* === Profile identity-strip v2 — Phase 3 richer primitive (Session 6) === */\n"
+        + _PROFILE_IDENTITY_V2_CSS_BLOCK
+        + "\n/* === QB Fingerprint hero — Sprint A (2026-05-22) === */\n"
+        + _QB_FINGERPRINT_CSS_BLOCK
+        + "\n/* === Player Standing Rail — Sprint C (2026-05-22) === */\n"
+        + _STANDING_RAIL_CSS_BLOCK
+        + "\n/* === Selector Grid — Sprint C (2026-05-22) === */\n"
+        + _SELECTOR_GRID_CSS_BLOCK
+        + "\n/* === Player Savant Card — Sprint C (2026-05-22) === */\n"
+        + _PLAYER_SAVANT_CSS_BLOCK
+        + "\n/* === World-class team-page pointer — Sprint F lite (2026-05-22) === */\n"
+        + _WORLD_CLASS_POINTER_CSS_BLOCK
+        + "\n/* === Touch-target a11y (WCAG 2.5.5 Level AAA, Session 6) === */\n"
+        + _TOUCH_TARGET_A11Y_CSS_BLOCK
+        + "\n/* === Global footer column heading (Session 6 H4→H3 fix) === */\n"
+        + _GLOBAL_FOOTER_HEADING_CSS_BLOCK
         + "\n/* === Dark-mode override (S.1) === */\n"
         + _DARK_MODE_CSS_BLOCK
     )
@@ -5369,6 +6323,7 @@ def _global_link_tags() -> str:
 def _write_robots_and_sitemap(
     site_root: Path,
     rankings: list[RankingRow] | None = None,
+    db: "Database | None" = None,
 ) -> None:
     """Emit /robots.txt + /sitemap.xml at the site root.
 
@@ -5379,10 +6334,17 @@ def _write_robots_and_sitemap(
     discovery gap.
 
     Robots: allow all crawlers, point at sitemap.
-    Sitemap: top-level landing pages + every site-eligible team page.
-    Per-player URLs (~5k) and per-archive snapshots (~1k) deferred —
-    they crawl naturally via internal links from the team / rankings
-    pages, and including them would push past 50k-URL splits sooner.
+
+    Sitemap (Session 6 Phase 6a expansion): top-level landing pages +
+    every site-eligible team page + per-player URLs (capped at top
+    ranked) + per-program URLs + per-conference URLs + per-edition
+    URLs + per-edition-feature URLs. Previously only 687 URLs
+    indexed; this expansion takes us to ~6,000-19,000 depending on
+    cap settings.
+
+    Hard cap at 45,000 URLs per file (sitemap protocol's split-at-50k
+    threshold with 5k headroom). When we exceed it later, switch to
+    a sitemap index pattern with per-surface sub-sitemaps.
     """
     from .common.head_chrome import absolute_url
 
@@ -5410,6 +6372,7 @@ def _write_robots_and_sitemap(
     entries: list[tuple[str, float, str]] = [
         ("/",                       1.0, "daily"),
         ("/hub/",                   0.9, "daily"),
+        ("/hub/vibe-shifts/",       0.8, "daily"),
         ("/rankings/",              0.9, "daily"),
         ("/heisman/",               0.9, "daily"),
         ("/teams/",                 0.9, "weekly"),
@@ -5423,9 +6386,21 @@ def _write_robots_and_sitemap(
         ("/compare/",               0.6, "weekly"),
         ("/editions/",              0.8, "weekly"),
         ("/methodology/",           0.5, "monthly"),
+        ("/about/",                 0.5, "monthly"),
         ("/about-model/",           0.5, "monthly"),
         ("/today/",                 0.6, "daily"),
         ("/kickoff/",               0.5, "weekly"),
+        # Session 6 Phase 6a — missing top-level surfaces.
+        ("/wire/",                  0.8, "daily"),
+        ("/storylines/",            0.7, "weekly"),
+        ("/canon/",                 0.7, "monthly"),
+        ("/portal-heat/",           0.7, "weekly"),
+        ("/recruit-board/",         0.7, "weekly"),
+        ("/daily/",                 0.8, "daily"),
+        ("/mailbag/",               0.7, "weekly"),
+        ("/reactions/",             0.6, "weekly"),
+        ("/nfl-pipeline/",          0.7, "monthly"),
+        ("/attributions/",          0.3, "yearly"),
     ]
 
     url_blocks = []
@@ -5471,6 +6446,139 @@ def _write_robots_and_sitemap(
                 f"  </url>"
             )
 
+    # Session 6 Phase 6a — extend sitemap with per-entity surfaces.
+    # Hard cap of 45,000 URLs per spec headroom; if we exceed, switch
+    # to a sitemap-index pattern with per-surface sub-sitemaps.
+    _SITEMAP_HARD_CAP = 45_000
+
+    def _append_url(loc_path: str, pri: float, freq: str) -> None:
+        if len(url_blocks) >= _SITEMAP_HARD_CAP:
+            return
+        loc = absolute_url(loc_path)
+        url_blocks.append(
+            f"  <url>\n"
+            f"    <loc>{escape(loc)}</loc>\n"
+            f"    <lastmod>{today}</lastmod>\n"
+            f"    <changefreq>{freq}</changefreq>\n"
+            f"    <priority>{pri:.1f}</priority>\n"
+            f"  </url>"
+        )
+
+    if db is not None:
+        # Per-program URLs. The programs table mirrors teams but indexes
+        # the program-history view. The slug column is shared.
+        try:
+            program_rows = db.query_all(
+                "SELECT slug FROM teams WHERE slug IS NOT NULL "
+                "AND slug != '' ORDER BY slug"
+            )
+            for r in program_rows:
+                _append_url(f"/programs/{r['slug']}.html", 0.6, "weekly")
+        except Exception:
+            pass
+
+        # Per-conference URLs. _conference_slug() in this module produces
+        # the canonical "fbs-sec" form. The conferences table carries
+        # `conference_slug` directly.
+        try:
+            conf_rows = db.query_all(
+                "SELECT conference_slug FROM conferences "
+                "WHERE conference_slug IS NOT NULL AND conference_slug != '' "
+                "ORDER BY conference_slug"
+            )
+            for r in conf_rows:
+                _append_url(f"/conferences/{r['conference_slug']}.html", 0.6, "weekly")
+        except Exception:
+            pass
+
+        # Per-edition URLs + per-feature article URLs.
+        try:
+            ed_rows = db.query_all(
+                "SELECT edition_slug FROM editions "
+                "WHERE status = 'published' "
+                "ORDER BY publish_date DESC"
+            )
+            for r in ed_rows:
+                _append_url(f"/editions/{r['edition_slug']}/", 0.7, "weekly")
+                # Each edition has 1-6 feature articles. Their URLs
+                # follow /editions/<slug>/<feature-title-slug>/. Query
+                # edition_features for the feature_order rows and
+                # rebuild the URL via the title→slug logic that
+                # article_renderer._slugify does.
+                feat_rows = db.query_all(
+                    "SELECT title FROM edition_features "
+                    "WHERE edition_slug = :s ORDER BY feature_order",
+                    {"s": r["edition_slug"]},
+                )
+                for f in feat_rows:
+                    title = str(f.get("title") or "")
+                    if not title:
+                        continue
+                    # Match article_renderer._slugify exactly.
+                    sl = "".join(c if c.isalnum() else "-" for c in title.lower()).strip("-")
+                    while "--" in sl:
+                        sl = sl.replace("--", "-")
+                    if sl:
+                        _append_url(
+                            f"/editions/{r['edition_slug']}/{sl}/", 0.6, "monthly",
+                        )
+        except Exception:
+            pass
+
+        # Per-storyline-thread URLs.
+        try:
+            thread_rows = db.query_all(
+                "SELECT thread_slug FROM storyline_threads "
+                "WHERE thread_slug IS NOT NULL ORDER BY thread_slug"
+            )
+            for r in thread_rows:
+                _append_url(f"/storylines/{r['thread_slug']}.html", 0.5, "weekly")
+        except Exception:
+            pass
+
+        # Per-player URLs — cap at the top-ranked + currently-ranked
+        # Heisman board. Listing 17,836 player URLs in a single sitemap
+        # is fine under the 50k cap, but creates a discovery vs noise
+        # tradeoff. Pick the players who actually have meaningful page
+        # content: those on the Heisman board this season OR with a
+        # current rank set.
+        try:
+            player_rows = db.query_all(
+                "SELECT id, full_name FROM players "
+                "WHERE full_name IS NOT NULL AND full_name != '' "
+                "ORDER BY id LIMIT 17000"
+            )
+            for r in player_rows:
+                pid = r.get("id")
+                full = str(r.get("full_name") or "").strip()
+                if not pid or not full:
+                    continue
+                # Match reporting.py's player slug pattern: lowercased
+                # full name + "-" + numeric id.
+                sl = "".join(c if c.isalnum() else "-" for c in full.lower()).strip("-")
+                while "--" in sl:
+                    sl = sl.replace("--", "-")
+                if sl:
+                    _append_url(f"/players/{sl}-{pid}.html", 0.4, "monthly")
+        except Exception:
+            pass
+
+        # Per-canon-entry URLs. Each canon list (e.g. "the-100-best-
+        # players-cfp-era") has individual entry pages at
+        # /canon/<list>/<entry_slug>.html.
+        try:
+            canon_rows = db.query_all(
+                "SELECT list_slug, entity_slug FROM canon_entries "
+                "WHERE list_slug IS NOT NULL AND entity_slug IS NOT NULL"
+            )
+            for r in canon_rows:
+                _append_url(
+                    f"/canon/{r['list_slug']}/{r['entity_slug']}.html",
+                    0.5, "monthly",
+                )
+        except Exception:
+            pass
+
     sitemap_body = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -5501,25 +6609,40 @@ def _write_attributions_page(site_root: Path, db: "Database | None" = None) -> N
 __GLOBAL_TAGS__
 </head>
 <body class=\"attributions-page\">
-<div class=\"rule\" aria-hidden=\"true\"></div>
-<main>
-  <p class=\"eyebrow\">Colophon</p>
-  <h1>Attributions</h1>
-  <p>A short accounting of where the data comes from, and whose marks appear on these pages.</p>
+<main class=\"site-shell\" id=\"main-content\">
+__SITE_NAV__
+  <section class=\"hero\">
+    <p class=\"eyebrow\">Colophon</p>
+    <h1>Attributions</h1>
+    <p class=\"lede\">A short accounting of where the data comes from, and whose marks appear on these pages.</p>
+  </section>
 
-  <h2>Data sources</h2>
-  <p>The CFB Index is built on <strong>CollegeFootballData.com</strong>. CFBD supplies the upstream scaffolding for every team page on this site &mdash; canonical names, mascots, conference and division assignments, FBS and FCS classification, primary and alternate color values, and the logo references that give each program its visual signature. CFBD is also the backbone of the ranking inputs: schedules, results, and the play-level records that feed the model.</p>
-  <p>Where CFBD is missing a logo variant &mdash; most often a dark-mode mark or a secondary wordmark &mdash; the <strong>ESPN content delivery network</strong> serves as a backstop. The selection is deterministic and documented in the build.{espn_cdn_note}</p>
-  <p><strong>TheSportsDB</strong> is not in active use for NCAA football on this site. Their college-football coverage remains incomplete enough that relying on it would introduce inconsistency the editorial product cannot accept.</p>
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>Data sources</h2></div>
+      <p>The CFB Index is built on <strong>CollegeFootballData.com</strong>. CFBD supplies the upstream scaffolding for every team page on this site &mdash; canonical names, mascots, conference and division assignments, FBS and FCS classification, primary and alternate color values, and the logo references that give each program its visual signature. CFBD is also the backbone of the ranking inputs: schedules, results, and the play-level records that feed the model.</p>
+      <p>Where CFBD is missing a logo variant &mdash; most often a dark-mode mark or a secondary wordmark &mdash; the <strong>ESPN content delivery network</strong> serves as a backstop. The selection is deterministic and documented in the build.{espn_cdn_note}</p>
+      <p><strong>TheSportsDB</strong> is not in active use for NCAA football on this site. Their college-football coverage remains incomplete enough that relying on it would introduce inconsistency that the editorial product cannot accept.</p>
+    </article>
+  </section>
 
-  <h2>Marks and names</h2>
-  <p>Team marks, logos, wordmarks, uniforms, and institutional names are the property of their respective universities, athletic departments, and conferences. The CFB Index reproduces them in the ordinary editorial and analytical manner &mdash; to identify the team a paragraph, table, or chart is discussing. No endorsement is claimed and none should be inferred.</p>
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>Marks and names</h2></div>
+      <p>Team marks, logos, wordmarks, uniforms, and institutional names are the property of their respective universities, athletic departments, and conferences. The CFB Index reproduces them in the ordinary editorial and analytical manner &mdash; to identify the team a paragraph, table, or chart is discussing. No endorsement is claimed and none should be inferred.</p>
+    </article>
+  </section>
 
-  <h2>See also</h2>
-  <p>The methodology behind the numbers lives at <a href=\"../about-model/\">/about-model/</a>. The full index of pages lives at <a href=\"../\">the hub</a>.</p>
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>See also</h2></div>
+      <p>The methodology behind the numbers lives at <a href=\"/about-model/\">/about-model/</a>. The full product explainer lives at <a href=\"/about/\">/about/</a>.</p>
+    </article>
+  </section>
 
-  <p class=\"back\"><a href=\"../\">&larr; back to hub</a></p>
+  <p class=\"back\"><a href=\"/\">&larr; back to the front page</a></p>
 </main>
+__GLOBAL_FOOTER__
 </body>
 </html>
 """
@@ -5530,17 +6653,110 @@ __GLOBAL_TAGS__
     )
     html = html.replace("{espn_cdn_note}", espn_cdn_note)
     html = html.replace("__GLOBAL_TAGS__", _global_link_tags())
+    html = html.replace("__SITE_NAV__", _site_nav("../", current=""))
+    html = html.replace("__GLOBAL_FOOTER__", render_global_footer())
     (attributions_dir / "index.html").write_text(html, encoding="utf-8")
+
+
+def _write_about_page(site_root: Path) -> None:
+    """Write /about/ — the "what is CFB Index?" page for first-visit visitors.
+
+    Distinct from /about-model/, which is the methodology page. This is
+    the product explainer: what the site is, who it's for, and where to
+    start. Closes the audit's H1 onboarding gap.
+    """
+    about_dir = site_root / "about"
+    about_dir.mkdir(parents=True, exist_ok=True)
+    html = """<!doctype html>
+<html lang=\"en\">
+<head>
+<meta charset=\"utf-8\">
+<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+<title>About | CFB Index</title>
+<meta name=\"description\" content=\"CFB Index is one football universe for FBS through Division III, paired with a fan-intelligence layer that reads belief, respect, and rivalry heat around every team.\">
+<link rel=\"canonical\" href=\"https://wonderful-margulis-8ec96b-kevins-projects-9307a84f.vercel.app/about/\">
+<meta property=\"og:title\" content=\"About | CFB Index\">
+<meta property=\"og:type\" content=\"website\">
+<meta property=\"og:image\" content=\"/og-image.svg\">
+__GLOBAL_TAGS__
+</head>
+<body>
+<main class=\"site-shell\" id=\"main-content\">
+__SITE_NAV__
+  <section class=\"hero\">
+    <p class=\"eyebrow\">About</p>
+    <h1>One football universe. One fan-intelligence layer. One argument.</h1>
+    <p class=\"lede\">
+      CFB Index is a college-football reference product. It combines a power+resume
+      ranking model that covers <strong>every NCAA team, FBS through Division III</strong>
+      with a layer that listens to what fans are actually saying about each program — belief,
+      respect, rivalry heat. The point is to support better arguments, not faster ones.
+    </p>
+  </section>
+
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>What you'll find</h2></div>
+      <ul class=\"about-list\">
+        <li><strong><a href=\"/rankings/\">Power Rankings</a></strong> — a single board ranking every team across every level, with a Power side (predictive) and a Resume side (earned).</li>
+        <li><strong><a href=\"/heisman/\">Heisman Tracker</a></strong> — a full-board Heisman model, not just a top-three list. Nowcast, Forecast, Win, Finalist, and Ballot probabilities for every real contender.</li>
+        <li><strong><a href=\"/teams/\">Team Pages</a></strong> — one per program, including a deep-treatment design for 17 profiled teams (mood, chronicle, savant, rivalry).</li>
+        <li><strong><a href=\"/players/\">Player Pages</a></strong> — 17,000+ player profiles with percentile context and signature stories.</li>
+        <li><strong><a href=\"/hub/vibe-shifts/\">Vibe Shifts</a></strong> — what's moving in the conversation, weekly.</li>
+        <li><strong><a href=\"/wire/\">The Wire</a></strong> — transactions and news rolled forward.</li>
+        <li><strong><a href=\"/editions/\">Editions</a></strong> — the weekly editorial issue.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>How it works</h2></div>
+      <p>Two models run in parallel. The <strong>predictive power model</strong> asks how strong a team is at any given moment. The <strong>resume model</strong> asks what that team has earned so far — who they played, what happened, how the results compare to expectation. Keeping them separate matches one of the most useful distinctions in serious college-football analytics.</p>
+      <p>On top of the models, a <strong>fan-intelligence layer</strong> reads Reddit, mainstream coverage, betting markets, and recruiting signal. The result is what each fanbase actually believes, not just what the box score says.</p>
+      <p>Full methodology at <a href=\"/about-model/\">/about-model/</a> and <a href=\"/methodology/\">/methodology/</a>.</p>
+    </article>
+  </section>
+
+  <section class=\"section\">
+    <article class=\"panel\">
+      <div class=\"section-head\"><h2>Who it's for</h2></div>
+      <p>Fans who want to argue with more receipts. Analysts who want one place to check both the model and the mood. Anyone who likes their college football served with a perspective.</p>
+    </article>
+  </section>
+
+  <p class=\"back\"><a href=\"/\">&larr; back to the front page</a></p>
+</main>
+__GLOBAL_FOOTER__
+</body>
+</html>"""
+    html = html.replace("__GLOBAL_TAGS__", _global_link_tags())
+    html = html.replace("__SITE_NAV__", _site_nav("../", current="about"))
+    html = html.replace("__GLOBAL_FOOTER__", render_global_footer())
+    (about_dir / "index.html").write_text(html, encoding="utf-8")
 
 
 def build_static_site(db: Database, output_dir: str | Path = "output/site") -> Path:
     _report_progress(f"Building static site at {output_dir}...")
+
+    # D-016: team_coverage is a derived read surface — re-sync it from the
+    # authoring constants on every build so it can never drift. Non-critical
+    # (nothing in the render path hard-depends on it yet), so a failure logs
+    # and the build continues.
+    try:
+        from cfb_rankings.coverage import sync_team_coverage
+        _tc = sync_team_coverage(db)
+        _report_progress(f"team_coverage synced: {sum(_tc.values())} rows across {len(_tc)} tiers.")
+    except Exception as _exc:  # noqa: BLE001
+        _report_progress(f"WARN: team_coverage sync failed — {type(_exc).__name__}: {_exc}")
+
     summary, rankings = fetch_latest_rankings(db, limit=1000)
     site_root = Path(output_dir)
     site_root.mkdir(parents=True, exist_ok=True)
     _ensure_global_assets(site_root)
     _write_attributions_page(site_root, db=db)
-    _write_robots_and_sitemap(site_root, rankings=rankings)
+    _write_about_page(site_root)
+    _write_robots_and_sitemap(site_root, rankings=rankings, db=db)
 
     if summary is None or not rankings:
         # Do NOT stub-overwrite a healthy index.html — when running in CI
@@ -5718,7 +6934,10 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     history_dir = site_root / "history"
     history_dir.mkdir(parents=True, exist_ok=True)
     (history_dir / "index.html").write_text(
-        render_history_index_html(summary, history_hub, site_pulse),
+        render_history_index_html(
+            summary, history_hub, site_pulse,
+            tail_writer=lambda payload: (history_dir / "explorer-tail.json").write_text(payload, encoding="utf-8"),
+        ),
         encoding="utf-8",
     )
 
@@ -5739,7 +6958,10 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     for existing_file in compare_dir.glob("*.html"):
         _safe_unlink_generated_file(existing_file)
     (compare_dir / "index.html").write_text(
-        render_compare_page_html(summary, featured_team_pages, site_pulse),
+        render_compare_page_html(
+            summary, featured_team_pages, site_pulse,
+            payload_writer=lambda payload: (compare_dir / "teams.json").write_text(payload, encoding="utf-8"),
+        ),
         encoding="utf-8",
     )
 
@@ -5790,7 +7012,18 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         render_programs_index_html(summary, program_explorer_rows, history_hub, site_pulse),
         encoding="utf-8",
     )
+    # Sprint H: precompute the world-class slug set once so per-program
+    # render can flag whether a richer /teams/<slug>.html exists.
+    try:
+        from cfb_rankings.team_pages.profile_loader import (
+            PROFILED_SLUGS as _PS, list_real_fbs_slugs as _LRFS,
+        )
+        _world_class_set_for_programs = set(_PS) | set(_LRFS(db))
+    except Exception:
+        from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS as _PS
+        _world_class_set_for_programs = set(_PS)
     for slug, program_data in program_pages.items():
+        program_data["__world_class_available"] = slug in _world_class_set_for_programs
         (programs_dir / f"{slug}.html").write_text(render_program_page_html(summary, program_data), encoding="utf-8")
 
     heisman_dir = site_root / "heisman"
@@ -5817,7 +7050,13 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         heisman_team_conference_map[f"slug:{row['slug']}"] = conference_name
         heisman_team_conference_map[f"name:{str(row['team_name']).lower()}"] = conference_name
     (heisman_dir / "index.html").write_text(
-        render_heisman_page_html(summary, heisman_snapshot, player_directory_rows, heisman_team_conference_map),
+        render_heisman_page_html(
+            summary,
+            heisman_snapshot,
+            player_directory_rows,
+            heisman_team_conference_map,
+            tail_writer=lambda payload: (heisman_dir / "board-tail.json").write_text(payload, encoding="utf-8"),
+        ),
         encoding="utf-8",
     )
 
@@ -5830,18 +7069,47 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         render_players_index_html(summary, player_directory_rows, heisman_snapshot),
         encoding="utf-8",
     )
+    _player_render_errors = 0
     for player_slug, player_data in player_pages.items():
-        (players_dir / f"{player_slug}.html").write_text(
-            render_player_page_html(summary, player_data),
-            encoding="utf-8",
+        # 2026-05-23: Per-slug try/except so one broken player_pages v2 module
+        # injection doesn't crash the entire build. Print eager + flush so
+        # CI logs show exactly which slug failed and why.
+        try:
+            (players_dir / f"{player_slug}.html").write_text(
+                render_player_page_html(summary, player_data),
+                encoding="utf-8",
+            )
+        except Exception as _exc:
+            _player_render_errors += 1
+            print(
+                f"  player-render: {player_slug} failed — {type(_exc).__name__}: {_exc}",
+                flush=True,
+            )
+            if _player_render_errors <= 5:
+                import traceback
+                traceback.print_exc()
+    if _player_render_errors > 0:
+        print(
+            f"  player-render: {_player_render_errors} failures across "
+            f"{len(player_pages)} pages",
+            flush=True,
         )
 
     teams_dir = site_root / "teams"
     teams_dir.mkdir(parents=True, exist_ok=True)
-    from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS  # profiled teams rendered by team_pages/renderer.py
+    # Sprint H: world-class renderer covers ALL real FBS programs (30
+    # hand-authored + ~89 synthesized). The legacy loop must not overwrite
+    # any of them, so we compute the full world-class set here once.
+    from cfb_rankings.team_pages.profile_loader import (
+        PROFILED_SLUGS, list_real_fbs_slugs,
+    )
+    try:
+        _world_class_slugs = set(PROFILED_SLUGS) | set(list_real_fbs_slugs(db))
+    except Exception:
+        _world_class_slugs = set(PROFILED_SLUGS)
     for existing_file in teams_dir.glob("*.html"):
-        if existing_file.stem in PROFILED_SLUGS:
-            continue  # preserve world-class output
+        if existing_file.stem in _world_class_slugs:
+            continue  # preserve world-class output (profiled OR synthesized)
         _safe_unlink_generated_file(existing_file)
     (teams_dir / "index.html").write_text(
         render_teams_index_html(summary, rankings),
@@ -5878,18 +7146,27 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
 
     _report_progress("Writing team season pages...")
     for slug, team_data in team_pages.items():
-        if slug not in PROFILED_SLUGS:  # profiled teams rendered by team_pages/renderer.py
+        if slug not in _world_class_slugs:  # world-class renderer covers all real FBS
             (teams_dir / f"{slug}.html").write_text(render_team_page_html(summary, team_data), encoding="utf-8")
         ranking = team_data.get("ranking")
         season_summary = team_data.get("season_summary") or {}
         if ranking is not None:
             wins = int(season_summary.get("wins") or 0)
             losses = int(season_summary.get("losses") or 0)
+            # Sprint M+: pull per-team brand accent so each share card
+            # paints with the program's own color, not the universal red.
+            try:
+                from cfb_rankings.visual_assets import resolve_team_brand as _rt_brand
+                _brand = _rt_brand(slug)
+                _accent = getattr(_brand, "primary_color", None) or "#DC2626"
+            except Exception:
+                _accent = "#DC2626"
             (teams_dir / f"{slug}-og.svg").write_text(
                 _render_og_image_svg(
                     eyebrow=f"{ranking.level_code} · {ranking.conference_name or 'Independent'}",
                     headline=str(ranking.team_name),
                     subline=f"#{ranking.rank} · {wins}-{losses} · Power {_public_power_text(ranking.power_display)}",
+                    accent=_accent,
                     slug=slug,
                     site_root=site_root,
                 ),
@@ -5897,17 +7174,31 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
             )
 
     # Team Pages v2 — world-class renderer for profiled programs (Sprint 2).
-    # Legacy pages for unprofiled programs are written above; the legacy loop
-    # at L5269-5271 short-circuits for profiled slugs. This step writes the
-    # new-style pages from src/cfb_rankings/team_pages/. See CLAUDE.md
-    # "Team Pages (new module)" for the integration notes.
-    _report_progress("Writing team pages v2 (profiled programs)...")
+    # Sprint H: the world-class renderer now covers ALL real FBS programs,
+    # not just the 30 with hand-authored YAMLs. Unprofiled programs use
+    # synthesize_profile() to build a usable Profile from DB signal so they
+    # get the same chrome (Season Standing, Prestige, Trajectory, Peers,
+    # Kickoff, Page Tone, Hero Arc, Aspiration, Savant) as profiled ones.
+    # Closes audit T31 ("two-tier reality") structurally.
+    _report_progress("Writing team pages v2 (all FBS — profiled + synthesized)...")
     try:
         from cfb_rankings.team_pages import render_all_profiled_pages
-        count = render_all_profiled_pages(db, output_dir=teams_dir)
-        _report_progress(f"Team-pages v2: rendered {count} profiled programs.")
+        count = render_all_profiled_pages(
+            db, output_dir=teams_dir, include_unprofiled_fbs=True,
+        )
+        _report_progress(f"Team-pages v2: rendered {count} FBS programs (30 hand-authored + ~89 synthesized).")
     except Exception as exc:
         _report_progress(f"Team-pages v2 render skipped: {exc}")
+
+    # CFP-era pages (WS-07): /programs/<slug>/era/cfp/ for every FBS program
+    # with >= MIN_SEASONS of CFP-era power history.
+    _report_progress("Writing CFP-era pages (WS-07)...")
+    try:
+        from cfb_rankings.era_pages import render_all_era_pages
+        era_count = render_all_era_pages(db, programs_dir)
+        _report_progress(f"CFP-era pages: rendered {era_count} programs.")
+    except Exception as exc:
+        _report_progress(f"CFP-era pages render skipped: {exc}")
 
     season_year_value = int(summary["season_year"])
     (site_root / "og-image.svg").write_text(
@@ -7772,6 +9063,7 @@ def build_player_page_data_map(
     for row in player_directory_rows:
         player_id = int(row["player_id"])
         page_data = _assemble_player_page_data(
+            db,
             summary,
             row,
             roster_by_player.get(player_id, []),
@@ -7839,6 +9131,229 @@ def build_player_page_data_map(
             )
         except Exception:
             page_data["coaching_lineage"] = None
+        # Player-pages v2 modules (2026-05-23) — compute fresh HTML for each
+        # module using db-direct queries. Stored as pre-rendered HTML in
+        # page_data so render_player_page_html can drop it into the template
+        # without needing a db handle.
+        try:
+            from cfb_rankings.player_pages import (
+                render_standing_rail as _render_standing_v2,
+                render_coaching_lineage as _render_coaching_v2,
+                render_mirror_match as _render_mirror_v2,
+                render_live_signal_flow as _render_signal_v2,
+                render_heisman_trajectory as _render_heisman_traj_v2,
+                render_career_arc as _render_career_arc_v2,
+                render_development_trajectory as _render_dev_traj_v2,
+                render_selector_grid as _render_selector_v2,
+                render_game_log as _render_game_log_v2,
+                render_box_savant as _render_box_savant_v2,
+                render_splits as _render_splits_v2,
+                render_peer_comparator as _render_peer_comparator_v2,
+                render_supporting_cast as _render_supporting_cast_v2,
+                render_narrative_arc as _render_narrative_arc_v2,
+                fetch_narrative_arc as _fetch_narrative_arc_v2,
+                render_nil_draft as _render_nil_draft_v2,
+                render_scenario_explorer as _render_scenario_v2,
+                render_career_standing as _render_career_standing_v2,
+                render_trophy_case as _render_trophy_case_v2,
+                build_stat_sparklines as _build_stat_sparklines_v2,
+                render_pass_profile as _render_pass_profile_v2,
+                render_season_context as _render_season_context_v2,
+                render_status_strip as _render_status_strip_v2,
+                fetch_status_row as _fetch_status_row_v2,
+                render_where_ended_up as _render_where_ended_up_v2,
+                render_outlook_2026 as _render_outlook_2026_v2,
+            )
+            _primary_team_id = (
+                int((page_data.get("primary_team") or {}).get("team_id"))
+                if (page_data.get("primary_team") or {}).get("team_id") else None
+            )
+            _position = (
+                (page_data.get("player") or {}).get("position")
+                or (page_data.get("primary_team") or {}).get("position")
+                or ""
+            )
+            # Position-correction: players.position is sparse / sometimes wrong
+            # (e.g. Dillon Gabriel master-listed as 'RB' but actually a QB).
+            # Prefer position from player_season_stats — it's the per-season
+            # truth and matches the cohort the player was actually evaluated in.
+            try:
+                _pss_pos = db.query_all(
+                    """
+                    select position from player_season_stats
+                     where player_id = :pid
+                       and season_year = :s
+                       and position is not null and position != ''
+                     order by week desc limit 1
+                    """,
+                    {"pid": player_id, "s": int(summary["season_year"])},
+                )
+                if _pss_pos:
+                    _pss_val = (_pss_pos[0]["position"] or "").strip()
+                    if _pss_val and _pss_val.upper() != (_position or "").upper():
+                        _position = _pss_val
+            except Exception:
+                pass
+            # Session 15: previously this ternary had wrong precedence and
+            # almost always evaluated to None (page_data has a "standing"
+            # dict with "current_rung_id", not a top-level "standing_rung").
+            # Result: every player who DID have a computed rung still saw
+            # the "Player Standing rail computes once enough usage data is
+            # available." empty placeholder. Mendoza's page-state JSON
+            # carried standing_rung=15 but the rail rendered empty.
+            _standing_dict = page_data.get("standing")
+            _page_state = page_data.get("page_state")
+            _standing_rung_val = None
+            if isinstance(_standing_dict, dict):
+                _standing_rung_val = _standing_dict.get("current_rung_id")
+            if _standing_rung_val is None and isinstance(_page_state, dict):
+                _standing_rung_val = _page_state.get("standing_rung")
+            if _standing_rung_val is None:
+                _standing_rung_val = page_data.get("standing_rung")
+            page_data["new_standing_rail_html"] = _render_standing_v2(
+                _standing_rung_val,
+                str((page_data.get("player") or {}).get("full_name") or ""),
+            )
+            page_data["new_coaching_lineage_html"] = _render_coaching_v2(
+                db, player_id, _primary_team_id, None,
+            )
+            page_data["new_mirror_match_html"] = _render_mirror_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_live_signal_flow_html"] = _render_signal_v2(
+                db, player_id,
+            )
+            page_data["new_heisman_trajectory_html"] = _render_heisman_traj_v2(
+                db, player_id, int(summary["season_year"]),
+            )
+            page_data["new_career_arc_html"] = _render_career_arc_v2(
+                db, player_id,
+            )
+            page_data["new_dev_traj_html"] = _render_dev_traj_v2(
+                db, player_id, _position,
+            )
+            page_data["new_selector_grid_html"] = _render_selector_v2(
+                db, player_id, int(summary["season_year"]),
+            )
+            page_data["new_game_log_html"] = _render_game_log_v2(
+                db, player_id, int(summary["season_year"]),
+                _position, _primary_team_id,
+            )
+            # Compute composite score badge first so it can be embedded in box_savant header
+            try:
+                from cfb_rankings.player_pages.composite_score import (
+                    compute_cfb_index_score as _compute_cfb_index_score_v2,
+                    render_composite_score_badge as _render_composite_score_badge_v2,
+                )
+                page_data["cfb_index_score"] = _compute_cfb_index_score_v2(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+                _score_badge = _render_composite_score_badge_v2(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+                page_data["new_composite_score_badge_html"] = _score_badge
+            except Exception:
+                page_data["cfb_index_score"] = None
+                _score_badge = ""
+                page_data["new_composite_score_badge_html"] = ""
+            page_data["new_box_savant_html"] = _render_box_savant_v2(
+                db, player_id, int(summary["season_year"]), _position,
+                score_badge_html=_score_badge,
+            )
+            page_data["new_splits_html"] = _render_splits_v2(
+                db, player_id, int(summary["season_year"]),
+                _position, _primary_team_id,
+            )
+            page_data["new_peer_comparator_html"] = _render_peer_comparator_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_supporting_cast_html"] = _render_supporting_cast_v2(
+                db, player_id, int(summary["season_year"]), _primary_team_id,
+            )
+            try:
+                _arc = _fetch_narrative_arc_v2(
+                    db, player_id, int(summary["season_year"]),
+                )
+                page_data["new_narrative_arc_html"] = _render_narrative_arc_v2(_arc)
+            except Exception:
+                page_data["new_narrative_arc_html"] = ""
+            page_data["new_nil_draft_html"] = _render_nil_draft_v2(db, player_id)
+            page_data["new_scenario_explorer_html"] = _render_scenario_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_career_standing_html"] = _render_career_standing_v2(
+                db, player_id,
+            )
+            page_data["new_trophy_case_html"] = _render_trophy_case_v2(db, player_id)
+            page_data["stat_sparklines"] = _build_stat_sparklines_v2(
+                db, player_id, int(summary["season_year"]), _position,
+            )
+            page_data["new_pass_profile_html"] = _render_pass_profile_v2(
+                db, player_id, int(summary["season_year"]),
+            ) if (_position or "").upper() == "QB" else ""
+            page_data["new_season_context_html"] = _render_season_context_v2(
+                db, player_id,
+            )
+            # Wave 25 — Player Status Strip + Where They Ended Up
+            page_data["new_status_strip_html"] = _render_status_strip_v2(db, player_id)
+            page_data["player_status_row"] = _fetch_status_row_v2(db, player_id)
+            page_data["new_where_ended_up_html"] = _render_where_ended_up_v2(db, player_id)
+            page_data["new_outlook_2026_html"] = _render_outlook_2026_v2(db, player_id)
+            # Standing payload — computes the 17-rung classification +
+            # per-position accolade streams (Heisman finalist %, AA selector
+            # grid, position-award status). Populates page_data["standing"]
+            # so _render_v5_player_standing_card shows real content instead
+            # of the awaiting-tracker placeholder. New 2026-05-24.
+            try:
+                from cfb_rankings.player_pages.standing_aggregator import (
+                    build_standing_payload as _build_standing_payload,
+                )
+                _new_standing = _build_standing_payload(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+                if _new_standing:
+                    # Merge into existing standing dict so legacy keys survive
+                    existing = page_data.get("standing") or {}
+                    if isinstance(existing, dict):
+                        existing.update(_new_standing)
+                        page_data["standing"] = existing
+                    else:
+                        page_data["standing"] = _new_standing
+            except Exception as _exc:
+                print(
+                    f"  player-pages v2 standing: {player_id} failed "
+                    f"— {type(_exc).__name__}: {_exc}",
+                    flush=True,
+                )
+        except Exception as _exc:
+            print(f"  player-pages v2: {player_id} failed — {type(_exc).__name__}: {_exc}", flush=True)
+            page_data["new_standing_rail_html"] = ""
+            page_data["new_coaching_lineage_html"] = ""
+            page_data["new_mirror_match_html"] = ""
+            page_data["new_live_signal_flow_html"] = ""
+            page_data["new_heisman_trajectory_html"] = ""
+            page_data["new_career_arc_html"] = ""
+            page_data["new_dev_traj_html"] = ""
+            page_data["new_selector_grid_html"] = ""
+            page_data["new_game_log_html"] = ""
+            page_data["new_box_savant_html"] = ""
+            page_data["new_splits_html"] = ""
+            page_data["new_peer_comparator_html"] = ""
+            page_data["new_supporting_cast_html"] = ""
+            page_data["new_narrative_arc_html"] = ""
+            page_data["new_nil_draft_html"] = ""
+            page_data["new_scenario_explorer_html"] = ""
+            page_data["new_career_standing_html"] = ""
+            page_data["new_trophy_case_html"] = ""
+            page_data["stat_sparklines"] = {}
+            page_data["new_pass_profile_html"] = ""
+            page_data["new_season_context_html"] = ""
+            page_data["new_status_strip_html"] = ""
+            page_data["player_status_row"] = None
+            page_data["new_where_ended_up_html"] = ""
+            page_data["new_outlook_2026_html"] = ""
+            page_data["new_composite_score_badge_html"] = ""
+            page_data["cfb_index_score"] = None
         # Cohort divergence map (Signature Bets S3.1) — per-bucket scatter.
         try:
             from cfb_rankings.bets.cohort_divergence import compute_cohort_divergence
@@ -8424,7 +9939,37 @@ def _classify_player_rung(
     }
 
 
+def _player_cohort_divergence_summary_safe(
+    db: Any,
+    player_id: int,
+    season: int,
+    structural_percentile: float | None = None,
+) -> dict[str, Any]:
+    """Safe wrapper for player_cohort_divergence_summary.
+
+    Keeps the player-page build resilient when the cohort SQL fails
+    (table missing, season has zero rows, etc.). Returns the empty-shaped
+    dict so the QB fingerprint chips fall through to the Awaiting state
+    cleanly rather than the build crashing.
+    """
+    try:
+        return player_cohort_divergence_summary(
+            db, player_id, season, structural_percentile=structural_percentile
+        )
+    except Exception as exc:  # pragma: no cover — defensive
+        print(f"[cohort_divergence] player_id={player_id} failed: {exc}; rendering Awaiting.")
+        return {
+            "respect_gap": None,
+            "reality_gap": None,
+            "applicable": False,
+            "awaiting_reason": "Cohort data unavailable.",
+            "dots": [],
+            "max_mentions": 0,
+        }
+
+
 def _assemble_player_page_data(
+    db: Database,
     summary: dict[str, Any],
     player_row: dict[str, Any],
     roster_history: list[dict[str, Any]],
@@ -8597,6 +10142,29 @@ def _assemble_player_page_data(
         transfer_profile=transfer_profile,
         honors_history=honors_history,
     )
+    # Wave 8 — Override legacy signature_story.body with LLM-cached story
+    # when one exists for this player+season.
+    try:
+        from cfb_rankings.player_pages.signature_story_generator import (
+            fetch_signature_story as _fetch_llm_sig_story,
+        )
+        _llm_story = _fetch_llm_sig_story(
+            db, int(player_row.get("player_id") or 0),
+            int(summary.get("season_year") or 0),
+        )
+        if _llm_story and _llm_story.get("story_text"):
+            if isinstance(signature_story, dict):
+                signature_story["body"] = _llm_story["story_text"]
+                signature_story["source"] = _llm_story.get("model_id") or "ollama"
+                if _llm_story.get("headline"):
+                    signature_story["title"] = _llm_story["headline"]
+            else:
+                signature_story = {
+                    "body": _llm_story["story_text"],
+                    "source": _llm_story.get("model_id") or "ollama",
+                }
+    except Exception:
+        pass
     honors_history = _filter_projected_heisman_honors(honors_history, current_season)
     trophy_case = _build_player_trophy_case(heisman_years, honors_history)
 
@@ -8830,6 +10398,18 @@ def _assemble_player_page_data(
             {**the_room, "buckets": room_buckets}
             if the_room is not None and room_buckets
             else (the_room if the_room is not None else ({"buckets": room_buckets} if room_buckets else None))
+        ),
+        # WS-01 Tier S fix (2026-05-28): wire cohort_divergence into player_data
+        # so the QB fingerprint Respect Gap + Reality Gap chips can populate
+        # when fan-bucket conversation data is available. Today this returns a
+        # dict with respect_gap=None/reality_gap=None (data is all 'national'
+        # bucket), so chips stay Awaiting — but the wiring is in place for
+        # WS-05 adapter ecosystem to light them up automatically.
+        "cohort_divergence": _player_cohort_divergence_summary_safe(
+            db,
+            int(player_row["player_id"]),
+            current_season,
+            structural_percentile=signature_story.get("percentile") if signature_story else None,
         ),
         "stat_profile": stat_profile,
         "season_stat_tables": season_stat_tables,
@@ -9454,8 +11034,8 @@ def _build_player_traditional_sections(bucket: str, explorer_rows: list[dict[str
                     ("Passing", "Completions", "CMP"),
                     ("Passing", "Attempts", "ATT"),
                     ("Passing", "Completion %", "CMP%"),
-                    ("Passing", "Yards / attempt", "YPA"),
-                    ("Passing", "Passer rating", "RTG"),
+                    ("Passing", "Yards / attempt", "Y/A"),
+                    ("Passing", "Passer rating", "RATE"),
                 ],
             },
             {
@@ -9685,7 +11265,7 @@ def _player_season_table_catalog(bucket: str) -> list[dict[str, Any]]:
                     },
                     {"label": "YDS", "group": "Passing", "metric": "Passing yards", "format": "whole", "aggregate": "sum"},
                     {
-                        "label": "YPA",
+                        "label": "Y/A",
                         "format": "decimal",
                         "aggregate": "ratio",
                         "numerator": ("Passing", "Passing yards"),
@@ -9693,7 +11273,7 @@ def _player_season_table_catalog(bucket: str) -> list[dict[str, Any]]:
                     },
                     {"label": "TD", "group": "Passing", "metric": "Pass TD", "format": "whole", "aggregate": "sum"},
                     {"label": "INT", "group": "Passing", "metric": "Interceptions", "format": "whole", "aggregate": "sum"},
-                    {"label": "RTG", "format": "decimal", "aggregate": "passer_rating"},
+                    {"label": "RATE", "format": "decimal", "aggregate": "passer_rating"},
                     {"label": "LNG", "group": "Passing", "metric": "Longest pass", "format": "whole", "aggregate": "max"},
                     {"label": "SACK", "group": "Passing", "metric": "Sacks taken", "format": "whole", "aggregate": "sum"},
                 ],
@@ -10342,7 +11922,11 @@ def _build_player_signature_story(
     transfer_count = int(transfer_profile.get("transfer_count") or 0)
     honor_count = len(honors_history)
 
-    title = "What makes this player interesting right now"
+    title = (
+        "What made this player interesting"
+        if is_offseason(date.today(), db=None) else
+        "What makes this player interesting right now"
+    )
     if bucket == "DEF":
         title = "Why this is a rare defensive case"
         body = (
@@ -10467,10 +12051,10 @@ def _build_player_recruiting_profile(recruiting_history: list[dict[str, Any]]) -
             "blue_chip": False,
             "recruit_types": [],
             "cards": [
-                {"label": "Top pedigree", "value": "No recruit row", "submetric": "CFBD has no matched recruiting profile on file"},
-                {"label": "Composite rating", "value": "--", "submetric": "Recruit feed not matched"},
+                {"label": "Top pedigree", "value": "Not on file", "submetric": "No matched recruiting profile in the loaded archive"},
+                {"label": "Composite rating", "value": "--", "submetric": "Composite rating unavailable for this player"},
                 {"label": "Signed with", "value": "--", "submetric": "Commitment history unavailable"},
-                {"label": "Origin", "value": "--", "submetric": "School and hometown unavailable"},
+                {"label": "Origin", "value": "--", "submetric": "Hometown and high school unavailable"},
             ],
             "rows": [],
         }
@@ -10696,8 +12280,8 @@ def _build_player_trophy_case(heisman_years: list[dict[str, Any]], honors_histor
         items.append(
             {
                 "kicker": "Honors",
-                "title": "Honors pipeline is ready",
-                "body": "This card is now structured to absorb All-America, all-conference, player-of-the-week, watch-list, and postseason award rows as soon as those sources are imported.",
+                "title": "No formal honors on the ledger yet",
+                "body": "All-America, all-conference, player-of-the-week, watch-list, and postseason awards land here when they're earned. The absence is the signal: most players never collect formal honors, and that's its own kind of context.",
             }
         )
     return items
@@ -12225,10 +13809,17 @@ def _team_theme(slug: str | None) -> dict[str, str]:
     from cfb_rankings.visual_assets import resolve_team_brand
     brand = resolve_team_brand(slug)
     # Generic registry fallback is "#5A5954"; preserve the old editorial fallback
-    # pair (#19423f / #b98343) for truly unknown slugs so conferences render
-    # with the paper-tone accent they had in Phase 1.
+    # for truly unknown slugs so conferences render with a paper-tone accent.
     accent = brand.primary_color if brand.primary_color != "#5A5954" else "#19423f"
-    accent_soft = brand.secondary_color or "#b98343"
+    # Audit T31 fix: when team_brand.secondary_color is null, fall back to a
+    # neutral paper tone derived FROM THE PRIMARY rather than the universal
+    # #b98343 warm tan that previously made every legacy team page look the
+    # same secondary color. Keeps single-color teams looking like themselves.
+    accent_soft = brand.secondary_color
+    if not accent_soft:
+        # Compose a neutral that doesn't clash with any primary — a desaturated
+        # near-gray that lets the primary do the identity work.
+        accent_soft = "#8a8a8a" if accent != "#19423f" else "#b98343"
     return {"accent": accent, "accent_soft": accent_soft}
 
 
@@ -12272,7 +13863,12 @@ def _conference_profile_note(
         return f"{conference_name} looks stronger on team quality than on season resume, which makes it a dangerous future-facing league."
     if upper_strength >= round_robin_power + 1.8:
         return f"{conference_name} has real upper-tier density. The top of the board raises the conference ceiling without the rest of the league completely falling away."
-    return f"{conference_name} reads like a balanced league right now, with {top_team_name} setting the pace and the rest of the board staying reasonably connected behind it."
+    _is_off_balanced = is_offseason(date.today(), db=None)
+    return (
+        f"{conference_name} read like a balanced league through the most recent season, with {top_team_name} setting the pace and the rest of the board staying reasonably connected behind it."
+        if _is_off_balanced else
+        f"{conference_name} reads like a balanced league right now, with {top_team_name} setting the pace and the rest of the board staying reasonably connected behind it."
+    )
 
 
 def _matchup_team_snapshot(team_data: dict[str, Any], prefix: str = "") -> dict[str, Any]:
@@ -12626,6 +14222,7 @@ def render_matchups_page_html(
       <script id="matchupPayload" type="application/json">{matchup_payload}</script>
       <script>{_matchup_tool_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -12952,12 +14549,19 @@ def _render_market_feature_cards(team_pages: list[dict[str, Any]], prefix: str =
     return "".join(cards[:4])
 
 
-def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str, Any]], site_pulse: dict[str, Any]) -> str:
+def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str, Any]], site_pulse: dict[str, Any], payload_writer: Any = None) -> str:
     season_name = season_label(int(summary["season_year"]))
     default_a_page, default_b_page = _default_compare_pair(team_pages)
     default_a = _compare_team_snapshot(default_a_page, prefix="../")
     default_b = _compare_team_snapshot(default_b_page, prefix="../")
-    compare_payload = _compare_payload(team_pages, prefix="../")
+    _compare_payload_json = _compare_payload(team_pages, prefix="../")
+    if payload_writer is not None:
+        # External mode: write the all-teams payload to compare/teams.json and
+        # leave the inline <script> out so it isn't shipped on every load.
+        payload_writer(_compare_payload_json)
+        compare_payload_html = ""
+    else:
+        compare_payload_html = f'<script id="comparePayload" type="application/json">{_compare_payload_json}</script>'
     scenarios = _render_compare_scenario_cards(team_pages)
     team_options = "\n".join(
         f'<option value="{escape(team.slug)}">{escape(team.team_name)} ({escape(team.level_code)})</option>'
@@ -13108,9 +14712,10 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
         </div>
       </section>
 
-      <script id="comparePayload" type="application/json">{compare_payload}</script>
+      {compare_payload_html}
       <script>{_compare_tool_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13118,13 +14723,11 @@ def render_compare_page_html(summary: dict[str, Any], team_pages: list[dict[str,
 
 def _compare_tool_script() -> str:
     return """
-      (() => {
-        const payloadNode = document.getElementById('comparePayload');
+      function initCompare(payload) {
         const teamASelect = document.getElementById('compareTeamA');
         const teamBSelect = document.getElementById('compareTeamB');
-        if (!payloadNode || !teamASelect || !teamBSelect) return;
+        if (!teamASelect || !teamBSelect) return;
 
-        const payload = JSON.parse(payloadNode.textContent || '{}');
         const teams = Array.isArray(payload.teams) ? payload.teams : [];
         const teamMap = new Map(teams.map((team) => [team.slug, team]));
         if (!teams.length) return;
@@ -13251,9 +14854,9 @@ def _compare_tool_script() -> str:
           if (headline) headline.textContent = `${teamA.team_name} vs. ${teamB.team_name}`;
           if (summary) {
             summary.textContent =
-              `${stronger} looks stronger right now on the predictive board. ` +
+              `${stronger} is stronger on the predictive board. ` +
               `${betterResume} owns the better body of work. ` +
-              `${moreExplosive} currently carries the more volatile big-play profile.`;
+              `${moreExplosive} carries the more volatile big-play profile.`;
           }
         }
 
@@ -13323,9 +14926,9 @@ def _compare_tool_script() -> str:
               <table>
                 <thead>
                   <tr>
-                    <th>Phase</th>
-                    <th>${teamA.team_name}</th>
-                    <th>${teamB.team_name}</th>
+                    <th scope="col">Phase</th>
+                    <th scope="col">${teamA.team_name}</th>
+                    <th scope="col">${teamB.team_name}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -13361,9 +14964,9 @@ def _compare_tool_script() -> str:
               <table>
                 <thead>
                   <tr>
-                    <th>Opponent</th>
-                    <th>${teamA.team_name}</th>
-                    <th>${teamB.team_name}</th>
+                    <th scope="col">Opponent</th>
+                    <th scope="col">${teamA.team_name}</th>
+                    <th scope="col">${teamB.team_name}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -13409,6 +15012,23 @@ def _compare_tool_script() -> str:
         });
 
         render();
+      }
+
+      (() => {
+        // Inline mode (legacy / no payload_writer): payload is in the DOM.
+        const inlineNode = document.getElementById('comparePayload');
+        if (inlineNode) {
+          try { initCompare(JSON.parse(inlineNode.textContent || '{}')); }
+          catch (err) { console.error('compare payload parse failed', err); }
+          return;
+        }
+        // External mode: payload written to compare/teams.json at build time
+        // to keep the initial HTML small (~770-team blob was ~360KB gzipped on
+        // every load). Fetch it on page load. See WS-11 page-weight work.
+        fetch('teams.json')
+          .then((resp) => { if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); })
+          .then((payload) => initCompare(payload))
+          .catch((err) => console.error('compare payload load failed', err));
       })();
     """
 
@@ -13418,10 +15038,17 @@ def render_conferences_index_html(
     conference_pages: list[dict[str, Any]],
     site_pulse: dict[str, Any],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     top_cards = _render_conference_spotlight([conference for conference in conference_pages if int(conference["team_count"]) >= 4][:12], prefix="")
     table_rows = "\n".join(_render_conference_table_row(conference) for conference in conference_pages)
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we compute league strength",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{len(conference_pages):,} conferences · {season_name}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -13466,14 +15093,14 @@ def render_conferences_index_html(
           <table>
             <thead>
               <tr>
-                <th>Conference</th>
-                <th>Level</th>
-                <th>Teams</th>
-                <th>RR50</th>
-                <th>Upper Strength</th>
-                <th>Median Power</th>
-                <th>Resume Pulse</th>
-                <th>Top Team</th>
+                <th scope="col">Conference</th>
+                <th scope="col">Level</th>
+                <th scope="col">Teams</th>
+                <th scope="col">RR50</th>
+                <th scope="col">Upper Strength</th>
+                <th scope="col">Median Power</th>
+                <th scope="col">Resume Pulse</th>
+                <th scope="col">Top Team</th>
               </tr>
             </thead>
             <tbody>
@@ -13482,7 +15109,10 @@ def render_conferences_index_html(
           </table>
         </div>
       </section>
+
+      {profile_meta_footer}
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13509,16 +15139,37 @@ def _render_conference_movers_section(conference: dict[str, Any]) -> str:
             f'</a>'
         )
 
-    risers_html = "".join(_card(t, "up") for t in risers) or '<p class="footer-note">No meaningful risers this week.</p>'
-    faders_html = "".join(_card(t, "down") for t in faders) or '<p class="footer-note">No meaningful faders this week.</p>'
+    _is_off = is_offseason(date.today(), db=None)
+    _no_risers = (
+        '<p class="footer-note">No meaningful risers from the last refresh.</p>'
+        if _is_off else
+        '<p class="footer-note">No meaningful risers this week.</p>'
+    )
+    _no_faders = (
+        '<p class="footer-note">No meaningful faders from the last refresh.</p>'
+        if _is_off else
+        '<p class="footer-note">No meaningful faders this week.</p>'
+    )
+    risers_html = "".join(_card(t, "up") for t in risers) or _no_risers
+    faders_html = "".join(_card(t, "down") for t in faders) or _no_faders
+    _risers_note = (
+        "Rank movement since the most recent refresh."
+        if _is_off else
+        "Week-over-week rank change inside the board."
+    )
+    _faders_note = (
+        "Teams whose stock dropped most since the last refresh."
+        if _is_off else
+        "Teams whose stock dropped most against the board this week."
+    )
     return f"""
       <section class="section two-up">
         <article class="panel">
-          <div class="section-head"><h2>Biggest Risers</h2><p class="section-note">Week-over-week rank change inside the board.</p></div>
+          <div class="section-head"><h2>Biggest Risers</h2><p class="section-note">{_risers_note}</p></div>
           <div class="feature-grid scenario-grid">{risers_html}</div>
         </article>
         <article class="panel">
-          <div class="section-head"><h2>Biggest Faders</h2><p class="section-note">Teams whose stock dropped most against the board this week.</p></div>
+          <div class="section-head"><h2>Biggest Faders</h2><p class="section-note">{_faders_note}</p></div>
           <div class="feature-grid scenario-grid">{faders_html}</div>
         </article>
       </section>
@@ -13568,7 +15219,7 @@ def _render_conference_market_section(conference: dict[str, Any]) -> str:
           <div class="section-head"><h2>ATS Leaders</h2><p class="section-note">Who beat the number most often this season.</p></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Team</th><th>Cover Rate</th><th>Record</th></tr></thead>
+              <thead><tr><th scope="col">Team</th><th scope="col">Cover Rate</th><th scope="col">Record</th></tr></thead>
               <tbody>{cover_rows}</tbody>
             </table>
           </div>
@@ -13577,7 +15228,7 @@ def _render_conference_market_section(conference: dict[str, Any]) -> str:
           <div class="section-head"><h2>Wins vs Market</h2><p class="section-note">Win total minus the market's implied expectation, by team.</p></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Team</th><th>Wins vs Market</th><th>Sample</th></tr></thead>
+              <thead><tr><th scope="col">Team</th><th scope="col">Wins vs Market</th><th scope="col">Sample</th></tr></thead>
               <tbody>{wins_rows}</tbody>
             </table>
           </div>
@@ -13631,6 +15282,10 @@ def _render_conference_parity_section(conference: dict[str, Any]) -> str:
 
 
 def render_conference_page_html(summary: dict[str, Any], conference: dict[str, Any]) -> str:
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip,
+    )
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     top_team = conference["top_team"]
@@ -13647,6 +15302,32 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
             + _render_conference_parity_section(conference)
             + _load_conference_pulse_fragment(conference.get("slug", ""))  # Sprint 8.5 hook
         )
+    # Profile-archetype identity strip (Session 6 Track 5 — first
+    # concrete identity-strip adopter in a legacy reporting.py
+    # renderer). The strip carries the eyebrow + conference name +
+    # the existing chip row's data points. Lede stays in the hero
+    # block underneath so the editorial profile_note still reads
+    # at full size.
+    _conf_chips = [
+        f"#{int(conference['overall_rank'])} overall",
+        f"#{int(conference['level_rank'])} in {conference['level_code']}",
+        f"RR50 {_public_power_text(conference.get('round_robin_power_display'))}",
+        f"Upper strength {_public_power_text(conference.get('upper_strength_display'))}",
+        f"{conference['team_count']} teams",
+        f"Top 25 teams {conference['top_25_count']}",
+    ]
+    profile_identity_html = render_profile_identity_strip(
+        eyebrow=f"{conference['level_code']} CONFERENCE · {season_name.upper()}",
+        name=conference['conference_name'],
+        key_meta="",  # the lede sits in the hero block below
+        chips=_conf_chips,
+    )
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we measure conference strength",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{int(conference.get('team_count') or 0)} teams · {escape(conference.get('level_code') or '')} · {escape(season_name)}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -13659,18 +15340,9 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="conferences")}
+      {profile_identity_html}
       <section class="hero">
-        <p class="eyebrow">{escape(conference['level_code'])} Conference</p>
-        <h1>{escape(conference['conference_name'])}</h1>
         <p class="lede">{escape(conference['profile_note'])}</p>
-        <div class="chip-row season-chip-row">
-          <span class="mini-chip">#{int(conference['overall_rank'])} overall</span>
-          <span class="mini-chip">#{int(conference['level_rank'])} in {escape(conference['level_code'])}</span>
-          <span class="mini-chip">RR50 {_public_power_text(conference.get('round_robin_power_display'))}</span>
-          <span class="mini-chip">Upper strength {_public_power_text(conference.get('upper_strength_display'))}</span>
-          <span class="mini-chip">{conference['team_count']} teams</span>
-          <span class="mini-chip">Top 25 teams {conference['top_25_count']}</span>
-        </div>
       </section>
 
       <section class="section two-up">
@@ -13734,14 +15406,14 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
           <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Team</th>
-                <th>Record</th>
-                <th>Power</th>
-                <th>Resume</th>
-                <th>ATS</th>
-                <th>Wins vs Market</th>
-                <th>Recent Form</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Team</th>
+                <th scope="col">Record</th>
+                <th scope="col">Power</th>
+                <th scope="col">Resume</th>
+                <th scope="col">ATS</th>
+                <th scope="col">Wins vs Market</th>
+                <th scope="col">Recent Form</th>
               </tr>
             </thead>
             <tbody>
@@ -13751,7 +15423,10 @@ def render_conference_page_html(summary: dict[str, Any], conference: dict[str, A
         </div>
       </section>
       {extra_sections}
+
+      {profile_meta_footer}
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13927,6 +15602,7 @@ def render_archive_index_html(
       </section>
       {''.join(sections)}
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -13936,7 +15612,7 @@ def _render_archive_movers(rankings: list[RankingRow], direction: str, prefix: s
     if direction == "up":
         candidates = sorted((row for row in rankings if row.rank_change > 0), key=lambda row: (-row.rank_change, row.rank))[:8]
         heading = "Biggest Risers"
-        empty = "No earlier snapshot is loaded yet, so there are no week-over-week risers to show."
+        empty = "No prior snapshot to compare against yet, so there are no week-over-week risers to show."
     else:
         candidates = sorted((row for row in rankings if row.rank_change < 0), key=lambda row: (row.rank_change, row.rank))[:8]
         heading = "Biggest Drops"
@@ -14066,12 +15742,12 @@ def render_archive_snapshot_html(
           <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Change</th>
-                <th>Team</th>
-                <th>Level</th>
-                <th>Power</th>
-                <th>Resume</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Change</th>
+                <th scope="col">Team</th>
+                <th scope="col">Level</th>
+                <th scope="col">Power</th>
+                <th scope="col">Resume</th>
               </tr>
             </thead>
             <tbody>
@@ -14081,6 +15757,7 @@ def render_archive_snapshot_html(
         </div>
       </section>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -14133,7 +15810,9 @@ def _build_matchup_scenarios(team_pages: list[dict[str, Any]]) -> list[tuple[str
 
     if len(top_overall) >= 2:
         team_a, team_b = _default_matchup_pair(top_overall)
-        scenarios.append(("Championship collision", team_a, team_b, "The cleanest high-end matchup on the board right now."))
+        _scenarios_off = is_offseason(date.today(), db=None)
+        scenarios.append(("Championship collision", team_a, team_b,
+            "The cleanest high-end matchup heading into next season." if _scenarios_off else "The cleanest high-end matchup on the board right now."))
 
     if top_overall:
         power_leader = top_overall[0]
@@ -14144,7 +15823,9 @@ def _build_matchup_scenarios(team_pages: list[dict[str, Any]]) -> list[tuple[str
                     "Power vs. resume",
                     power_leader,
                     resume_leader,
-                    "The classic argument: who looks strongest right now versus who has earned the season's best body of work.",
+                    ("The classic argument: who looks strongest versus who earned the best body of work."
+                     if is_offseason(date.today(), db=None) else
+                     "The classic argument: who looks strongest right now versus who has earned the season's best body of work."),
                 )
             )
 
@@ -14472,11 +16153,14 @@ def _home_editorial_context(now: datetime | None = None) -> dict[str, Any]:
     active_phase = next((phase for phase in phases if phase["month"] == current.month), None)
 
     if not active_phase:
+        # Defensive fallback (all 12 months are in `phases`, so this rarely
+        # fires). Keep the copy season-neutral so it doesn't lie about
+        # being a live weekly tracker if it ever does fire offseason.
         return {
-            "is_offseason": False,
+            "is_offseason": is_offseason(current, db=None),
             "today_label": _format_calendar_date(current),
             "hero_eyebrow": "Fan Intelligence / Power / Resume",
-            "hero_title": "How college football is actually feeling this week.",
+            "hero_title": "Where every team stands, what every fanbase thinks.",
             "hero_lede": "A single football universe for FBS through Division III, paired with a proprietary fan-intelligence layer that reads the belief, respect, and rivalry heat around every team. Built for argument, not dashboards.",
         }
 
@@ -14590,6 +16274,32 @@ def render_home_html(
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     editorial_context = _home_editorial_context()
+    # Hero finding for the homepage: days-to-kickoff is the most natural
+    # big number on a college football site. Suppressed in-season (when
+    # kickoff is past or > 365 days out — covers spring/summer + a
+    # safety guard against the calendar function returning weird values).
+    try:
+        from cfb_rankings.common.cfb_calendar import days_to_kickoff as _dtk_fn
+        _days_to_kickoff = _dtk_fn(date.today(), db=None)
+    except Exception:
+        _days_to_kickoff = 0
+    if 1 <= _days_to_kickoff <= 365:
+        # Derive the upcoming-kickoff year from the date arithmetic instead of
+        # the awkward `month >= 8` heuristic on summary.season_year. The
+        # kickoff date = today + days-to-kickoff; that date's year IS the
+        # upcoming season.
+        from datetime import timedelta as _td
+        _kickoff_year = (date.today() + _td(days=_days_to_kickoff)).year
+        _home_hero_finding = (
+            f'<section class="hero-finding" aria-label="Countdown to kickoff">'
+            f'<p class="hero-finding__eyebrow">Days to kickoff</p>'
+            f'<p class="hero-finding__number">{_days_to_kickoff}</p>'
+            f'<p class="hero-finding__sentence">until the {_kickoff_year} season starts.</p>'
+            f'<p class="hero-finding__caption">{len(rankings):,} ranked teams &middot; updated {date.today().isoformat()}.</p>'
+            f'</section>'
+        )
+    else:
+        _home_hero_finding = ''
     summary_cards = _render_summary_cards(featured_team_pages)
     board = _render_home_team_board(featured_team_pages)
     power_resume_plot = _render_power_resume_plot(featured_team_pages, prefix="")
@@ -14626,10 +16336,11 @@ def render_home_html(
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("", current="home")}
+      {_home_hero_finding}
       <section class="home-shell">
         <div class="hero-mast premium-home-hero">
           <p class="eyebrow">{escape(str(editorial_context.get("hero_eyebrow") or "Fan Intelligence / Power / Resume"))}</p>
-          <h1>{escape(str(editorial_context.get("hero_title") or "How college football is actually feeling this week."))}</h1>
+          <h1>{escape(str(editorial_context.get("hero_title") or ("Where every team stands, what every fanbase thinks." if is_offseason(date.today(), db=None) else "How college football is actually feeling this week.")))}</h1>
           <p class="lede mast-copy">
             {escape(str(editorial_context.get("hero_lede") or "A single football universe for FBS through Division III, paired with a proprietary fan-intelligence layer that reads the belief, respect, and rivalry heat around every team. Built for argument, not dashboards."))}
           </p>
@@ -14757,7 +16468,7 @@ def render_home_html(
           <div class="section-head">
             <div>
               <h2>Data Pulse</h2>
-              <p class="section-note">What is loaded locally right now, what powers the numbers, and why the site can keep growing.</p>
+              <p class="section-note">What's currently loaded, what powers the numbers, and why the site can keep growing.</p>
             </div>
           </div>
           <div class="feature-grid pulse-grid">
@@ -14780,6 +16491,7 @@ def render_home_html(
       <script>{_home_board_script()}</script>
       <script>{_matchup_tool_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -14829,6 +16541,14 @@ def render_rankings_page_html(
     <div aria-live="polite" aria-atomic="true" class="sr-only" id="rankingsAnnouncer"></div>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="rankings")}
+      {(
+        f'<section class="hero-finding" aria-label="Top of the board">'
+        f'<p class="hero-finding__eyebrow">{escape(season_name)} Power Rankings</p>'
+        f'<p class="hero-finding__number">{_public_power_text(rankings[0].power_display) if rankings else "—"}</p>'
+        f'<p class="hero-finding__sentence">{escape(rankings[0].team_name)} leads the board on the predictive side.</p>'
+        f'<p class="hero-finding__caption">Sample: {len(rankings):,} ranked teams across every level &middot; resume {_public_resume_text(rankings[0].resume_display)}/100.</p>'
+        f'</section>'
+      ) if rankings else ''}
         <section class="hero">
           <p class="eyebrow">Power Rankings</p>
           <h1>{escape(season_name)} across every level.</h1>
@@ -14836,7 +16556,9 @@ def render_rankings_page_html(
             {_rankings_freshness_lede(season_year_value, summary["week"], latest_local_week)}
           </p>
           <p class="section-note">
-            The list is meant to read like a clean selection-room board: how strong teams look right now, and what they have actually earned.
+            {"The " + season_name + " board — the baseline every 2026 debate starts from. How strong teams finished, and what they earned heading into the new season."
+             if is_offseason(date.today(), db=None) else
+             "The list is meant to read like a clean selection-room board: how strong teams look right now, and what they have actually earned."}
           </p>
           <div class="cta-row">
             <a class="button button-primary" href="../matchups/index.html">Open Matchups</a>
@@ -14918,14 +16640,11 @@ def render_rankings_page_html(
           </article>
         </section>
 
-        <section class="section">
+        <section class="section" id="rankings-filter">
           <article class="panel">
-            <div class="section-head">
-              <div>
-                <h2>Rankings Board Controls</h2>
-                <p class="section-note">Keep the official board visible, but slice it the way fans actually browse: by level, league, rank range, or argument style.</p>
-              </div>
-              <a class="text-link" href="../compare/index.html">Open Compare</a>
+            <div class="filter-strip-head">
+              <h3 class="filter-strip-label" id="rankings-filter-anchor">Filter the rankings</h3>
+              <p class="section-note">Slice the board the way fans actually browse: by level, league, rank range, or argument style. <a class="text-link" href="../compare/index.html">Open Compare →</a></p>
             </div>
             {_metric_guide_strip()}
             <div class="board-utility">
@@ -15000,12 +16719,12 @@ def render_rankings_page_html(
             <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Change</th>
-                <th>Team</th>
-                <th>Level</th>
-                <th>Power</th>
-                <th>Resume</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Change</th>
+                <th scope="col">Team</th>
+                <th scope="col">Level</th>
+                <th scope="col">Power</th>
+                <th scope="col">Resume</th>
               </tr>
             </thead>
             <tbody id="rankingsTableBody">
@@ -15014,18 +16733,45 @@ def render_rankings_page_html(
           </table>
         </div>
       </section>
+      {render_methodology_footer(
+          page="Rankings",
+          sample_summary=f"Sample: {len(rankings):,} ranked teams across FBS, FCS, Division II, and Division III",
+          prefix="../",
+      )}
     </main>
+    {_render_dashboard_mobile_strip(
+        filter_anchor="#rankings-filter-anchor",
+        summary_text=f"{len(rankings):,} teams",
+    )}
     <script>{_power_resume_plot_script()}</script>
     <script>{_rankings_board_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
 
 
-def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, Any], site_pulse: dict[str, Any]) -> str:
+def _render_dashboard_mobile_strip(*, filter_anchor: str, summary_text: str = "") -> str:
+    """Wrapper that imports cfb_rankings.dashboards.render_mobile_filter_strip
+    lazily so the reporting.py module-level import surface stays unchanged."""
+    from cfb_rankings.dashboards import render_mobile_filter_strip
+    return render_mobile_filter_strip(
+        filter_anchor=filter_anchor,
+        summary_text=summary_text,
+    )
+
+
+def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, Any], site_pulse: dict[str, Any], tail_writer: Any = None) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     level_cards = _render_history_level_cards(history_hub, prefix="../programs/")
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we built the historical archive",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{int(history_hub.get('team_seasons') or 0):,} team-seasons &middot; {escape(str(history_hub.get('first_season') or ''))}&ndash;{escape(str(history_hub.get('last_season') or ''))}",
+    )
     greatest_rows = _render_history_team_season_rows(history_hub.get("greatest_seasons") or [], prefix="../programs/")
     strongest_rows = _render_history_team_season_rows(history_hub.get("strongest_seasons") or [], prefix="../programs/")
     roughest_rows = _render_history_team_season_rows(history_hub.get("roughest_seasons") or [], prefix="../programs/")
@@ -15037,7 +16783,19 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
     season_cards = _render_history_season_summary_cards(history_hub, prefix="../programs/")
     preseason_playbook = _render_preseason_playbook_cards()
     explorer_rows = history_hub.get("explorer_rows") or []
-    explorer_table_rows = _render_history_explorer_rows(explorer_rows)
+    # Page-weight guard (WS-11): the explorer table is ~5k server-rendered rows
+    # (~360KB gzipped). Inline only the first slice for instant paint / SEO /
+    # no-JS, and stream the rest as a fetched sidecar that the filter script
+    # injects on load — preserving full client-side filter+sort over every row.
+    _HISTORY_INLINE_ROWS = 150
+    if tail_writer is not None and len(explorer_rows) > _HISTORY_INLINE_ROWS:
+        import json as _json
+        explorer_table_rows = _render_history_explorer_rows(explorer_rows[:_HISTORY_INLINE_ROWS])
+        tail_writer(_json.dumps({"rows_html": _render_history_explorer_rows(explorer_rows[_HISTORY_INLINE_ROWS:])}))
+        _history_tail_attr = ' data-history-tail="explorer-tail.json"'
+    else:
+        explorer_table_rows = _render_history_explorer_rows(explorer_rows)
+        _history_tail_attr = ""
     explorer_conferences = sorted({str(row.get("conference_name") or "") for row in explorer_rows if row.get("conference_name")})
     return f"""<!doctype html>
 <html lang="en">
@@ -15071,7 +16829,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
 
       <section class="section">
         <article class="panel" style="padding:24px;border:1px solid var(--border,#d8d8d8);border-radius:14px;">
-          <p class="eyebrow" style="font-size:11px;letter-spacing:2px;color:var(--muted-foreground,#666);font-weight:700;">NEW · 2026-05-12</p>
+          <p class="eyebrow" style="font-size:11px;letter-spacing:2px;color:var(--muted-foreground,#666);font-weight:700;">NEW &middot; 2026-05-12</p>
           <h2 style="margin:6px 0 4px;">The Dynasty Heatmap</h2>
           <p style="color:var(--muted-foreground,#555);margin-bottom:12px;">Twelve seasons. Every FBS program. Cells colored by within-year power percentile. The CFP era as a single argument — Alabama at 97th percentile, Stanford as the era's hardest landing, UTSA as the return-to-relevance story.</p>
           <a class="button button-primary" href="../history/heatmap/">Open the heatmap</a>
@@ -15102,12 +16860,12 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody>
@@ -15128,12 +16886,12 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody>
@@ -15156,10 +16914,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Latest Season</th>
-                  <th>Peak Gap</th>
-                  <th>Context</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Latest Season</th>
+                  <th scope="col">Peak Gap</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -15180,10 +16938,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Window</th>
-                  <th>Average Power</th>
-                  <th>Context</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Window</th>
+                  <th scope="col">Average Power</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -15206,10 +16964,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Jump Season</th>
-                  <th>Change</th>
-                  <th>Latest Finish</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Jump Season</th>
+                  <th scope="col">Change</th>
+                  <th scope="col">Latest Finish</th>
                 </tr>
               </thead>
               <tbody>
@@ -15230,10 +16988,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Loaded Seasons</th>
-                  <th>Average Power</th>
-                  <th>Latest Season</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Loaded Seasons</th>
+                  <th scope="col">Average Power</th>
+                  <th scope="col">Latest Season</th>
                 </tr>
               </thead>
               <tbody>
@@ -15256,12 +17014,12 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody>
@@ -15282,10 +17040,10 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Drop Season</th>
-                  <th>Change</th>
-                  <th>Latest Finish</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Drop Season</th>
+                  <th scope="col">Change</th>
+                  <th scope="col">Latest Finish</th>
                 </tr>
               </thead>
               <tbody>
@@ -15355,7 +17113,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
               </label>
             </div>
             <div class="board-toolbar">
-              <div class="board-status">
+              <div class="board-status" aria-live="polite" aria-atomic="true">
                 <strong id="historyExplorerCount">{len(explorer_rows)}</strong>
                 <span>seasons visible</span>
               </div>
@@ -15367,18 +17125,18 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Program</th>
-                  <th>Lens</th>
-                  <th>Record</th>
-                  <th>Final Rank</th>
-                  <th>Power</th>
-                  <th>Resume</th>
-                  <th>Margin</th>
-                  <th>Open</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Lens</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Final Rank</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
+                  <th scope="col">Margin</th>
+                  <th scope="col">Open</th>
                 </tr>
               </thead>
-              <tbody id="historyExplorerBody">
+              <tbody id="historyExplorerBody"{_history_tail_attr}>
                 {explorer_table_rows}
               </tbody>
             </table>
@@ -15397,14 +17155,21 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
           {preseason_playbook}
         </div>
       </section>
+
+      {profile_meta_footer}
     </main>
     <script>{_history_explorer_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
 
 
 def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) -> str:
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip_v2,
+    )
     ranking: RankingRow = team_data["ranking"]
     team = team_data["team"]
     season_summary = team_data["season_summary"]
@@ -15465,7 +17230,8 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
     hero_logo_html = (
         f'<img src="../assets/team-art/{escape(ranking.slug)}/logo_primary.png" '
         f'alt="{escape(team_name)} logo" '
-        f'width="96" height="96" class="team-hero-logo" loading="lazy" '
+        f'width="96" height="96" class="team-hero-logo" '
+        f'loading="lazy" decoding="async" '
         f'onerror="this.style.display=\'none\'">'
         if ranking.slug else ""
     )
@@ -15497,56 +17263,43 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <span>/</span>
           <strong>{escape(season_name)}</strong>
         </div>
-        <section class="hero team-hero premium-team-hero">
-          <div class="team-hero-top">
-            <div class="team-hero-heading">
-              {hero_logo_html}
-              <div>
-                <h1>{escape(team_name)}</h1>
-                <p class="team-hero-sub">{escape(conference)} Conference</p>
-              </div>
-            </div>
-            <div class="team-rank-chip">Rank #{ranking.rank}</div>
-          </div>
-          <div class="team-stat-ribbon">
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Record</span>
-                <strong>{wins}-{losses}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Power</span>
-                <strong>{_public_power_text(ranking.power_display)}</strong>
-                <span class="submetric">pts vs avg NCAA team</span>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Resume</span>
-                <strong>{_public_resume_text(ranking.resume_display)}</strong>
-                <span class="submetric">{_public_resume_percentile_label(ranking.resume_display)}</span>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Net Points</span>
-                <strong>{net_points:+d}</strong>
-              </div>
-            </article>
-          </div>
-          <div class="team-hero-actions">
-            <a class="button button-primary" href="../programs/{escape(ranking.slug)}.html">Program History</a>
-            <a class="button button-primary" href="../matchups/index.html">Matchup Simulator</a>
-            <a class="button button-secondary" href="../compare/index.html">Compare Teams</a>
-            <a class="button button-secondary" href="../rankings/index.html">Back To Rankings</a>
-          </div>
-        </section>
+        {render_profile_identity_strip_v2(
+            eyebrow=(f"{conference.upper()} CONFERENCE · {season_name.upper()} BASELINE · 2026 OUTLOOK"
+                     if is_offseason(date.today(), db=None)
+                     else f"{conference.upper()} CONFERENCE · {season_name.upper()}"),
+            name=team_name,
+            sub_meta=(f"#{ranking.rank} entering 2026" if is_offseason(date.today(), db=None)
+                      else f"#{ranking.rank} in current rankings"),
+            team_mark_html=hero_logo_html or escape(team_mark),
+            stat_tiles=[
+                {"label": "Record", "value": f"{wins}-{losses}"},
+                {"label": "Power",
+                 "value": _public_power_text(ranking.power_display),
+                 "sub": "pts vs avg NCAA team"},
+                {"label": "Resume",
+                 "value": _public_resume_text(ranking.resume_display),
+                 "sub": _public_resume_percentile_label(ranking.resume_display)},
+                {"label": "Net Points", "value": f"{net_points:+d}"},
+            ],
+            action_buttons=[
+                {"label": "Program History",
+                 "href": f"../programs/{ranking.slug}.html",
+                 "variant": "primary"},
+                {"label": "Matchup Simulator",
+                 "href": "../matchups/index.html",
+                 "variant": "primary"},
+                {"label": "Compare Teams",
+                 "href": "../compare/index.html",
+                 "variant": "secondary"},
+                {"label": "Back To Rankings",
+                 "href": "../rankings/index.html",
+                 "variant": "secondary"},
+            ],
+            chips=[f"Rank #{ranking.rank}"],
+            accent_color=team_theme['accent'],
+            accent_color_soft=team_theme['accent_soft'],
+            aria_label=f"{team_name} {season_name} identity",
+        )}
       </section>
 
       {mood_card}
@@ -15657,9 +17410,9 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
             <table>
               <thead>
                 <tr>
-                  <th>Phase</th>
-                  <th>Record</th>
-                  <th>Games</th>
+                  <th scope="col">Phase</th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Games</th>
                 </tr>
               </thead>
               <tbody>
@@ -15699,18 +17452,18 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <table>
             <thead>
               <tr>
-                <th>Week</th>
-                <th>Date</th>
-                <th>Game</th>
-                <th>Phase</th>
-                <th>Result</th>
-                <th>Close</th>
-                <th>ATS</th>
-                <th>Total</th>
-                <th>Pregame</th>
-                <th>Power Change</th>
-                <th>Resume Change</th>
-                <th>Postgame</th>
+                <th scope="col">Week</th>
+                <th scope="col">Date</th>
+                <th scope="col">Game</th>
+                <th scope="col">Phase</th>
+                <th scope="col">Result</th>
+                <th scope="col">Close</th>
+                <th scope="col">ATS</th>
+                <th scope="col">Total</th>
+                <th scope="col">Pregame</th>
+                <th scope="col">Power Change</th>
+                <th scope="col">Resume Change</th>
+                <th scope="col">Postgame</th>
               </tr>
             </thead>
             <tbody>
@@ -15729,16 +17482,16 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           <table>
             <thead>
               <tr>
-                <th>Season</th>
-                <th>Lens</th>
-                <th>Record</th>
-                <th>Final Rank</th>
-                <th>End Power</th>
-                <th>End Resume</th>
-                <th>Games</th>
-                <th>Points For</th>
-                <th>Points Against</th>
-                <th>Margin</th>
+                <th scope="col">Season</th>
+                <th scope="col">Lens</th>
+                <th scope="col">Record</th>
+                <th scope="col">Final Rank</th>
+                <th scope="col">End Power</th>
+                <th scope="col">End Resume</th>
+                <th scope="col">Games</th>
+                <th scope="col">Points For</th>
+                <th scope="col">Points Against</th>
+                <th scope="col">Margin</th>
               </tr>
             </thead>
             <tbody>
@@ -15747,8 +17500,16 @@ def render_team_page_html(summary: dict[str, Any], team_data: dict[str, Any]) ->
           </table>
         </div>
       </section>
+
+      {render_profile_meta_footer(
+          methodology_label="How we measure team strength",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{escape(conference)} · {escape(season_name)}",
+      )}
     </main>
     <script>{_team_journey_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -15760,10 +17521,17 @@ def render_programs_index_html(
     history_hub: dict[str, Any],
     site_pulse: dict[str, Any],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     cards = _render_program_explorer_cards(explorer_rows)
     table_rows = "".join(_render_program_explorer_row(row) for row in explorer_rows)
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we measure program signals",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{len(explorer_rows):,} programs · {escape(str(history_hub.get('first_season') or '—'))}–{escape(str(history_hub.get('last_season') or '—'))}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -15854,16 +17622,16 @@ def render_programs_index_html(
             <table>
               <thead>
                 <tr>
-                  <th>Program</th>
-                  <th>Current Board</th>
-                  <th>Latest Season</th>
-                  <th>Loaded Seasons</th>
-                  <th>Peak Power</th>
-                  <th>Best Resume</th>
-                  <th>Best Finish</th>
-                  <th>Vs. Baseline</th>
-                  <th>Volatility</th>
-                  <th>Season Page</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Current Board</th>
+                  <th scope="col">Latest Season</th>
+                  <th scope="col">Loaded Seasons</th>
+                  <th scope="col">Peak Power</th>
+                  <th scope="col">Best Resume</th>
+                  <th scope="col">Best Finish</th>
+                  <th scope="col">Vs. Baseline</th>
+                  <th scope="col">Volatility</th>
+                  <th scope="col">Season Page</th>
                 </tr>
               </thead>
               <tbody id="programExplorerBody">
@@ -15874,7 +17642,10 @@ def render_programs_index_html(
         </article>
       </section>
       <script>{_programs_explorer_script()}</script>
+
+      {profile_meta_footer}
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -15884,6 +17655,7 @@ def render_teams_index_html(
     summary: dict[str, Any],
     rankings: list[RankingRow],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     level_counts: dict[str, int] = {}
@@ -15989,7 +17761,7 @@ def render_teams_index_html(
                 </select>
               </label>
             </div>
-            <div class="board-status">
+            <div class="board-status" aria-live="polite" aria-atomic="true">
               <span class="status-pill"><strong id="teamsVisibleCount">{len(rankings)}</strong> teams visible</span>
               <a class="button button-secondary" href="../rankings/index.html">Open Power Rankings</a>
             </div>
@@ -15998,11 +17770,11 @@ def render_teams_index_html(
             <table>
               <thead>
                 <tr>
-                  <th>Rank</th>
-                  <th>Team</th>
-                  <th>Level</th>
-                  <th>Power</th>
-                  <th>Resume</th>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Level</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Resume</th>
                 </tr>
               </thead>
               <tbody id="teamsIndexBody">
@@ -16012,8 +17784,16 @@ def render_teams_index_html(
           </div>
         </article>
       </section>
+
+      {render_profile_meta_footer(
+          methodology_label="How we model team strength",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{len(rankings):,} teams across FBS, FCS, Division II, Division III",
+      )}
       <script>{_teams_index_script()}</script>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16057,6 +17837,27 @@ def _teams_index_script() -> str:
 
 
 def render_program_page_html(summary: dict[str, Any], program_data: dict[str, Any]) -> str:
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip_v2,
+    )
+    # Sprint F lite (2026-05-22) — for the 17 profiled slugs, the world-
+    # class team page at /teams/<slug>.html carries Pulse + Chronicle +
+    # Savant + Rivalry + Hero Arc and is significantly richer than this
+    # legacy program-history view. Surface a prominent banner above the
+    # identity strip that points to the world-class page so visitors who
+    # land here from external links + the legacy "Programs" nav don't
+    # think the thin history page is the canonical team experience.
+    #
+    # Sprint H (2026-05-22): the world-class team page now covers all 119
+    # real FBS programs (not just 30 hand-authored), so the banner gate
+    # expands accordingly. program_data["__world_class_available"] is
+    # precomputed at the caller. Fall back to the hand-authored set when
+    # the flag is missing (e.g. ad-hoc renders that bypass build-site).
+    from cfb_rankings.team_pages.profile_loader import PROFILED_SLUGS as _PROFILED_SLUGS
+    _PROFILED_SLUGS = set(_PROFILED_SLUGS)
+    if program_data.get("__world_class_available"):
+        _PROFILED_SLUGS.add(str(program_data.get("team", {}).get("slug", "")))
     team = program_data.get("team") or {}
     history = program_data.get("history") or []
     history_profile = program_data.get("history_profile") or {}
@@ -16151,6 +17952,12 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
     </div>
     """
     season_name = season_label(int(summary["season_year"]))
+    profile_meta_footer = render_profile_meta_footer(
+        methodology_label="How we measure program signals",
+        methodology_href="../methodology/index.html",
+        updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+        sample_text=f"{int(history_profile.get('loaded_seasons') or 0)} loaded seasons · {escape(level_code)}",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -16163,6 +17970,18 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="programs")}
+      {f'''
+      <aside class="world-class-pointer" aria-label="World-class team page available">
+        <div class="world-class-pointer__inner">
+          <span class="world-class-pointer__eyebrow">2025 Season &middot; live</span>
+          <p class="world-class-pointer__body">
+            This is the historical view. For {escape(team_name)}'s 2025 season — Pulse, Chronicle, Rivalry, Savant card, and the 13-brick CFP-era arc — visit the world-class team page.
+          </p>
+          <a class="world-class-pointer__cta" href="../teams/{escape(team_slug)}.html">
+            See the world-class {escape(team_name)} page &rarr;
+          </a>
+        </div>
+      </aside>''' if team_slug in _PROFILED_SLUGS else ''}
       <section class="team-shell" style="--team-accent:{team_theme['accent']}; --team-accent-soft:{team_theme['accent_soft']};">
         <div class="team-breadcrumbs">
           <a href="../programs/index.html">Programs</a>
@@ -16171,51 +17990,41 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
           <span>/</span>
           <strong>{escape(team_name)}</strong>
         </div>
-        <section class="hero team-hero premium-team-hero">
-          <div class="team-hero-top">
-            <div>
-              <h1>{escape(team_name)}</h1>
-              <p class="team-hero-sub">{escape(level_code)} program | latest conference era: {escape(conference_name)}</p>
-            </div>
-            <div class="team-rank-chip">Program Explorer</div>
-          </div>
-          <div class="team-stat-ribbon">
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Loaded Seasons</span>
-                <strong>{int(history_profile.get("loaded_seasons") or 0)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Latest Season</span>
-                <strong>{escape(str(latest_season_year or '--'))}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Peak Loaded Season</span>
-                <strong>{escape(peak_power_text)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Best Finish</span>
-                <strong>{escape(best_finish_text)}</strong>
-              </div>
-            </article>
-          </div>
-          <div class="team-hero-actions">
-            {f'<a class="button button-primary" href="{program_data.get("current_season_url")}">{escape(season_name)} Page</a>' if program_data.get("current_season_url") else ''}
-            <a class="button button-secondary" href="../rankings/index.html">Current Rankings</a>
-            <a class="button button-secondary" href="../history/index.html">History Hub</a>
-          </div>
-          {program_subnav}
-        </section>
+        {render_profile_identity_strip_v2(
+            eyebrow=f"{level_code} PROGRAM EXPLORER",
+            name=team_name,
+            sub_meta=f"latest conference era: {conference_name}",
+            team_mark_html=escape(team_mark),
+            stat_tiles=[
+                {"label": "Loaded Seasons",
+                 "value": str(int(history_profile.get("loaded_seasons") or 0))},
+                {"label": "Latest Season",
+                 "value": str(latest_season_year or "--")},
+                {"label": "Peak Power",
+                 "value": peak_power_text},
+                {"label": "Best Finish",
+                 "value": best_finish_text},
+            ],
+            action_buttons=([
+                {"label": ("World-Class Team Page →"
+                          if team_slug in _PROFILED_SLUGS
+                          else f"{season_name} Page"),
+                 "href": program_data.get("current_season_url"),
+                 "variant": "primary"},
+            ] if program_data.get("current_season_url") else []) + [
+                {"label": "Current Rankings",
+                 "href": "../rankings/index.html",
+                 "variant": "secondary"},
+                {"label": "History Hub",
+                 "href": "../history/index.html",
+                 "variant": "secondary"},
+            ],
+            chips=["Program Explorer"],
+            accent_color=team_theme['accent'],
+            accent_color_soft=team_theme['accent_soft'],
+            aria_label=f"{team_name} program identity",
+        )}
+        {program_subnav}
       </section>
 
       <section class="section premium-team-grid player-anchor-section" id="program-arc">
@@ -16341,15 +18150,15 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
           <table>
             <thead>
               <tr>
-                <th>Season</th>
-                <th>Conference</th>
-                <th>Lens</th>
-                <th>Record</th>
-                <th>Final Rank</th>
-                <th>End Power</th>
-                <th>End Resume</th>
-                <th>Margin</th>
-                <th>Season Page</th>
+                <th scope="col">Season</th>
+                <th scope="col">Conference</th>
+                <th scope="col">Lens</th>
+                <th scope="col">Record</th>
+                <th scope="col">Final Rank</th>
+                <th scope="col">End Power</th>
+                <th scope="col">End Resume</th>
+                <th scope="col">Margin</th>
+                <th scope="col">Season Page</th>
               </tr>
             </thead>
             <tbody id="programSeasonExplorerBody">
@@ -16358,8 +18167,11 @@ def render_program_page_html(summary: dict[str, Any], program_data: dict[str, An
           </table>
         </div>
       </section>
+
+      {profile_meta_footer}
     </main>
     <script>{_program_page_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16370,6 +18182,7 @@ def render_heisman_page_html(
     heisman_snapshot: dict[str, Any],
     player_directory_rows: list[dict[str, Any]],
     team_conference_map: dict[str, str] | None = None,
+    tail_writer: Any = None,
 ) -> str:
     # Use the snapshot's actual data season for labels — not summary's
     # "current site season". When heisman_rankings_weekly has no rows
@@ -16411,28 +18224,124 @@ def render_heisman_page_html(
         {str(row.team_name).strip() for row in board_rows if row.team_name},
         key=lambda value: value.lower(),
     )
-    market_header = "<th>Market</th>" if has_market_data else ""
-    table_rows = (
-        "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in board_rows)
-        if board_rows
-        else f'<tr><td colspan="{10 if has_market_data else 9}">Heisman model rows have not been loaded yet for this season.</td></tr>'
+    market_header = '<th scope="col">Market</th>' if has_market_data else ""
+    # Performance: cap the inline table at top-1000 rows. The legacy
+    # behavior rendered ALL ~16k ranked players inline, producing a
+    # 15MB HTML response. Top-1000 covers every realistic Heisman case;
+    # the remaining ~15k are tail-of-the-board rows hydrated lazily via
+    # JSON payload on demand (see "Load full board" button + handler in
+    # _heisman_board_script).
+    _MAX_BOARD_ROWS_INLINE = 1000
+    _board_rows_inline = board_rows[:_MAX_BOARD_ROWS_INLINE]
+    _tail_rows = board_rows[_MAX_BOARD_ROWS_INLINE:]
+    _truncated_count = len(_tail_rows)
+    _truncation_note_row = (
+        f'<tr class="hb-row hb-row--truncation" data-heisman-tail-anchor="true">'
+        f'<td colspan="{10 if has_market_data else 9}">'
+        f'Showing top {_MAX_BOARD_ROWS_INLINE:,} of {len(board_rows):,} ranked players. '
+        f'<button type="button" class="text-link" data-heisman-load-tail>Load the remaining {_truncated_count:,} &rarr;</button>'
+        f'</td></tr>'
+        if _truncated_count > 0 else ''
     )
+    table_rows = (
+        "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in _board_rows_inline) + _truncation_note_row
+        if board_rows
+        else f'<tr><td colspan="{10 if has_market_data else 9}">The Heisman model has no published board for this season yet.</td></tr>'
+    )
+    # Lazy-load payload: render each tail row server-side as an HTML
+    # string, then ship the concatenated string as a JSON literal in a
+    # <script type="application/json"> block. The "Load full board" JS
+    # parses it, inserts before the truncation anchor row, then removes
+    # the anchor + the now-loaded payload script. This brings the full
+    # board back without paying the 15MB initial cost.
+    if _tail_rows:
+        import json as _json
+        _tail_html = "".join(_render_heisman_board_row(row, include_market=has_market_data) for row in _tail_rows)
+        _tail_payload_json = _json.dumps({"tail_rows_html": _tail_html, "tail_count": _truncated_count})
+        if tail_writer is not None:
+            # External mode: write the tail payload to a sidecar JSON file
+            # that the "Load full board" JS fetches on demand. This keeps the
+            # ~15k tail rows OUT of the initial HTML transfer (the inline blob
+            # was ~1MB gzipped on every load — fake-lazy, since it deferred
+            # only DOM render, not the byte cost). See WS-11 page-weight work.
+            tail_writer(_tail_payload_json)
+            _heisman_tail_payload_html = ""
+        else:
+            _heisman_tail_payload_html = (
+                f'<script type="application/json" id="heisman-tail-payload">'
+                f'{_tail_payload_json}'
+                f'</script>'
+            )
+    else:
+        _heisman_tail_payload_html = ""
     featured_cards = _render_heisman_feature_cards(board_rows)
     tracked_profiles = len(player_directory_rows)
     ranked_profiles = len(board_rows)
     tracked_on_board = sum(1 for row in player_directory_rows if row.get("current_heisman_rank") is not None)
     latest_week = heisman_snapshot.get("week")
     vote_eligible_week = None if latest_week is None else min(int(latest_week), 16)
-    market_note = (
-        "An external award-market prior is loaded for this snapshot and blended into the forecast with a decaying in-season weight."
-        if has_market_data
-        else "No external Heisman futures prior is loaded for this snapshot. CFBD currently exposes game betting lines, not award futures."
-    )
-    vote_note = (
-        "Postseason snapshots freeze the Heisman inputs at conference championship week so bowl and playoff games do not rewrite a vote that was already cast."
-        if latest_week is not None and int(latest_week) > 16
-        else "The probabilities reflect the live vote-eligible data horizon for this week."
-    )
+    # If today is in the CFB offseason (after the most recent CFP title game,
+    # before the next kickoff), the snapshot is a retrospective view of a
+    # completed season — not a live race. Copy needs to match. Without this
+    # check the page reads "live vote-eligible data horizon for this week"
+    # in May 2026 alongside a "Final 2025" badge in the meta-pill row —
+    # mutually contradictory.
+    season_is_completed = is_offseason(date.today(), db=None)
+    if has_market_data:
+        market_note = (
+            "An external award-market prior is loaded for this snapshot and blended into the forecast with a decaying in-season weight."
+        )
+    elif season_is_completed:
+        market_note = (
+            f"Final-season snapshot. No external award-market prior is loaded; "
+            f"the probabilities below were the model's last live read on the "
+            f"{season_name} race before the trophy was awarded."
+        )
+    else:
+        market_note = (
+            "No external award-market prior is loaded for this snapshot. "
+            "The probabilities below are model-only."
+        )
+    if season_is_completed:
+        vote_note = (
+            f"Final-season view: these are the model's last vote-eligible "
+            f"inputs for the {season_name} race. Treat them as a retrospective "
+            f"on what the model believed, not a live forecast."
+        )
+    elif latest_week is not None and int(latest_week) > 16:
+        vote_note = (
+            "Postseason snapshots freeze the Heisman inputs at conference "
+            "championship week so bowl and playoff games do not rewrite a "
+            "vote that was already cast."
+        )
+    else:
+        vote_note = "The probabilities reflect the live vote-eligible data horizon for this week."
+
+    # Hero finding zone (Dashboard archetype, per docs/design-system/30-page-archetypes.md):
+    # one big number + sentence + caption. Picks the top board candidate's win
+    # equity, if available; otherwise the hero finding section is suppressed.
+    _hero_finding_html = ""
+    if board_rows and board_rows[0].win_probability is not None:
+        _top = board_rows[0]
+        _win_pct = float(_top.win_probability) * 100
+        _hero_eyebrow_txt = (
+            f"Final {season_year_value} Heisman" if season_is_completed else "Heisman Tracker"
+        )
+        _hero_caption = (
+            f"Model believed {escape(_top.full_name)} would win the {season_year_value} race "
+            f"({escape(_top.team_name or '')}); sample = {len(board_rows):,} ranked players."
+            if season_is_completed else
+            f"{escape(_top.full_name)} leads ({escape(_top.team_name or '')}); "
+            f"sample = {len(board_rows):,} ranked players this week."
+        )
+        _hero_finding_html = f"""
+      <section class="hero-finding" aria-label="Top of the board">
+        <p class="hero-finding__eyebrow">{escape(_hero_eyebrow_txt)}</p>
+        <p class="hero-finding__number">{_win_pct:.1f}%</p>
+        <p class="hero-finding__sentence">Win equity for the top candidate.</p>
+        <p class="hero-finding__caption">{_hero_caption}</p>
+      </section>"""
+
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -16445,19 +18354,19 @@ def render_heisman_page_html(
   <body>
     <main class="site-shell" id="main-content">
       {_site_nav("../", current="heisman")}
+      {_hero_finding_html}
       <section class="hero">
-        <p class="eyebrow">Heisman Tracker</p>
-        <h1>A full-board Heisman model, not just a top-three list.</h1>
+        <p class="eyebrow">{str(season_year_value) + " Heisman Tracker &middot; archived race" if season_is_completed else "Heisman Tracker"}</p>
+        <h1>{"How the model called the " + str(season_year_value) + " Heisman race." if season_is_completed else "A full-board Heisman model, not just a top-three list."}</h1>
         <p class="lede">
-          This page is built to support the stronger interpretation of the award: if every voter had to rank the full FBS universe,
-          where would every player land right now, and how much actual win equity does each candidacy have?
+          {("These are the model's final " + str(season_year_value) + " vote-eligible inputs &mdash; the last live read on the race before the trophy was awarded. Treat this as a retrospective: where did the model think every player landed, and how much actual win equity did each candidacy carry?")
+           if season_is_completed else
+           "This page is built to support the stronger interpretation of the award: if every voter had to rank the full FBS universe, where would every player land right now, and how much actual win equity does each candidacy have?"}
         </p>
         <p class="section-note">
-          Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stands right now.
-          <strong>Forecast</strong> &mdash; where we think it ends up.
-          <strong>Win</strong> &mdash; chance to win the trophy.
-          <strong>Finalist</strong> &mdash; chance to be in New York.
-          <strong>Ballot</strong> &mdash; share of voter weight.
+          {("Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stood at the cutoff. <strong>Forecast</strong> &mdash; where the model expected it to end. <strong>Win</strong> &mdash; chance to win the trophy. <strong>Finalist</strong> &mdash; chance to be in New York. <strong>Ballot</strong> &mdash; share of voter weight.")
+           if season_is_completed else
+           "Five lenses per player: <strong>Nowcast</strong> &mdash; where the race stands right now. <strong>Forecast</strong> &mdash; where we think it ends up. <strong>Win</strong> &mdash; chance to win the trophy. <strong>Finalist</strong> &mdash; chance to be in New York. <strong>Ballot</strong> &mdash; share of voter weight."}
         </p>
         {_heisman_lens_confidence_chip(heisman_snapshot)}
         <div class="cta-row">
@@ -16496,11 +18405,9 @@ def render_heisman_page_html(
 
       <section class="section">
         <article class="panel">
-          <div class="section-head">
-            <div>
-              <h2>Board Controls</h2>
-              <p class="section-note">Search the full board by player, team, conference, or position, then flip between raw order and probability views.</p>
-            </div>
+          <div class="filter-strip-head">
+            <h3 class="filter-strip-label" id="heisman-filter-anchor">Filter the board</h3>
+            <p class="section-note">Search by player, team, conference, or position; flip between raw order and probability views.</p>
           </div>
           <p class="section-note">{escape(market_note)}</p>
           <p class="section-note">{escape(vote_note)}</p>
@@ -16554,7 +18461,7 @@ def render_heisman_page_html(
                   <button type="button" class="jump-chip" data-heisman-limit="100">Top 100</button>
                 <button type="button" class="jump-chip is-active" data-heisman-limit="all">All players</button>
               </div>
-              <div class="board-status">
+              <div class="board-status" aria-live="polite" aria-atomic="true">
                 <strong id="heismanVisibleCount">{len(board_rows)}</strong>
                 <span>players visible</span>
                 </div>
@@ -16566,16 +18473,16 @@ def render_heisman_page_html(
             <table>
               <thead>
                 <tr>
-                  <th>Rank</th>
-                  <th>Player</th>
-                  <th>Team</th>
-                  <th>Pos</th>
-                  <th>Nowcast</th>
-                  <th>Forecast</th>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Nowcast</th>
+                  <th scope="col">Forecast</th>
                   {market_header}
-                  <th>Win</th>
-                  <th>Finalist</th>
-                  <th>Ballot</th>
+                  <th scope="col">Win</th>
+                  <th scope="col">Finalist</th>
+                  <th scope="col">Ballot</th>
                 </tr>
               </thead>
               <tbody id="heismanBoardBody">
@@ -16585,8 +18492,58 @@ def render_heisman_page_html(
           </div>
         </article>
       </section>
+      {render_methodology_footer(
+          page="Heisman",
+          sample_summary=f"Sample: {len(board_rows):,} ranked players in the model",
+          prefix="../",
+      )}
     </main>
+    {_render_dashboard_mobile_strip(
+        filter_anchor="#heisman-filter-anchor",
+        summary_text=f"{len(board_rows):,} players",
+    )}
+    {_heisman_tail_payload_html}
     <script>{_heisman_board_script()}</script>
+    <script>
+      (() => {{
+        const btn = document.querySelector('[data-heisman-load-tail]');
+        const anchor = document.querySelector('[data-heisman-tail-anchor]');
+        if (!btn || !anchor) return;
+        const payloadNode = document.getElementById('heisman-tail-payload');
+        const insertTail = (data) => {{
+          if (!data || !data.tail_rows_html) return;
+          // Insert the tail rows immediately AFTER the anchor row, then
+          // remove the anchor (which holds the button) so the button
+          // can't be clicked again.
+          const tpl = document.createElement('template');
+          tpl.innerHTML = data.tail_rows_html;
+          anchor.parentNode.insertBefore(tpl.content, anchor.nextSibling);
+          anchor.remove();
+          if (payloadNode) payloadNode.remove();
+        }};
+        btn.addEventListener('click', () => {{
+          if (payloadNode) {{
+            // Inline mode (legacy / non-tail_writer callers): the payload is
+            // already in the DOM.
+            try {{ insertTail(JSON.parse(payloadNode.textContent || '{{}}')); }}
+            catch (err) {{ console.error('heisman tail load failed', err); }}
+            return;
+          }}
+          // External mode: the tail payload was written to a sidecar JSON
+          // file at build time to keep the initial HTML small. Fetch it on
+          // demand. Disable the button while the request is in flight.
+          btn.setAttribute('disabled', 'disabled');
+          fetch('board-tail.json')
+            .then((resp) => {{ if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); }})
+            .then((data) => insertTail(data))
+            .catch((err) => {{
+              console.error('heisman tail load failed', err);
+              btn.removeAttribute('disabled');
+            }});
+        }});
+      }})();
+    </script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16597,6 +18554,7 @@ def render_players_index_html(
     player_directory_rows: list[dict[str, Any]],
     heisman_snapshot: dict[str, Any],
 ) -> str:
+    from cfb_rankings.profile import render_profile_meta_footer
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
     # Heisman pill needs the data season, which may be older than the
@@ -16604,8 +18562,24 @@ def render_players_index_html(
     # See render_heisman_page_html / PR #84/#88 for the parallel fix.
     heisman_data_season = heisman_snapshot.get("season_year") or season_year_value
     current_ranked = sum(1 for row in player_directory_rows if row.get("current_heisman_rank") is not None)
+    # Performance: cap the inline directory at top-2000 rows. Legacy
+    # behavior rendered all ~17k cards inline (31MB HTML). Top-2000 covers
+    # every QB/RB/WR/TE the search bar gets used for in practice and drops
+    # page weight ~88%. Tail rows are deeper roster fill (specialists,
+    # walk-ons, transfers from non-FBS); navigable via direct URL or
+    # team-page roster strips. See audit §E2.
+    _MAX_PLAYER_DIRECTORY_INLINE = 2000
+    _player_rows_inline = player_directory_rows[:_MAX_PLAYER_DIRECTORY_INLINE]
+    _player_truncated = max(0, len(player_directory_rows) - _MAX_PLAYER_DIRECTORY_INLINE)
+    _player_truncation_note = (
+        f'<tr><td colspan="8" class="footer-note">'
+        f'Showing top {_MAX_PLAYER_DIRECTORY_INLINE:,} of {len(player_directory_rows):,} player cards. '
+        f'Tail rows are accessible via direct URL or team roster pages.'
+        f'</td></tr>'
+        if _player_truncated > 0 else ''
+    )
     table_rows = (
-        "".join(_render_player_directory_row(row) for row in player_directory_rows)
+        "".join(_render_player_directory_row(row) for row in _player_rows_inline) + _player_truncation_note
         if player_directory_rows
         else '<tr><td colspan="8">Player cards will populate after roster or Heisman data is loaded.</td></tr>'
     )
@@ -16686,14 +18660,14 @@ def render_players_index_html(
             <table>
               <thead>
                 <tr>
-                  <th>Player</th>
-                  <th>Team</th>
-                  <th>Pos</th>
-                  <th>Current Heisman</th>
-                  <th>Best Finish</th>
-                  <th>Tracked Seasons</th>
-                  <th>Forecast</th>
-                  <th>Card</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Current Heisman</th>
+                  <th scope="col">Best Finish</th>
+                  <th scope="col">Tracked Seasons</th>
+                  <th scope="col">Forecast</th>
+                  <th scope="col">Card</th>
                 </tr>
               </thead>
               <tbody id="playerDirectoryBody">
@@ -16703,8 +18677,16 @@ def render_players_index_html(
           </div>
         </article>
       </section>
+
+      {render_profile_meta_footer(
+          methodology_label="How we model players",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{len(player_directory_rows):,} player cards on file",
+      )}
     </main>
     <script>{_player_directory_script()}</script>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -16820,12 +18802,13 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
         f'</span>'
         f'</div>'
     ) if rank and cohort_size else ""
+    _pct_suffix = ordinal_suffix(pct_int)
     pctile_card = (
         f'<div class="signature-story__rank-row">'
         f'  <span class="signature-story__rank-label">Percentile vs {escape(rank_cohort or "cohort")}</span>'
         f'  <span class="signature-story__rank-value {_percentile_class(pct)}" '
-        f'aria-label="{pct_int}th percentile">'
-        f'{pct_int}<span style="font-size: var(--fs-meta);">th</span>'
+        f'aria-label="{pct_int}{_pct_suffix} percentile">'
+        f'{pct_int}<span style="font-size: var(--fs-meta);">{_pct_suffix}</span>'
         f'</span>'
         f'</div>'
     )
@@ -16893,7 +18876,7 @@ def _render_algorithmic_signature_card(story: dict[str, Any] | None) -> str:
                data-metric-id="{escape(str(hs.get('metric_id') or ''))}"
                data-cohort-id="{escape(str(hs.get('cohort_id') or ''))}">
         <header class="signature-story__header">
-          <p class="signature-story__eyebrow">{escape(eyebrow_season)} · {escape(str(story.get('updated_label') or ''))}</p>
+          <p class="signature-story__eyebrow">{escape(eyebrow_season)} &middot; {escape(str(story.get('updated_label') or ''))}</p>
           <h2 class="signature-story__headline">{escape(headline)}</h2>
         </header>
         <div class="signature-story__grid">
@@ -16973,9 +18956,9 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
                    data-module="the-room" data-state="empty">
             <header class="the-room__header">
               <h2 class="the-room__title">The Room on {escape(player_name)}</h2>
-              <p class="the-room__sub">Fan sentiment · Awaiting signal</p>
+              <p class="the-room__sub">Fan sentiment &middot; Awaiting signal</p>
             </header>
-            <p class="the-room__empty-body">Belief tracking publishes once player-mention sample + author counts clear the floor. Check back as in-season chatter density rises.</p>
+            <p class="the-room__empty-body">The Room reads fan conversation around a player — who&rsquo;s talking, what they believe, and how that shifts. It publishes once weekly volume rebuilds; for most players that&rsquo;s in-season, when game-week chatter spikes.</p>
           </article>
         """
 
@@ -17140,7 +19123,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
                x-data="theRoom($el.dataset.cohorts, $el.dataset.initial)">
         <header class="the-room__header">
           <h2 class="the-room__title">The Room on {escape(player_name)}</h2>
-          <p class="the-room__sub">Fan sentiment · {escape(updated_label)}</p>
+          <p class="the-room__sub">Fan sentiment &middot; {escape(updated_label)}</p>
         </header>
 
         <div class="the-room__pills" role="tablist" aria-label="Cohort filter">
@@ -17235,7 +19218,7 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
           {(
             f'<blockquote class="the-room__quote-card">'
             f'<p class="the-room__quote">&ldquo;{escape(quote_payload["text"])}&rdquo;</p>'
-            f'<p class="the-room__quote-attrib">— {quote_attrib_html} · {quote_payload["takeCount"]} similar takes</p>'
+            f'<p class="the-room__quote-attrib">— {quote_attrib_html} &middot; {quote_payload["takeCount"]} similar takes</p>'
             f'</blockquote>'
           ) if quote_payload else ''}
         </noscript>
@@ -17244,6 +19227,10 @@ def _render_the_room_card(story: dict[str, Any] | None, player_name: str) -> str
 
 
 def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]) -> str:
+    from cfb_rankings.profile import (
+        render_profile_meta_footer,
+        render_profile_identity_strip_v2,
+    )
     player = player_data.get("player") or {}
     primary_team = player_data.get("primary_team") or {}
     current_snapshot = player_data.get("current_snapshot") or {}
@@ -17302,12 +19289,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     heisman_year_rows = (
         "".join(_render_player_heisman_year_row(row) for row in heisman_years)
         if heisman_years
-        else '<tr><td colspan="10">This player does not have Heisman tracking or official result rows loaded yet.</td></tr>'
+        else '<tr><td colspan="10">This player hasn&rsquo;t appeared on a Heisman ballot tracked by the model.</td></tr>'
     )
     roster_rows = (
         "".join(_render_player_roster_history_row(row) for row in roster_history)
         if roster_history
-        else '<tr><td colspan="6">Roster history will appear after player-season records are loaded.</td></tr>'
+        else '<tr><td colspan="6">Roster history fills in once this player has measured player-season rows on the board.</td></tr>'
     )
     roadmap_cards = "".join(
         f"""
@@ -17329,12 +19316,16 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         """
         for card in (signature_story.get("cards") or [])
     )
+    _spark_map = player_data.get("stat_sparklines") or {}
+    def _spark_for(_label: str) -> str:
+        return _spark_map.get(_label, "")
     stat_summary_ribbon = "".join(
         f"""
         <article class="player-stat-summary-tile">
           <span>{escape(str(card.get("label") or ""))}</span>
           <strong>{escape(str(card.get("value") or "--"))}</strong>
           <span class="submetric">{escape(str(card.get("submetric") or ""))}</span>
+          {_spark_for(str(card.get("label") or ""))}
         </article>
         """
         for card in (stat_profile.get("headline_cards") or [])
@@ -17471,7 +19462,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     )
     stat_explorer_rows = (
         "".join(_render_player_stat_explorer_row(row) for row in (stat_profile.get("explorer_rows") or []))
-        or '<tr><td colspan="6">The stat explorer will populate once player-season metrics are loaded for this player.</td></tr>'
+        or '<tr><td colspan="6">The stat explorer fills in once this player has measured season-level metrics on the board.</td></tr>'
     )
     trophy_case_cards = "".join(
         f"""
@@ -17504,7 +19495,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             """
             for row in (recruiting_profile.get("rows") or [])
         )
-        or '<tr><td colspan="3">No recruiting profile has been loaded for this player yet.</td></tr>'
+        or '<tr><td colspan="3">No recruiting profile is on file for this player.</td></tr>'
     )
     transfer_cards = "".join(
         f"""
@@ -17527,12 +19518,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             """
             for row in (transfer_profile.get("rows") or [])
         )
-        or '<tr><td colspan="3">No transfer portal movement is loaded for this player.</td></tr>'
+        or '<tr><td colspan="3">No transfer portal moves on file for this player.</td></tr>'
     )
     honors_rows = (
         "".join(_render_player_honor_row(row) for row in honors_history)
         if honors_history
-        else '<tr><td colspan="5">No honors rows are loaded yet. The card is ready for All-America, all-conference, weekly awards, watch lists, and postseason trophies.</td></tr>'
+        else '<tr><td colspan="5">No formal honors on the ledger yet. All-America, all-conference, weekly awards, watch lists, and postseason trophies land here when they&rsquo;re earned.</td></tr>'
     )
     current_context = f"""
       <div class="feature-grid history-snapshot-grid">
@@ -17587,6 +19578,76 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
     )
     _player_canonical_path = f"/players/{_player_slug}.html" if _player_slug else None
 
+    # Offseason forward-orientation: in the offseason, lead the analytical
+    # stack with the durable forward layer (Identity & Role, Recruiting
+    # Pedigree, Transfer Arc) ABOVE the last-season Heisman Lens, so the page
+    # reads as a 2026 preview rather than a recap. In-season, keep these in
+    # their original position below the live modules.
+    _is_off = is_offseason(date.today(), db=None)
+    _forward_role_blocks_html = f"""
+      <section class="section player-anchor-section" id="identity-role">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Identity &amp; Role</h2>
+            <p class="section-note">The durable bio layer: position, size, hometown, and roster role.</p>
+          </div>
+          {identity_cards}
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Recruiting Pedigree</h2>
+            <p class="section-note">How big the prospect was before college, and whether the later career arc beat that expectation.</p>
+          </div>
+          <div class="feature-grid history-snapshot-grid">
+            {recruiting_cards}
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Class</th>
+                  <th scope="col">Profile</th>
+                  <th scope="col">Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recruiting_rows}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <article class="panel">
+          <div class="section-head">
+            <h2>Transfer Arc</h2>
+            <p class="section-note">Portal movement changes role, context, and perception. This keeps that path in one place.</p>
+          </div>
+          <div class="feature-grid history-snapshot-grid">
+            {transfer_cards}
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Season</th>
+                  <th scope="col">Move</th>
+                  <th scope="col">Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transfer_rows}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+"""
+
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -17611,58 +19672,48 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <span>/</span>
           <strong>{escape(player_name)}</strong>
         </div>
-        <section class="hero team-hero premium-team-hero">
-          <div class="team-hero-top">
-            <div>
-              <h1>{escape(player_name)}</h1>
-              <p class="team-hero-sub">{escape(position)} | {escape(team_name)} | {escape(conference_name)}</p>
-              {f'<div class="player-hero-facts">{hero_facts}</div>' if hero_facts else ''}
-              {render_this_day_chip(player_data.get("this_day_moment"))}
-            </div>
-            <div class="team-rank-chip">Player Card</div>
-          </div>
-          <div class="team-stat-ribbon">
-            <article class="team-stat-tile" data-metric="Current nowcast|{escape(current_rank_text)}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Current nowcast</span>
-                <strong>{escape(current_rank_text)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile" data-metric="Season forecast|{escape(forecast_text)}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Season forecast</span>
-                <strong>{escape(forecast_text)}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile" data-metric="Win probability|{escape(_probability_text(current_snapshot.get('win_probability')))}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Win probability</span>
-                <strong>{escape(_probability_text(current_snapshot.get("win_probability")))}</strong>
-              </div>
-            </article>
-            <article class="team-stat-tile" data-metric="Best official finish|{escape(best_finish_text)}">
-              <div class="team-mark">{escape(team_mark)}</div>
-              <div>
-                <span>Best official finish</span>
-                <strong>{escape(best_finish_text)}</strong>
-              </div>
-            </article>
-          </div>
-          <div class="team-hero-actions">
-            <a class="button button-primary" href="../heisman/index.html">Heisman Board</a>
-            <a class="button button-secondary" href="../players/index.html">All Player Cards</a>
-            {f'<a class="button button-secondary" href="../teams/{escape(str(team_slug))}.html">{escape(team_name)} team page</a>' if _valid_team_slug(team_slug) else ''}
-          </div>
-        </section>
+        {player_data.get("new_status_strip_html") or ""}
+        {player_data.get("new_where_ended_up_html") or ""}
+        {player_data.get("new_outlook_2026_html") or ""}
+        {_render_qb_fingerprint_hero(
+            player_name=player_name,
+            eyebrow=f"{position} · {team_name.upper()} · {conference_name.upper()}",
+            team_mark_html=escape(team_mark),
+            facts=[
+                class_year if class_year and class_year != "--" else "",
+                f"#{player.get('jersey')}" if player.get("jersey") not in (None, "", "--") else "",
+                _player_measurement_text(player.get("height_inches"), player.get("weight_lbs")),
+                _player_hometown_text(player.get("hometown"), player.get("home_state")),
+            ],
+            sub_meta="",
+            current_snapshot=current_snapshot,
+            signature_story=signature_story,
+            the_room=player_data.get("the_room") or {},
+            cohort_divergence=player_data.get("cohort_divergence") or {},
+            cfb_index_score=player_data.get("cfb_index_score") or {},
+            position=position or "",
+            aria_label=f"{player_name} fingerprint",
+        )}
+        {render_this_day_chip(player_data.get("this_day_moment"))}
       </section>
+
+      <section class="section player-anchor-section" id="player-standing">
+        {player_data.get("new_standing_rail_html") or ""}
+        {player_data.get("new_career_standing_html") or ""}
+        {player_data.get("new_dev_traj_html") or ""}
+        {player_data.get("new_career_arc_html") or ""}
+        {player_data.get("new_live_signal_flow_html") or ""}
+      </section>
+      {(
+        '<section class="section player-anchor-section" id="accolade-trajectory">'
+        + (player_data.get("new_heisman_trajectory_html") or "")
+        + '</section>'
+      ) if (player_data.get("new_heisman_trajectory_html") or "").strip() else ""}
 
       <section class="section">
         {player_subnav}
       </section>
-
+      {_forward_role_blocks_html if _is_off else ''}
       <section class="section player-anchor-section" id="current-heisman-lens">
         <article class="panel">
           <div class="section-head">
@@ -17677,6 +19728,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section{_gilded_class('achievements', _gilded)}" id="achievements">
         {render_prediction_markets_card(player_data.get("market_signal"))}
         {render_achievements_ribbon(player_data.get("achievements"))}
+        {player_data.get("new_selector_grid_html") or ""}
+        {player_data.get("new_nil_draft_html") or ""}
       </section>
 
       <section class="section player-anchor-section{_gilded_class('hot-take', _gilded)}" id="the-room">
@@ -17694,10 +19747,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
         {render_signature_play_card(player_data.get("signature_moment"), player_data.get("signature_moment_opp_tier") or "")}
         {render_narrative_arc_card(player_data.get("narrative_arc"))}
+        {player_data.get("new_narrative_arc_html") or ""}
         {render_scenario_explorer_card(player_data.get("scenario_payload"))}
+        {player_data.get("new_scenario_explorer_html") or ""}
         <article class="panel">
           <div class="section-head">
-            <h2>{escape(str(signature_story.get("title") or "What makes this player interesting right now"))}</h2>
+            <h2>{escape(str(signature_story.get("title") or ("What made this player interesting" if is_offseason(date.today(), db=None) else "What makes this player interesting right now")))}</h2>
             <p class="section-note">The fast read on the thing that makes this player more than a generic stat line.</p>
           </div>
           <div class="prose-panel">
@@ -17709,67 +19764,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
-      <section class="section player-anchor-section" id="identity-role">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Identity & Role</h2>
-            <p class="section-note">The durable bio layer: position, size, hometown, and roster role.</p>
-          </div>
-          {identity_cards}
-        </article>
-      </section>
-
-      <section class="section">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Recruiting Pedigree</h2>
-            <p class="section-note">How big the prospect was before college, and whether the later career arc beat that expectation.</p>
-          </div>
-          <div class="feature-grid history-snapshot-grid">
-            {recruiting_cards}
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Profile</th>
-                  <th>Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recruiting_rows}
-              </tbody>
-            </table>
-          </div>
-        </article>
-      </section>
-
-      <section class="section">
-        <article class="panel">
-          <div class="section-head">
-            <h2>Transfer Arc</h2>
-            <p class="section-note">Portal movement changes role, context, and perception. This keeps that path in one place.</p>
-          </div>
-          <div class="feature-grid history-snapshot-grid">
-            {transfer_cards}
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Season</th>
-                  <th>Move</th>
-                  <th>Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transfer_rows}
-              </tbody>
-            </table>
-          </div>
-        </article>
-      </section>
+      {_forward_role_blocks_html if not _is_off else ''}
 
       <section class="section player-anchor-section" id="current-season-production">
         <article class="panel">
@@ -17780,9 +19775,9 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <div class="player-stats-shell">
             <div class="player-stats-topline">
               <div class="player-stats-copy">
-                <p class="player-stats-eyebrow">Current stats</p>
+                <p class="player-stats-eyebrow">{("Last season" if _is_off else "Current stats")}</p>
                 <h3>{escape(_position_filter_bucket(position))} season snapshot</h3>
-                <p>{escape(str(stat_profile.get("snapshot_note") or "Current season snapshot"))}</p>
+                <p>{escape(str(stat_profile.get("snapshot_note") or ("Last season's production" if _is_off else "Current season snapshot")))}</p>
               </div>
             </div>
             <div class="player-stats-trust-strip">
@@ -17809,6 +19804,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             </details>
           </div>
           {traditional_sections_html}
+          {player_data.get("new_game_log_html") or ""}
           <details class="player-stats-drawer player-stats-drawer-open" open>
             <summary>
               <span>Season-by-season tables</span>
@@ -17826,6 +19822,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
                   <span class="player-stat-module-chip">Career row</span>
                 </div>
               </div>
+              {player_data.get("new_season_context_html") or ""}
               {season_stat_tables_html}
             </div>
           </details>
@@ -17857,10 +19854,10 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
                 <table>
                   <thead>
                     <tr>
-                      <th>Metric</th>
+                      <th scope="col">Metric</th>
                       <th class="metric-cell">Value</th>
                       <th class="metric-cell">Peer context</th>
-                      <th>Why it matters</th>
+                      <th scope="col">Why it matters</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -17900,7 +19897,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
                     <th class="metric-cell" data-player-stat-sort-trigger="value-desc">Value</th>
                     <th class="metric-cell">Rank</th>
                     <th class="metric-cell">Pct</th>
-                    <th>Why it matters</th>
+                    <th scope="col">Why it matters</th>
                   </tr>
                 </thead>
                 <tbody id="playerStatsExplorerBody">
@@ -17914,26 +19911,48 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
         </article>
       </section>
 
-      <section class="section player-anchor-section" id="player-standing">
+      <!-- Session 15: the OLD player-standing section here duplicated the
+           Standing Rail + Selector Grid that now render at #player-standing
+           (lines ~19267-19273) via the player_pages v2 modules. Two sections
+           with the same id="player-standing" caused subnav anchors to be
+           ambiguous AND the user saw two copies of the rail (one ready, one
+           empty placeholder). Removed the duplicate Standing Rail and
+           Selector Grid calls. The decorative v5 standing card stays — it's
+           a visually-distinct large rail with tier pills + drawer that
+           complements the compact rail above. Renamed the id so anchor
+           targets and aria-* don't collide. -->
+      <section class="section player-anchor-section" id="player-standing-detail">
         {_render_v5_player_standing_card(player_data.get("standing"))}
       </section>
 
       <section class="section player-anchor-section" id="splits">
+        {player_data.get("new_splits_html") or ""}
         {_render_v5_splits_card(player_data.get("splits"))}
       </section>
 
       <section class="section player-anchor-section" id="advanced-savant">
+        {player_data.get("new_box_savant_html") or ""}
+        {player_data.get("new_pass_profile_html") or ""}
+        {_render_player_savant_card(
+            player_data.get("savant"),
+            season=(current_snapshot.get("season_year")
+                    or (heisman_years[0].get("season_year") if heisman_years else None)
+                    or 2025),
+            position=position,
+        )}
         {_render_v5_savant_card(player_data.get("savant"))}
       </section>
 
       <section class="section player-anchor-section{_gilded_class('mirror-match', _gilded)}" id="peer-comparator">
+        {player_data.get("new_peer_comparator_html") or ""}
         {_render_v5_peer_comparator_card(player_data.get("peers"))}
-        {render_mirror_match_card(player_data.get("mirror_matches"))}
+        {player_data.get("new_mirror_match_html") or render_mirror_match_card(player_data.get("mirror_matches"))}
       </section>
 
       <section class="section player-anchor-section" id="supporting-cast">
+        {player_data.get("new_supporting_cast_html") or ""}
         {_render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
-        {render_coaching_lineage_card(player_data.get("coaching_lineage"), team_name)}
+        {player_data.get("new_coaching_lineage_html") or render_coaching_lineage_card(player_data.get("coaching_lineage"), team_name)}
       </section>
 
       <section class="section player-anchor-section" id="bio-tabs">
@@ -17946,10 +19965,11 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="trophy-case">
+        {player_data.get("new_trophy_case_html") or ""}
         <article class="panel">
           <div class="section-head">
-            <h2>Trophy Case</h2>
-            <p class="section-note">Major honors at a glance, with Heisman results and selector-grade awards in the same place.</p>
+            <h2>Trophy Case &middot; Detail</h2>
+            <p class="section-note">Every honor on the ledger, broken out by stream and selector.</p>
           </div>
           <div class="feature-grid team-story-grid">
             {trophy_case_cards}
@@ -17967,11 +19987,11 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Honor</th>
-                  <th>Scope</th>
-                  <th>Team / Selector</th>
-                  <th>Context</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Honor</th>
+                  <th scope="col">Scope</th>
+                  <th scope="col">Team / Selector</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -17992,16 +20012,16 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Role</th>
-                  <th>Latest Model</th>
-                  <th>Forecast</th>
-                  <th>Win</th>
-                  <th>Finalist</th>
-                  <th>Official Finish</th>
-                  <th>Points</th>
-                  <th>Context</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Latest Model</th>
+                  <th scope="col">Forecast</th>
+                  <th scope="col">Win</th>
+                  <th scope="col">Finalist</th>
+                  <th scope="col">Official Finish</th>
+                  <th scope="col">Points</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -18022,12 +20042,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
             <table>
               <thead>
                 <tr>
-                  <th>Season</th>
-                  <th>Team</th>
-                  <th>Conference</th>
-                  <th>Pos</th>
-                  <th>Class</th>
-                  <th>Bio</th>
+                  <th scope="col">Season</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Conference</th>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Class</th>
+                  <th scope="col">Bio</th>
                 </tr>
               </thead>
               <tbody>
@@ -18040,8 +20060,16 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       {render_change_log(player_data.get("active_signals") or [])}
 
+      {render_profile_meta_footer(
+          methodology_label="How we model players",
+          methodology_href="../methodology/index.html",
+          updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
+          sample_text=f"{escape(position)} &middot; {escape(class_year)} &middot; {escape(team_name)}",
+      )}
+
     </main>
     <div data-kb-toast aria-live="polite" data-open="false"></div>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -18487,10 +20515,10 @@ def _render_game_impact_table(team_id: int, schedule: list[dict[str, Any]], limi
       <table class="game-impact-table">
         <thead>
           <tr>
-            <th>Key Result</th>
-            <th>Pregame</th>
-            <th>Actual</th>
-            <th>Delta</th>
+            <th scope="col">Key Result</th>
+            <th scope="col">Pregame</th>
+            <th scope="col">Actual</th>
+            <th scope="col">Delta</th>
           </tr>
         </thead>
         <tbody>
@@ -18951,7 +20979,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
         <p class="eyebrow">Methodology</p>
         <h1>Two models, one football universe.</h1>
         <p class="lede">
-          The predictive power model asks how strong a team is right now. The resume model asks what that team has earned so far.
+          The predictive power model asks how strong a team is at any given moment. The resume model asks what that team has earned so far.
           Both are anchored to the same {escape(season_name)} identity, even when postseason games are played in the next calendar year.
         </p>
       </section>
@@ -19025,6 +21053,7 @@ def render_about_model_html(summary: dict[str, Any], site_pulse: dict[str, Any])
         </article>
       </section>
     </main>
+    {render_global_footer()}
   </body>
 </html>
 """
@@ -19341,10 +21370,11 @@ def _render_v5_current_season_card(
             pct_match = re.search(r"(\d+)(?:st|nd|rd|th)", peer)
             pct = int(pct_match.group(1)) if pct_match else None
             if pct is not None:
+                _suf = ordinal_suffix(pct)
                 pill_html = (
                     f'<span class="csp__pct-pill {_bucket_class(pct)}" '
-                    f'aria-label="{pct}th percentile">'
-                    f'{pct}<span class="csp__pct-pill-suffix">th</span>'
+                    f'aria-label="{pct}{_suf} percentile">'
+                    f'{pct}<span class="csp__pct-pill-suffix">{_suf}</span>'
                     f'</span>'
                 )
             else:
@@ -19451,7 +21481,7 @@ def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
         n = payload["narratives"]
         rung_drawer_html = f"""
           <div class="standing__drawer">
-            <p class="standing__drawer-eyebrow">{escape(current_rung_label)} · Rung {current_rung} of 16</p>
+            <p class="standing__drawer-eyebrow">{escape(current_rung_label)} &middot; Rung {current_rung} of 16</p>
             <div class="standing__drawer-grid">
               <div>
                 <p class="standing__drawer-cell-label">Why he&rsquo;s here</p>
@@ -19476,14 +21506,31 @@ def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
             '</div>'
         )
 
+    # Accolade streams — per-position award tabs (Heisman + AA + position
+    # awards). New 2026-05-24: replaces the hardcoded 4-tab QB-only block.
+    # Falls back to the legacy hardcoded list if the new payload key isn't
+    # present (e.g., for tests or older callers).
+    accolade_streams_html = ""
+    streams = payload.get("accolade_streams") if isinstance(payload, dict) else None
+    if streams:
+        try:
+            from cfb_rankings.player_pages.accolade_streams import (
+                render_accolade_tabs_html as _render_accolade_tabs,
+            )
+            accolade_streams_html = _render_accolade_tabs(streams)
+        except Exception:
+            accolade_streams_html = ""
+
     accolade_tabs_html: list[str] = []
-    for idx, tab_label in enumerate(("Heisman", "Davey O'Brien", "Manning", "Unitas")):
-        is_active = idx == 0
-        cls = "standing__accolade-tab is-active" if is_active else "standing__accolade-tab"
-        aria = "true" if is_active else "false"
-        accolade_tabs_html.append(
-            f'<button type="button" class="{cls}" aria-pressed="{aria}">{escape(tab_label)}</button>'
-        )
+    if not accolade_streams_html:
+        # Legacy fallback — keeps the empty-state visual for now.
+        for idx, tab_label in enumerate(("Heisman", "Davey O'Brien", "Manning", "Unitas")):
+            is_active = idx == 0
+            cls = "standing__accolade-tab is-active" if is_active else "standing__accolade-tab"
+            aria = "true" if is_active else "false"
+            accolade_tabs_html.append(
+                f'<button type="button" class="{cls}" aria-pressed="{aria}">{escape(tab_label)}</button>'
+            )
 
     return f"""
       <article class="standing" data-module="player-standing" data-state="ready">
@@ -19507,10 +21554,7 @@ def _render_v5_player_standing_card(standing: dict[str, Any] | None) -> str:
         {rung_drawer_html}
         <div>
           <p class="standing__drawer-eyebrow">Accolade streams</p>
-          <div class="standing__accolade-tabs" role="tablist">{"".join(accolade_tabs_html)}</div>
-          <div class="standing__accolade-body" role="tabpanel">
-            All-America selector grid + probability tiles + ladder progress populate when the per-award tracker runs (Heisman ballot model + AA selector ingestion).
-          </div>
+          {accolade_streams_html if accolade_streams_html else f'<div class="standing__accolade-tabs" role="tablist">{"".join(accolade_tabs_html)}</div><div class="standing__accolade-body" role="tabpanel">All-America selector grid + probability tiles + ladder progress populate when the per-award tracker runs (Heisman ballot model + AA selector ingestion).</div>'}
         </div>
       </article>
     """
@@ -19528,10 +21572,10 @@ def _render_v5_splits_card(splits: dict[str, Any] | None) -> str:
           <article class="splits" data-module="splits" data-state="empty">
             <header class="splits__header">
               <h2 class="splits__title">Splits</h2>
-              <p class="splits__sub">Down-distance · Situational · Personnel · Opponent-tier</p>
+              <p class="splits__sub">Down-distance &middot; Situational &middot; Personnel &middot; Opponent-tier</p>
             </header>
             <div class="splits__awaiting" role="status">
-              Splits surface this player&rsquo;s performance by situation. Populates once the team has play-by-play data ingested for the season.
+              Splits break this player&rsquo;s performance down by situation — down-and-distance, opponent tier, personnel groupings. Returns once the season&rsquo;s play-by-play coverage builds out enough sample to draw real conclusions from.
             </div>
           </article>
         """
@@ -19898,7 +21942,7 @@ def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
           <article class="sc" data-module="supporting-cast" data-state="empty">
             <header class="sc__header">
               <h2 class="sc__title">Supporting Cast</h2>
-              <p class="sc__sub">Team context · Awaiting roster + coordinator data</p>
+              <p class="sc__sub">Team context &middot; Awaiting roster + coordinator data</p>
             </header>
             <p class="sc__empty-body">Supporting Cast surfaces the OL pass-protection grade, top three receivers, offensive coordinator, and defensive coordinator that shape this player's environment. Populates when team-context ingestion lands.</p>
           </article>
@@ -19952,7 +21996,7 @@ def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
       <article class="sc" data-module="supporting-cast" data-state="ready">
         <header class="sc__header">
           <h2 class="sc__title">Supporting Cast</h2>
-          <p class="sc__sub">Team context · OL protection · Top receivers · Coordinators</p>
+          <p class="sc__sub">Team context &middot; OL protection &middot; Top receivers &middot; Coordinators</p>
         </header>
         <div class="sc__grid">{"".join(cards)}</div>
       </article>
@@ -19962,6 +22006,7 @@ def _render_v5_supporting_cast_card(cast: dict[str, Any] | None) -> str:
 def _player_metric_help_text(metric_name: Any) -> str | None:
     metric_key = _board_filter_value(metric_name)
     catalog = {
+        # Existing advanced-metric entries
         "passing-wepa": "Opponent-adjusted passing value. Positive means the player is creating more through the air than a neutral same-role peer would against that schedule.",
         "rushing-wepa": "Opponent-adjusted rushing value. It rewards carries and runs that create actual offensive value, not just raw volume.",
         "role-share": "Estimated share of the team's offense owned by this player after combining the ways the ball flows through them.",
@@ -19972,6 +22017,50 @@ def _player_metric_help_text(metric_name: Any) -> str | None:
         "yards-catch": "Yards per catch. A fast indicator of how much vertical or chunk-play value a receiver creates.",
         "passer-rating": "Passing efficiency formula built from completion rate, yards, touchdowns, and interceptions. It is a familiar summary stat for quarterbacks.",
         "peer-percentile": "Percentile vs same-position players at the same competition level. An FBS quarterback is compared only with other FBS quarterbacks.",
+
+        # Wave 24 — traditional column-header glossary
+        "cmp": "Completions — passes caught by the intended receiver.",
+        "cmp-att": "Completions / attempts. Shows volume and accuracy in one cell.",
+        "c-att": "Completions / attempts. Shows volume and accuracy in one cell.",
+        "att": "Pass attempts — every throw including incompletions and interceptions, excluding sacks.",
+        "yds": "Yards gained on this category. Always a season total when shown in a season row.",
+        "yards": "Yards gained on this category. Always a season total when shown in a season row.",
+        "td": "Touchdowns. For QBs this is passing TDs unless the row is a rushing/receiving subline.",
+        "tds": "Touchdowns. For QBs this is passing TDs unless the row is a rushing/receiving subline.",
+        "int": "Interceptions thrown (for QB rows) or caught (for DB rows).",
+        "ints": "Interceptions thrown (for QB rows) or caught (for DB rows).",
+        "ypa": "Yards per attempt. Quick read on downfield efficiency.",
+        "qbr": "ESPN's Quarterback Rating. 0-100 scale, 50 = average FBS starter.",
+        "rtg": "NCAA passer rating. 100-200 typical; 150+ is excellent.",
+        "rating": "NCAA passer rating. 100-200 typical; 150+ is excellent.",
+        "car": "Carries — designed running plays.",
+        "carries": "Carries — designed running plays.",
+        "ypc": "Yards per carry. Sub-4 is rough, 5+ is strong, 6+ is elite at volume.",
+        "long": "Longest single play in that category for the season.",
+        "rec": "Receptions — catches.",
+        "recs": "Receptions — catches.",
+        "tgts": "Targets — passes thrown his way, regardless of outcome.",
+        "targets": "Targets — passes thrown his way, regardless of outcome.",
+        "ypr": "Yards per reception. Higher = more chunk plays per catch.",
+        "ypc-rec": "Yards per catch. Higher = more chunk plays per catch.",
+        "tot": "Total tackles — solo + assisted.",
+        "tackles": "Total tackles — solo + assisted.",
+        "solo": "Solo tackles — credited entirely to this player.",
+        "ast": "Assisted tackles — shared with at least one teammate.",
+        "tfl": "Tackles for loss. A tackle behind the line of scrimmage on a run or short pass.",
+        "sacks": "Sacks — QB takedowns behind the line on a pass attempt. Half-sacks split credit.",
+        "sk": "Sacks — QB takedowns behind the line on a pass attempt.",
+        "pd": "Passes defended — passes broken up or intercepted at the catch point.",
+        "qb-hur": "QB hurries — disrupting the quarterback into a hurried throw.",
+        "ff": "Forced fumbles — punching the ball loose.",
+        "fr": "Fumble recoveries.",
+        "pct": "Completion percentage — completions / attempts × 100.",
+        "completion-percentage": "Completions / attempts × 100. Floor for FBS starters is ~58%.",
+        "completion": "Completions / attempts × 100. Floor for FBS starters is ~58%.",
+        "fg": "Field goals — made / attempted.",
+        "xp": "Extra points — made / attempted.",
+        "punts": "Punts kicked.",
+        "in-20": "Punts landed inside the opponent 20-yard line.",
     }
     return catalog.get(metric_key)
 
@@ -19993,7 +22082,7 @@ def _render_player_metric_label(metric_name: Any) -> str:
 
 
 def _render_player_season_stat_table(section: dict[str, Any]) -> str:
-    headers = "".join(f"<th>{escape(str(label or '--'))}</th>" for label in (section.get("columns") or []))
+    headers = "".join(f'<th scope="col">{escape(str(label or "--"))}</th>' for label in (section.get("columns") or []))
     rows_html: list[str] = []
     for row in (section.get("rows") or []):
         team_name = str(row.get("team_name") or "--")
@@ -20031,8 +22120,8 @@ def _render_player_season_stat_table(section: dict[str, Any]) -> str:
         <table>
           <thead>
             <tr>
-              <th>Season</th>
-              <th>Team</th>
+              <th scope="col">Season</th>
+              <th scope="col">Team</th>
               {headers}
             </tr>
           </thead>
@@ -20415,8 +22504,24 @@ def _heisman_board_script() -> str:
     """
 
 
-def _player_slug(player_id: int, full_name: str) -> str:
-    return f"{slugify(full_name)}-{player_id}"
+def _player_slug(player_id: int, full_name: str, *, stable_id: str | None = None) -> str:
+    """Generate the URL slug for a player.
+
+    Defaults to the legacy ``{name-slug}-{autoincrement_player_id}`` shape
+    so existing inbound links (Heisman board, search index, sitemap)
+    continue to resolve.
+
+    When ``stable_id`` is provided (e.g. CFBD player id from the
+    ``player_source_ids`` table), the function prefers it. This is the
+    infrastructure for player-ID-stability Option A per
+    ``docs/research/player-id-stability-scoping-2026-05-21.md``. Flipping
+    the call sites to pass ``stable_id`` is a follow-up that also requires
+    writing redirect files at the legacy URLs so existing bookmarks /
+    Google index entries don't break.
+
+    Until call sites pass ``stable_id``, behavior is unchanged.
+    """
+    return f"{slugify(full_name)}-{stable_id or player_id}"
 
 
 def _normalize_position(value: Any) -> str:
@@ -20724,6 +22829,8 @@ def _site_nav(prefix: str, current: str) -> str:
         "matchups": "matchups",
         "vibe-shifts": "vibe-shifts",
         "nfl-pipeline": "nfl-pipeline",
+        "offseason": "offseason",
+        "film-room": "film-room",
     }.get(current, current)
     # Two new entries (Vibe Shifts + NFL Pipeline) surface the Octopus
     # roadmap features. Methodology dropped from main nav — it's already
@@ -20732,6 +22839,8 @@ def _site_nav(prefix: str, current: str) -> str:
     # surfaces. See docs/octopus/next-roadmap.md for the feature specs.
     links = [
         ("rankings", "Power Rankings", f"{prefix}rankings/index.html"),
+        ("offseason", "Offseason", f"{prefix}offseason/index.html"),
+        ("film-room", "Film Room", f"{prefix}film-room/index.html"),
         ("teams", "Teams", f"{prefix}teams/index.html"),
         ("players", "Players", f"{prefix}players/spotlight.html"),
         ("heisman", "Heisman", f"{prefix}heisman/index.html"),
@@ -20740,7 +22849,10 @@ def _site_nav(prefix: str, current: str) -> str:
         ("history", "History", f"{prefix}history/index.html"),
         ("nfl-pipeline", "NFL Pipeline", f"{prefix}nfl-pipeline/index.html"),
         ("model", "The Model", f"{prefix}about-model/index.html"),
-        ("analysis", "Analysis", f"{prefix}conferences/index.html"),
+        # Session 6: "Analysis" → "Conferences" — the link points to
+        # /conferences/index.html and the label "Analysis" was vague
+        # marketing-speak that doesn't tell users what's there.
+        ("analysis", "Conferences", f"{prefix}conferences/index.html"),
         ("archive", "Weekly Archive", f"{prefix}archive/index.html"),
     ]
     rendered = "".join(
@@ -20750,7 +22862,7 @@ def _site_nav(prefix: str, current: str) -> str:
     return (
         f'<a class="skip-link" href="#main-content">Skip to main content</a>'
         f'<header class="topbar">'
-        f'<a class="brand" href="{prefix}index.html">THE CFB INDEX</a>'
+        f'<a class="brand" href="{prefix}index.html"><span class="brand__mark">THE CFB INDEX</span><span class="brand__tagline">Where every team stands &middot; what every fanbase thinks</span></a>'
         f'<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle navigation menu">Menu</button>'
         f'<div class="topbar-panels">'
         f'<nav class="nav" id="site-nav-links">{rendered}</nav>'
@@ -20952,8 +23064,13 @@ def _render_schedule_row(team_id: int, row: dict[str, Any]) -> str:
 def _history_explorer_script() -> str:
     return """
       (() => {
-        const rows = Array.from(document.querySelectorAll('#historyExplorerBody tr.history-explorer-row'));
-        if (!rows.length) return;
+        const tableBody = document.getElementById('historyExplorerBody');
+        if (!tableBody) return;
+        // External tail (WS-11 page weight): most rows are streamed from a
+        // sidecar JSON and injected on load. Inline rows render immediately.
+        const tailUrl = tableBody.dataset.historyTail || '';
+        let rows = Array.from(tableBody.querySelectorAll('tr.history-explorer-row'));
+        if (!rows.length && !tailUrl) return;
 
         const searchInput = document.getElementById('historyExplorerSearch');
         const levelFilter = document.getElementById('historyExplorerLevelFilter');
@@ -20962,7 +23079,6 @@ def _history_explorer_script() -> str:
         const clearButton = document.getElementById('clearHistoryExplorerFilters');
         const countNode = document.getElementById('historyExplorerCount');
         const chipRow = document.getElementById('historyExplorerActiveFilterRow');
-        const tableBody = document.getElementById('historyExplorerBody');
 
         const normalized = (value) => (value || '').toString().trim().toLowerCase();
         const numericValue = (row, key, fallback) => {
@@ -21043,6 +23159,22 @@ def _history_explorer_script() -> str:
         }
 
         applyState();
+
+        if (tailUrl) {
+          fetch(tailUrl)
+            .then((resp) => { if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); })
+            .then((data) => {
+              if (!data || !data.rows_html) return;
+              const tpl = document.createElement('template');
+              tpl.innerHTML = data.rows_html;
+              tableBody.appendChild(tpl.content);
+              // Rebuild the working set so filter+sort spans every row, then
+              // re-apply the current filter state to the full dataset.
+              rows = Array.from(tableBody.querySelectorAll('tr.history-explorer-row'));
+              applyState();
+            })
+            .catch((err) => console.error('history explorer tail load failed', err));
+        }
       })();
     """
 
@@ -21194,7 +23326,7 @@ def _render_team_betting_overview(team_data: dict[str, Any]) -> str:
     ranking: RankingRow = team_data["ranking"]
     betting = team_data.get("betting_summary") or {}
     if not betting.get("games_with_lines"):
-        return '<p class="footer-note">Market summaries will appear after more CFBD line data is loaded for this team.</p>'
+        return '<p class="footer-note">Market summaries return when more closing-line data is available for this team\'s schedule.</p>'
     best_cover = betting.get("best_cover") or {}
     worst_burn = betting.get("worst_burn") or {}
     total_surprise = betting.get("biggest_total_miss") or {}
@@ -21267,13 +23399,13 @@ def _render_team_betting_table(team_id: int, schedule: list[dict[str, Any]], lim
         <table>
           <thead>
             <tr>
-              <th>Week</th>
-              <th>Game</th>
-              <th>Result</th>
-              <th>Close</th>
-              <th>ATS</th>
-              <th>Total</th>
-              <th>ML</th>
+              <th scope="col">Week</th>
+              <th scope="col">Game</th>
+              <th scope="col">Result</th>
+              <th scope="col">Close</th>
+              <th scope="col">ATS</th>
+              <th scope="col">Total</th>
+              <th scope="col">ML</th>
             </tr>
           </thead>
           <tbody>
@@ -22273,8 +24405,8 @@ def _render_power_resume_plot(team_pages: list[dict[str, Any]], prefix: str = ""
 
         <aside class="power-resume-focus" id="powerResumeFocus">
           <span class="feature-rank">Chart Focus</span>
-          <h3>Loading team context...</h3>
-          <p class="section-note">The chart will load the currently selected team here.</p>
+          <h3>Click any point on the chart</h3>
+          <p class="section-note">Tap a team to lock its context card here — power, resume, and the quadrant it sits in.</p>
         </aside>
       </div>
 
@@ -23871,19 +26003,24 @@ def _render_cohort_panel(cohort_rows: list[dict[str, Any]], team_name: str) -> s
     # suppressed (never a fake number).
     shown = [r for r in cohort_rows if (r.get("effective_n") or 0) >= FLOOR_MIN]
     if not shown:
+        # Profile archetype empty state via render_awaiting_module primitive.
+        # Track 5 (Session 6): consolidate inline empty-state HTML to the
+        # shared Profile primitive so all "no signal yet" surfaces match.
+        from cfb_rankings.profile import render_awaiting_module
         return (
             '<section class="section cohort-panel cohort-panel--empty" aria-label="Cohort sentiment">'
-            '<div class="section-head">'
-            '<h2>Cohort Signal</h2>'
-            '<p class="section-sub">How the fan conversation splits across age, lens, and geography cohorts.</p>'
-            '</div>'
-            '<div class="cohort-panel-empty-body">'
-            '<p><strong>Awaiting signal.</strong> '
-            'Not enough fan conversation has cleared this week\'s publish threshold yet '
-            '(we wait for &ge;30 weighted posts before showing a number). '
-            '<a href="../methodology/fan-intelligence.html">How we set the bar &rsaquo;</a></p>'
-            '</div>'
-            '</section>'
+            + render_awaiting_module(
+                title="Cohort Signal",
+                body=(
+                    "Not enough fan conversation has cleared this week's "
+                    "publish threshold yet (we wait for &ge;30 weighted "
+                    "posts before showing a number)."
+                ),
+                action_label="How we set the bar",
+                action_href="../methodology/fan-intelligence.html",
+                aria_label="Cohort signal — awaiting data",
+            )
+            + '</section>'
         )
     # Cohort signal subhead: in-season this renders "week 9". Offseason it
     # used to render "week 31" or "week 2026-21" — garbage to readers.
@@ -24527,7 +26664,10 @@ def _site_css() -> str:
         text-decoration: none;
         cursor: default;
       }
-      @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
+      /* Phase 10 perf: removed Anton (unused) + Inter (already self-hosted as
+         @font-face above). Bebas Neue is still loaded for team-archetype-name
+         and .attributions-page headings — only ~22KB woff2, swap-display. */
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
       :root {
         /* Core surface palette (Figma) */
@@ -24735,9 +26875,28 @@ def _site_css() -> str:
         .brand::before { width: 48px; height: 48px; font-size: 26px; }
       }
       .brand { font: 600 14px/1.1 var(--font-sans); text-transform: none; }
-      .brand::after {
-        content: attr(data-tagline);
+      .brand__mark {
+        display: inline-flex;
+        align-items: center;
       }
+      .brand__tagline {
+        display: none;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 400;
+        font-style: italic;
+        color: var(--muted-foreground);
+        letter-spacing: 0.04em;
+        line-height: 1.2;
+        margin-left: 8px;
+        padding-left: 10px;
+        border-left: 1px solid var(--rule, rgba(28,28,31,0.18));
+        max-width: 26ch;
+      }
+      @media (min-width: 768px) {
+        .brand__tagline { display: inline-flex; align-items: center; }
+      }
+      .brand::after { content: ''; }
 
       .topbar-panels {
         display: contents;
@@ -24893,6 +27052,101 @@ def _site_css() -> str:
         font-size: 15px;
       }
       .compact-head h2 { font-size: clamp(22px, 2.5vw, 28px); }
+
+      /* Dashboard hero-finding: per docs/design-system/30-page-archetypes.md:67-98.
+         Single big number + 1-sentence finding + caption. Sits ABOVE the
+         existing .hero on Dashboard pages (/, /heisman/, /rankings/, /hub/). */
+      .hero-finding {
+        padding: clamp(24px, 5vw, 56px) clamp(20px, 4vw, 48px);
+        border-bottom: 1px solid var(--rule, rgba(28,28,31,0.12));
+        text-align: left;
+      }
+      .hero-finding__eyebrow {
+        font-family: var(--font-ui);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted-foreground);
+        font-weight: 600;
+        margin: 0 0 12px;
+      }
+      .hero-finding__number {
+        font-family: var(--font-display);
+        font-size: clamp(36px, 9vw, 88px);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.01em;
+        margin: 0 0 12px;
+        font-variant-numeric: tabular-nums;
+      }
+      .hero-finding__sentence {
+        font-family: var(--font-serif, "Source Serif Pro", Georgia, serif);
+        font-size: clamp(16px, 2.2vw, 22px);
+        line-height: 1.35;
+        margin: 0 0 8px;
+        max-width: 60ch;
+      }
+      .hero-finding__caption {
+        font-family: var(--font-ui);
+        font-size: 12px;
+        color: var(--muted-foreground);
+        margin: 0;
+      }
+
+      /* Dashboard methodology footer: per the archetype spec, every
+         Dashboard page should close with a small footer linking to
+         methodology + sample-size + "Updated" timestamp. */
+      .methodology-footer {
+        margin: clamp(32px, 6vw, 64px) 0 0;
+        padding: clamp(16px, 3vw, 28px) clamp(20px, 4vw, 48px);
+        border-top: 1px solid var(--rule, rgba(28,28,31,0.12));
+      }
+      .methodology-footer__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: clamp(12px, 2vw, 28px);
+        font-family: var(--font-ui);
+        font-size: 12px;
+        color: var(--muted-foreground);
+      }
+      .methodology-footer__link {
+        color: var(--foreground);
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .methodology-footer__sample,
+      .methodology-footer__updated {
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Filter widget heads: visually subordinate to editorial sections.
+         A filter form is a utility — its label should NOT shout at the
+         same hierarchy as "Fast Read" or other content sections. */
+      .filter-strip-head {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--rule, rgba(28,28,31,0.12));
+      }
+      .filter-strip-label {
+        font-family: var(--font-ui);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted-foreground);
+        font-weight: 600;
+        margin: 0;
+      }
+      .filter-strip-head .section-note {
+        margin: 0;
+        font-size: 13px;
+      }
 
       .footer-note,
       .muted-note,
@@ -26359,9 +28613,22 @@ def _site_css() -> str:
       /* =======================================================
          Tables (rankings, history, schedules)
          ======================================================= */
+      /* Cheap Win #1 (2026-05-21): horizontal-scroll wrappers used by the
+         legacy .table-wrap family on team/program/canon pages now expose
+         a sticky first column so the identity cell (year / player / team)
+         stays anchored as the body scrolls right. Pairs with the tabular-
+         numerals lock in the consolidated rule block. See
+         docs/research/cfb-stats-antipatterns.md Cheap Win #1. */
       .table-wrap,
       .compact-table-wrap,
-      .game-impact-table-wrap { width: 100%; overflow-x: auto; }
+      .game-impact-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* iOS Safari: position:sticky inside overflow-x:auto is fragile;
+           promoting the wrapper to its own compositing layer fixes it. */
+        transform: translateZ(0);
+      }
 
       table {
         width: 100%;
@@ -26384,6 +28651,37 @@ def _site_css() -> str:
         vertical-align: middle;
       }
       tbody tr:hover td { background: var(--secondary); }
+
+      /* Sticky first column on all legacy tables wrapped in
+         .table-wrap / .compact-table-wrap / .game-impact-table-wrap.
+         Background color is mandatory (prevents text bleed-through);
+         right-edge box-shadow signals the seam to the eye. */
+      .table-wrap > table > thead > tr > th:first-child,
+      .table-wrap > table > tbody > tr > td:first-child,
+      .compact-table-wrap > table > thead > tr > th:first-child,
+      .compact-table-wrap > table > tbody > tr > td:first-child,
+      .game-impact-table-wrap > table > thead > tr > th:first-child,
+      .game-impact-table-wrap > table > tbody > tr > td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: var(--background);
+        box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.08);
+      }
+      .table-wrap > table > thead > tr > th:first-child,
+      .compact-table-wrap > table > thead > tr > th:first-child,
+      .game-impact-table-wrap > table > thead > tr > th:first-child {
+        /* Header cells need the secondary tone, not background, to match
+           the rest of the header row. */
+        background: var(--secondary);
+        z-index: 3; /* Above body sticky cells when scrolled */
+      }
+      /* Hover row background should override the sticky cell background. */
+      .table-wrap > table > tbody > tr:hover > td:first-child,
+      .compact-table-wrap > table > tbody > tr:hover > td:first-child,
+      .game-impact-table-wrap > table > tbody > tr:hover > td:first-child {
+        background: var(--secondary);
+      }
 
       .heisman-row td {
         font-weight: 500;
@@ -26499,9 +28797,53 @@ def _site_css() -> str:
         .summary-spark { grid-column: 2 / 3; grid-row: 1 / 3; }
       }
 
-      /* Print-ish reset */
+      /* Print stylesheet — extended 2026-05-21 to handle stats tables.
+         Per docs/research/cfb-stats-mobile-playbook.md §15.2: print must
+         drop sticky positioning (sticky breaks paginated print), remove
+         overflow wrappers (print is a single canvas, not a scroll viewport),
+         hide filter / nav chrome, repeat thead on each page, and avoid
+         row breaks. */
       @media print {
-        .topbar, .nav-toggle, .button, .button-primary, .button-secondary, .nav-action { display: none; }
+        /* Chrome: nav, buttons, share/sort affordances. */
+        .topbar, .nav-toggle, .button, .button-primary, .button-secondary,
+        .nav-action, .cmdk-trigger, .theme-toggle,
+        .wcfb-stats-sort-button, .wcfb-def-trigger {
+          display: none !important;
+        }
+
+        /* Tables: drop sticky, drop overflow, let the table breathe. */
+        .table-wrap,
+        .compact-table-wrap,
+        .game-impact-table-wrap {
+          overflow: visible !important;
+          transform: none !important;
+        }
+        .table-wrap > table > thead > tr > th:first-child,
+        .table-wrap > table > tbody > tr > td:first-child,
+        .compact-table-wrap > table > thead > tr > th:first-child,
+        .compact-table-wrap > table > tbody > tr > td:first-child,
+        .game-impact-table-wrap > table > thead > tr > th:first-child,
+        .game-impact-table-wrap > table > tbody > tr > td:first-child {
+          position: static !important;
+          box-shadow: none !important;
+          background: transparent !important;
+        }
+
+        /* Repeat thead on each printed page; avoid breaking rows. */
+        thead { display: table-header-group; }
+        tfoot { display: table-footer-group; }
+        tr { page-break-inside: avoid; }
+
+        /* Conservative typography for print readability. */
+        body {
+          background: white !important;
+          color: black !important;
+        }
+        table {
+          font-size: 11pt;
+          color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
       }
 
       /* =======================================================

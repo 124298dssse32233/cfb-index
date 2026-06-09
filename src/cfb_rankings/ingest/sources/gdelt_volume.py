@@ -28,8 +28,13 @@ _DOC_URL = (
 
 class GdeltVolumeAdapter(NumericSourceAdapter):
     source_id = "gdelt_volume"
-    adapter_version = "0.2.0"
-    min_seconds_between_requests = 1.5  # GDELT throttles aggressively
+    adapter_version = "0.3.0"
+    # GDELT throttles aggressively. 2026-05-28 local smoke at 1.5s spacing
+    # still hit 429 on team 1 of 21, then connection timeouts. Bumped to
+    # 5s spacing (~105s total for 21-team sweep) + 30s backoff on retry
+    # (was 2s) to give the upstream cooloff time to clear.
+    min_seconds_between_requests = 5.0
+    backoff_seconds = 30.0
     # GDELT caps timespan at 2y. Normal hourly cron uses 7d; historical
     # backfill can set GDELT_TIMESPAN=2y via env for a one-shot pull.
     default_timespan = "7d"

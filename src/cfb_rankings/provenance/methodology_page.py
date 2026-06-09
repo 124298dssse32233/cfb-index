@@ -166,10 +166,10 @@ def _render_tier_section(tier: str, sources: list[dict[str, Any]]) -> str:
     body.append(f"<h3>Tier {tier}</h3>")
     body.append(f"<p class='tier-explainer'>{html.escape(_TIER_EXPLAINERS[tier])}</p>")
     body.append("<table class='sources'><thead><tr>")
-    body.append("<th>source_id</th><th>name</th><th>cadence / method</th>"
-                "<th>license</th><th>publication form</th>"
-                "<th>last successful fetch</th>"
-                "</tr></thead><tbody>")
+    body.append('<th scope="col">source_id</th><th scope="col">name</th><th scope="col">cadence / method</th>'
+                '<th scope="col">license</th><th scope="col">publication form</th>'
+                '<th scope="col">last successful fetch</th>'
+                '</tr></thead><tbody>')
     for s in rows:
         active_mark = "" if s["is_active"] else " <span class='inactive'>(inactive)</span>"
         last = html.escape(s["last_fetch"] or "—")
@@ -195,7 +195,7 @@ def _render_tier_section(tier: str, sources: list[dict[str, Any]]) -> str:
 
 
 def _render_cohort_matrix(sources: list[dict[str, Any]]) -> str:
-    lines = ["<table class='weights'><thead><tr><th>source_id</th>"]
+    lines = ['<table class=\'weights\'><thead><tr><th scope="col">source_id</th>']
     for c in COHORTS:
         lines.append(f"<th class='cohort-col'>{html.escape(c)}</th>")
     lines.append("</tr></thead><tbody>")
@@ -251,7 +251,8 @@ code { background: #f4f4f8; padding: 1px 5px; border-radius: 3px; font-size: 13p
 .source-activity th, .source-activity td { padding: 4px 10px; font-size: 13px; }
 .divergence-leaderboard td:nth-child(3), .source-activity td:nth-child(2),
 .source-activity td:nth-child(3), .divergence-leaderboard td:nth-child(4) { font-variant-numeric: tabular-nums; text-align: right; }
-footer { color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
+/* Phase 9 a11y: WCAG AA 4.5:1 contrast — was #888 (3.55:1 fail on #fff) */
+footer { color: #595959; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
 """
 
 
@@ -281,8 +282,8 @@ def render_methodology_html(db: Database) -> str:
              f"<style>{_CSS}</style>",
              "</head><body>"]
     parts.append("<h1>Fan Intelligence — Methodology</h1>")
-    parts.append(f"<p class='subtitle'>Auto-generated from <code>source_registry</code>. "
-                 f"Last build: {_utcnow_iso()}. "
+    parts.append(f"<p class='subtitle'>Sourced from the live signal registry. "
+                 f"Last updated: {_utcnow_iso()}. "
                  f"{active_count} active sources across {len(sources)} registered.</p>")
     parts.append("<p class='subtitle'><a href='freshness.html'>→ Data freshness "
                  "(last-run-per-source)</a></p>")
@@ -290,26 +291,28 @@ def render_methodology_html(db: Database) -> str:
     coverage = _fetch_coverage_summary(db)
     parts.append("<h2>0. Current coverage</h2>")
     parts.append(
-        '<p>Live counts from the production DB, refreshed on every methodology build.</p>'
+        '<p>Live counts, refreshed on every methodology build.</p>'
     )
     parts.append(
         "<ul class='coverage-stats'>"
         f"<li><strong>{coverage['conversation_docs_with_source']:,}</strong> "
-        "conversation_documents landed under the fan-intel schema</li>"
+        "fan-conversation documents indexed under the fan-intelligence layer</li>"
         f"<li><strong>{coverage['source_observations']:,}</strong> "
-        "source_observations (Tier A numeric)</li>"
+        "tier-A numeric observations (industry-grade ratings, market lines)</li>"
         f"<li><strong>{coverage['cohort_cells']:,}</strong> "
-        "team_cohort_week cells</li>"
+        "team-by-week cohort sentiment cells</li>"
         f"<li><strong>{coverage['divergence_rows']:,}</strong> "
-        "team-week divergence rows</li>"
+        "team-by-week divergence rows (where the cohorts disagree)</li>"
         "</ul>"
     )
     if coverage.get("qualifying_divergence"):
-        parts.append("<h3>Top divergence this week</h3>")
+        from cfb_rankings.common.cfb_calendar import is_offseason as _is_off
+        _heading = "Top divergence from the latest refresh" if _is_off(_dt.date.today(), db=None) else "Top divergence this week"
+        parts.append(f"<h3>{_heading}</h3>")
         parts.append(
             "<table class='divergence-leaderboard'><thead><tr>"
-            "<th>Team</th><th>Week</th><th>Divergence score</th>"
-            "<th>Qualifying cohorts</th></tr></thead><tbody>"
+            '<th scope="col">Team</th><th scope="col">Week</th><th scope="col">Divergence score</th>'
+            '<th scope="col">Qualifying cohorts</th></tr></thead><tbody>'
         )
         for row in coverage["qualifying_divergence"]:
             team = html.escape(row.get("team_name") or f"team:{row['team_id']}")
@@ -326,8 +329,8 @@ def render_methodology_html(db: Database) -> str:
         parts.append("<h3>Sources with runs in the last 7 days</h3>")
         parts.append(
             "<table class='source-activity'><thead><tr>"
-            "<th>source_id</th><th>runs</th><th>rows (ok)</th>"
-            "<th>latest run</th></tr></thead><tbody>"
+            '<th scope="col">source_id</th><th scope="col">runs</th><th scope="col">rows (ok)</th>'
+            '<th scope="col">latest run</th></tr></thead><tbody>'
         )
         for row in coverage["by_source"]:
             parts.append(
@@ -391,8 +394,7 @@ def render_methodology_html(db: Database) -> str:
     parts.append("<h2 id='glossary'>7. Glossary</h2>")
     parts.append("<p>Every Fan Intelligence term used on a player or team page has a "
                  "definition here. The same entries back the <code>?</code> popovers next to "
-                 "eyebrow labels throughout the site; this section is the canonical copy "
-                 "(source: <code>seeds/fi_glossary.yaml</code>).</p>")
+                 "eyebrow labels throughout the site; this section is the canonical copy.</p>")
     try:
         glossary = load_glossary()
     except Exception as exc:  # pragma: no cover - defensive
@@ -415,8 +417,8 @@ def render_methodology_html(db: Database) -> str:
             parts.append(f"<p class='tier-explainer'>See also &middot; {links}</p>")
 
     parts.append("<footer>"
-                 "Fan Intelligence methodology page — generated at "
-                 f"{_utcnow_iso()} — source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> + <code>source_registry</code>."
+                 "Fan Intelligence methodology page — last updated "
+                 f"{_utcnow_iso()}."
                  "</footer>")
     parts.append("</body></html>")
     return "\n".join(parts)

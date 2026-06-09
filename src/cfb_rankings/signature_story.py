@@ -219,6 +219,9 @@ def _fetch_player_position(db: Database, player_id: int) -> str | None:
     return (rows[0].get("position") or "").strip() or None
 
 
+_COHORT_ROWS_CACHE: dict[tuple, list[dict[str, Any]]] = {}
+
+
 def _evaluate_metric(
     db: Database,
     metric: Metric,
@@ -243,14 +246,22 @@ def _evaluate_metric(
     if float(sample_size) < metric.min_volume:
         return None
 
-    # Cohort query.
-    cohort_sql = _apply_placeholders(metric.cohort_sql_template, cohort)
-    cohort_params = {
-        "season_year": season_year,
-        "week": week,
-        "min_volume": metric.min_volume,
-    }
-    cohort_rows = db.query_all(cohort_sql, cohort_params)
+    # Cohort query — cache by (metric_id, season_year, week, min_volume) because
+    # the cohort rows are identical for every player evaluating the same metric.
+    # Was re-running this SQL per-player in scenario_explorer.build_scenario_payload
+    # → 100ms × 17k players = 30 min wasted.
+    cohort_key = (metric.id, season_year, week, metric.min_volume)
+    if cohort_key in _COHORT_ROWS_CACHE:
+        cohort_rows = _COHORT_ROWS_CACHE[cohort_key]
+    else:
+        cohort_sql = _apply_placeholders(metric.cohort_sql_template, cohort)
+        cohort_params = {
+            "season_year": season_year,
+            "week": week,
+            "min_volume": metric.min_volume,
+        }
+        cohort_rows = db.query_all(cohort_sql, cohort_params)
+        _COHORT_ROWS_CACHE[cohort_key] = cohort_rows
     if len(cohort_rows) < cohort.min_qualifying_members:
         return None
 

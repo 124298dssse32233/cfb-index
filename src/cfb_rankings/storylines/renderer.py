@@ -289,9 +289,9 @@ _RECEIPT_STUBS: dict[str, list[dict]] = {
     # thread's chapters.
     "_default": [
         {
-            "quote": "Receipts on this thread's prior takes will appear here.",
+            "quote": "Receipts on this thread's prior takes return when the editorial ledger reaches enough resolved chapters to grade them honestly.",
             "verdict": "premature",
-            "attribution": "— Sprint 13 (Receipts) ships the live ledger.",
+            "attribution": "&mdash; The Receipts Desk",
         },
     ],
 }
@@ -470,7 +470,7 @@ def render_thread(db, slug: str, output_dir: Path | str) -> Path:
         current_chapter_sources_html=current_chapter_sources_html,
         related_threads_html=related_threads_html,
         receipts_html=_render_receipts_stub(slug),
-        receipts_stub_label="placeholder · Sprint 13 ships the live ledger",
+        receipts_stub_label="receipts pending — see methodology",
         footer_year=datetime.now().year,
     )
     out_dir = Path(output_dir)
@@ -526,9 +526,24 @@ def render_index(db, output_dir: Path | str) -> Path:
             f'</a>'
         )
     template = _load_template("thread_index.html")
+    # Database-archetype meta-footer (Session 6 Track 6 adopter #4)
+    from cfb_rankings.database_archetype import (
+        render_database_meta_footer as _db_archetype_footer,
+    )
+    _db_meta = _db_archetype_footer(
+        label=(
+            "active thread" if len(threads) == 1
+            else "active threads"
+        ),
+        total_rows=len(threads),
+        methodology_label="How storyline threads work",
+        methodology_href="/methodology/",
+        updated_text=f"Updated {today.isoformat()}",
+    )
     page_html = template.safe_substitute(
         embedded_css=_load_css(),
         thread_cards_html="\n".join(cards) or '<p>No threads yet.</p>',
+        database_meta_footer=_db_meta,
         footer_year=datetime.now().year,
         page_canonical=absolute_url("/storylines/"),
         og_image_url=absolute_url("/og-image.svg"),

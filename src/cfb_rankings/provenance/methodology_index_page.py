@@ -80,51 +80,70 @@ def render_methodology_index_html(output_dir: Path | None = None) -> str:
   <style>
     body {{ font: 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
            color: #1a1a1a; max-width: 880px; margin: 2rem auto; padding: 0 1rem; }}
+    .skip-link {{ position: absolute; left: -9999px; top: auto; width: 1px;
+                  height: 1px; overflow: hidden; }}
+    .skip-link:focus {{ position: static; width: auto; height: auto;
+                        display: inline-block; padding: 0.5rem 1rem;
+                        background: #1a1a1a; color: #fff; }}
     nav a {{ color: #0969da; text-decoration: none; }}
-    nav a:hover {{ text-decoration: underline; }}
+    nav a:hover, nav a:focus-visible {{ text-decoration: underline; }}
     h1 {{ font-size: 2rem; margin-bottom: 0.25rem; }}
     .subtitle {{ color: #555; margin-top: 0.25rem; margin-bottom: 2rem; }}
     .page {{ border: 1px solid #e6e6e6; border-radius: 10px; padding: 1.25rem 1.5rem;
             margin: 1.25rem 0; background: #fafafa; }}
     .page h2 {{ margin: 0 0 0.5rem 0; font-size: 1.25rem; }}
     .page h2 a {{ color: #1a1a1a; text-decoration: none; }}
-    .page h2 a:hover {{ text-decoration: underline; }}
+    .page h2 a:hover, .page h2 a:focus-visible {{ text-decoration: underline; }}
     .page p {{ margin: 0.5rem 0; }}
-    .page .meta {{ color: #777; font-size: 13px; }}
-    footer {{ color: #888; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee;
+    /* Phase 9 a11y: WCAG AA 4.5:1 contrast — was #777 (4.21:1 fail on #fafafa) */
+    .page .meta {{ color: #5a5a5a; font-size: 13px; }}
+    /* Phase 9 a11y: WCAG AA 4.5:1 contrast — was #888 (3.55:1 fail on #fff) */
+    footer {{ color: #595959; font-size: 12px; margin-top: 3rem; border-top: 1px solid #eee;
              padding-top: 1rem; }}
     footer a {{ color: #0969da; }}
+    a:focus-visible {{ outline: 2px solid #0969da; outline-offset: 2px; }}
   </style>
 </head>
 <body>
-  <nav><a href="../">← CFB Index</a></nav>
-  <h1>Methodology</h1>
-  <p class="subtitle">How the CFB Index actually works — sources, tiers, sample-size
-     rules, and which pipelines ran most recently.</p>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav aria-label="Breadcrumb"><a href="../">&larr; CFB Index</a></nav>
+  <main id="main-content">
+    <h1>Methodology</h1>
+    <p class="subtitle">How the CFB Index actually works — sources, tiers, sample-size
+       rules, and which pipelines ran most recently.</p>
 
-  <div class="page">
-    <h2><a href="fan-intelligence.html">Fan Intelligence methodology</a></h2>
-    <p>The full doctrine behind every number on a player or team page: the
-       four-tier confidence model (A / B / C / D), the effective-sample-size
-       floor, the cohort weight matrix, known coverage gaps, the glossary
-       backing every <code>?</code> popover, and the source catalog grouped
-       by tier.</p>
-    <p class="meta">Auto-generated from <code>source_registry</code> &middot;
-       last built {html.escape(fan_intel_mtime)}</p>
-  </div>
+    <div class="page">
+      <h2><a href="fan-intelligence.html">Fan Intelligence methodology</a></h2>
+      <p>The full doctrine behind every number on a player or team page: the
+         four-tier confidence model (A / B / C / D), the effective-sample-size
+         floor, the cohort weight matrix, known coverage gaps, the glossary
+         backing every <code>?</code> popover, and the source catalog grouped
+         by tier.</p>
+      <p class="meta">Sourced from the live signal registry &middot;
+         last updated {html.escape(fan_intel_mtime)}</p>
+    </div>
 
-  <div class="page">
-    <h2><a href="freshness.html">Data source freshness</a></h2>
-    <p>Last successful run per registered source, with status and rows
-       inserted. Refreshed by the weekly cron. Useful for diagnosing why a
-       cohort cell is showing &ldquo;Awaiting Signal&rdquo; — usually it&rsquo;s
-       an ingest that hasn&rsquo;t run, not a real data gap.</p>
-    <p class="meta">Last built {html.escape(freshness_mtime)}</p>
-  </div>
+    <div class="page">
+      <h2><a href="calibration.html">Calibration track record</a></h2>
+      <p>Our public confusion matrix. Every prediction we publish is logged
+         <em>before</em> the outcome is known, then graded weekly. See how often
+         our calls were right &mdash; broken down by model, prediction kind, and
+         confidence band &mdash; including where our high-confidence calls missed.</p>
+      <p class="meta">Sourced from the live prediction ledger</p>
+    </div>
+
+    <div class="page">
+      <h2><a href="freshness.html">Data source freshness</a></h2>
+      <p>Last successful run per registered source, with status and rows
+         inserted. Refreshed automatically each week. Useful for diagnosing why a
+         cohort cell is showing &ldquo;Awaiting Signal&rdquo; — usually it&rsquo;s
+         an ingest that hasn&rsquo;t run, not a real data gap.</p>
+      <p class="meta">Last updated {html.escape(freshness_mtime)}</p>
+    </div>
+  </main>
 
   <footer>
-    Methodology index &middot; generated {html.escape(generated_at)} &middot;
-    source of truth: <code>FAN_INTEL_SOURCE_STRATEGY.md</code> in the repo.
+    Methodology index &middot; updated {html.escape(generated_at)}
   </footer>
 </body>
 </html>

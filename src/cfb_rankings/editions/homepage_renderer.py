@@ -377,9 +377,23 @@ def _render_document(edition: Edition, features: list[EditionFeature],
     parts.append(_render_running_departments_divider())
     parts.append(_render_the_daily(daily_data, is_live=daily_is_live))
     parts.append(_render_the_wire(wire_data, is_live=wire_is_live))
+    parts.append(_render_offseason_teaser())
     parts.append(_render_active_threads(threads_data, is_live=threads_is_live))
     parts.append(_render_the_canon(canon_data, is_live=canon_is_live))
     parts.append(_render_voices(voices))
+    # Dashboard archetype: methodology footer before the site footer.
+    # Track 4 browser-MCP validation caught the homepage missing this.
+    from cfb_rankings.dashboards import render_methodology_footer as _render_homepage_methodology
+    parts.append(_render_homepage_methodology(
+        page="Homepage",
+        sample_summary=(
+            f"Issue {edition.edition_number} · {edition.theme_title}"
+            if edition.theme_title else f"Issue {edition.edition_number}"
+        ),
+        prefix="/",
+        methodology_label="How the model works",
+        methodology_href="/methodology/",
+    ))
     parts.append(_render_footer(edition))
     parts.append("</main></body></html>")
     return "".join(parts)
@@ -396,6 +410,14 @@ _INLINE_CSS = """
   --rule: #1a1a1a;
   --rule-soft: rgba(26,26,26,0.18);
   --gold: #c9a24a;
+  /* Phase 9c — darker amber for foreground text on the cream paper
+   * background. The brand gold (#c9a24a on #f6f1e6) gives only 2.14:1
+   * contrast — fails WCAG AA 4.5:1 for normal text. This deeper
+   * variant (#8a6a2d on #f6f1e6 = 5.5:1) passes AA. Use --gold for
+   * decorative accents (bars, borders, hover) where contrast doesn't
+   * apply; use --gold-deep wherever the gold IS the text color.
+   */
+  --gold-deep: #8a6a2d;
   --navy: #1f2c4d;
   --muted: #7a7a7a;
   --serif: 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
@@ -413,7 +435,7 @@ html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
 a { color: inherit; text-decoration: none; }
 a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 a.cta { font-family: var(--sans); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-deep);
   border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
 a.text-link { border-bottom: 1px dotted currentColor; }
 
@@ -421,12 +443,21 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .chrome { font-family: var(--sans); font-size: 11px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase;
   display: flex; justify-content: space-between; padding: 12px 0;
-  color: var(--ink); }
+  color: var(--ink); gap: 16px; flex-wrap: wrap; }
+.chrome .chrome-countdown { color: var(--gold-deep); font-weight: 700; }
 .brand-row { display: flex; align-items: baseline; justify-content: space-between;
   padding: 24px 0; }
 .brand { font-family: var(--serif); font-size: 32px; font-weight: 700;
-  letter-spacing: 0.04em; }
+  letter-spacing: 0.04em; display: flex; flex-direction: column; gap: 4px;
+  line-height: 1; }
 .brand .slash { color: var(--gold); margin: 0 6px; }
+.brand__mark { display: inline-flex; align-items: baseline; }
+.brand__tagline { display: none; font-family: var(--sans); font-size: 11px;
+  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin: 0; }
+@media (min-width: 768px) {
+  .brand__tagline { display: inline-flex; align-items: center; }
+}
 .nav { font-family: var(--sans); font-size: 12px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase; }
 .nav a { margin-left: 28px; color: var(--ink); }
@@ -525,7 +556,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .wire-table .program { font-weight: 700; color: var(--ink); }
 .wire-table .why { font-family: var(--serif); font-style: italic;
   color: var(--ink); }
-.wire-table .impact { font-weight: 700; text-align: right; color: var(--gold); }
+.wire-table .impact { font-weight: 700; text-align: right; color: var(--gold-deep); }
 
 /* Active Threads */
 .threads-grid { display: grid; grid-template-columns: 740px 1fr; gap: 48px; }
@@ -547,7 +578,7 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .thread-list .thread-row:first-of-type { border-top: 0; }
 .thread-list .thread-name { font-family: var(--serif); font-size: 16px; font-weight: 600; }
 .thread-list .chapters { font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); }
 .thread-list .last-updated { font-family: var(--sans); font-size: 10px; color: var(--muted);
   letter-spacing: 0.14em; text-transform: uppercase; }
 
@@ -600,7 +631,11 @@ a.text-link { border-bottom: 1px dotted currentColor; }
 .footer .chrome { color: var(--paper); border-bottom: 1px solid var(--paper);
   padding-bottom: 24px; margin-bottom: 32px; }
 .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
-.footer-col h4 { font-family: var(--sans); font-size: 11px;
+/* Footer column heading — supports both legacy <h4> markup and the
+ * post-heading-order-fix <h3 class="footer-col__heading"> markup. */
+.footer-col h4,
+.footer-col h3,
+.footer-col .footer-col__heading { font-family: var(--sans); font-size: 11px;
   font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gold); margin: 0 0 16px; }
 .footer-col ul { list-style: none; padding: 0; margin: 0; }
@@ -673,9 +708,27 @@ def _render_head(edition: Edition) -> str:
 
 def _render_masthead(edition: Edition, publish_label: str) -> str:
     from cfb_rankings.nav import render_global_nav, render_global_nav_actions
+    from cfb_rankings.common.cfb_calendar import days_to_kickoff
 
     vol = _ROMAN[edition.volume] if edition.volume < len(_ROMAN) else str(edition.volume)
     publish_time = (edition.published_at_utc or "").split(" ")[1][:5] if edition.published_at_utc else "06:00"
+
+    # Days-to-kickoff chrome line — the most natural "where are we in
+    # the cycle?" anchor on a college-football homepage. Renders only
+    # offseason (1-365 days). Computes the upcoming-kickoff year from
+    # the date arithmetic so it stays correct across years without
+    # year-specific hardcoding.
+    try:
+        from datetime import date as _date
+        dtk = days_to_kickoff(_date.today(), db=None)
+    except Exception:
+        dtk = 0
+    if 1 <= dtk <= 365:
+        kickoff_chrome = (
+            f'<span class="chrome-countdown">{dtk} DAYS TO KICKOFF</span>'
+        )
+    else:
+        kickoff_chrome = ""
 
     # Use shared navigation component for consistency across all pages
     nav_html = render_global_nav(current_page="/", variant="desktop")
@@ -691,10 +744,11 @@ def _render_masthead(edition: Edition, publish_label: str) -> str:
       <span>VOL. {vol} · NO. {edition.edition_number}</span>
       <span>{publish_label}</span>
       <span>PUBLISHED {publish_time} ET</span>
+      {kickoff_chrome}
     </div>
     <hr class="rule">
     <div class="brand-row">
-      <div class="brand">CFB<span class="slash">/</span>INDEX</div>
+      <div class="brand"><span class="brand__mark">CFB<span class="slash">/</span>INDEX</span><span class="brand__tagline">Where every team stands &middot; what every fanbase thinks</span></div>
       {nav_html}
       {nav_actions_html}
     </div>
@@ -733,12 +787,28 @@ def _render_masthead(edition: Edition, publish_label: str) -> str:
 
 def _render_hero(edition: Edition) -> str:
     roman = _ROMAN[edition.edition_number] if edition.edition_number < len(_ROMAN) else str(edition.edition_number)
+    # Calendar-aware cover eyebrow: the label reflects the visitor's "right now"
+    # (today), not the active edition's publish month — the active edition can
+    # lag the calendar. In the deep offseason the homepage leads with forward
+    # 2026 framing instead of a static "offseason issue" label.
+    _yr = date.today().year
+    _m = date.today().month
+    if _m in (5, 6):
+        cover_label = f"THIS MONTH'S COVER · THE {_yr} PRESEASON PREVIEW"
+    elif _m in (7, 8):
+        cover_label = f"THIS MONTH'S COVER · {_yr} KICKOFF COUNTDOWN"
+    elif _m in (9, 10, 11, 12):
+        cover_label = "THIS WEEK'S COVER · THE SEASON ISSUE"
+    elif _m == 1:
+        cover_label = "THIS WEEK'S COVER · THE POSTSEASON ISSUE"
+    else:  # Feb–Apr
+        cover_label = "THIS MONTH'S COVER · THE OFFSEASON ISSUE"
     return f"""
 <section class="hero">
   <div class="page">
     <div class="roman-big">{roman}</div>
     <hr class="rule gold">
-    <div class="eyebrow" style="margin-top:24px;">THIS WEEK'S COVER · THE OFFSEASON ISSUE</div>
+    <div class="eyebrow" style="margin-top:24px;">{cover_label}</div>
     <h1 class="theme-title">{html.escape(edition.theme_title)}</h1>
     <p class="theme-dek">{html.escape(edition.theme_dek)}</p>
   </div>
@@ -867,6 +937,24 @@ def _render_the_daily(daily: dict[str, Any], is_live: bool = False) -> str:
 </section>"""
 
 
+def _render_offseason_teaser() -> str:
+    """Discoverability card for the /offseason/ leaderboards hub — the flagship
+    horizontal-discovery surface ("who won the offseason, where does my team
+    rank?"). Rendered as a distinct gold CTA card (no roman numeral) so it reads
+    as an editorial callout rather than a numbered department."""
+    return """
+<section class="dept">
+  <div class="page">
+    <div style="border:1px solid var(--gold); border-left:4px solid var(--gold); background:rgba(201,162,74,0.06); padding:28px 32px;">
+      <div class="eyebrow" style="color:var(--gold-deep);">NEW · NATIONAL OFFSEASON BOARDS</div>
+      <h2 style="font-family:var(--serif); font-size:30px; font-weight:700; line-height:1.15; margin:12px 0 8px;">Who won the 2026 offseason?</h2>
+      <p style="font-family:var(--serif); font-size:17px; color:var(--ink); margin:0 0 18px; max-width:60ch;">Portal winners, returning production, NFL exits, roster talent, and the biggest reloads &mdash; ranked nationally and by conference.</p>
+      <a class="cta" href="/offseason/index.html">OPEN THE OFFSEASON LEADERBOARDS &rarr;</a>
+    </div>
+  </div>
+</section>"""
+
+
 def _render_the_wire(wire: dict[str, Any], is_live: bool = False) -> str:
     rows = "".join(
         f"""<tr>
@@ -906,7 +994,7 @@ def _render_the_wire(wire: dict[str, Any], is_live: bool = False) -> str:
     </div>
     <table class="wire-table">
       <thead><tr>
-        <th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th>
+        <th scope="col">WHEN</th><th scope="col">PROGRAM</th><th scope="col">ACTION</th><th scope="col">WHY IT MATTERS</th><th scope="col">IMPACT</th>
       </tr></thead>
       <tbody>{rows}</tbody>
     </table>
@@ -1066,7 +1154,7 @@ def _render_footer(edition: Edition) -> str:
     </div>
     <div class="footer-cols">
       <div class="footer-col">
-        <h4>DEPARTMENTS</h4>
+        <h3 class="footer-col__heading">DEPARTMENTS</h3>
         <ul>
           <li><a href="/editions/">Editions Archive</a></li>
           <li><a href="/daily/">The Daily</a></li>
@@ -1077,7 +1165,7 @@ def _render_footer(edition: Edition) -> str:
         </ul>
       </div>
       <div class="footer-col">
-        <h4>REFERENCE</h4>
+        <h3 class="footer-col__heading">REFERENCE</h3>
         <ul>
           <li><a href="/rankings/">Rankings</a></li>
           <li><a href="/teams/">Team Pages</a></li>
@@ -1087,7 +1175,7 @@ def _render_footer(edition: Edition) -> str:
         </ul>
       </div>
       <div class="footer-col">
-        <h4>SUBSCRIBE</h4>
+        <h3 class="footer-col__heading">SUBSCRIBE</h3>
         <ul>
           <li>Saturday morning · 06:00 ET</li>
           <li>Weekly cover essay</li>
@@ -1096,7 +1184,7 @@ def _render_footer(edition: Edition) -> str:
         </ul>
       </div>
       <div class="footer-col">
-        <h4>MASTHEAD</h4>
+        <h3 class="footer-col__heading">MASTHEAD</h3>
         <ul>
           <li>Editor's Desk</li>
           <li>Receipts Desk</li>
@@ -1107,7 +1195,7 @@ def _render_footer(edition: Edition) -> str:
       </div>
     </div>
     <div class="bottom-chrome">
-      <span>© {year} CFB INDEX · BUILT FOR THE OFFSEASON</span>
+      <span>© {year} CFB INDEX · WHERE EVERY TEAM STANDS</span>
       <span>VOL. {vol} · NO. {edition.edition_number}</span>
     </div>
   </div>

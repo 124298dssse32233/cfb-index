@@ -28,6 +28,7 @@ from cfb_rankings.common.cfb_calendar import (
     cfb_week_label,
     days_to_kickoff,
     is_in_season,
+    is_offseason,
 )
 from typing import Any
 
@@ -72,58 +73,105 @@ PALETTE = {
 
 
 TEAM_COLOR_BY_SLUG: dict[str, dict[str, str]] = {
-    "georgia": {"primary": "#BA0C2F", "abbr": "UGA", "texture": "pinstripe"},
-    "texas": {"primary": "#BF5700", "abbr": "TEX"},
-    "ohio-state": {"primary": "#BB0000", "abbr": "OSU", "texture": "diagonal"},
-    "oregon": {"primary": "#007030", "abbr": "ORE"},
-    "alabama": {"primary": "#9E1B32", "abbr": "ALA", "texture": "houndstooth"},
-    "michigan": {"primary": "#00274C", "abbr": "MICH", "texture": "diagonal"},
-    "penn-state": {"primary": "#041E42", "abbr": "PSU", "texture": "pinstripe"},
-    "nebraska": {"primary": "#E41C38", "abbr": "NEB", "texture": "checker"},
-    "texas-am": {"primary": "#500000", "abbr": "A&M"},
-    "tennessee": {"primary": "#FF8200", "abbr": "TEN"},
-    "usc": {"primary": "#990000", "abbr": "USC"},
-    "florida": {"primary": "#0021A5", "abbr": "UF"},
-    "miami": {"primary": "#F47321", "abbr": "MIA"},
-    "notre-dame": {"primary": "#0C2340", "abbr": "ND", "texture": "checker"},
-    "colorado": {"primary": "#CFB87C", "abbr": "CU"},
-    "lsu": {"primary": "#461D7C", "abbr": "LSU"},
-    "florida-state": {"primary": "#782F40", "abbr": "FSU"},
-    "clemson": {"primary": "#F56600", "abbr": "CLEM"},
-    "iowa": {"primary": "#FFCD00", "abbr": "IOWA"},
-    "wisconsin": {"primary": "#C5050C", "abbr": "WIS", "texture": "diagonal"},
-    "utah": {"primary": "#CC0000", "abbr": "UTAH"},
-    "indiana": {"primary": "#990000", "abbr": "IND"},
-    "kansas": {"primary": "#0051BA", "abbr": "KU"},
-    "arizona": {"primary": "#003366", "abbr": "ARIZ"},
-    "boise-state": {"primary": "#0033A0", "abbr": "BSU"},
-    "appalachian-state": {"primary": "#222222", "abbr": "APP"},
-    "smu": {"primary": "#C8102E", "abbr": "SMU"},
-    "auburn": {"primary": "#03244D", "abbr": "AUB"},
-    "oklahoma": {"primary": "#841617", "abbr": "OU"},
-    "washington": {"primary": "#4B2E83", "abbr": "UW"},
-    "stanford": {"primary": "#8C1515", "abbr": "STAN"},
-    "california": {"primary": "#003262", "abbr": "CAL"},
-    "army": {"primary": "#000000", "abbr": "ARMY"},
-    "navy": {"primary": "#002F5F", "abbr": "NAVY"},
-    "south-carolina": {"primary": "#73000A", "abbr": "SC"},
-    "pittsburgh": {"primary": "#003594", "abbr": "PITT"},
-    "iowa-state": {"primary": "#C8102E", "abbr": "ISU"},
-    "northwestern": {"primary": "#4E2A84", "abbr": "NW"},
-    "vanderbilt": {"primary": "#866D4B", "abbr": "VAN"},
-    "jackson-state": {"primary": "#003DA5", "abbr": "JKST"},
-    "prairie-view-am": {"primary": "#500778", "abbr": "PVAM"},
-    "west-virginia": {"primary": "#002855", "abbr": "WVU"},
-    "ole-miss": {"primary": "#14213D", "abbr": "MISS"},
-    "mississippi": {"primary": "#14213D", "abbr": "MISS"},
-    "arkansas": {"primary": "#9D2235", "abbr": "ARK"},
-    "memphis": {"primary": "#003087", "abbr": "MEM"},
-    "james-madison": {"primary": "#450084", "abbr": "JMU"},
-    "liberty": {"primary": "#002147", "abbr": "LIB"},
-    "kentucky": {"primary": "#00A9E0", "abbr": "KYS"},
-    "ucla": {"primary": "#2D68C4", "abbr": "UCLA"},
-    "texas-tech": {"primary": "#CC0000", "abbr": "TTU", "texture": "pinstripe"},
-    "air-force": {"primary": "#003087", "abbr": "AF"},
+    # Sprint B (2026-05-22): added `secondary` per official brand pairs so
+    # the legacy renderer's --team-accent-soft stops leaking #b98343 across
+    # every team. Source: program athletic department brand standards. Where
+    # the team's official secondary is white (#FFFFFF), we substitute a near-
+    # white off-paper (#F5F1E8 — the site's paper-tone) so gradients still
+    # have contrast against the cream page background.
+    #
+    # All 17 profiled slugs get exact brand secondary; FBS top-30 + SEC/B1G/
+    # ACC/B12 by clicks also get exact pairs; everything else still falls
+    # through to the b98343 fallback (which we acknowledge in CLAUDE.md is
+    # the conscious legacy-conference path).
+    "georgia":          {"primary": "#BA0C2F", "secondary": "#000000", "abbr": "UGA",  "texture": "pinstripe"},
+    "texas":            {"primary": "#BF5700", "secondary": "#FFFFFF", "abbr": "TEX"},
+    "ohio-state":       {"primary": "#BB0000", "secondary": "#666666", "abbr": "OSU",  "texture": "diagonal"},
+    "oregon":           {"primary": "#007030", "secondary": "#FEE123", "abbr": "ORE"},
+    "alabama":          {"primary": "#9E1B32", "secondary": "#F5F1E8", "abbr": "ALA",  "texture": "houndstooth"},
+    "michigan":         {"primary": "#00274C", "secondary": "#FFCB05", "abbr": "MICH", "texture": "diagonal"},
+    "penn-state":       {"primary": "#041E42", "secondary": "#F5F1E8", "abbr": "PSU",  "texture": "pinstripe"},
+    "nebraska":         {"primary": "#E41C38", "secondary": "#F5F1E8", "abbr": "NEB",  "texture": "checker"},
+    "texas-am":         {"primary": "#500000", "secondary": "#F5F1E8", "abbr": "A&M"},
+    "tennessee":        {"primary": "#FF8200", "secondary": "#F5F1E8", "abbr": "TEN"},
+    "usc":              {"primary": "#990000", "secondary": "#FFCC00", "abbr": "USC"},
+    "florida":          {"primary": "#0021A5", "secondary": "#FA4616", "abbr": "UF"},
+    "miami":            {"primary": "#F47321", "secondary": "#005030", "abbr": "MIA"},
+    "notre-dame":       {"primary": "#0C2340", "secondary": "#C99700", "abbr": "ND",   "texture": "checker"},
+    "colorado":         {"primary": "#CFB87C", "secondary": "#000000", "abbr": "CU"},
+    "lsu":              {"primary": "#461D7C", "secondary": "#FDD023", "abbr": "LSU"},
+    "florida-state":    {"primary": "#782F40", "secondary": "#CEB888", "abbr": "FSU"},
+    "clemson":          {"primary": "#F56600", "secondary": "#522D80", "abbr": "CLEM"},
+    "iowa":             {"primary": "#FFCD00", "secondary": "#000000", "abbr": "IOWA"},
+    "wisconsin":        {"primary": "#C5050C", "secondary": "#F5F1E8", "abbr": "WIS",  "texture": "diagonal"},
+    "utah":             {"primary": "#CC0000", "secondary": "#F5F1E8", "abbr": "UTAH"},
+    "indiana":          {"primary": "#990000", "secondary": "#EEEDEB", "abbr": "IND"},
+    "kansas":           {"primary": "#0051BA", "secondary": "#E8000D", "abbr": "KU"},
+    "arizona":          {"primary": "#003366", "secondary": "#CC0033", "abbr": "ARIZ"},
+    "boise-state":      {"primary": "#0033A0", "secondary": "#D64309", "abbr": "BSU"},
+    "appalachian-state":{"primary": "#222222", "secondary": "#FFCC00", "abbr": "APP"},
+    "smu":              {"primary": "#C8102E", "secondary": "#0033A0", "abbr": "SMU"},
+    "auburn":           {"primary": "#03244D", "secondary": "#DD550C", "abbr": "AUB"},
+    "oklahoma":         {"primary": "#841617", "secondary": "#FDF9D8", "abbr": "OU"},
+    "washington":       {"primary": "#4B2E83", "secondary": "#B7A57A", "abbr": "UW"},
+    "stanford":         {"primary": "#8C1515", "secondary": "#F5F1E8", "abbr": "STAN"},
+    "california":       {"primary": "#003262", "secondary": "#FDB515", "abbr": "CAL"},
+    "army":             {"primary": "#000000", "secondary": "#D4BF91", "abbr": "ARMY"},
+    "navy":             {"primary": "#002F5F", "secondary": "#C5B358", "abbr": "NAVY"},
+    "south-carolina":   {"primary": "#73000A", "secondary": "#000000", "abbr": "SC"},
+    "pittsburgh":       {"primary": "#003594", "secondary": "#FFB81C", "abbr": "PITT"},
+    "iowa-state":       {"primary": "#C8102E", "secondary": "#F1BE48", "abbr": "ISU"},
+    "northwestern":     {"primary": "#4E2A84", "secondary": "#F5F1E8", "abbr": "NW"},
+    "vanderbilt":       {"primary": "#866D4B", "secondary": "#000000", "abbr": "VAN"},
+    "jackson-state":    {"primary": "#003DA5", "secondary": "#FFFFFF", "abbr": "JKST"},
+    "prairie-view-am":  {"primary": "#500778", "secondary": "#FFCD00", "abbr": "PVAM"},
+    "west-virginia":    {"primary": "#002855", "secondary": "#FFC600", "abbr": "WVU"},
+    "ole-miss":         {"primary": "#14213D", "secondary": "#CE1126", "abbr": "MISS"},
+    "mississippi":      {"primary": "#14213D", "secondary": "#CE1126", "abbr": "MISS"},
+    "arkansas":         {"primary": "#9D2235", "secondary": "#F5F1E8", "abbr": "ARK"},
+    "memphis":          {"primary": "#003087", "secondary": "#898D8D", "abbr": "MEM"},
+    "james-madison":    {"primary": "#450084", "secondary": "#CBB677", "abbr": "JMU"},
+    "liberty":          {"primary": "#002147", "secondary": "#A6192E", "abbr": "LIB"},
+    "kentucky":         {"primary": "#00A9E0", "secondary": "#F5F1E8", "abbr": "KYS"},
+    "ucla":             {"primary": "#2D68C4", "secondary": "#FFD100", "abbr": "UCLA"},
+    "texas-tech":       {"primary": "#CC0000", "secondary": "#000000", "abbr": "TTU",  "texture": "pinstripe"},
+    "air-force":        {"primary": "#003087", "secondary": "#8A8D8F", "abbr": "AF"},
+    # Profiled slugs (17 total) — ensure each has exact brand secondary:
+    "massachusetts":    {"primary": "#881C1C", "secondary": "#FFFFFF", "abbr": "UMASS"},
+    "uconn":            {"primary": "#000E2F", "secondary": "#E4002B", "abbr": "UCONN"},
+    # Mid-major standouts to round out the mid-FBS tier:
+    "duke":             {"primary": "#003087", "secondary": "#F5F1E8", "abbr": "DUKE"},
+    "wake-forest":      {"primary": "#000000", "secondary": "#9E7E38", "abbr": "WAKE"},
+    "georgia-tech":     {"primary": "#003057", "secondary": "#B3A369", "abbr": "GT"},
+    "virginia":         {"primary": "#232D4B", "secondary": "#F84C1E", "abbr": "UVA"},
+    "virginia-tech":    {"primary": "#660000", "secondary": "#C64600", "abbr": "VT"},
+    "north-carolina":   {"primary": "#7BAFD4", "secondary": "#F5F1E8", "abbr": "UNC"},
+    "nc-state":         {"primary": "#CC0000", "secondary": "#F5F1E8", "abbr": "NCST"},
+    "louisville":       {"primary": "#AD0000", "secondary": "#000000", "abbr": "LOU"},
+    "syracuse":         {"primary": "#F76900", "secondary": "#000E54", "abbr": "SYR"},
+    "boston-college":   {"primary": "#8C2232", "secondary": "#FED700", "abbr": "BC"},
+    "michigan-state":   {"primary": "#18453B", "secondary": "#F5F1E8", "abbr": "MSU"},
+    "purdue":           {"primary": "#000000", "secondary": "#CFB991", "abbr": "PUR"},
+    "illinois":         {"primary": "#13294B", "secondary": "#FF552E", "abbr": "ILL"},
+    "rutgers":          {"primary": "#CC0033", "secondary": "#F5F1E8", "abbr": "RUT"},
+    "maryland":         {"primary": "#E03A3E", "secondary": "#FFD520", "abbr": "UMD"},
+    "minnesota":        {"primary": "#7A0019", "secondary": "#FFCC33", "abbr": "MINN"},
+    "oklahoma-state":   {"primary": "#FF7300", "secondary": "#000000", "abbr": "OKST"},
+    "kansas-state":     {"primary": "#512888", "secondary": "#F5F1E8", "abbr": "KSU"},
+    "tcu":              {"primary": "#4D1979", "secondary": "#000000", "abbr": "TCU"},
+    "baylor":           {"primary": "#003015", "secondary": "#FFB81C", "abbr": "BAY"},
+    "byu":              {"primary": "#002E5D", "secondary": "#F5F1E8", "abbr": "BYU"},
+    "cincinnati":       {"primary": "#E00122", "secondary": "#000000", "abbr": "CIN"},
+    "ucf":              {"primary": "#000000", "secondary": "#FFC904", "abbr": "UCF"},
+    "houston":          {"primary": "#C8102E", "secondary": "#F5F1E8", "abbr": "HOU"},
+    "missouri":         {"primary": "#F1B82D", "secondary": "#000000", "abbr": "MIZ"},
+    "mississippi-state":{"primary": "#660000", "secondary": "#F5F1E8", "abbr": "MSST"},
+    "arizona-state":    {"primary": "#8C1D40", "secondary": "#FFC627", "abbr": "ASU"},
+    "fresno-state":     {"primary": "#DB0032", "secondary": "#002E6D", "abbr": "FRES"},
+    "san-diego-state":  {"primary": "#A6192E", "secondary": "#000000", "abbr": "SDSU"},
+    "hawaii":           {"primary": "#024731", "secondary": "#F5F1E8", "abbr": "HAW"},
+    "toledo":           {"primary": "#003E7E", "secondary": "#FCD116", "abbr": "TOL"},
+    "temple":           {"primary": "#9D2235", "secondary": "#A7A8AA", "abbr": "TEM"},
 }
 
 
@@ -211,7 +259,11 @@ FRIENDLY_MODEL_LABEL = "CFB Index v1"
 # ---------------------------------------------------------------------------
 
 
-def render_masthead(issue_number: str, model_week: int | None, issue_date: str, updated_label: str = "Updated this week") -> str:
+def render_masthead(issue_number: str, model_week: int | None, issue_date: str, updated_label: str | None = None) -> str:
+    # Fallback label is offseason-aware. Most callers pass an explicit
+    # "Updated {date}" so this is just a safety net.
+    if updated_label is None:
+        updated_label = "Updated this offseason" if is_offseason(date.today(), db=None) else "Updated this week"
     # In-season the bare "Model Week N" label is fine. Offseason it reads as
     # garbage to readers ("Model Week 20" in late May means nothing), so swap
     # in the phase + days-to-kickoff parenthetical. See cfb_calendar module.
@@ -324,7 +376,8 @@ def render_section_eyebrow(section_num: str, section_name: str) -> str:
         if url:
             icon_html = (
                 f'<img class="hub-eyebrow__rubric" src="{escape(url)}" '
-                f'alt="" width="20" height="20" loading="lazy" '
+                f'alt="" width="20" height="20" '
+                f'loading="lazy" decoding="async" '
                 f'style="vertical-align:middle;margin-right:8px;">'
             )
     return (
@@ -803,21 +856,23 @@ def render_mood_ticker_section(ticker: dict[str, list[dict[str, Any]]], issue: d
     is_retro = bool((issue or {}).get("is_retro"))
     source = _section_source(all_items, issue=issue) if is_retro else "computed"
     pills = "".join(_render_ticker_pill(row, show_badge=is_retro) for row in all_items)
+    _is_off = is_offseason(date.today(), db=None)
     methodology = _issue_methodology(
         issue or {},
         "mood_ticker",
         (
             "n = 340K conversations over 7d",
             "bot-filtered",
-            "updated this week",
+            "updated this offseason" if _is_off else "updated this week",
         ),
     )
     badge = render_provenance_badge(source) if is_retro else ""
+    _ticker_h2 = "The Offseason's Biggest Mood Movers" if _is_off else "This Week&rsquo;s Biggest Mood Movers"
     return f"""
     <section id="sec-02" class="hub-section hub-section-paper"{_section_attr(source) if is_retro else ""}>
       <div class="hub-container">
         {render_section_eyebrow("N\u00b0 02", "The Ticker")}
-        <h2 class="hub-display-l">This Week&rsquo;s Biggest Mood Movers {badge}</h2>
+        <h2 class="hub-display-l">{_ticker_h2} {badge}</h2>
         <p class="hub-dek">Ten fanbases whose belief shifted hardest in the last seven days.</p>
         <div class="hub-ticker-grid">{pills}</div>
         <p class="hub-caption">The top five are gaining on coach news; the bottom five are losing on a single press conference each.</p>
@@ -1019,7 +1074,7 @@ def render_hype_vs_reality_section(issue: dict[str, Any] | None = None) -> str:
             "n = 2.4M conversations",
             "hype from sentiment",
             "reality from model",
-            "updated this week",
+            "updated this offseason" if is_offseason(date.today(), db=None) else "updated this week",
         ),
     )
     badge = render_provenance_badge(source) if is_retro else ""
@@ -1080,7 +1135,8 @@ def _render_archetype_card(row: dict[str, Any]) -> str:
     if totem_src:
         totem_html = (
             f'<img class="archetype-card-totem" src="{escape(totem_src)}" '
-            f'alt="" width="48" height="48" loading="lazy" '
+            f'alt="" width="48" height="48" '
+            f'loading="lazy" decoding="async" '
             f'style="display:block;margin-bottom:8px;">'
         )
     return f"""
@@ -1142,7 +1198,8 @@ def _render_modifier_strip(modifiers: list[dict[str, Any]]) -> str:
         if glyph_src:
             glyph_html = (
                 f'<img class="modifier-chip__glyph" src="{escape(glyph_src)}" '
-                f'alt="" width="20" height="20" loading="lazy" '
+                f'alt="" width="20" height="20" '
+                f'loading="lazy" decoding="async" '
                 f'style="vertical-align:middle;margin-right:6px;">'
             )
         else:
@@ -1154,7 +1211,7 @@ def _render_modifier_strip(modifiers: list[dict[str, Any]]) -> str:
     return f"""
     <div class="hub-modifier-strip">
       <div class="hub-modifier-row">{chips}</div>
-      <p class="hub-caption hub-caption-center">Every fanbase carries one primary archetype and, this week, one of eight modifiers.</p>
+      <p class="hub-caption hub-caption-center">{"Every fanbase carries one primary archetype and one of eight modifiers." if is_offseason(date.today(), db=None) else "Every fanbase carries one primary archetype and, this week, one of eight modifiers."}</p>
     </div>
     """
 
@@ -1172,7 +1229,7 @@ def render_rivalry_section(rivalries: list[dict[str, Any]], issue: dict[str, Any
         _issue_methodology(
             issue or {},
             "rivalry",
-            ("ratio from pair mentions", "bot-filtered", "updated this week"),
+            ("ratio from pair mentions", "bot-filtered", "updated this offseason" if is_offseason(date.today(), db=None) else "updated this week"),
         )
         if is_retro
         else ""
@@ -1239,7 +1296,7 @@ def render_lexicon_section(lexicon: dict[str, Any] | None, issue: dict[str, Any]
         <section id="sec-06" class="hub-section hub-section-paper"{_section_attr("editorial") if is_retro else ""}>
           <div class="hub-container">
             {render_section_eyebrow("N\u00b0 06", "The Lexicon")}
-            <h2 class="hub-display-l">No featured phrase this week.</h2>
+            <h2 class="hub-display-l">{"No featured phrase from the latest signal." if is_offseason(date.today(), db=None) else "No featured phrase this week."}</h2>
             <p class="hub-dek">The Lexicon of the Week lights up when a single phrase clears the spike threshold (+100% WoW), the volume floor (500+ mentions), and the sample-quote floor (3+ quotable uses).</p>
           </div>
         </section>
@@ -1268,7 +1325,7 @@ def render_lexicon_section(lexicon: dict[str, Any] | None, issue: dict[str, Any]
       <div class="hub-container">
         {render_section_eyebrow("N\u00b0 06", "The Lexicon")}
         <h2 class="hub-display-l">&ldquo;{escape(str(lexicon.get('phrase') or ''))}&rdquo; {badge}</h2>
-        <p class="hub-dek">The phrase that spiked in {escape_or_dash(lexicon.get('related_team_name'))} fan conversations this week, and what it means.</p>
+        <p class="hub-dek">{"The phrase that recently spiked in " + escape_or_dash(lexicon.get('related_team_name')) + " fan conversations, and what it means." if is_offseason(date.today(), db=None) else "The phrase that spiked in " + escape_or_dash(lexicon.get('related_team_name')) + " fan conversations this week, and what it means."}</p>
         <article class="lexicon-feature">
           <div class="lexicon-feature-left">{paragraphs_html}</div>
           <div class="lexicon-feature-right">
@@ -1342,9 +1399,9 @@ def render_index_cards_section(issue: dict[str, Any]) -> str:
     <section id="sec-07" class="hub-section hub-section-paper"{_section_attr(source) if is_retro else ""}>
       <div class="hub-container">
         {render_section_eyebrow("N\u00b0 07", f"The Index Cards \u00b7 {issue['issue_number']}")}
-        <h2 class="hub-display-l">This week&rsquo;s cards</h2>
+        <h2 class="hub-display-l">{"Latest cards" if is_offseason(date.today(), db=None) else "This week&rsquo;s cards"}</h2>
         <div class="hub-index-cards">{cards_html}</div>
-        <p class="hub-caption hub-caption-center">All Index Cards are collectible. <a href="#">Save this week&rsquo;s cards</a> <span class="hub-gold-dot">\u00b7</span> <a href="/archive/">archive of all 47 issues &rarr;</a></p>
+        <p class="hub-caption hub-caption-center">All Index Cards are collectible. <a href="#">{"Save the latest cards" if is_offseason(date.today(), db=None) else "Save this week&rsquo;s cards"}</a> <span class="hub-gold-dot">\u00b7</span> <a href="/archive/">archive of all 47 issues &rarr;</a></p>
       </div>
     </section>
     """

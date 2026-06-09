@@ -1,69 +1,82 @@
 # Kalshi + Polymarket contracts.
-# Refreshed 2026-04-23 via Deep Research pass 2 - all Kalshi tickers
-# validated against live kalshi.com URLs; Polymarket slugs via
-# gamma-api. 15 Kalshi + 10 Polymarket = 25 total contracts tracked.
+#
+# Kalshi entries store an EVENT ticker (e.g. KXNCAAF-27 = CFP champion event).
+# The adapter calls /events/{ticker} and fans each event out into its
+# per-outcome binary markets (KXNCAAF-27-OSU, -TEX, …). Do NOT put a single
+# market ticker here — /markets/{event_ticker} 404s (that endpoint wants a
+# market ticker), which silently 0-rowed the adapter before 2026-05-28.
+#
+# Offseason reality (verified 2026-05-28 against live Kalshi API): every CFB
+# event below is OPEN with active markets, but all markets are 0-volume /
+# null-price until the season starts (~Aug). Zero observation rows in the
+# offseason is therefore CORRECT, not a 404 and not stale tickers. Rows begin
+# flowing automatically once the markets go liquid — no seed change needed.
+#
+# needs_research: true  → adapter skips the entry entirely (no live equivalent
+#                         found; revisit if Kalshi lists it).
+# 12 Kalshi events live · 2 with no live series · 1 Polymarket-style set (10).
 
 contracts:
 - platform: kalshi
   ticker: KXNCAAF-27
   label: College Football National Championship Winner (2026-27)
-  needs_research: false
+  needs_research: false   # 2026-05-28: 50 active markets (one per team), 0-vol offseason
 - platform: kalshi
-  ticker: KXHEISMAN-26
-  label: Heisman Trophy Winner (Dec 2026)
-  needs_research: false
+  ticker: KXHEISMAN-27
+  label: Heisman Trophy Winner (2026-27)
+  needs_research: false   # 2026-05-28: was KXHEISMAN-26 (0 markets); -27 has 26 active markets
 - platform: kalshi
   ticker: KXNCAAFSEC-26
   label: SEC Champion 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 16 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFB10-26
   label: Big Ten Champion 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 18 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFACC-26
   label: ACC Champion 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 17 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFB12-26
   label: Big 12 Champion 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 16 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFCONF-26
   label: Conference to Win the National Championship 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 5 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFCOTY-27
   label: College Football Coach of the Year 2026-27
-  needs_research: false
+  needs_research: false   # 2026-05-28: 29 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFFINALIST-27
   label: Reach the CFP National Championship Game 2026-27
-  needs_research: false
+  needs_research: false   # 2026-05-28: 50 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNDJOINCONF-27
   label: Will Notre Dame Football join a conference 2026-28
-  needs_research: false
+  needs_research: false   # 2026-05-28: 5 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFAAC-26
   label: American Athletic Conference Champion 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 14 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXNCAAFMWC-26
   label: Mountain West Champion 2026
-  needs_research: false
-- platform: kalshi
-  ticker: KXSECREG-26
-  label: SEC Regular-Season Champion 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 10 active markets, 0-vol offseason
 - platform: kalshi
   ticker: KXCOACHOUTNCAAFB-1-26
   label: College Football Coaches Out Before September 2026
-  needs_research: false
+  needs_research: false   # 2026-05-28: 14 active markets, 0-vol offseason
+- platform: kalshi
+  ticker: KXSECREG-26
+  label: SEC Regular-Season Champion 2026
+  needs_research: true    # 2026-05-28: event exists but 0 markets; no live KXSECREG series. Revisit.
 - platform: kalshi
   ticker: KXMICHCOACH-26
   label: Next Permanent Head Coach of Michigan
-  needs_research: false
+  needs_research: true    # 2026-05-28: event exists but 0 markets; no live KXMICHCOACH series (likely resolved). Revisit.
 - platform: polymarket
   slug: will-texas-longhorns-win-the-2027-cfp-national-championship
   label: Texas win 2027 CFP National Championship

@@ -258,13 +258,67 @@ def upsert_feature(db: Database, feature: EditionFeature) -> int:
             -- override, etc.). Only adopt the incoming seed when the
             -- existing value is empty/null. Equality with excluded is
             -- a no-op so this is safe for idempotent first-time seed.
+            -- Session 5 addendum (2026-05-22): also overwrite when the
+            -- existing value is a known dev-commentary placeholder. The
+            -- original Hotfix-13 logic protected against re-seeding
+            -- demoting Pattern C output to placeholder; the symmetric
+            -- protection (re-seeding upgrading a placeholder to a
+            -- better seed) was missing. Detection is conservative: only
+            -- the exact "[Auto-generated content placeholder" prefix
+            -- and the "Cover essay scaffold — auto-filled" prefix
+            -- count as placeholders. Real essays never start that way.
             dek = case
                 when coalesce(edition_features.dek, '') = '' then excluded.dek
+                when edition_features.dek like 'Cover essay scaffold — auto-filled%' then excluded.dek
+                -- Also catch dek strings that expose internal sprint /
+                -- pattern identifiers ("Pattern C", "Pattern E", "Sprint 13").
+                -- These shipped as authored deks but read as dev-vocab.
+                when edition_features.dek like '%Pattern C %' then excluded.dek
+                when edition_features.dek like '%Pattern E %' then excluded.dek
+                when edition_features.dek like '%Sprint 1%' then excluded.dek
+                -- Session 6 addendum: catch wrong-season Pattern C drift
+                -- in the dek too (the dek is derived from the bad body's
+                -- first paragraph by _persist_cover_body, so it shows
+                -- the same wrong-season scene-setting).
+                when edition_features.dek like '%press box at any stadium in mid-November%' then excluded.dek
+                when edition_features.dek like '%week the College Football Playoff field locks%' then excluded.dek
+                when edition_features.dek like '%press box at Bryant-Denny was nearly empty%' then excluded.dek
+                when edition_features.dek like '%cleaning crews started rolling carts%' then excluded.dek
                 else edition_features.dek
             end,
             body_markdown = case
                 when coalesce(edition_features.body_markdown, '') = ''
                     then excluded.body_markdown
+                when edition_features.body_markdown like '[Auto-generated content placeholder%'
+                    then excluded.body_markdown
+                -- Same internal-jargon detection on body_markdown.
+                when edition_features.body_markdown like '%Pattern C cover essay generator%' then excluded.body_markdown
+                when edition_features.body_markdown like '%Pattern E continuity loop%' then excluded.body_markdown
+                when edition_features.body_markdown like '%world_class_enrich%' then excluded.body_markdown
+                -- Session 6 addendum (2026-05-22): catch wrong-season
+                -- Pattern C drift. The live W18 cover essay shipped a
+                -- 1,100-word mid-November / CFP-week scene-setter on a
+                -- May 4 (offseason) publish date because Pattern C
+                -- interpreted ISO calendar week 18 as football week 18.
+                -- These distinctive phrases reveal a regular-season-
+                -- season scene on what should be an offseason edition.
+                -- Pattern C is now offseason-aware (see cover_essay.py
+                -- CALENDAR AWARENESS), but these detectors stay as a
+                -- safety net against future drift. Real essays — even
+                -- in-season — never produce all of these markers.
+                when edition_features.body_markdown like '%week the College Football Playoff field locks%' then excluded.body_markdown
+                when edition_features.body_markdown like '%Week 18 means in a sport that no longer has a Week 19%' then excluded.body_markdown
+                when edition_features.body_markdown like '%Beat writing built on fabrication is not beat writing%' then excluded.body_markdown
+                when edition_features.body_markdown like '%press box at any stadium in mid-November%' then excluded.body_markdown
+                -- W19 also drifted: live body opens with a post-game press
+                -- box scene at Bryant-Denny on what should be a May 11
+                -- offseason edition. "cleaning crews started rolling
+                -- carts down the aisles" is a uniquely-distinctive
+                -- post-game phrase that wouldn't appear in a real
+                -- offseason cover.
+                when edition_features.body_markdown like '%cleaning crews started rolling carts down the aisles%' then excluded.body_markdown
+                when edition_features.body_markdown like '%press box at Bryant-Denny was nearly empty%' then excluded.body_markdown
+                when edition_features.body_markdown like '%We''ll find out next Saturday, when the noise comes back%' then excluded.body_markdown
                 else edition_features.body_markdown
             end,
             byline = excluded.byline,

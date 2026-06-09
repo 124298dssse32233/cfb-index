@@ -506,7 +506,7 @@ def entries() -> list[CanonEntry]:
                "suspended and Moore as acting head coach for the win."
            )),
         _e(rank=24,
-           entity_slug="2025-cfp-final-osu-notre-dame-rematch-placeholder",
+           entity_slug="2025-sec-championship-texas-georgia",
            entity_display_name="2025 SEC Championship · Texas 27, Georgia 24",
            program_label="Texas vs. Georgia",
            era_label="December 6, 2025 · Mercedes-Benz Stadium · Atlanta",
@@ -691,10 +691,10 @@ def entries() -> list[CanonEntry]:
                "set the rivalry's pre-Stalions-era expectation."
            )),
         _e(rank=41,
-           entity_slug="2024-conference-championships",
+           entity_slug="2025-sec-championship-rematch-georgia-texas",
            entity_display_name="2025 SEC Championship rematch · Georgia 23, Texas 21",
            program_label="Georgia vs. Texas",
-           era_label="December 6, 2025 (rematch placeholder)",
+           era_label="December 6, 2025",
            statline="Smart's 4th SEC title · Texas's first appearance · 12-team bracket implications",
            summary_short=(
                "Smart's fourth SEC title and the second-iteration "

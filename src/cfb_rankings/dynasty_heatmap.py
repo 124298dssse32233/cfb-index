@@ -18,9 +18,18 @@ from __future__ import annotations
 
 from bisect import bisect_left
 from html import escape
+
+from cfb_rankings.utils import ordinal_suffix as _ordinal
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.charts import (
+    ANNOTATION_CSS,
+    Annotation,
+    CHART_CARD_CSS,
+    render_annotation_overlay,
+    render_chart_card,
+)
 from cfb_rankings.db import Database
 
 
@@ -190,6 +199,61 @@ def _team_index(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return teams
 
 
+def _peak_dynasty_annotation(
+    teams: list[dict[str, Any]],
+    cell_lookup: dict[tuple[int, int], dict[str, Any]],
+    years: list[int],
+    *,
+    label_w: int,
+    cell_w: int,
+    cell_h: int,
+    header_h: int,
+) -> list[Annotation]:
+    """One NYT-Upshot callout on the era's dynasty at its single best season.
+
+    The takeaway cards name the dynasty in prose; this puts the same claim ON
+    the chart — a marker on the program's brightest cell so the eye lands on
+    the top warm band without reading a caption. Mirrors the era-trajectory
+    annotation discipline (the chart self-narrates). Empty when there's no data.
+    """
+    if not teams or not years:
+        return []
+    dynasty = teams[0]
+    tid = dynasty["team_id"]
+    # Brightest season = max within-year percentile across the displayed window.
+    peak_year: int | None = None
+    peak_pct = -1.0
+    for yi, year in enumerate(years):
+        cell = cell_lookup.get((tid, year))
+        if cell is None:
+            continue
+        pct = float(cell["percentile"])
+        if pct > peak_pct:
+            peak_pct = pct
+            peak_year = year
+    if peak_year is None:
+        return []
+
+    ci = years.index(peak_year)
+    cx = label_w + ci * cell_w + (cell_w - 1) / 2.0
+    cy = header_h + 0 * cell_h + (cell_h - 1) / 2.0  # dynasty is row 0
+
+    # Place below the dot so the box never collides with the year header; swing
+    # left when the peak sits in the right half so the box stays on-canvas.
+    placement = "below-left" if ci >= len(years) / 2 else "below-right"
+    return [
+        Annotation(
+            cx,
+            cy,
+            [
+                f"{dynasty['team_name']}, {peak_year}",
+                f"{peak_pct:.0f}th percentile — its peak",
+            ],
+            placement=placement,
+        )
+    ]
+
+
 def render_dynasty_heatmap_svg(
     rows: list[dict[str, Any]],
     *,
@@ -200,6 +264,7 @@ def render_dynasty_heatmap_svg(
     label_w: int = 220,
     header_h: int = 64,
     footer_h: int = 80,
+    annotate: bool = True,
 ) -> str:
     """Return a self-contained SVG of the dynasty heatmap.
 
@@ -308,6 +373,21 @@ def render_dynasty_heatmap_svg(
     )
     parts.append('</g>')
 
+    # Editorial overlay: a single callout on the era's dynasty at its peak so
+    # the chart narrates its own headline (annotation discipline, WS-08). Lives
+    # inside this viewBox, so it scales with the chart on mobile.
+    if annotate:
+        overlay = render_annotation_overlay(
+            _peak_dynasty_annotation(
+                teams, cell_lookup, years,
+                label_w=label_w, cell_w=cell_w, cell_h=cell_h, header_h=header_h,
+            ),
+            width=width,
+            height=height,
+        )
+        if overlay:
+            parts.append(overlay)
+
     parts.append('</svg>')
     return "".join(parts)
 
@@ -334,6 +414,9 @@ _PAGE_TEMPLATE = """<!doctype html>
   .dh-takeaway__label {{ font-size: 11px; letter-spacing: 1.5px; color: var(--muted-foreground, #666); font-weight: 700; }}
   .dh-takeaway__value {{ font-size: 20px; font-weight: 800; margin: 4px 0 6px; }}
   .dh-takeaway__why {{ font-size: 13px; color: var(--muted-foreground, #555); line-height: 1.4; }}
+  .dh-wrap .chart-card {{ margin: 0; }}
+{chart_card_css}
+{annotation_css}
 </style>
 </head>
 <body class="dynasty-heatmap-page">
@@ -360,7 +443,7 @@ _PAGE_TEMPLATE = """<!doctype html>
   <section class="section">
     <h2>How to read it</h2>
     <p>Look for <strong>solid warm bands</strong> — those are dynasties. Look for <strong>swings from cool to warm</strong> — those are turnarounds (Indiana 2024-25, James Madison's FBS arrival). Look for <strong>warm-then-cool collapses</strong> — those are hard landings (USC post-2017, FSU 2024).</p>
-    <p class="muted">Source: <code>power_ratings_weekly</code> final-week ratings. Methodology at <a href="/about-model/">/about-model/</a>.</p>
+    <p class="muted">Full methodology at <a href="/about-model/">/about-model/</a>.</p>
   </section>
 </main>
 </body>
@@ -415,7 +498,7 @@ def _build_takeaways_html(teams: list[dict[str, Any]], rows: list[dict[str, Any]
         '<div class="dh-takeaway">'
         '<div class="dh-takeaway__label">CFP-ERA DYNASTY</div>'
         f'<div class="dh-takeaway__value">{escape(dynasty["team_name"])}</div>'
-        f'<div class="dh-takeaway__why">{dynasty["avg_percentile"]:.0f}th percentile average across {dynasty["n_seasons"]} seasons — the program with the most concentrated dominance of the bracket era.</div>'
+        f'<div class="dh-takeaway__why">{int(dynasty["avg_percentile"])}{_ordinal(int(dynasty["avg_percentile"]))} percentile average across {dynasty["n_seasons"]} seasons — the program with the most concentrated dominance of the bracket era.</div>'
         '</div>'
     )
     if hard_landing:
@@ -449,6 +532,13 @@ def render_dynasty_heatmap_page(
     svg = render_dynasty_heatmap_svg(
         rows, year_start=year_start, year_end=year_end,
     )
+    # Route the heatmap through the shared chart-card shell so it carries the
+    # standardized source-receipt footer (WS-08 "every chart renders through
+    # the shared component"). The page hero owns the headline/lede.
+    chart_html = render_chart_card(
+        svg,
+        source=f"CFB Index · final-week closing power rating per season, {year_start}-{year_end}",
+    )
     takeaways_html = _build_takeaways_html(teams, rows)
     head_chrome = render_head_chrome(
         page_path="/history/heatmap/",
@@ -464,9 +554,11 @@ def render_dynasty_heatmap_page(
     return _PAGE_TEMPLATE.format(
         year_start=year_start,
         year_end=year_end,
-        svg_html=svg,
+        svg_html=chart_html,
         takeaways_html=takeaways_html,
         head_chrome=head_chrome,
+        chart_card_css=CHART_CARD_CSS,
+        annotation_css=ANNOTATION_CSS,
     )
 
 
@@ -508,9 +600,11 @@ def build_dynasty_heatmap(
     page_path.write_text(page_html, encoding="utf-8")
     written.append(page_path)
 
-    # 2) Standalone share-card SVG (same renderer, downloadable)
+    # 2) Standalone share-card SVG (same renderer, downloadable). No annotation
+    # overlay here: it's class-styled and a bare .svg carries no stylesheet, so
+    # the callout only renders on the page (which ships ANNOTATION_CSS).
     svg = render_dynasty_heatmap_svg(
-        enriched, year_start=year_start, year_end=year_end,
+        enriched, year_start=year_start, year_end=year_end, annotate=False,
     )
     svg_path = out_dir / f"dynasty-heatmap-{year_start}-{year_end}.svg"
     svg_path.write_text(svg, encoding="utf-8")

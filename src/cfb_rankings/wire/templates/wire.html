@@ -26,7 +26,7 @@
 <style>{{HEAD_STYLE}}</style>
 </head><body>
 <a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
-<div class="page" id="main-content">
+<div class="page">
   <div class="chrome">
     <span><a href="/">CFB INDEX</a></span>
     <span>{{UPDATED_AT}}</span>
@@ -37,6 +37,7 @@
     {{NAV_ACTIONS}}
   </div>
   <hr class="rule">
+  <main id="main-content">
   <header class="hero hero-wire">
     <div class="eyebrow">XII. THE WIRE</div>
     <h1 class="roman-big">Every move. Every read.</h1>
@@ -46,7 +47,7 @@
   <section class="dept">
     <table class="wire-table">
       <thead>
-        <tr><th>WHEN</th><th>PROGRAM</th><th>ACTION</th><th>WHY IT MATTERS</th><th>IMPACT</th></tr>
+        <tr><th scope="col">WHEN</th><th scope="col">PROGRAM</th><th scope="col">ACTION</th><th scope="col">WHY IT MATTERS</th><th scope="col">IMPACT</th></tr>
       </thead>
       <tbody>{{ENTRIES_TBODY}}</tbody>
     </table>
@@ -60,6 +61,8 @@
     </div>
     <ul class="archive-list">{{ARCHIVE_LINKS}}</ul>
   </section>
+  {{DATABASE_META_FOOTER}}
+  </main>
   <footer class="footer">
     <hr class="rule soft">
     <p class="eyebrow muted">CFB INDEX · {{UPDATED_AT}}</p>

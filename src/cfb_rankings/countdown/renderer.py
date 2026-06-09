@@ -92,6 +92,7 @@ def render_countdown(
         phase = human_phase_label(today, db)
         detail = f"It's {phase}. Watch the games."
         title = f"{phase} — CFB Index"
+        season_year_for_desc = today.year
     else:
         days = days_to_kickoff(today, db=db)
         unit = "DAY" if days == 1 else "DAYS"
@@ -105,9 +106,10 @@ def render_countdown(
             f"{ko_date.strftime('%B')} {ko_date.day}, {ko_date.year}."
         )
         title = f"{days} {unit} to Kickoff — CFB Index"
+        season_year_for_desc = ko_date.year
 
     description = (
-        f"{days} days until the 2026 college football season kicks off. "
+        f"{days} days until the {season_year_for_desc} college football season kicks off. "
         "Phase, countdown, and what's happening in the meantime."
     )
 

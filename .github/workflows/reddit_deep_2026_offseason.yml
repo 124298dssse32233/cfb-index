@@ -92,6 +92,11 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
+      # Option B fail-loud (added 2026-05-21): refuse to run against a
+      # missing or poisoned DB.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db
@@ -161,7 +166,7 @@ jobs:
                           "mode": "subreddit_listing",
                           "team": team_name,
                           "subreddit": sub,
-                          "audience_bucket": "team",
+                          "audience_bucket": "fan",
                           "listing": listing,
                           "limit": LIMIT_PER_QUERY,
                           "require_cfb_context": False,  # team subs are CFB by definition
@@ -253,20 +258,16 @@ jobs:
       - name: Compute fan-intel bridge tables
         run: |
           set +e
-          # Derive CFB season + season-week (season = year if month>=7 else year-1;
-          # week = weeks since Aug 26) — matches scripts/daily_ingest.ps1.
-          python - <<'PY' > /tmp/cfb_cal.env
-          from datetime import date
-          t = date.today()
-          season = t.year if t.month >= 7 else t.year - 1
-          start = date(season, 8, 26)
-          week = max(1, (t - start).days // 7 + 1)
-          print(f"{season} {week}")
-          PY
-          read SEASON WEEK < /tmp/cfb_cal.env
-          echo "season=$SEASON week=$WEEK"
-          python -u manage.py tag-player-mentions --season "$SEASON" --commit || echo "tag-player-mentions skipped"
-          python -u manage.py build-conversation-features --season "$SEASON" --week "$WEEK" || echo "build-conversation-features skipped"
+          # tag-player-mentions (NOT tag-player-names — legacy name never
+          # existed as a CLI subcommand and the prior `|| echo skipped`
+          # swallow had been silently no-op'ing this step). --commit
+          # actually inserts rows. Season derives from current calendar:
+          # Feb-Jul -> previous year; Aug-Jan -> current year.
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          echo "Tagging player mentions for season=$SEASON"
+          python -u manage.py tag-player-mentions --season=$SEASON --commit \
+                                                                || echo "tag-player-mentions skipped"
+          python -u manage.py build-conversation-features        || echo "build-conversation-features skipped"
           python -u manage.py prepare-pulse                      || echo "prepare-pulse skipped"
           python -u manage.py classify-player-sentiment          || echo "classify-player-sentiment skipped"
           python -u manage.py extract-predictive-claims          || echo "extract-predictive-claims skipped"

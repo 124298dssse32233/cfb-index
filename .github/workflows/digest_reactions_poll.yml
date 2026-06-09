@@ -54,6 +54,12 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
+      # Option B fail-loud (added 2026-05-21): refuse to run against a
+      # missing or poisoned DB so init-db can't create a fresh empty
+      # schema and bake new autoincrement IDs into the rolling artifact.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           set -e
@@ -90,6 +96,9 @@ jobs:
   notify:
     if: failure()
     needs: poll
+    permissions:
+      issues: write
+      contents: read
     uses: ./.github/workflows/notify_failure.yml
     with:
       run_id: ${{ github.run_id }}

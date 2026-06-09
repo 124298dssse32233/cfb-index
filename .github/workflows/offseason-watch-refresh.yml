@@ -1,0 +1,159 @@
+name: offseason-watch-refresh
+# Wave 25 — keep 2026 offseason posture data (award watch + depth chart)
+# fresh through the offseason. Reads data/award_watch_2026.csv and
+# data/depth_chart_2026.csv, loads into DB, runs verify, commits.
+#
+# Cadence (May 27 2026 -> kickoff late August 2026):
+#   Mon 11:00 ET — weekly refresh + verify
+#   Sun 03:00 ET — extra Sunday refresh during peak watch-list season
+#                  (mid-June through late July when official lists drop)
+#
+# The CSVs are the source of truth. Edit the CSV files in PRs, this
+# workflow propagates them to the DB and rebuilds the status cache.
+
+on:
+  schedule:
+    # Mon 11:00 ET -> Mon 15:00 UTC (EDT)
+    - cron: '0 15 * * 1'
+    # Sun 03:00 ET -> Sun 07:00 UTC (EDT) — Sunday refresh during peak season
+    - cron: '0 7 * * 0'
+  workflow_dispatch:
+    inputs:
+      skip_publish:
+        description: 'Skip the publish-site trigger (data refresh only)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: offseason-watch-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify DB artifact present
+        run: |
+          python scripts/verify_db_artifact_healthy.py || {
+            echo "DB artifact not healthy — failing fast"
+            exit 1
+          }
+
+      - name: Pull rolling DB artifact
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh run download --name cfb-rankings-db --repo ${{ github.repository }} || {
+            echo "No DB artifact yet — skipping refresh this cycle"
+            exit 0
+          }
+
+      - name: Install minimal deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || pip install httpx requests pyyaml
+
+      - name: Refresh award watch from CSV
+        run: |
+          python manage.py refresh-award-watch
+          echo "::group::award watch rows by award"
+          python -c "
+          import sqlite3
+          con = sqlite3.connect('cfb_rankings.db')
+          for r in con.execute('SELECT award_slug, COUNT(*) FROM player_award_watch_2026 GROUP BY award_slug ORDER BY 2 DESC'):
+              print(f'  {r[0]:20} {r[1]:3}')
+          "
+          echo "::endgroup::"
+
+      - name: Refresh depth chart from CSV
+        run: |
+          python manage.py refresh-depth-chart
+          echo "::group::depth chart rows by position"
+          python -c "
+          import sqlite3
+          con = sqlite3.connect('cfb_rankings.db')
+          for r in con.execute('SELECT position_group, COUNT(*) FROM player_depth_chart_2026 GROUP BY position_group ORDER BY 2 DESC'):
+              print(f'  {r[0]:6} {r[1]:3}')
+          "
+          echo "::endgroup::"
+
+      - name: Rebuild status cache
+        run: |
+          python -c "
+          import sqlite3, time
+          con = sqlite3.connect('cfb_rankings.db', timeout=300)
+          con.execute('PRAGMA busy_timeout=300000')
+          t0 = time.perf_counter()
+          con.executescript('''
+          DROP TABLE IF EXISTS player_current_status_cache;
+          CREATE TABLE player_current_status_cache AS
+          SELECT * FROM (
+              SELECT v.*,
+                     ROW_NUMBER() OVER (
+                         PARTITION BY player_id
+                         ORDER BY CASE WHEN current_team_id IS NULL THEN 1 ELSE 0 END,
+                                  CASE WHEN status_code='TRANSFERRED_COLLEGE' THEN 0
+                                       WHEN status_code='RETURNING_2026' THEN 1
+                                       ELSE 2 END
+                     ) AS rn
+              FROM player_current_status_view v
+          ) WHERE rn = 1;
+          ALTER TABLE player_current_status_cache DROP COLUMN rn;
+          CREATE UNIQUE INDEX idx_player_current_status_cache_pid
+              ON player_current_status_cache(player_id);
+          ''')
+          con.commit()
+          n = con.execute('SELECT COUNT(*) FROM player_current_status_cache').fetchone()[0]
+          print(f'cache: {n:,} rows in {time.perf_counter()-t0:.1f}s')
+          "
+
+      - name: Run Wave 25 verify
+        run: |
+          python -X utf8 manage.py verify-wave25
+
+      - name: Upload refreshed DB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-rankings-db
+          path: cfb_rankings.db
+          retention-days: 30
+          overwrite: true
+
+      - name: Trigger publish-site rebuild
+        if: ${{ inputs.skip_publish != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run publish_site.yml --repo ${{ github.repository }} || \
+            echo "publish-site trigger failed (non-fatal — manual dispatch possible)"
+
+  notify_failure:
+    needs: refresh
+    if: failure()
+    uses: ./.github/workflows/notify_failure.yml
+    permissions:
+      issues: write
+      contents: read
+    with:
+      workflow_name: offseason-watch-refresh
+      run_id: ${{ github.run_id }}

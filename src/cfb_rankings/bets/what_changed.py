@@ -60,12 +60,33 @@ def build_player_state_blob(player_data: dict[str, Any]) -> dict[str, Any]:
             if isinstance(val, list):
                 outlook_updates.extend(str(x) for x in val if x)
 
+    # Achievements: emit a stable list of achievement_id strings, not the
+    # full dict. Previously this used `str(a)` which produced Python repr
+    # like "{'achievement_id': '...', 'display_name': '...', ...}" — those
+    # repr strings leaked into the embedded JSON, broke diff stability
+    # (every cosmetic change to display_name flipped the hash), and made
+    # the blob ~4× larger than necessary.
+    achievement_ids: list[str] = []
+    for a in achievements:
+        if not a:
+            continue
+        if isinstance(a, dict):
+            aid = a.get("achievement_id")
+            if aid:
+                achievement_ids.append(str(aid))
+        elif isinstance(a, str):
+            achievement_ids.append(a)
+        else:
+            aid = getattr(a, "achievement_id", None)
+            if aid:
+                achievement_ids.append(str(aid))
+
     payload: dict[str, Any] = {
         "heisman_heat": _safe_int((heisman or {}).get("rank") if isinstance(heisman, dict) else None),
         "standing_rung": _safe_int((standing or {}).get("current_rung_id") if isinstance(standing, dict) else None),
         "room_mentions": _safe_int(room_sample.get("mentions")) if isinstance(room_sample, dict) else None,
         "outlook_updates": outlook_updates,
-        "achievements": [str(a) for a in achievements if a],
+        "achievements": achievement_ids,
     }
     # Deterministic version hash — order-sensitive for lists but stable
     # across builds that produce the same values.

@@ -81,6 +81,15 @@ def render_rivalry_card(
     header_html = _render_header(profile, opponent_slug, rivalry_meta, all_time)
     meta_strip_html = _render_meta_strip(profile, opponent_slug, rivalry_meta, all_time, next_meeting)
     trajectory_html = _render_trajectory(profile, opponent_slug, opponent_profiled)
+    # Sprint E (Brief §7.2 Zone 4): Fan Heat Index dual-thermometer —
+    # "two opposing thermometers: your fanbase on the left, theirs on
+    # the right." Renders with honest empty-state copy when the
+    # cross-team rivalry-flagged FI corpus hasn't been ingested yet
+    # (the brief §7.2.7 dependency).
+    heat_index_html = _render_fan_heat_index(
+        profile, opponent_slug, opponent_profiled,
+        primary_posture, opponent_posture,
+    )
     panels_html = _render_panels(
         profile, opponent_slug, opponent_profiled,
         primary_posture, primary_quote,
@@ -107,6 +116,7 @@ def render_rivalry_card(
   {header_html}
   {meta_strip_html}
   {trajectory_html}
+  {heat_index_html}
   {panels_html}
   {meetings_html}
   {stakes_html}
@@ -239,9 +249,6 @@ def _render_trajectory(profile: Profile, opp: str, opponent_profiled: bool) -> s
         )
         return coords
 
-    gap = primary_pts[-1] - opp_pts[-1]
-    gap_sign = "+" if gap >= 0 else ""
-
     dual_line_html = ""
     if opponent_profiled:
         dual_line_html = f"""
@@ -249,14 +256,13 @@ def _render_trajectory(profile: Profile, opp: str, opponent_profiled: bool) -> s
       <circle cx="290" cy="{120 - opp_pts[-1] * 0.9}" r="4" fill="{opp_hex}" />
       <text x="300" y="{124 - opp_pts[-1] * 0.9}" fill="{opp_hex}" font-size="11" font-family="system-ui">{html.escape(_name(opp))}</text>"""
 
-    gap_badge = ""
-    if opponent_profiled:
-        gap_badge = f'<span class="rivalry-card__gap">gap {gap_sign}{gap} pts</span>'
-
+    # Until per-rivalry weekly fan-intel scores land, the curve is an
+    # illustrative placeholder. The "gap +N pts" badge that used to appear
+    # here was reading like a real number (Oregon +16 pts vs Washington),
+    # which is misleading. Eyebrow now says "illustrative" instead.
     return f"""<div class="rivalry-card__trajectory">
     <div class="rivalry-card__trajectory-header">
-      <span class="rivalry-card__section-eyebrow">HEAT TRAJECTORY · four weeks to kickoff</span>
-      {gap_badge}
+      <span class="rivalry-card__section-eyebrow">HEAT TRAJECTORY &middot; illustrative &middot; four weeks to kickoff</span>
     </div>
     <svg class="rivalry-card__trajectory-svg" viewBox="0 0 340 140" role="img" aria-label="Rivalry heat trajectory placeholder">
       <defs>
@@ -282,6 +288,129 @@ def _render_trajectory(profile: Profile, opp: str, opponent_profiled: bool) -> s
     <p class="rivalry-card__trajectory-note">
       Signal accumulating · per-rivalry weekly fan-intel feeding in as the {_season_label()} season approaches.
     </p>
+  </div>"""
+
+
+# ------------------------------------------------------------------------
+# Fan Heat Index — dual-thermometer (Brief §7.2 Zone 4)
+# ------------------------------------------------------------------------
+
+def _heat_pct_from_posture(posture: dict[str, Any] | None) -> int | None:
+    """Derive a 0-100 Fan Heat percentile from the posture dict.
+
+    Posture comes from rivalry_data_loader and may include `intensity`,
+    `heat_pct`, or a `belief_score` we can normalize. Falls through to
+    None when no usable signal is present — caller renders empty-state.
+    """
+    if not posture:
+        return None
+    # explicit heat_pct field wins
+    for k in ("heat_pct", "intensity_pct", "fan_heat_pct"):
+        v = posture.get(k)
+        if v is not None:
+            try:
+                return max(0, min(100, int(float(v))))
+            except (TypeError, ValueError):
+                pass
+    # belief_score in [-1, +1] → 0-100 via absolute intensity
+    belief = posture.get("belief_score")
+    if belief is not None:
+        try:
+            return max(0, min(100, int(abs(float(belief)) * 100)))
+        except (TypeError, ValueError):
+            pass
+    # intensity in [0, 1]
+    intensity = posture.get("intensity")
+    if intensity is not None:
+        try:
+            return max(0, min(100, int(float(intensity) * 100)))
+        except (TypeError, ValueError):
+            pass
+    return None
+
+
+def _heat_band(pct: int | None) -> tuple[str, str]:
+    """Return (label, css_class) for a heat percentile."""
+    if pct is None:
+        return ("Awaiting", "rivalry-heat__bar--awaiting")
+    if pct >= 80:
+        return (f"Peak · {pct}th pct", "rivalry-heat__bar--peak")
+    if pct >= 60:
+        return (f"High · {pct}th pct", "rivalry-heat__bar--high")
+    if pct >= 40:
+        return (f"Elevated · {pct}th pct", "rivalry-heat__bar--elevated")
+    return (f"Cool · {pct}th pct", "rivalry-heat__bar--cool")
+
+
+def _render_fan_heat_index(
+    profile: Profile,
+    opp: str,
+    opponent_profiled: bool,
+    primary_posture: dict[str, Any] | None,
+    opponent_posture: dict[str, Any] | None,
+) -> str:
+    """Two opposing thermometers per Brief §7.2 Zone 4. Renders honest
+    empty-state when cross-team rivalry-flagged FI corpus isn't built
+    yet (brief §7.2.7 dependency).
+    """
+    primary_pct = _heat_pct_from_posture(primary_posture)
+    opponent_pct = _heat_pct_from_posture(opponent_posture)
+
+    primary_label, primary_cls = _heat_band(primary_pct)
+    opponent_label, opponent_cls = _heat_band(opponent_pct)
+
+    primary_name = html.escape(profile.program_name)
+    opponent_name = html.escape(_name(opp))
+    primary_accent = profile.accent_hex or "#111"
+
+    # Empty-state copy
+    is_empty = primary_pct is None and opponent_pct is None
+    eyebrow = "Fan Heat Index · brief §7.2 zone 4"
+    body_line = (
+        f"<em>Cross-fanbase rivalry-flagged sentiment is the brief's "
+        f"§7.2.7 ingestion dependency. Pipeline lights up when the "
+        f"rivalry-week source adapter fires. Thermometers below show "
+        f"the chrome with both sides cool.</em>"
+        if is_empty else
+        f"Combined rivalry-week sentiment from each fanbase. "
+        f"Higher = more obsession, lower = comparative calm."
+    )
+
+    primary_fill = primary_pct if primary_pct is not None else 8
+    opponent_fill = opponent_pct if opponent_pct is not None else 8
+
+    return f"""<div class="rivalry-heat" aria-labelledby="rivalry-heat-h" data-state="{'empty' if is_empty else 'ready'}">
+    <div class="rivalry-heat__header">
+      <h3 id="rivalry-heat-h" class="rivalry-heat__title">Fan Heat Index</h3>
+      <p class="rivalry-heat__eyebrow">{html.escape(eyebrow)}</p>
+    </div>
+    <p class="rivalry-heat__body">{body_line}</p>
+    <div class="rivalry-heat__pair">
+      <div class="rivalry-heat__side" style="--side-accent: {primary_accent};">
+        <div class="rivalry-heat__name">{primary_name}</div>
+        <div class="rivalry-heat__column">
+          <div class="rivalry-heat__bar {primary_cls}" role="progressbar"
+               aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="{primary_pct if primary_pct is not None else 0}"
+               aria-label="{primary_name} fan heat">
+            <span class="rivalry-heat__fill" style="--fill: {primary_fill}%;"></span>
+          </div>
+        </div>
+        <div class="rivalry-heat__label">{html.escape(primary_label)}</div>
+      </div>
+      <div class="rivalry-heat__side rivalry-heat__side--opponent" style="--side-accent: #b56a3c;">
+        <div class="rivalry-heat__name">{opponent_name}</div>
+        <div class="rivalry-heat__column">
+          <div class="rivalry-heat__bar {opponent_cls}" role="progressbar"
+               aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="{opponent_pct if opponent_pct is not None else 0}"
+               aria-label="{opponent_name} fan heat">
+            <span class="rivalry-heat__fill" style="--fill: {opponent_fill}%;"></span>
+          </div>
+        </div>
+        <div class="rivalry-heat__label">{html.escape(opponent_label)}</div>
+      </div>
+    </div>
   </div>"""
 
 
@@ -390,7 +519,7 @@ def _render_meetings(profile: Profile, opp: str, meetings: list[dict[str, Any]])
         if commentary:
             body_html = html.escape(commentary)
         elif year and result_label:
-            body_html = f'<span class="rivalry-card__meeting-body--placeholder">{result_label} on file &mdash; commentary pending.</span>'
+            body_html = f'<span class="rivalry-card__meeting-body--placeholder">{result_label} recorded.</span>'
         else:
             body_html = ''
         rows_html.append(f"""<li class="rivalry-card__meeting">

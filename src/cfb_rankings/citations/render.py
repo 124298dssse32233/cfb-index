@@ -92,9 +92,16 @@ def render_citation_footer(citations: Iterable[Citation]) -> str:
     if not cit_list:
         return ""
     items_html = "\n".join(_render_footer_item(c) for c in cit_list)
+    # Session 6 Phase 9c: heading level H2 (was H3). On article pages
+    # the body is prose with no H2/H3 subheadings, so emitting "Sources"
+    # as H3 created an H1→H3 skip — a heading-order violation caught by
+    # axe-equivalent browser audit. "Sources" is semantically a peer of
+    # the article title (a top-level section of the article surface),
+    # so H2 is the correct level. The CSS rule on `.citations-header`
+    # styles by class, not by tag, so the visual treatment is preserved.
     return f"""\
 <footer class="article-citations" aria-labelledby="citations-header">
-  <h3 id="citations-header" class="citations-header">Sources</h3>
+  <h2 id="citations-header" class="citations-header">Sources</h2>
   <ol class="citations-list">
 {items_html}
   </ol>

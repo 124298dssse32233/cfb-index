@@ -9,6 +9,22 @@
     {
       "source": "/:slug([a-z][a-z0-9-]+).html",
       "destination": "/teams/:slug.html"
+    },
+    {
+      "source": "/today-in-history",
+      "destination": "/anniversary/today/index.html"
+    },
+    {
+      "source": "/today-in-history/",
+      "destination": "/anniversary/today/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "index, follow" }
+      ]
     }
   ]
 }

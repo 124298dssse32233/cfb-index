@@ -139,10 +139,27 @@ numerals enforced site-wide on stat-class elements (see end of this section).
 
 /* === LOCKED 2026-05-16: Tabular numerals enforcement === */
 /* Every stat / number / data-cell uses tabular numerals so digits align in columns. */
+/* Extended 2026-05-21 with attribute selectors to catch modern BEM stat classes
+   (.csp__stat-value, .savant__metric-value, .signature-story__stat-value, etc.)
+   per docs/research/cfb-stats-audit-2026-05-21.md P0. The BEM-suffix attribute
+   selectors are intentionally broad — any class ending in __stat-value,
+   __metric-value, __panel-value, __meta-value, or -delta gets tabular-nums
+   without per-module enumeration. */
 .stat, .number, .tabular,
 td.numeric, .data-table td,
 .percentile-value, .rank-value, .delta,
-.hero-finding-number, .saturday-strip-score {
+.hero-finding-number, .saturday-strip-score,
+
+/* BEM-family modern stat classes — auto-covered by suffix */
+[class$="__stat-value"], [class*="__stat-value "],
+[class$="__metric-value"], [class*="__metric-value "],
+[class$="__panel-value"], [class*="__panel-value "],
+[class$="__meta-value"], [class*="__meta-value "],
+[class$="__rcv-value"], [class*="__rcv-value "],
+[class$="-delta"], [class*="-delta "],
+
+/* Explicitly named gap classes from the 2026-05-21 audit */
+.metric-cell, .impact-stat, .stat-card, .stat-grid {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
   font-family: var(--font-ui);

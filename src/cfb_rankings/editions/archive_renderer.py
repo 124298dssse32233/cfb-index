@@ -276,6 +276,25 @@ def _render_issue_block(
   </article>"""
 
 
+def _database_archetype_footer(total_editions: int, updated_at: str) -> str:
+    """Render the Database archetype meta-footer for the editions archive.
+
+    First Database-archetype-primitive adopter (Session 6 Track 6). The
+    surrounding page keeps its own custom `<footer class="footer">`
+    chrome — this primitive lands above it as the methodology-pointer
+    + row-count footer the spec calls for. Future surfaces (canon,
+    wire, storylines) will follow the same additive pattern.
+    """
+    from cfb_rankings.database_archetype import render_database_meta_footer
+    return render_database_meta_footer(
+        label=("issue in the archive" if total_editions == 1 else "issues in the archive"),
+        total_rows=total_editions,
+        methodology_label="How the editions cycle works",
+        methodology_href="/methodology/",
+        updated_text=f"Updated {updated_at}",
+    )
+
+
 def render_editions_archive_html(db: Database) -> str:
     editions = list_editions(db)  # already ordered publish_date desc
     issues_html: list[str] = []
@@ -357,13 +376,14 @@ def render_editions_archive_html(db: Database) -> str:
   </section>
 
   <div class="page">{body}</div>
+  {_database_archetype_footer(len(editions), generated_at)}
 
   <footer class="footer">
     <div class="page">
       <div class="chrome">
         <span>CFB · INDEX</span>
         <span>Editions Archive</span>
-        <span>Generated {html.escape(generated_at)}</span>
+        <span>Updated {html.escape(generated_at)}</span>
       </div>
       <div class="bottom">
         <a href="/">Home</a> &nbsp;·&nbsp;

@@ -872,7 +872,7 @@ def entries() -> list[CanonEntry]:
                "third down, the player who slipped to 22nd overall, and "
                "the NFL's current best route-runner."
            )),
-        _e(rank=41, entity_slug="cam-taylor-britt",
+        _e(rank=41, entity_slug="sam-hubbard",
            entity_display_name="Sam Hubbard", program_slug="ohio-state",
            program_label="Ohio State", era_label="2017",
            statline="13.5 career sacks · 7.0 in '17 alone",
@@ -899,7 +899,7 @@ def entries() -> list[CanonEntry]:
                "got the Panthers a building-block defender."
            )),
         _e(rank=44, entity_slug="trey-hendrickson",
-           entity_display_name="Reese's Senior Bowl invitee · Trey Hendrickson",
+           entity_display_name="Trey Hendrickson",
            program_slug="florida-atlantic", program_label="FAU",
            era_label="2014–2016", statline="29.5 career sacks · 9.5 in '16",
            summary_short=(
@@ -925,7 +925,7 @@ def entries() -> list[CanonEntry]:
                "Georgia title teams and went ninth overall as the most "
                "obvious draft-day argument of the 2023 class."
            )),
-        _e(rank=47, entity_slug="jamaree-salyer",
+        _e(rank=47, entity_slug="stetson-bennett",
            entity_display_name="Stetson Bennett",
            program_slug="georgia", program_label="Georgia",
            era_label="Smart Era · 2020–2022",
@@ -953,7 +953,7 @@ def entries() -> list[CanonEntry]:
                "totals but whose three-year tape was the most consistent "
                "edge film the early-Harbaugh era produced."
            )),
-        _e(rank=50, entity_slug="reggie-white-namesake",
+        _e(rank=50, entity_slug="roquan-smith",
            entity_display_name="Roquan Smith",
            program_slug="georgia", program_label="Georgia",
            era_label="Smart Era · 2017",
@@ -963,7 +963,7 @@ def entries() -> list[CanonEntry]:
                "to the national title game and went eighth overall to the "
                "Bears as the era's prototype off-ball linebacker."
            )),
-        _e(rank=51, entity_slug="ryan-finley",
+        _e(rank=51, entity_slug="sam-darnold",
            entity_display_name="Sam Darnold",
            program_slug="usc", program_label="USC", era_label="2016–2017",
            statline="57 career TD · 22 INT · '17 Rose Bowl OT win vs Penn State",
@@ -971,7 +971,7 @@ def entries() -> list[CanonEntry]:
                "The USC quarterback whose 2017 Rose Bowl overtime win was "
                "the program's CFP-era high-water mark before the Riley arrival."
            )),
-        _e(rank=52, entity_slug="jalen-mills",
+        _e(rank=52, entity_slug="jj-mccarthy",
            entity_display_name="J.J. McCarthy",
            program_slug="michigan", program_label="Michigan",
            era_label="Harbaugh Era · 2022–2023",
@@ -1044,7 +1044,7 @@ def entries() -> list[CanonEntry]:
                "Freeze-era Ole Miss offense and made the Giants take him "
                "in the first round."
            )),
-        _e(rank=60, entity_slug="tony-pollard",
+        _e(rank=60, entity_slug="aj-brown",
            entity_display_name="A.J. Brown", program_slug="ole-miss",
            program_label="Ole Miss", era_label="2016–2018",
            statline="189 catches · 2,984 rec yds · 19 TD",
@@ -1088,7 +1088,7 @@ def entries() -> list[CanonEntry]:
                "national title game — and made him the closing image of "
                "the back-to-back run."
            )),
-        _e(rank=65, entity_slug="zach-charbonnet",
+        _e(rank=65, entity_slug="donovan-edwards",
            entity_display_name="Donovan Edwards", program_slug="michigan",
            program_label="Michigan", era_label="Harbaugh Era · 2022–2023",
            statline="186 career rec · 1,927 rush yds · '23 NCG TD pair",
@@ -1114,7 +1114,7 @@ def entries() -> list[CanonEntry]:
                "ran the Vols to 11-2 and made the program a top-five "
                "conversation for the first time in fifteen years."
            )),
-        _e(rank=68, entity_slug="aaron-donald-namesake",
+        _e(rank=68, entity_slug="vita-vea",
            entity_display_name="Vita Vea", program_slug="washington",
            program_label="Washington", era_label="Petersen Era · 2015–2017",
            statline="100 career tackles · 9.5 sacks at 347 pounds",
@@ -1177,7 +1177,7 @@ def entries() -> list[CanonEntry]:
                "in three years was the era's most flexible offensive-line "
                "résumé."
            )),
-        _e(rank=75, entity_slug="rashee-rice",
+        _e(rank=75, entity_slug="christian-wilkins",
            entity_display_name="Christian Wilkins", program_slug="clemson",
            program_label="Clemson", era_label="Swinney Era · 2015–2018",
            statline="40.5 career TFL · '18 NCG win · '19 13th-overall pick",
@@ -1186,7 +1186,7 @@ def entries() -> list[CanonEntry]:
                "back-to-back Playoff title runs and went 13th overall to "
                "the Dolphins."
            )),
-        _e(rank=76, entity_slug="dexter-lawrence-namesake",
+        _e(rank=76, entity_slug="dexter-lawrence",
            entity_display_name="Dexter Lawrence", program_slug="clemson",
            program_label="Clemson", era_label="Swinney Era · 2016–2018",
            statline="10 career sacks · 2x national champ · '19 17th-overall pick",
@@ -1223,17 +1223,18 @@ def entries() -> list[CanonEntry]:
                "overall pick in '17."
            )),
         _e(rank=80, entity_slug="malik-willis",
-           entity_display_name="Will Anderson predecessor · Reuben Foster — see #71",
+           entity_display_name="Malik Willis",
            program_slug="liberty", program_label="Liberty",
            era_label="Freeze Era · 2020–2021",
            statline="6,287 career pass + 1,822 rush · 70 total TD",
            summary_short=(
-               "The Liberty quarterback (Malik Willis) whose dual-threat "
-               "tape made the program a national conversation under "
-               "Freeze and got him drafted in the third round."
+               "The Liberty quarterback whose dual-threat tape made the "
+               "program a national conversation under Freeze and got him "
+               "drafted in the third round."
            )),
-        _e(rank=81, entity_slug="malik-willis-real",
-           entity_display_name="Malik Willis", program_slug="liberty",
+        _e(rank=81, entity_slug="malik-willis-g5-ceiling",
+           entity_display_name="Malik Willis · G5-ceiling view",
+           program_slug="liberty",
            program_label="Liberty", era_label="Freeze Era · 2020–2021",
            statline="6,287 career pass + 1,822 rush · 70 total TD",
            summary_short=(
@@ -1241,8 +1242,8 @@ def entries() -> list[CanonEntry]:
                "produced the dual-threat tape that made him a top-100 "
                "draft pick."
            )),
-        _e(rank=82, entity_slug="ej-perry",
-           entity_display_name="Joey Bosa namesake", program_slug="ohio-state",
+        _e(rank=82, entity_slug="joey-bosa",
+           entity_display_name="Joey Bosa", program_slug="ohio-state",
            program_label="Ohio State", era_label="2014–2015",
            statline="13 career sacks · '15 Big Ten DPOY · '16 3rd-overall pick",
            summary_short=(
@@ -1259,7 +1260,7 @@ def entries() -> list[CanonEntry]:
                "against Alabama in the Sugar Bowl semifinal was the era's "
                "first signature defensive moment."
            )),
-        _e(rank=84, entity_slug="cameron-heyward-namesake",
+        _e(rank=84, entity_slug="tyler-boyd",
            entity_display_name="Tyler Boyd", program_slug="pittsburgh",
            program_label="Pittsburgh", era_label="2013–2015",
            statline="254 catches · 3,361 rec yds · 21 TD",
@@ -1339,7 +1340,7 @@ def entries() -> list[CanonEntry]:
                "The Kentucky two-year starter whose dual-threat tape made "
                "him a draft-night fall and a Titans starter."
            )),
-        _e(rank=93, entity_slug="bryce-parr",
+        _e(rank=93, entity_slug="anthony-richardson",
            entity_display_name="Anthony Richardson", program_slug="florida",
            program_label="Florida", era_label="Napier Era · 2022",
            statline="21 TD · 9 INT · 4.4 forty at 244 pounds",
@@ -1357,7 +1358,7 @@ def entries() -> list[CanonEntry]:
                "Heisman finalist as a TE — made him the highest TE pick "
                "since 1973 (4th overall to Atlanta)."
            )),
-        _e(rank=95, entity_slug="kadarius-toney",
+        _e(rank=95, entity_slug="treylon-burks",
            entity_display_name="Treylon Burks", program_slug="arkansas",
            program_label="Arkansas", era_label="Pittman Era · 2019–2021",
            statline="146 catches · 2,399 rec yds · 18 TD",
@@ -1366,7 +1367,7 @@ def entries() -> list[CanonEntry]:
                "the Titans' replacement plan for A.J. Brown and a "
                "first-round pick."
            )),
-        _e(rank=96, entity_slug="jared-goff-namesake",
+        _e(rank=96, entity_slug="jared-goff",
            entity_display_name="Jared Goff", program_slug="california",
            program_label="California", era_label="Dykes Era · 2014–2015",
            statline="71 career TD · 23 INT · '16 first-overall pick",
@@ -1375,7 +1376,7 @@ def entries() -> list[CanonEntry]:
                "the first-overall pick in 2016 and the closing image of "
                "the late-Dykes Cal program."
            )),
-        _e(rank=97, entity_slug="dak-cousins-namesake",
+        _e(rank=97, entity_slug="marcus-mariota",
            entity_display_name="Marcus Mariota", program_slug="oregon",
            program_label="Oregon", era_label="Helfrich Era · 2014",
            statline="2014 Heisman · 42 TD · 4 INT · '15 NCG appearance",
@@ -1384,7 +1385,7 @@ def entries() -> list[CanonEntry]:
                "delivered the first inaugural-Playoff title-game "
                "appearance and made the spread-pass identity portable."
            )),
-        _e(rank=98, entity_slug="t-harris",
+        _e(rank=98, entity_slug="najee-harris",
            entity_display_name="Najee Harris", program_slug="alabama",
            program_label="Alabama", era_label="Saban Era · 2017–2020",
            statline="3,843 career rush yds · 46 TD · '21 24th-overall pick",
@@ -1393,7 +1394,7 @@ def entries() -> list[CanonEntry]:
                "the 2020 13-0 title run and went late-first to the "
                "Steelers."
            )),
-        _e(rank=99, entity_slug="leighton-vander-esch-namesake",
+        _e(rank=99, entity_slug="tank-bigsby",
            entity_display_name="Tank Bigsby", program_slug="auburn",
            program_label="Auburn", era_label="2020–2022",
            statline="2,903 career rush yds · 25 TD · 2x All-SEC",
@@ -1402,7 +1403,7 @@ def entries() -> list[CanonEntry]:
                "across two coaching changes and made him a top-100 "
                "draft pick."
            )),
-        _e(rank=100, entity_slug="dont-a-hightower-namesake",
+        _e(rank=100, entity_slug="christian-mccaffrey",
            entity_display_name="Christian McCaffrey", program_slug="stanford",
            program_label="Stanford", era_label="Shaw Era · 2014–2016",
            statline="3,922 career rush + 1,206 rec yds · 31 TD · '15 Heisman runner-up",

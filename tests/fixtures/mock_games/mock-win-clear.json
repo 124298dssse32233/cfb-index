@@ -29,12 +29,12 @@
   "diagnosis_stats": {
     "away": [
       {"label": "RUSH YPC", "value": "6.2", "band": "strength", "caption": "season high"},
-      {"label": "PASS YPA", "value": "9.8", "band": "strength", "caption": "starters by Q3"},
+      {"label": "PASS Y/A", "value": "9.8", "band": "strength", "caption": "starters by Q3"},
       {"label": "TO MARGIN", "value": "+3", "band": "strength", "caption": "two early takeaways"},
       {"label": "TIME OF POSS", "value": "37:21", "band": "strength", "caption": "ground game in 2H"}
     ],
     "home": [
-      {"label": "PASS YPA", "value": "4.1", "band": "concern", "caption": "QB pressured all night"},
+      {"label": "PASS Y/A", "value": "4.1", "band": "concern", "caption": "QB pressured all night"},
       {"label": "RUSH YPC", "value": "2.3", "band": "bad", "caption": "front 7 dominated"},
       {"label": "TO MARGIN", "value": "-3", "band": "concern", "caption": "three takeaways given"},
       {"label": "1ST DOWNS", "value": "8", "band": "bad", "caption": "lowest of season"}
@@ -60,10 +60,10 @@
     "retroactive": {
       "earlier_card_headline": "The portal QB settled in by Week 2",
       "earlier_card_week": 2,
-      "overturned_by": "tonight's 9.8 YPA",
+      "overturned_by": "tonight's 9.8 Y/A",
       "source_citation": "prior Chronicle card \u00b7 Wk 2 \u00b7 2026",
       "oddity_score": 0.62,
-      "notes": "What looked like a portal-QB project two weeks ago has compounded \u2014 9.8 YPA tonight against a worst-case opponent, but the throws were the throws."
+      "notes": "What looked like a portal-QB project two weeks ago has compounded \u2014 9.8 Y/A tonight against a worst-case opponent, but the throws were the throws."
     }
   }
 }

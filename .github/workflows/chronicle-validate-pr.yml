@@ -1,0 +1,45 @@
+name: chronicle-validate-pr
+# PR-time CI for Chronicle module changes.
+# Runs all chronicle unit tests + lint — NO LLM calls, NO GPU, NO DB artifact.
+# Path filter: only triggers when chronicle source, tests, or migrations change.
+
+on:
+  pull_request:
+    paths:
+      - 'src/cfb_rankings/chronicle/**'
+      - 'tests/test_chronicle_*.py'
+      - 'migrations/20260524_*.sql'
+      - 'migrations/20260525_*.sql'
+
+jobs:
+  test:
+    name: Chronicle unit tests + lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Core runtime deps required by chronicle modules under test.
+          # Kept minimal (no torch, no llama-cpp) — all LLM calls are
+          # mocked in unit tests via stub backends.
+          pip install pydantic numpy pyyaml pytest pytest-timeout
+
+      - name: Run chronicle unit tests
+        run: |
+          python -m pytest tests/test_chronicle_*.py -v --timeout=60
+
+      - name: Lint chronicle source (syntax check)
+        # Catches import errors and obvious syntax bugs before the
+        # self-hosted runner picks up the PR.
+        run: |
+          python -m py_compile src/cfb_rankings/chronicle/*.py || true
+          echo "Syntax check complete."

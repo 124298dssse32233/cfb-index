@@ -1,0 +1,592 @@
+# Depth chart expansion — Wave 25+ all-FBS pass
+# Generated 2026-05-27. Sources: class-year heuristic + editorial knowledge (consensus_may_2026).
+# Covers 86 FBS teams not included in the original Wave 25 top-50 seed.
+
+# === Air Force ===
+16256,Josh Johnson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Air Force QB1 — junior returning starter
+3401,Christopher Frew,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Air Force RB1 — senior returning starter
+3403,Cade Harris,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Air Force WR1 — senior returning starter
+3436,James Roberson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Air Force WR2 — senior receiver, secondary target
+33844,Chances Carter-Hill,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Air Force LB1 — senior returning starter
+
+# === Akron ===
+3696,Ben Finley,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Akron QB1 — senior returning starter
+3843,Taven Curry,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Akron RB1 — junior returning starter
+27366,Alex Adams,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Akron WR1 — senior returning starter
+27375,Myles Walker,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Akron WR2 — senior receiver, secondary target
+3584,Shammond Cooper,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Akron LB1 — senior returning starter
+
+# === App State ===
+14711,Billy Wiles,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,App State QB1 — senior returning starter
+7254,Rashod Dubinion,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,App State RB1 — senior feature back, Sun Belt rushing threat
+16824,Dalton Stroman,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,App State WR1 — senior slot, reliable chain-mover
+5006,Kyle Arnholt,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,App State LB1 — senior returning starter
+
+# === Arkansas ===
+28492,Brayson McHenry,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas QB1 — junior starter looking to build on 2025 campaign
+31445,AJ Green,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas RB1 — senior workhorse back, physical downhill runner
+10596,O'Mega Blake,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas WR1 — senior returning starter
+9319,Raylen Sharpe,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas WR1 — senior receiver, red-zone target
+7363,Stephen Dix Jr.,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas LB1 — senior returning starter
+
+# === Arkansas State ===
+10987,Ethan Crawford,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas State QB1 — junior returning starter
+10108,Ja'Quez Cross,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas State RB1 — senior returning starter
+10107,Corey Rucker,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas State WR1 — senior returning starter
+10922,Nazeviah Burris,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas State WR2 — senior receiver, secondary target
+11039,Devyn Curtis,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Arkansas State LB1 — senior returning starter
+
+# === Army ===
+10332,Dewayne Coleman,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Army QB1 — senior returning starter
+26002,Jarel Dickson,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Army RB1 — senior returning starter
+26016,Liam Fortner,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Army WR1 — senior returning starter
+10325,Noah Short,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Army WR2 — senior receiver, secondary target
+10313,Eric Ford,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Army LB1 — senior returning starter
+
+# === Ball State ===
+15347,Kiael Kelly,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ball State QB1 — senior returning starter
+11570,Qua Ashley,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ball State RB1 — junior returning starter
+15340,Qian Magwood,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ball State WR1 — senior returning starter
+32332,Nick Presley,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Ball State WR2 — senior receiver, secondary target
+15684,Alfred Chea,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ball State LB1 — senior returning starter
+
+# === Boston College ===
+31372,Grayson James,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Boston College QB1 — senior signal-caller anchoring ACC rebuild
+15328,Jordan Mcdonald,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Boston College RB1 — senior back, physical runner
+15324,Luke McLaughlin,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Boston College WR1 — senior returning starter
+15299,Owen McGowan,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Boston College LB1 — senior returning starter
+
+# === Bowling Green ===
+7855,Drew Pyne,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Bowling Green QB1 — senior veteran QB, experienced portal addition
+31392,PaSean Wimberly,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Bowling Green RB1 — senior returning starter
+31541,RJ Garcia II,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Bowling Green WR1 — senior returning starter
+32040,Reis Stocksdale,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Bowling Green WR2 — senior receiver, secondary target
+12236,Chris Williams,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Bowling Green LB1 — senior returning starter
+
+# === Buffalo ===
+3796,Ta'Quan Roberson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Buffalo QB1 — senior returning starter
+12388,Al-Jay Henderson,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Buffalo RB1 — senior returning starter
+11379,Jasaiah Gathings,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Buffalo WR1 — senior returning starter
+25177,Qua Sanders,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Buffalo WR2 — senior receiver, secondary target
+31705,Connor Henderson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Buffalo LB1 — senior returning starter
+
+# === BYU ===
+29243,Treyson Bourguet,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,BYU QB1 — junior returning starter
+12501,Enoch Nawahine,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,BYU RB1 — senior returning starter
+12502,Chase Roberts,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,BYU WR1 — senior returning starter
+12475,Choe Bryant-Strother,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,BYU LB1 — senior returning starter
+
+# === California ===
+3818,Devin Brown,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,California QB1 — junior returning starter
+12872,LJ Johnson Jr.,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,California RB1 — senior returning starter
+12772,Trond Grizzell,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,California WR1 — senior returning starter
+13575,Jacob De Jesus,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,California WR2 — senior receiver, secondary target
+5803,Chris Victor,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,California LB1 — senior returning starter
+
+# === Central Michigan ===
+12927,Joey Labas,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Central Michigan QB1 — senior returning starter
+12929,Nahree Biggins,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Central Michigan RB1 — senior returning starter
+31535,Tyson Davis,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Central Michigan WR1 — junior returning starter
+53247,Cairo Rhodes,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Central Michigan LB1 — senior returning starter
+
+# === Charlotte ===
+13874,Conner Harrell,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Charlotte QB1 — junior returning starter
+10602,Henry Rutledge,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Charlotte RB1 — senior returning starter
+14916,Justin Olson,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Charlotte WR1 — senior returning starter
+9813,Jayden McGowan,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Charlotte WR2 — senior receiver, secondary target
+13606,Shay Taylor,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Charlotte LB1 — senior returning starter
+
+# === Coastal Carolina ===
+11452,MJ Morris,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Coastal Carolina QB1 — junior returning starter
+9739,Jalen John,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Coastal Carolina RB1 — senior returning starter
+6372,Malick Meiga,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Coastal Carolina WR1 — senior returning starter
+6373,Jameson Tucker,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Coastal Carolina WR2 — senior receiver, secondary target
+15484,Dontae Lunan,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Coastal Carolina LB1 — senior returning starter
+
+# === Colorado State ===
+3673,Tahj Bullock,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Colorado State QB1 — senior returning starter
+13040,Keegan Holles,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Colorado State RB1 — junior returning starter
+32064,Jordan McIntyre,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Colorado State WR1 — senior returning starter
+14813,Tay Lanier,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Colorado State WR2 — senior receiver, secondary target
+23219,Jaques Evans,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Colorado State LB1 — senior returning starter
+
+# === Duke ===
+53328,Michael Appel Jr.,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Duke QB1 — senior returning starter
+5154,Anderson Castle,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Duke RB1 — senior returning starter
+10492,Andrel Anthony Jr.,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Duke WR1 — senior returning starter
+12166,Sahmir Hagans,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Duke WR2 — senior receiver, secondary target
+10154,Jaiden Francois,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Duke LB1 — senior returning starter
+
+# === East Carolina ===
+10585,Mike Wright,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,East Carolina QB1 — senior returning starter
+13474,Marlon Gunn,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,East Carolina RB1 — senior returning starter
+31261,Kyler Pearson,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,East Carolina WR1 — senior returning starter
+13482,Kelan Robinson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,East Carolina WR2 — senior receiver, secondary target
+13454,Dameon Wilson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,East Carolina LB1 — senior returning starter
+
+# === Eastern Michigan ===
+6402,Noah Kim,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Eastern Michigan QB1 — senior returning starter
+9715,Dontae McMillan,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Eastern Michigan RB1 — senior returning starter
+31264,Porter Rooks,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Eastern Michigan WR1 — senior returning starter
+9714,Terry Lockett,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Eastern Michigan WR2 — senior receiver, secondary target
+49898,Kadin Bailey,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Eastern Michigan LB1 — senior returning starter
+
+# === Florida Atlantic ===
+6069,Zach Gibson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida Atlantic QB1 — senior returning starter
+16834,Gemari Sands,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida Atlantic RB1 — sophomore returning starter
+28225,JR Wilson Jr.,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida Atlantic WR1 — senior returning starter
+34799,Devarius Mitchell,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida Atlantic WR2 — senior receiver, secondary target
+6258,Naejuan Barber,DL,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida Atlantic DL anchor — senior returning starter
+
+# === Florida International ===
+47732,Joe Pesansky,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida International QB1 — senior returning starter
+10925,Kejon Owens,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida International RB1 — senior returning starter
+16990,Tar'Varish Dawson Jr.,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida International WR1 — senior returning starter
+15037,Ross Fournet,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida International WR2 — senior receiver, secondary target
+25489,Johnny Chaney Jr.,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida International LB1 — senior returning starter
+
+# === Florida State ===
+9815,Thomas Castellanos,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida State QB1 — senior returning starter
+9773,Caziah Holmes,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida State RB1 — senior returning starter
+17528,Gavin Blackwell,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida State WR1 — senior returning starter
+6171,Squirrel White,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida State WR2 — senior receiver, secondary target
+13666,Stefon Thompson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Florida State LB1 — senior returning starter
+
+# === Fresno State ===
+11297,E.J. Warner,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Fresno State QB1 — senior returning starter
+14862,Johnathan Arceneaux,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Fresno State RB1 — senior returning starter
+14860,Jordan Brown,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Fresno State WR1 — senior returning starter
+23316,Josiah Freeman,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Fresno State WR2 — senior receiver, secondary target
+7443,Jadon Pearson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Fresno State LB1 — senior returning starter
+
+# === Georgia Southern ===
+11833,JC French,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia Southern QB1 — junior returning starter
+11834,OJ Arnold,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia Southern RB1 — senior returning starter
+16784,Camden Brown,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia Southern WR1 — senior returning starter
+11836,Marcus Sanders Jr.,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia Southern WR2 — senior receiver, secondary target
+5021,Brendan Harrington,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia Southern LB1 — senior returning starter
+
+# === Georgia State ===
+11471,Christian Veilleux,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia State QB1 — senior returning starter
+13907,Rashad Amos,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia State RB1 — senior returning starter
+16373,Leo Blackburn,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia State WR1 — senior returning starter
+5880,Zaire Thornton,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia State WR2 — senior receiver, secondary target
+50222,Zavier Carter,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Georgia State LB1 — senior returning starter
+
+# === Hawai'i ===
+32272,Caleb Freeman,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Hawai'i QB1 — senior returning starter
+12016,Landon Sims,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Hawai'i RB1 — senior returning starter
+12064,Karsyn Pupunu,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Hawai'i WR1 — senior returning starter
+12015,Nicholas Cenacle,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Hawai'i WR2 — senior receiver, secondary target
+53339,Giovanni Iovino,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Hawai'i LB1 — senior returning starter
+
+# === Indiana ===
+8478,Grant Wilson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Indiana QB1 — senior returning starter
+10978,Solomon Vanhorse,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Indiana RB1 — senior returning starter
+9350,Tyler Morris,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Indiana WR1 — senior returning starter
+27638,E.J. Williams Jr.,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Indiana WR2 — senior receiver, secondary target
+9188,Dominique Ratcliff,DL,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Indiana DL anchor — senior returning starter
+
+# === James Madison ===
+13568,Matthew Sluka,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,James Madison QB1 — senior returning starter
+17410,Jobi Malary,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,James Madison RB1 — senior returning starter
+31655,Isaiah Alston,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,James Madison WR1 — senior returning starter
+14256,Nick DeGennaro,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,James Madison WR2 — senior receiver, secondary target
+10647,Brandon Fique,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,James Madison LB1 — senior returning starter
+
+# === Kent State ===
+12270,CJ Montes,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kent State QB1 — senior returning starter
+13846,Jordan Nubin,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kent State RB1 — senior returning starter
+14160,Ali Fisher,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kent State WR1 — senior returning starter
+31663,Sebastian Brown,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Kent State WR2 — senior receiver, secondary target
+12407,Semaj Cross,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kent State LB1 — senior returning starter
+
+# === Kentucky ===
+44757,Zach Calzada,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kentucky QB1 — senior returning starter
+13698,Dante Dowdell,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kentucky RB1 — junior returning starter
+23370,Javian Hester,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kentucky WR1 — senior returning starter
+11027,Jay Maclin,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Kentucky WR2 — senior receiver, secondary target
+11013,Daveren Rayner,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Kentucky LB1 — senior returning starter
+
+# === Liberty ===
+10870,Ryan Burger,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Liberty QB1 — junior returning starter
+10878,Julian Gray,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Liberty RB1 — senior returning starter
+15010,Reese Smith,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Liberty WR1 — senior returning starter
+10876,Elijah Canion,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Liberty WR2 — senior receiver, secondary target
+10847,Joseph Carter,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Liberty LB1 — senior returning starter
+
+# === Louisiana ===
+13921,Walker Howard,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana QB1 — junior returning starter
+3966,Zylan Perry,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana RB1 — junior returning starter
+4102,Robert Williams,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana WR1 — senior returning starter
+4106,Dale Martin,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana WR2 — senior receiver, secondary target
+3990,Terrence Williams,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana LB1 — senior returning starter
+
+# === Louisiana Tech ===
+57202,Trey Kukuk,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana Tech QB1 — junior returning starter
+57200,Andrew Burnette,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana Tech RB1 — senior returning starter
+47225,Devin Gandy,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana Tech WR1 — senior returning starter
+57205,Tre Averhart,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana Tech WR2 — senior receiver, secondary target
+13314,Kolbe Fields,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Louisiana Tech LB1 — senior returning starter
+
+# === Marshall ===
+27815,Carlos Del Rio-Wilson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Marshall QB1 — junior returning starter
+4567,Tony Mathis Jr.,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Marshall RB1 — senior returning starter
+18519,Jakolbe Baldwin,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Marshall WR1 — senior returning starter
+10254,Bryan Robinson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Marshall WR2 — senior receiver, secondary target
+12550,Jayland Parker,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Marshall LB1 — senior returning starter
+
+# === Maryland ===
+16793,Justyn Martin,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Maryland QB1 — junior returning starter
+26919,Eli Mason,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Maryland RB1 — junior returning starter
+10494,Jalil Farooq,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Maryland WR1 — senior returning starter
+11443,Shaleak Knotts,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Maryland WR2 — senior receiver, secondary target
+13609,Cam Rice,DL,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Maryland DL anchor — senior returning starter
+
+# === Massachusetts ===
+53346,Grant Jordan,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Massachusetts QB1 — senior returning starter
+6790,Juwaun Price,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Massachusetts RB1 — senior returning starter
+27957,Donnie Gray,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Massachusetts WR1 — senior returning starter
+26846,Jake McConnachie,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Massachusetts WR2 — senior receiver, secondary target
+53350,Dean Shaffer,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Massachusetts LB1 — senior returning starter
+
+# === Memphis ===
+10005,Brendon Lewis,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Memphis QB1 — senior returning starter
+11063,Frank Peasant,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Memphis RB1 — senior returning starter
+11141,Ger-Cari Caldwell,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Memphis WR1 — senior returning starter
+6706,Jadon Thompson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Memphis WR2 — senior receiver, secondary target
+10616,Cam Burden,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Memphis LB1 — senior returning starter
+
+# === Miami (OH) ===
+11657,Dequan Finn,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Miami (OH) QB1 — senior returning starter
+31294,Kenny Tracy,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Miami (OH) RB1 — senior returning starter
+20777,Deion Colzie,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Miami (OH) WR1 — senior returning starter
+9805,Darion Williamson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Miami (OH) WR2 — senior receiver, secondary target
+10544,Corban Hondru,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Miami (OH) LB1 — senior returning starter
+
+# === Michigan State ===
+10684,Aidan Chiles,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Michigan State QB1 — junior returning starter
+8947,Elijah Tau-Tolliver,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Michigan State RB1 — senior returning starter
+10670,Alante Brown,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Michigan State WR1 — senior returning starter
+11064,Omari Kelly,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Michigan State WR2 — senior receiver, secondary target
+10666,Darius Snow,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Michigan State LB1 — senior returning starter
+
+# === Middle Tennessee ===
+11071,Nick Vattiato,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Middle Tennessee QB1 — senior returning starter
+13623,Rickey Hunt,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Middle Tennessee RB1 — sophomore returning starter
+11061,Gamarion Carter,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Middle Tennessee WR1 — senior returning starter
+11066,Myles Butler,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Middle Tennessee WR2 — senior receiver, secondary target
+11050,Brandon Buckner,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Middle Tennessee LB1 — senior returning starter
+
+# === Mississippi State ===
+14346,Blake Shapen,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Mississippi State QB1 — senior returning starter
+14349,Davon Booth,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Mississippi State RB1 — senior returning starter
+14343,Jordan Mosley,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Mississippi State WR1 — senior returning starter
+9712,Markus Allen,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Mississippi State WR2 — senior receiver, secondary target
+14325,Branden Jennings,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Mississippi State LB1 — senior returning starter
+
+# === NC State ===
+32645,Ethan Rhodes,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,NC State QB1 — senior returning starter
+12567,Daylan Smothers,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,NC State RB1 — sophomore returning starter
+12574,Wesley Grimes,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,NC State WR1 — senior returning starter
+12559,Caden Fordham,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,NC State LB1 — senior returning starter
+
+# === Nevada ===
+24930,Chubba Purdy,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Nevada QB1 — senior returning starter
+10008,Caleb Ramseur,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Nevada RB1 — senior returning starter
+45571,Dakota Thomas,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Nevada WR1 — senior returning starter
+24932,Nathaneal Floyd,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Nevada WR2 — senior receiver, secondary target
+27632,Nahji Logan,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Nevada LB1 — senior returning starter
+
+# === New Mexico ===
+35436,James Laubstein,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico QB1 — senior returning starter
+11872,Damon Bankston,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico RB1 — senior returning starter
+9510,Keagan Johnson,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico WR1 — senior returning starter
+8882,Dmitri Johnson,DL,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico DL anchor — senior returning starter
+
+# === New Mexico State ===
+41598,Logan Fife,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico State QB1 — senior returning starter
+16811,Larenzo McMillan,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico State RB1 — senior returning starter
+10722,Glynn Johnson Jr,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico State WR1 — senior returning starter
+33048,Allen Ortiz,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico State WR2 — senior receiver, secondary target
+32780,Bryant Jackson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,New Mexico State LB1 — senior returning starter
+
+# === North Carolina ===
+13873,Max Johnson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Carolina QB1 — senior returning starter
+14923,Caleb Hood,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Carolina RB1 — senior returning starter
+14924,Kobe Paysour,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Carolina WR1 — senior returning starter
+13675,Mikai Gbayor,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Carolina LB1 — senior returning starter
+
+# === North Texas ===
+15610,Reese Poffenbarger,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Texas QB1 — senior returning starter
+15396,Jayden Becks,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Texas RB1 — junior returning starter
+11261,Simeon Evans,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Texas WR1 — senior returning starter
+53373,Tyrese Hunt-Thompson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,North Texas WR2 — senior receiver, secondary target
+14069,Shane Whitter,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,North Texas LB1 — senior returning starter
+
+# === Northern Illinois ===
+12742,Jalen Macon,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northern Illinois QB1 — junior returning starter
+57088,Chavon Wright,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northern Illinois RB1 — senior returning starter
+12701,Justin Lynch,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northern Illinois WR1 — senior returning starter
+32784,Kenji Lewis,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Northern Illinois WR2 — senior receiver, secondary target
+53257,Danny Cronin,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northern Illinois LB1 — senior returning starter
+
+# === Northwestern ===
+12873,Preston Stone,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northwestern QB1 — senior returning starter
+10586,Cam Porter,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northwestern RB1 — senior returning starter
+28005,Tate Crane,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northwestern WR1 — senior returning starter
+9626,Yanni Karlaftis,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Northwestern LB1 — senior returning starter
+
+# === Ohio ===
+13621,Parker Navarro,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ohio QB1 — senior returning starter
+16168,Sieh Bangura,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ohio RB1 — senior returning starter
+23238,Eamonn Dennis,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ohio WR1 — senior returning starter
+13627,Caleb Gossett,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Ohio WR2 — senior receiver, secondary target
+56713,Cameron Hollobaugh,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ohio LB1 — senior returning starter
+
+# === Oklahoma State ===
+32396,Zane Flores,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Oklahoma State QB1 — returning returning starter
+11195,Trenten Howland,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Oklahoma State RB1 — senior returning starter
+10256,Christian Fitzpatrick,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Oklahoma State WR1 — senior returning starter
+31507,Da'Wain Lofton,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Oklahoma State WR2 — senior receiver, secondary target
+3616,Bryan McCoy,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Oklahoma State LB1 — senior returning starter
+
+# === Old Dominion ===
+16972,Colton Joseph,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Old Dominion QB1 — sophomore returning starter
+4439,Ke'Travion Hargrove,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Old Dominion RB1 — senior returning starter
+25833,Sidney Mbanasor,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Old Dominion WR1 — junior returning starter
+16975,Seth Naotala,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Old Dominion LB1 — senior returning starter
+
+# === Ole Miss ===
+28347,Shawqi Itraish,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ole Miss QB1 — senior returning starter
+31462,Logan Diggs,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ole Miss RB1 — senior returning starter
+31257,Devin Price,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ole Miss WR1 — senior returning starter
+31718,Izaiah Hartrup,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Ole Miss WR2 — senior receiver, secondary target
+4271,Andrew Jones,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Ole Miss LB1 — senior returning starter
+
+# === Rice ===
+28355,AJ Padgett,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rice QB1 — junior returning starter
+26434,Ryan Butler,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rice RB1 — senior returning starter
+10811,Aaron Turner,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rice WR1 — senior returning starter
+31561,Max Balthazar,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Rice WR2 — senior receiver, secondary target
+11284,Andrew Awe,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rice LB1 — senior returning starter
+
+# === Rutgers ===
+25097,AJ Surace,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rutgers QB1 — sophomore returning starter
+14546,Samuel Brown V,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rutgers RB1 — senior returning starter
+25061,Dino Kaliakmanis,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rutgers WR1 — senior returning starter
+12705,Dane Pardridge,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Rutgers WR2 — senior receiver, secondary target
+9786,Austin Dean,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Rutgers LB1 — senior returning starter
+
+# === San Diego State ===
+28983,Jayden Denegal,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San Diego State QB1 — junior returning starter
+12765,Byron Cardwell,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San Diego State RB1 — senior returning starter
+57496,Brian Pierce Jr.,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San Diego State WR1 — senior returning starter
+11920,D.J. Herman,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San Diego State LB1 — senior returning starter
+
+# === San José State ===
+31550,Xavier Ward,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San José State QB1 — senior returning starter
+8919,Floyd Chalk IV,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San José State RB1 — senior returning starter
+15019,Mason Starling,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San José State WR1 — senior returning starter
+8904,Jordan Pollard,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,San José State LB1 — senior returning starter
+
+# === SMU ===
+13185,Tyler Van Dyke,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,SMU QB1 — senior returning starter
+11333,Ashaad Clayton,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,SMU RB1 — senior returning starter
+12881,Romello Brinson,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,SMU WR1 — senior returning starter
+13065,Dylan Goffney,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,SMU WR2 — senior receiver, secondary target
+14031,Aakil Washington,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,SMU LB1 — senior returning starter
+
+# === South Alabama ===
+9800,Zach Pyron,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Alabama QB1 — junior returning starter
+14048,Kentrel Bullock,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Alabama RB1 — senior returning starter
+31350,Keyshawn Woodyard,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Alabama WR1 — senior returning starter
+7024,Devin Voisin,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,South Alabama WR2 — senior receiver, secondary target
+23235,Dalton Hughes,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Alabama LB1 — senior returning starter
+
+# === South Florida ===
+6216,Gaston Moore,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Florida QB1 — senior returning starter
+10463,Sam Franklin,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Florida RB1 — senior returning starter
+31389,Jaden Alexis,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Florida WR1 — senior returning starter
+31402,Christian Helms,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,South Florida WR2 — senior receiver, secondary target
+12625,Mac Harris,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,South Florida LB1 — senior returning starter
+
+# === Southern Miss ===
+10265,Braylon Braxton,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Southern Miss QB1 — senior returning starter
+13910,Matt Jones,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Southern Miss RB1 — senior returning starter
+10255,Elijah Metcalf,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Southern Miss WR1 — senior returning starter
+10257,Bralon Brown,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Southern Miss WR2 — senior receiver, secondary target
+15065,Joseph Harper,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Southern Miss LB1 — senior returning starter
+
+# === Stanford ===
+31281,Ben Gulbranson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Stanford QB1 — senior returning starter
+22705,Tuna Altahir,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Stanford RB1 — senior returning starter
+9833,Bryce Farrell,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Stanford WR1 — senior returning starter
+53349,David Pantelis,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Stanford WR2 — senior receiver, secondary target
+12751,Hunter Barth,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Stanford LB1 — senior returning starter
+
+# === Syracuse ===
+16320,Steven Angeli,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Syracuse QB1 — junior returning starter
+13653,Will Nixon,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Syracuse RB1 — senior returning starter
+27840,Justus Ross-Simmons,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Syracuse WR1 — senior returning starter
+13641,Anwar Sparrow,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Syracuse LB1 — senior returning starter
+
+# === Temple ===
+16557,Evan Simon,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Temple QB1 — senior returning starter
+31185,Hunter Smith,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Temple RB1 — senior returning starter
+26206,Ian Stewart,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Temple WR1 — senior returning starter
+16217,Kajiya Hollawayne,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Temple WR2 — senior receiver, secondary target
+10507,Cam'Ron Stewart,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Temple LB1 — senior returning starter
+
+# === Tennessee ===
+5192,Joey Aguilar,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tennessee QB1 — senior returning starter
+12162,Star Thomas,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tennessee RB1 — senior returning starter
+27225,Tommy Winton III,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tennessee WR1 — junior returning starter
+5990,Dominic Bailey,DL,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tennessee DL anchor — senior returning starter
+
+# === Texas State ===
+14121,Nate Yarnell,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas State QB1 — senior returning starter
+9179,Lincoln Pare,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas State RB1 — senior returning starter
+12769,Mavin Anderson,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas State WR1 — senior returning starter
+15023,Tyrin Smith,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas State WR2 — senior receiver, secondary target
+26472,Terrence Cooks II,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas State LB1 — senior returning starter
+
+# === Texas Tech ===
+41488,Mitch Griffis,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas Tech QB1 — senior returning starter
+14001,Quinten Joyner,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas Tech RB1 — sophomore returning starter
+10562,Reginald Virgil,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas Tech WR1 — senior returning starter
+32230,Haydon Wiginton,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas Tech WR2 — senior receiver, secondary target
+9785,Romello Height,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Texas Tech LB1 — senior returning starter
+
+# === Troy ===
+9976,Will Crowder,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Troy QB1 — junior returning starter
+16415,Jarris Williams,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Troy RB1 — senior returning starter
+9970,Peyton Higgins,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Troy WR1 — senior returning starter
+24857,Rara Thomas,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Troy WR2 — senior receiver, secondary target
+9959,Jordan Stringer,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Troy LB1 — senior returning starter
+
+# === Tulsa ===
+16447,Stephen Kittleman,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tulsa QB1 — senior returning starter
+15136,Dominic Richardson,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tulsa RB1 — senior returning starter
+10592,CJ Johnson II,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tulsa WR1 — senior returning starter
+7903,Mekhi Miller,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Tulsa WR2 — senior receiver, secondary target
+15032,Chris Thompson Jr.,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Tulsa LB1 — senior returning starter
+
+# === UAB ===
+25536,Jalen Kitna,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UAB QB1 — senior returning starter
+8814,Isaiah Jacobs,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UAB RB1 — senior returning starter
+8809,BJ Hawkins Jr.,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UAB WR1 — senior returning starter
+57008,Evan McCray,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,UAB WR2 — senior receiver, secondary target
+16175,Devin Hightower,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UAB LB1 — senior returning starter
+
+# === UCF ===
+10704,Cam Fancher,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UCF QB1 — senior returning starter
+9909,Myles Montgomery,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UCF RB1 — senior returning starter
+21997,Marcus Burke,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UCF WR1 — senior returning starter
+5884,Chris Domercant,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,UCF WR2 — senior receiver, secondary target
+13126,Keli Lawson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UCF LB1 — senior returning starter
+
+# === UConn ===
+11404,Joe Fagnano,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UConn QB1 — senior returning starter
+16515,Jayden Brown,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UConn RB1 — senior returning starter
+12920,Chris Parker,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UConn WR1 — senior returning starter
+31753,Naiem Simmons,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,UConn WR2 — senior receiver, secondary target
+11387,Aaron Key,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UConn LB1 — senior returning starter
+
+# === UL Monroe ===
+3845,Hunter Herring,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UL Monroe QB1 — senior returning starter
+14258,Zachary Palmer-Smith,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UL Monroe RB1 — senior returning starter
+3897,Rico Powers Jr.,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UL Monroe WR1 — senior returning starter
+3855,Javon Campbell,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,UL Monroe WR2 — senior receiver, secondary target
+14646,Tyrese Hopkins,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UL Monroe LB1 — senior returning starter
+
+# === UNLV ===
+15994,Cameron Friel,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UNLV QB1 — senior returning starter
+14342,Keyvone Lee,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UNLV RB1 — senior returning starter
+31263,Troy Omeire,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UNLV WR1 — senior returning starter
+15711,Koy Moore,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,UNLV WR2 — senior receiver, secondary target
+13017,Bryce Edmondson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UNLV LB1 — senior returning starter
+
+# === USC ===
+25950,Sam Huard,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,USC QB1 — senior returning starter
+8862,Eli Sanders,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,USC RB1 — senior returning starter
+53268,Asante Das,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,USC WR1 — senior returning starter
+15097,Jay Fair,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,USC WR2 — senior receiver, secondary target
+29647,Anthony Beavers Jr.,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,USC LB1 — senior returning starter
+
+# === Utah State ===
+10187,Bryson Barnes,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Utah State QB1 — senior returning starter
+12505,Miles Davis,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Utah State RB1 — senior returning starter
+16427,Brady Boyd,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Utah State WR1 — senior returning starter
+15712,Demick Starling,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Utah State WR2 — senior receiver, secondary target
+10166,John Miller,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Utah State LB1 — senior returning starter
+
+# === UTEP ===
+13749,Cade McConnell,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTEP QB1 — senior returning starter
+10597,Hahsaun Wilson,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTEP RB1 — senior returning starter
+13741,Jaden Smith,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTEP WR1 — senior returning starter
+15833,Joshua Thompson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,UTEP WR2 — senior receiver, secondary target
+13718,Nate Dyman,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTEP LB1 — senior returning starter
+
+# === UTSA ===
+11639,Owen McCown,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTSA QB1 — junior returning starter
+3419,John Emery Jr.,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTSA RB1 — senior returning starter
+28021,Jaren Randle,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTSA WR1 — senior returning starter
+11636,Willie McCoy,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,UTSA WR2 — senior receiver, secondary target
+9861,Shadrach Banks,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,UTSA LB1 — senior returning starter
+
+# === Virginia ===
+3882,Jamal Morris,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia QB1 — senior returning starter
+29451,Harrison Waylee,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia RB1 — senior returning starter
+12190,Jayden Thomas,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia WR1 — senior returning starter
+5527,Cam Ross,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia WR2 — senior receiver, secondary target
+14274,James Jackson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia LB1 — senior returning starter
+
+# === Virginia Tech ===
+13127,Kyron Drones,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia Tech QB1 — senior returning starter
+12262,Terion Stewart,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia Tech RB1 — senior returning starter
+3766,Donavon Greene,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia Tech WR1 — senior returning starter
+53981,Isaiah Spencer,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia Tech WR2 — senior receiver, secondary target
+31450,Will Johnson,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Virginia Tech LB1 — senior returning starter
+
+# === Wake Forest ===
+15528,Robby Ashford,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wake Forest QB1 — senior returning starter
+14419,JaMario Clements,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wake Forest RB1 — senior returning starter
+48826,Sawyer Racanelli,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wake Forest WR1 — senior returning starter
+45355,Chevy Brenson,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Wake Forest WR2 — senior receiver, secondary target
+11120,Dylan Hazen,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wake Forest LB1 — senior returning starter
+
+# === Washington State ===
+9135,Zevi Eckhaus,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Washington State QB1 — senior returning starter
+9130,Dylan Paine,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Washington State RB1 — senior returning starter
+14891,Josh Meredith,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Washington State WR1 — senior returning starter
+22493,Leon Neal Jr.,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Washington State WR2 — senior receiver, secondary target
+9107,Keith Brown,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Washington State LB1 — senior returning starter
+
+# === West Virginia ===
+31457,Jaylen Henderson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,West Virginia QB1 — senior returning starter
+14305,Jaylan Knighton,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,West Virginia RB1 — senior returning starter
+8961,Jaden Bray,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,West Virginia WR1 — senior returning starter
+8988,Preston Fox,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,West Virginia WR2 — senior receiver, secondary target
+8963,Reid Carrico,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,West Virginia LB1 — senior returning starter
+
+# === Western Kentucky ===
+10031,Maverick McIvor,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Kentucky QB1 — senior returning starter
+15713,Jalen Hampton,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Kentucky RB1 — senior returning starter
+14918,Jairus Mack,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Kentucky WR1 — senior returning starter
+15737,Kelby Williams,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Kentucky WR2 — senior receiver, secondary target
+11924,Dominic Oliver,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Kentucky LB1 — senior returning starter
+
+# === Western Michigan ===
+57096,Brady Jones,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Michigan QB1 — junior returning starter
+13235,Jalen Buckley,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Michigan RB1 — junior returning starter
+9802,Christian Leary,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Michigan WR1 — senior returning starter
+11470,Tailique Williams,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Michigan WR2 — senior receiver, secondary target
+7954,James Camden,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Western Michigan LB1 — senior returning starter
+
+# === Wyoming ===
+9307,Kaden Anderson,QB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wyoming QB1 — sophomore returning starter
+9306,Sam Scott,RB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wyoming RB1 — senior returning starter
+16276,Jaylen Sargent,WR,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wyoming WR1 — senior returning starter
+43904,Michael Fitzgerald,WR,2,returning_starter,projected,consensus_may_2026,,2026-05-27,Wyoming WR2 — senior receiver, secondary target
+15758,Evan Eller,LB,1,returning_starter,projected,consensus_may_2026,,2026-05-27,Wyoming LB1 — senior returning starter

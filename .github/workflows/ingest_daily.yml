@@ -42,6 +42,11 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
+      # Option B fail-loud (added 2026-05-21): refuse to run against a
+      # missing or poisoned DB.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db
@@ -49,25 +54,30 @@ jobs:
           python manage.py seed-source-registry
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
+          python manage.py seed-archetypes
 
-      - name: Wikipedia pageviews + edits
-        run: |
-          set +e
-          python tools/run_adapter.py wiki_pv
-          python tools/run_adapter.py wiki_edits
-          echo "done"
+      # WS-01 loud-fail (2026-05-28): per-adapter steps so failures surface.
+      - name: wiki_pv
+        continue-on-error: true
+        run: python tools/run_adapter.py wiki_pv
+      - name: wiki_edits
+        continue-on-error: true
+        run: python tools/run_adapter.py wiki_edits
       - name: Campus newspapers
+        continue-on-error: true
         run: python tools/run_adapter.py campus_news_all
       - name: School athletics
+        continue-on-error: true
         run: python tools/run_adapter.py athletics_all
       - name: Locked On team-pod metadata
+        continue-on-error: true
         run: python tools/run_adapter.py locked_on_all
-      - name: Beat writer + substack RSS
-        run: |
-          set +e
-          python tools/run_adapter.py beat_writers_all
-          python tools/run_adapter.py substack_all
-          echo "done"
+      - name: Beat writer RSS
+        continue-on-error: true
+        run: python tools/run_adapter.py beat_writers_all
+      - name: Substack RSS
+        continue-on-error: true
+        run: python tools/run_adapter.py substack_all
 
       # Bridge: transform raw conversation_documents + source_observations
       # into the compute tables that Daily/Wire/Mailbag actually read.
@@ -78,26 +88,62 @@ jobs:
       - name: Compute fanintel bridge tables
         run: |
           set +e
-          # Derive CFB season + season-week the same way scripts/daily_ingest.ps1 does
-          # (season = year if month>=7 else year-1; week = weeks since Aug 26).
-          python - <<'PY' > /tmp/cfb_cal.env
-          from datetime import date
-          t = date.today()
-          season = t.year if t.month >= 7 else t.year - 1
-          start = date(season, 8, 26)
-          week = max(1, (t - start).days // 7 + 1)
-          print(f"{season} {week}")
-          PY
-          read SEASON WEEK < /tmp/cfb_cal.env
-          echo "season=$SEASON week=$WEEK"
-          python manage.py tag-player-mentions --season "$SEASON" --commit || echo "tag-player-mentions skipped"
-          python manage.py build-conversation-features --season "$SEASON" --week "$WEEK" || echo "build-conversation-features skipped"
+          # Compute the "current" football season — the calendar year if we're
+          # already in the new season's late summer/fall, else the prior year
+          # (so Feb-Jul of YYYY runs against season YYYY-1). Mirrors the same
+          # derivation used in publish_site.yml.
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          echo "Tagging team mentions on curated feeds for season=$SEASON"
+          # tag-team-mentions must run BEFORE tag-player-mentions: curated feeds
+          # (bluesky_curated, substack_*) arrive with no per-team target, and the
+          # player tagger only scans docs that already carry a team target. This
+          # step writes those team targets so the player tagger — and the whole
+          # mood/cohort pipeline — can then pick the curated docs up.
+          python manage.py tag-team-mentions --season=$SEASON --commit || echo "tag-team-mentions skipped"
+          echo "Tagging player mentions for season=$SEASON"
+          # tag-player-mentions (NOT tag-player-names — that legacy name has
+          # never existed as a CLI subcommand; the prior workflow text was
+          # silently no-op'ing for months via the `|| echo skipped` swallow).
+          # --commit actually inserts rows; without it the call is a dry-run.
+          python manage.py tag-player-mentions --season=$SEASON --commit || echo "tag-player-mentions skipped"
+          python manage.py build-conversation-features || echo "build-conversation-features skipped"
           python manage.py prepare-pulse || echo "prepare-pulse skipped"
           python manage.py classify-player-sentiment || echo "classify-player-sentiment skipped"
           python manage.py extract-predictive-claims || echo "extract-predictive-claims skipped"
           python manage.py compute-surprise-index || echo "compute-surprise-index skipped"
           python manage.py resolve-outcomes || echo "resolve-outcomes skipped"
           echo "fanintel bridge done"
+
+      - name: Classify fanbases
+        run: |
+          set +e
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          python manage.py classify-fanbases --season=$SEASON \
+              --classifier-version v1.0 \
+              --backfill-history 1 || echo "classify-fanbases skipped"
+
+      - name: Populate narrative arcs
+        run: |
+          set +e
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          python manage.py populate-arcs --season=$SEASON || echo "populate-arcs skipped"
+
+      - name: Rank storyline candidate queue
+        run: |
+          set +e
+          # WS-12: rank live arcs into the editor pull-list. The populator
+          # falls back to the latest arc season when the offseason SEASON is
+          # empty, so it surfaces upcoming-season arcs without special-casing here.
+          SEASON=$(python -c "from datetime import date; t=date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          python manage.py build-storyline-candidates --season=$SEASON --commit --digest || echo "build-storyline-candidates skipped"
+
+      - name: Editorial cadence dashboard (WS-12 "what's overdue")
+        run: |
+          set +e
+          # Surfaces last-published-per-surface vs staleness thresholds so the
+          # chapter-cadence slip (and any missed Wire/Mailbag/Daily) is visible.
+          # Non-strict here: report-only, never fails the daily run.
+          python manage.py editorial-cadence || echo "editorial-cadence skipped"
 
       - name: Compute player week mood (current ISO week)
         run: |

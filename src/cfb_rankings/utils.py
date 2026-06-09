@@ -5,6 +5,32 @@ import re
 from typing import Iterable
 
 
+def ordinal_suffix(n: int) -> str:
+    """Return the correct English ordinal suffix for an integer.
+
+    Handles 1/2/3 → st/nd/rd and the 11/12/13 special case (they get
+    "th", not "st"/"nd"/"rd"). Used on percentile labels so 93 reads
+    as "93rd" instead of "93th".
+
+    >>> ordinal_suffix(1)
+    'st'
+    >>> ordinal_suffix(11)
+    'th'
+    >>> ordinal_suffix(93)
+    'rd'
+    """
+    if 10 <= (n % 100) <= 13:
+        return "th"
+    last = n % 10
+    if last == 1:
+        return "st"
+    if last == 2:
+        return "nd"
+    if last == 3:
+        return "rd"
+    return "th"
+
+
 LEVEL_ORDER = {"FBS": 1, "FCS": 2, "DII": 3, "DIII": 4}
 DEFAULT_LEVEL_PRIORS = {"FBS": 0.0, "FCS": -11.5, "DII": -22.5, "DIII": -32.5}
 DEFAULT_LEVEL_SIGMA = {"FBS": 4.5, "FCS": 5.5, "DII": 7.0, "DIII": 7.5}

@@ -31,15 +31,51 @@ from .data import (
     FLOOR_AWAITING, FLOOR_GROWING,
     GameResult, TeamSnapshot, fetch_team_snapshot, fetch_mood_snapshot,
     fetch_divergence, fetch_state_of_team, fetch_chronicle_cards,
+    fetch_llm_chronicle_cards,
     fetch_last_sp_rating,
     fetch_savant_rows, fetch_savant_narrative, fetch_savant_echo,
     fetch_rivalry_posture, fetch_rivalry_stakes, fetch_rivalry_quote,
     fetch_season_arc, fetch_arc_narrative,
+    fetch_team_season_path, fetch_bowl_ledger_row, fetch_roster_reload_snapshot,
+    fetch_transfer_position_snapshots, fetch_team_preview_claim,
 )
 from .state_resolver import PageState, resolve_state
 from .savant_card import render_savant_card
 from .rivalry_card import render_rivalry_card
 from .season_arc_card import render_season_arc_card
+from .hero_arc_stripe import render_hero_arc_stripe, HERO_ARC_STRIPE_CSS
+from .aspiration_ladder import render_aspiration_ladder, ASPIRATION_LADDER_CSS
+from .season_standing_rail import (
+    render_season_standing_rail,
+    SEASON_STANDING_RAIL_CSS,
+)
+from .program_prestige_bar import (
+    render_program_prestige_bar,
+    PROGRAM_PRESTIGE_BAR_CSS,
+)
+from .page_tone_strip import render_page_tone_strip, PAGE_TONE_STRIP_CSS
+from .trajectory_chip import render_trajectory_chip, TRAJECTORY_CHIP_CSS
+from .kickoff_countdown import render_kickoff_countdown, KICKOFF_COUNTDOWN_CSS
+from .peer_comparator import render_peer_comparator, PEER_COMPARATOR_CSS
+from .on_this_day import render_on_this_day, ON_THIS_DAY_CSS
+from .wrapped_stack import render_wrapped_stack, WRAPPED_STACK_CSS
+from .fanbase_health import render_fanbase_health, FANBASE_HEALTH_CSS
+from .conference_standing import render_conference_standing, CONFERENCE_STANDING_CSS
+from .ceiling_floor import render_ceiling_floor, CEILING_FLOOR_CSS
+from .home_field_advantage import render_home_field_advantage, HOME_FIELD_ADVANTAGE_CSS
+from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
+from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
+from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
+from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
+from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
+from .recent_form import render_recent_form, RECENT_FORM_CSS
+from .bowl_history import render_bowl_history, BOWL_HISTORY_CSS
+from .statement_wins import render_statement_wins, STATEMENT_WINS_CSS
+from .top_commits import render_top_commits, TOP_COMMITS_CSS
+from .nfl_draft_pipeline import render_nfl_draft_pipeline, NFL_DRAFT_PIPELINE_CSS
+from .coaching_era import render_coaching_era_strip, COACHING_ERA_STRIP_CSS
+from .recruiting_footprint import render_recruiting_footprint, RECRUITING_FOOTPRINT_CSS
+from .top_players import render_top_players, TOP_PLAYERS_CSS
 from .rivalry_data_loader import (
     fetch_meetings, compute_all_time_record, fetch_next_meeting,
 )
@@ -54,30 +90,91 @@ def render_all_profiled_pages(
     *,
     today: date | None = None,
     season_year: int | None = None,
+    include_unprofiled_fbs: bool = False,
 ) -> int:
     """Render the team page for every slug present in profiles/.
 
     Build-site hook. Swallows per-slug exceptions so one broken profile
     never fails the whole build; prints a one-line note per failure.
     Returns the count of pages successfully written.
+
+    When ``include_unprofiled_fbs=True``, also renders every real FBS
+    program that lacks a hand-authored YAML, using
+    ``synthesize_profile()`` to build a usable Profile from DB signal.
+    This closes the audit's T31 ("two-tier reality") gap — all 119 real
+    FBS programs share the world-class chrome; only the 30 profiled ones
+    carry hand-authored voice on top.
     """
-    from .profile_loader import PROFILED_SLUGS
+    from .profile_loader import PROFILED_SLUGS, list_real_fbs_slugs, PROFILES_DIR
     from .historical_season_page import render_all_historical_seasons
+    import sys
+
+    # Diagnostic: surface PROFILED_SLUGS contents + count at runtime so CI logs
+    # show what the discovery actually found. The silent-fail bug (2026-05-23)
+    # where CI rendered only 50 of 55 hand-authored slugs needed this visibility.
+    profiled_sorted = sorted(PROFILED_SLUGS)
+    print(
+        f"  team-pages v2: PROFILES_DIR={PROFILES_DIR} "
+        f"PROFILED_SLUGS={len(profiled_sorted)} slugs",
+        flush=True,
+    )
+    print(
+        f"  team-pages v2: slugs = {profiled_sorted}",
+        flush=True,
+    )
 
     count = 0
+    profiled_count = 0
+    synthesized_count = 0
     errors: list[tuple[str, str]] = []
-    for slug in sorted(PROFILED_SLUGS):
+    for slug in profiled_sorted:
         try:
             render_team_page(
                 db, slug, output_dir,
                 today=today, season_year=season_year,
             )
             count += 1
+            profiled_count += 1
         except Exception as exc:
             errors.append((slug, f"{type(exc).__name__}: {exc}"))
+            # Eager print + flush so an OOM / SIGTERM mid-loop still leaves
+            # a trail of which slugs we'd already tried.
+            print(
+                f"  team-pages v2: {slug} failed — {type(exc).__name__}: {exc}",
+                flush=True,
+            )
+            sys.stdout.flush()
+
+    if include_unprofiled_fbs:
+        try:
+            all_fbs = list_real_fbs_slugs(db)
+        except Exception as exc:
+            print(f"  team-pages v2: FBS slug list unavailable — {exc}")
+            all_fbs = []
+        unprofiled = [s for s in all_fbs if s not in PROFILED_SLUGS]
+        for slug in unprofiled:
+            try:
+                render_team_page(
+                    db, slug, output_dir,
+                    today=today, season_year=season_year,
+                )
+                count += 1
+                synthesized_count += 1
+            except Exception as exc:
+                errors.append((slug, f"{type(exc).__name__}: {exc}"))
+
     if errors:
-        for slug, msg in errors:
+        # Keep the noise short — show first 10 only.
+        for slug, msg in errors[:10]:
             print(f"  team-pages v2: {slug} failed — {msg}")
+        if len(errors) > 10:
+            print(f"  team-pages v2: + {len(errors) - 10} more failures suppressed")
+
+    if include_unprofiled_fbs:
+        print(
+            f"  team-pages v2: {profiled_count} hand-authored + "
+            f"{synthesized_count} synthesized = {count} world-class team pages"
+        )
 
     # Also render historical-season archive pages for every (slug, year)
     # pair present in team_season_arc. Errors per (slug, year) are logged
@@ -99,8 +196,14 @@ def render_team_page(
     today: date | None = None,
     season_year: int | None = None,
 ) -> Path:
-    """Build the HTML and write it to output_dir/<slug>.html."""
-    profile = load_profile(slug)
+    """Build the HTML and write it to output_dir/<slug>.html.
+
+    Sprint H: when no hand-authored profile YAML exists for this slug,
+    falls back to ``synthesize_profile()`` so every real FBS program can
+    render with the world-class chrome.
+    """
+    from .profile_loader import load_or_synthesize
+    profile = load_or_synthesize(slug, db)
     snapshot = fetch_team_snapshot(db, slug, season_year)
     # Sprint 6 — load any recent finalized live-game row for this team
     # within the 72h post-game window. resolve_state uses this to flip into
@@ -118,6 +221,9 @@ def render_team_page(
     sp_rating = fetch_last_sp_rating(db, snapshot.team_id, snapshot.season_year)
     state_of_team = fetch_state_of_team(db, snapshot.team_id, snapshot.season_year)
     chronicle_cards = fetch_chronicle_cards(db, snapshot.team_id, snapshot.season_year, limit=5)
+    # LLM-generated Chronicle cards (chronicle_card_cache) — Mistral Nemo + Qwen3 pipeline.
+    # Keyed by slug rather than team_id since the cache was built before team-ID joins existed.
+    llm_chronicle_cards = fetch_llm_chronicle_cards(db, slug, limit=6)
 
     # Savant card data — falls back to the latest season that has rows so
     # the card renders even when the current-season ingest is incomplete.
@@ -178,6 +284,7 @@ def render_team_page(
         sp_rating=sp_rating,
         state_of_team=state_of_team,
         chronicle_cards=chronicle_cards,
+        llm_chronicle_cards=llm_chronicle_cards,
         savant_rows=savant_rows,
         savant_narrative=savant_narrative,
         savant_echo=savant_echo,
@@ -189,6 +296,7 @@ def render_team_page(
         live_game_meta=live_game_meta,
         game_recap_state_para=game_recap_state_para,
         game_recap_diagnosis=game_recap_diagnosis,
+        db=db,
     )
 
     out = Path(output_dir)
@@ -287,6 +395,7 @@ def _render_page(
     sp_rating: dict[str, Any] | None,
     state_of_team: dict[str, Any] | None,
     chronicle_cards: list[dict[str, Any]],
+    llm_chronicle_cards: list[dict[str, Any]] | None = None,
     savant_rows: list[dict[str, Any]],
     savant_narrative: str | None,
     savant_echo: dict[str, Any] | None,
@@ -298,6 +407,7 @@ def _render_page(
     live_game_meta: dict[str, Any] | None = None,
     game_recap_state_para: dict[str, Any] | None = None,
     game_recap_diagnosis: list[dict[str, Any]] | None = None,
+    db=None,  # Sprint I — On This Day needs DB to query past games
 ) -> str:
     tokens_css = (_ASSETS_DIR / "tokens.css").read_text(encoding="utf-8")
     styles_css = (_ASSETS_DIR / "styles.css").read_text(encoding="utf-8")
@@ -361,6 +471,36 @@ def _render_page(
     rituals_html = render_rituals_strip(profile)
     cultural_anchors_html = render_cultural_anchors(profile)
     chronicle_html = _render_chronicle_section(chronicle_cards, profile, state)
+    # LLM-generated Chronicle AI Narratives module — Mistral Nemo + Qwen3 pipeline.
+    # Shows only when cards exist; falls back silently to "" when the pipeline
+    # hasn't run for this team yet.
+    llm_chronicle_html = _render_llm_chronicle_section(
+        llm_chronicle_cards or [], profile
+    )
+    # Chronicle Visuals — v3 visual-first module (deterministic SVG renderer).
+    # Reads from chronicle_visual_cache. Hidden when no visuals have been
+    # generated yet for this team.
+    chronicle_visual_cards: list[dict[str, Any]] = []
+    if db is not None:
+        try:
+            from cfb_rankings.chronicle.visuals import (
+                fetch_visual_cards as _fetch_chronicle_visuals,
+            )
+            # season_year=None -> posture-aware fetch across seasons: preview
+            # (forward-season) visuals lead, retrospective ("last season")
+            # visuals follow. See chronicle/visuals/cache.fetch_visual_cards.
+            chronicle_visual_cards = _fetch_chronicle_visuals(
+                db, profile.slug, season_year=None, limit=10,
+            )
+        except Exception as exc:
+            # Don't silently hide schema-drift / missing-migration bugs — log
+            # so post-deploy verification can see why a team has no visuals.
+            print(
+                f"  team-pages: chronicle visuals fetch failed for {profile.slug} — {exc}"
+            )
+    chronicle_visuals_html = _render_chronicle_visuals_section(
+        chronicle_visual_cards, profile
+    )
     savant_html = render_savant_card(
         profile, savant_rows,
         narrative=savant_narrative,
@@ -391,6 +531,111 @@ def _render_page(
             thesis=arc_thesis, closing=arc_closing,
             accent_primary=accent_primary,
         )
+    # Hero Arc 13-brick CFP-era stripe — Brief §20, screenshot-virality
+    # identity strip above the fold. Reuses arc_rows so no new data fetch.
+    hero_arc_stripe_html = ""
+    if arc_rows:
+        hero_arc_stripe_html = render_hero_arc_stripe(
+            profile, arc_rows,
+            current_season=snapshot.season_year if snapshot else None,
+        )
+    # Program Trajectory chip — Brief §11.4 "Are we as good as we used to be?"
+    # 10-year rolling prestige rung with slope label + sparkline.
+    trajectory_chip_html = ""
+    if arc_rows:
+        trajectory_chip_html = render_trajectory_chip(profile, arc_rows)
+    # Program Peer Comparator — Brief §26 static-attribute variant. "What
+    # does this team remind us of?" answered with 3 peer-program tiles.
+    peer_comparator_html = render_peer_comparator(profile)
+    # On This Day — Brief §25.3. Daily-rotated historical artifact. Pulls
+    # past games on today's MM-DD, falls back to deterministic rotation.
+    on_this_day_html = render_on_this_day(db, profile, today=state.today) if db is not None else ""
+    # Wrapped stack — Brief §21.3. Spotify-Wrapped-styled retrospective.
+    # Only renders in the Jan-Mar window; returns "" outside that.
+    wrapped_html = render_wrapped_stack(profile, snapshot, arc_rows, today=state.today)
+    # Fanbase Health Index gauge — Brief §11.1. 0-100 composite from record,
+    # mood volume, and cohort divergence. Honest empty when all signals are
+    # missing.
+    fanbase_health_html = render_fanbase_health(profile, snapshot, mood, divergence, arc_rows)
+    # Conference Standing — Brief §10.2-10.3. Where the focal team sits
+    # within its conference cohort. Compact table + positioning summary.
+    conference_standing_html = render_conference_standing(db, profile, snapshot) if db is not None else ""
+    # Ceiling/Floor projection — Brief §11.2. Three-scenario next-season band.
+    # Prefer the deterministic season-path projection (team-preview truth layer,
+    # Milestone B) so a ceiling can exceed 12 games; falls back to the heuristic.
+    season_path = fetch_team_season_path(db, snapshot.team_id) if db is not None and snapshot else None
+    ceiling_floor_html = render_ceiling_floor(profile, snapshot, arc_rows, season_path=season_path)
+    # Home-Field Advantage — Brief §11.3. Home vs away win-share + margin
+    # differential from games table. Honest empty when sample < 6 games.
+    home_field_html = render_home_field_advantage(db, profile, snapshot) if db is not None else ""
+    # Moment of the Year — Brief §11.7 games-table approximation. Surfaces the
+    # single highest-impact game of the season (ranked opponent + postseason +
+    # margin scored). Honest empty when no impactful game scores ≥4.
+    moment_of_year_html = render_moment_of_year(db, profile, snapshot) if db is not None else ""
+    # Schedule Strength chip — opponent quality from games table.
+    schedule_strength_html = render_schedule_strength(db, profile, snapshot) if db is not None else ""
+    # Offseason Pulse — combines 4 CFBD tier-2 data feeds (recruiting class,
+    # returning production, talent composite, transfer activity). Audit T9
+    # resolution at team level. Above-the-fold in offseason.
+    offseason_pulse_html = render_offseason_pulse(db, profile, snapshot) if db is not None else ""
+    preview_claim = (
+        fetch_team_preview_claim(db, snapshot.team_id)
+        if db is not None and snapshot else None
+    )
+    preview_thesis_html = render_preview_thesis(profile, snapshot, preview_claim)
+    roster_reload_html = ""
+    if db is not None and snapshot:
+        reload_row = fetch_roster_reload_snapshot(db, snapshot.team_id)
+        position_rows = (
+            fetch_transfer_position_snapshots(
+                db,
+                snapshot.team_id,
+                int(reload_row["season_year"]),
+                str(reload_row["as_of_date"]),
+            )
+            if reload_row else []
+        )
+        roster_reload_html = render_roster_reload(
+            profile, snapshot, reload_row, position_rows
+        )
+    # Recent Form chip — last 10 finalized games as W/L glyph row.
+    recent_form_html = render_recent_form(db, profile, snapshot) if db is not None else ""
+    # Bowl History chip — postseason ledger from season_type='postseason' games.
+    bowl_ledger_row = fetch_bowl_ledger_row(db, snapshot.slug) if db is not None and snapshot else None
+    bowl_history_html = (
+        render_bowl_history(db, profile, snapshot, ledger_row=bowl_ledger_row)
+        if db is not None else ""
+    )
+    # Statement Wins counter — wins over AP top-25 ranked opponents.
+    statement_wins_html = render_statement_wins(db, profile, snapshot) if db is not None else ""
+    # Top Commits — 3 highest-rated incoming recruits (CFBD player_recruiting_profiles).
+    top_commits_html = render_top_commits(db, profile, snapshot) if db is not None else ""
+    # NFL Draft Pipeline — last 5 cycles of draft picks (CFBD player_nfl_draft).
+    nfl_draft_html = render_nfl_draft_pipeline(db, profile, snapshot) if db is not None else ""
+    # Coaching Era Strip — current HC + tenure length + previous HC (CFBD coaches).
+    coaching_era_html = render_coaching_era_strip(db, profile, snapshot) if db is not None else ""
+    # Recruiting Footprint — geographic distribution of latest recruiting class.
+    recruit_footprint_html = render_recruiting_footprint(db, profile, snapshot) if db is not None else ""
+    # Top Players — 5-row list of headline-stat leaders.
+    top_players_html = render_top_players(db, profile, snapshot) if db is not None else ""
+    # Aspiration Ladder — Brief Part III §33.4 mandates one per team page.
+    aspiration_ladder_html = render_aspiration_ladder(profile, snapshot)
+    # Season Standing 9-rung rail — Brief §3.1. Team analog of player
+    # Standing Rail. Placed directly under the hero so the 5-second read
+    # ("where is this team in the national picture") lands first.
+    season_standing_html = render_season_standing_rail(profile, snapshot)
+    # Program Prestige bar — Brief §3.2. Slower-moving sibling answering
+    # "what kind of program is this, historically?" Sits next to Season
+    # Standing so the fast + slow signals read together.
+    program_prestige_html = render_program_prestige_bar(profile)
+    # Page Tone Strip — Brief Part III §32. Makes seasonal sentience visible:
+    # offseason vs gameday vs rivalry-peak read differently AND look
+    # differently. The strip surfaces phase + tone + outcome + live state.
+    page_tone_html = render_page_tone_strip(state)
+    # Kickoff Countdown — Brief §22.1 offseason variant. Anchors every team
+    # page in calendar time: "247 days · until kickoff · Aug 30" / "3d 18h ·
+    # vs Michigan · Sat 12:00" / "Live now."
+    kickoff_html = render_kickoff_countdown(snapshot, today=state.today)
     footer_html = _render_footer(profile, state)
 
     head_chrome_block = render_head_chrome(
@@ -400,6 +645,58 @@ def _render_page(
         og_image_path=f"/teams/{profile.slug}-og.svg",
         og_type="article",
     )
+
+    # ---- 3-Act assembly (Octopus review b12529c0a) -------------------------
+    # Group the modules by time-horizon so the page reads as a narrative, not a
+    # flat wall. Empty acts (sparse/legacy slugs) collapse to nothing.
+    def _act(num: str, title: str, *module_parts: str) -> str:
+        body = "".join(p for p in module_parts if p and p.strip())
+        if not body:
+            return ""
+        return (
+            f'<section class="act act--{num.lower()}">'
+            f'<div class="act__head"><span class="act__num">Act {num}</span>'
+            f'<h2 class="act__title">{html.escape(title)}</h2></div>'
+            f'{body}</section>'
+        )
+
+    act_outlook = _act(
+        "I", "The 2026 Outlook",
+        preview_thesis_html, offseason_pulse_html, roster_reload_html, pulse_html,
+        aspiration_ladder_html, ceiling_floor_html, top_commits_html,
+        recruit_footprint_html,
+    )
+    act_identity = _act(
+        "II", "Who We Are",
+        program_prestige_html, trajectory_chip_html, hero_arc_stripe_html,
+        peer_comparator_html, coaching_era_html, rituals_html,
+        cultural_anchors_html, fanbase_health_html, home_field_html,
+        statement_wins_html, chronicle_html, chronicle_visuals_html,
+        savant_html, rivalry_html, llm_chronicle_html,
+    )
+    review_season = snapshot.season_year if snapshot else None
+    review_hint = (
+        f"{review_season} season · tap to expand"
+        if review_season else "tap to expand"
+    )
+    review_body = "".join(
+        p for p in (
+            recent_form_html, season_standing_html, conference_standing_html,
+            schedule_strength_html, top_players_html, nfl_draft_html,
+            moment_of_year_html, bowl_history_html, on_this_day_html,
+            wrapped_html, arc_html,
+        ) if p and p.strip()
+    )
+    act_review = ""
+    if review_body:
+        act_review = (
+            '<details class="act act--review">'
+            '<summary class="act__head act__head--summary">'
+            '<span class="act__num">Act III</span>'
+            '<h2 class="act__title">Last Season Reviewed</h2>'
+            f'<span class="act__hint">{html.escape(review_hint)}</span></summary>'
+            f'<div class="act__body">{review_body}</div></details>'
+        )
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -425,6 +722,96 @@ body {{
 {rivalry_css}
 {arc_css}
 {rituals_css}
+
+/* Hero Arc 13-brick CFP-era stripe — Sprint E (Brief §20) */
+{HERO_ARC_STRIPE_CSS}
+
+/* Aspiration Ladder — Brief Part III §33.4 */
+{ASPIRATION_LADDER_CSS}
+
+/* Season Standing Rail — Brief §3.1 (team-page analog) */
+{SEASON_STANDING_RAIL_CSS}
+
+/* Program Prestige Bar — Brief §3.2 */
+{PROGRAM_PRESTIGE_BAR_CSS}
+
+/* Page Tone Strip — Brief Part III §32 (seasonal sentience visible) */
+{PAGE_TONE_STRIP_CSS}
+
+/* Program Trajectory chip — Brief §11.4 */
+{TRAJECTORY_CHIP_CSS}
+
+/* Kickoff Countdown — Brief §22.1 */
+{KICKOFF_COUNTDOWN_CSS}
+
+/* Program Peer Comparator — Brief §26 */
+{PEER_COMPARATOR_CSS}
+
+/* On This Day — Brief §25.3 */
+{ON_THIS_DAY_CSS}
+
+/* Wrapped stack — Brief §21.3 */
+{WRAPPED_STACK_CSS}
+
+/* Fanbase Health Index — Brief §11.1 */
+{FANBASE_HEALTH_CSS}
+
+/* Conference Standing — Brief §10.2-10.3 */
+{CONFERENCE_STANDING_CSS}
+
+/* Ceiling/Floor projection — Brief §11.2 */
+{CEILING_FLOOR_CSS}
+
+/* Home-Field Advantage — Brief §11.3 */
+{HOME_FIELD_ADVANTAGE_CSS}
+
+/* Moment of the Year — Brief §11.7 approximation */
+{MOMENT_OF_YEAR_CSS}
+
+/* Schedule Strength chip */
+{SCHEDULE_STRENGTH_CSS}
+
+/* Offseason Pulse — recruiting + returning + talent + portal (Audit T9) */
+{OFFSEASON_PULSE_CSS}
+
+/* Roster Reload - separated continuity, portal, draft, and recruiting */
+{ROSTER_RELOAD_CSS}
+
+/* Evidence-gated preview thesis */
+{PREVIEW_THESIS_CSS}
+
+/* Recent Form chip — last 10 games */
+{RECENT_FORM_CSS}
+
+/* Bowl History chip — postseason ledger */
+{BOWL_HISTORY_CSS}
+
+/* Statement Wins counter — top-25 wins this season */
+{STATEMENT_WINS_CSS}
+
+/* Top Commits — 3 highest-rated recruits per class */
+{TOP_COMMITS_CSS}
+
+/* NFL Draft Pipeline — last 5 cycles of draft picks */
+{NFL_DRAFT_PIPELINE_CSS}
+
+/* Coaching Era Strip — current HC + tenure */
+{COACHING_ERA_STRIP_CSS}
+
+/* Recruiting Footprint — geographic class distribution */
+{RECRUITING_FOOTPRINT_CSS}
+
+/* Top Players — 5-row stat leaders */
+{TOP_PLAYERS_CSS}
+
+/* LLM Chronicle AI Narratives — Mistral Nemo + Qwen3 pipeline */
+{LLM_CHRONICLE_CSS}
+
+/* Chronicle Visuals — v3 visual-first deterministic SVG cards */
+{CHRONICLE_VISUALS_CSS}
+
+/* 3-Act page structure — Profile-archetype zoning (Octopus review) */
+{ACT_STRUCTURE_CSS}
 
 /* Sprint v5-11.5 Surface 2 — theme + cmdk on profiled team pages */
 {theme_toggle_css}
@@ -457,7 +844,10 @@ body {{
 <script defer>{theme_toggle_js}</script>
 <script defer>{cmdk_js}</script>
 </head>
-<body>
+<body data-page-tone="{state.accent_key}"
+      data-page-phase="{state.season_phase}"
+      data-page-anchor="{state.anchor_variant}"
+      data-in-season="{'true' if state.is_in_season else 'false'}">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="profile-page-controls" role="group" aria-label="Page controls">
   <button class="cmdk-trigger" data-cmdk-trigger type="button"
@@ -468,13 +858,11 @@ body {{
 <main id="main-content" class="team-page">
   <div class="content">
     {hero_html}
-    {pulse_html}
-    {rituals_html}
-    {cultural_anchors_html}
-    {chronicle_html}
-    {savant_html}
-    {rivalry_html}
-    {arc_html}
+    {page_tone_html}
+    {kickoff_html}
+    {act_outlook}
+    {act_identity}
+    {act_review}
     {footer_html}
   </div>
 </main>
@@ -495,6 +883,13 @@ def _render_hero(
     sp_rating: dict[str, Any] | None,
 ) -> str:
     record = f"{snap.wins}-{snap.losses}" + (f"-{snap.ties}" if snap.ties else "")
+    # In the offseason the record + rank chips are last season's — label them
+    # so the forward-framed page never reads as if this were the live standing.
+    offseason = not getattr(state, "is_in_season", False)
+    record_qualifier = (
+        f'<span class="hero__record-qualifier">{snap.season_year} final</span>'
+        if offseason else ""
+    )
 
     chips: list[str] = []
     if snap.ap_rank:
@@ -525,6 +920,14 @@ def _render_hero(
     state_paragraph_html = _render_state_paragraph(state_of_team, profile, state)
     metrics_html = _render_metric_tiles(profile, snap, sp_rating, state)
 
+    # Identity phrase below the wordmark — gives every team a one-line
+    # voice anchor (hand-authored profiles have bespoke phrases; synth
+    # profiles get a register-templated phrase per Sprint H+).
+    identity_html = (
+        f'<p class="hero__identity-phrase">{html.escape(profile.identity_phrase)}</p>'
+        if profile.identity_phrase else ""
+    )
+
     return f"""<section class="hero" aria-labelledby="hero-wordmark">
   <div>
     <div class="hero__eyebrow">{html.escape(eyebrow_text)}</div>
@@ -532,8 +935,10 @@ def _render_hero(
       {logo_html}
       <h1 id="hero-wordmark" class="hero__wordmark">{html.escape(profile.display_name)}</h1>
       <span class="hero__record" aria-label="Season record">{html.escape(record)}</span>
+      {record_qualifier}
       {chips_html}
     </div>
+    {identity_html}
   </div>
   {heritage_html}
   {state_paragraph_html}
@@ -557,6 +962,13 @@ def _eyebrow_text(state: PageState, snap: TeamSnapshot) -> str:
         "bowl-and-carousel": "BOWLS · COACHING CAROUSEL",
     }
     phase = phase_map.get(state.season_phase, state.season_phase.upper())
+    # In the offseason, fans want the forward outlook, not last season's label.
+    # Derive the upcoming season from the calendar (Aug+ = this year, else this
+    # year — the preview cycle), so May 2026 reads "2026 OUTLOOK" rather than
+    # the stale "2024 SEASON" of the latest completed data (audit 2026-05-25).
+    if not getattr(state, "is_in_season", False):
+        forward_year = state.today.year if state.today.month < 8 else state.today.year
+        return f"{today_str} · {phase} · {forward_year} OUTLOOK"
     return f"{today_str} · {phase} · {snap.season_year} SEASON"
 
 
@@ -803,6 +1215,11 @@ def _render_pulse(
 
     badge_html = _render_pulse_badge(effective_n)
 
+    # Sprint D (Brief §4.2 Panel 2): five-axis strip — Reality Gap /
+    # Respect Gap / Cohort Divergence / Rival Heat / Volatility.
+    # Wire from existing data where present; honest empty-state otherwise.
+    five_axis_html = _render_five_axis_strip(mood, divergence, snap, state, show_live)
+
     return f"""<section class="pulse" aria-labelledby="pulse-title">
   <div class="pulse__header">
     <span class="{live_dot_cls}" aria-hidden="true"></span>
@@ -824,8 +1241,84 @@ def _render_pulse(
       </div>
     </div>
   </div>
+  {five_axis_html}
   {badge_html}
 </section>"""
+
+
+# ============================================================================
+# Five-axis strip — Brief §4.2 Panel 2 (Sprint D)
+# ============================================================================
+
+def _render_five_axis_strip(
+    mood: dict[str, Any],
+    divergence: float | None,
+    snap: TeamSnapshot,
+    state: PageState,
+    show_live: bool,
+) -> str:
+    """Five axes per the brief: Reality Gap / Respect Gap / Cohort Divergence
+    / Rival Heat / Volatility. Each renders a mini-bar with a labeled chip.
+    Axes where data isn't ingested yet render in honest empty-state mode."""
+    # Best-effort signal extraction. The mood dict carries cohort signals
+    # when the FI pipeline has populated them; everything else falls
+    # through to honest awaiting copy per brief §8.8.
+    def _abs_pct(v: Any) -> int | None:
+        if v is None:
+            return None
+        try:
+            f = float(v)
+        except (TypeError, ValueError):
+            return None
+        if abs(f) <= 1.0 + 1e-9:
+            return max(0, min(100, int(round(abs(f) * 100))))
+        return max(0, min(100, int(round(abs(f)))))
+
+    reality_pct = _abs_pct(mood.get("reality_gap"))
+    respect_pct = _abs_pct(mood.get("respect_gap"))
+    divergence_pct = _abs_pct(divergence)
+    rival_pct = _abs_pct(mood.get("rival_heat"))
+    volatility_pct = _abs_pct(mood.get("volatility"))
+
+    def _axis(label: str, pct: int | None, desc: str) -> str:
+        if pct is None:
+            return (
+                '<div class="pulse-axis pulse-axis--awaiting">'
+                f'<span class="pulse-axis__label">{html.escape(label)}</span>'
+                '<div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: 8%;"></span></div>'
+                f'<span class="pulse-axis__chip">awaiting</span>'
+                f'<span class="pulse-axis__desc">{html.escape(desc)}</span>'
+                '</div>'
+            )
+        # Band by absolute strength (this is intensity, not signed)
+        band = "high" if pct >= 70 else "mid" if pct >= 40 else "low"
+        return (
+            f'<div class="pulse-axis" data-band="{band}">'
+            f'<span class="pulse-axis__label">{html.escape(label)}</span>'
+            f'<div class="pulse-axis__bar"><span class="pulse-axis__fill" style="--pct: {pct}%;"></span></div>'
+            f'<span class="pulse-axis__chip">{pct} pct</span>'
+            f'<span class="pulse-axis__desc">{html.escape(desc)}</span>'
+            '</div>'
+        )
+
+    # Hide the whole strip when no axis has data — a wall of 5 "awaiting" bars
+    # with an internal codename reads as broken to a fan (audit 2026-05-25).
+    # Only render axes that actually have a signal; if none do, return "".
+    axis_specs = [
+        ("Reality Gap", reality_pct, "How far fan belief diverges from the structural model."),
+        ("Respect Gap", respect_pct, "Fan score minus national score for this team's brand."),
+        ("Cohort Divergence", divergence_pct, "Spread between sub-fanbase cohorts in the Pulse window."),
+        ("Rival Heat", rival_pct, "How much rival fanbases are mentioning this team."),
+        ("Volatility", volatility_pct, "Week-over-week mood swing magnitude."),
+    ]
+    live_axes = [(lbl, pct, desc) for (lbl, pct, desc) in axis_specs if pct is not None]
+    if not live_axes:
+        return ""
+    axes_html = "".join(_axis(lbl, pct, desc) for (lbl, pct, desc) in live_axes)
+    return f"""<div class="pulse-five-axis" aria-label="Fanbase signal strip" data-state="ready">
+    <p class="pulse-five-axis__eyebrow">Fanbase Signals</p>
+    {axes_html}
+  </div>"""
 
 
 def _render_trajectory(trajectory: list[dict[str, Any]]) -> str:
@@ -1160,6 +1653,452 @@ def _render_chronicle_card(card: dict[str, Any]) -> str:
 </article>"""
 
 
+# ----------------------------------------------------------------------------
+# 3-Act page structure — Profile-archetype zoning (Octopus review b12529c0a).
+# Replaces the flat ~33-module wall with: HERO answer card → Act I (forward
+# Outlook) → Act II (timeless identity) → Act III (retrospective, collapsed).
+# Each act gets a display-font divider; Act III is a native <details> drawer
+# so casual fans get a clean top-to-bottom narrative and die-hards can open
+# last season with one tap. Empty acts collapse to nothing (no header) so
+# legacy/sparse slugs never render a bare label.
+# ----------------------------------------------------------------------------
+
+ACT_STRUCTURE_CSS = """
+.act { display: block; }
+.act + .act { margin-top: var(--sp-9, 40px); }
+.act__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin: var(--sp-6, 24px) 0 var(--sp-4, 16px);
+  padding-bottom: var(--sp-2, 8px);
+  border-bottom: 2px solid var(--accent-primary, #1f2c4d);
+}
+.act__num {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #1f2c4d);
+  opacity: 0.7;
+}
+.act__title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+.act__hint {
+  font-size: 12px;
+  color: var(--fg-2, #6a6a6a);
+  font-style: italic;
+  margin-left: auto;
+}
+/* Act III review drawer */
+details.act--review { margin-top: var(--sp-9, 40px); }
+details.act--review > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin: var(--sp-6, 24px) 0 0;
+  padding-bottom: var(--sp-2, 8px);
+  border-bottom: 2px dashed var(--border, rgba(0,0,0,0.2));
+}
+details.act--review > summary::-webkit-details-marker { display: none; }
+details.act--review > summary::after {
+  content: "▸";
+  margin-left: var(--sp-2, 8px);
+  color: var(--fg-2, #6a6a6a);
+  transition: transform 0.18s ease;
+}
+details.act--review[open] > summary::after { transform: rotate(90deg); }
+details.act--review > summary:hover .act__title { color: var(--accent-primary, #1f2c4d); }
+.act--review .act__body { margin-top: var(--sp-5, 20px); }
+.act--review .act__body > * { opacity: 0.94; }
+@media (max-width: 640px) {
+  .act__head, details.act--review > summary { margin-top: var(--sp-5, 20px); }
+}
+"""
+
+
+# ----------------------------------------------------------------------------
+# LLM-generated Chronicle AI Narratives
+# Reads from chronicle_card_cache (Mistral Nemo / Qwen3 pipeline).
+# Distinct from the older team_chronicle_observations section above.
+# ----------------------------------------------------------------------------
+
+# WS-01 / D-004 (2026-05-28): suppress LKG Chronicle cards during offseason
+# while the pipeline's evidence floor heals. Every current card is a
+# repetitive Polymarket variation; better to show no cards than 5
+# rewrites of the same financial-analyst-voice claim. Flip back to False
+# after Chronicle regenerates with diversified evidence (WS-05 adapters
+# emitting fan-bucket + portal + recruiting + archetype-transition data)
+# AND voice LoRA training reshapes the register. Target re-evaluation:
+# Week 4 of 2026 season per VISION § 12.
+_SUPPRESS_LKG_CHRONICLE_OFFSEASON = True
+
+
+LLM_CHRONICLE_CSS = """
+.llm-chronicle {
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.llm-chronicle__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.llm-chronicle__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--accent-primary, var(--accent));
+  margin: 0;
+}
+.llm-chronicle__meta {
+  font-size: 11px;
+  color: var(--fg-muted, #888);
+  font-family: ui-monospace, monospace;
+}
+.llm-chronicle__more {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--accent-primary, var(--accent));
+  text-decoration: none;
+  opacity: 0.8;
+}
+.llm-chronicle__more:hover { opacity: 1; }
+.llm-chronicle__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.llm-card {
+  background: var(--bg-card, var(--bg-1, #14141a));
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid var(--accent-primary, var(--accent));
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+.llm-card__type {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #888);
+  margin-bottom: 6px;
+}
+.llm-card__headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--fg, #e7e7e9);
+  margin: 0 0 8px 0;
+}
+.llm-card__body {
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg, #e7e7e9);
+  margin: 0 0 10px 0;
+}
+.llm-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 8px;
+}
+.llm-badge {
+  font-size: 9px;
+  font-family: ui-monospace, monospace;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  color: var(--fg-muted, #888);
+}
+.llm-badge--lkg {
+  background: rgba(74,140,90,0.2);
+  color: #4a8;
+}
+.llm-badge--high {
+  background: rgba(74,140,90,0.15);
+  color: #4a8;
+}
+.llm-badge--medium {
+  background: rgba(200,151,68,0.15);
+  color: #c89744;
+}
+"""
+
+
+CHRONICLE_VISUALS_CSS = """
+.chronicle-visuals {
+  display: block;
+  margin-top: var(--sp-8, 32px);
+  padding-top: var(--sp-6, 24px);
+  border-top: 1px solid var(--border, rgba(0,0,0,0.1));
+}
+.chronicle-visuals__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5, 20px);
+}
+.chronicle-visuals__title {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.chronicle-visuals__meta {
+  font-size: 11px;
+  color: var(--fg-2, #6a6a6a);
+  font-style: italic;
+}
+.chronicle-visuals__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5, 20px);
+}
+@media (min-width: 960px) {
+  .chronicle-visuals__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.visual-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
+  border-radius: 6px;
+  padding: var(--sp-4, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3, 12px);
+}
+.visual-card__headline {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--fg-0, #111);
+}
+.visual-card__svg {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.visual-card__svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+.visual-card__meta {
+  display: flex;
+  gap: var(--sp-2, 8px);
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: var(--fg-2, #6a6a6a);
+}
+.visual-card__badge {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.04);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.visual-card__badge--lkg {
+  background: rgba(74,140,90,0.15);
+  color: #4a8;
+}
+.visual-card__badge--score {
+  font-family: ui-monospace, Menlo, monospace;
+}
+.visual-card__badge--share {
+  background: rgba(201,162,74,0.18);
+  color: #8a6b1f;
+  text-decoration: none;
+  cursor: pointer;
+}
+.visual-card__badge--share:hover {
+  background: rgba(201,162,74,0.32);
+}
+.visual-card__badge--preview {
+  background: rgba(46,139,87,0.16);
+  color: #2e8b57;
+  font-weight: 700;
+}
+.visual-card__badge--retro {
+  background: rgba(120,120,120,0.14);
+  color: #6a6a6a;
+}
+"""
+
+
+def _render_chronicle_visuals_section(
+    cards: list[dict[str, Any]],
+    profile: Profile,
+) -> str:
+    """Render Chronicle Visuals (v3 visual-first module) from chronicle_visual_cache.
+
+    Returns "" when no visuals exist so the page stays clean.
+    """
+    if not cards:
+        return ""
+
+    grid_html = "".join(_render_visual_card(c) for c in cards)
+    n = len(cards)
+    return f"""<section class="chronicle-visuals" aria-labelledby="chronicle-visuals-title">
+  <div class="chronicle-visuals__header">
+    <h2 id="chronicle-visuals-title" class="chronicle-visuals__title">Chronicle Visuals</h2>
+    <span class="chronicle-visuals__meta">{n} deterministic SVG · provenance-gated</span>
+  </div>
+  <div class="chronicle-visuals__grid">
+    {grid_html}
+  </div>
+</section>"""
+
+
+def _render_visual_card(card: dict[str, Any]) -> str:
+    headline = card.get("headline_finding") or ""
+    svg_html = card.get("svg_html") or ""
+    family = card.get("chart_family") or ""
+    confidence = card.get("confidence_band") or "unset"
+    score = card.get("visual_quality_score") or 0
+    is_lkg = card.get("is_lkg", 0)
+    sample_n = card.get("sample_n") or 0
+    share_path = card.get("share_asset_path")
+
+    # Posture badge: forward-looking preview vs "last season" retrospective.
+    visual_id = card.get("visual_id") or ""
+    card_season = card.get("season_year")
+    try:
+        from cfb_rankings.chronicle.visuals.registry import posture_for_id, PREVIEW
+        is_preview = posture_for_id(visual_id) == PREVIEW
+    except Exception:
+        is_preview = True
+    if is_preview:
+        posture_badge = '<span class="visual-card__badge visual-card__badge--preview">2026 preview</span>'
+    else:
+        season_lbl = f"{card_season} season" if card_season else "last season"
+        posture_badge = f'<span class="visual-card__badge visual-card__badge--retro">{html.escape(season_lbl)}</span>'
+
+    # Fan-facing meta only. Chart-family ("percentile bar"/"tile mosaic"),
+    # the quality score (q=), and raw sample (n=1) are internal QA fields —
+    # stripped from the public card per the 2026-05-25 fan audit. Keep the
+    # posture chip, a plain-English confidence cue, and the share link.
+    conf_label = {"high": "model-confident", "medium": "solid read", "low": "early signal"}.get(
+        (confidence or "").lower(), ""
+    )
+    conf_badge = f'<span class="visual-card__badge">{html.escape(conf_label)}</span>' if conf_label else ""
+    share_badge = (
+        f'<a class="visual-card__badge visual-card__badge--share" '
+        f'href="/{html.escape(share_path)}" download '
+        f'title="Download share image (1200×675 PNG)">⤓ share</a>'
+        if share_path else ""
+    )
+
+    headline_html = (
+        f'<h3 class="visual-card__headline">{html.escape(headline)}</h3>'
+        if headline else ""
+    )
+    svg_div = f'<div class="visual-card__svg">{svg_html}</div>' if svg_html else ""
+
+    return f"""<article class="visual-card" data-posture="{'preview' if is_preview else 'retro'}">
+  {posture_badge}
+  {headline_html}
+  {svg_div}
+  <div class="visual-card__meta">
+    {conf_badge}{share_badge}
+  </div>
+</article>"""
+
+
+def _render_llm_chronicle_section(
+    cards: list[dict[str, Any]],
+    profile: Profile,
+) -> str:
+    """Render LLM-generated Chronicle cards from chronicle_card_cache.
+
+    Returns "" when no cards exist for this team so the page stays clean.
+
+    WS-01 / D-004 (2026-05-28): suppressed during offseason while the
+    Chronicle pipeline's evidence floor is healed (today every card is
+    a repetitive Polymarket variation; suppress until offseason evidence
+    sources are wired in per docs/editorial-rhythm.md). Reversible: flip
+    _SUPPRESS_LKG_CHRONICLE_OFFSEASON to False once Chronicle regenerates
+    with diversified evidence (post-WS-05 + voice LoRA training).
+    """
+    if _SUPPRESS_LKG_CHRONICLE_OFFSEASON:
+        return ""
+    if not cards:
+        return ""
+
+    slug = profile.slug
+    cards_html = "".join(_render_llm_card(c) for c in cards)
+    more_link = (
+        f'<a class="llm-chronicle__more" href="/chronicle/{html.escape(slug)}.html">'
+        f'All Chronicle cards →</a>'
+    )
+    n = len(cards)
+    return f"""<section class="llm-chronicle" aria-labelledby="llm-chronicle-title">
+  <div class="llm-chronicle__header">
+    <h2 id="llm-chronicle-title" class="llm-chronicle__title">AI Narratives</h2>
+    <span class="llm-chronicle__meta">{n} AI-generated · local Mistral Nemo</span>
+    {more_link}
+  </div>
+  <div class="llm-chronicle__grid">
+    {cards_html}
+  </div>
+</section>"""
+
+
+def _render_llm_card(card: dict[str, Any]) -> str:
+    ct = card.get("card_type", "echo")
+    type_label = ct.replace("_", " ").upper()
+    headline = card.get("headline") or ""
+    body = card.get("body") or ""
+    week = card.get("week_number")
+    season = card.get("season_year")
+    is_lkg = card.get("is_lkg", False)
+    band = card.get("confidence_band") or "medium"
+    fc = card.get("fact_critic_score")
+
+    week_label = f"Wk {week} {season}" if week else str(season or "")
+    fc_label = f"fc:{fc:.2f}" if fc is not None else ""
+    lkg_badge = '<span class="llm-badge llm-badge--lkg">✓ LKG</span>' if is_lkg else ""
+    band_badge = f'<span class="llm-badge llm-badge--{html.escape(band)}">{html.escape(band)}</span>'
+    fc_badge = f'<span class="llm-badge">{html.escape(fc_label)}</span>' if fc_label else ""
+    wk_badge = f'<span class="llm-badge">{html.escape(week_label)}</span>' if week_label else ""
+
+    headline_html = (
+        f'<h3 class="llm-card__headline">{html.escape(headline)}</h3>'
+        if headline else ""
+    )
+
+    return f"""<article class="llm-card">
+  <div class="llm-card__type">{html.escape(type_label)}</div>
+  {headline_html}
+  <p class="llm-card__body">{html.escape(body)}</p>
+  <div class="llm-card__footer">
+    {lkg_badge}{band_badge}{wk_badge}{fc_badge}
+  </div>
+</article>"""
+
+
 # ------------------------------------------------------------------------
 # Footer
 # ------------------------------------------------------------------------
@@ -1171,16 +2110,20 @@ def _render_footer(profile: Profile, state: PageState) -> str:
         if mantra else "<span></span>"
     )
     model = profile.frontmatter.get("model_version", "team-pages v1.0")
-    # Audit-2 finding: "sentience dead-period-summer" exposed the
-    # internal anchor_variant state-machine name (kebab-case from
-    # _MONTH_TO_PHASE) to fans in the footer. The "sentience" label is
-    # brand-internal vocabulary (Iteration Log §Sentience). Fans don't
-    # need to see "sentience post-loss-sunday-monday" in their footer.
-    # Keep the version stamp (still useful for debugging via view-source);
-    # drop the anchor_variant tag.
+    # Sprint F: reverse-pointer to the /programs/<slug> historical view so
+    # users on the current-season page can navigate to the multi-decade
+    # history without going through the nav. Closes the audit's "two URL
+    # families, no obvious crosslink" complaint from the team-page side.
+    program_link = (
+        f'<a class="page-footer__link" href="/programs/{html.escape(profile.slug)}.html" '
+        'aria-label="View the multi-decade program history page">'
+        'Historical view →</a>'
+        if profile.slug else ""
+    )
     return f"""<footer class="page-footer">
   <span>CFB Index · {html.escape(model)}</span>
   {mantra_html}
+  {program_link}
 </footer>"""
 
 

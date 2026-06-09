@@ -1,6 +1,7 @@
 name: fanintel-ingest-hourly
 # STRATEGY §2 Tier 1, hourly. Adapters that gracefully no-op without secrets
-# stay here (Wikipedia, GDELT, Kalshi, Polymarket, Bluesky — all free/no-auth).
+# stay here (Kalshi, Polymarket, Bluesky — all free/no-auth). GDELT moved to
+# ingest_gdelt_daily.yml (self-hosted, residential IP — datacenter IPs 429).
 # Auth-dependent adapters (CFBD, YouTube, SeatGeek, Spotify) short-circuit
 # to exit 0 when their secret is absent, so a progressive-enable rollout
 # does not flood the Actions tab with errors.
@@ -53,6 +54,12 @@ jobs:
           search_artifacts: true
           if_no_artifact_found: warn
 
+      # Option B fail-loud (added 2026-05-21): refuse to run against a
+      # missing or poisoned DB. See docs/research/player-id-stability-
+      # scoping-2026-05-21.md.
+      - name: Verify DB artifact is healthy (Option B fail-loud)
+        run: python scripts/verify_db_artifact_healthy.py cfb_rankings.db
+
       - name: Apply migrations + seed (idempotent)
         run: |
           python manage.py init-db
@@ -61,24 +68,41 @@ jobs:
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
 
-      - name: Free / no-auth sources
-        run: |
-          set +e
-          python tools/run_adapter.py kalshi
-          python tools/run_adapter.py polymarket
-          python tools/run_adapter.py gdelt_volume
-          python tools/run_adapter.py bluesky_curated
-          python tools/run_adapter.py bluesky_feeds
-          echo "done"
+      # WS-01 loud-fail (2026-05-28): each adapter is its own step so a
+      # failure surfaces in the UI. run_adapter.py honors AdapterRunResult
+      # status as exit code (ok|empty→0, skipped→0+warn, error→1). Free
+      # adapters that legitimately produce 0 rows on quiet hours still pass
+      # (default --allow-empty); a code/upstream exception fails the step.
+      - name: kalshi
+        continue-on-error: true
+        run: python tools/run_adapter.py kalshi
+      - name: polymarket
+        run: python tools/run_adapter.py polymarket
+      # gdelt_volume moved to ingest_gdelt_daily.yml on the self-hosted
+      # Alienware runner (2026-05-28): GDELT rate-limits datacenter IPs
+      # (HTTP 429), so GitHub-hosted runners always 0-rowed it. Residential
+      # IP + daily cadence (article counts are a daily metric) fixes both.
+      - name: bluesky_curated
+        continue-on-error: true
+        run: python tools/run_adapter.py bluesky_curated
+      - name: bluesky_feeds
+        continue-on-error: true
+        run: python tools/run_adapter.py bluesky_feeds
 
-      - name: Auth-required sources (skip if secret absent)
-        run: |
-          set +e
-          python tools/run_adapter.py youtube_meta
-          python tools/run_adapter.py seatgeek
-          echo "done"
+      # Auth-gated. run_adapter.py exit 0 + warn when secret missing
+      # (status=skipped); only a real bug after auth succeeds fails the step.
+      - name: youtube_meta
+        continue-on-error: true
+        run: python tools/run_adapter.py youtube_meta
+      - name: seatgeek
+        continue-on-error: true
+        run: python tools/run_adapter.py seatgeek
 
       - name: Google News RSS per team
+        # google_news_all is a per-team bulk runner that already swallows
+        # per-team failures internally (returns 0). continue-on-error here
+        # is belt-and-suspenders against a future runner regression.
+        continue-on-error: true
         run: python tools/run_adapter.py google_news_all
 
       # Conditional in-season CFBD refresh. Aug–early-Jan is CFB season.

@@ -1,0 +1,922 @@
+/* Stats Table Component (World-Class CFB Stats Display)
+ * -------------------------------------------------------------------------
+ * Canonical column sequences, mobile-first responsive behavior, tabular
+ * numerals, sticky first column, tap-triggered definitions.
+ *
+ * Spec: docs/research/cfb-stats-conformance-spec.md
+ * Mobile: docs/research/cfb-stats-mobile-playbook.md
+ * Anti-patterns: docs/research/cfb-stats-antipatterns.md
+ */
+
+/* =============================================================================
+   NAMESPACE: wcfb-stats- (prevents collisions with legacy table styles)
+   ========================================================================== */
+
+/* -----------------------------------------------------------------------------
+   TABLE WRAPPER — Horizontal scroll container
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Prevent page-level horizontal scroll */
+  max-width: 100%;
+}
+
+/* -----------------------------------------------------------------------------
+   BASE TABLE — Semantic HTML table with tabular numerals
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-family: var(--font-body, var(--sans, "Inter", system-ui, sans-serif));
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--fg-primary, var(--foreground, #1a1a2e));
+  background: var(--bg-default, var(--background, #ffffff));
+}
+
+/* -----------------------------------------------------------------------------
+   STICKY FIRST COLUMN — Never lose the identifying column
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-table th:first-child,
+.wcfb-stats-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--bg-default, var(--background, #ffffff));
+  box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.08);
+}
+
+/* iOS Safari bug fix: nested scroll containers require transform */
+.wcfb-stats-wrap {
+  transform: translateZ(0);
+}
+
+/* "L" configuration — top-left cell sticks both ways */
+.wcfb-stats-table thead tr:first-child th:first-child {
+  z-index: 4;
+  position: sticky;
+  left: 0;
+  top: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   HEADERS — Sortable with 44×44px tap targets
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-table th {
+  position: relative;
+  text-align: left;
+  padding: 0;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--stroke-default, rgba(0, 0, 0, 0.12));
+  background: var(--bg-subtle, var(--muted, #f8f9fa));
+}
+
+/* Sortable header button — meets WCAG 2.5.5 (44×44px) */
+.wcfb-stats-table th.wcfb-sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.wcfb-stats-table th .wcfb-sort-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.wcfb-stats-table th .wcfb-sort-btn:hover,
+.wcfb-stats-table th .wcfb-sort-btn:focus-visible {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.04));
+}
+
+/* Sort arrow affordance */
+.wcfb-stats-table th .wcfb-sort-icon {
+  margin-left: 4px;
+  opacity: 0.4;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.wcfb-stats-table th[aria-sort="ascending"] .wcfb-sort-icon {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+
+.wcfb-stats-table th[aria-sort="descending"] .wcfb-sort-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* Advanced stat definition trigger */
+.wcfb-stats-table th .wcfb-def-trigger {
+  margin-left: 4px;
+  opacity: 0.5;
+  cursor: help;
+}
+
+.wcfb-stats-table th .wcfb-def-trigger:hover {
+  opacity: 1;
+}
+
+/* -----------------------------------------------------------------------------
+   DATA CELLS — Alignment and padding
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--stroke-subtle, rgba(0, 0, 0, 0.06));
+}
+
+/* Right-align numeric columns */
+.wcfb-stats-table td.wcfb-align-right,
+.wcfb-stats-table th.wcfb-align-right {
+  text-align: right;
+}
+
+.wcfb-stats-table td.wcfb-align-center,
+.wcfb-stats-table th.wcfb-align-center {
+  text-align: center;
+}
+
+/* -----------------------------------------------------------------------------
+   ROW STATES — Hover, zebra striping (optional)
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-table tbody tr:hover {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.02));
+}
+
+.wcfb-stats-table tbody tr:nth-child(even) {
+  background: var(--bg-zebra, rgba(0, 0, 0, 0.01));
+}
+
+.wcfb-stats-table tbody tr:nth-child(even):hover {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.02));
+}
+
+/* -----------------------------------------------------------------------------
+   CROSS-LINKS — Player, team, opponent links with padded touch targets
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-table a.wcfb-cross-link {
+  color: var(--fg-link, var(--accent-primary, #0066cc));
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 4px;
+  margin: -8px -4px;
+  border-radius: 4px;
+  transition: background-color 120ms ease,
+              color 120ms ease,
+              text-decoration-color 120ms ease;
+}
+
+.wcfb-stats-table a.wcfb-cross-link:hover {
+  background: var(--bg-hover, rgba(0, 102, 204, 0.08));
+  text-decoration: underline;
+  text-decoration-color: var(--fg-link, var(--accent-primary, #0066cc));
+}
+
+.wcfb-stats-table a.wcfb-cross-link:focus-visible {
+  outline: 2px solid var(--accent-primary, #0066cc);
+  outline-offset: -2px;
+}
+
+/* -----------------------------------------------------------------------------
+   PERCENTILE BAR — Red→grey→blue diverging scale
+   ----------------------------------------------------------------------------- */
+.wcfb-percentile-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 200px;
+  font-size: 11px;
+}
+
+.wcfb-percentile-bar__label {
+  flex-shrink: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--fg-secondary, var(--muted-foreground, #6b7280));
+}
+
+.wcfb-percentile-bar__track {
+  flex-grow: 1;
+  height: 4px;
+  background: var(--stroke-subtle, rgba(0, 0, 0, 0.12));
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wcfb-percentile-bar__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 2px;
+  transition: width 300ms ease;
+}
+
+/* Percentile color scale — red (low) → grey (mid) → blue (high) */
+.wcfb-percentile-bar__fill[data-pct-low="true"] {
+  background: #ef4444;
+}
+.wcfb-percentile-bar__fill[data-pct-mid="true"] {
+  background: #9ca3af;
+}
+.wcfb-percentile-bar__fill[data-pct-high="true"] {
+  background: #3b82f6;
+}
+
+.wcfb-percentile-bar__dot {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: var(--fg-primary, #1a1a2e);
+  border: 2px solid var(--bg-default, #ffffff);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 300ms ease;
+}
+
+.wcfb-percentile-bar__value {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--fg-primary, #1a1a2e);
+}
+
+.wcfb-percentile-bar__peer {
+  flex-shrink: 0;
+  color: var(--fg-secondary, var(--muted-foreground, #6b7280));
+  font-size: 10px;
+}
+
+/* -----------------------------------------------------------------------------
+   CONFIDENCE CHIP — Sample size signaling
+   ----------------------------------------------------------------------------- */
+.wcfb-confidence-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.wcfb-confidence-chip--high {
+  background: #dcfce7;
+  color: #166534;
+}
+.wcfb-confidence-chip--medium {
+  background: #fef9c3;
+  color: #854d0e;
+}
+.wcfb-confidence-chip--low {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Dark mode adjustments for confidence chips */
+[data-theme="dark"] .wcfb-confidence-chip--high {
+  background: #166534;
+  color: #dcfce7;
+}
+[data-theme="dark"] .wcfb-confidence-chip--medium {
+  background: #854d0e;
+  color: #fef9c3;
+}
+[data-theme="dark"] .wcfb-confidence-chip--low {
+  background: #991b1b;
+  color: #fee2e2;
+}
+
+/* -----------------------------------------------------------------------------
+   MOBILE OPTIMIZATIONS — ≤768px viewport
+   ----------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Scroll hint at right edge */
+  .wcfb-stats-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 32px;
+    background: linear-gradient(to right, transparent, var(--bg-default, #ffffff));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .wcfb-stats-wrap.wcfb-scrolling::after {
+    opacity: 1;
+  }
+
+  /* Larger tap targets for headers */
+  .wcfb-stats-table th .wcfb-sort-btn {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* Condensed row padding for density */
+  .wcfb-stats-table td {
+    padding: 10px 8px;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   REDUCED MOTION — Disable transitions for accessibility
+   ----------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .wcfb-stats-table *,
+  .wcfb-stats-table *::before,
+  .wcfb-stats-table *::after {
+    transition: none !important;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   DARK MODE — Color scheme inversion
+   ----------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .wcfb-stats-table {
+    color: var(--fg-primary, var(--foreground, #f5f6fa));
+    background: var(--bg-default, var(--background, #1a1a2e));
+  }
+
+  .wcfb-stats-table th:first-child,
+  .wcfb-stats-table td:first-child {
+    background: var(--bg-default, var(--background, #1a1a2e));
+    box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.3);
+  }
+
+  .wcfb-stats-table th {
+    background: var(--bg-subtle, var(--muted, #2a2a4e));
+    border-bottom-color: var(--stroke-default, rgba(255, 255, 255, 0.12));
+  }
+
+  .wcfb-stats-table td {
+    border-bottom-color: var(--stroke-subtle, rgba(255, 255, 255, 0.06));
+  }
+
+  .wcfb-stats-table tbody tr:hover {
+    background: var(--bg-hover, rgba(255, 255, 255, 0.04));
+  }
+
+  .wcfb-stats-table tbody tr:nth-child(even) {
+    background: var(--bg-zebra, rgba(255, 255, 255, 0.02));
+  }
+}
+
+[data-theme="dark"] .wcfb-stats-table {
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+  background: var(--bg-default, var(--background, #1a1a2e));
+}
+
+[data-theme="dark"] .wcfb-stats-table th:first-child,
+[data-theme="dark"] .wcfb-stats-table td:first-child {
+  background: var(--bg-default, var(--background, #1a1a2e));
+  box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .wcfb-stats-table th {
+  background: var(--bg-subtle, var(--muted, #2a2a4e));
+  border-bottom-color: var(--stroke-default, rgba(255, 255, 255, 0.12));
+}
+
+[data-theme="dark"] .wcfb-stats-table td {
+  border-bottom-color: var(--stroke-subtle, rgba(255, 255, 255, 0.06));
+}
+
+[data-theme="dark"] .wcfb-stats-table tbody tr:hover {
+  background: var(--bg-hover, rgba(255, 255, 255, 0.04));
+}
+
+[data-theme="dark"] .wcfb-stats-table tbody tr:nth-child(even) {
+  background: var(--bg-zebra, rgba(255, 255, 255, 0.02));
+}
+
+/* -----------------------------------------------------------------------------
+   PRINT STYLES — Clean output for printing
+   ----------------------------------------------------------------------------- */
+@media print {
+  .wcfb-stats-wrap {
+    overflow-x: visible;
+  }
+
+  .wcfb-stats-table {
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+
+  .wcfb-stats-table th,
+  .wcfb-stats-table td {
+    border: 1px solid #000;
+  }
+
+  .wcfb-stats-table a.wcfb-cross-link {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .wcfb-percentile-bar__fill {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .wcfb-stats-bottom-sheet,
+  .wcfb-stats-popover {
+    display: none !important;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   BOTTOM SHEET (Mobile) — Stat definitions on tap
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-bottom-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.wcfb-stats-bottom-sheet--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wcfb-stats-bottom-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.wcfb-stats-bottom-sheet__content {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: var(--bg-card-raised, var(--card, #ffffff));
+  border-radius: 16px 16px 0 0;
+  padding: 20px;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wcfb-stats-bottom-sheet--open .wcfb-stats-bottom-sheet__content {
+  transform: translateY(0);
+}
+
+.wcfb-stats-bottom-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.wcfb-stats-bottom-sheet__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--fg-primary, var(--foreground, #1a1a2e));
+}
+
+.wcfb-stats-bottom-sheet__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--fg-secondary, var(--muted-foreground, #6b7280));
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.wcfb-stats-bottom-sheet__close:hover {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.06));
+  color: var(--fg-primary, var(--foreground, #1a1a2e));
+}
+
+.wcfb-stats-bottom-sheet__body p {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fg-secondary, var(--muted-foreground, #4b5563));
+}
+
+.wcfb-stats-bottom-sheet__definition {
+  font-weight: 500;
+}
+
+.wcfb-stats-bottom-sheet__formula code {
+  display: block;
+  padding: 8px 12px;
+  background: var(--bg-subtle, var(--muted, #f3f4f6));
+  border-radius: 6px;
+  font-family: var(--font-mono, "SF Mono", Consolas, monospace);
+  font-size: 13px;
+  color: var(--fg-primary, var(--foreground, #1a1a2e));
+}
+
+.wcfb-stats-bottom-sheet__benchmark {
+  font-style: italic;
+}
+
+.wcfb-stats-bottom-sheet__link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  color: var(--fg-link, var(--accent-primary, #0066cc));
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.wcfb-stats-bottom-sheet__link:hover {
+  text-decoration: underline;
+}
+
+/* -----------------------------------------------------------------------------
+   POPOVER (Desktop) — Stat definitions on hover/tap
+   ----------------------------------------------------------------------------- */
+.wcfb-stats-popover {
+  position: fixed;
+  z-index: 50;
+  max-width: 280px;
+  padding: 12px;
+  background: var(--bg-card-raised, var(--card, #ffffff));
+  border: 1px solid var(--stroke-default, rgba(0, 0, 0, 0.12));
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 13px;
+  line-height: 1.4;
+  animation: wcfb-popover-fade-in 150ms ease;
+}
+
+@keyframes wcfb-popover-fade-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.wcfb-stats-popover__title {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: var(--fg-primary, var(--foreground, #1a1a2e));
+}
+
+.wcfb-stats-popover__definition {
+  margin: 0 0 8px 0;
+  color: var(--fg-secondary, var(--muted-foreground, #4b5563));
+}
+
+.wcfb-stats-popover__formula code {
+  display: block;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+  background: var(--bg-subtle, var(--muted, #f3f4f6));
+  border-radius: 4px;
+  font-family: var(--font-mono, "SF Mono", Consolas, monospace);
+  font-size: 11px;
+  color: var(--fg-primary, var(--foreground, #1a1a2e));
+}
+
+.wcfb-stats-popover__benchmark {
+  margin: 0 0 8px 0;
+  font-style: italic;
+  font-size: 11px;
+  color: var(--fg-secondary, var(--muted-foreground, #6b7280));
+}
+
+.wcfb-stats-popover__link {
+  color: var(--fg-link, var(--accent-primary, #0066cc));
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.wcfb-stats-popover__link:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode: bottom sheet and popover */
+@media (prefers-color-scheme: dark) {
+  .wcfb-stats-bottom-sheet__content {
+    background: var(--bg-card-raised, var(--card, #1e2330));
+  }
+
+  .wcfb-stats-bottom-sheet__title {
+    color: var(--fg-primary, var(--foreground, #f5f6fa));
+  }
+
+  .wcfb-stats-bottom-sheet__close {
+    color: var(--fg-secondary, var(--muted-foreground, #9ca3af));
+  }
+
+  .wcfb-stats-bottom-sheet__close:hover {
+    background: var(--bg-hover, rgba(255, 255, 255, 0.08));
+    color: var(--fg-primary, var(--foreground, #f5f6fa));
+  }
+
+  .wcfb-stats-bottom-sheet__body p {
+    color: var(--fg-secondary, var(--muted-foreground, #9ca3af));
+  }
+
+  .wcfb-stats-bottom-sheet__formula code {
+    background: var(--bg-subtle, var(--muted, #2a2a4e));
+    color: var(--fg-primary, var(--foreground, #f5f6fa));
+  }
+
+  .wcfb-stats-popover {
+    background: var(--bg-card-raised, var(--card, #1e2330));
+    border-color: var(--stroke-default, rgba(255, 255, 255, 0.12));
+  }
+
+  .wcfb-stats-popover__title {
+    color: var(--fg-primary, var(--foreground, #f5f6fa));
+  }
+
+  .wcfb-stats-popover__definition {
+    color: var(--fg-secondary, var(--muted-foreground, #9ca3af));
+  }
+
+  .wcfb-stats-popover__formula code {
+    background: var(--bg-subtle, var(--muted, #2a2a4e));
+    color: var(--fg-primary, var(--foreground, #f5f6fa));
+  }
+}
+
+[data-theme="dark"] .wcfb-stats-bottom-sheet__content {
+  background: var(--bg-card-raised, var(--card, #1e2330));
+}
+
+[data-theme="dark"] .wcfb-stats-bottom-sheet__title {
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+}
+
+[data-theme="dark"] .wcfb-stats-bottom-sheet__close {
+  color: var(--fg-secondary, var(--muted-foreground, #9ca3af));
+}
+
+[data-theme="dark"] .wcfb-stats-bottom-sheet__close:hover {
+  background: var(--bg-hover, rgba(255, 255, 255, 0.08));
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+}
+
+[data-theme="dark"] .wcfb-stats-bottom-sheet__body p {
+  color: var(--fg-secondary, var(--muted-foreground, #9ca3af));
+}
+
+[data-theme="dark"] .wcfb-stats-bottom-sheet__formula code {
+  background: var(--bg-subtle, var(--muted, #2a2a4e));
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+}
+
+[data-theme="dark"] .wcfb-stats-popover {
+  background: var(--bg-card-raised, var(--card, #1e2330));
+  border-color: var(--stroke-default, rgba(255, 255, 255, 0.12));
+}
+
+[data-theme="dark"] .wcfb-stats-popover__title {
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+}
+
+[data-theme="dark"] .wcfb-stats-popover__definition {
+  color: var(--fg-secondary, var(--muted-foreground, #9ca3af));
+}
+
+[data-theme="dark"] .wcfb-stats-popover__formula code {
+  background: var(--bg-subtle, var(--muted, #2a2a4e));
+  color: var(--fg-primary, var(--foreground, #f5f6fa));
+}
+
+/* -----------------------------------------------------------------------------
+   PERCENTILE GRID LAYOUT — Multiple bars in grid
+   ----------------------------------------------------------------------------- */
+.wcfb-percentile-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* -----------------------------------------------------------------------------
+   SAMPLE SIZE BADGE — Single confidence indicator (header level)
+   ----------------------------------------------------------------------------- */
+.wcfb-sample-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--bg-subtle, var(--muted, #f8f9fa));
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--fg-secondary, var(--muted-foreground, #6b7280));
+}
+
+.wcfb-sample-badge__icon {
+  color: #22c55e;
+  font-size: 14px;
+}
+
+/* -----------------------------------------------------------------------------
+   PERCENTILE CARD — Card-based layout (refined design)
+   ----------------------------------------------------------------------------- */
+.wcfb-percentile-card {
+  background: var(--bg-card-raised, var(--card, #ffffff));
+  border: 1px solid var(--stroke-default, rgba(0, 0, 0, 0.12));
+  border-radius: 10px;
+  padding: 16px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wcfb-percentile-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .wcfb-percentile-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Card main section: label, value, rank */
+.wcfb-percentile-card__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.wcfb-percentile-card__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-secondary, var(--muted-foreground, #6b7280));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.wcfb-percentile-card__value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--fg-primary, var(--foreground, #1a1a2e));
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.wcfb-percentile-card__rank {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Tier: Elite (75th+ percentile) — Blue */
+.wcfb-percentile-card--elite .wcfb-percentile-card__rank {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+[data-theme="dark"] .wcfb-percentile-card--elite .wcfb-percentile-card__rank {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+.wcfb-percentile-card--elite .wcfb-percentile-card__fill {
+  background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+}
+
+/* Tier: Good (50-74th percentile) — Green */
+.wcfb-percentile-card--good .wcfb-percentile-card__rank {
+  background: #dcfce7;
+  color: #166534;
+}
+
+[data-theme="dark"] .wcfb-percentile-card--good .wcfb-percentile-card__rank {
+  background: #14532d;
+  color: #4ade80;
+}
+
+.wcfb-percentile-card--good .wcfb-percentile-card__fill {
+  background: linear-gradient(90deg, #166534 0%, #22c55e 100%);
+}
+
+/* Tier: Low (<50th percentile) — Red */
+.wcfb-percentile-card--low .wcfb-percentile-card__rank {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+[data-theme="dark"] .wcfb-percentile-card--low .wcfb-percentile-card__rank {
+  background: #7f1d1d;
+  color: #f87171;
+}
+
+.wcfb-percentile-card--low .wcfb-percentile-card__fill {
+  background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+}
+
+/* Card bar section */
+.wcfb-percentile-card__bar {
+  position: relative;
+}
+
+.wcfb-percentile-card__track {
+  height: 8px;
+  background: var(--stroke-subtle, rgba(0, 0, 0, 0.12));
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.wcfb-percentile-card__fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+}
+
+.wcfb-percentile-card__markers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 10px;
+  color: var(--fg-secondary, var(--muted-foreground, #6b7280));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Mobile: single column */
+@media (max-width: 640px) {
+  .wcfb-percentile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wcfb-stats-bottom-sheet__content {
+    border-radius: 16px;
+  }
+
+  .wcfb-percentile-card__main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .wcfb-percentile-card__value {
+    font-size: 20px;
+  }
+
+  .wcfb-percentile-card__rank {
+    align-self: flex-start;
+    font-size: 14px;
+  }
+
+  .wcfb-stats-table td {
+    padding: 12px 8px;
+  }
+
+  .wcfb-stats-table th .wcfb-sort-btn {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .wcfb-percentile-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1025px) {
+  .wcfb-percentile-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

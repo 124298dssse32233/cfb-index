@@ -1,0 +1,57 @@
+name: selfhosted_smoketest
+# Smoke test for the self-hosted runner on the Alienware Aurora ACT1250.
+#
+# Added 2026-05-21 (session 2 of Claude work). The cfb-index project relies
+# on many GitHub Actions workflows; several have been failing intermittently
+# with startup_failure (runner allocation issues on GHA shared infra). The
+# Alienware (Intel Ultra 7 265KF, 32GB DDR5, RTX 5070) is always-on and can
+# host a self-hosted runner that bypasses the startup-failure class of bug.
+#
+# This workflow does nothing real — it just confirms the runner is reachable,
+# can check out the repo, and can install the project dependencies. If this
+# succeeds, the strategy of migrating flaky workflows (digest_reactions_poll,
+# today_in_cfb_history, etc.) to self-hosted is proven and we can flip them
+# one at a time.
+#
+# Workflow_dispatch only — no schedule. Trigger manually via API or UI.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  smoketest:
+    runs-on: [self-hosted, alienware]
+    timeout-minutes: 10
+    steps:
+      - name: Identify host
+        shell: bash
+        run: |
+          echo "Runner name: $RUNNER_NAME"
+          echo "Runner OS:   $RUNNER_OS"
+          echo "Runner arch: $RUNNER_ARCH"
+          echo "Hostname:    $(hostname)"
+          echo "Python:      $(python --version)"
+          echo "PWD:         $(pwd)"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify repo files visible
+        shell: bash
+        run: |
+          ls -la | head -10
+          echo "---"
+          git log --oneline -3
+          echo "---"
+          cat pyproject.toml | head -10
+
+      - name: Install project (smoke test for dependency resolution)
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip pyyaml
+          python -m pip install -e .
+          python -c "import cfb_rankings; print('cfb_rankings imports OK')"
+
+      - name: Done
+        shell: bash
+        run: echo "Self-hosted runner smoke test PASSED"
