@@ -6197,6 +6197,13 @@ def _ensure_global_assets(site_root: Path) -> str:
     src_assets_dir = Path(__file__).parent / "static_assets"
     for rel_path in (
         "alpine.min.js",
+        # Rankings redesign (light/Bebas) — scoped under .cfb-rkx (OD-1). These
+        # are emitted globally but only <link>ed on the rankings/conference/
+        # archive surfaces (page-scoped load), so they can't clobber the
+        # dark/Inter team-page system. See docs/octopus/rankings_redesign_BUILD_MANIFEST.md §2a.
+        "css/cfb-tokens.css",
+        "css/rankings-board.css",
+        "js/rankings-board.js",
         "js/url-state.js",
         "js/the-room.js",
         "js/subnav.js",
