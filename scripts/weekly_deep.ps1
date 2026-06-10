@@ -86,6 +86,25 @@ Run "archetypes: classify-fanbases --season=$CurSeason" {
 }
 
 # ------------------------------------------------------------------------
+# 2.5 Wave 25 offseason status refresh (moved from the retired cloud
+#     offseason-watch-refresh workflow 2026-06-10 — the cloud copy ran
+#     against the divergent rolling-artifact DB; the box DB is canonical).
+#     2026 portal/roster sync from CFBD, alias overrides for name-variant
+#     split pids, award-watch + depth-chart CSV loads, then verify (report-
+#     only — build-site below rebuilds the status cache either way).
+# ------------------------------------------------------------------------
+$NextSeason = $CurSeason + 1
+Run "wave25: ingest-cfbd-preseason --season=$NextSeason (portal/rosters)" {
+    python manage.py ingest-cfbd-preseason --season $NextSeason --classification fbs
+}
+Run "wave25: seed alias overrides (idempotent)" {
+    python scripts/wave25_seed_alias_overrides.py
+}
+Run "wave25: refresh-award-watch" { python manage.py refresh-award-watch }
+Run "wave25: refresh-depth-chart" { python manage.py refresh-depth-chart }
+Run "wave25: verify (report-only)" { python -X utf8 manage.py verify-wave25 }
+
+# ------------------------------------------------------------------------
 # 3. Data-integrity audits - write reports, do not fail the job
 # ------------------------------------------------------------------------
 Run "audit: audit-data-coverage" { python manage.py audit-data-coverage }

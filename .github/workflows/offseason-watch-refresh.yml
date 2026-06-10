@@ -1,22 +1,18 @@
 name: offseason-watch-refresh
-# Wave 25 — keep 2026 offseason posture data (award watch + depth chart)
-# fresh through the offseason. Reads data/award_watch_2026.csv and
-# data/depth_chart_2026.csv, loads into DB, runs verify, commits.
+# RETIRED 2026-06-10 — moved into the box pipeline (scripts/weekly_deep.ps1,
+# "wave25:" steps). This cloud copy ran against the rolling-artifact DB, which
+# diverged from the canonical box DB (different player_id space, stale caches)
+# — its 2026-06-10 run failed verify-wave25 on every marquee fixture. The box
+# runs the same refresh weekly against the real DB and deploys nightly.
 #
-# Cadence (May 27 2026 -> kickoff late August 2026):
-#   Mon 11:00 ET — weekly refresh + verify
-#   Sun 03:00 ET — extra Sunday refresh during peak watch-list season
-#                  (mid-June through late July when official lists drop)
+# Cron removed; workflow_dispatch kept for emergencies ONLY (know that it
+# operates on the cloud artifact DB, not the box DB).
 #
-# The CSVs are the source of truth. Edit the CSV files in PRs, this
-# workflow propagates them to the DB and rebuilds the status cache.
+# Original purpose: keep 2026 offseason posture data (award watch + depth
+# chart) fresh. Reads data/award_watch_2026.csv + data/depth_chart_2026.csv,
+# loads into DB, runs verify, commits. The CSVs are the source of truth.
 
 on:
-  schedule:
-    # Mon 11:00 ET -> Mon 15:00 UTC (EDT)
-    - cron: '0 15 * * 1'
-    # Sun 03:00 ET -> Sun 07:00 UTC (EDT) — Sunday refresh during peak season
-    - cron: '0 7 * * 0'
   workflow_dispatch:
     inputs:
       skip_publish:

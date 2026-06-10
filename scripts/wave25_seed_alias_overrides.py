@@ -81,7 +81,8 @@ def find_split_pid_candidates(con: sqlite3.Connection) -> list[dict]:
                   WHERE player_id=p.player_id AND position IS NOT NULL
                   ORDER BY season_year DESC LIMIT 1) AS stats_pos
         FROM players p
-        WHERE (SELECT COUNT(*) FROM player_season_stats WHERE player_id=p.player_id) >= 30
+        WHERE ((SELECT COUNT(*) FROM player_season_stats WHERE player_id=p.player_id)
+               + (SELECT COUNT(*) FROM player_game_stats WHERE player_id=p.player_id)) >= 30
           AND (SELECT MAX(draft_year) FROM player_nfl_draft WHERE player_id=p.player_id) IS NULL
         """
     ).fetchall()
