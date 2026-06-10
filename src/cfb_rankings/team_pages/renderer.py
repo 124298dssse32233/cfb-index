@@ -67,6 +67,7 @@ from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
 from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
 from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
 from .backometer_module import render_backometer_module, BACKOMETER_MODULE_CSS
+from .rent_free_module import render_rent_free_module, RENT_FREE_MODULE_CSS
 from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
 from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
@@ -582,6 +583,9 @@ def _render_page(
     # Backometer night band — fanbase belief verdict (Noir suite). Renders only
     # when the team has a current publishable verdict (n>=floor); skips otherwise.
     backometer_html = render_backometer_module(db, profile, snapshot) if db is not None else ""
+    # Rent Free night band — rival obsession readout (Noir suite). Renders only
+    # when there's cross-mention signal on at least one side; skips otherwise.
+    rent_free_html = render_rent_free_module(db, profile, snapshot) if db is not None else ""
     preview_claim = (
         fetch_team_preview_claim(db, snapshot.team_id)
         if db is not None and snapshot else None
@@ -677,7 +681,7 @@ def _render_page(
         peer_comparator_html, coaching_era_html, rituals_html,
         cultural_anchors_html, fanbase_health_html, home_field_html,
         statement_wins_html, chronicle_html, chronicle_visuals_html,
-        savant_html, rivalry_html, llm_chronicle_html,
+        savant_html, rivalry_html, rent_free_html, llm_chronicle_html,
     )
     review_season = snapshot.season_year if snapshot else None
     review_hint = (
@@ -781,6 +785,9 @@ body {{
 
 /* Backometer night band — fanbase belief verdict (Group Chat Noir) */
 {BACKOMETER_MODULE_CSS}
+
+/* Rent Free night band — rival obsession readout (Group Chat Noir) */
+{RENT_FREE_MODULE_CSS}
 
 /* Roster Reload - separated continuity, portal, draft, and recruiting */
 {ROSTER_RELOAD_CSS}
