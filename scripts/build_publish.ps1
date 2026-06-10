@@ -99,6 +99,9 @@ Run "features: build-conversation-features --season=$($global:CurSeason) --week=
 Run "fan-metrics: compute-backometer --season=$($global:CurSeason)" {
     python manage.py compute-backometer --season $global:CurSeason
 }
+Run "fan-metrics: compute-aura --season=$($global:CurSeason)" {
+    python manage.py compute-aura --season $global:CurSeason
+}
 
 # =========================================================================
 # G. Models (in-season only - require fresh game data)

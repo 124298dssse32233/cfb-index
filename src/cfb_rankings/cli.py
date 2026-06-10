@@ -1252,6 +1252,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     seed_rivalry_pairs_parser.add_argument("--pairs-file", default="seeds/rivalry_pairs.yaml")
 
+    compute_aura_parser = subparsers.add_parser(
+        "compute-aura",
+        help=(
+            "Compute player_aura_weekly (perception vs production percentile within "
+            "position cohort; aura_tax = the gap). QB/RB only — wepa metrics. Fan suite."
+        ),
+    )
+    compute_aura_parser.add_argument("--season", type=int, required=True)
+
     compute_backometer_parser = subparsers.add_parser(
         "compute-backometer",
         help=(
@@ -5970,6 +5979,17 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         )
         for miss in result["unresolved"]:
             print(f"  unresolved: {miss}", flush=True)
+        return
+
+    if args.command == "compute-aura":
+        from cfb_rankings.fan_metrics.aura import compute_aura
+
+        result = compute_aura(db, season=args.season)
+        print(
+            f"compute-aura season={args.season}: "
+            f"cohorts={result['cohorts']} rows={result['rows']}",
+            flush=True,
+        )
         return
 
     if args.command == "compute-backometer":
