@@ -278,6 +278,23 @@ def compute_player_mood_index(
             """,
             {"season_year": season_year},
         )
+    # Cross-season fallback (Phase 2). The site snapshot labels the *forward*
+    # season (e.g. summary["season_year"]=2026 in June 2026) but fan-conversation
+    # is stamped under the season just played (2025, via _season_year_for's
+    # month<7 rule). When the requested season has NO player rows at all, fall
+    # back to the prior season's rollup so Room cards light up instead of every
+    # player rendering Awaiting-Signal. Mirrors the roster max(season_year)
+    # hotfix in build_player_directory_rows.
+    if fallback_to_season_rollup and not all_rows and not season_rollup_rows:
+        season_rollup_rows = db.query_all(
+            """
+            select *
+            from player_week_conversation_features
+            where season_year = %(season_year)s
+              and week = 0
+            """,
+            {"season_year": season_year - 1},
+        )
     if not all_rows and not season_rollup_rows:
         return {}
     # Group by player_id → {bucket: row}. Prefer source_name='all' then

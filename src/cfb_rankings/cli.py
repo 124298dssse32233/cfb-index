@@ -84,6 +84,56 @@ def build_parser() -> argparse.ArgumentParser:
     )
     compute_divergence_parser.add_argument("--week", required=True, help="Week key in YYYY-WW format.")
 
+    verify_publish_parser = subparsers.add_parser(
+        "verify-publish-readiness",
+        help=("Pre-publish data-quality gate: hand-rolled SQL assertions over the "
+              "daily tables. Exits 2 on any HARD-FAIL so the publisher aborts the "
+              "deploy; WARN-level checks print but never block."),
+    )
+    verify_publish_parser.add_argument(
+        "--freshness-days", type=int, default=2,
+        help="Max age (days) of newest conversation_documents.collected_at_utc before HARD-FAIL.")
+    verify_publish_parser.add_argument(
+        "--min-today-docs", type=int, default=200,
+        help="Min conversation_documents rows collected in the last 24h (absolute floor).")
+    verify_publish_parser.add_argument(
+        "--strict", action="store_true",
+        help="Promote the WARN mood/cohort/feature/player checks to HARD-FAIL (also via env VERIFY_STRICT_MOOD=1).")
+    verify_publish_parser.add_argument(
+        "--json", dest="emit_json", action="store_true", help="Also print a JSON summary.")
+
+    set_conf_parser = subparsers.add_parser(
+        "set-conferences",
+        help="Update priority_teams.conference from a {slug: conference} seed JSON "
+             "(2026 realignment hygiene). Idempotent; only touches listed slugs.",
+    )
+    set_conf_parser.add_argument("--seed", default="data/seeds/conference_2026.json")
+
+    resolve_week_parser = subparsers.add_parser(
+        "resolve-week",
+        help=("Print the canonical (season_year, week, week_start, iso_key) for a "
+              "date (default today). ONE source of truth so daily_ingest's "
+              "producers and consumers can't drift onto different week vocabularies."),
+    )
+    resolve_week_parser.add_argument(
+        "--as-of", default=None,
+        help="Date YYYY-MM-DD to resolve (default: today on the box clock).")
+    resolve_week_parser.add_argument(
+        "--json", dest="emit_json", action="store_true",
+        help="Print ONLY a JSON object to stdout (for `ConvertFrom-Json` in PowerShell).")
+
+    import_team_sources_parser = subparsers.add_parser(
+        "import-team-sources",
+        help=("Upsert per-team source config into priority_teams from a seed CSV "
+              "(Build #1: 21->138 teams). New teams inserted fully; existing teams "
+              "get tier/reddit_mode/flair updated but hand-tuned reddit_team_sub / "
+              "google_news_query are preserved (only filled if empty)."),
+    )
+    import_team_sources_parser.add_argument(
+        "--csv", required=True, help="Seed CSV path (data/seeds/team_sources_seed.csv).")
+    import_team_sources_parser.add_argument(
+        "--dry-run", action="store_true", help="Report inserts/updates without writing.")
+
     tag_players_parser = subparsers.add_parser(
         "tag-player-mentions",
         help=("Scan conversation_documents for player-name mentions and emit "
@@ -745,6 +795,75 @@ def build_parser() -> argparse.ArgumentParser:
     collect_reddit_parser.add_argument("--after", help="Optional lower bound as Unix seconds or YYYY-MM-DD ET.")
     collect_reddit_parser.add_argument("--before", help="Optional upper bound as Unix seconds or YYYY-MM-DD ET.")
     collect_reddit_parser.add_argument("--no-replace-existing", action="store_true")
+
+    collect_reddit_team_rss_parser = subparsers.add_parser(
+        "collect-reddit-team-rss",
+        help=("Collect each priority team's FOOTBALL subreddit via the .rss path "
+              "(Build #2). Dedicated subs -> new.rss; school subs -> flair-filtered "
+              "search.rss. Honest UA, no spoof. Replaces the dead text-search "
+              "watchlist for per-team Reddit."),
+    )
+    collect_reddit_team_rss_parser.add_argument("--season", type=int, required=True)
+    collect_reddit_team_rss_parser.add_argument("--week", type=int, required=True)
+    collect_reddit_team_rss_parser.add_argument("--limit", type=int, default=50,
+        help="Max posts per subreddit per run (reddit RSS caps ~100).")
+    collect_reddit_team_rss_parser.add_argument("--teams", nargs="*", type=int, default=None,
+        help="Optional team_id filter; default = all configured priority teams.")
+
+    collect_boards_parser = subparsers.add_parser(
+        "collect-team-boards",
+        help=("Collect independent team message boards via public RSS (Build #4). "
+              "Each board maps to one team -> direct target. Captures fanbases "
+              "that live on boards (TigerDroppings/CougarBoard/etc.), not Reddit."),
+    )
+    collect_boards_parser.add_argument("--season", type=int, required=True)
+    collect_boards_parser.add_argument("--week", type=int, required=True)
+    collect_boards_parser.add_argument("--seed", default="data/seeds/board_rss_seed.json",
+        help="JSON list of [{team_slug, board_name, board_rss_url}].")
+
+    collect_youtube_comments_parser = subparsers.add_parser(
+        "collect-youtube-comments",
+        help=("Collect CFB YouTube comments (Build #3): national channels (seed) "
+              "+ per-team configured channels. uploads->videos.commentCount triage"
+              "->commentThreads. Per-team channels get a direct target; national "
+              "ones are tagged by `tag-team-mentions --sources youtube`."),
+    )
+    collect_youtube_comments_parser.add_argument("--season", type=int, required=True)
+    collect_youtube_comments_parser.add_argument("--week", type=int, required=True)
+    collect_youtube_comments_parser.add_argument(
+        "--national-seed", default="data/seeds/youtube_national_channels.json",
+        help="JSON list of national channels [{channel_id,name}].")
+    collect_youtube_comments_parser.add_argument("--max-videos-per-channel", type=int, default=8)
+    collect_youtube_comments_parser.add_argument("--max-comments-per-video", type=int, default=100)
+    collect_youtube_comments_parser.add_argument("--max-units", type=int, default=6000,
+        help="Stop once this many API units are spent (free daily quota is 10000).")
+    collect_youtube_comments_parser.add_argument("--min-comment-count", type=int, default=3)
+
+    collect_podcast_transcripts_parser = subparsers.add_parser(
+        "collect-podcast-transcripts",
+        help=("Transcribe recent podcast episodes on the GPU (faster-whisper) and "
+              "land each transcript as a conversation_documents row "
+              "(source_name='podcast_transcript'); tag-team-mentions --sources "
+              "podcast_transcript then attributes them. Ledger-rotated + time-boxed; "
+              "self-skips cleanly if faster-whisper isn't installed. Run with the "
+              ".venv-ml python so CUDA is available."),
+    )
+    collect_podcast_transcripts_parser.add_argument("--season", type=int, required=True)
+    collect_podcast_transcripts_parser.add_argument("--week", type=int, required=True)
+    collect_podcast_transcripts_parser.add_argument("--model-size", default="small.en",
+        help="faster-whisper model (tiny.en/base.en/small.en/medium.en/large-v3). small.en is a good speed/quality balance on a 3090.")
+    collect_podcast_transcripts_parser.add_argument("--device", default="cuda", choices=["cuda", "cpu"])
+    collect_podcast_transcripts_parser.add_argument("--compute-type", default="float16",
+        help="float16 for CUDA; int8 for CPU.")
+    collect_podcast_transcripts_parser.add_argument("--max-episodes", type=int, default=6,
+        help="Rotated batch size per run (collection_ledger picks newest-then-stalest).")
+    collect_podcast_transcripts_parser.add_argument("--budget-seconds", type=float, default=900.0,
+        help="Hard wall-clock budget; defers the rest to the next run.")
+    collect_podcast_transcripts_parser.add_argument("--max-age-days", type=int, default=21,
+        help="Only consider episodes published within this many days.")
+    collect_podcast_transcripts_parser.add_argument("--beam-size", type=int, default=1)
+    collect_podcast_transcripts_parser.add_argument("--show", action="append", default=[],
+        help="Optional show_slug filter (repeatable), e.g. --show locked_on_alabama.")
 
     collect_reddit_plan_parser = subparsers.add_parser("collect-reddit-plan")
     collect_reddit_plan_parser.add_argument("--season", type=int, required=True)
@@ -2139,6 +2258,24 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
+
+    # resolve-week is pure date math (no DB/config needed) — handle it first so
+    # it stays fast and usable even before a DB exists. Emits the canonical week
+    # identity that daily_ingest.ps1 feeds to every producer + consumer.
+    if args.command == "resolve-week":
+        from cfb_rankings.common.week import resolve_week
+        wk = resolve_week(args.as_of)
+        if getattr(args, "emit_json", False):
+            import json as _json
+            print(_json.dumps(wk.as_dict()))
+        else:
+            print(f"season_year = {wk.season_year}")
+            print(f"week        = {wk.week}")
+            print(f"week_start  = {wk.week_start}")
+            print(f"iso_key     = {wk.iso_key}")
+            print(f"in_season   = {wk.in_season}")
+        return
+
     config = AppConfig.from_env()
     from cfb_rankings.db import Database
     from cfb_rankings.storage import Repository
@@ -2170,6 +2307,99 @@ def main() -> None:
         print(f"source_registry: inserted={result['inserted']} updated={result['updated']} total={result['total']}")
         return
 
+    if args.command == "set-conferences":
+        import json as _json
+        from pathlib import Path as _Path
+        p = _Path(args.seed)
+        if not p.exists():
+            print(f"ABORT: seed not found: {p}")
+            return
+        doc = _json.loads(p.read_text(encoding="utf-8"))
+        conf_map = doc.get("conferences", doc) if isinstance(doc, dict) else {}
+        updated = 0
+        for slug, conf in conf_map.items():
+            if slug.startswith("_") or not conf:
+                continue
+            row = db.query_one("select team_id from teams where slug = :s", {"s": slug})
+            if not row:
+                print(f"  (no team for slug {slug!r}; skipped)")
+                continue
+            db.execute(
+                "update priority_teams set conference = :c, updated_at_utc = datetime('now') "
+                "where team_id = :t",
+                {"c": conf, "t": row["team_id"]},
+            )
+            updated += 1
+        print(f"set-conferences: updated {updated} teams from {p.name}")
+        return
+
+    if args.command == "import-team-sources":
+        import csv as _csv
+        from pathlib import Path as _Path
+        seed_path = _Path(args.csv)
+        if not seed_path.exists():
+            print(f"ABORT: seed CSV not found: {seed_path}")
+            return
+        seed_rows = list(_csv.DictReader(seed_path.open(encoding="utf-8")))
+        inserted = updated = 0
+        for r in seed_rows:
+            try:
+                tid = int(r["team_id"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            existing = db.query_one(
+                "select rank_priority from priority_teams where team_id = :t", {"t": tid})
+            tier = int(r["collection_tier"]) if (r.get("collection_tier") or "").strip() else None
+            params = {
+                "team_id": tid,
+                # New teams get a tier-grouped rank after the curated 1-21; existing
+                # teams keep their hand-set rank_priority.
+                "rank": existing["rank_priority"] if existing else (tier or 3) * 100,
+                "sub": (r.get("reddit_team_sub") or "").strip() or None,
+                "mode": (r.get("reddit_mode") or "").strip() or None,
+                "flair": (r.get("reddit_flair_filter") or "").strip() or None,
+                "tier": tier,
+                "gnews": (r.get("google_news_query") or "").strip() or None,
+                "conf": (r.get("conference_2025") or r.get("conference") or "").strip() or None,
+            }
+            if args.dry_run:
+                if existing:
+                    updated += 1
+                else:
+                    inserted += 1
+                continue
+            db.execute(
+                """
+                insert into priority_teams (
+                    team_id, rank_priority, reddit_team_sub, reddit_mode,
+                    reddit_flair_filter, collection_tier, google_news_query,
+                    conference, updated_at_utc
+                ) values (
+                    :team_id, :rank, :sub, :mode, :flair, :tier, :gnews, :conf,
+                    datetime('now')
+                )
+                on conflict(team_id) do update set
+                    collection_tier     = excluded.collection_tier,
+                    reddit_mode         = excluded.reddit_mode,
+                    reddit_flair_filter = excluded.reddit_flair_filter,
+                    conference          = coalesce(excluded.conference, priority_teams.conference),
+                    -- never clobber a hand-tuned value; only fill when empty
+                    reddit_team_sub     = coalesce(nullif(priority_teams.reddit_team_sub, ''), excluded.reddit_team_sub),
+                    google_news_query   = coalesce(nullif(priority_teams.google_news_query, ''), excluded.google_news_query),
+                    updated_at_utc      = datetime('now')
+                """,
+                params,
+            )
+            if existing:
+                updated += 1
+            else:
+                inserted += 1
+        mode = "DRY-RUN" if args.dry_run else "APPLIED"
+        print(f"import-team-sources [{mode}]: inserted={inserted} updated={updated} "
+              f"csv_rows={len(seed_rows)} -> priority_teams now has "
+              f"{db.query_one('select count(*) n from priority_teams')['n']} rows")
+        return
+
     if args.command == "compute-cohort-week":
         from cfb_rankings.cohorts.aggregate import compute_cohort_week
         result = compute_cohort_week(db, args.week, teams=args.teams)
@@ -2183,6 +2413,140 @@ def main() -> None:
         from cfb_rankings.cohorts.divergence import compute_divergence_week
         result = compute_divergence_week(db, args.week)
         print(f"compute-divergence {args.week}: teams_written={result['teams_written']}")
+        return
+
+    if args.command == "verify-publish-readiness":
+        # Phase-1 data-quality gate. Hand-rolled SQL assertions (db.query_all/query_one
+        # rewrite %(x)s->:x and now()->CURRENT_TIMESTAMP; use :named params and
+        # datetime('now', ...) -- never literally type now()). Exits 2 on hard-fail so
+        # publish_to_vercel.ps1 aborts. WARN-level (the currently-empty Phase-2 tables)
+        # only block under --strict / VERIFY_STRICT_MOOD=1.
+        import os as _os
+        import sys as _sys
+        import json as _json
+        from datetime import date as _date
+
+        # Use the canonical resolver so the gate checks the EXACT (season, week,
+        # iso_key) the daily producers/consumers write. (Before: these derived
+        # the old raw season-week / calendar-ISO vocabularies and, mid-week,
+        # checked week 42 / "2026-24" while the pipeline wrote 41 / "2025-41" ->
+        # false WARNs, and false HARD-FAILs once --strict is on.)
+        from cfb_rankings.common.week import resolve_week as _resolve_week
+        _wk = _resolve_week()
+
+        def _cur_season() -> int:
+            return _wk.season_year
+
+        def _cur_season_week() -> int:
+            return _wk.week
+
+        def _cur_iso_key() -> str:
+            return _wk.iso_key
+
+        strict = bool(getattr(args, "strict", False)) or _os.environ.get("VERIFY_STRICT_MOOD") == "1"
+        hard_fails: list[str] = []
+        warns: list[str] = []
+        passes: list[str] = []
+
+        def _hard(label: str, ok: bool, detail: str = "") -> None:
+            if ok:
+                passes.append(f"{label}: PASS")
+            else:
+                hard_fails.append(f"{label}: FAIL{(' -- ' + detail) if detail else ''}")
+
+        def _soft(label: str, ok: bool, detail: str = "") -> None:
+            if ok:
+                passes.append(f"{label}: PASS")
+            elif strict:
+                hard_fails.append(f"{label}: FAIL (strict) -- {detail}")
+            else:
+                warns.append(f"{label}: WARN -- {detail}")
+
+        def _n(sql: str, params: dict | None = None) -> int:
+            row = db.query_one(sql, params or {})
+            if not row:
+                return 0
+            return int(list(row.values())[0] or 0)
+
+        # A. structural integrity (always hard-fail)
+        try:
+            ic = db.query_all("PRAGMA integrity_check")
+            ic_ok = len(ic) == 1 and str(list(ic[0].values())[0]).lower() == "ok"
+            _hard("integrity_check", ic_ok, "" if ic_ok else f"{len(ic)} problem row(s): {ic[:3]}")
+            fk = db.query_all("PRAGMA foreign_key_check")
+            _hard("foreign_key_check", len(fk) == 0, "" if not fk else f"{len(fk)} FK violation(s)")
+        except Exception as exc:  # noqa: BLE001
+            _hard("integrity pragmas", False, f"error: {exc}")
+
+        # B. conversation_documents freshness + today's ingest (hard-fail)
+        fdays = int(getattr(args, "freshness_days", 2))
+        newest = db.query_one("select max(collected_at_utc) as ts from conversation_documents")
+        newest_ts = newest["ts"] if newest else None
+        fresh_n = _n("select count(*) as n from conversation_documents where collected_at_utc >= datetime('now', :w)",
+                     {"w": f"-{fdays} day"})
+        _hard(f"conversation_documents freshness (<= {fdays}d)", fresh_n > 0,
+              f"newest collected_at_utc={newest_ts!r}; 0 rows in window")
+        min_docs = int(getattr(args, "min_today_docs", 200))
+        today_docs = _n("select count(*) as n from conversation_documents where collected_at_utc >= datetime('now','-1 day')")
+        _hard(f"conversation_documents today-insert (>= {min_docs})", today_docs >= min_docs,
+              f"only {today_docs} rows in last 24h")
+
+        # C. coverage anomaly vs trailing 7d median (WARN-only; skip if thin baseline)
+        per_day = db.query_all(
+            "select substr(collected_at_utc,1,10) as d, count(*) as n from conversation_documents "
+            "where collected_at_utc >= datetime('now','-8 day') and collected_at_utc < datetime('now','-1 day') "
+            "group by d")
+        baseline = sorted(int(r["n"]) for r in per_day if int(r["n"] or 0) > 0)
+        if len(baseline) >= 3:
+            mid = len(baseline) // 2
+            median = baseline[mid] if len(baseline) % 2 else (baseline[mid - 1] + baseline[mid]) / 2
+            _soft("conversation_documents coverage vs 7d median", median == 0 or today_docs >= 0.25 * median,
+                  f"today={today_docs} vs 7d-median={median:.0f} (>75% drop -- a feed may be failing)")
+        else:
+            warns.append(f"conversation_documents coverage vs 7d median: SKIP (only {len(baseline)} baseline day(s))")
+
+        # D. daily aggregate tables non-empty for the current period (WARN -> HARD under --strict)
+        _soft("team_conversation_daily current-period rows",
+              _n("select count(*) as n from team_conversation_daily where as_of_date >= date('now', :w)",
+                 {"w": f"-{fdays} day"}) > 0, f"0 rows within {fdays}d")
+        _soft("fanbase_mood_weekly current-week rows",
+              _n("select count(*) as n from fanbase_mood_weekly where week_start_date = date('now','weekday 1','-7 day')") > 0,
+              "0 rows for current week_start_date")
+        _soft("fanbase_mood_weekly nonzero mood at newest week",
+              _n("select count(*) as n from fanbase_mood_weekly where week_start_date = "
+                 "(select max(week_start_date) from fanbase_mood_weekly) and mood_score is not null and mood_score <> 0") > 0,
+              "all mood_score NULL/0 at newest week")
+        _soft("team_week_conversation_features current season/week",
+              _n("select count(*) as n from team_week_conversation_features where season_year = :s and week = :w",
+                 {"s": _cur_season(), "w": _cur_season_week()}) > 0,
+              f"0 rows for season={_cur_season()} week={_cur_season_week()}")
+        _soft("team_cohort_week current ISO-week",
+              _n("select count(*) as n from team_cohort_week where week = :wk", {"wk": _cur_iso_key()}) > 0,
+              f"0 rows for week={_cur_iso_key()}")
+        _soft("player_week_conversation_features current season/week",
+              _n("select count(*) as n from player_week_conversation_features where season_year = :s and week = :w",
+                 {"s": _cur_season(), "w": _cur_season_week()}) > 0,
+              f"0 rows for season={_cur_season()} week={_cur_season_week()}")
+
+        print("=" * 64)
+        print(f"verify-publish-readiness  (strict={strict})")
+        print("=" * 64)
+        for line in passes:
+            print("  [pass] " + line)
+        for line in warns:
+            print("  [WARN] " + line)
+        for line in hard_fails:
+            print("  [FAIL] " + line)
+        print("-" * 64)
+        print(f"  {len(passes)} pass | {len(warns)} warn | {len(hard_fails)} fail")
+        if getattr(args, "emit_json", False):
+            print(_json.dumps({"ok": not hard_fails, "strict": strict, "pass": passes,
+                               "warn": warns, "fail": hard_fails,
+                               "conv_docs_today": today_docs, "newest_collected_at_utc": newest_ts}, indent=2))
+        if hard_fails:
+            print("\nABORT: data-quality gate failed. Publish must NOT proceed.")
+            _sys.exit(2)
+        print("\nOK: data-quality gate passed; safe to publish.")
         return
 
     # --------------------------------------------------------- team pages
@@ -4199,6 +4563,90 @@ def main() -> None:
             print(f"  auto-import total: {imported_total} honor rows imported")
         return
 
+    if args.command == "collect-team-boards":
+        import json as _json
+        from pathlib import Path as _Path
+        from cfb_rankings.ingest.conversation import collect_team_boards_rss
+        repository.seed_levels()
+        repository.ensure_season(args.season)
+        seed_p = _Path(args.seed)
+        if not seed_p.exists():
+            print(f"ABORT: board seed not found: {seed_p}")
+            return
+        board_seed = _json.loads(seed_p.read_text(encoding="utf-8"))
+        summary = collect_team_boards_rss(
+            db=db, repository=repository, season=args.season, week=args.week,
+            board_seed=board_seed,
+        )
+        print(f"collect-team-boards season={args.season} week={args.week}: "
+              f"boards={summary['boards']} documents={summary['documents']} "
+              f"targets={summary['targets']} boards_failed={summary['boards_failed']}")
+        return
+
+    if args.command == "collect-youtube-comments":
+        import json as _json
+        import os as _os
+        from pathlib import Path as _Path
+        from cfb_rankings.ingest.youtube_comments import collect_youtube_comments
+        api_key = _os.environ.get("YOUTUBE_API_KEY")
+        if not api_key:
+            print("ABORT: YOUTUBE_API_KEY not set in env/.env")
+            return
+        national = []
+        seed = _Path(args.national_seed)
+        if seed.exists():
+            national = _json.loads(seed.read_text(encoding="utf-8"))
+        else:
+            print(f"WARN: national seed not found ({seed}); national channels skipped")
+        summary = collect_youtube_comments(
+            db=db, season=args.season, week=args.week, api_key=api_key,
+            national_channels=national,
+            max_videos_per_channel=args.max_videos_per_channel,
+            max_comments_per_video=args.max_comments_per_video,
+            max_units=args.max_units, min_comment_count=args.min_comment_count,
+        )
+        print(f"collect-youtube-comments season={args.season} week={args.week}: "
+              f"channels={summary['channels']} videos={summary['videos']} "
+              f"documents={summary['documents']} targets={summary['targets']} "
+              f"units={summary['units']} quota_hit={summary['quota_hit']}")
+        return
+
+    if args.command == "collect-podcast-transcripts":
+        from cfb_rankings.ingest.podcast_transcribe import (
+            FasterWhisperUnavailable, collect_podcast_transcripts,
+        )
+        try:
+            summary = collect_podcast_transcripts(
+                db=db, season=args.season, week=args.week,
+                model_size=args.model_size, device=args.device,
+                compute_type=args.compute_type, max_episodes=args.max_episodes,
+                budget_seconds=args.budget_seconds, max_age_days=args.max_age_days,
+                beam_size=args.beam_size, show_filter=list(args.show or []),
+            )
+        except FasterWhisperUnavailable as exc:
+            # Graceful skip (exit 0) so the daily collector isn't marked failed
+            # until faster-whisper is installed in .venv-ml.
+            print(f"collect-podcast-transcripts SKIPPED: {exc}")
+            return
+        print(f"collect-podcast-transcripts season={args.season} week={args.week}: "
+              f"episodes={summary['episodes']} transcribed={summary['transcribed']} "
+              f"failed={summary['failed']} no_audio={summary['skipped_no_audio']} "
+              f"chars={summary['chars']}")
+        return
+
+    if args.command == "collect-reddit-team-rss":
+        from cfb_rankings.ingest.conversation import collect_reddit_team_subs_rss
+        repository.seed_levels()
+        repository.ensure_season(args.season)
+        summary = collect_reddit_team_subs_rss(
+            db=db, repository=repository, season=args.season, week=args.week,
+            limit=args.limit, only_team_ids=args.teams,
+        )
+        print(f"collect-reddit-team-rss season={args.season} week={args.week}: "
+              f"teams={summary['teams']} documents={summary['documents']} "
+              f"targets={summary['targets']} feeds_failed={summary['feeds_failed']}")
+        return
+
     if args.command == "collect-reddit-watchlist":
         from cfb_rankings.clients.historical_reddit import create_historical_reddit_client, normalize_historical_provider
         from cfb_rankings.ingest.conversation import collect_reddit_watchlist
@@ -5288,8 +5736,14 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         except Exception as _exc:
             print(f"[build-site] WARN: status cache build failed — {type(_exc).__name__}: {_exc}")
 
-        output_path = build_static_site(db=db, output_dir=args.output_dir)
-        build_retro_pages(db, output_dir=args.output_dir)
+        # Reuse ONE db connection for the whole build. The per-player render
+        # fires ~1M small indexed queries; a fresh connection per query costs
+        # ~3ms of connect+PRAGMA+mmap setup (~50 min of pure churn across a
+        # build). session() reuses one connection (~0.007ms/query). Pure
+        # lifecycle change — identical queries + results.
+        with db.session():
+            output_path = build_static_site(db=db, output_dir=args.output_dir)
+            build_retro_pages(db, output_dir=args.output_dir)
         print(output_path)
         return
 

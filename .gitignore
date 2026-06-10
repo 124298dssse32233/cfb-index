@@ -7,6 +7,11 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 
+# Virtual environments (never commit — multi-GB)
+.venv/
+.venv-ml/
+venv/
+
 # Generated artifacts
 output/
 *.db
@@ -37,6 +42,12 @@ _stitch_*/
 
 # Backups
 backups/
+
+# Secrets — service-account keys, API JSON keys (NEVER commit). GDELT BigQuery
+# key, etc. live here. See docs/gdelt_bigquery_setup_2026-06.md.
+secrets/
+*-bq-key.json
+gdelt-bq-key.json
 
 # Local debug logs (heisman model + others) — root only.
 # logs/autopilot/*.log is intentionally tracked as run records.

@@ -75,8 +75,23 @@ def _build_adapter(adapter_id: str, db: Database):
         from cfb_rankings.ingest.sources.prediction_markets import PolymarketAdapter
         return PolymarketAdapter(db)
     if adapter_id == "gdelt_volume":
+        # Auto-route: use the bulk BigQuery adapter when credentials are present
+        # (one cheap query for all teams), else fall back to the per-team DOC 2.0
+        # rotation adapter. So the daily 'gdelt_volume' call needs no edit — it
+        # upgrades itself the moment GOOGLE_APPLICATION_CREDENTIALS is set, with
+        # no collection gap and no double-write before then.
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "").strip():
+            from cfb_rankings.ingest.sources.gdelt_volume_bq import GdeltVolumeBigQueryAdapter
+            return GdeltVolumeBigQueryAdapter(db)
         from cfb_rankings.ingest.sources.gdelt_volume import GdeltVolumeAdapter
         return GdeltVolumeAdapter(db)
+    if adapter_id == "gdelt_volume_bq":
+        # Force the BigQuery variant explicitly (used by the dry-run validation
+        # in docs/gdelt_bigquery_setup_2026-06.md). Self-skips (status=skipped,
+        # exit 0) until GOOGLE_APPLICATION_CREDENTIALS + google-cloud-bigquery
+        # are present.
+        from cfb_rankings.ingest.sources.gdelt_volume_bq import GdeltVolumeBigQueryAdapter
+        return GdeltVolumeBigQueryAdapter(db)
     if adapter_id == "spotify_charts":
         from cfb_rankings.ingest.sources.spotify_charts import SpotifyChartsAdapter
         return SpotifyChartsAdapter(db)

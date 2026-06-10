@@ -12,6 +12,18 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8766", "--directory", "docs/mockups"],
       "port": 8766
+    },
+    {
+      "name": "octo-mockup",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4599", "--directory", "docs/octopus/mockups"],
+      "port": 4599
+    },
+    {
+      "name": "cfb-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8124", "--directory", "output/site"],
+      "port": 8124
     }
   ]
 }

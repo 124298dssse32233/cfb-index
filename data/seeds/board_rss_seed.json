@@ -1,0 +1,14 @@
+[
+  {"team_slug": "miami", "board_name": "CanesInsight", "board_rss_url": "https://www.canesinsight.com/forums/-/index.rss"},
+  {"team_slug": "byu", "board_name": "CougarBoard", "board_rss_url": "https://www.cougarboard.com/rss/board.html"},
+  {"team_slug": "auburn", "board_name": "AUFamily", "board_rss_url": "https://www.aufamily.com/forums/forum/2-au-football-forum.xml/"},
+  {"team_slug": "minnesota", "board_name": "GopherHole", "board_rss_url": "http://forums.gopherhole.com/boards/external.php?type=RSS2"},
+  {"team_slug": "syracuse", "board_name": "SyracuseFan", "board_rss_url": "https://www.syracusefan.com/forums/-/index.rss"},
+  {"team_slug": "nebraska", "board_name": "HuskerMax", "board_rss_url": "https://forum.huskermax.com/forums/-/index.rss"},
+  {"team_slug": "iowa", "board_name": "HawkeyeNation", "board_rss_url": "https://www.hawkeyenation.com/forums/-/index.rss"},
+  {"team_slug": "colorado", "board_name": "AllBuffs", "board_rss_url": "https://www.allbuffs.com/forums/-/index.rss"},
+  {"team_slug": "washington", "board_name": "HardcoreHusky", "board_rss_url": "https://www.hardcorehusky.com/forums/-/index.rss"},
+  {"team_slug": "tennessee", "board_name": "VolNation", "board_rss_url": "https://www.volnation.com/forum/forums/-/index.rss"},
+  {"team_slug": "north-texas", "board_name": "GoMeanGreen", "board_rss_url": "https://www.gomeangreen.com/forums/forum/4-mean-green-football.xml/"},
+  {"team_slug": "hawai-i", "board_name": "SportsHawaii", "board_rss_url": "https://www.sportshawaii.com/sh/feed.php"}
+]

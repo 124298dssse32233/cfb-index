@@ -40,9 +40,18 @@ tmp_*/
 
 # Development files
 .claude/
+.claude-octopus/
 .worktrees/
 .env
 .env.*
+
+# Local box only — these exist on the 24/7 Windows box but never in CI, so the
+# cloud .vercelignore never needed them. Without these, a deploy FROM THE BOX
+# would try to upload the Python virtualenv (thousands of files) and local
+# Vercel/backup dirs. Added 2026-06-08 for the local->Vercel publish path.
+.venv/
+.vercel.backup/
+node_modules/
 
 # Backups
 backups/

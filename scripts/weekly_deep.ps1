@@ -46,9 +46,15 @@ function Run([string]$label, [scriptblock]$block) {
     if ($LASTEXITCODE -ne 0) { Log "   $label exited with code $LASTEXITCODE (continuing)" }
 }
 
-$Now        = Get-Date
-$CurSeason  = if ($Now.Month -ge 7) { $Now.Year } else { $Now.Year - 1 }
-# Last Monday as a YYYY-MM-DD
+$Now = Get-Date
+# Season from the canonical resolver (single source of truth shared with
+# daily_ingest) so backfill + classify-fanbases stamp the SAME season_year the
+# daily producers/consumers use. See src/cfb_rankings/common/week.py.
+$WkLine = ((python manage.py resolve-week --json) -split "`n" |
+           Where-Object { $_ -match '^\s*\{.*\}\s*$' } | Select-Object -Last 1)
+try { $CurSeason = [int]($WkLine | ConvertFrom-Json).season_year }
+catch { $CurSeason = if ($Now.Month -ge 7) { $Now.Year } else { $Now.Year - 1 } }
+# Prior week's Monday/Sunday as YYYY-MM-DD (literal dates for the backfill window).
 $LastMonday = $Now.AddDays(-(([int]$Now.DayOfWeek + 6) % 7) - 7).ToString("yyyy-MM-dd")
 
 Log "==== weekly_deep start ===="

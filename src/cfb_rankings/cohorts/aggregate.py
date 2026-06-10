@@ -204,6 +204,14 @@ def compute_cohort_week(db: Database, week_key: str,
         """,
         params,
     )
+    if not rows:
+        logger.warning(
+            "compute-cohort-week %s: 0 conversation_document_targets for "
+            "(season=%s, week=%s). Most likely the week key doesn't match what "
+            "producers stamped -- expected the season-week integer (see "
+            "cfb_rankings.common.week.resolve_week), not the calendar-ISO week.",
+            week_key, season_year, week_int,
+        )
 
     cells: dict[tuple[int, str], CohortCell] = defaultdict(CohortCell)
     considered = 0
@@ -270,6 +278,7 @@ def compute_cohort_week(db: Database, week_key: str,
 
     return {
         "cells_written": cells_written,
+        "rows_read": len(rows),
         "docs_considered": considered,
         "docs_skipped": skipped,
     }

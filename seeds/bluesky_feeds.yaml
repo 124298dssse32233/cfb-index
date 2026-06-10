@@ -1,0 +1,9 @@
+# Bluesky custom feed URIs polled by BlueskyFeedsAdapter (app.bsky.feed.getFeed,
+# public AppView, no auth). Build #5, 2026-06-09.
+#
+# The 'CFB' feed by andrewfleer.com is the largest CFB custom feed (~450 posts/day
+# in deep offseason, ~30 distinct authors/100 posts) — a curated CFB firehose.
+# Verified live unauthenticated (getFeed -> 19 posts) on 2026-06-09.
+# Posts are team-tagged downstream by `tag-team-mentions --sources bluesky_feeds`.
+feeds:
+  - at://did:plc:ipto52pfemju56wnsxkjcab5/app.bsky.feed.generator/aaacsiz7lqekw

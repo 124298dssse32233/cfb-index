@@ -106,9 +106,16 @@ jobs:
           # silently no-op'ing for months via the `|| echo skipped` swallow).
           # --commit actually inserts rows; without it the call is a dry-run.
           python manage.py tag-player-mentions --season=$SEASON --commit || echo "tag-player-mentions skipped"
-          python manage.py build-conversation-features || echo "build-conversation-features skipped"
+          # DISABLED 2026-06-10 (reliability Phase 3.4): the box is the authoritative
+          # sentiment source -- it runs the CardiffNLP encoder stack daily (.venv-ml,
+          # scripts/sentiment_classify_daily.py) then build-conversation-features over
+          # the ENCODER labels. The cloud has no GPU/encoder, so running these here
+          # would aggregate VADER labels into the shared cfb-rankings-db artifact and
+          # silently undo the box's encoder work. Tagging stays (creates raw targets);
+          # only the VADER aggregation/classification is removed.
+          # python manage.py build-conversation-features || echo "build-conversation-features skipped"
           python manage.py prepare-pulse || echo "prepare-pulse skipped"
-          python manage.py classify-player-sentiment || echo "classify-player-sentiment skipped"
+          # python manage.py classify-player-sentiment || echo "classify-player-sentiment skipped"  # see note above
           python manage.py extract-predictive-claims || echo "extract-predictive-claims skipped"
           python manage.py compute-surprise-index || echo "compute-surprise-index skipped"
           python manage.py resolve-outcomes || echo "resolve-outcomes skipped"

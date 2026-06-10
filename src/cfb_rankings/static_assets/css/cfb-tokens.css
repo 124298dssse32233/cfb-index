@@ -1,0 +1,102 @@
+/* THE CFB INDEX - Design Tokens (PRODUCTION, light/Bebas) - SCOPED under .cfb-rkx
+ * =========================================================================
+ * Promoted from docs/octopus/mockups/cfb-tokens.css (the materialized
+ * docs/design-system/00-tokens.md). OWNER DECISION 2026-06-08: light surface
+ * + Bebas Neue display for the rankings/conference/archive redesign surfaces.
+ *
+ * OD-1 SCOPING (BUILD_MANIFEST sec 2a): the legacy team pages render in the
+ * dark/Inter system. To keep this light/Bebas system from clobbering them
+ * during the migration period, every token + base style hangs off the
+ * .cfb-rkx wrapper (NOT :root/body), and the tabular-nums + dark-mode blocks
+ * are re-scoped under the wrapper so the file is inert even if it loads
+ * globally. Only the reduced-motion block stays global (harmless).
+ * Cascade layers are deliberately NOT used: legacy cfb-index.css is unlayered
+ * and would beat @layer rules. The wrapper's specificity wins cleanly instead.
+ * ------------------------------------------------------------------------- */
+.cfb-rkx {
+  /* ----- Color: six ramps, seven stops ----- */
+  --color-navy-50:#E6F1FB; --color-navy-100:#B5D4F4; --color-navy-200:#85B7EB; --color-navy-400:#378ADD; --color-navy-600:#185FA5; --color-navy-800:#0C447C; --color-navy-900:#042C53;
+  --color-coral-50:#FAECE7; --color-coral-100:#F5C4B3; --color-coral-200:#F0997B; --color-coral-400:#D85A30; --color-coral-600:#993C1D; --color-coral-800:#712B13; --color-coral-900:#4A1B0C;
+  --color-amber-50:#FAEEDA; --color-amber-100:#FAC775; --color-amber-200:#EF9F27; --color-amber-400:#BA7517; --color-amber-600:#854F0B; --color-amber-800:#633806; --color-amber-900:#412402;
+  --color-gray-50:#F1EFE8;  --color-gray-100:#D3D1C7;  --color-gray-200:#B4B2A9;  --color-gray-400:#888780;  --color-gray-600:#5F5E5A;  --color-gray-800:#444441;  --color-gray-900:#2C2C2A;
+  --color-green-50:#E1F5EE; --color-green-100:#9FE1CB; --color-green-200:#5DCAA5; --color-green-400:#1D9E75; --color-green-600:#0F6E56; --color-green-800:#085041; --color-green-900:#04342C;
+  --color-red-50:#FCEBEB;   --color-red-100:#F7C1C1;   --color-red-200:#F09595;   --color-red-400:#E24B4A;   --color-red-600:#A32D2D;   --color-red-800:#791F1F;   --color-red-900:#501313;
+
+  /* ----- Semantic aliases ----- */
+  --color-ink:#141618;
+  --color-text:var(--color-ink);
+  --color-text-muted:#6C6C6E;
+  --color-text-subtle:#9A9A97;
+  --color-surface:#FBFAF7;
+  --color-surface-card:#FFFFFF;
+  --color-line:#E4E2DC;
+  --color-line-subtle:rgba(20,22,24,0.08);
+  --color-line-strong:#CFCCC4;        /* table rules, chip borders */
+
+  /* navy=analytical/trust - coral=emotional/fan-belief - amber=heritage/peaks
+     green=up - red=down - gray=structure. 2-3 ramps per surface max. */
+
+  /* ----- Typography ----- */
+  --font-sans:'Inter','SF Pro Text',system-ui,sans-serif;
+  --font-serif:'Source Serif 4','Source Serif Pro',Georgia,'Times New Roman',serif;
+  --font-mono:ui-monospace,'SF Mono',Menlo,monospace;
+  --font-display:'Bebas Neue','Trade Gothic Bold Condensed',sans-serif;
+
+  --fs-display:clamp(48px,6vw,64px);
+  --fs-h1:clamp(28px,3.5vw,32px);
+  --fs-h2:clamp(20px,2.5vw,22px);
+  --fs-h3:18px;
+  --fs-body:16px;
+  --fs-body-sm:14px;
+  --fs-label:11px;
+  --fs-caption:11px;
+  --fs-micro:10px;
+
+  --lh-display:1.1; --lh-h1:1.25; --lh-h2:1.45; --lh-body:1.65; --lh-ui:1.4; --lh-tight:1.3;
+  --tracking-display:-0.03em; --tracking-h1:-0.015em; --tracking-label:0.11em;
+  --fw-regular:400; --fw-medium:500; --fw-semibold:600;
+
+  /* ----- Spacing - 4px grid ----- */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px; --sp-12:48px; --sp-16:64px; --sp-24:96px;
+
+  /* ----- Radii ----- */
+  --radius-sm:3px; --radius-md:6px; --radius-lg:12px; --radius-xl:20px; --radius-full:9999px;
+
+  /* ----- Strokes ----- */
+  --stroke-hair:0.5px; --stroke-std:1px; --stroke-heavy:2px;
+
+  /* ----- Motion (M3; research sec F) ----- */
+  --ease-emphasized:cubic-bezier(0.2,0,0,1);
+  --ease-decelerate:cubic-bezier(0.05,0.7,0.1,1);
+  --ease-accelerate:cubic-bezier(0.3,0,0.8,0.15);
+  --dur-1:150ms; --dur-2:300ms; --dur-3:450ms;
+
+  /* ----- Breakpoints (reference) ----- */
+  --bp-mobile:390px; --bp-tablet:768px; --bp-desktop:1024px; --bp-wide:1280px;
+
+  /* ----- Base surface + type for the redesign wrapper ----- */
+  background:var(--color-surface);
+  color:var(--color-text);
+  font-family:var(--font-sans);
+  font-size:var(--fs-body);
+  line-height:var(--lh-body);
+}
+
+/* Tabular numerals enforced on every stat/number/data cell (locked rule) - scoped */
+.cfb-rkx :is(.stat,.num,.tabular,td.numeric,.data-table td,.percentile-value,.rank-value,.delta,
+.hero-finding-number,.saturday-strip-score,.v,.rk,.mom){
+  font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; font-family:var(--font-sans);
+}
+
+/* Optional dark mode (share cards / theme toggle) - surfaces flip, ramps hold - scoped */
+@media (prefers-color-scheme: dark){
+  .cfb-rkx[data-theme="dark"], .cfb-rkx.dark{
+    --color-text:#F4F2EC; --color-text-muted:#B4B2A9; --color-text-subtle:#6C6A65;
+    --color-surface:#1A1A18; --color-surface-card:#242220; --color-line:rgba(244,242,236,0.10); --color-line-strong:rgba(244,242,236,0.18);
+  }
+}
+
+/* Respect reduced motion globally (harmless to leave unscoped) */
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+}

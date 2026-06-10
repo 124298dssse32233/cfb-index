@@ -16,7 +16,8 @@ constants / the ``row_from_entry`` overlay. Per-team seed files
 """
 from __future__ import annotations
 
-from typing import Any
+import json
+from typing import Any, Sequence
 
 from cfb_rankings.ingest.sources.campus_news import CampusNewsAdapter
 
@@ -109,14 +110,40 @@ class LockedOnAdapter(CampusNewsAdapter):
         row = super().row_from_entry(entry)
         if row is None:
             return None
+        # Capture the audio <enclosure url="..."> so the Whisper ASR step can
+        # find something to transcribe. Without this, collect-podcast-transcripts
+        # selects `where raw_payload_json like '%enclosure_url%'` and matches 0
+        # rows — the cause of episodes=0 (2026-06-10). Stashed under a non-column
+        # key that write_rows() pops and folds into raw_payload_json.
+        enc = entry.find("enclosure")
+        enclosure_url = enc.attrib.get("url") if enc is not None else None
         row.update({
             "source_id": self.source_id,
             "author_identity_class": "verified_media",
             "demographic_slice": "podcast_listener",
             "retention_policy": "aggregated_only",
             "content_type": "podcast_episode",
+            "raw_payload_enclosure_url": enclosure_url,
         })
         return row
+
+    def write_rows(self, rows: Sequence[dict[str, Any]]) -> int:
+        """Persist via the parent (doc + per-team target + sentiment), then fold
+        the enclosure URL into raw_payload_json. We (re)write the payload even
+        for already-present dedup_keys so the back catalogue collected before
+        this fix gets backfilled and becomes transcribable on the next run."""
+        written = 0
+        for row in rows:
+            enclosure_url = row.pop("raw_payload_enclosure_url", None)
+            written += super().write_rows([row])
+            if enclosure_url:
+                self.db.execute(
+                    "update conversation_documents set raw_payload_json = :p "
+                    "where dedup_key = :k",
+                    {"p": json.dumps({"enclosure_url": enclosure_url}, sort_keys=True),
+                     "k": row["dedup_key"]},
+                )
+        return written
 
 
 __all__ = ["BeatWriterAdapter", "SubstackAdapter", "AthleticsSiteAdapter", "LockedOnAdapter"]

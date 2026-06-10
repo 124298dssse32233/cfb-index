@@ -62,30 +62,67 @@ class Database:
     def __init__(self, dsn: str) -> None:
         self._dsn = dsn
         self._path = _sqlite_path_from_dsn(dsn)
+        # When set (inside a session()), every query reuses this one connection
+        # instead of opening a fresh one. See session() for why.
+        self._session_conn: sqlite3.Connection | None = None
 
-    @contextmanager
-    def connection(self):
-        connection = sqlite3.connect(self._path, timeout=30.0)
+    def _configure(self, connection: sqlite3.Connection) -> None:
         connection.row_factory = sqlite3.Row
         connection.execute("pragma foreign_keys = on")
         connection.execute("pragma busy_timeout = 30000")
-        # Read-side perf for the large (>1GB) local DB. This module opens a
-        # fresh connection per query, so a per-connection page cache never
-        # warms; memory-mapping the file instead lets the OS page cache stay
-        # shared across connections (huge win for the build's millions of
-        # small indexed reads), and temp_store=memory keeps GROUP BY / ORDER BY
-        # temp b-trees in RAM. Both are pure read optimizations — no durability
-        # or behavior change — and each is wrapped so an unsupported pragma can
-        # never break a connection. mmap_size is an upper bound, not a reserve.
+        # Read-side perf for the large (>1GB) local DB: memory-map the file so
+        # the OS page cache stays shared, and keep GROUP BY / ORDER BY temp
+        # b-trees in RAM. Pure read optimizations — no durability or behavior
+        # change — each wrapped so an unsupported pragma can't break a connection.
         for _pragma in ("pragma mmap_size = 2147483648", "pragma temp_store = memory"):
             try:
                 connection.execute(_pragma)
             except sqlite3.Error:
                 pass
+
+    @contextmanager
+    def connection(self):
+        # Inside a session(), reuse the one cached connection and DON'T close it
+        # here (session() owns its lifetime). Otherwise behave as before: a fresh
+        # connection per call. The per-call path pays ~3ms of connect + 4 PRAGMAs
+        # + 2GB mmap setup; reuse drops that to ~0.007ms — a 400x cut that turns
+        # a ~50-min connection-churn tax across a full build into seconds.
+        if self._session_conn is not None:
+            yield self._session_conn
+            return
+        connection = sqlite3.connect(self._path, timeout=30.0)
+        self._configure(connection)
         try:
             yield connection
         finally:
             connection.close()
+
+    @contextmanager
+    def session(self):
+        """Reuse ONE connection for every query inside this block.
+
+        Read-heavy bulk paths (the site build fires ~1M small indexed queries)
+        otherwise pay a fresh connect + 4 PRAGMAs + 2GB mmap setup PER query
+        (~3ms each → tens of minutes of pure overhead). Reusing one connection
+        drops per-query overhead ~400x. This is a pure connection-lifecycle
+        change: identical queries, identical results, same per-mutation commit
+        semantics. SINGLE-THREADED ONLY (sqlite connections are thread-bound);
+        nests harmlessly (an inner session() is a no-op).
+        """
+        if self._session_conn is not None:
+            yield  # already in a session — reuse the outer one
+            return
+        conn = sqlite3.connect(self._path, timeout=30.0)
+        self._configure(conn)
+        self._session_conn = conn
+        try:
+            yield
+        finally:
+            self._session_conn = None
+            try:
+                conn.close()
+            except sqlite3.Error:
+                pass
 
     def apply_sql_file(self, path: str | Path) -> None:
         sql_text = Path(path).read_text(encoding="utf-8")

@@ -1,0 +1,17 @@
+{
+  "_note": "2026 FBS conference realignment — teams whose conference changed for the 2026 season. Applied to priority_teams.conference (the column added in Build #1). Verify against the Wikipedia 2026 NCAA D-I FBS season page before committing. Sources: Pro Football Network 2026 realignment, Wikipedia 2026 FBS season, HERO Sports (June 2026).",
+  "conferences": {
+    "oregon-state": "Pac-12",
+    "washington-state": "Pac-12",
+    "boise-state": "Pac-12",
+    "colorado-state": "Pac-12",
+    "fresno-state": "Pac-12",
+    "san-diego-state": "Pac-12",
+    "utah-state": "Pac-12",
+    "texas-state": "Pac-12",
+    "utep": "Mountain West",
+    "northern-illinois": "Mountain West",
+    "north-dakota-state": "Mountain West",
+    "hawai-i": "Mountain West"
+  }
+}

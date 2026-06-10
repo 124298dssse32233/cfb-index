@@ -1,0 +1,139 @@
+team_id,slug,canonical_name,conference_2025,collection_tier,reddit_team_sub,reddit_mode,reddit_flair_filter,google_news_query,census_name,census_activity
+277,alabama,Alabama,SEC,1,rolltide,dedicated,,Alabama football,Alabama,high
+79,arkansas,Arkansas,SEC,2,razorbacks,dedicated,,Arkansas football,Arkansas,medium
+295,auburn,Auburn,SEC,1,wde,dedicated,,Auburn football,Auburn,high
+203,florida,Florida,SEC,2,FloridaGators,dedicated,,Florida football,Florida,high
+151,georgia,Georgia,SEC,1,georgiabulldogs,dedicated,,Georgia football,Georgia,high
+301,kentucky,Kentucky,SEC,2,wildcats,dedicated,,Kentucky football,Kentucky,medium
+337,lsu,LSU,SEC,1,LSUFootball,dedicated,,LSU football,LSU,medium (fans mostly on TigerDroppings)
+253,mississippi-state,Mississippi State,SEC,2,Msstate,school_flair,"Sports,Athletics,Football,Recruiting",Mississippi State football,Mississippi State,medium (school sub; fans on SixPackSpeak)
+101,missouri,Missouri,SEC,2,mizzou,dedicated,,Missouri football,Missouri,medium
+129,oklahoma,Oklahoma,SEC,2,sooners,dedicated,,Oklahoma football,Oklahoma,medium
+261,ole-miss,Ole Miss,SEC,1,olemiss,school_flair,"Sports,Athletics,Football,Recruiting",Ole Miss football,Ole Miss,medium (school+sports)
+222,south-carolina,South Carolina,SEC,2,Gamecocks,dedicated,,South Carolina football,South Carolina,medium
+165,tennessee,Tennessee,SEC,1,ockytop,dedicated,,Tennessee football,Tennessee,high
+191,texas,Texas,SEC,1,LonghornNation,dedicated,,Texas football,Texas,"high (daily talk threads 470-1,200 comments)"
+297,texas-a-m,Texas A&M,SEC,1,aggies,school_flair,"Sports,Athletics,Football,Recruiting",Texas A&M football,Texas A&M,high (school+sports hybrid; TexAgs bigger)
+153,vanderbilt,Vanderbilt,SEC,2,Vanderbilt,school_flair,"Sports,Athletics,Football,Recruiting",Vanderbilt football,Vanderbilt,high (school sub)
+119,illinois,Illinois,Big Ten,2,fightingillini,school_flair,"Sports,Athletics,Football,Recruiting",Illinois football,Illinois,low (school sub r/UIUC 99.7k for volume)
+201,indiana,Indiana,Big Ten,1,IndianaUniversity,school_flair,"Sports,Athletics,Football,Recruiting",Indiana football,Indiana,high (school sub; NO football sub exists)
+143,iowa,Iowa,Big Ten,2,hawkeyes,dedicated,,Iowa football,Iowa,medium
+149,maryland,Maryland,Big Ten,2,terps,school_flair,"Sports,Athletics,Football,Recruiting",Maryland football,Maryland,low (school sub r/UMD 55k for volume)
+293,michigan,Michigan,Big Ten,1,MichiganWolverines,dedicated,,Michigan football,Michigan,high (largest dedicated team sub)
+127,michigan-state,Michigan State,Big Ten,2,MSUSpartans,dedicated,,Michigan State football,Michigan State,medium
+89,minnesota,Minnesota,Big Ten,2,GopherSports,dedicated,,Minnesota football,Minnesota,low
+199,nebraska,Nebraska,Big Ten,1,Huskers,dedicated,,Nebraska football,Nebraska,high
+209,northwestern,Northwestern,Big Ten,2,Northwestern,school_flair,"Sports,Athletics,Football,Recruiting",Northwestern football,Northwestern,high (school sub; no sports sub)
+195,ohio-state,Ohio State,Big Ten,1,OhioStateFootball,dedicated,,Ohio State football,Ohio State,high (football-only)
+291,oregon,Oregon,Big Ten,1,ducks,dedicated,,Oregon football,Oregon,high
+158,penn-state,Penn State,Big Ten,1,PennStateUniversity,school_flair,"Sports,Athletics,Football,Recruiting",Penn State football,Penn State,high (school sub; no football sub exists)
+141,purdue,Purdue,Big Ten,2,Boilermakers,dedicated,,Purdue football,Purdue,medium
+19,rutgers,Rutgers,Big Ten,2,rutgers,school_flair,"Sports,Athletics,Football,Recruiting",Rutgers football,Rutgers,high (school sub; no live football sub)
+290,ucla,UCLA,Big Ten,2,ucla,school_flair,"Sports,Athletics,Football,Recruiting",UCLA football,UCLA,high (school sub; no sports sub)
+338,usc,USC,Big Ten,1,USC,school_flair,"Sports,Athletics,Football,Recruiting",USC football,USC,high (school sub; r/USCTrojans dead/restricted)
+329,washington,Washington,Big Ten,2,huskies,dedicated,,Washington football,Washington,medium
+135,wisconsin,Wisconsin,Big Ten,1,WisconsinBadgers,dedicated,,Wisconsin football,Wisconsin,low (quiet offseason; school r/UWMadison)
+339,boston-college,Boston College,ACC,2,bostoncollege,school_flair,"Sports,Athletics,Football,Recruiting",Boston College football,Boston College,medium (school+sports)
+226,california,California,ACC,2,berkeley,school_flair,"Sports,Athletics,Football,Recruiting",California football,California,high (school sub; r/calbears dead)
+152,clemson,Clemson,ACC,2,Clemson,school_flair,"Sports,Athletics,Football,Recruiting",Clemson football,Clemson,medium (school+sports; r/ClemsonTigers 10.8k low; TigerNet bigger)
+133,duke,Duke,ACC,1,duke,school_flair,"Sports,Athletics,Football,Recruiting",Duke football,Duke,high (school sub)
+4,florida-state,Florida State,ACC,1,fsusports,dedicated,,Florida State football,Florida State,medium (Warchant bigger)
+3,georgia-tech,Georgia Tech,ACC,2,gatech,school_flair,"Sports,Athletics,Football,Recruiting",Georgia Tech football,Georgia Tech,high (school+sports; r/Yellowjackets is the TV show)
+155,louisville,Louisville,ACC,2,uofl,dedicated,,Louisville football,Louisville,low
+204,miami,Miami,ACC,1,MiamiHurricanes,dedicated,,Miami football,Miami,medium (r/canes is NHL)
+71,nc-state,NC State,ACC,2,NCSU,school_flair,"Sports,Athletics,Football,Recruiting",NC State football,NC State,high (school sub; fans also on PackPride)
+90,north-carolina,North Carolina,ACC,1,tarheels,dedicated,,North Carolina football,North Carolina,medium
+147,pittsburgh,Pittsburgh,ACC,2,Pitt,school_flair,"Sports,Athletics,Football,Recruiting",Pittsburgh football,Pittsburgh,high (school+sports)
+14,smu,SMU,ACC,2,SMU,school_flair,"Sports,Athletics,Football,Recruiting",SMU football,SMU,medium (school+sports)
+137,stanford,Stanford,ACC,2,StanfordCardinal,dedicated,,Stanford football,Stanford,medium (sports-specific; school r/stanford 42.6k)
+207,syracuse,Syracuse,ACC,2,cuse,school_flair,"Sports,Athletics,Football,Recruiting",Syracuse football,Syracuse,dead (school r/SyracuseU medium; r/Syracuse is the city)
+240,virginia,Virginia,ACC,2,UVA,school_flair,"Sports,Athletics,Football,Recruiting",Virginia football,Virginia,high (school sub)
+154,virginia-tech,Virginia Tech,ACC,2,hokies,dedicated,,Virginia Tech football,Virginia Tech,medium (sports-specific; TechSideline bigger)
+31,wake-forest,Wake Forest,ACC,2,wfu,school_flair,"Sports,Athletics,Football,Recruiting",Wake Forest football,Wake Forest,low (school sub; sports subs dead)
+326,arizona,Arizona,Big 12,2,ArizonaWildcats,dedicated,,Arizona football,Arizona,low
+327,arizona-state,Arizona State,Big 12,2,sundevils,school_flair,"Sports,Athletics,Football,Recruiting",Arizona State football,Arizona State,dead (school r/ASU 62k high)
+281,baylor,Baylor,Big 12,2,baylor,school_flair,"Sports,Athletics,Football,Recruiting",Baylor football,Baylor,medium (school+sports)
+305,byu,BYU,Big 12,2,byu,school_flair,"Sports,Athletics,Football,Recruiting",BYU football,BYU,medium (school sub; r/BYUFootball dead; CougarBoard dominates)
+181,cincinnati,Cincinnati,Big 12,2,uCinci,school_flair,"Sports,Athletics,Football,Recruiting",Cincinnati football,Cincinnati,medium (school sub; no Bearcats sub exists)
+91,colorado,Colorado,Big 12,2,cuboulder,school_flair,"Sports,Athletics,Football,Recruiting",Colorado football,Colorado,high (school sub; NO Buffs sub exists)
+288,houston,Houston,Big 12,2,HoustonCougars,dedicated,,Houston football,Houston,low (school r/UniversityOfHouston 42k high)
+205,iowa-state,Iowa State,Big 12,2,cyclONEnation,dedicated,,Iowa State football,Iowa State,low (CycloneFanatic dominates; r/cyclones doesn't exist)
+103,kansas,Kansas,Big 12,2,jayhawks,dedicated,,Kansas football,Kansas,medium
+275,kansas-state,Kansas State,Big 12,2,KState,dedicated,,Kansas State football,Kansas State,dead (fans on GoPowercat/EMAW boards)
+179,oklahoma-state,Oklahoma State,Big 12,2,OKState,school_flair,"Sports,Athletics,Football,Recruiting",Oklahoma State football,Oklahoma State,medium (school+sports)
+138,tcu,TCU,Big 12,2,TCU,dedicated,,TCU football,TCU,low
+299,texas-tech,Texas Tech,Big 12,1,TexasTech,school_flair,"Sports,Athletics,Football,Recruiting",Texas Tech football,Texas Tech,high (school+sports)
+61,ucf,UCF,Big 12,2,UCFKnights,school_flair,"Sports,Athletics,Football,Recruiting",UCF football,UCF,dead (school r/ucf 85.6k high)
+121,utah,Utah,Big 12,2,UtahUtes,school_flair,"Sports,Athletics,Football,Recruiting",Utah football,Utah,dead (fans on UteFans/UteHub; school r/uofu medium)
+157,west-virginia,West Virginia,Big 12,2,WVU,school_flair,"Sports,Athletics,Football,Recruiting",West Virginia football,West Virginia,medium (school+sports)
+218,boise-state,Boise State,Mountain West,2,BSUFootball,dedicated,,Boise State football,Boise State,low (~3 posts/day in season; Bronco Nation News bigger)
+192,colorado-state,Colorado State,Mountain West,3,CSURams,dedicated,,Colorado State football,Colorado State,low
+294,fresno-state,Fresno State,Mountain West,3,fresnostate,school_flair,"Sports,Athletics,Football,Recruiting",Fresno State football,Fresno State,medium (school sub)
+255,oregon-state,Oregon State,Pac-12,3,OregonStateUniv,school_flair,"Sports,Athletics,Football,Recruiting",Oregon State football,Oregon State,high (school sub; beavs subs dead)
+307,san-diego-state,San Diego State,Mountain West,3,SDSU,school_flair,"Sports,Athletics,Football,Recruiting",San Diego State football,San Diego State,high (school sub; r/SDSUAZTECS 1.4k low)
+319,texas-state,Texas State,Sun Belt,3,txstate,school_flair,"Sports,Athletics,Football,Recruiting",Texas State football,Texas State,high (school sub)
+139,utah-state,Utah State,Mountain West,3,usu,school_flair,"Sports,Athletics,Football,Recruiting",Utah State football,Utah State,low (school sub)
+185,washington-state,Washington State,Pac-12,3,wsu,school_flair,"Sports,Athletics,Football,Recruiting",Washington State football,Washington State,medium (school sub; r/wsucougars 2.4k low)
+193,air-force,Air Force,Mountain West,3,USAFA,dedicated,,Air Force football,Air Force,medium (academy sub; r/AirForceAcademy restricted)
+15,hawai-i,Hawai'i,Mountain West,3,UHManoa,school_flair,"Sports,Athletics,Football,Recruiting",Hawai'i football,Hawaii,medium (school sub; fans on SportsHawaii.com; r/Hawaii is state noise)
+13,nevada,Nevada,Mountain West,3,unr,school_flair,"Sports,Athletics,Football,Recruiting",Nevada football,Nevada,medium (school sub)
+7,new-mexico,New Mexico,Mountain West,3,unm,school_flair,"Sports,Athletics,Football,Recruiting",New Mexico football,New Mexico,low (school sub)
+92,north-dakota-state,North Dakota State,MVFC,3,NDSU,dedicated,,North Dakota State football,North Dakota State,dead (BisonVille forum dominates)
+213,northern-illinois,Northern Illinois,Mid-American,3,NIU,school_flair,"Sports,Athletics,Football,Recruiting",Northern Illinois football,Northern Illinois,medium (school sub)
+123,san-jos-state,San José State,Mountain West,3,SJSU,school_flair,"Sports,Athletics,Football,Recruiting",San José State football,San Jose State,high (school sub)
+289,unlv,UNLV,Mountain West,2,UNLV,school_flair,"Sports,Athletics,Football,Recruiting",UNLV football,UNLV,high (school sub)
+200,utep,UTEP,Conference USA,3,UTEP,school_flair,"Sports,Athletics,Football,Recruiting",UTEP football,UTEP,low (school sub)
+328,wyoming,Wyoming,Mountain West,3,uwyo,dedicated,,Wyoming football,Wyoming,dead
+125,army,Army,American Athletic,3,westpoint,dedicated,,Army football,Army,medium (academy sub; no football sub)
+303,charlotte,Charlotte,American Athletic,3,UNCCharlotte,school_flair,"Sports,Athletics,Football,Recruiting",Charlotte football,Charlotte,high (school sub; r/Charlotte49ers dead)
+234,east-carolina,East Carolina,American Athletic,3,ECUPirates,dedicated,,East Carolina football,East Carolina,dead (no real ECU sub; r/ECU doesn't exist)
+128,florida-atlantic,Florida Atlantic,American Athletic,3,FAU,school_flair,"Sports,Athletics,Football,Recruiting",Florida Atlantic football,Florida Atlantic,medium (school sub)
+284,memphis,Memphis,American Athletic,2,MemphisTigers,school_flair,"Sports,Athletics,Football,Recruiting",Memphis football,Memphis,dead (school r/UofMemphis low)
+145,navy,Navy,American Athletic,3,usna,dedicated,,Navy football,Navy,medium (academy sub; r/NavyFootball dead)
+225,north-texas,North Texas,American Athletic,3,unt,school_flair,"Sports,Athletics,Football,Recruiting",North Texas football,North Texas,high (school sub; r/meangreen dead)
+273,rice,Rice,American Athletic,3,riceuniversity,school_flair,"Sports,Athletics,Football,Recruiting",Rice football,Rice,medium (school sub; r/RICE is the food)
+267,south-florida,South Florida,American Athletic,2,USF,school_flair,"Sports,Athletics,Football,Recruiting",South Florida football,South Florida,high (school sub)
+130,temple,Temple,American Athletic,3,Temple,school_flair,"Sports,Athletics,Football,Recruiting",Temple football,Temple,high (school sub; r/TempleOwls restricted)
+107,tulane,Tulane,American Athletic,2,Tulane,school_flair,"Sports,Athletics,Football,Recruiting",Tulane football,Tulane,"medium (school sub, self-titled Green Wave subreddit)"
+99,tulsa,Tulsa,American Athletic,3,utulsa,dedicated,,Tulsa football,Tulsa,dead (restricted)
+95,uab,UAB,American Athletic,3,UAB,school_flair,"Sports,Athletics,Football,Recruiting",UAB football,UAB,medium (school sub)
+211,utsa,UTSA,American Athletic,3,UTSA,school_flair,"Sports,Athletics,Football,Recruiting",UTSA football,UTSA,high (school sub; r/UTSAFootball dead)
+69,delaware,Delaware,Conference USA,3,udel,school_flair,"Sports,Athletics,Football,Recruiting",Delaware football,Delaware,low (school sub; r/BlueHens dead)
+202,florida-international,Florida International,Conference USA,3,FIU,school_flair,"Sports,Athletics,Football,Recruiting",Florida International football,FIU,medium (school sub)
+115,jacksonville-state,Jacksonville State,Conference USA,3,JacksonvilleState,dedicated,,Jacksonville State football,Jacksonville State,dead
+212,kennesaw-state,Kennesaw State,Conference USA,3,KSU,school_flair,"Sports,Athletics,Football,Recruiting",Kennesaw State football,Kennesaw State,high (school sub)
+246,liberty,Liberty,Conference USA,2,LibertyUniversity,school_flair,"Sports,Athletics,Football,Recruiting",Liberty football,Liberty,medium (school sub; r/LibertyFlames dead)
+314,louisiana-tech,Louisiana Tech,Conference USA,3,LouisianaTech,school_flair,"Sports,Athletics,Football,Recruiting",Louisiana Tech football,Louisiana Tech,low (school sub)
+259,middle-tennessee,Middle Tennessee,Conference USA,3,MTSU,school_flair,"Sports,Athletics,Football,Recruiting",Middle Tennessee football,Middle Tennessee,medium (school sub)
+323,missouri-state,Missouri State,Conference USA,3,missouristate,school_flair,"Sports,Athletics,Football,Recruiting",Missouri State football,Missouri State,low (school sub)
+324,new-mexico-state,New Mexico State,Conference USA,3,nmsu,school_flair,"Sports,Athletics,Football,Recruiting",New Mexico State football,New Mexico State,low (school sub)
+274,sam-houston,Sam Houston,Conference USA,3,SHSU,school_flair,"Sports,Athletics,Football,Recruiting",Sam Houston football,Sam Houston,medium (school sub)
+278,western-kentucky,Western Kentucky,Conference USA,3,WKU,school_flair,"Sports,Athletics,Football,Recruiting",Western Kentucky football,Western Kentucky,low (school sub)
+196,akron,Akron,Mid-American,3,uakron,dedicated,,Akron football,Akron,dead (r/akron is the city)
+543,ball-state,Ball State,Mid-American,3,BallState,school_flair,"Sports,Athletics,Football,Recruiting",Ball State football,Ball State,low (school sub)
+45,bowling-green,Bowling Green,Mid-American,3,BGSU,school_flair,"Sports,Athletics,Football,Recruiting",Bowling Green football,Bowling Green,low (school sub)
+41,buffalo,Buffalo,Mid-American,3,UBreddit,school_flair,"Sports,Athletics,Football,Recruiting",Buffalo football,Buffalo,high (school sub; r/UBBulls dead)
+49,central-michigan,Central Michigan,Mid-American,3,(none found),dedicated,,Central Michigan football,Central Michigan,dead (no sub exists)
+198,eastern-michigan,Eastern Michigan,Mid-American,3,(none found),dedicated,,Eastern Michigan football,Eastern Michigan,dead (no sub exists)
+148,kent-state,Kent State,Mid-American,3,(none found),dedicated,,Kent State football,Kent State,dead (no sub exists)
+210,miami-oh,Miami (OH),Mid-American,3,miamioh,school_flair,"Sports,Athletics,Football,Recruiting",Miami (OH) football,Miami (OH),medium (school sub)
+208,ohio,Ohio,Mid-American,3,ohiouniversity,school_flair,"Sports,Athletics,Football,Recruiting",Ohio football,Ohio,medium (school sub)
+124,sacramento-state,Sacramento State,Big Sky,3,CSUS,school_flair,"Sports,Athletics,Football,Recruiting",Sacramento State football,Sacramento State,high (school sub; FBS newcomer 2026)
+75,toledo,Toledo,Mid-American,3,UToledo,dedicated,,Toledo football,Toledo,dead
+136,western-michigan,Western Michigan,Mid-American,3,WMU,school_flair,"Sports,Athletics,Football,Recruiting",Western Michigan football,Western Michigan,medium (school sub)
+197,massachusetts,Massachusetts,Mid-American,3,umass,school_flair,"Sports,Athletics,Football,Recruiting",Massachusetts football,UMass,high (school sub; r/UMassMinutemen dead)
+215,app-state,App State,Sun Belt,2,appstate,school_flair,"Sports,Athletics,Football,Recruiting",App State football,Appalachian State,medium (school sub)
+257,arkansas-state,Arkansas State,Sun Belt,3,AState,dedicated,,Arkansas State football,Arkansas State,dead
+116,coastal-carolina,Coastal Carolina,Sun Belt,3,CCU,dedicated,,Coastal Carolina football,Coastal Carolina,dead
+217,georgia-southern,Georgia Southern,Sun Belt,3,GSU,dedicated,,Georgia Southern football,Georgia Southern,low (r/georgiasouthern restricted)
+321,georgia-state,Georgia State,Sun Belt,3,georgiastate,dedicated,,Georgia State football,Georgia State,dead (restricted)
+304,james-madison,James Madison,Sun Belt,2,jmu,school_flair,"Sports,Athletics,Football,Recruiting",James Madison football,James Madison,medium (school sub)
+312,louisiana,Louisiana,Sun Belt,3,ragincajuns,dedicated,,Louisiana football,Louisiana,dead
+228,marshall,Marshall,Sun Belt,3,MarshallUniversity,dedicated,,Marshall football,Marshall,dead (r/marshall is guitar amps)
+223,old-dominion,Old Dominion,Sun Belt,3,ODU,school_flair,"Sports,Athletics,Football,Recruiting",Old Dominion football,Old Dominion,medium (school sub)
+224,south-alabama,South Alabama,Sun Belt,3,usouthal,dedicated,,South Alabama football,South Alabama,dead (restricted)
+302,southern-miss,Southern Miss,Sun Belt,3,southernmiss,dedicated,,Southern Miss football,Southern Miss,dead (restricted)
+287,troy,Troy,Sun Belt,3,TroyTrojans,dedicated,,Troy football,Troy,low
+33,ul-monroe,UL Monroe,Sun Belt,3,ulmonroe,dedicated,,UL Monroe football,UL Monroe,dead (restricted; r/Ulm is the German city)
+298,notre-dame,Notre Dame,FBS Independents,1,notredamefootball,dedicated,,Notre Dame football,Notre Dame,high (football-only; ~14 posts/day in season)
+150,uconn,UConn,FBS Independents,3,UCONN,school_flair,"Sports,Athletics,Football,Recruiting",UConn football,UConn,high (school sub; r/UConnHuskies dead)
