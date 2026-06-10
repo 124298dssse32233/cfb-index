@@ -822,6 +822,32 @@ def build_parser() -> argparse.ArgumentParser:
         help="Stop once this many API units are spent (free daily quota is 10000).")
     collect_youtube_comments_parser.add_argument("--min-comment-count", type=int, default=3)
 
+    collect_podcast_transcripts_parser = subparsers.add_parser(
+        "collect-podcast-transcripts",
+        help=("Transcribe recent podcast episodes on the GPU (faster-whisper) and "
+              "land each transcript as a conversation_documents row "
+              "(source_name='podcast_transcript'); tag-team-mentions --sources "
+              "podcast_transcript then attributes them. Ledger-rotated + time-boxed; "
+              "self-skips cleanly if faster-whisper isn't installed. Run with the "
+              ".venv-ml python so CUDA is available."),
+    )
+    collect_podcast_transcripts_parser.add_argument("--season", type=int, required=True)
+    collect_podcast_transcripts_parser.add_argument("--week", type=int, required=True)
+    collect_podcast_transcripts_parser.add_argument("--model-size", default="small.en",
+        help="faster-whisper model (tiny.en/base.en/small.en/medium.en/large-v3). small.en is a good speed/quality balance on a 3090.")
+    collect_podcast_transcripts_parser.add_argument("--device", default="cuda", choices=["cuda", "cpu"])
+    collect_podcast_transcripts_parser.add_argument("--compute-type", default="float16",
+        help="float16 for CUDA; int8 for CPU.")
+    collect_podcast_transcripts_parser.add_argument("--max-episodes", type=int, default=6,
+        help="Rotated batch size per run (collection_ledger picks newest-then-stalest).")
+    collect_podcast_transcripts_parser.add_argument("--budget-seconds", type=float, default=900.0,
+        help="Hard wall-clock budget; defers the rest to the next run.")
+    collect_podcast_transcripts_parser.add_argument("--max-age-days", type=int, default=21,
+        help="Only consider episodes published within this many days.")
+    collect_podcast_transcripts_parser.add_argument("--beam-size", type=int, default=1)
+    collect_podcast_transcripts_parser.add_argument("--show", action="append", default=[],
+        help="Optional show_slug filter (repeatable), e.g. --show locked_on_alabama.")
+
     collect_reddit_plan_parser = subparsers.add_parser("collect-reddit-plan")
     collect_reddit_plan_parser.add_argument("--season", type=int, required=True)
     collect_reddit_plan_parser.add_argument("--week", type=int, required=True)
@@ -4543,6 +4569,29 @@ def main() -> None:
               f"channels={summary['channels']} videos={summary['videos']} "
               f"documents={summary['documents']} targets={summary['targets']} "
               f"units={summary['units']} quota_hit={summary['quota_hit']}")
+        return
+
+    if args.command == "collect-podcast-transcripts":
+        from cfb_rankings.ingest.podcast_transcribe import (
+            FasterWhisperUnavailable, collect_podcast_transcripts,
+        )
+        try:
+            summary = collect_podcast_transcripts(
+                db=db, season=args.season, week=args.week,
+                model_size=args.model_size, device=args.device,
+                compute_type=args.compute_type, max_episodes=args.max_episodes,
+                budget_seconds=args.budget_seconds, max_age_days=args.max_age_days,
+                beam_size=args.beam_size, show_filter=list(args.show or []),
+            )
+        except FasterWhisperUnavailable as exc:
+            # Graceful skip (exit 0) so the daily collector isn't marked failed
+            # until faster-whisper is installed in .venv-ml.
+            print(f"collect-podcast-transcripts SKIPPED: {exc}")
+            return
+        print(f"collect-podcast-transcripts season={args.season} week={args.week}: "
+              f"episodes={summary['episodes']} transcribed={summary['transcribed']} "
+              f"failed={summary['failed']} no_audio={summary['skipped_no_audio']} "
+              f"chars={summary['chars']}")
         return
 
     if args.command == "collect-reddit-team-rss":

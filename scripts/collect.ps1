@@ -59,14 +59,30 @@ Run "reddit: collect-reddit-watchlist (r/CFB national, best-effort)" {
 }
 
 # =========================================================================
-# B.5 YouTube comments (national + per-team) + tag national/media docs by alias
+# B.5 YouTube comments + Podcast transcripts (GPU), THEN tag national/media
+#     docs by team alias. The tag step must run AFTER both collectors and must
+#     include their source_names, because build_publish does NOT run
+#     tag-team-mentions (only tag-player-mentions) — team attribution happens
+#     here or not at all.
 # =========================================================================
 Run "youtube: collect-youtube-comments" {
     python manage.py collect-youtube-comments --season $global:CurSeason --week $global:SeasonWeek --max-units 6000
 }
-Run "tag: national/media docs by team alias (youtube + bluesky)" {
+# Podcast transcription needs CUDA -> use .venv-ml python (like the encoder step).
+# Self-skips cleanly (exit 0) if .venv-ml or faster-whisper is absent.
+$MlPython = Join-Path $global:RepoRoot ".venv-ml\Scripts\python.exe"
+if (Test-Path $MlPython) {
+    Run "podcast: collect-podcast-transcripts (.venv-ml, GPU, time-boxed)" {
+        & $MlPython manage.py collect-podcast-transcripts `
+            --season $global:CurSeason --week $global:SeasonWeek `
+            --max-episodes 6 --budget-seconds 900 --model-size small.en
+    }
+} else {
+    Log "   (.venv-ml absent -- skipping podcast transcription)"
+}
+Run "tag: national/media docs by team alias (youtube + bluesky + podcasts)" {
     python manage.py tag-team-mentions --season $global:CurSeason --week $global:SeasonWeek `
-        --sources youtube,bluesky_curated,bluesky_feeds --commit
+        --sources youtube,bluesky_curated,bluesky_feeds,podcast_transcript --commit
 }
 
 # =========================================================================
@@ -74,6 +90,22 @@ Run "tag: national/media docs by team alias (youtube + bluesky)" {
 # =========================================================================
 Run "boards: collect-team-boards" {
     python manage.py collect-team-boards --season $global:CurSeason --week $global:SeasonWeek
+}
+
+# =========================================================================
+# B.7 Reddit COMMENT trees under already-targeted posts (Arctic Shift).
+#     --min-post-comments 0 so the .rss-sourced team-sub posts (which carry
+#     reply_count=0 because RSS omits comment counts) are eligible parents;
+#     the candidate selector now also accepts mention_role='team-sub'. Bounded
+#     (limit-posts) + best-effort: this lives in COLLECT, so a slow/flaky Arctic
+#     Shift run can never block the build. --skip-build-features because
+#     build_publish.ps1 owns the feature rebuild (comments fold into it there).
+# =========================================================================
+Run "reddit: collect-reddit-comments (comment trees, best-effort)" {
+    python manage.py collect-reddit-comments `
+        --season $global:CurSeason --week $global:SeasonWeek `
+        --provider arctic-shift --limit-posts 150 --comments-per-post 60 `
+        --min-post-comments 0 --skip-build-features
 }
 
 Complete-Pipeline "HEALTHCHECK_URL_COLLECT"

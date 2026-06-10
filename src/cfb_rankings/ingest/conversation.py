@@ -2038,6 +2038,7 @@ def _candidate_posts_for_comment_collection(
     limit_posts: int,
     min_post_comments: int,
     min_post_score: int,
+    parent_mention_roles: tuple[str, ...] = ("query-match", "source-prior", "team-sub"),
 ) -> list[dict[str, Any]]:
     params: dict[str, Any] = {
         "season": season,
@@ -2047,6 +2048,12 @@ def _candidate_posts_for_comment_collection(
         "min_post_score": min_post_score,
         "limit_posts": limit_posts,
     }
+    # Which post mention_roles are eligible to be comment PARENTS. In-season this
+    # is the watchlist/listing-sourced posts ('query-match'/'source-prior'); in
+    # offseason the per-team .rss sweep tags posts 'team-sub', so include it or
+    # no offseason post is ever eligible and comment collection silently yields 0.
+    role_placeholders = ", ".join(f":role_{i}" for i in range(len(parent_mention_roles)))
+    params.update({f"role_{i}": r for i, r in enumerate(parent_mention_roles)})
     subreddit_filter = ""
     if subreddits:
         placeholders = ", ".join(f":subreddit_{index}" for index in range(len(subreddits)))
@@ -2076,7 +2083,7 @@ def _candidate_posts_for_comment_collection(
                 and cdt_exists.season_year = :season
                 and cdt_exists.week = :week
                 and cdt_exists.target_type = 'team'
-                and cdt_exists.mention_role in ('query-match', 'source-prior')
+                and cdt_exists.mention_role in ({role_placeholders})
             )
           order by coalesce(cd.reply_count, 0) desc, coalesce(cd.like_count, 0) desc, cd.external_created_at_utc desc
           limit :limit_posts
@@ -2102,7 +2109,7 @@ def _candidate_posts_for_comment_collection(
         where cdt.season_year = :season
           and cdt.week = :week
           and cdt.target_type = 'team'
-          and cdt.mention_role in ('query-match', 'source-prior')
+          and cdt.mention_role in ({role_placeholders})
         order by coalesce(cd.reply_count, 0) desc, coalesce(cd.like_count, 0) desc, cd.external_created_at_utc desc
         """,
         params,
