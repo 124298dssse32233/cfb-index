@@ -8,6 +8,11 @@ _MIGRATIONS_DIR = Path(__file__).resolve().parents[2] / "migrations"
 
 
 def _ensure_column(db: Database, table: str, column: str, definition: str) -> None:
+    # No-op when the table doesn't exist yet (minimal test DBs, partial
+    # schemas): whoever creates it later owns its shape, and the next
+    # apply_runtime_migrations run adds any still-missing columns.
+    if not _table_exists(db, table):
+        return
     if not db.column_exists(table, column):
         db.execute(f"alter table {table} add column {column} {definition}")
 
