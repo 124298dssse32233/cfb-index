@@ -71,6 +71,16 @@ permissions:
   contents: write
   issues: write
 
+# Ollama model routing (2026-06-10, RTX 3090 24GB box; June-2026 research):
+# writer stays Mistral Small 3.2 24B — no verified 24GB-class model beats it
+# at schema-constrained JSON editorial prose; planner/critic upgraded to
+# Qwen3.6 27B (Q4, ~18GB), the verified reasoning leader in-class. The two
+# don't fit VRAM together; Ollama hot-swaps per call (acceptable for a
+# weekly batch). Change models here + `ollama pull` on the runner box.
+env:
+  CHRONICLE_OLLAMA_WRITER: mistral-small3.2:latest
+  CHRONICLE_OLLAMA_PLANNER: qwen3.6:27b
+
 # One chronicle run at a time. cancel-in-progress: false so a slow
 # generation run is never silently killed by an overlapping cron slot.
 concurrency:
@@ -243,21 +253,25 @@ jobs:
             exit 1
           fi
 
-          # 4. llama-server reachable on :8001 and :8002 (skip if LKG-only)
+          # 4. Ollama daemon + configured models present (skip if LKG-only).
+          #    Ollama replaced the two llama-server instances as the
+          #    production backend (activated 2026-05-24; runner box swapped
+          #    to the RTX 3090 machine 2026-06-10). Model tags come from the
+          #    workflow-level CHRONICLE_OLLAMA_* env.
           if [ "${{ needs.determine-mode.outputs.use_lkg_only }}" != "true" ]; then
-            if ! curl -sf http://localhost:8001/health >/dev/null; then
-              echo "::error::llama-server :8001 is not reachable — is the Tier S/T1 model loaded?"
+            tags=$(curl -sf http://localhost:11434/api/tags) || {
+              echo "::error::Ollama daemon not reachable on :11434"
               exit 1
-            fi
-            echo "[preflight] llama-server :8001 OK"
-
-            if ! curl -sf http://localhost:8002/health >/dev/null; then
-              echo "::error::llama-server :8002 is not reachable — is the Tier 2/3 model loaded?"
-              exit 1
-            fi
-            echo "[preflight] llama-server :8002 OK"
+            }
+            for m in "$CHRONICLE_OLLAMA_WRITER" "$CHRONICLE_OLLAMA_PLANNER"; do
+              if ! printf '%s' "$tags" | grep -qF "\"$m\""; then
+                echo "::error::Ollama model '$m' is not pulled on this runner"
+                exit 1
+              fi
+            done
+            echo "[preflight] Ollama OK — writer=$CHRONICLE_OLLAMA_WRITER planner=$CHRONICLE_OLLAMA_PLANNER"
           else
-            echo "[preflight] LKG-only mode — skipping llama-server checks"
+            echo "[preflight] LKG-only mode — skipping LLM backend checks"
           fi
 
           echo "ok=true" >> "$GITHUB_OUTPUT"

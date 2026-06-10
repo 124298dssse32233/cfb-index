@@ -382,21 +382,48 @@ def cmd_health(args: argparse.Namespace) -> int:
         print(f"  GPU          FAIL — {msg}")
         errors.append(msg)
 
-    # llama-server checks
+    # LLM backend checks — Ollama is the production path (2026-05-24
+    # activation); the two llama-server ports are the original design and
+    # remain an accepted alternative. Healthy = EITHER backend serving the
+    # configured models, so an Ollama-only box (RTX 3090, 2026-06) passes
+    # without phantom llama-server errors.
+    import json as _json
+    import os as _os
     import urllib.request
     import urllib.error
-    for port, label in [(8001, "llama-server:8001 (Tier S/T1)"),
-                        (8002, "llama-server:8002 (Tier 2/3)")]:
-        try:
-            req = urllib.request.urlopen(
-                f"http://localhost:{port}/health", timeout=5
-            )
-            body = req.read().decode()
-            print(f"  {label}  OK — {body[:60]}")
-        except urllib.error.URLError as exc:
-            msg = str(exc.reason)
-            print(f"  {label}  FAIL — {msg}")
-            errors.append(f":{port} {msg}")
+    ollama_ok = False
+    try:
+        req = urllib.request.urlopen("http://localhost:11434/api/tags", timeout=5)
+        tags = _json.loads(req.read().decode())
+        pulled = {m.get("name", "") for m in tags.get("models", [])}
+        writer = _os.environ.get(
+            "CHRONICLE_OLLAMA_WRITER", "mistral-nemo:12b-instruct-2407-q4_K_M")
+        planner = _os.environ.get("CHRONICLE_OLLAMA_PLANNER", "qwen3:8b")
+        missing = [m for m in (writer, planner)
+                   if m not in pulled and f"{m}:latest" not in pulled]
+        if missing:
+            msg = f"Ollama up but missing models: {missing} (pulled: {sorted(pulled)})"
+            print(f"  ollama:11434  FAIL — {msg}")
+            errors.append(msg)
+        else:
+            ollama_ok = True
+            print(f"  ollama:11434  OK — writer={writer} planner={planner}")
+    except (urllib.error.URLError, OSError, ValueError) as exc:
+        print(f"  ollama:11434  down — {exc} (checking llama-server fallback)")
+
+    if not ollama_ok:
+        for port, label in [(8001, "llama-server:8001 (Tier S/T1)"),
+                            (8002, "llama-server:8002 (Tier 2/3)")]:
+            try:
+                req = urllib.request.urlopen(
+                    f"http://localhost:{port}/health", timeout=5
+                )
+                body = req.read().decode()
+                print(f"  {label}  OK — {body[:60]}")
+            except urllib.error.URLError as exc:
+                msg = str(exc.reason)
+                print(f"  {label}  FAIL — {msg}")
+                errors.append(f":{port} {msg}")
 
     # DB check
     db_path = Path(args.db)
