@@ -73,6 +73,15 @@ def _normalize(text: str) -> str:
     return out.replace(".", "").strip()
 
 
+# Word-char run, matching the boundary class in `_word_boundary_pattern`
+# ([A-Za-z0-9']). Used to tokenize both keys and doc bodies for the
+# token-set prefilter: a word-bounded name can only occur in a doc if every
+# one of its word-char runs is present as a token, so requiring
+# `key_tokens <= doc_tokens` before the (expensive) regex search never drops
+# a real match — it just skips the ~99% of keys that obviously can't appear.
+_TOKEN_RE = re.compile(r"[a-z0-9']+")
+
+
 def build_last_name_index(
     full_name_index: dict[str, list[PlayerIndexEntry]],
     *,
@@ -368,6 +377,37 @@ def _match_context(body: str, needle_norm: str) -> str:
     return body[:80].replace("\n", " ").strip()
 
 
+def _batch_team_targets(db: Database, doc_ids: list[int]) -> dict[int, list[dict[str, Any]]]:
+    """Load all team-scope targets for many docs in a few chunked queries
+    instead of one query per doc. The prior per-doc query (no ORDER BY) was
+    served from idx_..._unique on (conversation_document_id, target_key,
+    audience_bucket, mention_role), so it returned rows in that index order.
+    Replicating that exact order keeps `team_targets[0]` — which seeds inherited
+    week/sentiment/bucket on the player row — byte-identical.
+    """
+    out: dict[int, list[dict[str, Any]]] = {d: [] for d in doc_ids}
+    chunk = 400
+    for i in range(0, len(doc_ids), chunk):
+        part = doc_ids[i:i + chunk]
+        ph = ",".join(f":d{j}" for j in range(len(part)))
+        prm = {f"d{j}": d for j, d in enumerate(part)}
+        rows = db.query_all(
+            f"""
+            select conversation_document_id as _doc, team_id, audience_bucket,
+                   affiliation_team_id, week, sentiment_score, emotion_primary,
+                   sarcasm_score, confidence_score
+              from conversation_document_targets
+             where conversation_document_id in ({ph})
+               and target_type = 'team'
+             order by conversation_document_id, target_key, audience_bucket, mention_role
+            """,
+            prm,
+        )
+        for r in rows:
+            out[int(r["_doc"])].append(r)
+    return out
+
+
 def tag_player_mentions(
     db: Database,
     *,
@@ -411,6 +451,19 @@ def tag_player_mentions(
     else:
         last_name_index = {}
 
+    # Precompute (key, key_tokens, entries) once. key_tokens drives the
+    # per-doc prefilter so the inner loops skip keys that can't possibly match
+    # without paying for a regex search. Preserves index iteration order, so
+    # the produced match set/order is unchanged.
+    full_items = [
+        (key, frozenset(_TOKEN_RE.findall(key)), entries)
+        for key, entries in index.items()
+    ]
+    last_items = [
+        (lk, frozenset(_TOKEN_RE.findall(lk)), entries)
+        for lk, entries in last_name_index.items()
+    ]
+
     # Load candidate docs. We filter to the season via existing team-scope
     # target rows to keep scan volume bounded — a doc without any team
     # target is almost never worth tagging for player scope.
@@ -444,6 +497,10 @@ def tag_player_mentions(
         params,
     )
 
+    # Batch-load every doc's team-scope targets up front (was one query per
+    # doc inside the loop — ~15k round-trips on a full run).
+    team_targets_by_doc = _batch_team_targets(db, [int(d["doc_id"]) for d in docs])
+
     docs_scanned = 0
     matches: list[TagMatch] = []
     skipped_ambiguous = 0
@@ -456,36 +513,30 @@ def tag_player_mentions(
         if not body_norm:
             continue
 
-        # Pull this doc's existing team-scope targets once for bucket +
-        # week + sentiment inheritance. The player-target row MUST carry
-        # document-level sentiment/emotion/sarcasm/confidence so the
+        # This doc's existing team-scope targets (batch-loaded above) drive
+        # bucket + week + sentiment inheritance. The player-target row MUST
+        # carry document-level sentiment/emotion/sarcasm/confidence so the
         # aggregator can do its math — those scores are produced by the
         # upstream classifier on the full document, not re-derived by the
         # tagger. Week must match too, or the aggregator (which filters
         # by :week) never finds it.
-        team_targets = db.query_all(
-            """
-            select team_id, audience_bucket, affiliation_team_id, week,
-                   sentiment_score, emotion_primary, sarcasm_score, confidence_score
-              from conversation_document_targets
-             where conversation_document_id = :doc
-               and target_type = 'team'
-            """,
-            {"doc": doc_id},
-        )
+        team_targets = team_targets_by_doc.get(doc_id, [])
         inherited_week = team_targets[0]["week"] if team_targets else week
         primary_tt = team_targets[0] if team_targets else None
 
-        # Scan the index. For perf, we iterate the (small) index of
-        # in-season skill players, not the (large) doc tokens. Each key
-        # is a normalized full name; `in` substring test is fast.
+        # Token-set prefilter: only the names whose every word-char run is
+        # present in this doc can possibly match, so we skip the regex search
+        # for the rest. Same matches as testing every key, far fewer searches.
+        doc_tokens = set(_TOKEN_RE.findall(body_norm))
+
         doc_matches: list[PlayerIndexEntry] = []
-        for key, entries in index.items():
+        for key, ktoks, entries in full_items:
+            if not ktoks <= doc_tokens:
+                continue
             # Word-boundary check — plain substring produces false positives
             # like "Peyton Higgins" matching "Peyton Higginson". The regex
             # is compiled once per key by `_word_boundary_pattern`.
-            pattern = _word_boundary_pattern(key)
-            if pattern.search(body_norm) is None:
+            if _word_boundary_pattern(key).search(body_norm) is None:
                 continue
             resolved = _disambiguate(entries, body_norm)
             if resolved is None:
@@ -496,9 +547,11 @@ def tag_player_mentions(
         # Last-name pass — requires team cooccurrence AND single-candidate
         # resolution. Skip if the full-name pass already surfaced a player;
         # last names are the backfill for casual references.
-        if last_name_index:
+        if last_items:
             full_name_hits: set[int] = {p.player_id for p in doc_matches}
-            for last_key, entries in last_name_index.items():
+            for last_key, ltoks, entries in last_items:
+                if not ltoks <= doc_tokens:
+                    continue
                 # Shared-last-name candidates may cover many players; team
                 # cooccurrence is the only disambiguator we have.
                 if _word_boundary_pattern(last_key).search(body_norm) is None:

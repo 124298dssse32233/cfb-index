@@ -1,0 +1,39 @@
+# Per-source overrides for scripts/verify_source_health_floors.py
+#
+# The detector is baseline-aware: by default it flags a source ONLY when it was
+# producing rows on >= min_active_days days in the trailing window and then went
+# silent (last `consecutive_zero` runs all 0) or stale (no run in longer than its
+# own normal cadence). You usually do NOT need an entry here — defaults judge most
+# sources correctly. Use this file for the two exceptions:
+#
+#   intermittent: true   -> source is legitimately quiet for long stretches
+#                           (skip it entirely; no silent/stale alerts)
+#   ignore: true         -> never judge this source (deprecated / parked)
+#   min_active_days / consecutive_zero / stale_days -> per-source threshold tweaks
+#
+# Verified against the live collect run on 2026-06-10 (offseason): betting markets
+# and the music/ticketing feeds return 0 for months in summer, and the Wikimedia
+# adapters re-fetch a rolling window that dedups to 0 most days (see task #20 —
+# their per-team coverage + the dedup-vs-broken question is still being settled).
+
+defaults:
+  window_days: 21
+  min_active_days: 5
+  consecutive_zero: 3
+  stale_days: 3
+
+sources:
+  # Offseason-intermittent prediction markets (no CFB markets live in June).
+  kalshi: { intermittent: true }
+  polymarket: { intermittent: true }
+  # Auth/3rd-party feeds that are sparse or frequently 403 in the offseason.
+  spotify_charts: { intermittent: true }
+  seatgeek: { intermittent: true }
+  # Wikimedia rolling-window re-fetch dedups to 0 on most days; only 21/140 teams
+  # are even mapped. Hold alerts until task #20 settles dedup-vs-broken + backfill,
+  # then remove these two lines so the 140-team signal is monitored.
+  wiki_pv: { intermittent: true }
+  wiki_edits: { intermittent: true }
+
+# Sources to never judge (none yet).
+ignore: []

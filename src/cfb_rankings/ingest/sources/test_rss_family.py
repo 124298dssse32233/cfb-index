@@ -37,7 +37,8 @@ def _fresh_db() -> Database:
             is_deleted integer not null default 0, is_removed integer not null default 0,
             source_id text, source_tier text, author_identity_class text,
             capture_url text, canonical_url text, retention_policy text,
-            ingestion_adapter_version text, dedup_key text, demographic_slice text
+            ingestion_adapter_version text, dedup_key text, demographic_slice text,
+            raw_payload_json text
         )
     """)
     db.execute("""
@@ -115,3 +116,51 @@ def test_locked_on_adapter_shape() -> None:
     assert r["source_id"] == "locked_on_alabama"
     assert r["content_type"] == "podcast_episode"
     assert r["retention_policy"] == "aggregated_only"
+
+
+# RSS item carrying an audio <enclosure>, as real Locked On feeds do.
+RSS_WITH_ENCLOSURE = b"""<?xml version="1.0"?>
+<rss version="2.0"><channel>
+  <item>
+    <title>Locked On Tide - Spring Recap</title>
+    <link>https://example.com/lo1</link>
+    <description>Daily team pod.</description>
+    <pubDate>Mon, 08 Jun 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://cdn.example/lo1.mp3" type="audio/mpeg"/>
+    <guid>lo1</guid>
+  </item>
+</channel></rss>"""
+
+
+def test_locked_on_captures_enclosure_for_transcription() -> None:
+    # Regression guard (2026-06-10): the enclosure URL must reach raw_payload_json,
+    # or collect-podcast-transcripts finds 0 episodes.
+    db = _fresh_db()
+    a = LockedOnAdapter(db, team_id=231, team_slug="alabama",
+                        feed_url="https://example")
+    rows = a.parse(RSS_WITH_ENCLOSURE)
+    assert len(rows) == 1
+    assert rows[0]["raw_payload_enclosure_url"] == "https://cdn.example/lo1.mp3"
+
+    assert a.write_rows(rows) == 1
+    doc = db.query_one("select raw_payload_json from conversation_documents")
+    assert doc["raw_payload_json"] and "enclosure_url" in doc["raw_payload_json"]
+    import json as _json
+    assert _json.loads(doc["raw_payload_json"])["enclosure_url"] == "https://cdn.example/lo1.mp3"
+
+    # the parent's per-team target is still written (dual behavior preserved)
+    tgt = db.query_one("select team_id, target_type from conversation_document_targets")
+    assert tgt is not None and tgt["team_id"] == 231 and tgt["target_type"] == "team"
+
+
+def test_locked_on_backfills_payload_on_rerun() -> None:
+    # A dedup-skipped re-run still backfills raw_payload_json, so the back
+    # catalogue collected before this fix becomes transcribable.
+    db = _fresh_db()
+    a = LockedOnAdapter(db, team_id=231, team_slug="alabama",
+                        feed_url="https://example")
+    a.write_rows(a.parse(RSS_WITH_ENCLOSURE))
+    db.execute("update conversation_documents set raw_payload_json = null")
+    assert a.write_rows(a.parse(RSS_WITH_ENCLOSURE)) == 0  # dedup: no new insert
+    doc = db.query_one("select raw_payload_json from conversation_documents")
+    assert doc["raw_payload_json"] and "enclosure_url" in doc["raw_payload_json"]

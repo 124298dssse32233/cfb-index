@@ -108,4 +108,14 @@ Run "reddit: collect-reddit-comments (comment trees, best-effort)" {
         --min-post-comments 0 --skip-build-features
 }
 
+# =========================================================================
+# C. Silent-degradation gate. Baseline-aware: alerts (gh issue) only when an
+#    ESTABLISHED source goes dark — the failure mode that hid the May .json
+#    shutoff for ~10 days. NOT -Critical: a quiet source must not fail the whole
+#    collect (the gh issue is the alert); only a clean collect pings success.
+# =========================================================================
+Run "verify: per-source health floors" {
+    python scripts/verify_source_health_floors.py --open-issue
+}
+
 Complete-Pipeline "HEALTHCHECK_URL_COLLECT"

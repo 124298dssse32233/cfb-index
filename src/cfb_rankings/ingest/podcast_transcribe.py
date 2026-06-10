@@ -62,6 +62,18 @@ class FasterWhisperUnavailable(RuntimeError):
 
 
 def _load_model(model_size: str, device: str, compute_type: str):
+    # manage.py puts the repo-local `.vendor` dir on sys.path[1] as a dependency
+    # fallback, but it ships a numpy SOURCE tree (1.26.4) that shadows the real
+    # built numpy and makes faster_whisper's eager `import numpy` raise
+    # ("you should not import numpy from its source directory"). Transcription
+    # only ever runs in .venv-ml, which has a properly built numpy, so strip the
+    # .vendor shadow (and evict any half-imported numpy) before loading the ASR
+    # stack. Self-contained: this leaf command does its work and exits.
+    import sys
+    sys.path[:] = [p for p in sys.path if not p.rstrip("\\/").endswith(".vendor")]
+    for _m in [m for m in sys.modules if m == "numpy" or m.startswith("numpy.")]:
+        if getattr(sys.modules.get(_m), "__file__", "") and ".vendor" in (sys.modules[_m].__file__ or ""):
+            sys.modules.pop(_m, None)
     try:
         from faster_whisper import WhisperModel  # type: ignore
     except ImportError as exc:
