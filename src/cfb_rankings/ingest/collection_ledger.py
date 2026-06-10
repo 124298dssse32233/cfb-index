@@ -28,6 +28,14 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _parse(iso: str) -> datetime:
+    return datetime.fromisoformat(iso.replace("Z", "+00:00"))
+
+
+def _fmt(dt: datetime) -> str:
+    return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 class Budget:
     """A monotonic wall-clock deadline. expired() True once `seconds` elapse."""
 
@@ -74,7 +82,7 @@ def select_batch(db, source: str, candidates: list[str], budget: int,
 def mark_ok(db, source: str, entity: str, now_iso: str | None = None,
             *, interval_hours: float = 72.0, cursor: str | None = None) -> None:
     now_iso = now_iso or _now_iso()
-    due = (datetime.now(timezone.utc) + timedelta(hours=interval_hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    due = _fmt(_parse(now_iso) + timedelta(hours=interval_hours))
     db.execute(
         """
         insert into collection_ledger
@@ -101,7 +109,7 @@ def mark_fail(db, source: str, entity: str, now_iso: str | None = None,
     )
     fails = int((prior or {}).get("consecutive_failures") or 0) + 1
     backoff = min(max_cooldown_seconds, base_cooldown_seconds * (2 ** (fails - 1)))
-    cooldown = (datetime.now(timezone.utc) + timedelta(seconds=backoff)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    cooldown = _fmt(_parse(now_iso) + timedelta(seconds=backoff))
     db.execute(
         """
         insert into collection_ledger
