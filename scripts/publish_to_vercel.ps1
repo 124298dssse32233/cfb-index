@@ -73,13 +73,28 @@ if (-not [string]::IsNullOrWhiteSpace($env:VERCEL_TOKEN)) {
 }
 
 # 3. Deploy output/site to production (archive=tgz handles the >15k file count).
+#    Auto-retry on transient Vercel API errors: the /v2/files endpoint
+#    intermittently returns a 500 "Internal Server error" (non-JSON) mid-upload
+#    -> FetchError -> no URL captured. Observed ~3 of 4 attempts on 2026-06-09;
+#    each cleared on retry, and the CLI itself advises "retry deploy". An
+#    unattended daily publish must ride through this rather than skip the deploy.
 Set-Location -LiteralPath $SITE
-Log "deploying output/site to production..."
-$out = (& vercel deploy --prod --yes --archive=tgz --scope $SCOPE @TokenArg 2>&1 | ForEach-Object { Clean $_ })
-$out | Tee-Object -FilePath $LogPath -Append | Out-Null
-$url = ($out | Select-String -Pattern 'https://wonderful-margulis-8ec96b-[a-z0-9]+-[a-z0-9-]+\.vercel\.app' -AllMatches | ForEach-Object { $_.Matches.Value } | Select-Object -First 1)
+$url = $null
+$MaxDeploy = 4
+for ($i = 1; $i -le $MaxDeploy; $i++) {
+    Log "deploying output/site to production (attempt $i/$MaxDeploy)..."
+    $out = (& vercel deploy --prod --yes --archive=tgz --scope $SCOPE @TokenArg 2>&1 | ForEach-Object { Clean $_ })
+    $out | Tee-Object -FilePath $LogPath -Append | Out-Null
+    $url = ($out | Select-String -Pattern 'https://wonderful-margulis-8ec96b-[a-z0-9]+-[a-z0-9-]+\.vercel\.app' -AllMatches | ForEach-Object { $_.Matches.Value } | Select-Object -First 1)
+    if ($url) { break }
+    if ($i -lt $MaxDeploy) {
+        $backoff = 10 * $i
+        Log "   attempt $i captured no URL (transient Vercel API error?) -- retrying in ${backoff}s..."
+        Start-Sleep -Seconds $backoff
+    }
+}
 Set-Location -LiteralPath $RepoRoot
-if (-not $url) { Log "FAIL: no production URL captured -- live site UNCHANGED. See log (cap exceeded? run chunked_vercel_publish.ps1)."; exit 2 }
+if (-not $url) { Log "FAIL: no production URL after $MaxDeploy attempts -- live site UNCHANGED. (cap exceeded? run chunked_vercel_publish.ps1)."; exit 2 }
 Log "deploy URL: $url"
 
 # 4. Re-point the public alias to the new deployment (it does NOT auto-rotate).
