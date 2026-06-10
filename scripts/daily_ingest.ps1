@@ -158,6 +158,20 @@ Run "reddit: collect-reddit-watchlist (r/CFB national, best-effort)" {
 }
 
 # =========================================================================
+# B.5 YouTube comments (Build #3) — the biggest unexploited fan-opinion pool.
+#     National channels (seed) + per-team configured channels -> recent-upload
+#     comments. uploads->videos.commentCount triage->commentThreads (1 unit each;
+#     ~660/day offseason vs 10k free). Per-team channels tag directly; national
+#     comments are alias-tagged afterward. Needs YOUTUBE_API_KEY (loaded from .env).
+# =========================================================================
+Run "youtube: collect-youtube-comments" {
+    python manage.py collect-youtube-comments --season $CurSeason --week $SeasonWeek --max-units 6000
+}
+Run "youtube: tag national comments by alias" {
+    python manage.py tag-team-mentions --season $CurSeason --week $SeasonWeek --sources youtube --commit
+}
+
+# =========================================================================
 # C. CFBD weekly refresh - in-season only
 # =========================================================================
 if ($IsInSeason) {

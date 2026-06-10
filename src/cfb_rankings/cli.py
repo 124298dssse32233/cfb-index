@@ -786,6 +786,24 @@ def build_parser() -> argparse.ArgumentParser:
     collect_reddit_team_rss_parser.add_argument("--teams", nargs="*", type=int, default=None,
         help="Optional team_id filter; default = all configured priority teams.")
 
+    collect_youtube_comments_parser = subparsers.add_parser(
+        "collect-youtube-comments",
+        help=("Collect CFB YouTube comments (Build #3): national channels (seed) "
+              "+ per-team configured channels. uploads->videos.commentCount triage"
+              "->commentThreads. Per-team channels get a direct target; national "
+              "ones are tagged by `tag-team-mentions --sources youtube`."),
+    )
+    collect_youtube_comments_parser.add_argument("--season", type=int, required=True)
+    collect_youtube_comments_parser.add_argument("--week", type=int, required=True)
+    collect_youtube_comments_parser.add_argument(
+        "--national-seed", default="data/seeds/youtube_national_channels.json",
+        help="JSON list of national channels [{channel_id,name}].")
+    collect_youtube_comments_parser.add_argument("--max-videos-per-channel", type=int, default=8)
+    collect_youtube_comments_parser.add_argument("--max-comments-per-video", type=int, default=100)
+    collect_youtube_comments_parser.add_argument("--max-units", type=int, default=6000,
+        help="Stop once this many API units are spent (free daily quota is 10000).")
+    collect_youtube_comments_parser.add_argument("--min-comment-count", type=int, default=3)
+
     collect_reddit_plan_parser = subparsers.add_parser("collect-reddit-plan")
     collect_reddit_plan_parser.add_argument("--season", type=int, required=True)
     collect_reddit_plan_parser.add_argument("--week", type=int, required=True)
@@ -4433,6 +4451,34 @@ def main() -> None:
                 except Exception as exc:
                     print(f"    FAIL {name}: {exc}")
             print(f"  auto-import total: {imported_total} honor rows imported")
+        return
+
+    if args.command == "collect-youtube-comments":
+        import json as _json
+        import os as _os
+        from pathlib import Path as _Path
+        from cfb_rankings.ingest.youtube_comments import collect_youtube_comments
+        api_key = _os.environ.get("YOUTUBE_API_KEY")
+        if not api_key:
+            print("ABORT: YOUTUBE_API_KEY not set in env/.env")
+            return
+        national = []
+        seed = _Path(args.national_seed)
+        if seed.exists():
+            national = _json.loads(seed.read_text(encoding="utf-8"))
+        else:
+            print(f"WARN: national seed not found ({seed}); national channels skipped")
+        summary = collect_youtube_comments(
+            db=db, season=args.season, week=args.week, api_key=api_key,
+            national_channels=national,
+            max_videos_per_channel=args.max_videos_per_channel,
+            max_comments_per_video=args.max_comments_per_video,
+            max_units=args.max_units, min_comment_count=args.min_comment_count,
+        )
+        print(f"collect-youtube-comments season={args.season} week={args.week}: "
+              f"channels={summary['channels']} videos={summary['videos']} "
+              f"documents={summary['documents']} targets={summary['targets']} "
+              f"units={summary['units']} quota_hit={summary['quota_hit']}")
         return
 
     if args.command == "collect-reddit-team-rss":
