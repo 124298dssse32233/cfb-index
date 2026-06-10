@@ -102,6 +102,13 @@ def build_parser() -> argparse.ArgumentParser:
     verify_publish_parser.add_argument(
         "--json", dest="emit_json", action="store_true", help="Also print a JSON summary.")
 
+    set_conf_parser = subparsers.add_parser(
+        "set-conferences",
+        help="Update priority_teams.conference from a {slug: conference} seed JSON "
+             "(2026 realignment hygiene). Idempotent; only touches listed slugs.",
+    )
+    set_conf_parser.add_argument("--seed", default="data/seeds/conference_2026.json")
+
     resolve_week_parser = subparsers.add_parser(
         "resolve-week",
         help=("Print the canonical (season_year, week, week_start, iso_key) for a "
@@ -2255,6 +2262,32 @@ def main() -> None:
         from cfb_rankings.ingest.fanintel_seeds import seed_source_registry
         result = seed_source_registry(db)
         print(f"source_registry: inserted={result['inserted']} updated={result['updated']} total={result['total']}")
+        return
+
+    if args.command == "set-conferences":
+        import json as _json
+        from pathlib import Path as _Path
+        p = _Path(args.seed)
+        if not p.exists():
+            print(f"ABORT: seed not found: {p}")
+            return
+        doc = _json.loads(p.read_text(encoding="utf-8"))
+        conf_map = doc.get("conferences", doc) if isinstance(doc, dict) else {}
+        updated = 0
+        for slug, conf in conf_map.items():
+            if slug.startswith("_") or not conf:
+                continue
+            row = db.query_one("select team_id from teams where slug = :s", {"s": slug})
+            if not row:
+                print(f"  (no team for slug {slug!r}; skipped)")
+                continue
+            db.execute(
+                "update priority_teams set conference = :c, updated_at_utc = datetime('now') "
+                "where team_id = :t",
+                {"c": conf, "t": row["team_id"]},
+            )
+            updated += 1
+        print(f"set-conferences: updated {updated} teams from {p.name}")
         return
 
     if args.command == "import-team-sources":
