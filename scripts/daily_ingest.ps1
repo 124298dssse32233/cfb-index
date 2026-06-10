@@ -199,6 +199,26 @@ Run "player: compute-player-season-mood --season=$CurSeason" {
 }
 
 # =========================================================================
+# E.5 Encoder sentiment classify (the moat-quality consistency fix).
+#     Runs the CardiffNLP stack on the 3090 over today's new (VADER-labeled)
+#     docs and rewrites their target sentiment to the encoder labels BEFORE the
+#     feature rebuild below aggregates them -- so the live mood numbers stay on
+#     the same method as the one-time backfill instead of drifting back to VADER.
+#     Cross-env: this needs torch/transformers, which live in .venv-ml, NOT the
+#     production .venv. No-op + log if .venv-ml is absent (degrades to VADER for
+#     the day; build still proceeds). Non-critical: an encoder hiccup must not
+#     block the daily publish.
+# =========================================================================
+$MlPython = Join-Path $RepoRoot ".venv-ml\Scripts\python.exe"
+if (Test-Path $MlPython) {
+    Run "sentiment: encoder classify (.venv-ml, pinned heads)" {
+        & $MlPython scripts/sentiment_classify_daily.py --commit
+    }
+} else {
+    Log "   (.venv-ml absent -- skipping encoder classify; today's new docs keep VADER labels)"
+}
+
+# =========================================================================
 # F. Team feature rebuild (recomputes team_week_conversation_features)
 # =========================================================================
 Run "features: build-conversation-features --season=$CurSeason --week=$SeasonWeek" {
