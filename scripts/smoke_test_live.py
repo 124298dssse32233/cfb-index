@@ -70,6 +70,7 @@ URLS: list[tuple[str, str, str]] = [
     ("/conferences/", "section-index", "Conferences directory"),
     ("/editions/", "section-index", "Editorial editions archive"),
     ("/hub/vibe-shifts/", "section-index", "Hub vibe shifts"),
+    ("/hub/backometer/", "section-index", "Backometer fan-belief board"),
     ("/wire/", "section-index", "The Wire"),
     ("/about-model/", "section-index", "Methodology — model"),
     ("/methodology/", "section-index", "Methodology landing"),

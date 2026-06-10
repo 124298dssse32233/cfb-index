@@ -7278,6 +7278,17 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Vibe Shifts ledger build skipped: {exc}")
 
+    # Backometer — fan-belief board + share cards at /hub/backometer/.
+    # Lives in the build-site full-render path on purpose (deploy-clobber
+    # rule: every section must render on every build or it drops off prod).
+    # Reads backometer_weekly (compute-backometer runs earlier in build_publish).
+    try:
+        from cfb_rankings.fan_metrics.backometer_render import build_backometer_section
+        written = build_backometer_section(db, output_dir=site_root)
+        _report_progress(f"Backometer board wrote {len(written)} files.")
+    except Exception as exc:
+        _report_progress(f"Backometer board build skipped: {exc}")
+
     # R4 — Dynasty Heatmap. Renders /history/heatmap/ (page + standalone SVG).
     # Programs × years × within-year-percentile. The "fifty years in one
     # image" first-visit converter from the roadmap.
