@@ -2361,6 +2361,21 @@ def _load_rival_pairs(db: Database, season: int, week: int) -> dict[int, set[int
         team_b_id = int(pair["team_b_id"])
         rivals_by_team[team_a_id].add(team_b_id)
         rivals_by_team[team_b_id].add(team_a_id)
+    # Static bootstrap: canonical pairs from seeds/rivalry_pairs.yaml. Without
+    # this union the pipeline deadlocks — rivalry_obsession_weekly is only
+    # written by compute-rivalry-ratios, which needs team_week_rival_mentions,
+    # which this function's callers only populate for pairs already known.
+    try:
+        static_pairs = db.query_all(
+            "select team_a_id, team_b_id from rivalry_pairs where is_active = 1"
+        )
+    except Exception:  # noqa: BLE001 — table absent until 20260610_02 applies
+        static_pairs = []
+    for pair in static_pairs:
+        team_a_id = int(pair["team_a_id"])
+        team_b_id = int(pair["team_b_id"])
+        rivals_by_team[team_a_id].add(team_b_id)
+        rivals_by_team[team_b_id].add(team_a_id)
     return rivals_by_team
 
 

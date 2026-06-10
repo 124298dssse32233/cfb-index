@@ -1227,6 +1227,51 @@ def build_parser() -> argparse.ArgumentParser:
     mine_lexicon_parser.add_argument("--from-features", action="store_true")
     mine_lexicon_parser.add_argument("--no-from-seed", action="store_true")
 
+    track_lexicon_parser = subparsers.add_parser(
+        "track-lexicon",
+        help=(
+            "Count the curated fan-slang watchlist (seeds/lexicon_terms.yaml) into "
+            "lexicon_term_daily. Complements mine-lexicon: fixed terms, daily counts, "
+            "unbroken history per team. Run in the collection window BEFORE any "
+            "raw-text purge."
+        ),
+    )
+    track_lexicon_parser.add_argument("--days", type=int, default=3,
+        help="Rolling window of external-created days to (re)count. Default 3.")
+    track_lexicon_parser.add_argument("--backfill", action="store_true",
+        help="Scan the entire retained corpus and rebuild the whole table.")
+    track_lexicon_parser.add_argument("--terms-file", default="seeds/lexicon_terms.yaml")
+
+    seed_rivalry_pairs_parser = subparsers.add_parser(
+        "seed-rivalry-pairs",
+        help=(
+            "Load canonical rivalry pairs (seeds/rivalry_pairs.yaml) into rivalry_pairs. "
+            "Bootstraps the Rent Free pipeline: _load_rival_pairs unions these with "
+            "rivalry_obsession_weekly-derived pairs."
+        ),
+    )
+    seed_rivalry_pairs_parser.add_argument("--pairs-file", default="seeds/rivalry_pairs.yaml")
+
+    compute_backometer_parser = subparsers.add_parser(
+        "compute-backometer",
+        help=(
+            "Compute backometer_weekly (0-100 fanbase belief, named zones, hysteresis, "
+            "n>=200 floor) from team_week_conversation_features. Fan Intelligence suite."
+        ),
+    )
+    compute_backometer_parser.add_argument("--season", type=int, required=True)
+    compute_backometer_parser.add_argument("--weeks", nargs="*", type=int, default=None,
+        help="Optional week filter; default = all weeks with feature rows.")
+
+    fix_player_positions_parser = subparsers.add_parser(
+        "fix-player-positions",
+        help=(
+            "Repair players.position from roster_entries / player_season_stats evidence "
+            "(game-stat category guesses minted QBs as RBs). Dry-run unless --commit."
+        ),
+    )
+    fix_player_positions_parser.add_argument("--commit", action="store_true")
+
     seed_hub_issue_parser = subparsers.add_parser(
         "seed-hub-issue",
         help="One-shot: run all five Hub v5 seeders for Issue N° 047.",
@@ -5898,6 +5943,59 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         else:
             count = seed_lexicon_week(db, week_start=args.week)
             print(f"Loaded {count} lexicon rows for week {args.week}.", flush=True)
+        return
+
+    if args.command == "track-lexicon":
+        from cfb_rankings.ingest.lexicon_tracker import track_lexicon_terms
+
+        result = track_lexicon_terms(
+            db, days=args.days, backfill=args.backfill, terms_file=args.terms_file,
+        )
+        print(
+            f"track-lexicon: scanned={result['docs_scanned']} "
+            f"matched={result['docs_matched']} rows={result['rows_written']} "
+            f"days={result['days_touched']} backfill={args.backfill}",
+            flush=True,
+        )
+        return
+
+    if args.command == "seed-rivalry-pairs":
+        from cfb_rankings.ingest.rivalry_seed import seed_rivalry_pairs
+
+        result = seed_rivalry_pairs(db, pairs_file=args.pairs_file)
+        print(
+            f"seed-rivalry-pairs: loaded={result['loaded']} "
+            f"unresolved={len(result['unresolved'])}",
+            flush=True,
+        )
+        for miss in result["unresolved"]:
+            print(f"  unresolved: {miss}", flush=True)
+        return
+
+    if args.command == "compute-backometer":
+        from cfb_rankings.fan_metrics.backometer import compute_backometer
+
+        result = compute_backometer(db, season=args.season, weeks=args.weeks)
+        print(
+            f"compute-backometer season={args.season}: "
+            f"team_weeks={result['team_weeks']} low_signal={result['low_signal']}",
+            flush=True,
+        )
+        return
+
+    if args.command == "fix-player-positions":
+        from cfb_rankings.ingest.position_fix import fix_player_positions
+
+        result = fix_player_positions(db, commit=args.commit)
+        mode = "COMMITTED" if args.commit else "DRY-RUN (use --commit to apply)"
+        print(
+            f"fix-player-positions [{mode}]: candidates={result['candidates']} "
+            f"blank_fills={result['blank_fills']} qb_rescues={result['qb_rescues']} "
+            f"review_only={result['review_only']} updated={result['updated']}",
+            flush=True,
+        )
+        for line in result["sample"]:
+            print(f"  {line}", flush=True)
         return
 
     if args.command == "seed-retro-issue":

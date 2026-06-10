@@ -109,6 +109,17 @@ Run "reddit: collect-reddit-comments (comment trees, best-effort)" {
 }
 
 # =========================================================================
+# B.8 Curated fan-slang lexicon counts (lexicon_term_daily). Runs in COLLECT
+#     because it needs raw body_text: the aggregates are the only thing that
+#     survives if purge-reddit-raw-content is ever scheduled — this step must
+#     always run before any purge step is added. 3-day rolling window is
+#     idempotent (delete+reinsert per day) and covers late-arriving comments.
+# =========================================================================
+Run "lexicon: track-lexicon (curated watchlist, 3-day window)" {
+    python manage.py track-lexicon --days 3
+}
+
+# =========================================================================
 # C. Silent-degradation gate. Baseline-aware: alerts (gh issue) only when an
 #    ESTABLISHED source goes dark — the failure mode that hid the May .json
 #    shutoff for ~10 days. NOT -Critical: a quiet source must not fail the whole

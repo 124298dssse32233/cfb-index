@@ -1191,16 +1191,14 @@ def _resolve_or_create_game_stat_player(
             _upsert_player_source_ids(db, player_id, "cfbd", [source_player_id])
         return player_id
 
+    # Only unambiguous categories may seed a position guess at creation.
+    # "rushing" -> RB minted QBs who rush as RBs (Arch Manning et al.) and the
+    # guess was never revisited; ambiguous categories now create with a blank
+    # position and let roster/season-stat evidence fill it (fix-player-positions).
     category_position_map = {
         "passing": "QB",
-        "rushing": "RB",
-        "receiving": "WR",
-        "interceptions": "DB",
         "kicking": "K",
         "punting": "P",
-        "puntReturns": "WR",
-        "kickReturns": "WR",
-        "fumbles": "",
     }
     return _get_or_create_player(
         db,

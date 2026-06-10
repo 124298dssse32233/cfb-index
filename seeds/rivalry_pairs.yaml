@@ -1,0 +1,109 @@
+# Canonical FBS rivalry pairs — static bootstrap for the Rent Free pipeline.
+# Loaded into the rivalry_pairs table via `manage.py seed-rivalry-pairs`.
+# Slugs must match teams.slug. tier: blood (the defining rivalry), classic, regional.
+# This list seeds the pair universe only — actual obsession counts come from
+# team_week_rival_mentions (who actually talks about whom).
+pairs:
+  - {slug_a: ohio-state, slug_b: michigan, name: "The Game", tier: blood}
+  - {slug_a: alabama, slug_b: auburn, name: "Iron Bowl", tier: blood}
+  - {slug_a: texas, slug_b: oklahoma, name: "Red River Rivalry", tier: blood}
+  - {slug_a: army, slug_b: navy, name: "Army-Navy Game", tier: blood}
+  - {slug_a: georgia, slug_b: florida, name: "Georgia-Florida", tier: blood}
+  - {slug_a: usc, slug_b: notre-dame, name: "USC-Notre Dame", tier: blood}
+  - {slug_a: usc, slug_b: ucla, name: "Battle for the Victory Bell", tier: classic}
+  - {slug_a: michigan, slug_b: michigan-state, name: "Paul Bunyan Trophy", tier: classic}
+  - {slug_a: florida, slug_b: florida-state, name: "Sunshine Showdown", tier: blood}
+  - {slug_a: florida-state, slug_b: miami, name: "FSU-Miami", tier: blood}
+  - {slug_a: oregon, slug_b: oregon-state, name: "Oregon-Oregon State", tier: classic}
+  - {slug_a: oregon, slug_b: washington, name: "Cascade Clash", tier: blood}
+  - {slug_a: washington, slug_b: washington-state, name: "Apple Cup", tier: classic}
+  - {slug_a: texas, slug_b: texas-a-m, name: "Lone Star Showdown", tier: blood}
+  - {slug_a: oklahoma, slug_b: oklahoma-state, name: "Bedlam", tier: classic}
+  - {slug_a: ole-miss, slug_b: mississippi-state, name: "Egg Bowl", tier: blood}
+  - {slug_a: georgia, slug_b: georgia-tech, name: "Clean Old-Fashioned Hate", tier: classic}
+  - {slug_a: clemson, slug_b: south-carolina, name: "Palmetto Bowl", tier: blood}
+  - {slug_a: tennessee, slug_b: alabama, name: "Third Saturday in October", tier: blood}
+  - {slug_a: tennessee, slug_b: vanderbilt, name: "Tennessee-Vanderbilt", tier: regional}
+  - {slug_a: tennessee, slug_b: kentucky, name: "Tennessee-Kentucky", tier: regional}
+  - {slug_a: kentucky, slug_b: louisville, name: "Governor's Cup", tier: classic}
+  - {slug_a: lsu, slug_b: alabama, name: "LSU-Alabama", tier: blood}
+  - {slug_a: lsu, slug_b: ole-miss, name: "Magnolia Bowl", tier: classic}
+  - {slug_a: lsu, slug_b: texas-a-m, name: "LSU-Texas A&M", tier: regional}
+  - {slug_a: auburn, slug_b: georgia, name: "Deep South's Oldest Rivalry", tier: classic}
+  - {slug_a: notre-dame, slug_b: michigan, name: "Notre Dame-Michigan", tier: classic}
+  - {slug_a: notre-dame, slug_b: stanford, name: "Legends Trophy", tier: regional}
+  - {slug_a: ohio-state, slug_b: penn-state, name: "Ohio State-Penn State", tier: classic}
+  - {slug_a: penn-state, slug_b: michigan-state, name: "Land Grant Trophy", tier: regional}
+  - {slug_a: penn-state, slug_b: pittsburgh, name: "Keystone Classic", tier: classic}
+  - {slug_a: iowa, slug_b: iowa-state, name: "Cy-Hawk", tier: blood}
+  - {slug_a: iowa, slug_b: minnesota, name: "Floyd of Rosedale", tier: classic}
+  - {slug_a: iowa, slug_b: nebraska, name: "Heroes Game", tier: classic}
+  - {slug_a: iowa, slug_b: wisconsin, name: "Heartland Trophy", tier: regional}
+  - {slug_a: minnesota, slug_b: wisconsin, name: "Paul Bunyan's Axe", tier: classic}
+  - {slug_a: kansas, slug_b: kansas-state, name: "Sunflower Showdown", tier: classic}
+  - {slug_a: kansas, slug_b: missouri, name: "Border War", tier: classic}
+  - {slug_a: utah, slug_b: byu, name: "Holy War", tier: blood}
+  - {slug_a: utah, slug_b: colorado, name: "Rumble in the Rockies", tier: regional}
+  - {slug_a: colorado, slug_b: colorado-state, name: "Rocky Mountain Showdown", tier: classic}
+  - {slug_a: byu, slug_b: utah-state, name: "Old Wagon Wheel", tier: regional}
+  - {slug_a: arizona, slug_b: arizona-state, name: "Territorial Cup", tier: blood}
+  - {slug_a: california, slug_b: stanford, name: "Big Game", tier: classic}
+  - {slug_a: virginia, slug_b: virginia-tech, name: "Commonwealth Cup", tier: blood}
+  - {slug_a: north-carolina, slug_b: nc-state, name: "Carolina-State", tier: classic}
+  - {slug_a: north-carolina, slug_b: duke, name: "Victory Bell", tier: regional}
+  - {slug_a: miami, slug_b: virginia-tech, name: "Miami-Virginia Tech", tier: regional}
+  - {slug_a: west-virginia, slug_b: pittsburgh, name: "Backyard Brawl", tier: blood}
+  - {slug_a: cincinnati, slug_b: miami-oh, name: "Battle for the Victory Bell (OH)", tier: classic}
+  - {slug_a: texas-tech, slug_b: texas, name: "Texas-Texas Tech", tier: regional}
+  - {slug_a: tcu, slug_b: baylor, name: "Revivalry", tier: classic}
+  - {slug_a: tcu, slug_b: smu, name: "Battle for the Iron Skillet", tier: classic}
+  - {slug_a: houston, slug_b: rice, name: "Bayou Bucket", tier: regional}
+  - {slug_a: arkansas, slug_b: missouri, name: "Battle Line Rivalry", tier: regional}
+  - {slug_a: arkansas, slug_b: lsu, name: "Battle for the Golden Boot", tier: classic}
+  - {slug_a: south-carolina, slug_b: georgia, name: "South Carolina-Georgia", tier: regional}
+  - {slug_a: wisconsin, slug_b: nebraska, name: "Freedom Trophy", tier: regional}
+  - {slug_a: nebraska, slug_b: colorado, name: "Nebraska-Colorado", tier: classic}
+  - {slug_a: ucf, slug_b: south-florida, name: "War on I-4", tier: blood}
+  - {slug_a: memphis, slug_b: ole-miss, name: "Memphis-Ole Miss", tier: regional}
+  - {slug_a: boise-state, slug_b: fresno-state, name: "Milk Can", tier: classic}
+  - {slug_a: nevada, slug_b: unlv, name: "Battle for the Fremont Cannon", tier: classic}
+  - {slug_a: air-force, slug_b: army, name: "Commander-in-Chief (AF-Army)", tier: classic}
+  - {slug_a: air-force, slug_b: navy, name: "Commander-in-Chief (AF-Navy)", tier: classic}
+  - {slug_a: app-state, slug_b: georgia-southern, name: "Deeper Than Hate", tier: classic}
+  - {slug_a: louisiana, slug_b: ul-monroe, name: "Battle on the Bayou", tier: regional}
+  - {slug_a: marshall, slug_b: west-virginia, name: "Friends of Coal Bowl", tier: regional}
+  - {slug_a: toledo, slug_b: bowling-green, name: "Battle of I-75", tier: classic}
+  - {slug_a: akron, slug_b: kent-state, name: "Wagon Wheel", tier: classic}
+  - {slug_a: northern-illinois, slug_b: toledo, name: "NIU-Toledo", tier: regional}
+  - {slug_a: san-diego-state, slug_b: fresno-state, name: "Old Oil Can", tier: regional}
+  - {slug_a: wyoming, slug_b: colorado-state, name: "Border War (Bronze Boot)", tier: classic}
+  - {slug_a: utsa, slug_b: texas-state, name: "I-35 Rivalry", tier: regional}
+  - {slug_a: troy, slug_b: south-alabama, name: "Battle for the Belt", tier: regional}
+  - {slug_a: ohio, slug_b: miami-oh, name: "Battle of the Bricks", tier: classic}
+  - {slug_a: baylor, slug_b: texas-tech, name: "Baylor-Texas Tech", tier: regional}
+  - {slug_a: indiana, slug_b: purdue, name: "Old Oaken Bucket", tier: classic}
+  - {slug_a: illinois, slug_b: northwestern, name: "Land of Lincoln Trophy", tier: classic}
+  - {slug_a: maryland, slug_b: rutgers, name: "Maryland-Rutgers", tier: regional}
+  - {slug_a: oklahoma-state, slug_b: texas-tech, name: "OSU-Texas Tech", tier: regional}
+  - {slug_a: vanderbilt, slug_b: missouri, name: "Vanderbilt-Missouri", tier: regional}
+  - {slug_a: louisville, slug_b: cincinnati, name: "Keg of Nails", tier: classic}
+  - {slug_a: east-carolina, slug_b: nc-state, name: "ECU-NC State", tier: regional}
+  - {slug_a: liberty, slug_b: old-dominion, name: "Commonwealth Clash", tier: regional}
+  - {slug_a: james-madison, slug_b: old-dominion, name: "Royal Rivalry", tier: regional}
+  - {slug_a: hawai-i, slug_b: unlv, name: "Ninth Island Showdown", tier: regional}
+  - {slug_a: georgia-state, slug_b: georgia-southern, name: "Modern Hate", tier: classic}
+  - {slug_a: middle-tennessee, slug_b: western-kentucky, name: "100 Miles of Hate", tier: classic}
+  - {slug_a: louisiana-tech, slug_b: southern-miss, name: "Rivalry in Dixie", tier: regional}
+  - {slug_a: new-mexico, slug_b: new-mexico-state, name: "Rio Grande Rivalry", tier: classic}
+  - {slug_a: idaho, slug_b: boise-state, name: "Idaho-Boise State", tier: regional}
+  - {slug_a: temple, slug_b: villanova, name: "Mayor's Cup", tier: regional}
+  - {slug_a: tulane, slug_b: lsu, name: "Battle for the Rag", tier: regional}
+  - {slug_a: smu, slug_b: rice, name: "Mayor's Cup (TX)", tier: regional}
+  - {slug_a: charlotte, slug_b: app-state, name: "Charlotte-App State", tier: regional}
+  - {slug_a: coastal-carolina, slug_b: app-state, name: "Coastal-App State", tier: regional}
+  - {slug_a: arkansas-state, slug_b: ul-monroe, name: "ASU-ULM", tier: regional}
+  - {slug_a: ball-state, slug_b: northern-illinois, name: "Bronze Stalk Trophy", tier: regional}
+  - {slug_a: buffalo, slug_b: akron, name: "Steel Tire", tier: regional}
+  - {slug_a: eastern-michigan, slug_b: central-michigan, name: "Michigan MAC Trophy (EMU-CMU)", tier: classic}
+  - {slug_a: central-michigan, slug_b: western-michigan, name: "Victory Cannon", tier: classic}
+  - {slug_a: western-michigan, slug_b: eastern-michigan, name: "Michigan MAC Trophy (WMU-EMU)", tier: regional}

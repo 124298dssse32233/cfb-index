@@ -75,6 +75,15 @@ Run "features: build-conversation-features --season=$($global:CurSeason) --week=
 } -Critical
 
 # =========================================================================
+# F.5 Backometer (fan_metrics): 0-100 belief + named zones from the feature
+#     rows just rebuilt above. Whole-season recompute is cheap and lets the
+#     hysteresis walk weeks in order.
+# =========================================================================
+Run "fan-metrics: compute-backometer --season=$($global:CurSeason)" {
+    python manage.py compute-backometer --season $global:CurSeason
+}
+
+# =========================================================================
 # G. Models (in-season only - require fresh game data)
 # =========================================================================
 if ($global:IsInSeason) {

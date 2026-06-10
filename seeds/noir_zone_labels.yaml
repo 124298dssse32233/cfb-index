@@ -1,0 +1,12 @@
+# Backometer zone vocabulary — versioned COPY layer (Noir spec §5).
+# Numeric boundaries are architecture and live in fan_metrics/backometer.py;
+# these words are editorial and renamable per season. Review against
+# lexicon_term_daily trend data — when the slang dies, rename here, never in code.
+# Keys are stable zone ids; never rename a key, only its label.
+zones:
+  so_back: "SO BACK"
+  cooking: "COOKING"
+  uneasy: "UNEASY"
+  cooked: "COOKED"
+  so_over: "IT'S SO OVER"
+low_signal_label: "LOW SIGNAL"

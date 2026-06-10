@@ -1,0 +1,78 @@
+# Curated fan-slang watchlist for lexicon_term_daily (Fan Intelligence suite).
+#
+# Governance: this is an EDITORIAL copy layer (see docs/design-system/40-noir-subbrand.md
+# §5/§10). Review quarterly against the tracker's own trend data — when a term's corpus
+# usage decays, retire it here; when new slang emerges in lexicon_weekly spikes, add it.
+# Variants are matched case-insensitively on word boundaries against normalized
+# title+body text (non-alphanumerics collapse to spaces, so "he's him" == "he s him").
+#
+# group  = stable key used in lexicon_term_daily.term_group (never rename; retire+add)
+# label  = display label for renderers
+# variants = surface forms counted into the group (spans deduped, no double counting)
+terms:
+  - group: so_back
+    label: "we're so back"
+    variants: ["we're so back", "we are so back", "so back"]
+  - group: so_over
+    label: "it's so over"
+    variants: ["it's so over", "it is so over", "so over"]
+  - group: aura
+    label: "aura"
+    variants: ["aura"]
+  - group: cooked
+    label: "cooked"
+    variants: ["cooked", "we're cooked", "they're cooked"]
+  - group: cooking
+    label: "let him cook"
+    variants: ["let him cook", "him cook", "cooking up"]
+  - group: fraud
+    label: "fraud"
+    variants: ["fraud", "frauds", "fraudulent"]
+  - group: him
+    label: "he's him"
+    variants: ["he's him", "he is him", "that man is him"]
+  - group: natty
+    label: "natty"
+    variants: ["natty", "nattys", "natties"]
+  - group: copium
+    label: "copium"
+    variants: ["copium", "cope harder", "coping"]
+  - group: doom
+    label: "dooming"
+    variants: ["dooming", "doomer", "doomers", "doom spiral"]
+  - group: portal
+    label: "transfer portal"
+    variants: ["portal", "portaling", "portalling"]
+  - group: tampering
+    label: "tampering"
+    variants: ["tampering", "tampered", "tamper"]
+  - group: the_bag
+    label: "the bag"
+    variants: ["the bag", "bag secured", "nil bag"]
+  - group: rev_share
+    label: "rev share"
+    variants: ["rev share", "revenue share", "rev sharing"]
+  - group: hot_seat
+    label: "hot seat"
+    variants: ["hot seat", "hotseat"]
+  - group: washed
+    label: "washed"
+    variants: ["washed"]
+  - group: locked_in
+    label: "locked in"
+    variants: ["locked in", "lock in"]
+  - group: delusional
+    label: "delusional"
+    variants: ["delusional", "delusion", "delulu"]
+  - group: rent_free
+    label: "rent free"
+    variants: ["rent free", "rent-free living"]
+  - group: little_brother
+    label: "little brother"
+    variants: ["little brother", "lil brother", "lil bro"]
+  - group: elite
+    label: "elite"
+    variants: ["elite"]
+  - group: glazing
+    label: "glazing"
+    variants: ["glazing", "glazed", "glazer", "glazers"]
