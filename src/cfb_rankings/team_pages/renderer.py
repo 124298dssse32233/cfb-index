@@ -68,6 +68,7 @@ from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
 from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
 from .backometer_module import render_backometer_module, BACKOMETER_MODULE_CSS
 from .rent_free_module import render_rent_free_module, RENT_FREE_MODULE_CSS
+from .delusion_module import render_delusion_module, DELUSION_MODULE_CSS
 from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
 from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
@@ -586,6 +587,9 @@ def _render_page(
     # Rent Free night band — rival obsession readout (Noir suite). Renders only
     # when there's cross-mention signal on at least one side; skips otherwise.
     rent_free_html = render_rent_free_module(db, profile, snapshot) if db is not None else ""
+    # Delusion Premium night band — fan belief vs market title odds (Noir suite).
+    # Renders only for the ~10 contenders with a live championship market.
+    delusion_html = render_delusion_module(db, profile, snapshot) if db is not None else ""
     preview_claim = (
         fetch_team_preview_claim(db, snapshot.team_id)
         if db is not None and snapshot else None
@@ -671,7 +675,7 @@ def _render_page(
     act_outlook = _act(
         "I", "The 2026 Outlook",
         preview_thesis_html, offseason_pulse_html, roster_reload_html,
-        backometer_html, pulse_html,
+        backometer_html, delusion_html, pulse_html,
         aspiration_ladder_html, ceiling_floor_html, top_commits_html,
         recruit_footprint_html,
     )
@@ -788,6 +792,9 @@ body {{
 
 /* Rent Free night band — rival obsession readout (Group Chat Noir) */
 {RENT_FREE_MODULE_CSS}
+
+/* Delusion Premium night band — belief vs market (Group Chat Noir) */
+{DELUSION_MODULE_CSS}
 
 /* Roster Reload - separated continuity, portal, draft, and recruiting */
 {ROSTER_RELOAD_CSS}
