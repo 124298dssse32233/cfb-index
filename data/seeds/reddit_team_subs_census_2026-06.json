@@ -1,0 +1,830 @@
+[
+  {
+    "team": "Alabama",
+    "subreddit": "r/rolltide",
+    "approx_members": "42,600",
+    "activity": "high"
+  },
+  {
+    "team": "Arkansas",
+    "subreddit": "r/razorbacks",
+    "approx_members": "24,900",
+    "activity": "medium"
+  },
+  {
+    "team": "Auburn",
+    "subreddit": "r/wde",
+    "approx_members": "16,700",
+    "activity": "high"
+  },
+  {
+    "team": "Florida",
+    "subreddit": "r/FloridaGators",
+    "approx_members": "48,300",
+    "activity": "high"
+  },
+  {
+    "team": "Georgia",
+    "subreddit": "r/georgiabulldogs",
+    "approx_members": "62,400",
+    "activity": "high"
+  },
+  {
+    "team": "Kentucky",
+    "subreddit": "r/wildcats",
+    "approx_members": "11,600",
+    "activity": "medium"
+  },
+  {
+    "team": "LSU",
+    "subreddit": "r/LSUFootball",
+    "approx_members": "43,100",
+    "activity": "medium (fans mostly on TigerDroppings)"
+  },
+  {
+    "team": "Mississippi State",
+    "subreddit": "r/Msstate",
+    "approx_members": "8,800",
+    "activity": "medium (school sub; fans on SixPackSpeak)"
+  },
+  {
+    "team": "Missouri",
+    "subreddit": "r/mizzou",
+    "approx_members": "12,200",
+    "activity": "medium"
+  },
+  {
+    "team": "Oklahoma",
+    "subreddit": "r/sooners",
+    "approx_members": "25,500",
+    "activity": "medium"
+  },
+  {
+    "team": "Ole Miss",
+    "subreddit": "r/olemiss",
+    "approx_members": "9,200",
+    "activity": "medium (school+sports)"
+  },
+  {
+    "team": "South Carolina",
+    "subreddit": "r/Gamecocks",
+    "approx_members": "20,800",
+    "activity": "medium"
+  },
+  {
+    "team": "Tennessee",
+    "subreddit": "r/ockytop",
+    "approx_members": "41,200",
+    "activity": "high"
+  },
+  {
+    "team": "Texas",
+    "subreddit": "r/LonghornNation",
+    "approx_members": "39,100",
+    "activity": "high (daily talk threads 470-1,200 comments)"
+  },
+  {
+    "team": "Texas A&M",
+    "subreddit": "r/aggies",
+    "approx_members": "67,000",
+    "activity": "high (school+sports hybrid; TexAgs bigger)"
+  },
+  {
+    "team": "Vanderbilt",
+    "subreddit": "r/Vanderbilt",
+    "approx_members": "10,100",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "Illinois",
+    "subreddit": "r/fightingillini",
+    "approx_members": "6,200",
+    "activity": "low (school sub r/UIUC 99.7k for volume)"
+  },
+  {
+    "team": "Indiana",
+    "subreddit": "r/IndianaUniversity",
+    "approx_members": "23,100",
+    "activity": "high (school sub; NO football sub exists)"
+  },
+  {
+    "team": "Iowa",
+    "subreddit": "r/hawkeyes",
+    "approx_members": "9,700",
+    "activity": "medium"
+  },
+  {
+    "team": "Maryland",
+    "subreddit": "r/terps",
+    "approx_members": "2,300",
+    "activity": "low (school sub r/UMD 55k for volume)"
+  },
+  {
+    "team": "Michigan",
+    "subreddit": "r/MichiganWolverines",
+    "approx_members": "87,700",
+    "activity": "high (largest dedicated team sub)"
+  },
+  {
+    "team": "Michigan State",
+    "subreddit": "r/MSUSpartans",
+    "approx_members": "5,800",
+    "activity": "medium"
+  },
+  {
+    "team": "Minnesota",
+    "subreddit": "r/GopherSports",
+    "approx_members": "4,300",
+    "activity": "low"
+  },
+  {
+    "team": "Nebraska",
+    "subreddit": "r/Huskers",
+    "approx_members": "40,400",
+    "activity": "high"
+  },
+  {
+    "team": "Northwestern",
+    "subreddit": "r/Northwestern",
+    "approx_members": "20,000",
+    "activity": "high (school sub; no sports sub)"
+  },
+  {
+    "team": "Ohio State",
+    "subreddit": "r/OhioStateFootball",
+    "approx_members": "65,100",
+    "activity": "high (football-only)"
+  },
+  {
+    "team": "Oregon",
+    "subreddit": "r/ducks",
+    "approx_members": "28,700",
+    "activity": "high"
+  },
+  {
+    "team": "Penn State",
+    "subreddit": "r/PennStateUniversity",
+    "approx_members": "45,700",
+    "activity": "high (school sub; no football sub exists)"
+  },
+  {
+    "team": "Purdue",
+    "subreddit": "r/Boilermakers",
+    "approx_members": "5,900",
+    "activity": "medium"
+  },
+  {
+    "team": "Rutgers",
+    "subreddit": "r/rutgers",
+    "approx_members": "75,900",
+    "activity": "high (school sub; no live football sub)"
+  },
+  {
+    "team": "UCLA",
+    "subreddit": "r/ucla",
+    "approx_members": "90,900",
+    "activity": "high (school sub; no sports sub)"
+  },
+  {
+    "team": "USC",
+    "subreddit": "r/USC",
+    "approx_members": "55,500",
+    "activity": "high (school sub; r/USCTrojans dead/restricted)"
+  },
+  {
+    "team": "Washington",
+    "subreddit": "r/huskies",
+    "approx_members": "19,800",
+    "activity": "medium"
+  },
+  {
+    "team": "Wisconsin",
+    "subreddit": "r/WisconsinBadgers",
+    "approx_members": "25,200",
+    "activity": "low (quiet offseason; school r/UWMadison)"
+  },
+  {
+    "team": "Boston College",
+    "subreddit": "r/bostoncollege",
+    "approx_members": "8,600",
+    "activity": "medium (school+sports)"
+  },
+  {
+    "team": "California",
+    "subreddit": "r/berkeley",
+    "approx_members": "156,100",
+    "activity": "high (school sub; r/calbears dead)"
+  },
+  {
+    "team": "Clemson",
+    "subreddit": "r/Clemson",
+    "approx_members": "25,600",
+    "activity": "medium (school+sports; r/ClemsonTigers 10.8k low; TigerNet bigger)"
+  },
+  {
+    "team": "Duke",
+    "subreddit": "r/duke",
+    "approx_members": "16,000",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "Florida State",
+    "subreddit": "r/fsusports",
+    "approx_members": "20,900",
+    "activity": "medium (Warchant bigger)"
+  },
+  {
+    "team": "Georgia Tech",
+    "subreddit": "r/gatech",
+    "approx_members": "53,400",
+    "activity": "high (school+sports; r/Yellowjackets is the TV show)"
+  },
+  {
+    "team": "Louisville",
+    "subreddit": "r/uofl",
+    "approx_members": "1,500",
+    "activity": "low"
+  },
+  {
+    "team": "Miami",
+    "subreddit": "r/MiamiHurricanes",
+    "approx_members": "17,000",
+    "activity": "medium (r/canes is NHL)"
+  },
+  {
+    "team": "NC State",
+    "subreddit": "r/NCSU",
+    "approx_members": "33,300",
+    "activity": "high (school sub; fans also on PackPride)"
+  },
+  {
+    "team": "North Carolina",
+    "subreddit": "r/tarheels",
+    "approx_members": "11,200",
+    "activity": "medium"
+  },
+  {
+    "team": "Pittsburgh",
+    "subreddit": "r/Pitt",
+    "approx_members": "31,600",
+    "activity": "high (school+sports)"
+  },
+  {
+    "team": "SMU",
+    "subreddit": "r/SMU",
+    "approx_members": "5,900",
+    "activity": "medium (school+sports)"
+  },
+  {
+    "team": "Stanford",
+    "subreddit": "r/StanfordCardinal",
+    "approx_members": "2,100",
+    "activity": "medium (sports-specific; school r/stanford 42.6k)"
+  },
+  {
+    "team": "Syracuse",
+    "subreddit": "r/cuse",
+    "approx_members": "2,900",
+    "activity": "dead (school r/SyracuseU medium; r/Syracuse is the city)"
+  },
+  {
+    "team": "Virginia",
+    "subreddit": "r/UVA",
+    "approx_members": "29,000",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "Virginia Tech",
+    "subreddit": "r/hokies",
+    "approx_members": "2,700",
+    "activity": "medium (sports-specific; TechSideline bigger)"
+  },
+  {
+    "team": "Wake Forest",
+    "subreddit": "r/wfu",
+    "approx_members": "2,200",
+    "activity": "low (school sub; sports subs dead)"
+  },
+  {
+    "team": "Arizona",
+    "subreddit": "r/ArizonaWildcats",
+    "approx_members": "2,900",
+    "activity": "low"
+  },
+  {
+    "team": "Arizona State",
+    "subreddit": "r/sundevils",
+    "approx_members": "800",
+    "activity": "dead (school r/ASU 62k high)"
+  },
+  {
+    "team": "Baylor",
+    "subreddit": "r/baylor",
+    "approx_members": "9,300",
+    "activity": "medium (school+sports)"
+  },
+  {
+    "team": "BYU",
+    "subreddit": "r/byu",
+    "approx_members": "13,100",
+    "activity": "medium (school sub; r/BYUFootball dead; CougarBoard dominates)"
+  },
+  {
+    "team": "Cincinnati",
+    "subreddit": "r/uCinci",
+    "approx_members": "13,000",
+    "activity": "medium (school sub; no Bearcats sub exists)"
+  },
+  {
+    "team": "Colorado",
+    "subreddit": "r/cuboulder",
+    "approx_members": "28,700",
+    "activity": "high (school sub; NO Buffs sub exists)"
+  },
+  {
+    "team": "Houston",
+    "subreddit": "r/HoustonCougars",
+    "approx_members": "500",
+    "activity": "low (school r/UniversityOfHouston 42k high)"
+  },
+  {
+    "team": "Iowa State",
+    "subreddit": "r/cyclONEnation",
+    "approx_members": "3,600",
+    "activity": "low (CycloneFanatic dominates; r/cyclones doesn't exist)"
+  },
+  {
+    "team": "Kansas",
+    "subreddit": "r/jayhawks",
+    "approx_members": "13,000",
+    "activity": "medium"
+  },
+  {
+    "team": "Kansas State",
+    "subreddit": "r/KState",
+    "approx_members": "4,600",
+    "activity": "dead (fans on GoPowercat/EMAW boards)"
+  },
+  {
+    "team": "Oklahoma State",
+    "subreddit": "r/OKState",
+    "approx_members": "10,700",
+    "activity": "medium (school+sports)"
+  },
+  {
+    "team": "TCU",
+    "subreddit": "r/TCU",
+    "approx_members": "6,300",
+    "activity": "low"
+  },
+  {
+    "team": "Texas Tech",
+    "subreddit": "r/TexasTech",
+    "approx_members": "24,500",
+    "activity": "high (school+sports)"
+  },
+  {
+    "team": "UCF",
+    "subreddit": "r/UCFKnights",
+    "approx_members": "5,400",
+    "activity": "dead (school r/ucf 85.6k high)"
+  },
+  {
+    "team": "Utah",
+    "subreddit": "r/UtahUtes",
+    "approx_members": "1,400",
+    "activity": "dead (fans on UteFans/UteHub; school r/uofu medium)"
+  },
+  {
+    "team": "West Virginia",
+    "subreddit": "r/WVU",
+    "approx_members": "13,400",
+    "activity": "medium (school+sports)"
+  },
+  {
+    "team": "Boise State",
+    "subreddit": "r/BSUFootball",
+    "approx_members": "5,000",
+    "activity": "low (~3 posts/day in season; Bronco Nation News bigger)"
+  },
+  {
+    "team": "Colorado State",
+    "subreddit": "r/CSURams",
+    "approx_members": "2,400",
+    "activity": "low"
+  },
+  {
+    "team": "Fresno State",
+    "subreddit": "r/fresnostate",
+    "approx_members": "3,200",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Oregon State",
+    "subreddit": "r/OregonStateUniv",
+    "approx_members": "16,800",
+    "activity": "high (school sub; beavs subs dead)"
+  },
+  {
+    "team": "San Diego State",
+    "subreddit": "r/SDSU",
+    "approx_members": "27,400",
+    "activity": "high (school sub; r/SDSUAZTECS 1.4k low)"
+  },
+  {
+    "team": "Texas State",
+    "subreddit": "r/txstate",
+    "approx_members": "15,300",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "Utah State",
+    "subreddit": "r/usu",
+    "approx_members": "3,400",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "Washington State",
+    "subreddit": "r/wsu",
+    "approx_members": "16,600",
+    "activity": "medium (school sub; r/wsucougars 2.4k low)"
+  },
+  {
+    "team": "Air Force",
+    "subreddit": "r/USAFA",
+    "approx_members": "4,000",
+    "activity": "medium (academy sub; r/AirForceAcademy restricted)"
+  },
+  {
+    "team": "Hawaii",
+    "subreddit": "r/UHManoa",
+    "approx_members": "2,600",
+    "activity": "medium (school sub; fans on SportsHawaii.com; r/Hawaii is state noise)"
+  },
+  {
+    "team": "Nevada",
+    "subreddit": "r/unr",
+    "approx_members": "9,100",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "New Mexico",
+    "subreddit": "r/unm",
+    "approx_members": "4,100",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "North Dakota State",
+    "subreddit": "r/NDSU",
+    "approx_members": "1,300",
+    "activity": "dead (BisonVille forum dominates)"
+  },
+  {
+    "team": "Northern Illinois",
+    "subreddit": "r/NIU",
+    "approx_members": "4,500",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "San Jose State",
+    "subreddit": "r/SJSU",
+    "approx_members": "28,000",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "UNLV",
+    "subreddit": "r/UNLV",
+    "approx_members": "14,200",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "UTEP",
+    "subreddit": "r/UTEP",
+    "approx_members": "2,100",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "Wyoming",
+    "subreddit": "r/uwyo",
+    "approx_members": "1,100",
+    "activity": "dead"
+  },
+  {
+    "team": "Army",
+    "subreddit": "r/westpoint",
+    "approx_members": "2,100",
+    "activity": "medium (academy sub; no football sub)"
+  },
+  {
+    "team": "Charlotte",
+    "subreddit": "r/UNCCharlotte",
+    "approx_members": "17,700",
+    "activity": "high (school sub; r/Charlotte49ers dead)"
+  },
+  {
+    "team": "East Carolina",
+    "subreddit": "r/ECUPirates",
+    "approx_members": "73",
+    "activity": "dead (no real ECU sub; r/ECU doesn't exist)"
+  },
+  {
+    "team": "Florida Atlantic",
+    "subreddit": "r/FAU",
+    "approx_members": "5,400",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Memphis",
+    "subreddit": "r/MemphisTigers",
+    "approx_members": "1,700",
+    "activity": "dead (school r/UofMemphis low)"
+  },
+  {
+    "team": "Navy",
+    "subreddit": "r/usna",
+    "approx_members": "3,000",
+    "activity": "medium (academy sub; r/NavyFootball dead)"
+  },
+  {
+    "team": "North Texas",
+    "subreddit": "r/unt",
+    "approx_members": "26,600",
+    "activity": "high (school sub; r/meangreen dead)"
+  },
+  {
+    "team": "Rice",
+    "subreddit": "r/riceuniversity",
+    "approx_members": "9,800",
+    "activity": "medium (school sub; r/RICE is the food)"
+  },
+  {
+    "team": "South Florida",
+    "subreddit": "r/USF",
+    "approx_members": "28,000",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "Temple",
+    "subreddit": "r/Temple",
+    "approx_members": "25,400",
+    "activity": "high (school sub; r/TempleOwls restricted)"
+  },
+  {
+    "team": "Tulane",
+    "subreddit": "r/Tulane",
+    "approx_members": "6,600",
+    "activity": "medium (school sub, self-titled Green Wave subreddit)"
+  },
+  {
+    "team": "Tulsa",
+    "subreddit": "r/utulsa",
+    "approx_members": "1,100",
+    "activity": "dead (restricted)"
+  },
+  {
+    "team": "UAB",
+    "subreddit": "r/UAB",
+    "approx_members": "4,400",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "UTSA",
+    "subreddit": "r/UTSA",
+    "approx_members": "24,700",
+    "activity": "high (school sub; r/UTSAFootball dead)"
+  },
+  {
+    "team": "Delaware",
+    "subreddit": "r/udel",
+    "approx_members": "6,200",
+    "activity": "low (school sub; r/BlueHens dead)"
+  },
+  {
+    "team": "FIU",
+    "subreddit": "r/FIU",
+    "approx_members": "12,900",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Jacksonville State",
+    "subreddit": "r/JacksonvilleState",
+    "approx_members": "73",
+    "activity": "dead"
+  },
+  {
+    "team": "Kennesaw State",
+    "subreddit": "r/KSU",
+    "approx_members": "16,500",
+    "activity": "high (school sub)"
+  },
+  {
+    "team": "Liberty",
+    "subreddit": "r/LibertyUniversity",
+    "approx_members": "6,600",
+    "activity": "medium (school sub; r/LibertyFlames dead)"
+  },
+  {
+    "team": "Louisiana Tech",
+    "subreddit": "r/LouisianaTech",
+    "approx_members": "2,000",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "Middle Tennessee",
+    "subreddit": "r/MTSU",
+    "approx_members": "3,800",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Missouri State",
+    "subreddit": "r/missouristate",
+    "approx_members": "1,300",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "New Mexico State",
+    "subreddit": "r/nmsu",
+    "approx_members": "2,000",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "Sam Houston",
+    "subreddit": "r/SHSU",
+    "approx_members": "2,600",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Western Kentucky",
+    "subreddit": "r/WKU",
+    "approx_members": "2,300",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "Akron",
+    "subreddit": "r/uakron",
+    "approx_members": "1,700",
+    "activity": "dead (r/akron is the city)"
+  },
+  {
+    "team": "Ball State",
+    "subreddit": "r/BallState",
+    "approx_members": "3,900",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "Bowling Green",
+    "subreddit": "r/BGSU",
+    "approx_members": "2,500",
+    "activity": "low (school sub)"
+  },
+  {
+    "team": "Buffalo",
+    "subreddit": "r/UBreddit",
+    "approx_members": "26,000",
+    "activity": "high (school sub; r/UBBulls dead)"
+  },
+  {
+    "team": "Central Michigan",
+    "subreddit": "(none found)",
+    "approx_members": "0",
+    "activity": "dead (no sub exists)"
+  },
+  {
+    "team": "Eastern Michigan",
+    "subreddit": "(none found)",
+    "approx_members": "0",
+    "activity": "dead (no sub exists)"
+  },
+  {
+    "team": "Kent State",
+    "subreddit": "(none found)",
+    "approx_members": "0",
+    "activity": "dead (no sub exists)"
+  },
+  {
+    "team": "Miami (OH)",
+    "subreddit": "r/miamioh",
+    "approx_members": "4,700",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Ohio",
+    "subreddit": "r/ohiouniversity",
+    "approx_members": "4,100",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Sacramento State",
+    "subreddit": "r/CSUS",
+    "approx_members": "24,500",
+    "activity": "high (school sub; FBS newcomer 2026)"
+  },
+  {
+    "team": "Toledo",
+    "subreddit": "r/UToledo",
+    "approx_members": "350",
+    "activity": "dead"
+  },
+  {
+    "team": "Western Michigan",
+    "subreddit": "r/WMU",
+    "approx_members": "4,000",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "UMass",
+    "subreddit": "r/umass",
+    "approx_members": "22,900",
+    "activity": "high (school sub; r/UMassMinutemen dead)"
+  },
+  {
+    "team": "Appalachian State",
+    "subreddit": "r/appstate",
+    "approx_members": "9,600",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Arkansas State",
+    "subreddit": "r/AState",
+    "approx_members": "2",
+    "activity": "dead"
+  },
+  {
+    "team": "Coastal Carolina",
+    "subreddit": "r/CCU",
+    "approx_members": "500",
+    "activity": "dead"
+  },
+  {
+    "team": "Georgia Southern",
+    "subreddit": "r/GSU",
+    "approx_members": "3,500",
+    "activity": "low (r/georgiasouthern restricted)"
+  },
+  {
+    "team": "Georgia State",
+    "subreddit": "r/georgiastate",
+    "approx_members": "300",
+    "activity": "dead (restricted)"
+  },
+  {
+    "team": "James Madison",
+    "subreddit": "r/jmu",
+    "approx_members": "12,000",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "Louisiana",
+    "subreddit": "r/ragincajuns",
+    "approx_members": "1,400",
+    "activity": "dead"
+  },
+  {
+    "team": "Marshall",
+    "subreddit": "r/MarshallUniversity",
+    "approx_members": "1,000",
+    "activity": "dead (r/marshall is guitar amps)"
+  },
+  {
+    "team": "Old Dominion",
+    "subreddit": "r/ODU",
+    "approx_members": "3,900",
+    "activity": "medium (school sub)"
+  },
+  {
+    "team": "South Alabama",
+    "subreddit": "r/usouthal",
+    "approx_members": "560",
+    "activity": "dead (restricted)"
+  },
+  {
+    "team": "Southern Miss",
+    "subreddit": "r/southernmiss",
+    "approx_members": "1,000",
+    "activity": "dead (restricted)"
+  },
+  {
+    "team": "Troy",
+    "subreddit": "r/TroyTrojans",
+    "approx_members": "330",
+    "activity": "low"
+  },
+  {
+    "team": "UL Monroe",
+    "subreddit": "r/ulmonroe",
+    "approx_members": "210",
+    "activity": "dead (restricted; r/Ulm is the German city)"
+  },
+  {
+    "team": "Notre Dame",
+    "subreddit": "r/notredamefootball",
+    "approx_members": "27,100",
+    "activity": "high (football-only; ~14 posts/day in season)"
+  },
+  {
+    "team": "UConn",
+    "subreddit": "r/UCONN",
+    "approx_members": "27,600",
+    "activity": "high (school sub; r/UConnHuskies dead)"
+  }
+]
