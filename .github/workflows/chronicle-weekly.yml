@@ -232,18 +232,19 @@ jobs:
           # 2. Free VRAM >= 10 GB (10000 MiB)
           # Ollama loads/evicts models on demand, so a recently-used model
           # legitimately holding VRAM at preflight time is fine — it gets
-          # swapped out when the run needs the other model. Require only a
-          # sanity floor (no foreign process hogging the card) plus total
-          # capacity for the 24GB-class models.
-          free_vram=$(nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits | head -1 | tr -d ' ')
+          # swapped out when the run needs the other model. What actually
+          # matters: total capacity for the 24B-class models, and that no
+          # NON-Ollama process is squatting on the card.
           total_vram=$(nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits | head -1 | tr -d ' ')
-          echo "[preflight] VRAM: ${free_vram} MiB free / ${total_vram} MiB total"
+          foreign_vram=$(nvidia-smi --query-compute-apps=process_name,used_memory --format=csv,noheader,nounits \
+            | awk -F', *' 'tolower($1) !~ /ollama/ {s+=$2} END {print s+0}')
+          echo "[preflight] VRAM: ${total_vram} MiB total, ${foreign_vram} MiB held by non-Ollama processes"
           if [ "$total_vram" -lt 20000 ]; then
             echo "::error::GPU too small: ${total_vram}MiB total (need >=20000 MiB for the 24B writer)"
             exit 1
           fi
-          if [ "$free_vram" -lt 2000 ]; then
-            echo "::error::Almost no free VRAM (${free_vram}MiB) — a non-Ollama process is hogging the GPU"
+          if [ "$foreign_vram" -gt 4000 ]; then
+            echo "::error::Non-Ollama processes hold ${foreign_vram}MiB VRAM — generation would thrash"
             exit 1
           fi
 
