@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CFB Index — Rankings (mobile redesign mock v4 · bespoke imagery)</title>
+<!--
+  v4 — richer CFB imagery pass (personal use). Adds on top of v3:
+  · field-texture HERO (navy gridiron + faded football watermark + hash rows)
+  · conference logos on rows + filter chips (ESPN conf CDN, text fallback)
+  · CFP-bracket glyph on the cutline + a helmet glyph
+  · "Key players" slot in the drawer (team-color headshot avatars; silhouette now,
+    wires to real ESPN headshots in production)
+  Built on the critique-driven v2/v3 (standings sheet · editorial masthead ·
+  Tri-Rank belief chips · real team logos). Tokens: docs/design-system/00-tokens.md.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --color-navy-50:#E6F1FB;--color-navy-100:#B5D4F4;--color-navy-200:#85B7EB;--color-navy-400:#378ADD;--color-navy-600:#185FA5;--color-navy-800:#0C447C;--color-navy-900:#042C53;
+  --color-coral-50:#FAECE7;--color-coral-100:#F5C4B3;--color-coral-200:#F0997B;--color-coral-400:#D85A30;--color-coral-600:#993C1D;
+  --color-amber-50:#FAEEDA;--color-amber-100:#FAC775;--color-amber-200:#EF9F27;--color-amber-400:#BA7517;--color-amber-600:#854F0B;--color-amber-800:#633806;
+  --color-gray-50:#F1EFE8;--color-gray-100:#D3D1C7;--color-gray-200:#B4B2A9;--color-gray-400:#888780;--color-gray-600:#5F5E5A;--color-gray-800:#444441;--color-gray-900:#2C2C2A;
+  --color-green-200:#5DCAA5;--color-green-400:#1D9E75;--color-green-600:#0F6E56;
+  --color-red-200:#F09595;--color-red-400:#E24B4A;--color-red-600:#A32D2D;
+  --color-ink:#141618;--color-text:var(--color-ink);--color-text-muted:#6C6C6E;--color-text-subtle:#9A9A97;
+  --color-surface:#FBFAF7;--color-surface-card:#FFFFFF;--color-line:#E4E2DC;--color-line-strong:#CFCCC4;
+  --font-sans:'Inter','SF Pro Text',system-ui,sans-serif;
+  --font-serif:'Source Serif 4','Source Serif Pro',Georgia,serif;
+  --font-display:'Bebas Neue','Trade Gothic Bold Condensed',sans-serif;
+  --sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;
+  --radius-sm:3px;--radius-md:6px;--radius-full:9999px;
+  --ease-emph:cubic-bezier(0.2,0,0,1);--ease-decel:cubic-bezier(0.05,0.7,0.1,1);
+  --tap:48px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{background:#232320;font-family:var(--font-sans);color:var(--color-text);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.g{vertical-align:-2px;margin-right:5px;flex:0 0 auto;}
+.device{width:390px;min-height:844px;background:var(--color-surface);position:relative;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.45);}
+@media(max-width:430px){.device{box-shadow:none;}}
+
+/* ===== masthead ===== */
+.masthead{position:sticky;top:0;z-index:40;color:#fff;padding:max(env(safe-area-inset-top),8px) var(--sp-4) 0;background-color:var(--color-ink);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 38px);}
+.mh-row{height:46px;display:flex;align-items:center;justify-content:space-between;}
+.mh-brand{font-family:var(--font-display);font-size:27px;letter-spacing:.04em;line-height:1;display:flex;align-items:center;gap:8px;}
+.mh-brand b{color:var(--color-coral-200);font-weight:400;}
+.mh-brand .g{color:var(--color-amber-200);margin:0;}
+.mh-actions{display:flex;gap:2px;}
+.mh-btn{width:var(--tap);height:var(--tap);margin:0 -4px;border:0;background:transparent;color:#fff;opacity:.85;font-size:18px;display:grid;place-items:center;cursor:pointer;}
+.dateline{display:flex;align-items:center;gap:8px;padding:0 0 9px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.66);font-weight:500;}
+.dateline .pulse{width:6px;height:6px;border-radius:var(--radius-full);background:var(--color-green-200);animation:pulse 2.4s var(--ease-emph) infinite;}
+@keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* ===== one-line finding banner (board-first; hero removed per v5 critique) ===== */
+.finding{padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--color-line);background:var(--color-surface);}
+.finding .kick{display:flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-coral-400);margin-bottom:5px;}
+.finding p{margin:0;font-family:var(--font-serif);font-size:15px;line-height:1.35;color:var(--color-gray-900);}
+.finding p b{font-weight:600;}
+
+/* ===== lens tabs ===== */
+.lens{display:flex;gap:var(--sp-5);padding:0 var(--sp-4);background:var(--color-surface);position:sticky;top:55px;z-index:30;border-bottom:1px solid var(--color-line);}
+.lens button{border:0;background:0;padding:var(--sp-3) 0;font-size:13px;font-weight:600;color:var(--color-text-subtle);letter-spacing:.02em;cursor:pointer;position:relative;}
+.lens button[aria-selected="true"]{color:var(--color-ink);}
+.lens button[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--color-coral-400);}
+.filterbar{display:flex;align-items:center;gap:var(--sp-2);overflow-x:auto;padding:var(--sp-2) var(--sp-4);scrollbar-width:none;border-bottom:1px solid var(--color-line);background:var(--color-surface);}
+.filterbar::-webkit-scrollbar{display:none;}
+.fchip{flex:0 0 auto;height:30px;padding:0 11px;display:flex;align-items:center;gap:5px;border-radius:var(--radius-full);background:transparent;border:1px solid var(--color-line-strong);font-size:12px;font-weight:500;color:var(--color-gray-800);cursor:pointer;white-space:nowrap;}
+.fchip[aria-pressed="true"]{background:var(--color-ink);border-color:var(--color-ink);color:#fff;}
+.fchip img{width:14px;height:14px;object-fit:contain;}
+.fchip .x{opacity:.6;}
+
+/* ===== board ===== */
+.sheet{background:var(--color-surface-card);}
+.colhead{display:grid;grid-template-columns:3px 42px 1fr 60px 20px;align-items:center;gap:var(--sp-2);padding:8px var(--sp-4) 8px 0;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-subtle);font-weight:600;border-bottom:1px solid var(--color-line-strong);}
+.colhead .c-pow{text-align:right;}
+.row{display:block;border-bottom:1px solid var(--color-line);animation:dealin 320ms var(--ease-decel) both;}
+.row-main{display:grid;grid-template-columns:3px 42px 1fr 60px 20px;align-items:center;gap:var(--sp-2);padding:10px var(--sp-4) 10px 0;min-height:var(--tap);cursor:pointer;}
+.row:active .row-main{background:var(--color-gray-50);}
+@keyframes dealin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.tcr{width:3px;align-self:stretch;border-radius:var(--radius-full);}
+.rk{font-family:var(--font-display);font-size:37px;line-height:.7;color:var(--color-ink);text-align:center;position:relative;padding-top:4px;}
+.rk .mom{position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);width:18px;height:2px;border-radius:2px;}
+.row.lead .rk{color:var(--color-amber-600);}
+.row.lead .row-main{background:linear-gradient(90deg,color-mix(in srgb,var(--tc,#BB0000) 10%,transparent),transparent 58%);}
+.idb{display:flex;align-items:center;gap:10px;min-width:0;}
+.logo{width:30px;height:30px;flex:0 0 auto;position:relative;}
+.logo img{width:30px;height:30px;object-fit:contain;display:block;}
+.logo .fb{display:none;position:absolute;inset:0;border-radius:var(--radius-full);place-items:center;color:#fff;font-family:var(--font-display);font-size:11px;letter-spacing:.03em;}
+.idtext{min-width:0;}
+.nm{display:flex;align-items:center;font-size:15.5px;font-weight:600;line-height:1.1;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;}
+.nm .star{color:var(--color-amber-400);margin-right:4px;}
+.nm .t{overflow:hidden;text-overflow:ellipsis;}
+.meta{display:flex;align-items:center;gap:7px;margin-top:4px;font-size:11px;color:var(--color-text-muted);}
+.conf{display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--color-gray-600);letter-spacing:.03em;}
+.conf img{width:13px;height:13px;object-fit:contain;}
+.dvr{color:var(--color-line-strong);}
+.bchip{display:inline-flex;align-items:center;gap:4px;height:18px;padding:0 7px;border-radius:var(--radius-full);font-size:10.5px;font-weight:600;}
+.bchip.hot{background:var(--color-coral-50);color:var(--color-coral-600);}
+.bchip.cold{background:var(--color-navy-50);color:var(--color-navy-800);}
+.bchip.align{background:var(--color-gray-50);color:var(--color-gray-600);}
+.pow{text-align:right;}
+.pow .v{font-size:18px;font-weight:600;line-height:1;letter-spacing:-.02em;}
+.pow .l{font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-subtle);margin-top:4px;}
+.pow .l b{color:var(--color-gray-600);font-weight:600;}
+.chev{justify-self:center;color:var(--color-text-subtle);font-size:15px;transition:transform 300ms var(--ease-emph);}
+.row.open .chev{transform:rotate(90deg);}
+.cutline{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px var(--sp-4);background:var(--color-amber-50);color:var(--color-amber-800);font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;border-top:1px solid var(--color-amber-200);border-bottom:1px solid var(--color-amber-200);}
+.cutline .g{color:var(--color-amber-600);}
+
+/* ===== drawer ===== */
+.detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows 300ms var(--ease-emph);background:var(--color-gray-50);}
+.row.open .detail{grid-template-rows:1fr;}
+.detail-in{overflow:hidden;}
+.dpad{padding:var(--sp-3) var(--sp-4) var(--sp-4);}
+.lbl{display:flex;align-items:center;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-subtle);font-weight:600;margin:var(--sp-3) 0 var(--sp-2);}
+.lbl:first-child{margin-top:0;}
+.tri{background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-md);padding:var(--sp-3) var(--sp-4) var(--sp-4);}
+.tri-scale{position:relative;height:6px;border-radius:var(--radius-full);background:var(--color-gray-100);margin:18px 6px 8px;}
+.tri-tick{position:absolute;top:-15px;transform:translateX(-50%);font-size:9px;font-weight:700;white-space:nowrap;}
+.tri-tick::after{content:"";position:absolute;left:50%;top:14px;width:11px;height:11px;border-radius:var(--radius-full);transform:translateX(-50%);border:2px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,.2);}
+.tri-tick.m::after{background:var(--color-navy-600);}.tri-tick.m{color:var(--color-navy-800);}
+.tri-tick.r::after{background:var(--color-coral-400);}.tri-tick.r{color:var(--color-coral-600);}
+.tri-tick.n::after{background:var(--color-amber-400);}.tri-tick.n{color:var(--color-amber-600);}
+.tri-note{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-gray-800);margin-top:14px;}
+.tri-note .mk{color:var(--color-coral-400);font-style:normal;font-weight:700;font-size:9px;vertical-align:super;font-family:var(--font-sans);}
+.dp{display:flex;align-items:center;gap:var(--sp-4);background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-md);padding:var(--sp-3) var(--sp-4);}
+.dp-big{font-family:var(--font-display);font-size:34px;line-height:.8;color:var(--color-navy-800);}
+.dp-big small{font-family:var(--font-sans);font-size:12px;font-weight:600;color:var(--color-text-muted);}
+.dp-dots{display:flex;flex-wrap:wrap;gap:4px;width:128px;}
+.dp-dots i{width:11px;height:11px;border-radius:3px;background:var(--color-gray-100);}
+.dp-dots i.on{background:var(--color-navy-600);}
+.dp-dots i.bub{background:var(--color-amber-200);}
+.dp-cap{font-size:10px;color:var(--color-text-subtle);margin-top:5px;}
+.sv{margin-bottom:var(--sp-3);}.sv:last-of-type{margin-bottom:0;}
+.sv-t{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;margin-bottom:4px;}
+.sv-t .nm2{color:var(--color-gray-800);}
+.sv-t .pct{font-weight:700;font-size:13px;}
+.sv-bar{position:relative;height:7px;border-radius:var(--radius-full);background:linear-gradient(90deg,var(--color-red-200),var(--color-gray-100) 50%,var(--color-navy-200));}
+.sv-bar::before{content:"";position:absolute;left:50%;top:-2.5px;width:1px;height:12px;background:var(--color-gray-400);opacity:.55;border-radius:1px;}
+.sv-dot{position:absolute;top:50%;width:13px;height:13px;border-radius:var(--radius-full);transform:translate(-50%,-50%);background:#fff;border:2.5px solid var(--color-ink);}
+.fpmore{font-size:11px;font-weight:600;color:var(--color-navy-800);margin-top:var(--sp-2);display:inline-block;}
+/* key players */
+.kp{display:flex;gap:var(--sp-2);}
+.kpc{flex:1;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-md);padding:8px 10px;min-width:0;}
+.kpa{width:34px;height:34px;flex:0 0 auto;border-radius:var(--radius-full);display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--tc) 70%,#fff 30%),var(--tc));box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5);}
+.kpa svg{width:30px;height:30px;color:rgba(255,255,255,.92);margin-top:5px;}
+.kpa img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.kpn{font-size:12.5px;font-weight:600;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.kpp{font-size:10px;color:var(--color-text-muted);letter-spacing:.04em;margin-top:2px;}
+.kpline{font-size:13px;line-height:1.6;color:var(--color-gray-900);}
+.kpline .kpn{font-weight:600;}
+.kpline .kpp{font-size:11px;color:var(--color-text-muted);margin:0 0 0 4px;}
+.kpline .kpsep{color:var(--color-line-strong);margin:0 7px;}
+.why{font-family:var(--font-serif);font-size:14px;line-height:1.5;color:var(--color-gray-900);margin:var(--sp-2) 0 0;}
+.why .mk{color:var(--color-coral-400);font-weight:700;font-size:9px;vertical-align:super;font-family:var(--font-sans);}
+.cta{display:flex;gap:var(--sp-2);margin-top:var(--sp-4);}
+.cta a{flex:1;text-align:center;height:42px;line-height:42px;border-radius:var(--radius-md);font-size:13px;font-weight:600;text-decoration:none;}
+.cta .pri{background:var(--color-ink);color:#fff;}
+.cta .gh{border:1px solid var(--color-line-strong);color:var(--color-ink);}
+.trend{display:flex;align-items:center;gap:var(--sp-3);background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-md);padding:var(--sp-2) var(--sp-4);}
+.trend .dl{font-size:13px;font-weight:700;}
+.trend .up{color:var(--color-green-600);}.trend .down{color:var(--color-red-600);}.trend .flat{color:var(--color-text-subtle);}
+.trend .cap{font-size:11px;color:var(--color-text-muted);}
+.loadmore{margin:var(--sp-4);width:calc(100% - var(--sp-4)*2);height:46px;border:1px solid var(--color-line-strong);background:#fff;border-radius:var(--radius-md);color:var(--color-ink);font-weight:600;font-size:13px;}
+.stories{padding:var(--sp-5) 0 var(--sp-3);background:var(--color-surface);border-top:8px solid var(--color-gray-50);}
+.stories h2{display:flex;align-items:center;font-family:var(--font-serif);font-weight:600;font-size:17px;margin:0 var(--sp-4) 3px;}
+.stories .sub{font-size:11px;color:var(--color-text-muted);margin:0 var(--sp-4) var(--sp-3);}
+.srow{display:flex;gap:var(--sp-3);overflow-x:auto;padding:0 var(--sp-4) var(--sp-2);scrollbar-width:none;scroll-snap-type:x mandatory;}
+.srow::-webkit-scrollbar{display:none;}
+.story{flex:0 0 210px;scroll-snap-align:start;border-left:2px solid var(--color-coral-400);padding:2px 0 2px var(--sp-3);}
+.story.nv{border-color:var(--color-navy-600);}.story.am{border-color:var(--color-amber-400);}
+.story .eye{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600;}
+.story .big{font-family:var(--font-display);font-size:32px;line-height:.95;margin:5px 0 3px;color:var(--color-ink);}
+.story .t{font-size:12px;color:var(--color-gray-800);line-height:1.4;}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;z-index:50;background:rgba(251,250,247,.96);border-top:1px solid var(--color-line);display:flex;padding-bottom:env(safe-area-inset-bottom);}
+.tab{flex:1;height:54px;border:0;background:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--color-gray-400);font-size:10px;font-weight:500;cursor:pointer;}
+.tab .ti{font-size:17px;}
+.tab[aria-selected="true"]{color:var(--color-ink);}
+.pad{height:84px;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="device" id="app">
+  <header class="masthead">
+    <div class="mh-row">
+      <div class="mh-brand"><span class="g" id="ballbrand"></span>THE CFB <b>INDEX</b></div>
+      <div class="mh-actions">
+        <button class="mh-btn" id="resort" aria-label="Simulate new poll" title="Simulate a new poll">⟳</button>
+        <button class="mh-btn" aria-label="Search">⌕</button>
+      </div>
+    </div>
+    <div class="dateline"><span class="pulse"></span>Final 2025 · Updated 2h ago · 15 sources</div>
+  </header>
+
+  <section class="finding">
+    <div class="kick" id="kick">The board · this week</div>
+    <p><b>Ohio State is the unanimous #1</b> — the model, the fans and the country finally agree on the top.</p>
+  </section>
+
+  <div class="lens" role="tablist" aria-label="Ranking lens">
+    <button role="tab" aria-selected="true">Power</button>
+    <button role="tab" aria-selected="false">Résumé</button>
+    <button role="tab" aria-selected="false">Bettor</button>
+    <button role="tab" aria-selected="false">Belief</button>
+  </div>
+  <div class="filterbar" id="filterbar">
+    <button class="fchip" aria-pressed="true">Top 25 <span class="x">×</span></button>
+    <button class="fchip" aria-pressed="false">FBS</button>
+    <button class="fchip sec" aria-pressed="false">SEC</button>
+    <button class="fchip b1g" aria-pressed="false">Big Ten</button>
+    <button class="fchip" aria-pressed="false">▲ Risers</button>
+    <button class="fchip" aria-pressed="false">All divisions</button>
+  </div>
+
+  <div class="colhead"><span></span><span style="text-align:center">Rk</span><span>Team · the room</span><span class="c-pow">Power</span><span></span></div>
+  <main class="sheet" id="board"></main>
+
+  <nav class="tabbar" aria-label="Primary">
+    <button class="tab" aria-selected="true"><span class="ti">▦</span>Rankings</button>
+    <button class="tab" aria-selected="false"><span class="ti">◎</span>Scores</button>
+    <button class="tab" aria-selected="false"><span class="ti">★</span>Teams</button>
+    <button class="tab" aria-selected="false"><span class="ti">⌕</span>Search</button>
+  </nav>
+</div>
+
+<script>
+const G={
+ ball:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-35 12 12)"/><path d="M9.6 14.4 14.4 9.6M10.9 11.3l1.4 1.4M12.1 9.9l1.4 1.4" stroke-linecap="round"/></svg>',
+ ballBig:'<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><ellipse cx="12" cy="12" rx="9.5" ry="5.6" transform="rotate(-35 12 12)"/><path d="M9.3 14.7 14.7 9.3M10.6 11l1.5 1.5M11.8 9.7l1.5 1.5M8.3 13.4l1 1M14.6 12.1l1 1" stroke-linecap="round"/></svg>',
+ trophy:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4.5v1A3 3 0 0 0 7 10M17 6h2.5v1A3 3 0 0 1 17 10M9.5 18h5M11 18v-2.4M13 18v-2.4M8.5 21h7"/></svg>',
+ bracket:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4v6h4M3 20v-6h4M21 4v6h-4M21 20v-6h-4M7 7h3v10h-3M17 7h-3v10h3M10 12h4"/></svg>',
+ sliders:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2.1" fill="currentColor"/><circle cx="15" cy="12" r="2.1" fill="currentColor"/><circle cx="8" cy="17" r="2.1" fill="currentColor"/></svg>',
+ helmet:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 13.5C4 8.8 7.8 5.5 12.4 5.5c4 0 6.3 2 7.3 4.2.6 1.3 1.3 1.8 2 2.3-1 .6-1.7 1-3.4 1H8.5a5 5 0 0 1-5-1.5Z"/><path d="M8.5 13.5 7 18M16 13h3.5"/></svg>',
+ trend:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16l6-6 4 4 8-8"/><path d="M16 6h5v5"/></svg>',
+ star:'<svg class="star" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12 3l2.6 5.7 6.2.6-4.7 4.1 1.4 6.1L12 16.9 6.5 19.6l1.4-6.1L3.2 9.4l6.2-.6z"/></svg>',
+ silh:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4.5 21c0-4.1 3.4-6.6 7.5-6.6s7.5 2.5 7.5 6.6z"/></svg>'
+};
+document.getElementById('ballbrand').innerHTML=G.ball;
+document.getElementById('kick').insertAdjacentHTML('afterbegin',G.ball);
+
+const ESPN={"Ohio State":194,"Georgia":61,"Texas":251,"Oregon":2483,"Notre Dame":87,"Penn State":213,"Alabama":333,"Tennessee":2633,"Ole Miss":145,"Michigan":130,"Indiana":84,"Oklahoma":201,"Miami":2390,"SMU":2567};
+const CONF={"Big Ten":5,"SEC":8,"ACC":1,"FBS Ind.":18};
+const KP={"Ohio State":[["Julian Sayin","QB"],["Jeremiah Smith","WR"]],"Georgia":[["Gunner Stockton","QB"],["KJ Bolden","S"]],"Texas":[["Arch Manning","QB"],["Anthony Hill Jr.","LB"]],"Oregon":[["Dante Moore","QB"],["Makhi Hughes","RB"]],"Notre Dame":[["CJ Carr","QB"],["Jeremiyah Love","RB"]]};
+const ini=n=>n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const confLogo=c=>{const id=CONF[c];return id?`<img src="https://a.espncdn.com/i/teamlogos/ncaa_conf/500/${id}.png" alt="" onerror="this.style.display='none'">`:'';};
+const TEAMS=[
+ {r:1,n:"Ohio State",c:"Big Ten",col:"#BB0000",pw:92.4,pr:1,d:1,tri:[1,1,1],po:20,why:"No one blends a 95th-pct offense with a top-5 defense like the Buckeyes.",sv:[["Off. Explosiveness",95],["Pass Efficiency",92],["Rush Defense",90]]},
+ {r:2,n:"Georgia",c:"SEC",col:"#BA0C2F",pw:90.1,pr:2,d:-1,tri:[2,4,2],po:19,why:"Elite on defense (93rd) but the fanbase is bracing for a fall the model doesn't see.",sv:[["Rush Defense",93],["Havoc Rate",89],["Finishing",83]]},
+ {r:3,n:"Texas",c:"SEC",col:"#BF5700",pw:88.7,pr:3,d:0,tri:[3,2,4],po:18,why:"The toughest slate in the country (SoS #1) may push the résumé past the rating by January.",sv:[["Pass Efficiency",90],["Off. Explosiveness",84],["Rush Defense",66]]},
+ {r:4,n:"Oregon",c:"Big Ten",col:"#154733",pw:87.9,pr:4,d:2,tri:[4,6,3],po:17,why:"A soft slate (SoS #9) is the only thing keeping the résumé from matching the eye test.",sv:[["Off. Explosiveness",91],["Pass Efficiency",88],["Finishing",85]]},
+ {r:5,n:"Notre Dame",c:"FBS Ind.",col:"#0C2340",pw:85.2,pr:6,d:-1,tri:[5,3,6],po:14,why:"Résumé (#5) outshines raw power (#6): they've beaten better teams than expected.",sv:[["Rush Defense",88],["Finishing",80],["Pass Efficiency",76]]},
+ {r:6,n:"Penn State",c:"Big Ten",col:"#1A3D6D",pw:84.6,pr:5,d:1,tri:[6,8,5],po:12},
+ {r:7,n:"Alabama",c:"SEC",col:"#9E1B32",pw:83.9,pr:7,d:-2,tri:[7,5,7],po:11},
+ {r:8,n:"Tennessee",c:"SEC",col:"#FF8200",pw:82.1,pr:9,d:1,tri:[8,7,9],po:9},
+ {r:9,n:"Ole Miss",c:"SEC",col:"#14213D",pw:81.4,pr:8,d:3,tri:[9,6,10],po:8},
+ {r:10,n:"Michigan",c:"Big Ten",col:"#00274C",pw:80.2,pr:11,d:-1,tri:[10,12,8],po:6},
+ {r:11,n:"Indiana",c:"Big Ten",col:"#990000",pw:78.9,pr:10,d:4,tri:[11,9,13],po:5},
+ {r:12,n:"Oklahoma",c:"SEC",col:"#841617",pw:77.6,pr:13,d:-3,tri:[12,14,11],po:4},
+ {r:13,n:"Miami",c:"ACC",col:"#F47321",pw:76.8,pr:12,d:1,tri:[13,11,12],po:3},
+ {r:14,n:"SMU",c:"ACC",col:"#354CA1",pw:75.3,pr:15,d:2,tri:[14,13,16],po:2},
+];
+const confShort={"Big Ten":"B1G","SEC":"SEC","ACC":"ACC","FBS Ind.":"IND"};
+const momColor=d=>d>0?"var(--color-green-400)":d<0?"var(--color-red-400)":"var(--color-gray-200)";
+function beliefChip(t){const gap=t.tri[0]-t.tri[1];
+  if(gap>=1)return `<span class="bchip hot">▲ Fans +${gap}</span>`;
+  if(gap<=-1)return `<span class="bchip cold">▼ Fans -${Math.abs(gap)}</span>`;
+  const gn=t.tri[0]-t.tri[2];
+  if(gn>=1)return `<span class="bchip cold">USA +${gn}</span>`;
+  return `<span class="bchip align">Aligned</span>`;}
+const pos=v=>Math.min(95,Math.max(5,(v-1)/24*100));
+function tri(tr){const[m,r,n]=tr;
+  const note=(m-r>=2)?'The room runs hotter than the model — fans see a higher ceiling.':(r-m>=2)?'The room is cooler than the model — fans aren’t sold yet.':'Model, room and country are aligned.';
+  return `<div class="tri"><div class="tri-scale">
+    <span class="tri-tick m" style="left:${pos(m)}%">MODEL ${m}</span>
+    <span class="tri-tick r" style="left:${pos(r)}%;top:18px">ROOM ${r}</span>
+    <span class="tri-tick n" style="left:${pos(n)}%">USA ${n}</span>
+  </div><div class="tri-note">${note}<span class="mk">1</span></div></div>`;}
+function dotplot(on){let d="";for(let i=0;i<20;i++){const c=i<on?(on<=14&&i>=on-2?"on bub":"on"):"";d+=`<i class="${c}"></i>`;}
+  return `<div class="dp"><div class="dp-big">${on}<small>/20</small></div><div><div class="dp-dots">${d}</div><div class="dp-cap">${Math.round(on/20*100)}% of season simulations make the 12-team field</div></div></div>`;}
+function fp(sv){return sv.map(([l,p])=>`<div class="sv"><div class="sv-t"><span class="nm2">${l}</span><span class="pct num">${p}<span style="color:var(--color-text-subtle);font-weight:500;font-size:10px"> pct</span></span></div><div class="sv-bar"><span class="sv-dot" style="left:${p}%"></span></div></div>`).join("");}
+function players(t){const list=KP[t.n];if(!list)return"";
+  return `<div class="lbl">${G.helmet}Key players</div><div class="kpline">`+list.map(p=>`<span class="kpn">${p[0]}</span><span class="kpp">${p[1]}</span>`).join('<span class="kpsep">·</span>')+`</div>`;}
+function trend(d){const dir=d>0?"up":d<0?"down":"flat";const t=d>0?`▲ ${d}`:d<0?`▼ ${Math.abs(d)}`:"—";
+  const up=d>0,fl=d===0;const pts=fl?"0,9 14,8 28,10 42,9 56,9":up?"0,15 14,12 28,13 42,6 56,3":"0,4 14,7 28,6 42,12 56,15";const col=up?"#0F6E56":fl?"#9A9A97":"#A32D2D";
+  return `<div class="trend"><span class="dl ${dir} num">${t}</span><svg width="56" height="18" viewBox="0 0 56 18" fill="none"><polyline points="${pts}" stroke="${col}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="56" cy="${up?3:fl?9:15}" r="2.2" fill="${col}"/></svg><span class="cap">5-week rank trend</span></div>`;}
+function logo(t){const id=ESPN[t.n];const url=id?`https://a.espncdn.com/i/teamlogos/ncaa/500/${id}.png`:'';
+  return `<span class="logo"><img src="${url}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="fb" style="background:${t.col}">${ini(t.n)}</span></span>`;}
+function row(t,i){
+  const rich=t.sv?`
+     <div class="lbl">${G.ball}Tri-Rank · model vs the room vs the country</div>${tri(t.tri)}
+     <div class="lbl">${G.trophy}Playoff odds</div>${dotplot(t.po)}
+     <div class="lbl">${G.sliders}Fingerprint · percentile vs FBS</div>${fp(t.sv)}<span class="fpmore">See full fingerprint (13 metrics) →</span>
+     ${players(t)}
+     <div class="lbl">${G.trend}Momentum</div>${trend(t.d)}
+     <p class="why">${t.why}<span class="mk">1</span></p>
+     <div class="cta"><a class="pri" href="#">Open team page →</a><a class="gh" href="#">Compare</a></div>`
+   :`<div class="lbl">${G.ball}Tri-Rank</div>${tri(t.tri)}<div class="lbl">${G.trophy}Playoff odds</div>${dotplot(t.po)}
+     <div class="lbl">${G.trend}Momentum</div>${trend(t.d)}
+     <div class="cta"><a class="pri" href="#">Open team page →</a><a class="gh" href="#">Compare</a></div>`;
+  return `<article class="row ${t.r===1?'lead':''} ${t.sv&&t.r===3?'open':''}" style="view-transition-name:r${t.n.split(' ').join('')};animation-delay:${Math.min(i,11)*42}ms;--tc:${t.col}">
+    <div class="row-main" onclick="this.closest('.row').classList.toggle('open')">
+      <span class="tcr" style="background:${t.col}"></span>
+      <div class="rk num">${t.r}<span class="mom" style="background:${momColor(t.d)}"></span></div>
+      <div class="idb">${logo(t)}<div class="idtext">
+        <div class="nm">${t.r===1?G.star:''}<span class="t">${t.n}</span></div>
+        <div class="meta"><span class="conf">${confShort[t.c]||t.c}</span><span class="dvr">·</span>${beliefChip(t)}</div>
+      </div></div>
+      <div class="pow"><div class="v num">${t.pw.toFixed(1)}</div><div class="l">Power · <b>#${t.pr}</b></div></div>
+      <span class="chev">›</span>
+    </div>
+    <div class="detail"><div class="detail-in"><div class="dpad">${rich}</div></div></div>
+  </article>`;}
+const cutline=`<div class="cutline">${G.bracket}College Football Playoff cutline · top 12 in</div>`;
+function stories(){return `<section class="stories">
+   <h2>${G.ball}This week in the room</h2><div class="sub">Five signals from 15 sources of fan & national conversation.</div>
+   <div class="srow">
+     <div class="story"><div class="eye">Biggest vibe shift</div><div class="big num">+18</div><div class="t">Indiana belief surged after the upset — from doom to disbelief overnight.</div></div>
+     <div class="story nv"><div class="eye">We called it</div><div class="big num">73%</div><div class="t">Season hit-rate on pre-game favorites. See the calibration curve →</div></div>
+     <div class="story"><div class="eye">Widest respect gap</div><div class="big">Texas</div><div class="t">Fans rank them #2, the country #4 — the widest split in the top 10.</div></div>
+     <div class="story am"><div class="eye">Cross-division bridge</div><div class="big num">~88</div><div class="t">Ferris State (DII #1) would slot here on the one true scale.</div></div>
+   </div></section>`;}
+function render(list){let html='';list.forEach((t,i)=>{html+=row(t,i);if(t.r===12)html+=cutline;});
+  document.getElementById("board").innerHTML=html+`<button class="loadmore">Load the deep board — all 668 teams ↓</button>`+stories()+`<div class="pad"></div>`;}
+render(TEAMS);
+document.getElementById("resort").addEventListener("click",()=>{
+  const s=[...TEAMS];[s[2],s[3]]=[s[3],s[2]];[s[8],s[10]]=[s[10],s[8]];
+  s.forEach((t,i)=>{const nr=i+1;t.d=t.r-nr;t.r=nr;});
+  if(document.startViewTransition)document.startViewTransition(()=>render(s));else render(s);
+});
+</script>
+</body>
+</html>

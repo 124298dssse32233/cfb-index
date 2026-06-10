@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CFB Index — Rankings (desktop analyst board)</title>
+<!--
+  Desktop "analyst" board (~1280px) — the enhance-up of the mobile board.
+  KenPom-dense inline-rank table · full-width overtake-bump primary viz ·
+  right rail of context modules (The Room · Model Report Card calibration · Movers).
+  Same locked design language as the mobile mock. Tokens: docs/design-system/00-tokens.md.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-50:#E6F1FB;--navy-100:#B5D4F4;--navy-200:#85B7EB;--navy-400:#378ADD;--navy-600:#185FA5;--navy-800:#0C447C;--navy-900:#042C53;
+  --coral-50:#FAECE7;--coral-100:#F5C4B3;--coral-200:#F0997B;--coral-400:#D85A30;--coral-600:#993C1D;
+  --amber-50:#FAEEDA;--amber-100:#FAC775;--amber-200:#EF9F27;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+  --gray-50:#F1EFE8;--gray-100:#D3D1C7;--gray-200:#B4B2A9;--gray-400:#888780;--gray-600:#5F5E5A;--gray-800:#444441;--gray-900:#2C2C2A;
+  --green-200:#5DCAA5;--green-400:#1D9E75;--green-600:#0F6E56;--red-200:#F09595;--red-400:#E24B4A;--red-600:#A32D2D;
+  --ink:#141618;--muted:#6C6C6E;--subtle:#9A9A97;--surface:#FBFAF7;--card:#FFFFFF;--line:#E4E2DC;--line-strong:#CFCCC4;
+  --sans:'Inter','SF Pro Text',system-ui,sans-serif;--serif:'Source Serif 4',Georgia,serif;--disp:'Bebas Neue',sans-serif;
+}
+*{box-sizing:border-box;}html,body{margin:0;}
+body{background:#232320;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.app{width:1280px;background:var(--surface);min-height:900px;}
+@media(max-width:1320px){.app{width:100%;}}
+
+/* topbar */
+.topbar{height:58px;background:var(--ink);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 42px);color:#fff;display:flex;align-items:center;gap:28px;padding:0 26px;position:sticky;top:0;z-index:20;}
+.brand{font-family:var(--disp);font-size:25px;letter-spacing:.05em;display:flex;align-items:center;gap:8px;}
+.brand b{color:var(--coral-200);font-weight:400;}.brand .g{color:var(--amber-200);}
+.nav{display:flex;gap:22px;flex:1;}
+.nav a{color:rgba(255,255,255,.66);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.01em;padding:4px 0;border-bottom:2px solid transparent;}
+.nav a.on{color:#fff;border-color:var(--coral-400);}
+.tools{display:flex;gap:10px;align-items:center;}
+.kbd{display:flex;align-items:center;gap:6px;height:32px;padding:0 11px;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.7);font-size:12px;}
+
+/* control strip */
+.controls{display:flex;align-items:center;gap:22px;padding:0 26px;height:46px;border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:58px;z-index:19;}
+.lens{display:flex;gap:20px;}
+.lens button{border:0;background:0;font-size:13px;font-weight:600;color:var(--subtle);cursor:pointer;padding:13px 0;position:relative;}
+.lens button.on{color:var(--ink);}
+.lens button.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--coral-400);}
+.chips{display:flex;gap:8px;}
+.chip{height:28px;padding:0 11px;display:flex;align-items:center;gap:5px;border-radius:9999px;border:1px solid var(--line-strong);background:0;font-size:12px;font-weight:500;color:var(--gray-800);cursor:pointer;}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff;}
+.dateline{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+.dateline .pulse{width:6px;height:6px;border-radius:50%;background:var(--green-400);}
+
+/* layout */
+.wrap{display:grid;grid-template-columns:1fr 348px;gap:24px;padding:22px 26px 40px;}
+.finding{font-family:var(--serif);font-size:17px;color:var(--gray-900);margin:0 0 4px;}
+.finding b{font-weight:600;}
+.finding .kick{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-400);margin-bottom:7px;}
+
+/* primary viz card */
+.viz{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 8px;margin:14px 0 18px;}
+.viz h3{margin:0 0 2px;font-size:13px;font-weight:600;}
+.viz .cap{font-size:11px;color:var(--muted);margin-bottom:6px;}
+
+/* table */
+.tablecard{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{position:sticky;top:104px;background:var(--gray-50);text-align:right;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:9px 10px;border-bottom:1px solid var(--line-strong);white-space:nowrap;cursor:pointer;}
+thead th.l{text-align:left;}
+thead th .ar{color:var(--coral-400);font-size:8px;margin-left:3px;}
+tbody td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;}
+tbody td.l{text-align:left;}
+tbody tr:hover{background:var(--gray-50);}
+tr.lead td{background:linear-gradient(90deg,color-mix(in srgb,var(--tc) 9%,transparent),transparent 30%);}
+.rk{font-family:var(--disp);font-size:23px;line-height:1;color:var(--ink);width:34px;text-align:center;}
+tr.lead .rk{color:var(--amber-600);}
+.team{display:flex;align-items:center;gap:9px;min-width:190px;}
+.team img{width:24px;height:24px;object-fit:contain;}
+.team .fb{width:24px;height:24px;border-radius:50%;display:none;place-items:center;color:#fff;font-family:var(--disp);font-size:10px;}
+.team .nm{font-weight:600;}.team .star{color:var(--amber-400);margin-right:2px;}
+.conf{color:var(--gray-600);font-weight:600;font-size:11px;letter-spacing:.03em;}
+.v{font-weight:600;}.v .rk2{font-size:9.5px;color:var(--navy-400);font-weight:600;margin-left:1px;}
+.delta{font-weight:700;font-size:12px;}.up{color:var(--green-600);}.down{color:var(--red-600);}.flat{color:var(--subtle);}
+.tri{display:inline-flex;gap:0;align-items:center;}
+.tri b{font-size:11px;font-weight:700;padding:0 4px;}
+.tri .m{color:var(--navy-700,#16569b);}.tri .r{color:var(--coral-600);}.tri .n{color:var(--amber-600);}
+.cfp{display:inline-flex;align-items:center;gap:7px;justify-content:flex-end;}
+.cfp .pct{font-weight:700;}
+.minidots{display:inline-grid;grid-template-columns:repeat(10,4px);gap:2px;}
+.minidots i{width:4px;height:4px;border-radius:1px;background:var(--gray-100);}
+.minidots i.on{background:var(--navy-600);}.minidots i.bub{background:var(--amber-200);}
+tr.cut td{padding:0;}
+.cutbar{display:flex;align-items:center;justify-content:center;gap:8px;padding:7px;background:var(--amber-50);color:var(--amber-800);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid var(--amber-200);border-bottom:1px solid var(--amber-200);}
+.cutbar .g{color:var(--amber-600);}
+.loadall{width:100%;padding:13px;border:0;border-top:1px solid var(--line);background:var(--card);color:var(--navy-800);font-weight:600;font-size:13px;cursor:pointer;}
+
+/* right rail */
+.rail{display:flex;flex-direction:column;gap:18px;}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;}
+.mod h3{margin:0 0 2px;font-size:13px;font-weight:700;display:flex;align-items:center;}
+.mod .sub{font-size:11px;color:var(--muted);margin-bottom:12px;}
+.room-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-top:1px solid var(--line);}
+.room-row:first-of-type{border-top:0;}
+.room-row img{width:22px;height:22px;object-fit:contain;flex:0 0 auto;}
+.room-row .nm{font-size:12.5px;font-weight:600;flex:1;}
+.bchip{display:inline-flex;align-items:center;gap:3px;height:18px;padding:0 7px;border-radius:9999px;font-size:10px;font-weight:600;}
+.bchip.hot{background:var(--coral-50);color:var(--coral-600);}.bchip.cold{background:var(--navy-50);color:var(--navy-800);}
+.report .big{font-family:var(--disp);font-size:42px;line-height:.85;color:var(--ink);}
+.report .big small{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--muted);}
+.report .verdict{font-size:11.5px;color:var(--green-600);font-weight:600;margin-top:2px;}
+.report .legend{display:flex;justify-content:space-between;font-size:9px;color:var(--subtle);margin-top:4px;}
+.movers{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.mv{border:1px solid var(--line);border-radius:8px;padding:9px;}
+.mv .eye{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle);font-weight:600;}
+.mv .t{font-size:12.5px;font-weight:600;margin-top:3px;display:flex;align-items:center;gap:6px;}
+.mv .t img{width:18px;height:18px;object-fit:contain;}
+.mv .d{font-size:11px;font-weight:700;margin-top:2px;}
+.foot{padding:18px 26px 40px;color:var(--muted);font-size:11px;border-top:1px solid var(--line);display:flex;gap:18px;flex-wrap:wrap;}
+.foot b{color:var(--gray-800);}
+.g{vertical-align:-2px;margin-right:6px;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><span class="g" id="bb"></span>THE CFB <b>INDEX</b></div>
+    <nav class="nav"><a class="on" href="#">Power Rankings</a><a href="#">Teams</a><a href="#">Players</a><a href="#">Heisman</a><a href="#">The Room</a><a href="#">History</a><a href="#">The Model</a></nav>
+    <div class="tools"><span class="kbd">⌘K&nbsp; Search</span></div>
+  </header>
+  <div class="controls">
+    <div class="lens"><button class="on">Power</button><button>Résumé</button><button>Bettor</button><button>Belief</button></div>
+    <div class="chips"><button class="chip on">Top 25</button><button class="chip">FBS</button><button class="chip">SEC</button><button class="chip">Big Ten</button><button class="chip">▲ Risers</button></div>
+    <div class="dateline"><span class="pulse"></span>Final 2025 · Updated 2h ago · 15 sources</div>
+  </div>
+
+  <div class="wrap">
+    <main>
+      <div class="finding"><div class="kick" id="kick">The board · this week</div><p style="margin:0"><b>Ohio State is the unanimous #1</b> — the model, the fans and the country finally agree on the top, the first clean consensus all season.</p></div>
+      <section class="viz"><h3 id="vh">How the top 6 moved</h3><div class="cap">Bump chart · weekly published rank, weeks 8–14. Each crossing is a lead change.</div><div id="bump"></div></section>
+      <div class="tablecard">
+        <table id="tbl"><thead><tr>
+          <th class="l" style="width:34px"></th><th style="width:42px">Δ</th><th class="l">Team</th><th class="l">Conf</th>
+          <th>Power<span class="ar">▾</span></th><th>Off</th><th>Def</th><th>Résumé</th><th>SoS</th><th>Model·Room·USA</th><th>CFP odds</th>
+        </tr></thead><tbody id="tb"></tbody></table>
+        <button class="loadall">Load the deep board — all 668 teams across every division ↓</button>
+      </div>
+    </main>
+    <aside class="rail" id="rail"></aside>
+  </div>
+  <footer class="foot"><span>“How we measure” → <b>The Model</b></span><span>Sample: <b>15 sources × 14 cohorts</b>, 41,200 posts this week</span><span>Updated <b>2h ago</b></span><span><b>Final 2025</b> · 81 days to 2026 kickoff</span></footer>
+</div>
+<script>
+const G={ball:'<svg class="g" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-35 12 12)"/><path d="M9.6 14.4 14.4 9.6M10.9 11.3l1.4 1.4M12.1 9.9l1.4 1.4" stroke-linecap="round"/></svg>',
+ trophy:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4.5v1A3 3 0 0 0 7 10M17 6h2.5v1A3 3 0 0 1 17 10M9.5 18h5M11 18v-2.4M13 18v-2.4M8.5 21h7"/></svg>',
+ bracket:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4v6h4M3 20v-6h4M21 4v6h-4M21 20v-6h-4M7 7h3v10h-3M17 7h-3v10h3M10 12h4"/></svg>',
+ chart:'<svg class="g" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 20V6M4 20h16M8 20v-6M12 20v-10M16 20v-7M20 20v-12"/></svg>',
+ star:'<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" class="star"><path d="M12 3l2.6 5.7 6.2.6-4.7 4.1 1.4 6.1L12 16.9 6.5 19.6l1.4-6.1L3.2 9.4l6.2-.6z"/></svg>'};
+document.getElementById('bb').innerHTML=G.ball;document.getElementById('kick').insertAdjacentHTML('afterbegin',G.ball);document.getElementById('vh').insertAdjacentHTML('afterbegin',G.chart);
+
+const E={"Ohio State":194,"Georgia":61,"Texas":251,"Oregon":2483,"Notre Dame":87,"Penn State":213,"Alabama":333,"Tennessee":2633,"Ole Miss":145,"Michigan":130,"Indiana":84,"Oklahoma":201,"Miami":2390,"SMU":2567};
+const C={"Ohio State":"#BB0000","Georgia":"#BA0C2F","Texas":"#BF5700","Oregon":"#154733","Notre Dame":"#0C2340","Penn State":"#1A3D6D","Alabama":"#9E1B32","Tennessee":"#FF8200","Ole Miss":"#14213D","Michigan":"#00274C","Indiana":"#990000","Oklahoma":"#841617","Miami":"#F47321","SMU":"#354CA1"};
+const lg=n=>`https://a.espncdn.com/i/teamlogos/ncaa/500/${E[n]}.png`;
+const ini=n=>n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+// r,conf,pw,powRk,off[v,rk],def[v,rk],res[v,rk],sos,tri[m,r,n],po,d
+const T=[
+ ["Ohio State","B1G",92.4,1,[44.1,2],[12.0,3],[96,2],6,[1,1,1],20,1],
+ ["Georgia","SEC",90.1,2,[41.2,6],[11.1,1],[98,1],2,[2,4,2],19,-1],
+ ["Texas","SEC",88.7,3,[42.8,4],[14.4,9],[93,4],1,[3,2,4],18,0],
+ ["Oregon","B1G",87.9,4,[45.6,1],[16.1,14],[88,7],9,[4,6,3],17,2],
+ ["Notre Dame","IND",85.2,6,[40.0,9],[13.2,5],[95,3],5,[5,3,6],14,-1],
+ ["Penn State","B1G",84.6,5,[39.1,11],[12.8,4],[86,9],7,[6,8,5],12,1],
+ ["Alabama","SEC",83.9,7,[41.8,5],[15.0,11],[84,11],3,[7,5,7],11,-2],
+ ["Tennessee","SEC",82.1,9,[43.0,3],[18.2,22],[80,14],4,[8,7,9],9,1],
+ ["Ole Miss","SEC",81.4,8,[40.6,8],[15.7,12],[82,12],8,[9,6,10],8,3],
+ ["Michigan","B1G",80.2,11,[36.4,18],[11.8,2],[78,16],10,[10,12,8],6,-1],
+ ["Indiana","B1G",78.9,10,[42.1,5],[16.9,17],[83,12],14,[11,9,13],5,4],
+ ["Oklahoma","SEC",77.6,13,[35.0,24],[13.9,7],[74,19],6,[12,14,11],4,-3],
+ ["Miami","ACC",76.8,12,[40.9,7],[17.4,19],[72,22],16,[13,11,12],3,1],
+ ["SMU","ACC",75.3,15,[39.6,10],[16.4,15],[70,24],18,[14,13,16],2,2],
+];
+const HIST={"Ohio State":[2,2,1,1,2,1,1],"Georgia":[1,1,2,2,1,2,2],"Texas":[5,4,3,4,3,3,3],"Oregon":[6,6,5,5,4,4,4],"Notre Dame":[4,3,4,3,5,5,5],"Penn State":[3,5,6,6,6,6,6]};
+
+function rk2(x){return `<span class="rk2">·${x}</span>`;}
+function delta(d){const c=d>0?'up':d<0?'down':'flat';const t=d>0?`▲${d}`:d<0?`▼${Math.abs(d)}`:'—';return `<span class="delta ${c}">${t}</span>`;}
+function cfp(on){let dots='';for(let i=0;i<20;i++)dots+=`<i class="${i<on?(on<=14&&i>=on-2?'on bub':'on'):''}"></i>`;return `<span class="cfp"><span class="minidots" style="grid-template-columns:repeat(10,4px)">${dots}</span><span class="pct num">${Math.round(on/20*100)}%</span></span>`;}
+function teamCell(n,lead){return `<span class="team">${lead?G.star:''}<img src="${lg(n)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="fb" style="background:${C[n]}">${ini(n)}</span><span class="nm">${n}</span></span>`;}
+function rowHTML(t){const[n,conf,pw,prk,off,def,res,sos,tri,po,d]=t;const lead=tri[0]===1&&prk===1;
+ return `<tr class="${lead?'lead':''}" style="--tc:${C[n]}">
+  <td class="l rk num">${tri[0]}</td><td>${delta(d)}</td>
+  <td class="l">${teamCell(n,lead)}</td><td class="l"><span class="conf">${conf}</span></td>
+  <td><span class="v num">${pw.toFixed(1)}${rk2(prk)}</span></td>
+  <td><span class="v num">${off[0].toFixed(1)}${rk2(off[1])}</span></td>
+  <td><span class="v num">${def[0].toFixed(1)}${rk2(def[1])}</span></td>
+  <td><span class="v num">${res[0]}${rk2(res[1])}</span></td>
+  <td><span class="v num">${sos}</span></td>
+  <td><span class="tri num"><b class="m">${tri[0]}</b><b style="color:var(--line-strong)">·</b><b class="r">${tri[1]}</b><b style="color:var(--line-strong)">·</b><b class="n">${tri[2]}</b></span></td>
+  <td>${cfp(po)}</td></tr>`;}
+function bump(){const teams=Object.keys(HIST);const W=720,H=242,pl=22,pr=132,pt=28,pb=24,N=7,mx=6;
+ const x=i=>pl+i*(W-pl-pr)/(N-1),y=r=>pt+(r-1)*(H-pt-pb)/(mx-1);const HERO=['Ohio State','Georgia'];
+ let g='';for(let r=1;r<=mx;r++){g+=`<line x1="${pl}" y1="${y(r)}" x2="${W-pr+14}" y2="${y(r)}" stroke="var(--line)"/><text x="${pl-6}" y="${y(r)+3.5}" font-size="9.5" fill="var(--subtle)" text-anchor="end">${r}</text>`;}
+ g+=`<text x="${pl}" y="${pt-13}" font-size="9.5" fill="var(--muted)" font-weight="700">RANK · 1 = best ↑</text>`;
+ const lab=['W8','W9','W10','W11','W12','W13','W14'];lab.forEach((l,i)=>g+=`<text x="${x(i)}" y="${H-6}" font-size="9.5" fill="var(--subtle)" text-anchor="middle">${l}</text>`);
+ teams.filter(n=>!HERO.includes(n)).forEach(n=>{const h=HIST[n],col=C[n];g+=`<polyline points="${h.map((r,i)=>x(i)+','+y(r)).join(' ')}" fill="none" stroke="${col}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".24"/>`;const lr=h[N-1];g+=`<circle cx="${x(N-1)}" cy="${y(lr)}" r="3" fill="${col}" opacity=".45"/><text x="${x(N-1)+9}" y="${y(lr)+3.5}" font-size="10.5" font-weight="500" fill="var(--gray-400)">${n}</text>`;});
+ teams.filter(n=>HERO.includes(n)).forEach(n=>{const h=HIST[n],col=C[n],pts=h.map((r,i)=>x(i)+','+y(r)).join(' ');g+=`<polyline points="${pts}" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;const lr=h[N-1];g+=`<circle cx="${x(N-1)}" cy="${y(lr)}" r="4.5" fill="#fff" stroke="${col}" stroke-width="2.5"/><image href="${lg(n)}" x="${x(N-1)+9}" y="${y(lr)-9}" width="18" height="18"/><text x="${x(N-1)+31}" y="${y(lr)+4}" font-size="11.5" font-weight="700" fill="var(--ink)">${n}</text>`;});
+ g+=`<line x1="${x(2)}" y1="${y(1.5)}" x2="${x(2)}" y2="${pt-2}" stroke="var(--coral-400)" stroke-width="1"/><circle cx="${x(2)}" cy="${y(1.5)}" r="5" fill="none" stroke="var(--coral-400)" stroke-width="1.5"/><text x="${x(2)}" y="${pt-13}" font-size="10.5" fill="var(--coral-600)" font-weight="700" text-anchor="middle">Wk 10 · Ohio State takes #1</text>`;
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" font-family="Inter,sans-serif" role="img" aria-label="Bump chart of the top six teams weekly rank, weeks 8 to 14; Ohio State and Georgia highlighted, Ohio State overtakes Georgia for number 1 in week 10">${g}</svg>`;}
+function calib(){const W=300,H=158,pl=26,pr=10,pt=8,pb=22;const x=v=>pl+v*(W-pl-pr),y=v=>H-pb-v*(H-pt-pb);
+ let g=`<line x1="${x(0)}" y1="${y(0)}" x2="${x(1)}" y2="${y(1)}" stroke="var(--line-strong)" stroke-dasharray="3 3"/>`;
+ g+=`<line x1="${pl}" y1="${pt}" x2="${pl}" y2="${y(0)}" stroke="var(--line)"/><line x1="${pl}" y1="${y(0)}" x2="${W-pr}" y2="${y(0)}" stroke="var(--line)"/>`;
+ const p=[[.1,.08],[.3,.34],[.5,.49],[.7,.66],[.9,.92]];g+=`<polyline points="${p.map(d=>x(d[0])+','+y(d[1])).join(' ')}" fill="none" stroke="var(--navy-600)" stroke-width="2"/>`;
+ p.forEach(d=>g+=`<circle cx="${x(d[0])}" cy="${y(d[1])}" r="3" fill="var(--navy-600)"/>`);
+ g+=`<text x="${x(.5)}" y="${H-4}" font-size="8.5" fill="var(--subtle)" text-anchor="middle">predicted win probability →</text>`;
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" font-family="Inter" role="img" aria-label="Calibration curve: our predicted win probabilities track the diagonal closely; well calibrated">${g}</svg>`;}
+
+// render table with CFP cutline after rank 12
+let rows='';T.forEach(t=>{rows+=rowHTML(t);if(t[8][0]===12)rows+=`<tr class="cut"><td colspan="11"><div class="cutbar">${G.bracket}College Football Playoff cutline · top 12 in</div></td></tr>`;});
+document.getElementById('tb').innerHTML=rows;
+document.getElementById('bump').innerHTML=bump();
+
+// right rail
+const room=[["Texas","▲ Fans +1","hot"],["Indiana","▲ Fans +2","hot"],["Georgia","▼ Fans -2","cold"],["Michigan","▼ Fans -2","cold"]];
+document.getElementById('rail').innerHTML=`
+ <div class="mod"><h3>${G.ball}The Room</h3><div class="sub">Where fans and the model disagree most this week.</div>
+   ${room.map(r=>`<div class="room-row"><img src="${lg(r[0])}" alt="" onerror="this.style.visibility='hidden'"><span class="nm">${r[0]}</span><span class="bchip ${r[2]}">${r[1]}</span></div>`).join('')}</div>
+ <div class="mod report"><h3>${G.trophy}Model Report Card</h3><div class="sub">Are our predictions actually trustworthy?</div>
+   <div class="big num">73<small>% hit-rate</small></div><div class="verdict">Brier 0.19 · well-calibrated, slightly cautious on big favorites</div>
+   ${calib()}<div class="legend"><span>under-confident ↑</span><span>over-confident ↓</span></div></div>
+ <div class="mod"><h3>${G.chart}Biggest movers</h3><div class="sub">Week 13 → 14.</div>
+   <div class="movers">
+     <div class="mv"><div class="eye">Riser</div><div class="t"><img src="${lg('Indiana')}" onerror="this.style.display='none'">Indiana</div><div class="d up" style="color:var(--green-600)">▲ 4 → #11</div></div>
+     <div class="mv"><div class="eye">Faller</div><div class="t"><img src="${lg('Oklahoma')}" onerror="this.style.display='none'">Oklahoma</div><div class="d down" style="color:var(--red-600)">▼ 3 → #12</div></div>
+   </div></div>`;
+</script>
+</body>
+</html>

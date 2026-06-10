@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CFB Index — Model Report Card</title>
+<!--
+  The Model Report Card (390px) — the accountability moat. CHARTS REBUILT to the
+  data-viz gold standard (538 calibration · Cleveland dot plot · NYT annotated line):
+  titled+ticked axes, always-visible reference lines, sample-sized points, an in-chart
+  finding, and a poll comparison whose bar/dot length finally agrees with its value.
+  Light/Bebas system. Tokens: 00-tokens.md. (Net-new data per the engineering spec.)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-50:#E6F1FB;--navy-100:#B5D4F4;--navy-200:#85B7EB;--navy-400:#378ADD;--navy-600:#185FA5;--navy-800:#0C447C;--navy-900:#042C53;
+  --coral-50:#FAECE7;--coral-200:#F0997B;--coral-400:#D85A30;--coral-600:#993C1D;
+  --amber-50:#FAEEDA;--amber-200:#EF9F27;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+  --gray-50:#F1EFE8;--gray-100:#D3D1C7;--gray-200:#B4B2A9;--gray-400:#888780;--gray-600:#5F5E5A;--gray-800:#444441;--gray-900:#2C2C2A;
+  --green-50:#E1F5EE;--green-200:#5DCAA5;--green-400:#1D9E75;--green-600:#0F6E56;--red-200:#F09595;--red-400:#E24B4A;--red-600:#A32D2D;
+  --ink:#141618;--muted:#6C6C6E;--subtle:#9A9A97;--surface:#FBFAF7;--card:#FFFFFF;--line:#E4E2DC;--line-strong:#CFCCC4;
+  --sans:'Inter','SF Pro Text',system-ui,sans-serif;--serif:'Source Serif 4',Georgia,serif;--disp:'Bebas Neue',sans-serif;
+  --tap:48px;
+}
+*{box-sizing:border-box;}html,body{margin:0;}
+body{background:#232320;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.g{vertical-align:-2px;margin-right:5px;}
+.device{width:390px;min-height:844px;background:var(--surface);position:relative;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.45);}
+@media(max-width:430px){.device{box-shadow:none;}}
+/* shared chart text treatment (cross-cutting standard #1) */
+.chart text{font-family:var(--sans);}
+.axt{font-size:9.5px;fill:var(--muted);letter-spacing:.04em;}
+.axn{font-size:9.5px;fill:var(--subtle);}
+
+.masthead{position:sticky;top:0;z-index:40;color:#fff;padding:max(env(safe-area-inset-top),8px) 16px 0;background-color:var(--ink);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 38px);}
+.mh-row{height:46px;display:flex;align-items:center;justify-content:space-between;}
+.mh-brand{font-family:var(--disp);font-size:25px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;}
+.mh-brand b{color:var(--coral-200,#F0997B);font-weight:400;}.mh-brand .g{color:var(--amber-200);margin:0;}
+.mh-btn{width:var(--tap);height:var(--tap);margin:0 -4px;border:0;background:0;color:#fff;opacity:.85;font-size:18px;display:grid;place-items:center;}
+.crumbs{display:flex;align-items:center;gap:6px;padding-bottom:9px;font-size:11px;color:rgba(255,255,255,.6);font-weight:500;}.crumbs .here{color:#fff;}
+
+.hero{padding:18px 16px 4px;background:var(--card);border-bottom:1px solid var(--line);}
+.hero .eyebrow{display:flex;align-items:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-400);font-weight:700;}
+.hero h1{font-family:var(--disp);font-size:46px;line-height:.84;margin:8px 0 4px;}
+.hero p{font-family:var(--serif);font-size:14px;line-height:1.4;color:var(--gray-800);margin:0 0 16px;}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);}
+.tri .c{text-align:center;padding:12px 4px 16px;border-left:1px solid var(--line);}
+.tri .c:first-child{border-left:0;}
+.tri .v{font-family:var(--disp);font-size:40px;line-height:.8;color:var(--navy-800);}
+.tri .v.ok{color:var(--green-600);}
+.tri .l{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--subtle);font-weight:600;margin-top:6px;}
+
+.sec{padding:16px;border-bottom:8px solid var(--gray-50);}
+.sec.last{border-bottom:0;}
+.lbl{display:flex;align-items:center;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);font-weight:700;margin-bottom:12px;}
+.cap{font-family:var(--serif);font-size:13px;line-height:1.45;color:var(--gray-800);margin-top:12px;}
+.cap b{font-weight:600;}.cap .mk{color:var(--coral-400);font-weight:700;font-size:9px;vertical-align:super;font-family:var(--sans);}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;}
+
+.ld{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-top:1px solid var(--line);}
+.ld:first-child{border-top:0;}
+.ld .mk{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:0 0 auto;margin-top:1px;}
+.ld .mk.ok{background:var(--green-400);}.ld .mk.miss{background:var(--red-400);}
+.ld .tx{font-size:13px;line-height:1.4;}.ld .tx b{font-weight:600;}
+.ld .tx .sub{color:var(--muted);font-size:11.5px;margin-top:2px;}
+
+.foot{padding:16px;font-size:11px;color:var(--muted);line-height:1.6;text-align:center;}
+.foot b{color:var(--gray-800);}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;z-index:50;background:rgba(251,250,247,.96);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);}
+.tab{flex:1;height:54px;border:0;background:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--gray-400);font-size:10px;font-weight:500;}
+.tab .ti{font-size:17px;}
+.pad{height:80px;}
+</style>
+</head>
+<body>
+<div class="device">
+  <header class="masthead">
+    <div class="mh-row"><div class="mh-brand"><span class="g" id="bb"></span>THE CFB <b>INDEX</b></div><button class="mh-btn">⌕</button></div>
+    <div class="crumbs"><span>The Model</span><span>›</span><span class="here">Report Card</span></div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow"><span class="g" id="ge"></span>Model accountability · every season since 2014</div>
+    <h1>REPORT CARD</h1>
+    <p>Everyone ranks. Almost nobody grades themselves. <b>Here's how often our model has actually been right</b> — receipts and all.</p>
+    <div class="tri">
+      <div class="c"><div class="v num">73<span style="font-size:18px">%</span></div><div class="l">Favorites hit</div></div>
+      <div class="c"><div class="v num">.187</div><div class="l">Brier score</div></div>
+      <div class="c"><div class="v ok">A−</div><div class="l">Calibration</div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g1"></span>Calibration · do our odds mean what they say?</div>
+    <div class="card"><div id="calib"></div></div>
+    <p class="cap">Read it like this: when we said <b>70%</b>, those teams won <b>68%</b> of the time — inside the grey "good-enough" band the whole way. The model is honest about its own uncertainty.<span class="mk">1</span></p>
+  </section>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g2"></span>We pull away from the dumb heuristic</div>
+    <div class="card"><div id="acc"></div></div>
+    <p class="cap">Picking the higher-ranked team blindly gets you ~72%. We <b>start level with it</b> in the preseason fog and pull <b>+10 ahead</b> by bowl season, as the data accrues.</p>
+  </section>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g3"></span>The receipts · called it / missed it</div>
+    <div id="ledger"></div>
+  </section>
+
+  <section class="sec last">
+    <div class="lbl"><span class="g" id="g4"></span>Whose ranking is actually right?</div>
+    <div class="card"><div id="polls"></div></div>
+    <p class="cap">Same games, same rule (Brier, lower = better). We edge the field — but the Committee is <b>close</b>, and the gaps are small. We show the real distances, not a stretched bar.<span class="mk">2</span></p>
+  </section>
+  <div class="foot">Track record across <b>11 seasons</b> · <b>8,400+</b> resolved predictions · scored with the Brier rule · every claim links its game. <b>We publish the misses too.</b></div>
+  <div class="pad"></div>
+
+  <nav class="tabbar"><button class="tab"><span class="ti">▦</span>Rankings</button><button class="tab"><span class="ti">◎</span>Scores</button><button class="tab"><span class="ti">★</span>Teams</button><button class="tab"><span class="ti">⌕</span>Search</button></nav>
+</div>
+<script>
+const G={ball:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-35 12 12)"/><path d="M9.6 14.4 14.4 9.6M10.9 11.3l1.4 1.4M12.1 9.9l1.4 1.4" stroke-linecap="round"/></svg>',
+ target:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>',
+ trend:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l6-6 4 4 8-8"/><path d="M16 6h5v5"/></svg>',
+ receipt:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l2-1.5L9 21l2-1.5L13 21l2-1.5L17 21l2-1.5V3l-2 1.5L15 3l-2 1.5L11 3 9 4.5 7 3 5 4.5z"/><path d="M8 8h8M8 12h8"/></svg>',
+ scale:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M5 7h14M5 7 2 13a4 4 0 0 0 6 0zM19 7l-3 6a4 4 0 0 0 6 0z"/></svg>'};
+bb.innerHTML=G.ball;document.getElementById('ge').innerHTML=G.target;g1.innerHTML=G.target;g2.innerHTML=G.trend;g3.innerHTML=G.receipt;g4.innerHTML=G.scale;
+const SVG=(w,h,inner,label)=>`<svg class="chart" viewBox="0 0 ${w} ${h}" width="100%" role="img" aria-label="${label}">${inner}</svg>`;
+
+/* ---- Calibration curve (538 standard) ---- */
+(function(){const W=336,H=222,pl=40,pr=14,pt=16,pb=40;const x=v=>pl+v*(W-pl-pr),y=v=>H-pb-v*(H-pt-pb);
+ const band=0.07,bw=2*band*(H-pt-pb);
+ let g=`<defs><clipPath id="cp"><rect x="${pl}" y="${pt}" width="${W-pl-pr}" height="${H-pt-pb}"/></clipPath></defs>`;
+ // tolerance band (the "good-enough" zone) — shown, not asserted
+ g+=`<line x1="${x(0)}" y1="${y(0)}" x2="${x(1)}" y2="${y(1)}" stroke="var(--gray-100)" stroke-width="${bw}" clip-path="url(#cp)"/>`;
+ // grid
+ [.25,.5,.75].forEach(t=>{g+=`<line x1="${x(t)}" y1="${pt}" x2="${x(t)}" y2="${y(0)}" stroke="var(--line)"/><line x1="${pl}" y1="${y(t)}" x2="${W-pr}" y2="${y(t)}" stroke="var(--line)"/>`;});
+ // perfect-calibration reference line — crisp, always visible (standard #4)
+ g+=`<line x1="${x(0)}" y1="${y(0)}" x2="${x(1)}" y2="${y(1)}" stroke="var(--gray-400)" stroke-width="1"/><text x="${x(.92)}" y="${y(.99)}" class="axn" text-anchor="end">perfect</text>`;
+ // our points, sized by sample count
+ const p=[[.1,.08,120],[.3,.34,260],[.5,.49,330],[.7,.68,240],[.9,.92,150]];
+ g+=`<polyline points="${p.map(d=>x(d[0])+','+y(d[1])).join(' ')}" fill="none" stroke="var(--navy-600)" stroke-width="2"/>`;
+ p.forEach(d=>g+=`<circle cx="${x(d[0])}" cy="${y(d[1])}" r="${(2.6+d[2]/150).toFixed(1)}" fill="var(--navy-600)"/>`);
+ // in-chart annotation pointing at the SAME finding as the caption (standard #3)
+ const a=p[3];g+=`<line x1="${x(a[0])}" y1="${y(a[1])}" x2="${x(.86)}" y2="${y(.40)}" stroke="var(--coral-400)" stroke-width="1"/><circle cx="${x(a[0])}" cy="${y(a[1])}" r="4.5" fill="none" stroke="var(--coral-400)" stroke-width="1.5"/><text x="${x(.86)}" y="${y(.40)+3}" class="axt" fill="var(--coral-600)" text-anchor="end" font-weight="700">said 70% → 68%</text>`;
+ // ticks both axes (standard #1)
+ [0,.5,1].forEach(t=>{g+=`<text x="${x(t)}" y="${y(0)+14}" class="axn" text-anchor="middle">${t*100|0}</text>`;g+=`<text x="${pl-6}" y="${y(t)+3.5}" class="axn" text-anchor="end">${t*100|0}</text>`;});
+ // axis titles + direction-of-good
+ g+=`<text x="${(pl+W-pr)/2}" y="${H-6}" class="axt" text-anchor="middle">Predicted win probability (%)</text>`;
+ g+=`<text transform="rotate(-90 12 ${(pt+y(0))/2})" x="12" y="${(pt+y(0))/2}" class="axt" text-anchor="middle">Observed win rate (%)</text>`;
+ // the one diagnostic number
+ g+=`<text x="${pl+4}" y="${pt+10}" class="axt" fill="var(--gray-800)" font-weight="700">Calibration error 1.8 pts</text>`;
+ document.getElementById('calib').innerHTML=SVG(W,H,g,'Calibration curve: our predicted win probabilities track the perfect diagonal within a tolerance band; calibration error 1.8 points');})();
+
+/* ---- Accuracy vs the naive baseline (NYT annotated line) ---- */
+(function(){const W=336,H=180,pl=34,pr=46,pt=22,pb=30;const lo=60,hi=84;
+ const xs=["Preseason","Wk 4","Wk 8","Wk 12","Bowls"],ys=[70,74,77,80,82];
+ const x=i=>pl+i*(W-pl-pr)/(xs.length-1),y=v=>H-pb-((v-lo)/(hi-lo))*(H-pt-pb);
+ let g='';
+ [60,70,80].forEach(v=>{g+=`<line x1="${pl}" y1="${y(v)}" x2="${W-pr}" y2="${y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${y(v)+3.5}" class="axn" text-anchor="end">${v}</text>`;});
+ // naive baseline reference (standard #4) — annotated so the lift is the story
+ g+=`<line x1="${pl}" y1="${y(72)}" x2="${W-pr}" y2="${y(72)}" stroke="var(--gray-400)" stroke-width="1" stroke-dasharray="4 3"/><text x="${W-pr+4}" y="${y(72)+3.5}" class="axn" fill="var(--gray-600)">favorite 72%</text>`;
+ // model line
+ g+=`<polyline points="${ys.map((v,i)=>x(i)+','+y(v)).join(' ')}" fill="none" stroke="var(--green-400)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+ ys.forEach((v,i)=>{const big=i===0||i===ys.length-1;g+=`<circle cx="${x(i)}" cy="${y(v)}" r="${big?3.6:2.6}" fill="var(--green-400)"/>`;if(big)g+=`<text x="${x(i)}" y="${y(v)-9}" font-size="11" font-weight="700" fill="var(--green-600)" text-anchor="${i===0?'start':'end'}">${v}%</text>`;});
+ // endpoint callout
+ g+=`<text x="${W-pr-2}" y="${y(82)+15}" class="axt" fill="var(--green-600)" text-anchor="end" font-weight="700">+10 vs the heuristic</text>`;
+ xs.forEach((s,i)=>g+=`<text x="${x(i)}" y="${H-7}" class="axn" text-anchor="middle">${s}</text>`);
+ g+=`<text transform="rotate(-90 11 ${(pt+y(lo))/2})" x="11" y="${(pt+y(lo))/2}" class="axt" text-anchor="middle">% of games correct</text>`;
+ document.getElementById('acc').innerHTML=SVG(W,H,g,'Accuracy rises from 70% preseason to 82% by bowls, pulling ten points clear of the 72% favorite-picking baseline');})();
+
+/* ---- Ledger ---- */
+const LED=[
+ [1,"Called Indiana's upset of Penn State","We gave the Hoosiers 41% — the field had it at 25%."],
+ [1,"Texas over Georgia","Said 52% on a neutral field. Texas won by 4."],
+ [0,"Missed Florida over Texas","We had Texas at 71%. The Gators didn't read the memo."],
+ [1,"Ohio State to make the Playoff","94% back in August. Never in doubt."],
+];
+document.getElementById('ledger').innerHTML=LED.map(([ok,t,s])=>`<div class="ld"><span class="mk ${ok?'ok':'miss'}">${ok?'✓':'✕'}</span><div class="tx"><b>${t}</b><div class="sub">${s}</div></div></div>`).join('');
+
+/* ---- Poll scoreboard — Cleveland dot plot on a real Brier axis (length now AGREES with value) ---- */
+(function(){const W=336,H=168,pl=92,pr=20,pt=30,pb=28;const dom=[0.17,0.235];
+ const x=b=>pl+(b-dom[0])/(dom[1]-dom[0])*(W-pl-pr);
+ const data=[["The CFB Index",0.187,1],["Committee",0.198,0],["AP Poll",0.213,0],["Coaches",0.221,0]];
+ const ry=i=>pt+i*((H-pt-pb)/(data.length-1));
+ let g='';
+ // axis + ticks + title (standard #1) — lower = better stated once
+ [0.18,0.20,0.22].forEach(t=>{g+=`<line x1="${x(t)}" y1="${pt-6}" x2="${x(t)}" y2="${H-pb+4}" stroke="var(--line)"/><text x="${x(t)}" y="${pt-10}" class="axn" text-anchor="middle">${t.toFixed(2)}</text>`;});
+ g+=`<text x="${pl}" y="${H-6}" class="axt">Brier score · ← lower is better</text>`;
+ data.forEach((d,i)=>{const[nm,b,us]=d;const yy=ry(i);const col=us?'var(--navy-600)':'var(--gray-400)';
+  g+=`<text x="${pl-10}" y="${yy+3.5}" font-size="11.5" font-weight="${us?700:500}" fill="${us?'var(--navy-800)':'var(--gray-800)'}" text-anchor="end" font-family="var(--sans)">${nm}</text>`;
+  g+=`<line x1="${pl}" y1="${yy}" x2="${x(b)}" y2="${yy}" stroke="var(--line)" stroke-dasharray="2 2"/>`;
+  g+=`<circle cx="${x(b)}" cy="${yy}" r="${us?6.5:5}" fill="${col}"/>`;
+  g+=`<text x="${x(b)+11}" y="${yy+3.5}" font-size="11" font-weight="700" fill="${us?'var(--navy-800)':'var(--gray-600)'}" font-family="var(--sans)" font-variant-numeric="tabular-nums">${b.toFixed(3)}</text>`;
+ });
+ document.getElementById('polls').innerHTML=SVG(W,H,g,'Brier scores as a dot plot: CFB Index 0.187 narrowly best, then Committee 0.198, AP 0.213, Coaches 0.221; lower is better');})();
+</script>
+</body>
+</html>

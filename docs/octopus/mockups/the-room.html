@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CFB Index — The Room (fan intelligence)</title>
+<!--
+  The Room (390px) — the fan-intelligence moat as a hub. What every fanbase is
+  feeling, from 15 sources x 14 cohorts: national mood, vibe shifts, respect gaps,
+  rival heat, civil wars. Emotion-forward (coral) to feel distinct from the data
+  board. Light/Bebas system. Tokens: 00-tokens.md.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-50:#E6F1FB;--navy-200:#85B7EB;--navy-400:#378ADD;--navy-600:#185FA5;--navy-800:#0C447C;--navy-900:#042C53;
+  --coral-50:#FAECE7;--coral-100:#F5C4B3;--coral-200:#F0997B;--coral-400:#D85A30;--coral-600:#993C1D;--coral-800:#712B13;
+  --amber-50:#FAEEDA;--amber-200:#EF9F27;--amber-400:#BA7517;--amber-600:#854F0B;
+  --gray-50:#F1EFE8;--gray-100:#D3D1C7;--gray-200:#B4B2A9;--gray-400:#888780;--gray-600:#5F5E5A;--gray-800:#444441;--gray-900:#2C2C2A;
+  --green-50:#E1F5EE;--green-200:#5DCAA5;--green-400:#1D9E75;--green-600:#0F6E56;--red-200:#F09595;--red-400:#E24B4A;--red-600:#A32D2D;
+  --ink:#141618;--muted:#6C6C6E;--subtle:#9A9A97;--surface:#FBFAF7;--card:#FFFFFF;--line:#E4E2DC;--line-strong:#CFCCC4;
+  --sans:'Inter','SF Pro Text',system-ui,sans-serif;--serif:'Source Serif 4',Georgia,serif;--disp:'Bebas Neue',sans-serif;
+  --tap:48px;
+}
+*{box-sizing:border-box;}html,body{margin:0;}
+body{background:#232320;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.g{vertical-align:-2px;margin-right:5px;}
+.device{width:390px;min-height:844px;background:var(--surface);position:relative;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.45);}
+@media(max-width:430px){.device{box-shadow:none;}}
+
+.masthead{position:sticky;top:0;z-index:40;color:#fff;padding:max(env(safe-area-inset-top),8px) 16px 0;background-color:var(--ink);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 38px);}
+.mh-row{height:46px;display:flex;align-items:center;justify-content:space-between;}
+.mh-brand{font-family:var(--disp);font-size:25px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;}
+.mh-brand b{color:var(--coral-200);font-weight:400;}.mh-brand .g{color:var(--amber-200);margin:0;}
+.mh-btn{width:var(--tap);height:var(--tap);margin:0 -4px;border:0;background:0;color:#fff;opacity:.85;font-size:18px;display:grid;place-items:center;}
+
+/* hero w/ mood meter */
+.hero{padding:18px 16px 18px;background-color:var(--surface);background-image:linear-gradient(165deg,var(--coral-50),transparent 62%),repeating-linear-gradient(90deg,rgba(20,22,24,.028) 0 1px,transparent 1px 38px);border-bottom:1px solid var(--line);}
+.hero .eyebrow{display:flex;align-items:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-600);font-weight:700;}
+.hero h1{font-family:var(--disp);font-size:46px;line-height:.84;margin:8px 0 4px;}
+.hero .sub{font-family:var(--serif);font-size:13.5px;color:var(--gray-800);margin-bottom:16px;}
+.meter{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;}
+.meter .top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px;}
+.meter .mood{font-family:var(--disp);font-size:28px;color:var(--coral-600);}
+.meter .tr{font-size:11px;font-weight:600;color:var(--green-600);}
+.meter .gauge{height:10px;border-radius:9999px;background:linear-gradient(90deg,var(--coral-400),var(--gray-200) 50%,var(--green-400));position:relative;}
+.meter .gauge::before{content:"";position:absolute;left:50%;top:-3px;width:1px;height:16px;background:var(--gray-600);opacity:.45;}
+.meter .pin{position:absolute;top:50%;width:4px;height:18px;border-radius:3px;background:var(--ink);transform:translate(-50%,-50%);box-shadow:0 1px 3px rgba(0,0,0,.3);}
+.meter .ends{display:flex;justify-content:space-between;font-size:9px;color:var(--subtle);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;}
+
+.sec{padding:16px;border-bottom:8px solid var(--gray-50);}
+.sec.last{border-bottom:0;}
+.lbl{display:flex;align-items:center;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);font-weight:700;margin-bottom:13px;}
+.lbl .n{margin-left:auto;letter-spacing:0;text-transform:none;font-size:11px;color:var(--coral-400);font-weight:600;}
+
+/* vibe shifts */
+.vs{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line);}
+.vs:first-of-type{border-top:0;}
+.vs img{width:30px;height:30px;object-fit:contain;flex:0 0 auto;}
+.vs .who{flex:1;min-width:0;}
+.vs .nm{font-size:14px;font-weight:600;}
+.vs .ar{font-size:11px;color:var(--muted);margin-top:2px;}
+.vs .spark{flex:0 0 auto;}
+.vs .d{font-family:var(--disp);font-size:31px;line-height:.8;width:50px;text-align:right;flex:0 0 auto;}
+.vs .d.up{color:var(--green-600);}.vs .d.down{color:var(--coral-600);}
+
+/* respect gap 2col */
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.rgcol h4{font-size:11px;font-weight:700;margin:0 0 9px;display:flex;align-items:center;gap:6px;}
+.rgcol.hot h4{color:var(--coral-600);}.rgcol.cold h4{color:var(--navy-800);}
+.rgrow{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line);font-size:12.5px;}
+.rgrow:first-of-type{border-top:0;}
+.rgrow img{width:20px;height:20px;object-fit:contain;}
+.rgrow .nm{flex:1;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rgrow .v{font-weight:700;font-variant-numeric:tabular-nums;}
+.rgcol.hot .v{color:var(--coral-600);}.rgcol.cold .v{color:var(--navy-800);}
+
+/* rival heat */
+.heat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.heat:last-child{margin-bottom:0;}
+.heat .line{font-family:var(--serif);font-size:14px;color:var(--gray-900);}
+.heat .line b{font-weight:600;}
+.heat .bar{height:6px;border-radius:9999px;background:var(--gray-100);margin-top:9px;overflow:hidden;}
+.heat .bar i{height:100%;background:var(--coral-400);display:block;}
+.heat .tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-600);float:right;}
+
+/* civil war */
+.cw{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 14px;margin-bottom:10px;}
+.cw .top{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.cw img{width:24px;height:24px;}
+.cw .nm{font-weight:700;font-size:13px;flex:1;}
+.cw .lab{font-family:var(--disp);font-size:18px;color:var(--coral-600);}
+.cw .split{position:relative;height:9px;display:flex;}
+.cw .split i:first-child{border-radius:9999px 0 0 9999px;}
+.cw .split i:last-child{border-radius:0 9999px 9999px 0;}
+.cw .split .mid{position:absolute;left:50%;top:-1.5px;width:1px;height:12px;background:var(--gray-800);opacity:.5;}
+.cw .split i{height:100%;}
+.cw .q{font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--gray-800);margin-top:9px;}
+.cw .pct{display:flex;justify-content:space-between;font-size:9.5px;color:var(--subtle);margin-top:5px;font-weight:600;}
+
+.prov{padding:16px;font-size:11px;color:var(--muted);text-align:center;line-height:1.6;}
+.prov b{color:var(--gray-800);}
+
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;z-index:50;background:rgba(251,250,247,.96);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);}
+.tab{flex:1;height:54px;border:0;background:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--gray-400);font-size:10px;font-weight:500;}
+.tab .ti{font-size:17px;}.tab.on{color:var(--ink);}
+.pad{height:80px;}
+</style>
+</head>
+<body>
+<div class="device">
+  <header class="masthead">
+    <div class="mh-row"><div class="mh-brand"><span class="g" id="bb"></span>THE CFB <b>INDEX</b></div><button class="mh-btn">⌕</button></div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow"><span class="g" id="ge"></span>Fan intelligence · live</div>
+    <h1>THE ROOM</h1>
+    <div class="sub">What every fanbase is feeling this week — read from 15 sources and 14 cohorts of conversation.</div>
+    <div class="meter">
+      <div class="top"><span class="mood">Anxious optimism</span><span class="tr">62 / 100 · ▲ +6</span></div>
+      <div class="gauge"><span class="pin" style="left:62%"></span></div>
+      <div class="ends"><span>Doom</span><span>Mixed</span><span>Euphoria</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g1"></span>Vibe shifts <span class="n">biggest swings →</span></div>
+    <div id="vibes"></div>
+  </section>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g2"></span>The respect gap · fans vs the country</div>
+    <div class="rg">
+      <div class="rgcol hot"><h4>▲ Fans hotter</h4><div id="hot"></div></div>
+      <div class="rgcol cold"><h4>▼ Country hotter</h4><div id="cold"></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g3"></span>Living rent-free · rival heat</div>
+    <div id="heat"></div>
+  </section>
+
+  <section class="sec last">
+    <div class="lbl"><span class="g" id="g4"></span>Civil wars · the most divided rooms</div>
+    <div id="cw"></div>
+  </section>
+  <div class="prov">Synthesized from <b>15 sources</b> (Reddit, boards, beat writers, podcasts, prediction markets…) across <b>14 cohorts</b> · <b>41,200</b> posts this week · every read is sourced.</div>
+  <div class="pad"></div>
+
+  <nav class="tabbar"><button class="tab"><span class="ti">▦</span>Rankings</button><button class="tab"><span class="ti">◎</span>Scores</button><button class="tab on"><span class="ti">◆</span>The Room</button><button class="tab"><span class="ti">⌕</span>Search</button></nav>
+</div>
+<script>
+const G={ball:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-35 12 12)"/><path d="M9.6 14.4 14.4 9.6M10.9 11.3l1.4 1.4M12.1 9.9l1.4 1.4" stroke-linecap="round"/></svg>',
+ chat:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12Z"/></svg>',
+ bolt:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
+ scale:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M5 7h14M5 7 2 13a4 4 0 0 0 6 0zM19 7l-3 6a4 4 0 0 0 6 0z"/></svg>',
+ fire:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3c1 3-1 4-2 6-1.5 3 .5 5 2 5 2 0 3.5-1.5 3-4 2 1.5 3 4 3 6a6 6 0 1 1-12 0c0-3 2-5 3-7 .5 2 2 2 3-.5C16 11 13 7 12 3Z"/></svg>',
+ split:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8 4 11l3 3M17 8l3 3-3 3"/></svg>'};
+bb.innerHTML=G.ball;document.getElementById('ge').innerHTML=G.chat;g1.innerHTML=G.bolt;g2.innerHTML=G.scale;g3.innerHTML=G.fire;g4.innerHTML=G.split;
+const lg=id=>`https://a.espncdn.com/i/teamlogos/ncaa/500/${id}.png`;
+function spark(hist,col){const W=54,H=22,n=hist.length,mn=10,mx=90,r=mx-mn;
+ const x=i=>i*(W/(n-1)),y=v=>H-2-((v-mn)/r)*(H-4);
+ return `<svg class="spark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" fill="none"><polyline points="${hist.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join(' ')}" stroke="${col}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${x(n-1)}" cy="${y(hist[n-1])}" r="2.2" fill="${col}"/></svg>`;}
+// vibe shifts: id, name, archetype, delta, hist(belief)
+const VIBES=[
+ [84,"Indiana","Doom → disbelief overnight",18,[20,22,28,35,52,70]],
+ [251,"Texas","Hype train, full steam",9,[58,60,62,68,72,75]],
+ [201,"Oklahoma","Doomer ball returns",-14,[60,55,48,40,34,28]],
+ [61,"Georgia","Scarred, bracing for the fall",-11,[78,74,70,66,62,58]],
+];
+document.getElementById('vibes').innerHTML=VIBES.map(v=>{const[id,nm,ar,d,h]=v;const up=d>0;const col=up?'#0F6E56':'#993C1D';
+ return `<div class="vs"><img src="${lg(id)}" alt="" onerror="this.style.visibility='hidden'"><div class="who"><div class="nm">${nm}</div><div class="ar">${ar}</div></div>${spark(h,col)}<div class="d num ${up?'up':'down'}">${up?'+':''}${d}</div></div>`;}).join('');
+
+const HOT=[[251,"Texas","+12"],[145,"Ole Miss","+9"],[84,"Indiana","+7"]];
+const COLD=[[130,"Michigan","-10"],[61,"Georgia","-8"],[333,"Alabama","-6"]];
+const rgRow=([id,nm,v])=>`<div class="rgrow"><img src="${lg(id)}" alt="" onerror="this.style.visibility='hidden'"><span class="nm">${nm}</span><span class="v num">${v}</span></div>`;
+document.getElementById('hot').innerHTML=HOT.map(rgRow).join('');
+document.getElementById('cold').innerHTML=COLD.map(rgRow).join('');
+
+const HEAT=[
+ ["Texas","Oklahoma",92,"Rent free"],
+ ["Michigan","Ohio State",78,"High"],
+ ["Florida State","Florida",64,"Simmering"],
+];
+document.getElementById('heat').innerHTML=HEAT.map(([a,b,h,tag])=>`<div class="heat"><span class="tag">${tag} · ${h}</span><div class="line"><b>${a}</b> is living rent-free in <b>${b}</b>'s head.</div><div class="bar"><i style="width:${h}%"></i></div></div>`).join('');
+
+const CW=[
+ [333,"Alabama",71,"Is this still the standard, or just another good team?",58,42],
+ [99,"LSU",64,"Fire everyone vs. it's a rebuild — pick a lane.",46,54],
+];
+document.getElementById('cw').innerHTML=CW.map(([id,nm,coh,q,pos,neg])=>`<div class="cw"><div class="top"><img src="${lg(id)}" alt="" onerror="this.style.visibility='hidden'"><span class="nm">${nm}</span><span class="lab">${(coh/100).toFixed(2)}<small style="font-family:var(--sans);font-size:8.5px;font-weight:600;color:var(--muted);letter-spacing:.05em"> cohesion</small></span></div><div class="split"><i style="width:${pos}%;background:var(--green-400)"></i><i style="width:${neg}%;background:var(--coral-400)"></i><span class="mid"></span></div><div class="pct"><span>${pos}% hopeful</span><span>${neg}% done</span></div><div class="q">“${q}”</div></div>`).join('');
+</script>
+</body>
+</html>

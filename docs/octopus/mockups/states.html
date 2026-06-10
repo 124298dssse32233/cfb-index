@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CFB Index — Component States Reference</title>
+<!--
+  States gallery (Storybook-lite). The visual companion to:
+    · rankings_redesign_component_spec.md  (which component shows which state)
+    · rankings_redesign_microcopy_spec.md  (the exact copy in every empty/error state)
+  Demonstrates the global state model + every empty / loading / error / Awaiting-Signal
+  state against the REAL component classes and the materialized cfb-tokens.css.
+  Forced-state helpers (.is-hover/.is-focus/.is-active) let a static page show
+  interaction states that normally need a pointer/keyboard. Design-only.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link href="./cfb-tokens.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{background:var(--color-surface);font-family:var(--font-sans);color:var(--color-text);-webkit-font-smoothing:antialiased;line-height:var(--lh-body);}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--sp-6) var(--sp-24);}
+
+/* ===== masthead (consistent with the set) ===== */
+.masthead{position:sticky;top:0;z-index:40;color:#fff;padding:max(env(safe-area-inset-top),10px) var(--sp-6) 10px;background-color:var(--color-ink);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 38px);}
+.mh-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);}
+.mh-brand{font-family:var(--font-display);font-size:28px;letter-spacing:.04em;line-height:1;display:flex;align-items:center;gap:9px;}
+.mh-brand b{color:var(--color-coral-200);font-weight:400;}
+.mh-brand .g{color:var(--color-amber-200);}
+.mh-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;}
+
+/* ===== page head ===== */
+.phead{padding:var(--sp-12) 0 var(--sp-8);border-bottom:1px solid var(--color-line);margin-bottom:var(--sp-8);}
+.phead .kick{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-coral-400);margin-bottom:var(--sp-3);}
+.phead h1{font-family:var(--font-display);font-size:var(--fs-display);line-height:var(--lh-display);letter-spacing:var(--tracking-display);margin:0 0 var(--sp-4);}
+.phead p{font-family:var(--font-serif);font-size:18px;line-height:1.5;color:var(--color-gray-800);max-width:64ch;margin:0;}
+.phead .meta{margin-top:var(--sp-4);font-size:12px;color:var(--color-text-subtle);}
+.phead .meta a{color:var(--color-navy-600);}
+
+/* ===== section ===== */
+.sec{margin-top:var(--sp-12);}
+.sec > h2{font-family:var(--font-display);font-size:30px;letter-spacing:.01em;margin:0 0 var(--sp-1);display:flex;align-items:baseline;gap:10px;}
+.sec > h2 .n{font-size:13px;font-family:var(--font-sans);font-weight:700;color:var(--color-coral-400);letter-spacing:.06em;}
+.sec > .lede{font-size:14px;color:var(--color-text-muted);margin:0 0 var(--sp-6);max-width:72ch;}
+.sec > .lede code{font-family:var(--font-mono);font-size:12px;background:var(--color-gray-50);border:1px solid var(--color-line);border-radius:var(--radius-sm);padding:1px 5px;}
+
+/* ===== state-cell grid ===== */
+.grid{display:grid;gap:var(--sp-4);}
+.g-states{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+.g-cards{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+.cell{background:var(--color-surface-card);border:1px solid var(--color-line);border-radius:var(--radius-lg);padding:var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-3);min-height:96px;}
+.cell .clbl{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-subtle);}
+.cell .cbody{flex:1;display:flex;align-items:center;flex-wrap:wrap;gap:var(--sp-2);}
+.cell .cnote{font-size:11px;color:var(--color-text-muted);line-height:1.4;}
+
+/* ===== forced-state helpers (demo only — normally :hover / :focus-visible / :active) ===== */
+/* a subtle "demo" corner flag */
+.cell.demo{position:relative;}
+.cell.demo::after{content:"forced";position:absolute;top:8px;right:10px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-subtle);opacity:.7;}
+
+/* ===== representative controls ===== */
+.btn{appearance:none;border:1px solid var(--color-navy-800);background:var(--color-navy-600);color:#fff;font:600 13px/1 var(--font-sans);padding:0 16px;height:40px;border-radius:var(--radius-md);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:transform 120ms var(--ease-emphasized),background 150ms;}
+.btn.ghost{background:transparent;color:var(--color-navy-800);border-color:var(--color-line-strong);}
+@media(hover:hover){.btn:hover,.btn.is-hover{background:var(--color-navy-800);} .btn.ghost:hover,.btn.ghost.is-hover{background:var(--color-navy-50);border-color:var(--color-navy-200);}}
+.btn:focus-visible,.btn.is-focus{outline:2px solid var(--color-navy-600);outline-offset:2px;}
+.btn:active,.btn.is-active{transform:scale(.97);}
+.btn:disabled,.btn.is-disabled{opacity:.4;cursor:not-allowed;}
+
+.fchip{height:32px;padding:0 12px;display:inline-flex;align-items:center;gap:5px;border-radius:var(--radius-full);background:transparent;border:1px solid var(--color-line-strong);font:500 12px/1 var(--font-sans);color:var(--color-gray-800);cursor:pointer;white-space:nowrap;}
+@media(hover:hover){.fchip:hover,.fchip.is-hover{border-color:var(--color-gray-400);background:var(--color-gray-50);}}
+.fchip:focus-visible,.fchip.is-focus{outline:2px solid var(--color-navy-600);outline-offset:2px;}
+.fchip:active,.fchip.is-active{transform:scale(.97);}
+.fchip[aria-pressed="true"],.fchip.is-selected{background:var(--color-ink);border-color:var(--color-ink);color:#fff;}
+.fchip:disabled,.fchip.is-disabled{opacity:.4;cursor:not-allowed;}
+.fchip .ck{font-size:11px;}
+
+.lens{display:inline-flex;gap:var(--sp-6);padding:0 2px;border-bottom:1px solid var(--color-line);}
+.lens button{border:0;background:0;padding:10px 0;font:600 13px/1 var(--font-sans);color:var(--color-text-subtle);cursor:pointer;position:relative;}
+@media(hover:hover){.lens button:hover,.lens button.is-hover{color:var(--color-gray-800);}}
+.lens button:focus-visible,.lens button.is-focus{outline:2px solid var(--color-navy-600);outline-offset:3px;border-radius:2px;}
+.lens button[aria-selected="true"],.lens button.is-selected{color:var(--color-ink);}
+.lens button[aria-selected="true"]::after,.lens button.is-selected::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--color-coral-400);}
+
+/* ===== belief chips (real classes) ===== */
+.bchip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 9px;border-radius:var(--radius-full);font:600 11px/1 var(--font-sans);}
+.bchip.hot{background:var(--color-coral-50);color:var(--color-coral-600);}
+.bchip.cold{background:var(--color-navy-50);color:var(--color-navy-800);}
+.bchip.align{background:var(--color-gray-50);color:var(--color-gray-600);}
+.bchip.signal{background:var(--color-gray-50);color:var(--color-text-subtle);border:1px dashed var(--color-line-strong);}
+
+/* ===== confidence bands ===== */
+.conf{display:inline-flex;align-items:center;gap:7px;font:600 12px/1 var(--font-sans);padding:5px 10px 5px 8px;border-radius:var(--radius-full);border:1px solid var(--color-line);}
+.conf .dot{width:8px;height:8px;border-radius:var(--radius-full);}
+.conf.hi{background:var(--color-green-50);color:var(--color-green-800);} .conf.hi .dot{background:var(--color-green-400);}
+.conf.mid{background:var(--color-amber-50);color:var(--color-amber-800);} .conf.mid .dot{background:var(--color-amber-200);}
+.conf.lo{background:var(--color-gray-50);color:var(--color-gray-800);} .conf.lo .dot{background:var(--color-gray-400);}
+.conf.unset{background:transparent;color:var(--color-text-subtle);} .conf.unset .dot{background:transparent;border:1px dashed var(--color-line-strong);}
+/* the 3-segment strength meter that pairs with the word (not color-only) */
+.cmeter{display:inline-flex;gap:2px;}
+.cmeter i{width:14px;height:5px;border-radius:1px;background:var(--color-gray-100);}
+.conf.hi .cmeter i{background:var(--color-green-400);}
+.conf.mid .cmeter i:nth-child(-n+2){background:var(--color-amber-200);}
+.conf.lo .cmeter i:nth-child(1){background:var(--color-gray-400);}
+
+/* ===== skeletons ===== */
+.sk{background:var(--color-gray-100);border-radius:var(--radius-sm);}
+.skrow{display:grid;grid-template-columns:34px 30px 1fr 56px 16px;gap:12px;align-items:center;padding:12px var(--sp-4);border-bottom:1px solid var(--color-line);}
+.skrow .sk.rk{height:30px;width:26px;border-radius:var(--radius-sm);}
+.skrow .sk.lg{height:30px;width:30px;border-radius:var(--radius-full);}
+.skrow .l2{display:flex;flex-direction:column;gap:6px;}
+.skrow .sk.nm{height:13px;width:62%;} .skrow .sk.mt{height:9px;width:38%;}
+.skrow .sk.pw{height:18px;width:44px;justify-self:end;} .skrow .sk.cv{height:14px;width:8px;}
+.skchart{height:150px;border-radius:var(--radius-md);background:linear-gradient(180deg,var(--color-gray-50),var(--color-gray-100));position:relative;overflow:hidden;border:1px solid var(--color-line);}
+.skchart .ax{position:absolute;left:14px;right:14px;bottom:22px;height:1px;background:var(--color-line-strong);}
+.skchart .ay{position:absolute;left:26px;top:14px;bottom:22px;width:1px;background:var(--color-line-strong);}
+.skchart .bar{position:absolute;bottom:23px;width:9px;border-radius:2px 2px 0 0;background:var(--color-gray-200);}
+.sheet{background:var(--color-surface-card);border:1px solid var(--color-line);border-radius:var(--radius-lg);overflow:hidden;}
+.busy{font-size:11px;color:var(--color-text-subtle);padding:10px var(--sp-4);border-top:1px solid var(--color-line);display:flex;align-items:center;gap:8px;}
+.busy .sp{width:11px;height:11px;border-radius:50%;border:2px solid var(--color-gray-200);border-top-color:var(--color-navy-600);animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ===== empty / error cards ===== */
+.estate{display:flex;flex-direction:column;gap:8px;align-items:flex-start;justify-content:center;min-height:150px;padding:var(--sp-6);text-align:left;background:var(--color-surface-card);border:1px solid var(--color-line);border-radius:var(--radius-lg);}
+.estate.dashed{border-style:dashed;border-color:var(--color-line-strong);background:transparent;}
+.estate .eg{width:30px;height:30px;border-radius:var(--radius-full);display:grid;place-items:center;color:var(--color-text-subtle);background:var(--color-gray-50);margin-bottom:2px;}
+.estate .eh{font:600 14px/1.3 var(--font-sans);color:var(--color-gray-900);}
+.estate .es{font-size:13px;color:var(--color-text-muted);line-height:1.45;max-width:42ch;}
+.estate.err{border-color:var(--color-red-200);background:var(--color-red-50);}
+.estate.err .eg{background:#fff;color:var(--color-red-600);}
+.estate.err .eh{color:var(--color-red-600);}
+.estate.info{border-color:var(--color-amber-200);background:var(--color-amber-50);}
+.estate.info .eh{color:var(--color-amber-800);}
+.estate .ebtn{margin-top:6px;}
+
+/* ===== a11y note panel ===== */
+.notes{margin-top:var(--sp-12);background:var(--color-navy-900);color:#fff;border-radius:var(--radius-xl);padding:var(--sp-8);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 1px,transparent 1px 44px);}
+.notes h2{font-family:var(--font-display);font-size:30px;margin:0 0 var(--sp-4);color:#fff;}
+.notes ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-4);}
+.notes li{font-size:13px;line-height:1.5;color:rgba(255,255,255,.84);padding-left:18px;position:relative;}
+.notes li::before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:50%;background:var(--color-coral-200);}
+.notes li b{color:#fff;font-weight:600;}
+.notes code{font-family:var(--font-mono);font-size:11.5px;background:rgba(255,255,255,.1);border-radius:var(--radius-sm);padding:1px 5px;color:var(--color-amber-100);}
+
+/* legend strip */
+.legend{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-6);padding:var(--sp-4);background:var(--color-gray-50);border:1px solid var(--color-line);border-radius:var(--radius-lg);font-size:12px;color:var(--color-gray-800);}
+.legend b{color:var(--color-ink);}
+.legend code{font-family:var(--font-mono);font-size:11px;background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-sm);padding:1px 5px;}
+.foot{margin-top:var(--sp-16);padding-top:var(--sp-6);border-top:1px solid var(--color-line);font-size:12px;color:var(--color-text-subtle);}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mh-in">
+    <div class="mh-brand"><svg class="g" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="12" rx="10" ry="6.2" stroke="currentColor" stroke-width="1.7"/><path d="M7 12h10M9.5 10v4M14.5 10v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>The CFB <b>Index</b></div>
+    <div class="mh-tag">States Reference</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="phead">
+    <div class="kick">Build handoff · component states</div>
+    <h1>Every State, On One Page</h1>
+    <p>The visual companion to the component &amp; microcopy specs. It shows what the fixed-state mockups
+       can’t — what each component looks like while it’s <b>loading</b>, when there’s <b>no data</b>, when a
+       fetch <b>fails</b>, and the calm gray of <b>Awaiting Signal</b>. Built on the real component classes and
+       <code>cfb-tokens.css</code>, so it’s a faithful reference, not a sketch.</p>
+    <div class="meta">Pairs with <a href="../rankings_redesign_component_spec.md">component spec</a> ·
+       <a href="../rankings_redesign_microcopy_spec.md">microcopy guide</a> (every string below is quoted from it).</div>
+    <div class="legend">
+      <span><b>Reading the grid:</b> each cell is one state.</span>
+      <span>Cells tagged <code>forced</code> use demo classes (<code>.is-hover</code> / <code>.is-focus</code> /
+        <code>.is-active</code>) to freeze states that normally need a pointer or keyboard.</span>
+    </div>
+  </div>
+
+  <!-- ============ 1. INTERACTION STATES ============ -->
+  <section class="sec">
+    <h2><span class="n">01</span> Interaction states</h2>
+    <p class="lede">The global state model from §0 of the component spec, on three representative controls — a
+      primary button, a filter chip, and a lens tab. Focus-visible is a <b>2px navy ring, 2px offset</b>, on
+      every focusable control; press is <code>scale(.97)</code>; touch never gets stuck-hover.</p>
+
+    <h3 style="font:700 11px/1 var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-subtle);margin:0 0 12px;">Primary button</h3>
+    <div class="grid g-states">
+      <div class="cell"><div class="clbl">Default</div><div class="cbody"><button class="btn">Compare</button></div></div>
+      <div class="cell demo"><div class="clbl">Hover</div><div class="cbody"><button class="btn is-hover">Compare</button></div></div>
+      <div class="cell demo"><div class="clbl">Focus-visible</div><div class="cbody"><button class="btn is-focus">Compare</button></div></div>
+      <div class="cell demo"><div class="clbl">Active / pressed</div><div class="cbody"><button class="btn is-active">Compare</button></div></div>
+      <div class="cell"><div class="clbl">Disabled</div><div class="cbody"><button class="btn is-disabled" disabled>Compare</button></div></div>
+    </div>
+
+    <h3 style="font:700 11px/1 var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-subtle);margin:24px 0 12px;">Filter chip <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--color-text-muted);">— adds a selected (pressed) state</span></h3>
+    <div class="grid g-states">
+      <div class="cell"><div class="clbl">Default</div><div class="cbody"><button class="fchip">SEC</button></div></div>
+      <div class="cell demo"><div class="clbl">Hover</div><div class="cbody"><button class="fchip is-hover">SEC</button></div></div>
+      <div class="cell demo"><div class="clbl">Focus-visible</div><div class="cbody"><button class="fchip is-focus">SEC</button></div></div>
+      <div class="cell"><div class="clbl">Selected <span style="text-transform:none;letter-spacing:0;">(aria-pressed)</span></div><div class="cbody"><button class="fchip is-selected" aria-pressed="true"><span class="ck" aria-hidden="true">✓</span>SEC</button></div></div>
+      <div class="cell"><div class="clbl">Disabled</div><div class="cbody"><button class="fchip is-disabled" disabled>SEC</button></div></div>
+    </div>
+
+    <h3 style="font:700 11px/1 var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-subtle);margin:24px 0 12px;">Lens tab <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--color-text-muted);">— roving tabindex, arrow-key nav, coral underline on selection</span></h3>
+    <div class="grid g-cards">
+      <div class="cell" style="min-height:auto;"><div class="clbl">Default · selected</div><div class="cbody"><div class="lens" role="tablist" aria-label="Ranking view"><button role="tab" class="is-selected" aria-selected="true">Power</button><button role="tab" aria-selected="false">Résumé</button><button role="tab" aria-selected="false">Bettor</button><button role="tab" aria-selected="false">Belief</button></div></div></div>
+      <div class="cell demo" style="min-height:auto;"><div class="clbl">Hover (Résumé)</div><div class="cbody"><div class="lens" role="tablist" aria-label="Ranking view"><button role="tab" class="is-selected" aria-selected="true">Power</button><button role="tab" class="is-hover" aria-selected="false">Résumé</button><button role="tab" aria-selected="false">Bettor</button><button role="tab" aria-selected="false">Belief</button></div></div></div>
+      <div class="cell demo" style="min-height:auto;"><div class="clbl">Focus-visible (Bettor)</div><div class="cbody"><div class="lens" role="tablist" aria-label="Ranking view"><button role="tab" class="is-selected" aria-selected="true">Power</button><button role="tab" aria-selected="false">Résumé</button><button role="tab" class="is-focus" aria-selected="false">Bettor</button><button role="tab" aria-selected="false">Belief</button></div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. BELIEF CHIP ============ -->
+  <section class="sec">
+    <h2><span class="n">02</span> Belief chip — including Awaiting Signal</h2>
+    <p class="lede">The fan-belief pill (§7). Direction lives in the <b>word</b> (“Fans +6”), never color alone —
+      the arrow is <code>aria-hidden</code>. The fourth state is the brand’s graceful-degradation moment: below
+      <code>MIN_MENTIONS_FOR_SIGNAL</code> mentions we render a calm gray <b>Awaiting signal</b> chip, never a 0
+      or a blank.</p>
+    <div class="grid g-states">
+      <div class="cell"><div class="clbl">Hot — fans bullish</div><div class="cbody"><span class="bchip hot"><span aria-hidden="true">▲</span>Fans +6</span></div><div class="cnote">Fans rate them 6 spots above the model.</div></div>
+      <div class="cell"><div class="clbl">Cold — fans bearish</div><div class="cbody"><span class="bchip cold"><span aria-hidden="true">▼</span>Fans −3</span></div><div class="cnote">Fans rate them 3 spots below the model.</div></div>
+      <div class="cell"><div class="clbl">Aligned</div><div class="cbody"><span class="bchip align">Aligned</span></div><div class="cnote">Fans and the model agree.</div></div>
+      <div class="cell"><div class="clbl">Empty — low data</div><div class="cbody"><span class="bchip signal">Awaiting signal</span></div><div class="cnote">“Not enough fan conversation yet to read a mood.”</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. CONFIDENCE BANDS ============ -->
+  <section class="sec">
+    <h2><span class="n">03</span> Confidence bands</h2>
+    <p class="lede">How the model signals certainty (design-system §33). Each band pairs a <b>word</b> and a
+      <b>3-segment meter</b> — never color alone. Thresholds are data-driven from the per-team-week distribution.</p>
+    <div class="grid g-states">
+      <div class="cell"><div class="clbl">High</div><div class="cbody"><span class="conf hi"><span class="dot"></span>High confidence<span class="cmeter" aria-hidden="true"><i></i><i></i><i></i></span></span></div><div class="cnote">The views agree.</div></div>
+      <div class="cell"><div class="clbl">Medium</div><div class="cbody"><span class="conf mid"><span class="dot"></span>Some uncertainty<span class="cmeter" aria-hidden="true"><i></i><i></i><i></i></span></span></div><div class="cnote">Room and model disagree.</div></div>
+      <div class="cell"><div class="clbl">Low</div><div class="cbody"><span class="conf lo"><span class="dot"></span>Low confidence<span class="cmeter" aria-hidden="true"><i></i><i></i><i></i></span></span></div><div class="cnote">Thin sample this early.</div></div>
+      <div class="cell"><div class="clbl">Unset</div><div class="cbody"><span class="conf unset"><span class="dot"></span>Confidence pending</span></div><div class="cnote">Not enough yet to set a band.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. LOADING ============ -->
+  <section class="sec">
+    <h2><span class="n">04</span> Loading — skeletons</h2>
+    <p class="lede">Shown only after a <b>300ms</b> wait, no shimmer by default (NN/g: distraction + a11y risk).
+      Skeletons match final geometry exactly so the swap causes <b>no layout shift</b>. The container carries
+      <code>aria-busy="true"</code> and a screen-reader label; the skeleton itself has no placeholder text.</p>
+    <div class="grid g-cards" style="grid-template-columns:repeat(auto-fill,minmax(340px,1fr));">
+      <div>
+        <div class="clbl" style="font:700 9.5px/1 var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-subtle);margin-bottom:8px;">Board — loading</div>
+        <div class="sheet" aria-busy="true" aria-label="Loading the board">
+          <div class="skrow"><span class="sk rk"></span><span class="sk lg"></span><span class="l2"><span class="sk nm"></span><span class="sk mt"></span></span><span class="sk pw"></span><span class="sk cv"></span></div>
+          <div class="skrow"><span class="sk rk"></span><span class="sk lg"></span><span class="l2"><span class="sk nm" style="width:54%"></span><span class="sk mt" style="width:30%"></span></span><span class="sk pw"></span><span class="sk cv"></span></div>
+          <div class="skrow"><span class="sk rk"></span><span class="sk lg"></span><span class="l2"><span class="sk nm" style="width:68%"></span><span class="sk mt" style="width:42%"></span></span><span class="sk pw"></span><span class="sk cv"></span></div>
+          <div class="skrow"><span class="sk rk"></span><span class="sk lg"></span><span class="l2"><span class="sk nm" style="width:48%"></span><span class="sk mt" style="width:34%"></span></span><span class="sk pw"></span><span class="sk cv"></span></div>
+          <div class="busy"><span class="sp" aria-hidden="true"></span>Loading the board…</div>
+        </div>
+      </div>
+      <div>
+        <div class="clbl" style="font:700 9.5px/1 var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-subtle);margin-bottom:8px;">Chart — loading</div>
+        <div class="skchart" aria-busy="true" aria-label="Loading calibration chart">
+          <span class="ay"></span><span class="ax"></span>
+          <span class="bar" style="left:34px;height:40px;"></span>
+          <span class="bar" style="left:58px;height:66px;"></span>
+          <span class="bar" style="left:82px;height:52px;"></span>
+          <span class="bar" style="left:106px;height:88px;"></span>
+          <span class="bar" style="left:130px;height:74px;"></span>
+          <span class="bar" style="left:154px;height:104px;"></span>
+        </div>
+        <div class="busy" style="border:0;padding-left:0;"><span class="sp" aria-hidden="true"></span>Reserve <code style="font-family:var(--font-mono);font-size:11px;">contain-intrinsic-size</code> so the real chart drops in with zero CLS.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. EMPTY / LOW-DATA ============ -->
+  <section class="sec">
+    <h2><span class="n">05</span> Empty &amp; low-data states</h2>
+    <p class="lede">Never a blank, a zero, or “N/A”. Each is a <b>specific</b> sentence that says why and what
+      would change it — quoted verbatim from the microcopy guide §5.3. This is the accountability thesis made
+      visible: we’d rather show nothing than fake a reading.</p>
+    <div class="grid g-cards">
+      <div class="estate dashed">
+        <span class="eg" aria-hidden="true">○</span>
+        <span class="eh">Awaiting signal</span>
+        <span class="es">We don’t have enough conversation about this program to read its room yet.</span>
+      </div>
+      <div class="estate dashed">
+        <span class="eg" aria-hidden="true">▦</span>
+        <span class="eh">The 2026 board opens Week 1.</span>
+        <span class="es">Preseason ratings post when the first games are played.</span>
+      </div>
+      <div class="estate dashed">
+        <span class="eg" aria-hidden="true">◇</span>
+        <span class="eh">Not simulated yet</span>
+        <span class="es">Playoff odds post after Week 4.</span>
+      </div>
+      <div class="estate dashed">
+        <span class="eg" aria-hidden="true">↗</span>
+        <span class="eh">Too early for a trend</span>
+        <span class="es">A few more games and the season shape appears.</span>
+      </div>
+      <div class="estate dashed">
+        <span class="eg" aria-hidden="true">⊘</span>
+        <span class="eh">No teams match these filters.</span>
+        <span class="es">Clear a filter to see more.</span>
+        <span class="ebtn"><button class="btn ghost">Clear all</button></span>
+      </div>
+      <div class="estate dashed">
+        <span class="eg" aria-hidden="true">⌕</span>
+        <span class="eh">No team or page matches “bama2”.</span>
+        <span class="es">Try a team name, a conference, or “report card”.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. ERROR ============ -->
+  <section class="sec">
+    <h2><span class="n">06</span> Error states</h2>
+    <p class="lede">Factual, never “Oops!” or an error code. Say what broke and give the one button that fixes
+      it. The message is <code>role="alert"</code>. Stale-data is <b>informational</b> (amber), not alarming — a
+      late deploy still shows the last good board.</p>
+    <div class="grid g-cards">
+      <div class="estate err" role="alert">
+        <span class="eg" aria-hidden="true">!</span>
+        <span class="eh">The board didn’t load.</span>
+        <span class="es">A hiccup fetching this week’s ratings.</span>
+        <span class="ebtn"><button class="btn">↻ Retry</button></span>
+      </div>
+      <div class="estate err" role="alert">
+        <span class="eg" aria-hidden="true">!</span>
+        <span class="eh">This chart didn’t load.</span>
+        <span class="es">The numbers are still available as a table below.</span>
+        <span class="ebtn"><button class="btn ghost">↻ Retry</button> &nbsp; <button class="btn ghost">View as table</button></span>
+      </div>
+      <div class="estate info">
+        <span class="eg" aria-hidden="true" style="background:#fff;color:var(--color-amber-600);">⟳</span>
+        <span class="eh">Showing the last good board from 9:05 PM.</span>
+        <span class="es">Tonight’s update is still publishing — this refreshes automatically.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ a11y / reduced motion ============ -->
+  <section class="notes">
+    <h2>The rules every state obeys</h2>
+    <ul>
+      <li><b>Color is never the only signal.</b> Every belief chip, confidence band, delta, and winner-highlight
+        pairs color with a <b>word or glyph</b> — AA, and colorblind-safe.</li>
+      <li><b>Focus-visible is sacred.</b> A <code>2px navy ring</code> on every focusable control. Outlines are
+        never removed without a replacement.</li>
+      <li><b>Touch targets ≥ 48px</b> hit-area even when the glyph is small. Hover effects sit behind
+        <code>@media (hover:hover)</code> so phones don’t get stuck-hover.</li>
+      <li><b>Reduced motion</b> kills transforms, the roll-up numerals, and the spinner — opacity and instant
+        states remain. The skeleton→content swap is layout, not animation.</li>
+      <li><b>Loading announces.</b> The region carries <code>aria-busy</code> + a label; errors are
+        <code>role="alert"</code>; result counts and re-sorts fire <code>aria-live="polite"</code>.</li>
+      <li><b>Empty ≠ broken.</b> “Awaiting signal” is a designed state with calm copy — never a zero, a blank,
+        or an “N/A”.</li>
+    </ul>
+  </section>
+
+  <div class="foot">
+    THE CFB INDEX · component states reference · 2026-06-08 · design-only · served via the
+    <code style="font-family:var(--font-mono);">octo-mockup</code> task on :4599 (<code style="font-family:var(--font-mono);">/states.html</code>).
+  </div>
+
+</div>
+</body>
+</html>

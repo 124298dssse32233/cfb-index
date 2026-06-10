@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CFB Index — The Bridge (cross-division)</title>
+<!--
+  The Cross-Division Bridge (390px) — the signature, uncopyable feature: one honest
+  power scale, FBS → NAIA. SPECTRUM REBUILT to the data-viz gold standard: power and
+  FBS-RANK now share one ruler (the FBS lane is the rank scale), the overlap zone is a
+  highlighted band ("beats N FBS teams"), the bridge line is haloed, and the FBS-equiv
+  ranks are COMPUTED from the power scale (honest, not hand-set). Tokens: 00-tokens.md.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-50:#E6F1FB;--navy-100:#B5D4F4;--navy-200:#85B7EB;--navy-400:#378ADD;--navy-600:#185FA5;--navy-800:#0C447C;--navy-900:#042C53;
+  --coral-50:#FAECE7;--coral-100:#F5C4B3;--coral-200:#F0997B;--coral-400:#D85A30;--coral-600:#993C1D;
+  --amber-50:#FAEEDA;--amber-200:#EF9F27;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+  --gray-50:#F1EFE8;--gray-100:#D3D1C7;--gray-200:#B4B2A9;--gray-400:#888780;--gray-600:#5F5E5A;--gray-800:#444441;--gray-900:#2C2C2A;
+  --green-200:#5DCAA5;--green-400:#1D9E75;--green-600:#0F6E56;--red-200:#F09595;--red-400:#E24B4A;--red-600:#A32D2D;
+  --ink:#141618;--muted:#6C6C6E;--subtle:#9A9A97;--surface:#FBFAF7;--card:#FFFFFF;--line:#E4E2DC;--line-strong:#CFCCC4;
+  --sans:'Inter','SF Pro Text',system-ui,sans-serif;--serif:'Source Serif 4',Georgia,serif;--disp:'Bebas Neue',sans-serif;
+  --tap:48px;
+}
+*{box-sizing:border-box;}html,body{margin:0;}
+body{background:#232320;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.g{vertical-align:-2px;margin-right:5px;}
+.chart text{font-family:var(--sans);}
+.axt{font-size:9.5px;fill:var(--muted);letter-spacing:.03em;}
+.axn{font-size:9.5px;fill:var(--subtle);}
+.device{width:390px;min-height:844px;background:var(--surface);position:relative;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.45);}
+@media(max-width:430px){.device{box-shadow:none;}}
+
+.masthead{position:sticky;top:0;z-index:40;color:#fff;padding:max(env(safe-area-inset-top),8px) 16px 0;background-color:var(--ink);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 38px);}
+.mh-row{height:46px;display:flex;align-items:center;justify-content:space-between;}
+.mh-brand{font-family:var(--disp);font-size:25px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;}
+.mh-brand b{color:var(--coral-200);font-weight:400;}.mh-brand .g{color:var(--amber-200);margin:0;}
+.mh-btn{width:var(--tap);height:var(--tap);margin:0 -4px;border:0;background:0;color:#fff;opacity:.85;font-size:18px;display:grid;place-items:center;}
+.crumbs{display:flex;align-items:center;gap:6px;padding-bottom:9px;font-size:11px;color:rgba(255,255,255,.6);font-weight:500;}.crumbs .here{color:#fff;}
+
+.hero{padding:18px 16px 14px;border-bottom:1px solid var(--line);background:var(--card);}
+.hero .eyebrow{display:flex;align-items:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-400);font-weight:700;}
+.hero h1{font-family:var(--disp);font-size:42px;line-height:.84;margin:8px 0 8px;letter-spacing:.01em;}
+.hero p{font-family:var(--serif);font-size:14.5px;line-height:1.4;color:var(--gray-800);margin:0;}
+.hero p b{font-weight:600;}
+
+.sec{padding:16px;border-bottom:8px solid var(--gray-50);}
+.lbl{display:flex;align-items:center;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);font-weight:700;margin-bottom:12px;}
+.divs{display:flex;gap:6px;margin-bottom:14px;}
+.divs button{flex:1;border:1px solid var(--line-strong);background:var(--card);border-radius:8px;padding:7px 0;font-size:11px;font-weight:700;color:var(--gray-600);cursor:pointer;transition:all .25s cubic-bezier(.2,0,0,1);}
+.divs button.on{color:#fff;border-color:transparent;}
+.spectrum{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 12px 6px;}
+
+.spot{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.spot .top{display:flex;align-items:center;gap:13px;padding:15px;border-bottom:1px solid var(--line);}
+.spot .badge{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:var(--disp);font-size:18px;flex:0 0 auto;}
+.spot .who .d{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+.spot .who .n{font-size:18px;font-weight:700;margin-top:2px;}
+.spot .who .pw{font-size:11px;color:var(--muted);margin-top:2px;}
+.spot .equiv{margin-left:auto;text-align:right;}
+.spot .equiv .v{font-family:var(--disp);font-size:34px;line-height:.8;color:var(--navy-800);}
+.spot .equiv .l{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--subtle);font-weight:600;margin-top:3px;}
+.spot .body{padding:14px 15px;}
+.spot .body p{font-family:var(--serif);font-size:14px;line-height:1.5;margin:0;color:var(--gray-900);}
+.spot .body p b{font-weight:600;}.spot .body p .mk{color:var(--coral-400);font-weight:700;font-size:9px;vertical-align:super;font-family:var(--sans);}
+.spot .meta{display:flex;gap:8px;margin-top:13px;}
+.chip{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 10px;border-radius:9999px;font-size:11px;font-weight:600;}
+.chip.beat{background:var(--green-50,#E1F5EE);color:var(--green-600);}
+.chip.conf{background:var(--amber-50);color:var(--amber-800);}
+
+.mu{display:flex;align-items:center;gap:11px;padding:12px 0;border-top:1px solid var(--line);}
+.mu:first-of-type{border-top:0;}
+.mu .side{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+.mu .dot{width:10px;height:10px;border-radius:3px;flex:0 0 auto;}
+.mu .nm{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mu .nm small{color:var(--muted);font-weight:500;font-size:10.5px;}
+.mu .odds{flex:0 0 auto;text-align:center;width:96px;}
+.mu .bar{height:6px;border-radius:9999px;background:var(--gray-100);overflow:hidden;display:flex;margin-top:5px;position:relative;}
+.mu .bar i{height:100%;}
+.mu .bar .mid{position:absolute;left:50%;top:-2px;width:1px;height:10px;background:var(--gray-400);}
+.mu .pct{font-size:11px;font-weight:700;}
+
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;z-index:50;background:rgba(251,250,247,.96);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);}
+.tab{flex:1;height:54px;border:0;background:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--gray-400);font-size:10px;font-weight:500;}
+.tab .ti{font-size:17px;}.tab.on{color:var(--ink);}
+.pad{height:80px;}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="device">
+  <header class="masthead">
+    <div class="mh-row"><div class="mh-brand"><span class="g" id="bb"></span>THE CFB <b>INDEX</b></div><button class="mh-btn">⌕</button></div>
+    <div class="crumbs"><span>Rankings</span><span>›</span><span class="here">The Bridge</span></div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow"><span class="g" id="ge"></span>Only here · every division, one scale</div>
+    <h1>THE BRIDGE</h1>
+    <p>Everyone else stops at 134 FBS teams. <b>We rank all 900+ on one honest power scale</b> — so you can finally ask: how good <i>is</i> a Division II champion, really?</p>
+  </section>
+
+  <section class="sec">
+    <div class="lbl">Tap a division to move the bridge ↓</div>
+    <div class="divs" id="divs"></div>
+    <div class="spectrum"><div id="spec"></div></div>
+    <div class="spot" id="spot"></div>
+  </section>
+
+  <section class="sec" style="border-bottom:0">
+    <div class="lbl"><span class="g" id="gm"></span>If they played up · model head-to-heads</div>
+    <div id="mus"></div>
+  </section>
+  <div class="pad"></div>
+
+  <nav class="tabbar"><button class="tab on"><span class="ti">▦</span>Rankings</button><button class="tab"><span class="ti">◎</span>Scores</button><button class="tab"><span class="ti">★</span>Teams</button><button class="tab"><span class="ti">⌕</span>Search</button></nav>
+</div>
+<script>
+const G={ball:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-35 12 12)"/><path d="M9.6 14.4 14.4 9.6M10.9 11.3l1.4 1.4M12.1 9.9l1.4 1.4" stroke-linecap="round"/></svg>',
+ swords:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5 4 7V4h3l10.5 10.5M13 19l6-6M16 16l4 4M19 21l2-2M5 13l-2 2M3 17l4 4M4 18l2-2"/></svg>'};
+bb.innerHTML=G.ball;document.getElementById('ge').innerHTML=G.ball;document.getElementById('gm').innerHTML=G.swords;
+const SVG=(w,h,inner,label)=>`<svg class="chart" viewBox="0 0 ${w} ${h}" width="100%" role="img" aria-label="${label}">${inner}</svg>`;
+const ini=n=>n.replace(/[.]/g,'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+
+// FBS reference scale: power 42 (worst) → 92.4 (#1, Ohio State), 134 teams. Power ↔ rank share ONE ruler.
+const FBS_LO=42,FBS_HI=92.4,FBS_N=134;
+const fbsRank=p=>Math.max(1,Math.min(FBS_N,Math.round(1+(FBS_HI-p)/(FBS_HI-FBS_LO)*(FBS_N-1))));
+const pwrOfRank=r=>FBS_HI-(r-1)/(FBS_N-1)*(FBS_HI-FBS_LO);
+const DIV=[
+ {id:"FBS",col:"#185FA5",rng:[42,92.4],champ:"Ohio State",pw:92.4,conf:"High",flavor:"The ceiling of the sport — the very top of the only scale that holds all 900+ teams."},
+ {id:"FCS",col:"#1D9E75",rng:[34,69],champ:"North Dakota St.",pw:68.0,conf:"High",flavor:"Not just an FCS dynasty: at this power they'd be a bowl-eligible FBS team — and they've beaten FBS opponents to prove it."},
+ {id:"DII",col:"#BA7517",rng:[24,56],champ:"Ferris State",pw:54.2,conf:"Medium",flavor:"The one nobody else can show you: the Division II champion is, on the math, a real FBS team."},
+ {id:"DIII",col:"#D85A30",rng:[18,48],champ:"Mount Union",pw:46.5,conf:"Low",flavor:"A DIII dynasty that still lands above the very bottom of FBS — on a scale that finally lets you compare them at all."},
+ {id:"NAIA",col:"#5F5E5A",rng:[12,40],champ:"Marian",pw:35.0,conf:"Low",flavor:"Even the NAIA champion earns a rung on the ladder, just beneath the FBS floor. No other ranking even tries."},
+];
+const EQ=d=>fbsRank(d.pw);
+let cur=2; // DII default — the signature example
+
+document.getElementById('divs').innerHTML=DIV.map((d,i)=>`<button data-i="${i}">${d.id}</button>`).join('');
+
+function spectrum(){
+ const W=346,laneH=20,gap=11,pt=26,pb=26,H=pt+DIV.length*(laneH+gap)+pb;
+ const pl=10,pr=10,P0=22,P1=94;const x=p=>pl+(p-P0)/(P1-P0)*(W-pl-pr);
+ const d=DIV[cur],sp=d.pw,eq=EQ(d);
+ let g='';
+ // power axis
+ [30,50,70,90].forEach(t=>{g+=`<line x1="${x(t)}" y1="${pt-2}" x2="${x(t)}" y2="${H-pb+2}" stroke="var(--line)"/><text x="${x(t)}" y="${H-pb+15}" class="axn" text-anchor="middle">${t}</text>`;});
+ g+=`<text x="${pl}" y="${H-5}" class="axt">Power rating →   the FBS lane doubles as the FBS rank scale</text>`;
+ DIV.forEach((dv,i)=>{const y=pt+i*(laneH+gap);const on=i===cur;
+   g+=`<rect x="${x(dv.rng[0])}" y="${y}" width="${x(dv.rng[1])-x(dv.rng[0])}" height="${laneH}" rx="5" fill="${dv.col}" opacity="${on?.30:.15}"/>`;
+   g+=`<text x="${pl+1}" y="${y-3}" font-size="9.5" font-weight="700" fill="${on?dv.col:'var(--gray-600)'}">${dv.id}</text>`;
+   if(dv.id==='FBS'){ // rank reference ticks ON the FBS lane (dual-encode power↔rank)
+     [25,50,100].forEach(r=>{const px=x(pwrOfRank(r));g+=`<line x1="${px}" y1="${y+2}" x2="${px}" y2="${y+laneH-2}" stroke="#fff" stroke-width="1" opacity=".75"/><text x="${px}" y="${y+laneH+10}" class="axn" text-anchor="middle">#${r}</text>`;});
+     // overlap band: FBS teams the selected champion outranks
+     if(d.id!=='FBS'&&sp>FBS_LO){const xs=x(FBS_LO),xe=x(Math.min(sp,FBS_HI));g+=`<rect x="${xs}" y="${y}" width="${xe-xs}" height="${laneH}" rx="5" fill="${d.col}" opacity=".42"/><text x="${(xs+xe)/2}" y="${y+laneH/2+3.3}" font-size="9" font-weight="800" fill="var(--amber-900,#412402)" text-anchor="middle">${FBS_N-eq} below</text>`;}
+   }
+   g+=`<circle cx="${x(dv.pw)}" cy="${y+laneH/2}" r="${on?5.5:4}" fill="${dv.col}"/>`;
+ });
+ // bridge line (white halo + coral dash)
+ g+=`<line x1="${x(sp)}" y1="${pt-10}" x2="${x(sp)}" y2="${H-pb+2}" stroke="#fff" stroke-width="3.6"/><line x1="${x(sp)}" y1="${pt-10}" x2="${x(sp)}" y2="${H-pb+2}" stroke="var(--coral-400)" stroke-width="1.8" stroke-dasharray="5 3"/>`;
+ const flag=`power ${sp.toFixed(0)} = FBS #${eq}`,fw=flag.length*5.1+14,fx=Math.max(fw/2+2,Math.min(W-fw/2-2,x(sp)));
+ g+=`<g transform="translate(${fx},${pt-10})"><rect x="${-fw/2}" y="-15" width="${fw}" height="14" rx="4" fill="var(--coral-400)"/><text x="0" y="-4.5" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">${flag}</text></g>`;
+ return SVG(W,H,g,`Cross-division power spectrum: ${d.champ} sits at power ${sp.toFixed(0)}, equal to about FBS #${eq}, ahead of ${FBS_N-eq} FBS teams.`);
+}
+function spot(){const d=DIV[cur],eq=EQ(d),beats=FBS_N-eq;
+ const note=d.id==='FBS'?`${d.flavor}`:`${d.flavor} At power ${d.pw.toFixed(1)} they'd rank about <b>FBS #${eq}</b>${beats>0?` — ahead of <b>${beats}</b> of 134 scholarship programs`:` — just under the FBS floor`}.`;
+ return `<div class="top">
+   <span class="badge" style="background:${d.col}">${ini(d.champ)}</span>
+   <div class="who"><div class="d" style="color:${d.col}">${d.id} · #1</div><div class="n">${d.champ}</div><div class="pw num">Power ${d.pw.toFixed(1)}</div></div>
+   <div class="equiv"><div class="v num">#${eq}</div><div class="l">FBS-equiv</div></div>
+ </div>
+ <div class="body"><p>${note}<span class="mk">1</span></p>
+   <div class="meta"><span class="chip beat">⚔ Beats ${beats} FBS teams</span><span class="chip conf">◇ ${d.conf} confidence</span></div>
+ </div>`;}
+function render(){
+ [...document.querySelectorAll('.divs button')].forEach((b,i)=>{b.classList.toggle('on',i===cur);b.style.background=i===cur?DIV[i].col:'';});
+ document.getElementById('spec').innerHTML=spectrum();
+ document.getElementById('spot').innerHTML=spot();
+}
+document.getElementById('divs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=+b.dataset.i;render();});
+render();
+
+// matchups — sim bars now carry a 50% midline (standard #4)
+const MU=[
+ [["Ferris State","DII #1","#BA7517"],["FBS #110","2-score dog","#185FA5"],58],
+ [["North Dakota St.","FCS #1","#1D9E75"],["FBS #62","coin flip","#185FA5"],49],
+ [["Mount Union","DIII #1","#D85A30"],["FCS #40","road test","#1D9E75"],53],
+];
+document.getElementById('mus').innerHTML=MU.map(m=>{const[a,b,p]=m;const aw=p>=50;
+ return `<div class="mu">
+   <div class="side"><span class="dot" style="background:${a[2]}"></span><span class="nm">${a[0]} <small>${a[1]}</small></span></div>
+   <div class="odds"><div class="pct" style="color:${aw?'var(--green-600)':'var(--muted)'}">${p}% · ${100-p}%</div><div class="bar"><i style="width:${p}%;background:${a[2]}"></i><i style="width:${100-p}%;background:${b[2]};opacity:.5"></i><span class="mid"></span></div></div>
+   <div class="side" style="justify-content:flex-end;text-align:right"><span class="nm">${b[0]} <small>${b[1]}</small></span><span class="dot" style="background:${b[2]}"></span></div>
+ </div>`;}).join('');
+</script>
+</body>
+</html>

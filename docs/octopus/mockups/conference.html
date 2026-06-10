@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CFB Index — SEC (conference)</title>
+<!--
+  Conference page (390px) — the partisan's view. Same board-first spine as the main
+  board, SCOPED to one conference, with the columns the question demands: Record · ATS ·
+  national rank · belief. Adds: conference finding, bid math, an SEC title race, The Room
+  scoped to members. Light/Bebas (the locked product system). Tokens: docs/design-system/00-tokens.md.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-50:#E6F1FB;--navy-100:#B5D4F4;--navy-200:#85B7EB;--navy-400:#378ADD;--navy-600:#185FA5;--navy-800:#0C447C;--navy-900:#042C53;
+  --coral-50:#FAECE7;--coral-100:#F5C4B3;--coral-200:#F0997B;--coral-400:#D85A30;--coral-600:#993C1D;
+  --amber-50:#FAEEDA;--amber-100:#FAC775;--amber-200:#EF9F27;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+  --gray-50:#F1EFE8;--gray-100:#D3D1C7;--gray-200:#B4B2A9;--gray-400:#888780;--gray-600:#5F5E5A;--gray-800:#444441;--gray-900:#2C2C2A;
+  --green-400:#1D9E75;--green-600:#0F6E56;--red-400:#E24B4A;--red-600:#A32D2D;
+  --ink:#141618;--muted:#6C6C6E;--subtle:#9A9A97;--surface:#FBFAF7;--card:#FFFFFF;--line:#E4E2DC;--line-strong:#CFCCC4;
+  --sans:'Inter','SF Pro Text',system-ui,sans-serif;--serif:'Source Serif 4',Georgia,serif;--disp:'Bebas Neue',sans-serif;
+  --tap:48px;
+}
+*{box-sizing:border-box;}html,body{margin:0;}
+body{background:#232320;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.g{vertical-align:-2px;margin-right:5px;}
+.device{width:390px;min-height:844px;background:var(--surface);position:relative;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.45);}
+@media(max-width:430px){.device{box-shadow:none;}}
+
+.masthead{position:sticky;top:0;z-index:40;color:#fff;padding:max(env(safe-area-inset-top),8px) 16px 0;background-color:var(--ink);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 38px);}
+.mh-row{height:46px;display:flex;align-items:center;justify-content:space-between;}
+.mh-brand{font-family:var(--disp);font-size:25px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;}
+.mh-brand b{color:var(--coral-200);font-weight:400;}.mh-brand .g{color:var(--amber-200);margin:0;}
+.mh-btn{width:var(--tap);height:var(--tap);margin:0 -4px;border:0;background:0;color:#fff;opacity:.85;font-size:18px;display:grid;place-items:center;}
+.crumbs{display:flex;align-items:center;gap:6px;padding-bottom:9px;font-size:11px;color:rgba(255,255,255,.6);font-weight:500;}
+.crumbs a{color:rgba(255,255,255,.6);text-decoration:none;}.crumbs .here{color:#fff;}
+
+/* conference identity */
+.confhead{display:flex;align-items:center;gap:13px;padding:16px;background:var(--card);border-bottom:1px solid var(--line);}
+.confhead img{width:46px;height:46px;object-fit:contain;}
+.confhead .nm{font-family:var(--disp);font-size:34px;line-height:.8;}
+.confhead .sw{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--navy-800);font-weight:600;margin-top:3px;}
+.confhead .rec{margin-left:auto;text-align:right;}
+.confhead .rec .v{font-family:var(--disp);font-size:26px;line-height:.8;color:var(--ink);}
+.confhead .rec .l{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle);font-weight:600;margin-top:3px;}
+
+.finding{padding:13px 16px;border-bottom:1px solid var(--line);background:var(--surface);}
+.finding .kick{display:flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-400);margin-bottom:5px;}
+.finding p{margin:0;font-family:var(--serif);font-size:15px;line-height:1.36;color:var(--gray-900);}
+.finding b{font-weight:600;}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);background:var(--card);}
+.stat{padding:12px 6px;text-align:center;border-left:1px solid var(--line);}
+.stat:first-child{border-left:0;}
+.stat .v{font-family:var(--disp);font-size:25px;line-height:.8;color:var(--navy-800);}
+.stat .l{font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--subtle);font-weight:600;margin-top:5px;}
+
+/* title race */
+.sec{padding:16px;border-bottom:8px solid var(--gray-50);}
+.lbl{display:flex;align-items:center;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);font-weight:700;margin-bottom:12px;}
+.race{display:flex;gap:10px;}
+.rc{flex:1;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px;text-align:center;position:relative;}
+.rc.fav{border-color:var(--amber-200);}
+.rc img{width:34px;height:34px;object-fit:contain;}
+.rc .nm{font-size:13px;font-weight:600;margin-top:6px;}
+.rc .od{font-family:var(--disp);font-size:30px;line-height:.8;color:var(--navy-800);margin-top:7px;}
+.rc .od small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
+.rc .tag{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--amber-400);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:9999px;}
+.vs{align-self:center;font-family:var(--disp);font-size:18px;color:var(--subtle);}
+
+/* board */
+.colhead{display:grid;grid-template-columns:26px 1fr 52px 44px 50px;gap:8px;align-items:center;padding:8px 16px 8px 14px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle);font-weight:600;border-bottom:1px solid var(--line-strong);background:var(--card);}
+.colhead .r{text-align:right;}
+.sheet{background:var(--card);}
+.row{display:grid;grid-template-columns:26px 1fr 52px 44px 50px;gap:8px;align-items:center;padding:10px 16px 10px 14px;border-bottom:1px solid var(--line);min-height:var(--tap);}
+.row:active{background:var(--gray-50);}
+.crk{font-family:var(--disp);font-size:21px;line-height:.8;text-align:center;color:var(--ink);}
+.team{display:flex;align-items:center;gap:9px;min-width:0;}
+.team img{width:26px;height:26px;object-fit:contain;flex:0 0 auto;}
+.team .tx{min-width:0;}
+.team .nm{font-size:14.5px;font-weight:600;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.team .sub{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:10.5px;color:var(--muted);}
+.natl{background:var(--gray-50);color:var(--gray-600);font-weight:700;padding:1px 5px;border-radius:4px;font-size:9.5px;}
+.bchip{display:inline-flex;align-items:center;height:16px;padding:0 6px;border-radius:9999px;font-size:9.5px;font-weight:600;}
+.bchip.hot{background:var(--coral-50);color:var(--coral-600);}.bchip.cold{background:var(--navy-50);color:var(--navy-800);}.bchip.align{background:var(--gray-50);color:var(--gray-600);}
+.rec2{text-align:right;font-size:13px;font-weight:600;}
+.pw{text-align:right;font-size:13px;font-weight:600;}
+.ats{text-align:right;font-size:12px;font-weight:600;}
+.ats .w{color:var(--green-600);}.ats .l{color:var(--red-600);}
+.cut{display:flex;align-items:center;justify-content:center;gap:7px;padding:8px;background:var(--amber-50);color:var(--amber-800);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--amber-200);border-bottom:1px solid var(--amber-200);}
+
+/* the room */
+.room-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);}
+.room-row:first-of-type{border-top:0;}
+.room-row img{width:24px;height:24px;object-fit:contain;}
+.room-row .nm{font-size:13px;font-weight:600;flex:1;}
+.room-row .arch{font-size:11px;color:var(--muted);}
+
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;z-index:50;background:rgba(251,250,247,.96);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);}
+.tab{flex:1;height:54px;border:0;background:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--gray-400);font-size:10px;font-weight:500;}
+.tab .ti{font-size:17px;}.tab.on{color:var(--ink);}
+.pad{height:84px;}
+</style>
+</head>
+<body>
+<div class="device">
+  <header class="masthead">
+    <div class="mh-row"><div class="mh-brand"><span class="g" id="bb"></span>THE CFB <b>INDEX</b></div><button class="mh-btn">⌕</button></div>
+    <div class="crumbs"><a href="#">Rankings</a><span>›</span><a href="#">Conferences</a><span>›</span><span class="here">SEC</span></div>
+  </header>
+
+  <div class="confhead">
+    <img src="https://a.espncdn.com/i/teamlogos/ncaa_conf/500/8.png" alt="" onerror="this.style.display='none'">
+    <div><div class="nm">SEC</div><div class="sw">Southeastern · switch conference ▾</div></div>
+    <div class="rec"><div class="v num">#1</div><div class="l">Strongest league</div></div>
+  </div>
+
+  <section class="finding">
+    <div class="kick" id="kick">The league · this week</div>
+    <p><b>Six in the Top 25, the nation's two hardest schedules</b> — and the most divided fanbases in the country. The SEC race runs through Atlanta.</p>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="v num">6</div><div class="l">Ranked</div></div>
+    <div class="stat"><div class="v num">3</div><div class="l">Top 10</div></div>
+    <div class="stat"><div class="v num">4</div><div class="l">Proj. CFP</div></div>
+    <div class="stat"><div class="v num">#1</div><div class="l">Avg SoS</div></div>
+  </div>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g1"></span>SEC Championship · projected</div>
+    <div class="race">
+      <div class="rc fav"><span class="tag">Favorite</span><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/61.png" alt=""><div class="nm">Georgia</div><div class="od num">38<small>%</small></div></div>
+      <div class="vs">vs</div>
+      <div class="rc"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/251.png" alt=""><div class="nm">Texas</div><div class="od num">34<small>%</small></div></div>
+    </div>
+  </section>
+
+  <div class="colhead"><span></span><span>Team</span><span class="r">Rec</span><span class="r">Pwr</span><span class="r">ATS</span></div>
+  <main class="sheet" id="board"></main>
+
+  <section class="sec">
+    <div class="lbl"><span class="g" id="g2"></span>The Room · across SEC fanbases</div>
+    <div id="room"></div>
+  </section>
+  <div class="pad"></div>
+
+  <nav class="tabbar"><button class="tab on"><span class="ti">▦</span>Rankings</button><button class="tab"><span class="ti">◎</span>Scores</button><button class="tab"><span class="ti">★</span>Teams</button><button class="tab"><span class="ti">⌕</span>Search</button></nav>
+</div>
+<script>
+const G={ball:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-35 12 12)"/><path d="M9.6 14.4 14.4 9.6M10.9 11.3l1.4 1.4M12.1 9.9l1.4 1.4" stroke-linecap="round"/></svg>',
+ trophy:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4.5v1A3 3 0 0 0 7 10M17 6h2.5v1A3 3 0 0 1 17 10M9.5 18h5M11 18v-2.4M13 18v-2.4M8.5 21h7"/></svg>',
+ chat:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12Z"/></svg>'};
+bb.innerHTML=G.ball;g1.innerHTML=G.trophy;g2.innerHTML=G.chat;kick.insertAdjacentHTML('afterbegin',G.ball);
+const lg=id=>`https://a.espncdn.com/i/teamlogos/ncaa/500/${id}.png`;
+// conf#, name, espn, record, power, natl, ats[w,l], tri[m,r,n]
+const SEC=[
+ [1,"Georgia",61,"11–1",90.1,2,[7,5],[2,4,2]],
+ [2,"Texas",251,"11–1",88.7,3,[8,4],[3,2,4]],
+ [3,"Alabama",333,"10–2",83.9,7,[6,6],[7,5,7]],
+ [4,"Tennessee",2633,"9–3",82.1,8,[7,5],[8,7,9]],
+ [5,"Ole Miss",145,"9–3",81.4,9,[9,3],[9,6,10]],
+ [6,"Oklahoma",201,"8–4",77.6,12,[5,7],[12,14,11]],
+ [7,"Texas A&M",245,"8–4",74.0,18,[6,6],[18,16,19]],
+ [8,"LSU",99,"8–4",73.2,20,[7,5],[20,17,22]],
+ [9,"Missouri",142,"7–5",70.1,26,[6,6],[26,24,28]],
+ [10,"Florida",57,"6–6",66.0,38,[4,8],[38,42,36]],
+];
+function bchip(tri){const gap=tri[0]-tri[1];if(gap>=1)return `<span class="bchip hot">▲ Fans +${gap}</span>`;if(gap<=-1)return `<span class="bchip cold">▼ Fans -${Math.abs(gap)}</span>`;return `<span class="bchip align">Aligned</span>`;}
+let html='';SEC.forEach(t=>{const[c,n,id,rec,pw,natl,ats,tri]=t;
+ html+=`<div class="row">
+   <div class="crk num">${c}</div>
+   <div class="team"><img src="${lg(id)}" alt="" onerror="this.style.visibility='hidden'"><div class="tx"><div class="nm">${n}</div><div class="sub"><span class="natl num">#${natl}</span>${bchip(tri)}</div></div></div>
+   <div class="rec2 num">${rec}</div>
+   <div class="pw num">${pw.toFixed(1)}</div>
+   <div class="ats num"><span class="w">${ats[0]}</span>-<span class="l">${ats[1]}</span></div>
+ </div>`;
+ if(natl===12)html+=`<div class="cut">${G.trophy}Playoff cutline · SEC has 4 above the line</div>`;
+});
+document.getElementById('board').innerHTML=html;
+
+const room=[["Texas",251,"Hype Train · belief surging","hot"],["Ole Miss",145,"Quietly bullish · 9–3 ATS","hot"],["Georgia",61,"Scarred · fans cooler than the model","cold"],["Alabama",333,"Restless · a tier below the standard","cold"]];
+document.getElementById('room').innerHTML=room.map(r=>`<div class="room-row"><img src="${lg(r[1])}" alt="" onerror="this.style.visibility='hidden'"><span class="nm">${r[0]}</span><span class="arch">${r[2]}</span></div>`).join('');
+</script>
+</body>
+</html>

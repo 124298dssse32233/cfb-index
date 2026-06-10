@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The CFB Index — Rankings, Redesigned</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./cfb-tokens.css">
+<style>
+*{box-sizing:border-box;}html,body{margin:0;}
+body{background:var(--color-surface);color:var(--color-ink);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;}
+.num{font-variant-numeric:tabular-nums;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+/* hero */
+.hero{background:var(--color-ink);color:#fff;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 46px);}
+.hero .wrap{padding:54px 24px 60px;}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-coral-200);font-weight:700;}
+.hero h1{font-family:var(--font-display);font-size:clamp(52px,9vw,104px);line-height:.86;letter-spacing:.01em;margin:14px 0 0;}
+.hero h1 b{color:var(--color-coral-200);font-weight:400;}
+.hero .lede{font-family:var(--font-serif);font-size:clamp(17px,2.2vw,21px);line-height:1.45;max-width:620px;color:rgba(255,255,255,.82);margin:18px 0 0;}
+.hero .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;}
+.hero .meta b{color:#fff;}
+
+section{padding:46px 0;border-bottom:1px solid var(--color-line);}
+.kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-coral-400);font-weight:700;}
+h2{font-family:var(--font-serif);font-weight:600;font-size:26px;margin:8px 0 22px;letter-spacing:-.01em;}
+
+/* design system */
+.ds{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;}
+@media(max-width:820px){.ds{grid-template-columns:1fr;}}
+.ramp{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.ramp .nm{width:54px;font-size:11px;font-weight:600;color:var(--color-text-muted);text-transform:capitalize;}
+.ramp .stops{display:flex;flex:1;height:26px;border-radius:6px;overflow:hidden;}
+.ramp .stops span{flex:1;}
+.type-row{padding:11px 0;border-top:1px solid var(--color-line);}
+.type-row:first-child{border-top:0;}
+.type-row .t{line-height:1;}
+.type-row .d{font-size:11px;color:var(--color-text-muted);margin-top:5px;letter-spacing:.02em;}
+.t-disp{font-family:var(--font-display);font-size:40px;color:var(--color-navy-900);}
+.t-serif{font-family:var(--font-serif);font-size:22px;}
+.t-sans{font-family:var(--font-sans);font-weight:600;font-size:18px;}
+.t-num{font-family:var(--font-sans);font-variant-numeric:tabular-nums;font-weight:600;font-size:20px;}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:820px){.pillars{grid-template-columns:1fr;}}
+.pillar{background:var(--color-surface-card);border:1px solid var(--color-line);border-radius:12px;padding:18px;}
+.pillar .n{font-family:var(--font-display);font-size:30px;color:var(--color-coral-400);line-height:.9;}
+.pillar h3{font-size:15px;margin:8px 0 6px;}
+.pillar p{font-size:13px;line-height:1.5;color:var(--color-text-muted);margin:0;}
+
+/* gallery */
+.gal{display:flex;gap:30px;flex-wrap:wrap;justify-content:center;align-items:flex-start;}
+.dev{text-align:center;}
+.dev .cap{margin-top:14px;}
+.dev .cap .nm{font-weight:600;font-size:14px;}
+.dev .cap .ds2{font-size:12px;color:var(--color-text-muted);margin-top:2px;max-width:240px;}
+.dev .cap a{font-size:12px;font-weight:600;color:var(--color-navy-600);text-decoration:none;display:inline-block;margin-top:7px;}
+.phone{width:300px;height:618px;border-radius:34px;background:#16161a;padding:9px;box-shadow:0 26px 60px rgba(0,0,0,.28);position:relative;}
+.phone .scr{width:100%;height:100%;border-radius:26px;overflow:hidden;background:#fff;position:relative;}
+.phone iframe{width:390px;height:803px;border:0;transform:scale(.723);transform-origin:0 0;}
+.laptop{width:100%;max-width:1000px;margin:0 auto;border-radius:14px;overflow:hidden;border:1px solid var(--color-line-strong);box-shadow:0 30px 70px rgba(0,0,0,.26);background:#fff;}
+.bbar{height:38px;background:var(--color-gray-50);border-bottom:1px solid var(--color-line);display:flex;align-items:center;gap:7px;padding:0 14px;}
+.bbar .dot{width:11px;height:11px;border-radius:50%;background:var(--color-line-strong);}
+.bbar .url{margin-left:12px;flex:1;max-width:380px;height:24px;line-height:24px;background:#fff;border:1px solid var(--color-line);border-radius:7px;font-size:11px;color:var(--color-text-muted);padding:0 12px;}
+.laptop .scr{position:relative;width:100%;height:0;padding-bottom:67.19%;overflow:hidden;background:#fff;}
+.laptop .scr iframe{position:absolute;top:0;left:0;width:1280px;height:860px;border:0;transform:scale(.78125);transform-origin:0 0;}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:820px){.road{grid-template-columns:1fr;}}
+.phase{border:1px solid var(--color-line);border-radius:12px;padding:18px;background:var(--color-surface-card);}
+.phase .p{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--color-navy-600);}
+.phase h3{font-size:15px;margin:7px 0 8px;}
+.phase ul{margin:0;padding-left:17px;font-size:12.5px;line-height:1.6;color:var(--color-text-muted);}
+.phase.net{border-color:var(--color-amber-200);background:var(--color-amber-50);}
+.phase.net .p{color:var(--color-amber-700,#9a6a0d);}
+
+footer{padding:34px 0 60px;}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;}
+footer a{color:var(--color-navy-600);text-decoration:none;font-weight:500;}
+.note{font-size:12px;color:var(--color-text-subtle);margin-top:16px;}
+code{font-family:var(--font-mono);font-size:.92em;background:var(--color-gray-50);padding:1px 5px;border-radius:4px;}
+/* tasteful scroll-reveal (off main thread; reduced-motion safe) */
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: view()){
+    .kicker,h2,.pillar,.phase,.type-row,.ramp{animation:reveal-up linear both;animation-timeline:view();animation-range:entry 0% cover 18%;}
+    @keyframes reveal-up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  }
+}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">The CFB Index · Redesign</div>
+  <h1>RANKINGS,<br><b>REDESIGNED.</b></h1>
+  <p class="lede">The first rankings board built for a phone, for every division, that shows its work — who's good, what they've earned, who the room believes, and whether we've been right.</p>
+  <div class="meta"><span><b>8</b> screens</span><span><b>FBS → DIII</b> one scale</span><span><b>15</b> fan-signal sources</span><span><b>Light · Bebas</b> system</span></div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="kicker">The design system</div>
+  <h2>One coherent language — six ramps, three voices.</h2>
+  <div class="ds">
+    <div>
+      <div class="ramp"><span class="nm">Navy</span><div class="stops"><span style="background:var(--color-navy-50)"></span><span style="background:var(--color-navy-100)"></span><span style="background:var(--color-navy-200)"></span><span style="background:var(--color-navy-400)"></span><span style="background:var(--color-navy-600)"></span><span style="background:var(--color-navy-800)"></span><span style="background:var(--color-navy-900)"></span></div></div>
+      <div class="ramp"><span class="nm">Coral</span><div class="stops"><span style="background:var(--color-coral-50)"></span><span style="background:var(--color-coral-100)"></span><span style="background:var(--color-coral-200)"></span><span style="background:var(--color-coral-400)"></span><span style="background:var(--color-coral-600)"></span><span style="background:var(--color-coral-800)"></span><span style="background:var(--color-coral-900)"></span></div></div>
+      <div class="ramp"><span class="nm">Amber</span><div class="stops"><span style="background:var(--color-amber-50)"></span><span style="background:var(--color-amber-100)"></span><span style="background:var(--color-amber-200)"></span><span style="background:var(--color-amber-400)"></span><span style="background:var(--color-amber-600)"></span><span style="background:var(--color-amber-800)"></span><span style="background:var(--color-amber-900)"></span></div></div>
+      <div class="ramp"><span class="nm">Green</span><div class="stops"><span style="background:var(--color-green-50)"></span><span style="background:var(--color-green-100)"></span><span style="background:var(--color-green-200)"></span><span style="background:var(--color-green-400)"></span><span style="background:var(--color-green-600)"></span><span style="background:var(--color-green-800)"></span><span style="background:var(--color-green-900)"></span></div></div>
+      <div class="ramp"><span class="nm">Red</span><div class="stops"><span style="background:var(--color-red-50)"></span><span style="background:var(--color-red-100)"></span><span style="background:var(--color-red-200)"></span><span style="background:var(--color-red-400)"></span><span style="background:var(--color-red-600)"></span><span style="background:var(--color-red-800)"></span><span style="background:var(--color-red-900)"></span></div></div>
+      <div class="ramp"><span class="nm">Gray</span><div class="stops"><span style="background:var(--color-gray-50)"></span><span style="background:var(--color-gray-100)"></span><span style="background:var(--color-gray-200)"></span><span style="background:var(--color-gray-400)"></span><span style="background:var(--color-gray-600)"></span><span style="background:var(--color-gray-800)"></span><span style="background:var(--color-gray-900)"></span></div></div>
+      <p class="note">navy = analytical · coral = fan belief · amber = peaks · green/red = movement · gray = structure</p>
+    </div>
+    <div>
+      <div class="type-row"><div class="t t-disp">BEBAS NEUE — 92.4</div><div class="d">Display · ranks, hero numbers, scoreboard energy</div></div>
+      <div class="type-row"><div class="t t-serif">Source Serif — the room believes.</div><div class="d">Editorial · findings, prose, pull quotes</div></div>
+      <div class="type-row"><div class="t t-sans">Inter — Power · Résumé · SoS</div><div class="d">UI · labels, controls, metrics</div></div>
+      <div class="type-row"><div class="t t-num">01 · 88.7 · #3 · 18/20</div><div class="d">Tabular numerals locked on every stat</div></div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">What makes it unlike anyone else</div>
+  <h2>Three things no competitor does.</h2>
+  <div class="pillars">
+    <div class="pillar"><div class="n">01</div><h3>Tri-Rank</h3><p>Where the model ranks them, where the fanbase believes, and where the country has them — the gap is the story. Nobody publishes a fan-belief rank.</p></div>
+    <div class="pillar"><div class="n">02</div><h3>Cross-Division Bridge</h3><p>“This DII #1 would slot ~#88 in FBS.” Literally impossible for anyone who stops at 136 FBS teams.</p><a href="./cross-bridge.html" target="_blank" style="font-size:12px;font-weight:600;color:var(--color-coral-400);text-decoration:none;display:inline-block;margin-top:10px">See it live ↗</a></div>
+    <div class="pillar"><div class="n">03</div><h3>Model Report Card</h3><p>A public calibration record — “when we said 70%, it happened ___% of the time.” With 538 gone, no one in CFB shows their own accuracy.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">The system, end to end</div>
+  <h2>Four surfaces, one language.</h2>
+  <div class="gal">
+    <div class="dev"><div class="phone"><div class="scr"><iframe src="./rankings-mobile.html" loading="lazy" title="Mobile board"></iframe></div></div><div class="cap"><div class="nm">The board · mobile</div><div class="ds2">Board-first. Tap a row; ⟳ re-sorts.</div><a href="./rankings-mobile.html" target="_blank">Open ↗</a></div></div>
+    <div class="dev"><div class="phone"><div class="scr"><iframe src="./team-detail.html" loading="lazy" title="Team dossier"></iframe></div></div><div class="cap"><div class="nm">Team dossier</div><div class="ds2">The believer's view (Texas). Toggle the peer set.</div><a href="./team-detail.html" target="_blank">Open ↗</a></div></div>
+    <div class="dev"><div class="phone"><div class="scr"><iframe src="./conference.html" loading="lazy" title="Conference"></iframe></div></div><div class="cap"><div class="nm">Conference</div><div class="ds2">The partisan's view (SEC). Title race + bids.</div><a href="./conference.html" target="_blank">Open ↗</a></div></div>
+    <div class="dev"><div class="phone"><div class="scr"><iframe src="./cross-bridge.html" loading="lazy" title="The Bridge"></iframe></div></div><div class="cap"><div class="nm">The Bridge ★</div><div class="ds2">The signature: every division on one scale. Tap a division to move the bridge.</div><a href="./cross-bridge.html" target="_blank">Open ↗</a></div></div>
+    <div class="dev"><div class="phone"><div class="scr"><iframe src="./compare.html" loading="lazy" title="Compare"></iframe></div></div><div class="cap"><div class="nm">Compare</div><div class="ds2">Head-to-head: model sim, overlaid fingerprint, two rooms.</div><a href="./compare.html" target="_blank">Open ↗</a></div></div>
+    <div class="dev"><div class="phone"><div class="scr"><iframe src="./the-room.html" loading="lazy" title="The Room"></iframe></div></div><div class="cap"><div class="nm">The Room</div><div class="ds2">The fan-intel moat: mood, vibe shifts, rival heat, civil wars.</div><a href="./the-room.html" target="_blank">Open ↗</a></div></div>
+    <div class="dev"><div class="phone"><div class="scr"><iframe src="./report-card.html" loading="lazy" title="Model Report Card"></iframe></div></div><div class="cap"><div class="nm">Model Report Card</div><div class="ds2">We publish our accuracy: calibration, the receipts, us vs the polls.</div><a href="./report-card.html" target="_blank">Open ↗</a></div></div>
+  </div>
+  <div class="laptop" style="margin-top:34px"><div class="bbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">cfbindex.com / rankings</span></div><div class="scr"><iframe src="./desktop-board.html" loading="lazy" title="Desktop analyst board" id="dt"></iframe></div></div>
+  <div style="text-align:center;margin-top:12px"><span class="nm" style="font-weight:600">The analyst board · desktop</span> — <a href="./desktop-board.html" target="_blank" style="color:var(--color-navy-600);text-decoration:none;font-weight:600">Open ↗</a><div class="ds2" style="color:var(--color-text-muted);font-size:12px;margin-top:3px">KenPom inline-rank density · overtake-bump chart · context rail</div></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">The build path</div>
+  <h2>Shipped in three phases — honestly scoped.</h2>
+  <div class="road">
+    <div class="phase"><div class="p">Phase 1 · surgical</div><h3>The look + data we have</h3><ul><li>Board-first sheet, near-zero-JS</li><li>Power · Résumé · SoS · Δ (already computed)</li><li>Belief archetype chip · CFP cutline</li><li>Materialized tokens · SEO/no-JS Top 25</li></ul></div>
+    <div class="phase"><div class="p">Phase 2 · module</div><h3>The drawer + the room</h3><ul><li>Savant fingerprint · season arc (reuse loaders)</li><li>Tri-Rank numeric gap (modeling spike)</li><li>The Room board · Cross-Division Bridge</li></ul></div>
+    <div class="phase net"><div class="p">Net-new · prerequisite</div><h3>The headline moats</h3><ul><li>Model Report Card — needs a predictions/outcomes schema (no tables today)</li><li>Playoff odds — needs a season-sim engine</li><li>A real charts module (none exists yet)</li></ul></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <h2 style="margin-bottom:10px;font-size:clamp(26px,4vw,38px);max-width:640px">Who's good, who the room believes, and whether we've been right.</h2>
+  <p style="font-family:var(--font-serif);font-size:17px;color:var(--color-text-muted);max-width:580px;margin:0 0 24px;line-height:1.5">One rankings product that shows its work — across every division, on the system above.</p>
+  <div class="links" style="gap:10px 18px">
+    <a href="../rankings_redesign_BUILD_MANIFEST.md" target="_blank" style="font-weight:700">★ Build manifest — start here →</a>
+    <a href="../rankings_redesign_spec.md" target="_blank">Design spec</a>
+    <a href="../rankings_redesign_engineering_spec.md" target="_blank">Engineering spec</a>
+    <a href="../rankings_redesign_component_spec.md" target="_blank">Component &amp; states</a>
+    <a href="../rankings_redesign_microcopy_spec.md" target="_blank">Microcopy</a>
+    <a href="../rankings_redesign_dataviz_standards.md" target="_blank">Data-viz standards</a>
+    <a href="../rankings_redesign_responsive_spec.md" target="_blank">Responsive</a>
+    <a href="states.html">States gallery</a>
+  </div>
+  <p class="note">The <b>build manifest</b> is the front door: read order, the verified data-readiness ledger
+    (what exists vs. net-new), the phased build sequence, per-surface Definition of Done, and the open-decisions
+    register. Design + spec handoff only — nothing built yet. Mockups for personal use; logos via ESPN CDN. The
+    charts + Model Report Card are visualized here and flagged as net-new builds in the manifest.</p>
+</div></footer>
+</body>
+</html>
