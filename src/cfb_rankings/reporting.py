@@ -7298,6 +7298,15 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Rent Free board build skipped: {exc}")
 
+    # Aura / Him Watch — player perception-vs-production board + gap cards at
+    # /hub/him-watch/. Full-render path. Reads player_aura_weekly.
+    try:
+        from cfb_rankings.fan_metrics.aura_render import build_aura_section
+        written = build_aura_section(db, output_dir=site_root)
+        _report_progress(f"Him Watch board wrote {len(written)} files.")
+    except Exception as exc:
+        _report_progress(f"Him Watch board build skipped: {exc}")
+
     # R4 — Dynasty Heatmap. Renders /history/heatmap/ (page + standalone SVG).
     # Programs × years × within-year-percentile. The "fifty years in one
     # image" first-visit converter from the roadmap.
