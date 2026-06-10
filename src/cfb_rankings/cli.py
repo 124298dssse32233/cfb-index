@@ -411,6 +411,24 @@ def build_parser() -> argparse.ArgumentParser:
     )
     seed_anchor_parser.add_argument("--path", type=str, default=_ANCHOR_PATH)
 
+    # Player dedup — duplicate-human players rows created by name-only ingest
+    # paths (honors / recruits). Audit is read-only; merge is dry-run by default.
+    subparsers.add_parser(
+        "audit-player-duplicates",
+        help="Read-only report of duplicate-human players rows and the "
+             "conservative merge/delete plan (evidence-gated; see player_dedup.py).",
+    )
+    merge_dups_parser = subparsers.add_parser(
+        "merge-player-duplicates",
+        help="Merge duplicate-human players rows into their cfbd-canonical row "
+             "(repoints every player_id child table). DRY-RUN unless --commit. "
+             "Run export-player-id-anchor afterwards.",
+    )
+    merge_dups_parser.add_argument(
+        "--commit", action="store_true",
+        help="Actually write the merge (default is a dry-run plan summary).",
+    )
+
     # R1 — Sunday Vibe Shift Ledger. See docs/octopus/next-roadmap.md.
     vibe_parser = subparsers.add_parser(
         "build-vibe-shifts",
@@ -3487,6 +3505,29 @@ def main() -> None:
             f"players_inserted={r['players_inserted']:,} "
             f"source_ids_inserted={r['source_ids_inserted']:,}"
         )
+        return
+
+    if args.command == "audit-player-duplicates":
+        from cfb_rankings.player_dedup import audit_duplicates
+        audit = audit_duplicates(db)
+        print(f"audit-player-duplicates: {audit.summary()}")
+        merges = [p for p in audit.plans if p.action == "merge"]
+        for p in merges[:15]:
+            print(
+                f"  merge {p.full_name!r}: {p.dup_id} -> {p.canonical_id} "
+                f"({p.dup_child_rows} child rows; {p.reason})"
+            )
+        if len(merges) > 15:
+            print(f"  ... and {len(merges) - 15:,} more merges")
+        return
+
+    if args.command == "merge-player-duplicates":
+        from cfb_rankings.player_dedup import merge_duplicates
+        stats = merge_duplicates(db, commit=args.commit)
+        mode = "COMMITTED" if args.commit else "DRY-RUN (use --commit to write)"
+        print(f"merge-player-duplicates [{mode}]: {stats}")
+        if args.commit:
+            print("now run: python manage.py export-player-id-anchor  (and commit the CSV)")
         return
 
     if args.command == "build-dynasty-heatmap":
