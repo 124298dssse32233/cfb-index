@@ -52,13 +52,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Verify DB artifact present
-        run: |
-          python scripts/verify_db_artifact_healthy.py || {
-            echo "DB artifact not healthy — failing fast"
-            exit 1
-          }
-
       - name: Pull rolling DB artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,6 +59,17 @@ jobs:
           gh run download --name cfb-rankings-db --repo ${{ github.repository }} || {
             echo "No DB artifact yet — skipping refresh this cycle"
             exit 0
+          }
+
+      # Verify AFTER the download — the rolling artifact must be on disk before
+      # the health gate can inspect it. Previously this ran BEFORE the pull, so
+      # it always failed the sanity gate against a missing/empty cfb_rankings.db
+      # (the source of the recurring offseason-watch-refresh failures).
+      - name: Verify DB artifact healthy (Option B fail-loud)
+        run: |
+          python scripts/verify_db_artifact_healthy.py cfb_rankings.db || {
+            echo "DB artifact not healthy — failing fast"
+            exit 1
           }
 
       - name: Install minimal deps
