@@ -6933,8 +6933,14 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
 
     rankings_dir = site_root / "rankings"
     rankings_dir.mkdir(parents=True, exist_ok=True)
+    # P0-B: wire the honest, data-driven fan mood into the belief chips (was unwired,
+    # so every chip read "Awaiting signal"). Built from fanbase_mood_weekly.
+    _rankings_mood_index = _build_team_mood_index(db)
+    _report_progress(f"Rankings belief chips: mood wired for {len(_rankings_mood_index)} teams.")
     (rankings_dir / "index.html").write_text(
-        render_rankings_page_html(summary, rankings, latest_local_week, featured_team_pages, history_hub),
+        render_rankings_page_html(
+            summary, rankings, latest_local_week, featured_team_pages, history_hub, _rankings_mood_index
+        ),
         encoding="utf-8",
     )
 
@@ -7303,6 +7309,30 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         _report_progress(f"Methodology page written to {methodology_path}.")
     except Exception as exc:
         _report_progress(f"Methodology page build skipped: {exc}")
+
+    # Build manifest (Phase-1 reliability gate): proof the full build reached the end,
+    # with freshness + row-count stamps that publish_to_vercel.ps1 verifies before
+    # deploying. The no-model early-return higher up intentionally skips this, so a
+    # missing/stale manifest signals an incomplete build and blocks the publish.
+    try:
+        import json as _json
+        from datetime import datetime as _dt, timezone as _tz
+        _cd = db.query_one("select count(*) as n from conversation_documents")
+        _mw = db.query_one("select count(*) as n from fanbase_mood_weekly")
+        _manifest = {
+            "built_at": _dt.now(_tz.utc).isoformat(),
+            "season_year": int(summary.get("season_year")) if summary.get("season_year") is not None else None,
+            "week": summary.get("week"),
+            "conversation_documents": int((_cd or {}).get("n") or 0),
+            "fanbase_mood_weekly_rows": int((_mw or {}).get("n") or 0),
+        }
+        (site_root / "_build_manifest.json").write_text(_json.dumps(_manifest, indent=2), encoding="utf-8")
+        _report_progress(
+            f"Build manifest written ({_manifest['conversation_documents']} docs, "
+            f"{_manifest['fanbase_mood_weekly_rows']} mood rows)."
+        )
+    except Exception as exc:  # noqa: BLE001 — manifest is a gate aid, never break the build
+        _report_progress(f"Build manifest skipped: {exc}")
 
     _report_progress(f"Static site build finished at {site_root}.")
     return site_root
@@ -16680,9 +16710,9 @@ def render_rankings_page_html(
         else:
             row.tier = "all"
 
-    # v5 board (frozen mockups): card-feed + KenPom table both live in the DOM
-    # and toggle by width. mood_index defaults to None → every belief chip reads
-    # "Awaiting signal" for Phase 1.
+    # v5 board (frozen mockups): card-feed + KenPom table both live in the DOM and
+    # toggle by width. mood_index = {slug: (mood_score, mentions)} wired by the
+    # build-site caller (P0-B); empty falls back to "Awaiting signal" everywhere.
     mood_index = mood_index or {}
 
     def _mood_for(row: RankingRow) -> tuple | None:
@@ -23171,18 +23201,68 @@ def _rankings_table_logo_markup(slug: str, tc: str, monogram: str) -> str:
     return f'{img}<span class="fb" style="{fb_style}">{escape(monogram)}</span>'
 
 
-def _belief_chip(mood: tuple | None) -> str:
-    """Phase-1 belief chip.
+# Belief-chip tiers: 0-100 fan mood score -> (floor, css-class, label). Class maps
+# to the .cfb-rkx .bchip.{hot|align|cold} ramps (coral=warm/up, gray=even, navy=cool/down).
+_BELIEF_TIERS = (
+    (70, "hot", "Buzzing"),
+    (57, "hot", "Optimistic"),
+    (44, "align", "Even keel"),
+    (31, "cold", "Restless"),
+    (0, "cold", "Frustrated"),
+)
 
-    `mood` is an (archetype_label, mentions) tuple. With >=12 mentions we show
-    the aligned label; otherwise (and whenever mood is None, the Phase-1
-    default) we emit the exact "Awaiting signal" fallback.
+
+def _build_team_mood_index(db) -> dict:
+    """{slug: (mood_score, sample_size)} from each team's MOST RECENT
+    fanbase_mood_weekly row — the honest, data-driven fan mood after the relevance
+    source-curation + encoder-sentiment fixes. Teams without a qualifying row are
+    simply absent, so _belief_chip falls through to the genuine "Awaiting signal"
+    state for them (the designed graceful-degradation). Never raises — mood is a
+    non-critical enhancement and must not break the build.
+    """
+    try:
+        rows = db.query_all(
+            """
+            select t.slug as slug, m.mood_score as mood_score, m.sample_size as sample_size
+            from fanbase_mood_weekly m
+            join teams t on t.team_id = m.team_id
+            join (
+                select team_id, max(week_start_date) as wk
+                from fanbase_mood_weekly group by team_id
+            ) latest on latest.team_id = m.team_id and latest.wk = m.week_start_date
+            """
+        )
+    except Exception:  # noqa: BLE001
+        return {}
+    out: dict[str, tuple[int, int]] = {}
+    for r in rows:
+        slug = r.get("slug")
+        if not slug:
+            continue
+        try:
+            out[str(slug)] = (int(r.get("mood_score") or 0), int(r.get("sample_size") or 0))
+        except Exception:  # noqa: BLE001
+            continue
+    return out
+
+
+def _belief_chip(mood: tuple | None) -> str:
+    """Belief chip from a (mood_score, mentions) tuple.
+
+    With >=12 mentions we show a hot/align/cold vibe label derived from the 0-100
+    fan-mood score (coral=hot, gray=even, navy=cold). Sub-floor or no data emits
+    the genuine "Awaiting signal" fallback — the designed graceful-degradation
+    state reserved for truly signal-less programs.
     """
     if mood is not None:
         try:
-            label, mentions = mood
-            if int(mentions) >= 12:
-                return f'<span class="bchip align">{escape(str(label))}</span>'
+            score = int(mood[0])
+            mentions = int(mood[1])
+            if mentions >= 12:
+                for floor, klass, label in _BELIEF_TIERS:
+                    if score >= floor:
+                        title = f"Fan mood {score}/100 from {mentions} comments"
+                        return f'<span class="bchip {klass}" title="{escape(title)}">{escape(label)}</span>'
         except Exception:  # noqa: BLE001 — malformed mood degrades to awaiting
             pass
     return (

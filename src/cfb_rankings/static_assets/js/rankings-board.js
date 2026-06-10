@@ -216,34 +216,38 @@
       var active = chips
         .filter(function (c) { return c.getAttribute("aria-pressed") === "true"; })
         .map(chipSpec);
-      var rows = rowsFor(board);
-      // Mirror to the table body if it lives outside [data-board].
+      // The card-feed rows are the canonical team set (one per team). The desktop
+      // .board-table is a width-toggled MIRROR. Filter BOTH for visual consistency,
+      // but COUNT only the card set so "N of M teams" isn't doubled.
+      var cardRows = rowsFor(board);
       var tbody = document.querySelector(".board-table tbody");
-      if (tbody && !board.contains(tbody)) {
-        rows = rows.concat(rowsFor(tbody));
-      }
+      var tableRows = (tbody && !board.contains(tbody)) ? rowsFor(tbody) : [];
+      // P0-A FIX: filtering visibility + counting is STATE, not animation. Do it
+      // SYNCHRONOUSLY. (Previously this ran inside transition()/startViewTransition,
+      // whose callback is async, so updateCount() read shown=total=0 in VT-capable
+      // browsers — the "Showing 0 of 0 teams" bug.) transition() stays reserved for
+      // the lens reorder only.
       var shown = 0, total = 0;
-      transition(function () {
-        rows.forEach(function (row) {
-          total++;
-          var ok = !active.length || rowMatches(row, active);
-          row.hidden = !ok;
-          // Also toggle a class so :has()/CSS can react if it prefers.
-          row.classList.toggle("is-filtered-out", !ok);
-          if (ok) shown++;
-        });
-        // Hide a cutline whose neighborhood is fully filtered (cosmetic).
-        toggleStructural(board);
-        var t2 = document.querySelector(".board-table tbody");
-        if (t2 && !board.contains(t2)) toggleStructural(t2);
+      cardRows.forEach(function (row) {
+        total++;
+        var ok = !active.length || rowMatches(row, active);
+        row.hidden = !ok;
+        row.classList.toggle("is-filtered-out", !ok);
+        if (ok) shown++;
       });
+      tableRows.forEach(function (row) {
+        var ok = !active.length || rowMatches(row, active);
+        row.hidden = !ok;
+        row.classList.toggle("is-filtered-out", !ok);
+      });
+      // Hide a cutline whose neighborhood is fully filtered (cosmetic).
+      toggleStructural(board);
+      if (tbody && !board.contains(tbody)) toggleStructural(tbody);
       updateCount(shown, total);
     }
 
     function updateCount(shown, total) {
       if (!countEl) return;
-      // Each row exists in up to two representations (card + table); de-dupe by
-      // halving only when a table mirror is present.
       var noun = total === 1 ? "team" : "teams";
       countEl.textContent = "Showing " + shown + " of " + total + " " + noun;
     }

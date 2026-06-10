@@ -162,7 +162,19 @@ def compute_mood_week_from_features(db: Database, week_start: str) -> int:
     for row in best_by_team.values():
         mentions = int(row.get("mention_count") or 0)
         authors = int(row.get("unique_author_count") or 0)
-        sentiment = float(row.get("mean_sentiment_score") or 0.0)
+        # RECALIBRATION 2026-06-09 (task #6): net sentiment over comments that have an
+        # OPINION (exclude neutral). The encoder labels ~57% of comments neutral, so the
+        # old mean-over-ALL washed every team toward 50 (stdev ~5). Exclude-neutral net =
+        # (pos-neg)/(pos+neg) restores discriminating power (stdev ~15 on clean football
+        # data: Alabama ~80 hot, Ohio State ~17 cold). Volume confidence still uses total
+        # mentions. Falls back to mean_sentiment_score if polar counts are absent.
+        pos = int(row.get("positive_doc_count") or 0)
+        neg = int(row.get("negative_doc_count") or 0)
+        polar = pos + neg
+        if polar:
+            sentiment = (pos - neg) / polar
+        else:
+            sentiment = float(row.get("mean_sentiment_score") or 0.0)
         if mentions < MIN_MENTIONS_FOR_SIGNAL or authors < MIN_AUTHORS_FOR_SIGNAL:
             continue
         mood_score = int(round(50 + 50 * sentiment * min(1.0, mentions / 50.0)))

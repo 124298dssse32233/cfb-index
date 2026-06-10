@@ -844,6 +844,20 @@ def purge_reddit_raw_content(
     }
 
 
+# Off-topic source blocklist (RELEVANCE FIX 2026-06-09, see task #6 + deep-research
+# wf_c9853ea4-434). Hand-labeling showed ~74% of team-tagged Reddit comments were
+# off-topic; the noise is structurally concentrated in CITY and UNIVERSITY subreddits
+# (local/campus life: "the Chipotle closed", "got my Kroger delivery") that get tagged
+# to a team only via city/school name. Football subreddits are mostly on-topic. We use a
+# BLOCKLIST (not an allowlist) so this can NEVER drop genuine football talk -- the
+# research's key requirement (zero false-negative risk). Expand as new city/campus subs
+# appear; the durable follow-up is a SetFit relevance classifier on the off-topic labels.
+OFFTOPIC_SUBREDDITS = (
+    "Eugene", "AnnArbor", "PennStateUniversity", "Columbus", "Tallahassee",
+    "statecollege", "Knoxville", "Austin", "Athens", "batonrouge", "tuscaloosa",
+)
+
+
 def build_conversation_features(
     db: Database,
     season: int,
@@ -852,8 +866,9 @@ def build_conversation_features(
     pregame_days: int = 7,
     postgame_hours: int = 48,
 ) -> dict[str, int]:
+    _blocklist_sql = ", ".join("'" + s.replace("'", "''") + "'" for s in OFFTOPIC_SUBREDDITS)
     rows = db.query_all(
-        """
+        f"""
         select
           cdt.team_id,
           cdt.conversation_document_id,
@@ -877,6 +892,7 @@ def build_conversation_features(
           and cdt.week = %(week)s
           and cdt.target_type = 'team'
           and cd.source_name = %(source_name)s
+          and coalesce(cd.source_subchannel, '') not in ({_blocklist_sql})
         """,
         {"season": season, "week": week, "source_name": source_name},
     )
