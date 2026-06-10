@@ -115,6 +115,18 @@ def build_parser() -> argparse.ArgumentParser:
         "--json", dest="emit_json", action="store_true",
         help="Print ONLY a JSON object to stdout (for `ConvertFrom-Json` in PowerShell).")
 
+    import_team_sources_parser = subparsers.add_parser(
+        "import-team-sources",
+        help=("Upsert per-team source config into priority_teams from a seed CSV "
+              "(Build #1: 21->138 teams). New teams inserted fully; existing teams "
+              "get tier/reddit_mode/flair updated but hand-tuned reddit_team_sub / "
+              "google_news_query are preserved (only filled if empty)."),
+    )
+    import_team_sources_parser.add_argument(
+        "--csv", required=True, help="Seed CSV path (data/seeds/team_sources_seed.csv).")
+    import_team_sources_parser.add_argument(
+        "--dry-run", action="store_true", help="Report inserts/updates without writing.")
+
     tag_players_parser = subparsers.add_parser(
         "tag-player-mentions",
         help=("Scan conversation_documents for player-name mentions and emit "
@@ -2200,6 +2212,73 @@ def main() -> None:
         from cfb_rankings.ingest.fanintel_seeds import seed_source_registry
         result = seed_source_registry(db)
         print(f"source_registry: inserted={result['inserted']} updated={result['updated']} total={result['total']}")
+        return
+
+    if args.command == "import-team-sources":
+        import csv as _csv
+        from pathlib import Path as _Path
+        seed_path = _Path(args.csv)
+        if not seed_path.exists():
+            print(f"ABORT: seed CSV not found: {seed_path}")
+            return
+        seed_rows = list(_csv.DictReader(seed_path.open(encoding="utf-8")))
+        inserted = updated = 0
+        for r in seed_rows:
+            try:
+                tid = int(r["team_id"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            existing = db.query_one(
+                "select rank_priority from priority_teams where team_id = :t", {"t": tid})
+            tier = int(r["collection_tier"]) if (r.get("collection_tier") or "").strip() else None
+            params = {
+                "team_id": tid,
+                # New teams get a tier-grouped rank after the curated 1-21; existing
+                # teams keep their hand-set rank_priority.
+                "rank": existing["rank_priority"] if existing else (tier or 3) * 100,
+                "sub": (r.get("reddit_team_sub") or "").strip() or None,
+                "mode": (r.get("reddit_mode") or "").strip() or None,
+                "flair": (r.get("reddit_flair_filter") or "").strip() or None,
+                "tier": tier,
+                "gnews": (r.get("google_news_query") or "").strip() or None,
+                "conf": (r.get("conference_2025") or r.get("conference") or "").strip() or None,
+            }
+            if args.dry_run:
+                if existing:
+                    updated += 1
+                else:
+                    inserted += 1
+                continue
+            db.execute(
+                """
+                insert into priority_teams (
+                    team_id, rank_priority, reddit_team_sub, reddit_mode,
+                    reddit_flair_filter, collection_tier, google_news_query,
+                    conference, updated_at_utc
+                ) values (
+                    :team_id, :rank, :sub, :mode, :flair, :tier, :gnews, :conf,
+                    datetime('now')
+                )
+                on conflict(team_id) do update set
+                    collection_tier     = excluded.collection_tier,
+                    reddit_mode         = excluded.reddit_mode,
+                    reddit_flair_filter = excluded.reddit_flair_filter,
+                    conference          = coalesce(excluded.conference, priority_teams.conference),
+                    -- never clobber a hand-tuned value; only fill when empty
+                    reddit_team_sub     = coalesce(nullif(priority_teams.reddit_team_sub, ''), excluded.reddit_team_sub),
+                    google_news_query   = coalesce(nullif(priority_teams.google_news_query, ''), excluded.google_news_query),
+                    updated_at_utc      = datetime('now')
+                """,
+                params,
+            )
+            if existing:
+                updated += 1
+            else:
+                inserted += 1
+        mode = "DRY-RUN" if args.dry_run else "APPLIED"
+        print(f"import-team-sources [{mode}]: inserted={inserted} updated={updated} "
+              f"csv_rows={len(seed_rows)} -> priority_teams now has "
+              f"{db.query_one('select count(*) n from priority_teams')['n']} rows")
         return
 
     if args.command == "compute-cohort-week":

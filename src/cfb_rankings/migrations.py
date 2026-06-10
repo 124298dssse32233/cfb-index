@@ -123,6 +123,13 @@ def _apply_fanintel_column_additions(db: Database) -> None:
 
 
 def apply_runtime_migrations(db: Database) -> None:
+    # priority_teams source-expansion columns (Build #1, 2026-06): collection
+    # cadence tier + Reddit collection mode/flair filter (school subs need a
+    # flair filter to strip non-football university chatter) + 2026 conference.
+    _ensure_column(db, "priority_teams", "collection_tier", "integer")
+    _ensure_column(db, "priority_teams", "reddit_mode", "text")          # dedicated | school_flair | skip
+    _ensure_column(db, "priority_teams", "reddit_flair_filter", "text")  # comma-sep flairs for school_flair subs
+    _ensure_column(db, "priority_teams", "conference", "text")           # 2026-updated; realignment hygiene
     _ensure_column(db, "games", "season_phase", "text")
     if not db.column_exists("games", "source_week"):
         db.execute("alter table games add column source_week integer")
