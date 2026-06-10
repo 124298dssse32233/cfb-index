@@ -57,13 +57,12 @@ Five canonical docs, each with a distinct role:
 ## CI guardrail
 - `scripts/verify_world_class_team_pages.py` runs after build verification. Hard-fails the build if any real FBS team page ships `premium-team-hero` legacy chrome instead of `team-page` world-class chrome.
 
-## Chronicle LLM pipeline (2026-05-24) — LIVE on Alienware via Ollama
-- **Status: ACTIVATED 2026-05-24.** Both models pulled, real cards generating end-to-end.
-- Ollama 0.24.0 daemon running at localhost:11434
-- Pulled: `mistral-nemo:12b-instruct-2407-q4_K_M` (7.5GB, Writer) + `qwen3:8b` (5.2GB, Planner/Critic)
+## Chronicle LLM pipeline — LIVE on the new box (RTX 3090 24GB) via Ollama (re-homed 2026-06-10)
+- **Status: re-homed 2026-06-10** from the Alienware. GitHub self-hosted runner `cfb-box-3090` (Task Scheduler job `CFB-GitHubActionsRunner`, install `C:\actions-runner`, labels include `alienware` for back-compat). Validated end-to-end: workflow dispatch shipped 4 cards / 0 failures.
+- Ollama daemon at localhost:11434. Models: `mistral-small3.2:latest` (24B, Writer — June-2026 research found nothing verifiably better at schema-JSON editorial prose) + `qwen3.6:27b` (Planner/Critic, Q4 ~17GB). Set via `CHRONICLE_OLLAMA_WRITER`/`CHRONICLE_OLLAMA_PLANNER` (workflow env + user env).
 - Runtime auto-detects Ollama and uses OllamaBackend → /api/generate with native `format: <schema>` for structured output
-- `OllamaBackend` strips Qwen3 `<think>...</think>` reasoning blocks before JSON parse
-- Tier T3 throughput: ~15s/card on RTX 5070. Tier S (full 5-agent): ~30s/card.
+- `OllamaBackend` sends `think: false` for any qwen3* model — REQUIRED, or Ollama silently ignores `format` in think mode (empty response). It also strips inline `<think>` blocks.
+- Writer + planner don't co-fit in 24GB; Ollama hot-swaps per call (fine for weekly batches). T3 measured ~13s/card warm on the 3090.
 - First production card (Alabama echo, 74 words): "Over 15 consecutive trading days in May, the market volume for Alabama to win the 2027 CFP National Championship stayed steady at $27.16 [src:polymarket_2026-05-21]."
 - Override default models via env: `CHRONICLE_OLLAMA_WRITER` / `CHRONICLE_OLLAMA_PLANNER`
 
@@ -75,17 +74,18 @@ Five canonical docs, each with a distinct role:
 - Tier policy: S=top 25 players + top 10 teams (Best-of-3, full 5-agent); T1=top 50 teams + top 100 players (single-pass); T2=rank 51-100 (3-agent); T3=long tail (template-fill).
 - CLI: `python -m cfb_rankings.chronicle.run generate --tier S --max-cards 1 --dry-run` works end-to-end without any LLM installed (NullBackend fallback).
 - Health check: `python -m cfb_rankings.chronicle.run health`.
-- Workflow: `.github/workflows/chronicle-weekly.yml` runs on `[self-hosted, alienware]` with 10 cron schedules + manual dispatch + emergency LKG fallback via `scripts/emergency_publish.ps1`.
+- Workflow: `.github/workflows/chronicle-weekly.yml` runs on `[self-hosted, alienware]` (= the `cfb-box-3090` runner) with 10 cron schedules + manual dispatch. **Box-native since 2026-06-10:** jobs cd into the box working copy and use the box `.venv` + canonical `cfb_rankings.db` — NO cloud `cfb-rankings-db` artifact download (it diverged from the box DB; never feed it to content generation). The old build-and-ship/emergency-publish jobs are retired — the nightly box `build_publish.ps1` is the only deploy path.
 - LKG (Last-Known-Good) cards live at `output/site/_cards_lkg/` and are committed to git on each successful run — guarantees fans never see broken pages on Sunday-night pipeline failures.
 - **To activate**: install llama.cpp + Mistral Nemo Q5_K_M GGUF + Qwen3-8B-Thinking Q4_K_M GGUF on Alienware. Run two llama-server instances (ports 8001 + 8002). Optionally train Voice LoRA via `python scripts/train_voice_lora.py --corpus data/voice_corpus.jsonl`. Cloud fallback (DeepInfra Mistral Nemo at $0.02/$0.04 per M tokens) works for Tier 2/3 without any local install.
 
 ## What this is
 Static-site CFB rankings + fan-intel product. Python generator → SQLite → ~69k HTML pages in `output/site/`.
 
-## Deployment (UPDATED 2026-05-22)
+## Deployment (UPDATED 2026-06-10 — box-first)
+- **The box is the primary deployer.** Nightly Task Scheduler jobs on this machine (`CFBIndex-FanintelCollect` 5:00 AM, `CFBIndex-FanintelBuildPublish` 9:00 AM local) run `scripts/collect.ps1` + `scripts/build_publish.ps1` against the canonical local `cfb_rankings.db`, then deploy the FULL site snapshot via `scripts/publish_to_vercel.ps1`. Cloud cron deploys are being retired as they're touched — they run on the rolling `cfb-rankings-db` artifact, which DIVERGED from the box DB (different player_id space). Don't ship content built from the cloud artifact.
 - **Vercel git auto-deploy is DISCONNECTED.** Master pushes do NOT trigger Vercel deploys. (Reason: `output/` is gitignored, so git-triggered builds had zero player HTML files and 404'd `/players/*`.) Don't reconnect without a migration plan.
-- **All production deploys flow through `vercel deploy --prod` inside cron workflows.** `publish-site.yml`, `the-daily-06am-et.yml`, `wire-daily-04am-et.yml`, `mailbag-friday-09am-et.yml` each call the Vercel CLI directly.
-- **To force a fresh deploy:** trigger `publish-site` via `gh workflow run publish_site.yml`. Runs ~50 min.
+- **To force a fresh deploy from the box:** run `scripts/build_publish.ps1` (renders every section — partial renders clobber sections off prod since deploys are full snapshots).
+- Single canonical git branch since 2026-06-10: `master` (the redesign branch was merged in and deleted; box checkout = master).
 - **CI guardrails:**
   - 19 workflows fail-loud if the rolling `cfb-rankings-db` artifact is missing or poisoned (Option B). Bypass via `--allow-empty` on `scripts/verify_db_artifact_healthy.py` if you legitimately need a fresh-DB start.
   - 7 workflows that call the `notify_failure.yml` reusable workflow have an explicit `permissions: { issues: write, contents: read }` on their notify job — don't strip it.

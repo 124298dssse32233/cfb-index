@@ -10,7 +10,11 @@ __pycache__/
 # Virtual environments (never commit — multi-GB)
 .venv/
 .venv-ml/
+.venv-cls/
 venv/
+
+# Trained ML models (hundreds of MB; reproducible from committed gold data)
+models/
 
 # Generated artifacts
 output/

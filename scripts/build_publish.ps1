@@ -68,6 +68,23 @@ if (Test-Path $MlPython) {
 }
 
 # =========================================================================
+# E.6 ML relevance scoring (Stage 2, REPORT-ONLY soak — writes
+#     relevance_ml_score to conversation_documents; nothing gates on it
+#     yet). Own venv (.venv-cls: setfit + transformers>=4.48 for ModernBERT
+#     — would conflict with .venv-ml's pinned 4.46). Skips cleanly if the
+#     venv or trained model is absent.
+# =========================================================================
+$ClsPython = Join-Path $global:RepoRoot ".venv-cls\Scripts\python.exe"
+$ClsModel  = Join-Path $global:RepoRoot "models\relevance_setfit_v1"
+if ((Test-Path $ClsPython) -and (Test-Path $ClsModel)) {
+    Run "relevance: ML classify (report-only soak)" {
+        & $ClsPython scripts/relevance_classify_daily.py --commit
+    }
+} else {
+    Log "   (.venv-cls or relevance model absent -- skipping ML relevance scoring)"
+}
+
+# =========================================================================
 # F. Team feature rebuild (recomputes team_week_conversation_features)
 # =========================================================================
 Run "features: build-conversation-features --season=$($global:CurSeason) --week=$($global:SeasonWeek)" {
