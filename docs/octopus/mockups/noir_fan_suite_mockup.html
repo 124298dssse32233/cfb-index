@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Group Chat Noir v2 — Fan Intelligence Suite Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir-ground:#101418;
+    --noir-surface:#1B2128;
+    --noir-surface-2:#242C35;
+    --noir-text:#EDE6D6;
+    --noir-receipt:#B8B2A4;
+    --noir-hairline:rgba(237,230,214,0.10);
+    --noir-up:#2EE07C;
+    --noir-down:#FF4E42;
+    --noir-cooking:#8FD14F;
+    --noir-cooked:#F0883E;
+    --noir-aura:#9D6BFF;
+    --noir-aura-text:#B794FF;
+    --noir-market:#3D91FF;
+    --noir-neutral:#A8A294;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--noir-ground);
+    color:var(--noir-text);
+    font-family:'Inter',system-ui,sans-serif;
+    font-feature-settings:"tnum";
+    line-height:1.5;
+    padding:40px 16px 80px;
+  }
+  .wrap{max-width:860px;margin:0 auto}
+  .mock-note{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+    color:var(--noir-receipt);letter-spacing:.08em;text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(40px,7vw,64px);letter-spacing:.01em;
+    text-transform:uppercase;line-height:1.05;margin-bottom:8px;
+  }
+  .lede{color:var(--noir-receipt);font-size:15px;max-width:60ch;margin-bottom:44px}
+  .lede strong{color:var(--noir-text)}
+
+  /* ---------- card grammar: VERDICT / BODY / RECEIPT ---------- */
+  .card{
+    background:var(--noir-surface);
+    border:1px solid var(--noir-hairline);
+    border-radius:12px;
+    margin-bottom:32px;
+    overflow:hidden;
+  }
+  .verdict{
+    display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+    padding:20px 24px 14px;
+  }
+  .verdict .zone{
+    font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(26px,4.5vw,40px);letter-spacing:.015em;line-height:1.05;
+  }
+  .verdict .hero-num{
+    font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(34px,5.5vw,52px);line-height:1;
+  }
+  .kicker{
+    display:flex;align-items:center;gap:10px;
+    padding:18px 24px 0;
+  }
+  .team-chip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;
+    color:var(--noir-text);
+  }
+  .team-chip .swatch{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid var(--noir-hairline)}
+  .kicker .stat-name{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+    letter-spacing:.14em;color:var(--noir-receipt);text-transform:uppercase;
+    margin-left:auto;
+  }
+  .body{padding:8px 24px 20px}
+  .receipt{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    color:var(--noir-receipt);
+    border-top:1px solid var(--noir-hairline);
+    padding:12px 24px;
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  }
+  .receipt .stamp{color:var(--noir-receipt)}
+  svg{display:block;width:100%;height:auto}
+  svg text{font-family:'IBM Plex Mono',monospace;font-weight:500}
+
+  /* chips */
+  .chip{
+    display:inline-block;border-radius:6px;padding:3px 10px;
+    font-size:12px;font-weight:700;letter-spacing:.06em;
+  }
+  .chip-aura{background:var(--noir-aura);color:#101418}        /* near-black text on accent fill */
+  .chip-outline{
+    background:transparent;border:1px solid var(--noir-hairline);
+    color:var(--noir-receipt);font-family:'IBM Plex Mono',monospace;font-weight:500;
+  }
+  .chip-outline.aura{border-color:var(--noir-aura);color:var(--noir-aura-text)}
+
+  /* aura bars */
+  .bar-row{margin:14px 0}
+  .bar-label{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    color:var(--noir-receipt);letter-spacing:.06em;margin-bottom:6px;
+    display:flex;justify-content:space-between;
+  }
+  .bar-label .val{color:var(--noir-text);font-weight:500}
+  .bar-track{background:var(--noir-surface-2);border-radius:5px;height:18px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:5px}
+  .bar-aura{background:var(--noir-aura)}
+  .bar-prod{background:var(--noir-text);opacity:.82}
+
+  /* him watch table */
+  table{width:100%;border-collapse:collapse;margin-top:20px;font-size:14px}
+  th{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--noir-receipt);
+    text-align:left;padding:6px 8px;border-bottom:1px solid var(--noir-hairline);
+  }
+  td{padding:9px 8px;border-bottom:1px solid var(--noir-hairline)}
+  td.num{font-variant-numeric:tabular-nums;font-weight:600}
+  td .up{color:var(--noir-up);font-weight:700}
+  td .aura-val{color:var(--noir-aura-text);font-weight:700}
+
+  /* group chat quote */
+  .quote{
+    font-size:19px;line-height:1.55;font-style:italic;font-weight:500;
+    margin:6px 0 16px;
+  }
+  .quote::before{content:"\201C";color:var(--noir-aura-text)}
+  .quote::after{content:"\201D";color:var(--noir-aura-text)}
+  .badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+
+  /* low signal */
+  .hatch{
+    height:130px;border-radius:8px;
+    background:repeating-linear-gradient(45deg,
+      var(--noir-surface) 0 10px, var(--noir-surface-2) 10px 12px);
+    display:flex;align-items:center;justify-content:center;
+    border:1px dashed var(--noir-hairline);
+  }
+  .hatch span{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    color:var(--noir-neutral);letter-spacing:.10em;text-transform:uppercase;
+    text-align:center;padding:0 16px;
+  }
+
+  /* token strip */
+  .tokens{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .tok{width:108px}
+  .tok .sw{height:34px;border-radius:6px;border:1px solid var(--noir-hairline)}
+  .tok .nm{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;
+    color:var(--noir-receipt);margin-top:5px;line-height:1.35;
+  }
+  .section-note{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--noir-receipt);
+    margin:48px 0 16px;
+  }
+  /* mobile: charts keep legible scale and pan horizontally (spec §9 reduced-detail rule) */
+  @media (max-width:560px){
+    .body{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .body svg{min-width:560px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mock-note">CFB Index · design mockup · Group Chat Noir v2 · 2026-06-10 · post-critique</div>
+  <h1>The Fan Intelligence Suite</h1>
+  <p class="lede"><strong>Meme on top, receipt underneath.</strong> Every card is a self-sufficient
+  screenshot: Anton verdict, one chart, mono receipt with the corner stamp. Violet = what fans feel.
+  Blue = what the market says. Green/ember = what's actually happening. Team colors are identity only.</p>
+
+  <!-- ============ 1. BACKOMETER ============ -->
+  <div class="card">
+    <div class="kicker">
+      <span class="team-chip"><span class="swatch" style="background:#BF5700"></span>Texas Longhorns</span>
+      <span class="stat-name">The Backometer™</span>
+    </div>
+    <div class="verdict">
+      <span class="zone" style="color:var(--noir-cooking)">Cooking</span>
+      <span class="hero-num" style="color:var(--noir-cooking)">71</span>
+    </div>
+    <div class="body">
+      <svg viewBox="0 0 760 300" role="img" aria-label="Texas fanbase belief, 2025 season, currently 71 — Cooking">
+        <defs>
+          <clipPath id="above"><rect x="0" y="0" width="760" height="150"/></clipPath>
+          <clipPath id="below"><rect x="0" y="150" width="760" height="150"/></clipPath>
+        </defs>
+        <!-- uncertainty band -->
+        <polygon fill="rgba(237,230,214,0.06)" points="
+          50,111 97,92 144,82 191,121 238,154 285,169 332,147 379,128 426,114 473,135 520,154 567,142 614,109 661,97 708,90
+          708,110 661,117 614,129 567,162 520,174 473,155 426,134 379,148 332,167 285,189 238,174 191,141 144,102 97,112 50,131"/>
+        <!-- area masses, clipped above/below baseline -->
+        <polygon clip-path="url(#above)" fill="rgba(46,224,124,0.16)" points="
+          50,121 97,102 144,92 191,131 238,164 285,179 332,157 379,138 426,124 473,145 520,164 567,152 614,119 661,107 708,100 708,150 50,150"/>
+        <polygon clip-path="url(#below)" fill="rgba(255,78,66,0.16)" points="
+          50,121 97,102 144,92 191,131 238,164 285,179 332,157 379,138 426,124 473,145 520,164 567,152 614,119 661,107 708,100 708,150 50,150"/>
+        <!-- baseline -->
+        <line x1="50" y1="150" x2="710" y2="150" stroke="rgba(237,230,214,0.25)" stroke-width="1.5"/>
+        <text x="50" y="166" font-size="10" fill="#B8B2A4">BASELINE · 50</text>
+        <text x="50" y="44" font-size="10" fill="#2EE07C">SO BACK ↑</text>
+        <text x="50" y="262" font-size="10" fill="#FF4E42">IT'S SO OVER ↓</text>
+        <!-- trace -->
+        <polyline fill="none" stroke="#EDE6D6" stroke-width="2.5" stroke-linejoin="round" points="
+          50,121 97,102 144,92 191,131 238,164 285,179 332,157 379,138 426,124 473,145 520,164 567,152 614,119 661,107 708,100"/>
+        <!-- event pins -->
+        <line x1="144" y1="92" x2="144" y2="60" stroke="rgba(237,230,214,0.3)" stroke-width="1" stroke-dasharray="2,3"/>
+        <text x="150" y="58" font-size="10" fill="#2EE07C">▲ SEP 27 · 4–0 START</text>
+        <line x1="238" y1="164" x2="238" y2="226" stroke="rgba(237,230,214,0.3)" stroke-width="1" stroke-dasharray="2,3"/>
+        <text x="244" y="238" font-size="10" fill="#FF4E42">▼ OCT 11 · LOST RED RIVER</text>
+        <line x1="614" y1="119" x2="614" y2="76" stroke="rgba(237,230,214,0.3)" stroke-width="1" stroke-dasharray="2,3"/>
+        <text x="608" y="72" font-size="10" fill="#2EE07C" text-anchor="end">▲ NOV 28 · BEAT A&amp;M ▲</text>
+        <!-- terminal dot -->
+        <circle cx="708" cy="100" r="6" fill="#8FD14F" stroke="#101418" stroke-width="2"/>
+        <text x="700" y="88" font-size="10" fill="#B8B2A4" text-anchor="end">NOW</text>
+        <!-- season ends -->
+        <text x="50" y="288" font-size="10" fill="#B8B2A4">AUG</text>
+        <text x="708" y="288" font-size="10" fill="#B8B2A4" text-anchor="end">DEC</text>
+      </svg>
+    </div>
+    <div class="receipt">
+      <span>n=12,884 fan conversations · 6 sources · sarcasm-adjusted · thru wk 14 · ±1σ band shown</span>
+      <span class="stamp">cfbindex.com</span>
+    </div>
+  </div>
+
+  <!-- ============ 2. RENT FREE ============ -->
+  <div class="card">
+    <div class="kicker">
+      <span class="team-chip"><span class="swatch" style="background:#BB0000"></span>Ohio State</span>
+      <span class="team-chip" style="color:var(--noir-receipt)">vs</span>
+      <span class="team-chip"><span class="swatch" style="background:#00274C"></span>Michigan</span>
+      <span class="stat-name">Rent Free™</span>
+    </div>
+    <div class="verdict">
+      <span class="zone" style="color:var(--noir-aura-text)">Ohio State lives rent free</span>
+      <span class="hero-num" style="color:var(--noir-aura-text)">3.2×</span>
+    </div>
+    <div class="body">
+      <svg viewBox="0 0 760 240" role="img" aria-label="Share of each fanbase's conversation about the rival, January through June 2026. Michigan fans talk about Ohio State 3.2 times more.">
+        <text x="370" y="22" font-size="10" fill="#B8B2A4" text-anchor="end">MICHIGAN FANS TALKING ABOUT OSU ✦</text>
+        <text x="390" y="22" font-size="10" fill="#B8B2A4">✦ OSU FANS TALKING ABOUT MICHIGAN</text>
+        <line x1="380" y1="32" x2="380" y2="222" stroke="rgba(237,230,214,0.25)" stroke-width="1.5"/>
+        <!-- rows: JAN..JUN -->
+        <g font-size="10" fill="#B8B2A4">
+          <text x="18" y="56">JAN</text><text x="18" y="86">FEB</text><text x="18" y="116">MAR</text>
+          <text x="18" y="146">APR</text><text x="18" y="176">MAY</text><text x="18" y="206">JUN</text>
+        </g>
+        <!-- left wings (Michigan -> OSU), brighter violet -->
+        <g fill="#B794FF">
+          <rect x="218" y="44" width="162" height="16" rx="3"/>
+          <rect x="182" y="74" width="198" height="16" rx="3"/>
+          <rect x="209" y="104" width="171" height="16" rx="3"/>
+          <rect x="164" y="134" width="216" height="16" rx="3"/>
+          <rect x="191" y="164" width="189" height="16" rx="3"/>
+          <rect x="146" y="194" width="234" height="16" rx="3"/>
+        </g>
+        <!-- right wings (OSU -> Michigan), dimmer violet -->
+        <g fill="#7E5BD6">
+          <rect x="380" y="44" width="54" height="16" rx="3"/>
+          <rect x="380" y="74" width="63" height="16" rx="3"/>
+          <rect x="380" y="104" width="45" height="16" rx="3"/>
+          <rect x="380" y="134" width="72" height="16" rx="3"/>
+          <rect x="380" y="164" width="54" height="16" rx="3"/>
+          <rect x="380" y="194" width="63" height="16" rx="3"/>
+        </g>
+        <!-- value labels -->
+        <g font-size="10" fill="#B8B2A4">
+          <text x="212" y="56" text-anchor="end">18%</text><text x="176" y="86" text-anchor="end">22%</text>
+          <text x="203" y="116" text-anchor="end">19%</text><text x="158" y="146" text-anchor="end">24%</text>
+          <text x="185" y="176" text-anchor="end">21%</text><text x="140" y="206" text-anchor="end">26%</text>
+          <text x="440" y="56">6%</text><text x="449" y="86">7%</text><text x="431" y="116">5%</text>
+          <text x="458" y="146">8%</text><text x="440" y="176">6%</text><text x="449" y="206">7%</text>
+        </g>
+      </svg>
+    </div>
+    <div class="receipt">
+      <span>n=41,203 cross-mentions · jan–jun 2026 · % of each fanbase's conversation · rival-bucket tagged</span>
+      <span class="stamp">cfbindex.com</span>
+    </div>
+  </div>
+
+  <!-- ============ 3. AURA / HIM WATCH ============ -->
+  <div class="card">
+    <div class="kicker">
+      <span class="team-chip"><span class="swatch" style="background:#BF5700"></span>Arch Manning · QB · Texas</span>
+      <span class="stat-name">Aura™ / Him Watch</span>
+    </div>
+    <div class="verdict">
+      <span class="zone" style="color:var(--noir-aura-text)">Aura Tax</span>
+      <span class="hero-num" style="color:var(--noir-aura-text)">+23</span>
+    </div>
+    <div class="body">
+      <div class="bar-row">
+        <div class="bar-label"><span>✦ AURA — FAN PERCEPTION</span><span class="val">94th pctl</span></div>
+        <div class="bar-track"><div class="bar-fill bar-aura" style="width:94%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>PRODUCTION — ON-FIELD</span><span class="val">71st pctl</span></div>
+        <div class="bar-track"><div class="bar-fill bar-prod" style="width:71%"></div></div>
+      </div>
+      <div style="margin-top:10px"><span class="chip chip-aura">FANS ARE PAYING +23 POINTS OF AURA TAX</span></div>
+
+      <table>
+        <thead><tr><th>#</th><th>Him Watch — June</th><th>Team</th><th style="text-align:right">Aura tax</th><th style="text-align:right">Δ wk</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Arch Manning</td><td>Texas</td><td class="num" style="text-align:right"><span class="aura-val">+23</span></td><td class="num" style="text-align:right"><span class="up">▲ 2</span></td></tr>
+          <tr><td class="num">2</td><td>Bryce Underwood</td><td>Michigan</td><td class="num" style="text-align:right"><span class="aura-val">+19</span></td><td class="num" style="text-align:right"><span class="up">▲ 5</span></td></tr>
+          <tr><td class="num">3</td><td>Julian Sayin</td><td>Ohio State</td><td class="num" style="text-align:right"><span class="aura-val">+14</span></td><td class="num" style="text-align:right" ><span style="color:var(--noir-neutral);font-weight:700">— 0</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="receipt">
+      <span>n=2,114 mentions · 30d · cohort: P4 QBs · perception=conversation, production=per-snap value</span>
+      <span class="stamp">cfbindex.com</span>
+    </div>
+  </div>
+
+  <!-- ============ 4. DELUSION PREMIUM ============ -->
+  <div class="card">
+    <div class="kicker">
+      <span class="team-chip"><span class="swatch" style="background:#BF5700"></span>Texas Longhorns</span>
+      <span class="stat-name">Delusion Premium™</span>
+    </div>
+    <div class="verdict">
+      <span class="zone" style="color:var(--noir-aura-text)">Delusion Premium</span>
+      <span class="hero-num" style="color:var(--noir-aura-text)">+33</span>
+    </div>
+    <div class="body">
+      <svg viewBox="0 0 760 230" role="img" aria-label="Texas fan belief in a national title versus market-implied odds, February to June 2026. Fans 71, market 38.">
+        <!-- gap shading -->
+        <polygon fill="rgba(157,107,255,0.10)" points="80,107 215,99 350,102 485,93 620,86 620,139 485,136 350,133 215,138 80,134"/>
+        <!-- market line: dashed blue + square markers -->
+        <polyline fill="none" stroke="#3D91FF" stroke-width="2.5" stroke-dasharray="7,6" points="80,134 215,138 350,133 485,136 620,139"/>
+        <g fill="#3D91FF">
+          <rect x="76" y="130" width="8" height="8"/><rect x="211" y="134" width="8" height="8"/>
+          <rect x="346" y="129" width="8" height="8"/><rect x="481" y="132" width="8" height="8"/>
+          <rect x="616" y="135" width="8" height="8"/>
+        </g>
+        <!-- fans line: solid violet + circle markers -->
+        <polyline fill="none" stroke="#B794FF" stroke-width="2.5" points="80,107 215,99 350,102 485,93 620,86"/>
+        <g fill="#9D6BFF" stroke="#101418" stroke-width="1.5">
+          <circle cx="80" cy="107" r="4.5"/><circle cx="215" cy="99" r="4.5"/>
+          <circle cx="350" cy="102" r="4.5"/><circle cx="485" cy="93" r="4.5"/>
+          <circle cx="620" cy="86" r="4.5"/>
+        </g>
+        <!-- direct labels, no legend -->
+        <text x="634" y="90" font-size="11" fill="#B794FF">FANS 71 ✦</text>
+        <text x="634" y="146" font-size="11" fill="#3D91FF">MARKET 38 ▪</text>
+        <text x="634" y="116" font-size="10" fill="#B8B2A4">GAP +33</text>
+        <!-- months -->
+        <g font-size="10" fill="#B8B2A4">
+          <text x="80" y="220" text-anchor="middle">FEB</text><text x="215" y="220" text-anchor="middle">MAR</text>
+          <text x="350" y="220" text-anchor="middle">APR</text><text x="485" y="220" text-anchor="middle">MAY</text>
+          <text x="620" y="220" text-anchor="middle">JUN</text>
+        </g>
+      </svg>
+      <div style="margin-top:6px"><span class="chip chip-outline aura">5TH MOST DELUSIONAL FANBASE · JUNE</span></div>
+    </div>
+    <div class="receipt">
+      <span>fans: % of belief-bearing conversation · market: title odds implied (kalshi+polymarket, 214 obs) · settled in january</span>
+      <span class="stamp">cfbindex.com</span>
+    </div>
+  </div>
+
+  <!-- ============ 5. THE GROUP CHAT ============ -->
+  <div class="card">
+    <div class="kicker">
+      <span class="team-chip"><span class="swatch" style="background:#BF5700"></span>r/LonghornNation</span>
+      <span class="stat-name">The Group Chat · Tue Jun 9</span>
+    </div>
+    <div class="verdict">
+      <span class="zone" style="color:var(--noir-text)">Peak Copium</span>
+    </div>
+    <div class="body">
+      <p class="quote">If Arch doesn't win the Heisman this year I'm done pretending this sport is real</p>
+      <div class="badges">
+        <span class="chip chip-outline aura">ANTICIPATION · 0.84</span>
+        <span class="chip chip-outline">SARCASM-ADJUSTED ✓</span>
+        <span class="chip chip-outline">847 UPVOTES</span>
+      </div>
+    </div>
+    <div class="receipt">
+      <span>take 1 of 6 today · username redacted · toxicity-screened · representative of 312 similar takes</span>
+      <span class="stamp">cfbindex.com</span>
+    </div>
+  </div>
+
+  <!-- ============ 6. LOW SIGNAL STATE ============ -->
+  <div class="card">
+    <div class="kicker">
+      <span class="team-chip"><span class="swatch" style="background:#881C1C"></span>UMass Minutemen</span>
+      <span class="stat-name">The Backometer™</span>
+    </div>
+    <div class="verdict">
+      <span class="zone" style="color:var(--noir-neutral)">Low Signal</span>
+    </div>
+    <div class="body">
+      <div class="hatch"><span>Backometer paused · n=89 this week · below the 200-conversation floor</span></div>
+    </div>
+    <div class="receipt">
+      <span>last verdict: UNEASY · 52 (may 18) · signal resumes with fall camp</span>
+      <span class="stamp">cfbindex.com</span>
+    </div>
+  </div>
+
+  <!-- ============ TOKEN STRIP ============ -->
+  <div class="section-note">Sub-brand tokens · see docs/design-system/40-noir-subbrand.md</div>
+  <div class="tokens">
+    <div class="tok"><div class="sw" style="background:#101418"></div><div class="nm">ground<br>#101418</div></div>
+    <div class="tok"><div class="sw" style="background:#1B2128"></div><div class="nm">surface<br>#1B2128</div></div>
+    <div class="tok"><div class="sw" style="background:#EDE6D6"></div><div class="nm">chalk text<br>#EDE6D6</div></div>
+    <div class="tok"><div class="sw" style="background:#B8B2A4"></div><div class="nm">receipt<br>#B8B2A4</div></div>
+    <div class="tok"><div class="sw" style="background:#2EE07C"></div><div class="nm">so back ▲<br>#2EE07C</div></div>
+    <div class="tok"><div class="sw" style="background:#FF4E42"></div><div class="nm">cooked ▼<br>#FF4E42</div></div>
+    <div class="tok"><div class="sw" style="background:#9D6BFF"></div><div class="nm">aura ✦<br>#9D6BFF</div></div>
+    <div class="tok"><div class="sw" style="background:#3D91FF"></div><div class="nm">market ▪<br>#3D91FF</div></div>
+    <div class="tok"><div class="sw" style="background:#A8A294"></div><div class="nm">neutral<br>#A8A294</div></div>
+  </div>
+
+</div>
+</body>
+</html>
