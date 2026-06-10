@@ -102,6 +102,9 @@ Run "fan-metrics: compute-backometer --season=$($global:CurSeason)" {
 Run "fan-metrics: compute-aura --season=$($global:CurSeason)" {
     python manage.py compute-aura --season $global:CurSeason
 }
+Run "fan-metrics: compute-delusion-premium --season=$($global:CurSeason)" {
+    python manage.py compute-delusion-premium --season $global:CurSeason
+}
 
 # =========================================================================
 # G. Models (in-season only - require fresh game data)

@@ -1252,6 +1252,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     seed_rivalry_pairs_parser.add_argument("--pairs-file", default="seeds/rivalry_pairs.yaml")
 
+    compute_delusion_parser = subparsers.add_parser(
+        "compute-delusion-premium",
+        help=(
+            "Compute delusion_premium_weekly (fanbase belief vs market title odds; "
+            "delusion_index = belief pctl - market pctl). Polymarket + Backometer. Fan suite."
+        ),
+    )
+    compute_delusion_parser.add_argument("--season", type=int, required=True)
+
     compute_aura_parser = subparsers.add_parser(
         "compute-aura",
         help=(
@@ -5979,6 +5988,13 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         )
         for miss in result["unresolved"]:
             print(f"  unresolved: {miss}", flush=True)
+        return
+
+    if args.command == "compute-delusion-premium":
+        from cfb_rankings.fan_metrics.delusion import compute_delusion_premium
+
+        result = compute_delusion_premium(db, season=args.season)
+        print(f"compute-delusion-premium season={args.season}: teams={result['teams']}", flush=True)
         return
 
     if args.command == "compute-aura":
