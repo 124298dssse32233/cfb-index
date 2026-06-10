@@ -97,6 +97,32 @@ Set-Location -LiteralPath $RepoRoot
 if (-not $url) { Log "FAIL: no production URL after $MaxDeploy attempts -- live site UNCHANGED. (cap exceeded? run chunked_vercel_publish.ps1)."; exit 2 }
 Log "deploy URL: $url"
 
+# 3b. Smoke-check the new deployment at its per-deploy URL BEFORE flipping the
+#     public alias. The deploy is live at its per-deploy URL immediately while the
+#     alias still points at the PREVIOUS (good) deploy, so if the new build is
+#     broken (renders an error / empty / non-HTML despite passing the file-count
+#     and data gates) we abort WITHOUT aliasing and the live site stays good.
+#     Retry for cold-start warmup. Checks the homepage + one rewrite-routed team
+#     page so a routing regression is caught too.
+$smokeOk = $false
+$smokePaths = @("/", "/teams/alabama.html")
+for ($s = 1; $s -le 4; $s++) {
+    $allPass = $true
+    foreach ($p in $smokePaths) {
+        try {
+            $sr = Invoke-WebRequest -Uri ($url.TrimEnd('/') + $p) -Method Get -TimeoutSec 30 -UseBasicParsing
+            $htmlOk = ($sr.StatusCode -eq 200) -and ($sr.Content -match '(?i)<html')
+            if (-not $htmlOk) { $allPass = $false; Log "smoke attempt ${s}: $p -> HTTP $($sr.StatusCode) htmlOk=$htmlOk" }
+        } catch { $allPass = $false; Log "smoke attempt ${s}: $p error: $($_.Exception.Message)" }
+    }
+    if ($allPass) { $smokeOk = $true; Log "smoke: new deploy healthy (homepage + team page, attempt $s)"; break }
+    Start-Sleep -Seconds (5 * $s)
+}
+if (-not $smokeOk) {
+    Log "ABORT: new deploy failed smoke check ($url) -- NOT flipping the alias. Live site stays on the previous good deploy."
+    exit 5
+}
+
 # 4. Re-point the public alias to the new deployment (it does NOT auto-rotate).
 Log "aliasing $ALIAS -> new deployment..."
 (& vercel alias set $url $ALIAS --scope $SCOPE @TokenArg 2>&1 | ForEach-Object { Clean $_ }) | Tee-Object -FilePath $LogPath -Append | Out-Null
