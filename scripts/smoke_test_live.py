@@ -78,12 +78,16 @@ URLS: list[tuple[str, str, str]] = [
     ("/history/", "section-index", "Historical archive"),
     ("/anniversary/today/", "section-index", "Today-in-CFB-history daily render — render-today-in-history CLI writes here despite workflow comment saying /today-in-history/"),
 
-    # Sampled detail pages — players (drawn from Heisman board)
-    ("/players/fernando-mendoza-38276.html", "player-detail",
+    # Sampled detail pages — players (drawn from Heisman board).
+    # NOTE 2026-06-10: player_id is NOT stable across re-ingest — these IDs
+    # changed from 38276/48316/38981 to the 12xxx values below when the player
+    # table was rebuilt, which is itself a linkrot signal worth fixing upstream.
+    # Until IDs are pinned, refresh these to the current built pages.
+    ("/players/fernando-mendoza-12763.html", "player-detail",
      "Mendoza — the canonical 'is the player ID URL stable' check"),
-    ("/players/jeremiyah-love-48316.html", "player-detail",
+    ("/players/jeremiyah-love-12194.html", "player-detail",
      "Love — top non-QB from Heisman board"),
-    ("/players/byrum-brown-38981.html", "player-detail",
+    ("/players/byrum-brown-12655.html", "player-detail",
      "Brown — Group of Five representative"),
 
     # Sampled team pages (profiled programs)
