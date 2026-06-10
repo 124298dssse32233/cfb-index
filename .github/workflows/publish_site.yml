@@ -115,6 +115,11 @@ jobs:
           python manage.py seed-source-registry
           python manage.py seed-priority-teams
           python manage.py seed-feed-instances
+          # Pin canonical player ids BEFORE any CFBD player ingestion so a
+          # from-scratch rebuild reuses the same /players/<name>-<id>.html URLs
+          # (player_id is an autoincrement that otherwise reshuffles → linkrot).
+          # No-op when starting from the restored artifact (ids already present).
+          python manage.py seed-player-id-anchor
           # Self-heal stale current-conference identity from latest team_seasons
           # (realignment: Texas/OU->SEC, Oregon/USC/UW/UCLA->Big Ten, etc.)
           python manage.py repair-team-current-identity

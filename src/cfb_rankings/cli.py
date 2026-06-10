@@ -344,6 +344,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="Output directory root (writes /recruit-board/<class_year>/index.html).",
     )
 
+    # Player-ID anchor — keep /players/<name>-<id>.html URLs stable across a
+    # full DB rebuild (player_id is an autoincrement that otherwise reshuffles).
+    from cfb_rankings.player_id_anchor import DEFAULT_ANCHOR_PATH as _ANCHOR_PATH
+    export_anchor_parser = subparsers.add_parser(
+        "export-player-id-anchor",
+        help="Write the canonical (cfbd source_player_id -> player_id) mapping to "
+             "a committed CSV so player URLs can be re-pinned after a rebuild.",
+    )
+    export_anchor_parser.add_argument("--path", type=str, default=_ANCHOR_PATH)
+    seed_anchor_parser = subparsers.add_parser(
+        "seed-player-id-anchor",
+        help="Pre-seed canonical player ids from the anchor CSV BEFORE ingestion "
+             "so a from-scratch rebuild reuses the same URLs. No-op on a "
+             "populated DB.",
+    )
+    seed_anchor_parser.add_argument("--path", type=str, default=_ANCHOR_PATH)
+
     # R1 — Sunday Vibe Shift Ledger. See docs/octopus/next-roadmap.md.
     vibe_parser = subparsers.add_parser(
         "build-vibe-shifts",
@@ -3089,6 +3106,22 @@ def main() -> None:
             f"programs={result['program_count']} "
             f"days_to_kickoff={result['days_to_kickoff']} "
             f"-> {result['output_path']}"
+        )
+        return
+
+    if args.command == "export-player-id-anchor":
+        from cfb_rankings.player_id_anchor import export_anchor
+        n = export_anchor(db, args.path)
+        print(f"export-player-id-anchor: wrote {n:,} rows -> {args.path}")
+        return
+
+    if args.command == "seed-player-id-anchor":
+        from cfb_rankings.player_id_anchor import seed_anchor
+        r = seed_anchor(db, args.path)
+        print(
+            f"seed-player-id-anchor: anchor_rows={r['anchor_rows']:,} "
+            f"players_inserted={r['players_inserted']:,} "
+            f"source_ids_inserted={r['source_ids_inserted']:,}"
         )
         return
 
