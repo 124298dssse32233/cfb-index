@@ -786,6 +786,17 @@ def build_parser() -> argparse.ArgumentParser:
     collect_reddit_team_rss_parser.add_argument("--teams", nargs="*", type=int, default=None,
         help="Optional team_id filter; default = all configured priority teams.")
 
+    collect_boards_parser = subparsers.add_parser(
+        "collect-team-boards",
+        help=("Collect independent team message boards via public RSS (Build #4). "
+              "Each board maps to one team -> direct target. Captures fanbases "
+              "that live on boards (TigerDroppings/CougarBoard/etc.), not Reddit."),
+    )
+    collect_boards_parser.add_argument("--season", type=int, required=True)
+    collect_boards_parser.add_argument("--week", type=int, required=True)
+    collect_boards_parser.add_argument("--seed", default="data/seeds/board_rss_seed.json",
+        help="JSON list of [{team_slug, board_name, board_rss_url}].")
+
     collect_youtube_comments_parser = subparsers.add_parser(
         "collect-youtube-comments",
         help=("Collect CFB YouTube comments (Build #3): national channels (seed) "
@@ -4451,6 +4462,26 @@ def main() -> None:
                 except Exception as exc:
                     print(f"    FAIL {name}: {exc}")
             print(f"  auto-import total: {imported_total} honor rows imported")
+        return
+
+    if args.command == "collect-team-boards":
+        import json as _json
+        from pathlib import Path as _Path
+        from cfb_rankings.ingest.conversation import collect_team_boards_rss
+        repository.seed_levels()
+        repository.ensure_season(args.season)
+        seed_p = _Path(args.seed)
+        if not seed_p.exists():
+            print(f"ABORT: board seed not found: {seed_p}")
+            return
+        board_seed = _json.loads(seed_p.read_text(encoding="utf-8"))
+        summary = collect_team_boards_rss(
+            db=db, repository=repository, season=args.season, week=args.week,
+            board_seed=board_seed,
+        )
+        print(f"collect-team-boards season={args.season} week={args.week}: "
+              f"boards={summary['boards']} documents={summary['documents']} "
+              f"targets={summary['targets']} boards_failed={summary['boards_failed']}")
         return
 
     if args.command == "collect-youtube-comments":

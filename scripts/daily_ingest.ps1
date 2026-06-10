@@ -172,6 +172,16 @@ Run "youtube: tag national comments by alias" {
 }
 
 # =========================================================================
+# B.6 Independent message boards (Build #4) — 12 validated team boards via
+#     public RSS (CanesInsight, CougarBoard, VolNation, GopherHole, ...).
+#     Captures fanbases that live on boards, not Reddit (Houston/North Texas/
+#     Hawaii/Minnesota/Colorado/Syracuse). Each board -> one team, direct target.
+# =========================================================================
+Run "boards: collect-team-boards" {
+    python manage.py collect-team-boards --season $CurSeason --week $SeasonWeek
+}
+
+# =========================================================================
 # C. CFBD weekly refresh - in-season only
 # =========================================================================
 if ($IsInSeason) {

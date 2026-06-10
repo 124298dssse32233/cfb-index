@@ -500,6 +500,194 @@ def collect_reddit_team_subs_rss(
             "targets": total_targets, "feeds_failed": feeds_failed}
 
 
+def _parse_rfc822_or_iso(value: str | None) -> str | None:
+    if not value:
+        return None
+    value = value.strip()
+    try:  # Atom ISO
+        return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    except ValueError:
+        pass
+    try:  # RSS 2.0 RFC-822
+        from email.utils import parsedate_to_datetime
+        dt = parsedate_to_datetime(value)
+        if dt is not None:
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=UTC)
+            return dt.astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    except (TypeError, ValueError):
+        pass
+    return None
+
+
+def collect_team_boards_rss(
+    db: Database,
+    repository: Repository,
+    season: int,
+    week: int,
+    board_seed: list[dict[str, str]],
+    *,
+    only_team_slugs: list[str] | None = None,
+) -> dict[str, int]:
+    """Collect independent team message boards via their public RSS (Build #4).
+
+    Each board maps to one team (board_seed: [{team_slug, board_name,
+    board_rss_url}]), so every post is tagged to that team directly (fan bucket).
+    Captures the SEC/southern + G5 fanbases that live on boards, not Reddit.
+    Handles RSS 2.0 (<item>) and Atom (<entry>). Per-board scrape_health beacon.
+    """
+    import re as _re
+    import xml.etree.ElementTree as ET
+    from html import unescape
+    from urllib.request import Request, urlopen
+
+    slug_to_team = {
+        r["slug"]: int(r["team_id"])
+        for r in db.query_all(
+            "select t.team_id, t.slug from teams t "
+            "where t.level_code='FBS' or lower(coalesce(t.cfbd_classification,''))='fbs'"
+        )
+    }
+    seeds = board_seed
+    if only_team_slugs:
+        keep = set(only_team_slugs)
+        seeds = [s for s in seeds if s["team_slug"] in keep]
+
+    run_id = _create_collection_run(
+        db=db, source_name="board", collection_scope="team-board-rss",
+        target_label=f"{len(seeds)} boards", season=season, week=week,
+        raw_config={"boards": len(seeds)},
+    )
+    total_docs = total_targets = boards_failed = 0
+    atom = "{http://www.w3.org/2005/Atom}"
+    dc = "{http://purl.org/dc/elements/1.1/}"
+    try:
+        for s in seeds:
+            slug = s["team_slug"]
+            team_id = slug_to_team.get(slug)
+            board = s["board_name"]
+            started = _utcnow_iso_z()
+            health_src = f"board_{board.lower()}"
+            if team_id is None:
+                boards_failed += 1
+                _write_reddit_rss_health(db, health_src, 0, "error", f"unknown team_slug {slug}", started)
+                continue
+            try:
+                req = Request(s["board_rss_url"], headers={
+                    "User-Agent": _REDDIT_RSS_UA,
+                    "Accept": "application/rss+xml, application/atom+xml, application/xml, */*"})
+                with urlopen(req, timeout=20) as resp:
+                    raw = resp.read()
+                root = ET.fromstring(raw)
+                items = root.findall(".//item") or root.findall(f".//{atom}entry")
+            except Exception as exc:  # noqa: BLE001
+                boards_failed += 1
+                _write_reddit_rss_health(db, health_src, 0, "error", f"{type(exc).__name__}: {exc}", started)
+                continue
+
+            doc_rows: dict[str, dict[str, Any]] = {}
+            text_by_id: dict[str, str] = {}
+            for it in items:
+                def _f(tag: str) -> str:
+                    # NB: a leaf Element is falsy in ElementTree (bool = has
+                    # children), so never use `find(a) or find(b)` — check None.
+                    el = it.find(tag)
+                    if el is None:
+                        el = it.find(f"{atom}{tag}")
+                    return (el.text or "").strip() if (el is not None and el.text) else ""
+                title = _f("title")
+                link = _f("link")
+                if not link:
+                    le = it.find(f"{atom}link")
+                    if le is not None:
+                        link = le.get("href") or ""
+                guid = _f("guid") or link
+                if not guid:
+                    continue
+                desc = _f("description") or _f("summary") or _f("content")
+                body = _re.sub(r"<[^>]+>", " ", unescape(desc))
+                body = _re.sub(r"\s+", " ", body).strip()
+                author = _f(f"{dc}creator") or _f("author")
+                if not author:
+                    ae = it.find(f"{atom}author/{atom}name")
+                    author = (ae.text or "").strip() if (ae is not None and ae.text) else ""
+                created = _parse_rfc822_or_iso(_f("pubDate") or _f("published") or _f("updated"))
+                sdid = f"{board}:{guid}"[:300]
+                doc_rows[sdid] = {
+                    "collection_run_id": run_id, "source_name": "board",
+                    "source_document_id": sdid, "source_parent_document_id": None,
+                    "source_author_id": "", "source_author_name": author,
+                    "source_channel": "board", "source_subchannel": board,
+                    "source_url": link or None, "content_type": "post", "language_code": "en",
+                    "title_text": title, "body_text": body or title,
+                    "external_created_at_utc": created,
+                    "like_count": 0, "reply_count": 0, "repost_count": 0, "view_count": None,
+                    "is_deleted": 0, "is_removed": 0,
+                    "raw_payload_json": json.dumps({"board": board, "guid": guid}, ensure_ascii=True),
+                    "raw_text_purged_at_utc": None, "raw_payload_purged_at_utc": None,
+                    "raw_retention_policy": "board_rss_derived_only",
+                }
+                text_by_id[sdid] = (title + " " + (body or "")).strip()
+
+            docs = list(doc_rows.values())
+            if docs:
+                db.upsert_many(
+                    "conversation_documents", docs,
+                    conflict_columns=["source_name", "source_document_id"],
+                    update_columns=[
+                        "collection_run_id", "source_parent_document_id", "source_author_id",
+                        "source_author_name", "source_channel", "source_subchannel", "source_url",
+                        "content_type", "language_code", "title_text", "body_text",
+                        "external_created_at_utc", "like_count", "reply_count", "repost_count",
+                        "view_count", "is_deleted", "is_removed", "raw_payload_json",
+                        "raw_text_purged_at_utc", "raw_payload_purged_at_utc", "raw_retention_policy",
+                    ],
+                )
+                id_lookup = _conversation_document_id_lookup(
+                    db=db, source_name="board",
+                    source_document_ids=[d["source_document_id"] for d in docs])
+                targets = []
+                for sdid, cdid in id_lookup.items():
+                    sent = score_sentiment(text_by_id.get(sdid, ""))
+                    targets.append({
+                        "conversation_document_id": cdid,
+                        "season_year": season, "week": week, "game_id": None,
+                        "team_id": team_id, "player_id": None,
+                        "target_type": "team", "target_key": f"team:{team_id}",
+                        "target_label": "", "affiliation_team_id": team_id,
+                        "audience_bucket": "fan", "mention_role": "board",
+                        "sentiment_label": sent["sentiment_label"], "sentiment_score": sent["sentiment_score"],
+                        "emotion_primary": sent["emotion_primary"], "emotion_secondary": sent["emotion_secondary"],
+                        "sarcasm_score": sent["sarcasm_score"], "toxicity_score": sent["toxicity_score"],
+                        "confidence_score": sent["confidence_score"],
+                        "model_provider": "local", "model_name": "vader+lexicon",
+                        "model_version": "conversation-v1", "is_primary_target": 1,
+                        "notes": f"board:{board}",
+                    })
+                if targets:
+                    db.upsert_many(
+                        "conversation_document_targets", targets,
+                        conflict_columns=["conversation_document_id", "target_key", "audience_bucket", "mention_role"],
+                        update_columns=[
+                            "season_year", "week", "game_id", "team_id", "player_id", "target_type",
+                            "target_label", "affiliation_team_id", "sentiment_label", "sentiment_score",
+                            "emotion_primary", "emotion_secondary", "sarcasm_score", "toxicity_score",
+                            "confidence_score", "model_provider", "model_name", "model_version",
+                            "is_primary_target", "notes",
+                        ],
+                    )
+                    total_targets += len(targets)
+            total_docs += len(docs)
+            _write_reddit_rss_health(db, health_src, len(docs), "ok" if docs else "empty", None, started)
+
+        _finish_collection_run(db=db, run_id=run_id, status="completed", item_count=total_docs,
+                               notes=f"boards={len(seeds)} targets={total_targets} failed={boards_failed}")
+    except Exception as exc:
+        _finish_collection_run(db=db, run_id=run_id, status="failed", item_count=total_docs, notes=str(exc))
+        raise
+    return {"boards": len(seeds), "documents": total_docs, "targets": total_targets, "boards_failed": boards_failed}
+
+
 def _write_reddit_rss_health(db: Database, source_id: str, rows: int,
                              status: str, err: str | None, started: str) -> None:
     db.execute(
