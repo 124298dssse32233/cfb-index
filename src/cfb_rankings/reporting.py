@@ -7289,6 +7289,15 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Backometer board build skipped: {exc}")
 
+    # Rent Free — pairwise fanbase-obsession board + share cards at /hub/rent-free/.
+    # Full-render path (deploy-clobber rule). Reads team_week_rival_mentions.
+    try:
+        from cfb_rankings.fan_metrics.rent_free_render import build_rent_free_section
+        written = build_rent_free_section(db, output_dir=site_root)
+        _report_progress(f"Rent Free board wrote {len(written)} files.")
+    except Exception as exc:
+        _report_progress(f"Rent Free board build skipped: {exc}")
+
     # R4 — Dynasty Heatmap. Renders /history/heatmap/ (page + standalone SVG).
     # Programs × years × within-year-percentile. The "fifty years in one
     # image" first-visit converter from the roadmap.
