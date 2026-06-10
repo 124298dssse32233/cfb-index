@@ -28,56 +28,56 @@ _DOC_URL = (
 
 class GdeltVolumeAdapter(NumericSourceAdapter):
     source_id = "gdelt_volume"
-    adapter_version = "0.4.0"
-    # GDELT throttles aggressively. 5s spacing + backoff. max_attempts=2 (was the
-    # default 3): a GDELT 429 is a sustained quota state, not a transient blip, so
-    # one retry then skip — three 30s backoffs per team turned a 138-team sweep
-    # into an hours-long grind (found via the 2026-06-09 manual trigger).
+    adapter_version = "0.5.0"
+    # GDELT DOC 2.0 enforces ~1 request / 5s, so an all-138 sweep is an ~11.5-min
+    # floor before any 429. We no longer cap teams or fight backoff: instead we
+    # ROTATE via collection_ledger (stalest-due slice each run) inside a hard
+    # wall-clock BUDGET, so every team is covered over a rolling window and a run
+    # can never grind for hours. (Replaced the v0.4 Tier-1+2 cap + circuit breaker;
+    # see docs/pipeline_cadence_architecture_2026-06.md.) GDELT is a decoupled,
+    # best-effort cross-check — per-team Google News (collected for all 138) is the
+    # primary news-volume signal.
     min_seconds_between_requests = 5.0
-    backoff_seconds = 20.0
+    backoff_seconds = 15.0
     max_attempts = 2
-    # GDELT caps timespan at 2y. Normal hourly cron uses 7d; historical
-    # backfill can set GDELT_TIMESPAN=2y via env for a one-shot pull.
     default_timespan = "7d"
-    # After Build #1 expanded priority_teams 21->138, an all-teams GDELT sweep
-    # tripped sustained 429s. GDELT news-volume only matters for high-conversation
-    # teams, so cap to collection_tier <= this (Tier 1+2 ~= 76 teams). Override
-    # with GDELT_MAX_TIER env. Tail G5 teams have ~0 GDELT article volume anyway.
-    max_collection_tier = 2
-    # If this many teams fail consecutively, GDELT is hard-rate-limiting — abort
-    # the sweep rather than grind every remaining team through the backoff.
-    consecutive_fail_abort = 6
+    # Rotation: ~46 teams/run x 72h interval => all 138 covered every ~3 days.
+    rotation_batch = 46
+    rotation_interval_hours = 72.0
+    budget_seconds = 480.0  # 8-min hard wall-clock box per run
 
     def fetch(self) -> list[tuple[dict[str, Any], dict[str, Any]]]:
-        max_tier = int(os.environ.get("GDELT_MAX_TIER", str(self.max_collection_tier)))
+        from cfb_rankings.ingest.collection_ledger import Budget, mark_fail, mark_ok, select_batch
+
         teams = self.db.query_all(
-            "select team_id, google_news_query, coalesce(collection_tier, 3) as tier "
-            "from priority_teams "
-            "where google_news_query is not null and coalesce(collection_tier, 3) <= :max_tier "
-            "order by coalesce(collection_tier, 3), rank_priority",
-            {"max_tier": max_tier},
+            "select team_id, google_news_query from priority_teams "
+            "where google_news_query is not null"
+        )
+        by_id = {str(t["team_id"]): t for t in teams}
+        batch = select_batch(
+            self.db, self.source_id, list(by_id.keys()),
+            budget=int(os.environ.get("GDELT_BATCH", str(self.rotation_batch))),
         )
         timespan = os.environ.get("GDELT_TIMESPAN", self.default_timespan)
+        clock = Budget(float(os.environ.get("GDELT_BUDGET_SECONDS", str(self.budget_seconds))))
         out: list[tuple[dict[str, Any], dict[str, Any]]] = []
-        consecutive_fail = 0
-        for t in teams:
-            q = urllib.parse.quote(t["google_news_query"])
-            url = _DOC_URL.format(query=q, timespan=timespan)
+        for tid in batch:
+            if clock.expired():
+                logger.info("gdelt: wall-clock budget reached; deferring %d teams to next run",
+                            len(batch) - len(out))
+                break
+            t = by_id[tid]
+            url = _DOC_URL.format(query=urllib.parse.quote(t["google_news_query"]), timespan=timespan)
             try:
                 data = json.loads(self.http_get(url).decode("utf-8"))
-                consecutive_fail = 0
             except Exception as exc:  # noqa: BLE001
-                consecutive_fail += 1
-                logger.warning("gdelt fetch failed for team %s: %s", t["team_id"], exc)
-                if consecutive_fail >= self.consecutive_fail_abort:
-                    logger.warning(
-                        "gdelt: %d consecutive failures (rate-limited); aborting sweep "
-                        "after %d/%d teams to avoid an hours-long grind",
-                        consecutive_fail, len(out), len(teams),
-                    )
-                    break
+                logger.warning("gdelt fetch failed for team %s: %s", tid, exc)
+                mark_fail(self.db, self.source_id, tid)
                 continue
+            mark_ok(self.db, self.source_id, tid, interval_hours=self.rotation_interval_hours)
             out.append((t, data))
+        logger.info("gdelt: collected %d/%d batch teams (rotation over all %d)",
+                    len(out), len(batch), len(by_id))
         return out
 
     def parse(self, raw: list[tuple[dict[str, Any], dict[str, Any]]]) -> list[dict[str, Any]]:
