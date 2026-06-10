@@ -28,31 +28,54 @@ _DOC_URL = (
 
 class GdeltVolumeAdapter(NumericSourceAdapter):
     source_id = "gdelt_volume"
-    adapter_version = "0.3.0"
-    # GDELT throttles aggressively. 2026-05-28 local smoke at 1.5s spacing
-    # still hit 429 on team 1 of 21, then connection timeouts. Bumped to
-    # 5s spacing (~105s total for 21-team sweep) + 30s backoff on retry
-    # (was 2s) to give the upstream cooloff time to clear.
+    adapter_version = "0.4.0"
+    # GDELT throttles aggressively. 5s spacing + backoff. max_attempts=2 (was the
+    # default 3): a GDELT 429 is a sustained quota state, not a transient blip, so
+    # one retry then skip — three 30s backoffs per team turned a 138-team sweep
+    # into an hours-long grind (found via the 2026-06-09 manual trigger).
     min_seconds_between_requests = 5.0
-    backoff_seconds = 30.0
+    backoff_seconds = 20.0
+    max_attempts = 2
     # GDELT caps timespan at 2y. Normal hourly cron uses 7d; historical
     # backfill can set GDELT_TIMESPAN=2y via env for a one-shot pull.
     default_timespan = "7d"
+    # After Build #1 expanded priority_teams 21->138, an all-teams GDELT sweep
+    # tripped sustained 429s. GDELT news-volume only matters for high-conversation
+    # teams, so cap to collection_tier <= this (Tier 1+2 ~= 76 teams). Override
+    # with GDELT_MAX_TIER env. Tail G5 teams have ~0 GDELT article volume anyway.
+    max_collection_tier = 2
+    # If this many teams fail consecutively, GDELT is hard-rate-limiting — abort
+    # the sweep rather than grind every remaining team through the backoff.
+    consecutive_fail_abort = 6
 
     def fetch(self) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+        max_tier = int(os.environ.get("GDELT_MAX_TIER", str(self.max_collection_tier)))
         teams = self.db.query_all(
-            "select team_id, google_news_query from priority_teams "
-            "where google_news_query is not null"
+            "select team_id, google_news_query, coalesce(collection_tier, 3) as tier "
+            "from priority_teams "
+            "where google_news_query is not null and coalesce(collection_tier, 3) <= :max_tier "
+            "order by coalesce(collection_tier, 3), rank_priority",
+            {"max_tier": max_tier},
         )
         timespan = os.environ.get("GDELT_TIMESPAN", self.default_timespan)
         out: list[tuple[dict[str, Any], dict[str, Any]]] = []
+        consecutive_fail = 0
         for t in teams:
             q = urllib.parse.quote(t["google_news_query"])
             url = _DOC_URL.format(query=q, timespan=timespan)
             try:
                 data = json.loads(self.http_get(url).decode("utf-8"))
+                consecutive_fail = 0
             except Exception as exc:  # noqa: BLE001
+                consecutive_fail += 1
                 logger.warning("gdelt fetch failed for team %s: %s", t["team_id"], exc)
+                if consecutive_fail >= self.consecutive_fail_abort:
+                    logger.warning(
+                        "gdelt: %d consecutive failures (rate-limited); aborting sweep "
+                        "after %d/%d teams to avoid an hours-long grind",
+                        consecutive_fail, len(out), len(teams),
+                    )
+                    break
                 continue
             out.append((t, data))
         return out

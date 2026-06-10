@@ -401,9 +401,15 @@ def collect_reddit_team_subs_rss(
         target_label=f"{len(teams)} team subs", season=season, week=week,
         raw_config={"provider": "reddit-rss", "limit": limit, "teams": len(teams)},
     )
+    import time as _time
     total_docs = total_targets = feeds_failed = 0
     try:
-        for tm in teams:
+        for _i, tm in enumerate(teams):
+            # Gentle pacing: 138 rapid reddit.com .rss fetches in a burst can trip
+            # reddit's per-IP rate limit. ~0.4s between feeds keeps the full sweep
+            # under a minute of added wall time while staying polite.
+            if _i:
+                _time.sleep(0.4)
             slug = str(tm["slug"])
             sub = str(tm["sub"])
             url = _reddit_rss_feed_url(sub, tm.get("mode"), tm.get("flair"), limit)
