@@ -51,6 +51,18 @@ Copy-Item -LiteralPath (Join-Path $RepoRoot ".vercel") -Destination (Join-Path $
 $vj = '{"$schema":"https://openapi.vercel.sh/vercel.json","outputDirectory":".","framework":null,"cleanUrls":false,"trailingSlash":true,"rewrites":[{"source":"/:slug([a-z][a-z0-9-]+).html","destination":"/teams/:slug.html"},{"source":"/today-in-history","destination":"/anniversary/today/index.html"},{"source":"/today-in-history/","destination":"/anniversary/today/index.html"}],"headers":[{"source":"/(.*)","headers":[{"key":"X-Robots-Tag","value":"index, follow"}]}]}'
 [System.IO.File]::WriteAllText((Join-Path $SITE "vercel.json"), $vj)
 
+# 2c. Ship the custom 404 page. build-site doesn't emit it, so every GitHub
+#     deploy workflow copies static/404.html into output/site right before
+#     deploying. The box's publish path never did, so box deploys silently
+#     dropped /404.html and Vercel served its generic 404. Mirror the workflows.
+$src404 = Join-Path $RepoRoot "static\404.html"
+if (Test-Path $src404) {
+    Copy-Item -LiteralPath $src404 -Destination (Join-Path $SITE "404.html") -Force
+    Log "404.html copied into output/site"
+} else {
+    Log "WARN: static\404.html missing; deploy will lack a custom 404 page"
+}
+
 # 2b. Authenticate non-interactively via VERCEL_TOKEN. Load it from .env if the
 #     caller (e.g. daily_ingest) didn't already export it. A scheduled-task shell
 #     has NO stored `vercel login` creds, so the token is the reliable path.

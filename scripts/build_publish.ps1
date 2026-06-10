@@ -111,6 +111,17 @@ Run "team-preview: generate-team-preview-claims" {
 }
 Run "site: build-site" { python manage.py build-site } -Critical
 Run "site: build-editions-archive" { python manage.py build-editions-archive }
+# Section landing pages that build-site does NOT emit. These patch INTO the
+# freshly-built output/site, so they MUST run after build-site (which wipes the
+# tree). The box used to drop /storylines/, /wire/, /anniversary/today/ on every
+# deploy because only the GitHub section-workflows rendered them — and since a
+# Vercel deploy is a full snapshot, the box's incomplete output/site clobbered
+# them off production. Render them here so the box ships a COMPLETE site.
+# All three exit 0 even with no offseason data (they leave a stub index), so
+# they stay non-Critical: an empty section must never block the deploy.
+Run "site: render-storylines" { python manage.py render-storylines }
+Run "site: render-wire --days 30" { python manage.py render-wire --days 30 }
+Run "site: render-today-in-history" { python manage.py render-today-in-history }
 
 # =========================================================================
 # J. Status dump for the log trailer
