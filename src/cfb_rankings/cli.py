@@ -772,6 +772,20 @@ def build_parser() -> argparse.ArgumentParser:
     collect_reddit_parser.add_argument("--before", help="Optional upper bound as Unix seconds or YYYY-MM-DD ET.")
     collect_reddit_parser.add_argument("--no-replace-existing", action="store_true")
 
+    collect_reddit_team_rss_parser = subparsers.add_parser(
+        "collect-reddit-team-rss",
+        help=("Collect each priority team's FOOTBALL subreddit via the .rss path "
+              "(Build #2). Dedicated subs -> new.rss; school subs -> flair-filtered "
+              "search.rss. Honest UA, no spoof. Replaces the dead text-search "
+              "watchlist for per-team Reddit."),
+    )
+    collect_reddit_team_rss_parser.add_argument("--season", type=int, required=True)
+    collect_reddit_team_rss_parser.add_argument("--week", type=int, required=True)
+    collect_reddit_team_rss_parser.add_argument("--limit", type=int, default=50,
+        help="Max posts per subreddit per run (reddit RSS caps ~100).")
+    collect_reddit_team_rss_parser.add_argument("--teams", nargs="*", type=int, default=None,
+        help="Optional team_id filter; default = all configured priority teams.")
+
     collect_reddit_plan_parser = subparsers.add_parser("collect-reddit-plan")
     collect_reddit_plan_parser.add_argument("--season", type=int, required=True)
     collect_reddit_plan_parser.add_argument("--week", type=int, required=True)
@@ -4419,6 +4433,19 @@ def main() -> None:
                 except Exception as exc:
                     print(f"    FAIL {name}: {exc}")
             print(f"  auto-import total: {imported_total} honor rows imported")
+        return
+
+    if args.command == "collect-reddit-team-rss":
+        from cfb_rankings.ingest.conversation import collect_reddit_team_subs_rss
+        repository.seed_levels()
+        repository.ensure_season(args.season)
+        summary = collect_reddit_team_subs_rss(
+            db=db, repository=repository, season=args.season, week=args.week,
+            limit=args.limit, only_team_ids=args.teams,
+        )
+        print(f"collect-reddit-team-rss season={args.season} week={args.week}: "
+              f"teams={summary['teams']} documents={summary['documents']} "
+              f"targets={summary['targets']} feeds_failed={summary['feeds_failed']}")
         return
 
     if args.command == "collect-reddit-watchlist":

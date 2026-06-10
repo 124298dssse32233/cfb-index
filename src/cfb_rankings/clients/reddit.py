@@ -17,17 +17,15 @@ class RedditPublicClient(JsonApiClient):
         super().__init__(
             base_url=base_url,
             headers={
-                # Reddit's public JSON endpoints are increasingly sensitive to
-                # non-browser request profiles. A browser-like header set has
-                # proven much more reliable from this environment.
-                "User-Agent": (
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/135.0.0.0 Safari/537.36"
-                ),
-                "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                # Honest, RBP-compliant identifier. Reddit's Responsible Builder
+                # Policy explicitly names browser-User-Agent spoofing as a
+                # violation; the public .json path returns 403 from this box
+                # regardless, so the per-team RSS collector
+                # (conversation.collect_reddit_team_subs_rss) is the live path.
+                # A 403 here means back off, not disguise. (Was: Chrome spoof.)
+                "User-Agent": "windows:cfb-index:v1.0 (by /u/cfbindex)",
+                "Accept": "application/json,application/xml;q=0.9,*/*;q=0.8",
                 "Accept-Language": "en-US,en;q=0.9",
-                "Referer": f"{base_url.rstrip('/')}/r/CFB/",
             },
             timeout_seconds=timeout_seconds,
         )

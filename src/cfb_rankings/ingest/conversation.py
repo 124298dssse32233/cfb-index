@@ -258,6 +258,269 @@ def collect_reddit_watchlist(
         raise
 
 
+_REDDIT_RSS_UA = "windows:cfb-index-rss:v1.0 (by /u/cfbindex)"
+_ATOM_NS = "{http://www.w3.org/2005/Atom}"
+
+
+def _reddit_rss_feed_url(subreddit: str, mode: str | None, flair_filter: str | None, limit: int) -> str:
+    """new.rss for dedicated subs; flair-filtered search.rss for school subs.
+
+    School (university) subs carry mostly non-football chatter, so we pull only
+    posts whose flair is football/sports — this is what stops the 70%-noise the
+    old city/university-sub collection produced.
+    """
+    from urllib.parse import quote
+
+    sub = subreddit.strip().lstrip("/")
+    if sub.lower().startswith("r/"):
+        sub = sub[2:]
+    if (mode or "") == "school_flair" and (flair_filter or "").strip():
+        flairs = [f.strip() for f in flair_filter.split(",") if f.strip()]
+        q = " OR ".join(f'flair:"{fl}"' for fl in flairs)
+        return (f"https://www.reddit.com/r/{sub}/search.rss?q={quote(q)}"
+                f"&restrict_sr=on&sort=new&limit={limit}")
+    return f"https://www.reddit.com/r/{sub}/new.rss?limit={limit}"
+
+
+def _reddit_rss_fetch(url: str, timeout: float = 20.0) -> bytes:
+    """Honest, RBP-compliant fetch. NEVER spoof a browser UA (the Responsible
+    Builder Policy names spoofing as a violation); a 403 means back off."""
+    from urllib.request import Request, urlopen
+
+    req = Request(url, headers={"User-Agent": _REDDIT_RSS_UA,
+                                "Accept": "application/atom+xml, application/xml, */*"})
+    with urlopen(req, timeout=timeout) as resp:
+        return resp.read()
+
+
+def _reddit_rss_entry_to_post(entry: Any, subreddit: str) -> dict[str, Any] | None:
+    """Map one Atom <entry> to a reddit-post dict shaped for _normalize_reddit_post."""
+    import re as _re
+    from html import unescape
+    from urllib.parse import urlparse
+
+    def _txt(tag: str) -> str:
+        el = entry.find(f"{_ATOM_NS}{tag}")
+        return (el.text or "").strip() if (el is not None and el.text) else ""
+
+    href = ""
+    link = entry.find(f"{_ATOM_NS}link")
+    if link is not None:
+        href = link.get("href") or ""
+    # base36 post id from the permalink (/r/<sub>/comments/<id>/...) or the <id> tag
+    post_id = ""
+    m = _re.search(r"/comments/([a-z0-9]+)/", href)
+    if m:
+        post_id = m.group(1)
+    else:
+        m2 = _re.search(r"t3_([a-z0-9]+)", _txt("id"))
+        post_id = m2.group(1) if m2 else ""
+    if not post_id:
+        return None
+    author = ""
+    an = entry.find(f"{_ATOM_NS}author/{_ATOM_NS}name")
+    if an is not None and an.text:
+        author = an.text.strip()
+        if author.startswith("/u/"):
+            author = author[3:]
+    flair = ""
+    cat = entry.find(f"{_ATOM_NS}category")
+    if cat is not None:
+        flair = cat.get("label") or cat.get("term") or ""
+    content = ""
+    ce = entry.find(f"{_ATOM_NS}content")
+    if ce is not None and ce.text:
+        content = _re.sub(r"<[^>]+>", " ", unescape(ce.text))
+        content = _re.sub(r"\s+", " ", content).strip()
+    created_utc = None
+    created_iso = _txt("published") or _txt("updated")
+    if created_iso:
+        try:
+            created_utc = datetime.fromisoformat(created_iso.replace("Z", "+00:00")).timestamp()
+        except ValueError:
+            created_utc = None
+    return {
+        "name": f"t3_{post_id}",
+        "id": post_id,
+        "author": author,
+        "author_fullname": "",
+        "subreddit": subreddit,
+        "permalink": urlparse(href).path if href else "",
+        "created_utc": created_utc,
+        "title": _txt("title"),
+        "selftext": content,
+        "ups": None,            # RSS lacks score/comments; nightly encoder +
+        "num_comments": None,   # the Arctic Shift listing adapter enrich later
+        "link_flair_text": flair,
+        "view_count": None,
+        "removed_by_category": None,
+    }
+
+
+def collect_reddit_team_subs_rss(
+    db: Database,
+    repository: Repository,
+    season: int,
+    week: int,
+    *,
+    limit: int = 50,
+    only_team_ids: list[int] | None = None,
+    audience_bucket: str = "fan",
+) -> dict[str, int]:
+    """Collect each priority team's FOOTBALL subreddit via the .rss path.
+
+    Replaces the dead text-search watchlist for per-team Reddit. Reads
+    priority_teams.(reddit_team_sub, reddit_mode, reddit_flair_filter); skips
+    rows with reddit_mode='skip' or no sub. Writes conversation_documents +
+    a team target per post (sentiment via the existing VADER scorer; the nightly
+    encoder upgrades it). Writes a per-team scrape_health beacon so a silently
+    broken feed is visible. Idempotent (upsert on source_name+source_document_id).
+    """
+    import xml.etree.ElementTree as ET
+
+    teams = db.query_all(
+        """
+        select pt.team_id, t.slug, t.canonical_name,
+               pt.reddit_team_sub as sub, pt.reddit_mode as mode,
+               pt.reddit_flair_filter as flair
+        from priority_teams pt
+        join teams t on t.team_id = pt.team_id
+        where coalesce(pt.reddit_team_sub, '') <> ''
+          and coalesce(pt.reddit_mode, '') <> 'skip'
+        order by pt.collection_tier, pt.rank_priority
+        """
+    )
+    if only_team_ids:
+        keep = set(only_team_ids)
+        teams = [t for t in teams if int(t["team_id"]) in keep]
+    if not teams:
+        return {"teams": 0, "documents": 0, "targets": 0, "feeds_failed": 0}
+
+    run_id = _create_collection_run(
+        db=db, source_name="reddit", collection_scope="team-subreddit-rss",
+        target_label=f"{len(teams)} team subs", season=season, week=week,
+        raw_config={"provider": "reddit-rss", "limit": limit, "teams": len(teams)},
+    )
+    total_docs = total_targets = feeds_failed = 0
+    try:
+        for tm in teams:
+            slug = str(tm["slug"])
+            sub = str(tm["sub"])
+            url = _reddit_rss_feed_url(sub, tm.get("mode"), tm.get("flair"), limit)
+            health_src = f"reddit_rss_{slug}"
+            started = _utcnow_iso_z()
+            try:
+                raw = _reddit_rss_fetch(url)
+                entries = ET.fromstring(raw).findall(f".//{_ATOM_NS}entry")
+            except Exception as exc:  # noqa: BLE001 — one dead feed must not stop the sweep
+                feeds_failed += 1
+                _write_reddit_rss_health(db, health_src, 0, "error", f"{type(exc).__name__}: {exc}", started)
+                continue
+
+            doc_rows: dict[str, dict[str, Any]] = {}
+            tgt_rows: list[dict[str, Any]] = []
+            for entry in entries:
+                post = _reddit_rss_entry_to_post(entry, sub)
+                if not post:
+                    continue
+                sdid = post["name"]
+                doc_rows[sdid] = _normalize_reddit_post(post=post, collection_run_id=run_id)
+                sentiment = score_sentiment(_document_text(post))
+                tgt_rows.append({
+                    "source_document_id": sdid,
+                    "team_id": int(tm["team_id"]),
+                    "target_label": str(tm["canonical_name"]),
+                    "sentiment": sentiment,
+                })
+
+            docs = list(doc_rows.values())
+            if docs:
+                db.upsert_many(
+                    "conversation_documents", docs,
+                    conflict_columns=["source_name", "source_document_id"],
+                    update_columns=[
+                        "collection_run_id", "source_parent_document_id", "source_author_id",
+                        "source_author_name", "source_channel", "source_subchannel", "source_url",
+                        "content_type", "language_code", "title_text", "body_text",
+                        "external_created_at_utc", "like_count", "reply_count", "repost_count",
+                        "view_count", "is_deleted", "is_removed", "raw_payload_json",
+                        "raw_text_purged_at_utc", "raw_payload_purged_at_utc", "raw_retention_policy",
+                    ],
+                )
+            id_lookup = _conversation_document_id_lookup(
+                db=db, source_name="reddit",
+                source_document_ids=[r["source_document_id"] for r in docs],
+            )
+            resolved = []
+            for tr in tgt_rows:
+                cdid = id_lookup.get(tr["source_document_id"])
+                if cdid is None:
+                    continue
+                s = tr["sentiment"]
+                resolved.append({
+                    "conversation_document_id": cdid,
+                    "season_year": season, "week": week, "game_id": None,
+                    "team_id": tr["team_id"], "player_id": None,
+                    "target_type": "team", "target_key": f"team:{tr['team_id']}",
+                    "target_label": tr["target_label"], "affiliation_team_id": tr["team_id"],
+                    "audience_bucket": audience_bucket, "mention_role": "team-sub",
+                    "sentiment_label": s["sentiment_label"], "sentiment_score": s["sentiment_score"],
+                    "emotion_primary": s["emotion_primary"], "emotion_secondary": s["emotion_secondary"],
+                    "sarcasm_score": s["sarcasm_score"], "toxicity_score": s["toxicity_score"],
+                    "confidence_score": s["confidence_score"],
+                    "model_provider": "local", "model_name": "vader+lexicon",
+                    "model_version": "conversation-v1", "is_primary_target": 1,
+                    "notes": f"reddit-rss:{sub};mode={tm.get('mode') or 'dedicated'}",
+                })
+            if resolved:
+                db.upsert_many(
+                    "conversation_document_targets", resolved,
+                    conflict_columns=["conversation_document_id", "target_key", "audience_bucket", "mention_role"],
+                    update_columns=[
+                        "season_year", "week", "game_id", "team_id", "player_id", "target_type",
+                        "target_label", "affiliation_team_id", "sentiment_label", "sentiment_score",
+                        "emotion_primary", "emotion_secondary", "sarcasm_score", "toxicity_score",
+                        "confidence_score", "model_provider", "model_name", "model_version",
+                        "is_primary_target", "notes",
+                    ],
+                )
+            total_docs += len(docs)
+            total_targets += len(resolved)
+            _write_reddit_rss_health(db, health_src, len(docs),
+                                     "ok" if docs else "empty", None, started)
+
+        _finish_collection_run(
+            db=db, run_id=run_id, status="completed", item_count=total_docs,
+            notes=f"teams={len(teams)} targets={total_targets} feeds_failed={feeds_failed}",
+        )
+    except Exception as exc:
+        _finish_collection_run(db=db, run_id=run_id, status="failed", item_count=total_docs, notes=str(exc))
+        raise
+    return {"teams": len(teams), "documents": total_docs,
+            "targets": total_targets, "feeds_failed": feeds_failed}
+
+
+def _write_reddit_rss_health(db: Database, source_id: str, rows: int,
+                             status: str, err: str | None, started: str) -> None:
+    db.execute(
+        """
+        insert into scrape_health (source_id, run_date, rows_inserted, status,
+            error_message, run_started_at_utc, run_finished_at_utc, adapter_version)
+        values (:sid, :rd, :rows, :status, :err, :st, :ft, :ver)
+        on conflict (source_id, run_date) do update set
+            rows_inserted=excluded.rows_inserted, status=excluded.status,
+            error_message=excluded.error_message, run_started_at_utc=excluded.run_started_at_utc,
+            run_finished_at_utc=excluded.run_finished_at_utc, adapter_version=excluded.adapter_version
+        """,
+        {"sid": source_id, "rd": started[:10], "rows": rows, "status": status,
+         "err": err, "st": started, "ft": _utcnow_iso_z(), "ver": "reddit-rss-1.0"},
+    )
+
+
+def _utcnow_iso_z() -> str:
+    return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def collect_reddit_subreddit_listing(
     repository: Repository,
     db: Database,

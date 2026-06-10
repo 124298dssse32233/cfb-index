@@ -136,9 +136,19 @@ foreach ($s in $bulkFamilies) { Run-Adapter $s }
 Run "coaching: coaching-fetch-news" { python manage.py coaching-fetch-news --days 7 }
 
 # =========================================================================
-# B. Reddit (PullPush provider = free; Arctic Shift text-search returns HTTP 422 as of 2026-06)
+# B. Reddit
+#    PRIMARY per-team source (Build #2): each team's FOOTBALL subreddit via the
+#    .rss path (dedicated -> new.rss; school subs -> flair-filtered search.rss),
+#    honest UA. Covers ~118 of 138 teams from the priority_teams seed. This
+#    replaced the city/university-sub noise that dominated the old listing pull.
 # =========================================================================
-Run "reddit: collect-reddit-watchlist" {
+Run "reddit: collect-reddit-team-rss (per-team football subs)" {
+    python manage.py collect-reddit-team-rss --season $CurSeason --week $SeasonWeek --limit 50
+}
+# Secondary: r/CFB national-layer text search. The free archive text-search is
+# rate-limited/degraded (Arctic Shift 422 / PullPush 429 as of 2026-06), so this
+# is best-effort national coverage on top of the per-team RSS above.
+Run "reddit: collect-reddit-watchlist (r/CFB national, best-effort)" {
     python manage.py collect-reddit-watchlist `
         --season $CurSeason --week $SeasonWeek `
         --subreddit CFB `
