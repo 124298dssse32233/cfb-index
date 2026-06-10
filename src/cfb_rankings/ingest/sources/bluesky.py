@@ -163,7 +163,20 @@ class BlueskyCuratedAdapter(_BlueskyWriter):
                 cleaned = (h or "").strip().lstrip("@")
                 if cleaned:
                     out.append((r["team_id"], cleaned))
-        return out
+        # Global / national CFB-media handles (team-agnostic) harvested into
+        # seeds/bluesky_curated_global.yaml. team_id is unused downstream (the
+        # adapter writes documents only; tag-team-mentions resolves teams by
+        # alias), so we attach them with team_id=0. (Build #5.)
+        out.extend((0, h) for h in _global_curated_handles())
+        # De-dup so a handle present both per-team and globally isn't polled twice.
+        seen: set[str] = set()
+        deduped: list[tuple[int, str]] = []
+        for team_id, handle in out:
+            if handle.lower() in seen:
+                continue
+            seen.add(handle.lower())
+            deduped.append((team_id, handle))
+        return deduped
 
     def fetch(self) -> list[tuple[str, dict[str, Any]]]:
         import os
@@ -272,6 +285,33 @@ def _default_feed_uris() -> list[str]:
         return []
     uris = doc.get("feeds") or []
     return [u for u in uris if isinstance(u, str) and u.startswith("at://")]
+
+
+def _global_curated_handles() -> list[str]:
+    """National/team-agnostic CFB-media handles from seeds/bluesky_curated_global.yaml
+    (format: ``{handles: [{handle, focus}]}``). Polled by BlueskyCuratedAdapter
+    alongside the per-team beat handles. (Build #5.)"""
+    from pathlib import Path
+    try:
+        import yaml  # type: ignore[import-not-found]
+    except ImportError:
+        return []
+    repo_root = Path(__file__).resolve().parents[3].parent
+    yaml_path = repo_root / "seeds" / "bluesky_curated_global.yaml"
+    if not yaml_path.exists():
+        return []
+    try:
+        doc = yaml.safe_load(yaml_path.read_text(encoding="utf-8")) or {}
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("bluesky_curated: failed to load global handles yaml: %s", exc)
+        return []
+    out: list[str] = []
+    for entry in (doc.get("handles") or []):
+        h = entry.get("handle") if isinstance(entry, dict) else entry
+        cleaned = (h or "").strip().lstrip("@")
+        if cleaned:
+            out.append(cleaned)
+    return out
 
 
 # ------------------ TASK 3.1: Jetstream firehose (keyword filtered) ------------------

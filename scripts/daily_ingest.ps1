@@ -167,8 +167,9 @@ Run "reddit: collect-reddit-watchlist (r/CFB national, best-effort)" {
 Run "youtube: collect-youtube-comments" {
     python manage.py collect-youtube-comments --season $CurSeason --week $SeasonWeek --max-units 6000
 }
-Run "youtube: tag national comments by alias" {
-    python manage.py tag-team-mentions --season $CurSeason --week $SeasonWeek --sources youtube --commit
+Run "tag: national/media docs by team alias (youtube + bluesky)" {
+    python manage.py tag-team-mentions --season $CurSeason --week $SeasonWeek `
+        --sources youtube,bluesky_curated,bluesky_feeds --commit
 }
 
 # =========================================================================
