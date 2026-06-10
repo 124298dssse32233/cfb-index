@@ -165,7 +165,14 @@ def main() -> None:
     })
 
     print(f"\nloading {BASE_MODEL} ...")
-    model = SetFitModel.from_pretrained(BASE_MODEL)
+    model = SetFitModel.from_pretrained(
+        BASE_MODEL,
+        model_kwargs={
+            # SDPA avoids the CUDA illegal-memory-access crash that Flash
+            # Attention 2 triggers on RTX 30xx (GEGLU activation mismatch).
+            "attn_implementation": "sdpa",
+        },
+    )
     # ModernBERT-embed defaults to 8192-token context; our posts are <=600
     # chars (~150 tokens). Without this cap every batch pads enormously and
     # training takes ~20x longer for zero quality gain.
