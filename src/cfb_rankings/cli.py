@@ -5431,8 +5431,14 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         except Exception as _exc:
             print(f"[build-site] WARN: status cache build failed — {type(_exc).__name__}: {_exc}")
 
-        output_path = build_static_site(db=db, output_dir=args.output_dir)
-        build_retro_pages(db, output_dir=args.output_dir)
+        # Reuse ONE db connection for the whole build. The per-player render
+        # fires ~1M small indexed queries; a fresh connection per query costs
+        # ~3ms of connect+PRAGMA+mmap setup (~50 min of pure churn across a
+        # build). session() reuses one connection (~0.007ms/query). Pure
+        # lifecycle change — identical queries + results.
+        with db.session():
+            output_path = build_static_site(db=db, output_dir=args.output_dir)
+            build_retro_pages(db, output_dir=args.output_dir)
         print(output_path)
         return
 
