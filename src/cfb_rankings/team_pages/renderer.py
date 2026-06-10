@@ -66,6 +66,7 @@ from .home_field_advantage import render_home_field_advantage, HOME_FIELD_ADVANT
 from .moment_of_year import render_moment_of_year, MOMENT_OF_YEAR_CSS
 from .schedule_strength import render_schedule_strength, SCHEDULE_STRENGTH_CSS
 from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
+from .backometer_module import render_backometer_module, BACKOMETER_MODULE_CSS
 from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
 from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
@@ -578,6 +579,9 @@ def _render_page(
     # returning production, talent composite, transfer activity). Audit T9
     # resolution at team level. Above-the-fold in offseason.
     offseason_pulse_html = render_offseason_pulse(db, profile, snapshot) if db is not None else ""
+    # Backometer night band — fanbase belief verdict (Noir suite). Renders only
+    # when the team has a current publishable verdict (n>=floor); skips otherwise.
+    backometer_html = render_backometer_module(db, profile, snapshot) if db is not None else ""
     preview_claim = (
         fetch_team_preview_claim(db, snapshot.team_id)
         if db is not None and snapshot else None
@@ -662,7 +666,8 @@ def _render_page(
 
     act_outlook = _act(
         "I", "The 2026 Outlook",
-        preview_thesis_html, offseason_pulse_html, roster_reload_html, pulse_html,
+        preview_thesis_html, offseason_pulse_html, roster_reload_html,
+        backometer_html, pulse_html,
         aspiration_ladder_html, ceiling_floor_html, top_commits_html,
         recruit_footprint_html,
     )
@@ -773,6 +778,9 @@ body {{
 
 /* Offseason Pulse — recruiting + returning + talent + portal (Audit T9) */
 {OFFSEASON_PULSE_CSS}
+
+/* Backometer night band — fanbase belief verdict (Group Chat Noir) */
+{BACKOMETER_MODULE_CSS}
 
 /* Roster Reload - separated continuity, portal, draft, and recruiting */
 {ROSTER_RELOAD_CSS}
