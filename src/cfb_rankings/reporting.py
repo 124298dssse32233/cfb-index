@@ -9301,6 +9301,13 @@ def build_player_page_data_map(
             page_data["new_selector_grid_html"] = _render_selector_v2(
                 db, player_id, int(summary["season_year"]),
             )
+            # Aura night band — perception-vs-production gap (Fan Intelligence
+            # suite). Renders only for QB/RB above the mention floor; "" otherwise.
+            try:
+                from cfb_rankings.player_pages.aura_module import render_player_aura
+                page_data["new_aura_html"] = render_player_aura(db, player_id)
+            except Exception:
+                page_data["new_aura_html"] = ""
             page_data["new_game_log_html"] = _render_game_log_v2(
                 db, player_id, int(summary["season_year"]),
                 _position, _primary_team_id,
@@ -19902,6 +19909,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
 
       <section class="section player-anchor-section" id="player-standing">
         {player_data.get("new_standing_rail_html") or ""}
+        {player_data.get("new_aura_html") or ""}
         {player_data.get("new_career_standing_html") or ""}
         {player_data.get("new_dev_traj_html") or ""}
         {player_data.get("new_career_arc_html") or ""}
