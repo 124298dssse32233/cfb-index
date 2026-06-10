@@ -3,13 +3,17 @@
 from __future__ import annotations
 
 import json
+import logging
 from statistics import median
 from typing import Any
 from uuid import uuid4
 
+from cfb_rankings.common.week import resolve_week
 from cfb_rankings.db import Database
 from cfb_rankings.fan_intelligence import MIN_AUTHORS_FOR_SIGNAL, MIN_MENTIONS_FOR_SIGNAL
 from cfb_rankings.ingest.hub_data_retro import RETRO_ISSUES, seed_retro_lexicon_week, seed_retro_mood_week, seed_retro_rivalry_week
+
+logger = logging.getLogger(__name__)
 
 
 def _issue_for_week_start(week_start: str) -> str | None:
@@ -32,9 +36,20 @@ def _week_for_week_start(db: Database, week_start: str) -> tuple[int, int] | Non
     if row:
         return int(row["season_year"]), int(row["offseason_week"])
     issue_key = _issue_for_week_start(week_start)
-    if issue_key is None:
-        return None
-    return 2025, int(RETRO_ISSUES[issue_key]["model_week"])
+    if issue_key is not None:
+        return 2025, int(RETRO_ISSUES[issue_key]["model_week"])
+    # Rolling fallback (Phase 2): past the frozen offseason_week_map / retro
+    # issues, resolve the Monday through the canonical helper so live offseason
+    # weeks map to the SAME (season_year, week) the producers stamped into
+    # team_week_conversation_features -- instead of raising ValueError and
+    # leaving mood/rivalry/lexicon frozen. resolve_week is Monday-determined, so
+    # resolve_week(week_start) == the week the feature builder wrote this run.
+    wk = resolve_week(week_start)
+    logger.info(
+        "week-map fallback: %s -> (season=%s, week=%s) via resolve_week",
+        week_start, wk.season_year, wk.week,
+    )
+    return wk.season_year, wk.week
 
 
 def _previous_week_start(db: Database, week_start: str) -> str | None:
@@ -153,6 +168,13 @@ def compute_mood_week_from_features(db: Database, week_start: str) -> int:
         """,
         {"season_year": season_year, "week": week},
     )
+    if not rows:
+        logger.warning(
+            "compute-mood-week %s: 0 team_week_conversation_features rows for "
+            "(season=%s, week=%s) -- mood will publish only seeded fallbacks. "
+            "Check that build-conversation-features ran for this key.",
+            week_start, season_year, week,
+        )
     best_by_team: dict[int, dict[str, Any]] = {}
     for row in sorted(rows, key=_source_priority):
         best_by_team.setdefault(int(row["team_id"]), row)
@@ -224,6 +246,10 @@ def compute_mood_week_from_features(db: Database, week_start: str) -> int:
             "ingested_at",
         ],
         run_id=f"mood:{season_year}:{week}",
+    )
+    logger.info(
+        "compute-mood-week %s (season=%s week=%s): %s feature rows -> %s computed mood rows",
+        week_start, season_year, week, len(rows), len(computed_rows),
     )
     return len(computed_rows)
 

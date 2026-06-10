@@ -288,6 +288,14 @@ def compute_player_week_mood(
         """,
         params,
     )
+    if not rows:
+        logger.warning(
+            "compute-player-week-mood %s: 0 player conversation_document_targets "
+            "for (season=%s, week=%s). Check the week key matches the season-week "
+            "integer producers stamp (cfb_rankings.common.week.resolve_week); the "
+            "season rollup (week=0) carries offseason player signal.",
+            week_key, season_year, week_int,
+        )
 
     # Group by (player_id, source_name, audience_bucket). Empty bucket values
     # are normalized to 'fan' so old rows don't fall on the floor.
@@ -455,6 +463,14 @@ def compute_player_season_mood(
         """,
         params,
     )
+    if not rows:
+        logger.warning(
+            "compute-player-season-mood: 0 player conversation_document_targets "
+            "for season=%s. Player Room cards will stay Awaiting-Signal. Verify "
+            "--season matches the conversation season (2025 in offseason), not "
+            "the forward snapshot year.",
+            season_year,
+        )
 
     # Rollup collapses across source_name (each player-bucket gets ONE row
     # with source_name='all'). If we kept separate rows per subreddit/board,

@@ -102,6 +102,19 @@ def build_parser() -> argparse.ArgumentParser:
     verify_publish_parser.add_argument(
         "--json", dest="emit_json", action="store_true", help="Also print a JSON summary.")
 
+    resolve_week_parser = subparsers.add_parser(
+        "resolve-week",
+        help=("Print the canonical (season_year, week, week_start, iso_key) for a "
+              "date (default today). ONE source of truth so daily_ingest's "
+              "producers and consumers can't drift onto different week vocabularies."),
+    )
+    resolve_week_parser.add_argument(
+        "--as-of", default=None,
+        help="Date YYYY-MM-DD to resolve (default: today on the box clock).")
+    resolve_week_parser.add_argument(
+        "--json", dest="emit_json", action="store_true",
+        help="Print ONLY a JSON object to stdout (for `ConvertFrom-Json` in PowerShell).")
+
     tag_players_parser = subparsers.add_parser(
         "tag-player-mentions",
         help=("Scan conversation_documents for player-name mentions and emit "
@@ -2140,6 +2153,24 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
+
+    # resolve-week is pure date math (no DB/config needed) — handle it first so
+    # it stays fast and usable even before a DB exists. Emits the canonical week
+    # identity that daily_ingest.ps1 feeds to every producer + consumer.
+    if args.command == "resolve-week":
+        from cfb_rankings.common.week import resolve_week
+        wk = resolve_week(args.as_of)
+        if getattr(args, "emit_json", False):
+            import json as _json
+            print(_json.dumps(wk.as_dict()))
+        else:
+            print(f"season_year = {wk.season_year}")
+            print(f"week        = {wk.week}")
+            print(f"week_start  = {wk.week_start}")
+            print(f"iso_key     = {wk.iso_key}")
+            print(f"in_season   = {wk.in_season}")
+        return
+
     config = AppConfig.from_env()
     from cfb_rankings.db import Database
     from cfb_rankings.storage import Repository
@@ -2197,18 +2228,22 @@ def main() -> None:
         import json as _json
         from datetime import date as _date
 
+        # Use the canonical resolver so the gate checks the EXACT (season, week,
+        # iso_key) the daily producers/consumers write. (Before: these derived
+        # the old raw season-week / calendar-ISO vocabularies and, mid-week,
+        # checked week 42 / "2026-24" while the pipeline wrote 41 / "2025-41" ->
+        # false WARNs, and false HARD-FAILs once --strict is on.)
+        from cfb_rankings.common.week import resolve_week as _resolve_week
+        _wk = _resolve_week()
+
         def _cur_season() -> int:
-            t = _date.today()
-            return t.year if t.month >= 7 else t.year - 1
+            return _wk.season_year
 
         def _cur_season_week() -> int:
-            from datetime import date as _d
-            start = _d(_cur_season(), 8, 26)
-            return max(1, (_d.today() - start).days // 7 + 1)
+            return _wk.week
 
         def _cur_iso_key() -> str:
-            iso = _date.today().isocalendar()
-            return f"{iso[0]:04d}-{iso[1]:02d}"
+            return _wk.iso_key
 
         strict = bool(getattr(args, "strict", False)) or _os.environ.get("VERIFY_STRICT_MOOD") == "1"
         hard_fails: list[str] = []

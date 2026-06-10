@@ -63,23 +63,31 @@ function Run-Adapter([string]$id) {
     Run "adapter: $id" { python tools/run_adapter.py $id }
 }
 
-# --- Derived dates -----------------------------------------------------------
-$Now        = Get-Date
-$IsInSeason = ($Now.Month -ge 8) -or ($Now.Month -eq 1 -and $Now.Day -le 20)
-$CurSeason  = if ($Now.Month -ge 7) { $Now.Year } else { $Now.Year - 1 }
-
-# Previous Monday date (YYYY-MM-DD) — what compute-mood-week expects
-$PrevMonday = $Now.AddDays(-(([int]$Now.DayOfWeek + 6) % 7)).ToString("yyyy-MM-dd")
-
-# Current ISO week key (YYYY-WW) — what cohort aggregator expects
-$WeekNum  = [int]((Get-Culture).Calendar.GetWeekOfYear(
-    $Now, [System.Globalization.CalendarWeekRule]::FirstFourDayWeek,
-    [System.DayOfWeek]::Monday))
-$IsoWeekKey = "{0}-{1:D2}" -f $Now.Year, $WeekNum
-
-# Current season week (integer) — for CFBD. Rough: weeks since Aug 26.
-$SeasonStart = Get-Date -Year $CurSeason -Month 8 -Day 26
-$SeasonWeek  = [math]::Max(1, [math]::Floor(($Now - $SeasonStart).TotalDays / 7) + 1)
+# --- Canonical week: ONE source of truth -------------------------------------
+# Every producer (reddit collector, taggers, feature builder) and consumer
+# (cohort, mood, player-mood aggregators) MUST share the same week identity.
+# Before this, three vocabularies were derived here independently -- season-week
+# integer, ISO week "YYYY-WW", and the Monday date -- and silently disagreed:
+# producers stamped (2025, 41) while cohort/player read ISO (2026, 24) -> 0 rows
+# and mood mapped the Monday through a frozen calendar -> ValueError. resolve-week
+# (src/cfb_rankings/common/week.py) emits all four keys from one computation so
+# they can never drift again. Hard-abort if it doesn't return JSON -- proceeding
+# with empty week vars would silently zero every aggregator.
+$Now = Get-Date
+$WkLines = (python manage.py resolve-week --json)
+$WkLine  = ($WkLines -split "`n" | Where-Object { $_ -match '^\s*\{.*\}\s*$' } | Select-Object -Last 1)
+try {
+    $Wk = $WkLine | ConvertFrom-Json
+    if (-not $Wk.iso_key) { throw "no iso_key" }
+} catch {
+    Log "FATAL: resolve-week did not return parseable JSON (got: '$WkLine'). Aborting before any data mutation."
+    exit 1
+}
+$CurSeason  = [int]$Wk.season_year      # 2025 in offseason (CFB season just played)
+$SeasonWeek = [int]$Wk.week             # season-week integer (producers + features + CFBD)
+$PrevMonday = [string]$Wk.week_start    # Monday YYYY-MM-DD (mood / rivalry / lexicon)
+$IsoWeekKey = [string]$Wk.iso_key       # "2025-41" (cohort + player-week-mood)
+$IsInSeason = [bool]$Wk.in_season
 
 Log "==== daily_ingest start ===="
 Log "   today=$($Now.ToString('yyyy-MM-dd'))  iso_week=$IsoWeekKey  prev_monday=$PrevMonday"
@@ -180,6 +188,14 @@ Run "player: tag-player-mentions --season=$CurSeason --commit" {
 }
 Run "player: compute-player-week-mood --week=$IsoWeekKey" {
     python manage.py compute-player-week-mood --week $IsoWeekKey
+}
+# Season rollup (week=0): collapses ALL weeks of player chatter into one row per
+# (player, bucket). This is what lights up Room cards in the offseason -- a player
+# mentioned a few times across many weeks clears the floor on the season total
+# even when no single week does. compute_player_mood_index falls back to this
+# rollup (and cross-season to the prior year) when the weekly row is below gates.
+Run "player: compute-player-season-mood --season=$CurSeason" {
+    python manage.py compute-player-season-mood --season $CurSeason
 }
 
 # =========================================================================
