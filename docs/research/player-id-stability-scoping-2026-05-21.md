@@ -1,7 +1,44 @@
 # Player ID Stability — Scoping Note
 
 **Date:** 2026-05-21
-**Status:** Scoping done; implementation NOT started. Awaits user direction.
+**Status:** RESOLVED 2026-06-10 via a new **Option D — Player-ID Anchor** (see
+update below). Option B (CI fail-loud gate) was already shipped; Option A/C were
+NOT taken (A's URL reset + 301 map were avoidable; C's schema migration was
+high-risk).
+
+---
+
+## UPDATE 2026-06-10 — shipped Option D (Player-ID Anchor)
+
+The 2026-06 box migration rebuilt the DB from scratch and reassigned every
+autoincrement `player_id`, breaking the live URLs (Mendoza 38276→12763, Love
+48316→12194, Brown 38981→12655) exactly as drift-mode #1 predicted.
+
+**Chosen fix — Option D (not in the original A/B/C list):** persist the canonical
+`(source_name, source_player_id) → player_id` mapping to a committed CSV and
+re-seed it BEFORE ingestion on a rebuild. Because `_get_or_create_player` matches
+on `player_source_ids` and returns the existing id, pre-seeding the canonical ids
+makes ingestion *reuse* them. Net effect: URLs stay stable across rebuilds with
+**no URL-scheme change, no 404s, no 301 redirect map, and no `_player_slug` /
+`reporting.py` edits** — which is why it was preferred over Option A.
+
+- `src/cfb_rankings/player_id_anchor.py` — `export_anchor` / `seed_anchor`.
+- CLI: `manage.py export-player-id-anchor` / `seed-player-id-anchor`.
+- `data/player_id_anchor.csv` — 74,183-row canonical snapshot (committed).
+- `publish_site.yml` runs `seed-player-id-anchor` in the seed step (after
+  init-db, before CFBD ingestion). No-op on a normal restored-artifact publish;
+  pins canonical ids on a from-scratch rebuild.
+- 5 tests in `tests/test_player_id_anchor.py`.
+
+**Complementary to Option B:** the fail-loud gate still blocks *accidental* empty
+rebuilds; the anchor makes *intentional* rebuilds (migration / `--allow-empty`)
+preserve URLs. **Refresh procedure:** run `export-player-id-anchor` and commit the
+CSV after large new-player ingests (e.g. before a planned migration) so newly
+created players become anchored too.
+
+---
+
+### Original scoping (2026-05-21) below — retained for context.
 **Why this matters:** Today the production site was found broken because:
 1. A `master`-branch deploy was promoted to production, but `output/` is gitignored
    so player pages 404'd across the board (fixed: promoted a `published`-branch
