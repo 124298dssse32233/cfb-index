@@ -84,6 +84,24 @@ def build_parser() -> argparse.ArgumentParser:
     )
     compute_divergence_parser.add_argument("--week", required=True, help="Week key in YYYY-WW format.")
 
+    verify_publish_parser = subparsers.add_parser(
+        "verify-publish-readiness",
+        help=("Pre-publish data-quality gate: hand-rolled SQL assertions over the "
+              "daily tables. Exits 2 on any HARD-FAIL so the publisher aborts the "
+              "deploy; WARN-level checks print but never block."),
+    )
+    verify_publish_parser.add_argument(
+        "--freshness-days", type=int, default=2,
+        help="Max age (days) of newest conversation_documents.collected_at_utc before HARD-FAIL.")
+    verify_publish_parser.add_argument(
+        "--min-today-docs", type=int, default=200,
+        help="Min conversation_documents rows collected in the last 24h (absolute floor).")
+    verify_publish_parser.add_argument(
+        "--strict", action="store_true",
+        help="Promote the WARN mood/cohort/feature/player checks to HARD-FAIL (also via env VERIFY_STRICT_MOOD=1).")
+    verify_publish_parser.add_argument(
+        "--json", dest="emit_json", action="store_true", help="Also print a JSON summary.")
+
     tag_players_parser = subparsers.add_parser(
         "tag-player-mentions",
         help=("Scan conversation_documents for player-name mentions and emit "
@@ -2166,6 +2184,136 @@ def main() -> None:
         from cfb_rankings.cohorts.divergence import compute_divergence_week
         result = compute_divergence_week(db, args.week)
         print(f"compute-divergence {args.week}: teams_written={result['teams_written']}")
+        return
+
+    if args.command == "verify-publish-readiness":
+        # Phase-1 data-quality gate. Hand-rolled SQL assertions (db.query_all/query_one
+        # rewrite %(x)s->:x and now()->CURRENT_TIMESTAMP; use :named params and
+        # datetime('now', ...) -- never literally type now()). Exits 2 on hard-fail so
+        # publish_to_vercel.ps1 aborts. WARN-level (the currently-empty Phase-2 tables)
+        # only block under --strict / VERIFY_STRICT_MOOD=1.
+        import os as _os
+        import sys as _sys
+        import json as _json
+        from datetime import date as _date
+
+        def _cur_season() -> int:
+            t = _date.today()
+            return t.year if t.month >= 7 else t.year - 1
+
+        def _cur_season_week() -> int:
+            from datetime import date as _d
+            start = _d(_cur_season(), 8, 26)
+            return max(1, (_d.today() - start).days // 7 + 1)
+
+        def _cur_iso_key() -> str:
+            iso = _date.today().isocalendar()
+            return f"{iso[0]:04d}-{iso[1]:02d}"
+
+        strict = bool(getattr(args, "strict", False)) or _os.environ.get("VERIFY_STRICT_MOOD") == "1"
+        hard_fails: list[str] = []
+        warns: list[str] = []
+        passes: list[str] = []
+
+        def _hard(label: str, ok: bool, detail: str = "") -> None:
+            if ok:
+                passes.append(f"{label}: PASS")
+            else:
+                hard_fails.append(f"{label}: FAIL{(' -- ' + detail) if detail else ''}")
+
+        def _soft(label: str, ok: bool, detail: str = "") -> None:
+            if ok:
+                passes.append(f"{label}: PASS")
+            elif strict:
+                hard_fails.append(f"{label}: FAIL (strict) -- {detail}")
+            else:
+                warns.append(f"{label}: WARN -- {detail}")
+
+        def _n(sql: str, params: dict | None = None) -> int:
+            row = db.query_one(sql, params or {})
+            if not row:
+                return 0
+            return int(list(row.values())[0] or 0)
+
+        # A. structural integrity (always hard-fail)
+        try:
+            ic = db.query_all("PRAGMA integrity_check")
+            ic_ok = len(ic) == 1 and str(list(ic[0].values())[0]).lower() == "ok"
+            _hard("integrity_check", ic_ok, "" if ic_ok else f"{len(ic)} problem row(s): {ic[:3]}")
+            fk = db.query_all("PRAGMA foreign_key_check")
+            _hard("foreign_key_check", len(fk) == 0, "" if not fk else f"{len(fk)} FK violation(s)")
+        except Exception as exc:  # noqa: BLE001
+            _hard("integrity pragmas", False, f"error: {exc}")
+
+        # B. conversation_documents freshness + today's ingest (hard-fail)
+        fdays = int(getattr(args, "freshness_days", 2))
+        newest = db.query_one("select max(collected_at_utc) as ts from conversation_documents")
+        newest_ts = newest["ts"] if newest else None
+        fresh_n = _n("select count(*) as n from conversation_documents where collected_at_utc >= datetime('now', :w)",
+                     {"w": f"-{fdays} day"})
+        _hard(f"conversation_documents freshness (<= {fdays}d)", fresh_n > 0,
+              f"newest collected_at_utc={newest_ts!r}; 0 rows in window")
+        min_docs = int(getattr(args, "min_today_docs", 200))
+        today_docs = _n("select count(*) as n from conversation_documents where collected_at_utc >= datetime('now','-1 day')")
+        _hard(f"conversation_documents today-insert (>= {min_docs})", today_docs >= min_docs,
+              f"only {today_docs} rows in last 24h")
+
+        # C. coverage anomaly vs trailing 7d median (WARN-only; skip if thin baseline)
+        per_day = db.query_all(
+            "select substr(collected_at_utc,1,10) as d, count(*) as n from conversation_documents "
+            "where collected_at_utc >= datetime('now','-8 day') and collected_at_utc < datetime('now','-1 day') "
+            "group by d")
+        baseline = sorted(int(r["n"]) for r in per_day if int(r["n"] or 0) > 0)
+        if len(baseline) >= 3:
+            mid = len(baseline) // 2
+            median = baseline[mid] if len(baseline) % 2 else (baseline[mid - 1] + baseline[mid]) / 2
+            _soft("conversation_documents coverage vs 7d median", median == 0 or today_docs >= 0.25 * median,
+                  f"today={today_docs} vs 7d-median={median:.0f} (>75% drop -- a feed may be failing)")
+        else:
+            warns.append(f"conversation_documents coverage vs 7d median: SKIP (only {len(baseline)} baseline day(s))")
+
+        # D. daily aggregate tables non-empty for the current period (WARN -> HARD under --strict)
+        _soft("team_conversation_daily current-period rows",
+              _n("select count(*) as n from team_conversation_daily where as_of_date >= date('now', :w)",
+                 {"w": f"-{fdays} day"}) > 0, f"0 rows within {fdays}d")
+        _soft("fanbase_mood_weekly current-week rows",
+              _n("select count(*) as n from fanbase_mood_weekly where week_start_date = date('now','weekday 1','-7 day')") > 0,
+              "0 rows for current week_start_date")
+        _soft("fanbase_mood_weekly nonzero mood at newest week",
+              _n("select count(*) as n from fanbase_mood_weekly where week_start_date = "
+                 "(select max(week_start_date) from fanbase_mood_weekly) and mood_score is not null and mood_score <> 0") > 0,
+              "all mood_score NULL/0 at newest week")
+        _soft("team_week_conversation_features current season/week",
+              _n("select count(*) as n from team_week_conversation_features where season_year = :s and week = :w",
+                 {"s": _cur_season(), "w": _cur_season_week()}) > 0,
+              f"0 rows for season={_cur_season()} week={_cur_season_week()}")
+        _soft("team_cohort_week current ISO-week",
+              _n("select count(*) as n from team_cohort_week where week = :wk", {"wk": _cur_iso_key()}) > 0,
+              f"0 rows for week={_cur_iso_key()}")
+        _soft("player_week_conversation_features current season/week",
+              _n("select count(*) as n from player_week_conversation_features where season_year = :s and week = :w",
+                 {"s": _cur_season(), "w": _cur_season_week()}) > 0,
+              f"0 rows for season={_cur_season()} week={_cur_season_week()}")
+
+        print("=" * 64)
+        print(f"verify-publish-readiness  (strict={strict})")
+        print("=" * 64)
+        for line in passes:
+            print("  [pass] " + line)
+        for line in warns:
+            print("  [WARN] " + line)
+        for line in hard_fails:
+            print("  [FAIL] " + line)
+        print("-" * 64)
+        print(f"  {len(passes)} pass | {len(warns)} warn | {len(hard_fails)} fail")
+        if getattr(args, "emit_json", False):
+            print(_json.dumps({"ok": not hard_fails, "strict": strict, "pass": passes,
+                               "warn": warns, "fail": hard_fails,
+                               "conv_docs_today": today_docs, "newest_collected_at_utc": newest_ts}, indent=2))
+        if hard_fails:
+            print("\nABORT: data-quality gate failed. Publish must NOT proceed.")
+            _sys.exit(2)
+        print("\nOK: data-quality gate passed; safe to publish.")
         return
 
     # --------------------------------------------------------- team pages

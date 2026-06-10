@@ -46,10 +46,17 @@ function Log([string]$msg) {
     "$stamp  $msg" | Tee-Object -FilePath $LogPath -Append
 }
 
-function Run([string]$label, [scriptblock]$block) {
+# Steps marked -Critical accumulate here; a non-empty list -> non-zero script exit
+# + a Healthchecks /fail ping at the end, so a silently-broken data day is surfaced.
+# Adapters stay NON-critical (one dead feed must not fail the whole run).
+$script:FailedSteps = @()
+function Run([string]$label, [scriptblock]$block, [switch]$Critical) {
     Log "== $label =="
     & $block *>&1 | Tee-Object -FilePath $LogPath -Append
-    if ($LASTEXITCODE -ne 0) { Log "   $label exited with code $LASTEXITCODE (continuing)" }
+    if ($LASTEXITCODE -ne 0) {
+        Log "   $label exited with code $LASTEXITCODE (continuing)"
+        if ($Critical) { $script:FailedSteps += $label }
+    }
 }
 
 function Run-Adapter([string]$id) {
@@ -77,6 +84,27 @@ $SeasonWeek  = [math]::Max(1, [math]::Floor(($Now - $SeasonStart).TotalDays / 7)
 Log "==== daily_ingest start ===="
 Log "   today=$($Now.ToString('yyyy-MM-dd'))  iso_week=$IsoWeekKey  prev_monday=$PrevMonday"
 Log "   in_season=$IsInSeason  cur_season=$CurSeason  season_week=$SeasonWeek"
+
+# --- Pre-mutation DB snapshot (VACUUM INTO) + 7-day rotation -----------------
+# Recoverability: a bad ingest day becomes "restore = copy a file". VACUUM INTO
+# writes a consistent, defragmented copy without locking out the live DB. Uses the
+# project interpreter (no sqlite3.exe dependency). Non-critical: a failed backup
+# logs but never blocks the day's run.
+$BackupDir = Join-Path $RepoRoot "backups"
+if (-not (Test-Path $BackupDir)) { New-Item -ItemType Directory -Path $BackupDir | Out-Null }
+$DbPath   = Join-Path $RepoRoot "cfb_rankings.db"
+$SnapPath = Join-Path $BackupDir ("cfb_rankings_{0:yyyy-MM-dd}.db" -f $Now)
+if (Test-Path $DbPath) {
+    Run "backup: VACUUM INTO $($SnapPath | Split-Path -Leaf)" {
+        if (Test-Path $SnapPath) { Remove-Item -LiteralPath $SnapPath -Force }
+        python -c "import sqlite3,sys; c=sqlite3.connect(sys.argv[1]); c.execute('VACUUM INTO ?',(sys.argv[2],)); c.close()" $DbPath $SnapPath
+    }
+    Get-ChildItem -LiteralPath $BackupDir -Filter "cfb_rankings_*.db" |
+        Sort-Object LastWriteTime -Descending | Select-Object -Skip 7 |
+        ForEach-Object { Log "   rotating out old snapshot $($_.Name)"; Remove-Item -LiteralPath $_.FullName -Force }
+} else {
+    Log "   (no cfb_rankings.db yet -- skipping snapshot)"
+}
 
 # =========================================================================
 # A. Fan-intelligence ingestion (year-round, free / auth-gated)
@@ -130,13 +158,13 @@ if ($IsInSeason) {
 # =========================================================================
 Run "aggregate: compute-cohort-week --week=$IsoWeekKey" {
     python manage.py compute-cohort-week --week $IsoWeekKey
-}
+} -Critical
 Run "aggregate: compute-divergence --week=$IsoWeekKey" {
     python manage.py compute-divergence --week $IsoWeekKey
 }
 Run "aggregate: compute-mood-week --week=$PrevMonday" {
     python manage.py compute-mood-week --week $PrevMonday --no-from-seed
-}
+} -Critical
 Run "aggregate: compute-rivalry-ratios --week=$PrevMonday" {
     python manage.py compute-rivalry-ratios --week $PrevMonday --no-from-seed
 }
@@ -159,7 +187,7 @@ Run "player: compute-player-week-mood --week=$IsoWeekKey" {
 # =========================================================================
 Run "features: build-conversation-features --season=$CurSeason --week=$SeasonWeek" {
     python manage.py build-conversation-features --season $CurSeason --week $SeasonWeek
-}
+} -Critical
 
 # =========================================================================
 # G. Models (in-season only - require fresh game data)
@@ -196,7 +224,7 @@ Run "team-preview: build-team-preview-layer" { python manage.py build-team-previ
 Run "team-preview: generate-team-preview-claims" {
     python manage.py generate-team-preview-claims --season (Get-Date -Format yyyy) --as-of (Get-Date -Format yyyy-MM-dd)
 }
-Run "site: build-site" { python manage.py build-site }
+Run "site: build-site" { python manage.py build-site } -Critical
 Run "site: build-editions-archive" { python manage.py build-editions-archive }
 
 # =========================================================================
@@ -211,8 +239,32 @@ Run "status: fanintel-status" { python manage.py fanintel-status }
 #    gate so a broken/empty build can never reach the live URL. Logs to its
 #    own publish_vercel_*.log.
 # =========================================================================
-Log "== publish: scripts\publish_to_vercel.ps1 =="
-& (Join-Path $RepoRoot "scripts\publish_to_vercel.ps1") *>&1 | Tee-Object -FilePath $LogPath -Append
-Log "   publish_to_vercel returned $LASTEXITCODE"
+if ($script:FailedSteps -contains "site: build-site") {
+    Log "== publish: SKIPPED (build-site failed; refusing to deploy a broken build) =="
+} else {
+    Log "== publish: scripts\publish_to_vercel.ps1 =="
+    & (Join-Path $RepoRoot "scripts\publish_to_vercel.ps1") *>&1 | Tee-Object -FilePath $LogPath -Append
+    Log "   publish_to_vercel returned $LASTEXITCODE"
+    if ($LASTEXITCODE -ne 0) { $script:FailedSteps += "publish_to_vercel" }
+}
 
-Log "==== daily_ingest end ===="
+# --- Healthchecks.io dead-man's-switch + final exit status -------------------
+# Set HEALTHCHECK_URL in .env. Success ping on a clean run; /fail ping otherwise
+# so the monitor distinguishes "ran but failed" from "never ran". PS-safe.
+$HcUrl = $env:HEALTHCHECK_URL
+if ([string]::IsNullOrWhiteSpace($HcUrl)) {
+    Log "   (HEALTHCHECK_URL not set -- skipping dead-man's-switch ping)"
+} elseif ($script:FailedSteps.Count -eq 0) {
+    try { Invoke-WebRequest -Uri $HcUrl -Method Get -TimeoutSec 15 -UseBasicParsing | Out-Null; Log "   healthcheck: success ping sent" }
+    catch { Log "   healthcheck ping error: $($_.Exception.Message)" }
+} else {
+    try { Invoke-WebRequest -Uri ($HcUrl.TrimEnd('/') + '/fail') -Method Get -TimeoutSec 15 -UseBasicParsing | Out-Null; Log "   healthcheck: FAIL ping sent" }
+    catch { Log "   healthcheck fail-ping error: $($_.Exception.Message)" }
+}
+
+if ($script:FailedSteps.Count -gt 0) {
+    Log "==== daily_ingest end (FAILED: $($script:FailedSteps -join ', ')) ===="
+    exit 1
+}
+Log "==== daily_ingest end (clean) ===="
+exit 0
