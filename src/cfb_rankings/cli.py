@@ -3435,12 +3435,19 @@ def main() -> None:
         return
 
     if args.command == "refresh-recruiting-pulse":
+        from contextlib import nullcontext
         from cfb_rankings.recruit_board import render_recruit_board
-        result = render_recruit_board(
-            db.connection() if hasattr(db, "connection") else db,
-            class_year=args.class_year,
-            output_dir=args.output_dir,
-        )
+        # render_recruit_board needs a live sqlite3.Connection (it calls
+        # .execute()). db.connection() is a @contextmanager — ENTER it instead
+        # of passing the unentered manager, which was the #204 crash
+        # ("'_GeneratorContextManager' object has no attribute 'execute'").
+        cm = db.connection() if hasattr(db, "connection") else nullcontext(db)
+        with cm as conn:
+            result = render_recruit_board(
+                conn,
+                class_year=args.class_year,
+                output_dir=args.output_dir,
+            )
         print(
             f"refresh-recruiting-pulse: class_year={result['class_year']} "
             f"programs={result['program_count']} "
