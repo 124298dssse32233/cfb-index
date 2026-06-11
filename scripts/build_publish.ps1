@@ -208,6 +208,13 @@ Run "team-preview: build-team-preview-layer" { python manage.py build-team-previ
 Run "team-preview: generate-team-preview-claims" {
     python manage.py generate-team-preview-claims --season (Get-Date -Format yyyy) --as-of (Get-Date -Format yyyy-MM-dd)
 }
+# Savant Card percentiles (13-metric, four-peer-set) the team pages read from
+# team_savant_weekly. The table was empty (0 rows) so every Savant card was
+# hidden; refresh-savant recomputes from team_game_advanced_stats (auto-selects
+# the latest season with data). Must run BEFORE build-site, which renders the
+# team pages. Non-Critical: the card hides itself if the table is empty, so a
+# failure degrades gracefully and never blocks the deploy.
+Run "savant: refresh-savant" { python manage.py refresh-savant }
 Run "site: build-site" { python manage.py build-site } -Critical
 Run "site: build-editions-archive" { python manage.py build-editions-archive }
 # Section landing pages that build-site does NOT emit. These patch INTO the

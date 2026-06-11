@@ -31,11 +31,19 @@ from .profile_loader import Profile
 
 _PEER_SETS: tuple[tuple[str, str, str], ...] = (
     # (key, short_label, data_attr_suffix)
-    ("fbs",     "FBS",            "fbs"),
-    ("p4",      "Power-4",        "p4"),
-    ("conf",    "Conference",     "conf"),
-    ("alltime", "Program 2014+",  "alltime"),
+    ("fbs",     "FBS",              "fbs"),
+    ("p4",      "Power-4",          "p4"),
+    ("conf",    "Conference",       "conf"),
+    ("alltime", "Program history",  "alltime"),
 )
+
+# Minimum number of prior program-seasons in the all-time distribution for the
+# "Program history" peer set to be meaningful. Below this it degenerates (a
+# single season ranked against itself is always the 50th percentile), so we
+# suppress the chip rather than show a misleading flat-50 column. The advanced-
+# stats table is 2025-only as of 2026-06, so this currently hides the chip — it
+# auto-appears once ≥3 seasons of tier-2 stats accumulate.
+_ALLTIME_MIN_SEASONS = 3
 
 
 def render_savant_card(
@@ -55,8 +63,14 @@ def render_savant_card(
     if not rows:
         return ""
 
+    # The all-time peer set is only meaningful with a multi-season history;
+    # suppress its toggle chip when the program has too few seasons of
+    # advanced stats (otherwise every bar reads a misleading flat 50th pct).
+    alltime_seasons = max((r.get("peer_set_size_alltime") or 0) for r in rows)
+    include_alltime = alltime_seasons >= _ALLTIME_MIN_SEASONS
+
     narrative_html = _render_narrative(narrative, rows, profile)
-    toggle_html = _render_toggle()
+    toggle_html = _render_toggle(include_alltime=include_alltime)
     offense = [r for r in rows if r["metric_group"] == "offense"]
     defense = [r for r in rows if r["metric_group"] == "defense"]
     special = [r for r in rows if r["metric_group"] == "special"]
@@ -117,9 +131,12 @@ def _render_narrative(narrative: str | None, rows: list[dict[str, Any]], profile
     return f'<p class="savant-card__narrative savant-card__narrative--fallback">{html.escape(text)}</p>'
 
 
-def _render_toggle() -> str:
+def _render_toggle(*, include_alltime: bool = True) -> str:
+    peer_sets = _PEER_SETS if include_alltime else tuple(
+        ps for ps in _PEER_SETS if ps[0] != "alltime"
+    )
     chips = []
-    for i, (key, label, _) in enumerate(_PEER_SETS):
+    for i, (key, label, _) in enumerate(peer_sets):
         cls = "savant-card__chip"
         if i == 0:
             cls += " savant-card__chip--active"

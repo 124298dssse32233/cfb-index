@@ -1785,8 +1785,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Program slug(s) to refresh. Omit for all profiled programs.",
     )
     refresh_savant_parser.add_argument(
-        "--season", type=int, default=2024,
-        help="Season to compute percentiles for. Default: 2024 (latest complete).",
+        "--season", type=int, default=None,
+        help="Season to compute percentiles for. Default: the latest season "
+             "that actually has team_game_advanced_stats rows (auto-detected). "
+             "The old hardcoded 2024 default wrote 0 rows because the advanced-"
+             "stats table is 2025-only as of 2026-06.",
     )
 
     refresh_arc_parser = subparsers.add_parser(
@@ -3271,6 +3274,18 @@ def main() -> None:
         from cfb_rankings.team_pages.profile_loader import PROFILES_DIR
         slugs = args.slug or [p.stem for p in sorted(PROFILES_DIR.glob("*.md"))]
         with db.connection() as conn:
+            season = args.season
+            if season is None:
+                row = conn.execute(
+                    "select max(g.season_year) "
+                    "from team_game_advanced_stats t "
+                    "join games g on g.game_id = t.game_id"
+                ).fetchone()
+                season = int(row[0]) if row and row[0] is not None else None
+                if season is None:
+                    print("refresh-savant: no team_game_advanced_stats rows found — nothing to compute.")
+                    return
+                print(f"refresh-savant: auto-selected latest season with data = {season}")
             placeholders = ",".join(["?"] * len(slugs))
             rows = conn.execute(
                 f"select slug, team_id from teams where slug in ({placeholders})",
@@ -3283,11 +3298,11 @@ def main() -> None:
                 if not tid:
                     print(f"  {slug}: team not found")
                     continue
-                n = refresh_team_savant(conn, tid, args.season)
+                n = refresh_team_savant(conn, tid, season)
                 conn.commit()
                 total += n
                 print(f"  {slug}: {n} metrics written")
-            print(f"refresh-savant: wrote {total} rows across {len(slugs)} programs for season {args.season}")
+            print(f"refresh-savant: wrote {total} rows across {len(slugs)} programs for season {season}")
         return
 
     if args.command == "refresh-season-arc":
