@@ -37,9 +37,63 @@ from pathlib import Path
 # 0.25 == "a >75% drop is a hard fail" -- matches the publish gate's WARN
 # boundary (cli.py verify-publish-readiness, section C) so the two agree.
 DROP_FLOOR = 0.25
-# Need at least this many non-empty baseline days, else SKIP (fresh-DB starts /
-# brand-new boxes must not false-fail before a baseline exists).
+# Window of trailing days to look back over (wider than the original 8d so a real
+# baseline accrues despite an irregular offseason cadence).
+WINDOW_DAYS = 14
+# Need at least this many non-empty days before attempting any judgement.
 MIN_BASELINE_DAYS = 3
+# After removing outliers, need at least this many "normal-range" days, else the
+# baseline is too noisy to trust -> SKIP (don't cry wolf).
+MIN_NORMAL_DAYS = 3
+# Outlier bounds, as multiples of the rough median of active days:
+#   > BACKFILL_MULT x  -> a one-time backfill (e.g. a 150k-doc archive import),
+#                         which must NOT inflate "normal daily volume".
+#   < DEAD_FRAC x      -> a partial-failure day (pipeline barely ran), which must
+#                         NOT drag the baseline down either.
+BACKFILL_MULT = 3.0
+DEAD_FRAC = 0.20
+
+
+def _median(xs: "list[float]") -> float:
+    s = sorted(xs)
+    n = len(s)
+    if n == 0:
+        return 0.0
+    mid = n // 2
+    return s[mid] if n % 2 else (s[mid - 1] + s[mid]) / 2.0
+
+
+def assess(today: int, daily_counts: "list[int]") -> "tuple[str, str]":
+    """Pure decision logic (no DB) so it is unit-testable.
+
+    Returns (verdict, message) where verdict is 'OK', 'FAIL', or 'SKIP'.
+    A FAIL means today is a >75% collapse vs the robust typical day. SKIP means
+    there isn't yet a stable enough baseline to judge (the honest answer during a
+    ramp-up where one-time backfills and partial days dominate the history).
+    """
+    positives = sorted(n for n in daily_counts if n > 0)
+    if len(positives) < MIN_BASELINE_DAYS:
+        return "SKIP", f"only {len(positives)} active baseline day(s); need {MIN_BASELINE_DAYS}"
+
+    rough = _median(positives)
+    lo, hi = DEAD_FRAC * rough, BACKFILL_MULT * rough
+    normal = [n for n in positives if lo <= n <= hi]
+    dropped = len(positives) - len(normal)
+    if len(normal) < MIN_NORMAL_DAYS:
+        return "SKIP", (
+            f"baseline too noisy to judge -- {len(positives)} active day(s), but only "
+            f"{len(normal)} in the normal range after dropping {dropped} backfill/partial "
+            f"outlier(s). A stable baseline will form as the pipeline runs cleanly daily.")
+
+    typical = _median(normal)
+    floor = DROP_FLOOR * typical
+    if today < floor:
+        return "FAIL", (
+            f"today={today:,} docs vs typical={typical:,.0f}/day (below {DROP_FLOOR:.0%} floor "
+            f"of {floor:,.0f}). A collector likely died silently -- check today's collect log "
+            f"for tracebacks before trusting the build.")
+    pct = (today / typical * 100) if typical else 0.0
+    return "OK", f"today={today:,} docs vs typical={typical:,.0f}/day ({pct:.0f}% of typical)."
 
 
 def _resolve_db_path() -> Path:
@@ -62,35 +116,17 @@ def check(db_path: Path) -> int:
         per_day = con.execute(
             "SELECT substr(collected_at_utc,1,10) AS d, COUNT(*) AS n "
             "FROM conversation_documents "
-            "WHERE collected_at_utc >= datetime('now','-8 day') "
+            "WHERE collected_at_utc >= datetime('now', ?) "
             "  AND collected_at_utc <  datetime('now','-1 day') "
-            "GROUP BY d"
+            "GROUP BY d",
+            (f"-{WINDOW_DAYS} day",),
         ).fetchall()
     finally:
         con.close()
 
-    baseline = sorted(int(n) for _d, n in per_day if int(n or 0) > 0)
-    if len(baseline) < MIN_BASELINE_DAYS:
-        print(f"verify-collect-volume: SKIP (only {len(baseline)} baseline day(s); "
-              f"need {MIN_BASELINE_DAYS})")
-        return 0
-
-    mid = len(baseline) // 2
-    median = (baseline[mid] if len(baseline) % 2
-              else (baseline[mid - 1] + baseline[mid]) / 2)
-    floor = DROP_FLOOR * median
-
-    if median > 0 and today < floor:
-        print(f"verify-collect-volume: FAIL -- today={today:,} docs vs "
-              f"7d-median={median:,.0f} (below {DROP_FLOOR:.0%} floor of {floor:,.0f}). "
-              f"A collector likely died silently -- check today's collect log for "
-              f"tracebacks before trusting the build.")
-        return 1
-
-    pct = (today / median * 100) if median else 0.0
-    print(f"verify-collect-volume: OK -- today={today:,} docs vs "
-          f"7d-median={median:,.0f} ({pct:.0f}% of median).")
-    return 0
+    verdict, msg = assess(int(today), [int(n) for _d, n in per_day])
+    print(f"verify-collect-volume: {verdict} -- {msg}")
+    return 1 if verdict == "FAIL" else 0
 
 
 if __name__ == "__main__":
