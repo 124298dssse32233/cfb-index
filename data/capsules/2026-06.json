@@ -1,0 +1,299 @@
+{
+  "label": "2026-06",
+  "title": "Talking Season, Frozen",
+  "sealed_on": "2026-06-11",
+  "season": 2025,
+  "backometer": [
+    {
+      "team": "Notre Dame",
+      "slug": "notre-dame",
+      "zone": "cooking",
+      "score": 60.1,
+      "n": 298
+    },
+    {
+      "team": "Ohio State",
+      "slug": "ohio-state",
+      "zone": "uneasy",
+      "score": 58.5,
+      "n": 220
+    },
+    {
+      "team": "Miami",
+      "slug": "miami",
+      "zone": "uneasy",
+      "score": 53.4,
+      "n": 232
+    }
+  ],
+  "rent_free": [
+    {
+      "rivalry": "Red River Rivalry",
+      "rent_free": "Oklahoma",
+      "obsessed": "Texas",
+      "ratio": "one-sided",
+      "dominant": 83,
+      "minor": 0
+    },
+    {
+      "rivalry": "Sunshine Showdown",
+      "rent_free": "Florida",
+      "obsessed": "Florida State",
+      "ratio": "69.7×",
+      "dominant": 209,
+      "minor": 3
+    },
+    {
+      "rivalry": "Oregon-Oregon State",
+      "rent_free": "Oregon State",
+      "obsessed": "Oregon",
+      "ratio": "one-sided",
+      "dominant": 50,
+      "minor": 0
+    },
+    {
+      "rivalry": "USC-Notre Dame",
+      "rent_free": "Notre Dame",
+      "obsessed": "USC",
+      "ratio": "one-sided",
+      "dominant": 41,
+      "minor": 0
+    },
+    {
+      "rivalry": "Commonwealth Cup",
+      "rent_free": "Virginia",
+      "obsessed": "Virginia Tech",
+      "ratio": "one-sided",
+      "dominant": 33,
+      "minor": 1
+    },
+    {
+      "rivalry": "Freedom Trophy",
+      "rent_free": "Wisconsin",
+      "obsessed": "Nebraska",
+      "ratio": "one-sided",
+      "dominant": 31,
+      "minor": 0
+    }
+  ],
+  "aura": {
+    "most_aura": [
+      {
+        "player": "Brendan Sorsby",
+        "pos": "QB",
+        "perception": 100.0,
+        "production": 92.0,
+        "aura_tax": 8.0
+      },
+      {
+        "player": "Mark Fletcher Jr.",
+        "pos": "RB",
+        "perception": 100.0,
+        "production": 84.0,
+        "aura_tax": 16.0
+      },
+      {
+        "player": "Bryce Underwood",
+        "pos": "QB",
+        "perception": 99.0,
+        "production": 64.0,
+        "aura_tax": 35.0
+      },
+      {
+        "player": "LJ Martin",
+        "pos": "RB",
+        "perception": 99.0,
+        "production": 78.0,
+        "aura_tax": 21.0
+      },
+      {
+        "player": "Drew Allar",
+        "pos": "QB",
+        "perception": 99.0,
+        "production": 75.0,
+        "aura_tax": 24.0
+      },
+      {
+        "player": "Dante Moore",
+        "pos": "QB",
+        "perception": 99.0,
+        "production": 97.0,
+        "aura_tax": 2.0
+      }
+    ],
+    "overhyped": [
+      {
+        "player": "Jamal Haynes",
+        "pos": "RB",
+        "perception": 91.0,
+        "production": 2.0,
+        "aura_tax": 89.0
+      },
+      {
+        "player": "Joe Jackson",
+        "pos": "RB",
+        "perception": 96.0,
+        "production": 9.0,
+        "aura_tax": 86.0
+      },
+      {
+        "player": "Jamarion Miller",
+        "pos": "RB",
+        "perception": 89.0,
+        "production": 21.0,
+        "aura_tax": 68.0
+      },
+      {
+        "player": "Nate Frazier",
+        "pos": "RB",
+        "perception": 92.0,
+        "production": 31.0,
+        "aura_tax": 61.0
+      },
+      {
+        "player": "Nico Iamaleava",
+        "pos": "QB",
+        "perception": 83.0,
+        "production": 24.0,
+        "aura_tax": 59.0
+      },
+      {
+        "player": "Ashton Daniels",
+        "pos": "QB",
+        "perception": 86.0,
+        "production": 29.0,
+        "aura_tax": 57.0
+      }
+    ],
+    "underrated": [
+      {
+        "player": "Jayden Maiava",
+        "pos": "QB",
+        "perception": 79.0,
+        "production": 99.0,
+        "aura_tax": -20.0
+      },
+      {
+        "player": "Jalon Daniels",
+        "pos": "QB",
+        "perception": 70.0,
+        "production": 89.0,
+        "aura_tax": -19.0
+      }
+    ]
+  },
+  "delusion": [
+    {
+      "team": "Georgia",
+      "verdict": "delusional",
+      "belief": 57.0,
+      "market": 4.8,
+      "index": 40.0
+    },
+    {
+      "team": "Oregon",
+      "verdict": "bullish",
+      "belief": 59.0,
+      "market": 17.4,
+      "index": 20.0
+    },
+    {
+      "team": "Notre Dame",
+      "verdict": "bullish",
+      "belief": 60.0,
+      "market": 19.0,
+      "index": 20.0
+    },
+    {
+      "team": "LSU",
+      "verdict": "bullish",
+      "belief": 54.0,
+      "market": 9.5,
+      "index": 20.0
+    },
+    {
+      "team": "Michigan",
+      "verdict": "bullish",
+      "belief": 66.0,
+      "market": 24.1,
+      "index": 10.0
+    },
+    {
+      "team": "Ohio State",
+      "verdict": "bullish",
+      "belief": 58.0,
+      "market": 20.5,
+      "index": -10.0
+    },
+    {
+      "team": "Alabama",
+      "verdict": "bullish",
+      "belief": 53.0,
+      "market": 14.0,
+      "index": -10.0
+    },
+    {
+      "team": "Miami",
+      "verdict": "bullish",
+      "belief": 53.0,
+      "market": 17.0,
+      "index": -10.0
+    },
+    {
+      "team": "Texas",
+      "verdict": "sharp",
+      "belief": 58.0,
+      "market": 48.0,
+      "index": -40.0
+    },
+    {
+      "team": "Texas A&M",
+      "verdict": "sharp",
+      "belief": 53.0,
+      "market": 17.1,
+      "index": -40.0
+    }
+  ],
+  "slang": [
+    {
+      "term": "portal",
+      "docs": 502
+    },
+    {
+      "term": "elite",
+      "docs": 418
+    },
+    {
+      "term": "tampering",
+      "docs": 66
+    },
+    {
+      "term": "natty",
+      "docs": 54
+    },
+    {
+      "term": "locked_in",
+      "docs": 36
+    },
+    {
+      "term": "cooked",
+      "docs": 27
+    },
+    {
+      "term": "hot_seat",
+      "docs": 11
+    },
+    {
+      "term": "rev_share",
+      "docs": 9
+    },
+    {
+      "term": "delusional",
+      "docs": 9
+    },
+    {
+      "term": "so_back",
+      "docs": 6
+    }
+  ]
+}

@@ -74,6 +74,7 @@ URLS: list[tuple[str, str, str]] = [
     ("/hub/rent-free/", "section-index", "Rent Free rival-obsession board"),
     ("/hub/him-watch/", "section-index", "Aura / Him Watch player board"),
     ("/hub/delusion/", "section-index", "Delusion Premium belief-vs-market board"),
+    ("/capsule/", "section-index", "Fan-Intelligence capsules index"),
     ("/wire/", "section-index", "The Wire"),
     ("/about-model/", "section-index", "Methodology — model"),
     ("/methodology/", "section-index", "Methodology landing"),

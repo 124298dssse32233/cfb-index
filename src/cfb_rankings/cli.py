@@ -1252,6 +1252,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     seed_rivalry_pairs_parser.add_argument("--pairs-file", default="seeds/rivalry_pairs.yaml")
 
+    seal_capsule_parser = subparsers.add_parser(
+        "seal-capsule",
+        help=(
+            "Freeze the current four-stat suite + slang into a durable git-committed "
+            "JSON (data/capsules/<label>.json). The renderer reads the JSON, so the "
+            "capsule reproduces forever even after DB rebuilds. Fan suite."
+        ),
+    )
+    seal_capsule_parser.add_argument("--label", required=True, help="e.g. 2026-06")
+    seal_capsule_parser.add_argument("--title", default="Talking Season, Frozen")
+    seal_capsule_parser.add_argument("--sealed-on", default=None, help="ISO date; default = today")
+
     rasterize_cards_parser = subparsers.add_parser(
         "rasterize-cards",
         help=(
@@ -5997,6 +6009,15 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         )
         for miss in result["unresolved"]:
             print(f"  unresolved: {miss}", flush=True)
+        return
+
+    if args.command == "seal-capsule":
+        from cfb_rankings.fan_metrics.capsule import seal_capsule
+
+        result = seal_capsule(
+            db, label=args.label, title=args.title, sealed_on=args.sealed_on,
+        )
+        print(f"seal-capsule: wrote {result['path']} ({result['sections']} sections)", flush=True)
         return
 
     if args.command == "rasterize-cards":

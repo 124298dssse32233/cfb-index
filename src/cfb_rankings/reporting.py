@@ -7316,6 +7316,15 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Delusion Premium board build skipped: {exc}")
 
+    # Fan-Intelligence capsules — render every committed snapshot at /capsule/.
+    # Reads data/capsules/*.json (durable artifacts), not the live DB.
+    try:
+        from cfb_rankings.fan_metrics.capsule_render import build_capsules_section
+        written = build_capsules_section(output_dir=site_root)
+        _report_progress(f"Capsules wrote {len(written)} files.")
+    except Exception as exc:
+        _report_progress(f"Capsules build skipped: {exc}")
+
     # Rasterize all four suites' card SVGs -> opaque PNG (og:image unfurling in
     # chats). Headless Chrome; no-ops cleanly if Chrome is absent. Runs after
     # all card SVGs above are written.
