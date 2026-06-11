@@ -14,12 +14,16 @@ def import_player_honors_csv(
     db: Database,
     csv_path: str | Path,
     default_source_name: str = "manual",
+    create_stubs: bool = True,
 ) -> int:
     path = Path(csv_path)
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         rows = list(reader)
-    honor_rows = [_normalize_honor_row(repository, db, row, default_source_name) for row in rows]
+    honor_rows = [
+        _normalize_honor_row(repository, db, row, default_source_name, create_stubs=create_stubs)
+        for row in rows
+    ]
     honor_rows = [row for row in honor_rows if row is not None]
     db.upsert_many(
         "player_honors",
@@ -67,13 +71,14 @@ def _normalize_honor_row(
     db: Database,
     row: dict[str, Any],
     default_source_name: str,
+    create_stubs: bool = True,
 ) -> dict[str, Any] | None:
     season_year = maybe_int(row.get("season_year") or row.get("season") or row.get("year"))
     if season_year is None:
         return None
     repository.ensure_season(season_year)
     player_id = _resolve_player_id(db, row)
-    if player_id is None:
+    if player_id is None and create_stubs:
         player_id = _ensure_stub_player_id(db, row)
     if player_id is None:
         return None

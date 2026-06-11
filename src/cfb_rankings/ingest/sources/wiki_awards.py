@@ -127,6 +127,11 @@ _NON_PLAYER_RE = re.compile(
 _NOTATION_TOKENS = {"RV", "NR", "RV*", "NR*", "N/A", "NA", "TBD", "TBA", "—", "–", "-",
                     "Y", "N", "S", "TEAM", "RECORD", "OTHER", "TOTAL"}
 
+# Class/eligibility tokens that appear in a column between player and team on
+# some conference season-page all-conference tables — never a team name.
+_CLASS_TOKENS = {"FR", "SO", "JR", "SR", "GR", "GS", "FY", "RS",
+                 "R-FR", "R-SO", "R-JR", "R-SR", "RFR", "RSO", "RJR", "RSR"}
+
 
 def _looks_like_player_name(name: str) -> bool:
     """Heuristic: a real player name has letters and isn't a schedule/notation fragment."""
@@ -580,16 +585,20 @@ def scrape_all_america(year: int) -> list[dict[str, Any]]:
 # TASK 4.2 — All-Conference scraper
 # ---------------------------------------------------------------------------
 
+# Each conference: try the dedicated All-<conf> page first, then fall back to
+# the season page (which embeds the all-conference table). Many conferences
+# (SEC, ACC, Big 12...) lack a dedicated page — the honors live on the season
+# article — so the season-page fallback is what makes coverage comprehensive.
 _CONFERENCE_ARTICLE_TEMPLATES = {
-    "SEC": ["{year} All-SEC football team"],
+    "SEC": ["{year} All-SEC football team", "{year} Southeastern Conference football season"],
     "Big Ten": ["{year} All-Big Ten Conference football team", "{year} Big Ten Conference football season"],
-    "ACC": ["{year} All-ACC football team"],
-    "Big 12": ["{year} All-Big 12 Conference football team"],
-    "AAC": ["{year} All-American Athletic Conference football team"],
-    "Mountain West": ["{year} All-Mountain West Conference football team"],
-    "Sun Belt": ["{year} All-Sun Belt Conference football team"],
-    "MAC": ["{year} All-Mid-American Conference football team"],
-    "Conference USA": ["{year} All-Conference USA football team"],
+    "ACC": ["{year} All-ACC football team", "{year} Atlantic Coast Conference football season"],
+    "Big 12": ["{year} All-Big 12 Conference football team", "{year} Big 12 Conference football season"],
+    "AAC": ["{year} All-American Athletic Conference football team", "{year} American Athletic Conference football season"],
+    "Mountain West": ["{year} All-Mountain West Conference football team", "{year} Mountain West Conference football season"],
+    "Sun Belt": ["{year} All-Sun Belt Conference football team", "{year} Sun Belt Conference football season"],
+    "MAC": ["{year} All-Mid-American Conference football team", "{year} Mid-American Conference football season"],
+    "Conference USA": ["{year} All-Conference USA football team", "{year} Conference USA football season"],
 }
 
 
@@ -631,7 +640,19 @@ def scrape_all_conference(year: int, conference: str) -> list[dict[str, Any]]:
                     # "August", the 'c' in "October", etc.
                     continue
                 name_cell_text = _cell_text(cells[1]) if len(cells) > 1 else ""
-                team_cell_text = _cell_text(cells[2]) if len(cells) > 2 else ""
+                # Team column varies by page: [pos,name,team] (Big Ten) vs
+                # [pos,name,class,team] (SEC). Scan cells after the name and take
+                # the first that isn't a class/eligibility token (Sr./Jr./R-So…).
+                team_cell_text = ""
+                for c in cells[2:]:
+                    t = _cell_text(c)
+                    if not t:
+                        continue
+                    tu = t.upper().rstrip(".")
+                    if tu in _CLASS_TOKENS or re.match(r"^R[-.]?(FR|SO|JR|SR)$", tu):
+                        continue
+                    team_cell_text = t
+                    break
                 if not name_cell_text or not _looks_like_player_name(name_cell_text):
                     continue
                 out.append({

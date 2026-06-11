@@ -764,6 +764,8 @@ def build_parser() -> argparse.ArgumentParser:
     import_honors_parser = subparsers.add_parser("import-player-honors")
     import_honors_parser.add_argument("--csv", required=True)
     import_honors_parser.add_argument("--source-name", default="manual")
+    import_honors_parser.add_argument("--no-stubs", action="store_true",
+        help="Skip honors whose player isn't already in the DB (no stub creation).")
 
     prune_honor_stubs_parser = subparsers.add_parser(
         "prune-honor-stubs",
@@ -4630,6 +4632,7 @@ def main() -> None:
             db=db,
             csv_path=args.csv,
             default_source_name=args.source_name,
+            create_stubs=not args.no_stubs,
         )
         print(f"Imported {imported} player honor rows from {args.csv}.", flush=True)
         return
