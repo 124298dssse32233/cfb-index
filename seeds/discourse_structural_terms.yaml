@@ -1,0 +1,29 @@
+# Discourse keyness: per-team STRUCTURAL terms to EXCLUDE from the lexicon.
+#
+# Structural identifiers (team name / nickname / mascot / abbreviation) are trivially
+# the "most distinctive" words for a team and tell fans nothing new. The engine ALSO
+# builds programmatic structural terms from the teams table row (school_name, short_name,
+# canonical_name, slug words, city words, each + "'s" possessive) and UNIONs them with
+# the nicknames below. Cultural terms ("blue", "autzen", "harbaugh") deliberately STAY IN.
+#
+# Keyed by team SLUG. Unknown teams degrade gracefully (programmatic-only exclusion).
+# Values are lowercased nickname tokens (single words; multiword aliases listed as the
+# words that compose them so "ann arbor" and the bigram "ann arbor" both drop).
+structural_terms:
+  michigan: [wolverines, wolverine, umich, ann, arbor, mich, uofm]
+  ohio-state: [buckeye, buckeyes, osu, tosu, thee]
+  oregon: [duck, ducks, uo]
+  alabama: [tide, bama, roll]
+  georgia: [dawgs, dawg, uga]
+  texas: [longhorns, horns, hook]
+  penn-state: [nittany, lions, psu]
+  florida-state: [noles, seminoles, fsu]
+  tennessee: [vols, vol, rocky]
+  notre-dame: [irish, nd]
+  lsu: [tigers, geaux]
+  usc: [trojans]
+  miami: [canes, cane, the, u]
+  nebraska: [huskers, husker]
+  byu: [cougars, cougs]
+  texas-tech: [red, raiders, raider, ttu]
+  indiana: [hoosiers, iu]

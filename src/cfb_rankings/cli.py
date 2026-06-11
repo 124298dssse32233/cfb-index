@@ -1276,6 +1276,28 @@ def build_parser() -> argparse.ArgumentParser:
         help="Scan the entire retained corpus and rebuild the whole table.")
     track_lexicon_parser.add_argument("--terms-file", default="seeds/lexicon_terms.yaml")
 
+    discourse_keyness_parser = subparsers.add_parser(
+        "compute-discourse-keyness",
+        help=(
+            "Language Layer wave 1: weighted log-odds keyness of each (team, season) "
+            "fan-voice corpus vs the same-season field, written to team_discourse_terms "
+            "(week=0 season cuts) for the team-page Lexicon module. Dry run by default; "
+            "pass --commit to write."
+        ),
+    )
+    discourse_keyness_parser.add_argument("--season", action="append", required=True,
+        help="Season year to compute. Repeatable (--season 2024 --season 2025) "
+             "or a comma list (--season 2022,2023,2024,2025).")
+    discourse_keyness_parser.add_argument("--teams", default=None,
+        help="Optional comma list of team slugs. Explicit teams bypass the "
+             "--min-team-docs floor; default is every team above it.")
+    discourse_keyness_parser.add_argument("--top-n", type=int, default=30,
+        help="Distinctive terms kept per (team, season). Default 30.")
+    discourse_keyness_parser.add_argument("--min-team-docs", type=int, default=200,
+        help="Doc floor for the all-teams sweep. Default 200.")
+    discourse_keyness_parser.add_argument("--commit", action="store_true",
+        help="Write rows (default: dry run — compute + print only).")
+
     seed_rivalry_pairs_parser = subparsers.add_parser(
         "seed-rivalry-pairs",
         help=(
@@ -6124,6 +6146,33 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
             f"track-lexicon: scanned={result['docs_scanned']} "
             f"matched={result['docs_matched']} rows={result['rows_written']} "
             f"days={result['days_touched']} backfill={args.backfill}",
+            flush=True,
+        )
+        return
+
+    if args.command == "compute-discourse-keyness":
+        from cfb_rankings.discourse.keyness import compute_team_keyness
+
+        seasons: list[int] = []
+        for chunk in args.season:
+            seasons.extend(int(s) for s in str(chunk).split(",") if s.strip())
+        team_slugs = (
+            [t.strip() for t in args.teams.split(",") if t.strip()]
+            if args.teams else None
+        )
+        result = compute_team_keyness(
+            db,
+            seasons=seasons,
+            top_n=args.top_n,
+            min_team_docs=args.min_team_docs,
+            teams=team_slugs,
+            commit=args.commit,
+        )
+        print(
+            f"compute-discourse-keyness: teams={result['teams_written']} "
+            f"terms={result['terms_written']} scanned={result['docs_scanned']} "
+            f"gated={result['docs_gated']} seasons={result['seasons']} "
+            f"commit={args.commit}",
             flush=True,
         )
         return

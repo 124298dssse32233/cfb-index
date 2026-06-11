@@ -69,6 +69,7 @@ from .offseason_pulse import render_offseason_pulse, OFFSEASON_PULSE_CSS
 from .backometer_module import render_backometer_module, BACKOMETER_MODULE_CSS
 from .rent_free_module import render_rent_free_module, RENT_FREE_MODULE_CSS
 from .delusion_module import render_delusion_module, DELUSION_MODULE_CSS
+from .lexicon_module import render_lexicon, LEXICON_CSS
 from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
 from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
@@ -587,6 +588,9 @@ def _render_page(
     # Rent Free night band — rival obsession readout (Noir suite). Renders only
     # when there's cross-mention signal on at least one side; skips otherwise.
     rent_free_html = render_rent_free_module(db, profile, snapshot) if db is not None else ""
+    # The Lexicon — fan-voice keyness specimen (Language Layer Wave 1). Renders
+    # only when the team clears the confidence floor (>=8 terms, >=200 docs).
+    lexicon_html = render_lexicon(db, profile, snapshot) if db is not None else ""
     # Delusion Premium night band — fan belief vs market title odds (Noir suite).
     # Renders only for the ~10 contenders with a live championship market.
     delusion_html = render_delusion_module(db, profile, snapshot) if db is not None else ""
@@ -683,7 +687,8 @@ def _render_page(
         "II", "Who We Are",
         program_prestige_html, trajectory_chip_html, hero_arc_stripe_html,
         peer_comparator_html, coaching_era_html, rituals_html,
-        cultural_anchors_html, fanbase_health_html, home_field_html,
+        cultural_anchors_html, fanbase_health_html, lexicon_html,
+        home_field_html,
         statement_wins_html, chronicle_html, chronicle_visuals_html,
         savant_html, rivalry_html, rent_free_html, llm_chronicle_html,
     )
@@ -792,6 +797,9 @@ body {{
 
 /* Rent Free night band — rival obsession readout (Group Chat Noir) */
 {RENT_FREE_MODULE_CSS}
+
+/* The Lexicon — fan-voice keyness specimen (Language Layer Wave 1) */
+{LEXICON_CSS}
 
 /* Delusion Premium night band — belief vs market (Group Chat Noir) */
 {DELUSION_MODULE_CSS}

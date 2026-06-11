@@ -1,0 +1,25 @@
+# Discourse keyness: city / municipal subchannels to EXCLUDE from the fan-voice corpus.
+#
+# These subreddits/boards get tagged to a team only via a place name (r/Columbus is
+# residents, not Buckeye fans — it's ~18.6k of OSU's ~21.6k docs and is why an early
+# prototype surfaced "kroger"/"dublin"/"dispatch"). Dropping them keeps actual fan
+# language (culture: "blue", "autzen", "harbaugh") and removes municipal noise.
+#
+# Matched against conversation_documents.source_subchannel (exact, case-sensitive,
+# the way the values are stored). Add new city/university residential subs here as
+# they surface in the engine's output — no code change needed.
+city_subs:
+  - Columbus
+  - Eugene
+  - AnnArbor
+  # 2026-06-10 review pass: four live teams shipped municipal noise as their
+  # specimen term. r/Knoxville was tennessee's ONLY reddit source (#1 'knoxville',
+  # county/vote noise); r/Athens outweighed r/georgiabulldogs (#1 'budget',
+  # mayor/commission); r/PennStateUniversity + r/statecollege are admissions/
+  # student-life, not fan voice (#1 'campus'); r/Tallahassee swamped FSU
+  # (#1 'live', city/market/trivia).
+  - Knoxville
+  - Athens
+  - PennStateUniversity
+  - statecollege
+  - Tallahassee
