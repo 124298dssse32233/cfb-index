@@ -234,6 +234,15 @@ Run "verify: module coverage (computed tables vs baseline)" {
     python scripts/verify_module_coverage.py --open-issue
 }
 
+# Manifest-driven nav-route completeness (WP-0.2). The box now generates every
+# global-nav route (incl. /offseason/ + /film-room/ as of WP-0.1); this reports
+# any missing/stub nav target before deploy and emits _build_manifest_routes.json.
+# Warn-only here (non-Critical) — the HARD pre-deploy gate that ABORTS a
+# clobbering snapshot lives in publish_to_vercel.ps1 (WP-0.6). Stdlib-only.
+Run "verify: build manifest (nav-route completeness)" {
+    python scripts/verify_build_manifest.py --emit
+}
+
 # =========================================================================
 # K. Publish to Vercel (gated + smoke-checked + alias-rotated, own log).
 #    Skipped if the build failed so a broken build can never deploy.
