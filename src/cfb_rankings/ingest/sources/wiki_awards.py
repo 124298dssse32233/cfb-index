@@ -121,12 +121,25 @@ _NON_PLAYER_RE = re.compile(
 )
 
 
+# Wikipedia all-conference/all-vote tables carry "Receiving votes" (RV) and
+# "Not ranked" (NR) footer rows, plus separators and header fragments. These
+# pass a naive alpha check and become junk stub players on import — reject them.
+_NOTATION_TOKENS = {"RV", "NR", "RV*", "NR*", "N/A", "NA", "TBD", "TBA", "—", "–", "-",
+                    "Y", "N", "S", "TEAM", "RECORD", "OTHER", "TOTAL"}
+
+
 def _looks_like_player_name(name: str) -> bool:
-    """Heuristic: a real player name has letters and isn't a schedule fragment."""
+    """Heuristic: a real player name has letters and isn't a schedule/notation fragment."""
     if not name or len(name.strip()) < 2:
         return False
     s = name.strip()
     if _NON_PLAYER_RE.search(s):
+        return False
+    if s.upper() in _NOTATION_TOKENS:
+        return False
+    # All-conference cells are "First Last". A spaceless token <= 3 chars is a
+    # code/abbreviation (RV, NR, team codes), never a real player name here.
+    if " " not in s and len(s) <= 3:
         return False
     # Needs at least one alphabetic word of length >= 2 (filters "7", ":")
     if not re.search(r"[A-Za-z]{2,}", s):

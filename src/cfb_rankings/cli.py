@@ -765,6 +765,13 @@ def build_parser() -> argparse.ArgumentParser:
     import_honors_parser.add_argument("--csv", required=True)
     import_honors_parser.add_argument("--source-name", default="manual")
 
+    prune_honor_stubs_parser = subparsers.add_parser(
+        "prune-honor-stubs",
+        help=("Delete garbage honor-import stub players (numeric/RV/NR/team-code "
+              "names with no real data) + their honors. Dry-run unless --commit."),
+    )
+    prune_honor_stubs_parser.add_argument("--commit", action="store_true")
+
     draft_parser = subparsers.add_parser(
         "ingest-nfl-draft",
         help="Fetch CFBD /draft/picks for one year or a range; upserts into player_nfl_draft.",
@@ -4599,6 +4606,20 @@ def main() -> None:
             teams=teams,
             classification=args.classification,
         )
+        return
+
+    if args.command == "prune-honor-stubs":
+        from cfb_rankings.ingest.honors import prune_honor_stub_players
+
+        result = prune_honor_stub_players(db, commit=args.commit)
+        mode = "COMMITTED" if result["committed"] else "DRY-RUN (use --commit)"
+        print(
+            f"prune-honor-stubs [{mode}]: stub_players={result['stub_players']} "
+            f"honors_removed={result['honors_removed']} heisman_removed={result['heisman_removed']}",
+            flush=True,
+        )
+        for s in result["sample"]:
+            print(f"  {s}", flush=True)
         return
 
     if args.command == "import-player-honors":

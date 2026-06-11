@@ -218,6 +218,52 @@ def _ensure_stub_player_id(db: Database, row: dict[str, Any]) -> int | None:
     return player_id
 
 
+def prune_honor_stub_players(db: Database, *, commit: bool = False) -> dict[str, Any]:
+    """Remove garbage honor-import stub players + their honors.
+
+    A bad honors CSV (Wikipedia "RV"/"NR" footer rows, jersey numbers,
+    team-code cells) makes ``_ensure_stub_player_id`` mint junk players with
+    non-name names. This deletes only UNAMBIGUOUS garbage — names that are
+    purely numeric, the ``RV``/``NR`` "votes" notation, or short all-caps
+    codes (team abbreviations) — AND only when the player has no real footprint
+    (no season stats, no roster entry). Real multi-word names and any player
+    with actual data are never touched. Dry-run unless ``commit=True``.
+    """
+    garbage = db.query_all(
+        """
+        select p.player_id, p.full_name, p.position
+        from players p
+        where exists (select 1 from player_honors h where h.player_id = p.player_id)   -- an honor-import row
+          and instr(trim(p.full_name), ' ') = 0                                        -- single-token "name"
+          and not exists (select 1 from player_season_stats s where s.player_id = p.player_id)
+          and not exists (select 1 from roster_entries r where r.player_id = p.player_id)
+        """
+    )
+    ids = [int(r["player_id"]) for r in garbage]
+    sample = [f"{r['full_name']!r} ({r['position']})" for r in garbage[:12]]
+    honors_n = stats_n = heisman_n = 0
+    if ids:
+        ph = ",".join(f":g{i}" for i in range(len(ids)))
+        prm = {f"g{i}": pid for i, pid in enumerate(ids)}
+        honors_n = (db.query_one(
+            f"select count(*) as n from player_honors where player_id in ({ph})", prm
+        ) or {}).get("n", 0)
+        heisman_n = (db.query_one(
+            f"select count(*) as n from heisman_vote_results where player_id in ({ph})", prm
+        ) or {}).get("n", 0)
+        if commit:
+            db.execute(f"delete from player_honors where player_id in ({ph})", prm)
+            db.execute(f"delete from heisman_vote_results where player_id in ({ph})", prm)
+            db.execute(f"delete from players where player_id in ({ph})", prm)
+    return {
+        "stub_players": len(ids),
+        "honors_removed": honors_n,
+        "heisman_removed": heisman_n,
+        "committed": bool(commit and ids),
+        "sample": sample,
+    }
+
+
 def _clean_text(value: Any) -> str | None:
     text = str(value or "").strip()
     return text or None
