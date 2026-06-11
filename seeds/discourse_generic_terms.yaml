@@ -1,0 +1,56 @@
+# Discourse generic-term stoplist — Language Layer Wave 2 (A1).
+#
+# Conversational / thread boilerplate that survived Wave-1 cleaning (it isn't a
+# school name, a nickname, or a classic stopword, but it carries zero editorial
+# meaning about a fanbase's voice). These terms are excluded from ALL Wave-2
+# outputs: the season Lexicon, the weekly Word-of-the-Week cut, and the rivalry
+# Mirror. This is the EDITORIAL extension point — append a term here to drop it
+# from the surfaced vocabulary without a code change or recompute logic edit.
+#
+# Kept SEPARATE from seeds/discourse_structural_terms.yaml on purpose: structural
+# terms are per-team identity words (names/cities/nicknames); these are global
+# thread-boilerplate words that apply to every team.
+#
+# Engine contract: missing file or missing pyyaml -> empty set (never crashes).
+# Loader: cfb_rankings.discourse._common.load_generic_terms().
+
+generic_terms:
+  - talk
+  - talking
+  - anyone
+  - looking
+  - live
+  - stream
+  - live stream
+  - video
+  - watch
+  - watching
+  - post
+  - posted
+  - thread
+  - question
+  - questions
+  - thoughts
+  - daily
+  - discussion
+  - predictions
+  - prediction
+  - highlights
+  - recap
+  - preview
+  - vote
+  - poll
+  - episode
+  - podcast
+  # 2026-06-11 verifier pass: 'state' is a bare fragment of dozens of school
+  # names — it topped multiple teams' season cuts (texas/oregon/michigan)
+  # while telling a fan nothing ("state" who?). The specific co-mentioned
+  # school survives via its other words (penn, tech, oklahoma...).
+  - state
+  # 2026-06-11 verifier pass: recruiting-profile scraper boilerplate that
+  # dominated the clemson weekly cut ("profile page source generator
+  # submitted").
+  - profile
+  - page
+  - generator
+  - submitted

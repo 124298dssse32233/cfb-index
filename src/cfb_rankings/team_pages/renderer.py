@@ -70,6 +70,8 @@ from .backometer_module import render_backometer_module, BACKOMETER_MODULE_CSS
 from .rent_free_module import render_rent_free_module, RENT_FREE_MODULE_CSS
 from .delusion_module import render_delusion_module, DELUSION_MODULE_CSS
 from .lexicon_module import render_lexicon, LEXICON_CSS
+from .mirror_module import render_mirror, MIRROR_MODULE_CSS
+from .voice_profile_module import render_voice_profile, VOICE_PROFILE_CSS
 from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
 from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
@@ -591,6 +593,13 @@ def _render_page(
     # The Lexicon — fan-voice keyness specimen (Language Layer Wave 1). Renders
     # only when the team clears the confidence floor (>=8 terms, >=200 docs).
     lexicon_html = render_lexicon(db, profile, snapshot) if db is not None else ""
+    # Rivalry Mirror night band — both fanbases' rival-mention language as a
+    # tug-of-war (Language Layer Wave 2). Renders only when >=3 terms survive
+    # on at least one side AND >=80 rival-mention docs total.
+    mirror_html = render_mirror(db, profile, snapshot) if db is not None else ""
+    # Fanbase Voice — five-trait personality percentiles vs the high-volume
+    # cohort (Language Layer Wave 2). Absent row = below cohort floor = skip.
+    voice_profile_html = render_voice_profile(db, profile, snapshot) if db is not None else ""
     # Delusion Premium night band — fan belief vs market title odds (Noir suite).
     # Renders only for the ~10 contenders with a live championship market.
     delusion_html = render_delusion_module(db, profile, snapshot) if db is not None else ""
@@ -687,10 +696,10 @@ def _render_page(
         "II", "Who We Are",
         program_prestige_html, trajectory_chip_html, hero_arc_stripe_html,
         peer_comparator_html, coaching_era_html, rituals_html,
-        cultural_anchors_html, fanbase_health_html, lexicon_html,
+        cultural_anchors_html, fanbase_health_html, voice_profile_html, lexicon_html,
         home_field_html,
         statement_wins_html, chronicle_html, chronicle_visuals_html,
-        savant_html, rivalry_html, rent_free_html, llm_chronicle_html,
+        savant_html, rivalry_html, rent_free_html, mirror_html, llm_chronicle_html,
     )
     review_season = snapshot.season_year if snapshot else None
     review_hint = (
@@ -800,6 +809,12 @@ body {{
 
 /* The Lexicon — fan-voice keyness specimen (Language Layer Wave 1) */
 {LEXICON_CSS}
+
+/* Rivalry Mirror night band — fight card (Group Chat Noir, Language Layer Wave 2) */
+{MIRROR_MODULE_CSS}
+
+/* Fanbase Voice — personality percentile card (Language Layer Wave 2) */
+{VOICE_PROFILE_CSS}
 
 /* Delusion Premium night band — belief vs market (Group Chat Noir) */
 {DELUSION_MODULE_CSS}

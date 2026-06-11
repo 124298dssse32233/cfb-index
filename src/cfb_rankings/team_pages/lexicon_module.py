@@ -30,6 +30,12 @@ _WALL_TERMS = 10
 _MIN_TERMS = 8
 _MIN_TEAM_DOCS = 200
 
+# Word-of-the-Week (WOW) row — Language Layer Wave 2 (C1). A weekly (week>0)
+# cut surfaces a single break-out term ONLY when it is both highly distinctive
+# (z >= this floor) AND from the live current week (so the row never shows a
+# stale spike from an earlier week). Absent => zero layout change vs wave 1.
+_WOW_Z_FLOOR = 4.0
+
 _BAND_LABELS = {
     "signature": "Signature — ≥10× the rest of college football",
     "characteristic": "Characteristic — 3–10×",
@@ -103,6 +109,64 @@ def _wall_rows(rows: list[Any]) -> str:
     return "".join(parts)
 
 
+def _wow_row_html(db, team_id: int, season: int) -> str:
+    """Word-of-the-Week row (Wave 2 C1).
+
+    Fetch the MAX(week>0) cut for this (team, season). Render a single extra
+    row ONLY when the top weekly term clears ``_WOW_Z_FLOOR`` AND its week is
+    the live current week per ``resolve_week(today).week``. Otherwise return ""
+    (no layout change vs wave 1). Wrapped so a missing weekly cut / table never
+    breaks the season render.
+    """
+    try:
+        from cfb_rankings.common.week import resolve_week
+
+        current_week = int(resolve_week().week)
+        week_row = db.query_one(
+            "SELECT MAX(week) AS wk FROM team_discourse_terms "
+            "WHERE team_id = :team_id AND season_year = :season AND week > 0",
+            {"team_id": team_id, "season": season},
+        )
+        if week_row is None:
+            return ""
+        try:
+            wk = week_row["wk"]
+        except (TypeError, KeyError, IndexError):
+            wk = week_row[0]
+        if wk is None:
+            return ""
+        wk = int(wk)
+        if wk != current_week:
+            return ""
+        top_row = db.query_one(
+            "SELECT term, z_score, rate_ratio FROM team_discourse_terms "
+            "WHERE team_id = :team_id AND season_year = :season AND week = :week "
+            "ORDER BY term_rank ASC LIMIT 1",
+            {"team_id": team_id, "season": season, "week": wk},
+        )
+    except Exception:
+        return ""
+
+    if top_row is None:
+        return ""
+    z_score = float(_field(top_row, "z_score") or 0.0)
+    if z_score < _WOW_Z_FLOOR:
+        return ""
+    term = str(_field(top_row, "term") or "")
+    if not term:
+        return ""
+    ratio = float(_field(top_row, "rate_ratio") or 0.0)
+
+    return (
+        f'<div class="lexicon-module__wow">'
+        f'<span class="lexicon-module__wow-eyebrow">Word of the Week</span>'
+        f'<span class="lexicon-module__wow-term">{escape(term)}</span>'
+        f'<span class="lexicon-module__wow-chip">×{ratio:.1f}</span>'
+        f'<span class="lexicon-module__wow-wk">wk {wk}</span>'
+        f'</div>'
+    )
+
+
 def render_lexicon(db, profile: Profile, snapshot: TeamSnapshot | None) -> str:
     if db is None or snapshot is None or not getattr(snapshot, "team_id", None):
         return ""
@@ -146,6 +210,7 @@ def render_lexicon(db, profile: Profile, snapshot: TeamSnapshot | None) -> str:
     top_ratio = float(_field(top, "rate_ratio") or 0.0)
 
     wall_html = _wall_rows(rows[:_WALL_TERMS])
+    wow_html = _wow_row_html(db, team_id, season)
 
     receipt_html = ""
     quote = _field(top, "sample_quote")
@@ -165,6 +230,7 @@ def render_lexicon(db, profile: Profile, snapshot: TeamSnapshot | None) -> str:
     <span class="lexicon-module__eyebrow">The Lexicon</span>
     <span class="lexicon-module__cohort">{team_doc_count:,} fan posts vs the field · {season} season</span>
   </div>
+  {wow_html}
   <div class="lexicon-module__specimen">
     <div class="lexicon-module__specimen-term">{escape(top_term)}</div>
     <div class="lexicon-module__specimen-chip">×{top_ratio:.1f} the field</div>
@@ -305,6 +371,52 @@ LEXICON_CSS = """
   text-transform: uppercase;
   color: var(--fg-muted);
   margin-top: 8px;
+}
+/* Word of the Week — Language Layer Wave 2 (C1). Absent => no row at all. */
+.lexicon-module__wow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  border: 1px solid var(--accent-primary, #c9a24a);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent-primary, #c9a24a) 8%, transparent);
+}
+.lexicon-module__wow-eyebrow {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #c9a24a);
+}
+.lexicon-module__wow-term {
+  font-family: var(--font-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(20px, 3.6vw, 30px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--fg-primary);
+  overflow-wrap: anywhere;
+}
+.lexicon-module__wow-chip {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-primary, #c9a24a);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.lexicon-module__wow-wk {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-left: auto;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 """
 

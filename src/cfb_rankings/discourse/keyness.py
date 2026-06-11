@@ -56,6 +56,17 @@ _QUOTE_TRIM = 1024
 _ROOT = Path(__file__).resolve().parents[3]
 _CITY_SUBS_SEED = _ROOT / "seeds" / "discourse_city_subs.yaml"
 _STRUCTURAL_SEED = _ROOT / "seeds" / "discourse_structural_terms.yaml"
+# Wave-2 editorial generic-term stoplist (thread boilerplate). Loaded here so the
+# season AND weekly cuts both exclude it. SEPARATE from the structural seed.
+_GENERIC_SEED = _ROOT / "seeds" / "discourse_generic_terms.yaml"
+
+# Wave-2 weekly-cut floors (A2). A team-week needs >= this many docs to get a
+# weekly cut; we keep the top _WEEKLY_TOP_N distinctive terms for it. The
+# per-term count floor is lower than the season MIN_COUNT because a single
+# week's corpus is ~1/15th of a season's.
+_WEEKLY_MIN_DOCS = 30
+_WEEKLY_TOP_N = 12
+_WEEKLY_MIN_COUNT = 5
 
 # Hard floor of city-sub exclusions; the seed yaml extends this list.
 _BASE_CITY_SUBS = ("Columbus", "Eugene", "AnnArbor")
@@ -142,6 +153,23 @@ def _load_structural_seed() -> dict[str, set[str]]:
         for slug, terms in (data.get("structural_terms") or {}).items():
             out[str(slug)] = {str(t).lower() for t in (terms or []) if t}
     return out
+
+
+def load_generic_terms() -> set[str]:
+    """Editorial generic-term stoplist (``seeds/discourse_generic_terms.yaml``).
+
+    Conversational / thread boilerplate that survived Wave-1 cleaning. Excluded
+    from ALL outputs (season + weekly cuts here; mirror + voice via _common).
+    Missing file / missing pyyaml -> empty set (never crashes).
+    """
+    terms: set[str] = set()
+    data = _load_yaml_seed(_GENERIC_SEED)
+    if isinstance(data, dict):
+        for value in data.get("generic_terms") or []:
+            if value:
+                terms.add(str(value).strip().lower())
+    terms.discard("")
+    return terms
 
 
 def _structural_terms_for(team_row: Any, seed: dict[str, set[str]]) -> set[str]:
@@ -234,6 +262,7 @@ def compute_team_keyness(
     top_n: int = 30,
     min_team_docs: int = 200,
     teams: list[str] | None = None,
+    weekly: bool = False,
     commit: bool = False,
 ) -> dict:
     """Compute + (optionally) store per-(team, season) distinctive terms.
@@ -244,14 +273,32 @@ def compute_team_keyness(
     ones get written. ``commit=False`` is a dry run: computes, prints term
     lists, writes nothing.
 
-    Idempotent per (team_id, season_year, week=0): DELETE then INSERT.
-    Returns ``{"teams_written", "terms_written", "docs_scanned", "docs_gated",
+    When ``weekly=True`` (A2), in addition to each requested season's week=0
+    cut, the engine computes the CURRENT week cut for any requested season that
+    contains today (per ``resolve_week``): the team's that-week docs vs the
+    SAME-SEASON rest-of-corpus, stored with ``week=<week number>`` (>0),
+    ``team-week`` doc floor ``_WEEKLY_MIN_DOCS`` and ``top_n`` ``_WEEKLY_TOP_N``.
+    Past seasons (no current week inside them) are skipped for the weekly cut.
+
+    Idempotent per (team_id, season_year, week): DELETE then INSERT (season cuts
+    delete week=0; weekly cuts delete their own week number). Returns
+    ``{"teams_written", "terms_written", "docs_scanned", "docs_gated",
     "seasons"}``.
     """
     season_list = sorted({int(s) for s in seasons})
     season_set = set(season_list)
     if not season_set:
         raise ValueError("compute_team_keyness: at least one season required")
+
+    # -- weekly target: the current week, only for the season that contains it --
+    # (A2) e.g. on 2026-06-10 resolve_week -> season_year 2025, week ~41. We only
+    # cut the weekly slice for a requested season whose current week is live.
+    current = resolve_week()
+    weekly_week: int | None = None
+    weekly_season: int | None = None
+    if weekly and current.season_year in season_set:
+        weekly_week = int(current.week)
+        weekly_season = int(current.season_year)
 
     # -- teams table: slug resolution + structural-term sets -----------------
     team_rows = db.query_all("SELECT * FROM teams")
@@ -283,6 +330,7 @@ def compute_team_keyness(
 
     structural_seed = _load_structural_seed()
     banlist = _load_banlist(db)
+    generic_terms = load_generic_terms()  # A1: editorial thread-boilerplate stoplist
     city_subs = load_city_subs()
 
     # -- doc -> [(team_id, toxicity)] prefetch (selected teams only) ---------
@@ -328,6 +376,12 @@ def compute_team_keyness(
     quote_pool: dict[tuple[int, int], list[tuple[int, int, str, str, str]]] = (
         defaultdict(list)
     )
+    # A2: weekly accumulators (only populated for the live weekly_week, if any).
+    # Key is team_id only — they are all (weekly_season, weekly_week) by construction.
+    week_team_grams: dict[int, Counter] = defaultdict(Counter)
+    week_team_tokens: dict[int, int] = defaultdict(int)
+    week_team_docs: dict[int, int] = defaultdict(int)
+    week_quote_pool: dict[int, list[tuple[int, int, str, str, str]]] = defaultdict(list)
 
     docs_scanned = 0
     docs_gated = 0
@@ -338,11 +392,17 @@ def compute_team_keyness(
             if len(day) != 10:
                 continue
             try:
-                season = resolve_week(day).season_year
+                wk = resolve_week(day)
+                season = wk.season_year
             except (ValueError, TypeError):
                 continue
             if season not in season_set:
                 continue
+            in_weekly = (
+                weekly_week is not None
+                and season == weekly_season
+                and int(wk.week) == weekly_week
+            )
             docs_scanned += 1
             if docs_scanned % 40000 == 0:
                 print(
@@ -384,6 +444,18 @@ def compute_team_keyness(
                     if len(pool) > _QUOTE_CAP:
                         pool.sort(key=lambda c: (c[0], c[1]))
                         del pool[_QUOTE_TRIM:]
+                if in_weekly:
+                    week_team_grams[tid].update(grams)
+                    week_team_tokens[tid] += len(grams)
+                    week_team_docs[tid] += 1
+                    if quotable:
+                        wpool = week_quote_pool[tid]
+                        wpool.append(
+                            (int(toxicity >= 0.3), len(display), lowered, display, source)
+                        )
+                        if len(wpool) > _QUOTE_CAP:
+                            wpool.sort(key=lambda c: (c[0], c[1]))
+                            del wpool[_QUOTE_TRIM:]
     print(
         f"compute_team_keyness: pass done — {docs_scanned} docs scanned, "
         f"{docs_gated} relevance-gated, seasons={season_list}",
@@ -421,7 +493,11 @@ def compute_team_keyness(
             z = delta / math.sqrt(variance)
             if z < Z_FLOOR:
                 continue
-            if _term_blocked(term, blocked) or _term_blocked(term, banlist):
+            if (
+                _term_blocked(term, blocked)
+                or _term_blocked(term, banlist)
+                or _term_blocked(term, generic_terms)
+            ):
                 continue
             rate_team = ca / max(n_team, 1)
             rate_rest = max(cb, 0.5) / n_rest
@@ -476,6 +552,103 @@ def compute_team_keyness(
             flush=True,
         )
 
+    # -- A2: weekly cuts — the team's current-week docs vs the SAME-SEASON ----
+    # rest-of-corpus (season counts minus the team-week counts). Floors:
+    # _WEEKLY_MIN_DOCS docs per team-week (no explicit-teams bypass — it is a
+    # data-quality floor, not a selection filter), _WEEKLY_MIN_COUNT per term,
+    # top _WEEKLY_TOP_N kept. Stored with week=<live week number> (>0).
+    weekly_to_write: dict[int, list[dict[str, Any]]] = {}
+    if weekly_week is not None:
+        n_season_w = season_tokens.get(weekly_season, 0)
+        global_counts_w = season_grams.get(weekly_season, Counter())
+        for tid, counts in sorted(week_team_grams.items()):
+            doc_n = week_team_docs[tid]
+            if doc_n < _WEEKLY_MIN_DOCS:
+                continue
+            n_team = week_team_tokens[tid]
+            n_rest = max(n_season_w - n_team, 1)
+            blocked = _structural_terms_for(by_id.get(tid, {}), structural_seed)
+
+            candidates = []
+            for term, ca in counts.items():
+                if ca < _WEEKLY_MIN_COUNT:
+                    continue
+                cg = global_counts_w.get(term, ca)
+                cb = max(cg - ca, 0)
+                aw = ALPHA0 * cg / max(n_season_w, 1)
+                if aw <= 0:
+                    aw = 0.01
+                denom_a = n_team + ALPHA0 - ca - aw
+                denom_b = n_rest + ALPHA0 - cb - aw
+                if denom_a <= 0 or denom_b <= 0:
+                    continue
+                delta = math.log((ca + aw) / denom_a) - math.log((cb + aw) / denom_b)
+                variance = 1.0 / (ca + aw) + 1.0 / (cb + aw)
+                z = delta / math.sqrt(variance)
+                if z < Z_FLOOR:
+                    continue
+                if (
+                    _term_blocked(term, blocked)
+                    or _term_blocked(term, banlist)
+                    or _term_blocked(term, generic_terms)
+                ):
+                    continue
+                rate_team = ca / max(n_team, 1)
+                rate_rest = max(cb, 0.5) / n_rest
+                ratio = rate_team / rate_rest
+                candidates.append(
+                    {
+                        "term": term,
+                        "mention_count": ca,
+                        "rest_count": cb,
+                        "z_score": round(z, 4),
+                        "rate_ratio": round(ratio, 2),
+                        "log2_ratio": round(math.log2(ratio), 4),
+                        "magnitude_band": _magnitude_band(ratio),
+                    }
+                )
+            if not candidates:
+                continue
+            candidates.sort(
+                key=lambda c: (-c["z_score"], -c["mention_count"], c["term"])
+            )
+            candidates = candidates[:_WEEKLY_TOP_N]
+
+            pool = sorted(
+                week_quote_pool.get(tid, []), key=lambda c: (c[0], c[1])
+            )
+            rows = []
+            for rank, cand in enumerate(candidates, start=1):
+                quote = None
+                quote_source = None
+                for _tox, _length, lowered, display, source in pool:
+                    if cand["term"] in lowered:
+                        quote = display
+                        quote_source = source or None
+                        break
+                rows.append(
+                    {
+                        "team_id": tid,
+                        "season_year": weekly_season,
+                        "week": weekly_week,
+                        "term_rank": rank,
+                        "team_doc_count": doc_n,
+                        "team_token_count": n_team,
+                        "sample_quote": quote,
+                        "sample_quote_source": quote_source,
+                        "model_version": MODEL_VERSION,
+                        "computed_at_utc": computed_at,
+                        **cand,
+                    }
+                )
+            weekly_to_write[tid] = rows
+            slug = _row_get(by_id.get(tid, {}), "slug") or tid
+            print(
+                f"  {slug} {weekly_season} wk{weekly_week}: {doc_n} docs, "
+                "top terms: " + ", ".join(r["term"] for r in rows[:6]),
+                flush=True,
+            )
+
     # -- write (idempotent DELETE + INSERT over the full recompute scope) -----
     # The DELETE covers every selected (team, requested season) cut, INCLUDING
     # cuts that no longer qualify (below the doc floor / no surviving terms).
@@ -506,16 +679,37 @@ def compute_team_keyness(
                         "AND week = 0",
                         {"team_id": tid, "season_year": season},
                     )
+                # A2: the weekly cut clears its own week number — including
+                # team-weeks that no longer qualify (same stale-row contract
+                # as the season DELETE above).
+                if weekly_week is not None:
+                    conn.execute(
+                        "DELETE FROM team_discourse_terms "
+                        "WHERE team_id = :team_id AND season_year = :season_year "
+                        "AND week = :week",
+                        {
+                            "team_id": tid,
+                            "season_year": weekly_season,
+                            "week": weekly_week,
+                        },
+                    )
             for (_tid, _season), rows in sorted(to_write.items()):
                 conn.executemany(insert_sql, rows)
                 terms_written += len(rows)
+            for _tid, rows in sorted(weekly_to_write.items()):
+                conn.executemany(insert_sql, rows)
+                terms_written += len(rows)
             conn.commit()
-        teams_written = len({tid for tid, _season in to_write})
+        teams_written = len(
+            {tid for tid, _season in to_write} | set(weekly_to_write)
+        )
     elif not commit:
         print(
             "compute_team_keyness: dry run — "
-            f"{sum(len(rows) for rows in to_write.values())} terms across "
-            f"{len(to_write)} (team, season) cuts NOT written (use --commit)",
+            f"{sum(len(rows) for rows in to_write.values())} season terms across "
+            f"{len(to_write)} (team, season) cuts + "
+            f"{sum(len(rows) for rows in weekly_to_write.values())} weekly terms "
+            f"across {len(weekly_to_write)} team-weeks NOT written (use --commit)",
             flush=True,
         )
 

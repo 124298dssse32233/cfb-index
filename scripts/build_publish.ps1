@@ -85,6 +85,30 @@ if ((Test-Path $ClsPython) -and (Test-Path $ClsModel)) {
 }
 
 # =========================================================================
+# E.7 Language Layer (Wave 1+2): fan-voice keyness (season + current-week
+#     cuts), rivalry mirror, and fanbase voice personality profiles. These
+#     write team_discourse_terms / team_discourse_mirror / fanbase_voice_profile
+#     for the team-page Lexicon, Mirror, and Voice modules. Best-effort —
+#     failures must NOT abort the publish (no -Critical), matching E.5/E.6.
+#     Season = CFB season year (Jul+ -> this year, else last year); PS 5.1 has
+#     no ternary, so compute with if/else.
+# =========================================================================
+if ((Get-Date).Month -ge 7) {
+    $DiscourseSeason = (Get-Date).Year
+} else {
+    $DiscourseSeason = (Get-Date).Year - 1
+}
+Run "discourse: keyness (season+weekly)" {
+    python manage.py compute-discourse-keyness --season $DiscourseSeason --weekly --commit
+}
+Run "discourse: rivalry mirror" {
+    python manage.py compute-discourse-mirror --season $DiscourseSeason --commit
+}
+Run "discourse: fanbase voice" {
+    python manage.py compute-fanbase-voice --season $DiscourseSeason --commit
+}
+
+# =========================================================================
 # F. Team feature rebuild (recomputes team_week_conversation_features)
 # =========================================================================
 Run "features: build-conversation-features --season=$($global:CurSeason) --week=$($global:SeasonWeek)" {

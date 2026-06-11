@@ -1295,7 +1295,49 @@ def build_parser() -> argparse.ArgumentParser:
         help="Distinctive terms kept per (team, season). Default 30.")
     discourse_keyness_parser.add_argument("--min-team-docs", type=int, default=200,
         help="Doc floor for the all-teams sweep. Default 200.")
+    discourse_keyness_parser.add_argument("--weekly", action="store_true",
+        help="Also compute the CURRENT week's cut (week>0 rows, 30-doc "
+             "team-week floor, top 12) for any requested season containing "
+             "today. Past seasons are skipped for the weekly cut.")
     discourse_keyness_parser.add_argument("--commit", action="store_true",
+        help="Write rows (default: dry run — compute + print only).")
+
+    discourse_mirror_parser = subparsers.add_parser(
+        "compute-discourse-mirror",
+        help=(
+            "Language Layer wave 2: rivalry-mirror keyness — each fanbase's "
+            "distinctive language inside +/-12-token windows around rival "
+            "mentions, both directions per rivalry_pairs row, written to "
+            "team_discourse_mirror for the team-page Mirror band. Dry run by "
+            "default; pass --commit to write."
+        ),
+    )
+    discourse_mirror_parser.add_argument("--season", action="append", required=True,
+        help="Season year to compute. Repeatable (--season 2024 --season 2025) "
+             "or a comma list (--season 2022,2023,2024,2025).")
+    discourse_mirror_parser.add_argument("--pairs", default=None,
+        help="Optional comma list of explicit pairs as slugA:slugB "
+             "(e.g. michigan:ohio-state,alabama:auburn). Overrides the "
+             "rivalry_pairs table read.")
+    discourse_mirror_parser.add_argument("--commit", action="store_true",
+        help="Write rows (default: dry run — compute + print only).")
+
+    fanbase_voice_parser = subparsers.add_parser(
+        "compute-fanbase-voice",
+        help=(
+            "Language Layer wave 2: fanbase voice personality aggregates "
+            "(optimism / joy / anger / doom / sarcasm) with cohort percentile "
+            "ranks, written to fanbase_voice_profile for the team-page Voice "
+            "module. Cohort = teams above --min-mentions that season. Dry run "
+            "by default; pass --commit to write."
+        ),
+    )
+    fanbase_voice_parser.add_argument("--season", action="append", required=True,
+        help="Season year to compute. Repeatable (--season 2024 --season 2025) "
+             "or a comma list (--season 2024,2025).")
+    fanbase_voice_parser.add_argument("--min-mentions", type=int, default=300,
+        help="Per-season mention floor for cohort membership. Default 300.")
+    fanbase_voice_parser.add_argument("--commit", action="store_true",
         help="Write rows (default: dry run — compute + print only).")
 
     seed_rivalry_pairs_parser = subparsers.add_parser(
@@ -6166,12 +6208,67 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
             top_n=args.top_n,
             min_team_docs=args.min_team_docs,
             teams=team_slugs,
+            weekly=args.weekly,
             commit=args.commit,
         )
         print(
             f"compute-discourse-keyness: teams={result['teams_written']} "
             f"terms={result['terms_written']} scanned={result['docs_scanned']} "
             f"gated={result['docs_gated']} seasons={result['seasons']} "
+            f"weekly={args.weekly} commit={args.commit}",
+            flush=True,
+        )
+        return
+
+    if args.command == "compute-discourse-mirror":
+        from cfb_rankings.discourse.mirror import compute_discourse_mirror
+
+        seasons = []
+        for chunk in args.season:
+            seasons.extend(int(s) for s in str(chunk).split(",") if s.strip())
+        pair_slugs: list[tuple[str, str]] | None = None
+        if args.pairs:
+            pair_slugs = []
+            for chunk in args.pairs.split(","):
+                chunk = chunk.strip()
+                if not chunk:
+                    continue
+                parts = [p.strip() for p in chunk.split(":") if p.strip()]
+                if len(parts) != 2:
+                    print(f"compute-discourse-mirror: bad pair {chunk!r} "
+                          "(want slugA:slugB) — skipped", flush=True)
+                    continue
+                pair_slugs.append((parts[0], parts[1]))
+        result = compute_discourse_mirror(
+            db,
+            seasons=seasons,
+            pairs=pair_slugs,
+            commit=args.commit,
+        )
+        print(
+            f"compute-discourse-mirror: pairs={result['pairs']} "
+            f"sides={result['sides_written']} terms={result['terms_written']} "
+            f"scanned={result['docs_scanned']} gated={result['docs_gated']} "
+            f"seasons={result['seasons']} commit={args.commit}",
+            flush=True,
+        )
+        return
+
+    if args.command == "compute-fanbase-voice":
+        from cfb_rankings.discourse.voice_profile import compute_fanbase_voice
+
+        seasons = []
+        for chunk in args.season:
+            seasons.extend(int(s) for s in str(chunk).split(",") if s.strip())
+        result = compute_fanbase_voice(
+            db,
+            seasons=seasons,
+            min_mentions=args.min_mentions,
+            commit=args.commit,
+        )
+        print(
+            f"compute-fanbase-voice: rows={result['rows_written']} "
+            f"cohorts={result['cohorts']} seasons={result['seasons']} "
             f"commit={args.commit}",
             flush=True,
         )
