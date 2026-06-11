@@ -24,6 +24,7 @@ from cfb_rankings.fan_metrics.backometer_render import (
     _DISPLAY_STACK,
     _MONO_STACK,
     _SANS_STACK,
+    og_card_meta,
 )
 
 BELIEF = "#9D6BFF"
@@ -83,7 +84,7 @@ def render_delusion_card_svg(row: dict[str, Any], *, season: int) -> str:
     track = 420.0
     belief_w = max(2.0, belief / 100.0 * track)
     market_w = max(2.0, market / 100.0 * track)
-    low_note = " · belief low-signal" if low else ""
+    low_note = " (low-signal)" if low else ""
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Delusion Premium: {escape(name)} fans {belief:.0f} vs market {market:.0f}%">
   <rect x="0" y="0" width="1200" height="675" rx="24" fill="{GROUND}"/>
   <rect x="1.5" y="1.5" width="1197" height="672" rx="23" fill="none" stroke="{HAIRLINE}" stroke-width="2"/>
@@ -112,7 +113,7 @@ def render_delusion_card_svg(row: dict[str, Any], *, season: int) -> str:
 
   <line x1="80" y1="608" x2="1120" y2="608" stroke="{HAIRLINE}" stroke-width="2"/>
   <text x="80" y="644" fill="{RECEIPT}" font-size="18"
-        font-family="{_MONO_STACK}">belief=Backometer{escape(low_note)} · market=Polymarket implied title odds · {escape(gloss)}</text>
+        font-family="{_MONO_STACK}">belief=Backometer{escape(low_note)} · market=Polymarket title odds</text>
   <text x="1120" y="644" fill="{RECEIPT}" text-anchor="end" font-size="18"
         font-family="{_MONO_STACK}">cfbindex.com</text>
 </svg>"""
@@ -176,13 +177,16 @@ def render_delusion_index_html(season: int, board: list[dict[str, Any]]) -> str:
             f"<td class='num'>{float(r['delusion_index']):+.0f}</td>"
             f"<td class='verdict v-{vk}'>{escape(word)}</td></tr>"
         )
+    _dp_desc = "Which fanbases believe more than the betting market does. Fan belief vs implied title odds."
+    _dp_img = f"/hub/delusion/{season}/{board[0]['team_slug']}.png" if board else None
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Delusion Premium — {season} · CFB Index</title>
-<meta name="description" content="Which fanbases believe more than the betting market does. Fan belief vs implied title odds.">
+<meta name="description" content="{escape(_dp_desc)}">
+{og_card_meta(f'Delusion Premium — {season}', _dp_desc, _dp_img)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">

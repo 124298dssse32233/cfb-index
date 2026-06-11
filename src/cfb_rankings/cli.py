@@ -1252,6 +1252,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     seed_rivalry_pairs_parser.add_argument("--pairs-file", default="seeds/rivalry_pairs.yaml")
 
+    rasterize_cards_parser = subparsers.add_parser(
+        "rasterize-cards",
+        help=(
+            "Rasterize the four fan-suite hubs' card SVGs to opaque PNG (og:image "
+            "unfurling). Headless Chrome; no-ops if Chrome is absent. Fan suite."
+        ),
+    )
+    rasterize_cards_parser.add_argument("--output-dir", default="output/site")
+
     compute_delusion_parser = subparsers.add_parser(
         "compute-delusion-premium",
         help=(
@@ -5988,6 +5997,16 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         )
         for miss in result["unresolved"]:
             print(f"  unresolved: {miss}", flush=True)
+        return
+
+    if args.command == "rasterize-cards":
+        from cfb_rankings.fan_metrics.rasterize import rasterize_suite_cards
+
+        result = rasterize_suite_cards(output_dir=args.output_dir)
+        print(
+            f"rasterize-cards: {result['written']}/{result['attempted']} PNGs written",
+            flush=True,
+        )
         return
 
     if args.command == "compute-delusion-premium":

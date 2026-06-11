@@ -19,8 +19,36 @@ from html import escape
 from pathlib import Path
 from typing import Any
 
+from cfb_rankings.common.head_chrome import absolute_url
 from cfb_rankings.db import Database
 from cfb_rankings.fan_metrics.backometer import MIN_SAMPLE, load_zone_labels
+
+
+def og_card_meta(title: str, description: str, image_site_path: str | None) -> str:
+    """Standard og:image + twitter:card block for a Noir hub page.
+
+    ``image_site_path`` is a site-relative path to the representative card PNG;
+    it is absolutized so social crawlers see a full URL (OG spec requirement).
+    """
+    from html import escape as _esc
+    tags = [
+        f'<meta property="og:title" content="{_esc(title)}">',
+        f'<meta property="og:description" content="{_esc(description)}">',
+        '<meta property="og:type" content="website">',
+        '<meta property="og:site_name" content="THE CFB INDEX">',
+        '<meta name="twitter:card" content="summary_large_image">',
+        f'<meta name="twitter:title" content="{_esc(title)}">',
+        f'<meta name="twitter:description" content="{_esc(description)}">',
+    ]
+    if image_site_path:
+        img = _esc(absolute_url(image_site_path))
+        tags += [
+            f'<meta property="og:image" content="{img}">',
+            '<meta property="og:image:width" content="1200">',
+            '<meta property="og:image:height" content="675">',
+            f'<meta name="twitter:image" content="{img}">',
+        ]
+    return "".join(tags)
 
 # Noir tokens (spec §3) — duplicated as constants because share-card SVGs are
 # standalone files that cannot reference site CSS variables.
@@ -316,7 +344,7 @@ def render_backometer_index_html(
             f'<div class="card">{row["_svg"]}'
             f'<div class="card-foot">'
             f'<span><a href="/teams/{slug}.html">{escape(str(row["team_name"]))} team page →</a></span>'
-            f'<span><a href="{slug}.svg" download>download card</a></span>'
+            f'<span><a href="{slug}.png" download>download card</a></span>'
             f"</div></div>\n"
         )
 
@@ -333,13 +361,19 @@ def render_backometer_index_html(
     )
 
     title = f"The Backometer — {season_year} week {week}"
+    og_desc = "Weekly fanbase belief, 0-100, from real fan conversations. We're so back / it's so over — with receipts."
+    og_img = (
+        f"/hub/backometer/{season_year}/{week}/{qualifying[0]['team_slug']}.png"
+        if qualifying else None
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)} · CFB Index</title>
-<meta name="description" content="Weekly fanbase belief, 0-100, computed from real fan conversations. We're so back / it's so over — with receipts.">
+<meta name="description" content="{escape(og_desc)}">
+{og_card_meta(title, og_desc, og_img)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">

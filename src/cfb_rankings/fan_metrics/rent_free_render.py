@@ -24,6 +24,7 @@ from cfb_rankings.fan_metrics.backometer_render import (
     _DISPLAY_STACK,
     _MONO_STACK,
     _SANS_STACK,
+    og_card_meta,
 )
 from cfb_rankings.fan_metrics.rent_free import fetch_rent_free_pairs, latest_rent_free_season
 
@@ -109,10 +110,7 @@ def render_rent_free_card_svg(pair: dict[str, Any], *, season: int) -> str:
     sub = f"in {_short(obsessed, 24)}'s head"
     ratio_label = pair["ratio_label"]
     bars = _obsession_bars_svg(pair, x0=80, x1=1120, y0=300, bar_h=56, gap=34)
-    receipt = (
-        f"n={pair['total']:,} cross-mentions · {season} season · rival-bucket · "
-        f"counts reflect collected conversation"
-    )
+    receipt = f"n={pair['total']:,} cross-mentions · {season} · rival-bucket tagged"
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Rent Free: {escape(rent_free)} lives rent free in {escape(obsessed)}'s head">
   <rect x="0" y="0" width="1200" height="675" rx="24" fill="{GROUND}"/>
   <rect x="1.5" y="1.5" width="1197" height="672" rx="23" fill="none" stroke="{HAIRLINE}" stroke-width="2"/>
@@ -221,18 +219,24 @@ def render_rent_free_index_html(season: int, pairs: list[dict[str, Any]]) -> str
             f'{escape(pair["rent_free"]["name"])} →</a> · '
             f'<a href="/teams/{escape(pair["obsessed"]["slug"])}.html">'
             f'{escape(pair["obsessed"]["name"])} →</a></span>'
-            f'<span><a href="{escape(pslug)}.svg" download>download card</a></span>'
+            f'<span><a href="{escape(pslug)}.png" download>download card</a></span>'
             f"</div></div>\n"
         )
 
     title = f"Rent Free — {season}"
+    og_desc = "Which rival fanbase talks about you most. Pairwise obsession asymmetry from real fan conversations."
+    og_img = (
+        f"/hub/rent-free/{season}/{pairs[0]['a_slug']}-vs-{pairs[0]['b_slug']}.png"
+        if pairs else None
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)} · CFB Index</title>
-<meta name="description" content="Which rival fanbase talks about you most. Pairwise obsession asymmetry from real fan conversations.">
+<meta name="description" content="{escape(og_desc)}">
+{og_card_meta(title, og_desc, og_img)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">

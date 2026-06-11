@@ -7316,6 +7316,16 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     except Exception as exc:
         _report_progress(f"Delusion Premium board build skipped: {exc}")
 
+    # Rasterize all four suites' card SVGs -> opaque PNG (og:image unfurling in
+    # chats). Headless Chrome; no-ops cleanly if Chrome is absent. Runs after
+    # all card SVGs above are written.
+    try:
+        from cfb_rankings.fan_metrics.rasterize import rasterize_suite_cards
+        r = rasterize_suite_cards(output_dir=site_root)
+        _report_progress(f"Share-card PNGs: {r['written']}/{r['attempted']} rasterized.")
+    except Exception as exc:
+        _report_progress(f"Share-card rasterization skipped: {exc}")
+
     # R4 — Dynasty Heatmap. Renders /history/heatmap/ (page + standalone SVG).
     # Programs × years × within-year-percentile. The "fifty years in one
     # image" first-visit converter from the roadmap.

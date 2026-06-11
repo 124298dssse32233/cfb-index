@@ -26,6 +26,7 @@ from cfb_rankings.fan_metrics.backometer_render import (
     _DISPLAY_STACK,
     _MONO_STACK,
     _SANS_STACK,
+    og_card_meta,
 )
 from cfb_rankings.utils import slugify
 
@@ -122,8 +123,8 @@ def render_aura_card_svg(row: dict[str, Any], *, season: int) -> str:
     bars = _pctl_bars_svg(row, x0=80, x1=1120, y0=330, bar_h=58, gap=40)
     sub = " · ".join(x for x in (pos, team) if x)
     receipt = (
-        f"n={int(row['mention_count']):,} mentions · cohort: {escape(str(row['cohort_label']))} · "
-        f"perception=conversation volume, production={escape(str(row['production_metric']))}"
+        f"n={int(row['mention_count']):,} mentions · {escape(str(row['cohort_label']))} · "
+        f"production={escape(str(row['production_metric']))}"
     )
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Aura: {escape(name)} {escape(verdict)} {tax_str}">
   <rect x="0" y="0" width="1200" height="675" rx="24" fill="{GROUND}"/>
@@ -237,13 +238,21 @@ def render_aura_index_html(season: int, board: dict[str, list[dict[str, Any]]]) 
     over = table(board["overhyped"], limit=10) if board["overhyped"] else "<p class='lede'>No qualifying overhyped players this week.</p>"
     under = table(board["underrated"], limit=10) if board["underrated"] else "<p class='lede'>No qualifying underrated players this week.</p>"
 
+    title = f"Him Watch — Aura {season}"
+    og_desc = "Aura: which players fans hype vs what the tape says. Perception minus production = aura tax."
+    top = board["him_watch"][0] if board["him_watch"] else None
+    og_img = (
+        f"/hub/him-watch/{season}/{slugify(str(top['full_name']))}-{int(top['player_id'])}.png"
+        if top else None
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Him Watch — Aura {season} · CFB Index</title>
-<meta name="description" content="Aura: which players fans hype vs what the tape says. Perception minus production = aura tax.">
+<title>{escape(title)} · CFB Index</title>
+<meta name="description" content="{escape(og_desc)}">
+{og_card_meta(title, og_desc, og_img)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
