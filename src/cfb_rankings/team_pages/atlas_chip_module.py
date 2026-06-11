@@ -90,15 +90,18 @@ def render_atlas_chip(db: Any, profile: Any, snapshot: Any) -> str:
     if db is None or profile is None:
         return ""
 
-    # Resolve team_id using same fallback chain as era_chapter_module
+    # Prefer the snapshot's team_id: it is resolved by slug from the teams table
+    # (canonical), whereas profile.team_id comes from hand-authored YAML that goes
+    # stale when team_ids are reassigned on re-ingest (29 profiles were stale on
+    # 2026-06-11 -- e.g. texas profile said 170, which is now Clark Atlanta).
     tid = 0
     try:
-        tid = int(profile.team_id)
+        tid = int(snapshot.team_id)
     except (AttributeError, TypeError, ValueError):
         tid = 0
     if not tid:
         try:
-            tid = int(snapshot.team_id)
+            tid = int(profile.team_id)
         except (AttributeError, TypeError, ValueError):
             tid = 0
     if not tid:
