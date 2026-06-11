@@ -220,6 +220,16 @@ Run "site: render-today-in-history" { python manage.py render-today-in-history }
 # =========================================================================
 Run "status: fanintel-status" { python manage.py fanintel-status }
 
+# Baseline-aware coverage gate for COMPUTED module tables (Atlas, Eras, KWIC,
+# keyness, Voice, lexicon, mood, AI cards). verify_source_health_floors watches
+# raw SOURCE ingestion; this watches the DERIVED tables the modules render from
+# -- the layer 2026-06-11 fell through (compute died, sources green, modules
+# silently blank). NON-critical: a dark module opens a gh issue but must never
+# block the must-publish deploy. Standalone raw-sqlite3 (survives a broken main).
+Run "verify: module coverage (computed tables vs baseline)" {
+    python scripts/verify_module_coverage.py --open-issue
+}
+
 # =========================================================================
 # K. Publish to Vercel (gated + smoke-checked + alias-rotated, own log).
 #    Skipped if the build failed so a broken build can never deploy.
