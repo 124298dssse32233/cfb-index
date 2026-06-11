@@ -309,22 +309,60 @@ def test_index_mailbag_basic(db: Database) -> None:
 
 
 def test_index_conferences_basic(db: Database) -> None:
+    """A populated conference_slug is honored (legacy path, no site_dir)."""
     db.execute(
         "INSERT INTO conferences (conference_id, conference_name, "
-        "conference_short_name, conference_slug, level_code, member_count, "
+        "conference_short_name, conference_slug, level_code, "
         "is_active) VALUES (1, 'Southeastern Conference', 'SEC', 'sec', "
-        "'FBS', 16, 1)",
+        "'FBS', 1)",
     )
     items = index_conferences(db)
     assert len(items) == 1
     sec = items[0]
     assert sec.url == "/conferences/sec.html"
     assert "FBS" in sec.subtitle
-    assert "16 teams" in sec.subtitle
+    assert "SEC" in sec.subtitle  # short name, since != cleaned title
+
+
+def test_index_conferences_derives_real_page_slug(db: Database) -> None:
+    """With conference_slug NULL (production reality), derive
+    '{level}-{kebab(name)}' to match the actual rendered page filename."""
+    db.execute(
+        "INSERT INTO conferences (conference_id, conference_name, "
+        "conference_short_name, level_code, is_active) "
+        "VALUES (1, 'ACC', 'ACC', 'FBS', 1)",
+    )
+    items = index_conferences(db)  # no site_dir → emit by derivation
+    assert len(items) == 1
+    assert items[0].url == "/conferences/fbs-acc.html"
+
+
+def test_index_conferences_site_dir_gates_on_page_existence(
+    db: Database, tmp_path: Path,
+) -> None:
+    """When site_dir is given, only conferences whose page file exists emit —
+    no dead links in the search index."""
+    conf_dir = tmp_path / "conferences"
+    conf_dir.mkdir()
+    (conf_dir / "fbs-sec.html").write_text("<html></html>", encoding="utf-8")
+    # SEC has a page; the Phantom League does not.
+    db.execute(
+        "INSERT INTO conferences (conference_id, conference_name, "
+        "conference_short_name, level_code, is_active) "
+        "VALUES (1, 'SEC', 'SEC', 'FBS', 1)",
+    )
+    db.execute(
+        "INSERT INTO conferences (conference_id, conference_name, "
+        "conference_short_name, level_code, is_active) "
+        "VALUES (2, 'Phantom League', 'PL', 'FBS', 1)",
+    )
+    items = index_conferences(db, site_dir=tmp_path)
+    assert [i.url for i in items] == ["/conferences/fbs-sec.html"]
 
 
 def test_index_conferences_skips_no_slug(db: Database) -> None:
-    """Conferences without a slug AND without short_name → skipped."""
+    """A conference with a name but no level (undeducible page) and no
+    explicit slug → skipped, never guessed."""
     db.execute(
         "INSERT INTO conferences (conference_id, conference_name) "
         "VALUES (1, 'Mystery League')",

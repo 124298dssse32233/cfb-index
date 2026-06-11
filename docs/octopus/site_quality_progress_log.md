@@ -11,7 +11,7 @@
 |---|---|---|---|---|
 | 0.1 | Box build generates /offseason/ + /film-room/ | ✅ done | `3647cdb` | hub scripts wired into build_publish.ps1 post-build block; both emit non-stub (offseason 90KB/125 rows/5 boards, film-room 13KB/4 boards); PS parses clean |
 | 0.2 | Canonical build manifest (full command-set parity) | ✅ done (infra) | `622e548` | `build_manifest.py` (15 nav + 9 section routes + 15-command parity table) + `verify_build_manifest.py` (15/15 pass, redirect-aware) wired warn-only into box build; PS parses clean |
-| 0.2b | Reconcile safe box-omitted RENDER gaps (render-daily/-edition; canon) | ⏳ follow-up | — | surfaced by 0.2: /canon/ + /daily/ frozen 2026-04-26; canon_lists/entries=0 (don't blind-add render-canon-all) |
+| 0.2b | Reconcile safe box-omitted RENDER gaps (search-index; canon/daily/edition) | ✅ done | (this commit) | **WIRED `build-search-index`** (fixed broken site search — index file absent, cmdk.js on every page) + fixed `index_conferences` (real schema + page-existence gate → 72 conferences, 0 dead links); index 9.4k items. **NOT wired** render-canon-all (0 rows→clobber) / render-daily (defaults to empty today→clobber); render-edition DEFERRED to supervised visual review. 74 tests pass |
 | 0.3 | Smoke + build assertions on every nav target | ✅ done | `4ed8f28` | smoke now covers all 15 nav routes (+7 added); build-assertion side = WP-0.2 verifier (warn) → WP-0.6 (hard). Found 5 healthy-but-unmonitored routes (nfl-pipeline/archive/matchups/spotlight/the-room) |
 | 0.6 | Pre-deploy snapshot-completeness guard (Gate B) | ✅ done | (this commit) | hard `--strict` route gate added to publish_to_vercel.ps1 before deploy; verified fail-closed (empty snapshot → 15 MISSING → exit 1/abort); PS parses clean |
 | 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ✅ done | (this commit) | DATA_SOURCES cadence column now measured-from-scrape_health (Kalshi/SeatGeek "Not collecting", YT-comments/GDELT-tone flagged, Polymarket prob caveat); AGENTS.md gets a STALE→CLAUDE.md banner |
@@ -20,7 +20,7 @@
 | **1.4** | Fix Polymarket prob_yes write-side parse | ✅ done | `5dea305` | `prediction_markets.py` json.loads JSON-string outcomePrices; 3 unit tests pass (string→0.125, list→0.4, malformed→safe); additive, read side unaffected; takes effect next collect |
 | **3.2** | Hide Live Signal Flow placeholder | ✅ done | (this commit) | `live_signal_flow.py` returns "" when no real events (was a perpetual "awaiting" scaffold); verified empty for 3 real players; template `{… or ""}` + alias = no wrapper/gap; real-data path preserved |
 
-Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked. (Phase 0 complete; Phase 1 started.)
+Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked. (Phase 0 + 0.2b complete; Phase 1 started.)
 
 ---
 
@@ -125,3 +125,19 @@ An independent reviewer (full repo access) audited the Phase-0 diff. **Verdict: 
 - Injection is a direct alias (`render_live_signal_flow as _render_signal_v2`, reporting.py:9240) → no wrapper; template renders `{… or ""}` (reporting.py:19961) → empty collapses with no leftover shell/gap.
 **Blast radius:** one function early-return. **Rollback:** remove the `if not any_value: return ""`.
 **Note:** full visual before/after deferred to a build/preview pass; template-level removal verified clean (no empty container).
+
+### WP-0.2b — Reconcile box-omitted RENDER gaps (per-command decision) — ✅ 2026-06-11
+**Problem (CP-1 family):** `build_manifest.COMMAND_PARITY` flagged 4 network-free RENDER commands the box omits (`render-canon-all`, `render-daily`, `render-edition`, `build-search-index`). Each is a candidate clobber: box deploys are full snapshots, so a box-omitted render leaves prod content stale/missing — but blindly adding a render that emits *empty* would clobber a stale-but-real page with nothing. Decided each on first-party evidence.
+
+**Verified mechanics (2026-06-11):** `build-site` does NOT wipe `output/site` wholesale — it overwrites what it manages and leaves other dirs untouched. Proof: after a same-day build, `index.html`/`rankings` mtime = 2026-06-11 while `canon/index.html` = 2026-04-26 and `daily/index.html` = 2026-04-26 (frozen survivors). So a present-but-frozen page is preserved by *not* wiring; the risk is a wired render that writes empty.
+
+**Decisions:**
+- **`build-search-index` → WIRED** (`build_publish.ps1`, after the section-patch block, non-Critical). `output/site/search-index.json` was **absent** while `output/site/assets/cmdk.js` (the Cmd-K search box) ships on every page and fetches `/search-index.json` → **site-wide search was silently dead in prod** (fetch 404 → `cmdk.js` `.catch` → empty results; verified graceful, no JS error). Scratch-render (to a path *inside* output/site so the gate sees real pages): valid 9,483-item / 1.39 MB index, well-formed. Zero clobber risk — the file is *missing*, not present-good.
+- **`index_conferences` bug fixed** (surfaced by the scratch render: `index_conferences: no such column: display_name`). The function queried `display_name`/`member_count` (don't exist) and keyed URLs on `conference_slug` (NULL for all 80 rows; real pages are `{level}-{kebab(name)}.html` e.g. `fbs-sec.html`). It silently returned `[]` in prod while its test passed against an invented fixture. Rewrote against the real schema, derive the page slug the renderer uses (`_conference_slug` mirror), and — when `site_dir` is known — emit only conferences whose page file exists (**0 dead links**, verified: 72 conferences, all resolve). Threaded `site_dir` through `build_search_index`/`write_search_index` (= `output/site`). Updated the test that asserted the `member_count` fiction; added 2 page-existence-gate tests.
+- **`render-canon-all` → NOT wired.** `canon_lists`=`canon_entries`=0. Rendering with 0 rows would clobber the frozen-but-real 21 KB `/canon/`. Blocked on upstream canon data, not a build gap.
+- **`render-daily` → NOT wired.** Defaults to TODAY, which has *"no takes found in DB"* (the 2 `daily_editions` are 2026-05-12/13, needing explicit `--date`). A box build would render an empty current-day `/daily/` over the frozen 2026-04-26 page. Refreshing `/daily/` is a supervised editorial task.
+- **`render-edition` → DEFERRED** to supervised visual review (per-edition pages frozen 2026-04-25; editorial surface; design-quality floor — a tie goes to existing).
+
+**Files:** `scripts/build_publish.ps1` (+1 Run step, PS parses clean), `scripts/build_manifest.py` (COMMAND_PARITY decisions recorded; `build-search-index` → `box`), `src/cfb_rankings/cmdk/index_builder.py` (conferences fix + `site_dir` thread), `tests/test_cmdk_index_builder.py` (+2 tests, 1 corrected).
+**Verification:** `pytest tests/test_cmdk_index_builder.py tests/test_cmdk_assets.py tests/test_prediction_markets.py` → **74 passed**; full suite collects 1827, no import breakage; conferences scratch-render = 72 items / 0 404s; PS parse OK; scratch files removed; **no DB mutation, no deploy.**
+**Blast radius:** one new non-Critical build step + one indexer function. **Rollback:** drop the `build-search-index` Run line; `git checkout` the index_builder/test changes.

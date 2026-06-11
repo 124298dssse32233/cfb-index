@@ -85,15 +85,28 @@ STUB_BYTE_THRESHOLD = 1500
 COMMAND_PARITY: list[dict[str, str]] = [
     # --- network-free RENDER gaps (box-omitted; cause stale/missing content) ---
     {"cmd": "render-canon-all", "status": "GAP-render",
-     "note": "/canon/ frozen 2026-04-26. BUT canon_lists/canon_entries=0 rows — adding "
-             "this could clobber stale-but-present content with empty. Verify canon "
-             "data before wiring. Do NOT blind-add."},
+     "note": "DECIDED 2026-06-11 (WP-0.2b): NOT wired. canon_lists=canon_entries=0 "
+             "and build-site does NOT wipe /canon/ (verified: canon/index.html mtime "
+             "frozen 2026-04-26 while index/rankings rebuilt same day) — so the real "
+             "21KB page survives. Rendering with 0 rows would CLOBBER it with empty. "
+             "Blocked on upstream canon data, not a build gap."},
     {"cmd": "render-daily", "status": "GAP-render",
-     "note": "/daily/ frozen 2026-04-26. daily_editions=2 rows. Verify render is non-empty before wiring."},
+     "note": "DECIDED 2026-06-11 (WP-0.2b): NOT wired. render-daily defaults to TODAY, "
+             "which has 'no takes found in DB' (daily_editions=2 are 2026-05-12/13, "
+             "needing explicit --date) — a box build would render an empty current-day "
+             "/daily/ and clobber the frozen-but-real 2026-04-26 page. Refreshing /daily/ "
+             "is a supervised editorial task (visual review), not a blind build step."},
     {"cmd": "render-edition", "status": "GAP-render",
-     "note": "Per-edition pages. editions=4 rows. Box runs build-editions-archive (index) but not per-edition render."},
-    {"cmd": "build-search-index", "status": "GAP-render",
-     "note": "Cmd-K search index. Box omits → search may be stale. Verify consumer before wiring."},
+     "note": "DEFERRED 2026-06-11 (WP-0.2b): per-edition pages frozen 2026-04-25, "
+             "editions=4. Editorial visual surface — refresh needs supervised before/"
+             "after visual review per the design-quality floor. Box does run "
+             "build-editions-archive (the index)."},
+    {"cmd": "build-search-index", "status": "box",
+     "note": "WIRED 2026-06-11 (WP-0.2b) into build_publish.ps1. Was box-omitted while "
+             "output/site/assets/cmdk.js (Cmd-K, on every page) fetches /search-index.json "
+             "→ site search was silently DEAD in prod (index file absent). Now emits 9.4k "
+             "items incl. 72 conferences (index_conferences bug also fixed: real schema + "
+             "page-existence gate, 0 dead links). Non-Critical; cmdk.js degrades gracefully."},
     # --- network-free DERIVED gaps (route through Phase-1 WPs, not here) --------
     {"cmd": "prediction-ledger", "status": "GAP-derive",
      "note": "resolve_due_predictions (cli.py:7543) populates prediction_ledger (=0). "

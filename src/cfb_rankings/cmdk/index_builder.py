@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import logging as _log
+import re
 import sqlite3
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -277,13 +278,52 @@ def index_mailbag(db: "Database") -> list[SearchItem]:
 # Conferences
 # ---------------------------------------------------------------------------
 
-def index_conferences(db: "Database") -> list[SearchItem]:
-    """Index conferences table."""
+# Conference standalone-name normalization + page-slug derivation mirror
+# reporting.py::_clean_conference_name / ::_conference_slug — keep in sync.
+# WHY (WP-0.2b, 2026-06-11): conference detail pages are named
+# "{level}-{kebab(name)}.html" (e.g. "fbs-sec.html"), NOT
+# "{conference_slug}.html". In production conferences.conference_slug is NULL
+# for every row, and the previous SELECT also referenced display_name /
+# member_count columns that do not exist — so the query raised
+# OperationalError and conferences were silently dropped from search entirely.
+# We now read only real columns, derive the page slug the renderer uses, and
+# (when a site_dir is known) emit only conferences whose page file exists so
+# search never links to a 404.
+_CONF_STANDALONE = {
+    "FBS": "FBS Independents", "FCS": "FCS Independents",
+    "DII": "Independent DII", "DIII": "Independent DIII",
+}
+
+
+def _conf_clean_name(value: str) -> str:
+    v = (value or "").strip()
+    return _CONF_STANDALONE.get(v, v)
+
+
+def _conf_page_slug(conference_name: str, level_code: str) -> str:
+    raw = f"{level_code} {conference_name}".lower().strip()
+    raw = raw.replace("&", " and ").replace("'", "").replace(".", "")
+    return re.sub(r"[^a-z0-9]+", "-", raw).strip("-") or f"{level_code.lower()}-conference"
+
+
+def index_conferences(
+    db: "Database",
+    *,
+    site_dir: str | Path | None = None,
+) -> list[SearchItem]:
+    """Index active conferences as search items.
+
+    Resolves each conference to its real detail-page slug
+    ("{level}-{kebab(name)}", e.g. "fbs-sec"). A populated ``conference_slug``
+    column is honored first (legacy/test path). When ``site_dir`` is provided
+    the candidate page must exist on disk or the entry is skipped — this keeps
+    dead links out of the index even as conference coverage changes.
+    """
     try:
         rows = db.query_all(
             """
             SELECT conference_id, conference_name, conference_short_name,
-                   conference_slug, level_code, display_name, member_count
+                   conference_slug, level_code
             FROM conferences
             WHERE is_active IS NULL OR is_active = 1
             ORDER BY conference_name
@@ -292,27 +332,46 @@ def index_conferences(db: "Database") -> list[SearchItem]:
     except sqlite3.OperationalError as e:
         log.warning("index_conferences: %s", e)
         return []
+
+    conf_dir = (Path(site_dir) / "conferences") if site_dir is not None else None
     items: list[SearchItem] = []
+    seen: set[str] = set()
     for r in rows:
-        slug = r["conference_slug"] or r["conference_short_name"]
+        name = _conf_clean_name(r["conference_name"] or r["conference_short_name"] or "")
+        level = (r["level_code"] or "").strip()
+        # Candidate slugs, most-specific first: explicit column, then derived
+        # ("{level}-{kebab(name)}"). A name with no level can't map to a real
+        # page (pages are always level-prefixed), so it is not derivable.
+        candidates: list[str] = []
+        if r["conference_slug"]:
+            candidates.append(r["conference_slug"])
+        if name and level:
+            candidates.append(_conf_page_slug(name, level))
+
+        slug: str | None = None
+        if conf_dir is not None:
+            for cand in candidates:
+                if (conf_dir / f"{cand}.html").is_file():
+                    slug = cand
+                    break
+        elif candidates:
+            slug = candidates[0]
         if not slug:
             continue
-        name = (
-            r["display_name"]
-            or r["conference_name"]
-            or r["conference_short_name"]
-            or slug
-        )
-        level = (r["level_code"] or "").upper()
-        n = r["member_count"]
-        subtitle_parts = [level] if level else []
-        if n is not None:
-            subtitle_parts.append(f"{n} teams")
-        subtitle = " · ".join(subtitle_parts)
+
+        url = f"/conferences/{slug}.html"
+        if url in seen:
+            continue
+        seen.add(url)
+
+        subtitle = level.upper()
+        short = (r["conference_short_name"] or "").strip()
+        if short and short.upper() != (name or "").upper():
+            subtitle = f"{subtitle} · {short}".strip(" ·")
         items.append(SearchItem(
             kind="conference",
-            title=name,
-            url=f"/conferences/{slug}.html",
+            title=name or slug,
+            url=url,
             subtitle=subtitle,
             tier=3,
         ))
@@ -368,15 +427,21 @@ def build_search_index(
     players_max: int = 15000,
     season_year: int | None = None,
     profiled_slugs: frozenset[str] | None = None,
+    site_dir: str | Path | None = None,
 ) -> list[SearchItem]:
     """Build the full search index. Order matters for stable JSON output:
-    profiles → teams → conferences → editions → mailbag → players → methodology."""
+    profiles → teams → conferences → editions → mailbag → players → methodology.
+
+    ``site_dir`` (the output site root, e.g. ``output/site``) lets indexers
+    that link to per-entity detail pages verify the page exists before emitting
+    a result — currently used by ``index_conferences`` to avoid dead links.
+    """
     if profiled_slugs is None:
         profiled_slugs = _discover_profiled_slugs()
     items: list[SearchItem] = []
     items += index_profiles(db, profiled_slugs=profiled_slugs)
     items += index_teams(db, profiled_slugs=profiled_slugs)
-    items += index_conferences(db)
+    items += index_conferences(db, site_dir=site_dir)
     items += index_editions(db)
     items += index_mailbag(db)
     items += index_players(db, players_max=players_max, season_year=season_year)
@@ -398,17 +463,20 @@ def write_search_index(
     ``minify=False`` emits indent=2 for inspection; default is minified
     one-line for production payload.
     """
+    out_path = Path(output_path)
     items = build_search_index(
         db,
         players_max=players_max,
         season_year=season_year,
         profiled_slugs=profiled_slugs,
+        # The site root is the parent of the index file (output/site/), which
+        # is exactly where per-entity detail pages live for existence checks.
+        site_dir=out_path.parent,
     )
     payload = {
         "items": [item.as_dict() for item in items],
         "schema_version": 1,
     }
-    out_path = Path(output_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     if minify:
         out_path.write_text(

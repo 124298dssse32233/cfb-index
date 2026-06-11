@@ -225,6 +225,15 @@ Run "site: render-wire --days 30" { python manage.py render-wire --days 30 }
 Run "site: render-today-in-history" { python manage.py render-today-in-history }
 Run "site: build-offseason-leaderboards" { python scripts/build_offseason_leaderboards.py }
 Run "site: build-film-room" { python scripts/build_film_room.py }
+# Cmd-K search index. output/site/assets/cmdk.js ships on every page and
+# fetches /search-index.json, but the box never emitted that file (only the
+# retiring publish_site.yml did) -- so site-wide search was silently DEAD in
+# production (fetch 404 -> cmdk.js .catch -> empty results). Same box-omits-a-
+# command class as /offseason/ + /film-room/ (WP-0.2b, 2026-06-11). Writes into
+# the freshly-built output/site, so it runs after build-site with the section
+# patches. Non-Critical: a stale/missing index degrades gracefully (cmdk.js
+# warns + shows nothing) and must never block the deploy.
+Run "site: build-search-index" { python manage.py build-search-index }
 
 # =========================================================================
 # J. Status dump for the log trailer
