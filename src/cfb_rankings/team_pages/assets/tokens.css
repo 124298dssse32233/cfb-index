@@ -17,6 +17,7 @@
  * rendered in Inter or Source Serif Pro instead of the stadium-scoreboard
  * display face the brief calls for. display=swap prevents FOIT. */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100..900&display=swap');
 
 
 :root {

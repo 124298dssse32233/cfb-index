@@ -109,6 +109,20 @@ Run "discourse: fanbase voice" {
 }
 
 # =========================================================================
+# E.8 Language Layer Wave 3: season eras vocabulary, player descriptors,
+#     and standalone fan-voice board page. Best-effort — no -Critical.
+# =========================================================================
+Run "discourse: team eras" {
+    python manage.py compute-team-eras --season $DiscourseSeason --season ($DiscourseSeason - 1) --commit
+}
+Run "discourse: player descriptors" {
+    python manage.py compute-player-descriptors --season $DiscourseSeason --commit
+}
+Run "discourse: fan voice board" {
+    python manage.py build-fan-voice-board --season $DiscourseSeason
+}
+
+# =========================================================================
 # F. Team feature rebuild (recomputes team_week_conversation_features)
 # =========================================================================
 Run "features: build-conversation-features --season=$($global:CurSeason) --week=$($global:SeasonWeek)" {

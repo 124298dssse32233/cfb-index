@@ -324,7 +324,7 @@ LEXICON_CSS = """
 }
 .lexicon-module__row:last-child { border-bottom: none; }
 .lexicon-module__term {
-  font-family: var(--font-serif, 'Source Serif Pro', Georgia, serif);
+  font-family: 'Hepta Slab', var(--font-serif, 'Source Serif Pro', Georgia, serif);
   color: var(--fg-primary);
   line-height: 1.1;
   min-width: 0;

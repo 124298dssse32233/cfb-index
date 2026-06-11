@@ -1,0 +1,41 @@
+# Bias audit gate for player descriptor terms.
+# Any term matching one of these (exact or substring) is HARD-BLOCKED
+# from player_discourse_terms outputs. Extend via PR only.
+# chronicle_banlist (active=1 rows) provides additional coverage.
+descriptor_blocklist:
+  # Physical appearance / body
+  - tall
+  - short
+  - big
+  - small
+  - fat
+  - slim
+  - skinny
+  - weight
+  - heavy
+  - light
+  - thick
+  - thin
+  - size
+  - looks
+  - ugly
+  - cute
+  - pretty
+  - handsome
+  # Race / ethnicity
+  - black
+  - white
+  - brown
+  - race
+  - racial
+  - ethnic
+  - latino
+  - hispanic
+  - asian
+  # Other identity categories
+  - gay
+  - straight
+  - queer
+  - trans
+  - gender
+  - sex

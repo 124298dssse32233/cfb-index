@@ -9336,6 +9336,12 @@ def build_player_page_data_map(
                 page_data["new_aura_html"] = render_player_aura(db, player_id)
             except Exception:
                 page_data["new_aura_html"] = ""
+            # In Their Words — fan-voice player descriptors (Language Layer Wave 3)
+            try:
+                from cfb_rankings.player_pages.in_their_words import render_in_their_words
+                page_data["new_in_their_words_html"] = render_in_their_words(db, player_id)
+            except Exception:
+                page_data["new_in_their_words_html"] = ""
             page_data["new_game_log_html"] = _render_game_log_v2(
                 db, player_id, int(summary["season_year"]),
                 _position, _primary_team_id,
@@ -19938,6 +19944,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section" id="player-standing">
         {player_data.get("new_standing_rail_html") or ""}
         {player_data.get("new_aura_html") or ""}
+        {player_data.get("new_in_their_words_html") or ""}
         {player_data.get("new_career_standing_html") or ""}
         {player_data.get("new_dev_traj_html") or ""}
         {player_data.get("new_career_arc_html") or ""}

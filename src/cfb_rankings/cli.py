@@ -1340,6 +1340,61 @@ def build_parser() -> argparse.ArgumentParser:
     fanbase_voice_parser.add_argument("--commit", action="store_true",
         help="Write rows (default: dry run — compute + print only).")
 
+    discourse_eras_parser = subparsers.add_parser(
+        "compute-team-eras",
+        help=(
+            "Language Layer wave 3: within-team cross-season vocabulary contrast, "
+            "written to team_discourse_era_terms for the team-page Story Words strip. "
+            "Dry run by default; pass --commit to write."
+        ),
+    )
+    discourse_eras_parser.add_argument("--season", action="append", required=True,
+        help="Season year(s) to compute. Repeatable or comma-list. "
+             "Multiple seasons required for within-team contrast.")
+    discourse_eras_parser.add_argument("--teams", default=None,
+        help="Optional comma list of team slugs. Default: all teams above floor.")
+    discourse_eras_parser.add_argument("--top-n", type=int, default=8,
+        help="Era terms kept per (team, season). Default 8.")
+    discourse_eras_parser.add_argument("--min-team-docs", type=int, default=150,
+        help="Doc floor per team-season. Default 150.")
+    discourse_eras_parser.add_argument("--min-seasons", type=int, default=2,
+        help="Minimum distinct seasons a team must have data for. Default 2.")
+    discourse_eras_parser.add_argument("--commit", action="store_true",
+        help="Write rows (default: dry run).")
+
+    player_descriptors_parser = subparsers.add_parser(
+        "compute-player-descriptors",
+        help=(
+            "Language Layer wave 3: fan-voice player descriptor terms from "
+            "+-8-token windows around player name mentions, written to "
+            "player_discourse_terms for the In Their Words player module. "
+            "Dry run by default; pass --commit to write."
+        ),
+    )
+    player_descriptors_parser.add_argument("--season", action="append", required=True,
+        help="Season year(s) to compute. Repeatable or comma-list.")
+    player_descriptors_parser.add_argument("--players", default=None,
+        help="Optional comma list of player IDs (integers). Default: all players above floor.")
+    player_descriptors_parser.add_argument("--top-n", type=int, default=10,
+        help="Descriptor terms kept per (player, season). Default 10.")
+    player_descriptors_parser.add_argument("--min-windows", type=int, default=30,
+        help="Minimum window tokens for a player to receive descriptors. Default 30.")
+    player_descriptors_parser.add_argument("--commit", action="store_true",
+        help="Write rows (default: dry run).")
+
+    fan_voice_board_parser = subparsers.add_parser(
+        "build-fan-voice-board",
+        help=(
+            "Language Layer wave 3: build the standalone /fan-voice/index.html "
+            "leaderboard page showing optimism rankings, signature terms, and "
+            "Word of the Week across all teams."
+        ),
+    )
+    fan_voice_board_parser.add_argument("--season", type=int, required=True,
+        help="Season year to display.")
+    fan_voice_board_parser.add_argument("--output-dir", default=None,
+        help="Output root dir (default: output/site).")
+
     seed_rivalry_pairs_parser = subparsers.add_parser(
         "seed-rivalry-pairs",
         help=(
@@ -6272,6 +6327,69 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
             f"commit={args.commit}",
             flush=True,
         )
+        return
+
+    if args.command == "compute-team-eras":
+        from cfb_rankings.discourse.eras import compute_team_eras
+        seasons = []
+        for s in (args.season or []):
+            for part in s.split(","):
+                part = part.strip()
+                if part:
+                    seasons.append(int(part))
+        teams = None
+        if args.teams:
+            teams = [t.strip() for t in args.teams.split(",") if t.strip()]
+        result = compute_team_eras(
+            db,
+            seasons=seasons,
+            top_n=args.top_n,
+            min_team_docs=args.min_team_docs,
+            min_seasons=args.min_seasons,
+            teams=teams,
+            commit=args.commit,
+        )
+        print(
+            f"compute-team-eras: teams={result['teams_written']} "
+            f"terms={result['terms_written']} docs={result['docs_scanned']} "
+            f"seasons={result['seasons']} commit={args.commit}",
+            flush=True,
+        )
+        return
+
+    if args.command == "compute-player-descriptors":
+        from cfb_rankings.discourse.descriptors import compute_player_descriptors
+        seasons = []
+        for s in (args.season or []):
+            for part in s.split(","):
+                part = part.strip()
+                if part:
+                    seasons.append(int(part))
+        player_ids = None
+        if args.players:
+            player_ids = [int(p.strip()) for p in args.players.split(",") if p.strip()]
+        result = compute_player_descriptors(
+            db,
+            seasons=seasons,
+            top_n=args.top_n,
+            min_windows=args.min_windows,
+            players=player_ids,
+            commit=args.commit,
+        )
+        print(
+            f"compute-player-descriptors: players={result['players_written']} "
+            f"terms={result['terms_written']} windows={result['windows_scanned']} "
+            f"seasons={result['seasons']} commit={args.commit}",
+            flush=True,
+        )
+        return
+
+    if args.command == "build-fan-voice-board":
+        from cfb_rankings.discourse.board_page import build_fan_voice_board
+        from pathlib import Path
+        output_dir = Path(args.output_dir) if args.output_dir else Path("output/site")
+        path = build_fan_voice_board(db, output_dir, args.season)
+        print(f"build-fan-voice-board: wrote {path}", flush=True)
         return
 
     if args.command == "seed-rivalry-pairs":

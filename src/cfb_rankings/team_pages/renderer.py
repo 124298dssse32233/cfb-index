@@ -72,6 +72,7 @@ from .delusion_module import render_delusion_module, DELUSION_MODULE_CSS
 from .lexicon_module import render_lexicon, LEXICON_CSS
 from .mirror_module import render_mirror, MIRROR_MODULE_CSS
 from .voice_profile_module import render_voice_profile, VOICE_PROFILE_CSS
+from .story_words_module import render_story_words, STORY_WORDS_CSS
 from .roster_reload import render_roster_reload, ROSTER_RELOAD_CSS
 from .preview_thesis import render_preview_thesis, PREVIEW_THESIS_CSS
 from .recent_form import render_recent_form, RECENT_FORM_CSS
@@ -600,6 +601,7 @@ def _render_page(
     # Fanbase Voice — five-trait personality percentiles vs the high-volume
     # cohort (Language Layer Wave 2). Absent row = below cohort floor = skip.
     voice_profile_html = render_voice_profile(db, profile, snapshot) if db is not None else ""
+    story_words_html = render_story_words(db, profile, snapshot) if db is not None else ""
     # Delusion Premium night band — fan belief vs market title odds (Noir suite).
     # Renders only for the ~10 contenders with a live championship market.
     delusion_html = render_delusion_module(db, profile, snapshot) if db is not None else ""
@@ -696,7 +698,7 @@ def _render_page(
         "II", "Who We Are",
         program_prestige_html, trajectory_chip_html, hero_arc_stripe_html,
         peer_comparator_html, coaching_era_html, rituals_html,
-        cultural_anchors_html, fanbase_health_html, voice_profile_html, lexicon_html,
+        cultural_anchors_html, fanbase_health_html, voice_profile_html, lexicon_html, story_words_html,
         home_field_html,
         statement_wins_html, chronicle_html, chronicle_visuals_html,
         savant_html, rivalry_html, rent_free_html, mirror_html, llm_chronicle_html,
@@ -815,6 +817,9 @@ body {{
 
 /* Fanbase Voice — personality percentile card (Language Layer Wave 2) */
 {VOICE_PROFILE_CSS}
+
+/* Season Vocabulary strip — fan-voice era bands (Language Layer Wave 3) */
+{STORY_WORDS_CSS}
 
 /* Delusion Premium night band — belief vs market (Group Chat Noir) */
 {DELUSION_MODULE_CSS}
