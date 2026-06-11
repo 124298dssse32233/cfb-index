@@ -49,6 +49,7 @@ backups/
 
 # Box-local pipeline state (accumulates per-build; lives only on the deployer box)
 data/module_coverage_history.json
+data/data_floors_baseline.json
 # Pipeline liveness markers (written at run start, removed at end; box-local)
 logs/*.pid
 

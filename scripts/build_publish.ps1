@@ -234,6 +234,14 @@ Run "verify: module coverage (computed tables vs baseline)" {
     python scripts/verify_module_coverage.py --open-issue
 }
 
+# Provenance ratchet + factual-spine floors (WP-0.4). Complements the source-
+# health + module-coverage guards (which don't watch source_id provenance or the
+# games/players/ratings spine). Non-critical: logs + exits 1 on regression, never
+# blocks the deploy. The provenance high-water mark ratchets up as WP-0.7 lands.
+Run "verify: data floors (provenance + spine)" {
+    python scripts/verify_data_floors.py
+}
+
 # Manifest-driven nav-route completeness (WP-0.2). The box now generates every
 # global-nav route (incl. /offseason/ + /film-room/ as of WP-0.1); this reports
 # any missing/stub nav target before deploy and emits _build_manifest_routes.json.

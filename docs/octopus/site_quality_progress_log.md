@@ -15,7 +15,7 @@
 | 0.3 | Smoke + build assertions on every nav target | ✅ done | `4ed8f28` | smoke now covers all 15 nav routes (+7 added); build-assertion side = WP-0.2 verifier (warn) → WP-0.6 (hard). Found 5 healthy-but-unmonitored routes (nfl-pipeline/archive/matchups/spotlight/the-room) |
 | 0.6 | Pre-deploy snapshot-completeness guard (Gate B) | ✅ done | (this commit) | hard `--strict` route gate added to publish_to_vercel.ps1 before deploy; verified fail-closed (empty snapshot → 15 MISSING → exit 1/abort); PS parses clean |
 | 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ✅ done | (this commit) | DATA_SOURCES cadence column now measured-from-scrape_health (Kalshi/SeatGeek "Not collecting", YT-comments/GDELT-tone flagged, Polymarket prob caveat); AGENTS.md gets a STALE→CLAUDE.md banner |
-| 0.4 | Row-count/freshness/coverage/provenance guards | ⏳ | — | — |
+| 0.4 | Row-count/freshness/coverage/provenance guards | ✅ done | (this commit) | new `verify_data_floors.py`: provenance ratchet (source_id %, high-water 22.3%) + 7 factual-spine floors; verified positive (exit 0) + negative (breach→exit 1); wired non-critical into box build; complements (no dup of) module/source guards |
 | 0.7 | Provenance labeling (legacy_unverified) | ⏳ (Phase 0, deferred edit) | — | — |
 
 Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked.
@@ -78,3 +78,15 @@ Extended the block comment to record offseason/film-room as the same clobber cla
 - `AGENTS.md`: added a STALE banner at top pointing to CLAUDE.md as canonical, naming the two wrong facts (17 vs 119/119 slugs; pre-2026-06-10-cutover deploy section).
 **Verification (2026-06-11):** edits applied; table keeps 4-column structure; claims now match the `scrape_health` query in Discover §0/§1.
 **Blast radius:** 2 docs. **Rollback:** revert the doc edits.
+
+### WP-0.4 — Data-floor guard: provenance ratchet + factual-spine floors — ✅ 2026-06-11
+**Problem (CP-4 + memory `build-failure-philosophy`):** existing guards watch raw-source ingestion (`verify_source_health_floors`) and computed-module tables (`verify_module_coverage`), but NOT (a) `conversation_documents` source_id provenance, or (b) the factual spine (games/players/ratings) going near-empty in a broken build.
+**Change:** new `scripts/verify_data_floors.py` (read-only, stdlib) —
+- **Provenance ratchet:** `source_id` coverage must stay within 0.5pp of its all-time high; the high-water mark only ratchets UP, so WP-0.7 progress becomes the new floor. State in gitignored `data/data_floors_baseline.json` (mirrors `module_coverage_history.json`).
+- **Spine floors:** absolute conservative mins (~½ of healthy 2026-06-11 counts) for games/players/player_game_stats/power_ratings_weekly/resume_ratings_weekly/team_rating_deltas/roster_entries — fire only on catastrophic emptiness.
+- Wired non-critical into `build_publish.ps1` verify cluster.
+**Verification (2026-06-11):**
+- Positive: exit 0; baseline initialized to 22.3%; spine all above floor (games 12,111 / players 61,381 / pgs 1,769,283 / power 47,617 / resume 40,667 / deltas 13,954 / rosters 33,765).
+- Negative: baseline pinned to 99% → "provenance:source_id_pct breached", exit 1.
+- `build_publish.ps1` parses clean.
+**Blast radius:** 1 new stdlib script + 1 non-critical Run + 1 .gitignore line. **Rollback:** delete script + Run + gitignore line.
