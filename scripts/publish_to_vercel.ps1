@@ -43,7 +43,17 @@ $Manifest = Join-Path $SITE "_build_manifest.json"
 if (-not (Test-Path $Manifest)) { Log "ABORT: _build_manifest.json missing -- build did not complete cleanly. Live site UNCHANGED."; exit 4 }
 $ageHours = ((Get-Date) - (Get-Item -LiteralPath $Manifest).LastWriteTime).TotalHours
 if ($ageHours -gt 26) { Log ("ABORT: _build_manifest.json is {0:N1}h old (>26h) -- stale build. Live site UNCHANGED." -f $ageHours); exit 4 }
-Log ("gate PASSED; manifest age {0:N1}h. Proceeding to deploy." -f $ageHours)
+Log ("gate PASSED; manifest age {0:N1}h." -f $ageHours)
+
+# 1c. SNAPSHOT-COMPLETENESS GATE (WP-0.6). A Vercel deploy is a full snapshot,
+#     so any global-nav route missing from output/site is CLOBBERED off prod --
+#     exactly how /offseason/ + /film-room/ came to 404 while still in the nav.
+#     Hard-assert every nav route (scripts/build_manifest.py) is present BEFORE
+#     deploying. On failure, ABORT and keep the previous good deploy live.
+Log "gate: verify_build_manifest.py --strict (nav-route completeness) ..."
+(& $PyExe scripts\verify_build_manifest.py --site-dir $SITE --strict --emit 2>&1) | Tee-Object -FilePath $LogPath -Append
+if ($LASTEXITCODE -ne 0) { Log "ABORT: nav routes incomplete in snapshot (exit $LASTEXITCODE) -- refusing to deploy a clobbering build. Live site UNCHANGED."; exit 6 }
+Log "gate PASSED: all global-nav routes present in snapshot. Proceeding to deploy."
 
 # 2. Ensure the project link + a complete vercel.json live INSIDE output/site
 #    (build-site may wipe them). outputDirectory '.' so it serves the site root.

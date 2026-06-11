@@ -9,11 +9,11 @@
 
 | WP | Title | Status | Commit | Evidence |
 |---|---|---|---|---|
-| 0.1 | Box build generates /offseason/ + /film-room/ | ✅ done | (this commit) | hub scripts wired into build_publish.ps1 post-build block; both emit non-stub (offseason 90KB/125 rows/5 boards, film-room 13KB/4 boards); PS parses clean |
-| 0.2 | Canonical build manifest (full command-set parity) | ✅ done (infra) | (this commit) | `build_manifest.py` (15 nav + 9 section routes + 15-command parity table) + `verify_build_manifest.py` (15/15 pass, redirect-aware) wired warn-only into box build; PS parses clean |
+| 0.1 | Box build generates /offseason/ + /film-room/ | ✅ done | `3647cdb` | hub scripts wired into build_publish.ps1 post-build block; both emit non-stub (offseason 90KB/125 rows/5 boards, film-room 13KB/4 boards); PS parses clean |
+| 0.2 | Canonical build manifest (full command-set parity) | ✅ done (infra) | `622e548` | `build_manifest.py` (15 nav + 9 section routes + 15-command parity table) + `verify_build_manifest.py` (15/15 pass, redirect-aware) wired warn-only into box build; PS parses clean |
 | 0.2b | Reconcile safe box-omitted RENDER gaps (render-daily/-edition; canon) | ⏳ follow-up | — | surfaced by 0.2: /canon/ + /daily/ frozen 2026-04-26; canon_lists/entries=0 (don't blind-add render-canon-all) |
-| 0.3 | Smoke + build assertions on every nav target | ✅ done | (this commit) | smoke now covers all 15 nav routes (+7 added); build-assertion side = WP-0.2 verifier (warn) → WP-0.6 (hard). Found 5 healthy-but-unmonitored routes (nfl-pipeline/archive/matchups/spotlight/the-room) |
-| 0.6 | Pre-deploy snapshot-completeness guard (Gate B) | ⏳ | — | — |
+| 0.3 | Smoke + build assertions on every nav target | ✅ done | `4ed8f28` | smoke now covers all 15 nav routes (+7 added); build-assertion side = WP-0.2 verifier (warn) → WP-0.6 (hard). Found 5 healthy-but-unmonitored routes (nfl-pipeline/archive/matchups/spotlight/the-room) |
+| 0.6 | Pre-deploy snapshot-completeness guard (Gate B) | ✅ done | (this commit) | hard `--strict` route gate added to publish_to_vercel.ps1 before deploy; verified fail-closed (empty snapshot → 15 MISSING → exit 1/abort); PS parses clean |
 | 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ⏳ | — | — |
 | 0.4 | Row-count/freshness/coverage/provenance guards | ⏳ | — | — |
 | 0.7 | Provenance labeling (legacy_unverified) | ⏳ (Phase 0, deferred edit) | — | — |
@@ -60,3 +60,13 @@ Extended the block comment to record offseason/film-room as the same clobber cla
 **Verification (2026-06-11, live prod):** `nfl-pipeline / archive / matchups / players-spotlight / the-room` → **200** (healthy but previously unmonitored). `offseason / film-room` → **404** (correctly broken until the WP-0.1 box deploy ships). `ast.parse` clean; 39 URLs total.
 **Effect once merged + deployed:** all 39 pass. If merged before deploy, smoke correctly reports the 2 known 404s (honest — stops masking). No live effect yet (feature branch; workflow runs from master).
 **Blast radius:** smoke URL list only. **Rollback:** remove the 7 entries.
+
+### WP-0.6 — Pre-deploy snapshot-completeness guard (Gate B) — ✅ 2026-06-11
+**Problem:** the clobber root cause — a full-snapshot deploy of an output/site missing a nav route silently removes that route from prod, with nothing to stop it.
+**Change:** added gate **1c** to `scripts/publish_to_vercel.ps1` (the actual deploy step, runs before any Vercel interaction, independent of caller so manual publishes are gated too): `verify_build_manifest.py --strict --emit` against `$SITE`; on non-zero, `ABORT (exit 6)` — the previous good deploy stays live. Slots into the existing gate stack (file-count → verify-publish-readiness → manifest-freshness → **nav-completeness** → deploy → per-deploy smoke → alias).
+**Verification (2026-06-11):**
+- PS parses clean.
+- Positive: real `output/site` `--strict` → exit 0 (deploy proceeds).
+- Negative (fail-closed): empty dir `--strict` → "15 MISSING", exit 1 → would ABORT. Gate fails closed.
+**Effect:** the offseason/film-room clobber class is now structurally impossible — any build that drops a nav route refuses to deploy rather than clobbering prod.
+**Blast radius:** one gate block in publish_to_vercel.ps1. **Rollback:** remove gate 1c.
