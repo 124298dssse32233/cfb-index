@@ -65,8 +65,14 @@ _CATEGORIES: dict[str, list[str]] = {
 
 def _compile(words: list[str]) -> re.Pattern[str]:
     # Word-bounded, longest-first so multi-word phrases win; '#'-free.
+    # The (?:...) group is load-bearing: without it the lookbehind binds only
+    # to the FIRST alternative and the lookahead only to the LAST, so middle
+    # words match as bare substrings — and since same-length ties in sorted()
+    # keep set-iteration order (PYTHONHASHSEED-dependent), WHICH words got
+    # boundaries varied per process (found 2026-06-10: gate rates differed
+    # 36% vs 58% across identical runs).
     alt = "|".join(re.escape(w) for w in sorted(set(words), key=len, reverse=True))
-    return re.compile(rf"(?<![a-z0-9]){alt}(?![a-z0-9])", re.IGNORECASE)
+    return re.compile(rf"(?<![a-z0-9])(?:{alt})(?![a-z0-9])", re.IGNORECASE)
 
 
 _CATEGORY_RES: dict[str, re.Pattern[str]] = {k: _compile(v) for k, v in _CATEGORIES.items()}
