@@ -244,3 +244,563 @@ sources:
     team_name: Notre Dame
     subreddit: southbend
     audience_bucket: fan
+
+  # ---------------------------------------------------------------------------
+  # Wave 2 — Expanded backfill (added 2026-06-11).
+  # These teams were in the priority_teams DB (Build #1) but had never been
+  # individually backfilled. Sources ordered by rank priority within each tier.
+  # ---------------------------------------------------------------------------
+
+  # --- Auburn (rank 100) ---
+  - key: auburn_team
+    team_name: Auburn
+    subreddit: wde
+    audience_bucket: fan
+
+  # --- Texas A&M (rank 100) ---
+  - key: texasam_team
+    team_name: Texas A&M
+    subreddit: aggies
+    audience_bucket: fan
+  - key: texasam_city
+    team_name: Texas A&M
+    subreddit: CollegeStation
+    audience_bucket: fan
+
+  # --- Ole Miss (rank 100) ---
+  - key: olemiss_team
+    team_name: Ole Miss
+    subreddit: olemiss
+    audience_bucket: fan
+  - key: olemiss_city
+    team_name: Ole Miss
+    subreddit: oxford
+    audience_bucket: fan
+
+  # --- USC (rank 100) ---
+  - key: usc_team
+    team_name: USC
+    subreddit: USC
+    audience_bucket: fan
+  - key: usc_city
+    team_name: USC
+    subreddit: LosAngeles
+    audience_bucket: fan
+
+  # --- Wisconsin (rank 100) ---
+  - key: wisconsin_team
+    team_name: Wisconsin
+    subreddit: WisconsinBadgers
+    audience_bucket: fan
+  - key: wisconsin_city
+    team_name: Wisconsin
+    subreddit: madisonwi
+    audience_bucket: fan
+
+  # --- Nebraska (rank 100) ---
+  - key: nebraska_team
+    team_name: Nebraska
+    subreddit: Huskers
+    audience_bucket: fan
+  - key: nebraska_city
+    team_name: Nebraska
+    subreddit: lincoln
+    audience_bucket: fan
+
+  # --- Indiana (rank 100) ---
+  - key: indiana_team
+    team_name: Indiana
+    subreddit: IndianaUniversity
+    audience_bucket: fan
+  - key: indiana_city
+    team_name: Indiana
+    subreddit: bloomington
+    audience_bucket: fan
+
+  # --- North Carolina (rank 100) ---
+  - key: unc_team
+    team_name: North Carolina
+    subreddit: tarheels
+    audience_bucket: fan
+  - key: unc_city
+    team_name: North Carolina
+    subreddit: chapelhill
+    audience_bucket: fan
+
+  # --- Oklahoma (rank 200) ---
+  - key: oklahoma_team
+    team_name: Oklahoma
+    subreddit: sooners
+    audience_bucket: fan
+  - key: oklahoma_city
+    team_name: Oklahoma
+    subreddit: okc
+    audience_bucket: fan
+
+  # --- Florida (rank 200) ---
+  - key: florida_team
+    team_name: Florida
+    subreddit: FloridaGators
+    audience_bucket: fan
+  - key: florida_city
+    team_name: Florida
+    subreddit: GNV
+    audience_bucket: fan
+
+  # --- Oklahoma State (rank 200) ---
+  - key: okstate_team
+    team_name: Oklahoma State
+    subreddit: OKState
+    audience_bucket: fan
+
+  # --- Vanderbilt (rank 200) ---
+  - key: vanderbilt_team
+    team_name: Vanderbilt
+    subreddit: Vanderbilt
+    audience_bucket: fan
+  - key: vanderbilt_city
+    team_name: Vanderbilt
+    subreddit: nashville
+    audience_bucket: fan
+
+  # --- Colorado (rank 200) ---
+  - key: colorado_team
+    team_name: Colorado
+    subreddit: cuboulder
+    audience_bucket: fan
+  - key: colorado_city
+    team_name: Colorado
+    subreddit: boulder
+    audience_bucket: fan
+
+  # --- UCLA (rank 200) ---
+  - key: ucla_team
+    team_name: UCLA
+    subreddit: ucla
+    audience_bucket: fan
+  - key: ucla_city
+    team_name: UCLA
+    subreddit: LosAngeles
+    audience_bucket: fan
+
+  # --- Arizona State (rank 200) ---
+  - key: arizonastate_team
+    team_name: Arizona State
+    subreddit: sundevils
+    audience_bucket: fan
+  - key: arizonastate_city
+    team_name: Arizona State
+    subreddit: Tempe
+    audience_bucket: fan
+
+  # --- Washington (rank 200) ---
+  - key: washington_team
+    team_name: Washington
+    subreddit: huskies
+    audience_bucket: fan
+  - key: washington_city
+    team_name: Washington
+    subreddit: Seattle
+    audience_bucket: fan
+
+  # --- Iowa (rank 200) ---
+  - key: iowa_team
+    team_name: Iowa
+    subreddit: hawkeyes
+    audience_bucket: fan
+  - key: iowa_city
+    team_name: Iowa
+    subreddit: IowaCity
+    audience_bucket: fan
+
+  # --- Michigan State (rank 200) ---
+  - key: michiganstate_team
+    team_name: Michigan State
+    subreddit: MSUSpartans
+    audience_bucket: fan
+  - key: michiganstate_city
+    team_name: Michigan State
+    subreddit: EastLansing
+    audience_bucket: fan
+
+  # --- Georgia Tech (rank 200) ---
+  - key: georgiatech_team
+    team_name: Georgia Tech
+    subreddit: GeorgiaTech
+    audience_bucket: fan
+  - key: georgiatech_city
+    team_name: Georgia Tech
+    subreddit: Atlanta
+    audience_bucket: fan
+
+  # --- Mississippi State (rank 200) ---
+  - key: msstate_team
+    team_name: Mississippi State
+    subreddit: HailState
+    audience_bucket: fan
+
+  # --- Arkansas (rank 200) ---
+  - key: arkansas_team
+    team_name: Arkansas
+    subreddit: razorbacks
+    audience_bucket: fan
+  - key: arkansas_city
+    team_name: Arkansas
+    subreddit: fayetteville
+    audience_bucket: fan
+
+  # --- Utah (rank 200) ---
+  - key: utah_team
+    team_name: Utah
+    subreddit: UtahAthletics
+    audience_bucket: fan
+  - key: utah_city
+    team_name: Utah
+    subreddit: SaltLakeCity
+    audience_bucket: fan
+
+  # --- Baylor (rank 200) ---
+  - key: baylor_team
+    team_name: Baylor
+    subreddit: baylorball
+    audience_bucket: fan
+  - key: baylor_city
+    team_name: Baylor
+    subreddit: waco
+    audience_bucket: fan
+
+  # --- TCU (rank 200) ---
+  - key: tcu_team
+    team_name: TCU
+    subreddit: TCU
+    audience_bucket: fan
+  - key: tcu_city
+    team_name: TCU
+    subreddit: FortWorth
+    audience_bucket: fan
+
+  # --- Clemson supplement (rank 10) ---
+  # Primary fallback is r/CFB per plan default; ClemsonFootball added as
+  # supplemental signal (~40k members). City sub already in plan as clemson_city.
+  - key: clemson_team
+    team_name: Clemson
+    subreddit: ClemsonFootball
+    audience_bucket: fan
+
+  # --- Georgia (sub correction note) ---
+  # Seeded as georgiabulldogs (~370k members) — CORRECT. r/georgiadogs is smaller.
+  # Existing entry georgia_team already covers this; no change needed.
+
+  # --- South Carolina (rank 200) ---
+  - key: southcarolina_team
+    team_name: South Carolina
+    subreddit: gamecocks
+    audience_bucket: fan
+  - key: southcarolina_city
+    team_name: South Carolina
+    subreddit: columbiascjobs
+    audience_bucket: fan
+
+  # --- Kentucky (rank 200) ---
+  - key: kentucky_team
+    team_name: Kentucky
+    subreddit: KentuckyWildcats
+    audience_bucket: fan
+  - key: kentucky_city
+    team_name: Kentucky
+    subreddit: lexington
+    audience_bucket: fan
+
+  # --- Missouri (rank 200) ---
+  - key: missouri_team
+    team_name: Missouri
+    subreddit: Mizzou
+    audience_bucket: fan
+  - key: missouri_city
+    team_name: Missouri
+    subreddit: columbiamo
+    audience_bucket: fan
+
+  # --- Pittsburgh (rank 200) ---
+  - key: pitt_team
+    team_name: Pittsburgh
+    subreddit: Pitt
+    audience_bucket: fan
+  - key: pitt_city
+    team_name: Pittsburgh
+    subreddit: pittsburgh
+    audience_bucket: fan
+
+  # --- NC State (rank 200) ---
+  - key: ncstate_team
+    team_name: NC State
+    subreddit: NCState
+    audience_bucket: fan
+  - key: ncstate_city
+    team_name: NC State
+    subreddit: raleigh
+    audience_bucket: fan
+
+  # --- Virginia Tech (rank 200) ---
+  - key: virginiatech_team
+    team_name: Virginia Tech
+    subreddit: VirginiaTech
+    audience_bucket: fan
+  - key: virginiatech_city
+    team_name: Virginia Tech
+    subreddit: blacksburg
+    audience_bucket: fan
+
+  # --- Illinois (rank 200) ---
+  - key: illinois_team
+    team_name: Illinois
+    subreddit: ILLINIfootball
+    audience_bucket: fan
+  - key: illinois_city
+    team_name: Illinois
+    subreddit: uiuc
+    audience_bucket: fan
+
+  # --- Minnesota (rank 200) ---
+  - key: minnesota_team
+    team_name: Minnesota
+    subreddit: minnesotavikings
+    audience_bucket: fan
+    description: "r/GopherHole is the primary fan sub; r/minnesotavikings omitted — correct sub is r/GopherHole"
+  - key: minnesota_teamcfb
+    team_name: Minnesota
+    subreddit: GopherHole
+    audience_bucket: fan
+
+  # --- Purdue (rank 200) ---
+  - key: purdue_team
+    team_name: Purdue
+    subreddit: Purdue
+    audience_bucket: fan
+  - key: purdue_city
+    team_name: Purdue
+    subreddit: WestLafayette
+    audience_bucket: fan
+
+  # --- Iowa State (rank 200) ---
+  - key: iowastate_team
+    team_name: Iowa State
+    subreddit: CycloneFootball
+    audience_bucket: fan
+  - key: iowastate_city
+    team_name: Iowa State
+    subreddit: ames
+    audience_bucket: fan
+
+  # --- Louisville (rank 200) ---
+  - key: louisville_team
+    team_name: Louisville
+    subreddit: LouisvilleCardinals
+    audience_bucket: fan
+  - key: louisville_city
+    team_name: Louisville
+    subreddit: louisville
+    audience_bucket: fan
+
+  # --- Maryland (rank 200) ---
+  - key: maryland_team
+    team_name: Maryland
+    subreddit: TerrapinStation
+    audience_bucket: fan
+  - key: maryland_city
+    team_name: Maryland
+    subreddit: baltimore
+    audience_bucket: fan
+
+  # --- Rutgers (rank 200) ---
+  - key: rutgers_team
+    team_name: Rutgers
+    subreddit: rutgers
+    audience_bucket: fan
+  - key: rutgers_city
+    team_name: Rutgers
+    subreddit: newjersey
+    audience_bucket: fan
+
+  # --- Stanford (rank 200) ---
+  - key: stanford_team
+    team_name: Stanford
+    subreddit: Stanford
+    audience_bucket: fan
+  - key: stanford_city
+    team_name: Stanford
+    subreddit: bayarea
+    audience_bucket: fan
+
+  # --- California (rank 200) ---
+  - key: cal_team
+    team_name: California
+    subreddit: CalBears
+    audience_bucket: fan
+  - key: cal_city
+    team_name: California
+    subreddit: berkeley
+    audience_bucket: fan
+
+  # --- Oregon State (rank 200) ---
+  - key: oregonstate_team
+    team_name: Oregon State
+    subreddit: OregonStateBeavers
+    audience_bucket: fan
+  - key: oregonstate_city
+    team_name: Oregon State
+    subreddit: corvallis
+    audience_bucket: fan
+
+  # --- Arizona (rank 200) ---
+  - key: arizona_team
+    team_name: Arizona
+    subreddit: ArizonaWildcats
+    audience_bucket: fan
+  - key: arizona_city
+    team_name: Arizona
+    subreddit: tucson
+    audience_bucket: fan
+
+  # --- Duke (rank 200) ---
+  - key: duke_team
+    team_name: Duke
+    subreddit: DukeAthletics
+    audience_bucket: fan
+  - key: duke_city
+    team_name: Duke
+    subreddit: bullcity
+    audience_bucket: fan
+
+  # --- App State (rank 200) ---
+  - key: appstate_team
+    team_name: App State
+    subreddit: appstate
+    audience_bucket: fan
+
+  # --- South Florida (rank 200) ---
+  - key: usf_team
+    team_name: South Florida
+    subreddit: USF
+    audience_bucket: fan
+  - key: usf_city
+    team_name: South Florida
+    subreddit: tampa
+    audience_bucket: fan
+
+  # --- UNLV (rank 200) ---
+  - key: unlv_team
+    team_name: UNLV
+    subreddit: UNLV
+    audience_bucket: fan
+  - key: unlv_city
+    team_name: UNLV
+    subreddit: vegaslocals
+    audience_bucket: fan
+
+  # --- Boston College (rank 200) ---
+  - key: bc_team
+    team_name: Boston College
+    subreddit: bostoncollege
+    audience_bucket: fan
+  - key: bc_city
+    team_name: Boston College
+    subreddit: boston
+    audience_bucket: fan
+
+  # --- SMU (rank 200) ---
+  - key: smu_team
+    team_name: SMU
+    subreddit: SMU
+    audience_bucket: fan
+  - key: smu_city
+    team_name: SMU
+    subreddit: Dallas
+    audience_bucket: fan
+
+  # --- Syracuse (rank 200) ---
+  - key: syracuse_team
+    team_name: Syracuse
+    subreddit: cuse
+    audience_bucket: fan
+  - key: syracuse_city
+    team_name: Syracuse
+    subreddit: Syracuse
+    audience_bucket: fan
+
+  # --- James Madison (rank 200) ---
+  - key: jmu_team
+    team_name: James Madison
+    subreddit: jmu
+    audience_bucket: fan
+
+  # --- Kansas State (seed correction verification — already in plan above as ksu_team) ---
+  # ksu_team / KStateFootball already covered in Wave 1 above; no duplicate needed.
+
+  # --- Central Michigan (seed correction: '(none found)' → CMU) ---
+  - key: centralmichigan_team
+    team_name: Central Michigan
+    subreddit: CMU
+    audience_bucket: fan
+
+  # --- Eastern Michigan (seed correction: '(none found)' → EMU) ---
+  - key: easternmichigan_team
+    team_name: Eastern Michigan
+    subreddit: EMU
+    audience_bucket: fan
+
+  # --- Kent State (seed correction: '(none found)' → KentState) ---
+  - key: kentstate_team
+    team_name: Kent State
+    subreddit: KentState
+    audience_bucket: fan
+
+  # --- Northwestern (rank 200) ---
+  - key: northwestern_team
+    team_name: Northwestern
+    subreddit: NorthwesternFootball
+    audience_bucket: fan
+  - key: northwestern_city
+    team_name: Northwestern
+    subreddit: Evanston
+    audience_bucket: fan
+
+  # --- Kansas (rank 200) ---
+  - key: kansas_team
+    team_name: Kansas
+    subreddit: KUHawks
+    audience_bucket: fan
+  - key: kansas_city
+    team_name: Kansas
+    subreddit: Lawrence
+    audience_bucket: fan
+
+  # --- Houston (rank 200) ---
+  - key: houston_team
+    team_name: Houston
+    subreddit: HoustonCougars
+    audience_bucket: fan
+  - key: houston_city
+    team_name: Houston
+    subreddit: houston
+    audience_bucket: fan
+
+  # --- Cincinnati (rank 200) ---
+  - key: cincinnati_team
+    team_name: Cincinnati
+    subreddit: Bearcats
+    audience_bucket: fan
+  - key: cincinnati_city
+    team_name: Cincinnati
+    subreddit: cincinnati
+    audience_bucket: fan
+
+  # --- UCF (rank 200) ---
+  - key: ucf_team
+    team_name: UCF
+    subreddit: UCF
+    audience_bucket: fan
+  - key: ucf_city
+    team_name: UCF
+    subreddit: orlando
+    audience_bucket: fan

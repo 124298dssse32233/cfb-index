@@ -62,7 +62,8 @@ def fan_voice_filter_sql(alias: str = "d") -> tuple[str, dict[str, str]]:
         f"OR {alias}.source_name LIKE 'bluesky%' "
         f"OR {alias}.source_name LIKE 'youtube%' "
         f"OR {alias}.source_name LIKE 'board%') "
-        f"AND COALESCE({alias}.source_subchannel,'') NOT IN ({city_placeholders})"
+        f"AND COALESCE({alias}.source_subchannel,'') NOT IN ({city_placeholders}) "
+        f"AND (COALESCE({alias}.relevance_ml_score, 1.0) >= 0.5)"
     )
     return where, city_params
 

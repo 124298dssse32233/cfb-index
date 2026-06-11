@@ -364,7 +364,8 @@ def compute_team_keyness(
         "AND (d.body_text IS NOT NULL OR d.title_text IS NOT NULL) "
         "AND (d.source_name LIKE 'reddit%' OR d.source_name LIKE 'bluesky%' "
         "OR d.source_name LIKE 'youtube%' OR d.source_name LIKE 'board%') "
-        f"AND COALESCE(d.source_subchannel,'') NOT IN ({city_placeholders})"
+        f"AND COALESCE(d.source_subchannel,'') NOT IN ({city_placeholders}) "
+        "AND (COALESCE(d.relevance_ml_score, 1.0) >= 0.5)"
     )
 
     season_grams: dict[int, Counter] = defaultdict(Counter)

@@ -35,7 +35,8 @@ def _make_db() -> sqlite3.Connection:
             source_name  TEXT,
             source_subchannel TEXT,
             is_deleted   INTEGER DEFAULT 0,
-            is_removed   INTEGER DEFAULT 0
+            is_removed   INTEGER DEFAULT 0,
+            relevance_ml_score REAL
         );
 
         CREATE TABLE conversation_team_tags (

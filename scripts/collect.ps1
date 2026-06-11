@@ -31,12 +31,20 @@ if (Test-Path $DbPath) {
 
 # =========================================================================
 # A. Fan-intelligence ingestion (year-round, free / auth-gated)
-#    GDELT is now ledger-rotated + 8-min wall-clock budgeted (un-capped over a
-#    rolling window), so it can't grind even though it's a slow rate-limited API.
+#    gdelt_volume auto-routes: BQ (if GOOGLE_APPLICATION_CREDENTIALS set) →
+#    HTTP GKG bulk (credential-free, ~3-4 min) → DOC 2.0 rotation (legacy,
+#    explicit adapter_id 'gdelt_volume_doc'). The gdelt-news-volume CLI step
+#    below runs alongside to also materialise counts into team_news_volume.
 # =========================================================================
 $freeSources = @("wiki_pv", "wiki_edits", "gdelt_volume", "kalshi", "polymarket",
                  "bluesky_curated", "bluesky_feeds")
 foreach ($s in $freeSources) { Run-Adapter $s }
+
+# GDELT GKG bulk: also materialise daily article counts into team_news_volume
+# (best-effort; never marks the pipeline failed on error).
+Run "gdelt: ingest-gdelt-news-volume --commit" {
+    python manage.py ingest-gdelt-news-volume --commit
+}
 
 $authSources = @("youtube_meta", "seatgeek", "spotify_charts")
 foreach ($s in $authSources) { Run-Adapter $s }

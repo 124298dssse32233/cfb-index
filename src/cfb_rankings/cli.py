@@ -835,6 +835,31 @@ def build_parser() -> argparse.ArgumentParser:
     seed_team_aliases_parser = subparsers.add_parser("seed-team-aliases")
     seed_team_aliases_parser.add_argument("--season", type=int, required=True)
 
+    ingest_gdelt_news_volume_parser = subparsers.add_parser(
+        "ingest-gdelt-news-volume",
+        help=(
+            "Download today's GDELT GKG bulk files over HTTP (credential-free) "
+            "and count daily article mentions per CFB team. Writes to "
+            "team_news_volume and source_observations. Use --commit to persist."
+        ),
+    )
+    ingest_gdelt_news_volume_parser.add_argument(
+        "--date",
+        default=None,
+        help="Target date YYYY-MM-DD (default: today UTC).",
+    )
+    ingest_gdelt_news_volume_parser.add_argument(
+        "--lookback-hours",
+        type=int,
+        default=26,
+        help="How far back in masterfilelist.txt to look (default 26 h).",
+    )
+    ingest_gdelt_news_volume_parser.add_argument(
+        "--commit",
+        action="store_true",
+        help="Persist results to team_news_volume + source_observations.",
+    )
+
     collect_reddit_parser = subparsers.add_parser("collect-reddit-watchlist")
     collect_reddit_parser.add_argument("--season", type=int, required=True)
     collect_reddit_parser.add_argument("--week", type=int, required=True)
@@ -4868,6 +4893,19 @@ def main() -> None:
         print(f"Seeded or refreshed {inserted} team alias rows for season {args.season}.", flush=True)
         return
 
+    if args.command == "ingest-gdelt-news-volume":
+        from cfb_rankings.ingest.sources.gdelt_gkg import ingest_gdelt_news_volume
+        from datetime import datetime, timezone
+        date_str = args.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        result = ingest_gdelt_news_volume(
+            db,
+            date_str=date_str,
+            lookback_hours=args.lookback_hours,
+            commit=args.commit,
+        )
+        print(result)
+        return
+
     if args.command == "scrape-wiki-awards":
         from cfb_rankings.ingest.sources.wiki_awards import emit_honor_csvs
         from cfb_rankings.ingest.honors import import_player_honors_csv
@@ -6428,7 +6466,6 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
 
     if args.command == "build-fan-voice-board":
         from cfb_rankings.discourse.board_page import build_fan_voice_board
-        from pathlib import Path
         output_dir = Path(args.output_dir) if args.output_dir else Path("output/site")
         path = build_fan_voice_board(db, output_dir, args.season)
         print(f"build-fan-voice-board: wrote {path}", flush=True)
@@ -6460,7 +6497,6 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
 
     if args.command == "build-fan-voice-leaderboard":
         from cfb_rankings.discourse.leaderboard_page import build_leaderboard_page
-        from pathlib import Path
         output_dir = Path("output/site")
         path = build_leaderboard_page(db, output_dir, season=args.season)
         print(f"written: {path}")

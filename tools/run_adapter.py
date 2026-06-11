@@ -75,14 +75,25 @@ def _build_adapter(adapter_id: str, db: Database):
         from cfb_rankings.ingest.sources.prediction_markets import PolymarketAdapter
         return PolymarketAdapter(db)
     if adapter_id == "gdelt_volume":
-        # Auto-route: use the bulk BigQuery adapter when credentials are present
-        # (one cheap query for all teams), else fall back to the per-team DOC 2.0
-        # rotation adapter. So the daily 'gdelt_volume' call needs no edit — it
-        # upgrades itself the moment GOOGLE_APPLICATION_CREDENTIALS is set, with
-        # no collection gap and no double-write before then.
+        # Three-tier auto-routing (upgrades itself as credentials are added):
+        #   Tier 1 — BigQuery: one cheap query for all 138 teams (needs GCP creds)
+        #   Tier 2 — HTTP GKG bulk: credential-free masterfilelist ZIP download
+        #   Tier 3 — DOC 2.0 rotation: per-team API, rate-limited (accessible as
+        #             explicit 'gdelt_volume_doc' for manual testing / fallback)
         if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "").strip():
             from cfb_rankings.ingest.sources.gdelt_volume_bq import GdeltVolumeBigQueryAdapter
             return GdeltVolumeBigQueryAdapter(db)
+        from cfb_rankings.ingest.sources.gdelt_gkg import GdeltGkgBulkAdapter
+        return GdeltGkgBulkAdapter(db)
+    if adapter_id == "gdelt_gkg_bulk":
+        # Explicit handle for the credential-free GKG bulk-file adapter.
+        # Used for manual runs / dry-run testing without affecting the
+        # auto-routed 'gdelt_volume' path.
+        from cfb_rankings.ingest.sources.gdelt_gkg import GdeltGkgBulkAdapter
+        return GdeltGkgBulkAdapter(db)
+    if adapter_id == "gdelt_volume_doc":
+        # Legacy per-team DOC 2.0 rotation adapter, now only accessible by
+        # its explicit id so it doesn't silently replace the bulk path.
         from cfb_rankings.ingest.sources.gdelt_volume import GdeltVolumeAdapter
         return GdeltVolumeAdapter(db)
     if adapter_id == "gdelt_volume_bq":
