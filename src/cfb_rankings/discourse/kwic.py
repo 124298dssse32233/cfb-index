@@ -16,6 +16,14 @@ from typing import Any
 from .keyness import _row_get, _clean, load_city_subs, _WS_RE
 from ._common import fan_voice_filter_sql
 
+
+def _fetchall(db: Any, sql: str, params: Any) -> list:
+    """Fetch rows — works with both raw sqlite3.Connection and Database wrapper."""
+    cur = db.execute(sql, params)
+    if cur is None:
+        return db.query_all(sql, params)
+    return cur.fetchall()
+
 # Maximum window (chars) each side of the matched term.
 _WINDOW = 80
 # Maximum passages kept per (team, season, term).
@@ -116,9 +124,9 @@ def compute_kwic_quotes(
               AND tdt.term_rank <= :top_terms
             ORDER BY tdt.team_id, tdt.term_rank
         """
-        term_rows = db.execute(
-            term_sql, {"season": season, "top_terms": top_terms}
-        ).fetchall()
+        term_rows = _fetchall(
+            db, term_sql, {"season": season, "top_terms": top_terms}
+        )
 
         # Group into {team_id: [term, ...]} respecting optional team filter.
         team_terms: dict[int, list[str]] = {}
@@ -152,7 +160,7 @@ def compute_kwic_quotes(
                     ORDER BY d.conversation_document_id DESC
                     LIMIT 200
                 """
-                doc_rows = db.execute(doc_sql, bind).fetchall()
+                doc_rows = _fetchall(db, doc_sql, bind)
 
                 passages: list[str] = []
                 seen_prefixes: set[str] = set()

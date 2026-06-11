@@ -6937,9 +6937,12 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
     # so every chip read "Awaiting signal"). Built from fanbase_mood_weekly.
     _rankings_mood_index = _build_team_mood_index(db)
     _report_progress(f"Rankings belief chips: mood wired for {len(_rankings_mood_index)} teams.")
+    _rankings_discourse_index = _build_discourse_terms_index(db)
+    _report_progress(f"Rankings discourse chips: top term wired for {len(_rankings_discourse_index)} teams.")
     (rankings_dir / "index.html").write_text(
         render_rankings_page_html(
-            summary, rankings, latest_local_week, featured_team_pages, history_hub, _rankings_mood_index
+            summary, rankings, latest_local_week, featured_team_pages, history_hub,
+            _rankings_mood_index, _rankings_discourse_index,
         ),
         encoding="utf-8",
     )
@@ -16622,6 +16625,7 @@ def _render_rankings_board(
     season_year_value: int,
     conferences: list[str],
     mood_for,
+    discourse_for=None,
 ) -> str:
     """Assemble the v5 `.cfb-rkx` board (frozen mockups): finding banner, lens
     tablist, filter chips, the card-feed `.sheet` AND the KenPom `.board-table`
@@ -16696,9 +16700,10 @@ def _render_rankings_board(
         f'<div class="cutline">{_CFP_BRACKET_SVG}College Football Playoff cutline '
         '&middot; top 12 in</div>'
     )
+    _discourse_for = discourse_for or (lambda _row: None)
     card_parts: list[str] = []
     for row in rankings:
-        card_parts.append(_render_rankings_row(row, mood_for(row)))
+        card_parts.append(_render_rankings_row(row, mood_for(row), _discourse_for(row)))
         if row.rank == 12:
             card_parts.append(cutline_card)
     sheet = (
@@ -16713,7 +16718,7 @@ def _render_rankings_board(
     )
     table_parts: list[str] = []
     for row in rankings:
-        table_parts.append(_render_rankings_table_row(row, mood_for(row)))
+        table_parts.append(_render_rankings_table_row(row, mood_for(row), _discourse_for(row)))
         if row.rank == 12:
             table_parts.append(cutline_tr)
     table = (
@@ -16765,6 +16770,7 @@ def render_rankings_page_html(
     featured_team_pages: list[dict[str, Any]] | None = None,
     history_hub: dict[str, Any] | None = None,
     mood_index: dict | None = None,
+    discourse_index: dict | None = None,
 ) -> str:
     season_year_value = int(summary["season_year"])
     season_name = season_label(season_year_value)
@@ -16784,12 +16790,16 @@ def render_rankings_page_html(
     # toggle by width. mood_index = {slug: (mood_score, mentions)} wired by the
     # build-site caller (P0-B); empty falls back to "Awaiting signal" everywhere.
     mood_index = mood_index or {}
+    discourse_index = discourse_index or {}
 
     def _mood_for(row: RankingRow) -> tuple | None:
         return mood_index.get(row.slug)
 
+    def _discourse_for(row: RankingRow) -> str | None:
+        return discourse_index.get(row.slug)
+
     rankings_board = _render_rankings_board(
-        rankings, season_name, season_year_value, conferences, _mood_for
+        rankings, season_name, season_year_value, conferences, _mood_for, _discourse_for
     )
 
     # Legacy <tr> board removed in Phase 1; the v5 card/table feeds replace it.
@@ -23318,6 +23328,44 @@ def _build_team_mood_index(db) -> dict:
     return out
 
 
+def _build_discourse_terms_index(db) -> dict:
+    """{slug: term_text} for week=0, season=2025, term_rank=1 from
+    team_discourse_terms.  Teams without a row are absent; callers fall through
+    to an empty string.  Never raises — discourse chips are non-critical.
+    """
+    try:
+        rows = db.query_all(
+            """
+            select t.slug as slug, d.term as term
+            from team_discourse_terms d
+            join teams t on t.team_id = d.team_id
+            where d.week = 0
+              and d.season_year = 2025
+              and d.term_rank = 1
+            """
+        )
+    except Exception:  # noqa: BLE001
+        return {}
+    out: dict[str, str] = {}
+    for r in rows:
+        slug = r.get("slug")
+        term = r.get("term")
+        if slug and term:
+            out[str(slug)] = str(term)
+    return out
+
+
+def _discourse_term_chip(term: str | None) -> str:
+    """Small chip showing the top fan-discourse term for a team.
+
+    Returns an empty string when no term is available so the chip is a
+    non-breaking progressive enhancement.
+    """
+    if not term:
+        return ""
+    return f'<span class="dchip" title="Top fan term this week">{escape(term)}</span>'
+
+
 def _belief_chip(mood: tuple | None) -> str:
     """Belief chip from a (mood_score, mentions) tuple.
 
@@ -23343,7 +23391,7 @@ def _belief_chip(mood: tuple | None) -> str:
     )
 
 
-def _render_rankings_row(row: RankingRow, mood: tuple | None = None) -> str:
+def _render_rankings_row(row: RankingRow, mood: tuple | None = None, discourse_term: str | None = None) -> str:
     """v5 card-feed article for one ranked team (mobile / card representation).
 
     1:1 with docs/octopus/mockups/rankings-mobile.html row(); classes match
@@ -23363,6 +23411,8 @@ def _render_rankings_row(row: RankingRow, mood: tuple | None = None) -> str:
 
     logo_html = _rankings_logo_markup(row.slug, tc, monogram)
     bchip = _belief_chip(mood)
+    dchip = _discourse_term_chip(discourse_term)
+    dchip_sep = '<span class="dvr">·</span>' if dchip else ""
 
     return f"""
     <article class="row{lead_class}" data-rank="{row.rank}" data-level="{escape(row.level_code.lower())}" data-conf="{escape(conf_slug)}" data-tier="{escape(str(tier))}" data-rank-change="{row.rank_change}" data-sort-power="{float(power_value or 0.0):.4f}" data-sort-resume="{float(resume_value or 0.0):.4f}" style="--tc:{tc}">
@@ -23371,7 +23421,7 @@ def _render_rankings_row(row: RankingRow, mood: tuple | None = None) -> str:
         <div class="rk num">{row.rank}<span class="mom" style="background:{_mom_color(row.rank_change)}"></span></div>
         <div class="idb">{logo_html}<div class="idtext">
           <div class="nm">{star}<span class="t">{escape(row.team_name)}</span></div>
-          <div class="meta"><span class="conf">{escape(conf_short)}</span><span class="dvr">·</span>{bchip}</div>
+          <div class="meta"><span class="conf">{escape(conf_short)}</span><span class="dvr">·</span>{bchip}{dchip_sep}{dchip}</div>
         </div></div>
         <div class="pow"><div class="v num">{power_text}</div><div class="l">Power · <b>#{row.rank}</b></div></div>
         <span class="chev" aria-hidden="true">&rsaquo;</span>
@@ -23393,7 +23443,7 @@ def _rankings_detail_stub(row: RankingRow, conference: str) -> str:
     return f'<p class="why">{" · ".join(bits)}</p>'
 
 
-def _render_rankings_table_row(row: RankingRow, mood: tuple | None = None) -> str:
+def _render_rankings_table_row(row: RankingRow, mood: tuple | None = None, discourse_term: str | None = None) -> str:
     """Desktop KenPom <tr> for one ranked team (table representation).
 
     1:1 with docs/octopus/mockups/desktop-board.html rowHTML(); carries the
@@ -23420,6 +23470,8 @@ def _render_rankings_table_row(row: RankingRow, mood: tuple | None = None) -> st
     else:
         delta_text = "&mdash;"
     bchip = _belief_chip(mood)
+    dchip = _discourse_term_chip(discourse_term)
+    dchip_sep = '<span class="dvr">·</span>' if dchip else ""
 
     return f"""
     <tr class="{lead_class.strip()}" data-rank="{row.rank}" data-level="{escape(row.level_code.lower())}" data-conf="{escape(conf_slug)}" data-tier="{escape(str(tier))}" data-rank-change="{row.rank_change}" data-sort-power="{float(power_value or 0.0):.4f}" data-sort-resume="{float(resume_value or 0.0):.4f}" style="--tc:{tc}">
@@ -23428,7 +23480,7 @@ def _render_rankings_table_row(row: RankingRow, mood: tuple | None = None) -> st
       <td class="l"><span class="team">{star}{logo_html}<span class="nm">{escape(row.team_name)}</span></span></td>
       <td class="l"><span class="conf">{escape(conf_short)}</span></td>
       <td><span class="v num" aria-label="Power {power_text}, rank {row.rank}">{power_text}<span class="rk2">·{row.rank}</span></span></td>
-      <td>{bchip}</td>
+      <td>{bchip}{dchip_sep}{dchip}</td>
     </tr>
     """
 

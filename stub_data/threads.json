@@ -1,6 +1,6 @@
 {
   "_emitted_by_sprint_10": true,
-  "_emitted_at": "2026-04-25T21:37:04.760422Z",
+  "_emitted_at": "2026-06-11T00:51:56.332021Z",
   "_contract_version": 1,
   "_consumers": [
     "sprint-9-homepage",
@@ -32,7 +32,7 @@
       "dek": "The hot seats, the open jobs, the candidates that won't say they're candidates. The annual reshuffle that reshapes the sport, mapped chapter by chapter as it happens.",
       "accent_hex": "#d97706",
       "status": "active",
-      "started_at": "2026-09-01",
+      "started_at": "2025-09-01",
       "last_chapter_at": "2026-04-23 11:00:00",
       "chapter_count": 4,
       "word_count": 4728,

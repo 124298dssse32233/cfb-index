@@ -74,7 +74,8 @@ def _create_schema(conn: sqlite3.Connection) -> None:
             source_subchannel        TEXT,
             external_created_at_utc  TEXT,
             is_deleted               INTEGER DEFAULT 0,
-            is_removed               INTEGER DEFAULT 0
+            is_removed               INTEGER DEFAULT 0,
+            relevance_ml_score       REAL
         );
 
         CREATE TABLE conversation_document_targets (
@@ -195,7 +196,7 @@ def _build_corpus(conn: sqlite3.Connection, n_player_docs: int = 40) -> None:
             f"incredible run great player {i}"
         )
         conn.execute(
-            "INSERT INTO conversation_documents VALUES (?,?,?,?,?,?,0,0)",
+            "INSERT INTO conversation_documents VALUES (?,?,?,?,?,?,0,0,NULL)",
             (doc_id, f"Thread {doc_id}", body, "reddit", f"r/{TEAM_A_SLUG}", CORPUS_DATE),
         )
         conn.execute(
@@ -208,7 +209,7 @@ def _build_corpus(conn: sqlite3.Connection, n_player_docs: int = 40) -> None:
     for i in range(2):
         body = f"{FOOTBALL_ANCHORS} {PLAYER_B_LAST.lower()} solid carry {i}"
         conn.execute(
-            "INSERT INTO conversation_documents VALUES (?,?,?,?,?,?,0,0)",
+            "INSERT INTO conversation_documents VALUES (?,?,?,?,?,?,0,0,NULL)",
             (doc_id, f"Thread {doc_id}", body, "reddit", f"r/{TEAM_A_SLUG}", CORPUS_DATE),
         )
         conn.execute(

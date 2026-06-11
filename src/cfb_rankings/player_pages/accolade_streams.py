@@ -390,7 +390,7 @@ def build_position_award_stream(
         )
 
     row = rows[0]
-    placement = (row.get("placement") or row.get("honor_team") or "").lower()
+    placement = str(row.get("placement") or row.get("honor_team") or "").lower()
     name = (row.get("honor_name") or "").lower()
     if "winner" in name or placement == "winner":
         copy = f"Won the {award_name} award this season."

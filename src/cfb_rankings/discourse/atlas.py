@@ -17,6 +17,15 @@ from typing import Any
 
 from .keyness import _row_get
 
+
+def _fetchall(db: Any, sql: str, params: Any) -> list:
+    """Fetch rows — works with both raw sqlite3.Connection and Database wrapper."""
+    cur = db.execute(sql, params)
+    if cur is None:
+        return db.query_all(sql, params)
+    return cur.fetchall()
+
+
 # ---------------------------------------------------------------------------
 # Sparse-vector helpers
 # ---------------------------------------------------------------------------
@@ -149,9 +158,6 @@ def compute_discourse_atlas(
     else:
         seasons_list = list(seasons)
 
-    cursor = db.cursor()
-    cursor.row_factory = None  # we read via column index below
-
     total_clusters = 0
     total_assigned = 0
     processed_seasons: list[int] = []
@@ -160,7 +166,8 @@ def compute_discourse_atlas(
         # -----------------------------------------------------------------
         # 1. Load team_discourse_terms for week=0, this season
         # -----------------------------------------------------------------
-        cursor.execute(
+        rows = _fetchall(
+            db,
             """
             SELECT t.team_id, dt.term, dt.z_score
             FROM   team_discourse_terms dt
@@ -171,7 +178,6 @@ def compute_discourse_atlas(
             """,
             (season,),
         )
-        rows = cursor.fetchall()
 
         # Build per-team vectors
         team_vectors: dict[int, dict[str, float]] = {}
@@ -260,14 +266,14 @@ def compute_discourse_atlas(
         # 6. Persist (if commit=True)
         # -----------------------------------------------------------------
         if commit:
-            cursor.execute(
+            db.execute(
                 "DELETE FROM team_discourse_clusters WHERE season_year = ?",
                 (season,),
             )
             for idx, cid in enumerate(assignments):
                 team_id     = team_ids_ordered[idx]
                 shared_json = json.dumps(cluster_shared_terms[cid])
-                cursor.execute(
+                db.execute(
                     """
                     INSERT INTO team_discourse_clusters
                         (team_id, season_year, cluster_id, cluster_name,

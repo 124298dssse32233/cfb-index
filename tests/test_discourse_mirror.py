@@ -90,7 +90,8 @@ def _create_schema(conn: sqlite3.Connection) -> None:
             body_text                TEXT,
             external_created_at_utc  TEXT,
             is_deleted               INTEGER DEFAULT 0,
-            is_removed               INTEGER DEFAULT 0
+            is_removed               INTEGER DEFAULT 0,
+            relevance_ml_score       REAL
         );
 
         CREATE TABLE conversation_document_targets (
