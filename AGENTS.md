@@ -1,5 +1,7 @@
 # CFB Index — Agent Orientation
 
+> ⚠️ **STALE — superseded by [CLAUDE.md](CLAUDE.md) (canonical agent orientation).** This file was last refreshed 2026-05-23 and has known-wrong content: it says "17 profiled slugs" (now **119/119 FBS** — `ls profiles/*.md` is the source of truth) and its Deployment section predates the **2026-06-10 box-first cutover** (the box `build_publish.ps1` is now the only live deployer; cloud cron is retiring). Trust CLAUDE.md, current code, and `scrape_health`/`ls` over this doc. Verified 2026-06-11 (WP-0.5).
+
 _Last refreshed 2026-05-23. If a number here looks wrong, trust `wc -l` and `ls | wc -l` over this doc._
 
 ## 🚨 Vercel alias rotation gotcha (2026-05-23)

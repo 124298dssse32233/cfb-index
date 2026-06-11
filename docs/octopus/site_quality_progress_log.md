@@ -14,7 +14,7 @@
 | 0.2b | Reconcile safe box-omitted RENDER gaps (render-daily/-edition; canon) | ⏳ follow-up | — | surfaced by 0.2: /canon/ + /daily/ frozen 2026-04-26; canon_lists/entries=0 (don't blind-add render-canon-all) |
 | 0.3 | Smoke + build assertions on every nav target | ✅ done | `4ed8f28` | smoke now covers all 15 nav routes (+7 added); build-assertion side = WP-0.2 verifier (warn) → WP-0.6 (hard). Found 5 healthy-but-unmonitored routes (nfl-pipeline/archive/matchups/spotlight/the-room) |
 | 0.6 | Pre-deploy snapshot-completeness guard (Gate B) | ✅ done | (this commit) | hard `--strict` route gate added to publish_to_vercel.ps1 before deploy; verified fail-closed (empty snapshot → 15 MISSING → exit 1/abort); PS parses clean |
-| 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ⏳ | — | — |
+| 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ✅ done | (this commit) | DATA_SOURCES cadence column now measured-from-scrape_health (Kalshi/SeatGeek "Not collecting", YT-comments/GDELT-tone flagged, Polymarket prob caveat); AGENTS.md gets a STALE→CLAUDE.md banner |
 | 0.4 | Row-count/freshness/coverage/provenance guards | ⏳ | — | — |
 | 0.7 | Provenance labeling (legacy_unverified) | ⏳ (Phase 0, deferred edit) | — | — |
 
@@ -70,3 +70,11 @@ Extended the block comment to record offseason/film-room as the same clobber cla
 - Negative (fail-closed): empty dir `--strict` → "15 MISSING", exit 1 → would ABORT. Gate fails closed.
 **Effect:** the offseason/film-room clobber class is now structurally impossible — any build that drops a nav route refuses to deploy rather than clobbering prod.
 **Blast radius:** one gate block in publish_to_vercel.ps1. **Rollback:** remove gate 1c.
+
+### WP-0.5 — Data-source docs reflect measured reality — ✅ 2026-06-11
+**Problem (CP-6):** `DATA_SOURCES_EXPLAINED.md` listed Kalshi/SeatGeek/YouTube-comments/GDELT-tone as "Daily" though measured `scrape_health` shows them empty/stale; `AGENTS.md` was stale (17-slug, pre-cutover deploy text).
+**Change:**
+- `DATA_SOURCES_EXPLAINED.md`: renamed the at-a-glance table to "every **registered** source"; "How often" → "Cadence (measured 2026-06-11)"; split Polymarket/Kalshi into separate rows; flagged Kalshi+SeatGeek "Not collecting", YouTube-comments "Intermittent", GDELT-tone "stale", Polymarket "volume only"; added a ⚠️ measured-status note + link to Discover §10.
+- `AGENTS.md`: added a STALE banner at top pointing to CLAUDE.md as canonical, naming the two wrong facts (17 vs 119/119 slugs; pre-2026-06-10-cutover deploy section).
+**Verification (2026-06-11):** edits applied; table keeps 4-column structure; claims now match the `scrape_health` query in Discover §0/§1.
+**Blast radius:** 2 docs. **Rollback:** revert the doc edits.

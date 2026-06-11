@@ -138,26 +138,31 @@ We also publish our honest **coverage gaps** (e.g. older alumni on Facebook are 
 
 ---
 
-## Quick reference: every active source at a glance
+## Quick reference: every registered source at a glance
 
-| Source | Purpose | Cost | How often |
+*"Cadence" below is the **measured** collection status as of 2026-06-11 (from `scrape_health`), not registry intent — every source is flagged `is_active` in the registry, but several aren't currently producing data. ⚠️ flags a source whose live status differs from "daily."*
+
+| Source | Purpose | Cost | Cadence (measured 2026-06-11) |
 |---|---|---|---|
 | Reddit (team subs, r/CFB, comments) | Fan sentiment + discourse | Free | Daily |
 | Message boards | Die-hard sentiment | Free | Daily |
-| YouTube comments | Casual fan voice | Free | Daily |
+| YouTube comments | Casual fan voice | Free | Intermittent ⚠️ |
 | Bluesky (curated + feeds) | Media/fan reactions | Free | Daily |
 | Podcasts (transcribed) | "Talking heads" voice | Free | Daily (time-boxed) |
-| GDELT | News attention/volume | Free | Daily |
+| GDELT | News attention/volume | Free | Daily (volume); tone stale ⚠️ |
 | Google News | Per-team news | Free | Daily |
 | Campus newspapers | College-age view | Free | Daily |
 | Athletics sites | Official team news | Free | Daily |
 | Wikipedia pageviews + edits | Public curiosity | Free | Daily |
 | YouTube video stats | Video attention | Free | Daily |
-| Polymarket + Kalshi | Market belief | Free | Daily |
-| SeatGeek | Ticket demand | Free | Daily |
+| Polymarket | Market belief | Free | Daily (volume only) ⚠️ |
+| Kalshi | Market belief (2nd) | Free | Not collecting ⚠️ |
+| SeatGeek | Ticket demand | Free | Not collecting ⚠️ |
 | On3 NIL | Player money | Free (public) | Daily (during build) |
 | CFBD | Official facts | ~$10/mo | During build |
 | Coaching news / Wikipedia awards | Coaching + honors | Free | Daily/as needed |
+
+> ⚠️ **Measured-status notes (2026-06-11):** **Kalshi** and **SeatGeek** are registered but currently return no rows (status `empty`). **YouTube comments** (team channels) last collected 2026-05-13 — intermittent, not daily. **GDELT tone** last collected 2026-05-13 (the daily *volume* feed is healthy). **Polymarket** collects daily, but only market *volume* is persisted — the implied-probability (`prob_yes`) is dropped by a write-side parse issue; the public belief metric still works because the consumer re-reads the raw payload. Full audit: `docs/octopus/site_quality_discover_2026-06-11.md` §10.
 
 ---
 
