@@ -209,11 +209,15 @@ Run "site: build-editions-archive" { python manage.py build-editions-archive }
 # deploy because only the GitHub section-workflows rendered them — and since a
 # Vercel deploy is a full snapshot, the box's incomplete output/site clobbered
 # them off production. Render them here so the box ships a COMPLETE site.
-# All three exit 0 even with no offseason data (they leave a stub index), so
-# they stay non-Critical: an empty section must never block the deploy.
+# /offseason/ and /film-room/ are the SAME clobber class (globally nav-linked,
+# built only by the retiring publish_site.yml, 404 in prod 2026-06-11) — added
+# here 2026-06-11 (WP-0.1). All exit 0 even with no data (they leave a stub
+# index), so they stay non-Critical: an empty section must never block the deploy.
 Run "site: render-storylines" { python manage.py render-storylines }
 Run "site: render-wire --days 30" { python manage.py render-wire --days 30 }
 Run "site: render-today-in-history" { python manage.py render-today-in-history }
+Run "site: build-offseason-leaderboards" { python scripts/build_offseason_leaderboards.py }
+Run "site: build-film-room" { python scripts/build_film_room.py }
 
 # =========================================================================
 # J. Status dump for the log trailer
