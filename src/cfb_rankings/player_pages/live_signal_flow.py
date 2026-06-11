@@ -1,13 +1,14 @@
-"""Live Signal Flow placeholder — Brief Signature Bet #13.
+"""Live Signal Flow — Brief Signature Bet #13.
 
-Top-of-page bar that surfaces real-time fan-conversation signal volume
-for this player. Currently empty (no live conversation pipeline yet),
-but the placeholder reserves the visual + a/b layout slot for when the
-pipeline ships.
+Top-of-page bar that surfaces real fan-conversation signal volume for this
+player from the player_signal_events table (3 timing bands: last hour / 24h /
+week).
 
-Renders 3 timing-based bands (last hour / last 24h / last week) using
-the player_signal_events table. Falls back to a tasteful "Awaiting Signal"
-panel when the table is empty.
+WP-3.2 (2026-06-11): the module now HIDES itself (renders nothing) when there
+is no real signal data, instead of shipping a perpetual "awaiting / placeholder"
+scaffold. Live-signal UI is out of scope (no real-time game experiences), and
+an honest empty state is *absence*, not a permanent placeholder. The real-data
+render path is preserved for if/when the pipeline ever populates the table.
 
 Public API:
     render_live_signal_flow(db, player_id) -> str
@@ -115,6 +116,12 @@ def render_live_signal_flow(db, player_id: int | None) -> str:
         return ""
     bands = _fetch_signal_bands(db, int(player_id))
     any_value = any(v is not None and v > 0 for v in bands.values())
+
+    # No real signal data → render nothing. We do NOT ship a perpetual
+    # "awaiting" placeholder (out of scope: no live UI; honest empty state =
+    # absence). The real-data path below runs only once events exist.
+    if not any_value:
+        return ""
 
     band_html: list[str] = []
     for label, key in [("Last hr", "hour"), ("Last 24h", "day"), ("Last 7d", "week")]:

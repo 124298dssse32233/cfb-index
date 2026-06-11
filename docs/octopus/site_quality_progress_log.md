@@ -17,7 +17,8 @@
 | 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ✅ done | (this commit) | DATA_SOURCES cadence column now measured-from-scrape_health (Kalshi/SeatGeek "Not collecting", YT-comments/GDELT-tone flagged, Polymarket prob caveat); AGENTS.md gets a STALE→CLAUDE.md banner |
 | 0.4 | Row-count/freshness/coverage/provenance guards | ✅ done | (this commit) | new `verify_data_floors.py`: provenance ratchet (source_id %, high-water 22.3%) + 7 factual-spine floors; verified positive (exit 0) + negative (breach→exit 1); wired non-critical into box build; complements (no dup of) module/source guards |
 | 0.7 | Provenance labeling (legacy_unverified) | ✅ done | (this commit) | idempotent `backfill_provenance_status.py` (canonical 43,479 / legacy_unverified 151,493 via dry-run; write/idempotent/revert proven on synthetic DB; **live DB untouched**); wired non-critical into box build → labels post-merge |
-| **1.4** | Fix Polymarket prob_yes write-side parse | ✅ done | (this commit) | `prediction_markets.py` json.loads JSON-string outcomePrices; 3 unit tests pass (string→0.125, list→0.4, malformed→safe); additive, read side unaffected; takes effect next collect |
+| **1.4** | Fix Polymarket prob_yes write-side parse | ✅ done | `5dea305` | `prediction_markets.py` json.loads JSON-string outcomePrices; 3 unit tests pass (string→0.125, list→0.4, malformed→safe); additive, read side unaffected; takes effect next collect |
+| **3.2** | Hide Live Signal Flow placeholder | ✅ done | (this commit) | `live_signal_flow.py` returns "" when no real events (was a perpetual "awaiting" scaffold); verified empty for 3 real players; template `{… or ""}` + alias = no wrapper/gap; real-data path preserved |
 
 Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked. (Phase 0 complete; Phase 1 started.)
 
@@ -115,3 +116,12 @@ An independent reviewer (full repo access) audited the Phase-0 diff. **Verdict: 
 **Change:** `src/cfb_rankings/ingest/sources/prediction_markets.py` — `json.loads` outcomePrices when it's a `str` before indexing. Purely additive (read side unaffected; no existing surface changes). New `tests/test_prediction_markets.py` (3 cases).
 **Verification (2026-06-11):** `pytest tests/test_prediction_markets.py` → **3 passed** (JSON-string → 0.125; native list → 0.4 regression-safe; malformed string → no prob_yes, no crash, volume still captured).
 **Effect:** future collects persist `prob_yes` rows; no DB mutation by me. **Blast radius:** one adapter method. **Rollback:** revert the `isinstance(outcomes, str)` block.
+
+### WP-3.2 — Hide the Live Signal Flow placeholder — ✅ 2026-06-11
+**Problem (CP-13):** `player_pages/live_signal_flow.py` always rendered a dashed-border "Live signal pipeline placeholder. Activates during season…" scaffold (three "awaiting" bands) on every player page. Live-signal UI is out of scope (no real-time game experiences) and an honest empty state is *absence*, not a perpetual placeholder.
+**Change:** `render_live_signal_flow` now returns `""` when there is no real `player_signal_events` data (`any_value` false). The real-data render path is preserved for if/when the table is ever populated. CSS retained (used by that preserved path).
+**Verification (2026-06-11):**
+- Function returns len=0 for 3 real players (12763/12194/12655); `player_signal_events`=0 rows.
+- Injection is a direct alias (`render_live_signal_flow as _render_signal_v2`, reporting.py:9240) → no wrapper; template renders `{… or ""}` (reporting.py:19961) → empty collapses with no leftover shell/gap.
+**Blast radius:** one function early-return. **Rollback:** remove the `if not any_value: return ""`.
+**Note:** full visual before/after deferred to a build/preview pass; template-level removal verified clean (no empty container).
