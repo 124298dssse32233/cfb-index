@@ -293,8 +293,14 @@ def _honor_to_heisman_vote_result(row: dict[str, Any]) -> dict[str, Any] | None:
     selector = str(row.get("selector") or "").strip().lower()
     if "heisman" not in honor_name or "heisman" not in selector:
         return None
-    winner_flag = 1 if "winner" in honor_name or str(row.get("honor_team") or "").strip().lower() == "winner" else 0
-    finalist_flag = 1 if winner_flag or "finalist" in honor_name or str(row.get("honor_team") or "").strip().lower() == "finalist" else 0
+    honor_team_low = str(row.get("honor_team") or "").strip().lower()
+    placement_val = row.get("placement")
+    winner_flag = 1 if (
+        "winner" in honor_name
+        or honor_team_low == "winner"
+        or placement_val == 1  # position award import sets placement=1 for winner
+    ) else 0
+    finalist_flag = 1 if winner_flag or "finalist" in honor_name or honor_team_low == "finalist" else 0
     return {
         "season_year": int(row["season_year"]),
         "player_id": int(row["player_id"]),

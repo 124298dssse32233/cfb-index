@@ -698,12 +698,28 @@ _POSITION_AWARDS = {
 }
 
 
+# Wikipedia article titles for each award's winners table.
+# Year-specific pages (e.g., "2024 Heisman Trophy") do NOT exist on Wikipedia —
+# we read the main award article and locate the row for the requested year.
+_AWARD_WIKI_TITLES: dict[str, str] = {
+    "Heisman Trophy": "List of Heisman Trophy winners",
+}
+
+
 def scrape_position_award(year: int, award: str) -> list[dict[str, Any]]:
-    """Scrape winner + finalists for one award in one year."""
+    """Scrape the winner for one position award in one year.
+
+    Wikipedia does not have year-specific award pages ("2024 Heisman Trophy"
+    404s). Instead each award has a main article with a historical winners
+    table (Year | Player/Winner | School | ...). We fetch that article and
+    locate the row for *year*.
+    """
     position, honor_name = _POSITION_AWARDS.get(award, ("ATH", award))
-    title = f"{year} {award}"
+    article_title = _AWARD_WIKI_TITLES.get(award, award)
+    source_url = _wiki_url(article_title)
+
     try:
-        html = _fetch_html(title)
+        html = _fetch_html(article_title)
     except Exception as exc:
         log.info("scrape_position_award %d %s: fetch failed: %s", year, award, exc)
         return []
@@ -711,71 +727,106 @@ def scrape_position_award(year: int, award: str) -> list[dict[str, Any]]:
     soup = BeautifulSoup(html, "lxml")
     out: list[dict[str, Any]] = []
 
-    # Winner: infobox's "Recipient(s)" row or the lede's first bold link.
-    infobox = soup.find("table", class_=lambda c: c and "infobox" in c)
-    winner_name: str | None = None
-    winner_team: str | None = None
-    if infobox:
-        for row in infobox.find_all("tr"):
-            header = row.find("th")
-            data = row.find("td")
-            if not header or not data:
-                continue
-            h_text = _cell_text(header).lower()
-            if "recipient" in h_text or "winner" in h_text:
-                # data may contain "Name (School)" or "Name – School"
-                d_text = _cell_text(data)
-                m = re.match(r"^(.+?)\s*[\(\u2013\u2014-]\s*(.+?)[\)]?$", d_text)
-                if m:
-                    winner_name = m.group(1).strip()
-                    winner_team = m.group(2).strip()
-                else:
-                    winner_name = d_text
-                break
+    for table in soup.find_all("table", class_=lambda c: c and "wikitable" in c):
+        rows = table.find_all("tr")
+        if len(rows) < 4:
+            continue
+        header_cells = rows[0].find_all(["th", "td"])
+        headers = [_cell_text(h).lower() for h in header_cells]
 
-    if winner_name:
-        out.append({
-            "season_year": year,
-            "player_name": winner_name,
-            "position": position,
-            "team_name": winner_team or "",
-            "honor_scope": "position_award",
-            "honor_name": honor_name,
-            "selector": honor_name,
-            "placement": "winner",
-            "source_name": "wikipedia",
-            "source_url": _wiki_url(title),
-        })
+        # Require a year/season column.
+        year_col = next(
+            (i for i, h in enumerate(headers) if h in ("year", "season")), None
+        )
+        if year_col is None:
+            continue
 
-    # Finalists: look for a heading "Finalists" followed by a list or table.
-    for heading in soup.find_all(["h2", "h3"]):
-        if "finalist" in heading.get_text(" ").lower():
-            # Next sibling table or ul
-            sibling = heading.find_next(["table", "ul"])
-            if sibling is None:
+        # Require a player/winner name column.
+        player_col = next(
+            (
+                i
+                for i, h in enumerate(headers)
+                if any(kw in h for kw in ("name", "player", "winner"))
+            ),
+            None,
+        )
+        if player_col is None:
+            continue
+
+        # Optional school/team column.
+        school_col = next(
+            (
+                i
+                for i, h in enumerate(headers)
+                if any(kw in h for kw in ("school", "team", "university", "college"))
+            ),
+            None,
+        )
+
+        # Optional position column.
+        pos_col = next(
+            (i for i, h in enumerate(headers) if h in ("pos", "pos.", "position")),
+            None,
+        )
+
+        for tr in rows[1:]:
+            cells = tr.find_all(["td", "th"])
+            if year_col >= len(cells):
                 continue
-            if sibling.name == "ul":
-                for li in sibling.find_all("li"):
-                    t = _cell_text(li)
-                    m = re.match(r"^(.+?)[,\s\u2013\u2014-]+(.+)$", t)
-                    if m:
-                        p_name = m.group(1).strip()
-                        t_name = m.group(2).strip()
-                        if p_name == winner_name:
-                            continue
-                        out.append({
-                            "season_year": year,
-                            "player_name": p_name,
-                            "position": position,
-                            "team_name": t_name,
-                            "honor_scope": "position_award",
-                            "honor_name": honor_name,
-                            "selector": honor_name,
-                            "placement": "finalist",
-                            "source_name": "wikipedia",
-                            "source_url": _wiki_url(title),
-                        })
-            break
+            yr_text = _cell_text(cells[year_col])
+            try:
+                row_year = int(yr_text[:4])
+            except (ValueError, IndexError):
+                continue
+            if row_year != year:
+                continue
+            if player_col >= len(cells):
+                continue
+
+            player_name = _cell_text(cells[player_col])
+            # Strip asterisks and trailing repeat-winner markers like "(2)".
+            player_name = re.sub(r"\s*\*+\s*", " ", player_name).strip()
+            player_name = re.sub(r"\s*\(\d+\)\s*$", "", player_name).strip()
+            if not player_name:
+                continue
+
+            team_name = ""
+            if school_col is not None and school_col < len(cells):
+                team_name = _cell_text(cells[school_col])
+                # Strip trailing repeat counts "(3)" but preserve state
+                # qualifiers like "(FL)" that appear mid-string.
+                team_name = re.sub(r"\s*\(\d+\)\s*$", "", team_name).strip()
+
+            row_position = position
+            if pos_col is not None and pos_col < len(cells):
+                pos_text = _cell_text(cells[pos_col])
+                canon = _canonical_conference_position(pos_text)
+                if canon:
+                    row_position = canon
+
+            out.append({
+                "season_year": year,
+                "player_name": player_name,
+                "position": row_position,
+                "team_name": team_name,
+                "honor_scope": "position_award",
+                "honor_name": honor_name,
+                "selector": honor_name,
+                "honor_team": "winner",
+                "placement": 1,
+                "source_name": "wikipedia",
+                "source_url": source_url,
+            })
+            break  # Found this year's winner in this table.
+
+        if out:
+            break  # Stop after the first table that yielded a result.
+
+    if not out:
+        log.info(
+            "scrape_position_award %d %s: no row found in %r",
+            year, award, article_title,
+        )
     return out
 
 
@@ -853,7 +904,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         return
     fields = [
         "season_year", "player_name", "position", "team_name",
-        "honor_scope", "honor_name", "selector", "placement",
+        "honor_scope", "honor_name", "selector", "honor_team", "placement",
         "source_name", "source_url",
     ]
     with path.open("w", encoding="utf-8", newline="") as f:

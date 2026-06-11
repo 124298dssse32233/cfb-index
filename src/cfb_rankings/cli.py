@@ -806,6 +806,8 @@ def build_parser() -> argparse.ArgumentParser:
     wiki_awards_parser.add_argument("--out-dir", default="data/scraped_honors")
     wiki_awards_parser.add_argument("--auto-import", action="store_true",
         help="After scraping, auto-import every produced CSV via import-player-honors.")
+    wiki_awards_parser.add_argument("--no-stubs", action="store_true",
+        help="With --auto-import: skip honors whose player is not already in the DB (safe default).")
 
     seed_team_aliases_parser = subparsers.add_parser("seed-team-aliases")
     seed_team_aliases_parser.add_argument("--season", type=int, required=True)
@@ -4704,6 +4706,7 @@ def main() -> None:
                     imported = import_player_honors_csv(
                         repository=repository, db=db, csv_path=p,
                         default_source_name="wikipedia",
+                        create_stubs=not getattr(args, "no_stubs", False),
                     )
                     imported_total += imported
                     print(f"    imported {imported} rows from {name}")
