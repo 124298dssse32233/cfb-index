@@ -83,6 +83,20 @@ URLS: list[tuple[str, str, str]] = [
     ("/history/", "section-index", "Historical archive"),
     ("/anniversary/today/", "section-index", "Today-in-CFB-history daily render — render-today-in-history CLI writes here despite workflow comment saying /today-in-history/"),
 
+    # Global-nav completeness (WP-0.3) — EVERY _site_nav target must be
+    # smoke-covered so a broken navigation promise can't go unmonitored.
+    # offseason + film-room 404'd in prod 2026-06-11 (box build omitted them;
+    # fixed WP-0.1) — these guard the regression. nfl-pipeline / archive /
+    # matchups / players-spotlight (the real "Players" target) / the-room were
+    # also previously unmonitored. Cross-checked against scripts/build_manifest.py.
+    ("/offseason/", "section-index", "Offseason hub — nav target (404'd in prod 2026-06-11; WP-0.1 fix)"),
+    ("/film-room/", "section-index", "Film Room hub — nav target (404'd in prod 2026-06-11; WP-0.1 fix)"),
+    ("/nfl-pipeline/", "section-index", "NFL Pipeline — nav target"),
+    ("/archive/", "section-index", "Weekly Archive — nav target"),
+    ("/matchups/", "section-index", "Matchup Simulator — nav-action target"),
+    ("/players/spotlight.html", "section-index", "Players spotlight — canonical 'Players' nav target"),
+    ("/players/the-room.html", "section-index", "The Room discovery page — footer/nav linked"),
+
     # Sampled detail pages — players (drawn from Heisman board).
     # NOTE 2026-06-10: player_id is NOT stable across re-ingest — these IDs
     # changed from 38276/48316/38981 to the 12xxx values below when the player
