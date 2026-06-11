@@ -167,6 +167,41 @@ def _wow_row_html(db, team_id: int, season: int) -> str:
     )
 
 
+def _kwic_block_html(db, team_id: int, season: int, top_term: str) -> str:
+    """Expandable KWIC concordance block for the top term. Returns empty string on any error."""
+    if db is None:
+        return ""
+    try:
+        quotes = db.query_all(
+            "SELECT passage FROM team_discourse_term_quotes "
+            "WHERE team_id=:tid AND season_year=:season AND week=0 AND term=:term "
+            "ORDER BY position_index ASC LIMIT 8",
+            {"tid": team_id, "season": season, "term": top_term},
+        )
+    except Exception:
+        return ""
+    if not quotes:
+        return ""
+    from .keyness import _row_get  # local import to avoid circular
+    items = []
+    for q in quotes:
+        text = str(_row_get(q, "passage") or "").strip()
+        if not text:
+            continue
+        items.append(f'<li class="kwic__item"><q class="kwic__q">{escape(text)}</q></li>')
+    if not items:
+        return ""
+    count = len(items)
+    term_display = top_term.upper()
+    inner = "\n".join(items)
+    return (
+        f'<details class="kwic">\n'
+        f'<summary class="kwic__summary">Fans using <strong>{term_display}</strong> ({count} examples)</summary>\n'
+        f'<ol class="kwic__list">\n{inner}\n</ol>\n'
+        f'</details>\n'
+    )
+
+
 def render_lexicon(db, profile: Profile, snapshot: TeamSnapshot | None) -> str:
     if db is None or snapshot is None or not getattr(snapshot, "team_id", None):
         return ""
@@ -224,6 +259,8 @@ def render_lexicon(db, profile: Profile, snapshot: TeamSnapshot | None) -> str:
             f'</div>'
         )
 
+    kwic_html = _kwic_block_html(db, team_id, season, top_term)
+
     return f"""
 <section class="lexicon-module" aria-label="The Lexicon">
   <div class="lexicon-module__head">
@@ -237,6 +274,7 @@ def render_lexicon(db, profile: Profile, snapshot: TeamSnapshot | None) -> str:
   </div>
   <div class="lexicon-module__wall">{wall_html}</div>
   {receipt_html}
+  {kwic_html}
 </section>"""
 
 
@@ -418,6 +456,12 @@ LEXICON_CSS = """
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
+.kwic { margin-top: .75rem; }
+.kwic__summary { cursor: pointer; font-size: .8rem; color: var(--color-muted, #8a9ab0); }
+.kwic__list { margin: .5rem 0 0; padding-left: 1.2rem; }
+.kwic__item { margin-bottom: .4rem; font-size: .82rem; }
+.kwic__q { font-style: italic; quotes: none; }
+.kwic__src { color: var(--color-muted, #8a9ab0); font-size: .75rem; }
 """
 
 

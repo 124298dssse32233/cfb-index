@@ -1395,6 +1395,48 @@ def build_parser() -> argparse.ArgumentParser:
     fan_voice_board_parser.add_argument("--output-dir", default=None,
         help="Output root dir (default: output/site).")
 
+    kwic_quotes_parser = subparsers.add_parser(
+        "compute-kwic-quotes",
+        help=(
+            "Language Layer wave 4: KWIC (keyword-in-context) quote extraction — "
+            "pulls the top-N distinctive terms per team and samples the best "
+            "surrounding quote windows, written to team_discourse_kwic_quotes. "
+            "Dry run by default; pass --commit to write."
+        ),
+    )
+    kwic_quotes_parser.add_argument("--season", action="append", required=True,
+        help="Season year(s) to compute. Repeatable or comma-list.")
+    kwic_quotes_parser.add_argument("--commit", action="store_true",
+        help="Write rows (default: dry run — compute + print only).")
+    kwic_quotes_parser.add_argument("--top-terms", type=int, default=5,
+        help="Top distinctive terms to pull quotes for per team. Default 5.")
+
+    discourse_atlas_parser = subparsers.add_parser(
+        "compute-discourse-atlas",
+        help=(
+            "Language Layer wave 4: discourse atlas clustering — groups teams "
+            "by semantic fan-voice similarity into N clusters, written to "
+            "team_discourse_atlas for the fan-voice leaderboard. "
+            "Dry run by default; pass --commit to write."
+        ),
+    )
+    discourse_atlas_parser.add_argument("--season", action="append", required=True,
+        help="Season year(s) to compute. Repeatable or comma-list.")
+    discourse_atlas_parser.add_argument("--commit", action="store_true",
+        help="Write rows (default: dry run — compute + print only).")
+    discourse_atlas_parser.add_argument("--n-clusters", type=int, default=8,
+        help="Number of clusters for the atlas grouping. Default 8.")
+
+    fan_voice_leaderboard_parser = subparsers.add_parser(
+        "build-fan-voice-leaderboard",
+        help=(
+            "Language Layer wave 4: build the standalone /fan-voice/leaderboard.html "
+            "page showing KWIC quotes, atlas clusters, and fanbase voice rankings."
+        ),
+    )
+    fan_voice_leaderboard_parser.add_argument("--season", type=int, required=True,
+        help="Season year to display.")
+
     seed_rivalry_pairs_parser = subparsers.add_parser(
         "seed-rivalry-pairs",
         help=(
@@ -6390,6 +6432,38 @@ CREATE UNIQUE INDEX idx_player_current_status_cache_pid
         output_dir = Path(args.output_dir) if args.output_dir else Path("output/site")
         path = build_fan_voice_board(db, output_dir, args.season)
         print(f"build-fan-voice-board: wrote {path}", flush=True)
+        return
+
+    if args.command == "compute-kwic-quotes":
+        from cfb_rankings.discourse.kwic import compute_kwic_quotes
+        seasons = []
+        for s in (args.season or []):
+            for part in s.split(","):
+                part = part.strip()
+                if part:
+                    seasons.append(int(part))
+        result = compute_kwic_quotes(db, seasons=seasons, top_terms=args.top_terms, commit=args.commit)
+        print(result)
+        return
+
+    if args.command == "compute-discourse-atlas":
+        from cfb_rankings.discourse.atlas import compute_discourse_atlas
+        seasons = []
+        for s in (args.season or []):
+            for part in s.split(","):
+                part = part.strip()
+                if part:
+                    seasons.append(int(part))
+        result = compute_discourse_atlas(db, seasons=seasons, n_clusters=args.n_clusters, commit=args.commit)
+        print(result)
+        return
+
+    if args.command == "build-fan-voice-leaderboard":
+        from cfb_rankings.discourse.leaderboard_page import build_leaderboard_page
+        from pathlib import Path
+        output_dir = Path("output/site")
+        path = build_leaderboard_page(db, output_dir, season=args.season)
+        print(f"written: {path}")
         return
 
     if args.command == "seed-rivalry-pairs":

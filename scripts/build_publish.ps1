@@ -123,6 +123,20 @@ Run "discourse: fan voice board" {
 }
 
 # =========================================================================
+# E.9 Language Layer Wave 4: KWIC quotes, Atlas clustering, fan-voice leaderboard.
+#     Best-effort -- no -Critical.
+# =========================================================================
+Run "discourse: KWIC quotes" {
+    python manage.py compute-kwic-quotes --season $DiscourseSeason --top-terms 5 --commit
+}
+Run "discourse: atlas clustering" {
+    python manage.py compute-discourse-atlas --season $DiscourseSeason --commit
+}
+Run "discourse: fan voice leaderboard" {
+    python manage.py build-fan-voice-leaderboard --season $DiscourseSeason
+}
+
+# =========================================================================
 # F. Team feature rebuild (recomputes team_week_conversation_features)
 # =========================================================================
 Run "features: build-conversation-features --season=$($global:CurSeason) --week=$($global:SeasonWeek)" {
