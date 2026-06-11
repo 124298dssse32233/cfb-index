@@ -161,6 +161,19 @@ class PolymarketAdapter(NumericSourceAdapter):
                     "raw_payload_json": m,
                 }
                 outcomes = m.get("outcomePrices") or m.get("outcomes") or []
+                # Polymarket's gamma API returns outcomePrices as a JSON-ENCODED
+                # STRING (e.g. '["0.62", "0.38"]'), not a native array. Without
+                # this decode, outcomes[0] is the char '[' and float('[') raises,
+                # so prob_yes was silently dropped for 100% of contracts (verified
+                # 2026-06-11: source_observations had 0 prob_yes rows). The read
+                # side (delusion.py) already json.loads defensively, so this is a
+                # purely additive fix — it persists the numeric prob without
+                # changing any existing surface.
+                if isinstance(outcomes, str):
+                    try:
+                        outcomes = json.loads(outcomes)
+                    except (ValueError, TypeError):
+                        outcomes = []
                 if outcomes:
                     try:
                         prob_yes = float(outcomes[0]) if isinstance(outcomes[0], (int, float, str)) else None

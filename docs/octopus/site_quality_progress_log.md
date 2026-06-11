@@ -17,8 +17,9 @@
 | 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ✅ done | (this commit) | DATA_SOURCES cadence column now measured-from-scrape_health (Kalshi/SeatGeek "Not collecting", YT-comments/GDELT-tone flagged, Polymarket prob caveat); AGENTS.md gets a STALE→CLAUDE.md banner |
 | 0.4 | Row-count/freshness/coverage/provenance guards | ✅ done | (this commit) | new `verify_data_floors.py`: provenance ratchet (source_id %, high-water 22.3%) + 7 factual-spine floors; verified positive (exit 0) + negative (breach→exit 1); wired non-critical into box build; complements (no dup of) module/source guards |
 | 0.7 | Provenance labeling (legacy_unverified) | ✅ done | (this commit) | idempotent `backfill_provenance_status.py` (canonical 43,479 / legacy_unverified 151,493 via dry-run; write/idempotent/revert proven on synthetic DB; **live DB untouched**); wired non-critical into box build → labels post-merge |
+| **1.4** | Fix Polymarket prob_yes write-side parse | ✅ done | (this commit) | `prediction_markets.py` json.loads JSON-string outcomePrices; 3 unit tests pass (string→0.125, list→0.4, malformed→safe); additive, read side unaffected; takes effect next collect |
 
-Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked.
+Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked. (Phase 0 complete; Phase 1 started.)
 
 ---
 
@@ -108,3 +109,9 @@ An independent reviewer (full repo access) audited the Phase-0 diff. **Verdict: 
 - **#4 (low, fixed):** `verify_data_floors.py` baseline now read with `utf-8-sig` + logs on parse failure (a BOM'd hand-edit silently disabled the ratchet). Verified: BOM baseline now read → breach detected.
 - **#1 (medium, documented):** live smoke now sits at its exact 2-failure budget (41 URLs @ --fail-under 95) because offseason/film-room 404 until deploy. Added a ⚠️ MERGE/DEPLOY-ORDER note in `smoke_test_live.py`: ship the WP-0.1 box deploy before/with merging the smoke change, or one transient flake opens spurious alerts.
 **Files:** `verify_build_manifest.py`, `verify_data_floors.py`, `smoke_test_live.py`. All re-verified.
+
+### WP-1.4 — Polymarket prob_yes write-side parse fix — ✅ 2026-06-11
+**Problem (CP-8):** Polymarket's gamma API returns `outcomePrices` as a JSON-encoded STRING (`'["0.125","0.875"]'`). The adapter indexed it raw, so `outcomes[0]` was `'['` and `float('[')` raised → `prob_yes` dropped for 100% of contracts (source_observations had 0 prob_yes rows). The delusion read-side already json.loads defensively, so the public belief metric still worked — but the numeric column was unusable.
+**Change:** `src/cfb_rankings/ingest/sources/prediction_markets.py` — `json.loads` outcomePrices when it's a `str` before indexing. Purely additive (read side unaffected; no existing surface changes). New `tests/test_prediction_markets.py` (3 cases).
+**Verification (2026-06-11):** `pytest tests/test_prediction_markets.py` → **3 passed** (JSON-string → 0.125; native list → 0.4 regression-safe; malformed string → no prob_yes, no crash, volume still captured).
+**Effect:** future collects persist `prob_yes` rows; no DB mutation by me. **Blast radius:** one adapter method. **Rollback:** revert the `isinstance(outcomes, str)` block.
