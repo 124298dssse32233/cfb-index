@@ -137,4 +137,17 @@ Run "verify: per-source health floors" {
     python scripts/verify_source_health_floors.py --open-issue
 }
 
+# =========================================================================
+# D. CRITICAL volume floor. The per-source health check above judges on a 21-day
+#    window, so it CANNOT see a single-day wholesale collapse (e.g. a cli.py bug
+#    that kills every Reddit/board subcommand at once -- as happened 2026-06-11,
+#    where the day fell from ~31.9k docs to ~2.8k yet everything reported "clean").
+#    This is the one -Critical step in collect: a >75% drop vs the 7d median
+#    flips FailedSteps -> fail-ping + non-zero exit so the nightly actually alerts.
+#    Standalone raw-sqlite3 (NOT manage.py) so it survives a broken main().
+# =========================================================================
+Run "verify: collect volume floor (today vs 7d median)" -Critical {
+    python scripts/verify_collect_volume.py
+}
+
 Complete-Pipeline "HEALTHCHECK_URL_COLLECT"

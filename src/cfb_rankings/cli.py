@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from datetime import date, datetime, time, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -4012,7 +4013,6 @@ def main() -> None:
         return
 
     if args.command == "ingest-cfbd-pbp":
-        import os
         env_path = os.path.join(os.getcwd(), ".env")
         if os.path.exists(env_path):
             with open(env_path) as f:
