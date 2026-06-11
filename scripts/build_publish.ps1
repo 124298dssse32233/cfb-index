@@ -194,6 +194,13 @@ Run "board: build-signature-story-board --season=$($global:CurSeason)" {
 }
 Run "board: build-methodology" { python manage.py build-methodology }
 
+# Provenance honesty (WP-0.7): label conversation_documents canonical (real
+# source_id) vs legacy_unverified (source_id NULL — legacy reddit/youtube/board).
+# Council ruling: LABEL, do not infer an id. Idempotent + reversible (--revert);
+# defensively adds the column. Non-critical: a labeling failure must never block
+# the deploy. Keeps the ~78% legacy rows honestly marked instead of a silent gap.
+Run "provenance: backfill-provenance-status" { python scripts/backfill_provenance_status.py }
+
 # =========================================================================
 # I. Full static site rebuild - the main product output
 # =========================================================================

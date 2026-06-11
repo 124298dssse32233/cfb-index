@@ -16,7 +16,7 @@
 | 0.6 | Pre-deploy snapshot-completeness guard (Gate B) | ✅ done | (this commit) | hard `--strict` route gate added to publish_to_vercel.ps1 before deploy; verified fail-closed (empty snapshot → 15 MISSING → exit 1/abort); PS parses clean |
 | 0.5 | Correct DATA_SOURCES doc + refresh AGENTS.md | ✅ done | (this commit) | DATA_SOURCES cadence column now measured-from-scrape_health (Kalshi/SeatGeek "Not collecting", YT-comments/GDELT-tone flagged, Polymarket prob caveat); AGENTS.md gets a STALE→CLAUDE.md banner |
 | 0.4 | Row-count/freshness/coverage/provenance guards | ✅ done | (this commit) | new `verify_data_floors.py`: provenance ratchet (source_id %, high-water 22.3%) + 7 factual-spine floors; verified positive (exit 0) + negative (breach→exit 1); wired non-critical into box build; complements (no dup of) module/source guards |
-| 0.7 | Provenance labeling (legacy_unverified) | ⏳ (Phase 0, deferred edit) | — | — |
+| 0.7 | Provenance labeling (legacy_unverified) | ✅ done | (this commit) | idempotent `backfill_provenance_status.py` (canonical 43,479 / legacy_unverified 151,493 via dry-run; write/idempotent/revert proven on synthetic DB; **live DB untouched**); wired non-critical into box build → labels post-merge |
 
 Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked.
 
@@ -90,3 +90,13 @@ Extended the block comment to record offseason/film-room as the same clobber cla
 - Negative: baseline pinned to 99% → "provenance:source_id_pct breached", exit 1.
 - `build_publish.ps1` parses clean.
 **Blast radius:** 1 new stdlib script + 1 non-critical Run + 1 .gitignore line. **Rollback:** delete script + Run + gitignore line.
+
+### WP-0.7 — Provenance labeling (canonical vs legacy_unverified) — ✅ 2026-06-11
+**Problem (CP-4):** 78% of conversation_documents lack a canonical source_id (legacy reddit/youtube/board). Council ruling: **label legacy rows, do NOT infer an id** (inferring risks silent mis-attribution / corrupts the audit trail).
+**Change:** `scripts/backfill_provenance_status.py` — idempotent, reversible, defensive (adds `provenance_status` column if missing). Sets `canonical` (source_id present) / `legacy_unverified` (source_id NULL). `--dry-run` (read-only report), `--revert` (rollback to NULL). Wired non-critical into `build_publish.ps1` so the box keeps provenance honest every build.
+**Verification (2026-06-11):**
+- Dry-run vs **live DB (read-only)**: total 194,972 / canonical 43,479 (22.3%) / legacy_unverified 151,493. **No mutation.**
+- Synthetic 6-row DB: label → `{canonical:3, legacy_unverified:3}`; re-run idempotent (+0/+0); `--revert` → all NULL. Write path proven.
+- Confirmed the **live `cfb_rankings.db` was NOT mutated** (no `provenance_status` column) — responsible-autonomy: no unsupervised production-DB write. The box labels at the next build post-merge (idempotent, .bak-protected by the deploy flow).
+**Design note:** label-only, no inference (council). The deeper fix — legacy collectors (reddit_rss_*) still write NULL source_id, so the gap grows daily — is a separate collector change (flagged as a follow-up, not this WP).
+**Blast radius:** 1 new stdlib script + 1 non-critical Run. **Rollback:** `--revert` or restore from .bak; remove the Run.
