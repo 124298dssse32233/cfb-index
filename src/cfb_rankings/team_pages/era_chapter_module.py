@@ -18,7 +18,6 @@ def _fetch_all(db: Any, sql: str, params: Any) -> list:
 
 
 ERA_CHAPTER_CSS: str = """
-<style>
 /* === Era Chapter Module === */
 .era-ch {
   margin: 2rem 0;
@@ -122,7 +121,6 @@ ERA_CHAPTER_CSS: str = """
     font-size: 0.78rem;
   }
 }
-</style>
 """
 
 
@@ -149,16 +147,17 @@ def render_era_chapters(db: Any, profile: Any, snapshot: Any) -> str:
     if db is None or profile is None:
         return ""
 
-    # Resolve team_id
+    # Resolve team_id — prefer snapshot (canonical, resolved by slug) over
+    # profile YAML (can be stale after re-ingest reassigns team_ids).
     team_id = 0
     try:
-        team_id = int(getattr(profile, "team_id", None) or 0)
+        team_id = int(getattr(snapshot, "team_id", None) or 0)
     except (TypeError, ValueError):
         team_id = 0
 
     if team_id == 0:
         try:
-            team_id = int(getattr(snapshot, "team_id", None) or 0)
+            team_id = int(getattr(profile, "team_id", None) or 0)
         except (TypeError, ValueError):
             team_id = 0
 
@@ -256,4 +255,4 @@ def render_era_chapters(db: Any, profile: Any, snapshot: Any) -> str:
 
     parts.append("</section>")
 
-    return ERA_CHAPTER_CSS + "\n".join(parts)
+    return "\n".join(parts)
