@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Language Layer v2 — Fan Discourse Prototype (REAL DATA)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Anybody:wdth,wght@50..150,100..900&family=Hepta+Slab:wght@100..900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#101418;
+    --surface:#1B2128;
+    --surface-2:#242C35;
+    --text:#EDE6D6;
+    --receipt:#B8B2A4;
+    --hairline:rgba(237,230,214,0.10);
+    --up:#2EE07C;
+    --down:#FF4E42;
+    --gold:#E8B84B;
+    --gold-dim:rgba(232,184,75,0.55);
+    --mich:#FFCB05;
+    --osu:#FF5A4E;
+    --ore:#7CE05A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{overflow-x:hidden}
+  body{
+    background:var(--ground);color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    font-feature-settings:"tnum";line-height:1.5;
+    padding:40px 16px 80px;
+  }
+  .wrap{max-width:920px;margin:0 auto}
+  .mock-note{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+    color:var(--receipt);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;
+  }
+  .mock-note .real{color:var(--up)}
+  h1{
+    font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(40px,7vw,64px);letter-spacing:.01em;
+    text-transform:uppercase;line-height:1.05;margin-bottom:8px;
+  }
+  .lede{color:var(--receipt);font-size:15px;max-width:64ch;margin-bottom:14px}
+  .lede strong{color:var(--text)}
+  .corpus-strip{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--receipt);
+    letter-spacing:.06em;text-transform:uppercase;
+    border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+    padding:10px 0;margin-bottom:48px;display:flex;gap:24px;flex-wrap:wrap;
+  }
+  .corpus-strip b{color:var(--text);font-weight:500}
+
+  .section-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin:64px 0 6px;
+  }
+  h2{
+    font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(26px,4.5vw,38px);letter-spacing:.015em;line-height:1.08;margin-bottom:6px;
+  }
+  .section-sub{color:var(--receipt);font-size:14px;max-width:64ch;margin-bottom:20px}
+  .section-sub strong{color:var(--text)}
+
+  .card{
+    background:var(--surface);border:1px solid var(--hairline);
+    border-radius:12px;margin-bottom:20px;overflow:hidden;
+  }
+  .card-head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+    padding:18px 22px 4px;flex-wrap:wrap;
+  }
+  .team-chip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;
+  }
+  .team-chip .swatch{width:13px;height:13px;border-radius:3px;display:inline-block;border:1px solid var(--hairline)}
+  .cohort{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--receipt);
+    letter-spacing:.10em;text-transform:uppercase;
+  }
+  .body{padding:10px 22px 20px}
+
+  /* ---------- RECEIPT BLOCK (component 0) ---------- */
+  .receipt-block{
+    border-top:1px dashed var(--hairline);
+    padding:14px 22px 18px;
+  }
+  .receipt-block .rq{
+    font-family:Georgia,'Times New Roman',serif;
+    font-size:15px;line-height:1.55;color:var(--text);
+  }
+  .receipt-block .rq .hl{
+    background:rgba(255,203,5,0.18);
+    box-shadow:inset 0 -2px 0 var(--mich);
+    padding:0 2px;border-radius:2px;
+  }
+  .receipt-block .rq .hl.osu-hl{background:rgba(255,90,78,0.16);box-shadow:inset 0 -2px 0 var(--osu)}
+  .receipt-block .prov{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--receipt);
+    letter-spacing:.08em;text-transform:uppercase;margin-top:8px;
+  }
+  .fact-receipt{
+    border-top:1px dashed var(--hairline);
+    padding:12px 22px 16px;color:var(--receipt);
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.6;
+  }
+  .fact-receipt .q{color:var(--text)}
+
+  /* ---------- specimen hero ---------- */
+  .specimen-hero{
+    padding:34px 22px 8px;text-align:center;
+  }
+  .specimen-hero .word{
+    font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.95;
+    font-size:clamp(64px,15vw,150px);color:var(--mich);letter-spacing:.01em;
+  }
+  .specimen-meta{
+    display:flex;justify-content:center;gap:0;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.10em;
+    text-transform:uppercase;color:var(--receipt);
+    border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+    margin:22px 22px 0;
+  }
+  .specimen-meta span{padding:9px 16px;border-right:1px solid var(--hairline)}
+  .specimen-meta span:last-child{border-right:none}
+  .specimen-meta b{color:var(--text);font-weight:500}
+
+  /* ---------- word wall ---------- */
+  .word-wall{padding:20px 22px 8px}
+  .ww-row{
+    display:flex;align-items:baseline;gap:14px;
+    padding:6px 0;border-bottom:1px solid rgba(237,230,214,0.05);
+  }
+  .ww-row:last-child{border-bottom:none}
+  .ww-word{
+    font-family:'Hepta Slab',serif;color:var(--text);line-height:1.1;
+    white-space:nowrap;
+  }
+  .ww-x{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold);
+    font-weight:500;white-space:nowrap;
+  }
+  .ww-n{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--receipt);
+    margin-left:auto;white-space:nowrap;
+  }
+  .ww-band{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--receipt);padding:14px 0 4px;
+  }
+  .ww-band.sig{color:var(--gold)}
+
+  /* ---------- log lollipop ---------- */
+  .lolli{padding:8px 22px 4px}
+  .lolli-row{display:grid;grid-template-columns:108px 1fr 64px;gap:12px;align-items:center;padding:6px 0}
+  .lolli-row .term{font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lolli-track{position:relative;height:18px}
+  .lolli-track .grid{position:absolute;top:0;bottom:0;width:1px;background:rgba(237,230,214,0.08)}
+  .lolli-track .stem{position:absolute;top:50%;height:2px;transform:translateY(-50%);left:0;border-radius:1px}
+  .lolli-track .dot{
+    position:absolute;top:50%;transform:translate(-50%,-50%);
+    width:13px;height:13px;border-radius:50%;border:2px solid var(--ground);
+  }
+  .lolli-row .xval{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;text-align:right;
+  }
+  .lolli-axis{
+    display:grid;grid-template-columns:108px 1fr 64px;gap:12px;padding:2px 0 8px;
+  }
+  .lolli-axis .ticks{position:relative;height:16px;
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--receipt)}
+  .lolli-axis .t{position:absolute;transform:translateX(-50%)}
+  .lolli-note{
+    grid-column:2;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+    color:var(--receipt);letter-spacing:.10em;text-transform:uppercase;
+  }
+  .sig-c{background:var(--gold)}
+  .char-c{background:#8d7a45}
+  .stem-sig{background:linear-gradient(90deg,transparent,var(--gold-dim))}
+  .stem-char{background:linear-gradient(90deg,transparent,rgba(141,122,69,0.5))}
+
+  .two-up{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:740px){.two-up{grid-template-columns:1fr}}
+
+  /* ---------- specimen sheet (word of the week) ---------- */
+  .sheet{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+  .sheet-top{padding:36px 22px 10px;text-align:center}
+  .sheet-top .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+  }
+  .sheet-top .word{
+    font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.95;
+    font-size:clamp(52px,11vw,110px);
+  }
+  .waterfall{padding:18px 22px 6px;max-width:560px;margin:0 auto}
+  .wf-row{display:flex;align-items:baseline;gap:16px;padding:3px 0}
+  .wf-day{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--receipt);
+    width:64px;letter-spacing:.08em;text-transform:uppercase;flex:none;
+  }
+  .wf-word{
+    font-family:'Hepta Slab',serif;font-size:clamp(18px,4vw,26px);
+    text-transform:lowercase;color:var(--text);line-height:1.15;
+  }
+  .wf-n{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--receipt);margin-left:auto;flex:none}
+  .wf-peak .wf-word{color:var(--gold)}
+  .wf-peak .wf-n{color:var(--gold)}
+  .sheet-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--hairline);margin-top:16px;
+  }
+  @media(max-width:740px){.sheet-grid{grid-template-columns:1fr 1fr}}
+  .sheet-cell{padding:14px 16px;border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+  .sheet-cell:nth-child(4n){border-right:none}
+  @media(max-width:740px){.sheet-cell:nth-child(2n){border-right:none}}
+  .sheet-cell .k{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--receipt);margin-bottom:4px;
+  }
+  .sheet-cell .v{font-weight:700;font-size:16px}
+  .sheet-cell .v.gold{color:var(--gold)}
+  .pills{display:flex;flex-wrap:wrap;gap:8px;padding:16px 22px 20px;justify-content:center}
+  .pill{
+    display:inline-flex;align-items:center;gap:7px;
+    border:1px solid var(--hairline);border-radius:999px;
+    padding:7px 14px;font-weight:600;font-size:13px;background:var(--surface-2);
+  }
+  .pill .d{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--up)}
+
+  /* ---------- leaderboard ---------- */
+  .board{padding:14px 22px 8px}
+  .board-row{display:grid;grid-template-columns:30px 122px 1fr 64px;gap:10px;align-items:center;padding:4px 0}
+  .board-row .rk{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--receipt);text-align:right}
+  .board-row .tm{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;white-space:nowrap;overflow:hidden}
+  .board-row .tm .dotc{width:9px;height:9px;border-radius:2px;flex:none}
+  .board-track{position:relative;height:16px}
+  .board-track .zero{position:absolute;top:-2px;bottom:-2px;width:1px;background:rgba(237,230,214,0.22)}
+  .board-track .med{position:absolute;top:0;bottom:0;width:1px;background:rgba(232,184,75,0.5)}
+  .board-track .bdot{position:absolute;top:50%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;border:2px solid var(--ground)}
+  .board-row .val{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-align:right}
+  .board-row.featured .tm,.board-row.featured .val{color:var(--gold)}
+  .board-legend{
+    display:flex;gap:18px;padding:10px 22px 0;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.10em;
+    text-transform:uppercase;color:var(--receipt);
+  }
+  .board-legend .key{display:inline-flex;align-items:center;gap:6px}
+  .board-legend .k-med{width:10px;height:2px;background:rgba(232,184,75,0.7)}
+  .board-legend .k-zero{width:10px;height:2px;background:rgba(237,230,214,0.4)}
+
+  /* ---------- fight card mirror ---------- */
+  .tape{
+    display:grid;grid-template-columns:1fr 56px 1fr;align-items:center;
+    padding:30px 22px 16px;gap:6px;
+  }
+  .tape .name{
+    font-family:'Anybody',sans-serif;font-weight:900;font-stretch:62%;
+    text-transform:uppercase;line-height:.92;letter-spacing:.01em;
+    font-size:clamp(28px,6vw,54px);
+  }
+  .tape .name.l{text-align:right;color:var(--mich)}
+  .tape .name.r{text-align:left;color:var(--osu)}
+  .tape .x{
+    font-family:'Anton',sans-serif;font-size:clamp(20px,4vw,34px);
+    color:var(--receipt);text-align:center;
+  }
+  .tape-sub{
+    text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    color:var(--receipt);letter-spacing:.12em;text-transform:uppercase;
+    padding:0 22px 18px;
+  }
+  .tug{padding:6px 22px}
+  .tug-head{display:grid;grid-template-columns:1fr 1fr;padding:0 0 10px;gap:12px}
+  .tug-head div{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.10em;
+    text-transform:uppercase;color:var(--receipt);
+  }
+  .tug-head div:last-child{text-align:right}
+  .tug-row{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:30px}
+  .tug-cell{position:relative;height:24px}
+  .tug-cell .spine{position:absolute;top:-4px;bottom:-4px;width:1px;background:rgba(237,230,214,0.18)}
+  .tug-cell.l .spine{right:0}
+  .tug-cell.r .spine{left:0}
+  .tug-cell .stem{position:absolute;top:50%;height:2px;transform:translateY(-50%)}
+  .tug-cell.l .stem{right:0;background:linear-gradient(270deg,rgba(255,203,5,0.6),rgba(255,203,5,0.1))}
+  .tug-cell.r .stem{left:0;background:linear-gradient(90deg,rgba(255,90,78,0.6),rgba(255,90,78,0.1))}
+  .tug-cell .tdot{position:absolute;top:50%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;border:2px solid var(--ground)}
+  .tug-cell.l .tdot{background:var(--mich)}
+  .tug-cell.r .tdot{background:var(--osu)}
+  .tug-cell .tlabel{
+    position:absolute;top:50%;transform:translateY(-50%);
+    font-size:12.5px;font-weight:600;white-space:nowrap;
+    background:var(--surface);padding:0 6px;border-radius:3px;
+  }
+  .tug-cell .tz{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--receipt);
+    font-weight:400;margin-left:6px;
+  }
+  .mirror-word{
+    border-top:1px dashed var(--hairline);margin-top:14px;
+    padding:18px 22px 6px;text-align:center;
+  }
+  .mirror-word .mw-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+  }
+  .mw-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:baseline;gap:18px;padding:4px 0}
+  .mw-pair .mw{
+    font-family:'Hepta Slab',serif;text-transform:lowercase;line-height:1.1;
+    font-size:clamp(15px,4vw,38px);min-width:0;
+  }
+  .mw-pair .mw.sm{font-size:clamp(11px,2.8vw,27px)}
+  .mw-pair .mw.l{text-align:right;color:var(--mich)}
+  .mw-pair .mw.r{text-align:left;color:var(--osu)}
+  .mw-rates{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;padding:2px 0 12px}
+  .mw-rates span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--receipt);letter-spacing:.08em}
+  .mw-rates span.l{text-align:right}
+  .mw-rates span.r{text-align:left}
+  .mirror-verdict{
+    padding:16px 22px;background:var(--surface-2);
+    border-top:1px solid var(--hairline);
+    font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(18px,3vw,24px);letter-spacing:.02em;text-align:center;
+  }
+
+  /* ---------- personality identity cards ---------- */
+  .pers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:740px){.pers-grid{grid-template-columns:1fr}}
+  .id-card{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+  .id-head{padding:18px 18px 6px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .id-arch{
+    padding:0 18px 4px;
+    font-family:'Anton',sans-serif;text-transform:uppercase;
+    font-size:clamp(20px,3.2vw,26px);line-height:1.05;letter-spacing:.02em;
+  }
+  .id-rarity{
+    padding:0 18px 12px;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--gold);
+  }
+  .id-body{padding:6px 18px 18px}
+  .slider-row{display:grid;grid-template-columns:84px 1fr 44px;gap:10px;align-items:center;padding:5px 0}
+  .slider-row .lbl{font-size:12.5px;font-weight:600}
+  .slider-track{height:8px;background:var(--surface-2);border-radius:4px;position:relative}
+  .slider-track .med-tick{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:rgba(232,184,75,0.45)}
+  .slider-dot{
+    position:absolute;top:50%;transform:translate(-50%,-50%);
+    width:15px;height:15px;border-radius:50%;border:2px solid var(--ground);
+  }
+  .slider-row .pct{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-align:right}
+
+  /* ---------- eras ---------- */
+  .eras{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:12px;overflow:hidden;border:1px solid var(--hairline)}
+  @media(max-width:740px){.eras{grid-template-columns:1fr 1fr}}
+  .era-col{background:var(--surface);padding:18px 16px;border-right:1px solid var(--hairline);position:relative}
+  .era-col:last-child{border-right:none}
+  .era-col::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--hairline)}
+  .era-col.hot::before{background:var(--gold)}
+  .era-col .yr{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--receipt);letter-spacing:.12em}
+  .era-col .era{
+    font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:19px;letter-spacing:.02em;line-height:1.15;margin:4px 0 12px;min-height:44px;
+  }
+  .era-col.hot{background:linear-gradient(180deg,rgba(232,184,75,.07),transparent)}
+  .era-col .w{display:flex;justify-content:space-between;gap:8px;padding:3px 0;font-size:13.5px}
+  .era-col .w b{font-weight:600}
+  .era-col .w span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--receipt)}
+
+  .method{
+    margin-top:64px;border-top:1px solid var(--hairline);padding-top:18px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7;color:var(--receipt);
+  }
+  .method b{color:var(--text);font-weight:500}
+
+  @media(max-width:480px){
+    body{padding:28px 12px 60px}
+    .mw-pair{gap:10px}
+    .mw-rates{gap:10px}
+    .mw-rates span{font-size:8.5px}
+    .board-row{grid-template-columns:22px 92px 1fr 52px;gap:8px}
+    .board-row .tm{font-size:11.5px}
+    .lolli-row{grid-template-columns:80px 1fr 52px;gap:8px}
+    .lolli-axis{grid-template-columns:80px 1fr 52px;gap:8px}
+    .tug-head div{font-size:9px}
+    .tug-cell .tlabel{font-size:11px}
+    .specimen-meta span{padding:8px 10px}
+    .tape-sub{font-size:9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mock-note">PROTOTYPE V2 · <span class="real">EVERY NUMBER ON THIS PAGE IS REAL</span> · COMPUTED 2026-06-10 · FORMS PER FAN_LEXICON_DATAVIZ_SPEC.MD</div>
+  <h1>The Language Layer</h1>
+  <p class="lede">Every fanbase speaks its own dialect. We measured it — <strong>62,690 fan posts, 3.74 million words</strong>,
+  scored with weighted log-odds against the full corpus. Two laws govern every chart here:
+  <strong>the printed number is the truth</strong> (geometry only dramatizes it), and
+  <strong>no claim ships without a verbatim receipt.</strong></p>
+  <div class="corpus-strip">
+    <span><b>62,690</b> fan posts</span>
+    <span><b>3.74M</b> words</span>
+    <span><b>4</b> fan-voice pillars</span>
+    <span><b>z ≥ 1.96</b> floor on every term</span>
+  </div>
+
+  <!-- ============ 01 THE LEXICON ============ -->
+  <div class="section-eyebrow">01 · The Lexicon</div>
+  <h2>What "Michigan" sounds like</h2>
+  <p class="section-sub">The most characteristic words in Michigan fans' vocabulary — presented the way a type foundry presents a font. Word weight is set by the data itself: heavier type = more disproportionately Michigan.</p>
+
+  <div class="card">
+    <div class="specimen-hero">
+      <div class="word">Harbaugh</div>
+      <div class="specimen-meta">
+        <span><b>×87.8</b> the field</span>
+        <span>rank <b>1</b> of 2,415,084 terms</span>
+        <span><b>n=863</b> uses</span>
+        <span>z <b>30.8</b></span>
+      </div>
+    </div>
+
+    <div class="word-wall">
+      <div class="ww-band sig">Signature — ≥10× the rest of college football</div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:900;font-size:30px">harbaugh</span><span class="ww-x">×87.8</span><span class="ww-n">n=863</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:640;font-size:24px">msu</span><span class="ww-x">×21.5</span><span class="ww-n">n=308</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:600;font-size:23px">bryce</span><span class="ww-x">×17.6</span><span class="ww-n">n=315</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:530;font-size:21px">jim</span><span class="ww-x">×12.2</span><span class="ww-n">n=397</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:520;font-size:21px">moore</span><span class="ww-x">×11.7</span><span class="ww-n">n=660</span></div>
+      <div class="ww-band">Characteristic — 3–10×</div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:480;font-size:20px">osu</span><span class="ww-x">×9.6</span><span class="ww-n">n=850</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:410;font-size:18px">big ten</span><span class="ww-x">×6.3</span><span class="ww-n">n=642</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:360;font-size:18px">ohio state</span><span class="ww-x">×4.9</span><span class="ww-n">n=1,349</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:320;font-size:17px">championship</span><span class="ww-x">×4.0</span><span class="ww-n">n=948</span></div>
+      <div class="ww-row"><span class="ww-word" style="font-weight:300;font-size:17px">blue</span><span class="ww-x">×3.6</span><span class="ww-n">n=1,181</span></div>
+    </div>
+
+    <div class="lolli">
+      <div class="lolli-row"><span class="term">harbaugh</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-sig" style="width:97.2%"></div><div class="dot sig-c" style="left:97.2%"></div>
+        </div><span class="xval" style="color:var(--gold)">×87.8</span></div>
+      <div class="lolli-row"><span class="term">msu</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-sig" style="width:66.6%"></div><div class="dot sig-c" style="left:66.6%"></div>
+        </div><span class="xval" style="color:var(--gold)">×21.5</span></div>
+      <div class="lolli-row"><span class="term">bryce</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-sig" style="width:62.2%"></div><div class="dot sig-c" style="left:62.2%"></div>
+        </div><span class="xval" style="color:var(--gold)">×17.6</span></div>
+      <div class="lolli-row"><span class="term">jim</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-sig" style="width:54.4%"></div><div class="dot sig-c" style="left:54.4%"></div>
+        </div><span class="xval" style="color:var(--gold)">×12.2</span></div>
+      <div class="lolli-row"><span class="term">moore</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-sig" style="width:53.4%"></div><div class="dot sig-c" style="left:53.4%"></div>
+        </div><span class="xval" style="color:var(--gold)">×11.7</span></div>
+      <div class="lolli-row"><span class="term">osu</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-char" style="width:49.1%"></div><div class="dot char-c" style="left:49.1%"></div>
+        </div><span class="xval">×9.6</span></div>
+      <div class="lolli-row"><span class="term">big ten</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-char" style="width:39.9%"></div><div class="dot char-c" style="left:39.9%"></div>
+        </div><span class="xval">×6.3</span></div>
+      <div class="lolli-row"><span class="term">ohio state</span>
+        <div class="lolli-track">
+          <div class="grid" style="left:0%"></div><div class="grid" style="left:23.9%"></div><div class="grid" style="left:50%"></div><div class="grid" style="left:73.9%"></div><div class="grid" style="left:100%"></div>
+          <div class="stem stem-char" style="width:34.5%"></div><div class="dot char-c" style="left:34.5%"></div>
+        </div><span class="xval">×4.9</span></div>
+      <div class="lolli-axis">
+        <span></span>
+        <div class="ticks">
+          <span class="t" style="left:0%">1×</span><span class="t" style="left:23.9%">3×</span><span class="t" style="left:50%">10×</span><span class="t" style="left:73.9%">30×</span><span class="t" style="left:100%">100×</span>
+        </div>
+        <span></span>
+      </div>
+      <div class="lolli-axis"><span></span><span class="lolli-note">log scale · anchored at 1× = parity with the field</span><span></span></div>
+    </div>
+
+    <div class="receipt-block">
+      <p class="rq">"Of all AP Pollsters who put Michigan outside the Top 5, 2 of them have <span class="hl osu-hl">Ohio State</span> ties, 1 has Penn State ties, and 1 has <span class="hl osu-hl">Ohio State</span> ties via the Urban Meyer con"</p>
+      <div class="prov">r/MichiganWolverines · fan post, verbatim · the rival is the vocabulary: "ohio" alone = 1,804 uses, ×5.1 the field</div>
+    </div>
+  </div>
+
+  <!-- ============ 02 WORD OF THE WEEK ============ -->
+  <div class="section-eyebrow">02 · Word of the Week</div>
+  <h2>The specimen sheet</h2>
+  <p class="section-sub">Presented like a font release. The waterfall below is a sparkline made of the word itself — each day's weight set by that day's real mention volume.</p>
+
+  <div class="sheet">
+    <div class="sheet-top">
+      <div class="eyebrow">Word of the Week · June 4–10, 2026 · All of College Football</div>
+      <div class="word">Texas Tech</div>
+    </div>
+    <div class="waterfall">
+      <div class="wf-row"><span class="wf-day">Thu 04</span><span class="wf-word" style="font-weight:230">texas tech</span><span class="wf-n">8</span></div>
+      <div class="wf-row"><span class="wf-day">Fri 05</span><span class="wf-word" style="font-weight:270">texas tech</span><span class="wf-n">11</span></div>
+      <div class="wf-row"><span class="wf-day">Sat 06</span><span class="wf-word" style="font-weight:200">texas tech</span><span class="wf-n">6</span></div>
+      <div class="wf-row"><span class="wf-day">Sun 07</span><span class="wf-word" style="font-weight:150">texas tech</span><span class="wf-n">3</span></div>
+      <div class="wf-row wf-peak"><span class="wf-day">Mon 08</span><span class="wf-word" style="font-weight:900">texas tech</span><span class="wf-n">51 ▲</span></div>
+      <div class="wf-row"><span class="wf-day">Tue 09</span><span class="wf-word" style="font-weight:840">texas tech</span><span class="wf-n">47</span></div>
+      <div class="wf-row"><span class="wf-day">Wed 10</span><span class="wf-word" style="font-weight:570">texas tech</span><span class="wf-n">30</span></div>
+    </div>
+    <div class="sheet-grid">
+      <div class="sheet-cell"><div class="k">Surge</div><div class="v gold">×6.5</div></div>
+      <div class="sheet-cell"><div class="k">vs prior month baseline</div><div class="v">z = 12.1</div></div>
+      <div class="sheet-cell"><div class="k">Peak day</div><div class="v">Mon Jun 8</div></div>
+      <div class="sheet-cell"><div class="k">Mentions this week</div><div class="v">188</div></div>
+    </div>
+    <div class="pills">
+      <span class="pill">sorsby <span class="d">▲ ×7.7</span></span>
+      <span class="pill">world cup <span class="d">▲ ×9.1</span></span>
+      <span class="pill">recruiting <span class="d">▲ ×3.6</span></span>
+      <span class="pill">commit <span class="d">▲ ×3.1</span></span>
+      <span class="pill">bama <span class="d">▲ ×9.9</span></span>
+    </div>
+    <div class="fact-receipt">RECEIPT · it's June: a recruiting-news spike hit Monday and Texas Tech owned the sport's conversation for three straight days. Every week gets a sheet like this; by January the sheets ARE the season's story.</div>
+  </div>
+
+  <!-- ============ 03 THE LEADERBOARD ============ -->
+  <div class="section-eyebrow">03 · The Leaderboard</div>
+  <h2>The Optimism Table</h2>
+  <p class="section-sub">Every tracked fanbase on one axis: mean sentiment of how its own fans write about the team. <strong>Oregon fans are the most optimistic in college football. BYU fans are not.</strong></p>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="team-chip">All fanbases · mean fan sentiment</span>
+      <span class="cohort">17 fanbases with ≥300 scored fan-source mentions</span>
+    </div>
+    <div class="board">
+      <!-- axis: -0.20 .. +0.13 ; pct = (v+0.20)/0.33*100 ; zero at 60.6% ; median (+0.018) at 66.1% -->
+      <div class="board-row featured"><span class="rk">1</span><span class="tm"><span class="dotc" style="background:var(--ore)"></span>Oregon</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:95.2%;background:var(--ore)"></div></div><span class="val">+.114</span></div>
+      <div class="board-row"><span class="rk">2</span><span class="tm"><span class="dotc" style="background:#9E1B32"></span>Alabama</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:89.7%;background:#9E1B32"></div></div><span class="val">+.096</span></div>
+      <div class="board-row"><span class="rk">3</span><span class="tm"><span class="dotc" style="background:var(--mich)"></span>Michigan</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:89.4%;background:var(--mich)"></div></div><span class="val">+.095</span></div>
+      <div class="board-row"><span class="rk">4</span><span class="tm"><span class="dotc" style="background:#FF8200"></span>Tennessee</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:89.4%;background:#FF8200"></div></div><span class="val">+.095</span></div>
+      <div class="board-row"><span class="rk">5</span><span class="tm"><span class="dotc" style="background:#CC0000"></span>Texas Tech</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:86.4%;background:#CC0000"></div></div><span class="val">+.085</span></div>
+      <div class="board-row"><span class="rk">6</span><span class="tm"><span class="dotc" style="background:#C99700"></span>Notre Dame</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:82.4%;background:#C99700"></div></div><span class="val">+.072</span></div>
+      <div class="board-row"><span class="rk">7</span><span class="tm"><span class="dotc" style="background:var(--osu)"></span>Ohio State</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:81.5%;background:var(--osu)"></div></div><span class="val">+.069</span></div>
+      <div class="board-row"><span class="rk">8</span><span class="tm"><span class="dotc" style="background:#461D7C"></span>LSU</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:67.3%;background:#461D7C"></div></div><span class="val">+.022</span></div>
+      <div class="board-row"><span class="rk">9</span><span class="tm"><span class="dotc" style="background:#782F40"></span>Florida State</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:66.1%;background:#782F40"></div></div><span class="val">+.018</span></div>
+      <div class="board-row"><span class="rk">10</span><span class="tm"><span class="dotc" style="background:#990000"></span>Indiana</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:65.2%;background:#990000"></div></div><span class="val">+.015</span></div>
+      <div class="board-row"><span class="rk">11</span><span class="tm"><span class="dotc" style="background:#990000"></span>USC</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:65.2%;background:#990000"></div></div><span class="val">+.015</span></div>
+      <div class="board-row"><span class="rk">12</span><span class="tm"><span class="dotc" style="background:#BA0C2F"></span>Georgia</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:64.5%;background:#BA0C2F"></div></div><span class="val">+.013</span></div>
+      <div class="board-row"><span class="rk">13</span><span class="tm"><span class="dotc" style="background:#2D5C9E"></span>Penn State</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:54.8%;background:#2D5C9E"></div></div><span class="val">−.019</span></div>
+      <div class="board-row"><span class="rk">14</span><span class="tm"><span class="dotc" style="background:#F47321"></span>Miami</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:54.8%;background:#F47321"></div></div><span class="val">−.019</span></div>
+      <div class="board-row"><span class="rk">15</span><span class="tm"><span class="dotc" style="background:#E41C38"></span>Nebraska</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:41.8%;background:#E41C38"></div></div><span class="val">−.062</span></div>
+      <div class="board-row"><span class="rk">16</span><span class="tm"><span class="dotc" style="background:#BF5700"></span>Texas</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:40.3%;background:#BF5700"></div></div><span class="val">−.067</span></div>
+      <div class="board-row"><span class="rk">17</span><span class="tm"><span class="dotc" style="background:#0062B8"></span>BYU</span><div class="board-track"><div class="zero" style="left:60.6%"></div><div class="med" style="left:66.1%"></div><div class="bdot" style="left:1.5%;background:#0062B8"></div></div><span class="val">−.195</span></div>
+    </div>
+    <div class="board-legend">
+      <span class="key"><span class="k-zero"></span> 0 = neutral</span>
+      <span class="key"><span class="k-med"></span> cohort median (+.018)</span>
+    </div>
+    <div class="fact-receipt">RECEIPT · <span class="q">Texas Tech fans are the sport's chaos agents: the #1 joy share (45.1%) AND the #2 anger share (23.1%) of any fanbase.</span> Penn State fans have the lowest joy share tracked (15.8%). Every fan screenshots the neighborhood around their own team — one table, seventeen personal charts.</div>
+  </div>
+
+  <!-- ============ 04 THE MIRROR ============ -->
+  <div class="section-eyebrow">04 · The Rivalry Mirror</div>
+  <h2>The fight card</h2>
+  <p class="section-sub">What each fanbase's language does when it mentions the other — rates normalized per 1,000 words of each side's own corpus, equal scales both directions. <strong>The asymmetry is the finding.</strong></p>
+
+  <div class="card">
+    <div class="tape">
+      <div class="name l">Michigan</div>
+      <div class="x">×</div>
+      <div class="name r">Ohio<br>State</div>
+    </div>
+    <div class="tape-sub">Fan corpora: Michigan 614,431 words · Ohio State 103,651 words · all rates per-1,000-word normalized</div>
+
+    <div class="tug">
+      <div class="tug-head"><div>← Michigan fans, on Ohio State · signal barely above floor</div><div>Ohio State fans, on Michigan · trophy case deployed →</div></div>
+      <!-- left z max 2.5 maps short; right z max 7.1 maps long; scale: width% = z/7.1*92 -->
+      <div class="tug-row">
+        <div class="tug-cell l"><div class="spine"></div><div class="stem" style="width:32%"></div><div class="tdot" style="right:calc(32% - 6px)"></div><div class="tlabel" style="right:calc(32% + 12px)">msu<span class="tz">z 2.5</span></div></div>
+        <div class="tug-cell r"><div class="spine"></div><div class="stem" style="width:92%"></div><div class="tdot" style="left:92%"></div><div class="tlabel" style="left:6px">champion<span class="tz">z 7.1</span></div></div>
+      </div>
+      <div class="tug-row">
+        <div class="tug-cell l"><div class="spine"></div><div class="stem" style="width:31%"></div><div class="tdot" style="right:calc(31% - 6px)"></div><div class="tlabel" style="right:calc(31% + 12px)">good<span class="tz">z 2.4</span></div></div>
+        <div class="tug-cell r"><div class="spine"></div><div class="stem" style="width:88%"></div><div class="tdot" style="left:88%"></div><div class="tlabel" style="left:6px">national<span class="tz">z 6.8</span></div></div>
+      </div>
+      <div class="tug-row">
+        <div class="tug-cell l"><div class="spine"></div><div class="stem" style="width:31%"></div><div class="tdot" style="right:calc(31% - 6px)"></div><div class="tlabel" style="right:calc(31% + 12px)">highlights<span class="tz">z 2.4</span></div></div>
+        <div class="tug-cell r"><div class="spine"></div><div class="stem" style="width:83%"></div><div class="tdot" style="left:83%"></div><div class="tlabel" style="left:6px">winner<span class="tz">z 6.4</span></div></div>
+      </div>
+      <div class="tug-row">
+        <div class="tug-cell l"><div class="spine"></div><div class="stem" style="width:27%"></div><div class="tdot" style="right:calc(27% - 6px)"></div><div class="tlabel" style="right:calc(27% + 12px)">back<span class="tz">z 2.1</span></div></div>
+        <div class="tug-cell r"><div class="spine"></div><div class="stem" style="width:62%"></div><div class="tdot" style="left:62%"></div><div class="tlabel" style="left:6px">championships<span class="tz">z 4.8</span></div></div>
+      </div>
+      <div class="tug-row">
+        <div class="tug-cell l"><div class="spine"></div><div class="stem" style="width:26%"></div><div class="tdot" style="right:calc(26% - 6px)"></div><div class="tlabel" style="right:calc(26% + 12px)">feel<span class="tz">z 2.0</span></div></div>
+        <div class="tug-cell r"><div class="spine"></div><div class="stem" style="width:52%"></div><div class="tdot" style="left:52%"></div><div class="tlabel" style="left:6px">losses<span class="tz">z 4.0</span></div></div>
+      </div>
+      <div class="tug-row">
+        <div class="tug-cell l"><div class="spine"></div></div>
+        <div class="tug-cell r"><div class="spine"></div><div class="stem" style="width:39%"></div><div class="tdot" style="left:39%"></div><div class="tlabel" style="left:6px">heisman<span class="tz">z 3.0</span></div></div>
+      </div>
+    </div>
+
+    <div class="mirror-word">
+      <div class="mw-eyebrow">The mirror word · who owns "championship"?</div>
+      <div class="mw-pair">
+        <span class="mw l" style="font-weight:400">championship</span>
+        <span class="mw r" style="font-weight:900">championship</span>
+      </div>
+      <div class="mw-rates">
+        <span class="l">MICHIGAN · 1.54 PER 1K WORDS</span>
+        <span class="r">OHIO STATE · 3.59 PER 1K WORDS</span>
+      </div>
+      <div class="mw-pair">
+        <span class="mw l sm" style="font-weight:300">champion</span>
+        <span class="mw r sm" style="font-weight:900">champion</span>
+      </div>
+      <div class="mw-rates">
+        <span class="l">MICHIGAN · 0.42 PER 1K</span>
+        <span class="r">OHIO STATE · 1.96 PER 1K — 4.7× OWNERSHIP</span>
+      </div>
+    </div>
+
+    <div class="receipt-block">
+      <p class="rq">"You talk about <span class="hl">Michigan</span> more than most fans. Crazy" &nbsp;·&nbsp; "<span class="hl">Michigan</span> fans can't handle it when people don't talk about them for 2 minutes"</p>
+      <div class="prov">Ohio State threads, verbatim · accusations the keyness data happens to prove: "ohio state" is one of MICHIGAN's six most distinctive terms overall</div>
+    </div>
+    <div class="mirror-verdict">One side can't stop talking. The other side counts rings.</div>
+  </div>
+
+  <!-- ============ 05 PERSONALITY ============ -->
+  <div class="section-eyebrow">05 · Fanbase Personality</div>
+  <h2>Identity cards</h2>
+  <p class="section-sub">Five traits, percentile vs the 17 highest-volume fanbases — from the emotion, sentiment and sarcasm scores already attached to every fan mention. Gold tick = cohort median. <strong>No survey. Just how they actually write.</strong></p>
+
+  <div class="pers-grid">
+    <div class="id-card">
+      <div class="id-head"><span class="team-chip"><span class="swatch" style="background:var(--ore)"></span>Oregon</span><span class="cohort">11,396 mentions</span></div>
+      <div class="id-arch" style="color:var(--ore)">The Sunshine Mafia</div>
+      <div class="id-rarity">Most optimistic fanbase tracked · #1 of 17</div>
+      <div class="id-body">
+        <div class="slider-row"><span class="lbl">Optimism</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:100%;background:var(--ore)"></div></div><span class="pct">100th</span></div>
+        <div class="slider-row"><span class="lbl">Joy</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:56%;background:var(--ore)"></div></div><span class="pct">56th</span></div>
+        <div class="slider-row"><span class="lbl">Anger</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:25%;background:var(--ore)"></div></div><span class="pct">25th</span></div>
+        <div class="slider-row"><span class="lbl">Doom</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:56%;background:var(--ore)"></div></div><span class="pct">56th</span></div>
+        <div class="slider-row"><span class="lbl">Sarcasm</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:31%;background:var(--ore)"></div></div><span class="pct">31st</span></div>
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="id-head"><span class="team-chip"><span class="swatch" style="background:var(--mich)"></span>Michigan</span><span class="cohort">17,589 mentions</span></div>
+      <div class="id-arch" style="color:var(--mich)">Sunny, With Scar Tissue</div>
+      <div class="id-rarity">Top-3 optimism · #3 of 17</div>
+      <div class="id-body">
+        <div class="slider-row"><span class="lbl">Optimism</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:88%;background:var(--mich)"></div></div><span class="pct">88th</span></div>
+        <div class="slider-row"><span class="lbl">Joy</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:62%;background:var(--mich)"></div></div><span class="pct">62nd</span></div>
+        <div class="slider-row"><span class="lbl">Anger</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:50%;background:var(--mich)"></div></div><span class="pct">50th</span></div>
+        <div class="slider-row"><span class="lbl">Doom</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:62%;background:var(--mich)"></div></div><span class="pct">62nd</span></div>
+        <div class="slider-row"><span class="lbl">Sarcasm</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:50%;background:var(--mich)"></div></div><span class="pct">50th</span></div>
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="id-head"><span class="team-chip"><span class="swatch" style="background:var(--osu)"></span>Ohio State</span><span class="cohort">2,385 mentions</span></div>
+      <div class="id-arch" style="color:var(--osu)">The Gloating Class</div>
+      <div class="id-rarity">The only fanbase in BOTH top-3 joy and top-3 sarcasm</div>
+      <div class="id-body">
+        <div class="slider-row"><span class="lbl">Optimism</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:62%;background:var(--osu)"></div></div><span class="pct">62nd</span></div>
+        <div class="slider-row"><span class="lbl">Joy</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:88%;background:var(--osu)"></div></div><span class="pct">88th</span></div>
+        <div class="slider-row"><span class="lbl">Anger</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:69%;background:var(--osu)"></div></div><span class="pct">69th</span></div>
+        <div class="slider-row"><span class="lbl">Doom</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:44%;background:var(--osu)"></div></div><span class="pct">44th</span></div>
+        <div class="slider-row"><span class="lbl">Sarcasm</span><div class="slider-track"><div class="med-tick"></div><div class="slider-dot" style="left:88%;background:var(--osu)"></div></div><span class="pct">88th</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 06 ERAS ============ -->
+  <div class="section-eyebrow">06 · The Story In Words</div>
+  <h2>Four Michigan seasons, told by vocabulary</h2>
+  <p class="section-sub">Era bands: each season's most distinctive words vs the rest of Michigan's own history. Chapter names are editorial mocks — in production the Chronicle LLM names each band from the vocabulary shift itself.</p>
+
+  <div class="eras">
+    <div class="era-col">
+      <div class="yr">2022</div>
+      <div class="era">The Game Years</div>
+      <div class="w"><b>day</b><span>6.1×</span></div>
+      <div class="w"><b>wisconsin</b><span>3.4×</span></div>
+      <div class="w"><b>territory</b><span>27.7×</span></div>
+    </div>
+    <div class="era-col hot">
+      <div class="yr">2023</div>
+      <div class="era">The Natty Run</div>
+      <div class="w"><b>harbaugh</b><span>2.8×</span></div>
+      <div class="w"><b>jim</b><span>3.5×</span></div>
+      <div class="w"><b>rose</b><span>3.8×</span></div>
+      <div class="w"><b>bama</b><span>3.9×</span></div>
+      <div class="w"><b>mccarthy</b><span>2.8×</span></div>
+    </div>
+    <div class="era-col">
+      <div class="yr">2024</div>
+      <div class="era">The QB Carousel</div>
+      <div class="w"><b>orji</b><span>8.1×</span></div>
+      <div class="w"><b>warren</b><span>12.7×</span></div>
+      <div class="w"><b>tuttle</b><span>12.3×</span></div>
+      <div class="w"><b>mullings</b><span>12.0×</span></div>
+      <div class="w"><b>edwards</b><span>3.7×</span></div>
+    </div>
+    <div class="era-col">
+      <div class="yr">2025</div>
+      <div class="era">New League, New Enemies</div>
+      <div class="w"><b>champion</b><span>7.8×</span></div>
+      <div class="w"><b>utah</b><span>11.2×</span></div>
+      <div class="w"><b>arizona</b><span>8.6×</span></div>
+      <div class="w"><b>oklahoma</b><span>5.0×</span></div>
+      <div class="w"><b>miami</b><span>5.9×</span></div>
+    </div>
+  </div>
+  <div class="fact-receipt" style="border:none;padding:12px 4px">2024 needs no caption: <span class="q">orji · warren · tuttle · mullings · edwards</span> — the fanbase spent a season naming everyone who touched the ball, trying to find a quarterback. The data remembers it exactly that way.</div>
+
+  <div class="method">
+    <b>METHOD</b> · Weighted log-odds with informative Dirichlet prior (Monroe · Colaresi · Quinn, "Fightin' Words"); z ≥ 1.96 + minimum-count floor on every term. Lollipop dots sit on a log10 axis anchored at 1× (parity); the printed multiplier is the source of truth — geometry only dramatizes it. Word-wall and waterfall type weight is set by the data (variable fonts: Hepta Slab, weight 100–900). Corpus: 62,690 posts / 3.74M words after excluding podcasts &amp; news wires (ad-reads and bylines aren't fan voice), city subreddits (residents aren't fans), and posts failing a football-relevance gate. Mirror rates normalized per 1,000 words of each side's own corpus, equal scales. Personality: percentile ranks over per-mention sentiment / emotion / sarcasm (CardiffNLP encoder stack), 17-fanbase cohort, median tick at 50. Quotes verbatim from public posts. · <b>Engine: scripts/discourse_keyness_prototype.py · Spec: docs/octopus/fan_lexicon_dataviz_spec.md</b>
+  </div>
+
+</div>
+</body>
+</html>
