@@ -19,11 +19,20 @@ from .keyness import _row_get
 
 
 def _fetchall(db: Any, sql: str, params: Any) -> list:
-    """Fetch rows — works with both raw sqlite3.Connection and Database wrapper."""
+    """Fetch rows as dicts (keyed by column name) for either connection type.
+
+    The Database wrapper's execute() returns None, so we route to query_all(),
+    which already yields list[dict]. A raw sqlite3.Connection returns a cursor;
+    we normalize its tuples/Rows to dicts by column name so callers use uniform
+    name-based access (_row_get) regardless of which connection they got handed.
+    Without this, query_all()'s dicts break integer indexing (KeyError: 0).
+    """
     cur = db.execute(sql, params)
     if cur is None:
         return db.query_all(sql, params)
-    return cur.fetchall()
+    rows = cur.fetchall()
+    cols = [c[0] for c in cur.description] if cur.description else []
+    return [{cols[i]: row[i] for i in range(len(cols))} for row in rows]
 
 
 # ---------------------------------------------------------------------------
@@ -182,9 +191,12 @@ def compute_discourse_atlas(
         # Build per-team vectors
         team_vectors: dict[int, dict[str, float]] = {}
         for row in rows:
-            team_id = row[0]
-            term    = row[1]
-            z_score = float(row[2]) if row[2] is not None else 0.0
+            team_id = _row_get(row, "team_id")
+            term = _row_get(row, "term")
+            if team_id is None or term is None:
+                continue
+            z_raw = _row_get(row, "z_score")
+            z_score = float(z_raw) if z_raw is not None else 0.0
             if team_id not in team_vectors:
                 team_vectors[team_id] = {}
             team_vectors[team_id][term] = z_score

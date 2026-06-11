@@ -39,9 +39,10 @@ def _make_db() -> sqlite3.Connection:
             relevance_ml_score REAL
         );
 
-        CREATE TABLE conversation_team_tags (
+        CREATE TABLE conversation_document_targets (
             conversation_document_id INTEGER,
-            team_id                  INTEGER
+            team_id                  INTEGER,
+            target_type              TEXT
         );
 
         CREATE TABLE team_discourse_terms (
@@ -100,8 +101,8 @@ def _seed_doc(
         (doc_id, body, source),
     )
     conn.execute(
-        "INSERT INTO conversation_team_tags (conversation_document_id, team_id) "
-        "VALUES (?, ?)",
+        "INSERT INTO conversation_document_targets "
+        "(conversation_document_id, team_id, target_type) VALUES (?, ?, 'team')",
         (doc_id, team_id),
     )
 

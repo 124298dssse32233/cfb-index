@@ -18,11 +18,18 @@ from ._common import fan_voice_filter_sql
 
 
 def _fetchall(db: Any, sql: str, params: Any) -> list:
-    """Fetch rows — works with both raw sqlite3.Connection and Database wrapper."""
+    """Fetch rows as dicts (keyed by column name) for either connection type.
+
+    The Database wrapper's execute() returns None -> query_all() (already
+    list[dict]); a raw sqlite3.Connection returns a cursor whose tuples/Rows we
+    normalize to dicts by column name, so _row_get() name access works uniformly.
+    """
     cur = db.execute(sql, params)
     if cur is None:
         return db.query_all(sql, params)
-    return cur.fetchall()
+    rows = cur.fetchall()
+    cols = [c[0] for c in cur.description] if cur.description else []
+    return [{cols[i]: row[i] for i in range(len(cols))} for row in rows]
 
 # Maximum window (chars) each side of the matched term.
 _WINDOW = 80
@@ -152,9 +159,10 @@ def compute_kwic_quotes(
                     SELECT COALESCE(d.body_text, d.title_text) AS text,
                            COALESCE(d.source_subchannel, d.source_name) AS src
                     FROM conversation_documents d
-                    JOIN conversation_team_tags t
+                    JOIN conversation_document_targets t
                          ON t.conversation_document_id = d.conversation_document_id
                     WHERE t.team_id = :tid
+                      AND t.target_type = 'team'
                       AND {where_frag}
                       AND LOWER(COALESCE(d.body_text, d.title_text)) LIKE :term_like
                     ORDER BY d.conversation_document_id DESC
