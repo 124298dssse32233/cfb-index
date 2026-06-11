@@ -42,7 +42,7 @@ Each WP: **change · depends on · blast radius · acceptance test · rollback.*
 ### PHASE 0 — Reliability & truth (do first)
 
 **WP-0.1 — Generate offseason + film-room in the box build path** *(CP-1)*
-- Change: add `python scripts/build_offseason_leaderboards.py` + `python scripts/build_film_room.py` to `scripts/build_publish.ps1` alongside the existing storylines/wire/anniversary post-build block (and confirm both scripts read populated tables — offseason should read `transfer_entries` (14,804), **not** the empty `portal_moves`).
+- Change: add `python scripts/build_offseason_leaderboards.py` + `python scripts/build_film_room.py` to `scripts/build_publish.ps1` alongside the existing storylines/wire/anniversary post-build block. *(Verified 2026-06-11: offseason reads `transfer_entries`/`team_rating_deltas`/`heisman_rankings_weekly` — all populated — and **never** references `portal_moves`; film-room reads `team_rating_deltas`+`heisman_rankings_weekly`. Both produce non-stub output today when run. No phantom empty-table guard needed.)*
 - Depends: none. Blast radius: one PS1 script; adds 2 dirs to the snapshot.
 - Acceptance: after a local `build_publish.ps1`, `output/site/offseason/index.html` and `film-room/index.html` exist and are non-stub; post-deploy both routes → 200.
 - Rollback: revert the two added lines.
@@ -126,7 +126,7 @@ Each WP: **change · depends on · blast radius · acceptance test · rollback.*
 **WP-3.2 — Hide/remove Live Signal Flow placeholder** *(CP-13)* — gate `render_live_signal_flow` to emit nothing when no real signal (no live UI). Acceptance: placeholder absent from generated pages; layout intact. Rollback: restore call.
 
 **WP-3.3 — `/offseason/` as the national discovery hub** — strengthen (not replace) using roster/recruiting/portal/returning-production/roster-reload data; reuse archetype + chart vocabulary. Depends WP-0.1.
-**WP-3.4 — `/film-room/` as retrospective model-analysis + receipts** — never live UI; finalized PBP retrospective once WP-1.2 lands plays/drives; reuse receipt pattern. Depends WP-0.1, WP-1.5.
+**WP-3.4 — `/film-room/` as retrospective model-analysis + receipts** — never live UI; reuse receipt pattern. **Corrected 2026-06-11:** `build_film_room.py` reads `team_rating_deltas`+`heisman_rankings_weekly` and has **zero PBP dependency**, so the hub ships in **Gate A** (WP-0.1) today; a finalized-PBP retrospective is a *later enhancement*, not a precondition. Depends WP-0.1 only (PBP enhancement later depends WP-1.2).
 **WP-3.5 — Payload/perf reduction** — dedupe inline CSS/JS, drop empty-module DOM, keep primary content server-rendered/crawlable; measure before/after on homepage, rankings, team, player, offseason, film-room. WCAG 2.2 AA / keyboard / focus / reduced-motion / honest empty states are release-blocking.
 
 ### PHASE 4 — Zero-cost source expansion (LAST)
@@ -141,8 +141,8 @@ Only after 0–3. First harden existing pipelines (Kalshi/SeatGeek empty, YT-com
 WP-0.1 ─┬─ WP-0.2 ─ WP-0.3 ─ WP-0.4 ─ WP-0.5         (Phase 0, unblocks deploy honesty)
         └─ WP-3.3 / WP-3.4 (hubs strengthen)
 WP-1.1 ─ WP-1.2 ─┬─ WP-1.3 (savant historical)
-                 ├─ WP-1.5 (receipts need results) ─ WP-3.4
-                 └─ WP-3.4 (PBP retrospective)
+                 ├─ WP-1.5 (predictive_claims resolver needs results)
+                 └─ WP-3.4 PBP-retrospective ENHANCEMENT only (base film-room ships in Gate A)
 WP-1.4 (independent)   WP-1.6 (independent)
 Phase 2 ← needs Phase 0/1 truth   Phase 3 frontend ← independent of data except 3.3/3.4
 Phase 4 ← ALL of 0–3
@@ -193,4 +193,21 @@ Adversarial council run via `orchestrate.sh embrace-gate`. **Codex** (full revie
 ### Net council verdict
 Codex = `REVISE` (not block); Gemini/Qwen = revise sequencing/guardrails. **No reviewer rejected a confirmed problem or a preserved concept.** All revisions tighten safety and reorder for failure-containment — none expand scope or add product cost. Plan is **GO with the §I revisions applied**, pending user approval to begin Phase 0 implementation.
 
-— End of Define manifest (rev. 1 — council-folded) —
+---
+
+## J. Independent Claude review (repo-grounded) — corrections folded in (2026-06-11)
+
+Unlike the external council (no repo access), an **independent Claude reviewer with full repo/DB/live access** re-ran every headline query first-party. **It could not falsify a single confirmed finding** — all counts (194,972 / 22.3%; 84/84 active; 266 / 100% unresolved; adv-stats 2025-only; 300 polymarket / 0 prob_yes; team_savant=0; 6 duplicate modules; 350 ran / 118 zero) reproduced **exactly**. The Polymarket override was independently re-verified and **upheld** (0 existing prob_yes rows; `delusion.py:80` reads `raw_payload_json`, not `value_numeric`). It also empirically ran both hub scripts (gitignored output) → both produce non-stub HTML, confirming WP-0.1 is a clean two-line fix.
+
+Two repo-verified corrections (I re-confirmed both myself before accepting):
+
+- **J-1 — Build-path divergence is far broader than 3 hubs** *(amends WP-0.2; updates Discover §6).* The box omits ~15 cloud commands, incl. `prediction-ledger --action resolve` (`cli.py:7543`, `publish_site.yml:402-404`) and `backfill-edition-citations` (`publish_site.yml:441-443`). So `prediction_ledger`=0 and `editorial_citations`=0 share **CP-1's root cause** (producer exists, runs in cloud, box omits) — not "never built." **Revision:** WP-0.2's manifest must reconcile the **entire box-vs-cloud command set** (not just routes); add a build-command parity audit. Without it, Gate A/B fixes the visible 404s but leaves ledger/citations/award-watch/depth-chart un-refreshed on every box deploy.
+- **J-2 — `/film-room/` has no PBP dependency** *(amends WP-3.4 + §E).* `build_film_room.py` reads `team_rating_deltas`+`heisman_rankings_weekly`; it ships in **Gate A**, not gated on WP-1.2. (Fixed above.)
+
+Two clarifications:
+- **J-3 — WP-1.5 resolver nuance:** for `prediction_ledger` (model calibration: archetypes/season-wins/Heisman) a resolver **already exists** (`resolve_due_predictions`, `cli.py:7543`) — it's a *wiring* problem (J-1), not a build-from-scratch. Only **`predictive_claims`** (266, LLM-extracted) genuinely needs a new resolver. WP-1.5 acceptance must name **which** claim space it measures (don't conflate).
+- **J-4 — phantom guard removed:** WP-0.1's old `portal_moves` caution targeted code that doesn't reference that table (fixed above).
+
+**Independent reviewer bottom line:** *"The Discover is accurate — I could not break any confirmed finding. The Define is safe to start at Gate A+B"* (WP-0.1 clean two-line fix, one-PS1 blast radius, trivial rollback, snapshot guard WP-0.6 addresses the clobber class), pending the J-1/J-2 corrections (now folded) and user approval.
+
+— End of Define manifest (rev. 2 — council + independent-review folded) —
