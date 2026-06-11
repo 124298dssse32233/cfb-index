@@ -40,11 +40,14 @@ $freeSources = @("wiki_pv", "wiki_edits", "gdelt_volume", "kalshi", "polymarket"
                  "bluesky_curated", "bluesky_feeds")
 foreach ($s in $freeSources) { Run-Adapter $s }
 
-# GDELT GKG bulk: also materialise daily article counts into team_news_volume
-# (best-effort; never marks the pipeline failed on error).
-Run "gdelt: ingest-gdelt-news-volume --commit" {
-    python manage.py ingest-gdelt-news-volume --commit
-}
+# GDELT GKG bulk -> team_news_volume: DISABLED 2026-06-11.
+# This crashed every run (gdelt_gkg.py queried a column that no longer exists) and
+# is redundant: the live GDELT signal comes from the `gdelt_volume` adapter above
+# (BigQuery -> source_observations), which IS consumed by features. team_news_volume
+# is read by NOTHING in the codebase, and the GKG path's 11k-alias substring matcher
+# is slow and lower-quality. If per-team news volume is ever wanted, read it from
+# source_observations rather than re-materialising via the bulk GKG path.
+Log "   (gdelt: ingest-gdelt-news-volume intentionally disabled -- redundant with the gdelt_volume BQ adapter; team_news_volume is unread)"
 
 $authSources = @("youtube_meta", "seatgeek", "spotify_charts")
 foreach ($s in $authSources) { Run-Adapter $s }

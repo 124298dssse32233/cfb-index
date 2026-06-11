@@ -280,11 +280,19 @@ def ingest_gdelt_news_volume(
     )
 
     # --- 1. Build alias map from DB ----------------------------------------
+    # NOTE: the daily pipeline no longer calls this (collect.ps1 disabled it on
+    # 2026-06-11 as redundant with the gdelt_volume BigQuery adapter, which writes
+    # the GDELT signal features actually read into source_observations). Kept so the
+    # `ingest-gdelt-news-volume` CLI still works if invoked manually. The column is
+    # `alias_text` (the old `alias` name no longer exists); matching is plain
+    # substring, so very short aliases can over-match -- acceptable for the unused
+    # team_news_volume table, but do not wire this into a live feature as-is.
     alias_rows = db.query_all(
-        "SELECT ta.alias, t.team_id "
+        "SELECT ta.alias_text AS alias, t.team_id "
         "FROM team_aliases ta "
         "JOIN teams t ON t.team_id = ta.team_id "
-        "WHERE ta.alias IS NOT NULL AND ta.alias != ''"
+        "WHERE ta.alias_text IS NOT NULL AND ta.alias_text != '' "
+        "AND ta.is_active = 1 AND length(ta.alias_text) >= 3"
     )
     alias_map: dict[str, int] = {
         str(r["alias"]).lower(): int(r["team_id"])
