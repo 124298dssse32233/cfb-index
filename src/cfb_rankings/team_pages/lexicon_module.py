@@ -173,7 +173,7 @@ def _kwic_block_html(db, team_id: int, season: int, top_term: str) -> str:
         return ""
     try:
         quotes = db.query_all(
-            "SELECT passage FROM team_discourse_term_quotes "
+            "SELECT quote_text AS passage FROM team_discourse_term_quotes "
             "WHERE team_id=:tid AND season_year=:season AND week=0 AND term=:term "
             "ORDER BY position_index ASC LIMIT 8",
             {"tid": team_id, "season": season, "term": top_term},
@@ -182,7 +182,7 @@ def _kwic_block_html(db, team_id: int, season: int, top_term: str) -> str:
         return ""
     if not quotes:
         return ""
-    from .keyness import _row_get  # local import to avoid circular
+    from cfb_rankings.discourse.keyness import _row_get  # local import to avoid circular
     items = []
     for q in quotes:
         text = str(_row_get(q, "passage") or "").strip()

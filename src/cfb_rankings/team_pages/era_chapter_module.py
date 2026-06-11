@@ -4,6 +4,19 @@ import html as _html
 from typing import Any
 
 
+def _fetch_all(db: Any, sql: str, params: Any) -> list:
+    """Rows as dicts for either connection type. Production render passes the
+    Database wrapper (execute() returns None -> query_all); tests pass a raw
+    sqlite3.Connection (cursor -> normalize by column name). Without this the
+    wrapper path silently returned '' so the Eras chapter never rendered."""
+    cur = db.execute(sql, params)
+    if cur is None:
+        return db.query_all(sql, params)
+    rows = cur.fetchall()
+    cols = [c[0] for c in cur.description] if cur.description else []
+    return [{cols[i]: r[i] for i in range(len(cols))} for r in rows]
+
+
 ERA_CHAPTER_CSS: str = """
 <style>
 /* === Era Chapter Module === */
@@ -154,7 +167,8 @@ def render_era_chapters(db: Any, profile: Any, snapshot: Any) -> str:
 
     # Query era terms for this team
     try:
-        rows = db.execute(
+        rows = _fetch_all(
+            db,
             """
             SELECT season_year, term, term_rank, log2_ratio, sample_quote
             FROM team_discourse_era_terms
@@ -162,7 +176,7 @@ def render_era_chapters(db: Any, profile: Any, snapshot: Any) -> str:
             ORDER BY season_year DESC, term_rank ASC
             """,
             {"tid": team_id},
-        ).fetchall()
+        )
     except Exception:
         return ""
 
@@ -172,14 +186,15 @@ def render_era_chapters(db: Any, profile: Any, snapshot: Any) -> str:
     # Group by season_year
     seasons: dict[int, list[dict]] = {}
     for row in rows:
-        yr = int(row[0])
+        yr = int(row["season_year"])
         if yr not in seasons:
             seasons[yr] = []
+        log2 = row.get("log2_ratio")
         seasons[yr].append({
-            "term": row[1],
-            "term_rank": row[2],
-            "log2_ratio": float(row[3]) if row[3] is not None else 0.0,
-            "sample_quote": row[4] if len(row) > 4 else None,
+            "term": row.get("term"),
+            "term_rank": row.get("term_rank"),
+            "log2_ratio": float(log2) if log2 is not None else 0.0,
+            "sample_quote": row.get("sample_quote"),
         })
 
     # Floor checks
