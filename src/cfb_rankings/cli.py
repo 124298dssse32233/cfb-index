@@ -809,6 +809,29 @@ def build_parser() -> argparse.ArgumentParser:
     wiki_awards_parser.add_argument("--no-stubs", action="store_true",
         help="With --auto-import: skip honors whose player is not already in the DB (safe default).")
 
+    nil_scrape_parser = subparsers.add_parser(
+        "scrape-nil-valuations",
+        help="Scrape On3 CFB NIL rankings and save to player_nil_valuations table.",
+    )
+    nil_scrape_parser.add_argument("--limit", type=int, default=200,
+        help="Max players to import (default 200).")
+    nil_scrape_parser.add_argument("--as-of-date", default=None,
+        help="Override snapshot date YYYY-MM-DD (default: today).")
+    nil_scrape_parser.add_argument("--dry-run", action="store_true",
+        help="Print results without writing to DB.")
+
+    nil_import_parser = subparsers.add_parser(
+        "import-nil-valuations",
+        help="Import NIL valuations from a CSV file into player_nil_valuations.",
+    )
+    nil_import_parser.add_argument("--csv", required=True,
+        help="Path to CSV with columns: player_name, rank, valuation_usd, [whisper_usd], "
+             "[position], [team_name], [as_of_date], [source_name].")
+    nil_import_parser.add_argument("--as-of-date", default=None,
+        help="Snapshot date YYYY-MM-DD; overrides per-row as_of_date column if set.")
+    nil_import_parser.add_argument("--source", default="on3",
+        help="Source name to tag rows with (default: on3).")
+
     seed_team_aliases_parser = subparsers.add_parser("seed-team-aliases")
     seed_team_aliases_parser.add_argument("--season", type=int, required=True)
 
@@ -4713,6 +4736,86 @@ def main() -> None:
                 except Exception as exc:
                     print(f"    FAIL {name}: {exc}")
             print(f"  auto-import total: {imported_total} honor rows imported")
+        return
+
+    if args.command == "scrape-nil-valuations":
+        import datetime as _dt
+        from cfb_rankings.ingest.sources.on3_nil import scrape_on3_nil, save_nil_valuations
+
+        as_of = args.as_of_date or _dt.date.today().isoformat()
+        scraped_at = _dt.datetime.utcnow().isoformat(timespec="seconds") + "Z"
+        print(f"scrape-nil-valuations: fetching On3 CFB (limit={args.limit}, as_of={as_of})")
+        rows = scrape_on3_nil(limit=args.limit)
+        if not rows:
+            print("  WARNING: no rows returned — page may be JS-rendered.")
+            print("  Fallback: python manage.py import-nil-valuations --csv <file.csv>")
+            return
+        print(f"  scraped {len(rows)} rows")
+        for r in rows[:5]:
+            print(f"    #{r.get('rank'):>3}  {r.get('player_name'):<25}  "
+                  f"{r.get('team_name'):<20}  ${r.get('valuation_usd', 0):,}")
+        if len(rows) > 5:
+            print(f"    ... ({len(rows) - 5} more)")
+        if args.dry_run:
+            print("  dry-run: no DB writes.")
+            return
+        result = save_nil_valuations(db=db, rows=rows, as_of_date=as_of, scraped_at=scraped_at)
+        print(f"  inserted={result['inserted']} skipped={result['skipped']}")
+        return
+
+    if args.command == "import-nil-valuations":
+        import csv as _csv
+        import datetime as _dt
+        from cfb_rankings.ingest.sources.on3_nil import save_nil_valuations
+        from pathlib import Path as _Path
+
+        csv_path = _Path(args.csv)
+        if not csv_path.exists():
+            print(f"ABORT: file not found: {csv_path}")
+            return
+        as_of_override = args.as_of_date
+        scraped_at = _dt.datetime.utcnow().isoformat(timespec="seconds") + "Z"
+        rows: list[dict] = []
+        with csv_path.open("r", encoding="utf-8-sig", newline="") as fh:
+            reader = _csv.DictReader(fh)
+            for row in reader:
+                as_of = as_of_override or row.get("as_of_date") or _dt.date.today().isoformat()
+                val_raw = row.get("valuation_usd") or row.get("nil_value") or ""
+                whisper_raw = row.get("whisper_usd") or row.get("whisper") or ""
+                try:
+                    val = int(float(str(val_raw).replace(",", "").replace("$", "").replace("M", "e6").replace("K", "e3"))) if val_raw else None
+                except (ValueError, OverflowError):
+                    val = None
+                try:
+                    whisper = int(float(str(whisper_raw).replace(",", "").replace("$", "").replace("M", "e6").replace("K", "e3"))) if whisper_raw else None
+                except (ValueError, OverflowError):
+                    whisper = None
+                rows.append({
+                    "player_name": row.get("player_name") or row.get("name") or "",
+                    "rank": int(row["rank"]) if row.get("rank") else None,
+                    "valuation_usd": val,
+                    "whisper_usd": whisper,
+                    "position": row.get("position") or "",
+                    "team_name": row.get("team_name") or row.get("school") or "",
+                    "source_name": row.get("source_name") or args.source,
+                    "source_url": row.get("source_url") or "",
+                    "_as_of": as_of,
+                })
+        if not rows:
+            print("ABORT: CSV is empty or has no valid rows.")
+            return
+        print(f"import-nil-valuations: {len(rows)} rows from {csv_path.name}")
+        # Group by as_of_date and save each batch
+        from itertools import groupby as _groupby
+        rows_sorted = sorted(rows, key=lambda r: r["_as_of"])
+        total_inserted = total_skipped = 0
+        for as_of, batch in _groupby(rows_sorted, key=lambda r: r["_as_of"]):
+            batch_list = list(batch)
+            result = save_nil_valuations(db=db, rows=batch_list, as_of_date=as_of, scraped_at=scraped_at)
+            print(f"  {as_of}: inserted={result['inserted']} skipped={result['skipped']}")
+            total_inserted += result["inserted"]
+            total_skipped += result["skipped"]
+        print(f"  total: inserted={total_inserted} skipped={total_skipped}")
         return
 
     if args.command == "collect-team-boards":

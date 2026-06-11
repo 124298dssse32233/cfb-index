@@ -677,24 +677,38 @@ def scrape_all_conference(year: int, conference: str) -> list[dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 _POSITION_AWARDS = {
+    # Player-of-year / versatility
     "Heisman Trophy": ("QB", "Heisman"),
+    "Maxwell Award": ("ATH", "Maxwell"),
+    "Walter Camp Award": ("ATH", "Walter Camp"),
+    "Paul Hornung Award": ("ATH", "Paul Hornung"),   # most versatile
+    # QB
     "Davey O'Brien Award": ("QB", "Davey O'Brien"),
     "Manning Award": ("QB", "Manning"),
     "Johnny Unitas Golden Arm Award": ("QB", "Unitas Golden Arm"),
-    "Maxwell Award": ("ATH", "Maxwell"),
-    "Walter Camp Award": ("ATH", "Walter Camp"),
+    # Skill positions
     "Doak Walker Award": ("RB", "Doak Walker"),
     "Biletnikoff Award": ("WR", "Biletnikoff"),
     "John Mackey Award": ("TE", "Mackey"),
+    # Offensive line
     "Outland Trophy": ("OL", "Outland"),
     "Rimington Trophy": ("C", "Rimington"),
+    # Defensive
     "Lombardi Award": ("DL", "Lombardi"),
+    "Ted Hendricks Award": ("DE", "Hendricks"),      # defensive end
     "Bronko Nagurski Trophy": ("DEF", "Nagurski"),
     "Chuck Bednarik Award": ("DEF", "Bednarik"),
     "Dick Butkus Award": ("LB", "Butkus"),
     "Jim Thorpe Award": ("DB", "Thorpe"),
+    "Lott IMPACT Trophy": ("DEF", "Lott IMPACT"),    # defensive + character
+    # Special teams
     "Ray Guy Award": ("P", "Ray Guy"),
     "Lou Groza Award": ("K", "Lou Groza"),
+    "Patrick Mannelly Award": ("LS", "Mannelly"),    # long snapper
+    # Character / academic / walk-on
+    "Burlsworth Trophy": ("ATH", "Burlsworth"),      # walk-on player
+    "Wuerffel Trophy": ("ATH", "Wuerffel"),          # community service
+    "William V. Campbell Trophy": ("ATH", "Campbell"),  # scholar-athlete
 }
 
 
