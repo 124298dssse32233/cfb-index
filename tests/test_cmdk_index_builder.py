@@ -241,7 +241,9 @@ def test_index_players_basic(db: Database) -> None:
     assert underwood.title == "Bryce Underwood"
     assert "QB" in underwood.subtitle
     assert "Bama" in underwood.subtitle
-    assert underwood.url == "/players/100.html"
+    # Real player page filename is {slugify(name)}-{id}.html (reporting.py::
+    # _player_slug), NOT bare {id}.html — see WP-0.2b.
+    assert underwood.url == "/players/bryce-underwood-100.html"
 
 
 def test_index_players_respects_max(db: Database) -> None:
@@ -271,6 +273,33 @@ def test_index_players_no_stats_table_returns_empty(empty_db: Database) -> None:
 def test_index_players_no_season_returns_empty(db: Database) -> None:
     """No player_season_stats rows → no season → empty result."""
     assert index_players(db) == []
+
+
+def test_index_players_site_dir_gates_on_page_existence(
+    db: Database, tmp_path: Path,
+) -> None:
+    """With site_dir, only players whose rendered page exists are indexed
+    (player_id is unstable across re-ingest → drop, never ship a dead link)."""
+    players_dir = tmp_path / "players"
+    players_dir.mkdir()
+    (players_dir / "bryce-underwood-100.html").write_text("x", encoding="utf-8")
+    db.execute(
+        "INSERT INTO teams (team_id, slug, school_name, short_name) "
+        "VALUES (1, 'alabama', 'Alabama', 'Bama')",
+    )
+    for pid, nm in ((100, "Bryce Underwood"), (200, "Ghost Player")):
+        db.execute(
+            "INSERT INTO players (player_id, full_name, position) VALUES (?, ?, 'QB')",
+            (pid, nm),
+        )
+        db.execute(
+            "INSERT INTO player_season_stats (player_id, team_id, season_year) "
+            "VALUES (?, 1, 2026)",
+            (pid,),
+        )
+    items = index_players(db, season_year=2026, site_dir=tmp_path)
+    # Only Underwood has a page; Ghost Player (no file) is dropped.
+    assert [i.url for i in items] == ["/players/bryce-underwood-100.html"]
 
 
 # ---------------------------------------------------------------------------

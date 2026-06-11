@@ -22,10 +22,23 @@ import sqlite3
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from ..utils import slugify
 from .types import SearchItem
 
 if TYPE_CHECKING:
     from ..db import Database
+
+
+def _player_page_slug(player_id: int, full_name: str) -> str:
+    """Mirror reporting.py::_player_slug — the rendered player page filename is
+    ``{slugify(full_name)}-{player_id}.html``.
+
+    WHY (WP-0.2b, 2026-06-11): index_players previously emitted
+    ``/players/{player_id}.html`` (no name slug), but no such file exists — real
+    pages are e.g. ``/players/fernando-mendoza-12763.html`` — so EVERY player
+    search result 404'd (8,660 of ~9,400 index items, ~91%). Keep this in sync
+    with reporting.py::_player_slug."""
+    return f"{slugify(full_name)}-{player_id}"
 
 
 log = _log.getLogger(__name__)
@@ -152,6 +165,7 @@ def index_players(
     *,
     players_max: int = 15000,
     season_year: int | None = None,
+    site_dir: str | Path | None = None,
 ) -> list[SearchItem]:
     """Index a bounded subset of players.
 
@@ -193,10 +207,20 @@ def index_players(
     except sqlite3.OperationalError as e:
         log.warning("index_players: %s", e)
         return []
+    players_dir = (Path(site_dir) / "players") if site_dir is not None else None
     items: list[SearchItem] = []
+    dropped = 0
     for r in rows:
         name = r["full_name"]
         if not name:
+            continue
+        slug = _player_page_slug(r["player_id"], name)
+        # When the site root is known, only index a player whose page actually
+        # exists — player_id is unstable across re-ingest (linkrot), so a row in
+        # player_season_stats does not guarantee a rendered page. Better to drop
+        # from search than to ship a dead link.
+        if players_dir is not None and not (players_dir / f"{slug}.html").is_file():
+            dropped += 1
             continue
         position = (r["position"] or "").upper()
         team = r["team_short"] or ""
@@ -205,10 +229,16 @@ def index_players(
         items.append(SearchItem(
             kind="player",
             title=name,
-            url=f"/players/{r['player_id']}.html",
+            url=f"/players/{slug}.html",
             subtitle=subtitle,
             tier=5,
         ))
+    if dropped:
+        log.warning(
+            "index_players: %d player(s) skipped — no rendered page at "
+            "/players/<slug>.html (linkrot/unrendered). %d indexed.",
+            dropped, len(items),
+        )
     return items
 
 
@@ -444,7 +474,9 @@ def build_search_index(
     items += index_conferences(db, site_dir=site_dir)
     items += index_editions(db)
     items += index_mailbag(db)
-    items += index_players(db, players_max=players_max, season_year=season_year)
+    items += index_players(
+        db, players_max=players_max, season_year=season_year, site_dir=site_dir,
+    )
     items += index_methodology()
     return items
 
