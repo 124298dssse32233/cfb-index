@@ -35,6 +35,15 @@ def _fetchall(db: Any, sql: str, params: Any) -> list:
     return [{cols[i]: row[i] for i in range(len(cols))} for row in rows]
 
 
+def _commit(db: Any) -> None:
+    """Commit when the connection requires it. The Database wrapper auto-commits
+    inside execute() and exposes no .commit(); a raw sqlite3.Connection (tests)
+    needs the explicit commit."""
+    commit = getattr(db, "commit", None)
+    if callable(commit):
+        commit()
+
+
 # ---------------------------------------------------------------------------
 # Sparse-vector helpers
 # ---------------------------------------------------------------------------
@@ -305,7 +314,7 @@ def compute_discourse_atlas(
                         now_utc,
                     ),
                 )
-            db.commit()
+            _commit(db)
 
         total_clusters += len(cluster_members)
         total_assigned += len(assignments)

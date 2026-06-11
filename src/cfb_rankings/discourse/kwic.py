@@ -31,6 +31,16 @@ def _fetchall(db: Any, sql: str, params: Any) -> list:
     cols = [c[0] for c in cur.description] if cur.description else []
     return [{cols[i]: row[i] for i in range(len(cols))} for row in rows]
 
+
+def _commit(db: Any) -> None:
+    """Commit when the connection requires it. The Database wrapper auto-commits
+    inside execute() and exposes no .commit(); a raw sqlite3.Connection (tests)
+    needs the explicit commit."""
+    commit = getattr(db, "commit", None)
+    if callable(commit):
+        commit()
+
+
 # Maximum window (chars) each side of the matched term.
 _WINDOW = 80
 # Maximum passages kept per (team, season, term).
@@ -212,7 +222,7 @@ def compute_kwic_quotes(
                             """
                             INSERT INTO team_discourse_term_quotes
                                 (team_id, season_year, week, term,
-                                 position_index, passage, computed_at_utc)
+                                 position_index, quote_text, computed_at_utc)
                             VALUES
                                 (:tid, :season, 0, :term,
                                  :idx, :passage, :computed_at)
@@ -226,7 +236,7 @@ def compute_kwic_quotes(
                                 "computed_at": computed_at,
                             },
                         )
-                    db.commit()
+                    _commit(db)
 
                 total_quotes += len(passages)
 

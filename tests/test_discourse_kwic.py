@@ -59,7 +59,8 @@ def _make_db() -> sqlite3.Connection:
             week            INTEGER,
             term            TEXT,
             position_index  INTEGER,
-            passage         TEXT,
+            quote_text      TEXT,
+            quote_source    TEXT,
             computed_at_utc TEXT
         );
         """
