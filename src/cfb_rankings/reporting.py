@@ -20002,10 +20002,8 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       <section class="section player-anchor-section{_gilded_class('signature-story', _gilded)}" id="signature-story">
         {_render_algorithmic_signature_card(player_data.get("algorithmic_signature"))}
         {render_signature_play_card(player_data.get("signature_moment"), player_data.get("signature_moment_opp_tier") or "")}
-        {render_narrative_arc_card(player_data.get("narrative_arc"))}
-        {player_data.get("new_narrative_arc_html") or ""}
-        {render_scenario_explorer_card(player_data.get("scenario_payload"))}
-        {player_data.get("new_scenario_explorer_html") or ""}
+        {player_data.get("new_narrative_arc_html") or render_narrative_arc_card(player_data.get("narrative_arc"))}
+        {player_data.get("new_scenario_explorer_html") or render_scenario_explorer_card(player_data.get("scenario_payload"))}
         <article class="panel">
           <div class="section-head">
             <h2>{escape(str(signature_story.get("title") or ("What made this player interesting" if is_offseason(date.today(), db=None) else "What makes this player interesting right now")))}</h2>
@@ -20182,8 +20180,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section" id="splits">
-        {player_data.get("new_splits_html") or ""}
-        {_render_v5_splits_card(player_data.get("splits"))}
+        {player_data.get("new_splits_html") or _render_v5_splits_card(player_data.get("splits"))}
       </section>
 
       <section class="section player-anchor-section" id="advanced-savant">
@@ -20200,14 +20197,12 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
       </section>
 
       <section class="section player-anchor-section{_gilded_class('mirror-match', _gilded)}" id="peer-comparator">
-        {player_data.get("new_peer_comparator_html") or ""}
-        {_render_v5_peer_comparator_card(player_data.get("peers"))}
+        {player_data.get("new_peer_comparator_html") or _render_v5_peer_comparator_card(player_data.get("peers"))}
         {player_data.get("new_mirror_match_html") or render_mirror_match_card(player_data.get("mirror_matches"))}
       </section>
 
       <section class="section player-anchor-section" id="supporting-cast">
-        {player_data.get("new_supporting_cast_html") or ""}
-        {_render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
+        {player_data.get("new_supporting_cast_html") or _render_v5_supporting_cast_card(player_data.get("supporting_cast"))}
         {player_data.get("new_coaching_lineage_html") or render_coaching_lineage_card(player_data.get("coaching_lineage"), team_name)}
       </section>
 
