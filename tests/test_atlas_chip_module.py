@@ -230,11 +230,22 @@ def test_returns_empty_when_both_team_ids_are_zero():
     assert result == ""
 
 
-def test_profile_team_id_takes_priority_over_snapshot():
-    # Profile=1 has a cluster; snapshot=99 does not
+def test_snapshot_team_id_takes_priority_over_profile():
+    # The snapshot id is canonical (resolved by slug in the renderer); the profile
+    # YAML team_id can be stale after a team_id re-ingest. The cluster exists only
+    # for the snapshot id, so the chip must use it.
+    db = _make_db([_basic_row(team_id=99, cluster_size=3)])
+    profile = FakeProfile(team_id=1)     # stale -> no cluster
+    snapshot = FakeSnapshot(team_id=99)  # canonical -> has the cluster
+    result = render_atlas_chip(db, profile, snapshot)
+    assert "Blue Bloods" in result
+
+
+def test_falls_back_to_profile_team_id_when_snapshot_missing():
+    # When the snapshot has no usable id, fall back to the profile's.
     db = _make_db([_basic_row(team_id=1, cluster_size=3)])
     profile = FakeProfile(team_id=1)
-    snapshot = FakeSnapshot(team_id=99)
+    snapshot = FakeSnapshot(team_id=0)
     result = render_atlas_chip(db, profile, snapshot)
     assert "Blue Bloods" in result
 
