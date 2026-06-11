@@ -1,13 +1,12 @@
 """NIL + Draft card — Brief §4.12 / Wave 19.
 
-Small, bounded card showing recruiting pedigree (when applicable) and
-NFL draft outcome (when applicable). NIL valuation is currently a
-"coming soon" — no live On3/247 feed ingested yet.
+Shows recruiting pedigree (when applicable), NFL draft outcome (when
+applicable), and live NIL valuation from On3 (when available in
+player_nil_valuations).
 
-For a current undergrad: shows star rating + composite + national rank.
+For a current undergrad: shows On3 NIL value + rank + whisper market rate.
+For a recruit profile: shows star rating + composite + national rank.
 For a drafted alumnus: shows draft year + round + pick + NFL team.
-Both at once when both apply (e.g. a Senior who has a recruiting
-profile and is now eligible for the upcoming draft).
 
 Public API:
     render_nil_draft(db, player_id) -> str
@@ -91,6 +90,46 @@ def _star_chars(n: int) -> str:
     return "★" * n + "☆" * (5 - n)
 
 
+def _fetch_nil_valuation(db, player_id: int) -> dict[str, Any] | None:
+    """Return most recent On3 NIL snapshot for this player."""
+    rows = db.query_all(
+        """
+        select rank, valuation_usd, whisper_usd, as_of_date, source_name
+          from player_nil_valuations
+         where player_id = :pid
+         order by as_of_date desc
+         limit 1
+        """,
+        {"pid": player_id},
+    )
+    if not rows:
+        return None
+    return dict(rows[0])
+
+
+def _fmt_nil(usd: int | None) -> str:
+    """$5,440,974 → '$5.44M', 450000 → '$450K'."""
+    if not usd:
+        return "—"
+    if usd >= 1_000_000:
+        return f"${usd / 1_000_000:.2f}M"
+    if usd >= 1_000:
+        return f"${usd // 1_000:,}K"
+    return f"${usd:,}"
+
+
+def _fmt_date(iso: str | None) -> str:
+    """'2026-06-10' → 'Jun 2026'."""
+    if not iso:
+        return ""
+    try:
+        parts = iso[:7].split("-")
+        months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+        return f"{months[int(parts[1]) - 1]} {parts[0]}"
+    except (IndexError, ValueError):
+        return iso[:7]
+
+
 def _fetch_recruit(db, player_id: int) -> dict[str, Any] | None:
     rows = db.query_all(
         """
@@ -126,16 +165,45 @@ def _fetch_draft(db, player_id: int) -> dict[str, Any] | None:
 def render_nil_draft(db, player_id: int | None) -> str:
     if db is None or player_id is None:
         return ""
-    recruit = _fetch_recruit(db, int(player_id))
-    draft   = _fetch_draft(db, int(player_id))
-    if not recruit and not draft:
-        return ""  # Don't render empty card; cleaner than placeholder
+    pid = int(player_id)
+    nil_val = _fetch_nil_valuation(db, pid)
+    recruit  = _fetch_recruit(db, pid)
+    draft    = _fetch_draft(db, pid)
+    if not nil_val and not recruit and not draft:
+        return ""
 
     tiles: list[str] = []
+
+    # ── NIL valuation (On3) ─────────────────────────────────────────────────
+    if nil_val:
+        val_str    = _fmt_nil(nil_val.get("valuation_usd"))
+        whisper    = nil_val.get("whisper_usd")
+        rank       = nil_val.get("rank")
+        as_of      = _fmt_date(nil_val.get("as_of_date"))
+        rank_str   = f"#{rank} nationally" if rank else "On3 ranking"
+        whisper_str = f"market rate {_fmt_nil(whisper)}" if whisper else ""
+        sub_parts  = [p for p in [rank_str, as_of] if p]
+        tiles.append(
+            '<div class="nil-draft__tile nil-draft__tile--gold">'
+            '<p class="nil-draft__tile-label">NIL Valuation · On3</p>'
+            f'<p class="nil-draft__tile-value">{escape(val_str)}</p>'
+            f'<p class="nil-draft__tile-sub">{escape(" · ".join(sub_parts))}</p>'
+            '</div>'
+        )
+        if whisper:
+            tiles.append(
+                '<div class="nil-draft__tile">'
+                '<p class="nil-draft__tile-label">Whisper Rate</p>'
+                f'<p class="nil-draft__tile-value">{escape(_fmt_nil(whisper))}</p>'
+                '<p class="nil-draft__tile-sub">per-deal market estimate</p>'
+                '</div>'
+            )
+
+    # ── Recruiting profile ───────────────────────────────────────────────────
     if recruit:
-        stars = recruit.get("stars") or 0
-        rating = recruit.get("rating")
-        natl = recruit.get("national_rank")
+        stars     = recruit.get("stars") or 0
+        rating    = recruit.get("rating")
+        natl      = recruit.get("national_rank")
         committed = recruit.get("committed_team") or "—"
         tiles.append(
             '<div class="nil-draft__tile nil-draft__tile--gold">'
@@ -156,10 +224,12 @@ def render_nil_draft(db, player_id: int | None) -> str:
                 + '</p>'
                 '</div>'
             )
+
+    # ── NFL Draft ────────────────────────────────────────────────────────────
     if draft:
-        rd = draft.get("round")
-        pk = draft.get("pick")
-        ov = draft.get("overall")
+        rd   = draft.get("round")
+        pk   = draft.get("pick")
+        ov   = draft.get("overall")
         team = draft.get("nfl_team") or "—"
         year = draft.get("draft_year")
         tiles.append(
@@ -173,15 +243,18 @@ def render_nil_draft(db, player_id: int | None) -> str:
     if not tiles:
         return ""
 
+    has_nil  = nil_val is not None
+    eyebrow  = "NIL · Recruiting · NFL Draft" if (recruit or draft) else "NIL Valuation"
+    title    = "Market value, pedigree &amp; pro outcome" if (recruit or draft) else "Market value"
+
     return (
         '<section class="nil-draft" data-module="nil-draft" data-state="ready">'
         '<header class="nil-draft__head">'
         '<div>'
-        '<p class="nil-draft__eyebrow">Recruiting &middot; NFL Draft</p>'
-        '<p class="nil-draft__title">Pre-college pedigree and pro outcome</p>'
+        f'<p class="nil-draft__eyebrow">{eyebrow}</p>'
+        f'<p class="nil-draft__title">{title}</p>'
         '</div>'
         '</header>'
         f'<div class="nil-draft__body">{"".join(tiles)}</div>'
-        '<p class="nil-draft__note">NIL valuation arrives when On3 / 247 feed is wired.</p>'
         '</section>'
     )

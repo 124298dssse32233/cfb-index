@@ -107,6 +107,14 @@ Run "fan-metrics: compute-delusion-premium --season=$($global:CurSeason)" {
 }
 
 # =========================================================================
+# F.6 NIL valuations: weekly On3 CFB top-100 snapshot.
+#     Non-critical: if On3 is unreachable the build continues unaffected.
+# =========================================================================
+Run "nil: scrape-nil-valuations --limit 200" {
+    python manage.py scrape-nil-valuations --limit 200
+}
+
+# =========================================================================
 # G. Models (in-season only - require fresh game data)
 # =========================================================================
 if ($global:IsInSeason) {
