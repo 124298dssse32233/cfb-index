@@ -71,8 +71,13 @@ def _load_baseline(path: Path) -> dict:
     if not path.exists():
         return {}
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
+        # utf-8-sig tolerates a BOM (PS 5.1 / Notepad hand-edits write one);
+        # without this a BOM raises JSONDecodeError and the ratchet would
+        # silently re-seed from current coverage, disabling regression detection.
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, ValueError) as exc:
+        print(f"::warning::data-floor baseline {path.name} unreadable ({exc}); "
+              f"ratchet re-seeds from current coverage this run (regression undetectable until next clean write)")
         return {}
 
 

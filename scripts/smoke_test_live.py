@@ -89,6 +89,11 @@ URLS: list[tuple[str, str, str]] = [
     # fixed WP-0.1) — these guard the regression. nfl-pipeline / archive /
     # matchups / players-spotlight (the real "Players" target) / the-room were
     # also previously unmonitored. Cross-checked against scripts/build_manifest.py.
+    # ⚠️ MERGE/DEPLOY ORDER: ship the WP-0.1 box deploy (which generates
+    # /offseason/ + /film-room/) BEFORE or WITH merging this change to master.
+    # Until that deploy, both 404 in prod = exactly 2 failures at the workflow's
+    # --fail-under 95 (≈95.1% of 41 URLs) — a knife-edge where one transient flake
+    # opens spurious 30-min automation issues. Post-deploy the slack is restored.
     ("/offseason/", "section-index", "Offseason hub — nav target (404'd in prod 2026-06-11; WP-0.1 fix)"),
     ("/film-room/", "section-index", "Film Room hub — nav target (404'd in prod 2026-06-11; WP-0.1 fix)"),
     ("/nfl-pipeline/", "section-index", "NFL Pipeline — nav target"),

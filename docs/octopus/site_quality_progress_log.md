@@ -100,3 +100,11 @@ Extended the block comment to record offseason/film-room as the same clobber cla
 - Confirmed the **live `cfb_rankings.db` was NOT mutated** (no `provenance_status` column) — responsible-autonomy: no unsupervised production-DB write. The box labels at the next build post-merge (idempotent, .bak-protected by the deploy flow).
 **Design note:** label-only, no inference (council). The deeper fix — legacy collectors (reddit_rss_*) still write NULL source_id, so the gap grows daily — is a separate collector change (flagged as a follow-up, not this WP).
 **Blast radius:** 1 new stdlib script + 1 non-critical Run. **Rollback:** `--revert` or restore from .bak; remove the Run.
+
+### Adversarial code review + hardening — ✅ 2026-06-11
+An independent reviewer (full repo access) audited the Phase-0 diff. **Verdict: safe to keep, no blocking issues.** It empirically debunked the scariest risk — the `$LASTEXITCODE`/`Tee-Object` deploy-gate concern: Python's exit code DOES propagate through `Tee-Object` (cmdlets don't overwrite it), and gate 1c uses the same proven pattern as the production gate 1b, so the deploy gate is real and fail-safe (verified exit 0/1/2 → abort on any non-zero). Four findings; fixed 3, documented 1:
+- **#2 (medium, fixed):** strict route gate was fail-OPEN on present-but-empty *stub* nav pages (a gutted 200 would clobber prod and pass). Now `--strict` FAILS on non-redirect nav stubs too. Verified: 17B rankings stub → FAIL/exit 1; real output still exit 0.
+- **#3 (low, fixed):** redirect routes now verify their *target* exists (a redirect→404 would have passed). Verified: redirect→missing → FAIL.
+- **#4 (low, fixed):** `verify_data_floors.py` baseline now read with `utf-8-sig` + logs on parse failure (a BOM'd hand-edit silently disabled the ratchet). Verified: BOM baseline now read → breach detected.
+- **#1 (medium, documented):** live smoke now sits at its exact 2-failure budget (41 URLs @ --fail-under 95) because offseason/film-room 404 until deploy. Added a ⚠️ MERGE/DEPLOY-ORDER note in `smoke_test_live.py`: ship the WP-0.1 box deploy before/with merging the smoke change, or one transient flake opens spurious alerts.
+**Files:** `verify_build_manifest.py`, `verify_data_floors.py`, `smoke_test_live.py`. All re-verified.

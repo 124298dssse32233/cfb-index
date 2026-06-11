@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -30,14 +31,21 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_manifest as M  # noqa: E402
 
 
-def _is_redirect(f: Path) -> bool:
-    """A small page that is an intentional meta-refresh redirect (e.g. a hub
-    landing that forwards to its latest dated ledger) is valid, not a stub."""
+def _redirect_target(f: Path, site: Path) -> "Path | None":
+    """If f is an intentional meta-refresh redirect (e.g. a hub landing that
+    forwards to its latest dated ledger), return the resolved target Path so the
+    caller can confirm the target actually exists. Returns None if not a redirect."""
     try:
-        head = f.read_text(encoding="utf-8", errors="ignore")[:600].lower()
+        head = f.read_text(encoding="utf-8", errors="ignore")[:800]
     except OSError:
-        return False
-    return 'http-equiv="refresh"' in head or "http-equiv=refresh" in head
+        return None
+    m = re.search(r'http-equiv=["\']?refresh["\']?[^>]*url=([^"\'>\s]+)', head, re.I)
+    if not m:
+        return None
+    target = m.group(1).strip().lstrip("/").split("#", 1)[0].split("?", 1)[0]
+    if not target or target.endswith("/") or not Path(target).suffix:
+        target = target.rstrip("/") + "/index.html"
+    return site / target
 
 
 def _check(site: Path, routes: list[tuple[str, str]]) -> tuple[list, list, list]:
@@ -46,10 +54,19 @@ def _check(site: Path, routes: list[tuple[str, str]]) -> tuple[list, list, list]
         f = site / rel
         if not f.exists():
             missing.append((key, rel))
-        elif f.stat().st_size < M.STUB_BYTE_THRESHOLD and not _is_redirect(f):
+            continue
+        tgt = _redirect_target(f, site)
+        if tgt is not None:
+            # A redirect is valid ONLY if its target exists (else it 404s the user).
+            if tgt.exists():
+                ok.append((key, rel))
+            else:
+                stub.append((key, rel, f"redirect→missing /{tgt.relative_to(site).as_posix()}"))
+            continue
+        if f.stat().st_size < M.STUB_BYTE_THRESHOLD:
             stub.append((key, rel, f.stat().st_size))
         else:
-            ok.append((key, rel))  # full page or a valid redirect
+            ok.append((key, rel))  # full page
     return missing, stub, ok
 
 
@@ -78,11 +95,13 @@ def main() -> int:
     for key, rel in nav_missing:
         print(f"  [FAIL] nav route MISSING: /{rel}  ({key}) — globally linked, will 404 in prod")
     for key, rel, sz in nav_stub:
-        print(f"  [warn] nav route looks like a stub: /{rel}  ({sz} B)")
+        _d = f"{sz} B" if isinstance(sz, int) else str(sz)
+        print(f"  [{'FAIL' if args.strict else 'warn'}] nav route empty/stub: /{rel}  ({_d}) — would ship a clobbered page")
     for key, rel in sec_missing:
         print(f"  [warn] section route missing: /{rel}  ({key})")
     for key, rel, sz in sec_stub:
-        print(f"  [warn] section route looks like a stub: /{rel}  ({sz} B)")
+        _d = f"{sz} B" if isinstance(sz, int) else str(sz)
+        print(f"  [warn] section route empty/stub: /{rel}  ({_d})")
 
     render_gaps = M.gaps("GAP-render")
     if render_gaps:
@@ -101,13 +120,13 @@ def main() -> int:
         (site / "_build_manifest_routes.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
         print("  emitted output/site/_build_manifest_routes.json")
 
-    if nav_missing:
+    if nav_missing or nav_stub:
         if args.strict:
-            print("RESULT: FAIL (missing required nav routes; --strict)")
+            print("RESULT: FAIL (nav routes missing or empty/stub; --strict)")
             return 1
-        print("RESULT: WARN (missing required nav routes; not strict — promote to --strict once green)")
+        print("RESULT: WARN (nav routes missing/stub; not strict — promote to --strict once green)")
         return 0
-    print("RESULT: OK (all required nav routes present)")
+    print("RESULT: OK (all required nav routes present and non-stub)")
     return 0
 
 
