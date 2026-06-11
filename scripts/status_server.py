@@ -19,6 +19,8 @@ import glob
 import html
 import os
 import re
+import subprocess
+import sys
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -62,6 +64,38 @@ def _newest(pattern: str) -> "Path | None":
     return Path(max(matches, key=os.path.getmtime))
 
 
+def _pid_alive(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    if sys.platform.startswith("win"):
+        try:
+            out = subprocess.run(
+                ["tasklist", "/FI", f"PID eq {pid}", "/NH", "/FO", "CSV"],
+                capture_output=True, text=True, timeout=5,
+            )
+            return f'"{pid}"' in out.stdout
+        except Exception:  # noqa: BLE001
+            return False
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
+
+
+def _pipeline_running(name: str) -> bool:
+    """True if the pipeline's PID marker exists and that process is still alive.
+    This is the reliable 'is it running?' signal -- it stays correct even through
+    a long, silent step that writes nothing to the log for many minutes."""
+    pf = LOG_DIR / f".{name}.pid"
+    if not pf.exists():
+        return False
+    try:
+        return _pid_alive(int(pf.read_text(encoding="utf-8", errors="ignore").strip()))
+    except (OSError, ValueError):
+        return False
+
+
 def _ago(dt: datetime) -> str:
     secs = (datetime.now(timezone.utc) - dt).total_seconds()
     if secs < 0:
@@ -103,7 +137,7 @@ def _last_run(text: str) -> str:
     return text[starts[-1]:] if starts else text
 
 
-def parse_pipeline(path: "Path | None", label: str) -> dict:
+def parse_pipeline(path: "Path | None", label: str, pidname: str = "") -> dict:
     """Turn one pipeline log into a friendly status dict."""
     if path is None:
         return {"label": label, "state": "never", "headline": "Hasn't run yet",
@@ -126,11 +160,16 @@ def parse_pipeline(path: "Path | None", label: str) -> dict:
         if m:
             step = m.group(1)
 
+    # The reliable signal: is the pipeline's process actually alive? This stays
+    # correct through a long silent step. mtime freshness is a fallback for runs
+    # that started before the PID-marker mechanism existed.
+    proc_running = _pipeline_running(pidname) if pidname else False
+
     if has_failed:
         state, headline = "failed", "Last run hit a problem"
     elif has_clean:
         state, headline = "ok", "Finished cleanly"
-    elif fresh:
+    elif proc_running or fresh:
         state, headline = "running", "Running right now"
     else:
         state, headline = "stopped", "Stopped before finishing"
@@ -234,8 +273,8 @@ def _card(p: dict) -> str:
 
 
 def render() -> str:
-    collect = parse_pipeline(_newest("fanintel_collect_*.log"), "Step 1 · Collect data")
-    build = parse_pipeline(_newest("fanintel_build_publish_*.log"), "Step 2 · Build & deploy")
+    collect = parse_pipeline(_newest("fanintel_collect_*.log"), "Step 1 · Collect data", "collect")
+    build = parse_pipeline(_newest("fanintel_build_publish_*.log"), "Step 2 · Build & deploy", "build_publish")
     deploy = parse_deploy()
 
     running = [p for p in (collect, build) if p["state"] == "running"]

@@ -74,6 +74,12 @@ $global:PrevMonday = [string]$Wk.week_start
 $global:IsoWeekKey = [string]$Wk.iso_key
 $global:IsInSeason = [bool]$Wk.in_season
 
+# Liveness marker for the status dashboard: write THIS process's PID so the
+# dashboard can tell "still running" from "stopped" even during a long, silent
+# step (e.g. the ~20-min generate-team-preview-claims). Removed in Complete-Pipeline.
+$global:PidFile = Join-Path $LogDir (".{0}.pid" -f $PipelineName)
+try { Set-Content -LiteralPath $global:PidFile -Value $PID -Encoding ascii -ErrorAction Stop } catch {}
+
 Log "==== $PipelineName start ===="
 Log "   today=$($global:Now.ToString('yyyy-MM-dd'))  iso_week=$($global:IsoWeekKey)  prev_monday=$($global:PrevMonday)"
 Log "   in_season=$($global:IsInSeason)  cur_season=$($global:CurSeason)  season_week=$($global:SeasonWeek)"
@@ -82,6 +88,10 @@ Log "   in_season=$($global:IsInSeason)  cur_season=$($global:CurSeason)  season
 # build_publish ping different checks (build_publish should own the main URL since
 # it is the must-publish path).
 function Complete-Pipeline([string]$hcEnvName) {
+    # Clear the liveness marker first -- the run is finishing.
+    if ($global:PidFile -and (Test-Path $global:PidFile)) {
+        Remove-Item -LiteralPath $global:PidFile -Force -ErrorAction SilentlyContinue
+    }
     $HcUrl = [Environment]::GetEnvironmentVariable($hcEnvName)
     if ([string]::IsNullOrWhiteSpace($HcUrl)) {
         Log "   ($hcEnvName not set -- skipping dead-man's-switch ping)"
