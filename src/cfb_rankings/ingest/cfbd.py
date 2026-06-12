@@ -863,6 +863,14 @@ def _ingest_recruiting(repository: Repository, db: Database, rows_in: list[dict[
 
 
 def _ingest_player_recruiting(repository: Repository, db: Database, rows_in: list[dict[str, Any]], season: int) -> None:
+    # Recruit classes reach back to season-5 (e.g. a 2023 senior was a 2019 HS
+    # recruit), so `season` here can predate the seasons-table data window (which
+    # starts 2020). player_recruiting_profiles.season_year FK-references seasons,
+    # so an unanchored pre-window class raises "FOREIGN KEY constraint failed" and
+    # aborts the WHOLE upsert batch — which is why historically only 2020+ recruit
+    # profiles ever persisted and every roster/preseason re-ingest exited 1 on the
+    # recruiting tail. Anchor the class year first (idempotent upsert).
+    repository.ensure_season(season)
     recruit_rows: list[dict[str, Any]] = []
     for item in rows_in:
         source_recruit_id = str(item.get("id") or "").strip()
