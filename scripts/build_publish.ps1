@@ -286,6 +286,20 @@ Run "verify: build manifest (nav-route completeness)" {
     python scripts/verify_build_manifest.py --emit
 }
 
+# Data Health gate (Wave 0): reconciles every dataset + source vs CFB-correct
+# per-year contracts (2020 COVID stays GREEN; 2022/2023 gaps fire RED) and
+# persists a dated snapshot to data_health_snapshot/_result for trend history +
+# source-change detection. Read-ONLY on the data tables (opens ?mode=ro); writes
+# ONLY its own additive data_health_* tables. Non-Critical: it surfaces gaps but
+# must NOT block the deploy during calibration (today's RED reflects KNOWN
+# historical holes like the 2023 season, not a broken build). To turn on
+# per-class GitHub-issue alerting, add `--open-issue` (deduped, one issue per
+# regression class; gh-absent degrades to a warning) — left off here so an
+# automated run doesn't open ~16 issues without an explicit opt-in.
+Run "verify: data-health (snapshot + gate)" {
+    python scripts/verify_data_health.py --snapshot
+}
+
 # =========================================================================
 # K. Publish to Vercel (gated + smoke-checked + alias-rotated, own log).
 #    Skipped if the build failed so a broken build can never deploy.

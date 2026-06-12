@@ -23,6 +23,8 @@ import sqlite3
 
 import pytest
 
+from pathlib import Path
+
 from cfb_rankings.data_health.checks import (
     completeness,
     integrity,
@@ -31,6 +33,9 @@ from cfb_rankings.data_health.checks import (
 from cfb_rankings.data_health import calendar as dh_calendar
 from cfb_rankings.data_health import gate as dh_gate
 from cfb_rankings.data_health.checks import run_all
+from cfb_rankings.data_health.checks.base import CheckResult
+from cfb_rankings.data_health import snapshots as dh_snapshots
+from cfb_rankings.data_health import alerting as dh_alerting
 
 
 # ---------------------------------------------------------------------------
@@ -462,3 +467,258 @@ def test_run_all_isolates_a_broken_pillar(isolated_signature, monkeypatch):
     assert err[0].status == "unknown" and err[0].severity == "critical"
     # The other pillars still produced rows.
     assert any(r.pillar == "completeness" for r in results)
+
+
+# ===========================================================================
+# Active-guard layer — snapshot persistence + source-change diff + alerting.
+# ===========================================================================
+
+# Schema for the two additive tables (mirrors migration
+# 20260612_01_data_health_snapshots.sql) so the round-trip test runs on a tiny
+# temp DB without invoking the full migration runner.
+_SNAPSHOT_SCHEMA = """
+CREATE TABLE IF NOT EXISTS data_health_snapshot (
+    snapshot_id    INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_utc        TEXT,
+    overall        TEXT,
+    db_fingerprint TEXT,
+    passrates_json TEXT,
+    counts_json    TEXT,
+    summary        TEXT
+);
+CREATE TABLE IF NOT EXISTS data_health_result (
+    snapshot_id INTEGER,
+    check_id    TEXT,
+    pillar      TEXT,
+    dataset     TEXT,
+    season      INTEGER,
+    status      TEXT,
+    severity    TEXT,
+    detail      TEXT
+);
+"""
+
+
+def _r(check_id, pillar, status, *, dataset="ds", season=None, severity="warning",
+       detail="d"):
+    """Compact CheckResult builder for the guard-layer tests."""
+    return CheckResult(
+        check_id=check_id, pillar=pillar, dataset=dataset, season=season,
+        status=status, severity=severity, detail=detail, evidence_sql="",
+    )
+
+
+def _snapshot_db(tmp_path) -> str:
+    """A temp file DB carrying ONLY the two additive data_health_* tables."""
+    db_path = tmp_path / "guard.db"
+    conn = sqlite3.connect(str(db_path))
+    conn.executescript(_SNAPSHOT_SCHEMA)
+    conn.commit()
+    conn.close()
+    return str(db_path)
+
+
+def test_snapshot_persist_round_trips(tmp_path):
+    """persist() writes one header + the result rows; latest() reads them back."""
+    db_path = _snapshot_db(tmp_path)
+    results = [
+        _r("completeness.games.2023", "completeness", "fail",
+           dataset="games", season=2023, severity="critical"),
+        _r("freshness.source_class.cfbd", "freshness", "pass", dataset="cfbd"),
+    ]
+    gate = dh_gate.compute_gate(results)
+
+    sid = dh_snapshots.persist(db_path, gate, results, now_utc="2026-06-12T00:00:00+00:00")
+    assert isinstance(sid, int) and sid >= 1
+
+    conn = sqlite3.connect(str(db_path))
+    try:
+        # Header round-trips with the gate's overall + a stable fingerprint.
+        hdr = conn.execute(
+            "SELECT run_utc, overall, db_fingerprint, summary "
+            "FROM data_health_snapshot WHERE snapshot_id=?", (sid,)
+        ).fetchone()
+        assert hdr[0] == "2026-06-12T00:00:00+00:00"
+        assert hdr[1] == gate["overall"]
+        assert "schema=" in hdr[2]  # fingerprint has the spine schema-hash component
+
+        rows = dh_snapshots.latest(conn)
+        assert len(rows) == 2
+        by_id = {r["check_id"]: r for r in rows}
+        assert by_id["completeness.games.2023"]["season"] == 2023
+        assert by_id["completeness.games.2023"]["status"] == "fail"
+        assert by_id["freshness.source_class.cfbd"]["pillar"] == "freshness"
+    finally:
+        conn.close()
+
+
+def test_persist_stamps_now_utc_when_omitted(tmp_path):
+    """Omitting now_utc still stamps a value (no crash, non-null run_utc)."""
+    db_path = _snapshot_db(tmp_path)
+    sid = dh_snapshots.persist(db_path, dh_gate.compute_gate([]), [])
+    conn = sqlite3.connect(str(db_path))
+    try:
+        run_utc = conn.execute(
+            "SELECT run_utc FROM data_health_snapshot WHERE snapshot_id=?", (sid,)
+        ).fetchone()[0]
+        assert run_utc  # an ISO timestamp was stamped
+    finally:
+        conn.close()
+
+
+def test_fingerprint_stable_and_db_sensitive(tmp_path):
+    """Same file -> identical fingerprint; a different file -> a different one."""
+    a = _snapshot_db(tmp_path)
+    fp1 = dh_snapshots.compute_fingerprint(a)
+    fp2 = dh_snapshots.compute_fingerprint(a)
+    assert fp1 == fp2
+
+    b = tmp_path / "other.db"
+    conn = sqlite3.connect(str(b))
+    conn.executescript(_SNAPSHOT_SCHEMA + "CREATE TABLE games (game_id INTEGER);")
+    conn.commit()
+    conn.close()
+    assert dh_snapshots.compute_fingerprint(str(b)) != fp1
+
+
+def test_previous_vs_latest_two_snapshots(tmp_path):
+    """latest()/previous() resolve the newest and second-newest snapshots."""
+    db_path = _snapshot_db(tmp_path)
+    first = [_r("freshness.source_class.cfbd", "freshness", "pass", dataset="cfbd")]
+    second = [_r("freshness.source_class.reddit", "freshness", "pass", dataset="reddit")]
+    dh_snapshots.persist(db_path, dh_gate.compute_gate(first), first,
+                         now_utc="2026-06-11T00:00:00+00:00")
+    dh_snapshots.persist(db_path, dh_gate.compute_gate(second), second,
+                         now_utc="2026-06-12T00:00:00+00:00")
+    conn = sqlite3.connect(str(db_path))
+    try:
+        latest_ids = {r["check_id"] for r in dh_snapshots.latest(conn)}
+        prev_ids = {r["check_id"] for r in dh_snapshots.previous(conn)}
+        assert latest_ids == {"freshness.source_class.reddit"}
+        assert prev_ids == {"freshness.source_class.cfbd"}
+    finally:
+        conn.close()
+
+
+def test_diff_source_states_added_retired_newly_failing():
+    """The whole add/retire/newly-failing story is derived from freshness rows."""
+    prev = [
+        _r("freshness.source_class.cfbd", "freshness", "pass", dataset="cfbd"),
+        _r("freshness.source_class.reddit", "freshness", "pass", dataset="reddit"),
+        _r("freshness.source_class.gdelt", "freshness", "fail", dataset="gdelt"),
+        # A non-freshness row must be ignored entirely by the diff.
+        _r("completeness.games.2023", "completeness", "fail", season=2023),
+    ]
+    curr = [
+        _r("freshness.source_class.cfbd", "freshness", "pass", dataset="cfbd"),
+        # reddit retired (gone), youtube added, gdelt still failing (NOT "newly"),
+        # cfbd unchanged, and now reddit replaced by a newly-failing 'beat'.
+        _r("freshness.source_class.youtube", "freshness", "pass", dataset="youtube"),
+        _r("freshness.source_class.gdelt", "freshness", "fail", dataset="gdelt"),
+        _r("freshness.source_class.beat", "freshness", "fail", dataset="beat"),
+    ]
+    diff = dh_snapshots.diff_source_states(prev, curr)
+    assert diff["added"] == ["beat", "youtube"]
+    assert diff["retired"] == ["reddit"]
+    # gdelt was already failing -> not "newly"; beat is new + failing -> newly.
+    assert diff["newly_failing"] == ["beat"]
+
+
+def test_diff_works_against_persisted_dicts(tmp_path):
+    """diff_source_states accepts the plain dict rows read back from a snapshot."""
+    db_path = _snapshot_db(tmp_path)
+    prev = [_r("freshness.source_class.cfbd", "freshness", "pass", dataset="cfbd")]
+    curr = [_r("freshness.source_class.cfbd", "freshness", "fail", dataset="cfbd")]
+    dh_snapshots.persist(db_path, dh_gate.compute_gate(prev), prev,
+                         now_utc="2026-06-11T00:00:00+00:00")
+    dh_snapshots.persist(db_path, dh_gate.compute_gate(curr), curr,
+                         now_utc="2026-06-12T00:00:00+00:00")
+    conn = sqlite3.connect(str(db_path))
+    try:
+        diff = dh_snapshots.diff_source_states(
+            dh_snapshots.previous(conn), dh_snapshots.latest(conn)
+        )
+    finally:
+        conn.close()
+    assert diff["newly_failing"] == ["cfbd"]
+    assert diff["added"] == [] and diff["retired"] == []
+
+
+# --- alerting: per-class dedup + dry-run opens nothing ---------------------
+
+
+def test_build_issue_payloads_dedupes_to_per_class_titles():
+    """Many flagged rows collapse to ONE issue per regression class, stable title."""
+    results = [
+        # Two completeness fails for the SAME dataset -> ONE games issue.
+        _r("completeness.games.2022", "completeness", "fail",
+           dataset="games", season=2022, severity="critical"),
+        _r("completeness.games.2023", "completeness", "fail",
+           dataset="games", season=2023, severity="critical"),
+        # A different dataset -> its own issue.
+        _r("completeness.roster_entries.2023", "completeness", "fail",
+           dataset="roster_entries", season=2023, severity="critical"),
+        # Many freshness source-class fails -> ONE "source feeds unhealthy" issue.
+        _r("freshness.source_class.athletics_template", "freshness", "fail",
+           dataset="athletics_template"),
+        _r("freshness.source_class.campus_template", "freshness", "fail",
+           dataset="campus_template"),
+        _r("freshness.inventory.overall", "freshness", "fail", dataset="scrape_health"),
+        # A provenance ratchet drop -> ONE provenance issue.
+        _r("provenance.conversation_documents.canonical_pct", "provenance", "fail",
+           dataset="conversation_documents"),
+    ]
+    gate = dh_gate.compute_gate(results)
+    payloads = dh_alerting.build_issue_payloads(gate, results)
+    titles = sorted(p["title"] for p in payloads)
+
+    assert titles == [
+        "[data-health] games missing/sparse seasons",
+        "[data-health] provenance coverage dropped",
+        "[data-health] roster_entries missing/sparse seasons",
+        "[data-health] source feeds unhealthy",
+    ]
+    # Stable + unique: no duplicate titles, so re-runs dedupe against open issues.
+    assert len(titles) == len(set(titles))
+    # The games issue body names BOTH failing seasons (not two separate issues).
+    games_body = next(p["body"] for p in payloads
+                      if p["title"].startswith("[data-health] games"))
+    assert "2022" in games_body and "2023" in games_body
+
+
+def test_build_issue_payloads_empty_on_clean_gate():
+    """A clean (no-fail) run opens nothing."""
+    results = [_r("freshness.source_class.cfbd", "freshness", "pass", dataset="cfbd")]
+    assert dh_alerting.build_issue_payloads(dh_gate.compute_gate(results), results) == []
+
+
+def test_open_issues_dry_run_opens_nothing(monkeypatch, capsys):
+    """--dry-run prints the plan and NEVER shells out to gh."""
+    called = {"which": 0, "run": 0}
+
+    def _no_which(_name):
+        called["which"] += 1
+        return "/usr/bin/gh"
+
+    def _no_run(*_a, **_k):
+        called["run"] += 1
+        raise AssertionError("gh must not be invoked in dry-run")
+
+    monkeypatch.setattr(dh_alerting.shutil, "which", _no_which)
+    monkeypatch.setattr(dh_alerting.subprocess, "run", _no_run)
+
+    payloads = [{"title": "[data-health] games missing/sparse seasons", "body": "x\ny"}]
+    n = dh_alerting.open_issues(payloads, dry_run=True)
+    out = capsys.readouterr().out
+    assert n == 1
+    assert "dry-run" in out and "games missing/sparse seasons" in out
+    # Neither gh discovery nor gh invocation happened.
+    assert called["which"] == 0 and called["run"] == 0
+
+
+def test_open_issues_missing_gh_never_crashes(monkeypatch, capsys):
+    """gh absent -> a printed warning, return 0, never an exception."""
+    monkeypatch.setattr(dh_alerting.shutil, "which", lambda _n: None)
+    payloads = [{"title": "[data-health] source feeds unhealthy", "body": "b"}]
+    assert dh_alerting.open_issues(payloads, dry_run=False) == 0
+    assert "gh not on PATH" in capsys.readouterr().out

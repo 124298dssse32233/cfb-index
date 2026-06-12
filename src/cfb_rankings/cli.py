@@ -112,6 +112,18 @@ def build_parser() -> argparse.ArgumentParser:
         "--season", type=int, default=None,
         help="scope the report to a single season (forward-compat).",
     )
+    data_health_parser.add_argument(
+        "--snapshot", action="store_true",
+        help="persist this run to data_health_snapshot/_result (trend history).",
+    )
+    data_health_parser.add_argument(
+        "--open-issue", action="store_true",
+        help="open one deduped GitHub issue per regression class (requires gh).",
+    )
+    data_health_parser.add_argument(
+        "--dry-run", action="store_true",
+        help="with --open-issue, print the issues instead of creating them.",
+    )
     compute_cohort_parser = subparsers.add_parser(
         "compute-cohort-week",
         help="Aggregate conversation_documents into team_cohort_week for a YYYY-WW.",
@@ -2657,6 +2669,9 @@ def main() -> None:
         rc = _dh.main(
             (["--json"] if getattr(args, "json", False) else [])
             + (["--strict"] if getattr(args, "strict", False) else [])
+            + (["--snapshot"] if getattr(args, "snapshot", False) else [])
+            + (["--open-issue"] if getattr(args, "open_issue", False) else [])
+            + (["--dry-run"] if getattr(args, "dry_run", False) else [])
             + (["--season", str(args.season)] if getattr(args, "season", None) is not None else [])
         )
         raise SystemExit(rc)

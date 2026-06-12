@@ -9,10 +9,17 @@ importable so ``manage.py data-health`` can call ``run(...)`` directly.
 
 Usage:
     python scripts/verify_data_health.py [db_path] [--json] [--strict] [--season N]
+                                         [--snapshot] [--open-issue] [--dry-run]
 Exit codes:
     0 = gate GREEN / YELLOW (or any non-RED, unless --strict raises on UNKNOWN too)
     1 = gate RED (with --strict)
     2 = DB missing / unreadable
+
+Active-guard flags (computed AFTER the gate; the DATA read stays ?mode=ro):
+    --snapshot     persist this run to the additive data_health_* tables (a
+                   SEPARATE read-write connection writes only those tables).
+    --open-issue   open one deduped GitHub issue per regression CLASS via `gh`.
+    --dry-run      with --open-issue, PRINT what would be opened; create nothing.
 """
 from __future__ import annotations
 
@@ -32,9 +39,11 @@ if str(_SRC) not in sys.path:
 
 _DEFAULT_DB = str(_REPO_ROOT / "cfb_rankings.db")
 
-from cfb_rankings.data_health import checks as health_checks  # noqa: E402
-from cfb_rankings.data_health import gate as health_gate      # noqa: E402
-from cfb_rankings.data_health import report as health_report  # noqa: E402
+from cfb_rankings.data_health import checks as health_checks      # noqa: E402
+from cfb_rankings.data_health import gate as health_gate          # noqa: E402
+from cfb_rankings.data_health import report as health_report      # noqa: E402
+from cfb_rankings.data_health import snapshots as health_snapshots  # noqa: E402
+from cfb_rankings.data_health import alerting as health_alerting    # noqa: E402
 
 
 def _open_ro(db_path: Path) -> sqlite3.Connection:
@@ -83,6 +92,19 @@ def main(argv: "list[str] | None" = None) -> int:
         "--season", type=int, default=None,
         help="scope the report to a single season (forward-compat).",
     )
+    p.add_argument(
+        "--snapshot", action="store_true",
+        help="persist this run to the additive data_health_* tables "
+             "(separate read-write connection; writes only those tables).",
+    )
+    p.add_argument(
+        "--open-issue", action="store_true",
+        help="open one deduped GitHub issue per regression class via gh.",
+    )
+    p.add_argument(
+        "--dry-run", action="store_true",
+        help="with --open-issue, print what would be opened; create nothing.",
+    )
     args = p.parse_args(argv)
 
     db_path = Path(args.db_path)
@@ -99,6 +121,23 @@ def main(argv: "list[str] | None" = None) -> int:
         print(json.dumps(report_json, indent=2, default=str))
     else:
         print(health_report.render_console(gate, results))
+
+    # --- active-guard layer: persist + alert AFTER the gate (read stayed ?mode=ro) ---
+    if args.snapshot:
+        try:
+            snapshot_id = health_snapshots.persist(db_path, gate, results)
+            print(f"   data-health snapshot persisted: snapshot_id={snapshot_id}")
+        except sqlite3.Error as exc:
+            # A missing data_health_* table means the migration hasn't run — surface
+            # it loudly, but never let persistence failure mask the gate result.
+            print(f"::warning::could not persist data-health snapshot: {exc}")
+
+    if args.open_issue:
+        try:
+            payloads = health_alerting.build_issue_payloads(gate, results)
+            health_alerting.open_issues(payloads, dry_run=args.dry_run)
+        except Exception as exc:  # noqa: BLE001 — alerting must never crash the checker
+            print(f"::warning::data-health alerting errored: {exc}")
 
     if args.strict and gate.get("overall") == "RED":
         return 1

@@ -23,4 +23,4 @@ every downstream pillar conforms to it exactly.
 """
 from __future__ import annotations
 
-__all__ = ["calendar", "contracts", "checks", "gate", "report"]
+__all__ = ["calendar", "contracts", "checks", "gate", "report", "snapshots", "alerting"]
