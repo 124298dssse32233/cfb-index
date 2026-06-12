@@ -140,10 +140,14 @@ _BODY_TRUNCATE = 400          # chars per quoted doc body
 try:  # ledgers imports are cheap + already a sibling; degrade gracefully.
     from .ledgers import RELEVANCE_GATE as _RELEVANCE_GATE
     from .ledgers import TOXICITY_CEILING as _TOXICITY_CEILING
+    from .ledgers import MIN_DOCS as _MIN_DOCS
+    from .ledgers import MIN_SOURCES as _MIN_SOURCES
     from .ledgers import _source_key as _ledger_source_key
 except Exception:  # pragma: no cover - defensive
     _RELEVANCE_GATE = 0.30
     _TOXICITY_CEILING = 0.85
+    _MIN_DOCS = 5
+    _MIN_SOURCES = 2
 
     def _ledger_source_key(r: dict[str, Any]) -> str:
         return (
@@ -434,7 +438,12 @@ def _doc_text(row: dict[str, Any]) -> str:
     return " ".join(p for p in parts if p).strip()
 
 
-def assemble_evidence(db, payload: StoryCard) -> list[dict[str, Any]]:
+def assemble_evidence(
+    db,
+    payload: StoryCard,
+    *,
+    audience: str = "national",
+) -> list[dict[str, Any]]:
     """Build the evidence pool fed to the writer AND the grounding gate.
 
     Returns a list of dicts. Discourse docs carry the rich fields the prompt
@@ -442,15 +451,34 @@ def assemble_evidence(db, payload: StoryCard) -> list[dict[str, Any]]:
     structured facts carry just {'text','source_id'} (the trustworthy spine).
     De-duplicated by independent origin (author/source), C7-guarded, capped at
     _EVIDENCE_PACK distinct-origin discourse docs. NEVER raises.
+
+    ``audience`` controls the discourse slice for the Tribal Lens (doc 49 §2):
+      - 'national' (DEFAULT, today's behavior) — the full discourse pool, no
+        audience_bucket filter. The National lens IS the existing card.
+      - 'rival' — keep ONLY discourse docs whose cdt.audience_bucket == 'rival'
+        (already SELECTed in _discourse_rows). The structured spine (STREAM 2) is
+        kept in BOTH audiences — the trustworthy facts ground every lens. An
+        unrecognized value degrades to 'national' (never raises).
     """
     try:
         external_id = payload.player_external_id
         player_id = _resolve_player_id(db, external_id)
+        aud = (audience or "national").strip().lower()
+        rival_only = aud == "rival"
 
         # STREAM 1 — discourse text.
         rows: list[dict[str, Any]] = []
         if player_id is not None:
             rows = _discourse_rows(db, player_id, payload.season)
+
+        # Tribal-Lens slice: keep only rival-bucket discourse for the rival lens.
+        # 'national' keeps the full pool (no behavior change). The bucket comes
+        # from cdt.audience_bucket, already carried per doc by _discourse_rows.
+        if rival_only:
+            rows = [
+                r for r in rows
+                if str(r.get("audience_bucket") or "").strip().lower() == "rival"
+            ]
 
         # Prefer the docs the fired ledger pinned (the take's own evidence).
         pinned = set(_ledger_pinned_doc_ids(db, payload))
@@ -483,6 +511,7 @@ def assemble_evidence(db, payload: StoryCard) -> list[dict[str, Any]]:
                 break
 
         # STREAM 2 — structured spine off the in-hand StoryCard (no extra query).
+        # Kept in EVERY audience: the facts ground national + rival alike.
         for fact in _structured_fact_strings(payload):
             pool.append({"text": fact, "source_id": "row:story_card", "kind": "fact"})
 
@@ -543,7 +572,7 @@ def _confidence_band(confidence: float | None) -> str:
 # keys; string fields preserve voice fine (the chronicle writer proves it).
 # Content inside <evidence> is DATA, never instructions.
 # ===========================================================================
-def _system_prompt(banlist_phrases: list[str], band: str) -> str:
+def _system_prompt(banlist_phrases: list[str], band: str, lens: str = "national") -> str:
     banned = ", ".join(sorted(set(p for p in banlist_phrases if p))[:60])
     if band == "high":
         meter_rule = "Confidence is HIGH: tell it as a clear, single story."
@@ -551,6 +580,20 @@ def _system_prompt(banlist_phrases: list[str], band: str) -> str:
         meter_rule = "Confidence is LOW: say plainly that the room is split; do not force a verdict."
     else:
         meter_rule = "Confidence is MEDIUM: lead with the dominant take but acknowledge it is contested."
+    # RIVAL lens (doc 49 §2, C1): compile what RIVAL fans say, attributed to rival
+    # fans ('rival fans call him...'). Still compile-not-adjudicate, still the
+    # rivals' opinion surfaced, never the site's. 'national' keeps today's voice.
+    if (lens or "national").strip().lower() == "rival":
+        lens_rule = (
+            "9. RIVAL LENS: the evidence below is the OPPOSING fanbases' conversation. "
+            "Compile what RIVAL fans say about this player and ATTRIBUTE it to rival "
+            "fans by name where possible ('rival fans call him...', 'opposing "
+            "fanbases frame him as...'). It is still a compiled take, never the "
+            "site's opinion and never the player's home fanbase. Hold the same C7 "
+            "do-not-amplify floor: no unverified criminal, legal, or medical claims.\n"
+        )
+    else:
+        lens_rule = ""
     return (
         "You are the house narrator for CFB Index, a college-football intelligence "
         "product. You COMPILE the fan conversation; you do NOT adjudicate it and you "
@@ -577,6 +620,7 @@ def _system_prompt(banlist_phrases: list[str], band: str) -> str:
         "English, no em-dashes, no second person, no hashtags, emoji, or calls to action.\n"
         f"BANNED WORDS/PHRASES: {banned}; plus 'generational', 'stellar', and 'elite' as a "
         "bare adjective.\n"
+        f"{lens_rule}"
         "OUTPUT a single JSON object with EXACTLY these five string keys (no others, no "
         "markdown, no preamble):\n"
         '  "logline": ONE short hook sentence (<= 22 words), the single most telling '
@@ -593,7 +637,12 @@ def _system_prompt(banlist_phrases: list[str], band: str) -> str:
     )
 
 
-def _user_prompt(payload: StoryCard, evidence: list[dict[str, Any]], band: str) -> str:
+def _user_prompt(
+    payload: StoryCard,
+    evidence: list[dict[str, Any]],
+    band: str,
+    lens: str = "national",
+) -> str:
     name = payload.player_name or "this player"
     ident = payload.identity_meta or ""
     dt = payload.dominant_take
@@ -625,18 +674,29 @@ def _user_prompt(payload: StoryCard, evidence: list[dict[str, Any]], band: str) 
         )
     ev_block = "\n".join(ev_lines) if ev_lines else "  <doc>(no quotable discourse; lead on the facts)</doc>"
 
-    fanbase = _fanbase_label(payload)
+    is_rival = (lens or "national").strip().lower() == "rival"
+    # National attributes to the home fanbase (today's behavior); rival attributes
+    # to opposing fanbases and the evidence block is the rival-bucket discourse.
+    fanbase = "rival fans" if is_rival else _fanbase_label(payload)
     split_clause = " If the band is low, say the room is split." if band == "split" else ""
+    lens_tag = "rival" if is_rival else "national"
+    take_instruction = (
+        f"State the dominant_take as what RIVAL fans say, attributed to {fanbase} "
+        "('rival fans call him...')."
+        if is_rival
+        else f"State the dominant_take with conviction, attributed to {fanbase}."
+    )
 
     return (
         f"<player>{name} — {ident}</player>\n"
+        f"<lens>{lens_tag}</lens>\n"
         f"<confidence_band>{band_word}</confidence_band>\n"
         f"<fan_take>{fan_take_line}</fan_take>\n"
         f"<facts>{facts}</facts>\n"
         f"<why_now>{payload.why_now or ''}</why_now>\n"
         f"<evidence>\n{ev_block}\n</evidence>\n"
         f"Write the Story Card JSON now. The logline leads on the most specific true thing "
-        f"about {name}. State the dominant_take with conviction, attributed to {fanbase}."
+        f"about {name}. {take_instruction}"
         f"{split_clause} Ground every claim in the facts or the quoted discourse above. "
         f"Return ONLY the JSON object with the five keys."
     )
@@ -791,6 +851,7 @@ def narrate(
     tier: str,
     *,
     evidence: Optional[list[dict[str, Any]]] = None,
+    lens: str = "national",
 ) -> dict[str, Any] | None:
     """Confident-compiler LLM narration for a single StoryCard.
 
@@ -799,10 +860,16 @@ def narrate(
         payload:  the fully-built deterministic StoryCard (the spine we upgrade).
         tier:     'S' | 'T1' | 'T2' | 'T3'. Only S/T1 generate; else returns None.
         evidence: optional pre-assembled evidence pool; assembled here if None.
+        lens:     'national' (DEFAULT, today's behavior — the confident-compiler
+                  home/national fan take) or 'rival' (compile what RIVAL fans say,
+                  attributed to rival fans). When 'rival', pass the rival-filtered
+                  evidence pool (assemble_evidence(..., audience='rival')); the
+                  caller (narrate_lenses) enforces the rival representativeness
+                  floor BEFORE calling so a thin rival pool never reaches here.
 
     Returns:
         dict with keys {logline, dominant_take_text, minority_take, body, kicker,
-        confidence, band, prose_source, eval_factscore, model_id,
+        confidence, band, lens, prose_source, eval_factscore, model_id,
         evidence_doc_ids, fallback_reason} on a clean pass, or None on any
         failure / non-LLM tier. NEVER raises.
     """
@@ -814,7 +881,15 @@ def narrate(
         if not payload.player_external_id:
             return None
 
-        ev = evidence if evidence is not None else assemble_evidence(db, payload)
+        lens = (lens or "national").strip().lower()
+        if lens not in ("national", "rival"):
+            lens = "national"
+
+        # National (default) assembles the full pool; an explicit lens caller
+        # (narrate_lenses) passes the audience-filtered pool in `evidence`.
+        ev = evidence if evidence is not None else assemble_evidence(
+            db, payload, audience=lens
+        )
         # Need at least SOME grounding pool (the structured spine alone is fine,
         # but a totally empty pool means we cannot ground anything → bail).
         if not ev:
@@ -833,8 +908,8 @@ def narrate(
         except Exception:
             banlist_phrases = []
 
-        system = _system_prompt(banlist_phrases, band)
-        user = _user_prompt(payload, ev, band)
+        system = _system_prompt(banlist_phrases, band, lens)
+        user = _user_prompt(payload, ev, band, lens)
 
         # S gets the full retry budget; T1 a single sharpening retry.
         max_attempts = (_MAX_RETRIES + 1) if (tier or "").upper() == "S" else 2
@@ -902,6 +977,7 @@ def narrate(
             "kicker": fields.get("kicker"),
             "confidence": confidence,
             "band": band,
+            "lens": lens,
             "prose_source": "llm",
             "eval_factscore": factscore,
             "model_id": f"ollama:{WRITER_MODEL}",
@@ -910,6 +986,136 @@ def narrate(
             ],
             "fallback_reason": None,
         }
+    except Exception:
+        return None
+
+
+# ===========================================================================
+# TRIBAL LENS (doc 49 §2; doc 42 §1). The card carries 1-3 POV takes:
+#   - NATIONAL  — the default. IS the existing narrate() output (no behavior
+#                 change). Effectively always present (it is today's card).
+#   - RIVAL     — a SECOND narrate pass over a RIVAL-FILTERED evidence pool,
+#                 attributed to rival fans ("rival fans call him..."). Renders
+#                 ONLY when the rival discourse clears the representativeness
+#                 floor (MIN_DOCS distinct docs from MIN_SOURCES independent
+#                 origins) AND the rival narrate() pass PASSES the eval gate.
+# Home lens is OUT OF SCOPE for v1 (the card already speaks in the home/national
+# fan voice). The payload shape leaves room for it later without a schema change.
+#
+# REALITY (verified): rival-bucket player-tagged rows are scarce (507 DB-wide vs
+# 8241 local / 1463 national); most players have ZERO. The floor rejects rival
+# for nearly everyone, so National-only is the COMMON case — narrate_lenses then
+# returns {'national': {...}} (one lens) and the renderer ships NO toggle. We
+# NEVER ship an empty rival tab.
+# ===========================================================================
+def _rival_pool_clears_floor(evidence: list[dict[str, Any]]) -> bool:
+    """True iff the rival-filtered pool has >= MIN_DOCS distinct discourse docs
+    from >= MIN_SOURCES independent origins. Counts ONLY discourse docs (the
+    structured spine is shared across lenses and is not rival representativeness).
+    The pool is already origin-de-duped by assemble_evidence, but we count the
+    distinct source_ids + source_names directly so the floor is self-contained
+    and never over-counts. NEVER raises."""
+    try:
+        doc_ids: set[str] = set()
+        sources: set[str] = set()
+        for e in evidence or []:
+            if e.get("kind") != "discourse":
+                continue
+            sid = str(e.get("source_id") or "")
+            if sid:
+                doc_ids.add(sid)
+            # Independent origin: the de-dup already keyed on author/source, so the
+            # source_name is a safe proxy for distinct origins in the packed pool.
+            origin = str(e.get("source_name") or "") or sid
+            if origin:
+                sources.add(origin)
+        return len(doc_ids) >= _MIN_DOCS and len(sources) >= _MIN_SOURCES
+    except Exception:
+        return False
+
+
+def _lens_view(prose: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Project a narrate() result down to the five renderer prose fields.
+
+    Returns the lens-shaped dict {logline, dominant_take, minority_take, body,
+    kicker} the renderer/toggle JSON consume, or None when the pass failed.
+    NEVER raises."""
+    if not prose:
+        return None
+    try:
+        return {
+            "logline": prose.get("logline"),
+            "dominant_take": prose.get("dominant_take_text"),
+            "minority_take": prose.get("minority_take"),
+            "body": prose.get("body"),
+            "kicker": prose.get("kicker"),
+        }
+    except Exception:
+        return None
+
+
+def narrate_lenses(
+    db,
+    payload: StoryCard,
+    tier: str,
+    *,
+    evidence: Optional[list[dict[str, Any]]] = None,
+) -> dict[str, Any] | None:
+    """Generate the Tribal-Lens payload {national, rival?} for one StoryCard.
+
+    NATIONAL is the existing narrate() result (the default card prose) — it is
+    populated from the SAME primary pass the caller already overlays onto the
+    card top-level, so call this with that pass's evidence to avoid a second
+    national generation. When ``evidence`` is given it is treated as the NATIONAL
+    pool (today's behavior); the rival pool is assembled fresh with
+    audience='rival'.
+
+    RIVAL is added ONLY when (a) the rival-filtered pool clears the
+    representativeness floor (MIN_DOCS / MIN_SOURCES) AND (b) the rival narrate()
+    pass passes the eval gate. Otherwise the rival key is simply absent.
+
+    Returns:
+        - ``{"national": {...}, "rival": {...}}`` when rival qualifies,
+        - ``{"national": {...}}`` when only national is present (the common case),
+        - ``None`` when even the national pass failed / tier is not LLM (the card
+          renders deterministically, single-voice, no toggle).
+    NEVER raises.
+    """
+    try:
+        if db is None or payload is None:
+            return None
+        if (tier or "").upper() not in LLM_TIERS:
+            return None
+        if not payload.player_external_id:
+            return None
+
+        # NATIONAL — the default lens. Reuse the caller's national pool if given.
+        nat_ev = evidence if evidence is not None else assemble_evidence(
+            db, payload, audience="national"
+        )
+        nat = narrate(db, payload, tier, evidence=nat_ev, lens="national")
+        nat_view = _lens_view(nat)
+        if nat_view is None:
+            # National itself failed -> no lenses; the card keeps deterministic
+            # prose and renders single-voice (no toggle).
+            return None
+
+        lenses: dict[str, Any] = {"national": nat_view}
+
+        # RIVAL — second pass over the rival-bucket discourse. Floor FIRST (cheap),
+        # then the LLM pass + eval gate. Either gate failing -> rival is absent.
+        try:
+            rival_ev = assemble_evidence(db, payload, audience="rival")
+            if _rival_pool_clears_floor(rival_ev):
+                rival = narrate(db, payload, tier, evidence=rival_ev, lens="rival")
+                rival_view = _lens_view(rival)
+                if rival_view is not None:
+                    lenses["rival"] = rival_view
+        except Exception:
+            # Rival is purely additive — any failure leaves National-only.
+            pass
+
+        return lenses
     except Exception:
         return None
 
@@ -1074,6 +1280,29 @@ def _parse_prose_json(raw: str | None) -> dict[str, Any] | None:
 # band, NEW discourse (new doc ids), or a tier change all change the hash.
 # ===========================================================================
 def story_content_hash(payload: StoryCard, tier: str, evidence: list[dict[str, Any]]) -> str:
+    """Stable content hash over the deterministic SPINE inputs only.
+
+    CRITICAL (idempotence): this hash MUST be invariant to whether LLM prose has
+    been overlaid onto the card. ``build_card_payload`` calls
+    ``_overlay_cached_prose`` BEFORE the compute step hashes the card, so the hash
+    must EXCLUDE every field that overlay mutates — ``dominant_take.text`` /
+    ``dominant_take.minority_take`` / ``logline`` / ``body`` / ``kicker`` /
+    ``lenses`` / ``fallback_rung`` / ``fallback_reason``. Hashing any of those
+    makes run-1 (deterministic take) and run-2 (cached LLM take) disagree, so the
+    cache-skip gate AND the bible change-gate fall through and a bogus snapshot is
+    written every nightly run.
+
+    Hash only stable INPUTS: the stable id + season + tier, the evidence doc-id
+    SET, the BAN (number+label), the key-stat chips, the lead ledger, the
+    succession line (predecessor/heir names+stars, role, shoes_read), the
+    recruiting register (stars/national_rank, surfaced via tier_rail + the BAN
+    receipt), and the confidence BAND (NOT the raw confidence float, NOT the take
+    text). ``take_band`` / ``take_source_count`` are deterministic detector
+    outputs, not LLM prose, so they stay in. This is the single source of truth
+    for BOTH the cache-skip gate and the bible change-gate (so the two move
+    together). A genuine input shift — new evidence docs, flipped BAN, new
+    succession heir, tier change — still changes the hash and fires exactly one
+    snapshot."""
     dt = payload.dominant_take
     confidence = _to_float(getattr(dt, "confidence", None)) if dt else None
     doc_ids = sorted(
@@ -1092,10 +1321,14 @@ def story_content_hash(payload: StoryCard, tier: str, evidence: list[dict[str, A
         "ban": asdict(payload.ban) if payload.ban else None,
         "chips": payload.key_stat_chips,
         "succession": asdict(payload.succession) if payload.succession else None,
-        "take_text": getattr(dt, "text", None) if dt else None,
+        # Deterministic confidence band + source count drive the meter; they are
+        # detector outputs (NOT LLM prose), so they belong in the spine.
+        # take_text / minority_take / logline / body / kicker / lenses are LLM
+        # OUTPUT that _overlay_cached_prose mutates — DELIBERATELY EXCLUDED so the
+        # hash is identical before and after the prose is cached (idempotence).
         "take_band": _confidence_band(confidence),
         "take_source_count": getattr(dt, "source_count", None) if dt else None,
-        "why_now": payload.why_now,
+        "why_now_present": bool(payload.why_now),
         "evidence_doc_ids": doc_ids,
     }
     blob = json.dumps(canonical, sort_keys=True, default=str)
@@ -1147,6 +1380,7 @@ def _warm_detectors(db, season_year: int) -> None:
 
 __all__ = [
     "narrate",
+    "narrate_lenses",
     "classify_player_tier",
     "assemble_evidence",
     "story_content_hash",

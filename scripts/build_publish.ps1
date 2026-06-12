@@ -194,6 +194,18 @@ Run "board: build-signature-story-board --season=$($global:CurSeason)" {
 }
 Run "board: build-methodology" { python manage.py build-methodology }
 
+# =========================================================================
+# H.5 Player Story Cards — additive LLM narrator prose (tiers S + T1) +
+#     bible/snapshot changelog + tribal lenses. GPU-budgeted, NON-critical:
+#     build-site only READS player_story_card_cache, so an Ollama hiccup
+#     degrades the card to deterministic prose and NEVER blocks the deploy.
+#     Must run BEFORE build-site (Section I), which reads the cache.
+#     Season is the latest model_runs season (offseason convention).
+# =========================================================================
+Run "story-cards: compute-story-cards --season=$($global:CurSeason) --tier=S,T1" {
+    python manage.py compute-story-cards --season $global:CurSeason --tier S,T1
+}
+
 # Provenance honesty (WP-0.7): label conversation_documents canonical (real
 # source_id) vs legacy_unverified (source_id NULL — legacy reddit/youtube/board).
 # Council ruling: LABEL, do not infer an id. Idempotent + reversible (--revert);

@@ -136,6 +136,22 @@ class StoryCard:
     identity_meta: Optional[str] = None   # "QB · Tennessee · Sr · #15"
     team_color: Optional[str] = None      # strict #hex; renderer drops anything unsafe
     fallback_rung: Optional[str] = None   # 'full'|'reduced'|'low-data'|'omit' (doc 48 §3)
+    # --- additive Phase-3 fields (tribal lenses + changelog). Both default-safe so
+    #     every existing construction site + the cache round-trip keep working.
+    #   `lenses`: the tribal-lens POV payload, populated ONLY on the LLM path by
+    #     compute_story_cards from the national+rival narrate() passes. Shape:
+    #       {"national": {logline,dominant_take,minority_take,body,kicker},
+    #        "rival":    {...}?}   — None on the deterministic / single-voice path
+    #     (today's behavior; the renderer then emits no toggle). LLM prose, so it
+    #     rides the cache (round-trips through card_json) and is overlaid by
+    #     _overlay_cached_prose under the same content_hash freshness gate.
+    lenses: Optional[dict] = None
+    #   `changelog`: the recent player_bible_snapshots deltas (newest-first, <=4),
+    #     `[{"as_of","week","delta"}, ...]`. DERIVED state — always recomputed LIVE
+    #     from the snapshots table by _attach_changelog (NEVER trusted from cache,
+    #     NEVER folded into the content_hash). Empty when the player has no recorded
+    #     shifts (the renderer then shows nothing — silence is correct).
+    changelog: list[dict] = field(default_factory=list)
 
 
 # Re-export SuccessionRead so callers/tests can import the whole contract from
@@ -1195,10 +1211,58 @@ def build_card_payload(
         except Exception:
             pass  # any failure -> the deterministic card is already complete.
 
+        # --- additive changelog ("how this story shifted"). READ-ONLY from the
+        #     player_bible_snapshots table compute_story_cards last wrote — zero
+        #     Ollama, zero compute dependency, recomputed live every render so it
+        #     is never stale even when the prose is a cached LKG. Graceful-empty on
+        #     any miss/error (a brand-new or never-shifted player shows nothing). --
+        try:
+            _attach_changelog(db, card)
+        except Exception:
+            card.changelog = []  # never raise into the page.
+
         return card
     except Exception:
         # Never raise into the page; a failed payload becomes "" upstream.
         return None
+
+
+def _attach_changelog(db, card: StoryCard, limit: int = 4) -> None:
+    """Attach the recent player_bible_snapshots deltas to ``card.changelog``.
+
+    READ-ONLY: reads whatever ``compute_story_cards`` last wrote (deterministic
+    state, no Ollama, no compute), maps each snapshot to a compact
+    ``{"as_of","week","delta"}`` dict, newest-first, capped at ``limit``. Filters
+    empty diffs. Graceful-empty (``[]``) on any miss/error — silence is correct
+    for a never-shifted player. NEVER raises.
+    """
+    card.changelog = []
+    if db is None or card is None or not getattr(card, "player_external_id", None):
+        return
+    rows = _safe_all(
+        db,
+        """
+        select as_of_date, week, diff_summary, logline
+          from player_bible_snapshots
+         where player_external_id = :ext and season_year = :s
+         order by created_at_utc desc
+         limit 5
+        """,
+        {"ext": str(card.player_external_id), "s": int(card.season)},
+    )
+    out: list[dict] = []
+    for r in rows:
+        delta = (r.get("diff_summary") or "").strip()
+        if not delta:
+            continue  # an empty diff is not a transition worth showing.
+        out.append({
+            "as_of": r.get("as_of_date"),
+            "week": _to_int(r.get("week")),
+            "delta": delta,
+        })
+        if len(out) >= int(limit):
+            break
+    card.changelog = out
 
 
 def _overlay_cached_prose(db, card: StoryCard) -> None:
@@ -1251,6 +1315,14 @@ def _overlay_cached_prose(db, card: StoryCard) -> None:
             card.dominant_take.text = cj_take["text"]
         if cj_take.get("minority_take"):
             card.dominant_take.minority_take = cj_take["minority_take"]
+    # The tribal-lens payload is LLM prose too (the per-lens national/rival voice),
+    # so it belongs with the cached prose under the SAME freshness gate. Overlay it
+    # here; the deterministic path never carries lenses (stays None -> no toggle).
+    # NOT overlaid: `changelog` — that is derived from snapshots and recomputed live
+    # by _attach_changelog AFTER this overlay, so a cached value must not leak in.
+    cj_lenses = cj.get("lenses")
+    if cj_lenses:
+        card.lenses = cj_lenses
     card.fallback_rung = "full"
     card.fallback_reason = (
         "llm prose (cached)" if head.get("prose_source") == "llm" else "lkg prose (stale-ok)"
@@ -1371,6 +1443,352 @@ def build_card(
         return render_story_card(card) or ""
     except Exception:
         return ""
+
+
+# ===========================================================================
+# THE BIBLE + CHANGELOG (Phase 3) — the long-lived narrative state + the EKG.
+#
+# The bible (`player_bible`, one PK row per player) is the deterministic register
+# of the player's current arc; the snapshot log (`player_bible_snapshots`) is the
+# append-only EKG of the moments the story MOVED. Both are written ONLY by the
+# nightly compute (inside compute_story_cards, AFTER the cache write), NEVER by
+# build_card / build-site (which is read-only, zero-Ollama). All writes are
+# additive and NEVER raise — one bad bible never aborts the batch.
+#
+# Change detection keys on the SAME narrator content_hash the cache uses (it
+# excludes the clock + raw body text, folding only tier + take-band + evidence
+# doc-id SET), so a snapshot fires on a shifted take / flipped confidence band /
+# new discourse docs / new BAN / tier change — the real "story moved" events,
+# never on a daily tick. Unchanged players write nothing (idempotent re-runs).
+# ===========================================================================
+def _attach_lenses(nar, db, card: StoryCard, tier: str, evidence) -> dict | None:
+    """Build the tribal-lens payload via the narrator's narrate_lenses.
+
+    The narrator owns everything: the rival representativeness floor, the rival
+    second pass + eval gate, and the lens-dict shape. It re-runs national from
+    `evidence` (the SAME pool the primary pass already used), so the national lens
+    equals the prose already overlaid onto the card — no divergence, no second
+    national cost beyond one re-narrate. Returns {"national":{...}, "rival":{...}?}
+    or None (then the card renders single-voice, no toggle). NEVER raises."""
+    try:
+        return nar.narrate_lenses(db, card, tier, evidence=evidence)
+    except Exception:
+        return None
+
+
+def _bible_identity_json(card: StoryCard) -> str:
+    """{name,team,pos,class,jersey,team_color} from the in-hand card.
+
+    The card carries identity as the `·`-joined `identity_meta` string
+    ("QB · Tennessee · Sr · #15") plus player_name + team_color. Parse the meta
+    defensively (best-effort positional read) so the bible identity is structured.
+    NEVER raises (returns at minimum {name, team_color})."""
+    pos = team = klass = jersey = None
+    try:
+        meta = str(card.identity_meta or "")
+        parts = [p.strip() for p in meta.split("·") if p.strip()]
+        # _identity_meta order is [position, team_name, class_year, #jersey], each
+        # present only when known — so read by shape, not fixed index.
+        for p in parts:
+            if p.startswith("#") and jersey is None:
+                jersey = p.lstrip("#") or None
+            elif p in ("Fr", "So", "Jr", "Sr") and klass is None:
+                klass = p
+            elif pos is None and len(p) <= 4 and p.isupper():
+                pos = p           # short all-caps token is the position code
+            elif team is None:
+                team = p          # the remaining long token is the team name
+    except Exception:
+        pass
+    return json.dumps(
+        {
+            "name": card.player_name,
+            "team": team,
+            "pos": pos,
+            "class": klass,
+            "jersey": jersey,
+            "team_color": card.team_color,
+        },
+        default=str,
+    )
+
+
+def _bible_current_beats_json(card: StoryCard) -> str:
+    """The decaying current-arc register: the live ledger + take + BAN."""
+    beats: list[dict] = []
+    take = None
+    conf = None
+    if card.dominant_take is not None:
+        take = getattr(card.dominant_take, "text", None)
+        conf = getattr(card.dominant_take, "confidence", None)
+    if card.ledger_lead or take:
+        beats.append({"ledger": card.ledger_lead, "take": take, "confidence": conf})
+    if card.tension_text:
+        beats.append({"tension": card.tension_text})
+    if card.ban is not None:
+        try:
+            beats.append({"ban": asdict(card.ban)})
+        except Exception:
+            pass
+    return json.dumps(beats, default=str)
+
+
+def _bible_permanent_beats_json(card: StoryCard) -> str:
+    """The never-decayed career-frame register: succession line + recruiting BAN."""
+    beats: list[dict] = []
+    succ = card.succession
+    if succ is not None:
+        pred = getattr(succ, "predecessor_name", None)
+        heir = getattr(succ, "heir_name", None)
+        if pred or heir:
+            beats.append({"predecessor": pred, "heir": heir})
+    if card.ban is not None and getattr(card.ban, "kind", None) == "rank":
+        try:
+            beats.append({"ban": asdict(card.ban)})
+        except Exception:
+            pass
+    return json.dumps(beats, default=str)
+
+
+def _bible_arc_state_json(card: StoryCard) -> str:
+    return json.dumps(
+        {
+            "chapter": card.chapter_number,
+            "chapter_label": card.chapter_label,
+            "tensions": [card.tension_text] if card.tension_text else [],
+            "trajectory": card.archetype_slug,
+        },
+        default=str,
+    )
+
+
+def _bible_coverage_flag(card: StoryCard) -> str:
+    """CHECK-constrained to {'narrative','no_story','no_data'}. Derive from the card:
+    a narrative-tier card -> 'narrative'; a stats-strip WITH chips (we have stats,
+    just no fired discourse) -> 'no_story'; nothing at all -> 'no_data'."""
+    if card.tier == "narrative":
+        return "narrative"
+    if card.key_stat_chips:
+        return "no_story"
+    return "no_data"
+
+
+def _resolve_current_week(db, season: int) -> int | None:
+    """Best-effort current CFB week for the snapshot UNIQUE key. None when the
+    season's week is not resolvable (NULL-week + dated rows coexist by design).
+    NEVER raises."""
+    try:
+        from cfb_rankings.common.week import resolve_week  # type: ignore
+
+        wk = resolve_week(db, season)
+        # resolve_week may return an int or a small mapping; accept either.
+        if isinstance(wk, int):
+            return wk
+        if isinstance(wk, dict):
+            return _to_int(wk.get("week") or wk.get("week_number"))
+        return _to_int(getattr(wk, "week", None))
+    except Exception:
+        return None
+
+
+def _take_band(conf: float | None, minority: Any) -> str:
+    """'split' | 'settled' band label for a take's confidence (the meter band)."""
+    c = conf or 0.0
+    return "split" if (minority or c < 0.66) else "settled"
+
+
+def _prior_band_and_ban(prior: dict | None) -> tuple[str, str]:
+    """Recover the prior take-band + prior BAN string from the prior bible row's
+    current_beats_json (the bible stores these in the current register, not as
+    columns). Returns ('','') when absent/unparseable. NEVER raises."""
+    if not prior:
+        return "", ""
+    band = ban = ""
+    try:
+        beats = json.loads(prior.get("current_beats_json") or "[]")
+        for b in beats if isinstance(beats, list) else []:
+            if not isinstance(b, dict):
+                continue
+            if "confidence" in b or "take" in b:
+                band = _take_band(_to_float(b.get("confidence")), None)
+            if isinstance(b.get("ban"), dict):
+                num = b["ban"].get("number") or ""
+                lab = b["ban"].get("label") or ""
+                ban = f"{num} {lab}".strip()
+    except Exception:
+        return "", ""
+    return band, ban
+
+
+def _bible_diff_summary(prior: dict | None, card: StoryCard) -> str:
+    """A deterministic human delta from the prior bible row to the new card.
+
+    First sighting -> 'first card'. Otherwise a compact transition string keyed to
+    whatever moved (logline / why_now / take confidence band / new BAN). NEVER
+    raises (returns 'story shifted' as the honest floor)."""
+    try:
+        if prior is None:
+            return "first card"
+        bits: list[str] = []
+        old_logline = (prior.get("logline") or "").strip()
+        new_logline = (card.logline or "").strip()
+        if new_logline and new_logline != old_logline:
+            bits.append(f"logline: '{old_logline}' -> '{new_logline}'")
+        old_why = (prior.get("why_now") or "").strip()
+        new_why = (card.why_now or "").strip()
+        if new_why and new_why != old_why:
+            bits.append(f"why now: {new_why}")
+        old_band, old_ban = _prior_band_and_ban(prior)
+        # Confidence band flip (split <-> settled) vs the prior current register.
+        if card.dominant_take is not None:
+            band = _take_band(
+                getattr(card.dominant_take, "confidence", None),
+                getattr(card.dominant_take, "minority_take", None),
+            )
+            if old_band and band != old_band:
+                bits.append(f"the room {band}")
+        if card.ban is not None:
+            num = getattr(card.ban, "number", "") or ""
+            lab = getattr(card.ban, "label", "") or ""
+            new_ban = f"{num} {lab}".strip()
+            if new_ban and new_ban != old_ban:
+                bits.append(new_ban)
+        return "; ".join(bits) if bits else "story shifted"
+    except Exception:
+        return "story shifted"
+
+
+def _write_bible_snapshot(
+    db, card: StoryCard, *, week: int | None, diff_summary: str
+) -> None:
+    """Append ONE player_bible_snapshots row (the EKG transition). ON CONFLICT DO
+    NOTHING on (ext,season,week,as_of_date) so a same-day re-run after the same
+    change is idempotent. NEVER raises."""
+    try:
+        db.execute(
+            """
+            INSERT INTO player_bible_snapshots (
+                player_external_id, season_year, week, as_of_date,
+                logline, why_now, arc_state_json, tension_text,
+                diff_summary, snapshot_json, created_at_utc
+            ) VALUES (
+                :ext, :s, :week, :as_of,
+                :logline, :why_now, :arc_state, :tension,
+                :diff, :snapshot, :created
+            )
+            ON CONFLICT(player_external_id, season_year, week, as_of_date)
+            DO NOTHING
+            """,
+            {
+                "ext": str(card.player_external_id),
+                "s": int(card.season),
+                "week": week,
+                "as_of": card.as_of_date,
+                "logline": card.logline,
+                "why_now": card.why_now,
+                "arc_state": _bible_arc_state_json(card),
+                "tension": card.tension_text,
+                "diff": diff_summary,
+                "snapshot": json.dumps(asdict(card), default=str),
+                "created": _now_utc(),
+            },
+        )
+    except Exception:
+        pass
+
+
+def _upsert_bible(
+    db, card: StoryCard, *, evidence: list[dict] | None, tier: str, content_hash: str
+) -> None:
+    """Upsert player_bible + append a snapshot ONLY on a MATERIAL change.
+
+    Called from compute_story_cards AFTER the cache write succeeds. The change
+    gate compares the SAME narrator content_hash the cache uses: identical hash ->
+    no material change -> write NOTHING (idempotent nightly re-run). New row or a
+    changed hash -> UPSERT the bible AND append one snapshot. Wrapped never-raise:
+    one bad bible never aborts the batch. content_hash is passed in (the SAME the
+    cache row stored) so bible / snapshot / cache always agree on "the story
+    moved" — do NOT recompute it here with the local _content_hash helper."""
+    try:
+        if db is None or card is None or not getattr(card, "player_external_id", None):
+            return
+        ext = str(card.player_external_id)
+
+        prior = _safe_one(
+            db,
+            """
+            select content_hash, logline, why_now, arc_state_json,
+                   current_beats_json
+              from player_bible
+             where player_external_id = :ext
+            """,
+            {"ext": ext},
+        )
+        # No material change: same hash as the last bible -> skip BOTH writes. This
+        # is what keeps the changelog a real EKG and not a daily-noise log.
+        if prior is not None and str(prior.get("content_hash") or "") == str(content_hash):
+            return
+
+        diff = _bible_diff_summary(prior, card)
+        player_id = None
+        try:
+            player_id = _resolve_player_id_for_cache(db, ext)
+        except Exception:
+            player_id = None
+
+        db.execute(
+            """
+            INSERT INTO player_bible (
+                player_external_id, player_id, season_year,
+                identity_json, permanent_beats_json, current_beats_json,
+                canon_events_json, arc_state_json, archetype_slug,
+                logline, logline_locked_event_id, why_now,
+                data_coverage_flag, content_hash, updated_at_utc
+            ) VALUES (
+                :ext, :pid, :s,
+                :identity, :permanent, :current,
+                :canon, :arc, :archetype,
+                :logline, NULL, :why_now,
+                :coverage, :chash, :updated
+            )
+            ON CONFLICT(player_external_id) DO UPDATE SET
+                player_id            = excluded.player_id,
+                season_year          = excluded.season_year,
+                identity_json        = excluded.identity_json,
+                permanent_beats_json = excluded.permanent_beats_json,
+                current_beats_json   = excluded.current_beats_json,
+                canon_events_json    = excluded.canon_events_json,
+                arc_state_json       = excluded.arc_state_json,
+                archetype_slug       = excluded.archetype_slug,
+                logline              = excluded.logline,
+                why_now              = excluded.why_now,
+                data_coverage_flag   = excluded.data_coverage_flag,
+                content_hash         = excluded.content_hash,
+                updated_at_utc       = excluded.updated_at_utc
+            """,
+            {
+                "ext": ext,
+                "pid": player_id,
+                "s": int(card.season),
+                "identity": _bible_identity_json(card),
+                "permanent": _bible_permanent_beats_json(card),
+                "current": _bible_current_beats_json(card),
+                "canon": json.dumps([]),  # NEL canon is a later phase; honest empty.
+                "arc": _bible_arc_state_json(card),
+                "archetype": card.archetype_slug,
+                "logline": card.logline,
+                "why_now": card.why_now,
+                "coverage": _bible_coverage_flag(card),
+                "chash": str(content_hash),
+                "updated": _now_utc(),
+            },
+        )
+
+        week = _resolve_current_week(db, int(card.season))
+        _write_bible_snapshot(db, card, week=week, diff_summary=diff)
+    except Exception:
+        # One bad bible never aborts the batch.
+        pass
 
 
 # ===========================================================================
@@ -1513,6 +1931,15 @@ def compute_story_cards(
                         card.kicker = prose["kicker"]              # else keep deterministic
                     card.fallback_rung = "full"
                     card.fallback_reason = "llm prose"
+                    # Tribal lenses (national + rival?). Reuse the SAME primary pass
+                    # for national (pass `prose` so we don't re-narrate national);
+                    # rival is a second audience-filtered pass added only when it
+                    # clears the floor + eval. Purely additive, never-raise: any
+                    # failure leaves card.lenses = None (single-voice, no toggle).
+                    try:
+                        card.lenses = _attach_lenses(nar, db, card, tier, evidence)
+                    except Exception:
+                        card.lenses = None
                     write_story_card_cache(
                         db, card, chash,
                         model_id=prose.get("model_id") or f"ollama:{nar.WRITER_MODEL}",
@@ -1521,6 +1948,11 @@ def compute_story_cards(
                         fallback_reason=None,
                         eval_factscore=prose.get("eval_factscore"),
                     )
+                    # Bible + changelog: deterministic state, written AFTER the cache
+                    # write succeeds (the bible only reflects a card that persisted).
+                    # Own try/except inside the helper — one bad bible never aborts
+                    # the batch and never blocks the LLM card that already shipped.
+                    _upsert_bible(db, card, evidence=evidence, tier=tier, content_hash=chash)
                     counts["generated"] += 1
                     if verbose:
                         print(
@@ -1551,6 +1983,11 @@ def compute_story_cards(
                         is_lkg=0,
                         fallback_reason=card.fallback_reason,
                     )
+                    # The bible is deterministic STATE, not LLM state — write it for
+                    # the fall-back card too (the deterministic logline IS what
+                    # shipped here). content_hash is the SAME narrator hash the cache
+                    # used, so bible/snapshot/cache all agree on "the story moved".
+                    _upsert_bible(db, card, evidence=evidence, tier=tier, content_hash=chash)
                     counts["deterministic"] += 1
                     counts["fell_back"] += 1
             except Exception:

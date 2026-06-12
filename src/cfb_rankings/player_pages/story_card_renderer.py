@@ -30,6 +30,7 @@ Public API:
 
 from __future__ import annotations
 
+import json
 import re
 from html import escape
 from typing import TYPE_CHECKING, Any, Optional
@@ -326,6 +327,262 @@ def _render_succession(card: Any) -> str:
     )
 
 
+# ---------------------------------------------------------------------------
+# Tribal-Lens POV toggle (doc 49 §2). Static-site safe: NO extra pages, NO
+# server — the lens texts ship as a small INLINE JSON payload + a tiny vanilla
+# JS toggle (_LENS_TOGGLE_SCRIPT below; emitted inline next to the payload by
+# _render_lens_toggle so the card is self-contained — build_card returns it and
+# reporting.py needs no injection). When only ONE lens qualifies, render the card
+# plainly with NO toggle AND NO script — never a 3x-empty tab bar, never dead JS.
+# The National lens IS the existing top-level prose (today's behavior).
+# ---------------------------------------------------------------------------
+# Human-facing label per lens key (doc 49 C1: the take is ATTRIBUTED — "what
+# rivals say" — never the site's own opinion; the confidence meter stays on
+# National, which is the deterministic meta-claim).
+_LENS_LABELS = {
+    "national": "National",
+    "rival": "What rivals say",
+    "home": "Home crowd",
+}
+# Render order; any lens not in this list is appended after (defensive).
+_LENS_ORDER = ("national", "rival", "home")
+# Only these per-lens prose fields are carried in the payload / swapped by JS.
+_LENS_FIELDS = ("logline", "dominant_take", "minority_take", "body", "kicker")
+
+
+def _lens_has_content(lens: Any) -> bool:
+    """A lens qualifies for the toggle only if it carries at least a logline
+    or a take/body to swap to — an empty dict must never produce a dead tab."""
+    if not isinstance(lens, dict):
+        return False
+    for key in ("logline", "dominant_take", "body"):
+        val = lens.get(key)
+        if val is not None and str(val).strip():
+            return True
+    return False
+
+
+def _qualifying_lenses(card: Any) -> "list[tuple[str, dict]]":
+    """Return ordered (key, lens_dict) pairs that have content. National is
+    listed first; any unknown keys are appended last. Floor + eval gating is
+    decided upstream (compute_story_cards only attaches a lens that cleared the
+    representativeness floor + eval) — here we only drop empties defensively."""
+    lenses = _attr(card, "lenses", None)
+    if not isinstance(lenses, dict) or not lenses:
+        return []
+    pairs: list[tuple[str, dict]] = []
+    seen: set[str] = set()
+    for key in _LENS_ORDER:
+        lens = lenses.get(key)
+        if _lens_has_content(lens):
+            pairs.append((key, lens))
+            seen.add(key)
+    for key, lens in lenses.items():
+        if key not in seen and _lens_has_content(lens):
+            pairs.append((str(key), lens))
+    return pairs
+
+
+def _lens_payload_dict(pairs: "list[tuple[str, dict]]") -> dict:
+    """Build the per-lens prose map the JS swaps into the card. Only known prose
+    fields are carried (coerced to str); nothing here is trusted as HTML — the
+    client writes it to textContent only, mirroring the escape discipline."""
+    out: dict[str, dict] = {}
+    for key, lens in pairs:
+        slot: dict[str, str] = {}
+        for field_name in _LENS_FIELDS:
+            val = lens.get(field_name)
+            if val is not None and str(val).strip():
+                slot[field_name] = str(val)
+        out[key] = slot
+    return out
+
+
+def _render_lens_toggle(card: Any) -> "tuple[str, str]":
+    """Return ``(toggle_bar_html, payload_script_html)``.
+
+    Emits BOTH only when >= 2 lenses qualify; otherwise returns ("", "") and the
+    card renders plainly (the dominant case — rival discourse is genuinely scarce
+    DB-wide, so National-only-with-NO-toggle is the default path, not the edge).
+    The payload is a ``<script type="application/json">`` block keyed to the
+    card's uid so the (separate) toggle script scopes to one card.
+    """
+    pairs = _qualifying_lenses(card)
+    if len(pairs) < 2:
+        return "", ""
+
+    uid = _safe_str(_attr(card, "player_external_id", "") or "")
+
+    tabs = ""
+    for idx, (key, _lens) in enumerate(pairs):
+        label = _LENS_LABELS.get(key, key.replace("_", " ").title())
+        selected = "true" if idx == 0 else "false"
+        tabs += (
+            f'<button type="button" class="psc-lens__tab" '
+            f'data-lens-tab="{escape(key)}" aria-selected="{selected}">'
+            f'{escape(label)}</button>'
+        )
+    toggle_bar = (
+        f'<div class="psc-lens" role="tablist" aria-label="Whose take are you reading">'
+        f'{tabs}'
+        '</div>'
+    )
+
+    # json.dumps escapes the data; the renderer never trusts it as markup (the
+    # JS writes to textContent only). Defuse "</script>" just in case a lens
+    # text contains it, so the inline JSON block can't be closed early.
+    payload_json = json.dumps(_lens_payload_dict(pairs), ensure_ascii=False)
+    payload_json = payload_json.replace("</", "<\\/")
+    uid_attr = f' data-psc-lens-payload="{uid}"' if uid else ' data-psc-lens-payload=""'
+    payload_script = (
+        f'<script type="application/json"{uid_attr}>{payload_json}</script>'
+        # The vanilla-JS toggle that wires the tabs ships inline next to the
+        # payload (self-contained card — build_card returns it, no reporting.py
+        # injection needed). Only emitted here, where >= 2 lenses qualify, so a
+        # single-lens card carries NO toggle and NO script.
+        + _LENS_TOGGLE_SCRIPT
+    )
+    return toggle_bar, payload_script
+
+
+# The Tribal-Lens toggle behavior (doc 49 §2). Vanilla JS, no framework. One IIFE
+# scoped per card via the card's data-psc-card-uid, so multiple cards on a page
+# never collide. Fully defensive: every lookup no-ops when its element/payload is
+# absent, so a malformed card can never throw. It reads the inline JSON payload
+# (written to textContent only — never injected as HTML), swaps the lens-scoped
+# prose fields on tab click, and moves the active/aria-selected state. A field the
+# selected lens does not carry FALLS BACK to the National (default/first) lens so a
+# partial lens never blanks a slot. NOTE: keep this a raw string with NO surrounding
+# <style>; it is a <script> block concatenated straight into the card HTML.
+_LENS_TOGGLE_SCRIPT = """
+<script>
+(function(){
+  var cards = document.querySelectorAll('.psc-card--narrative[data-psc-card-uid]');
+  if(!cards || !cards.length) return;
+  for(var c=0;c<cards.length;c++){ wire(cards[c]); }
+  function wire(card){
+    try{
+      if(!card || card.getAttribute('data-psc-lens-wired')==='1') return;
+      var uid = card.getAttribute('data-psc-card-uid') || '';
+      var tabs = card.querySelectorAll('[data-lens-tab]');
+      if(!tabs || tabs.length < 2) return;
+      var payloadEl = card.querySelector('script[type="application/json"][data-psc-lens-payload]');
+      if(!payloadEl) return;
+      var data;
+      try{ data = JSON.parse(payloadEl.textContent || '{}'); }catch(e){ return; }
+      if(!data || typeof data !== 'object') return;
+      // The first tab is National (the default already in the DOM); capture it as
+      // the fallback so a partial lens never blanks a field.
+      var baseKey = tabs[0].getAttribute('data-lens-tab') || '';
+      function fieldFor(key, name){
+        var lens = data[key];
+        if(lens && typeof lens === 'object' && lens[name] != null && String(lens[name]).length) return String(lens[name]);
+        var base = data[baseKey];
+        if(base && typeof base === 'object' && base[name] != null && String(base[name]).length) return String(base[name]);
+        return null;
+      }
+      function setText(sel, value){
+        if(value == null) return;
+        var el = card.querySelector(sel);
+        if(el) el.textContent = value;
+      }
+      function setMinority(value){
+        // The minority line keeps its 'Minority view' tag span; swap only the
+        // trailing text node so the tag is preserved.
+        var el = card.querySelector('.psc-take__minority');
+        if(!el) return;
+        if(value == null){ return; }
+        var tag = el.querySelector('.psc-take__minority-tag');
+        // Remove every node after the tag, then append the new text.
+        while(el.lastChild && el.lastChild !== tag){ el.removeChild(el.lastChild); }
+        el.appendChild(document.createTextNode(value));
+      }
+      function setBody(value){
+        if(value == null) return;
+        var paras = card.querySelectorAll('.psc-recap__para');
+        if(!paras || !paras.length) return;
+        // Collapse to the first paragraph (lens body is a single block); hide the
+        // rest so a shorter lens body never leaves stale National paragraphs.
+        paras[0].textContent = value;
+        for(var i=1;i<paras.length;i++){ paras[i].style.display = 'none'; }
+      }
+      function applyLens(key){
+        setText('.psc-logline', fieldFor(key, 'logline'));
+        setText('.psc-take__text', fieldFor(key, 'dominant_take'));
+        setMinority(fieldFor(key, 'minority_take'));
+        setBody(fieldFor(key, 'body'));
+        setText('.psc-recap__kicker', fieldFor(key, 'kicker'));
+      }
+      for(var t=0;t<tabs.length;t++){
+        (function(tab){
+          tab.addEventListener('click', function(){
+            var key = tab.getAttribute('data-lens-tab') || '';
+            for(var k=0;k<tabs.length;k++){
+              tabs[k].setAttribute('aria-selected', tabs[k]===tab ? 'true' : 'false');
+            }
+            applyLens(key);
+          });
+        })(tabs[t]);
+      }
+      card.setAttribute('data-psc-lens-wired','1');
+    }catch(e){ /* never throw into the page */ }
+  }
+})();
+</script>
+"""
+
+
+def _render_changelog(card: Any) -> str:
+    """The "how this story shifted" heartbeat (doc 49 EKG). Reads the recent
+    snapshot deltas attached by ``_attach_changelog`` as ``card.changelog`` —
+    a list of ``{"as_of","week","delta"}`` (newest-first, already capped). This
+    is supporting context, not the lead, so it lives inside the expand panel.
+
+    GRACEFUL-EMPTY: returns "" when there is no changelog (a brand-new or
+    never-shifted player). Silence is correct — no "no changes" placeholder.
+    Every dynamic value is escaped; never injects raw HTML.
+    """
+    entries = _attr(card, "changelog", []) or []
+    if not isinstance(entries, (list, tuple)):
+        return ""
+    rows = ""
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        delta = str(entry.get("delta", "") or "").strip()
+        if not delta:  # a snapshot with no human-readable delta is not a row
+            continue
+        as_of = str(entry.get("as_of", "") or "").strip()
+        week = entry.get("week", None)
+        # Prefer the date; fall back to "Wk N" when only the week is known.
+        if as_of:
+            date_txt = as_of
+        elif week not in (None, ""):
+            try:
+                date_txt = f"Wk {int(week)}"
+            except (TypeError, ValueError):
+                date_txt = str(week)
+        else:
+            date_txt = ""
+        date_html = (
+            f'<span class="psc-ekg__date">{escape(date_txt)}</span>' if date_txt else ""
+        )
+        rows += (
+            '<li class="psc-ekg__row">'
+            f'{date_html}'
+            f'<span class="psc-ekg__delta">{escape(delta)}</span>'
+            '</li>'
+        )
+    if not rows:
+        return ""
+    return (
+        '<div class="psc-ekg">'
+        '<span class="psc-ekg__eyebrow">How this story shifted</span>'
+        f'<ul class="psc-ekg__list">{rows}</ul>'
+        '</div>'
+    )
+
+
 def _render_citations(card: Any) -> str:
     """The AI-disclosure / provenance footer receipts (doc 41 §8)."""
     citations = _attr(card, "citations", []) or []
@@ -346,6 +603,7 @@ def _render_expanded(card: Any) -> str:
     kicker = _safe_str(_attr(card, "kicker", ""))
     why_now = _safe_str(_attr(card, "why_now", ""))
     succession_html = _render_succession(card)
+    changelog_html = _render_changelog(card)
     citations_html = _render_citations(card)
 
     body_html = ""
@@ -368,10 +626,19 @@ def _render_expanded(card: Any) -> str:
     )
     kicker_html = f'<p class="psc-recap__kicker">{kicker}</p>' if kicker else ""
 
-    if not (body_html or kicker_html or why_now_html or succession_html or citations_html):
+    if not (
+        body_html
+        or kicker_html
+        or why_now_html
+        or succession_html
+        or changelog_html
+        or citations_html
+    ):
         return ""
 
     # grid-template-rows:0fr->1fr expand — the inner wrapper is the animated row.
+    # Order: recap -> kicker -> succession -> why-now -> changelog ("how this
+    # story shifted", supporting context) -> citations.
     return (
         '<div class="psc-expand">'
         '<div class="psc-expand__inner">'
@@ -379,6 +646,7 @@ def _render_expanded(card: Any) -> str:
         f'{kicker_html}'
         f'{succession_html}'
         f'{why_now_html}'
+        f'{changelog_html}'
         f'{citations_html}'
         '</div>'
         '</div>'
@@ -482,6 +750,12 @@ def render_story_card(card: "Optional[StoryCard]") -> str:
         take_html = _render_dominant_take(card)
         tension_html = _render_tension(card)
         expand_html = _render_expanded(card)
+        # Tribal-Lens POV toggle (doc 49 §2). Emits a toggle bar + inline JSON
+        # payload ONLY when >= 2 lenses qualify; otherwise both are "" and the
+        # card renders in its single (National) voice exactly as before.
+        lens_toggle_html, lens_payload_html = _render_lens_toggle(card)
+        uid = _safe_str(_attr(card, "player_external_id", "") or "")
+        uid_attr = f' data-psc-card-uid="{uid}"' if uid else ""
 
         as_of = _safe_str(_attr(card, "as_of_date", ""))
         disclosure = (
@@ -509,7 +783,7 @@ def render_story_card(card: "Optional[StoryCard]") -> str:
 
         return (
             f'<section class="psc-card psc-card--narrative" data-tier="{rail}"'
-            f'{team_style}{archetype_attr} '
+            f'{team_style}{archetype_attr}{uid_attr} '
             'data-module="player-story-card" data-state="narrative" '
             'aria-label="Player story card">'
             '<div class="psc-card__rail" aria-hidden="true"></div>'
@@ -519,11 +793,13 @@ def render_story_card(card: "Optional[StoryCard]") -> str:
             f'{chapter_html}'
             '</div>'
             f'<p class="psc-logline">{logline}</p>'
+            f'{lens_toggle_html}'
             f'{chips_html}'
             f'{ban_html}'
             f'{take_html}'
             f'{tension_html}'
             f'{expand_block}'
+            f'{lens_payload_html}'
             '</div>'
             '</section>'
         )
@@ -959,6 +1235,73 @@ a.psc-receipt:hover { color: var(--psc-text-body); text-decoration: underline; }
   letter-spacing: 0.04em;
 }
 
+/* Tribal-Lens POV toggle (doc 49 §2) — sits just under the logline. A Noir
+   pill row; only rendered when >= 2 lenses qualify (else no toggle at all).
+   Static text swap (no animation beyond the micro border transition). */
+.psc-lens {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 0;
+}
+.psc-lens__tab {
+  appearance: none;
+  display: inline-flex; align-items: center;
+  min-height: 32px;
+  padding: 4px 14px;
+  background: var(--psc-ink-850);
+  border: 1px solid var(--psc-hairline);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--psc-text-mut);
+  transition: border-color var(--psc-t-micro) var(--psc-ease-out),
+              color var(--psc-t-micro) var(--psc-ease-out);
+}
+.psc-lens__tab:hover { border-color: var(--psc-hairline-strong); color: var(--psc-text-body); }
+.psc-lens__tab[aria-selected="true"] {
+  color: var(--psc-gold);
+  border-color: var(--psc-gold);
+}
+.psc-lens__tab:focus-visible {
+  outline: 2px solid var(--psc-gold);
+  outline-offset: 2px;
+}
+
+/* Changelog / EKG ("how this story shifted") — inside the expand panel; small,
+   static, motionless. Hairline left-border per row, tabular date. */
+.psc-ekg {
+  display: flex; flex-direction: column; gap: 6px;
+  padding-top: 4px;
+}
+.psc-ekg__eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--psc-text-mut);
+}
+.psc-ekg__list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.psc-ekg__row {
+  display: flex; align-items: baseline; gap: 10px;
+  padding-left: 10px;
+  border-left: 2px solid var(--psc-hairline-strong);
+}
+.psc-ekg__date {
+  flex: 0 0 auto;
+  font-size: 11px; color: var(--psc-text-mut);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  white-space: nowrap;
+}
+.psc-ekg__delta {
+  font-size: 13px; line-height: 1.45;
+  color: var(--psc-text-body);
+  overflow-wrap: anywhere;
+}
+
 /* Low-data stats strip (§5) — motionless always */
 .psc-card--strip { animation: none; opacity: 1; transform: none; }
 .psc-card--strip .psc-card__inner { gap: 8px; }
@@ -990,6 +1333,7 @@ a.psc-receipt:hover { color: var(--psc-text-body); text-decoration: underline; }
   .psc-expand,
   .psc-expand__inner,
   .psc-chip,
+  .psc-lens__tab,
   .psc-summary,
   .psc-summary__chevron {
     animation: none !important;
