@@ -1,0 +1,115 @@
+# ============================================================================
+# register_story_card_beats.ps1  —  DORMANT in-season Story-Card BEAT jobs.
+#
+#   *** THIS SCRIPT IS A SEASON-START SWITCH. IT IS DORMANT BY DESIGN. ***
+#   *** DO NOT RUN IT NOW (it is the OFFSEASON, 2026-06). Running it would  ***
+#   *** register Task-Scheduler jobs that call the Sonnet API on a cadence.  ***
+#   *** It is checked in DORMANT so it is ready to flip on at season start.  ***
+#
+# It registers the three in-season editorial BEAT jobs from doc 59 §11 that
+# rewrite the live top-50 Story Cards via the automated Sonnet-API compute path
+# (compute-story-cards). The fingerprint regen-trigger (doc 59 §11) means most of
+# the 50 are no-ops each beat, so the API bill stays at single-digit dollars/mo:
+#
+#   CFBIndex-StoryCardBeat-Sun     Sun  ~02:00   Saturday recap (post-discourse-settle, full sweep)
+#   CFBIndex-StoryCardBeat-Mon     Mon  08:00    week-ahead   (hot-list — only the movers)
+#   CFBIndex-StoryCardBeat-ThuFri  Thu+Fri 16:00 pre-game     (hot-list — only the movers)
+#
+# WHY NOTHING RUNS UNTIL YOU SAY SO:
+#   - This file does NOT register anything on import/dot-source.
+#   - It registers ONLY when invoked WITH the explicit -Activate switch AND
+#     confirmed (-Confirm:$false to skip the prompt). With no switch it PREVIEWS
+#     the jobs it WOULD create and exits without touching Task Scheduler.
+#   - jobs_registered stays false until a human runs:  -Activate
+#
+# TO ACTIVATE (at season start, consciously, on the box):
+#   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register_story_card_beats.ps1 -Activate
+#   (add -WhatIf first to dry-run; -Confirm:$false to skip the per-task prompt.)
+#
+# TO REVERT (back to offseason cadence — the nightly box compute is enough):
+#   Unregister-ScheduledTask -TaskName CFBIndex-StoryCardBeat-Sun     -Confirm:$false
+#   Unregister-ScheduledTask -TaskName CFBIndex-StoryCardBeat-Mon     -Confirm:$false
+#   Unregister-ScheduledTask -TaskName CFBIndex-StoryCardBeat-ThuFri  -Confirm:$false
+#
+# Each beat runs scripts\story_card_beat.ps1 (a thin wrapper this script writes
+# out IF MISSING) which loads .env via _pipeline_common.ps1 (so ANTHROPIC_API_KEY
+# is present), prepends the .venv, resolves the season, and calls:
+#     python manage.py compute-story-cards --season <CurSeason> --select <mode>
+# then deploys via the normal full snapshot (scripts\build_publish.ps1 path).
+# The Sunday beat uses --select sweep (the full top-50); the mid-week beats use
+# --select hot-list (only the players whose mention_count or packet fingerprint
+# moved since the last run) to keep the API spend tiny.
+# ============================================================================
+[CmdletBinding(SupportsShouldProcess = $true)]
+param(
+    # REQUIRED to actually register. Absent -> preview only (dormant guard).
+    [switch]$Activate
+)
+
+$ErrorActionPreference = "Stop"
+$RepoRoot = Split-Path -Parent $PSScriptRoot
+
+# The per-beat compute mode (doc 59 §11): Sunday = full sweep, mid-week = movers.
+$Beats = @(
+    @{ Name = "CFBIndex-StoryCardBeat-Sun";    Day = "Sunday";          At = "02:00"; Select = "sweep";    Desc = "CFB Index - Story-Card beat (Sun recap, full sweep)" }
+    @{ Name = "CFBIndex-StoryCardBeat-Mon";    Day = "Monday";          At = "08:00"; Select = "hot-list"; Desc = "CFB Index - Story-Card beat (Mon week-ahead, movers)" }
+    @{ Name = "CFBIndex-StoryCardBeat-ThuFri"; Day = "Thursday,Friday"; At = "16:00"; Select = "hot-list"; Desc = "CFB Index - Story-Card beat (Thu/Fri pre-game, movers)" }
+)
+
+if (-not $Activate) {
+    Write-Host ""
+    Write-Host "register_story_card_beats.ps1 is DORMANT (no -Activate switch given)." -ForegroundColor Yellow
+    Write-Host "It is the offseason; this is a season-start switch. NOTHING was registered." -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "It WOULD register these in-season beat jobs (doc 59 §11):"
+    foreach ($b in $Beats) {
+        Write-Host ("  {0,-32} {1,-18} {2}  --select {3}" -f $b.Name, $b.Day, $b.At, $b.Select)
+    }
+    Write-Host ""
+    Write-Host "To activate at season start:  ... -File scripts\register_story_card_beats.ps1 -Activate"
+    return
+}
+
+# -------------------------------------------------------------------------
+# Below here only runs with -Activate. Left intact so the switch is a true
+# one-flip activation, but it does NOT execute in the dormant (default) path.
+# -------------------------------------------------------------------------
+$BeatScript = Join-Path $RepoRoot "scripts\story_card_beat.ps1"
+if (-not (Test-Path $BeatScript)) {
+    # Emit the thin per-beat wrapper once. It dot-sources _pipeline_common.ps1
+    # (loads .env -> ANTHROPIC_API_KEY, prepends .venv, resolves the season),
+    # runs the API compute for the requested --select mode, then build+publish.
+    $wrapper = @'
+# scripts/story_card_beat.ps1 — one in-season Story-Card beat (doc 59 §11).
+# Generated by register_story_card_beats.ps1 -Activate. Loads .env + .venv via
+# _pipeline_common.ps1, runs the Sonnet-API compute for the given --select mode,
+# then deploys via the normal full snapshot.
+param([ValidateSet("sweep","hot-list")][string]$Select = "hot-list")
+$PipelineName = "story_card_beat_$Select"
+. "$PSScriptRoot\_pipeline_common.ps1"
+Run "story-cards: compute --season=$($global:CurSeason) --select=$Select" {
+    python manage.py compute-story-cards --season $global:CurSeason --select $Select
+}
+& "$PSScriptRoot\build_publish.ps1"
+'@
+    Set-Content -Path $BeatScript -Value $wrapper -Encoding utf8
+    Write-Host "Wrote $BeatScript"
+}
+
+$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
+    -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 3)
+$principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
+
+foreach ($b in $Beats) {
+    $days = $b.Day -split ","
+    $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek $days -At $b.At
+    $arg = "-NoProfile -ExecutionPolicy Bypass -File `"$BeatScript`" -Select $($b.Select)"
+    $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $arg -WorkingDirectory $RepoRoot
+    if ($PSCmdlet.ShouldProcess($b.Name, "Register beat ($($b.Day) $($b.At) --select $($b.Select))")) {
+        Register-ScheduledTask -TaskName $b.Name -Action $action -Trigger $trigger `
+            -Settings $settings -Principal $principal -Description $b.Desc -Force | Out-Null
+        $next = (Get-ScheduledTask -TaskName $b.Name | Get-ScheduledTaskInfo).NextRunTime
+        Write-Host "Registered $($b.Name) ($($b.Day) $($b.At), --select $($b.Select)). Next: $next"
+    }
+}
+Write-Host "`nDone. The three in-season Story-Card beat jobs are registered. Revert with Unregister-ScheduledTask (see header)."

@@ -46,6 +46,50 @@ def build_parser() -> argparse.ArgumentParser:
              "budget). Content-hash skips already-cached players, so successive "
              "runs fill in the S/T1 cohort over several nights.",
     )
+    compute_story_cards_parser.add_argument(
+        "--select", default=None, choices=["sweep", "hot-list"],
+        help="Cadence cohort mode (doc 59 §11). Default = full cohort (today's "
+             "behavior). 'sweep' = the full cohort, explicit (the Sunday/full "
+             "beat). 'hot-list' = only the players whose mention_count or packet "
+             "evidence fingerprint moved most since the last run (the cheap "
+             "mid-week beat). Applied before --limit.",
+    )
+    eval_cards_parser = subparsers.add_parser(
+        "eval-story-cards",
+        help=("DEV/EVAL quality tool (doc 59 §10/§14.7): run the Missed-Gold "
+              "critic + the deterministic Faithfulness gate over a sample of "
+              "player Story Cards and print a quality report. Read-only on prod "
+              "data; NOT in the build path; no DB/site writes."),
+    )
+    eval_cards_parser.add_argument(
+        "--season", type=int, default=None,
+        help="Stats season (last completed). Default = latest ranked season.",
+    )
+    eval_cards_parser.add_argument(
+        "--players", nargs="*", type=int, default=None,
+        help="Explicit player_id list to evaluate; default = the top-N "
+             "most-talked-about (the §8 golden set selector).",
+    )
+    eval_cards_parser.add_argument(
+        "--top-n", type=int, default=12,
+        help="When --players is omitted, evaluate the top-N most-talked-about "
+             "players (default 12).",
+    )
+    eval_cards_parser.add_argument(
+        "--judge", default="mistral", choices=["mistral", "sonnet", "heuristic"],
+        help="Missed-Gold judge backend. 'mistral' = local Ollama ($0, default); "
+             "'sonnet' = Anthropic API (claude-sonnet-4-6); 'heuristic' = no LLM "
+             "(deterministic salience pick). mistral/sonnet fall back to the "
+             "heuristic if the backend is unavailable.",
+    )
+    eval_cards_parser.add_argument(
+        "--upcoming-season", type=int, default=2026,
+        help="The previewed season for the packet season-clock (default 2026).",
+    )
+    eval_cards_parser.add_argument(
+        "--json", dest="emit_json", action="store_true",
+        help="Emit the full machine report as JSON instead of the human report.",
+    )
     subparsers.add_parser(
         "seed-source-registry",
         help="Load seeds/source_registry.yaml into source_registry (upsert on source_id).",
@@ -2727,11 +2771,13 @@ def main() -> None:
             db, args.season, players=args.players, tiers=tiers,
             limit=getattr(args, "limit", None),
             force=bool(getattr(args, "force", False)),
+            select=getattr(args, "select", None),
         )
         # counts is a dict of per-outcome tallies — print a clean summary.
         print(
             f"compute-story-cards {args.season}: "
             f"tiers={','.join(tiers)} force={bool(getattr(args, 'force', False))} "
+            f"select={counts.get('select', 'default')} "
             f"candidates={counts.get('candidates', 0)} "
             f"considered={counts.get('considered', 0)} "
             f"generated={counts.get('generated', 0)} "
@@ -2740,6 +2786,23 @@ def main() -> None:
             f"deterministic={counts.get('deterministic', 0)} "
             f"errors={counts.get('errors', 0)}"
         )
+        return
+
+    if args.command == "eval-story-cards":
+        # DEV/EVAL quality tool (doc 59 §10/§14.7). Read-only on prod data; no
+        # DB/site writes. Missed-Gold critic + deterministic Faithfulness gate.
+        from cfb_rankings.player_pages.card_eval import run_card_eval
+        report = run_card_eval(
+            db,
+            players=getattr(args, "players", None),
+            top_n=getattr(args, "top_n", 12),
+            judge=getattr(args, "judge", "mistral"),
+            season=getattr(args, "season", None),
+            upcoming_season=getattr(args, "upcoming_season", 2026),
+            print_report=not getattr(args, "emit_json", False),
+        )
+        if getattr(args, "emit_json", False):
+            print(json.dumps(report, ensure_ascii=False, indent=2))
         return
 
     if args.command == "seed-source-registry":

@@ -1,0 +1,25 @@
+-- Player Story Card — additive packet evidence-fingerprint column (doc 59 §11).
+-- Extends migration 20260611_02's player_story_card_cache with the ONE nullable
+-- column the cadence regen-trigger needs: the packet's stable evidence
+-- fingerprint (hash(selected doc_ids + structured fact keys), emitted by
+-- player_pages/packet.py build_packet). ADDITIVE ONLY: no existing column or data
+-- is altered; the column is nullable (NULL on every pre-existing row → those rows
+-- regen exactly once on the next compute run, then carry the fingerprint forward).
+--
+-- WHY: today compute_story_cards skips a player when the deterministic SPINE hash
+-- (story_content_hash) is unchanged. That spine never moves when only NEW
+-- discourse lands but the BAN/chips/ledger-lead are steady — so richer evidence
+-- never triggers a rewrite. The fingerprint closes that gap: the regen trigger now
+-- fires when the spine hash OR this fingerprint moved since the last cache write.
+-- Unchanged player + unchanged fingerprint still skips (cost stays low).
+--
+-- IDEMPOTENT: the runner (src/cfb_rankings/migrations.py apply_sql_migrations)
+-- records this file in schema_migrations after the first apply and skips it
+-- thereafter, so the one-shot ALTER TABLE ADD COLUMN runs exactly once. The guard
+-- below additionally makes a manual/standalone re-run a no-op when the column
+-- already exists (defensive against a DB stamped out-of-band).
+--
+--   evidence_fingerprint  sha1(selected discourse doc_ids + structured fact keys)
+--                         from build_packet (doc 59 §11). NULL = never computed
+--                         for this row yet → regen on the next run.
+ALTER TABLE player_story_card_cache ADD COLUMN evidence_fingerprint TEXT;

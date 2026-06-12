@@ -65,6 +65,7 @@ from __future__ import annotations
 import datetime as _dt
 import hashlib
 import json
+import os
 from dataclasses import asdict, dataclass, field
 from typing import Any, Optional
 
@@ -170,6 +171,7 @@ __all__ = [
     "compute_story_cards",
     "write_story_card_cache",
     "read_fresh_card_cache",
+    "SELECT_MODES",
 ]
 
 
@@ -186,6 +188,47 @@ _BAN_MIN_PLAYS = 50           # WEPA / usage sample floor
 # Star -> rail tier mapping (doc 41 tier-is-texture). Pedigree is the cheapest
 # deterministic proxy for "how loud is this player's lane" in the offseason.
 _STAR_RAIL = {5: "s", 4: "t1", 3: "t2"}
+
+# Per-achievement "surprise" weight for the BAN candidate pool (doc 41 §6).
+# Encodes how NATIONAL / exceptional the distinction is so a real leaderboard
+# rank outranks a mid perception gap (de-monopolizes the aura-delta BAN), while a
+# team-relative leader stays weak enough to win only when nothing better exists.
+# Honors badges are intentionally ABSENT — they're categorical (no honest single
+# number) and belong in the selector grid, not the BAN. Source detectors live in
+# ``cfb_rankings.bets.achievements``; ``rarity_pct`` there is a PERCENTAGE of the
+# eligible pool (0..100), not a [0,1] fraction.
+# BAN priority tiers (doc 41 §6). The four candidate families historically used
+# non-comparable ad-hoc score formulas, so PEDIGREE could outscore proprietary
+# PRODUCTION and a vanilla counting total could outscore the WEPA moat metric.
+# We enforce the brand hierarchy STRUCTURALLY: pick the highest-priority tier that
+# has any candidate, then the top score WITHIN that tier. Lower number = higher
+# priority. This is what keeps the BAN from monopolizing on any single register.
+_BAN_T_NATIONAL   = 1   # rarest, most legible national distinctions (leaderboard rank, extreme hype/tape gap)
+_BAN_T_PRODUCTION = 2   # proprietary production (WEPA moat) + notable perception gaps + statistical twins
+_BAN_T_VOLUME     = 3   # national counting-stat distinction (legible but vanilla; dups a chip)
+_BAN_T_PEDIGREE   = 4   # recruiting rank — the honest hero ONLY for unproven players
+_BAN_T_TEAM       = 5   # team-relative leader — last resort
+
+# Aura gap >= this is a signature national story (hype vs tape), not just noise.
+_BAN_AURA_NATIONAL_GAP = 25.0
+
+# Per-achievement "surprise" weight (within-tier score). See _ACH_TIER for the
+# priority class. Honors badges are intentionally absent (categorical -> no honest
+# single number; they live in the selector grid, not the BAN).
+_ACH_SURPRISE = {
+    "achievement_money_efficiency":  1.00,  # national top-5 efficiency leaderboard
+    "achievement_dual_threat":       0.85,  # top-50 in BOTH WEPA dims (proprietary, elite)
+    "achievement_mirror_elite":      0.55,  # statistical twin of an honored player (comparative)
+    "achievement_volume_king":       0.70,  # cleared a national volume bar
+    "achievement_program_benchmark": 0.55,  # team-relative leader
+}
+_ACH_TIER = {
+    "achievement_money_efficiency":  _BAN_T_NATIONAL,
+    "achievement_dual_threat":       _BAN_T_NATIONAL,
+    "achievement_mirror_elite":      _BAN_T_PRODUCTION,
+    "achievement_volume_king":       _BAN_T_VOLUME,
+    "achievement_program_benchmark": _BAN_T_TEAM,
+}
 
 
 # ===========================================================================
@@ -441,10 +484,129 @@ def _fmt_stat(v: float) -> str:
 # Candidate pool (deterministic v1): aura perception/production gap, WEPA value,
 # recruiting rank. Each is honesty-gated; if none clears, there is no BAN.
 # ===========================================================================
-def _select_ban(db, player_id: int, season_year: int, position: str | None) -> Ban | None:
-    candidates: list[tuple[float, Ban]] = []
+def _paren_number(text: str | None) -> str | None:
+    """Pull the comma/digit run inside the last (...) of a context string.
 
-    # --- Candidate A: aura perception↔production gap (the tension-as-number) ---
+    "Team leader in rushing yards (775)." -> "775". Regex-free to avoid a new
+    import; returns None when there's no parenthesised number."""
+    if not text:
+        return None
+    s = str(text)
+    close = s.rfind(")")
+    open_ = s.rfind("(", 0, close) if close != -1 else -1
+    if open_ == -1 or close == -1:
+        return None
+    inner = "".join(ch for ch in s[open_ + 1 : close] if ch.isdigit() or ch == ",")
+    return inner or None
+
+
+def _volume_bar(text: str | None) -> str | None:
+    """Pull the threshold out of a volume-king context — reads the detector's
+    OWN words so it can't drift from ``bets/achievements.py``.
+
+    "... clears the 2,500-QB volume bar." -> "2,500". None if unparseable."""
+    if not text:
+        return None
+    s = str(text)
+    marker = "clears the "
+    i = s.find(marker)
+    if i == -1:
+        return None
+    tail = s[i + len(marker):]
+    bar = "".join(ch for ch in tail.split("-", 1)[0] if ch.isdigit() or ch == ",")
+    return bar or None
+
+
+def _achievement_ban(row: dict[str, Any], card_season: int) -> tuple[int, float, Ban] | None:
+    """Map one ``player_achievements`` row to a scored BAN candidate (doc 41 §6).
+
+    Returns ``(tier, score, Ban)`` where ``tier`` is the priority class
+    (``_ACH_TIER``) and ``score = surprise x rarity x recency`` is the WITHIN-tier
+    rank. ``surprise`` is the per-type weight (``_ACH_SURPRISE``); ``rarity =
+    1 - rarity_pct/100`` (rarity_pct is a pool PERCENTAGE, not a fraction);
+    ``recency`` decays gently per prior season. Returns None for non-numeric /
+    unknown achievements (honors badges, etc.) so the BAN stays number-welded."""
+    aid = str(row.get("achievement_id") or "")
+    base = _ACH_SURPRISE.get(aid)
+    if base is None:
+        return None  # unknown / non-numeric (e.g. honors badge) -> not a BAN
+    rarity_pct = _to_float(row.get("rarity_pct"))
+    if rarity_pct is None:
+        return None  # rarity not yet computed -> can't honesty-gate; skip
+    try:
+        meta = json.loads(row.get("meta_json") or "{}")
+    except (TypeError, ValueError):
+        meta = {}
+    rarity = max(0.0, min(1.0, 1.0 - rarity_pct / 100.0))
+    ssn = _to_int(row.get("season_year")) or card_season
+    recency = max(0.60, 1.0 - 0.15 * max(0, int(card_season) - int(ssn)))
+    surprise = base
+    number = label = kind = None
+
+    if aid == "achievement_money_efficiency":
+        rank = _to_int(meta.get("rank")) or 1
+        ypa = _to_float(meta.get("ypa"))
+        surprise = max(0.45, base - 0.12 * (rank - 1))   # #1=1.0 -> #5~=0.52
+        rate = f"{ypa:.1f} Y/A · " if ypa is not None else ""
+        number, label, kind = f"No.{rank}", f"{rate}QUALIFIED QBs", "rank"
+    elif aid == "achievement_volume_king":
+        val = _to_float(meta.get("value"))
+        if val is None:
+            return None
+        # "PASS"/"RUSH"/"REC" from "passing_yds"/"rushing_yds"/"receiving_yds".
+        stem = str(meta.get("metric") or "").split("_", 1)[0].lower()
+        head = {"passing": "PASS", "rushing": "RUSH", "receiving": "REC"}.get(stem, "VOL")
+        bar = _volume_bar(row.get("unlock_context"))           # drift-proof: detector's own words
+        tag = f"{bar}-YD CLUB" if bar else "VOLUME TIER"
+        number, label, kind = f"{int(round(val)):,}", f"{head} YDS · {tag}", "magnitude"
+    elif aid == "achievement_program_benchmark":
+        num = _paren_number(row.get("unlock_context"))
+        if num is None:
+            return None
+        metric = str(meta.get("metric") or "team metric").upper()
+        number, label, kind = num, f"TEAM {metric} LEADER", "magnitude"
+    elif aid == "achievement_dual_threat":
+        ranks = [r for r in (_to_int(meta.get("pass_rank")), _to_int(meta.get("rush_rank"))) if r]
+        if not ranks:
+            return None
+        number, label, kind = f"No.{min(ranks)}", "DUAL-THREAT · WEPA PASS+RUSH", "rank"
+    elif aid == "achievement_mirror_elite":
+        sim = _to_int(meta.get("similarity_pct"))
+        if not sim:
+            return None
+        number, label, kind = f"{sim}%", "MIRROR OF AN HONORED PLAYER", "magnitude"
+    else:
+        return None
+
+    score = surprise * rarity * recency
+    return (
+        _ACH_TIER.get(aid, _BAN_T_TEAM),
+        score,
+        Ban(
+            number=number,
+            label=label,
+            receipt=Receipt(
+                table="player_achievements",
+                detail=str(row.get("unlock_context") or "").strip() or f"{aid} · {ssn}",
+            ),
+            kind=kind,
+        ),
+    )
+
+
+def _select_ban(db, player_id: int, season_year: int, position: str | None) -> Ban | None:
+    """Pick the single most surprising-yet-honest true number (doc 41 §6).
+
+    Candidates carry ``(tier, score, Ban)``: we take the HIGHEST-priority tier
+    that has any candidate, then the top score within it. This enforces the brand
+    hierarchy structurally — national distinction > proprietary production > vanilla
+    volume > pedigree > team-relative — so the BAN never monopolizes on one register
+    (see ``_BAN_T_*``)."""
+    candidates: list[tuple[int, float, Ban]] = []
+
+    # --- Candidate A: aura perception↔production gap (the hype-vs-tape number) ---
+    #   An EXTREME gap (>= _BAN_AURA_NATIONAL_GAP) is a signature national story;
+    #   a moderate gap (>= 12) is proprietary-production tier. Below 12 = noise.
     aura = _safe_one(
         db,
         """
@@ -469,7 +631,12 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
                     "PRODUCES ABOVE PERCEPTION" if gap >= 0 else "PERCEPTION ABOVE TAPE"
                 )
                 surprise = min(1.0, abs(gap) / 50.0)
+                tier = (
+                    _BAN_T_NATIONAL if abs(gap) >= _BAN_AURA_NATIONAL_GAP
+                    else _BAN_T_PRODUCTION
+                )
                 candidates.append((
+                    tier,
                     surprise,
                     Ban(
                         number=f"{sign}{abs(int(round(gap)))}",
@@ -482,7 +649,7 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
                     ),
                 ))
 
-    # --- Candidate B: WEPA value (the respect-gap / production magnitude) ---
+    # --- Candidate B: WEPA value (the proprietary moat metric) ----------------
     wepa = _safe_all(
         db,
         """
@@ -507,7 +674,8 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
         sign = "+" if val >= 0 else ""
         surprise = min(1.0, abs(val) / 1.0)  # WEPA is roughly -1..1 scale
         candidates.append((
-            0.6 * surprise + 0.2,  # slightly behind a strong aura gap when both exist
+            _BAN_T_PRODUCTION,
+            0.6 * surprise + 0.2,
             Ban(
                 number=f"{sign}{val:.2f}",
                 label=f"{kind_word} VALUE · WEPA",
@@ -519,17 +687,21 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
             ),
         ))
 
-    # --- Candidate C: recruiting national rank (Hope register, offseason-honest) ---
+    # --- Candidate C: recruiting national rank (pedigree — unproven-only) ------
+    #   Pedigree is tier 4: it is the honest hero number ONLY when the player has
+    #   no production signal (no aura gap, no WEPA, no achievement). For anyone
+    #   who has played, live production leads. (A stale 4-year-old star rating
+    #   must never headline over a junior's actual tape.)
     rec = _fetch_recruiting(db, player_id)
     if rec:
         nat = _to_int(rec.get("national_rank"))
         stars = _to_int(rec.get("stars"))
         if nat is not None and 0 < nat <= 500:
-            # rarer (lower rank) = higher surprise.
-            surprise = max(0.0, 1.0 - (nat / 500.0))
+            surprise = max(0.0, 1.0 - (nat / 500.0))  # rarer (lower rank) = higher
             star_tag = f"{stars}★ · " if stars else ""
             candidates.append((
-                0.45 * surprise,  # pedigree is the weakest BAN; loses to live production
+                _BAN_T_PEDIGREE,
+                surprise,
                 Ban(
                     number=f"No.{nat}",
                     label=f"{star_tag}NATIONAL RECRUIT",
@@ -541,10 +713,30 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
                 ),
             ))
 
+    # --- Candidate D: rare achievements (leaderboard ranks / volume / team) ----
+    #   Real detectors in bets/achievements.py. Each carries its own priority tier
+    #   (_ACH_TIER): a national #1 (e.g. YPA leader) is NATIONAL-tier and beats a
+    #   moderate aura gap; volume-king is VOLUME-tier (below WEPA); a team leader
+    #   is last-resort. Honors badges are non-numeric and excluded by
+    #   _achievement_ban (they live in the selector grid).
+    for ar in _safe_all(
+        db,
+        """
+        select achievement_id, season_year, unlock_context, rarity_pct, meta_json
+          from player_achievements
+         where player_id = :pid and season_year <= :s
+        """,
+        {"pid": int(player_id), "s": int(season_year)},
+    ):
+        cand = _achievement_ban(ar, int(season_year))
+        if cand is not None:
+            candidates.append(cand)
+
     if not candidates:
         return None
-    candidates.sort(key=lambda c: c[0], reverse=True)
-    return candidates[0][1]
+    # Highest-priority tier first (lowest tier number), then top score within it.
+    candidates.sort(key=lambda c: (c[0], -c[1]))
+    return candidates[0][2]
 
 
 # ===========================================================================
@@ -612,7 +804,18 @@ def _build_dominant_take(lead: dict[str, Any], fanbase: str | None) -> DominantT
 # Tension line (doc 41 §4 / doc 43 §1.4) — perception vs production, as a
 # curiosity gap. Deterministic from aura; "" when no aura signal.
 # ===========================================================================
-def _build_tension(db, player_id: int, season_year: int) -> str | None:
+def _build_tension(
+    db, player_id: int, season_year: int, ledger: str | None = None
+) -> str | None:
+    """The curiosity-gap tension (doc 41 §4 / doc 43 §1.4).
+
+    Grounded in the aura perception↔production gap, but the *phrasing* is keyed
+    to the player's dominant ledger — so the tension voices WHY the perception
+    runs hot (rival fixation / fan love / pure hope / an open verdict), not the
+    same percentile sentence for everyone. A stable per-player rotation keeps
+    two same-ledger players from reading identically (doc 42 §4b, anti-formula).
+    Deterministic: same player + same data → same line.
+    """
     aura = _safe_one(
         db,
         """
@@ -632,15 +835,49 @@ def _build_tension(db, player_id: int, season_year: int) -> str | None:
     gap = prod - perc
     if abs(gap) < 12.0:
         return None
-    if gap >= 0:
-        return (
-            f"Fans rank his perception around the {int(round(perc))}th percentile; "
-            f"the tape produces at the {int(round(prod))}th — why the gap?"
-        )
-    return (
-        f"The room sees a {int(round(perc))}th-percentile name; "
-        f"the tape grades at the {int(round(prod))}th — is the buzz ahead of the production?"
-    )
+    p, q, mag = int(round(perc)), int(round(prod)), abs(int(round(gap)))
+    led = (ledger or "").lower()
+
+    if gap < 0:
+        # Perception above tape ("aura tax") — phrased by the lead ledger.
+        pools = {
+            "grudge": [
+                f"Rival boards can't stop bringing him up — a {p}th-percentile name against {q}th-percentile tape. Fear dressed up as mockery?",
+                f"Opposing fans talk about him more than their own guy. The production sits at the {q}th. What are they actually bracing for?",
+            ],
+            "belonging": [
+                f"The fanbase would run through a wall for him; the tape grades at the {q}th. Does the love still need the numbers?",
+                f"{p}th-percentile beloved, {q}th-percentile productive — and around here only one of those is negotiable.",
+            ],
+            "hope": [
+                f"The believers price him at the {p}th percentile on what's coming; today's tape says {q}th. Which season settles it?",
+                f"All ceiling, for now — a {p}th-percentile bet riding on a {q}th-percentile résumé. The hope is the whole position.",
+            ],
+            "judgment": [
+                f"The eye test files him at the {p}th; the résumé argues {q}th. The room hasn't returned a verdict.",
+                f"Stat-padder or the real thing? {p}th-percentile buzz, {q}th-percentile production — the argument is the story.",
+            ],
+        }
+        default = [
+            f"The room sees a {p}th-percentile name; the tape grades at the {q}th — is the buzz ahead of the production?",
+            f"The name carries {p}th-percentile weight; the snaps grade out {q}th. The gap is the open question.",
+            f"{p}th-percentile reputation, {q}th-percentile tape — somewhere in that {mag}-point gap is who he really is.",
+        ]
+    else:
+        # Produces above perception — underrated.
+        pools = {
+            "grievance": [
+                f"The tape produces at the {q}th; the coverage treats him like the {p}th. The disrespect writes itself.",
+                f"Quietly {q}th-percentile, publicly {p}th — and the fanbase has clocked exactly who's leaving him off the lists.",
+            ],
+        }
+        default = [
+            f"Fans price his perception around the {p}th percentile; the tape produces at the {q}th — why isn't he getting the credit?",
+            f"The production ({q}th) is outrunning the reputation ({p}th). The recognition is the thing lagging behind.",
+        ]
+
+    pool = pools.get(led) or default
+    return pool[int(player_id) % len(pool)]
 
 
 # ===========================================================================
@@ -815,6 +1052,40 @@ def _content_hash(inputs: dict[str, Any]) -> str:
 
 
 # ===========================================================================
+# Packet evidence fingerprint (doc 59 §11) — the SECOND regen trigger.
+#
+# The Packet Builder (player_pages/packet.py build_packet) emits a stable sha1 of
+# hash(selected discourse doc_ids + structured fact keys). It is RICHER than the
+# narrator spine hash's evidence_doc_ids set: it folds in the full §4 packet's
+# selected discourse AND structured fact keys, so new discourse forces a rewrite
+# even when the BAN / chips / ledger-lead spine is unchanged. The cadence regen
+# trigger fires when the spine hash OR this fingerprint moved since the last cache
+# write (doc 59 §11 keystone). Best-effort: returns "" on any failure (the gate
+# then degrades to content_hash only — never blocks, never raises).
+# ===========================================================================
+def _packet_fingerprint(db, external_id: str, season: int) -> str:
+    """Stable packet evidence fingerprint for (external_id, season) — doc 59 §11.
+
+    Builds the §4 evidence packet (itself never-raises) and returns its
+    ``evidence_fingerprint``. Returns "" on any failure so the caller can treat a
+    missing/unstable fingerprint as 'no second signal' and fall back to the spine
+    hash alone. NEVER raises.
+    """
+    try:
+        if db is None or not external_id or season is None:
+            return ""
+        from . import packet as _packet
+
+        upcoming = _upcoming_season(_as_of_date(_today()))
+        pk = _packet.build_packet(
+            db, str(external_id), int(season), upcoming_season=int(upcoming)
+        )
+        return str(getattr(pk, "evidence_fingerprint", "") or "")
+    except Exception:
+        return ""
+
+
+# ===========================================================================
 # Cache I/O (Phase 2) — persistence of the assembled StoryCard, regen-gated by
 # content_hash. The PK is (player_external_id, season_year), so there is exactly
 # ONE row per player-season and that single row IS the Last-Known-Good (LKG): a
@@ -841,6 +1112,11 @@ _CACHE_EXTRA_COLUMNS = (
     "is_lkg", "lkg_promoted_at_utc", "prose_source",
     "fallback_reason", "eval_factscore", "eval_slop",
 )
+# Additive column from migration 20260612_02 (doc 59 §11 cadence trigger). Probed
+# INDEPENDENTLY of the 03 set — a DB may carry the 03 columns but not this one, so
+# folding it into _CACHE_EXTRA_COLUMNS would wrongly downgrade those DBs to the
+# legacy write path. The fingerprint write/read is gated on this single column.
+_CACHE_FINGERPRINT_COLUMN = "evidence_fingerprint"
 
 _CACHE_COLS_ATTR = "_story_card_cache_columns"
 
@@ -882,12 +1158,16 @@ def write_story_card_cache(
     eval_factscore: float | None = None,
     eval_slop: float | None = None,
     card_html: str | None = None,
+    evidence_fingerprint: str | None = None,
 ) -> bool:
     """Upsert ``card`` into player_story_card_cache. Returns True on a write.
 
     Additive-only: never alters existing data beyond this player-season row, and
     degrades to the legacy column set when the 20260611_03 columns are absent.
-    NEVER raises (per-player non-critical).
+    The packet ``evidence_fingerprint`` (doc 59 §11) is persisted in a separate
+    guarded UPDATE when the 20260612_02 column exists, so it rides alongside the
+    content_hash WITHOUT forking the four INSERT variants. NEVER raises
+    (per-player non-critical).
     """
     try:
         if db is None or card is None or not getattr(card, "player_external_id", None):
@@ -959,33 +1239,51 @@ def write_story_card_cache(
                 """,
                 params,
             )
-            return True
-
-        # Legacy column set only (pre-migration-03): still records the card.
-        db.execute(
-            """
-            INSERT INTO player_story_card_cache (
-                player_external_id, player_id, season_year, as_of_date,
-                card_tier, fallback_rung, card_json, card_html,
-                content_hash, model_id, generated_at_utc
-            ) VALUES (
-                :ext, :pid, :s, :as_of,
-                :card_tier, :fallback_rung, :card_json, :card_html,
-                :content_hash, :model_id, :gen_at
+        else:
+            # Legacy column set only (pre-migration-03): still records the card.
+            db.execute(
+                """
+                INSERT INTO player_story_card_cache (
+                    player_external_id, player_id, season_year, as_of_date,
+                    card_tier, fallback_rung, card_json, card_html,
+                    content_hash, model_id, generated_at_utc
+                ) VALUES (
+                    :ext, :pid, :s, :as_of,
+                    :card_tier, :fallback_rung, :card_json, :card_html,
+                    :content_hash, :model_id, :gen_at
+                )
+                ON CONFLICT(player_external_id, season_year) DO UPDATE SET
+                    player_id        = excluded.player_id,
+                    as_of_date       = excluded.as_of_date,
+                    card_tier        = excluded.card_tier,
+                    fallback_rung    = excluded.fallback_rung,
+                    card_json        = excluded.card_json,
+                    card_html        = excluded.card_html,
+                    content_hash     = excluded.content_hash,
+                    model_id         = excluded.model_id,
+                    generated_at_utc = excluded.generated_at_utc
+                """,
+                base_params,
             )
-            ON CONFLICT(player_external_id, season_year) DO UPDATE SET
-                player_id        = excluded.player_id,
-                as_of_date       = excluded.as_of_date,
-                card_tier        = excluded.card_tier,
-                fallback_rung    = excluded.fallback_rung,
-                card_json        = excluded.card_json,
-                card_html        = excluded.card_html,
-                content_hash     = excluded.content_hash,
-                model_id         = excluded.model_id,
-                generated_at_utc = excluded.generated_at_utc
-            """,
-            base_params,
-        )
+
+        # Persist the packet evidence fingerprint (doc 59 §11) in a separate
+        # guarded UPDATE so it rides alongside the content_hash WITHOUT forking the
+        # INSERT variants above. Only when the 20260612_02 column is present;
+        # absent column -> no-op (the gate then falls back to content_hash only).
+        if _CACHE_FINGERPRINT_COLUMN in cols:
+            try:
+                db.execute(
+                    "UPDATE player_story_card_cache "
+                    "SET evidence_fingerprint = :fp "
+                    "WHERE player_external_id = :ext AND season_year = :s",
+                    {
+                        "fp": evidence_fingerprint,
+                        "ext": str(card.player_external_id),
+                        "s": int(card.season),
+                    },
+                )
+            except Exception:
+                pass  # fingerprint is a non-critical optimization hint.
         return True
     except Exception:
         return False
@@ -1017,13 +1315,17 @@ def read_fresh_card_cache(
             return None
         cols = _cache_columns(db)
         have_extras = all(c in cols for c in _CACHE_EXTRA_COLUMNS)
+        # The packet fingerprint (doc 59 §11) is probed independently of the 03 set.
+        fp_col = (
+            ", evidence_fingerprint" if _CACHE_FINGERPRINT_COLUMN in cols else ""
+        )
         if have_extras:
             row = _safe_one(
                 db,
-                """
+                f"""
                 select card_json, content_hash, card_tier, fallback_rung,
                        model_id, coalesce(is_lkg, 0) as is_lkg, prose_source,
-                       fallback_reason, eval_factscore
+                       fallback_reason, eval_factscore{fp_col}
                   from player_story_card_cache
                  where player_external_id = :ext and season_year = :s
                 """,
@@ -1032,8 +1334,9 @@ def read_fresh_card_cache(
         else:
             row = _safe_one(
                 db,
-                """
-                select card_json, content_hash, card_tier, fallback_rung, model_id
+                f"""
+                select card_json, content_hash, card_tier, fallback_rung,
+                       model_id{fp_col}
                   from player_story_card_cache
                  where player_external_id = :ext and season_year = :s
                 """,
@@ -1043,12 +1346,22 @@ def read_fresh_card_cache(
                 # Synthesize the additive fields the caller expects.
                 row.setdefault("is_lkg", 0)
                 # Infer prose source from the model id when the column is absent.
+                # An LLM card is either ollama: (local mistral) or anthropic:
+                # (the Sonnet API writer, doc 59 §2); everything else = deterministic.
                 mid = str(row.get("model_id") or "")
-                row.setdefault(
-                    "prose_source", "llm" if mid.startswith("ollama:") else "deterministic"
-                )
+                if mid.startswith("anthropic:"):
+                    _inferred = "sonnet"
+                elif mid.startswith("ollama:"):
+                    _inferred = "mistral"
+                else:
+                    _inferred = "deterministic"
+                row.setdefault("prose_source", _inferred)
         if not row:
             return None
+        # Uniform key for the caller whether or not the column exists yet (the
+        # cadence gate reads existing.get('evidence_fingerprint')). NULL/absent ->
+        # None, which the gate treats as "never fingerprinted -> regen".
+        row.setdefault("evidence_fingerprint", None)
         if content_hash is not None and str(row.get("content_hash") or "") != str(content_hash):
             return None  # stale — the deterministic inputs moved since this was cached.
         return row
@@ -1122,7 +1435,10 @@ def build_card_payload(
         lead = fetch_ledger_lead(db, external_id, season_year, None)
 
         ban = _select_ban(db, player_id, season_year, pos)
-        tension = _build_tension(db, player_id, season_year)
+        tension = _build_tension(
+            db, player_id, season_year,
+            (str(lead.get("ledger")) if lead else None),
+        )
         transferred = _is_transfer(db, player_id, season_year)
 
         # --- composition inputs (one coherent frame, content-variable) -------
@@ -1302,7 +1618,10 @@ def _overlay_cached_prose(db, card: StoryCard) -> None:
     head = read_fresh_card_cache(db, card.player_external_id, card.season, content_hash=None)
     if not head:
         return
-    if str(head.get("prose_source") or "") not in ("llm", "lkg"):
+    # LLM-written prose is 'sonnet' (Anthropic API) | 'mistral' (Ollama) | legacy
+    # 'llm'; plus 'lkg' (last-known-good). A deterministic row carries nothing the
+    # live build lacks, so skip the overlay for it.
+    if str(head.get("prose_source") or "") not in ("sonnet", "mistral", "llm", "lkg"):
         return  # deterministic cache row carries nothing the live build lacks.
 
     # Compute the canonical hash for the CURRENT live inputs and require a match.
@@ -1347,9 +1666,11 @@ def _overlay_cached_prose(db, card: StoryCard) -> None:
     if cj_lenses:
         card.lenses = cj_lenses
     card.fallback_rung = "full"
-    card.fallback_reason = (
-        "llm prose (cached)" if head.get("prose_source") == "llm" else "lkg prose (stale-ok)"
-    )
+    _hsrc = str(head.get("prose_source") or "")
+    if _hsrc in ("sonnet", "mistral", "llm"):
+        card.fallback_reason = f"{_hsrc} prose (cached)"
+    else:
+        card.fallback_reason = "lkg prose (stale-ok)"
 
 
 def _build_logline(
@@ -1484,17 +1805,19 @@ def build_card(
 # new discourse docs / new BAN / tier change — the real "story moved" events,
 # never on a daily tick. Unchanged players write nothing (idempotent re-runs).
 # ===========================================================================
-def _attach_lenses(nar, db, card: StoryCard, tier: str, evidence) -> dict | None:
+def _attach_lenses(nar, db, card: StoryCard, tier: str, evidence, writer: str = "mistral") -> dict | None:
     """Build the tribal-lens payload via the narrator's narrate_lenses.
 
     The narrator owns everything: the rival representativeness floor, the rival
     second pass + eval gate, and the lens-dict shape. It re-runs national from
     `evidence` (the SAME pool the primary pass already used), so the national lens
     equals the prose already overlaid onto the card — no divergence, no second
-    national cost beyond one re-narrate. Returns {"national":{...}, "rival":{...}?}
-    or None (then the card renders single-voice, no toggle). NEVER raises."""
+    national cost beyond one re-narrate. ``writer`` routes the lens passes to the
+    same backend the primary pass used (doc 59 §2 — 'sonnet' for the top-50).
+    Returns {"national":{...}, "rival":{...}?} or None (then the card renders
+    single-voice, no toggle). NEVER raises."""
     try:
-        return nar.narrate_lenses(db, card, tier, evidence=evidence)
+        return nar.narrate_lenses(db, card, tier, evidence=evidence, writer=writer)
     except Exception:
         return None
 
@@ -1926,6 +2249,168 @@ def _llm_candidate_ids(db, season: int) -> list[int]:
     return out
 
 
+# Cap for the Sonnet-routed cohort (doc 59 §2 — the "live top-50").
+_SONNET_TOP50_CAP = int(os.environ.get("CFB_INDEX_SONNET_TOP50_CAP", "50"))
+
+
+def _sonnet_top50_ids(db, season: int) -> set[int]:
+    """The live top-50 active player_ids routed to the Sonnet API (doc 59 §2/§14.6).
+
+    Mirrors the compute-step cohort selector: the mention-first UNION of
+    ``_most_talked_about_ids`` (player_aura_weekly.mention_count DESC) and the
+    importance pool ``_llm_candidate_ids``, run through ``eligibility.filter_active``
+    to drop DEPARTED players, then capped at ``_SONNET_TOP50_CAP`` (50). Returned as
+    a SET for O(1) per-card writer routing. Returns an empty set on any failure ->
+    the whole batch then routes to local mistral (the existing behavior; never a
+    crash, never blocks the deploy). NEVER raises."""
+    try:
+        try:
+            talked = _most_talked_about_ids(db, season)
+        except Exception:
+            talked = []
+        try:
+            importance = _llm_candidate_ids(db, season)
+        except Exception:
+            importance = []
+        ordered: list[int] = []
+        seen: set[int] = set()
+        for pid in (*talked, *importance):
+            try:
+                ipid = int(pid)
+            except (TypeError, ValueError):
+                continue
+            if ipid not in seen:
+                seen.add(ipid)
+                ordered.append(ipid)
+        # Drop DEPARTED players so a player who blew up last year but has since
+        # left never gets the frontier writer for a 2026 preview (doc 59 §4.1.1).
+        try:
+            from . import eligibility as _elig
+
+            upcoming = _upcoming_season(_as_of_date(_today()))
+            filtered = _elig.filter_active(db, ordered, upcoming_season=upcoming)
+            if filtered:  # never let the gate empty the cohort
+                ordered = filtered
+        except Exception:
+            pass
+        return set(ordered[:_SONNET_TOP50_CAP])
+    except Exception:
+        return set()
+
+
+# ===========================================================================
+# --select cohort modes (doc 59 §11). The compute step resolves a candidate
+# player_id list; --select narrows/reorders WHICH of them this run touches:
+#   'sweep'    — the full cohort (the union selector / passed allow-list). The
+#                explicit name for "do the whole list this beat" (the Sunday recap
+#                / nightly full pass). Identical to today's default ordering.
+#   'hot-list' — only the players who MOVED most since the last run: a jumped
+#                mention_count (latest aura week vs the prior week) OR a changed
+#                packet evidence fingerprint vs the cached one. The cheap mid-week
+#                beat (Mon / Thu-Fri) that rewrites just the handful that shifted,
+#                keeping the API bill tiny (doc 59 §11/§15 D-1).
+#   None       — default; today's behavior (the full cohort, no extra filtering).
+# Both modes return a SUBSET of `base_pids` in priority order; on any failure they
+# fall back to `base_pids` unchanged (never empty a run, never raise).
+# ===========================================================================
+def _mention_movers(db, season: int) -> dict[int, float]:
+    """player_id -> |latest-week mention_count - prior-week mention_count|.
+
+    The two most recent non-low-signal aura weeks per player drive a movement
+    score; a player present in only one week scores its lone mention_count (a
+    first-sighting IS movement). Returns {} on any failure. NEVER raises."""
+    rows = _safe_all(
+        db,
+        """
+        WITH ranked AS (
+            SELECT player_id, week, mention_count,
+                   ROW_NUMBER() OVER (
+                       PARTITION BY player_id ORDER BY week DESC
+                   ) AS rn
+              FROM player_aura_weekly
+             WHERE season_year = :s
+               AND COALESCE(is_low_signal, 0) = 0
+        )
+        SELECT player_id,
+               MAX(CASE WHEN rn = 1 THEN mention_count END) AS cur,
+               MAX(CASE WHEN rn = 2 THEN mention_count END) AS prev
+          FROM ranked
+         WHERE rn <= 2
+         GROUP BY player_id
+        """,
+        {"s": int(season)},
+    )
+    out: dict[int, float] = {}
+    for r in rows:
+        pid = _to_int(r.get("player_id"))
+        if pid is None:
+            continue
+        cur = _to_float(r.get("cur")) or 0.0
+        prev = _to_float(r.get("prev"))
+        # No prior week -> the player's whole current volume is "new" movement.
+        out[pid] = abs(cur - prev) if prev is not None else cur
+    return out
+
+
+def _hot_list_ids(db, season: int, base_pids: list[int]) -> list[int]:
+    """The 'moved most since last run' subset of ``base_pids`` (doc 59 §11).
+
+    A candidate is HOT when EITHER its mention_count jumped (latest aura week vs
+    prior) OR its packet evidence fingerprint changed vs the cached one. Ranked by
+    the mention-movement magnitude (fingerprint-only movers sort after, by a small
+    positive floor so they still qualify). Returns a SUBSET of ``base_pids`` in
+    priority order; falls back to ``base_pids`` unchanged on any failure or when
+    nothing moved (an empty hot-list would silently skip the whole beat — better to
+    run the cohort than ship nothing). NEVER raises."""
+    try:
+        if not base_pids:
+            return base_pids
+        movers = _mention_movers(db, season)
+        scored: list[tuple[float, int]] = []
+        for pid in base_pids:
+            try:
+                ipid = int(pid)
+            except (TypeError, ValueError):
+                continue
+            score = float(movers.get(ipid, 0.0))
+            moved = score > 0.0
+            if not moved:
+                # Second signal: did the packet fingerprint move vs the cache?
+                ext = resolve_external_id(db, ipid)
+                if ext:
+                    cached = read_fresh_card_cache(db, ext, season, content_hash=None)
+                    live_fp = _packet_fingerprint(db, ext, season)
+                    cached_fp = str((cached or {}).get("evidence_fingerprint") or "")
+                    if live_fp and live_fp != cached_fp:
+                        moved = True
+                        score = 0.5  # small positive floor: fingerprint-only mover.
+            if moved:
+                scored.append((score, ipid))
+        if not scored:
+            return base_pids  # nothing moved -> run the cohort (never ship nothing).
+        scored.sort(key=lambda t: t[0], reverse=True)
+        return [pid for _, pid in scored]
+    except Exception:
+        return base_pids
+
+
+def _apply_select_mode(db, season: int, base_pids: list[int], select: str | None) -> list[int]:
+    """Resolve a candidate list per the --select mode (doc 59 §11). NEVER raises."""
+    mode = (select or "").strip().lower()
+    if mode in ("", "default"):
+        return base_pids
+    if mode == "sweep":
+        return base_pids  # the full cohort, explicitly.
+    if mode == "hot-list":
+        return _hot_list_ids(db, season, base_pids)
+    # Unknown mode -> degrade to the full cohort (never empty a run).
+    return base_pids
+
+
+# Recognized --select modes (the CLI choices + the public contract).
+SELECT_MODES = ("sweep", "hot-list")
+
+
 def compute_story_cards(
     db,
     season: int,
@@ -1937,6 +2422,7 @@ def compute_story_cards(
     warm: bool = True,
     verbose: bool = True,
     force: bool = False,
+    select: str | None = None,
 ) -> dict[str, Any]:
     """Generate + cache LLM Story-Card prose for the S+T1 cohort.
 
@@ -1949,16 +2435,22 @@ def compute_story_cards(
         force:    bypass the content-hash skip and regenerate every candidate.
         dry_run:  classify + content-hash only; no narration, no writes.
         warm:     warm the ledger + succession writers first (default True).
+        select:   cohort mode (doc 59 §11) — None (default; full cohort) |
+                  'sweep' (the full cohort, explicit) | 'hot-list' (only the
+                  players whose mention_count or packet fingerprint moved most
+                  since the last run). Applied AFTER the cohort is assembled and
+                  BEFORE the --limit slice.
 
     Returns a dict of counts:
         {candidates, considered, generated, skipped, fell_back, deterministic,
-         errors, tiers, season, dry_run}.
+         errors, tiers, season, dry_run, select}.
     NEVER raises (the enrich step is non-critical).
     """
     counts: dict[str, Any] = {
         "candidates": 0, "considered": 0, "generated": 0, "skipped": 0,
         "fell_back": 0, "deterministic": 0, "errors": 0,
         "season": None, "tiers": None, "dry_run": bool(dry_run),
+        "select": (select or "default"),
     }
     try:
         if db is None or season is None:
@@ -1981,6 +2473,14 @@ def compute_story_cards(
                 nar._warm_detectors(db, season)
             except Exception:
                 pass
+
+        # The Sonnet-routed cohort (doc 59 §2/§14.6): the live top-50 active
+        # players (most-talked-about ∪ importance, post eligibility.filter_active,
+        # capped 50) are written by the Anthropic API; everyone else in S/T1 stays
+        # on local mistral. Computed alongside the candidate list so the per-pid
+        # writer decision below is O(1) set membership. Empty on any failure ->
+        # the whole batch routes to mistral (the existing behavior).
+        sonnet_top50: set[int] = _sonnet_top50_ids(db, season)
 
         if players:
             pids = [int(p) for p in players]
@@ -2029,9 +2529,16 @@ def compute_story_cards(
                     pids = nar._roster_player_ids(db, season)
                 except Exception:
                     pids = []
+        # --select cohort mode (doc 59 §11). Applied to the assembled list (the
+        # union cohort OR an explicit --players allow-list) BEFORE the --limit
+        # slice, so 'hot-list' narrows to the movers FIRST and --limit then caps
+        # that already-prioritized subset. None/'sweep' keep the full cohort.
+        pids = _apply_select_mode(db, season, pids, select)
         if limit is not None:
             pids = pids[: int(limit)]
         counts["candidates"] = len(pids)
+        # Per-card prose_source tally for the loud-on-fallback summary (doc 59 §12).
+        prose_sources: list[str] = []
 
         for pid in pids:
             try:
@@ -2046,32 +2553,53 @@ def compute_story_cards(
 
                 evidence = nar.assemble_evidence(db, card)
                 chash = nar.story_content_hash(card, tier, evidence)
+                # The packet evidence fingerprint (doc 59 §11) — the SECOND regen
+                # signal. Built once per card; persisted on every write so the next
+                # run can compare. "" when the packet is unavailable (the gate then
+                # degrades to the spine hash alone).
+                fingerprint = _packet_fingerprint(db, card.player_external_id, season)
 
                 existing = read_fresh_card_cache(
                     db, card.player_external_id, season, content_hash=None
                 )
-                if (
-                    not force
-                    and existing
-                    and str(existing.get("content_hash") or "") == str(chash)
-                    and existing.get("prose_source") == "llm"
+                # CADENCE REGEN TRIGGER (doc 59 §11): skip ONLY when the player is
+                # unchanged on BOTH signals — the deterministic SPINE hash AND the
+                # packet evidence fingerprint. Richer discourse moves the
+                # fingerprint even when the BAN/chips/ledger spine is steady, so it
+                # now forces a rewrite. Unchanged player + unchanged fingerprint
+                # still skips (cost stays low). A previously-cached row with NO
+                # fingerprint (NULL, pre-migration / first sight) fails the
+                # fingerprint match and regenerates exactly once, then carries it.
+                if not force and existing and existing.get("prose_source") in (
+                    "sonnet", "mistral", "llm"
                 ):
-                    counts["skipped"] += 1
-                    continue  # regen short-circuit: unchanged player, keep LLM prose.
+                    spine_same = str(existing.get("content_hash") or "") == str(chash)
+                    fp_same = str(existing.get("evidence_fingerprint") or "") == str(fingerprint)
+                    if spine_same and fp_same:
+                        counts["skipped"] += 1
+                        continue  # regen short-circuit: nothing moved, keep LLM prose.
 
                 if dry_run:
                     if verbose:
                         ndocs = sum(1 for e in evidence if e.get("kind") == "discourse")
                         print(
                             f"  [dry-run] {tier} pid={pid} ext={card.player_external_id} "
-                            f"docs={ndocs} hash={chash}",
+                            f"docs={ndocs} hash={chash} fp={fingerprint[:12]}",
                             flush=True,
                         )
                     continue
 
-                prose = nar.narrate(db, card, tier, evidence=evidence)
+                # Route the live top-50 to Sonnet (doc 59 §2); everyone else to
+                # the local mistral path. The narrator runs the §12 fallback
+                # ladder internally (Sonnet → mistral) and reports which backend
+                # actually wrote the card via prose_source.
+                writer = "sonnet" if int(pid) in sonnet_top50 else "mistral"
+                prose = nar.narrate(db, card, tier, evidence=evidence, writer=writer)
 
-                if prose and prose.get("prose_source") == "llm":
+                # prose_source is now the BACKEND ('sonnet'|'mistral'), not 'llm'.
+                _ps = (prose or {}).get("prose_source")
+                _is_llm = bool(prose) and _ps in ("sonnet", "mistral", "llm")
+                if prose and _is_llm:
                     # PASS — overlay the FIVE structured prose fields onto the card,
                     # promote this row to LKG, persist. Graceful partial upgrade:
                     # a missing/empty structured field keeps the deterministic value
@@ -2092,24 +2620,31 @@ def compute_story_cards(
                     if prose.get("kicker"):
                         card.kicker = prose["kicker"]              # else keep deterministic
                     card.fallback_rung = "full"
-                    card.fallback_reason = "llm prose"
+                    # Record the actual backend so prose_source is 'sonnet' or
+                    # 'mistral', not a flat 'llm' (doc 59 §3/§12). Legacy rows that
+                    # only said 'llm' still read fine downstream.
+                    _src = _ps if _ps in ("sonnet", "mistral") else "mistral"
+                    card.fallback_reason = f"{_src} prose"
                     # Tribal lenses (national + rival?). Reuse the SAME primary pass
                     # for national (pass `prose` so we don't re-narrate national);
                     # rival is a second audience-filtered pass added only when it
-                    # clears the floor + eval. Purely additive, never-raise: any
-                    # failure leaves card.lenses = None (single-voice, no toggle).
+                    # clears the floor + eval. Route to the SAME backend the primary
+                    # pass used. Purely additive, never-raise: any failure leaves
+                    # card.lenses = None (single-voice, no toggle).
                     try:
-                        card.lenses = _attach_lenses(nar, db, card, tier, evidence)
+                        card.lenses = _attach_lenses(nar, db, card, tier, evidence, writer=writer)
                     except Exception:
                         card.lenses = None
                     write_story_card_cache(
                         db, card, chash,
                         model_id=prose.get("model_id") or f"ollama:{nar.WRITER_MODEL}",
-                        prose_source="llm",
+                        prose_source=_src,
                         is_lkg=1,
                         fallback_reason=None,
                         eval_factscore=prose.get("eval_factscore"),
+                        evidence_fingerprint=fingerprint,
                     )
+                    prose_sources.append(_src)
                     # Bible + changelog: deterministic state, written AFTER the cache
                     # write succeeds (the bible only reflects a card that persisted).
                     # Own try/except inside the helper — one bad bible never aborts
@@ -2118,7 +2653,7 @@ def compute_story_cards(
                     counts["generated"] += 1
                     if verbose:
                         print(
-                            f"  [llm] {tier} pid={pid} ext={card.player_external_id} "
+                            f"  [{_src}] {tier} pid={pid} ext={card.player_external_id} "
                             f"factscore={prose.get('eval_factscore')}",
                             flush=True,
                         )
@@ -2127,7 +2662,7 @@ def compute_story_cards(
                     if (
                         existing
                         and existing.get("is_lkg")
-                        and existing.get("prose_source") in ("llm", "lkg")
+                        and existing.get("prose_source") in ("sonnet", "mistral", "llm", "lkg")
                     ):
                         counts["fell_back"] += 1
                         if verbose:
@@ -2144,6 +2679,7 @@ def compute_story_cards(
                         prose_source="deterministic",
                         is_lkg=0,
                         fallback_reason=card.fallback_reason,
+                        evidence_fingerprint=fingerprint,
                     )
                     # The bible is deterministic STATE, not LLM state — write it for
                     # the fall-back card too (the deterministic logline IS what
@@ -2152,10 +2688,38 @@ def compute_story_cards(
                     _upsert_bible(db, card, evidence=evidence, tier=tier, content_hash=chash)
                     counts["deterministic"] += 1
                     counts["fell_back"] += 1
+                    # Only a TOP-50 card that should have been Sonnet counts toward
+                    # the loud-on-fallback share — a non-top-50 mistral deterministic
+                    # fall is normal and must not drag the Sonnet floor.
+                    if int(pid) in sonnet_top50:
+                        prose_sources.append("deterministic")
             except Exception:
                 # One bad player never aborts the batch (mirror write_ledger_scores).
                 counts["errors"] += 1
                 continue
+
+        # LOUD-ON-FALLBACK summary (doc 59 §12). Tally the per-card prose_source
+        # over the SONNET-routed top-50 and surface the Sonnet share so the beat
+        # job can fail loudly when the API-written share drops below the floor for
+        # a non-thin reason. We only compute/return it here (alert wiring is the
+        # caller's job); never-raise so it can't break the enrich step.
+        try:
+            top50_sources = [s for s in prose_sources]
+            from . import anthropic_backend as _ab
+
+            summary = _ab.summarize_prose_sources(top50_sources)
+            counts["prose_source_counts"] = summary.get("counts")
+            counts["sonnet_share"] = summary.get("sonnet_share")
+            counts["sonnet_alert"] = summary.get("alert")
+            if verbose and summary.get("total"):
+                print(
+                    f"  [prose-source] sonnet={summary.get('sonnet')}/{summary.get('total')} "
+                    f"share={summary.get('sonnet_share')} alert={summary.get('alert')} "
+                    f"counts={summary.get('counts')}",
+                    flush=True,
+                )
+        except Exception:
+            pass
 
         if verbose:
             print(

@@ -1152,6 +1152,7 @@ def narrate(
     *,
     evidence: Optional[list[dict[str, Any]]] = None,
     lens: str = "national",
+    writer: str = "mistral",
 ) -> dict[str, Any] | None:
     """Confident-compiler LLM narration for a single StoryCard.
 
@@ -1166,6 +1167,14 @@ def narrate(
                   evidence pool (assemble_evidence(..., audience='rival')); the
                   caller (narrate_lenses) enforces the rival representativeness
                   floor BEFORE calling so a thin rival pool never reaches here.
+        writer:   the PREFERRED backend (doc 59 §2 routing seam). 'sonnet' = the
+                  live top-50: try the Anthropic API (``AnthropicBackend``) FIRST,
+                  then fall to local 'mistral' on any Sonnet error/over-budget
+                  (doc 59 §12 ladder — Sonnet → mistral → deterministic → LKG).
+                  'mistral' (DEFAULT) = the existing Ollama-only path (rest of
+                  S/T1). The SAME packet/prompt feeds either backend; only the
+                  transport differs. The returned ``prose_source`` records which
+                  backend actually wrote the accepted card ('sonnet'|'mistral').
 
     Returns:
         dict with keys {logline, dominant_take_text, minority_take, body, kicker,
@@ -1225,56 +1234,85 @@ def narrate(
         # S gets the full retry budget; T1 a single sharpening retry.
         max_attempts = (_MAX_RETRIES + 1) if (tier or "").upper() == "S" else 2
 
-        fields: dict[str, Any] | None = None
-        prompt = f"{system}\n\n{user}"
-        for attempt in range(max_attempts):
-            raw = _writer_generate(prompt)
-            if not raw:
-                return None  # Ollama unreachable / timeout -> deterministic fallback.
-            parsed = _parse_prose_json(raw)
-            if parsed is None:
-                # Unparseable -> sharpen toward strict JSON and retry.
-                reason = "json-parse"
-                prompt = (
-                    "PREVIOUS DRAFT REJECTED. Reason: not valid JSON. Return ONLY a single "
-                    "JSON object with the five string keys logline, dominant_take, "
-                    "minority_take, body, kicker. No markdown, no prose outside the object.\n\n"
-                    f"{system}\n\n{user}"
-                )
-                continue
+        # Backend ladder (doc 59 §2/§12). 'sonnet' tries the Anthropic API FIRST,
+        # then local mistral on any Sonnet error/over-budget; 'mistral' is the
+        # existing Ollama-only path. Each rung is (prose_source, generate_fn,
+        # model_id); we run the full retry+eval loop per rung and stop at the
+        # first rung that produces an accepted card — recording which backend
+        # wrote it. A rung returning no raw output (API down / Ollama down /
+        # over-budget) falls through to the next rung; the deterministic floor is
+        # the caller's job (None return) so we never block the deploy.
+        ladder = _resolve_writer_ladder(writer)
 
-            # Per-field shape (logline <= 22 words; body 45-80 words; fields present).
-            shape_ok, shape_reason = _shape_ok(parsed)
-            if not shape_ok:
+        fields: dict[str, Any] | None = None
+        accepted_source: str | None = None
+        accepted_model_id: str | None = None
+        for prose_source, generate_fn, model_id in ladder:
+            prompt = f"{system}\n\n{user}"
+            rung_unreachable = False
+            for attempt in range(max_attempts):
+                raw = generate_fn(prompt)
+                if not raw:
+                    # This backend is unreachable / timed out / over budget ->
+                    # fall through to the next ladder rung (mistral, then None).
+                    rung_unreachable = True
+                    break
+                parsed = _parse_prose_json(raw)
+                if parsed is None:
+                    # Unparseable -> sharpen toward strict JSON and retry.
+                    prompt = (
+                        "PREVIOUS DRAFT REJECTED. Reason: not valid JSON. Return ONLY a single "
+                        "JSON object with the five string keys logline, dominant_take, "
+                        "minority_take, body, kicker. No markdown, no prose outside the object.\n\n"
+                        f"{system}\n\n{user}"
+                    )
+                    continue
+
+                # Per-field shape (logline <= 22 words; body 45-80 words; present).
+                shape_ok, shape_reason = _shape_ok(parsed)
+                if not shape_ok:
+                    if attempt + 1 >= max_attempts:
+                        break
+                    sharpen = _retry_sharpen(shape_reason)
+                    prompt = (
+                        f"PREVIOUS DRAFT REJECTED. Reason: {shape_reason}. {sharpen}\n\n"
+                        f"{system}\n\n{user}"
+                    )
+                    continue
+
+                # Grounding + voice gate scores the CONCATENATION of take + body
+                # (the named/numeric claims live there; logline is a short hook).
+                grounded = f"{parsed['dominant_take_text']}\n{parsed['body']}".strip()
+                ok, reason = _eval_gate(db, grounded, ev)
+                if ok:
+                    fields = parsed
+                    accepted_source = prose_source
+                    accepted_model_id = model_id
+                    break
+                # Hard rejects (hallucination / C7) get no retry — not phrasing.
+                if reason in ("factscore", "c7", "eval-unavailable"):
+                    break
                 if attempt + 1 >= max_attempts:
                     break
-                sharpen = _retry_sharpen(shape_reason)
+                sharpen = _retry_sharpen(reason)
                 prompt = (
-                    f"PREVIOUS DRAFT REJECTED. Reason: {shape_reason}. {sharpen}\n\n"
+                    f"PREVIOUS DRAFT REJECTED. Reason: {reason}. {sharpen}\n\n"
                     f"{system}\n\n{user}"
                 )
-                continue
 
-            # Grounding + voice gate scores the CONCATENATION of the take + body
-            # (the named/numeric claims live there; the logline is a short hook).
-            grounded = f"{parsed['dominant_take_text']}\n{parsed['body']}".strip()
-            ok, reason = _eval_gate(db, grounded, ev)
-            if ok:
-                fields = parsed
+            if fields is not None:
                 break
-            # Hard rejects (hallucination / C7) get no retry — not a phrasing problem.
-            if reason in ("factscore", "c7", "eval-unavailable"):
+            # Only fall through to the next rung when THIS rung was unreachable
+            # (API/Ollama down or over budget). A rung that produced output but
+            # failed the eval/shape gate is a quality reject, not a transport
+            # failure — the next backend would face the same gate, so stop and let
+            # the deterministic floor take over (matches the prior single-backend
+            # behavior: an eval reject returns None).
+            if not rung_unreachable:
                 break
-            if attempt + 1 >= max_attempts:
-                break
-            sharpen = _retry_sharpen(reason)
-            prompt = (
-                f"PREVIOUS DRAFT REJECTED. Reason: {reason}. {sharpen}\n\n"
-                f"{system}\n\n{user}"
-            )
 
         if fields is None:
-            return None  # eval reject -> deterministic fallback (recorded by caller).
+            return None  # backend(s) unreachable / eval reject -> deterministic.
 
         # Compute the grounding score once for the cache (best-effort).
         grounded = f"{fields['dominant_take_text']}\n{fields['body']}".strip()
@@ -1289,9 +1327,11 @@ def narrate(
             "confidence": confidence,
             "band": band,
             "lens": lens,
-            "prose_source": "llm",
+            # prose_source records the BACKEND that actually wrote the accepted
+            # card ('sonnet'|'mistral'), per doc 59 §3/§12 — not a flat 'llm'.
+            "prose_source": accepted_source or "mistral",
             "eval_factscore": factscore,
-            "model_id": f"ollama:{WRITER_MODEL}",
+            "model_id": accepted_model_id or f"ollama:{WRITER_MODEL}",
             "evidence_doc_ids": [
                 e.get("source_id") for e in ev if str(e.get("source_id", "")).startswith("doc:")
             ],
@@ -1371,6 +1411,7 @@ def narrate_lenses(
     tier: str,
     *,
     evidence: Optional[list[dict[str, Any]]] = None,
+    writer: str = "mistral",
 ) -> dict[str, Any] | None:
     """Generate the Tribal-Lens payload {national, rival?} for one StoryCard.
 
@@ -1404,7 +1445,7 @@ def narrate_lenses(
         nat_ev = evidence if evidence is not None else assemble_evidence(
             db, payload, audience="national"
         )
-        nat = narrate(db, payload, tier, evidence=nat_ev, lens="national")
+        nat = narrate(db, payload, tier, evidence=nat_ev, lens="national", writer=writer)
         nat_view = _lens_view(nat)
         if nat_view is None:
             # National itself failed -> no lenses; the card keeps deterministic
@@ -1418,7 +1459,7 @@ def narrate_lenses(
         try:
             rival_ev = assemble_evidence(db, payload, audience="rival")
             if _rival_pool_clears_floor(rival_ev):
-                rival = narrate(db, payload, tier, evidence=rival_ev, lens="rival")
+                rival = narrate(db, payload, tier, evidence=rival_ev, lens="rival", writer=writer)
                 rival_view = _lens_view(rival)
                 if rival_view is not None:
                     lenses["rival"] = rival_view
@@ -1498,6 +1539,63 @@ _WRITER_JSON_SCHEMA: dict[str, Any] = {
     },
     "required": ["logline", "dominant_take", "body"],
 }
+
+
+# ===========================================================================
+# BACKEND LADDER (doc 59 §2/§12 — the writer-selection seam). 'sonnet' routes the
+# live top-50 to the Anthropic API FIRST, then falls to local 'mistral' on any
+# Sonnet error/over-budget; 'mistral' is the existing Ollama-only path. Each rung
+# is (prose_source, generate_fn, model_id). NEVER raises — a backend that cannot
+# be constructed (no key / SDK trouble) is simply omitted from the ladder so the
+# narrator degrades to the next rung. The AnthropicBackend is cached per process
+# (cheap; lazy SDK import on first call) so a sweep reuses one instance + ledger.
+# ===========================================================================
+_SONNET_BACKEND_SINGLETON: Any = None
+_SONNET_BACKEND_TRIED = False
+
+
+def _get_sonnet_backend() -> Any:
+    """Return a cached AnthropicBackend, or None if it can't be built. Never raises."""
+    global _SONNET_BACKEND_SINGLETON, _SONNET_BACKEND_TRIED
+    if _SONNET_BACKEND_TRIED:
+        return _SONNET_BACKEND_SINGLETON
+    _SONNET_BACKEND_TRIED = True
+    try:
+        from .anthropic_backend import AnthropicBackend
+
+        _SONNET_BACKEND_SINGLETON = AnthropicBackend()
+    except Exception:
+        _SONNET_BACKEND_SINGLETON = None
+    return _SONNET_BACKEND_SINGLETON
+
+
+def _resolve_writer_ladder(writer: str) -> list[tuple[str, Any, str]]:
+    """(prose_source, generate_fn, model_id) rungs in preference order.
+
+    'sonnet' -> [Sonnet API, then mistral]; anything else -> [mistral only]. The
+    Sonnet rung is included only when the backend constructs AND reports itself
+    available (key present + under the monthly budget cap) — otherwise it's
+    dropped here so the narrator goes straight to mistral with no wasted attempt
+    (doc 59 §12: never block, fall through the ladder)."""
+    mistral_rung = ("mistral", _writer_generate, f"ollama:{WRITER_MODEL}")
+    if (writer or "").strip().lower() != "sonnet":
+        return [mistral_rung]
+    backend = _get_sonnet_backend()
+    if backend is None:
+        return [mistral_rung]
+    try:
+        if not backend.available():
+            # No key / over budget -> skip Sonnet, record nothing here (the
+            # backend stashed last_skip_reason for a caller that wants it).
+            return [mistral_rung]
+    except Exception:
+        return [mistral_rung]
+    sonnet_rung = (
+        "sonnet",
+        backend.generate,
+        f"anthropic:{getattr(backend, 'model_id', 'claude-sonnet-4-6')}",
+    )
+    return [sonnet_rung, mistral_rung]
 
 
 def _writer_generate(prompt: str) -> str | None:
