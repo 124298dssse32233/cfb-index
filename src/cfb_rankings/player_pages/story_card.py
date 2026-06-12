@@ -37,11 +37,28 @@ has NO ``external_id`` column — resolve via ``player_source_ids``. The numeric
 NEVER raises into the page. ``build_card`` (the render entry) returns "" on any
 failure, mirroring the new_aura_html / new_in_their_words_html "" pattern.
 
+Phase 2 (additive, never breaks the deterministic path):
+  - ``compute_story_cards`` is the nightly-enrich entry the ``compute-story-cards``
+    CLI subcommand calls. It builds every S/T1 card, optionally upgrades the prose
+    via the confident-compiler LLM narrator (graceful: any failure keeps the
+    deterministic prose), and PERSISTS the result to ``player_story_card_cache``
+    (regen-gated by ``content_hash``; the single PK row per player-season IS the
+    LKG). It also warms the ledger + succession writers so the coverage guard sees
+    populated tables. It NEVER triggers an Ollama call from ``build_card`` /
+    ``build-site`` — only this compute step generates.
+  - ``build_card`` / ``build_card_payload`` READ the FRESH cache first (matched by
+    ``content_hash``) and overlay ONLY the prose fields (``logline`` / ``body`` /
+    ``kicker``); on any miss/staleness/error they ship the live deterministic card
+    unchanged. The read is one indexed PK lookup — build-site stays fast.
+
 Public API:
     @dataclass Receipt / Ban / DominantTake / SuccessionRead / StoryCard
     build_card(db, player_id, season_year, position=None, *, as_of_date=None) -> str
     build_card_payload(db, player_id, season_year, position=None, *, as_of_date=None) -> StoryCard | None
     resolve_external_id(db, player_id) -> str | None
+    compute_story_cards(db, season, players=None, tiers=None) -> dict   # counts
+    write_story_card_cache(db, card, content_hash, ...) -> bool
+    read_fresh_card_cache(db, external_id, season_year, content_hash) -> dict | None
 """
 from __future__ import annotations
 
@@ -133,6 +150,9 @@ __all__ = [
     "build_card",
     "build_card_payload",
     "resolve_external_id",
+    "compute_story_cards",
+    "write_story_card_cache",
+    "read_fresh_card_cache",
 ]
 
 
@@ -746,8 +766,13 @@ def _is_transfer(db, player_id: int, season_year: int) -> bool:
 
 
 # ===========================================================================
-# Content-hash (regen short-circuit; mirrors signature_story_generator). Stored
-# on the StoryCard inputs so the cache write can short-circuit unchanged players.
+# Content-hash (regen short-circuit; mirrors signature_story_generator). Generic
+# 16-hex canonical-json hash helper. NOTE: the CANONICAL Story-Card content hash
+# (the one that gates the cache READ in build_card_payload and the cache WRITE in
+# compute_story_cards) is story_card_narrator.story_content_hash — it folds in the
+# tier + the fan-take confidence band + the evidence doc-id SET so the card
+# re-narrates only when the story actually moves. This helper is kept as a small
+# stable utility; both READ and WRITE must use the narrator's hash so they agree.
 # ===========================================================================
 def _content_hash(inputs: dict[str, Any]) -> str:
     canonical = json.dumps(inputs, sort_keys=True, default=str)
@@ -755,18 +780,249 @@ def _content_hash(inputs: dict[str, Any]) -> str:
 
 
 # ===========================================================================
-# Cache write — TODO-stubbed (the orchestrator returns the object this phase;
-# persistence is a follow-up). Kept here so the call site is explicit and a
-# later phase only fills the body. NEVER raises.
+# Cache I/O (Phase 2) — persistence of the assembled StoryCard, regen-gated by
+# content_hash. The PK is (player_external_id, season_year), so there is exactly
+# ONE row per player-season and that single row IS the Last-Known-Good (LKG): a
+# successful LLM narration promotes it (is_lkg=1); a failed narration LEAVES the
+# prior good row untouched (serve LKG) or, absent one, writes the deterministic
+# card. All writes are additive-only and NEVER raise — the enrich step is
+# non-critical and a render-path read can never blank the page.
+#
+# The additive 20260611_03 columns (is_lkg / lkg_promoted_at_utc / prose_source /
+# fallback_reason / eval_factscore / eval_slop) may not exist yet on every DB, so
+# every read selects only the base columns and probes the extras best-effort, and
+# every write degrades to the legacy column set when the extras are absent.
 # ===========================================================================
-def _write_card_cache(db, card: StoryCard, content_hash: str, model_id: str = "deterministic-v1") -> None:
-    """TODO (later phase): upsert player_story_card_cache.
 
-    Intentionally a no-op in v1 — doc 49 §7 builds the deterministic engine
-    first and returns the object; the cache write (regen short-circuit by
-    content_hash) lands with the nightly enrich step. Stubbed, never raises.
+# Columns guaranteed by migration 20260611_02 (the base contract). Anything
+# beyond this set is probed defensively so build-site works pre-migration-03.
+_CACHE_BASE_COLUMNS = (
+    "player_external_id", "player_id", "season_year", "as_of_date",
+    "card_tier", "fallback_rung", "card_json", "card_html",
+    "content_hash", "model_id", "generated_at_utc",
+)
+# Additive columns from migration 20260611_03 (probed; absent on older DBs).
+_CACHE_EXTRA_COLUMNS = (
+    "is_lkg", "lkg_promoted_at_utc", "prose_source",
+    "fallback_reason", "eval_factscore", "eval_slop",
+)
+
+_CACHE_COLS_ATTR = "_story_card_cache_columns"
+
+
+def _cache_columns(db) -> set[str]:
+    """Live column set of player_story_card_cache, cached on the db object.
+
+    Used to decide whether the additive 20260611_03 columns are present so the
+    reader/writer can degrade gracefully on a pre-migration-03 database.
     """
-    return None
+    cols = getattr(db, _CACHE_COLS_ATTR, None)
+    if cols is not None:
+        return cols
+    found: set[str] = set()
+    try:
+        rows = db.query_all("PRAGMA table_info(player_story_card_cache)", {}) or []
+        for r in rows:
+            name = r.get("name")
+            if name:
+                found.add(str(name))
+    except Exception:
+        found = set(_CACHE_BASE_COLUMNS)
+    try:
+        setattr(db, _CACHE_COLS_ATTR, found)
+    except Exception:
+        pass
+    return found
+
+
+def write_story_card_cache(
+    db,
+    card: StoryCard,
+    content_hash: str,
+    *,
+    model_id: str = "deterministic-v1",
+    prose_source: str = "deterministic",
+    is_lkg: int = 0,
+    fallback_reason: str | None = None,
+    eval_factscore: float | None = None,
+    eval_slop: float | None = None,
+    card_html: str | None = None,
+) -> bool:
+    """Upsert ``card`` into player_story_card_cache. Returns True on a write.
+
+    Additive-only: never alters existing data beyond this player-season row, and
+    degrades to the legacy column set when the 20260611_03 columns are absent.
+    NEVER raises (per-player non-critical).
+    """
+    try:
+        if db is None or card is None or not getattr(card, "player_external_id", None):
+            return False
+        cols = _cache_columns(db)
+        have_extras = all(c in cols for c in _CACHE_EXTRA_COLUMNS)
+
+        player_id = None
+        try:
+            player_id = _resolve_player_id_for_cache(db, card.player_external_id)
+        except Exception:
+            player_id = None
+
+        base_params = {
+            "ext": str(card.player_external_id),
+            "pid": player_id,
+            "s": int(card.season),
+            "as_of": card.as_of_date,
+            "card_tier": card.tier,
+            "fallback_rung": card.fallback_rung,
+            "card_json": json.dumps(asdict(card), default=str),
+            "card_html": card_html,
+            "content_hash": content_hash,
+            "model_id": model_id,
+            "gen_at": _now_utc(),
+        }
+
+        if have_extras:
+            params = dict(base_params)
+            params.update({
+                "is_lkg": int(is_lkg),
+                "lkg_at": _now_utc() if is_lkg else None,
+                "prose_source": prose_source,
+                "fallback_reason": fallback_reason,
+                "eval_factscore": eval_factscore,
+                "eval_slop": eval_slop,
+            })
+            db.execute(
+                """
+                INSERT INTO player_story_card_cache (
+                    player_external_id, player_id, season_year, as_of_date,
+                    card_tier, fallback_rung, card_json, card_html,
+                    content_hash, model_id, generated_at_utc,
+                    is_lkg, lkg_promoted_at_utc, prose_source,
+                    fallback_reason, eval_factscore, eval_slop
+                ) VALUES (
+                    :ext, :pid, :s, :as_of,
+                    :card_tier, :fallback_rung, :card_json, :card_html,
+                    :content_hash, :model_id, :gen_at,
+                    :is_lkg, :lkg_at, :prose_source,
+                    :fallback_reason, :eval_factscore, :eval_slop
+                )
+                ON CONFLICT(player_external_id, season_year) DO UPDATE SET
+                    player_id            = excluded.player_id,
+                    as_of_date           = excluded.as_of_date,
+                    card_tier            = excluded.card_tier,
+                    fallback_rung        = excluded.fallback_rung,
+                    card_json            = excluded.card_json,
+                    card_html            = excluded.card_html,
+                    content_hash         = excluded.content_hash,
+                    model_id             = excluded.model_id,
+                    generated_at_utc     = excluded.generated_at_utc,
+                    is_lkg               = excluded.is_lkg,
+                    lkg_promoted_at_utc  = excluded.lkg_promoted_at_utc,
+                    prose_source         = excluded.prose_source,
+                    fallback_reason      = excluded.fallback_reason,
+                    eval_factscore       = excluded.eval_factscore,
+                    eval_slop            = excluded.eval_slop
+                """,
+                params,
+            )
+            return True
+
+        # Legacy column set only (pre-migration-03): still records the card.
+        db.execute(
+            """
+            INSERT INTO player_story_card_cache (
+                player_external_id, player_id, season_year, as_of_date,
+                card_tier, fallback_rung, card_json, card_html,
+                content_hash, model_id, generated_at_utc
+            ) VALUES (
+                :ext, :pid, :s, :as_of,
+                :card_tier, :fallback_rung, :card_json, :card_html,
+                :content_hash, :model_id, :gen_at
+            )
+            ON CONFLICT(player_external_id, season_year) DO UPDATE SET
+                player_id        = excluded.player_id,
+                as_of_date       = excluded.as_of_date,
+                card_tier        = excluded.card_tier,
+                fallback_rung    = excluded.fallback_rung,
+                card_json        = excluded.card_json,
+                card_html        = excluded.card_html,
+                content_hash     = excluded.content_hash,
+                model_id         = excluded.model_id,
+                generated_at_utc = excluded.generated_at_utc
+            """,
+            base_params,
+        )
+        return True
+    except Exception:
+        return False
+
+
+def _resolve_player_id_for_cache(db, external_id: str) -> int | None:
+    """numeric player_id for a cfbd external id (cache denorm convenience)."""
+    row = _safe_one(
+        db,
+        "select player_id from player_source_ids "
+        "where source_player_id = :ext and source_name = 'cfbd' limit 1",
+        {"ext": str(external_id)},
+    )
+    return _to_int((row or {}).get("player_id"))
+
+
+def read_fresh_card_cache(
+    db, external_id: str, season_year: int, content_hash: str | None = None
+) -> dict[str, Any] | None:
+    """Read the cached card row IFF it is fresh for ``content_hash``.
+
+    Returns a dict {card_json, content_hash, prose_source, is_lkg, ...} when a row
+    exists AND (content_hash is None OR matches). Returns None on miss, on a stale
+    hash, or on any error — the caller then ships the live deterministic card.
+    NEVER raises.
+    """
+    try:
+        if db is None or not external_id or season_year is None:
+            return None
+        cols = _cache_columns(db)
+        have_extras = all(c in cols for c in _CACHE_EXTRA_COLUMNS)
+        if have_extras:
+            row = _safe_one(
+                db,
+                """
+                select card_json, content_hash, card_tier, fallback_rung,
+                       model_id, coalesce(is_lkg, 0) as is_lkg, prose_source,
+                       fallback_reason, eval_factscore
+                  from player_story_card_cache
+                 where player_external_id = :ext and season_year = :s
+                """,
+                {"ext": str(external_id), "s": int(season_year)},
+            )
+        else:
+            row = _safe_one(
+                db,
+                """
+                select card_json, content_hash, card_tier, fallback_rung, model_id
+                  from player_story_card_cache
+                 where player_external_id = :ext and season_year = :s
+                """,
+                {"ext": str(external_id), "s": int(season_year)},
+            )
+            if row is not None:
+                # Synthesize the additive fields the caller expects.
+                row.setdefault("is_lkg", 0)
+                # Infer prose source from the model id when the column is absent.
+                mid = str(row.get("model_id") or "")
+                row.setdefault(
+                    "prose_source", "llm" if mid.startswith("ollama:") else "deterministic"
+                )
+        if not row:
+            return None
+        if content_hash is not None and str(row.get("content_hash") or "") != str(content_hash):
+            return None  # stale — the deterministic inputs moved since this was cached.
+        return row
+    except Exception:
+        return None
+
+
+def _now_utc() -> str:
+    return _dt.datetime.utcnow().isoformat(timespec="seconds") + "Z"
 
 
 # ===========================================================================
@@ -927,23 +1183,78 @@ def build_card_payload(
                 fallback_rung="low-data",
             )
 
-        # Cache write is TODO-stubbed this phase (returns the object).
+        # --- additive LLM-prose overlay (Phase 2). CACHE-READ ONLY; never blocks,
+        #     never calls Ollama, never raises. If a fresh cached row carries
+        #     LLM/LKG prose that still matches the live deterministic inputs (by
+        #     content_hash), overlay ONLY the prose fields (logline/body/kicker)
+        #     and keep every other structural field (ban/dominant_take/succession/
+        #     citations) LIVE. On any miss/staleness/error the deterministic card
+        #     already built ships unchanged — today's behavior exactly. -----------
         try:
-            content_hash = _content_hash({
-                "ext": external_id, "season": season_year, "tier": card.tier,
-                "ledger": ledger_lead_name, "archetype": archetype, "rail": rail,
-                "ban": (asdict(ban) if ban else None),
-                "chips": chips,
-                "succ": (asdict(succ) if succ else None),
-            })
-            _write_card_cache(db, card, content_hash)
+            _overlay_cached_prose(db, card)
         except Exception:
-            pass
+            pass  # any failure -> the deterministic card is already complete.
 
         return card
     except Exception:
         # Never raise into the page; a failed payload becomes "" upstream.
         return None
+
+
+def _overlay_cached_prose(db, card: StoryCard) -> None:
+    """If a FRESH cached row carries upgraded prose, overlay it onto ``card``.
+
+    Freshness = the cached ``content_hash`` equals the hash of the CURRENT live
+    deterministic inputs (computed via the narrator's canonical hash so READ and
+    WRITE agree). Only the prose fields are overlaid; all structured truth stays
+    live. READ-ONLY: no generation, no Ollama. NEVER raises.
+    """
+    if db is None or card is None or not getattr(card, "player_external_id", None):
+        return
+    # A cheap existence probe first — skip all hashing when there is no row.
+    head = read_fresh_card_cache(db, card.player_external_id, card.season, content_hash=None)
+    if not head:
+        return
+    if str(head.get("prose_source") or "") not in ("llm", "lkg"):
+        return  # deterministic cache row carries nothing the live build lacks.
+
+    # Compute the canonical hash for the CURRENT live inputs and require a match.
+    try:
+        from . import story_card_narrator as _nar
+
+        tier = _nar.classify_player_tier(
+            db, _resolve_player_id_for_cache(db, card.player_external_id), card.season
+        )
+        evidence = _nar.assemble_evidence(db, card)
+        live_hash = _nar.story_content_hash(card, tier, evidence)
+    except Exception:
+        return  # cannot prove freshness -> ship the deterministic card.
+
+    if str(head.get("content_hash") or "") != str(live_hash):
+        return  # stale -> the story moved; deterministic prose is the honest state.
+
+    try:
+        cj = json.loads(head.get("card_json") or "{}")
+    except Exception:
+        return
+    for f in ("logline", "body", "kicker"):
+        val = cj.get(f)
+        if val:
+            setattr(card, f, val)
+    # The dominant_take .text / .minority_take are LLM-upgraded too (the bespoke
+    # fanbase take that pairs with the confidence meter). Overlay them onto the
+    # LIVE DominantTake so the meter band (.confidence / .source_count) stays
+    # live while the cached prose leads. Only when both sides carry the take.
+    cj_take = cj.get("dominant_take") or {}
+    if isinstance(cj_take, dict) and card.dominant_take is not None:
+        if cj_take.get("text"):
+            card.dominant_take.text = cj_take["text"]
+        if cj_take.get("minority_take"):
+            card.dominant_take.minority_take = cj_take["minority_take"]
+    card.fallback_rung = "full"
+    card.fallback_reason = (
+        "llm prose (cached)" if head.get("prose_source") == "llm" else "lkg prose (stale-ok)"
+    )
 
 
 def _build_logline(
@@ -1060,3 +1371,201 @@ def build_card(
         return render_story_card(card) or ""
     except Exception:
         return ""
+
+
+# ===========================================================================
+# THE COMPUTE STEP (Phase 2) — compute_story_cards(...). The entry the new
+# ``compute-story-cards`` CLI subcommand calls in the NIGHTLY ENRICH (non-critical;
+# NOT build-site, NOT inline render). It:
+#   1. warms player_ledger_scores + player_succession (the coverage guard wants
+#      these populated; warming also gives fetch_ledger_lead stable evidence ids),
+#   2. classifies every candidate's tier and, for S/T1 only, runs the confident-
+#      compiler narrator (graceful: a None return keeps the deterministic prose),
+#   3. PERSISTS each card to player_story_card_cache, content-hash-gated so
+#      unchanged players are skipped and a failed generation keeps the prior LKG.
+# build_card READS that cache; this step is the ONLY place generation runs.
+# Returns a dict of counts. NEVER raises into the caller.
+# ===========================================================================
+def compute_story_cards(
+    db,
+    season: int,
+    players: list[int] | None = None,
+    tiers: tuple[str, ...] | list[str] | None = None,
+    *,
+    limit: int | None = None,
+    dry_run: bool = False,
+    warm: bool = True,
+    verbose: bool = True,
+    force: bool = False,
+) -> dict[str, Any]:
+    """Generate + cache LLM Story-Card prose for the S+T1 cohort.
+
+    Args:
+        db:       open Database handle.
+        season:   season year (required).
+        players:  optional numeric player_id allow-list (default = on-roster cohort).
+        tiers:    LLM tiers to generate (default = ('S','T1')); T2/T3 stay deterministic.
+        limit:    cap the number of candidates processed.
+        force:    bypass the content-hash skip and regenerate every candidate.
+        dry_run:  classify + content-hash only; no narration, no writes.
+        warm:     warm the ledger + succession writers first (default True).
+
+    Returns a dict of counts:
+        {candidates, considered, generated, skipped, fell_back, deterministic,
+         errors, tiers, season, dry_run}.
+    NEVER raises (the enrich step is non-critical).
+    """
+    counts: dict[str, Any] = {
+        "candidates": 0, "considered": 0, "generated": 0, "skipped": 0,
+        "fell_back": 0, "deterministic": 0, "errors": 0,
+        "season": None, "tiers": None, "dry_run": bool(dry_run),
+    }
+    try:
+        if db is None or season is None:
+            return counts
+        season = int(season)
+        counts["season"] = season
+
+        # Lazy import (the narrator imports THIS module at top -> avoid a cycle).
+        from . import story_card_narrator as nar
+
+        tier_set = tuple(
+            t.strip().upper()
+            for t in (tiers if tiers else nar.LLM_TIERS)
+            if t and str(t).strip()
+        )
+        counts["tiers"] = list(tier_set)
+
+        if warm and not dry_run:
+            try:
+                nar._warm_detectors(db, season)
+            except Exception:
+                pass
+
+        if players:
+            pids = [int(p) for p in players]
+        else:
+            try:
+                pids = nar._roster_player_ids(db, season)
+            except Exception:
+                pids = []
+        if limit is not None:
+            pids = pids[: int(limit)]
+        counts["candidates"] = len(pids)
+
+        for pid in pids:
+            try:
+                tier = nar.classify_player_tier(db, pid, season)
+                if tier not in tier_set or tier not in nar.LLM_TIERS:
+                    continue
+                counts["considered"] += 1
+
+                card = build_card_payload(db, pid, season)
+                if card is None:
+                    continue
+
+                evidence = nar.assemble_evidence(db, card)
+                chash = nar.story_content_hash(card, tier, evidence)
+
+                existing = read_fresh_card_cache(
+                    db, card.player_external_id, season, content_hash=None
+                )
+                if (
+                    not force
+                    and existing
+                    and str(existing.get("content_hash") or "") == str(chash)
+                    and existing.get("prose_source") == "llm"
+                ):
+                    counts["skipped"] += 1
+                    continue  # regen short-circuit: unchanged player, keep LLM prose.
+
+                if dry_run:
+                    if verbose:
+                        ndocs = sum(1 for e in evidence if e.get("kind") == "discourse")
+                        print(
+                            f"  [dry-run] {tier} pid={pid} ext={card.player_external_id} "
+                            f"docs={ndocs} hash={chash}",
+                            flush=True,
+                        )
+                    continue
+
+                prose = nar.narrate(db, card, tier, evidence=evidence)
+
+                if prose and prose.get("prose_source") == "llm":
+                    # PASS — overlay the FIVE structured prose fields onto the card,
+                    # promote this row to LKG, persist. Graceful partial upgrade:
+                    # a missing/empty structured field keeps the deterministic value
+                    # for that slot (the narrator never blanks the card).
+                    if prose.get("logline"):
+                        card.logline = prose["logline"]            # short serif hook
+                    # The dominant_take is the confident-compiler FANBASE take that
+                    # pairs with the confidence meter — overlay only .text +
+                    # .minority_take, keeping the deterministic .confidence /
+                    # .source_count that drive the meter band.
+                    if card.dominant_take is not None:
+                        if prose.get("dominant_take_text"):
+                            card.dominant_take.text = prose["dominant_take_text"]
+                        if prose.get("minority_take"):
+                            card.dominant_take.minority_take = prose["minority_take"]
+                    if prose.get("body"):
+                        card.body = prose["body"]                  # fuller expand prose
+                    if prose.get("kicker"):
+                        card.kicker = prose["kicker"]              # else keep deterministic
+                    card.fallback_rung = "full"
+                    card.fallback_reason = "llm prose"
+                    write_story_card_cache(
+                        db, card, chash,
+                        model_id=prose.get("model_id") or f"ollama:{nar.WRITER_MODEL}",
+                        prose_source="llm",
+                        is_lkg=1,
+                        fallback_reason=None,
+                        eval_factscore=prose.get("eval_factscore"),
+                    )
+                    counts["generated"] += 1
+                    if verbose:
+                        print(
+                            f"  [llm] {tier} pid={pid} ext={card.player_external_id} "
+                            f"factscore={prose.get('eval_factscore')}",
+                            flush=True,
+                        )
+                else:
+                    # FAIL — keep an existing usable LKG row (serve last-good).
+                    if (
+                        existing
+                        and existing.get("is_lkg")
+                        and existing.get("prose_source") in ("llm", "lkg")
+                    ):
+                        counts["fell_back"] += 1
+                        if verbose:
+                            print(
+                                f"  [lkg-kept] {tier} pid={pid} ext={card.player_external_id}",
+                                flush=True,
+                            )
+                        continue
+                    # Else persist the deterministic card (no LLM, is_lkg=0).
+                    card.fallback_reason = "deterministic (llm reject/unavailable)"
+                    write_story_card_cache(
+                        db, card, chash,
+                        model_id="deterministic-v1",
+                        prose_source="deterministic",
+                        is_lkg=0,
+                        fallback_reason=card.fallback_reason,
+                    )
+                    counts["deterministic"] += 1
+                    counts["fell_back"] += 1
+            except Exception:
+                # One bad player never aborts the batch (mirror write_ledger_scores).
+                counts["errors"] += 1
+                continue
+
+        if verbose:
+            print(
+                f"compute_story_cards: season={season} tiers={','.join(tier_set)} "
+                f"candidates={counts['candidates']} considered={counts['considered']} "
+                f"generated={counts['generated']} skipped={counts['skipped']} "
+                f"fell_back={counts['fell_back']} errors={counts['errors']}",
+                flush=True,
+            )
+        return counts
+    except Exception:
+        return counts

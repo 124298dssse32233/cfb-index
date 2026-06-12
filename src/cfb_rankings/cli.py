@@ -20,6 +20,26 @@ def build_parser() -> argparse.ArgumentParser:
         "apply-migrations",
         help="Apply all SQL files in migrations/ plus runtime column migrations. Idempotent.",
     )
+    compute_story_cards_parser = subparsers.add_parser(
+        "compute-story-cards",
+        help=("Generate the additive LLM narrator prose for player Story Cards "
+              "(tiers S + T1) and write player_story_card_cache. Non-critical, "
+              "GPU-budgeted; build-site only READS the cache."),
+    )
+    compute_story_cards_parser.add_argument("--season", type=int, required=True)
+    compute_story_cards_parser.add_argument(
+        "--players", nargs="*", type=int, default=None,
+        help="Optional player_id list to filter; default = all on-roster players for the season.",
+    )
+    compute_story_cards_parser.add_argument(
+        "--tier", default=None,
+        help="Optional comma-separated tier filter (e.g. 'S,T1'); default = S,T1.",
+    )
+    compute_story_cards_parser.add_argument(
+        "--force", action="store_true",
+        help="Bypass the content-hash skip and regenerate every candidate "
+             "(otherwise unchanged players with cached LLM prose are skipped).",
+    )
     subparsers.add_parser(
         "seed-source-registry",
         help="Load seeds/source_registry.yaml into source_registry (upsert on source_id).",
@@ -2625,6 +2645,30 @@ def main() -> None:
         )
         for row in rows:
             print(f"  {row['migration_id']} @ {row['applied_at_utc']}")
+        return
+
+    if args.command == "compute-story-cards":
+        from cfb_rankings.player_pages.story_card import compute_story_cards
+        tiers = (
+            tuple(t.strip() for t in args.tier.split(",") if t.strip())
+            if args.tier else ("S", "T1")
+        )
+        counts = compute_story_cards(
+            db, args.season, players=args.players, tiers=tiers,
+            force=bool(getattr(args, "force", False)),
+        )
+        # counts is a dict of per-outcome tallies — print a clean summary.
+        print(
+            f"compute-story-cards {args.season}: "
+            f"tiers={','.join(tiers)} force={bool(getattr(args, 'force', False))} "
+            f"candidates={counts.get('candidates', 0)} "
+            f"considered={counts.get('considered', 0)} "
+            f"generated={counts.get('generated', 0)} "
+            f"skipped={counts.get('skipped', 0)} "
+            f"fell_back={counts.get('fell_back', 0)} "
+            f"deterministic={counts.get('deterministic', 0)} "
+            f"errors={counts.get('errors', 0)}"
+        )
         return
 
     if args.command == "seed-source-registry":
