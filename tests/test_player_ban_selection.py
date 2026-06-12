@@ -315,6 +315,26 @@ def test_receiving_streak_label():
 
 
 # --------------------------------------------------------------------------- #
+# Dominant-take de-templating (doc 42 §1 — attributed, varied, no banlist phrase)
+# --------------------------------------------------------------------------- #
+def test_dominant_take_varies_and_is_attributed():
+    for ledger in ("hope", "grievance", "belonging", "judgment", "grudge"):
+        variants = {sc._dominant_take_text(ledger, None, "Texas", k) for k in range(9)}
+        assert len(variants) >= 3, f"{ledger} should have >=3 variants"
+    # non-grudge takes attribute to the named fanbase; grudge is rival-voiced.
+    assert "Texas fans" in sc._dominant_take_text("hope", None, "Texas", 0)
+    assert "Texas fans" not in sc._dominant_take_text("grudge", None, "Texas", 0)
+
+
+def test_dominant_take_never_uses_banned_stock_phrase():
+    # The narrator banlist forbids "roots for theirs"; the deterministic pool must
+    # not reintroduce it (the 2026 stock-rival regression).
+    for ledger in ("hope", "grievance", "belonging", "judgment", "grudge", "other"):
+        for k in range(12):
+            assert "roots for theirs" not in sc._dominant_take_text(ledger, None, "Texas", k).lower()
+
+
+# --------------------------------------------------------------------------- #
 # Accent tagging (color-by-register; doc 60 §2/§6)
 # --------------------------------------------------------------------------- #
 def test_accent_tags_match_register():

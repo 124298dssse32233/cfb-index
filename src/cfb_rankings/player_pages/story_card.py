@@ -825,21 +825,53 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
 # Templated, attributed phrasings per ledger + direction. Deterministic copy
 # (the LLM confident narrator is a later phase). Always attributed to the
 # fanbase ("fans frame it as..."), never the site's opinion.
-def _dominant_take_text(ledger: str, direction: str | None, fanbase: str | None) -> str:
+# De-templated dominant-take pools (doc 42 §1 — COMPILE, attribute, meter). Three
+# attributed variants per ledger, picked by a stable per-player key so the fan take
+# stops reading as a formula. Grudge is rival-voiced and AVOIDS the banned stock
+# phrase "roots for theirs" (narrator banlist, story_card_narrator). Editorial
+# stance preserved: always attributed to the fanbase, never the site's verdict.
+_TAKE_POOLS: dict[str, tuple[str, ...]] = {
+    "hope": (
+        "{who} frame him as a player to bet on — the case is potential, not production.",
+        "{who} sell the ceiling harder than the résumé; the upside is the whole argument.",
+        "{who} treat him as an investment — what he could become outruns what he's done.",
+    ),
+    "grievance": (
+        "{who} read the coverage as disrespect and treat it as fuel.",
+        "{who} keep a tally of every slight, and the tally is the point.",
+        "{who} insist he's been overlooked — and they come with receipts.",
+    ),
+    "belonging": (
+        "{who} talk about him as one of their own — loyalty over stat line.",
+        "{who} claim him as family first and a player second.",
+        "{who} treat him as a favorite son; the bond outlasts the box score.",
+    ),
+    "judgment": (
+        "{who} are litigating his worthiness — the eye test against the résumé.",
+        "{who} can't agree whether the tape backs the reputation.",
+        "{who} keep putting his case on trial, week to week.",
+    ),
+}
+_TAKE_GRUDGE: tuple[str, ...] = (
+    "Rival fans bring him up unprompted, and rarely to praise him.",
+    "Opposing fanbases keep circling back to him — the fixation says plenty.",
+    "Rival boards can't stop talking about him, and it isn't admiration.",
+)
+_TAKE_DEFAULT: tuple[str, ...] = (
+    "{who} keep circling back to him.",
+    "{who} can't stop bringing his name up.",
+    "{who} return to him again and again.",
+)
+
+
+def _dominant_take_text(
+    ledger: str, direction: str | None, fanbase: str | None, variety_key: int = 0,
+) -> str:
     who = f"{fanbase} fans" if fanbase else "Fans"
-    rival_who = "Rival fans"
-    d = (direction or "").lower()
-    if ledger == "hope":
-        return f"{who} frame him as a player to bet on — the case is potential, not production."
-    if ledger == "grievance":
-        return f"{who} read the coverage as disrespect and treat it as fuel."
-    if ledger == "belonging":
-        return f"{who} talk about him as one of their own — loyalty over stat line."
-    if ledger == "judgment":
-        return f"{who} are litigating his worthiness — the eye test against the résumé."
     if ledger == "grudge":
-        return f"{rival_who} root against him as much as their own team roots for theirs."
-    return f"{who} keep circling back to him."
+        return _TAKE_GRUDGE[variety_key % len(_TAKE_GRUDGE)]
+    pool = _TAKE_POOLS.get(ledger) or _TAKE_DEFAULT
+    return pool[variety_key % len(pool)].format(who=who)
 
 
 def _ledger_chapter_label(ledger: str) -> str:
@@ -852,12 +884,15 @@ def _ledger_chapter_label(ledger: str) -> str:
     }.get(ledger, "The Story So Far")
 
 
-def _build_dominant_take(lead: dict[str, Any], fanbase: str | None) -> DominantTake | None:
+def _build_dominant_take(
+    lead: dict[str, Any], fanbase: str | None, variety_key: int = 0,
+) -> DominantTake | None:
     """Build the attributed fan take from the top fired ledger row.
 
     The ledger detector already enforced representativeness (MIN_DOCS/MIN_SOURCES)
     and the C7 toxicity floor, so a fired lead is safe to surface. Dissent is
     shown as a labeled minority when the room is split (low confidence).
+    ``variety_key`` (the player id) de-formulas the phrasing across players.
     """
     if not lead:
         return None
@@ -867,7 +902,7 @@ def _build_dominant_take(lead: dict[str, Any], fanbase: str | None) -> DominantT
     confidence = _to_float(lead.get("confidence")) or 0.0
     source_count = _to_int(lead.get("source_count")) or 0
     direction = lead.get("direction")
-    text = _dominant_take_text(ledger, direction, fanbase)
+    text = _dominant_take_text(ledger, direction, fanbase, variety_key)
     minority: str | None = None
     # A split room (contested direction OR low confidence) gets a labeled minority.
     if direction == "contested" or (0.0 < confidence < 0.33):
@@ -1012,6 +1047,7 @@ def _build_body(
     chips: list[dict[str, str]],
     succ: SuccessionRead | None,
     lead: dict[str, Any] | None,
+    variety_key: int = 0,
 ) -> str | None:
     name = ident.get("full_name") or "He"
     team = ident.get("team_name")
@@ -1054,7 +1090,7 @@ def _build_body(
     if lead:
         ledger = str(lead.get("ledger") or "")
         if ledger in LEDGERS:
-            paras.append(_dominant_take_text(ledger, lead.get("direction"), team))
+            paras.append(_dominant_take_text(ledger, lead.get("direction"), team, variety_key))
 
     if not paras:
         return None
@@ -1547,10 +1583,13 @@ def build_card_payload(
         )
         narrative_ok = has_fired_ledger or has_structural_story
 
-        dominant_take = _build_dominant_take(lead, ident.get("team_name")) if has_fired_ledger else None
+        dominant_take = (
+            _build_dominant_take(lead, ident.get("team_name"), int(player_id))
+            if has_fired_ledger else None
+        )
 
         if narrative_ok:
-            body = _build_body(ident, rec, chips, succ, lead)
+            body = _build_body(ident, rec, chips, succ, lead, int(player_id))
             why_now = _build_why_now(upcoming, lead, succ, transferred)
             kicker = _build_kicker(succ, lead, ban)
             logline = _build_logline(ident, archetype, succ, lead, ban)

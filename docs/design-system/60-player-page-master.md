@@ -232,17 +232,29 @@ Heartbeat EKG draws once. No ambient loops, no parallax. `prefers-reduced-motion
 
 ## 10. Locked vs. open
 
-**Locked:** Noir palette + accent semantics · Anton/Serif/Inter/Mono voice rule · `.theme-noir`
-route scope (pending §4 confirm) · adaptive `composition`-array format · the BAN-as-spine + its
+**Locked:** Noir palette + accent semantics · Anton/Serif/Inter/Mono voice rule · **`.theme-noir`
+route scope — CONFIRMED 2026-06-12: the FULL player route is `.theme-noir`** (it scopes Noir to a
+single already-narrative route, which is exactly the "scoped, not site-wide" intent — the rejected
+option was flipping the *whole site*) · adaptive `composition`-array format · the BAN-as-spine + its
 color-by-kind · the page scaffold · motion budget · receipts + confidence everywhere · empty-state
 suppression.
 
-**Done:** **BAN enrichment** — the tiered candidate pool (§6) so the BAN stops monopolizing on the
-perception gap; tension de-templating.
+**Done:** **BAN enrichment** (tiered candidate pool, §6) · **BAN accent color-by-register** in the
+renderer (§9.2) · **tension de-templating** · **`dominant_take` de-templating** (2026-06-12: 3
+attributed variants per ledger, per-player selection, grudge rival-voiced and free of the banned
+"roots for theirs" stock phrase; `_TAKE_POOLS` in `story_card.py`, pinned by tests).
 
-**Open (next):** (a) §4 scope confirmation; (b) Home/Rival lenses (only `national` is generated
-today); (c) de-templating the `dominant_take` prose; (d) the high-risk-discourse gate scan (parked
-by owner).
+**Open (next), with judgment calls:**
+- **`.theme-noir` route migration + Bebas→Anton font** (§9.1/§9.3) — DEFERRED on purpose: both are
+  global/visual changes that need the font system touched + a screenshot-reviewed pass, and the box
+  is staging a deploy. Do them together after the deploy settles, not piecemeal mid-flight.
+- **Empty-state suppression** (§9.4) — already satisfied on the Story Card crown (the renderer drops
+  empty modules). Remaining: a separate audit of the legacy "Record" modules in `reporting.py` for
+  stray `--`/"Awaiting" (note: the fan-intel "Awaiting Signal" fallback is intentional, not a bug).
+- **Home/Rival lenses** — BLOCKED on discourse breadth, not effort: the rival `audience_bucket` is
+  too thin/author-inflated to generate an honest rival voice today (same data gap that vetoed the
+  Villain Index, §6 roadmap). Unblocks with the source-expansion work.
+- **High-risk-discourse gate scan** — parked by owner.
 
 ---
 
