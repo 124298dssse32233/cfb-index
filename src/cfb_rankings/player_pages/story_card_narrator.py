@@ -490,6 +490,152 @@ def _doc_text(row: dict[str, Any]) -> str:
     return " ".join(p for p in parts if p).strip()
 
 
+# ===========================================================================
+# PACKET -> EVIDENCE ADAPTER (doc 59 §3/§4 — the structured-fact bridge). The
+# Packet Builder gathers every available STRUCTURED fact (recruiting / honors /
+# award_watch / depth_chart / before_after / nil_narrative / transfer / aura /
+# succession / ledger_take), each wrapped in the universal Fact envelope with a
+# valence + a machine-evaluated `suppressed` flag. Today those structured facts
+# are 0-12% captured because assemble_evidence only ever fed the discourse
+# firehose + the thin in-hand StoryCard spine. This adapter converts each NON-
+# SUPPRESSED Fact into the existing evidence dict shape so the writer's pool
+# actually contains them.
+#
+# CONTRACT (mirrors assemble_evidence): never raises (returns [] on any failure);
+# a `Fact.suppressed` fact is DROPPED (doc 59 §3/§6 — a phantom backup clock, a
+# big-gap/tiny-buzz BAN, a single-loud-doc take must NOT enter the writer's "use
+# these" pool); the bulk §4.2 discourse section is SKIPPED here (STREAM 1 already
+# carries the relevance-ranked firehose with the same gates) — we lift only the
+# STRUCTURED sections plus the high-salience NIL discourse facts (the §7 docs the
+# top-K firehose pack routinely truncates away).
+# ===========================================================================
+
+# Packet sections whose facts are STRUCTURED spine the firehose never carries.
+# 'discourse' is deliberately omitted (STREAM 1 owns the bulk firehose); the
+# 'nil_narrative' section is discourse-kind but high-salience (§7) and routinely
+# lost from the top-K pack, so it IS lifted here.
+_PACKET_STRUCTURED_SECTIONS = (
+    "before_after",
+    "recruiting",
+    "honors",
+    "award_watch",
+    "depth_chart",
+    "transfer",
+    "aura",
+    "succession",
+    "ledger_take",
+)
+_PACKET_DISCOURSE_SECTIONS = ("nil_narrative",)
+
+# Never-truncate NIL ceiling (doc 59 §7): the high-salience NIL/holdout discourse
+# docs must reach the writer WITH the money/holdout keyword intact — a flat
+# _BODY_TRUNCATE (400) cut the keyword off the tail of the long board posts (the
+# keyword often sits well past char 400). We keep a generous ceiling AND, when the
+# body still exceeds it, keep a window CENTERED on the NIL keyword so the money
+# language survives into the writer's view + the grounding pool.
+_PACKET_NIL_BODY_CEILING = 1200
+
+# The NIL/money/holdout keyword set used to anchor the never-truncate window. Mirror
+# the packet's §7 detector so the anchor and the packet's high-salience flag agree.
+_NIL_KEYWORD_RE = re.compile(
+    r"\b("
+    r"nil|collective|holdout|held out|rev[\s-]?share|revenue[\s-]?shar|buyout|"
+    r"more money|pay raise|portal for money|the bag|bag\b|reportedly sought|"
+    r"guarantee[d]?\s+money"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+def _nil_keyword_window(text: str, ceiling: int = _PACKET_NIL_BODY_CEILING) -> str:
+    """Keep <= ``ceiling`` chars of a NIL doc, anchored on the money/holdout keyword.
+
+    Short docs pass through. Long docs return a window centered on the first NIL
+    keyword so the money language survives the trim (doc 59 §7 never-truncate
+    intent under a prompt-size bound). No keyword found -> head slice. Never raises."""
+    try:
+        t = text or ""
+        if len(t) <= ceiling:
+            return t
+        m = _NIL_KEYWORD_RE.search(t)
+        if not m:
+            return t[:ceiling]
+        half = ceiling // 2
+        start = max(0, m.start() - half)
+        end = min(len(t), start + ceiling)
+        start = max(0, end - ceiling)
+        return t[start:end]
+    except Exception:
+        return (text or "")[:ceiling]
+
+
+def _packet_fact_to_evidence(fact: Any) -> dict[str, Any] | None:
+    """Convert ONE :class:`packet.Fact` -> an evidence dict, or None to skip.
+
+    Skips suppressed facts (doc 59 §3/§6) and empty displays. Discourse-kind
+    facts (the lifted NIL docs) carry the rich discourse fields the prompt reads
+    ('source_name','audience_bucket','sentiment_label') and kind='discourse' so
+    the grounding pool + the coverage probe see them as discourse. Structured
+    facts carry {'text','source_id','kind':'fact'} + the valence for the prompt.
+    Never raises (returns None on any malformed fact)."""
+    try:
+        if fact is None or getattr(fact, "suppressed", False):
+            return None
+        text = str(getattr(fact, "display", "") or "").strip()
+        if not text:
+            return None
+        source_id = str(getattr(fact, "source_id", "") or "").strip() or "row:packet"
+        kind = str(getattr(fact, "source_kind", "") or "structured").strip().lower()
+        valence = getattr(fact, "valence", None)
+        if kind == "discourse":
+            val = getattr(fact, "value", None)
+            val = val if isinstance(val, dict) else {}
+            # NIL discourse docs are never-truncate (§7): keep a keyword-anchored
+            # window so the money/holdout language survives into the writer + pool,
+            # not a flat head-slice that drops the keyword off the tail.
+            ev: dict[str, Any] = {
+                "text": _nil_keyword_window(text),
+                "source_id": source_id,
+                "source_name": str(val.get("source_name") or "fan discourse"),
+                "audience_bucket": str(val.get("audience_bucket") or ""),
+                "sentiment_label": str(val.get("sentiment_label") or ""),
+                "kind": "discourse",
+            }
+            return ev
+        ev = {"text": text, "source_id": source_id, "kind": "fact"}
+        if valence:
+            ev["valence"] = str(valence)
+        return ev
+    except Exception:
+        return None
+
+
+def _packet_evidence(db, payload: StoryCard) -> list[dict[str, Any]]:
+    """Build the structured-spine + high-salience-NIL evidence from the Packet.
+
+    Calls :func:`packet.build_packet` (itself never-raises, every section guarded)
+    for (player_external_id, season), then flattens the §4 structured sections +
+    the NIL discourse section through :func:`_packet_fact_to_evidence`. Suppressed
+    facts are dropped. Returns [] on any failure (the caller's pool is unaffected)."""
+    try:
+        from . import packet as _packet  # local import keeps top-level deps lean
+
+        ext = getattr(payload, "player_external_id", None)
+        if not ext:
+            return []
+        pk = _packet.build_packet(db, str(ext), int(payload.season))
+        sections = getattr(pk, "sections", None) or {}
+        out: list[dict[str, Any]] = []
+        for sec in (*_PACKET_STRUCTURED_SECTIONS, *_PACKET_DISCOURSE_SECTIONS):
+            for fact in sections.get(sec) or []:
+                ev = _packet_fact_to_evidence(fact)
+                if ev is not None:
+                    out.append(ev)
+        return out
+    except Exception:
+        return []
+
+
 def assemble_evidence(
     db,
     payload: StoryCard,
@@ -551,8 +697,17 @@ def assemble_evidence(
                 continue
             if origin:
                 seen_origin.add(origin)
+            # NIL/holdout/money docs are never-truncate (doc 59 §7): if the full
+            # body carries the money language, keep a keyword-anchored window so the
+            # signal survives the pack instead of a flat head-slice that drops the
+            # keyword off the tail of a long board post. Ordinary docs keep the
+            # tight _BODY_TRUNCATE budget (no behavior change).
+            if _NIL_KEYWORD_RE.search(body):
+                text = _nil_keyword_window(body)
+            else:
+                text = body[:_BODY_TRUNCATE]
             pool.append({
-                "text": body[:_BODY_TRUNCATE],
+                "text": text,
                 "source_id": f"doc:{r.get('doc_id')}",
                 "source_name": str(r.get("source_name") or "fan discourse"),
                 "audience_bucket": str(r.get("audience_bucket") or ""),
@@ -566,6 +721,42 @@ def assemble_evidence(
         # Kept in EVERY audience: the facts ground national + rival alike.
         for fact in _structured_fact_strings(payload):
             pool.append({"text": fact, "source_id": "row:story_card", "kind": "fact"})
+
+        # STREAM 3 — the PACKET structured firehose (doc 59 §4). Recruiting /
+        # honors / award_watch / depth_chart / before_after / NIL etc. that the
+        # discourse pack never carried. C7-guard the discourse-kind packet facts
+        # (the lifted high-salience NIL docs) exactly like STREAM 1. Suppressed
+        # facts were already dropped by the adapter. Kept in EVERY audience — the
+        # structured spine grounds all lenses.
+        #
+        # De-dup by source_id against streams 1-2, with ONE exception: a packet NIL
+        # discourse doc is NEVER-TRUNCATE (doc 59 §7). STREAM 1 truncates bodies to
+        # _BODY_TRUNCATE, which can cut the NIL/holdout keyword off the tail — so when
+        # a packet discourse fact's source_id already sits in the pool, UPGRADE that
+        # entry's text to the packet's fuller body (the keyword survives) instead of
+        # dropping the packet copy. New source_ids are appended as usual.
+        pool_by_src: dict[str, dict[str, Any]] = {}
+        for e in pool:
+            pool_by_src.setdefault(str(e.get("source_id")), e)
+        for ev in _packet_evidence(db, payload):
+            sid = str(ev.get("source_id"))
+            is_disc = ev.get("kind") == "discourse"
+            if is_disc and _trips_c7(ev.get("text") or ""):
+                continue
+            existing = pool_by_src.get(sid)
+            if existing is not None:
+                # Upgrade an already-present discourse doc to the fuller packet body
+                # (never-truncate NIL §7). Only grow the text; never shrink a richer
+                # STREAM-1 entry or touch a structured spine fact.
+                if (
+                    is_disc
+                    and existing.get("kind") == "discourse"
+                    and len(str(ev.get("text") or "")) > len(str(existing.get("text") or ""))
+                ):
+                    existing["text"] = ev["text"]
+                continue
+            pool_by_src[sid] = ev
+            pool.append(ev)
 
         return pool
     except Exception:

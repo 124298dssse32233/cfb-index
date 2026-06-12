@@ -333,32 +333,46 @@ def probe_capture(
     facts = _structured_fact_strings(payload)
     facts_text = " ".join(facts)
 
+    # MEASURE WHAT THE WRITER ACTUALLY RECEIVES (doc 59 step 14.4). The Packet
+    # Builder now lifts the §4 structured spine + the high-salience NIL discourse
+    # into assemble_evidence's pool, each carrying a stable ``source_id`` whose
+    # prefix names the source table. CAPTURED = a non-empty evidence entry with
+    # that prefix is in the pool the writer + grounding gate see. This is NOT a
+    # count of DB rows (the availability probe owns that) — it counts only what
+    # survived suppression, C7, de-dup, and the cap and reached the writer.
+    def _pool_has_prefix(prefix: str) -> bool:
+        for e in pool:
+            sid = str(e.get("source_id") or "")
+            if sid.startswith(prefix) and str(e.get("text") or "").strip():
+                return True
+        return False
+
     # --- discourse captured: pool has any kind=='discourse' ---
     cap["discourse"] = any(e.get("kind") == "discourse" for e in pool)
 
-    # --- aura captured: payload.ban is not None (the BAN is aura-derived or WEPA) ---
-    # Per spec: "aura captured if payload.ban is not None"
-    cap["aura"] = payload.ban is not None
+    # --- aura captured: the aura/BAN row reached the writer (packet aura fact in
+    #     the pool) OR the deterministic BAN fired on the card. ---
+    cap["aura"] = _pool_has_prefix("row:player_aura_weekly:") or payload.ban is not None
 
-    # --- before_after captured: only if a fact/chip actually reflects a PRIOR-season
-    #     or WEPA value. Current-season-only chips do NOT count.
-    # We check: does the facts_text mention a before/after pattern (year-over-year,
-    # or does succession predecessor line exist, or does the succession chips show
-    # a multi-season value)?
-    # The current system: _structured_fact_strings emits succession predecessor line
-    # and chips. Neither includes a genuine prior-season stat delta (the system only
-    # fetches chips for the current season). Before/after is NOT currently captured.
-    cap["before_after"] = False
+    # --- before_after captured: a genuine prior-season delta or WEPA envelope from
+    #     the packet's player_season_stats / player_value_metrics facts. ---
+    cap["before_after"] = (
+        _pool_has_prefix("row:player_season_stats:")
+        or _pool_has_prefix("row:player_value_metrics:")
+    )
 
-    # --- production captured: only if a wepa value appears in the BAN or facts.
-    # The BAN can be WEPA-derived: ban.label contains "WEPA". Facts include BAN text.
+    # --- production captured: the WEPA durable signal reached the writer (packet
+    #     value-metrics fact) OR the BAN/facts carry a WEPA value. ---
     wepa_in_ban = False
     if payload.ban is not None:
         wepa_in_ban = "WEPA" in str(getattr(payload.ban, "label", "") or "")
     wepa_in_facts = "WEPA" in facts_text.upper() or "wepa" in facts_text.lower()
-    cap["production"] = wepa_in_ban or wepa_in_facts
+    cap["production"] = (
+        _pool_has_prefix("row:player_value_metrics:") or wepa_in_ban or wepa_in_facts
+    )
 
-    # --- succession captured: _structured_fact_strings emits a succession line ---
+    # --- succession captured: the packet succession frame reached the pool OR the
+    #     card's structured spine emitted a succession line. ---
     succ_captured = (
         payload.succession is not None
         and (
@@ -367,42 +381,40 @@ def probe_capture(
             or getattr(payload.succession, "clock_line", None)
         )
     )
-    cap["succession"] = bool(succ_captured)
+    cap["succession"] = _pool_has_prefix("row:player_succession:") or bool(succ_captured)
 
-    # --- ledger_take captured: dominant_take fired ---
-    cap["ledger_take"] = payload.dominant_take is not None
+    # --- ledger_take captured: the packet ledger fact reached the pool OR the card's
+    #     dominant_take fired. ---
+    cap["ledger_take"] = (
+        _pool_has_prefix("row:player_ledger_scores:")
+        or payload.dominant_take is not None
+    )
 
-    # --- recruiting / honors / award_watch / depth_chart / transfer / nil_narrative:
-    #     today these are NOT fed into assemble_evidence's pool or _structured_fact_strings.
-    #     Each is False unless genuinely present in pool or facts (the point of this
-    #     baseline is to expose these gaps).
+    # --- recruiting / honors / award_watch / depth_chart: the Packet Builder lifts
+    #     each as a structured fact into the pool with a table-named source_id. A
+    #     source is captured only when a non-empty fact with that prefix survived to
+    #     the writer (suppressed facts were already dropped by the adapter). ---
+    cap["recruiting"] = _pool_has_prefix("row:player_recruiting_profiles:")
+    cap["honors"] = _pool_has_prefix("row:player_honors:")
+    cap["award_watch"] = _pool_has_prefix("row:player_award_watch_2026:")
+    cap["depth_chart"] = _pool_has_prefix("row:player_depth_chart_2026:")
 
-    # Recruiting: check if any fact mentions stars or national_rank by inspecting
-    # the key_stat_chips or body (the body includes "5-star prospect, No.X recruit").
-    # The body is in payload.body; structured facts from _structured_fact_strings don't
-    # include recruiting — they emit BAN, chips, succession, dominant_take, why_now.
-    # Recruiting is NOT in the current evidence pool. Capture = False.
-    cap["recruiting"] = False
-
-    # Honors: not in pool or structured facts. Capture = False.
-    cap["honors"] = False
-
-    # Award watch: not in pool or structured facts. Capture = False.
-    cap["award_watch"] = False
-
-    # Depth chart: not in pool or structured facts. Capture = False.
-    cap["depth_chart"] = False
-
-    # Transfer: the _is_transfer flag feeds the archetype slug and why_now text.
-    # The why_now is emitted via _structured_fact_strings -> payload.why_now.
-    # Check if the why_now or facts mention a transfer.
+    # --- transfer captured: the packet portal/draft fact reached the pool OR the
+    #     card's why_now/facts mention a transfer. ---
     transfer_in_facts = "changed programs" in facts_text.lower() or "transfer" in facts_text.lower()
     transfer_why_now = "changed programs" in (payload.why_now or "").lower()
-    cap["transfer"] = transfer_in_facts or transfer_why_now
+    cap["transfer"] = (
+        _pool_has_prefix("row:transfer_entries:")
+        or _pool_has_prefix("row:player_nfl_draft:")
+        or transfer_in_facts
+        or transfer_why_now
+    )
 
     # NIL narrative: captured only if a discourse doc with NIL keywords made it
     # into the pool (the pool is C7-filtered and de-duped, but NIL/money docs
-    # are NOT in the C7 filter — they should pass through if available).
+    # are never-truncate per §7 — the packet lifts the high-salience NIL doc and
+    # assemble_evidence keeps a keyword-anchored window so the money language
+    # survives). Detected by scanning the discourse-kind pool text for the keywords.
     nil_in_pool = False
     for e in pool:
         if e.get("kind") == "discourse":

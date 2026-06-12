@@ -104,7 +104,7 @@
     "Tre Wisner",
     "Kewan Lacy"
   ],
-  "aggregate_coverage": 0.5015,
+  "aggregate_coverage": 0.9257,
   "per_source": {
     "discourse": {
       "available_pct": 100.0,
@@ -112,35 +112,35 @@
     },
     "before_after": {
       "available_pct": 46.0,
-      "captured_pct": 0.0
+      "captured_pct": 100.0
     },
     "production": {
       "available_pct": 100.0,
-      "captured_pct": 42.0
+      "captured_pct": 100.0
     },
     "recruiting": {
       "available_pct": 88.0,
-      "captured_pct": 0.0
+      "captured_pct": 100.0
     },
     "honors": {
       "available_pct": 58.0,
-      "captured_pct": 0.0
+      "captured_pct": 100.0
     },
     "award_watch": {
       "available_pct": 28.0,
-      "captured_pct": 0.0
+      "captured_pct": 100.0
     },
     "depth_chart": {
       "available_pct": 32.0,
-      "captured_pct": 0.0
+      "captured_pct": 100.0
     },
     "transfer": {
       "available_pct": 42.0,
-      "captured_pct": 85.7
+      "captured_pct": 100.0
     },
     "aura": {
       "available_pct": 100.0,
-      "captured_pct": 88.0
+      "captured_pct": 100.0
     },
     "succession": {
       "available_pct": 86.0,
@@ -152,44 +152,44 @@
     },
     "nil_narrative": {
       "available_pct": 82.0,
-      "captured_pct": 12.2
+      "captured_pct": 29.3
     }
   },
   "lowest_5_players": [
     {
-      "player_id": 4489,
-      "name": "Justice Haynes",
-      "coverage": 0.1111,
-      "available_count": 9,
-      "captured_count": 1
-    },
-    {
-      "player_id": 9825,
-      "name": "Ashton Daniels",
-      "coverage": 0.125,
-      "available_count": 8,
-      "captured_count": 1
-    },
-    {
       "player_id": 9013,
       "name": "Nicholas Singleton",
-      "coverage": 0.2,
+      "coverage": 0.8,
       "available_count": 5,
-      "captured_count": 1
-    },
-    {
-      "player_id": 12198,
-      "name": "Jadarian Price",
-      "coverage": 0.2,
-      "available_count": 5,
-      "captured_count": 1
+      "captured_count": 4
     },
     {
       "player_id": 52171,
       "name": "Jordon Davison",
-      "coverage": 0.2,
+      "coverage": 0.8,
       "available_count": 5,
-      "captured_count": 1
+      "captured_count": 4
+    },
+    {
+      "player_id": 32522,
+      "name": "CJ Carr",
+      "coverage": 0.8333,
+      "available_count": 6,
+      "captured_count": 5
+    },
+    {
+      "player_id": 13325,
+      "name": "Blake Baker",
+      "coverage": 0.8333,
+      "available_count": 6,
+      "captured_count": 5
+    },
+    {
+      "player_id": 52054,
+      "name": "Bryce Underwood",
+      "coverage": 0.8571,
+      "available_count": 7,
+      "captured_count": 6
     }
   ],
   "per_player": [
@@ -214,12 +214,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "recruiting": true,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -227,8 +227,8 @@
         "nil_narrative": false
       },
       "available_count": 10,
-      "captured_count": 5,
-      "coverage": 0.5,
+      "captured_count": 10,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -252,12 +252,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
-        "depth_chart": false,
+        "depth_chart": true,
         "transfer": false,
         "aura": true,
         "succession": true,
@@ -265,8 +265,8 @@
         "nil_narrative": false
       },
       "available_count": 7,
-      "captured_count": 3,
-      "coverage": 0.4286,
+      "captured_count": 6,
+      "coverage": 0.8571,
       "error": null
     },
     {
@@ -290,10 +290,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": true,
@@ -303,8 +303,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 5,
-      "coverage": 0.625,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -328,21 +328,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
-        "aura": false,
+        "transfer": true,
+        "aura": true,
         "succession": false,
         "ledger_take": false,
         "nil_narrative": true
       },
       "available_count": 6,
-      "captured_count": 2,
-      "coverage": 0.3333,
+      "captured_count": 6,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -366,12 +366,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
-        "depth_chart": false,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -379,8 +379,8 @@
         "nil_narrative": false
       },
       "available_count": 10,
-      "captured_count": 6,
-      "coverage": 0.6,
+      "captured_count": 9,
+      "coverage": 0.9,
       "error": null
     },
     {
@@ -404,12 +404,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": false,
         "aura": true,
         "succession": true,
@@ -417,8 +417,8 @@
         "nil_narrative": false
       },
       "available_count": 10,
-      "captured_count": 3,
-      "coverage": 0.3,
+      "captured_count": 9,
+      "coverage": 0.9,
       "error": null
     },
     {
@@ -442,9 +442,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -452,11 +452,11 @@
         "aura": true,
         "succession": true,
         "ledger_take": true,
-        "nil_narrative": false
+        "nil_narrative": true
       },
       "available_count": 8,
-      "captured_count": 5,
-      "coverage": 0.625,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -480,10 +480,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": true,
@@ -493,8 +493,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 5,
-      "coverage": 0.625,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -518,7 +518,7 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
         "recruiting": false,
         "honors": false,
@@ -556,10 +556,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": true,
@@ -569,8 +569,8 @@
         "nil_narrative": true
       },
       "available_count": 9,
-      "captured_count": 6,
-      "coverage": 0.6667,
+      "captured_count": 9,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -594,12 +594,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": false,
         "aura": true,
         "succession": true,
@@ -607,8 +607,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 3,
-      "coverage": 0.375,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -632,21 +632,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
+        "transfer": true,
         "aura": true,
         "succession": true,
         "ledger_take": false,
         "nil_narrative": false
       },
       "available_count": 7,
-      "captured_count": 4,
-      "coverage": 0.5714,
+      "captured_count": 6,
+      "coverage": 0.8571,
       "error": null
     },
     {
@@ -670,10 +670,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": true,
@@ -683,8 +683,8 @@
         "nil_narrative": true
       },
       "available_count": 10,
-      "captured_count": 7,
-      "coverage": 0.7,
+      "captured_count": 10,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -708,9 +708,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -721,8 +721,8 @@
         "nil_narrative": false
       },
       "available_count": 6,
-      "captured_count": 4,
-      "coverage": 0.6667,
+      "captured_count": 5,
+      "coverage": 0.8333,
       "error": null
     },
     {
@@ -746,21 +746,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
+        "transfer": true,
         "aura": true,
         "succession": true,
         "ledger_take": false,
-        "nil_narrative": false
+        "nil_narrative": true
       },
       "available_count": 8,
-      "captured_count": 3,
-      "coverage": 0.375,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -784,10 +784,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": false,
@@ -797,8 +797,8 @@
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 4,
-      "coverage": 0.4444,
+      "captured_count": 8,
+      "coverage": 0.8889,
       "error": null
     },
     {
@@ -822,21 +822,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
+        "transfer": true,
         "aura": true,
         "succession": true,
         "ledger_take": true,
-        "nil_narrative": false
+        "nil_narrative": true
       },
       "available_count": 8,
-      "captured_count": 4,
-      "coverage": 0.5,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -860,9 +860,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -870,11 +870,11 @@
         "aura": true,
         "succession": true,
         "ledger_take": true,
-        "nil_narrative": false
+        "nil_narrative": true
       },
       "available_count": 8,
-      "captured_count": 4,
-      "coverage": 0.5,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -898,9 +898,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -911,8 +911,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 5,
-      "coverage": 0.625,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -936,12 +936,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -949,8 +949,8 @@
         "nil_narrative": false
       },
       "available_count": 10,
-      "captured_count": 4,
-      "coverage": 0.4,
+      "captured_count": 9,
+      "coverage": 0.9,
       "error": null
     },
     {
@@ -974,10 +974,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": true,
@@ -987,8 +987,8 @@
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 5,
-      "coverage": 0.5556,
+      "captured_count": 8,
+      "coverage": 0.8889,
       "error": null
     },
     {
@@ -1012,21 +1012,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
-        "award_watch": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
+        "award_watch": true,
         "depth_chart": false,
-        "transfer": false,
-        "aura": false,
+        "transfer": true,
+        "aura": true,
         "succession": false,
         "ledger_take": false,
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 1,
-      "coverage": 0.1111,
+      "captured_count": 8,
+      "coverage": 0.8889,
       "error": null
     },
     {
@@ -1050,21 +1050,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
+        "before_after": true,
+        "production": true,
         "recruiting": false,
         "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": false,
         "aura": true,
         "succession": true,
         "ledger_take": true,
-        "nil_narrative": false
+        "nil_narrative": true
       },
       "available_count": 8,
-      "captured_count": 4,
-      "coverage": 0.5,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1088,9 +1088,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -1098,11 +1098,11 @@
         "aura": true,
         "succession": true,
         "ledger_take": false,
-        "nil_narrative": false
+        "nil_narrative": true
       },
       "available_count": 7,
-      "captured_count": 3,
-      "coverage": 0.4286,
+      "captured_count": 7,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1126,10 +1126,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": false,
@@ -1139,8 +1139,8 @@
         "nil_narrative": false
       },
       "available_count": 7,
-      "captured_count": 3,
-      "coverage": 0.4286,
+      "captured_count": 6,
+      "coverage": 0.8571,
       "error": null
     },
     {
@@ -1164,21 +1164,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
-        "aura": false,
+        "transfer": true,
+        "aura": true,
         "succession": false,
         "ledger_take": false,
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 1,
-      "coverage": 0.125,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -1202,12 +1202,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": false,
         "aura": true,
         "succession": true,
@@ -1215,8 +1215,8 @@
         "nil_narrative": false
       },
       "available_count": 10,
-      "captured_count": 3,
-      "coverage": 0.3,
+      "captured_count": 9,
+      "coverage": 0.9,
       "error": null
     },
     {
@@ -1240,12 +1240,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
+        "before_after": true,
+        "production": true,
         "recruiting": false,
-        "honors": false,
+        "honors": true,
         "award_watch": false,
-        "depth_chart": false,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -1253,8 +1253,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 4,
-      "coverage": 0.5,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -1278,9 +1278,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -1288,11 +1288,11 @@
         "aura": true,
         "succession": true,
         "ledger_take": false,
-        "nil_narrative": false
+        "nil_narrative": true
       },
       "available_count": 7,
-      "captured_count": 3,
-      "coverage": 0.4286,
+      "captured_count": 7,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1316,12 +1316,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
         "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -1329,8 +1329,8 @@
         "nil_narrative": false
       },
       "available_count": 11,
-      "captured_count": 6,
-      "coverage": 0.5455,
+      "captured_count": 10,
+      "coverage": 0.9091,
       "error": null
     },
     {
@@ -1354,9 +1354,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -1367,8 +1367,8 @@
         "nil_narrative": true
       },
       "available_count": 7,
-      "captured_count": 6,
-      "coverage": 0.8571,
+      "captured_count": 7,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1392,10 +1392,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": false,
@@ -1405,8 +1405,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 4,
-      "coverage": 0.5,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -1430,21 +1430,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
-        "aura": false,
+        "transfer": true,
+        "aura": true,
         "succession": false,
         "ledger_take": false,
         "nil_narrative": false
       },
       "available_count": 5,
-      "captured_count": 1,
-      "coverage": 0.2,
+      "captured_count": 4,
+      "coverage": 0.8,
       "error": null
     },
     {
@@ -1468,10 +1468,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": false,
@@ -1481,8 +1481,8 @@
         "nil_narrative": false
       },
       "available_count": 7,
-      "captured_count": 5,
-      "coverage": 0.7143,
+      "captured_count": 7,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1506,21 +1506,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
-        "aura": false,
+        "transfer": true,
+        "aura": true,
         "succession": false,
         "ledger_take": false,
         "nil_narrative": false
       },
       "available_count": 5,
-      "captured_count": 1,
-      "coverage": 0.2,
+      "captured_count": 5,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1544,21 +1544,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
         "transfer": false,
-        "aura": false,
+        "aura": true,
         "succession": false,
         "ledger_take": false,
         "nil_narrative": false
       },
       "available_count": 5,
-      "captured_count": 1,
-      "coverage": 0.2,
+      "captured_count": 4,
+      "coverage": 0.8,
       "error": null
     },
     {
@@ -1582,21 +1582,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
-        "transfer": false,
+        "transfer": true,
         "aura": true,
         "succession": true,
         "ledger_take": true,
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 5,
-      "coverage": 0.625,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -1620,12 +1620,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -1633,8 +1633,8 @@
         "nil_narrative": true
       },
       "available_count": 12,
-      "captured_count": 6,
-      "coverage": 0.5,
+      "captured_count": 12,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1658,9 +1658,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -1671,8 +1671,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 5,
-      "coverage": 0.625,
+      "captured_count": 7,
+      "coverage": 0.875,
       "error": null
     },
     {
@@ -1696,21 +1696,21 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
-        "transfer": false,
+        "recruiting": true,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
+        "transfer": true,
         "aura": true,
         "succession": true,
         "ledger_take": true,
         "nil_narrative": false
       },
       "available_count": 10,
-      "captured_count": 5,
-      "coverage": 0.5,
+      "captured_count": 10,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1734,10 +1734,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": true,
@@ -1747,8 +1747,8 @@
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 5,
-      "coverage": 0.5556,
+      "captured_count": 8,
+      "coverage": 0.8889,
       "error": null
     },
     {
@@ -1772,10 +1772,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
-        "honors": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": false,
@@ -1785,8 +1785,8 @@
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 4,
-      "coverage": 0.4444,
+      "captured_count": 8,
+      "coverage": 0.8889,
       "error": null
     },
     {
@@ -1810,12 +1810,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
+        "recruiting": true,
         "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": false,
         "aura": true,
         "succession": true,
@@ -1823,8 +1823,8 @@
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 5,
-      "coverage": 0.5556,
+      "captured_count": 8,
+      "coverage": 0.8889,
       "error": null
     },
     {
@@ -1848,9 +1848,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -1861,8 +1861,8 @@
         "nil_narrative": false
       },
       "available_count": 6,
-      "captured_count": 4,
-      "coverage": 0.6667,
+      "captured_count": 5,
+      "coverage": 0.8333,
       "error": null
     },
     {
@@ -1886,8 +1886,8 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
+        "before_after": true,
+        "production": true,
         "recruiting": false,
         "honors": false,
         "award_watch": false,
@@ -1899,8 +1899,8 @@
         "nil_narrative": false
       },
       "available_count": 4,
-      "captured_count": 3,
-      "coverage": 0.75,
+      "captured_count": 4,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1924,12 +1924,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
         "recruiting": false,
-        "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "honors": true,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -1937,8 +1937,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 5,
-      "coverage": 0.625,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -1962,12 +1962,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": true,
         "aura": true,
         "succession": true,
@@ -1975,8 +1975,8 @@
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 5,
-      "coverage": 0.5556,
+      "captured_count": 9,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -2000,9 +2000,9 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
         "award_watch": false,
         "depth_chart": false,
@@ -2013,8 +2013,8 @@
         "nil_narrative": false
       },
       "available_count": 7,
-      "captured_count": 3,
-      "coverage": 0.4286,
+      "captured_count": 6,
+      "coverage": 0.8571,
       "error": null
     },
     {
@@ -2038,12 +2038,12 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
-        "production": false,
-        "recruiting": false,
+        "before_after": true,
+        "production": true,
+        "recruiting": true,
         "honors": false,
-        "award_watch": false,
-        "depth_chart": false,
+        "award_watch": true,
+        "depth_chart": true,
         "transfer": false,
         "aura": true,
         "succession": true,
@@ -2051,8 +2051,8 @@
         "nil_narrative": false
       },
       "available_count": 8,
-      "captured_count": 3,
-      "coverage": 0.375,
+      "captured_count": 8,
+      "coverage": 1.0,
       "error": null
     },
     {
@@ -2076,10 +2076,10 @@
       },
       "captured": {
         "discourse": true,
-        "before_after": false,
+        "before_after": true,
         "production": true,
-        "recruiting": false,
-        "honors": false,
+        "recruiting": true,
+        "honors": true,
         "award_watch": false,
         "depth_chart": false,
         "transfer": true,
@@ -2089,8 +2089,8 @@
         "nil_narrative": false
       },
       "available_count": 9,
-      "captured_count": 5,
-      "coverage": 0.5556,
+      "captured_count": 8,
+      "coverage": 0.8889,
       "error": null
     }
   ],

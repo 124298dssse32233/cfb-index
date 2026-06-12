@@ -1827,6 +1827,50 @@ def _upsert_bible(
 # build_card READS that cache; this step is the ONLY place generation runs.
 # Returns a dict of counts. NEVER raises into the caller.
 # ===========================================================================
+def _most_talked_about_ids(db, season: int) -> list[int]:
+    """The 'most talked about' cohort (doc 59 §2 / §4.1.1) — ordered by the latest
+    week's ``player_aura_weekly.mention_count`` DESC, non-low-signal only.
+
+    This is the FORWARD-COHORT half of the selector: the players fans are actually
+    arguing about right now (Joey Aguilar's 199 mentions with zero watch-list
+    pedigree get the writer here, where the importance pool would miss them). Unioned
+    with ``_llm_candidate_ids`` (the pedigree pool) in ``compute_story_cards`` and the
+    union is then run through ``eligibility.filter_active`` so DEPARTED players (Beck
+    et al.) drop from the forward cohort. Returns [] on any failure (the caller falls
+    back to the importance pool alone). NEVER raises."""
+    rows = _safe_all(
+        db,
+        """
+        SELECT paw.player_id, paw.mention_count
+          FROM player_aura_weekly paw
+         INNER JOIN (
+               SELECT player_id, MAX(week) AS max_week
+                 FROM player_aura_weekly
+                WHERE season_year = :s
+                  AND COALESCE(is_low_signal, 0) = 0
+                GROUP BY player_id
+         ) latest
+            ON latest.player_id = paw.player_id
+           AND latest.max_week  = paw.week
+         WHERE paw.season_year = :s
+           AND COALESCE(paw.is_low_signal, 0) = 0
+         ORDER BY paw.mention_count DESC
+        """,
+        {"s": int(season)},
+    )
+    out: list[int] = []
+    seen: set[int] = set()
+    for r in rows:
+        pid = r.get("player_id")
+        if pid is None:
+            continue
+        pid = int(pid)
+        if pid not in seen:
+            seen.add(pid)
+            out.append(pid)
+    return out
+
+
 def _llm_candidate_ids(db, season: int) -> list[int]:
     """Importance-ordered S/T1 candidate pool for the bounded LLM batch.
 
@@ -1941,12 +1985,45 @@ def compute_story_cards(
         if players:
             pids = [int(p) for p in players]
         else:
-            # Importance-ordered S/T1 cohort so a bounded --limit batch hits the
-            # marquee players (real discourse) first, not the long-tail roster.
+            # Forward cohort (doc 59 §2 / §4.1.1) = the UNION of 'most talked about'
+            # (player_aura_weekly.mention_count DESC) and the importance/pedigree
+            # pool, mention-first so a bounded --limit batch hits the players fans
+            # argue about now (Aguilar) AND the marquee pedigree (Manning). The union
+            # is then filtered through eligibility.filter_active so DEPARTED players
+            # (drafted/transferred-out/graduated — Beck et al.) drop from the forward
+            # top-50; they recast as ghosts in successors' cards, never as a 2026
+            # preview. Each step degrades gracefully to the prior behavior.
             try:
-                pids = _llm_candidate_ids(db, season)
+                talked = _most_talked_about_ids(db, season)
             except Exception:
-                pids = []
+                talked = []
+            try:
+                importance = _llm_candidate_ids(db, season)
+            except Exception:
+                importance = []
+            # Mention-first union, de-duped, order preserved.
+            pids = []
+            _seen: set[int] = set()
+            for pid in (*talked, *importance):
+                try:
+                    ipid = int(pid)
+                except (TypeError, ValueError):
+                    continue
+                if ipid not in _seen:
+                    _seen.add(ipid)
+                    pids.append(ipid)
+            # Eligibility gate: drop DEPARTED, keep ACTIVE + UNCERTAIN (never-raise;
+            # on any failure keep the unfiltered union — better an extra card than a
+            # silently-dropped cohort).
+            try:
+                from . import eligibility as _elig
+
+                upcoming = _upcoming_season(_as_of_date(_today()))
+                filtered = _elig.filter_active(db, pids, upcoming_season=upcoming)
+                if filtered:  # never let the gate empty the cohort
+                    pids = filtered
+            except Exception:
+                pass
             if not pids:  # signal tables empty -> fall back to the raw roster.
                 try:
                     pids = nar._roster_player_ids(db, season)
