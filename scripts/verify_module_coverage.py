@@ -84,6 +84,21 @@ SIGNALS: list[tuple[str, str, str]] = [
      "AND mood_score IS NOT NULL AND mood_score<>0"),
     ("chronicle_cards", "AI Narratives (chronicle cards, team pages)",
      "SELECT COUNT(DISTINCT slug) FROM chronicle_card_cache"),
+    # Player Story Card ("Dossier Noir") engine — these count DISTINCT
+    # player_external_id (player-grain) per doc 48 §4, except player_succession
+    # which is team-grain (keeps team_id, matching the team-based signals above).
+    ("player_ledger_scores", "Story Card fan-ledger leads (player pages)",
+     "SELECT COUNT(DISTINCT player_external_id) FROM player_ledger_scores "
+     "WHERE season_year=(SELECT MAX(season_year) FROM player_ledger_scores) AND fired=1"),
+    ("player_succession", "Story Card throne-line / Filling-the-Shoes (player pages)",
+     "SELECT COUNT(DISTINCT team_id) FROM player_succession "
+     "WHERE season_year=(SELECT MAX(season_year) FROM player_succession)"),
+    ("player_bible", "Story Card persistent bible (player pages)",
+     "SELECT COUNT(DISTINCT player_external_id) FROM player_bible "
+     "WHERE data_coverage_flag='narrative'"),
+    ("narrative_beats", "Story Card narrative beats (player pages)",
+     "SELECT COUNT(DISTINCT player_external_id) FROM narrative_beats "
+     "WHERE season_year=(SELECT MAX(season_year) FROM narrative_beats)"),
 ]
 
 

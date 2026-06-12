@@ -5245,6 +5245,7 @@ def _player_pages_v2_css() -> str:
             STATUS_STRIP_CSS as _STSTR_CSS,
             WHERE_ENDED_UP_CSS as _WEU_CSS,
             OUTLOOK_2026_CSS as _OL26_CSS,
+            STORY_CARD_CSS as _PSC_CSS,
         )
         try:
             from cfb_rankings.player_pages.composite_score import COMPOSITE_SCORE_CSS as _CMP_CSS
@@ -5258,7 +5259,7 @@ def _player_pages_v2_css() -> str:
             _ACC_CSS = ""
         # Tokens come FIRST so module-level CSS can reference --pct-* / --belief-* / --accolade-* vars.
         return (
-            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _SK_CSS + _PP_CSS + _SX_CSS + _STSTR_CSS + _WEU_CSS + _OL26_CSS + _CMP_CSS + _ACC_CSS
+            _PT_CSS + _SR_CSS + _CL_CSS + _MM_CSS + _LSF_CSS + _HT_CSS + _CA_CSS + _DT_CSS + _SG_CSS + _GL_CSS + _BS_CSS + _SP_CSS + _PC_CSS + _SC_CSS + _NA_CSS + _ND_CSS + _SE_CSS + _CS2_CSS + _TC_CSS + _SK_CSS + _PP_CSS + _SX_CSS + _STSTR_CSS + _WEU_CSS + _OL26_CSS + _CMP_CSS + _ACC_CSS + _PSC_CSS
         )
     except Exception:
         return ""
@@ -9345,6 +9346,16 @@ def build_player_page_data_map(
                 page_data["new_in_their_words_html"] = render_in_their_words(db, player_id)
             except Exception:
                 page_data["new_in_their_words_html"] = ""
+            # Player Story Card ("Dossier Noir") — top-of-page narrative crown.
+            # Self-contained; resolves player_external_id internally via player_source_ids.
+            # Graceful "" so a render error never blanks the page (matches new_aura_html).
+            try:
+                from cfb_rankings.player_pages.story_card import build_card as _build_story_card
+                page_data["new_story_card_html"] = _build_story_card(
+                    db, player_id, int(summary["season_year"]), _position,
+                )
+            except Exception:
+                page_data["new_story_card_html"] = ""
             page_data["new_game_log_html"] = _render_game_log_v2(
                 db, player_id, int(summary["season_year"]),
                 _position, _primary_team_id,
@@ -9437,6 +9448,7 @@ def build_player_page_data_map(
                 )
         except Exception as _exc:
             print(f"  player-pages v2: {player_id} failed — {type(_exc).__name__}: {_exc}", flush=True)
+            page_data["new_story_card_html"] = ""
             page_data["new_standing_rail_html"] = ""
             page_data["new_coaching_lineage_html"] = ""
             page_data["new_mirror_match_html"] = ""
@@ -19926,6 +19938,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           <span>/</span>
           <strong>{escape(player_name)}</strong>
         </div>
+        {player_data.get("new_story_card_html") or ""}
         {player_data.get("new_status_strip_html") or ""}
         {player_data.get("new_where_ended_up_html") or ""}
         {player_data.get("new_outlook_2026_html") or ""}
