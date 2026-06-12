@@ -29,7 +29,20 @@ class DatasetContract:
       season_phase      which REGIME family in calendar.REGIME (drives covid/missing tagging).
       density           optional {"per": col, "min_normal": float, "min_covid": float}.
       allowed_values    optional {col: frozenset(values)} for categorical validity.
-      zero_row_policy   'required' | 'deferred' | 'out_of_scope' (round-7 open question).
+      zero_row_policy   'required' | 'deferred' | 'out_of_scope' (round-7, now resolved).
+                        Governs how the completeness pillar treats a ZERO-ROW table:
+                          * 'required'     — a normal-regime season with 0 rows is a real
+                                             gap and fires at ``severity`` (the spine default).
+                          * 'deferred'     — a known-but-not-yet-built table. A zero-row
+                                             ``deferred`` table emits status='unknown' /
+                                             severity='info' carrying ``zero_row_note`` — it is
+                                             SURFACED (never a silent green) but is NEVER a
+                                             false RED.
+                          * 'out_of_scope' — derived/unused/superseded. Excluded from the gate
+                                             entirely (emits a single info row so it is still
+                                             listed, but never fails and never blocks).
+      zero_row_note     human one-liner explaining a 'deferred' / 'out_of_scope' classification
+                        (surfaced in the emitted CheckResult so the reason is never lost).
       severity          default severity for failures against this contract.
     """
     name: str
@@ -42,6 +55,7 @@ class DatasetContract:
     density: dict | None = None
     allowed_values: dict | None = None
     zero_row_policy: str = "required"
+    zero_row_note: str = ""
     severity: str = "critical"
 
 
@@ -225,8 +239,136 @@ OFFSEASON_CONTRACTS: tuple[DatasetContract, ...] = (
 )
 
 
+# === ZERO-ROW TABLES (explicitly classified) ==============================
+# Round-7 open question RESOLVED: every empty/zero-row table is classified so it
+# can never sit ambiguously green. Two policies cover all seven:
+#
+#   * 'deferred'     — a real planned dataset that is simply not built yet. The
+#                      play-by-play family (plays / drives / cfbd_pbp_plays) is
+#                      scoped to Wave A3. A zero-row deferred table is SURFACED as
+#                      an explicit UNKNOWN/info (so it never reads as silently
+#                      complete) but is NEVER a false RED — we don't punish the
+#                      gate for work we have intentionally not started.
+#   * 'out_of_scope' — derived/unused tables that are superseded or never wired
+#                      up (coaching_changes — coaching history lives on
+#                      team_seasons.head_coach instead; portal_moves — superseded
+#                      by transfer_entries; player_draft_projection — not built;
+#                      heisman_market_odds_weekly — not built, Heisman signal
+#                      comes from heisman_rankings_weekly). These are EXCLUDED from
+#                      the gate (the completeness pillar emits at most a single
+#                      info row so they remain listed, but they never fail/block).
+#
+# These carry no real season grain to evaluate, so expected_seasons is empty —
+# the completeness pillar short-circuits on zero_row_policy before season logic.
+# season_phase is recorded for documentation/grouping only.
+
+_PBP_DEFERRED_NOTE = "Wave A3 scoped PBP backfill"
+_DERIVED_UNUSED_NOTE = "derived/unused — superseded or not yet built"
+
+# --- Play-by-play family: deferred to Wave A3 -----------------------------
+PLAYS = DatasetContract(
+    name="plays",
+    table="plays",
+    grain=("play_id",),
+    required_non_null=("play_id", "game_id"),
+    parents=(("game_id", "games", "game_id"),),
+    expected_seasons=frozenset(),
+    season_phase="game_spine",
+    zero_row_policy="deferred",
+    zero_row_note=_PBP_DEFERRED_NOTE,
+    severity="info",
+)
+
+DRIVES = DatasetContract(
+    name="drives",
+    table="drives",
+    grain=("drive_id",),
+    required_non_null=("drive_id", "game_id"),
+    parents=(("game_id", "games", "game_id"),),
+    expected_seasons=frozenset(),
+    season_phase="game_spine",
+    zero_row_policy="deferred",
+    zero_row_note=_PBP_DEFERRED_NOTE,
+    severity="info",
+)
+
+CFBD_PBP_PLAYS = DatasetContract(
+    name="cfbd_pbp_plays",
+    table="cfbd_pbp_plays",
+    grain=("play_id",),
+    required_non_null=("play_id", "game_id"),
+    parents=(("game_id", "games", "game_id"),),
+    expected_seasons=frozenset(),
+    season_phase="game_spine",
+    zero_row_policy="deferred",
+    zero_row_note=_PBP_DEFERRED_NOTE,
+    severity="info",
+)
+
+# --- Derived / unused tables: out of scope --------------------------------
+COACHING_CHANGES = DatasetContract(
+    name="coaching_changes",
+    table="coaching_changes",
+    grain=("coaching_change_id",),
+    required_non_null=("team_id", "coach_name"),
+    parents=(("team_id", "teams", "team_id"),),
+    expected_seasons=frozenset(),
+    season_phase="offseason",
+    zero_row_policy="out_of_scope",
+    zero_row_note=_DERIVED_UNUSED_NOTE,
+    severity="info",
+)
+
+PORTAL_MOVES = DatasetContract(
+    name="portal_moves",
+    table="portal_moves",
+    grain=("portal_move_id",),
+    required_non_null=("player_name",),
+    parents=(),
+    expected_seasons=frozenset(),
+    season_phase="offseason",
+    zero_row_policy="out_of_scope",
+    zero_row_note=_DERIVED_UNUSED_NOTE,
+    severity="info",
+)
+
+PLAYER_DRAFT_PROJECTION = DatasetContract(
+    name="player_draft_projection",
+    table="player_draft_projection",
+    grain=("player_draft_projection_id",),
+    required_non_null=("player_id",),
+    parents=(("player_id", "players", "player_id"),),
+    expected_seasons=frozenset(),
+    season_phase="offseason",
+    zero_row_policy="out_of_scope",
+    zero_row_note=_DERIVED_UNUSED_NOTE,
+    severity="info",
+)
+
+HEISMAN_MARKET_ODDS_WEEKLY = DatasetContract(
+    name="heisman_market_odds_weekly",
+    table="heisman_market_odds_weekly",
+    grain=("heisman_market_odds_id",),
+    required_non_null=("player_id", "season_year"),
+    parents=(("player_id", "players", "player_id"),),
+    expected_seasons=frozenset(),
+    season_phase="offseason",
+    zero_row_policy="out_of_scope",
+    zero_row_note=_DERIVED_UNUSED_NOTE,
+    severity="info",
+)
+
+ZERO_ROW_CONTRACTS: tuple[DatasetContract, ...] = (
+    PLAYS, DRIVES, CFBD_PBP_PLAYS,
+    COACHING_CHANGES, PORTAL_MOVES, PLAYER_DRAFT_PROJECTION,
+    HEISMAN_MARKET_ODDS_WEEKLY,
+)
+
+
 # === Registry =============================================================
-ALL_CONTRACTS: tuple[DatasetContract, ...] = SPINE_CONTRACTS + OFFSEASON_CONTRACTS
+ALL_CONTRACTS: tuple[DatasetContract, ...] = (
+    SPINE_CONTRACTS + OFFSEASON_CONTRACTS + ZERO_ROW_CONTRACTS
+)
 
 CONTRACTS_BY_NAME: dict[str, DatasetContract] = {c.name: c for c in ALL_CONTRACTS}
 

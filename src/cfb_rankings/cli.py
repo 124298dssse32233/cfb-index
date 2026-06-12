@@ -113,6 +113,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="scope the report to a single season (forward-compat).",
     )
     data_health_parser.add_argument(
+        "--html", nargs="?", const="", default=None, metavar="PATH",
+        help="write a self-contained INTERNAL HTML dashboard (gate banner + "
+             "coverage heatmap + flagged assertions). Omit PATH for the default "
+             "gitignored data_health_report.html. Read-only side effect; never "
+             "writes under output/site, never the DB.",
+    )
+    data_health_parser.add_argument(
         "--snapshot", action="store_true",
         help="persist this run to data_health_snapshot/_result (trend history).",
     )
@@ -2666,9 +2673,18 @@ def main() -> None:
         if str(_scripts) not in _sys.path:
             _sys.path.insert(0, str(_scripts))
         import verify_data_health as _dh
+        # --html is nargs="?" here too: None = omit; "" = bare flag (use the
+        # script's default gitignored path); any other value = explicit PATH.
+        _html = getattr(args, "html", None)
+        _html_argv = (
+            [] if _html is None
+            else ["--html"] if _html == ""
+            else ["--html", _html]
+        )
         rc = _dh.main(
             (["--json"] if getattr(args, "json", False) else [])
             + (["--strict"] if getattr(args, "strict", False) else [])
+            + _html_argv
             + (["--snapshot"] if getattr(args, "snapshot", False) else [])
             + (["--open-issue"] if getattr(args, "open_issue", False) else [])
             + (["--dry-run"] if getattr(args, "dry_run", False) else [])

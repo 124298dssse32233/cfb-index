@@ -33,6 +33,7 @@ from collections import defaultdict
 from datetime import datetime
 
 from .base import CheckResult
+from ..source_prefix_map import classify_instance
 
 name = "freshness"
 
@@ -51,9 +52,12 @@ SINGLE_CLASS_PREFIXES: dict[str, str] = {
 }
 
 # Multi-class prefixes fan out to several registry classes (reddit->4, substack->10,
-# beat->13, youtube->3, board->3). The spec is explicit: do NOT auto-parent these;
-# an instance that does not match a class exactly stays ``unclassified`` and visible
-# so a human can review it, rather than being silently mis-attributed.
+# beat->13, youtube->3, board->3). The spec is explicit: do NOT auto-parent these
+# by string prefix. An instance that does not match a class exactly is handed to the
+# reviewable name-based HEURISTIC in ``source_prefix_map.classify_instance`` (e.g.
+# ``reddit_rss_<known-team-slug>`` -> ``reddit_team``); only if THAT also declines
+# does the instance stay ``unclassified`` and visible for human review — never
+# silently mis-attributed.
 MULTI_CLASS_PREFIXES: frozenset[str] = frozenset(
     {"reddit", "substack", "beat", "youtube", "board"}
 )
@@ -90,16 +94,41 @@ def _registry_classes(conn: sqlite3.Connection) -> set[str]:
     return {str(r[0]) for r in rows if r and r[0] is not None}
 
 
-def _classify(instance_id: str, registry: set[str]) -> str:
+def _team_slugs(conn: sqlite3.Connection) -> set[str]:
+    """Known team slugs (``teams.slug``) — the evidence the reddit_rss heuristic
+    uses to confirm a ``reddit_rss_<slug>`` instance is a real team subreddit.
+
+    Returns an empty set if the table/column is absent, in which case the
+    heuristic simply declines to map reddit_rss instances (stays conservative).
+    """
+    try:
+        rows = conn.execute(
+            "SELECT DISTINCT slug FROM teams WHERE slug IS NOT NULL"
+        ).fetchall()
+    except sqlite3.Error:
+        return set()
+    return {str(r[0]) for r in rows if r and r[0] is not None}
+
+
+def _classify(
+    instance_id: str,
+    registry: set[str],
+    team_slugs: set[str] | None = None,
+) -> str:
     """Map a scrape_health instance id onto a registry source class.
 
     Order (most to least certain):
       1. exact match — the instance id IS a registry class (e.g. ``cfbd``,
          ``polymarket``, the ``*_template`` rows).
       2. reviewed single-class prefix auto-map (athletics/campus/locked/google).
-      3. a non-multi prefix that resolves to exactly ONE registry class is a safe
+      3. multi-class prefix (reddit/substack/beat/youtube/board): consult the
+         reviewable name-based heuristic in ``source_prefix_map``. It returns a
+         registry class only when the instance NAME unambiguously implies one
+         (e.g. ``reddit_rss_<known-team-slug>`` -> ``reddit_team``), else None ->
+         ``unclassified``. Never guessed into a multi-class parent.
+      4. a non-multi prefix that resolves to exactly ONE registry class is a safe
          single-class map (covers other single-class prefixes without guessing).
-      4. otherwise ``unclassified`` (multi-class prefixes + anything unrecognised).
+      5. otherwise ``unclassified`` (anything unrecognised).
     """
     if instance_id in registry:
         return instance_id
@@ -108,7 +137,10 @@ def _classify(instance_id: str, registry: set[str]) -> str:
     if prefix in SINGLE_CLASS_PREFIXES:
         return SINGLE_CLASS_PREFIXES[prefix]
     if prefix in MULTI_CLASS_PREFIXES:
-        return UNCLASSIFIED
+        # Heuristic, conservative name-based map; returns a registry class only
+        # when the instance name unambiguously implies exactly one, else None.
+        heur = classify_instance(instance_id, registry, team_slugs)
+        return heur if heur is not None else UNCLASSIFIED
 
     # A prefix that maps to exactly one registry class is unambiguous -> safe to
     # auto-map. More than one (or zero) -> leave unclassified for human review.
@@ -231,6 +263,7 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
     results: list[CheckResult] = []
 
     registry = _registry_classes(conn)
+    team_slugs = _team_slugs(conn)
     latest = _latest_per_instance(conn)
 
     if not latest:
@@ -284,15 +317,25 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
         "overdue": 0,
         "unhealthy": 0,
         "unclassified_instances": 0,
+        # Multi-class-prefix instances the name-based heuristic recovered (would
+        # otherwise be unclassified). Reported so the heuristic's reach is visible.
+        "heuristic_classified": 0,
     }
 
     for instance_id, (status, ts) in latest.items():
-        cls = _classify(instance_id, registry)
+        cls = _classify(instance_id, registry, team_slugs)
         bucket = per_class[cls]
         bucket["instances"] += 1
         overall["instances"] += 1
         if cls == UNCLASSIFIED:
             overall["unclassified_instances"] += 1
+        elif (
+            instance_id not in registry
+            and instance_id.split("_", 1)[0] in MULTI_CLASS_PREFIXES
+        ):
+            # A multi-class-prefix instance that did NOT exact-match but the
+            # heuristic still placed onto a class -> a recovered classification.
+            overall["heuristic_classified"] += 1
 
         st = (status or "").lower()
         if st in ("error", "empty", "skipped", "ok"):
@@ -356,7 +399,8 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
         f"{overall['unhealthy']} unhealthy "
         f"({overall['error']} error + {overall['empty']} empty + "
         f"{overall['overdue']} overdue), {healthy} healthy; "
-        f"{overall['unclassified_instances']} unclassified."
+        f"{overall['unclassified_instances']} unclassified "
+        f"({overall['heuristic_classified']} recovered by name heuristic)."
     )
     results.append(
         CheckResult(

@@ -269,6 +269,125 @@ def test_sparse_season_fails_density():
 
 
 # ===========================================================================
+# Zero-row table classification (round-7): deferred vs out_of_scope policy.
+# A 'deferred' empty table is SURFACED (unknown/info) but never a false RED;
+# an 'out_of_scope' empty table is EXCLUDED from the gate (pass/info) so a
+# derived/unused table never blocks the build. Neither may sit silently green.
+# ===========================================================================
+
+def _add_zero_row_tables(conn: sqlite3.Connection) -> None:
+    """Create the seven classified zero-row tables (empty) on a synthetic DB so
+    the completeness pillar exercises the zero_row_policy path (not the
+    missing-table UNKNOWN path)."""
+    conn.executescript(
+        """
+        CREATE TABLE plays (play_id INTEGER PRIMARY KEY, game_id INTEGER);
+        CREATE TABLE drives (drive_id INTEGER PRIMARY KEY, game_id INTEGER);
+        CREATE TABLE cfbd_pbp_plays (
+            play_id INTEGER PRIMARY KEY, game_id INTEGER, season_year INTEGER
+        );
+        CREATE TABLE coaching_changes (
+            coaching_change_id INTEGER PRIMARY KEY, team_id INTEGER, coach_name TEXT
+        );
+        CREATE TABLE portal_moves (
+            portal_move_id INTEGER PRIMARY KEY, player_name TEXT
+        );
+        CREATE TABLE player_draft_projection (
+            player_draft_projection_id INTEGER PRIMARY KEY, player_id INTEGER
+        );
+        CREATE TABLE heisman_market_odds_weekly (
+            heisman_market_odds_id INTEGER PRIMARY KEY, player_id INTEGER,
+            season_year INTEGER
+        );
+        """
+    )
+    conn.commit()
+
+
+def test_deferred_zero_row_table_is_surfaced_unknown_info_not_red():
+    """plays/drives/cfbd_pbp_plays empty => one UNKNOWN/info row carrying the
+    deferred note. Surfaced (never silently complete) but NEVER a critical RED."""
+    conn = _healthy_spine_db()
+    _add_zero_row_tables(conn)
+    rows = {r.check_id: r for r in completeness.run(conn)}
+    for ds in ("plays", "drives", "cfbd_pbp_plays"):
+        r = rows[f"completeness.{ds}.zero_row_deferred"]
+        assert r.status == "unknown", f"{ds} deferred must be unknown, got {r.status}"
+        assert r.severity == "info", f"{ds} deferred must be info-severity (never RED)"
+        assert "Wave A3 scoped PBP backfill" in r.detail
+        assert r.season is None
+        # No per-season rows are emitted for a policy-short-circuited table.
+        assert not any(
+            cid.startswith(f"completeness.{ds}.") and cid.endswith(tuple("0123456789"))
+            for cid in rows
+        ), f"{ds} should not emit per-season completeness rows while deferred"
+
+
+def test_out_of_scope_zero_row_table_is_excluded_from_gate():
+    """coaching_changes/portal_moves/player_draft_projection/
+    heisman_market_odds_weekly empty => pass/info, so they never push the gate to
+    YELLOW/RED (excluded), yet remain listed for transparency."""
+    conn = _healthy_spine_db()
+    _add_zero_row_tables(conn)
+    rows = {r.check_id: r for r in completeness.run(conn)}
+    for ds in ("coaching_changes", "portal_moves", "player_draft_projection",
+               "heisman_market_odds_weekly"):
+        r = rows[f"completeness.{ds}.zero_row_out_of_scope"]
+        assert r.status == "pass", f"{ds} out_of_scope must be pass, got {r.status}"
+        assert r.severity == "info"
+        assert "OUT OF SCOPE" in r.detail
+        assert r.season is None
+
+
+def test_zero_row_policy_does_not_create_false_red_in_gate():
+    """On an otherwise-clean spine, the seven classified zero-row tables must not
+    introduce any critical fail/unknown — deferred adds only info-unknowns
+    (YELLOW at worst), out_of_scope adds only passes."""
+    conn = _healthy_spine_db()
+    _add_zero_row_tables(conn)
+    results = completeness.run(conn)
+    gate = dh_gate.compute_gate(results)
+    assert gate["counts"]["critical_fail"] == 0
+    assert gate["counts"]["critical_unknown"] == 0
+    assert gate["overall"] != "RED"
+
+
+def test_games_2023_still_critical_with_zero_row_tables_present():
+    """Guard: classifying the zero-row tables must NOT silence the real 2023
+    game-spine black hole — games 2023 (dropped) still fires critical."""
+    conn = _healthy_spine_db()
+    _add_zero_row_tables(conn)
+    conn.execute("DELETE FROM games WHERE season_year = 2023")
+    conn.commit()
+    rows = {r.check_id: r for r in completeness.run(conn)}
+    r = rows["completeness.games.2023"]
+    assert r.status == "fail" and r.severity == "critical"
+    assert "MISSING" in r.detail
+
+
+def test_deferred_table_falls_through_to_normal_when_populated():
+    """The policy short-circuit only fires while the table is ZERO-ROW. If a
+    'deferred' table later gets rows, the short-circuit releases and the table is
+    handed to the normal per-season path (the zero_row_deferred info row stops
+    being emitted), so the classification can never mask freshly-landed data."""
+    conn = _healthy_spine_db()
+    _add_zero_row_tables(conn)
+    # cfbd_pbp_plays has a season_year column; landing a row flips it off the
+    # deferred short-circuit onto the normal season-evaluation path.
+    conn.execute(
+        "INSERT INTO cfbd_pbp_plays (play_id, game_id, season_year) VALUES (1, 1, 2024)"
+    )
+    conn.commit()
+    rows = {r.check_id: r for r in completeness.run(conn)}
+    assert "completeness.cfbd_pbp_plays.zero_row_deferred" not in rows, (
+        "a populated deferred table must stop emitting the zero-row policy row"
+    )
+    # The deferred contract carries no expected_seasons (its season grain is moot),
+    # so the normal path emits no per-season rows — the key guarantee is that the
+    # short-circuit RELEASED, never that it stayed silent while empty.
+
+
+# ===========================================================================
 # FAULT 2 — a null key column -> validity null-density FAIL (warning).
 # ===========================================================================
 
@@ -722,3 +841,63 @@ def test_open_issues_missing_gh_never_crashes(monkeypatch, capsys):
     payloads = [{"title": "[data-health] source feeds unhealthy", "body": "b"}]
     assert dh_alerting.open_issues(payloads, dry_run=False) == 0
     assert "gh not on PATH" in capsys.readouterr().out
+
+
+# === source_prefix_map: divergence guard + classify_instance coverage ========
+# The module docstring promises MULTI_CLASS_PREFIXES is "asserted equal in the
+# tests" to its freshness.py twin (the two are kept as separate copies to stay
+# import-cycle-free). Reviewer flagged that this most-logic-dense new file had
+# ZERO direct coverage; these close that gap.
+
+from cfb_rankings.data_health import source_prefix_map as dh_prefix
+from cfb_rankings.data_health.checks import freshness as dh_freshness
+
+
+def test_multi_class_prefixes_stay_in_lockstep():
+    """The two copies of MULTI_CLASS_PREFIXES must never silently diverge."""
+    assert dh_prefix.MULTI_CLASS_PREFIXES == dh_freshness.MULTI_CLASS_PREFIXES
+
+
+def test_classify_reddit_rss_known_slug_maps_to_reddit_team():
+    """reddit_rss_<known-team-slug> is the team subreddit -> reddit_team."""
+    cls = dh_prefix.classify_instance(
+        "reddit_rss_alabama", {"reddit_team", "reddit_city"},
+        known_team_slugs={"alabama", "auburn"},
+    )
+    assert cls == "reddit_team"
+
+
+def test_classify_reddit_rss_unknown_slug_declines():
+    """An unknown slug is NOT guessed into reddit_team — stays unclassified."""
+    cls = dh_prefix.classify_instance(
+        "reddit_rss_not_a_real_team", {"reddit_team", "reddit_city"},
+        known_team_slugs={"alabama"},
+    )
+    assert cls is None
+
+
+def test_classify_reddit_backfill_city_and_team():
+    reg = {"reddit_team", "reddit_city"}
+    assert dh_prefix.classify_instance("reddit_backfill_alabama_city", reg) == "reddit_city"
+    assert dh_prefix.classify_instance("reddit_backfill_alabama_team", reg) == "reddit_team"
+
+
+def test_classify_substack_unique_token_match():
+    """A substack instance maps only when its tokens uniquely imply one class."""
+    cls = dh_prefix.classify_instance(
+        "substack_solid_verbal", {"substack_the_solid_verbal", "substack_other_news"},
+    )
+    assert cls == "substack_the_solid_verbal"
+
+
+def test_classify_board_declines_independent_boards():
+    """Independent fan boards have no per-board class -> never folded in."""
+    assert dh_prefix.classify_instance(
+        "board_allbuffs", {"board_247_free", "board_quotes"}
+    ) is None
+
+
+def test_classify_non_multi_class_prefix_is_handled_upstream():
+    """A non-multi-class prefix returns None (freshness already classified it)."""
+    cls, reason = dh_prefix.classify_instance_explained("cfbd", {"cfbd"})
+    assert cls is None and "upstream" in reason

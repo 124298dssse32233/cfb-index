@@ -19,8 +19,12 @@
 | 0.7 | Provenance labeling (legacy_unverified) | ✅ done | (this commit) | idempotent `backfill_provenance_status.py` (canonical 43,479 / legacy_unverified 151,493 via dry-run; write/idempotent/revert proven on synthetic DB; **live DB untouched**); wired non-critical into box build → labels post-merge |
 | **1.4** | Fix Polymarket prob_yes write-side parse | ✅ done | `5dea305` | `prediction_markets.py` json.loads JSON-string outcomePrices; 3 unit tests pass (string→0.125, list→0.4, malformed→safe); additive, read side unaffected; takes effect next collect |
 | **3.2** | Hide Live Signal Flow placeholder | ✅ done | (this commit) | `live_signal_flow.py` returns "" when no real events (was a perpetual "awaiting" scaffold); verified empty for 3 real players; template `{… or ""}` + alias = no wrapper/gap; real-data path preserved |
+| **1.3** | Team Savant: populate + qualify + wire | ✅ done | `5f10c44` | team_savant_weekly was 0 → card hidden everywhere. Fixed: refresh-savant auto-selects latest season w/ data (was hardcoded 2024=empty); card suppresses all-time peer set when <3 seasons (flat-50 degenerate w/ 2025-only). Populated all 127 programs (1,270 rows); wired into build_publish.ps1; 5 tests. Verified Alabama: 3 chips, 10 bars, accurate narrative |
+| **3.1** | De-dup player-page modules | ✅ done | `156312f` | 5 modules double-rendered (v2 + legacy both emitted): narrative-arc, scenario-explorer, splits, peer-comparator, supporting-cast → converged onto the template's existing `{v2 or legacy}` fallback (mirror-match/coaching-lineage already used it). Safe: legacy was already called unconditionally → now called less. player-standing LEFT (prior session kept it as a deliberate complement — visual judgment, not a bug) |
 
-Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked. (Phase 0 + 0.2b complete; Phase 1 started.)
+Legend: ✅ done · 🔄 in progress · ⏳ pending · ⚠️ blocked. (Phase 0 + 0.2b complete; Phase 1 started; WP-1.3 + 3.1 + 3.2 shipped.)
+
+**Deploy log:** Deploy 1 (2026-06-11 ~16:28) — Phase 0 + 0.2b + WP-1.4 + WP-3.2 live & verified (search 9,483 items / 0 dead links, /offseason/ + /film-room/ 200, placeholder gone). Deploy 2 (in progress) — WP-1.3 Savant + WP-3.1 de-dup.
 
 ---
 

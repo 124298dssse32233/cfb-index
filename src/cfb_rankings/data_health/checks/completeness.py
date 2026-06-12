@@ -60,6 +60,16 @@ def _check_contract(
 ) -> list[CheckResult]:
     out: list[CheckResult] = []
 
+    # --- Zero-row policy short-circuit (round-7 classification) ------------
+    # A 'deferred' or 'out_of_scope' table that is genuinely empty is classified
+    # explicitly so it never sits ambiguously green AND never fires a false RED.
+    # Only short-circuit while the table is actually zero-row; if it later gets
+    # populated, fall through to normal per-season completeness logic.
+    if contract.zero_row_policy in ("deferred", "out_of_scope"):
+        policy_result = _check_zero_row_policy(conn, contract)
+        if policy_result is not None:
+            return [policy_result]
+
     season_col = _resolve_season_column(conn, contract.table)
     if season_col is None:
         # We cannot even find the season grain — never silently pass. This is a
@@ -109,7 +119,95 @@ def _check_contract(
         out.append(
             _check_season(conn, contract, season, season_col, counts.get(season, 0))
         )
+
+    # A zero-row-policy contract (deferred/out_of_scope) that has SINCE been
+    # populated falls through the short-circuit to here, but it carries no
+    # expected_seasons, so the per-season loop above emits nothing and the table
+    # would silently vanish from the report at exactly the moment it gained data
+    # — the opposite of the "never silently complete" intent. Emit one surfaced
+    # 'now-populated' row (pass/info, never gate-blocking) so it stays listed and
+    # prompts giving it real season expectations.
+    if not out and contract.zero_row_policy in ("deferred", "out_of_scope"):
+        total = _table_row_count(conn, contract.table) or 0
+        out.append(
+            CheckResult(
+                check_id=f"completeness.{contract.name}.now_populated",
+                pillar=name,
+                dataset=contract.name,
+                season=None,
+                status="pass",
+                severity="info",
+                detail=(
+                    f"{contract.name}: {total} row(s) present but no expected_seasons "
+                    f"declared (was zero-row '{contract.zero_row_policy}'). Now populated "
+                    f"— give it real per-season expectations to grade completeness."
+                ),
+                evidence_sql=f"SELECT COUNT(*) FROM {contract.table};",
+            )
+        )
     return out
+
+
+def _check_zero_row_policy(
+    conn: sqlite3.Connection, contract: DatasetContract
+) -> CheckResult | None:
+    """Honor a 'deferred' / 'out_of_scope' classification for a zero-row table.
+
+    Returns a single CheckResult when the table is empty (and is thus governed by
+    its policy), or ``None`` when the table actually has rows (caller falls
+    through to the normal per-season completeness path).
+
+      * deferred     -> status='unknown', severity='info'. SURFACED (so it never
+                        reads as silently complete) but never a false RED. Carries
+                        ``zero_row_note`` (e.g. "Wave A3 scoped PBP backfill").
+      * out_of_scope -> status='pass', severity='info'. Listed for transparency.
+                        It never fails or blocks the gate (a pass cannot push the
+                        gate to YELLOW/RED), so a derived / unused / superseded
+                        table is harmless. NOTE: a pass DOES still count toward the
+                        completeness pillar's pass-rate denominator — it is excused
+                        from the gate, not erased from the reported metrics.
+    """
+    total = _table_row_count(conn, contract.table)
+    if total is None:
+        # Table missing / unqueryable — let the normal path surface it as a
+        # structural UNKNOWN rather than masking it behind the zero-row policy.
+        return None
+    if total > 0:
+        # No longer empty (e.g. a backfill landed); evaluate it normally.
+        return None
+
+    note = contract.zero_row_note or contract.zero_row_policy
+    count_sql = f"SELECT COUNT(*) FROM {contract.table};"
+
+    if contract.zero_row_policy == "deferred":
+        return CheckResult(
+            check_id=f"completeness.{contract.name}.zero_row_deferred",
+            pillar=name,
+            dataset=contract.name,
+            season=None,
+            status="unknown",
+            severity="info",
+            detail=(
+                f"{contract.name}: 0 rows — DEFERRED ({note}). Surfaced as a known, "
+                f"intentional gap; not judged a fail, but never reads as complete."
+            ),
+            evidence_sql=count_sql,
+        )
+
+    # out_of_scope
+    return CheckResult(
+        check_id=f"completeness.{contract.name}.zero_row_out_of_scope",
+        pillar=name,
+        dataset=contract.name,
+        season=None,
+        status="pass",
+        severity="info",
+        detail=(
+            f"{contract.name}: 0 rows — OUT OF SCOPE ({note}). Excluded from the "
+            f"health gate (derived/unused); listed only for transparency."
+        ),
+        evidence_sql=count_sql,
+    )
 
 
 def _check_season(
@@ -310,6 +408,20 @@ def _check_density(
 
 
 # --- helpers -------------------------------------------------------------
+
+
+def _table_row_count(conn: sqlite3.Connection, table: str) -> int | None:
+    """Total row count for ``table``, or None if the table is missing/unqueryable."""
+    try:
+        row = conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()
+    except sqlite3.Error:
+        return None
+    if not row or row[0] is None:
+        return None
+    try:
+        return int(row[0])
+    except (TypeError, ValueError):
+        return None
 
 
 def _resolve_season_column(conn: sqlite3.Connection, table: str) -> str | None:

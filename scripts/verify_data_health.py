@@ -42,8 +42,13 @@ _DEFAULT_DB = str(_REPO_ROOT / "cfb_rankings.db")
 from cfb_rankings.data_health import checks as health_checks      # noqa: E402
 from cfb_rankings.data_health import gate as health_gate          # noqa: E402
 from cfb_rankings.data_health import report as health_report      # noqa: E402
+from cfb_rankings.data_health import report_html as health_report_html  # noqa: E402
 from cfb_rankings.data_health import snapshots as health_snapshots  # noqa: E402
 from cfb_rankings.data_health import alerting as health_alerting    # noqa: E402
+
+# Default internal dashboard path (gitignored; an OPERATOR view, never deployed —
+# must not land under output/site).
+_DEFAULT_HTML = str(_REPO_ROOT / "data_health_report.html")
 
 
 def _open_ro(db_path: Path) -> sqlite3.Connection:
@@ -93,6 +98,12 @@ def main(argv: "list[str] | None" = None) -> int:
         help="scope the report to a single season (forward-compat).",
     )
     p.add_argument(
+        "--html", nargs="?", const=_DEFAULT_HTML, default=None, metavar="PATH",
+        help="write a self-contained INTERNAL HTML dashboard to PATH "
+             f"(default {Path(_DEFAULT_HTML).name}, gitignored). "
+             "Read-only side effect: never writes under output/site, never the DB.",
+    )
+    p.add_argument(
         "--snapshot", action="store_true",
         help="persist this run to the additive data_health_* tables "
              "(separate read-write connection; writes only those tables).",
@@ -121,6 +132,22 @@ def main(argv: "list[str] | None" = None) -> int:
         print(json.dumps(report_json, indent=2, default=str))
     else:
         print(health_report.render_console(gate, results))
+
+    # --- internal HTML dashboard (read-only side effect; never under output/site) ---
+    if args.html is not None:
+        html_path = Path(args.html)
+        if "output/site" in html_path.resolve().as_posix():
+            # Guard: this is an operator view, NOT a deployed site page.
+            print(f"::error::refusing to write data-health HTML under a site path: {html_path}")
+            return 2
+        try:
+            html_path.parent.mkdir(parents=True, exist_ok=True)
+            html_path.write_text(
+                health_report_html.render_html(gate, results), encoding="utf-8"
+            )
+            print(f"   data-health HTML dashboard written: {html_path}")
+        except OSError as exc:
+            print(f"::warning::could not write data-health HTML dashboard: {exc}")
 
     # --- active-guard layer: persist + alert AFTER the gate (read stayed ?mode=ro) ---
     if args.snapshot:

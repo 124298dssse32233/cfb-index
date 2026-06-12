@@ -63,6 +63,10 @@ gdelt-bq-key.json
 # logs/autopilot/*.log is intentionally tracked as run records.
 /*.log
 
+# Data Health internal dashboard — operator view written by
+# `scripts/verify_data_health.py --html` (default path). Local-only; never deployed.
+/data_health_report.html
+
 # Git worktrees
 .worktrees/
 
