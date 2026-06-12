@@ -296,8 +296,8 @@ Run "verify: build manifest (nav-route completeness)" {
 # per-class GitHub-issue alerting, add `--open-issue` (deduped, one issue per
 # regression class; gh-absent degrades to a warning) — left off here so an
 # automated run doesn't open ~16 issues without an explicit opt-in.
-Run "verify: data-health (snapshot + gate)" {
-    python scripts/verify_data_health.py --snapshot
+Run "verify: data-health (snapshot + gate + alert)" {
+    python scripts/verify_data_health.py --snapshot --open-issue
 }
 
 # =========================================================================

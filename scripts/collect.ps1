@@ -59,6 +59,17 @@ Run "coaching: coaching-fetch-news" { python manage.py coaching-fetch-news --day
 
 # =========================================================================
 # B. Reddit — per-team football subs via .rss (primary) + r/CFB national (best-effort)
+#
+# 429 NOTE (freshness triage 2026-06-12): the live .rss path below is the single
+# biggest source of HTTP 429 in scrape_health (Reddit throttles unauth .rss). The
+# RESOLUTION is the archive path, NOT live-RSS backoff: Arctic Shift by-subreddit
+# listing endpoints (alive, unauth, fresh, and carry score + num_comments that RSS
+# lacks) via src/cfb_rankings/clients/reddit_arctic_shift.py + `--provider
+# arctic-shift` (already the default for collect-reddit-comments below) and pullpush
+# (collect-reddit-watchlist below). Architecture + rebuild plan: Build #2 in
+# docs/source_expansion_MASTER_PLAN_2026-06.md. The .rss 429s are therefore
+# largely EXPECTED degradation of a superseded path — route per-team pulls through
+# the Arctic Shift listing adapter rather than fighting the rate limit.
 # =========================================================================
 Run "reddit: collect-reddit-team-rss (per-team football subs)" {
     python manage.py collect-reddit-team-rss --season $global:CurSeason --week $global:SeasonWeek --limit 50
