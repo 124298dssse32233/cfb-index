@@ -69,6 +69,7 @@ from dataclasses import asdict, dataclass, field
 from typing import Any, Optional
 
 from .ledgers import fetch_ledger_lead
+from .season_labels import _last_completed_season, _upcoming_season
 from .story_card_renderer import render_story_card
 from .succession import SuccessionRead, fetch_succession_for_player
 
@@ -225,6 +226,20 @@ def _to_float(v: Any) -> float | None:
 
 def _today() -> str:
     return _dt.date.today().isoformat()
+
+
+def _as_of_date(as_of: str | None) -> _dt.date:
+    """Parse the card's as_of ISO string to a date; fall back to today.
+
+    The forward frame (the season we're previewing TOWARD) is derived from THIS
+    date, never from the data `season` (= last completed). In June 2026 this is
+    2026 while the stats are from 2025."""
+    if as_of:
+        try:
+            return _dt.date.fromisoformat(str(as_of)[:10])
+        except (TypeError, ValueError):
+            pass
+    return _dt.date.today()
 
 
 # class_year codes ('1'..'6') -> readable label for the identity meta.
@@ -731,26 +746,30 @@ def _build_body(
 
 
 def _build_why_now(
-    season_year: int,
+    upcoming: int,
     lead: dict[str, Any] | None,
     succ: SuccessionRead | None,
     transferred: bool,
 ) -> str | None:
     """The heartbeat (doc 43 §6). calendar_pressure is EMPTY (doc 46 gotcha), so
-    this degrades to a generic projective why-now — never blocks on the calendar."""
+    this degrades to a generic projective why-now — never blocks on the calendar.
+
+    `upcoming` is the season we're previewing TOWARD (e.g. 2026 in June 2026),
+    NOT the data season (= last completed, e.g. 2025). Every forward-looking
+    statement here frames around `upcoming` so the offseason reads forward."""
     if transferred:
-        return f"He changed programs heading into {season_year} — a fresh fit to prove out."
+        return f"He changed programs heading into {upcoming} — a fresh fit to prove out."
     if succ is not None and getattr(succ, "clock_line", None):
-        return f"The {succ.role} job is the open question heading into {season_year}."
+        return f"The {succ.role} job is the open question heading into {upcoming}."
     if lead:
         ledger = str(lead.get("ledger") or "")
         if ledger == "hope":
-            return f"He is squarely in the {season_year} hype cycle — projection season."
+            return f"He is squarely in the {upcoming} hype cycle — projection season."
         if ledger == "grievance":
-            return f"The {season_year} preseason slights are already feeding the chip."
+            return f"The {upcoming} preseason slights are already feeding the chip."
         if ledger == "judgment":
-            return f"His {season_year} case is being argued before a snap is played."
-    return f"The {season_year} outlook is the live story — the offseason looks forward."
+            return f"His {upcoming} case is being argued before a snap is played."
+    return f"The {upcoming} outlook is the live story — the offseason looks forward."
 
 
 def _build_kicker(
@@ -1082,6 +1101,10 @@ def build_card_payload(
             return None
         season_year = int(season_year)
         as_of = as_of_date or _today()
+        # Forward frame: the season we're previewing TOWARD, derived from the
+        # card's as_of date (NOT the data `season`, which is the last completed
+        # season the stats come from). In June 2026: upcoming=2026, stats=2025.
+        upcoming = _upcoming_season(_as_of_date(as_of))
 
         external_id = resolve_external_id(db, player_id)
         if not external_id:
@@ -1132,7 +1155,7 @@ def build_card_payload(
 
         if narrative_ok:
             body = _build_body(ident, rec, chips, succ, lead)
-            why_now = _build_why_now(season_year, lead, succ, transferred)
+            why_now = _build_why_now(upcoming, lead, succ, transferred)
             kicker = _build_kicker(succ, lead, ban)
             logline = _build_logline(ident, archetype, succ, lead, ban)
             chapter_label = _ledger_chapter_label(ledger_lead_name) if ledger_lead_name else (

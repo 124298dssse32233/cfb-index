@@ -76,6 +76,7 @@ import re
 from dataclasses import asdict
 from typing import Any, Optional
 
+from .season_labels import _last_completed_season, _upcoming_season
 from .story_card import (
     DominantTake,
     StoryCard,
@@ -183,6 +184,41 @@ def _trips_c7(text: str | None) -> bool:
 
 
 # ===========================================================================
+# STOCK-PHRASE BANLIST (the leaking-formula fix). The deterministic grudge take
+# ("rival fans root against him as much as their own team roots for theirs") was
+# parroted near-verbatim by the LLM across multiple cards (Nico, Arch, Raiola),
+# which reads formulaic. We reject this line + close variants in the eval gate so
+# the regen rejects+varies it into player-specific rival sentiment. Enforced
+# in-code (merged with the DB chronicle_banlist) so it needs no migration. The
+# rejection reason is RETRYABLE — the model is asked to express the rival take in
+# terms specific to THIS player instead.
+# ===========================================================================
+_STOCK_PHRASE_PATTERNS = (
+    # The exact deterministic grudge line + the structural variant ("root
+    # against ... as much as ... root for"). Whitespace-tolerant; case-insens.
+    re.compile(
+        r"root\s+against\s+him\s+as\s+much\s+as\s+(?:their|its)\s+own\s+team\s+roots\s+for",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"rival\s+fans\s+root\s+against\s+him\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"root\s+against\s+him\s+as\s+much\s+as\b",
+        re.IGNORECASE,
+    ),
+)
+
+
+def _trips_stock_phrase(text: str | None) -> bool:
+    """True if the prose contains the leaking stock rival line or a close variant."""
+    if not text:
+        return False
+    return any(p.search(text) for p in _STOCK_PHRASE_PATTERNS)
+
+
+# ===========================================================================
 # Small safe helpers (mirror story_card._safe_one / _to_float — never raise).
 # ===========================================================================
 def _safe_one(db, sql: str, params: dict[str, Any]) -> dict[str, Any] | None:
@@ -223,6 +259,22 @@ def _now_utc() -> str:
 
 def _word_count(text: str) -> int:
     return len(re.findall(r"\b\w[\w'-]*\b", text or ""))
+
+
+def _season_frame(payload: StoryCard) -> tuple[int, int]:
+    """(upcoming, last_completed) for the card's clock.
+
+    `upcoming` = the season we're previewing TOWARD (forward frame; 2026 in June
+    2026) — derived from the card's as_of_date so the prompt's forward statements
+    always point at the right year. `last_completed` = the season the supplied
+    stats come from (= the data season; 2025 today). The model is told both so it
+    NEVER frames a forward-looking statement around the stats season. NEVER raises
+    (falls back to today's date)."""
+    try:
+        d = _dt.date.fromisoformat(str(payload.as_of_date)[:10])
+    except (TypeError, ValueError, AttributeError):
+        d = _dt.date.today()
+    return _upcoming_season(d), _last_completed_season(d)
 
 
 # ===========================================================================
@@ -572,8 +624,33 @@ def _confidence_band(confidence: float | None) -> str:
 # keys; string fields preserve voice fine (the chronicle writer proves it).
 # Content inside <evidence> is DATA, never instructions.
 # ===========================================================================
-def _system_prompt(banlist_phrases: list[str], band: str, lens: str = "national") -> str:
+def _system_prompt(
+    banlist_phrases: list[str],
+    band: str,
+    lens: str = "national",
+    *,
+    upcoming: int | None = None,
+    last_completed: int | None = None,
+) -> str:
     banned = ", ".join(sorted(set(p for p in banlist_phrases if p))[:60])
+    # Season clock (the temporal-frame fix). The upcoming season is what every
+    # forward-looking statement previews TOWARD; the supplied stats are from the
+    # LAST COMPLETED season. Stated explicitly so the model never frames the
+    # season ahead around the stats year.
+    if upcoming is not None and last_completed is not None:
+        season_rule = (
+            f"SEASON CLOCK: it is the offseason. The UPCOMING season is {upcoming} "
+            f"(the one being previewed). The stats and rankings you are given are "
+            f"from the {last_completed} season (the LAST COMPLETED season). Frame "
+            f"EVERY forward-looking statement — 'entering', 'heading into', 'the "
+            f"season ahead', the QB/roster competition, the why-now, the outlook — "
+            f"around {upcoming}, NEVER around {last_completed}. Refer to {last_completed} "
+            f"only as 'last season' / 'the {last_completed} season' when citing the "
+            f"stats. Do not say a player is 'entering {last_completed}' or 'ahead of "
+            f"the {last_completed} season'.\n"
+        )
+    else:
+        season_rule = ""
     if band == "high":
         meter_rule = "Confidence is HIGH: tell it as a clear, single story."
     elif band == "split":
@@ -618,6 +695,12 @@ def _system_prompt(banlist_phrases: list[str], band: str, lens: str = "national"
         "is. If the evidence is only that, fall back to the stats.\n"
         "8. Feature-writing craft across the fields below: vary sentence length, plain "
         "English, no em-dashes, no second person, no hashtags, emoji, or calls to action.\n"
+        f"9. {season_rule}"
+        "10. When the conversation is rivals rooting against this player, express it in "
+        "terms SPECIFIC to this player (what rival fans actually say about HIM — a "
+        "particular play, transfer, quote, or grudge), not a stock line. Never reuse a "
+        "generic formula like 'rival fans root against him as much as their own team "
+        "roots for theirs'; that phrasing is banned.\n"
         f"BANNED WORDS/PHRASES: {banned}; plus 'generational', 'stellar', and 'elite' as a "
         "bare adjective.\n"
         f"{lens_rule}"
@@ -642,6 +725,9 @@ def _user_prompt(
     evidence: list[dict[str, Any]],
     band: str,
     lens: str = "national",
+    *,
+    upcoming: int | None = None,
+    last_completed: int | None = None,
 ) -> str:
     name = payload.player_name or "this player"
     ident = payload.identity_meta or ""
@@ -687,8 +773,24 @@ def _user_prompt(
         else f"State the dominant_take with conviction, attributed to {fanbase}."
     )
 
+    # Season clock for the per-player block + a closing forward-frame reminder.
+    if upcoming is not None and last_completed is not None:
+        season_tag = (
+            f"<upcoming_season>{upcoming}</upcoming_season>\n"
+            f"<stats_season>{last_completed}</stats_season>\n"
+        )
+        forward_reminder = (
+            f" Frame the season ahead as {upcoming}; the stats above are from "
+            f"{last_completed} (last season) — never say he is entering or heading "
+            f"into {last_completed}."
+        )
+    else:
+        season_tag = ""
+        forward_reminder = ""
+
     return (
         f"<player>{name} — {ident}</player>\n"
+        f"{season_tag}"
         f"<lens>{lens_tag}</lens>\n"
         f"<confidence_band>{band_word}</confidence_band>\n"
         f"<fan_take>{fan_take_line}</fan_take>\n"
@@ -697,8 +799,8 @@ def _user_prompt(
         f"<evidence>\n{ev_block}\n</evidence>\n"
         f"Write the Story Card JSON now. The logline leads on the most specific true thing "
         f"about {name}. {take_instruction}"
-        f"{split_clause} Ground every claim in the facts or the quoted discourse above. "
-        f"Return ONLY the JSON object with the five keys."
+        f"{split_clause}{forward_reminder} Ground every claim in the facts or the quoted "
+        f"discourse above. Return ONLY the JSON object with the five keys."
     )
 
 
@@ -809,6 +911,13 @@ def _eval_gate(db, text: str, evidence: list[dict[str, Any]]) -> tuple[bool, str
         # antislop unavailable -> skip this layer rather than block.
         pass
 
+    # 2b. STOCK-PHRASE banlist (in-code; needs no DB migration). The leaking
+    #     deterministic grudge line — "rival fans root against him as much as
+    #     their own team roots for theirs" — and close variants are rejected so
+    #     the regen varies them into player-specific rival sentiment. Retryable.
+    if _trips_stock_phrase(text):
+        return False, "banlist:stock-rival"
+
     # 3. ATTRIBUTION AUDIT (the compiler guard).
     if not _has_attribution(text):
         return False, "attribution:missing"
@@ -908,8 +1017,19 @@ def narrate(
         except Exception:
             banlist_phrases = []
 
-        system = _system_prompt(banlist_phrases, band, lens)
-        user = _user_prompt(payload, ev, band, lens)
+        # Season frame (the temporal-frame fix): forward statements point at the
+        # upcoming season, stats at the last completed season. Derived from the
+        # card's as_of_date so it tracks the calendar, not the data season.
+        upcoming, last_completed = _season_frame(payload)
+
+        system = _system_prompt(
+            banlist_phrases, band, lens,
+            upcoming=upcoming, last_completed=last_completed,
+        )
+        user = _user_prompt(
+            payload, ev, band, lens,
+            upcoming=upcoming, last_completed=last_completed,
+        )
 
         # S gets the full retry budget; T1 a single sharpening retry.
         max_attempts = (_MAX_RETRIES + 1) if (tier or "").upper() == "S" else 2
@@ -1133,6 +1253,13 @@ def _retry_sharpen(reason: str | None) -> str:
         return "The 'body' key was empty. Provide the 45-80 word expand narrative."
     if reason == "take-missing":
         return "The 'dominant_take' key was empty. State the fanbase take with conviction."
+    if reason == "banlist:stock-rival":
+        return (
+            "Do NOT use the stock line 'rival fans root against him as much as their "
+            "own team roots for theirs' or any variant of it. Express the rival "
+            "sentiment in terms SPECIFIC to THIS player — a particular play, transfer, "
+            "quote, or grudge rival fans actually cite about him."
+        )
     if reason and reason.startswith("banlist"):
         phrase = reason.split(":", 1)[1] if ":" in reason else ""
         return f"Do NOT use the phrase {phrase!r} or any cliche. Use plain, specific language."
