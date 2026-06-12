@@ -93,6 +93,11 @@ class Ban:
     label: str                       # ALWAYS present; never a bare number, e.g. "RUSHING VALUE · P4 QBs"
     receipt: Receipt
     kind: str = "rank"               # "rank" (spring-settle) | "magnitude" (count-up) — drives motion
+    # Color-by-register hint for the renderer (doc 60 §2/§6). The selection layer
+    # tags the register; the renderer maps it to a Noir accent token:
+    #   "aura"->--noir-aura violet · "production"->up/down by sign · "rank"->chalk +
+    #   tier-gold. Default "rank".
+    accent: str = "rank"
 
 
 @dataclass
@@ -229,6 +234,22 @@ _ACH_TIER = {
     "achievement_volume_king":       _BAN_T_VOLUME,
     "achievement_program_benchmark": _BAN_T_TEAM,
 }
+
+# The Streak — the single most fan-repeatable stat there is ("5 straight 100-yd
+# games"). The longest run of consecutive REGULAR-season games clearing a position
+# yardage bar, from game logs (player_game_stats; reliable, verified vs media).
+# Only the DISTINCTIVE versions ship: RB rushing + WR/TE receiving 100-yd games. A
+# QB passing-TD streak is near-universal (most starters throw one every game) so it
+# is NOT a distinction and is deliberately excluded. A strong streak (>= STRONG) is
+# a real production distinction; a short one is volume-tier texture.
+_STREAK_MIN = 3
+_STREAK_STRONG = 5
+_STREAK_SPEC = {  # position family -> (stat category, yard bar, label noun)
+    "RB": ("rushing", 100.0, "100-YD RUSH GAMES"),
+    "WR": ("receiving", 100.0, "100-YD REC GAMES"),
+    "TE": ("receiving", 100.0, "100-YD REC GAMES"),
+}
+_STREAK_POS = {"RB": "RB", "HB": "RB", "TB": "RB", "FB": "RB", "WR": "WR", "TE": "TE"}
 
 
 # ===========================================================================
@@ -594,6 +615,55 @@ def _achievement_ban(row: dict[str, Any], card_season: int) -> tuple[int, float,
     )
 
 
+def _streak_ban(db, player_id: int, season_year: int, position: str | None) -> tuple[int, float, Ban] | None:
+    """The Streak — longest run of consecutive regular-season games over the
+    position yardage bar (RB rushing / WR-TE receiving 100-yd). Returns
+    ``(tier, score, Ban)``: a strong streak (>= _STREAK_STRONG) is a PRODUCTION-tier
+    distinction, a shorter one is VOLUME-tier texture. None below _STREAK_MIN or for
+    positions without a distinctive streak (QB excluded — see _STREAK_SPEC)."""
+    fam = _STREAK_POS.get(str(position or "").upper())
+    spec = _STREAK_SPEC.get(fam) if fam else None
+    if not spec:
+        return None
+    category, bar, noun = spec
+    rows = _safe_all(
+        db,
+        """
+        select week, max(stat_value_num) as yds
+          from player_game_stats
+         where player_id = :pid and season_year = :s and season_type = 'regular'
+           and category = :c and stat_type = 'YDS' and stat_value_num is not null
+         group by week order by week
+        """,
+        {"pid": int(player_id), "s": int(season_year), "c": category},
+    )
+    best = cur = 0
+    for r in rows:
+        if (_to_float(r.get("yds")) or 0.0) >= bar:
+            cur += 1
+            best = max(best, cur)
+        else:
+            cur = 0
+    if best < _STREAK_MIN:
+        return None
+    tier = _BAN_T_PRODUCTION if best >= _STREAK_STRONG else _BAN_T_VOLUME
+    score = min(0.85, (best - 2) / 6.0)   # 3->.17, 5->.5, 7->.83 (capped)
+    return (
+        tier,
+        score,
+        Ban(
+            number=str(best),
+            label=f"STRAIGHT {noun}",
+            receipt=Receipt(
+                table="player_game_stats",
+                detail=f"longest {season_year} run of {int(bar)}+ {category} yds",
+            ),
+            kind="magnitude",
+            accent="rank",
+        ),
+    )
+
+
 def _select_ban(db, player_id: int, season_year: int, position: str | None) -> Ban | None:
     """Pick the single most surprising-yet-honest true number (doc 41 §6).
 
@@ -646,6 +716,7 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
                             detail=f"perception vs production percentile · {season_year}",
                         ),
                         kind="magnitude",
+                        accent="aura",
                     ),
                 ))
 
@@ -684,6 +755,7 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
                     detail=f"via your WEPA model · {season_year} · {plays} plays",
                 ),
                 kind="magnitude",
+                accent="production",
             ),
         ))
 
@@ -731,6 +803,14 @@ def _select_ban(db, player_id: int, season_year: int, position: str | None) -> B
         cand = _achievement_ban(ar, int(season_year))
         if cand is not None:
             candidates.append(cand)
+
+    # --- Candidate G: the Streak (the most fan-repeatable stat) -----------------
+    #   Longest run of consecutive 100-yd games (RB rushing / WR-TE receiving). A
+    #   strong streak headlines (PRODUCTION tier) over a modest WEPA; a short one is
+    #   volume texture. The single most quotable number a fan keeps in their head.
+    streak = _streak_ban(db, player_id, season_year, position)
+    if streak is not None:
+        candidates.append(streak)
 
     if not candidates:
         return None

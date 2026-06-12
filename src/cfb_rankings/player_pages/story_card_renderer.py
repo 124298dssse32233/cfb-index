@@ -196,12 +196,22 @@ def _render_ban(card: Any) -> str:
         return ""
     kind = str(_attr(ban, "kind", "rank") or "rank").strip().lower()
     kind = kind if kind in ("rank", "magnitude") else "rank"
+    # Color-by-register (doc 60 §2/§6): perception -> violet, production -> up/down
+    # by sign, rank/rarity -> gold (default). The selection layer tags `accent`;
+    # for production we derive the sign-direction here so CSS can color it.
+    accent = str(_attr(ban, "accent", "rank") or "rank").strip().lower()
+    accent = accent if accent in ("aura", "production", "rank") else "rank"
+    direction = ""
+    if accent == "production":
+        n = number.lstrip()
+        direction = "down" if n.startswith("-") else ("up" if n.startswith("+") else "")
+    dir_attr = f' data-ban-dir="{direction}"' if direction else ""
     receipt_html = _render_receipt(_attr(ban, "receipt", None))
     receipt_block = (
         f'<p class="psc-ban__receipt">{receipt_html}</p>' if receipt_html else ""
     )
     return (
-        f'<div class="psc-ban" data-ban-kind="{kind}">'
+        f'<div class="psc-ban" data-ban-kind="{kind}" data-ban-accent="{accent}"{dir_attr}>'
         f'<p class="psc-ban__label">{label}</p>'
         f'<p class="psc-ban__number">{number}</p>'
         f'{receipt_block}'
@@ -996,11 +1006,16 @@ STORY_CARD_CSS = """
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
   font-size: clamp(44px, 9vw, 68px);
   line-height: 0.92;
-  color: var(--psc-gold);
+  color: var(--psc-gold);              /* default = rank/rarity register (doc 60 §2) */
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
   letter-spacing: 0.01em;
 }
+/* BAN color-by-register (doc 60 §2/§6): perception = violet, production = up/down
+   by sign, rank/rarity = gold (default above). Locked Noir semantic accents. */
+.psc-ban[data-ban-accent="aura"] .psc-ban__number { color: var(--psc-aura, #B794FF); }
+.psc-ban[data-ban-accent="production"][data-ban-dir="up"] .psc-ban__number { color: var(--psc-up, #2EE07C); }
+.psc-ban[data-ban-accent="production"][data-ban-dir="down"] .psc-ban__number { color: var(--psc-down, #FF4E42); }
 /* The BAN is the ONE animated numeric hero in the view (§8.5). */
 .psc-card--narrative .psc-ban__number {
   transform: scale(1.1);
