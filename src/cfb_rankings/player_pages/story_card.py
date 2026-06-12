@@ -1804,6 +1804,61 @@ def _upsert_bible(
 # build_card READS that cache; this step is the ONLY place generation runs.
 # Returns a dict of counts. NEVER raises into the caller.
 # ===========================================================================
+def _llm_candidate_ids(db, season: int) -> list[int]:
+    """Importance-ordered S/T1 candidate pool for the bounded LLM batch.
+
+    The nightly compute is GPU-budgeted (``--limit``), so a bounded batch must
+    hit the marquee players fans actually visit (and who carry real discourse to
+    compile) — NOT an arbitrary slice of the ~23k-player roster (the old
+    ``_roster_player_ids`` order, which put low-discourse long-tail players first
+    and starved the batch). Ranks by the same signals ``classify_player_tier``
+    reads: award/Heisman watch first, then 5-star, top-decile WEPA, 4-star, and a
+    live (non-low-signal) aura row. The classifier stays the authority — this only
+    orders a superset so ``[:limit]`` lands on the right players. Returns [] on any
+    failure so the caller falls back to the raw roster.
+    """
+    rows = _safe_all(
+        db,
+        """
+        WITH sig AS (
+            SELECT player_id, 0 AS pri, -COALESCE(priority, 999) AS w
+              FROM player_award_watch_2026
+            UNION ALL
+            SELECT player_id, 1, COALESCE(rating, 0)
+              FROM player_recruiting_profiles WHERE stars = 5
+            UNION ALL
+            SELECT player_id, 2, ABS(metric_value)
+              FROM player_value_metrics
+             WHERE season_year = :s AND plays >= 50
+               AND metric_name IN ('wepa_passing', 'wepa_rushing')
+            UNION ALL
+            SELECT player_id, 3, COALESCE(rating, 0)
+              FROM player_recruiting_profiles WHERE stars = 4
+            UNION ALL
+            SELECT player_id, 4, COALESCE(aura_score, 0)
+              FROM player_aura_weekly
+             WHERE season_year = :s AND COALESCE(is_low_signal, 0) = 0
+        )
+        SELECT player_id
+          FROM sig
+         GROUP BY player_id
+         ORDER BY MIN(pri) ASC, MAX(w) DESC
+        """,
+        {"s": int(season)},
+    )
+    out: list[int] = []
+    seen: set[int] = set()
+    for r in rows:
+        pid = r.get("player_id")
+        if pid is None:
+            continue
+        pid = int(pid)
+        if pid not in seen:
+            seen.add(pid)
+            out.append(pid)
+    return out
+
+
 def compute_story_cards(
     db,
     season: int,
@@ -1863,10 +1918,17 @@ def compute_story_cards(
         if players:
             pids = [int(p) for p in players]
         else:
+            # Importance-ordered S/T1 cohort so a bounded --limit batch hits the
+            # marquee players (real discourse) first, not the long-tail roster.
             try:
-                pids = nar._roster_player_ids(db, season)
+                pids = _llm_candidate_ids(db, season)
             except Exception:
                 pids = []
+            if not pids:  # signal tables empty -> fall back to the raw roster.
+                try:
+                    pids = nar._roster_player_ids(db, season)
+                except Exception:
+                    pids = []
         if limit is not None:
             pids = pids[: int(limit)]
         counts["candidates"] = len(pids)
