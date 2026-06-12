@@ -96,6 +96,22 @@ def build_parser() -> argparse.ArgumentParser:
         "--since-days", type=int, default=7,
         help="Limit to runs within the last N days (default: 7).",
     )
+    data_health_parser = subparsers.add_parser(
+        "data-health",
+        help="Data Health Spine: gate the factual + offseason data layer "
+             "(read-only; RED/YELLOW/GREEN/UNKNOWN).",
+    )
+    data_health_parser.add_argument(
+        "--json", action="store_true", help="emit the JSON report.",
+    )
+    data_health_parser.add_argument(
+        "--strict", action="store_true",
+        help="exit 1 when the overall gate is RED (publish-blocking mode).",
+    )
+    data_health_parser.add_argument(
+        "--season", type=int, default=None,
+        help="scope the report to a single season (forward-compat).",
+    )
     compute_cohort_parser = subparsers.add_parser(
         "compute-cohort-week",
         help="Aggregate conversation_documents into team_cohort_week for a YYYY-WW.",
@@ -2627,6 +2643,23 @@ def main() -> None:
             print(f"iso_key     = {wk.iso_key}")
             print(f"in_season   = {wk.in_season}")
         return
+
+    # data-health opens the DB READ-ONLY through the orchestrator and never
+    # mutates — handle it before the read-write Database() setup so it stays a
+    # pure read-only gate (mirrors resolve-week's pre-DB short-circuit).
+    if args.command == "data-health":
+        import sys as _sys
+        from pathlib import Path as _Path
+        _scripts = _Path(__file__).resolve().parents[2] / "scripts"
+        if str(_scripts) not in _sys.path:
+            _sys.path.insert(0, str(_scripts))
+        import verify_data_health as _dh
+        rc = _dh.main(
+            (["--json"] if getattr(args, "json", False) else [])
+            + (["--strict"] if getattr(args, "strict", False) else [])
+            + (["--season", str(args.season)] if getattr(args, "season", None) is not None else [])
+        )
+        raise SystemExit(rc)
 
     config = AppConfig.from_env()
     from cfb_rankings.db import Database
