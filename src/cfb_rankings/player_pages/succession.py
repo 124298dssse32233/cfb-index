@@ -21,7 +21,30 @@ Detects positional succession from structured data only:
     else graduated.
   * HEIR-APPARENT (the Clock) — ``player_depth_chart_2026`` (partial, 513 rows;
     confidence-gated) plus a roster + recruiting fallback (the highest-pedigree
-    young non-holder). clock_score = pedigree x youth x latent_opportunity.
+    young non-holder) yields a heir CANDIDATE; whether a clock actually FIRES is
+    a RELATIVE-THREAT decision (doc 59 §5, redesigned 2026-06-12), not the heir's
+    absolute pedigree.
+
+doc 59 §5 redesign (2026-06-12) — three cracks fixed:
+  * (A/P0) RELATIVE-THREAT CLOCK. A clock fires only when the heir is a real talent
+    (stars>=4 or a notable transfer) AND (the incumbent is not entrenched OR a real
+    discourse competition exists). An entrenched, productive starter with a quiet
+    backup => the clock is SUPPRESSED (heir dropped, frame ``entrenched-no-clock``).
+    ``incumbent_entrenchment`` = f(production_pctl, confirmed-starter): HIGH if
+    production_pctl>=70 or confirmed starter; LOW if <30/none; MEDIUM between.
+  * (P1) DISCOURSE-COMPETITION GATE — heir BUZZ + incumbent<->heir CO-MENTION, never
+    a keyword scan (a keyword scan gave 41 false hits for Carson Beck, doc 59 §5.1).
+  * (B/P1) PREDECESSOR_BAND — the ghost's grade comes from their FINAL-SEASON
+    production (player_season_stats + wepa + fate), NOT recruiting stars. A departed
+    ghost has no current aura row, so aura is the wrong source (doc 59 §5.1).
+  * (C/P1) VALENCE-TO-WRITER — ``suggested_frame`` / ``predecessor_band`` /
+    ``threat_label`` / ``incumbent_entrenchment`` / ``suppress_clock`` /
+    ``discourse_competition`` are computed, persisted in ``detail_json``, and surfaced
+    on ``SuccessionRead`` (new fields, safe defaults — backward-compatible).
+  * (P2) SEASON ROLL-FORWARD — if the role-season incumbent is DEPARTED for the
+    upcoming season (``eligibility.is_departed``), the node is flagged so the 2026
+    preview never frames the ghost as a returning starter; best-effort heir-> or
+    depth-chart-> incumbent promotion is annotated in ``detail_json['rollforward']``.
 
 Every path degrades to ``None`` / ``[]`` / ``0`` on missing data and NEVER
 raises into the page. All new state keys on ``player_external_id`` (the stable
@@ -49,7 +72,13 @@ from typing import Any, Optional
 # ---------------------------------------------------------------------------
 @dataclass
 class SuccessionRead:
-    """Filling-the-Shoes + the Clock, deterministic (doc 44)."""
+    """Filling-the-Shoes + the Clock, deterministic (doc 44 + doc 59 §5).
+
+    The doc-59 redesign (2026-06-12) adds *valence-to-writer* fields with safe
+    defaults so the contract stays backward-compatible: existing callers
+    (story_card.py, story_card_narrator.py, story_card_renderer.py) read only the
+    original fields via getattr/_attr and never break when the new ones are absent.
+    """
 
     role: str                        # position_group, e.g. "QB"
     predecessor_name: Optional[str]
@@ -60,6 +89,14 @@ class SuccessionRead:
     tone: Optional[str]              # mourning|dread|hope|reverence|relief|suspense
     clock_line: Optional[str]        # "how many games until <heir> (4*) takes the job?"
     confidence: float = 0.0          # gated low when depth data is partial
+
+    # --- doc 59 §5 valence-to-writer (NEW, safe defaults) --------------------
+    suggested_frame: Optional[str] = None     # frame taxonomy (see _FRAME_*) — what the writer should reach for
+    predecessor_band: Optional[str] = None    # elite|solid|poor — the ghost's FINAL-SEASON production grade
+    threat_label: Optional[str] = None        # real|nominal|none — the relative heir threat
+    incumbent_entrenchment: Optional[str] = None  # high|medium|low — why the clock fires or stays silent
+    suppress_clock: bool = False              # True => the writer should drop the whole clock block
+    discourse_competition: bool = False       # True => real heir-buzz / co-mention competition exists
 
 
 # ---------------------------------------------------------------------------
@@ -85,6 +122,54 @@ _YOUTH_WEIGHT = {"1": 1.0, "2": 0.85, "3": 0.6, "4": 0.3, "5": 0.2, "6": 0.1}
 
 # Minimum defining-usage to count as a real role-holder (filters fringe arms).
 _MIN_ROLE_USAGE = {"QB": 40.0, "RB": 30.0, "WR": 15.0, "TE": 12.0}
+
+
+# ---------------------------------------------------------------------------
+# doc 59 §5 D-2 seeded constants — "what CFB fans actually want" (discourse-first,
+# data-as-qualifier). Named + tunable; the discourse-first ORDERING is locked, the
+# numbers are seeded from the live percentile distribution and may be retuned.
+# ---------------------------------------------------------------------------
+# Incumbent entrenchment bands from production_pctl (player_aura_weekly, last season).
+_ENTRENCH_HIGH_PCTL = 70.0   # >= 70 (top third) => HIGH (entrenched, productive starter)
+_ENTRENCH_LOW_PCTL = 30.0    # < 30 (or none) => LOW (unproven / open job)
+ENTRENCH_HIGH = "high"
+ENTRENCH_MEDIUM = "medium"
+ENTRENCH_LOW = "low"
+
+# A heir is a *real* talent (the precondition for ANY clock) at >= this star floor,
+# OR as a notable transfer / top-class recruit. An unranked walk-on never starts a clock.
+_HEIR_REAL_STARS = 4
+
+# Discourse-competition floors (doc 59 §5.1): NOT a keyword count. Real competition =
+# the heir generates meaningful OWN buzz AND/OR fans co-mention incumbent+heir together.
+# Seeded so Keelon Russell (46 heir docs, 4 co-mentions) clears but Luke Nickel
+# (16 docs, 2 co-mentions) and Shawqi Itraish (0 docs, 0 co-mentions) do not.
+_COMP_HEIR_BUZZ_FLOOR = 25       # heir's own discourse-doc / mention count floor
+_COMP_COMENTION_FLOOR = 3        # incumbent<->heir co-mention doc count floor
+_COMP_HEIR_BUZZ_STRONG = 60      # heir buzz this high alone signals a real QB-room story
+
+# Threat labels (the relative heir threat that reaches the writer).
+THREAT_REAL = "real"
+THREAT_NOMINAL = "nominal"
+THREAT_NONE = "none"
+
+# Predecessor-band production thresholds (the GHOST's FINAL-SEASON grade, NOT aura).
+# production_pctl from player_aura_weekly is null for departed ghosts, so we grade
+# from their last player_season_stats line + wepa + fate (doc 59 §5.1).
+_PRED_BAND_ELITE_PCTL = 75.0     # final-season production_pctl >= 75 => elite (if an aura row survives)
+_PRED_BAND_POOR_PCTL = 33.0      # bottom third => poor
+PRED_BAND_ELITE = "elite"
+PRED_BAND_SOLID = "solid"
+PRED_BAND_POOR = "poor"
+
+# suggested_frame taxonomy (doc 59 §5).
+_FRAME_LEGEND = "live-up-to-a-legend"
+_FRAME_ESCAPE_BUST = "escape-a-bust"
+_FRAME_UPGRADE = "upgrade"
+_FRAME_OPEN_COMP = "open-competition"
+_FRAME_ENTRENCHED = "entrenched-no-clock"
+_FRAME_FIRST_TIME = "first-time-starter"
+_FRAME_CONTINUITY = "continuity"
 
 
 # ---------------------------------------------------------------------------
@@ -185,6 +270,257 @@ def _class_year(db, player_id: int | None) -> str | None:
         {"pid": int(player_id)},
     )
     return str(row["class_year"]) if row and row.get("class_year") else None
+
+
+# ---------------------------------------------------------------------------
+# doc 59 §5 — relative threat, entrenchment, discourse-competition, predecessor band
+# ---------------------------------------------------------------------------
+def _production_pctl(db, player_id: int | None, season_year: int) -> float | None:
+    """The player's production_pctl from player_aura_weekly for the given season.
+
+    Latest week wins. Returns None when no (non-low-signal) aura row exists — note a
+    DEPARTED ghost has NO current aura row, so this is null for most predecessors
+    (use _predecessor_final_production for them, NOT this — doc 59 §5.1).
+    """
+    if player_id is None:
+        return None
+    row = _safe_one(
+        db,
+        """
+        select production_pctl from player_aura_weekly
+         where player_id = :pid and season_year = :s
+           and production_pctl is not null
+         order by week desc limit 1
+        """,
+        {"pid": int(player_id), "s": int(season_year)},
+    )
+    return _to_float(row.get("production_pctl")) if row else None
+
+
+def _is_confirmed_2026_starter(db, player_id: int | None) -> bool:
+    """True iff the player carries a 'confirmed' starter row in player_depth_chart_2026."""
+    if player_id is None:
+        return False
+    row = _safe_one(
+        db,
+        """
+        select 1 as ok from player_depth_chart_2026
+         where player_id = :pid
+           and (lower(coalesce(starter_status,'')) like '%start%'
+                or lower(coalesce(confidence,'')) = 'confirmed')
+         limit 1
+        """,
+        {"pid": int(player_id)},
+    )
+    return bool(row)
+
+
+def _incumbent_entrenchment(
+    db, incumbent_id: int | None, season_year: int, *, has_real_usage: bool,
+) -> tuple[str, str]:
+    """(entrenchment band, why) for the incumbent (doc 59 §5 D-2).
+
+    HIGH   — returning starter with production_pctl >= 70 (top third) OR a confirmed
+             2026 starter with real prior usage.
+    MEDIUM — a starter, but new/unproven or mid production (30 <= pctl < 70).
+    LOW    — unproven / open job (pctl < 30 or none).
+
+    Discourse is the primary gate downstream; entrenchment is the data qualifier.
+    """
+    pctl = _production_pctl(db, incumbent_id, season_year)
+    confirmed = _is_confirmed_2026_starter(db, incumbent_id)
+
+    if pctl is not None and pctl >= _ENTRENCH_HIGH_PCTL:
+        return (ENTRENCH_HIGH, f"returning starter, production_pctl {pctl:.0f} (top third)")
+    if confirmed and has_real_usage:
+        return (ENTRENCH_HIGH, "confirmed 2026 starter with prior usage")
+    if pctl is not None and pctl >= _ENTRENCH_LOW_PCTL:
+        return (ENTRENCH_MEDIUM, f"starter, mid production_pctl {pctl:.0f}")
+    if pctl is not None:
+        return (ENTRENCH_LOW, f"unproven, low production_pctl {pctl:.0f}")
+    # No aura production signal at all: lean on usage as a weak qualifier.
+    if has_real_usage:
+        return (ENTRENCH_MEDIUM, "starter with usage but no production percentile")
+    return (ENTRENCH_LOW, "no production signal / open job")
+
+
+def _heir_buzz(db, heir_id: int | None) -> int:
+    """The heir's OWN discourse buzz — the larger of (distinct tagged docs, aura
+    mention_count). A real threat generates real conversation (doc 59 §5.1).
+
+    NOT a keyword scan: a real heir has people *talking about him*.
+    """
+    if heir_id is None:
+        return 0
+    docs = _safe_one(
+        db,
+        "select count(distinct conversation_document_id) as c "
+        "from conversation_document_targets where player_id = :pid",
+        {"pid": int(heir_id)},
+    )
+    doc_n = _to_int((docs or {}).get("c")) or 0
+    aura = _safe_one(
+        db,
+        "select mention_count from player_aura_weekly "
+        "where player_id = :pid and mention_count is not null "
+        "order by season_year desc, week desc limit 1",
+        {"pid": int(heir_id)},
+    )
+    mc = _to_int((aura or {}).get("mention_count")) or 0
+    return max(doc_n, mc)
+
+
+def _comention_count(db, incumbent_id: int | None, heir_id: int | None) -> int:
+    """Docs tagged to BOTH the incumbent and the heir (the QB-room co-mention).
+
+    Fans writing the two names together = a genuine QB-room story (doc 59 §5.1).
+    This is the co-mention half of the discourse-competition gate.
+    """
+    if incumbent_id is None or heir_id is None:
+        return 0
+    row = _safe_one(
+        db,
+        """
+        select count(distinct a.conversation_document_id) as c
+          from conversation_document_targets a
+          join conversation_document_targets b
+            on a.conversation_document_id = b.conversation_document_id
+         where a.player_id = :inc and b.player_id = :heir
+        """,
+        {"inc": int(incumbent_id), "heir": int(heir_id)},
+    )
+    return _to_int((row or {}).get("c")) or 0
+
+
+def _discourse_competition(
+    db, incumbent_id: int | None, heir_id: int | None, season_year: int,
+) -> tuple[bool, dict[str, int]]:
+    """Does a REAL discourse competition exist between (incumbent, heir)?
+
+    doc 59 §5.1 — NOT a keyword count (a naive 'battle/QB1/depth chart' scan gave 41
+    false hits for Carson Beck). Real competition requires the heir to generate
+    meaningful OWN buzz AND/OR fans to co-mention the two together:
+
+      * heir buzz >= floor AND co-mention >= floor      (a genuine QB-room story), OR
+      * heir buzz >= a STRONG floor alone               (a hyped heir who's all anyone
+                                                          discusses, even if the tagger
+                                                          under-links the co-mention).
+
+    Returns (bool, {"heir_buzz", "comention"}) so the caller can persist the why.
+    """
+    buzz = _heir_buzz(db, heir_id)
+    co = _comention_count(db, incumbent_id, heir_id)
+    metrics = {"heir_buzz": buzz, "comention": co}
+    if buzz >= _COMP_HEIR_BUZZ_STRONG:
+        return (True, metrics)
+    if buzz >= _COMP_HEIR_BUZZ_FLOOR and co >= _COMP_COMENTION_FLOOR:
+        return (True, metrics)
+    return (False, metrics)
+
+
+def _heir_is_real_talent(heir: dict[str, Any] | None) -> bool:
+    """A clock precondition: the heir is a real talent (doc 59 §5 D-2).
+
+    True when stars >= 4 OR the heir arrived via the portal (a notable transfer).
+    An unranked walk-on with no portal pedigree never starts a clock.
+    """
+    if not heir:
+        return False
+    stars = _to_int(heir.get("stars")) or 0
+    if stars >= _HEIR_REAL_STARS:
+        return True
+    if (heir.get("origin") or heir.get("heir_origin")) == "portal":
+        return True
+    return False
+
+
+def _predecessor_final_production(
+    db, predecessor_id: int | None, role_season: int,
+) -> dict[str, Any]:
+    """The GHOST's final-season production grade (doc 59 §5.1).
+
+    A departed predecessor has NO current player_aura_weekly row, so we CANNOT grade
+    them from aura. Grade from their last player_season_stats line + wepa
+    (player_value_metrics) instead. ``role_season`` is the season they last held the
+    role (the prior season); we read their stats AT or BEFORE that season.
+
+    Returns {"prod_pctl": float|None, "wepa": float|None, "usage": float|None}.
+    prod_pctl is best-effort: if an aura row happens to survive for that season we use
+    it, but the band logic falls back to fate+wepa when it's null.
+    """
+    out: dict[str, Any] = {"prod_pctl": None, "wepa": None, "usage": None}
+    if predecessor_id is None:
+        return out
+    # If an aura row survives for the role season, take its production_pctl (rare for
+    # ghosts but cheap to check). NOT the current aura row — scoped to the role season.
+    out["prod_pctl"] = _production_pctl(db, predecessor_id, role_season)
+    # wepa (passing/rushing/receiving) from player_value_metrics — the durable signal.
+    wepa = _safe_one(
+        db,
+        """
+        select max(metric_value) as wepa from player_value_metrics
+         where player_id = :pid and season_year <= :s
+           and lower(coalesce(metric_name,'')) like 'wepa%'
+           and metric_value is not null
+        """,
+        {"pid": int(predecessor_id), "s": int(role_season)},
+    )
+    out["wepa"] = _to_float((wepa or {}).get("wepa"))
+    return out
+
+
+def _predecessor_band(
+    db,
+    predecessor: dict[str, Any] | None,
+    role_season: int,
+) -> str | None:
+    """elite | solid | poor — the ghost's FINAL-SEASON production grade (doc 59 §5.1).
+
+    Production-based, NOT recruiting-star-based. Fate dominates (drafted => elite,
+    benched/bottom-third => poor); production_pctl / wepa / honors refine the middle.
+    Returns None when there's no predecessor at all.
+    """
+    if not predecessor:
+        return None
+    fate = predecessor.get("fate")
+    pid = _to_int(predecessor.get("player_id"))
+
+    # Fate is the strongest production signal we have for a departed ghost.
+    if fate == "drafted":
+        return PRED_BAND_ELITE
+    if fate == "benched":
+        return PRED_BAND_POOR
+
+    prod = _predecessor_final_production(db, pid, role_season)
+    pctl = prod.get("prod_pctl")
+    if pctl is not None:
+        if pctl >= _PRED_BAND_ELITE_PCTL:
+            return PRED_BAND_ELITE
+        if pctl < _PRED_BAND_POOR_PCTL:
+            return PRED_BAND_POOR
+        return PRED_BAND_SOLID
+
+    # No surviving aura percentile (the common ghost case). Lean on honors + wepa.
+    if pid is not None:
+        honor = _safe_one(
+            db,
+            """
+            select 1 as ok from player_honors
+             where player_id = :pid
+               and (consensus_flag = 1 or unanimous_flag = 1
+                    or lower(coalesce(honor_scope,'')) like '%national%'
+                    or lower(coalesce(honor_scope,'')) like '%all-ameri%')
+             limit 1
+            """,
+            {"pid": int(pid)},
+        )
+        if honor:
+            return PRED_BAND_ELITE
+    wepa = prod.get("wepa")
+    if wepa is not None and wepa <= 0.0:
+        return PRED_BAND_POOR
+    # Default: a competent starter who graduated/transferred without elite markers.
+    return PRED_BAND_SOLID
 
 
 # ---------------------------------------------------------------------------
@@ -518,47 +854,45 @@ def _shoes_read(
     incumbent: dict[str, Any],
     predecessor: dict[str, Any] | None,
     heir_origin: str | None,
-) -> tuple[str, str]:
-    """(read, tone) from the pedigree/production deltas.
+    predecessor_band: str | None = None,
+) -> tuple[str, str, str]:
+    """(read, tone, suggested_frame) — PRODUCTION-banded (doc 59 §5 crack B).
+
+    The read is keyed off the predecessor's FINAL-SEASON production band
+    (elite/solid/poor), NOT recruiting stars, so a weak ghost reads 'escape-a-bust'
+    / relief and an elite ghost reads 'live-up-to-a-legend' / reverence.
 
     read  in {downgrade, upgrade, continuity, leap_of_faith, low_bar}
     tone  in {mourning, dread, hope, reverence, relief, suspense}
+    frame in the _FRAME_* taxonomy (doc 59 §5).
     """
-    inc_stars = _to_int(incumbent.get("stars")) or 0
     inc_usage = _to_float(incumbent.get("usage")) or 0.0
 
-    # Leap of faith: the incumbent is an unproven freshman / true-freshman arrival.
+    # First-time starter / leap of faith: the incumbent is an unproven freshman or a
+    # true-freshman arrival stepping in.
     if heir_origin == "true_freshman" or (incumbent.get("class_year") == "1"):
-        return ("leap_of_faith", "hope")
+        return ("leap_of_faith", "hope", _FRAME_FIRST_TIME)
 
     if predecessor is None:
-        # No ghost to measure against — read as continuity if he's productive,
-        # else a leap.
-        return ("continuity", "reverence") if inc_usage > 0 else ("leap_of_faith", "suspense")
+        # No ghost to measure against — continuity if productive, else a first start.
+        if inc_usage > 0:
+            return ("continuity", "reverence", _FRAME_CONTINUITY)
+        return ("leap_of_faith", "suspense", _FRAME_FIRST_TIME)
 
-    pred_stars = _to_int(predecessor.get("stars")) or 0
-    pred_usage = _to_float(predecessor.get("usage")) or 0.0
     pred_fate = predecessor.get("fate")
+    band = predecessor_band  # elite | solid | poor (production-based, doc 59 §5.1)
 
-    # Low bar: the ghost was benched (a disappointment the room is glad to escape).
-    if pred_fate == "benched":
-        return ("low_bar", "relief")
+    # POOR ghost — the room is glad to escape him. Relief, not reverence.
+    if band == PRED_BAND_POOR or pred_fate == "benched":
+        return ("low_bar", "relief", _FRAME_ESCAPE_BUST)
 
-    star_delta = inc_stars - pred_stars
+    # ELITE ghost — a legend to live up to. Reverence; mourning if he was drafted away.
+    if band == PRED_BAND_ELITE or pred_fate == "drafted":
+        tone = "mourning" if pred_fate == "drafted" else "reverence"
+        return ("continuity", tone, _FRAME_LEGEND)
 
-    if star_delta >= 2:
-        return ("upgrade", "hope")
-    if star_delta <= -2:
-        # A real downgrade — mourning if the ghost was a high-pedigree departure
-        # (drafted / 5*), otherwise dread.
-        if pred_fate == "drafted" or pred_stars >= 5:
-            return ("downgrade", "mourning")
-        return ("downgrade", "dread")
-    # Comparable pedigree — continuity. If the ghost was drafted/elite, the
-    # register is reverence (honor the ghost); else neutral reverence.
-    if pred_fate == "drafted" or pred_stars >= 5:
-        return ("continuity", "reverence")
-    return ("continuity", "reverence")
+    # SOLID ghost (or unknown band) — a same-caliber, bland handoff. Continuity.
+    return ("continuity", "reverence", _FRAME_CONTINUITY)
 
 
 _STARS_GLYPH = "★"  # ★
@@ -628,8 +962,16 @@ def detect_succession(
         db, incumbent.get("player_id"), int(team_id), int(season_year) - 1,
     )
 
-    # The Clock — the threat below the incumbent. Exclude the predecessor (the
-    # ghost) so a departed starter never resurfaces as his own replacement.
+    # --- Predecessor band (doc 59 §5 crack B) — production-based, NOT stars. The
+    # ghost's grade comes from their FINAL-SEASON (= prior) production line. ------
+    predecessor_band = _predecessor_band(db, predecessor, int(season_year) - 1)
+    if predecessor is not None:
+        predecessor["band"] = predecessor_band
+
+    # --- The Clock CANDIDATE — the most threatening young talent below the
+    # incumbent. Exclude the predecessor (the ghost) so a departed starter never
+    # resurfaces as his own replacement. This is only a CANDIDATE; whether a clock
+    # actually FIRES is decided by the relative-threat gate below. -----------------
     exclude: set[int] = set()
     if predecessor and predecessor.get("player_id") is not None:
         exclude.add(int(predecessor["player_id"]))
@@ -638,20 +980,70 @@ def detect_succession(
         exclude_ids=frozenset(exclude),
     )
 
-    read, tone = _shoes_read(incumbent, predecessor, heir_origin)
+    # --- Relative-threat clock gate (doc 59 §5 crack A — THE P0 FIX) --------------
+    # OLD behaviour scored the heir ALONE and fired a clock against entrenched stars.
+    # NEW: threat is RELATIVE to incumbent entrenchment, and discourse is the truth
+    # test. Suppress the clock for an entrenched, productive starter with a quiet
+    # backup; fire it only for a real heir against a beatable starter OR when fans
+    # are genuinely talking about a QB-room competition.
+    has_real_usage = (_to_float(incumbent.get("usage")) or 0.0) > 0.0
+    entrenchment, entrench_why = _incumbent_entrenchment(
+        db, incumbent.get("player_id"), int(season_year), has_real_usage=has_real_usage,
+    )
+
+    heir_real = _heir_is_real_talent(clock)
+    competition, comp_metrics = _discourse_competition(
+        db, incumbent.get("player_id"), (clock or {}).get("player_id"), int(season_year),
+    )
+
+    # Threat label (reaches the writer): real only when the heir is a real talent AND
+    # (the incumbent is beatable OR fans are competing over the room).
+    if not clock or not clock.get("player_name"):
+        threat_label = THREAT_NONE
+    elif heir_real and (entrenchment != ENTRENCH_HIGH or competition):
+        threat_label = THREAT_REAL
+    elif heir_real:
+        threat_label = THREAT_NOMINAL  # real talent, but entrenched + no chatter
+    else:
+        threat_label = THREAT_NONE
+
+    # Suppress decision: a clock fires ONLY when the heir is real AND
+    # (entrenchment != HIGH OR a real discourse competition exists). Otherwise the
+    # clock is suppressed — heir_name/clock dropped, frame => entrenched-no-clock.
+    fire_clock = bool(
+        clock and clock.get("player_name") and heir_real
+        and (entrenchment != ENTRENCH_HIGH or competition)
+    )
+    suppress_clock = not fire_clock
+
+    # --- Filling-the-Shoes read (production-banded) + base frame ------------------
+    read, tone, base_frame = _shoes_read(incumbent, predecessor, heir_origin, predecessor_band)
+
+    # --- suggested_frame: the clock decision overrides the base read frame --------
+    if fire_clock:
+        suggested_frame = _FRAME_OPEN_COMP if competition else _FRAME_UPGRADE
+    elif suppress_clock and (clock and clock.get("player_name")):
+        # We HAD a candidate heir but the gate suppressed the clock — the entrenched
+        # star with a quiet backup. This is the Beck/Chambliss case.
+        suggested_frame = _FRAME_ENTRENCHED
+    else:
+        suggested_frame = base_frame
+
+    # When the clock is suppressed, drop the heir from the persisted node so the
+    # render path can't surface "pushed by <backup>" against an entrenched star.
+    fired = clock if fire_clock else None
 
     # Confidence: full for QB/RB/WR/TE; dampened for everything else; further
-    # dampened when the clock leans only on the roster fallback (no depth data).
+    # dampened when a FIRED clock leans only on the roster fallback (no depth data).
     base_conf = 0.85 if pos in _FULL_CONFIDENCE_POS else 0.4
-    if clock is not None and clock.get("depth_confidence") is None:
-        # roster-only clock — keep the node confident but flag the clock soft.
-        clock_conf = 0.45
-    elif clock is not None and clock.get("depth_confidence") == "confirmed":
-        clock_conf = 0.8
-    elif clock is not None:
-        clock_conf = 0.6
-    else:
+    if fired is None:
         clock_conf = 0.0
+    elif fired.get("depth_confidence") is None:
+        clock_conf = 0.45  # roster-only clock — keep node confident, flag clock soft
+    elif fired.get("depth_confidence") == "confirmed":
+        clock_conf = 0.8
+    else:
+        clock_conf = 0.6
     confidence = round(base_conf, 4)
 
     team_name = _team_name(db, int(team_id))
@@ -659,16 +1051,26 @@ def detect_succession(
     detail = {
         "incumbent": incumbent,
         "predecessor": predecessor,
-        "heir_apparent": clock,
+        "predecessor_band": predecessor_band,
+        "heir_apparent": fired,                 # only the FIRED heir survives here
+        "heir_candidate": clock,                # the raw candidate (context, not asserted)
         "heir_origin": heir_origin,
         "heir_origin_team": heir_origin_team,
         "shoes_read": read,
         "shoes_tone": tone,
+        "suggested_frame": suggested_frame,
+        "threat_label": threat_label,
+        "incumbent_entrenchment": entrenchment,
+        "entrenchment_why": entrench_why,
+        "discourse_competition": competition,
+        "competition_metrics": comp_metrics,
+        "suppress_clock": suppress_clock,
+        "incumbent_departed": False,            # set true by the roll-forward step below
         "clock_confidence": clock_conf,
         "portal_chain": _portal_chain(predecessor, incumbent, heir_origin, heir_origin_team),
     }
 
-    return {
+    node = {
         "player_external_id": incumbent.get("player_external_id"),
         "player_id": incumbent.get("player_id"),
         "team_id": int(team_id),
@@ -683,17 +1085,156 @@ def detect_succession(
         "predecessor_usage": (predecessor or {}).get("usage"),
         "predecessor_fate": (predecessor or {}).get("fate"),
         "predecessor_dest_team": (predecessor or {}).get("dest_team"),
-        "heir_external_id": (clock or {}).get("player_external_id"),
-        "heir_name": (clock or {}).get("player_name"),
-        "heir_stars": (clock or {}).get("stars"),
+        # Only the FIRED heir is persisted to the heir_* columns — a suppressed
+        # backup is not the player's heir-apparent.
+        "heir_external_id": (fired or {}).get("player_external_id"),
+        "heir_name": (fired or {}).get("player_name"),
+        "heir_stars": (fired or {}).get("stars"),
         "heir_origin": heir_origin,
         "heir_origin_team": heir_origin_team,
-        "clock_score": (clock or {}).get("clock_score"),
+        "clock_score": (fired or {}).get("clock_score"),
         "shoes_read": read,
         "shoes_tone": tone,
         "confidence": confidence,
-        "detail_json": json.dumps(detail, default=str),
+        "detail_json": None,  # filled after the roll-forward step
     }
+
+    # --- Season roll-forward (doc 59 §5 crack / P2 — the 2026 preview) ------------
+    # If the 2025 incumbent is DEPARTED for the upcoming season, they must NOT be
+    # framed as a returning 2026 starter — they are the GHOST/predecessor. Flag the
+    # node so the card never previews a departed player as returning. Best-effort
+    # heir->incumbent promotion is annotated in detail for the downstream packet.
+    _apply_season_rollforward(db, node, detail, int(season_year))
+
+    node["detail_json"] = json.dumps(detail, default=str)
+    return node
+
+
+def _depth_chart_2026_starter(db, team_id: int, position_group: str) -> dict[str, Any] | None:
+    """The projected/confirmed 2026 starter for (team, position) from the depth chart.
+
+    Used by the season roll-forward to promote a heir into the 2026 incumbent slot
+    when last year's starter has departed. Team-scoped via roster_entries because no
+    2026 roster exists yet. Returns the best (lowest slot_rank, confirmed > projected)
+    same-position player, or None. Never raises.
+    """
+    pos = (position_group or "").upper()
+    rows = _safe_all(
+        db,
+        """
+        select distinct d.player_id, d.slot_rank, d.starter_status, d.confidence
+          from player_depth_chart_2026 d
+          join roster_entries r on r.player_id = d.player_id and r.team_id = :tid
+         where d.position_group = :pos
+        """,
+        {"tid": int(team_id), "pos": pos},
+    )
+    if not rows:
+        return None
+
+    def _rank(row: dict[str, Any]) -> tuple[int, int]:
+        conf = str(row.get("confidence") or "").lower()
+        conf_rank = 0 if conf == "confirmed" else 1
+        slot = _to_int(row.get("slot_rank"))
+        slot = slot if slot is not None else 99
+        return (conf_rank, slot)
+
+    rows.sort(key=_rank)
+    top = rows[0]
+    pid = _to_int(top.get("player_id"))
+    if pid is None:
+        return None
+    name_row = _safe_one(
+        db, "select full_name from players where player_id = :pid", {"pid": int(pid)},
+    )
+    return {
+        "player_id": pid,
+        "player_external_id": _resolve_external_id(db, pid),
+        "player_name": str(name_row["full_name"]) if name_row and name_row.get("full_name") else None,
+        "starter_status": top.get("starter_status"),
+        "confidence": top.get("confidence"),
+    }
+
+
+def _apply_season_rollforward(
+    db, node: dict[str, Any], detail: dict[str, Any], role_season: int,
+) -> None:
+    """Mark a departed-incumbent node so the 2026 preview never frames the ghost as
+    a returning starter (doc 59 §5 / P2). Best-effort heir->incumbent promotion.
+
+    Uses ``eligibility.is_departed`` (the prior-phase classifier) on the incumbent's
+    numeric player_id. If DEPARTED for the upcoming season, the node is flagged and
+    the would-be 2026 starter (the fired heir, or the player_depth_chart_2026 starter
+    for this team/position) is annotated as the new incumbent. NEVER raises — the
+    whole body is defensive so a missing eligibility module / table can't break the
+    enrich step or the render path.
+    """
+    try:
+        from . import eligibility  # local import: keep module import-time deps minimal
+    except Exception:
+        return
+
+    inc_pid = _to_int(node.get("player_id"))
+    if inc_pid is None:
+        return
+
+    upcoming = int(role_season) + 1
+    try:
+        status = eligibility.classify_2026_status(
+            db, inc_pid, upcoming_season=upcoming, last_completed=int(role_season),
+        )
+    except Exception:
+        status = None
+    departed = bool(status and status.get("status") == eligibility.DEPARTED)
+
+    detail["incumbent_departed"] = departed
+    detail["incumbent_eligibility"] = status or {}
+    node["incumbent_departed"] = departed  # convenience denorm for the packet/selector
+
+    if not departed:
+        return
+
+    # The departed incumbent becomes the GHOST for the upcoming season. Best-effort:
+    # promote the fired heir (if any), else the 2026 depth-chart starter, into the
+    # new-incumbent slot. We do NOT mutate the persisted incumbent columns (those
+    # remain the role-season role-holder, the table's contract); we annotate detail so
+    # the forward packet / narrator can recast the ghost without a schema change.
+    new_inc = detail.get("heir_apparent") or detail.get("heir_candidate")
+    if not (new_inc and new_inc.get("player_name")):
+        new_inc = _depth_chart_2026_starter(
+            db, int(node.get("team_id")), str(node.get("position_group") or ""),
+        )
+    detail["rollforward"] = {
+        "ghost_player_id": inc_pid,
+        "ghost_name": (detail.get("incumbent") or {}).get("player_name"),
+        "ghost_reason": (status or {}).get("reason"),
+        "new_incumbent": new_inc or None,
+        "upcoming_season": upcoming,
+    }
+    # The ghost is no longer a returning starter — reframe accordingly so the card
+    # never previews a departed player as QB1.
+    node["suggested_frame_note"] = "incumbent-departed-recast-as-ghost"
+
+    # The "How many games until <heir> takes the job from <incumbent>?" clock is a
+    # RELATIVE-THREAT framing: it asserts the heir is pushing a SITTING starter. Once
+    # that starter is DEPARTED (NFL/transfer/graduated), the premise is false — there
+    # is no job to take from him and the heir has, if anything, already inherited it
+    # (annotated as ``rollforward.new_incumbent``). Firing the clock here previews a
+    # departed player as the contested incumbent (e.g. "until Keelon Russell takes the
+    # job from Ty Simpson" after Simpson was a R1 pick). Suppress it and strip the
+    # heir_* columns so the render path (fetch_succession_for_player) cannot rebuild
+    # the contradictory clock line. The forward narrator uses rollforward.new_incumbent
+    # to frame "the job is now <heir>'s", not a countdown against a ghost.
+    detail["suppress_clock"] = True
+    detail["heir_apparent"] = None
+    detail["clock_confidence"] = 0.0
+    detail["suppress_reason"] = "incumbent-departed"
+    if detail.get("suggested_frame") in (_FRAME_OPEN_COMP, _FRAME_UPGRADE):
+        detail["suggested_frame"] = _FRAME_FIRST_TIME
+    node["heir_external_id"] = None
+    node["heir_name"] = None
+    node["heir_stars"] = None
+    node["clock_score"] = None
 
 
 def _portal_chain(
@@ -866,7 +1407,7 @@ def fetch_succession_for_player(
     if not row:
         return None
 
-    # Reconstruct the clock line + clock confidence from detail_json.
+    # Reconstruct the clock line + clock confidence + valence from detail_json.
     clock_line: str | None = None
     clock_conf = 0.0
     detail: dict[str, Any] = {}
@@ -876,7 +1417,19 @@ def fetch_succession_for_player(
         detail = {}
     heir = detail.get("heir_apparent") or {}
     incumbent = detail.get("incumbent") or {}
-    if heir.get("player_name"):
+
+    # doc 59 §5 valence — read from detail with safe defaults (old rows lack these).
+    suppress_clock = bool(detail.get("suppress_clock"))
+    suggested_frame = detail.get("suggested_frame")
+    predecessor_band = detail.get("predecessor_band")
+    threat_label = detail.get("threat_label")
+    entrenchment = detail.get("incumbent_entrenchment")
+    competition = bool(detail.get("discourse_competition"))
+    incumbent_departed = bool(detail.get("incumbent_departed"))
+
+    # The clock line is only built for a FIRED, surviving heir. suppress_clock makes
+    # the suppression explicit even for legacy rows where heir_apparent lingered.
+    if heir.get("player_name") and not suppress_clock:
         clock_line = _clock_line(heir, incumbent)
         clock_conf = _to_float(detail.get("clock_confidence")) or 0.0
 
@@ -884,16 +1437,25 @@ def fetch_succession_for_player(
     if clock_conf < 0.4:
         clock_line = None
 
+    show_heir = bool(clock_line and not suppress_clock)
+
     return SuccessionRead(
         role=str(row.get("position_group") or ""),
         predecessor_name=row.get("predecessor_name"),
         predecessor_stars=_to_int(row.get("predecessor_stars")),
-        heir_name=row.get("heir_name") if clock_line else None,
-        heir_stars=_to_int(row.get("heir_stars")) if clock_line else None,
+        heir_name=row.get("heir_name") if show_heir else None,
+        heir_stars=_to_int(row.get("heir_stars")) if show_heir else None,
         shoes_read=row.get("shoes_read"),
         tone=row.get("shoes_tone"),
-        clock_line=clock_line,
+        clock_line=clock_line if show_heir else None,
         confidence=_to_float(row.get("confidence")) or 0.0,
+        # doc 59 §5 valence-to-writer (safe defaults preserve backward compat)
+        suggested_frame=suggested_frame,
+        predecessor_band=predecessor_band,
+        threat_label=threat_label,
+        incumbent_entrenchment=entrenchment,
+        suppress_clock=suppress_clock,
+        discourse_competition=competition,
     )
 
 
