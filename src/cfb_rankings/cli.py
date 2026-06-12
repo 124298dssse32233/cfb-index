@@ -40,6 +40,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Bypass the content-hash skip and regenerate every candidate "
              "(otherwise unchanged players with cached LLM prose are skipped).",
     )
+    compute_story_cards_parser.add_argument(
+        "--limit", type=int, default=None,
+        help="Cap the number of cards generated this run (the nightly GPU "
+             "budget). Content-hash skips already-cached players, so successive "
+             "runs fill in the S/T1 cohort over several nights.",
+    )
     subparsers.add_parser(
         "seed-source-registry",
         help="Load seeds/source_registry.yaml into source_registry (upsert on source_id).",
@@ -2655,6 +2661,7 @@ def main() -> None:
         )
         counts = compute_story_cards(
             db, args.season, players=args.players, tiers=tiers,
+            limit=getattr(args, "limit", None),
             force=bool(getattr(args, "force", False)),
         )
         # counts is a dict of per-outcome tallies — print a clean summary.

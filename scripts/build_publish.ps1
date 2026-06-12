@@ -202,8 +202,8 @@ Run "board: build-methodology" { python manage.py build-methodology }
 #     Must run BEFORE build-site (Section I), which reads the cache.
 #     Season is the latest model_runs season (offseason convention).
 # =========================================================================
-Run "story-cards: compute-story-cards --season=$($global:CurSeason) --tier=S,T1" {
-    python manage.py compute-story-cards --season $global:CurSeason --tier S,T1
+Run "story-cards: compute-story-cards --season=$($global:CurSeason) --tier=S,T1 --limit=50" {
+    python manage.py compute-story-cards --season $global:CurSeason --tier S,T1 --limit 50
 }
 
 # Provenance honesty (WP-0.7): label conversation_documents canonical (real
