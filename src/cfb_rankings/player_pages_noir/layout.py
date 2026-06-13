@@ -13,13 +13,9 @@ from __future__ import annotations
 from html import escape
 from typing import Any
 
-# (section eyebrow, [ordered player_data keys]).  Every known module has a home.
+# (number, eyebrow, [ordered player_data keys]).  Plain (single-group) sections.
 _SECTIONS: list[tuple[str, str, list[str]]] = [
     ("2", "The Dossier", ["new_story_card_html"]),
-    ("3", "Showcases", [
-        "new_aura_html", "new_in_their_words_html",
-        "new_where_ended_up_html", "new_coaching_lineage_html",
-    ]),
     ("4", "The Heartbeat", [
         "new_career_arc_html", "new_dev_traj_html",
         "new_heisman_trajectory_html", "new_season_context_html",
@@ -32,6 +28,14 @@ _SECTIONS: list[tuple[str, str, list[str]]] = [
         "new_scenario_explorer_html", "new_supporting_cast_html",
     ]),
 ]
+# Section 3 "Showcases" renders three NAMED sub-showcases (doc 60 §7), each with its
+# own eyebrow; a sub-showcase with no content hides; if all hide, Section 3 is gone.
+_SHOWCASES: list[tuple[str, list[str]]] = [
+    ("The Throne", ["new_where_ended_up_html", "new_coaching_lineage_html"]),
+    ("The Tribunal", ["new_aura_html"]),
+    ("In Their Words", ["new_in_their_words_html"]),
+]
+_SHOWCASE_KEYS = {k for _n, ks in _SHOWCASES for k in ks}
 # Keys placed in the hero/footer chrome, excluded from the catch-all.
 _CHROME_KEYS = {"new_story_card_html", "new_status_strip_html", "new_live_signal_flow_html"}
 
@@ -95,18 +99,34 @@ def _footer(player_data: dict) -> str:
     return f'<section class="nz nfoot">{meta}</section>'
 
 
+def _showcases(player_data: dict) -> str:
+    """Section 3 — the three named sub-showcases, each hiding independently."""
+    blocks: list[str] = []
+    for sub_name, keys in _SHOWCASES:
+        present = _present(player_data, keys)
+        if not present:
+            continue
+        mods = "".join(f'<div class="nmod">{h}</div>' for h in present)
+        blocks.append(f'<div class="nshow"><p class="nshow__name">{escape(sub_name)}</p>{mods}</div>')
+    if not blocks:
+        return ""
+    return f'<section class="nz"><h2 class="nz__h">3 · Showcases</h2>{"".join(blocks)}</section>'
+
+
 def compose(summary: dict, player_data: dict) -> str:
     """Build the 7-section Noir body. Returns "" on any failure."""
     try:
-        placed: set[str] = set(_CHROME_KEYS)
+        placed: set[str] = set(_CHROME_KEYS) | _SHOWCASE_KEYS
         parts: list[str] = [_hero(player_data)]
 
+        # Dossier (2) first, then the named Showcases (3), then 4/5.
         for num, eyebrow, keys in _SECTIONS:
             present = _present(player_data, keys)
             placed.update(keys)
             if num == "2":  # the Dossier IS the story card — no wrapper chrome
                 if present:
                     parts.append(f'<section class="nz"><p class="nz__eyebrow">2 · The Dossier</p>{present[0]}</section>')
+                    parts.append(_showcases(player_data))   # 3 follows the Dossier
                 continue
             if not present:
                 continue

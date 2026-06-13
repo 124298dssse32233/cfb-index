@@ -66,6 +66,11 @@ _NOIR_CSS = """
   color:var(--noir-receipt); text-transform:uppercase; margin-top:2px}
 /* reused-module wrapper: give every placed module a little breathing room */
 .theme-noir .nmod{margin:14px 0 0}
+/* SHOWCASES — named sub-blocks (The Throne / The Tribunal / In Their Words) */
+.theme-noir .nshow{margin:18px 0 0; padding-left:14px; border-left:2px solid var(--noir-hairline)}
+.theme-noir .nshow:first-child{margin-top:6px}
+.theme-noir .nshow__name{font-family:var(--noir-font-mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--noir-aura); margin:0 0 6px}
 /* VERDICT */
 .theme-noir .nverdict{background:var(--noir-surface-2); border:1px solid var(--noir-hairline);
   padding:26px 22px; text-align:center; margin-top:6px}
