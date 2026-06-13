@@ -23,7 +23,7 @@ from __future__ import annotations
 from html import escape
 from typing import Any
 
-from .standing_aggregator import build_standing_payload
+from .standing_aggregator import RUNG_TABLE, build_standing_payload
 
 
 CAREER_STANDING_CSS = """
@@ -120,33 +120,12 @@ CAREER_STANDING_CSS = """
 """
 
 
-_RUNG_NAMES = {
-    0: "Walk-on",
-    1: "Backup",
-    2: "Rotation",
-    3: "Starter",
-    4: "Regular contributor",
-    5: "Solid starter",
-    6: "Quality starter",
-    7: "All-Conf 2nd",
-    8: "All-Conf 1st",
-    9: "All-Am 3rd",
-    10: "All-Am 2nd",
-    11: "All-Am 1st",
-    12: "POY",
-    13: "Watch-list honoree",
-    14: "POY finalist",
-    15: "Heisman finalist",
-    16: "Heisman winner",
-}
-_TIER_LABELS = {
-    1: "Floor",
-    2: "Established",
-    3: "Quality starter",
-    4: "All-Conference",
-    5: "National recognition",
-    6: "National honors",
-}
+# Derived from the canonical ladder so the career arc, the in-season rail, and
+# the aggregator never disagree on what a rung number means. Previously this
+# was a hand-maintained divergent table (R09 = "All-Am 3rd", R11 = "All-Am
+# 1st") that contradicted the aggregator's canonical R09/R11 (2026-06-13 fix).
+_RUNG_NAMES = {rung: label for (rung, label, _tier, _tlabel) in RUNG_TABLE}
+_TIER_LABELS = {tier: tlabel for (_rung, _label, tier, tlabel) in RUNG_TABLE}
 
 
 def _all_seasons_for_player(db, player_id: int) -> list[dict[str, Any]]:
@@ -229,7 +208,7 @@ def render_career_standing(db, player_id: int | None) -> str:
         is_peak = (i == peak_idx)
         rung_id = e["rung_id"]
         rung_text = (
-            f"R{rung_id:02d} &middot; {_RUNG_NAMES.get(int(rung_id), '—')}"
+            f"R{rung_id:02d} · {_RUNG_NAMES.get(int(rung_id), '—')}"
             if isinstance(rung_id, int) else "—"
         )
         cls = " career-standing__season--peak" if is_peak else ""
@@ -257,7 +236,7 @@ def render_career_standing(db, player_id: int | None) -> str:
             '</div>'
         )
 
-    peak_label = f"Peak: R{peak_rung:02d} {_RUNG_NAMES.get(peak_rung, '')} &middot; {enriched[peak_idx]['year']}"
+    peak_label = f"Peak: R{peak_rung:02d} {_RUNG_NAMES.get(peak_rung, '')} · {enriched[peak_idx]['year']}"
     return (
         '<section class="career-standing" '
         f'data-module="career-standing" data-state="ready" '

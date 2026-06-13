@@ -9366,13 +9366,30 @@ def build_player_page_data_map(
             # Player Story Card ("Dossier Noir") — top-of-page narrative crown.
             # Self-contained; resolves player_external_id internally via player_source_ids.
             # Graceful "" so a render error never blanks the page (matches new_aura_html).
+            # Curated blurbs (data/curated_player_blurbs) take precedence when the
+            # CURATED_BLURBS env switch is on and a record matches by slug/name;
+            # the whole check is fail-closed to the normal story card.
+            _curated_html = ""
             try:
-                from cfb_rankings.player_pages.story_card import build_card as _build_story_card
-                page_data["new_story_card_html"] = _build_story_card(
-                    db, player_id, int(summary["season_year"]), _position,
-                )
+                if os.environ.get("CURATED_BLURBS", "").lower() in ("1", "on", "true", "yes"):
+                    from cfb_rankings.player_pages.curated_blurb import render_curated_blurb
+                    _curated_html = render_curated_blurb(
+                        player_id,
+                        (page_data.get("player") or {}).get("full_name"),
+                        (page_data.get("primary_team") or {}).get("team_name"),
+                    ) or ""
             except Exception:
-                page_data["new_story_card_html"] = ""
+                _curated_html = ""
+            if _curated_html:
+                page_data["new_story_card_html"] = _curated_html
+            else:
+                try:
+                    from cfb_rankings.player_pages.story_card import build_card as _build_story_card
+                    page_data["new_story_card_html"] = _build_story_card(
+                        db, player_id, int(summary["season_year"]), _position,
+                    )
+                except Exception:
+                    page_data["new_story_card_html"] = ""
             page_data["new_game_log_html"] = _render_game_log_v2(
                 db, player_id, int(summary["season_year"]),
                 _position, _primary_team_id,
@@ -10235,9 +10252,27 @@ def _assemble_player_page_data(
         [int(row.get("official_place")) for row in heisman_years if row.get("official_place") is not None],
         default=None,
     )
+    # Authoritative on-field position = most-recent player_season_stats.position
+    # (per-season truth from box scores). players.position is sparse/stale: e.g.
+    # A.C. White is master-listed "PRO" but played "DL" both seasons, so the
+    # hero showed "PRO" while the roster/stats said "DL". Season-stats wins so
+    # the hero, the narrative bucket, and every module agree on one position.
+    _latest_stat_pos = None
+    try:
+        _pp = db.query_all(
+            "select position from player_season_stats "
+            "where player_id = :pid and position is not null and position != '' "
+            "order by season_year desc, week desc limit 1",
+            {"pid": player_row.get("player_id")},
+        )
+        if _pp:
+            _latest_stat_pos = (str(_pp[0]["position"] or "").strip()) or None
+    except Exception:
+        _latest_stat_pos = None
+
     player_identity = {
         "full_name": str(player_row.get("full_name") or "Player"),
-        "position": player_row.get("current_position") or primary_team.get("position"),
+        "position": _latest_stat_pos or player_row.get("current_position") or primary_team.get("position"),
         "class_year": player_row.get("class_year") or primary_team.get("class_year"),
         "jersey": player_row.get("jersey")
         or next((row.get("jersey") for row in roster_history if row.get("jersey")), None),
@@ -11053,13 +11088,17 @@ def _player_stat_rank_percentile_text(peer_values: list[float], target_value: fl
         return "--", "--"
     total = len(peer_values)
     if lower_is_better:
-        better_or_equal = sum(1 for value in peer_values if value <= target_value)
+        better = sum(1 for value in peer_values if value < target_value)
         percentile = sum(1 for value in peer_values if target_value <= value) / total
     else:
-        better_or_equal = sum(1 for value in peer_values if value >= target_value)
+        better = sum(1 for value in peer_values if value > target_value)
         percentile = sum(1 for value in peer_values if target_value >= value) / total
+    # Competition rank: best value -> #1 (never #0). Guard the denominator in
+    # case the player's own value is not part of the peer distribution.
+    rank = better + 1
+    denom = max(total, rank)
     percentile_value = int(round(percentile * 100))
-    return f"#{better_or_equal}/{total}", f"{_ordinal_text(percentile_value)} pct"
+    return f"#{rank}/{denom}", f"{_ordinal_text(percentile_value)} pct"
 
 
 def _player_stat_metric_key(group_name: Any, metric_name: Any) -> str:
@@ -11681,7 +11720,11 @@ def _build_player_season_stat_tables(
                     "season_label": str(row.get("season_year") or ""),
                     "team_name": str(row.get("team_name") or "--"),
                     "team_slug": row.get("team_slug"),
-                    "context": f"Week {int(row.get('week') or 0)} snapshot" if row.get("week") else "",
+                    "context": (
+                        "Final snapshot"
+                        if int(row.get("week") or 0) >= 16
+                        else f"Week {int(row.get('week') or 0)} snapshot"
+                    ) if row.get("week") else "",
                     "cells": cells,
                     "row_kind": "season",
                 }
@@ -12004,8 +12047,15 @@ def _player_stat_available_groups(rows: list[dict[str, Any]]) -> list[dict[str, 
 
 def _player_stat_snapshot_note(season_year: int | None, week: int | None) -> str:
     season_text = "--" if season_year in (None, 0) else str(int(season_year or 0))
-    week_text = "--" if week in (None, 0) else str(int(week or 0))
-    return f"{season_text} season snapshot | through week {week_text}"
+    if week in (None, 0):
+        return f"{season_text} season snapshot"
+    week_int = int(week or 0)
+    # A CFB season runs ~15 weeks; model run-weeks of 16+ (conf title / bowls /
+    # playoff) are a *completed* season, not "through week 21". Mirror
+    # _current_season_production_title's >=16 == final convention.
+    if week_int >= 16:
+        return f"{season_text} season snapshot | final"
+    return f"{season_text} season snapshot | through week {week_int}"
 
 
 def _current_season_production_title(season_year: Any, week: Any) -> str:
@@ -12127,11 +12177,40 @@ def _build_player_signature_story(
             f"The transfer path matters: when a player changes programs and still rises into the {current_rank_text} tier, it usually means the role, production, and team fit all clicked immediately."
         )
     else:
-        body = (
-            f"{player_name}'s story is about how role and output meet each other. "
-            f"For {team_name}, the card already shows enough current-season production to explain why he is on the serious-player board, "
-            f"and the next layer is determining whether the profile is just very good or actually distinctive."
+        # Production proxy built ONLY from stat keys this function already
+        # reads, so the guard can't silently break on a bad key name.
+        production_signal = (
+            float(stats.get("passing_yds", 0.0) or 0.0)
+            + float(stats.get("passing_td", 0.0) or 0.0)
+            + float(stats.get("rushing_yds", 0.0) or 0.0)
+            + float(stats.get("rushing_td", 0.0) or 0.0)
+            + float(stats.get("receiving_yds", 0.0) or 0.0)
+            + float(stats.get("receiving_rec", 0.0) or 0.0)
+            + float(stats.get("receiving_td", 0.0) or 0.0)
+            + float(stats.get("defensive_sacks", 0.0) or 0.0)
+            + float(stats.get("defensive_tfl", 0.0) or 0.0)
+            + float(stats.get("interceptions_int", 0.0) or 0.0)
+            + total_return_yards + total_return_tds
         )
+        if production_signal <= 0:
+            # No measurable current-season production on file — NEVER claim he
+            # "already shows enough production". Honest archival fallback.
+            title = (
+                "What we can say about this player"
+                if is_offseason(date.today(), db=None) else
+                "What's on this player's card so far"
+            )
+            body = (
+                f"{player_name}'s page is mostly roster and pedigree right now — there isn't "
+                f"measurable current-season production on file for {team_name} yet. "
+                f"As box scores and snaps land, the on-field story fills in here."
+            )
+        else:
+            body = (
+                f"{player_name}'s story is about how role and output meet each other. "
+                f"For {team_name}, the card already shows enough current-season production to explain why he is on the serious-player board, "
+                f"and the next layer is determining whether the profile is just very good or actually distinctive."
+            )
 
     support_cards = [
         {
@@ -17053,7 +17132,7 @@ def render_history_index_html(summary: dict[str, Any], history_hub: dict[str, An
         methodology_label="How we built the historical archive",
         methodology_href="../methodology/index.html",
         updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
-        sample_text=f"{int(history_hub.get('team_seasons') or 0):,} team-seasons &middot; {escape(str(history_hub.get('first_season') or ''))}&ndash;{escape(str(history_hub.get('last_season') or ''))}",
+        sample_text=f"{int(history_hub.get('team_seasons') or 0):,} team-seasons · {escape(str(history_hub.get('first_season') or ''))}–{escape(str(history_hub.get('last_season') or ''))}",
     )
     greatest_rows = _render_history_team_season_rows(history_hub.get("greatest_seasons") or [], prefix="../programs/")
     strongest_rows = _render_history_team_season_rows(history_hub.get("strongest_seasons") or [], prefix="../programs/")
@@ -20345,7 +20424,7 @@ def render_player_page_html(summary: dict[str, Any], player_data: dict[str, Any]
           methodology_label="How we model players",
           methodology_href="../methodology/index.html",
           updated_text=f"Updated {date.today().strftime('%b %d, %Y')}",
-          sample_text=f"{escape(position)} &middot; {escape(class_year)} &middot; {escape(team_name)}",
+          sample_text=f"{escape(position)} · {escape(class_year)} · {escape(team_name)}",
       )}
 
     </main>
@@ -22035,7 +22114,7 @@ def _render_v5_peer_comparator_card(peers: list[dict[str, Any]] | None) -> str:
     else:
         body_html = (
             '<div class="peers__awaiting" role="status">'
-            'Peer pools surface 4 same-position, same-tier players with overlapping percentile profiles. Populates when the peer-similarity aggregator runs.'
+            'Statistically similar players at the same position are coming soon.'
             '</div>'
         )
 
@@ -22071,8 +22150,7 @@ def _render_v5_savant_card(savant: dict[str, Any] | None) -> str:
     if not metrics:
         body_html = (
             '<div class="savant__awaiting" role="status">'
-            'No WEPA-family advanced metrics ingested for this player yet. '
-            'Populates when `player_value_metrics` has entries for `player_id`. '
+            'Advanced opponent-adjusted metrics are coming soon for this player. '
             'Selected cohort: <strong x-text="cohort.toUpperCase()">P4</strong>.'
             '</div>'
         )

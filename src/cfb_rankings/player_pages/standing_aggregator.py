@@ -381,8 +381,18 @@ def build_standing_payload(
         position=position or "",
     )
 
+    # Tier id for the current rung, from the canonical table. career_standing
+    # reads this for its per-season tier label (was always None → no tier
+    # shown on the career arc).
+    current_tier = (
+        RUNG_TABLE[current_rung][2]
+        if isinstance(current_rung, int) and 0 <= current_rung < len(RUNG_TABLE)
+        else None
+    )
+
     return {
         "current_rung_id": current_rung,
+        "current_tier": current_tier,
         "last_season_rung_id": last_rung,
         "narratives": narratives_for_rung(current_rung),
         "accolade_streams": streams,

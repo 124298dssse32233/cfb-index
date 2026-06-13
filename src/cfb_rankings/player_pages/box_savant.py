@@ -25,6 +25,8 @@ from __future__ import annotations
 from html import escape
 from typing import Any
 
+from ..utils import ordinal_suffix
+
 
 BOX_SAVANT_CSS = """
 /* Box-Score Savant card */
@@ -438,17 +440,17 @@ def _build_lede(bars: list[dict[str, Any]]) -> str:
     if top:
         b = top[0]
         parts.append(
-            f"<strong>Elite</strong>: {escape(b['label'].lower())} ({int(b['percentile'])}th)"
+            f"<strong>Elite</strong>: {escape(b['label'].lower())} ({int(b['percentile'])}{ordinal_suffix(int(b['percentile']))})"
         )
     if len(top) > 1:
         b = top[1]
         parts.append(
-            f"<strong>Strength</strong>: {escape(b['label'].lower())} ({int(b['percentile'])}th)"
+            f"<strong>Strength</strong>: {escape(b['label'].lower())} ({int(b['percentile'])}{ordinal_suffix(int(b['percentile']))})"
         )
     if bot:
         b = bot[-1]
         parts.append(
-            f"<strong>Concern</strong>: {escape(b['label'].lower())} ({int(b['percentile'])}th)"
+            f"<strong>Concern</strong>: {escape(b['label'].lower())} ({int(b['percentile'])}{ordinal_suffix(int(b['percentile']))})"
         )
     if not parts:
         return "Production sits in the middle of the position cohort across the board."
@@ -479,7 +481,7 @@ def render_box_savant(
         bar_html_parts.append(
             '<div class="box-savant__bar-row">'
             f'<div class="box-savant__bar-label">{escape(b["label"])}'
-            f'<small>#{b["rank"]} / {b["cohort_size"]} &middot; {int(round(pct))}th pct</small></div>'
+            f'<small>#{b["rank"]} / {b["cohort_size"]} &middot; {int(round(pct))}{ordinal_suffix(int(round(pct)))} pct</small></div>'
             f'<div class="box-savant__bar-track {track_cls}">'
             f'<span class="box-savant__bar-pin" style="left:{pct:.1f}%"></span>'
             '</div>'
@@ -506,8 +508,7 @@ def render_box_savant(
         '</header>'
         f'<p class="box-savant__lede">{lede}</p>'
         f'<div class="box-savant__bars">{bars_html}</div>'
-        '<p class="box-savant__footnote">Percentiles versus same-position peers above the snap floor '
-        'for this season. Box-score rates; play-by-play depth splits visible in the Pass Profile '
-        'section below for qualifying QBs.</p>'
+        '<p class="box-savant__footnote">Percentiles versus same-position peers with enough '
+        'snaps this season, based on box-score rates.</p>'
         '</section>'
     )

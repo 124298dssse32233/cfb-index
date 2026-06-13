@@ -405,8 +405,7 @@ def render_peer_comparator(
         '</header>'
         f'<div class="peer-comparator__pills">{pills_html}</div>'
         f'<div class="peer-comparator__grid">{grid_html}</div>'
-        '<p class="peer-comparator__footnote">Closest peers chosen by Euclidean distance '
-        'across the box-rate percentile vector. Respect-gap grid (model vs fan vs national '
-        'belief) returns when player-FI ingest completes.</p>'
+        '<p class="peer-comparator__footnote">Closest peers by overall box-score '
+        'percentile profile at the same position.</p>'
         '</section>'
     )

@@ -281,7 +281,7 @@ def _fetch_game_log_rows(
     rows = db.query_all(
         """
         select
-          pgs.game_id, pgs.week, pgs.category, pgs.stat_type,
+          pgs.game_id, pgs.week, pgs.season_type, pgs.category, pgs.stat_type,
           pgs.stat_value_num, pgs.stat_value_text, pgs.team_id,
           g.home_team_id, g.away_team_id,
           g.home_points, g.away_points, g.start_time_utc, g.status,
@@ -307,6 +307,7 @@ def _fetch_game_log_rows(
         bucket = by_game.setdefault(gid, {
             "game_id": gid,
             "week": r.get("week"),
+            "season_type": r.get("season_type"),
             "player_team_id": r.get("team_id"),
             "home_team_id": r.get("home_team_id"),
             "away_team_id": r.get("away_team_id"),
@@ -327,9 +328,15 @@ def _fetch_game_log_rows(
             bucket["stats"][(cat, stype)] = r["stat_value_num"]
         elif r.get("stat_value_text"):
             bucket["stats"][(cat, stype)] = r["stat_value_text"]
-    # Stable sort by week
+    # Stable sort: regular season (by week) first, then postseason. CFBD
+    # numbers postseason games from week=1 too, so without the phase key a
+    # postseason "week 1" sorts ahead of regular week 2 and renders a second
+    # "Wk 1" row (the Arch Manning duplicate-Wk-1 bug, 2026-06-13).
+    def _phase_order(season_type: Any) -> int:
+        return 0 if str(season_type or "regular").lower() == "regular" else 1
     out = list(by_game.values())
     out.sort(key=lambda x: (
+        _phase_order(x.get("season_type")),
         (x.get("week") or 99),
         (x.get("start_time_utc") or ""),
         x.get("game_id") or 0,
@@ -457,7 +464,7 @@ def _compute_game_notes(
             # Clean game
             if td >= 2 and it == 0 and primary and gv(r, *primary) and float(gv(r, *primary)) >= 250:
                 if not bits:
-                    bits.append("Clean two-TD game")
+                    bits.append(f"Clean {int(td)}-TD game")
         elif pos in {"RB", "TB", "FB", "HB"}:
             yds = gv(r, "rushing", "YDS") or 0
             tds = gv(r, "rushing", "TD") or 0
@@ -599,7 +606,8 @@ def render_game_log(
     body_rows: list[str] = []
     for r in rows:
         wk = r.get("week")
-        wk_disp = f"Wk {wk}" if wk is not None else "—"
+        _is_post = str(r.get("season_type") or "regular").lower() != "regular"
+        wk_disp = "Bowl" if _is_post else (f"Wk {wk}" if wk is not None else "—")
         opp_label, rcls, rtext = _opp_label(r, team_id)
         cells: list[str] = [
             f'<td><span class="player-game-log__week">{escape(wk_disp)}</span></td>',
@@ -614,8 +622,10 @@ def render_game_log(
         for _hdr, cat, stype, fmt in cols:
             v = r.get("stats", {}).get((cat, stype))
             cells.append(f"<td>{_fmt(v, fmt)}</td>")
-        # Auto-generated note cell
-        note_text = notes_by_week.get(wk, "")
+        # Auto-generated note cell. notes_by_week is keyed by week number;
+        # postseason shares week numbers with the regular season, so skip the
+        # lookup on postseason rows to avoid inheriting a regular-week note.
+        note_text = "" if _is_post else notes_by_week.get(wk, "")
         cells.append(
             f'<td class="player-game-log__note">{escape(note_text)}</td>'
         )

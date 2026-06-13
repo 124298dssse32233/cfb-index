@@ -361,8 +361,7 @@ def _narrative_from_metrics(matched: list[tuple[str, int]], position: str = "QB"
     """Single-line plain-English narrative from the matched metrics."""
     if not matched:
         return (
-            "Advanced-metric percentile bars populate when WEPA-family rows "
-            "land in `player_value_metrics` for this player."
+            "Advanced opponent-adjusted percentile bars are coming soon for this player."
         )
     high = [name for name, pct in matched if pct >= 70]
     low = [name for name, pct in matched if pct <= 30]

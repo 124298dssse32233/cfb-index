@@ -570,8 +570,16 @@ def render_qb_fingerprint_hero(
                 )
             except (TypeError, ValueError):
                 pass
-    # Score label uses the position-aware composite name when supplied.
-    score_label = "CFB Index Score" if cis else "CFB Index QB Score"
+    # Score label uses the position-aware composite name when supplied. Never
+    # hardcode "QB" — a non-QB without a composite score was reading as
+    # "CFB Index QB Score". Use the real position, or a generic label.
+    _score_pos = (position or "").upper().strip()
+    if cis:
+        score_label = "CFB Index Score"
+    elif _score_pos:
+        score_label = f"CFB Index {_score_pos} Score"
+    else:
+        score_label = "CFB Index Score"
     cell_score = _cell(score_label, qb_score, qb_score_narr,
                        awaiting=qb_score is None)
 

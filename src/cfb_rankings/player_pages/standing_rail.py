@@ -5,27 +5,30 @@ Accolade Lens. Six tiers, seventeen rungs from R00 walk-on to R16
 Heisman winner. One module answers the question every fan walks in
 with: "how good is this guy, actually, right now?"
 
-Tier structure (per brief):
-  Tier 1: Floor                R00 — Walk-on
-                               R01 — Backup
-                               R02 — Rotation
-  Tier 2: Established          R03 — Starter
-                               R04 — Regular contributor
-  Tier 3: Quality starter      R05 — Solid starter
-                               R06 — Quality starter
-  Tier 4: All-Conference       R07 — All-Conference 2nd team
-                               R08 — All-Conference 1st team
-  Tier 5: National recognition R09 — All-American 3rd team
-                               R10 — All-American 2nd team
-                               R11 — All-American 1st team
-  Tier 6: National honors      R12 — Position-of-the-Year
-                               R13 — Watch-list honoree
-                               R14 — POTY finalist
-                               R15 — Heisman finalist
-                               R16 — Heisman winner
+Tier structure — CANONICAL, mirrors standing_aggregator.RUNG_TABLE
+(the labels/tiers are imported from there; do not re-list a divergent
+ladder here):
+  Tier 0: Not on team   R00 — Walk-on
+                        R01 — Scout team / redshirt
+  Tier 1: 2-deep        R02 — Deep reserve
+                        R03 — Backup
+                        R04 — Rotational
+  Tier 2: Starter       R05 — Part-time starter
+                        R06 — Starter
+                        R07 — Impact starter
+  Tier 3: Recognized    R08 — Watch-list name
+                        R09 — All-Conference HM / 2nd team
+                        R10 — All-Conference 1st team
+                        R11 — National watch / fringe AA
+  Tier 4: Elite         R12 — All-American
+                        R13 — Consensus All-American
+                        R14 — Unanimous All-American
+  Tier 5: Apex          R15 — POTY finalist
+                        R16 — POTY / Heisman winner
 
-The rung_id is computed elsewhere (often present in player_data as
-"standing_rung"). This module renders the visualization.
+The rung_id is computed by standing_aggregator.classify_rung (surfaced in
+player_data['standing']['current_rung_id']). This module renders the
+visualization and MUST label by the same canonical table.
 
 Public API:
     render_standing_rail(standing_rung, player_name) -> str
@@ -152,45 +155,35 @@ STANDING_RAIL_CSS = """
 """
 
 
-# Rung catalog — (rung_id, label, tier, tier_label)
-_RUNG_CATALOG = [
-    (0,  "Walk-on",                    1, "Floor"),
-    (1,  "Backup",                     1, "Floor"),
-    (2,  "Rotation",                   1, "Floor"),
-    (3,  "Starter",                    2, "Established"),
-    (4,  "Regular contributor",        2, "Established"),
-    (5,  "Solid starter",              3, "Quality starter"),
-    (6,  "Quality starter",            3, "Quality starter"),
-    (7,  "All-Conference 2nd team",    4, "All-Conference"),
-    (8,  "All-Conference 1st team",    4, "All-Conference"),
-    (9,  "All-American 3rd team",      5, "National recognition"),
-    (10, "All-American 2nd team",      5, "National recognition"),
-    (11, "All-American 1st team",      5, "National recognition"),
-    (12, "Position-of-the-Year",       6, "National honors"),
-    (13, "Watch-list honoree",         6, "National honors"),
-    (14, "POTY finalist",              6, "National honors"),
-    (15, "Heisman finalist",           6, "National honors"),
-    (16, "Heisman winner",             6, "National honors"),
-]
+# Rung catalog — (rung_id, label, tier, tier_label).
+# SINGLE SOURCE OF TRUTH: the canonical ladder lives in
+# standing_aggregator.RUNG_TABLE — the SAME table classify_rung() scores
+# against. This renderer indexes its label table by the rung NUMBER the
+# aggregator computed, so the two must never diverge. This table previously
+# encoded a different ladder (R11 = "All-American 1st team"); the aggregator
+# computes R11 = "National watch / fringe AA", which is why Arch Manning's rail
+# read "All-American 1st team" next to an empty selector grid (2026-06-13).
+from .standing_aggregator import RUNG_TABLE as _RUNG_CATALOG  # (rung, label, tier_id, tier_label)
 
+# Per-rung story copy, aligned to the canonical RUNG_TABLE labels above.
 _RUNG_STORIES = {
-    0:  "Roster reality. The starting block is honest.",
-    1:  "Snap-by-snap rotation player. Working on the next step.",
-    2:  "Earned snaps in the rotation. Pushing for the starting nod.",
-    3:  "Starting role secured. Year-over-year improvement is the next bet.",
-    4:  "Regular contributor on a competitive roster. Quietly productive.",
-    5:  "Solid starter — the kind of player every program builds around.",
-    6:  "Quality starter producing measurable value above replacement.",
-    7:  "All-Conference 2nd team. The recognition has started.",
-    8:  "All-Conference 1st team. Among the conference's best at the position.",
-    9:  "All-American 3rd team. National recognition has arrived.",
-    10: "All-American 2nd team. Among the country's best at the position.",
-    11: "All-American 1st team. Elite-tier national recognition.",
-    12: "Position-of-the-Year — the country's best at the position.",
-    13: "Watch-list honoree across major position awards.",
-    14: "POTY finalist — one of three nationally for the position award.",
-    15: "Heisman finalist — among the country's best players, period.",
-    16: "Heisman winner. The trophy is in the case.",
+    0:  "Walk-on. Earning a roster spot is the starting line.",
+    1:  "Scout team / redshirt. Developing behind the depth chart.",
+    2:  "Deep reserve. In the program, working up the two-deep.",
+    3:  "Backup. On the two-deep, pushing for snaps.",
+    4:  "Rotational. Earning real snaps in the rotation.",
+    5:  "Part-time starter. Splitting first-team reps.",
+    6:  "Starter. A locked-in starting role.",
+    7:  "Impact starter. Producing measurable value above replacement.",
+    8:  "Watch-list name. On the national radar at the position.",
+    9:  "All-Conference HM / 2nd team. Conference recognition has started.",
+    10: "All-Conference 1st team. Among the conference's best at the position.",
+    11: "National watch / fringe All-America. Knocking on the All-America door.",
+    12: "All-American. Named to an NCAA-recognized All-America team.",
+    13: "Consensus All-American. Recognized by a majority of the selectors.",
+    14: "Unanimous All-American. First-team on every major selector list.",
+    15: "Position-of-the-Year finalist. Among the nation's elite at the position.",
+    16: "Position-of-the-Year / Heisman winner. The trophy is in the case.",
 }
 
 
@@ -230,7 +223,8 @@ def render_standing_rail(standing_rung: int | None, player_name: str = "") -> st
         )
 
     tier_markers: list[str] = []
-    last_tier = 0
+    last_tier = None  # NOT 0 — canonical tier ids start at 0 ("Not on team"),
+    # so a 0-seed would skip the first tier marker.
     for r_idx in range(17):
         _, _, t, t_label = _RUNG_CATALOG[r_idx]
         if t != last_tier:

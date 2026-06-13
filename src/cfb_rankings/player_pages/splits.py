@@ -365,6 +365,6 @@ def render_splits(
         '<span class="player-splits__meta">Home/Road &middot; Win/Loss &middot; Season halves</span>'
         '</header>'
         f'<div class="player-splits__panels">{panels_html}</div>'
-        '<p class="player-splits__delta">Defense-quality and pocket (clean vs. pressure) splits arrive when CFBD play-by-play lands.</p>'
+        '<p class="player-splits__delta">Pocket and defense-quality (clean vs. pressure) splits are coming soon.</p>'
         '</section>'
     )

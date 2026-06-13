@@ -542,6 +542,11 @@ _LENS_TOGGLE_SCRIPT = """
 """
 
 
+# Backstage "how this story shifted" changelog — OFF pending the narrative
+# overhaul (raw logline-diff deltas are not fan copy). See _render_changelog.
+_CHANGELOG_ENABLED = False
+
+
 def _render_changelog(card: Any) -> str:
     """The "how this story shifted" heartbeat (doc 49 EKG). Reads the recent
     snapshot deltas attached by ``_attach_changelog`` as ``card.changelog`` —
@@ -552,6 +557,12 @@ def _render_changelog(card: Any) -> str:
     never-shifted player). Silence is correct — no "no changes" placeholder.
     Every dynamic value is escaped; never injects raw HTML.
     """
+    # SUPPRESSED 2026-06-13: the snapshot deltas render as raw, backstage
+    # "logline 'X' -> 'Y'; why now: ..." strings — developer plumbing, not
+    # fan copy. Hidden until the narrative overhaul produces human-readable
+    # "how this story shifted" deltas. Flip _CHANGELOG_ENABLED to re-enable.
+    if not _CHANGELOG_ENABLED:
+        return ""
     entries = _attr(card, "changelog", []) or []
     if not isinstance(entries, (list, tuple)):
         return ""
@@ -772,7 +783,7 @@ def render_story_card(card: "Optional[StoryCard]") -> str:
             '<p class="psc-disclosure">'
             'AI narrative'
             + (f' · updated {as_of}' if as_of else "")
-            + ' · compiled from your data'
+            + ' · compiled from CFB Index data'
             '</p>'
         )
 
