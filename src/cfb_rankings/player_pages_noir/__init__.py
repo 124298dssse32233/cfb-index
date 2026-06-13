@@ -59,8 +59,8 @@ def _head(summary: dict[str, Any], player_data: dict[str, Any]) -> str:
     legacy_head = player_data.get("legacy_head_html")
     if isinstance(legacy_head, str) and legacy_head.strip():
         return legacy_head
-    ident = player_data.get("player_identity") or {}
-    name = ident.get("full_name") or ident.get("name") or player_data.get("player_name") or "Player"
+    player = player_data.get("player") or player_data.get("player_identity") or {}
+    name = player.get("full_name") or player.get("name") or "Player"
     return (
         "<meta charset=\"utf-8\">"
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"

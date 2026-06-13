@@ -7087,15 +7087,32 @@ def build_static_site(db: Database, output_dir: str | Path = "output/site") -> P
         encoding="utf-8",
     )
     _player_render_errors = 0
+    # Optional Noir player route (parallel renderer; doc 61). DEFAULT OFF — gated by
+    # player_pages_noir.eligibility (env NOIR_ROLLOUT_TIER, default "off"). Guarded
+    # import so a missing/broken package can NEVER affect the legacy build.
+    try:
+        from cfb_rankings.player_pages_noir import (
+            noir_enabled as _noir_enabled,
+            render_noir_player_page as _render_noir,
+        )
+    except Exception:
+        _noir_enabled = None
+        _render_noir = None
     for player_slug, player_data in player_pages.items():
         # 2026-05-23: Per-slug try/except so one broken player_pages v2 module
         # injection doesn't crash the entire build. Print eager + flush so
         # CI logs show exactly which slug failed and why.
         try:
-            (players_dir / f"{player_slug}.html").write_text(
-                render_player_page_html(summary, player_data),
-                encoding="utf-8",
-            )
+            _html = None
+            if _noir_enabled is not None:
+                try:
+                    if _noir_enabled(player_slug, player_data):
+                        _html = _render_noir(summary, player_data)  # None => not eligible
+                except Exception:
+                    _html = None  # any Noir issue -> legacy; never break the build
+            if _html is None:
+                _html = render_player_page_html(summary, player_data)
+            (players_dir / f"{player_slug}.html").write_text(_html, encoding="utf-8")
         except Exception as _exc:
             _player_render_errors += 1
             print(

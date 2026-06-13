@@ -49,12 +49,15 @@ def _present(player_data: dict, keys: list[str]) -> list[str]:
 
 
 def _hero(player_data: dict) -> str:
-    ident = player_data.get("player_identity") or {}
-    name = _s(ident.get("full_name") or ident.get("name") or player_data.get("player_name") or "Player")
-    pos = _s(ident.get("position"))
-    team = _s(ident.get("team_name") or ident.get("team"))
-    cls = _s(str(ident.get("class_year") or ident.get("class") or ""))
-    jersey = ident.get("jersey")
+    # Authoritative identity keys (reporting.py render): player + primary_team.
+    # `player_identity` kept only as a fallback for unit tests.
+    player = player_data.get("player") or player_data.get("player_identity") or {}
+    pteam = player_data.get("primary_team") or {}
+    name = _s(player.get("full_name") or player.get("name") or "Player")
+    pos = _s(player.get("position") or pteam.get("position"))
+    team = _s(pteam.get("team_name") or player.get("team_name") or player.get("team"))
+    cls = _s(str(player.get("class_year") or pteam.get("class_year") or player.get("class") or ""))
+    jersey = player.get("jersey") or player.get("jersey_number")
     tier = _s(player_data.get("tier_rail") or "t3").lower()
     monogram = "".join(w[0] for w in name.split()[:2]).upper() or "?"
     eyebrow = " · ".join(p for p in [pos, team, (f"Cl {cls}" if cls else ""), (f"#{jersey}" if jersey else "")] if p)
