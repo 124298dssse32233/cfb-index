@@ -265,6 +265,6 @@ def render_pass_profile(
         f'{total_tds} TD &middot; {total_ints} INT</span>'
         '</header>'
         f'<div class="pass-profile__buckets">{"".join(cards)}</div>'
-        f'<p class="pass-profile__lede">{escape(" &middot; ".join(lede_parts))}.</p>'
+        f'<p class="pass-profile__lede">{escape(" · ".join(lede_parts))}.</p>'
         '</section>'
     )
