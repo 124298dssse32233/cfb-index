@@ -64,6 +64,18 @@ MULTI_CLASS_PREFIXES: frozenset[str] = frozenset(
 
 UNCLASSIFIED = "unclassified"
 
+# Reddit registry classes whose PRIMARY collector is the Arctic Shift / pullpush
+# archive path (~96% of reddit docs), which logs to ``conversation_collection_runs``
+# — a table this scrape_health-based reconciliation is otherwise BLIND to. Their
+# ``scrape_health`` rows are the vestigial ``reddit_backfill_*`` RSS instances
+# (~3% superseded path) that read "stale" even while the archive collector is live.
+_REDDIT_ARCHIVE_CLASSES: frozenset[str] = frozenset(
+    {"reddit_team", "reddit_city", "reddit_alumni", "reddit_cfb"}
+)
+# How recently (vs the scrape_health "now" anchor) the archive collector must have
+# run for us to treat those superseded RSS instances as live-via-archive, not stale.
+_ARCHIVE_LIVE_MAX_AGE_DAYS = 3.0
+
 # An ok instance is "overdue" when the gap since its last ok run exceeds this
 # multiple of its own historical median ok-to-ok gap. Only applied when we have
 # >= MIN_OK_RUNS_FOR_CADENCE ok runs to establish a rhythm (else "never
@@ -255,6 +267,28 @@ def _is_overdue(
     return False, f"fresh (~{median_gap:.0f}d cadence)"
 
 
+def _reddit_archive_newest(conn: sqlite3.Connection) -> datetime | None:
+    """Newest Arctic Shift / pullpush reddit collection run as a datetime, or None.
+
+    The reddit archive collectors are the PRIMARY reddit path (~96% of reddit docs)
+    and they log to ``conversation_collection_runs`` — NOT ``scrape_health`` — so
+    the reconciliation above cannot see them and reports reddit "stale" off the
+    vestigial ``reddit_backfill_*`` RSS rows. Reading the table the archive really
+    writes lets a live run clear that false signal. Strictly read-only; any error
+    or missing table degrades to ``None`` (fall back to the scrape_health verdict).
+    """
+    try:
+        row = conn.execute(
+            "SELECT MAX(started_at_utc) FROM conversation_collection_runs "
+            "WHERE json_extract(raw_config_json, '$.provider') IN ('arctic_shift', 'pullpush')"
+        ).fetchone()
+    except sqlite3.Error:
+        return None
+    if not row or not row[0]:
+        return None
+    return _parse_ts(str(row[0]))
+
+
 # === pillar entrypoint =====================================================
 
 
@@ -292,6 +326,17 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
     if now is None:
         now = datetime.utcnow()
 
+    # The reddit archive collector (Arctic Shift / pullpush) is the PRIMARY reddit
+    # path but logs to conversation_collection_runs, which the scrape_health
+    # reconciliation cannot see. If it ran within the freshness window, the reddit_*
+    # classes' stale RSS backfill instances are SUPERSEDED, not unhealthy — so we
+    # read the real signal instead of false-alarming on a ~3% vestigial path.
+    _archive_dt = _reddit_archive_newest(conn)
+    reddit_archive_live = (
+        _archive_dt is not None
+        and (now - _archive_dt).total_seconds() / 86400.0 <= _ARCHIVE_LIVE_MAX_AGE_DAYS
+    )
+
     # Per-class accumulators.
     per_class: dict[str, dict[str, int]] = defaultdict(
         lambda: {
@@ -303,6 +348,7 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
             "other": 0,
             "overdue": 0,
             "unhealthy": 0,
+            "superseded": 0,
         }
     )
 
@@ -316,6 +362,7 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
         "other": 0,
         "overdue": 0,
         "unhealthy": 0,
+        "superseded": 0,
         "unclassified_instances": 0,
         # Multi-class-prefix instances the name-based heuristic recovered (would
         # otherwise be unclassified). Reported so the heuristic's reach is visible.
@@ -345,17 +392,29 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
             bucket["other"] += 1
             overall["other"] += 1
 
+        # A reddit archive class is live via Arctic Shift / pullpush (tracked in
+        # conversation_collection_runs) even when its vestigial RSS scrape_health
+        # instances read stale -> count those as superseded, not unhealthy.
+        _superseded = reddit_archive_live and cls in _REDDIT_ARCHIVE_CLASSES
         if st in _UNHEALTHY_STATUSES:
-            bucket["unhealthy"] += 1
-            overall["unhealthy"] += 1
+            if _superseded:
+                bucket["superseded"] += 1
+                overall["superseded"] += 1
+            else:
+                bucket["unhealthy"] += 1
+                overall["unhealthy"] += 1
         elif st == "ok":
             overdue, _note = _is_overdue(ts, ok_history.get(instance_id, []), now)
             if overdue:
                 bucket["overdue"] += 1
                 overall["overdue"] += 1
                 # An overdue ok instance is a soft-unhealthy schedule miss.
-                bucket["unhealthy"] += 1
-                overall["unhealthy"] += 1
+                if _superseded:
+                    bucket["superseded"] += 1
+                    overall["superseded"] += 1
+                else:
+                    bucket["unhealthy"] += 1
+                    overall["unhealthy"] += 1
 
     # --- one summary CheckResult per source class ---
     latest_sql = (
@@ -372,11 +431,16 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
         # health of instances we could not even attribute to a contract.
         if cls == UNCLASSIFIED:
             status = "unknown"
+        superseded_note = (
+            f" ({b['superseded']} superseded — live via Arctic Shift/pullpush, "
+            f"tracked in conversation_collection_runs not scrape_health)"
+            if b["superseded"] else ""
+        )
         detail = (
             f"{cls}: {b['instances']} instance(s) — "
             f"ok={b['ok']} error={b['error']} empty={b['empty']} "
             f"skipped={b['skipped']} overdue={b['overdue']}; "
-            f"{unhealthy} unhealthy."
+            f"{unhealthy} unhealthy.{superseded_note}"
         )
         results.append(
             CheckResult(
@@ -393,14 +457,20 @@ def run(conn: sqlite3.Connection) -> list[CheckResult]:
 
     # --- one overall counts result ---
     healthy = overall["instances"] - overall["unhealthy"]
+    superseded_clause = (
+        f" Plus {overall['superseded']} reddit instance(s) SUPERSEDED — live via "
+        f"Arctic Shift (conversation_collection_runs, ~96% of reddit docs), so the "
+        f"vestigial RSS rows are not counted unhealthy."
+        if overall["superseded"] else ""
+    )
     overall_detail = (
         f"{overall['instances']} source instances reconciled vs "
         f"{overall['registry_classes']} registry classes: "
-        f"{overall['unhealthy']} unhealthy "
-        f"({overall['error']} error + {overall['empty']} empty + "
-        f"{overall['overdue']} overdue), {healthy} healthy; "
+        f"{overall['error']} error + {overall['empty']} empty + "
+        f"{overall['overdue']} overdue across latest runs -> "
+        f"{overall['unhealthy']} unhealthy, {healthy} healthy; "
         f"{overall['unclassified_instances']} unclassified "
-        f"({overall['heuristic_classified']} recovered by name heuristic)."
+        f"({overall['heuristic_classified']} recovered by name heuristic).{superseded_clause}"
     )
     results.append(
         CheckResult(

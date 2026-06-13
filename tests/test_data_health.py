@@ -901,3 +901,64 @@ def test_classify_non_multi_class_prefix_is_handled_upstream():
     """A non-multi-class prefix returns None (freshness already classified it)."""
     cls, reason = dh_prefix.classify_instance_explained("cfbd", {"cfbd"})
     assert cls is None and "upstream" in reason
+
+
+# === freshness: reddit archive (Arctic Shift) supersedes vestigial RSS 429s ===
+# The reddit archive collector logs to conversation_collection_runs, which the
+# scrape_health-based freshness reconciliation cannot see. When it ran recently,
+# the reddit_* classes' stale RSS instances are SUPERSEDED, not unhealthy.
+from cfb_rankings.data_health.checks import freshness as dh_freshness
+
+
+def _freshness_conn(archive_iso):
+    conn = sqlite3.connect(":memory:")
+    conn.executescript(
+        """
+        CREATE TABLE source_registry (source_id TEXT);
+        INSERT INTO source_registry (source_id) VALUES ('reddit_team');
+        CREATE TABLE teams (slug TEXT);
+        CREATE TABLE scrape_health (
+            source_id TEXT, status TEXT, run_date TEXT,
+            run_started_at_utc TEXT, run_finished_at_utc TEXT,
+            error_message TEXT, rows_inserted INTEGER, adapter_version TEXT
+        );
+        CREATE TABLE conversation_collection_runs (raw_config_json TEXT, started_at_utc TEXT);
+        """
+    )
+    # A stale, erroring reddit_team instance (the vestigial RSS path, 429-killed).
+    conn.execute(
+        "INSERT INTO scrape_health (source_id,status,run_date,run_finished_at_utc) "
+        "VALUES ('reddit_team','error','2026-06-10','2026-06-10 10:00:00')"
+    )
+    if archive_iso is not None:
+        conn.execute(
+            "INSERT INTO conversation_collection_runs (raw_config_json,started_at_utc) "
+            "VALUES (json_object('provider','arctic_shift'), ?)",
+            (archive_iso,),
+        )
+    conn.commit()
+    return conn
+
+
+def _reddit_team_result(results):
+    return next(r for r in results if r.check_id == "freshness.source_class.reddit_team")
+
+
+def test_freshness_reddit_superseded_when_archive_live():
+    # Archive ran ~1d before the scrape_health anchor -> within window -> live.
+    res = _reddit_team_result(dh_freshness.run(_freshness_conn("2026-06-09 12:00:00")))
+    assert res.status == "pass"
+    assert "superseded" in res.detail.lower()
+
+
+def test_freshness_reddit_unhealthy_when_archive_stale():
+    # Archive last ran ~40d before the anchor -> not live -> the RSS error stands.
+    res = _reddit_team_result(dh_freshness.run(_freshness_conn("2026-05-01 12:00:00")))
+    assert res.status == "fail"
+    assert "superseded" not in res.detail.lower()
+
+
+def test_freshness_reddit_unhealthy_when_no_archive_signal():
+    # No archive run at all -> degrade to the scrape_health verdict (unhealthy).
+    res = _reddit_team_result(dh_freshness.run(_freshness_conn(None)))
+    assert res.status == "fail"
