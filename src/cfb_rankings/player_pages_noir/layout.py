@@ -102,11 +102,35 @@ def _footer(player_data: dict) -> str:
     return f'<section class="nz nfoot">{meta}</section>'
 
 
-def _showcases(player_data: dict) -> str:
-    """Section 3 — the three named sub-showcases, each hiding independently."""
+def _season_tables_html(player_data: dict) -> str:
+    """The traditional multi-season + career stat table (The Record leads with it,
+    'traditional-first', doc 60 §7). Reuses reporting.render_all_player_season_stat_tables
+    on the precomputed season_stat_tables list. Lazy + guarded; "" on any issue."""
+    rows = player_data.get("season_stat_tables") or []
+    if not rows:
+        return ""
+    try:
+        from cfb_rankings.reporting import render_all_player_season_stat_tables
+        player = player_data.get("player") or {}
+        html = render_all_player_season_stat_tables(
+            rows,
+            player_name=str(player.get("full_name") or "Player"),
+            player_slug=str(player.get("player_slug") or "") or None,
+            use_legacy=True,   # the traditional numeric career table
+        )
+        return html or ""
+    except Exception:
+        return ""
+
+
+def _showcases(player_data: dict, skip: set[str] | None = None) -> str:
+    """Section 3 — the three named sub-showcases, each hiding independently.
+    `skip` drops specific module keys (used to de-dupe the Aura module when the BAN
+    already IS the perception gap — avoids showing −37 then +37 right below)."""
+    skip = skip or set()
     blocks: list[str] = []
     for sub_name, keys in _SHOWCASES:
-        present = _present(player_data, keys)
+        present = _present(player_data, [k for k in keys if k not in skip])
         if not present:
             continue
         mods = "".join(f'<div class="nmod">{h}</div>' for h in present)
@@ -122,6 +146,12 @@ def compose(summary: dict, player_data: dict) -> str:
         placed: set[str] = set(_CHROME_KEYS) | _SHOWCASE_KEYS
         parts: list[str] = [_hero(player_data)]
 
+        # De-dupe: if the BAN already IS the perception gap (accent="aura"), don't
+        # also show the standalone Aura module — it repeats the same number.
+        story = _s(player_data.get("new_story_card_html"))
+        ban_is_aura = 'data-ban-accent="aura"' in story
+        showcase_skip = {"new_aura_html"} if ban_is_aura else set()
+
         # Dossier (2) first, then the named Showcases (3), then 4/5.
         for num, eyebrow, keys in _SECTIONS:
             present = _present(player_data, keys)
@@ -129,8 +159,12 @@ def compose(summary: dict, player_data: dict) -> str:
             if num == "2":  # the Dossier IS the story card — no wrapper chrome
                 if present:
                     parts.append(f'<section class="nz"><p class="nz__eyebrow">2 · The Dossier</p>{present[0]}</section>')
-                    parts.append(_showcases(player_data))   # 3 follows the Dossier
+                    parts.append(_showcases(player_data, showcase_skip))   # 3 follows the Dossier
                 continue
+            if num == "5":  # The Record leads with the traditional career stat table
+                tables = _season_tables_html(player_data)
+                if tables:
+                    present = [tables] + present
             if not present:
                 continue
             mods = "".join(f'<div class="nmod">{h}</div>' for h in present)
