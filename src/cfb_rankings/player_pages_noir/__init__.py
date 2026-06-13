@@ -44,7 +44,7 @@ def render_noir_player_page(summary: dict[str, Any], player_data: dict[str, Any]
         return (
             "<!doctype html><html lang=\"en\"><head>"
             f"{head}<style>{noir_player_css()}</style>"
-            "</head><body>"
+            "</head><body style=\"background:#0E1216;margin:0\">"
             f"<main class=\"player-page theme-noir\" {NOIR_ROUTE_MARKER} id=\"main-content\">{body}</main>"
             "</body></html>"
         )
@@ -56,14 +56,24 @@ def _head(summary: dict[str, Any], player_data: dict[str, Any]) -> str:
     """Copy the legacy <head> contract verbatim where available (canonical/title/OG
     must be byte-identical to avoid SEO churn — plan risk R8). Falls back to a
     minimal head only if the legacy head wasn't precomputed."""
-    legacy_head = player_data.get("legacy_head_html")
-    if isinstance(legacy_head, str) and legacy_head.strip():
-        return legacy_head
     player = player_data.get("player") or player_data.get("player_identity") or {}
     name = player.get("full_name") or player.get("name") or "Player"
+    # The reused modules (story card, game log, aura, etc.) are styled by the main
+    # site stylesheet — _player_pages_v2_css() is concatenated into
+    # /assets/cfb-index.<hash>.css and linked by _global_link_tags(). The Noir page
+    # MUST link the same assets or every reused module renders unstyled. The
+    # `.theme-noir` inline overrides then repaint those modules. Lazy import (the
+    # build has reporting loaded already); guarded so a failure degrades, not breaks.
+    asset_links = ""
+    try:
+        from cfb_rankings.reporting import _global_link_tags
+        asset_links = _global_link_tags()
+    except Exception:
+        asset_links = ""
     return (
         "<meta charset=\"utf-8\">"
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+        f"{asset_links}"
         "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">"
         "<link href=\"https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;800&"
         "family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital@0;1&display=swap\" rel=\"stylesheet\">"
