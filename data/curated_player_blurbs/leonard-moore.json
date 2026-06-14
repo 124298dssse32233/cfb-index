@@ -1,0 +1,30 @@
+{
+  "slug": "leonard-moore-12186",
+  "slug_verified": true,
+  "player_name": "Leonard Moore",
+  "team": "Notre Dame",
+  "position": "CB",
+  "as_of_date": "2026-06-13",
+  "tier": "tentpole",
+  "story_shape": "the best cover corner in the sport returns -- the lockdown anchor of a title defense (the rare man + zone + ball-production combo)",
+  "plan": {
+    "spine": "Notre Dame's best player might be the corner nobody throws at -- a unanimous All-American as a sophomore, back for a title run",
+    "blend": ["unanimous All-American (all 5 selectors) as a SOPHOMORE", "rare man+zone+ball-production combo", "PFF #1 P4 corner in coverage", "anchor of ND's #4-national INT secondary, paired with Carr's offense"],
+    "payoff": "PFF's No. 1 Power-Four corner in coverage (92.6) and No. 1 DB overall (92.0); 5 INT + a pick-six + 12 breakups in 10 games",
+    "forward_stake": "whether the lockdown corner becomes the one who closes a championship -- and the tell that QBs already avoid his side",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Notre Dame's offense gets the headlines, but its best player might be the corner nobody throws at. As a sophomore, Leonard Moore was a unanimous All-American -- and he's back.",
+  "expand": "First-team by all five selectors after five interceptions (including a pick-six) and twelve pass breakups in just ten games -- second in the country in picks per game. PFF graded him the No. 1 Power-Four corner in coverage (92.6) and the No. 1 defensive back overall (92.0). He's the rare prospect with elite man-AND-zone technique plus the ball production that usually belongs to only one or the other -- the anchor of a secondary that ranked fourth nationally with 21 interceptions. He could have been a high pick; instead it's only his junior year. The forward stakes are a title: Notre Dame's offense has Carr, and its defense has the best cover corner in the country to roll everything else around. The only thing capping his numbers is that quarterbacks have started looking the other way -- and the 2026 question is whether the lockdown corner becomes the one who closes a championship.",
+  "style_register": "cinematic",
+  "style": "Moore is the rarest thing at the position: a corner who erases in man, robs in zone, and produces the ball -- usually you get one. PFF graded him the No. 1 Power-Four corner in coverage; he backed it with five interceptions and a dozen breakups in ten games, the production of a gambler paired with technique that never gambles. Watch the mirror: he rides a receiver's hip through the break, then locates the ball like a receiver himself. He's a true island corner -- the kind that lets a defense leave him alone and send its help everywhere else. There's no obvious hole to attack, which is the point: the only thing limiting his stat line is that quarterbacks have started avoiding his side entirely.",
+  "style_layers_pending": "no offensive PBP for a CB -- box + PFF-coverage-grade + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup + in-season data",
+  "sources": [
+    { "label": "247Sports -- Moore Jim Thorpe finalist", "url": "https://247sports.com/college/notre-dame/article/notre-dame-fighting-irish-cornerback-leonard-moore-selected-as-finalist-for-jim-thorpe-award-going-to-college-footballs-best-defensive-back-in-2025-263365905/" },
+    { "label": "Notre Dame -- Love, Moore earn unanimous All-America", "url": "https://fightingirish.com/love-moore-earn-unanimous-all-america-honors/" },
+    { "label": "SI -- best returning cornerbacks 2026 (Moore #1)", "url": "https://www.si.com/fannation/college/cfb-hq/rankings/ranking-college-football-best-returning-cornerbacks-2026" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

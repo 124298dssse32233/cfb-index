@@ -1,0 +1,30 @@
+{
+  "slug": "whit-weeks-13977",
+  "slug_verified": true,
+  "player_name": "Whit Weeks",
+  "team": "LSU",
+  "position": "LB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the tackling machine, made whole -- an All-SEC linebacker whose monster 2024 was followed by a broken-ankle 2025, back healthy as LSU's defensive heartbeat",
+  "plan": {
+    "spine": "the SEC's most productive linebacker in 2024 lost most of 2025 to a broken ankle -- now he's healthy, a preseason All-American, and the linchpin of LSU's defense",
+    "blend": ["2024: 125 tackles (2nd in the SEC), 10 TFL, 3.5 sacks -- first-team All-SEC", "2025: a broken ankle limited him to 8 games (31 tackles)", "returned for his senior year, forgoing the 2026 draft", "2026 AP preseason first-team All-American; Butkus contender"],
+    "payoff": "125 tackles in 2024, then an ankle wrecked 2025 -- the comeback is the story",
+    "forward_stake": "whether a healthy season restores the 2024 form that made him the SEC's best linebacker -- and anchors LSU's front seven",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "In 2024, Whit Weeks was the SEC's most productive linebacker. In 2025, a broken ankle took most of his season. Now he's healthy, a preseason All-American, and the heartbeat of LSU's defense -- with the form to chase every award the position has.",
+  "expand": "The 2024 tape is the case: 125 tackles, second-most in the SEC, with 10 tackles for loss, 3.5 sacks, two forced fumbles and an interception, first-team All-SEC. Then 2025 broke -- literally, an ankle at Ole Miss in late September that limited him to eight games and 31 tackles before he shut it down. He could have left on his 2024 reputation; instead he came back for his senior year, forgoing the 2026 draft. The voters still see it: he's an AP preseason first-team All-American and an ESPN-named Butkus contender entering 2026. The forward stakes are health and form -- if he plays a full season at his 2024 level, he's in the conversation for every major defensive award, and LSU has the linchpin a feared front seven is built around. For Weeks, 2026 is the year the comeback becomes the coronation.",
+  "style_register": "descriptive",
+  "style": "Weeks is a downhill, sideline-to-sideline hammer at 6-2, around 224. Scouts (Bleacher Report's 2026 report and draft profiles) credit \"explosive trigger and closing burst\" with the range to cover the field, and \"advanced diagnostic skills\" -- he \"identifies plays pre-snap and reacts with zero hesitation\" -- plus \"good stick and arm-over moves\" as a blitzer. The production is the proof: 125 tackles, 10 for loss and 3.5 sacks in his healthy 2024. He plays the run \"extremely physical and willing to stick his head into traffic.\" The honest edge, per the same reports, is a tackling habit -- he \"likes to lunge and leave his feet,\" which leads to the occasional miss. He's an every-down, instinctive thumper whose ceiling, when healthy, is the best linebacker in his conference.",
+  "style_layers_pending": "no offensive PBP for a linebacker -- box (tackles/TFL/sacks) + attributed scouting grounded; 2025 line is injury-shortened (8 games), 2024 is the representative season; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Whit Weeks says he'll return to LSU for 2026", "url": "https://www.espn.com/college-football/story/_/id/47473199/lsu-linebacker-whit-weeks-says-return-tigers-2026" },
+    { "label": "Saturday Down South -- Weeks a preseason Butkus contender", "url": "https://www.saturdaydownsouth.com/news/college-football/espn-analyst-names-whit-weeks-a-preseason-butkus-award-contender/" },
+    { "label": "SI -- the case that Weeks is the SEC's best linebacker", "url": "https://www.si.com/college/lsu/football/making-the-case-that-lsu-star-whit-weeks-is-the-best-linebacker-in-the-sec" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

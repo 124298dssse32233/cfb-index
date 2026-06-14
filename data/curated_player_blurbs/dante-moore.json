@@ -1,0 +1,30 @@
+{
+  "slug": "dante-moore-16494",
+  "slug_verified": false,
+  "player_name": "Dante Moore",
+  "team": "Oregon",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the top pick who came back (bet-on-himself + unfinished-business + title-engine); the Raiola subplot",
+  "plan": {
+    "spine": "a projected top-five pick walked away from the NFL to come back -- chasing the title a 56-22 semifinal beating left undone, and unknowingly setting a five-star to wait behind him",
+    "blend": ["declined the draft (projected top-5)", "the 56-22 Indiana semifinal loss as fuel", "only 20 career starts -- 'wasn't prepared yet'", "his return is what's redshirting Dylan Raiola"],
+    "payoff": "turned down a likely top-5 draft slot to return; the 56-22 Playoff semifinal humbling by Indiana is the fuel",
+    "forward_stake": "a referendum on the bet -- prove the extra year was wisdom not hesitation, and make sure the last image of his Oregon career isn't a 34-point semifinal loss",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Dante Moore was a projected top-five NFL pick. He said no, and came back to Oregon -- to finish something a 56-22 playoff beating left undone. The most interesting quarterback decision of the offseason now has a full season to be judged.",
+  "expand": "Most quarterbacks with Moore's draft stock are gone. He left it on the table. After a 13-2 season -- 71.8% completions, 3,565 yards, 30 touchdowns -- that ended in a 56-22 Playoff semifinal humbling by Indiana, the projected first-rounder turned down the draft and returned to Eugene. His reasons were unusually candid: only 20 career starts across stops at UCLA and Oregon, a sense he 'wasn't prepared yet,' and a title that got away.\n\nIt's a bet on himself in the most public way possible -- and it reshaped the sport's offseason. His return convinced the Ducks' five-star transfer, Dylan Raiola, that 2026 would be a redshirt year in the wings.\n\nSo the forward stakes cut two ways. For Oregon, Moore is a Playoff-tested starter with unfinished business and a roster built to contend. For Moore personally, it's a referendum: a season to prove the extra year was wisdom, not hesitation -- and to make sure the last image of his Oregon career isn't a 34-point semifinal loss.",
+  "sources": [
+    { "label": "ESPN -- Moore opts against NFL draft, returning to Oregon", "url": "https://www.espn.com/college-football/story/_/id/47611257/qb-dante-moore-opts-nfl-draft-returning-oregon" },
+    { "label": "Yahoo -- details on why Moore returned", "url": "https://sports.yahoo.com/articles/details-emerge-why-dante-moore-174625836.html" },
+    { "label": "SI -- what Moore's decision means for Oregon's season", "url": "https://www.si.com/college/oregon/football/dante-moore-nfl-draft-decision-means-oregon-ducks-season-stakes-college-football-playoff" }
+  ],
+  "style_register": "descriptive",
+  "style": "Moore is a clean, efficient pocket passer, and the metrics are emphatic about it: 97th percentile in efficiency, 98th in both explosive-pass rate and touchdown rate, with a sack rate in the top tenth -- he gets it out, he hits the big one, he finishes drives. What the resume lacks isn't production, it's volume: just 20 career starts across UCLA and Oregon, the real reason a projected top-five pick came back. The blemish the tape keeps is the stage -- a 56-22 semifinal where the moment swallowed the offense whole. So 2026 isn't a skills audit; the numbers passed it. It's an experience-and-poise one: whether a full season as the unquestioned starter turns an elite-efficient college passer into one who carries a playoff night instead of being buried by one.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 16494); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

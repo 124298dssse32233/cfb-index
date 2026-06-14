@@ -1,0 +1,31 @@
+{
+  "slug": "dylan-raiola-13699",
+  "slug_verified": false,
+  "player_name": "Dylan Raiola",
+  "team": "Oregon",
+  "position": "QB",
+  "as_of_date": "2026-06-12",
+  "tier": "feature",
+  "story_shape": "the gamble-that-backfired / the long game (acquisition + Open Question + heir-in-waiting); bloodline as irony",
+  "plan": {
+    "spine": "football's most famous transfer left a starting job for a better shot, then the incumbent he'd presumably out-talent came back -- and now he's redshirting and betting on 2027",
+    "blend": ["portal/acquisition", "Open Question (does he ever play?)", "heir-in-waiting behind Dante Moore", "Raiola bloodline (irony -- the savior who left)"],
+    "payoff": "the surprise that Dante Moore, a consensus Day-1 NFL pick, forwent the draft to return -- turning Raiola's move into an apprenticeship; pre-injury he was completing 72%",
+    "forward_stake": "did he bet right? -- the answer doesn't arrive until 2027, when the keys are (maybe) his",
+    "register": "transition (contingent / quiet)",
+    "horizon": "2027-28"
+  },
+  "hook": "Dylan Raiola left a starting job and Nebraska's throne for a better shot at Oregon. Then the Ducks' NFL-bound starter shocked everyone and came back -- and now football's most famous transfer is redshirting.",
+  "expand": "Read that again: the highest-ranked recruit Nebraska ever signed -- son of a 14-year NFL center, the face of Matt Rhule's rebuild -- walked away from 22 career starts and won't take a meaningful snap in 2026. The exits weren't only his: his uncle was let go from Nebraska's staff and his brother decommitted, so the family's Lincoln chapter closed all at once.\n\nWhat he's really betting on is 2027. Dante Moore's surprise return turned the Oregon move into the same apprenticeship Moore once served behind Dillon Gabriel -- a year to learn the system before the keys are his. Before the broken leg ended his Nebraska season, Raiola was completing 72%. The arm was never the question. The question is patience: whether a five-star raised to be The Guy can spend a year as the understudy -- and whether the gamble reads as brilliant or premature when 2027 finally comes.",
+  "sources": [
+    { "label": "B/R -- Moore returns amid Raiola transfer", "url": "https://bleacherreport.com/articles/25352645-dante-moore-will-return-oregon-forgo-2026-nfl-draft-amid-dylan-raiola-transfer" },
+    { "label": "Yahoo -- Raiola to Oregon, Nebraska stats", "url": "https://sports.yahoo.com/articles/dylan-raiola-oregon-football-lands-192025191.html" },
+    { "label": "SI -- Raiola's biggest surprise at Oregon", "url": "https://www.si.com/college/oregon/football/dylan-raiola-biggest-surprise-oregon-ducks-quarterback-dante-moore" },
+    { "label": "CBS -- Raiola commits to Oregon (Moore mulling future)", "url": "https://www.cbssports.com/college-football/news/dylan-raiola-commits-oregon-college-football-transfer-portal-dante-moore-nfl-draft/" }
+  ],
+  "style_register": "descriptive",
+  "style": "Raiola looks the part to an almost cartoonish degree -- a broad, NFL-built frame, a compact over-the-top release, the pre-snap command that drew Patrick Mahomes comparisons before a college snap. The tape, what there is of it, backs the projection: 86th-percentile accuracy and an 18-to-6 touchdown-to-interception line before a broken leg ended his Nebraska season at nine games. The honest tell is the sack rate -- bottom-ten percent -- he holds the ball hunting the throw, for better and worse, the habit a young quarterback either refines into patience or pays for. The catch for 2026 is that there won't be new tape: he's redshirting behind Dante Moore, developing in practice, not on Saturdays. This is a projection year, banking reps for the 2027 audition the whole bet is built around.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 13699); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

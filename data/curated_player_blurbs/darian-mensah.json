@@ -1,0 +1,29 @@
+{
+  "slug": "darian-mensah-11336",
+  "slug_verified": true,
+  "player_name": "Darian Mensah",
+  "team": "Miami",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the ACC's best passer changes teams -- the man who led Duke to a title is Miami's big-money answer at quarterback",
+  "plan": {
+    "spine": "the quarterback who led the ACC in passing and won a surprise title at Duke is now Miami's marquee portal swing -- a proven passer dropped onto a Playoff-caliber roster",
+    "blend": ["2025 at Duke: 3,973 pass yds (ACC-best), 34 TD / 6 INT, 66.8%", "2nd-team All-ACC, ACC Newcomer of the Year, Davey O'Brien semifinalist", "Miami's top-dollar transfer-portal answer at QB", "elite efficiency: 92nd-pct EPA per dropback, 85th-pct interception avoidance"],
+    "payoff": "an ACC-leading 3,973 yards and a 34-to-6 touchdown-to-interception ratio -- then a move to Miami",
+    "forward_stake": "whether a proven passer turns a CFP-runner-up roster into a title contender",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Darian Mensah led the ACC in passing and won a surprise title at Duke. Now he's Miami's big-money answer at quarterback -- a proven passer dropped onto a roster that was a game from the championship.",
+  "expand": "His 2025 at Duke was a breakout in full: an ACC-best 3,973 passing yards, 34 touchdowns against only six interceptions, a 66.8 completion percentage, second-team All-ACC, ACC Newcomer of the Year and a Davey O'Brien semifinal nod -- and a surprise conference title. Miami made him the headline of its offseason, the top-dollar portal swing meant to replace its departed quarterback. The fit is the story: a program fresh off a Playoff near-miss adds a passer who already does the hardest thing well -- protect the ball while pushing the offense. The forward stakes are a championship window. Miami doesn't need Mensah to be a revelation; it needs him to be exactly what he was at Duke, on a bigger stage. Do that, and the Hurricanes are a Playoff team and he's a 2027 draft riser.",
+  "style_register": "descriptive",
+  "style": "Mensah is a pure pocket passer who wins on efficiency and ball security, and the data is glowing. Our play-by-play grades his EPA per dropback in the 92nd percentile and his passing success rate in the 95th, and the interception avoidance is elite -- an 85th-percentile (very low) pick rate that matches his real 34-to-6 ratio. He's accurate (91st-percentile completion) and willing to push it (94th-percentile explosive-pass rate at a healthy depth of target), the rare combination of careful and aggressive. There's no exotic running element here; the value is in the operation -- decisive, accurate, turnover-averse. He's the kind of quarterback who doesn't beat himself, and on a roster this talented, that's exactly the profile a Playoff run wants.",
+  "style_layers_pending": "PBP passing percentiles are from his 2025 Duke tape (canonical id 11336; production carries to Miami); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Mensah, Duke settle dispute; QB eyes Miami transfer", "url": "https://www.espn.com/college-football/story/_/id/47743820/darian-mensah-duke-settle-dispute-qb-eyes-miami-transfer" },
+    { "label": "CBS Sports -- Darian Mensah Miami transfer", "url": "https://www.cbssports.com/college-football/news/darian-mensah-miami-transfer-portal-duke/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

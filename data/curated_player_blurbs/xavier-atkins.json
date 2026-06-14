@@ -1,0 +1,29 @@
+{
+  "slug": "xavier-atkins-29604",
+  "slug_verified": true,
+  "player_name": "Xavier Atkins",
+  "team": "Auburn",
+  "position": "LB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "Auburn's first All-America linebacker in two decades -- the SEC's TFL leader back for an encore",
+  "plan": {
+    "spine": "the SEC's leader in tackles for loss and Auburn's first All-America linebacker since Karlos Dansby returned for an encore with first-round stock on the line",
+    "blend": ["2025: 84 tackles, 17 TFL (led the SEC), 9 sacks, 2 FF, 1 INT", "first-team All-SEC; first Auburn LB All-American since Dansby (2003)", "declined the transfer portal to return", "a top-5 SEC finisher in tackles, TFL, and sacks"],
+    "payoff": "an SEC-leading 17 TFL and nine sacks from an off-ball linebacker",
+    "forward_stake": "whether the encore is a first-round, defensive-player-of-the-year season",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Xavier Atkins led the SEC in tackles for loss and became Auburn's first All-America linebacker since Karlos Dansby in 2003. He turned down the portal to do it again. The disruption is the whole story.",
+  "expand": "Atkins's 2025 put him in rare company: 84 tackles, an SEC-leading 17 tackles for loss, nine sacks, two forced fumbles and an interception -- first-team All-SEC and the first Auburn linebacker named an All-American since Karlos Dansby two decades ago. He's an off-ball backer who rushes like an edge, finishing top-five in the conference in tackles, TFL, and sacks at once. He declined the portal to return as Auburn's defensive centerpiece. The forward stakes are individual hardware and draft stock: with first-round buzz already building, 2026 is the encore that could make him a defensive-player-of-the-year candidate. For a linebacker who lives in the backfield, the ceiling is the best in the country.",
+  "style_register": "descriptive",
+  "style": "Atkins is a downhill, backfield-disrupting linebacker -- the kind who blitzes like an edge and finishes like one. The signature numbers are the disruption: an SEC-leading 17 tackles for loss and nine sacks from an off-ball spot, which means he's beating blocks and pressure schemes to the ball constantly. By his own account he's obsessive about technique -- \"can you keep doing those same little things\" -- and the production reflects a player who wins with timing and effort, not just athleticism. He's a three-down disruptor: a run-stuffer in the box, a pressure threat on passing downs, with the ball production (a forced fumble, an interception) to finish plays. The complete modern linebacker, already most of the way to elite.",
+  "style_layers_pending": "no offensive PBP for a linebacker -- box (tackles/TFL/sacks) + All-America + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Yahoo Sports -- Auburn LB Xavier Atkins declines portal, returns", "url": "https://sports.yahoo.com/articles/auburn-football-linebacker-xavier-atkins-201125639.html" },
+    { "label": "SI -- Atkins details his encore plan for 2026", "url": "https://www.si.com/college/auburn/football/auburn-xavier-atkins-details-encore-performance-2026-01kmv3s3esc0" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

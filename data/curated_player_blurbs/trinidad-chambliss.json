@@ -1,0 +1,30 @@
+{
+  "slug": "trinidad-chambliss-51590",
+  "slug_verified": false,
+  "player_name": "Trinidad Chambliss",
+  "team": "Ole Miss",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the most improbable star, on court-granted time, for a new staff (improbable-rise + literal last-ride + new-scheme adaptee + prove-it-wasn't-a-fluke)",
+  "plan": {
+    "spine": "a Division II national champion became a Heisman-voted Playoff star in a single SEC season -- then had to sue the NCAA for one more year, won, and will spend it playing for a brand-new coaching staff",
+    "blend": ["D-II champion at Ferris State (2024) -> portal -> Ole Miss CFP quarterfinals + 8th in Heisman in ONE season", "the eligibility court battle (denied 6th year -> injunction -> Miss Supreme Court denied NCAA appeal)", "Kiffin left for LSU -> new HC Pete Golding"],
+    "payoff": "the D-II-to-Playoff-quarterfinals-and-8th-in-the-Heisman rise in a single season; the court injunction that is the only reason he's eligible in 2026",
+    "forward_stake": "pure proof -- a new staff, a target on his back, one season to answer the only question a story this strange invites: was it real?",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Eighteen months ago Trinidad Chambliss won a Division II national title. Last fall he led Ole Miss to the Playoff quarterfinals and finished eighth in the Heisman. This fall he plays only because a court said he could.",
+  "expand": "Chambliss is the most improbable star in the sport. He won a national championship at Division II Ferris State, entered the portal in April 2025, and arrived at Ole Miss as a backup after spring ball had already ended. Then the starter got hurt at Kentucky, Chambliss stepped in, and a fifth-year unknown took the Rebels to the College Football Playoff quarterfinals and into the Heisman conversation, finishing eighth.\n\nThat was supposed to be the end -- fifth year, eligibility spent. Chambliss petitioned the NCAA for a sixth on medical grounds, was denied, sued, and won a preliminary injunction; the state's Supreme Court turned away the NCAA's appeal. So he's back, on borrowed-and-litigated time -- and for a new boss, after Lane Kiffin left for LSU and Ole Miss handed the program to Pete Golding.\n\nThe forward stakes are pure proof. A new staff, a target on his back, and one season to answer the only question a story this strange invites: was it real? If the Division II kid does it twice, in the SEC, the fairy tale becomes a resume.",
+  "sources": [
+    { "label": "Mississippi Today -- Chambliss ready to recharge as Ole Miss' top QB", "url": "https://mississippitoday.org/2026/05/12/trinidad-chambliss-ole-miss-recharge-mississippi/" },
+    { "label": "ESPN -- Chambliss faces complex process to get 6th year", "url": "https://www.espn.com/college-football/story/_/id/47407725/ole-miss-qb-chambliss-faces-complex-process-get-6th-year" },
+    { "label": "The Dispatch -- Chambliss always had confidence he'd be Ole Miss' QB in 2026", "url": "https://cdispatch.com/sports/trinidad-chambliss-always-had-confidence-hed-be-ole-miss-qb-in-2026/" }
+  ],
+  "style_register": "descriptive",
+  "style": "Chambliss plays quarterback like a man who learned it on improvisation -- a dual-threat who extends plays and hunts the explosive -- and the numbers under the fairy tale are real: a 98th-percentile average depth of target (he pushes it downfield as much as anyone in the country), 90th-percentile efficiency, a near-nonexistent interception rate, plus the legs for 80th-percentile rushing success. He chases big plays and rarely gives it back, a rare combination. His game is feel and creativity more than textbook timing; he's at his best when the play breaks. That's also the open question: how a more disciplined SEC defense -- and a brand-new Ole Miss staff under Pete Golding -- asks him to operate within structure rather than around it. 2026 is a fit test as much as a talent one: marry the off-script magic to a real system and the fairy tale gets a sequel.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 51590); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

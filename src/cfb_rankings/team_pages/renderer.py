@@ -731,6 +731,17 @@ def _render_page(
             f'<div class="act__body">{review_body}</div></details>'
         )
 
+    # Curated team blurb (manual spike) — top-of-page narrative crown. Additive
+    # & fail-closed: renders only when data/curated_team_blurbs/<slug>.json
+    # exists, never blanks the page otherwise. Default ON (kill with
+    # CURATED_TEAM_BLURBS=off). Mirrors the player curated-blurb hook; team
+    # Story Card spec = docs/design-system/50-58, paradigm = doc 68.
+    try:
+        from .curated_blurb import render_curated_team_blurb as _render_curated_team
+        curated_team_blurb_html = _render_curated_team(profile.slug) or ""
+    except Exception:
+        curated_team_blurb_html = ""
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -919,6 +930,7 @@ body {{
   <div class="content">
     {hero_html}
     {page_tone_html}
+    {curated_team_blurb_html}
     {kickoff_html}
     {act_outlook}
     {act_identity}

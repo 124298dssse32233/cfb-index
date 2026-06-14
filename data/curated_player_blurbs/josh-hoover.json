@@ -1,0 +1,29 @@
+{
+  "slug": "josh-hoover-9855",
+  "slug_verified": true,
+  "player_name": "Josh Hoover",
+  "team": "Indiana",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the 9,500-yard arm inherits a Heisman factory -- a prolific TCU passer steps into the system that just produced a Heisman winner",
+  "plan": {
+    "spine": "one of the most productive passers in college football leaves TCU for Indiana to run the offense that just produced a Heisman winner -- a proven arm meeting a proven system",
+    "blend": ["2025 at TCU: 3,472 pass yds, 29 TD / 13 INT, 65.9%", "9,500+ career passing yards; broke TCU's single-season record in 2024", "transfers to Indiana to replace Heisman winner Fernando Mendoza", "high volume, high reward -- and turnover-prone (37th-pct interception avoidance)"],
+    "payoff": "back-to-back 3,400-yard, 25-plus-touchdown seasons -- now in Curt Cignetti's CFP-tested offense",
+    "forward_stake": "whether a prolific arm plus a proven system makes a sleeper Heisman run -- if the interceptions fall",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Josh Hoover has thrown for more than 9,500 yards. Now he's taking over the Indiana offense that just produced a Heisman winner. A proven arm, a proven system -- and one question: can he cut the giveaways?",
+  "expand": "At TCU he was a yardage machine -- 3,472 yards, 29 touchdowns and a 65.9 completion percentage in 2025, on top of a single-season program record in 2024 and more than 9,500 career passing yards. Now he inherits one of the best landing spots in the sport: Indiana, where Curt Cignetti's CFP-tested offense just turned Fernando Mendoza into a Heisman winner. The pairing is the pitch -- a high-volume veteran arm dropped into a system proven to maximize quarterbacks. The forward stakes are a sleeper Heisman run and a Playoff push, gated by the one flaw that has followed him: he's turnover-prone, with 13 interceptions in 2025. If Cignetti's structure tightens his decisions the way it sharpened Mendoza's, Hoover has the arm and the volume to be one of the most productive quarterbacks in the country. The talent was never the question; the giveaways are.",
+  "style_register": "descriptive",
+  "style": "Hoover is a high-volume pocket passer who pushes the ball and lives with the consequences. Our play-by-play likes the production -- a 91st-percentile touchdown rate, an 84th-percentile EPA per dropback, an 80th-percentile explosive-pass rate at a real depth of target (13.8 yards) -- the profile of an aggressive thrower who hunts chunk plays. The accuracy is solid (70th-percentile completion), but the honest mark is the one that's followed him: a 37th-percentile interception avoidance, i.e. a fairly high pick rate, the cost of all that ambition. He's a true gunslinger -- the kind of arm that piles up yards and touchdowns and, on the wrong night, hands a game away. In a system built to discipline that exact profile, the upside is a star.",
+  "style_layers_pending": "PBP passing percentiles are from his 2025 TCU tape (canonical id 9855; production carries to Indiana); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "CBS Sports -- TCU QB Josh Hoover expected to transfer to Indiana", "url": "https://www.cbssports.com/college-football/news/tcu-quarterback-josh-hoover-expected-to-transfer-to-indiana" },
+    { "label": "SI -- Hoover commits to Indiana from the TCU portal", "url": "https://www.si.com/college/indiana/football/indiana-football-josh-hoover-commits-hoosiers-tcu-qb-transfer-portal" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

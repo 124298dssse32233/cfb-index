@@ -1,0 +1,29 @@
+{
+  "slug": "david-stone-10466",
+  "slug_verified": true,
+  "player_name": "David Stone",
+  "team": "Oklahoma",
+  "position": "DT",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the five-star interior disruptor breaks out -- the cornerstone of Brent Venables' defensive line, back for more",
+  "plan": {
+    "spine": "a former five-star delivered a breakout sophomore year inside and re-signed as the cornerstone of Oklahoma's defensive line",
+    "blend": ["2025: 42 tackles, 8.0 TFL, 1.5 sacks, 6 pass breakups; midseason All-American", "76.4 PFF grade; 6-3, 310 former five-star", "re-signed for his junior year as the DL cornerstone", "a quick interior penetrator in Venables' front"],
+    "payoff": "8 TFL and 6 pass breakups -- disruption from the interior",
+    "forward_stake": "whether the breakout becomes a first-round interior season",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "David Stone was a five-star for a reason, and his sophomore year showed it -- eight tackles for loss and six batted passes from the interior. He re-signed as the cornerstone of Oklahoma's defensive line. The breakout is becoming a star.",
+  "expand": "Stone's 2025 was the leap Oklahoma recruited him for: 42 tackles, eight tackles for loss, 1.5 sacks and six pass breakups, a midseason All-America nod and a 76.4 PFF grade -- disruption from a spot where disruption is hard to come by. At 6-3, 310, the former five-star re-signed for his junior year as the anchor of Brent Venables' front, with the program adding around him. The forward stakes are a first-round interior trajectory: the quickness and the production are established, and 2026 is about turning a breakout into a dominant, every-snap season. He's the kind of interior force a defense's whole front is built around.",
+  "style_register": "descriptive",
+  "style": "Stone is a penetrating, disruptive interior lineman rather than a two-gap space-eater. The tell is in his stat line: six pass breakups and eight tackles for loss are quickness-and-get-off numbers, the marks of a tackle who beats blockers into the backfield and gets his hands into throwing lanes. At 6-3, 310 with five-star athleticism, he wins with first-step explosion and active hands. He's a three-technique-style penetrator who collapses the pocket from the inside -- the hardest pressure for an offense to account for -- and the development is simply turning flashes of dominance into a full season of it.",
+  "style_layers_pending": "no offensive PBP for a defensive tackle -- box (TFL/sacks/PBU) + PFF grade + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- David Stone announces return to Oklahoma for junior season", "url": "https://247sports.com/college/oklahoma/article/david-stone-announces-return-to-oklahoma-for-junior-season-269410413/" },
+    { "label": "SI -- Oklahoma star DL reportedly returning for 2026", "url": "https://www.si.com/college/oklahoma/football/oklahoma-star-defensive-lineman-reportedly-will-return-for-2026-season-01ke5vrahht5" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

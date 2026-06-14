@@ -1,0 +1,29 @@
+{
+  "slug": "caleb-hawkins-51713",
+  "slug_verified": true,
+  "player_name": "Caleb Hawkins",
+  "team": "Oklahoma State",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the freshman who broke a 13-year record -- the FBS freshman touchdown king follows his staff to the Big 12",
+  "plan": {
+    "spine": "he set the NCAA FBS freshman record for total touchdowns at North Texas, then followed his coaches to Oklahoma State to do it in a power conference",
+    "blend": ["2025 (North Texas): 1,434 rush yds, 25 rush TD (led FBS); 32 rec, 370 yds, 4 TD", "29 total touchdowns -- an NCAA FBS freshman record (broke Kenneth Dixon's 2012 mark)", "All-American; top-5 nationally in rushing as a freshman", "followed his North Texas staff to Stillwater"],
+    "payoff": "an FBS freshman-record 29 touchdowns",
+    "forward_stake": "whether the record-setting production translates to the Big 12",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Caleb Hawkins scored 29 touchdowns as a freshman -- an NCAA FBS record that stood since 2012. Now he's taken that production to the Big 12, following his coaches from North Texas to Oklahoma State. The test is the stage, not the talent.",
+  "expand": "His freshman year at North Texas was historic: 1,434 rushing yards, 25 rushing touchdowns to lead all of FBS, 32 catches for 370 yards and four more scores -- 29 total touchdowns, breaking Kenneth Dixon's 2012 NCAA FBS freshman record. When his coaching staff moved to Oklahoma State, he followed, carrying a record-setting résumé into a power conference. The forward stakes are the level-up every G5-to-P4 star faces: the production was real, but Big 12 defenses are a different proposition. As the headliner of a remade Oklahoma State backfield, 2026 is his proof season -- the year a record-breaking freshman shows the numbers travel.",
+  "style_register": "descriptive",
+  "style": "Hawkins is a dual-threat scorer whose game is built on finishing and versatility. Our play-by-play (from his North Texas tape) is strong across the board: an 87th-percentile rushing-touchdown rate and 86th-percentile success rate from a back who found the end zone at a historic clip, plus an 86th-percentile explosive-run rate -- he finishes AND breaks them. The receiving is no afterthought: a 98th-percentile catch rate makes him a true weapon out of the backfield. The profile is a complete, every-down back who scores from anywhere -- on the ground, through the air, at the goal line. The only unknown is competition level, and that's exactly what 2026 in the Big 12 will answer.",
+  "style_layers_pending": "PBP percentiles are from his 2025 North Texas tape (canonical id 51713; production carries to Oklahoma State); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Wikipedia -- Caleb Hawkins (FBS freshman TD record)", "url": "https://en.wikipedia.org/wiki/Caleb_Hawkins" },
+    { "label": "Oklahoma State -- Caleb Hawkins 2026 roster", "url": "https://okstate.com/sports/football/roster/caleb-hawkins/14352" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

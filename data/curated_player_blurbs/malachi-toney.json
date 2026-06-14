@@ -1,0 +1,30 @@
+{
+  "slug": "malachi-toney-52120",
+  "slug_verified": true,
+  "player_name": "Malachi Toney",
+  "team": "Miami",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "tentpole",
+  "story_shape": "the freshman phenom -- nation's leading receiver as a TRUE freshman, the most explosive player in the sport, locked in until 2028",
+  "plan": {
+    "spine": "as a true freshman he led the entire country in receptions, and he can't even enter the NFL until 2028 -- Miami has him for years",
+    "blend": ["NCAA receptions leader + Miami freshman record AS A FRESHMAN", "ACC Rookie of the Year + On3 No. 5 overall", "Bleacher Report's 'most explosive player in CFB'", "not draft-eligible until 2028 (the long runway)"],
+    "payoff": "led the nation in catches as a true freshman; can't declare until 2028 -- two more years of him",
+    "forward_stake": "how high the ceiling goes -- whether the sophomore leap turns the nation's leading receiver into its best",
+    "register": "projection",
+    "horizon": "2026 season (NFL 2028)"
+  },
+  "hook": "As a true freshman, Malachi Toney led the entire country in receptions. He set Miami's freshman receiving record, won ACC Rookie of the Year -- and he can't enter the NFL until 2028. Miami has him for years.",
+  "expand": "A Miami freshman receiving record, ACC Rookie of the Year, first-team All-ACC, and a Shaun Alexander Freshman of the Year finalist. On3 ranked him the No. 5 player in college football entering 2026; Bleacher Report called him the most explosive player in the sport. And here's the part that should scare the ACC: he won't be NFL-draft-eligible until 2028, so Miami gets two more years of him. He's the centerpiece of a Miami offense rebuilding around him -- a slot-and-space weapon who already commands the attention reserved for veterans. The forward question isn't whether he's good; the freshman record settled that. It's how high the ceiling goes: whether the sophomore leap turns the nation's leading receiver into its best, and whether Miami's offense rises with him. Players this productive this young don't come along often -- the runway is the story.",
+  "style_register": "cinematic",
+  "style": "Toney is a volume machine with juice. He caught 84% of his targets -- 96th percentile -- as a true freshman, the reliability that makes him a quarterback's security blanket, with the after-the-catch burst (72nd-percentile explosive-play rate) to turn a five-yard hitch into a chunk gain. He lives in the slot and in space, where his quickness and vision do the damage; it's why he led the country in catches and why the highlight folder is full of broken tackles. The growth edge is the vertical game -- his yards-per-catch sat mid-pack, so the next tier is stretching the field, not just carving up the underneath. But a true freshman who led the nation in receptions has a floor most receivers never reach.",
+  "style_layers_pending": "proprietary PBP receiving percentiles woven in (canonical id 52120); fan-vs-rival discourse descriptors pending discourse-extraction cleanup + in-season data",
+  "sources": [
+    { "label": "SI -- Toney Shaun Alexander Freshman of the Year finalist", "url": "https://www.si.com/college/miami/football/miami-superstar-selected-finalist-for-the-2025-shaun-alexander-freshman-of-the-year-award" },
+    { "label": "247Sports -- Malachi Toney profile/stats", "url": "https://247sports.com/player/malachi-toney-46136146/" },
+    { "label": "Wikipedia -- Malachi Toney (2025 honors)", "url": "https://en.wikipedia.org/wiki/Malachi_Toney" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

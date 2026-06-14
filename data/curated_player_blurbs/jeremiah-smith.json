@@ -1,0 +1,30 @@
+{
+  "slug": "jeremiah-smith-3830",
+  "slug_verified": false,
+  "player_name": "Jeremiah Smith",
+  "team": "Ohio State",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "tentpole",
+  "story_shape": "the already-arrived generational talent who can't leave yet (Proven/generational + historic-chase + title-engine)",
+  "plan": {
+    "spine": "he's already a champion and a two-time All-American at an age where most stars are just arriving -- and he can't even enter the draft until 2027, so 2026 is a generational talent chasing history, not a breakout",
+    "blend": ["generational WR", "No. 1-overall-WR rarity (none since Keyshawn 1996)", "can't declare until 2027 (inverted countdown)", "OSU title-engine with Sayin"],
+    "payoff": "first WR taken No. 1 overall since Keyshawn Johnson in 1996 -- and the quirk that the best player in the sport literally can't declare until 2027",
+    "forward_stake": "what's left for someone this good -- a second ring, the most absurd individual WR season ever, and making the No. 1 conversation unanimous",
+    "register": "projection",
+    "horizon": "2026 season (NFL 2027)"
+  },
+  "hook": "Jeremiah Smith has already won a national title and been a first-team All-American twice -- and he's still too young to enter the NFL Draft. The best player in college football isn't chasing a breakout. He's chasing history.",
+  "expand": "Most stars spend their college years arriving. Smith got there as a freshman -- a national championship in 2024, then back-to-back first-team All-American seasons, 1,243 yards and 12 scores in 2025 at six-foot-four with the speed to take any catch the distance. Scouts call him the cleanest receiver evaluation in years and float a number no wideout has reached in three decades: No. 1 overall. The last receiver taken first was Keyshawn Johnson in 1996.\n\nHere's the twist that frames his whole 2026: he can't go yet. He won't be draft-eligible until 2027, so the best player in the sport is locked in for one more college season whether the NFL likes it or not. That turns the usual countdown on its head -- there's no will-he-leave drama, only the question of what a player who's already conquered the college game does for an encore.\n\nThe answer the Buckeyes need is a second ring. With Heisman-finalist Julian Sayin throwing to him, Ohio State enters 2026 a national-title favorite, and Smith is the reason defenses lose sleep. For most players the forward stake is a draft slot. For Smith it's legacy: another title, a shot at the most absurd individual season a receiver has ever had, and a year to make the No. 1 conversation unanimous.",
+  "sources": [
+    { "label": "ESPN -- ranking the top receivers in CFB 2026", "url": "https://www.espn.com/college-football/story/_/id/48992931/ranking-top-10-receivers-college-football-2026" },
+    { "label": "AtoZ -- Jeremiah Smith 2027 NFL Draft outlook", "url": "https://atozsports.com/college-football/ohio-state-buckeyes-news/stacking-up-jeremiah-smith-to-other-nfl-draft-wide-receiver-prospects/" },
+    { "label": "Eleven Warriors -- OSU 2027 draft class led by Smith and Sayin", "url": "https://www.elevenwarriors.com/ohio-state-football/2026/04/162393/a-first-look-at-ohio-state-s-2027-nfl-draft-class-led-by-jeremiah-smith-and-julian-sayin" }
+  ],
+  "style_register": "cinematic",
+  "style": "Smith is what every coordinator sketches on a napkin and never finds: a 6-foot-4, 223-pound receiver who moves like a man eighty pounds lighter. The production backs it where the box can measure -- 85th-percentile catch rate, 83rd in touchdown rate, an efficient and reliable target -- and the scouting fills the rest: the cleanest receiver evaluation in years, a route runner with the long speed to house any of them. He wins three ways, at the line, at the catch point, and after it, so defenses don't have a leverage to take away; they pick which way they'd rather lose. In Ohio State's vertical attack he's the gravity the whole offense bends around. There's no flaw here to coach up. The only question the tape leaves is how a defense even schemes for him -- and two years running, it can't.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 3830; explosive sample small n=64, so scouting leads on burst); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

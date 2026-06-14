@@ -1,0 +1,29 @@
+{
+  "slug": "lj-martin-12508",
+  "slug_verified": true,
+  "player_name": "LJ Martin",
+  "team": "BYU",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the Big 12's best back runs it back -- a conference Offensive Player of the Year chasing a school record and a Playoff",
+  "plan": {
+    "spine": "the Big 12's leading rusher and Offensive Player of the Year returned to chase BYU's career rushing record and a Playoff berth",
+    "blend": ["2025: 236 carries (Big 12-high), 1,305 rush yds, 12 TD (5.5); 36 rec, 255 yds", "Big 12 leading rusher and Offensive Player of the Year", "\"Not done yet\" -- returned for his senior season", "needs ~1,347 yards to break BYU's career rushing record"],
+    "payoff": "a conference rushing title and Offensive Player of the Year award",
+    "forward_stake": "whether the school's career rushing record and a CFP push come together",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "LJ Martin led the Big 12 in rushing and won Offensive Player of the Year. He could have moved on. Instead he's \"not done yet\" -- back to chase BYU's career rushing record and the program's first real Playoff push.",
+  "expand": "He led the Big 12 in rushing with 1,305 yards on a conference-high 236 carries, scored 12 times, added 36 catches, and walked off with Offensive Player of the Year -- the workhorse engine of a BYU team with rising ambitions. He returns for his senior season with two prizes in sight: the school's career rushing record (within about 1,347 yards) and a CFP berth, paired with quarterback Bear Bachmeier in a backfield built to contend. The forward stakes are legacy and a ceiling: the most-used back in his conference, chasing a number that would etch him into BYU history and a season that could put the Cougars in the Playoff for the first time. For Martin, 2026 is the year the productive grinder goes for something permanent.",
+  "style_register": "descriptive",
+  "style": "Martin is a high-volume, reliable lead back rather than a flashy one. Our play-by-play has him solidly above-average -- a 73rd-percentile yards-per-carry on the heaviest workload in his conference -- with the efficiency profile of a grinder (mid-pack success rate and EPA per carry) who wins by accumulation and durability more than explosion. He's a dependable receiver too (36 catches), the every-down sort a Playoff hopeful can lean on for 25 touches without blinking. The game is steadiness: he doesn't come off the field, he doesn't fumble away games, and over four quarters the yards pile up. For a team chasing its first Playoff, that kind of bell-cow reliability is its own form of star power.",
+  "style_layers_pending": "PBP run percentiles woven in (canonical id 12508); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- BYU's LJ Martin to return for senior season", "url": "https://www.espn.com/college-football/story/_/id/47553613/byu-leading-rusher-lj-martin-return-senior-season" },
+    { "label": "Deseret News -- LJ Martin returning to BYU for 2026", "url": "https://www.deseret.com/sports/2026/01/08/lj-martin-returning-byu-2026/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

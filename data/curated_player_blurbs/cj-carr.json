@@ -1,0 +1,32 @@
+{
+  "slug": "cj-carr-32522",
+  "slug_verified": false,
+  "player_name": "CJ Carr",
+  "team": "Notre Dame",
+  "position": "QB",
+  "as_of_date": "2026-06-12",
+  "tier": "tentpole",
+  "story_shape": "snubbed-favorite redemption (Record + Heisman/Playoff stakes + schedule collision); bloodline as color; drought as altitude",
+  "plan": {
+    "spine": "the redshirt freshman who quarterbacked a 10-game win streak into a Playoff snub is now the Heisman favorite, and Year 2 opens at the team that bounced him",
+    "blend": ["Heisman + Playoff futures", "Miami schedule collision (the tiebreaker, now the opener)", "snub -> redemption", "Lloyd Carr bloodline (color)", "1988 drought (altitude)"],
+    "payoff": "most-blitzed returning QB in the country (36.7%) yet best yards-per-dropback when not blitzed (9.4) -- teams attacked the freshman and it backfired",
+    "forward_stake": "the independent path leaves almost no margin -- win at Miami and BYU for an 87%-likely Playoff bid; slip once and the snub debate reopens",
+    "register": "projection->imminent",
+    "horizon": "2026 season"
+  },
+  "hook": "Notre Dame went 0-2, ripped off ten straight, and still got left out of the Playoff. The redshirt-freshman QB who drove that run, CJ Carr, is now the Heisman favorite -- and Year 2 opens at the team that bounced him.",
+  "expand": "That team is Miami, whose season-opening win over the Irish last fall became the exact tiebreaker the committee used to keep a 10-2 Notre Dame home. The schedule-makers put the rematch first. You couldn't script it crueler.\n\nHere's what the box score buries: no returning quarterback in the country was blitzed more than Carr -- 36.7% of his dropbacks -- because defenses saw a first-year starter and came hunting. It backfired. When teams didn't blitz, nobody in America averaged more per dropback (9.4). He finished fifth nationally in efficiency and a Manning Award finalist as a freshman.\n\nThe bloodline is the subplot you'll hear all year: Carr was raised in Saline, Michigan -- grandson of Lloyd Carr, the man who won Michigan's last title in 1997 -- and he chose Notre Dame over the Wolverines. Now he carries the title hopes of the program Ann Arbor loves to hate.\n\nThe forward question isn't the arm; it's the margin. The independent path leaves almost none -- win at Miami and BYU and an 87%-likely Playoff bid is his; slip once and the snub debate reopens. Carr says his Year 2 leap is leadership and footwork, not numbers. The Irish haven't won it all since 1988. If the sophomore who shrugged off the blitz becomes the closer this program's been missing, the story stops being \"good Notre Dame QB\" and becomes \"the one who ended the drought.\"",
+  "sources": [
+    { "label": "UHND -- Carr QB1 2026 Heisman push", "url": "https://www.uhnd.com/football/2025/12/14/cj-carr-is-next-notre-dames-qb1-poised-for-2026-heisman-push/" },
+    { "label": "Pro Football Network -- why ND missed the Playoff", "url": "https://www.profootballnetwork.com/cfb/why-didnt-notre-dame-make-the-college-football-playoff-2025/" },
+    { "label": "Observer -- 10 straight, no Playoff", "url": "https://www.ndsmcobserver.com/article/2026/05/irish-win-10-straight-but-miss-college-football-playoff" },
+    { "label": "CBS -- ND 2026 Playoff/schedule", "url": "https://www.cbssports.com/college-football/news/college-football-playoff-selection-notre-dame-mou-2026-schedule/" },
+    { "label": "CBS -- Carr commits over Michigan, Lloyd Carr's grandson", "url": "https://www.cbssports.com/college-football/news/notre-dame-football-recruiting-five-star-qb-cj-carr-grandson-of-lloyd-carr-commits-to-irish-over-michigan" }
+  ],
+  "style_register": "cinematic",
+  "style": "Carr plays the position like a chess clock -- pre-snap he's already three moves ahead, and the ball is gone the instant his back foot lands. The surprise is where it's going: he's not a checkdown surgeon, he's a downfield one. His average throw traveled nearly fifteen yards in the air -- 94th-percentile depth -- and he still finished 92nd percentile in success rate and 96th in explosive passes. He takes shots, and he connects. What he doesn't do is run; thirty-three yards all season says he'd rather solve the problem than flee it. The edge is the flip side of the gift: when the first read's gone and the pocket caves, the anticipation that makes him lethal on schedule has less to lean on -- exactly the off-platform footwork he chased all offseason. In a 2026 where Notre Dame needs him to carry a title run, the question was never the deep ball; it's the third-and-8 when the script's gone.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 32522); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

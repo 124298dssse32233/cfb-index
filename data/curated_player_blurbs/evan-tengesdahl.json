@@ -1,0 +1,29 @@
+{
+  "slug": "evan-tengesdahl-27269",
+  "slug_verified": true,
+  "player_name": "Evan Tengesdahl",
+  "team": "Cincinnati",
+  "position": "IOL",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the anchor of one of the nation's best pass-protecting lines -- an All-American guard back with his whole interior",
+  "plan": {
+    "spine": "a third-team All-American guard returns to anchor a Cincinnati interior that allowed the second-fewest sacks in the country",
+    "blend": ["2025: third-team AP All-American; 85.4 PFF grade (3rd-rated guard)", "Cincinnati's line allowed just 7 sacks -- 2nd nationally", "6-3, 320; ESPN Way-Too-Early All-America first team", "returns with the interior trio intact"],
+    "payoff": "third-team All-America and a line that barely allowed a sack",
+    "forward_stake": "whether the returning interior makes Cincinnati a Big 12 contender",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Cincinnati allowed the second-fewest sacks in the country, and Evan Tengesdahl was the anchor -- a third-team All-American guard who's back, with his whole interior alongside him.",
+  "expand": "Tengesdahl's 2025 earned third-team AP All-America honors and an 85.4 PFF grade that ranked among the nation's top guards, the steadying force on a Cincinnati line that allowed just seven sacks all season -- second-fewest in the country. At 6-3, 320, he's already an ESPN Way-Too-Early first-team All-American for 2026, and crucially, the interior returns intact around him. The forward stakes are a Big 12 contender's foundation: lines this good don't usually come back whole, and an offense that protects this well gives Cincinnati a real ceiling. He's the kind of interior anchor a coordinator builds protection schemes around.",
+  "style_register": "plain",
+  "style": "Tengesdahl is a high-grade interior pass protector with the size to handle power -- 6-3, 320, with an 85.4 PFF mark that placed him among the best guards in the country. The team-level proof is the seven sacks allowed (second nationally), a number you don't post without an interior that holds the pocket's middle. He's shown versatility across the line in spring, the mark of a lineman with the technique to play multiple spots. He's a steady, powerful, low-mistake guard -- the unglamorous interior anchor that elite pass protection is built on.",
+  "style_layers_pending": "no PBP for an offensive lineman -- team sacks-allowed + PFF grade + All-America honors grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "GoBearcats -- Tengesdahl, Cotton, Tyo returning for 2026", "url": "https://gobearcats.com/news/2025/12/18/offensive-linemen-evan-tengesdahl-joe-cotton-and-taran-tyo-returning-for-2026" },
+    { "label": "SI -- All-American guard Tengesdahl showing versatility in spring", "url": "https://www.si.com/college/cincinnati/football/all-american-uc-guard-evan-tengesdahl-showing-versatility-as-2026-spring-football-continues-01kn4wqmrbms" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

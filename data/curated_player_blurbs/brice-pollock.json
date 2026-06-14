@@ -1,0 +1,29 @@
+{
+  "slug": "brice-pollock-14335",
+  "slug_verified": true,
+  "player_name": "Brice Pollock",
+  "team": "Texas Tech",
+  "position": "CB",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the Big 12's interception leader runs it back -- a ballhawk anchoring a Texas Tech secondary chasing the Playoff",
+  "plan": {
+    "spine": "the Big 12's interception leader and a top-graded coverage corner returns to anchor a Texas Tech secondary with Playoff ambitions",
+    "blend": ["2025: 5 INT (led the Big 12), 8 PBU, ~48 tackles, 4.5 TFL", "first-team All-Big 12", "81.8 PFF coverage grade; top-5 nationally in passer rating allowed on passing downs", "a willing run defender (78.9 PFF run grade)"],
+    "payoff": "a Big 12-leading five interceptions and elite coverage grades",
+    "forward_stake": "whether the veteran ballhawk helps Texas Tech back to the Playoff",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Brice Pollock led the Big 12 in interceptions and graded among the five best coverage corners in the country at locking down passing downs. He's back to anchor a Texas Tech secondary chasing a return to the Playoff.",
+  "expand": "Pollock's 2025 was a complete corner season: a Big 12-leading five interceptions, eight pass breakups, roughly 48 tackles and 4.5 tackles for loss, first-team All-Big 12, and an 81.8 PFF coverage grade that placed him fifth nationally in passer rating allowed on 100-plus passing-down snaps. He's not just a cover man, either -- a 78.9 PFF run grade marks a willing tackler. The forward stakes ride with the program's: Texas Tech has real Playoff ambitions, and a veteran ballhawk who erases one side of the field is the kind of secondary anchor those runs require. He's the steady, productive corner an aspiring contender builds its pass defense around.",
+  "style_register": "plain",
+  "style": "Pollock is a complete, ball-producing corner -- coverage first, but willing in the run game. The signature is the takeaways: a Big 12-leading five interceptions plus eight breakups, the production of a corner who reads routes and finishes at the catch point, backed by an 81.8 PFF coverage grade and a top-five national mark in passer rating allowed on passing downs. The 78.9 run grade rounds him out -- he'll come up and tackle, not just cover. He's a balanced, instinctive boundary corner without an obvious weakness, the kind quarterbacks learn to avoid. On a Playoff-hopeful defense, he's the dependable lockdown piece.",
+  "style_layers_pending": "no offensive PBP for a cornerback -- box (INT/PBU) + PFF coverage grade + honors grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "SI -- Pollock, Sampson announce returns for 2026", "url": "https://www.si.com/college/texas-tech/football/brice-pollock-howard-sampson-announce-returns-for-2026-season" },
+    { "label": "Wikipedia -- Brice Pollock (2025 stats)", "url": "https://en.wikipedia.org/wiki/Brice_Pollock" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

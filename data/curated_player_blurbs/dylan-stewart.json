@@ -1,0 +1,29 @@
+{
+  "slug": "dylan-stewart-8206",
+  "slug_verified": true,
+  "player_name": "Dylan Stewart",
+  "team": "South Carolina",
+  "position": "EDGE",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the bend-off-the-edge phenom -- a top-3 returning pass rusher who can't even enter the draft until 2027",
+  "plan": {
+    "spine": "a unanimous Freshman All-American with 11 career sacks is one of the best returning edge rushers in football -- and isn't even draft-eligible until 2027",
+    "blend": ["career: 56 tackles, 11 sacks, 6 forced fumbles in 24 games", "2024 unanimous Freshman All-American", "6-5, 245 -- explosive bend and a ball-stripper", "officially returning; not draft-eligible until 2027"],
+    "payoff": "11 sacks and 6 forced fumbles before his junior year",
+    "forward_stake": "whether the long runway produces a double-digit-sack, All-America season",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Dylan Stewart already has 11 career sacks and six forced fumbles -- and he can't even enter the NFL Draft until 2027. He's one of the best edge rushers in college football, and South Carolina has him for a while.",
+  "expand": "Stewart announced himself as a unanimous Freshman All-American and just kept coming: 56 tackles, 11 sacks and six forced fumbles across his first 24 games, the production of an edge rusher who's both fast off the ball and disruptive once he arrives. At 6-5, 245, he pairs explosive bend with a knack for the strip. He's officially back, and because of his age, he isn't draft-eligible until 2027 -- meaning a top-three returning edge talent is locked in for a defining junior year, paired with the return of quarterback LaNorris Sellers. The forward stakes are an All-America, double-digit-sack season: the tools and the early production already make him one of the most dangerous pass rushers in the sport.",
+  "style_register": "descriptive",
+  "style": "Stewart is a bend-and-burst edge rusher -- the modern speed-rush archetype. The trait that pops on tape and in the numbers is the corner: explosive get-off and the flexibility to flatten to the quarterback, which is how a player produces 11 sacks this early. The six forced fumbles add the finishing element -- he doesn't just get there, he rips the ball out. At 6-5, 245 he's still filling out, which is the exciting part: the speed rush is already elite, and the power and counters that come with a stronger frame would make him complete. He's a quarterback's nightmare off the edge with a runway most stars don't get.",
+  "style_layers_pending": "no offensive PBP for an edge -- box (sacks/FF) + Freshman All-America + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- star EDGE Dylan Stewart returning to South Carolina for 2026", "url": "https://www.espn.com/college-football/story/_/id/47403146/star-edge-dylan-stewart-returning-south-carolina-26" },
+    { "label": "247Sports -- Dylan Stewart return for 2026 season", "url": "https://247sports.com/college/south-carolina/article/south-carolina-gamecocks-football-dylan-stewart-return-2026-season-267764602/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

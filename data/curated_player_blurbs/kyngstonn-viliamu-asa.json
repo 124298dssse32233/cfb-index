@@ -1,0 +1,29 @@
+{
+  "slug": "kyngstonn-viliamu-asa-12187",
+  "slug_verified": true,
+  "player_name": "Kyngstonn Viliamu-Asa",
+  "team": "Notre Dame",
+  "position": "LB",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the top-graded backer cut short -- a fast, physical linebacker rehabbing an ACL toward a Butkus-caliber return",
+  "plan": {
+    "spine": "a linebacker PFF graded among the nation's best before a season-ending ACL tear returns to a deep Notre Dame room as a Butkus dark horse",
+    "blend": ["2025 (11 games): 48 tackles, 7.5 TFL, 3 sacks, 1 INT before a season-ending ACL tear", "PFF-graded 3rd nationally among linebackers", "6-3, 230 -- fast and physical downhill", "rehabbing a December-2025 ACL; expected back for the season"],
+    "payoff": "a top-3 national PFF grade -- in a season cut short by injury",
+    "forward_stake": "whether a healthy return makes him a Butkus contender",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Before a torn ACL ended his year, Kyngstonn Viliamu-Asa was PFF's third-graded linebacker in the country. Healthy, he's a Butkus dark horse anchoring a deep Notre Dame defense. The comeback is the story.",
+  "expand": "Through 11 games in 2025, Viliamu-Asa was one of the best linebackers in the country by the grades -- 48 tackles, 7.5 tackles for loss, three sacks and an interception, with PFF rating him third nationally at the position -- before a season-ending ACL tear cut it off. At 6-3, 230 he's a fast, physical downhill backer who's spent his rehab as a coach-on-the-field mentor. The forward stakes carry an honest caveat: Notre Dame expects him back for the start of the season, but a December ACL means Week 1 availability is worth confirming closer to fall. If he's right, a top-three-graded linebacker returning to a deep room is a Butkus dark horse and the centerpiece of the Irish defense.",
+  "style_register": "plain",
+  "style": "Viliamu-Asa is a fast, physical, downhill linebacker -- the PFF grade (third nationally before the injury) reflects a player who's rarely wrong and always around the ball. At 6-3, 230 he triggers quickly against the run and has the range to make plays sideline to sideline, with the production (7.5 TFL, three sacks, an interception in 11 games) of a complete three-down backer. The honest framing for 2026 is the knee: this is a projection built on elite pre-injury tape plus an expected healthy return, not on 2025 production he was able to finish. If the explosiveness comes all the way back, the ceiling is one of the best linebackers in the country.",
+  "style_layers_pending": "no offensive PBP for a linebacker -- box (tackles/TFL) + PFF grade grounded; 2025 was cut to 11 games by a season-ending ACL -- forward projection with a health caveat to re-confirm in fall camp; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ND Insider -- updates on Notre Dame LBs, Viliamu-Asa surgery", "url": "https://www.ndinsider.com/story/sports/college/football/2026/01/15/updates-on-notre-dame-linebackers-drayk-bowen-kyngstonn-viliamu-asa-surgery-hip-knee-marcus-freeman/88187656007/" },
+    { "label": "On3 -- Viliamu-Asa injury update / recovery timeline", "url": "https://www.on3.com/teams/notre-dame-fighting-irish/news/notre-dame-fighting-irish-football-kyngstonn-viliamu-asa-injury-update-recovery-timeline/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

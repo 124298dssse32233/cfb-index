@@ -1,0 +1,30 @@
+{
+  "slug": "mark-fletcher-9442",
+  "slug_verified": true,
+  "player_name": "Mark Fletcher Jr.",
+  "team": "Miami",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the bruiser who stayed -- a 1,200-yard back who turned down the draft to chase the title that got away in the national championship game",
+  "plan": {
+    "spine": "after a playoff run that ended one game short, a throwback power back bypassed the NFL to come back as a preseason All-American and finish the job",
+    "blend": ["1,192 rushing yards (ACC-high) + 12 TD in 2025", "507 rush yards across four CFP games -- to the national title game", "chose Miami over the 2026 NFL Draft", "6-2, 225 -- a true bruising senior back"],
+    "payoff": "1,192 yards, 12 TDs, and a 507-yard playoff surge -- then said no to the draft",
+    "forward_stake": "whether the senior season pushes him into the top tier of 2027 draft backs -- and Miami back to the title game it just missed",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Mark Fletcher Jr. ran for 507 yards in the College Football Playoff and carried Miami to the national championship game. Then he turned down the NFL to come back and finish the job.",
+  "expand": "He led the ACC with 1,192 rushing yards in 2025, scored 12 times, and saved his best for January -- 507 yards across four Playoff games as Miami reached the national championship. A 6-2, 225 senior could have left for the draft; instead he stayed, telling reporters he'd always planned to be \"a true senior,\" and Mario Cristobal has held him up as the program's standard. Now he's a preseason All-American anchoring a Cristobal backfield built on exactly the kind of downhill, gap-scheme power he runs. The forward stakes are the rematch with history: Miami was one game from a title, and Fletcher came back to close the gap. A projected 1,500-yard season would do two things at once -- vault a throwback power back into the top tier of 2027 draft running backs, and give the Hurricanes the closer they were missing.",
+  "style_register": "descriptive",
+  "style": "Fletcher is a true bruiser -- 6-2, 225, built to fall forward. The power shows up on tape and in the numbers: PFF charted 3.66 yards after contact per carry and 104 forced missed tackles in 2025, and our play-by-play put his rushing-touchdown rate in the 81st percentile, the mark of a back defenses can't stop at the goal line (he scored 12 times). Scouts (Vikings Wire's summer eval) describe a runner who \"keeps his legs moving through contact\" but \"also elusive in space,\" with \"dynamic change-of-direction skills once in the second level\" and \"excellent motor to finish big runs late.\" The honest read is in the efficiency: a 52nd-percentile success rate and mid-pack yards-per-carry say he's a volume-and-finish back more than a home-run hitter -- the chunk gains come from contact balance and a closing motor, not breakaway speed. He's a gap-scheme, between-the-tackles hammer who wears defenses down and finishes drives.",
+  "style_layers_pending": "PBP run percentiles woven in (canonical id 9442); fan-vs-rival discourse descriptors pending discourse-extraction cleanup + in-season data",
+  "sources": [
+    { "label": "Yahoo Sports -- Fletcher isn't leaving Miami (return confirmed)", "url": "https://sports.yahoo.com/articles/mark-fletcher-jr-isn-t-142535564.html" },
+    { "label": "Yahoo/Vikings Wire -- 2027 draft summer scouting (H/W + PFF traits)", "url": "https://sports.yahoo.com/articles/2027-nfl-draft-summer-scouting-215502879.html" },
+    { "label": "CanesInSight -- Fletcher among Phil Steele preseason All-Americans", "url": "https://www.canesinsight.com/articles/three-miami-football-players-named-preseason-all-americans-by-phil-steele.12020" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

@@ -9366,12 +9366,15 @@ def build_player_page_data_map(
             # Player Story Card ("Dossier Noir") — top-of-page narrative crown.
             # Self-contained; resolves player_external_id internally via player_source_ids.
             # Graceful "" so a render error never blanks the page (matches new_aura_html).
-            # Curated blurbs (data/curated_player_blurbs) take precedence when the
-            # CURATED_BLURBS env switch is on and a record matches by slug/name;
-            # the whole check is fail-closed to the normal story card.
+            # Curated blurbs (data/curated_player_blurbs) take precedence whenever a
+            # record matches this player_id. The curated file's existence is the gate;
+            # set CURATED_BLURBS=off (or 0/false/no) to hard-disable. Default ON so the
+            # build never depends on env propagation into the build process. The whole
+            # check is fail-closed to the normal story card.
             _curated_html = ""
             try:
-                if os.environ.get("CURATED_BLURBS", "").lower() in ("1", "on", "true", "yes"):
+                import os as _os  # reporting.py has no module-level os import
+                if _os.environ.get("CURATED_BLURBS", "").lower() not in ("0", "off", "false", "no"):
                     from cfb_rankings.player_pages.curated_blurb import render_curated_blurb
                     _curated_html = render_curated_blurb(
                         player_id,

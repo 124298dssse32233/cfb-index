@@ -1,0 +1,30 @@
+{
+  "slug": "julian-sayin-15151",
+  "slug_verified": false,
+  "player_name": "Julian Sayin",
+  "team": "Ohio State",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "tentpole",
+  "story_shape": "the quiet star with unfinished business (Proven-ascendant + the near-miss + title-engine); the Indiana ghost",
+  "plan": {
+    "spine": "the Alabama transfer who found a home at Ohio State led the nation in accuracy and made the Heisman finalist cut -- then lost the trophy and the title on the same stage, and returns to finish it",
+    "blend": ["transfer who found a home (post-Saban)", "led nation in completion % (77%)", "Heisman finalist (only underclassman)", "the Indiana Big Ten title-game loss that cost him NYC", "title duo with Jeremiah Smith"],
+    "payoff": "led the nation in completion percentage (77%) as a first-year starter; the Big Ten Championship loss to Indiana is the thing that cost him the Heisman",
+    "forward_stake": "fans don't just want him better, they want it finished -- whether the quiet accuracy becomes a closer's resume, and whether the next one-game season flips",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Julian Sayin led the entire country in accuracy, made the Heisman finalist cut as the only underclassman -- and still went home empty, beaten on the one stage that mattered. He's back for the part he didn't finish.",
+  "expand": "Sayin's first act was a quiet kind of stardom. The former Alabama signee who left when Nick Saban retired found his home at Ohio State, and in his first year starting he completed 77% of his passes -- the best in the nation -- for 3,610 yards and 32 touchdowns. He was the only underclassman invited to New York as a Heisman finalist.\n\nWhat he didn't get was the trophy or the title. Indiana beat Ohio State in the Big Ten Championship and Fernando Mendoza ran off with the Heisman; the door Sayin had pried open swung shut on the biggest stage. That's the engine of his 2026: fans don't just want him better, they want it finished.\n\nHe's built to deliver -- 14 career starts now, the nation's best receiver in Jeremiah Smith, and a roster that opens the year as a national-title favorite. The forward question isn't whether Sayin is good; the nation-leading numbers settled that. It's whether the quiet accuracy becomes a closer's resume -- and whether the next time the season comes down to one game, the result flips.",
+  "sources": [
+    { "label": "Eleven Warriors -- Sayin named 2025 Heisman finalist", "url": "https://www.elevenwarriors.com/ohio-state-football/2025/12/160326/ohio-state-quarterback-julian-sayin-named-finalist-for-2025-heisman-trophy" },
+    { "label": "247Sports -- OSU top players into 2026: No. 2 Sayin", "url": "https://247sports.com/college/ohio-state/article/ohio-state-football-top-players-heading-into-2026-no-2-julian-sayin-278191825/" },
+    { "label": "SI -- Sayin finishes 2025 with historic record", "url": "https://www.si.com/college/ohiostate/news/ohio-state-s-julian-sayin-finishes-2025-regular-season-with-historic-record-01kbc2rjk265" }
+  ],
+  "style_register": "cinematic",
+  "style": "Sayin's 2025 wasn't just good, it was statistically absurd: he finished in the 99th percentile nationally in completion percentage, in expected points per dropback, and in success rate -- the three numbers that matter most, all at the ceiling. The game looks easy because he plays it fast and clean; he was sacked on barely 1.5% of his dropbacks, top-five in the country at getting the ball out. He isn't a gunslinger pushing it deep -- his average throw was middle-of-the-pack in air yards -- he's a precision machine who takes exactly what the defense gives and never gives it back. The honest questions trail every efficient passer in a loaded offense: at 6-1 he doesn't tower, and with Jeremiah Smith outside, skeptics ask how much is him. In Ohio State's attack he's the conductor -- and 2026 is the year he answers the doubt the only way a quarterback can, by carrying a title himself.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 15151); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

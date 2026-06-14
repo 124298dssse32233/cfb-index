@@ -1,0 +1,29 @@
+{
+  "slug": "amare-ferrell-10972",
+  "slug_verified": true,
+  "player_name": "Amare Ferrell",
+  "team": "Indiana",
+  "position": "S",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the coverage safety who keeps Indiana elite -- a ball-producing starter who forwent the draft for the Hoosiers' top-ranked defense",
+  "plan": {
+    "spine": "a long, ball-producing coverage safety forwent the draft to keep Indiana's top-ranked defense intact",
+    "blend": ["2025: started all 15 -- 47 tackles, 2 TFL, 4 INT, 6 PBU", "All-Big Ten honorable mention; Athlon 2026 preseason All-American", "6-2, 200 coverage safety; 8 career interceptions", "forwent the draft to return"],
+    "payoff": "four interceptions and an every-game starting role on an elite defense",
+    "forward_stake": "whether continuity keeps Indiana's secondary among the nation's best",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Amare Ferrell started every game and picked off four passes on one of the best defenses in the country. He forwent the draft to keep it that way -- the continuity piece that keeps Indiana's secondary elite.",
+  "expand": "Ferrell was a steadying ball-producer on Indiana's top-ranked defense in 2025: every-game starter, 47 tackles, two tackles for loss, four interceptions and six pass breakups, earning All-Big Ten honorable mention and, now, an Athlon 2026 preseason All-America nod. At 6-2, 200 with eight career interceptions, he's a long coverage safety who takes the ball away. He forwent the draft to return. The forward stakes are continuity: elite defenses are hard to keep together, and Ferrell coming back is exactly the kind of veteran retention that keeps Indiana's secondary among the nation's best. He's the dependable, ball-hawking presence on the back end that lets the rest of a great defense play fast.",
+  "style_register": "plain",
+  "style": "Ferrell is a long, ball-producing coverage safety. The interceptions are the through-line -- four in 2025, eight for his career -- the production of a player with the range to patrol the deep middle and the instincts to read the quarterback and break on throws. At 6-2, 200 he has the length to contest at the catch point and the experience (an every-game starter) to communicate and align a secondary. He's not primarily a downhill box thumper; his value is in coverage, takeaways, and steadiness on the back end. On a defense that ranked among the country's best, he's the reliable last line that keeps it that way.",
+  "style_layers_pending": "no offensive PBP for a safety -- box (INT/PBU/tackles) + honors grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Amare Ferrell returning to Indiana for 2026", "url": "https://247sports.com/college/indiana/article/indiana-starting-safety-amare-ferrell-returning-to-indiana-for-2026-season-270607620/" },
+    { "label": "Hoosier Huddle -- Ferrell among Athlon preseason All-Americans", "url": "https://hoosierhuddle.com/2026/05/25/6-hoosiers-named-athlon-sports-preseason-all-americans/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

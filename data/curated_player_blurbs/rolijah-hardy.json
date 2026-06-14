@@ -1,0 +1,29 @@
+{
+  "slug": "rolijah-hardy-10977",
+  "slug_verified": true,
+  "player_name": "Rolijah Hardy",
+  "team": "Indiana",
+  "position": "LB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the engine of a national-title defense -- an underrated blitzing linebacker who started every game of the run",
+  "plan": {
+    "spine": "the high-motor linebacker who started all 16 games of Indiana's title run returns rather than chase an early jump",
+    "blend": ["2025: 103 tackles, 10.5 TFL, 8.5 sacks; started all 16 on a title-game run", "second-team All-Big Ten", "5-11, 229 -- rare blitz production for an off-ball linebacker", "top-5 nationally at the position in TFL"],
+    "payoff": "103 tackles and 8.5 sacks on the deepest run in school history",
+    "forward_stake": "whether the underrated engine becomes a recognized All-American",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Rolijah Hardy started every game of Indiana's run to the national championship game and racked up 8.5 sacks from off the ball -- rare for a linebacker. He came back instead of chasing an early jump. The engine is back.",
+  "expand": "Hardy was the motor of Indiana's title-game defense: 103 tackles, 10.5 tackles for loss, and 8.5 sacks while starting all 16 games of the deepest run in school history, earning second-team All-Big Ten. The 8.5 sacks are the eye-opener -- that kind of blitz production from an off-ball linebacker is rare, and it ranked him top-five nationally at the position in tackles for loss. At 5-11, 229 he plays bigger than his frame. The forward stakes are recognition catching up to production: he's been the underrated engine of an elite defense, and 2026 is the year a player this disruptive turns \"underrated\" into All-America. He came back to finish what Indiana started.",
+  "style_register": "descriptive",
+  "style": "Hardy is a high-motor, blitzing linebacker whose calling card is backfield production from an off-ball spot. The 8.5 sacks and 10.5 tackles for loss are the tell: he times pressures, beats blockers in the hole, and finishes -- the kind of disruption usually reserved for edge players. At 5-11, 229 he's not the biggest, but he plays downhill with real pop and covers ground. He's an every-down engine -- a tackle-machine in the run game (103 stops) and a pressure threat on passing downs -- the connective tissue of a defense that played in the national championship game. The production has been elite; 2026 is about the name catching up to it.",
+  "style_layers_pending": "no offensive PBP for a linebacker -- box (tackles/TFL/sacks) + All-Big Ten + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Indiana 2026 spring camp: linebacker (Hardy)", "url": "https://247sports.com/college/indiana/longformarticle/indiana-football-2026-spring-camp-rewind-linebacker-286174368/" },
+    { "label": "SI -- ranking the best returning linebackers for 2026", "url": "https://www.si.com/fannation/college/cfb-hq/rankings/ranking-college-football-s-best-returning-linebackers-2026-season" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

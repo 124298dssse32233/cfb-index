@@ -1,0 +1,30 @@
+{
+  "slug": "colin-simmons-13102",
+  "slug_verified": false,
+  "player_name": "Colin Simmons",
+  "team": "Texas",
+  "position": "EDGE",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the best returning pass rusher / the quiet half of a title case (ascendant-proven + best-at-position + draft-trajectory + title-engine); non-QB",
+  "plan": {
+    "spine": "he led the SEC in sacks as a teenage sophomore -- the best returning edge rusher in the country, the disruptor on a title contender that the QB headlines overshadow",
+    "blend": ["2024 Shaun Alexander Freshman of the Year (9 sacks)", "2025 SEC sack leader (12) as a sophomore", "consensus All-American", "the defensive engine of a Texas title run"],
+    "payoff": "led the SEC outright in sacks (12) as a SOPHOMORE -- and was Freshman of the Year before that -- still a teenager",
+    "forward_stake": "a third dominant season cements him as the best edge in CFB and a likely top pick, and gives Texas the pass rush a title usually requires -- if the league has finally figured out how to block him",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Before he could legally buy a beer, Colin Simmons led the entire SEC in sacks. Texas's quarterback gets the headlines; its sophomore edge rusher might be the best player on the roster.",
+  "expand": "Simmons arrived as the nation's top edge recruit and hit immediately: Shaun Alexander Freshman of the Year in 2024 with nine sacks, then a sophomore leap that led the SEC outright -- 12 sacks, 15.5 tackles for loss, and a sack in each of his last five regular-season games. He's a consensus All-American and, by the way, still a teenager.\n\nOn a Texas team built around Arch Manning's Heisman push, Simmons is the quiet half of the title case -- the disruptor who makes a championship defense go, maturing now into a vocal leader as well as a sack artist.\n\nThe forward stakes are simple and large: a third dominant season cements him as the best edge rusher in college football and a likely top draft pick, and gives Texas the pass rush a national title usually requires. The only question is whether the league has figured out how to block him -- because through two years, it hasn't.",
+  "sources": [
+    { "label": "247Sports -- Simmons, SEC's 2025 sack leader, maturing into a leader", "url": "https://247sports.com/college/texas/article/texas-sophomore-edge-colin-simmons-the-secs-2025-sack-leader-maturing-into-a-key-leader-for-longhorns--268877142/" },
+    { "label": "SI -- ranking the best returning EDGE rushers for 2026 (Simmons)", "url": "https://www.si.com/fannation/college/cfb-hq/rankings/ranking-college-football-best-returning-edge-pass-rushers-2026-season-colin-simmons-texas" },
+    { "label": "ESPN -- Colin Simmons 2025 game log", "url": "https://www.espn.com/college-football/player/gamelog/_/id/5079689/colin-simmons" }
+  ],
+  "style_register": "descriptive",
+  "style": "Simmons wins with the first step. He's a speed-to-power edge whose get-off forces tackles to open their hips early -- and once they do, he's bending the corner or converting the rush back into their chest. The production isn't a hot streak: a sack in each of his last five regular-season games, three in one night against Kentucky, and an SEC-leading 12 for the year as a sophomore. What he's added is the part that scares coordinators most -- he's pairing the burst with a plan, stringing pass-rush moves instead of running the same arc. The one thing left to round out is the run-game grind on early downs. But as a pure pass rusher, two years in, the SEC still hasn't found an answer -- and that's the rare kind of problem a national-title defense is built on.",
+  "style_layers_pending": "proprietary pressure-rate/win-rate percentile depth + fan-vs-rival discourse descriptors pending per-player attribution fix + discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

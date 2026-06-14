@@ -1,0 +1,29 @@
+{
+  "slug": "duce-robinson-14000",
+  "slug_verified": true,
+  "player_name": "Duce Robinson",
+  "team": "Florida State",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the 6-6 matchup nightmare who turned down the draft -- the ACC's leading receiver back to chase a breakout",
+  "plan": {
+    "spine": "a 6-6 receiver who led the ACC in receiving yards forwent a first-round-grade draft to chase a true breakout senior year",
+    "blend": ["2025: 56 rec, 1,081 yds, 6 TD; led the ACC in receiving yards", "first-team All-ACC; Phil Steele third-team All-American; Biletnikoff semifinalist", "6-6, 222 (USC transfer); 18 contested catches", "forwent the 2026 NFL Draft to return"],
+    "payoff": "an ACC-leading 1,081 yards from a 6-6 frame",
+    "forward_stake": "whether the matchup nightmare becomes a 2027 first-rounder",
+    "register": "projection",
+    "horizon": "2026 season (NFL 2027)"
+  },
+  "hook": "Duce Robinson is 6-6, led the ACC in receiving yards, and had a first-round grade in hand. He gave it back -- returning to Florida State to chase the breakout that turns a matchup nightmare into a top pick.",
+  "expand": "Robinson's 2025 was a star turn: 56 catches, an ACC-leading 1,081 yards, six touchdowns, first-team All-ACC, a Phil Steele third-team All-America nod and a Biletnikoff semifinal berth. At 6-6, 222, the former USC transfer is a downfield and contested-catch problem few defenses can solve (18 contested grabs). He forwent the 2026 draft to come back. The forward stakes are the leap from very good to elite: he's already the ACC's most productive returning receiver, and a true breakout senior year would lock in a 2027 first-round profile. For a target this big who can run, 2026 is about consolidating the flashes into a complete season -- and being the player Florida State's offense runs through.",
+  "style_register": "descriptive",
+  "style": "Robinson is a big-bodied vertical weapon, and the data is emphatic on the deep ball: a 94th-percentile yards-per-catch (over 19 a grab), an 85th-percentile explosive-catch rate, and an 84th-percentile EPA per target -- a true field-stretcher despite his size. The honest counterweight is a 41st-percentile catch rate, the trade-off of a receiver who feasts on contested, downfield throws rather than easy completions -- the same profile his 18 contested catches describe. He's a back-shoulder, high-point, win-above-the-rim target rather than a quick-separation slot. At 6-6 with this kind of vertical juice, he's the matchup a defensive coordinator loses sleep over -- and the cleaner his catch rate gets, the closer he is to the first round.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 14000); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Duce Robinson to forgo NFL Draft, return to Florida State", "url": "https://www.espn.com/college-football/story/_/id/47472609/duce-robinson-forego-nfl-draft-return-florida-state" },
+    { "label": "Florida State -- Robinson to remain at FSU for 2026", "url": "https://seminoles.com/news/2026/1/1/football-robinson-to-forgo-2026-nfl-draft-remain-at-florida-state" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

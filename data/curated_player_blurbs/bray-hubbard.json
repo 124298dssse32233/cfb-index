@@ -1,0 +1,29 @@
+{
+  "slug": "bray-hubbard-4507",
+  "slug_verified": true,
+  "player_name": "Bray Hubbard",
+  "team": "Alabama",
+  "position": "S",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the ballhawk who turned down the draft -- a top-graded safety back to lead a young Alabama defense",
+  "plan": {
+    "spine": "a top-6 draft-board safety forwent the NFL to return as the veteran anchor of a made-over Alabama defense",
+    "blend": ["2025: career-high 74 tackles, 4 INT (tied for the SEC lead), 8 PBU, 2 sacks, 3 FF", "first-team All-SEC (coaches); AP third-team All-American", "was a top-6 safety on draft boards before returning", "anchors a young Alabama defense after all four 2025 captains departed"],
+    "payoff": "four interceptions to tie the SEC lead -- and a 'no' to the draft",
+    "forward_stake": "whether the returning ballhawk leads Alabama's defense back to the top",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Bray Hubbard tied for the SEC lead in interceptions and had a top-six draft grade in hand. He gave it back -- returning to anchor a young Alabama defense that lost all four of its 2025 captains. The leadership is half the story.",
+  "expand": "Hubbard's 2025 was a do-everything safety season: a career-high 74 tackles, four interceptions to tie for the SEC lead, eight pass breakups, two sacks and three forced fumbles -- first-team All-SEC (coaches) and AP third-team All-America. He was a top-six safety on draft boards and chose to come back anyway. The forward stakes are leadership as much as production: with all four of Alabama's 2025 captains gone, Hubbard returns as the veteran centerpiece of a young defense, the established ballhawk a rebuilding unit organizes around. For a player who could have left, 2026 is about leading the Tide's defense back to the standard -- and cementing a first-round profile while he's at it.",
+  "style_register": "descriptive",
+  "style": "Hubbard is a ball-hawking, blitz-capable safety -- the modern do-everything piece. The interceptions (four, tied for the SEC lead) and eight breakups are the range-and-anticipation element of a center-fielder who reads the quarterback and drives on throws, while the two sacks and three forced fumbles show a safety his defense can send and trust to make plays near the line. The 74 tackles say he's a willing, physical presence in run support, not just a coverage specialist. He's the versatile, communicating safety the two-high era is built around -- cover deep, rob underneath, blitz off the edge -- and the leadership of a returning captain-in-waiting is the part that doesn't show up in the box score.",
+  "style_layers_pending": "no offensive PBP for a safety -- box (INT/PBU/tackles) + honors + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Bray Hubbard to forgo 2026 draft, remain at Alabama", "url": "https://247sports.com/college/alabama/article/alabama-safety-bray-hubbard-to-forgo-2026-nfl-draft-remain-with-tide-for-senior-season-269482587/" },
+    { "label": "SI -- Alabama's 2026 defense gets a boost with Hubbard's return", "url": "https://www.si.com/college/alabama/football/alabama-s-2026-defense-gets-huge-boost-with-return-of-bray-hubbard" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

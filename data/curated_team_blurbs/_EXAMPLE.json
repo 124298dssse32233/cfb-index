@@ -1,0 +1,16 @@
+{
+  "_comment": "TEMPLATE — filename starts with '_' so the loader SKIPS it. Copy to <slug>.json (e.g. ohio-state.json), fill in real, verified content, and it goes live on the next build. Match key is the team-page slug.",
+  "slug": "example-team",
+  "team_name": "Example Team",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "hook": "The one-to-two sentence visible lede — the spine of the page, not a sibling module. State what this program IS, right now, looking into 2026.",
+  "expand": "The body narrative, blank-line separated into paragraphs.\n\nFit the program into its nested stories: its own era, its conference, its rivalries, college football as a whole. Forward-looking toward the 2026 season. Ground every claim in a real source or our proprietary data — never invent.",
+  "identity": "Optional companion: how they play / who they are. The team analog of the player 'how he plays' blurb — scheme identity, tempo, build philosophy, fan character — braided quant + qual, attributed, no hallucination.",
+  "identity_label": "How they play",
+  "sources": [
+    { "label": "Source title", "url": "https://example.com" }
+  ],
+  "author": "claude-in-chat",
+  "status": "template"
+}

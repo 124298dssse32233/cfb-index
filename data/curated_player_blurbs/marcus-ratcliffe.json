@@ -1,0 +1,29 @@
+{
+  "slug": "marcus-ratcliffe-12219",
+  "slug_verified": true,
+  "player_name": "Marcus Ratcliffe",
+  "team": "Texas A&M",
+  "position": "S",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the do-it-all coverage safety -- a physical, plus-grading playmaker who quietly locks down his side",
+  "plan": {
+    "spine": "a physical, do-everything safety who graded among the SEC's best returns as the quiet leader of Texas A&M's back end",
+    "blend": ["2025: 65 tackles (32 solo), 3 PBU", "PFF 80.3 (6th among SEC safeties); nation-low 0.1 yards per coverage snap", "On3 way-too-early second-team All-American; On3 top-100 (No. 57)", "plus grades in man, zone, and run -- a true all-around safety"],
+    "payoff": "elite coverage grades and a nation-low yards-allowed-per-snap",
+    "forward_stake": "whether the quiet do-it-all safety gets the first-team All-SEC recognition his tape earns",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Marcus Ratcliffe allowed almost nothing -- a nation-low 0.1 yards per coverage snap -- and graded among the SEC's best safeties. He's the quiet do-everything piece who makes Texas A&M's secondary work.",
+  "expand": "Ratcliffe's 2025 was a study in all-around excellence that doesn't always make highlight reels: 65 tackles, an 80.3 PFF grade (sixth among SEC safeties), and a nation-low 0.1 yards allowed per coverage snap, with plus marks in man coverage, zone, and run support alike. He cut his missed-tackle rate roughly in half year over year. On3 slots him a way-too-early second-team All-American and No. 57 in its top 100. The forward stakes are recognition: he's a physical, do-it-all safety whose tape already reads first-team All-SEC, and 2026 is the year the production earns the name. For Texas A&M, he's the versatile back-end piece that makes everyone around him better.",
+  "style_register": "plain",
+  "style": "Ratcliffe is a physical, do-everything safety -- the rare back-end player who grades plus in man coverage, zone, and run support all at once. The standout number is the coverage stinginess: a nation-low 0.1 yards allowed per coverage snap, the mark of a safety who simply doesn't give up completions on his side. At a long frame with top-down tackling, he's equally comfortable in the box and over the top, and he cut his missed tackles roughly in half year over year -- a sign of a player rounding into reliability. He's not a flashy gambler; he's the steady, versatile eraser a defense can deploy anywhere, the quiet kind of star.",
+  "style_layers_pending": "no offensive PBP for a safety -- box (tackles/PBU) + PFF coverage grade + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- how safety Marcus Ratcliffe makes everyone better", "url": "https://247sports.com/college/texas-am/article/2026-texas-am-football-roster-analysis-how-safety-marcus-ratcliffe-makes-everyone-around-him-better-285554219/" },
+    { "label": "12thMan/On3 -- Craver, Ratcliffe named to On3 top 100", "url": "https://12thman.com/news/2026/5/21/football-craver-ratcliffe-named-to-on3-top-100-watch-list" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

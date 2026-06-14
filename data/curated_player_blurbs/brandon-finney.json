@@ -1,0 +1,29 @@
+{
+  "slug": "brandon-finney-52172",
+  "slug_verified": true,
+  "player_name": "Brandon Finney Jr.",
+  "team": "Oregon",
+  "position": "CB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the breakout sophomore corner -- a long press defender who picked off three as a true freshman, ranked No. 1 at his class",
+  "plan": {
+    "spine": "a long, physical press corner intercepted three passes and won a bowl MVP as a true freshman -- now the breakout sophomore most likely to make first-team All-America",
+    "blend": ["2025 (true Fr): 3 INT (incl. a pick-six vs. Indiana), ~28 tackles", "FWAA Freshman All-American; second-team All-Big Ten", "2026 Orange Bowl Defensive MVP", "6-2, 203 long press corner; B/R's No. 1 sophomore CB"],
+    "payoff": "three interceptions and a bowl MVP -- as a true freshman",
+    "forward_stake": "whether the sophomore leap brings first-team All-America and Thorpe buzz",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Brandon Finney picked off three passes and won the Orange Bowl Defensive MVP -- as a true freshman. At 6-2 with length to spare, he's the breakout sophomore corner most likely to make first-team All-America.",
+  "expand": "Finney's true-freshman season was a star's opening act: three interceptions (including a pick-six against Indiana), a Freshman All-America nod, second-team All-Big Ten honors, and the Orange Bowl Defensive MVP -- a long, physical press corner who looked the part on the biggest stage. At 6-2, 203, Bleacher Report ranked him the No. 1 sophomore corner in the country, and his head coach has praised his ability to break on the ball in man coverage. The forward stakes are a leap into the elite: a corner with this length and this much production this early is the kind who climbs into first-team All-America and Jim Thorpe Award conversations. For Oregon, he's a foundational piece of the secondary for years.",
+  "style_register": "descriptive",
+  "style": "Finney is a long, press-man cover corner -- 6-2, 203 with the build to jam receivers at the line and the recovery length to carry them downfield. The freshman production (three interceptions, a bowl MVP) shows the ball skills and the confidence to play on top of routes, and his coach specifically credits his ability to break on the ball in man coverage. He plays bigger than most corners, using his frame to contest at the catch point. The profile is a press boundary corner with rare size and early ball production -- exactly the modern lockdown archetype. The technique will only sharpen with reps, and the ceiling from here is one of the best corners in the sport.",
+  "style_layers_pending": "no offensive PBP for a cornerback -- box (INT/PBU) + honors + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Oregon -- Brandon Finney Jr. 2026 roster", "url": "https://goducks.com/sports/football/roster/brandon-finney-jr/17450" },
+    { "label": "SI -- Oregon freshman Brandon Finney Jr. a star cornerback", "url": "https://www.si.com/college/oregon/football/oregon-freshman-brandon-finney-jr-star-cornerback-ducks-interception-touchdown-rank-grade-dan-lanning" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "marcel-reed-15185",
+  "slug_verified": true,
+  "player_name": "Marcel Reed",
+  "team": "Texas A&M",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the dual-threat who put Texas A&M in the Playoff -- a gunslinger back to chase the Heisman if he can stop giving it away",
+  "plan": {
+    "spine": "he ran and gunned Texas A&M to its first College Football Playoff, then said 'I'm back' -- a dynamic dual-threat one cleaner season from the Heisman race",
+    "blend": ["2025: 3,169 pass yds, 25 TD / 12 INT; 493 rush yds, 6 TD", "led A&M to an 11-0 start and its first CFP berth", "announced his return before the Playoff even began", "aggressive downfield (97th-pct average depth of target) -- boom and bust"],
+    "payoff": "a CFP berth and 25 passing TDs -- shadowed by 12 interceptions",
+    "forward_stake": "whether the turnovers come down without dimming the aggression -- the line to the Heisman race",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Marcel Reed ran and gunned Texas A&M to its first College Football Playoff. Then, before the bracket even started, he announced he was coming back. He's one cleaner season from the Heisman race -- if he can stop giving the ball away.",
+  "expand": "In 2025 he threw for 3,169 yards and 25 touchdowns, ran for 493 more and six scores, and carried the Aggies to an 11-0 start and their first Playoff berth. He's a true dual-threat -- 6-1, 185, a problem with his legs and a gunslinger with his arm -- and the same aggression that produced the highlights produced 12 interceptions. He bet on himself, announcing his return before the Playoff began. The forward stakes are the tightrope every aggressive young quarterback walks: cut the giveaways without dulling the edge that makes him dangerous. Do that on a roster built for a Playoff run, and he's in the Heisman conversation. For Reed, 2026 is the year the boom-or-bust quarterback decides which one he is.",
+  "style_register": "descriptive",
+  "style": "Reed plays fast and fearless, and the data is a portrait of aggression. As a runner he's genuinely elite -- our play-by-play grades his rushing success rate in the 95th percentile and his EPA per carry in the 86th. As a passer he pushes the ball harder than almost anyone: a 97th-percentile average depth of target, which fuels both an 87th-percentile EPA per dropback and the interceptions (a 72nd-percentile, i.e. fairly high, pick rate). The one number that lags is accuracy -- a 38th-percentile completion rate, the cost of all that downfield ambition. He's a shot-taker who runs like a back, the kind of quarterback who wins games in chunks and loses them in turnovers. The development is the trade: keep the aggression, sharpen the touch.",
+  "style_layers_pending": "PBP QB percentiles woven in (canonical id 15185); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Marcel Reed announces return to Texas A&M for 2026", "url": "https://www.espn.com/college-football/story/_/id/47486561/marcel-reed-announces-return-texas-2026" },
+    { "label": "SI -- Reed announces decision to return for 2026", "url": "https://www.si.com/college-football/texas-am-marcel-reed-announces-decision-returning-for-2026-season" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

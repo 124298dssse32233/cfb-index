@@ -1,0 +1,29 @@
+{
+  "slug": "treydez-green-15843",
+  "slug_verified": true,
+  "player_name": "Trey'Dez Green",
+  "team": "LSU",
+  "position": "TE",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the country's best returning tight end -- a 6-7 former two-sport athlete and red-zone mismatch, the foundation of a new LSU offense",
+  "plan": {
+    "spine": "the No. 1 returning tight end in college football is a 6-7 matchup nightmare and a foundational piece of LSU's new-look offense",
+    "blend": ["2025: 33 rec, 433 yds, 7 TD (led LSU in touchdown catches)", "PFF's No. 1 returning tight end for 2026", "6-7 former dual-sport (basketball) athlete", "a red-zone weapon -- 97th-pct touchdown rate"],
+    "payoff": "seven touchdown catches and the nation's top returning-TE ranking",
+    "forward_stake": "whether the size-athleticism mismatch becomes a Mackey-winning every-down star",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Trey'Dez Green is 6-7, a former basketball player, and PFF's No. 1 returning tight end in the country. He led LSU in touchdown catches because in the red zone, there's nobody to cover him. He's just getting started.",
+  "expand": "Green's 2025 was a red-zone clinic -- 33 catches for 433 yards and a team-leading seven touchdowns, the production of a 6-7 former two-sport athlete who simply out-sizes and out-jumps defensive backs near the goal line. PFF ranks him the No. 1 returning tight end in college football, and he's a foundational piece of LSU's new-look offense. The forward stakes are the leap from mismatch specialist to every-down star: the catch radius and the scoring are already elite, so 2026 is about expanding the route tree and the volume into a Mackey Award profile. For an offense looking for a security blanket and a touchdown-maker, Green is both.",
+  "style_register": "descriptive",
+  "style": "Green is a size-and-catch-radius weapon, and the data screams red zone: a 97th-percentile touchdown rate and an 89th-percentile EPA per target, the numbers of a tight end defenses can't match up with inside the 20. At 6-7, he's a high-point, box-out, throw-it-up-and-let-him-go-get-it target, with a reliable (79th-percentile) catch rate that says the hands are real, not just the frame. The yards-per-catch is more ordinary (52nd percentile) -- he's a possession and scoring mismatch more than a seam-stretching burner right now. The growth edge is exactly that: rounding out the route running and the after-the-catch game to become the every-down centerpiece his physical tools promise.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 15843); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "On3 -- Trey'Dez Green agrees to new deal, returns to LSU in 2026", "url": "https://www.on3.com/college/lsu-tigers/news/treydez-green-agrees-new-deal-at-lsu-set-return-tigers-in-2026/" },
+    { "label": "SI -- Green the best returning tight end for 2026", "url": "https://www.si.com/fannation/college/cfb-hq/news/former-5-star-recruit-best-returning-tight-end-2026-season-treydez-green-lsu-tigers" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

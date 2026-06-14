@@ -1,0 +1,29 @@
+{
+  "slug": "ryan-wingo-13107",
+  "slug_verified": true,
+  "player_name": "Ryan Wingo",
+  "team": "Texas",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the explosive five-star in a loaded room -- Arch Manning's returning deep threat, with consistency the last box to check",
+  "plan": {
+    "spine": "a former five-star and Texas' most explosive receiver returns as a continuity weapon for Arch Manning -- the talent obvious, the consistency the work",
+    "blend": ["2025: 54 rec, 834 yds, 7 TD; coaches second-team All-SEC", "former five-star; called Texas' most explosive offensive weapon", "part of a loaded receiver room with Cam Coleman", "the growth edge: a low catch rate (11th pct) -- finish the catches"],
+    "payoff": "834 yards and a 184-yard game -- flashes of a true No. 1",
+    "forward_stake": "whether the explosive talent adds the consistency to be Manning's go-to",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Ryan Wingo is the most explosive receiver on Texas' offense and a returning weapon for Arch Manning. The talent has never been the question. The consistency is -- and 2026 is where he answers it.",
+  "expand": "A former five-star, Wingo flashed the ceiling in 2025 -- 54 catches, 834 yards, seven touchdowns, a 184-yard eruption, and coaches second-team All-SEC honors -- enough to be called the most explosive piece of the Texas offense. Now he's continuity in a loaded room, returning alongside transfer Cam Coleman to give Arch Manning a deep and dangerous group in what's expected to be Manning's defining year. The forward stakes are about turning flashes into a full season: the explosive plays are there, but the consistency -- finishing the routine catches, stacking good games -- is the difference between a complementary weapon and Manning's true No. 1. For Wingo, the tools were never in doubt; 2026 is about reliability.",
+  "style_register": "descriptive",
+  "style": "Wingo is a vertical, big-play receiver whose tape and reputation say explosive -- and our data says the polish hasn't fully caught up. The good: a solid yards-per-catch and a 70th-percentile touchdown rate, the chunk-play juice of a field-stretcher. The honest part is the efficiency underneath it: a low catch rate (11th percentile) and a modest EPA per target (20th), the numbers of a receiver who flashes big plays but leaves production on the field between them -- drops and inconsistency, the most fixable kind of flaw. He's a straight-line, take-the-top-off athlete more than a polished route technician right now. With an elite quarterback and a year of seasoning, the path is clear: keep the explosiveness, clean up the consistency, and the All-SEC flashes become an All-SEC season.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 13107); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Ryan Wingo announces return to Texas for 2026", "url": "https://247sports.com/college/texas/article/texas-wr-ryan-wingo-announces-return-to-longhorns-for-2026-270916756/" },
+    { "label": "HornSports -- Wingo confirms his return to the Longhorns", "url": "https://hornsports.com/wide-receiver-ryan-wingo-confirms-his-return-to-longhorns-next-season/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

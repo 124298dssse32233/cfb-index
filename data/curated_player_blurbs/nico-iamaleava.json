@@ -1,0 +1,30 @@
+{
+  "slug": "nico-iamaleava-5944",
+  "slug_verified": true,
+  "player_name": "Nico Iamaleava",
+  "team": "UCLA",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the most infamous transfer in the sport -- the quarterback whose contract fight blew up at Tennessee, now betting on himself at UCLA after a 3-9 reset",
+  "plan": {
+    "spine": "the face of the NIL era's messiest divorce left Tennessee for UCLA, went 3-9, and turned down the draft to prove the talent was always real -- a redemption arc in its second act",
+    "blend": ["the spring-2025 Tennessee contract standoff -> portal -> UCLA", "2025 at UCLA: 1,928 yds, 13 TD / 7 INT, 64.4%; 505 rush yds, 4 TD", "the signature win: 5 total TD in a 42-37 upset of No. 7 Penn State", "forwent the 2026 draft to run it back under a new staff"],
+    "payoff": "elite running, modest passing, a 3-9 team -- and a quarterback who bet on himself again",
+    "forward_stake": "whether elite traits plus a fresh start finally become structured production -- or the saga becomes the story",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Nico Iamaleava was the face of the NIL era's ugliest divorce -- a contract fight that ended with him leaving Tennessee for UCLA. Then the Bruins went 3-9. He could have left again. Instead he's running it back to prove the talent was always real.",
+  "expand": "The saga is the part everyone knows: a spring-2025 standoff over his deal at Tennessee, a skipped practice, a coach \"moving on,\" the portal, and a landing at UCLA inside of a week. The football got buried under it. In 2025 he threw for 1,928 yards with 13 touchdowns and seven interceptions, completed 64 percent, and led the Bruins in rushing with 505 yards -- including a five-touchdown night in a 42-37 upset of seventh-ranked Penn State -- on a team that still finished 3-9. He forwent the 2026 draft to come back under a new staff, betting on himself a second time. The forward stakes are whether the most-scrutinized quarterback in college football can finally turn five-star traits into steady, in-structure production. Get there, and the redemption arc lands and the draft stock follows. Don't, and the saga stays the story.",
+  "style_register": "descriptive",
+  "style": "Iamaleava is a dynamic athlete with a big arm and a production gap, and the data tells the same story the scouts do. As a runner he's elite -- our play-by-play puts his EPA per carry in the 98th percentile and his explosive-run rate in the 97th, top-end quarterback speed on designed runs and scrambles. As a passer he's been ordinary: an 18th-percentile EPA per dropback and an 11th-percentile average depth of target -- a lot of short, safe throws. Draft evaluators (The Draft Network) credit \"prototypical\" arm talent and high-velocity throws into tight windows, but flag that he \"missed too many shots downfield\" and can \"lock onto his primary read\" rather than progress -- best improvising, a work in progress within structure. The frame is the whole career: the tools are real, the in-rhythm passing is the unfinished part.",
+  "style_layers_pending": "PBP QB percentiles woven in (canonical id 5944); the NIL standoff is referenced as a reported news event, not a valuation/hero number; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Iamaleava staying at UCLA under new coach", "url": "https://www.espn.com/college-football/story/_/id/47394260/nico-iamaleava-staying-ucla-new-coach-bob-chesney" },
+    { "label": "ESPN -- why Iamaleava left Tennessee for UCLA (the saga)", "url": "https://www.espn.com/college-football/story/_/id/44787682/why-nico-iamaleava-left-tennessee-joined-ucla" },
+    { "label": "The Draft Network -- Nico Iamaleava scouting report", "url": "https://www.thedraftnetwork.com/2025/08/22/nico-iamaleava-scouting-report-nfl-draft" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

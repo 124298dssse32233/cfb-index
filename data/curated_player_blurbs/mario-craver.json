@@ -1,0 +1,29 @@
+{
+  "slug": "mario-craver-14319",
+  "slug_verified": true,
+  "player_name": "Mario Craver",
+  "team": "Texas A&M",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the tiny burner who terrifies safeties -- A&M's highest-paid receiver and the SEC's top deep threat",
+  "plan": {
+    "spine": "an undersized, electric deep threat became the highest-paid receiver in Texas A&M history and the centerpiece of a more pass-heavy 2026",
+    "blend": ["2025: 59 rec, 917 yds, 4 TD (+81 rush); 207-yard CFP game vs. Notre Dame", "5-9, 165 -- a true space-and-speed weapon", "3.25 yards per route, 3rd in the Power Four; 22 forced missed tackles", "highest-paid WR in Texas A&M history (re-signed)"],
+    "payoff": "917 yards, a 207-yard Playoff game, and a record A&M receiver deal",
+    "forward_stake": "whether the deep threat becomes the SEC's most dangerous receiver",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Mario Craver is 5-9, 165 pounds, and a nightmare for safeties. He dropped 207 yards on Notre Dame in the Playoff and became the highest-paid receiver in Texas A&M history. Small, fast, and back for more.",
+  "expand": "Craver's 2025 was a deep-ball highlight reel -- 59 catches for 917 yards, a 207-yard explosion against Notre Dame in the College Football Playoff, and a yards-per-route mark (3.25) that ranked third in the entire Power Four. At 5-9, 165, he wins the way small receivers have to: with separation speed and after-the-catch wiggle (22 forced missed tackles). Texas A&M made him the highest-paid receiver in program history to keep him. The forward stakes are a featured role in a passing game expected to throw more in 2026 -- the runway for a burner like this to go from very good to the SEC's most dangerous deep threat. For Craver, the size was always the doubt and the speed was always the answer; 2026 is where he settles it.",
+  "style_register": "descriptive",
+  "style": "Craver is pure juice -- a vertical and after-the-catch weapon whose tape and our data agree. The play-by-play is loud: a 94th-percentile yards-per-catch, a 93rd-percentile explosive-catch rate, and a 95th-percentile EPA per target -- the chunk-play profile of a true field-stretcher, backed by a solid (76th-percentile) catch rate that says he's more than a track guy running fly routes. The 22 forced missed tackles are the YAC element: catch a five-yard slant, make the first man miss, and it's a 40-yard touchdown. At his size he's not a contested-catch or red-zone bully -- he's the speed that bends a defense's whole structure, the receiver a safety has to honor on every snap. Give him a step, and the game changes.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 14319); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "On3 -- Texas A&M extends Mario Craver (highest-paid WR in school history)", "url": "https://www.on3.com/college/texas-am-aggies/news/texas-aam-reaches-extension-with-mario-craver-to-become-highest-paid-wide-receiver-in-school-history/" },
+    { "label": "PFF -- top 10 returning wide receivers for 2026", "url": "https://www.pff.com/news/college-football-top-10-returning-wide-receivers-for-the-2026-season" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

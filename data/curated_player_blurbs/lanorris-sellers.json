@@ -1,0 +1,30 @@
+{
+  "slug": "lanorris-sellers-8280",
+  "slug_verified": true,
+  "player_name": "LaNorris Sellers",
+  "team": "South Carolina",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the freak who bet on himself -- a possible No. 1 pick who ran it back to prove the one thing he hasn't: that he can throw it",
+  "plan": {
+    "spine": "a 242-pound athlete with first-round buzz turned down the draft to come back -- because the legs are elite and the passing isn't yet, and a new Air Raid coordinator is here to fix it",
+    "blend": ["forwent the 2026 NFL Draft despite No. 1-overall hype", "2025: 2,437 pass yds, 13 TD / 8 INT; 270 rush yds, 5 TD on a 4-8 team", "6-3, 242 -- the Cam Newton physical comp", "new OC Kendal Briles brings an Air Raid to unlock him"],
+    "payoff": "elite as a runner, raw as a passer -- and he came back to close that gap",
+    "forward_stake": "whether the passing finally catches up to the athleticism -- the difference between a project and the No. 1 pick",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "LaNorris Sellers could have been a first-round pick. Instead he's running it back at South Carolina -- because everyone can see the 242-pound athlete, and almost nobody has seen him throw it consistently yet. That's the bet of his 2026.",
+  "expand": "He entered 2025 with No. 1-overall buzz and left it with questions: 2,437 passing yards, 13 touchdowns against eight interceptions, 270 yards and five scores on the ground -- on a team that went 4-8. The tools are undeniable (6-3, 242, the inevitable Cam Newton comparison), and he bet on them, forgoing the 2026 NFL Draft to come back. South Carolina answered by hiring Kendal Briles to install a free-flowing Air Raid built to unlock exactly his kind of athlete from a too-structured scheme. The forward stakes are the leap that defines his career: the legs are already elite, so 2026 is about the throws -- cleaner pocket play, fewer sacks, more consistency. Do that, and the No. 1-pick conversation comes back. Don't, and he's the cautionary tale of a freak who never learned to pass.",
+  "style_register": "descriptive",
+  "style": "Sellers is a problem as a runner and a project as a passer, and the data draws the line hard. On the ground he's elite: our play-by-play grades his rushing success rate in the 91st percentile and his EPA per carry in the 81st -- a 242-pound back playing quarterback. Through the air it's the opposite: an 17th-percentile EPA per dropback, a 22nd-percentile completion rate, and a sack rate in the 2nd percentile -- he holds the ball and takes a brutal number of hits. Scouts (Pro Football Network) see the same film: \"wicked arm strength,\" but he \"gets stuck staring down his primary target\" and turns throwaways into negatives, \"wholly too inconsistent\" with accuracy that runs \"hot-and-cold.\" The encouraging note is ball security -- he's \"relatively patient\" and protective for an elite rushing threat. The whole season is one question: can the passing rise to meet the athlete?",
+  "style_layers_pending": "PBP QB percentiles woven in (canonical id 8280); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Bleacher Report -- Sellers announces return, forgoes 2026 draft", "url": "https://bleacherreport.com/articles/25300057-lanorris-sellers-announces-return-south-carolina-video-forgoes-2026-nfl-draft" },
+    { "label": "Pro Football Network -- Sellers draft scouting (Week 13)", "url": "https://www.profootballnetwork.com/lanorris-sellers-nfl-draft-week-13-2025/" },
+    { "label": "Saturday Down South -- Kendal Briles to revive South Carolina's offense", "url": "https://www.saturdaydownsouth.com/news/college-football/can-kendal-briles-revive-south-carolinas-dormant-offense/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

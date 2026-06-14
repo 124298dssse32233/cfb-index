@@ -1,0 +1,29 @@
+{
+  "slug": "kewan-lacy-7862",
+  "slug_verified": true,
+  "player_name": "Kewan Lacy",
+  "team": "Ole Miss",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the bell cow who stayed -- the back who carried it more than anyone in the country, back to anchor a made-over Ole Miss",
+  "plan": {
+    "spine": "he led all of FBS in carries and scored 24 touchdowns -- then turned down a pursuit to re-sign and anchor a made-over Ole Miss backfield",
+    "blend": ["2025: ~1,564 rushing yards, 23-24 TD; led FBS with 307 carries", "first-team All-SEC; powered Ole Miss to a CFP semifinal", "re-signed with Ole Miss, ending a transfer pursuit", "a goal-line machine -- 88th-pct rushing-touchdown rate"],
+    "payoff": "the most carries in the country and two dozen touchdowns",
+    "forward_stake": "whether the workhorse stays a workhorse as Ole Miss rebuilds around him",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Nobody in college football carried the ball more than Kewan Lacy in 2025. He scored 24 touchdowns doing it -- then turned down a pursuit to stay and anchor a made-over Ole Miss. The workload is the point.",
+  "expand": "He led all of FBS with 307 carries, ran for roughly 1,564 yards, scored 23 or 24 touchdowns, made first-team All-SEC and powered Ole Miss to a College Football Playoff semifinal -- a true bell cow in every sense. When a transfer pursuit came, he re-signed with the Rebels rather than chase it. The forward stakes are continuity through change: with the program made over around him, Lacy is the established constant, the back an offense can hand the ball to thirty times and trust to wear a defense down and finish at the goal line. The question for 2026 isn't whether he can carry the load -- he proved that -- it's whether the offense around him keeps the lanes open. For a runner this durable and this productive in the red zone, that's the difference between a good year and an All-America one.",
+  "style_register": "descriptive",
+  "style": "Lacy is a volume-and-finish back, and the data draws him honestly. The elite trait is scoring: an 88th-percentile rushing-touchdown rate, which fits a back who found the end zone two dozen times and lived at the goal line. The efficiency numbers are more workmanlike -- a 29th-percentile yards-per-carry and a 26th-percentile success rate -- the mark of a runner who took an enormous, grinding workload (a nation-leading 307 carries) rather than a home-run hitter picking his spots. He's also a capable outlet (84th-percentile catch rate). The profile is a downhill, physical, every-down grinder: not the back who breaks a 60-yarder, but the one who gets you the tough four yards on third down and punches it in from the two. Durability and finishing are the whole game, and both are his.",
+  "style_layers_pending": "PBP run percentiles woven in (canonical id 7862); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- RB Kewan Lacy returning to Ole Miss for 2026", "url": "https://www.espn.com/college-football/story/_/id/47522408/rb-kewan-lacy-returning-ole-miss-2026-sources-say" },
+    { "label": "CBS Sports -- Kewan Lacy to return to Ole Miss", "url": "https://www.cbssports.com/college-football/news/ole-miss-kewan-lacy-to-return-lane-kiffin-lsu-transfer-portal" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

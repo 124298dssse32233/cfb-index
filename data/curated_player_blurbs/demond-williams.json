@@ -1,0 +1,29 @@
+{
+  "slug": "demond-williams-11883",
+  "slug_verified": true,
+  "player_name": "Demond Williams Jr.",
+  "team": "Washington",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the dynamo who stayed -- one of the most explosive dual-threats in the country turned down the money and the portal to run it back at Washington",
+  "plan": {
+    "spine": "an electric dual-threat with elite efficiency on the ground AND through the air turned down major NIL and a portal move to stay Washington's entrenched starter",
+    "blend": ["2025: 3,065 pass yds, 25 TD / 8 INT; 611 rush yds, 6 TD (all 13 starts)", "turned down a reported LSU/portal pursuit to stay", "78% completion as a 2024 freshman -- accuracy is real", "elite by our metrics: 98th-pct rushing explosiveness, 92nd-pct accuracy"],
+    "payoff": "25 touchdowns and 611 rushing yards -- and a 'fully committed' to Washington",
+    "forward_stake": "whether a full season as the unquestioned starter turns a dynamo into a Heisman name",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Demond Williams Jr. is one of the most explosive players in college football, and the money and the portal both came calling. He turned them down to run it back at Washington -- the dynamo who decided to stay.",
+  "expand": "In 2025 he threw for 3,065 yards with 25 touchdowns against just eight interceptions and added 611 yards and six scores on the ground, starting all 13 games in Jedd Fisch's quarterback-friendly offense. The dual-threat juice is obvious; the part that separates him is that the accuracy is real too -- he completed 78 percent as a 2024 freshman. When LSU and the portal came knocking with serious money, he declared himself fully committed to Washington. The forward stakes are simple ascension: he's already one of the country's most dynamic players, and a full season as the entrenched, unquestioned starter is the kind of runway that turns a dynamo into a Heisman name. For Williams, 2026 is the leap from electric to elite.",
+  "style_register": "descriptive",
+  "style": "Williams is a rare quarterback who grades elite in both phases. On the ground our play-by-play is almost off the chart -- 98th-percentile EPA per carry, 98th-percentile explosive-run rate, a 96th-percentile rushing success rate. Through the air he's not just a runner who throws: a 94th-percentile passing success rate, a 92nd-percentile completion rate, and an 85th-percentile EPA per dropback, with the arm to hit explosive throws (95th percentile). The one honest wart is a 16th-percentile sack rate -- he holds the ball and takes hits, the flip side of a playmaker who trusts his legs to extend everything. He's a true dual-threat in the modern mold: accurate from the pocket, terrifying out of it, and only just scratching his ceiling.",
+  "style_layers_pending": "PBP QB percentiles woven in (canonical id 11883); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "CBS Sports -- Demond Williams staying at Washington over LSU/portal", "url": "https://www.cbssports.com/college-football/news/demond-williams-transfer-portal-washington-qb-return-lsu/" },
+    { "label": "Wikipedia -- Demond Williams Jr. (2025 stats)", "url": "https://en.wikipedia.org/wiki/Demond_Williams_Jr." }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

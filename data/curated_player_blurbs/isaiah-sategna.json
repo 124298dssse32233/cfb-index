@@ -1,0 +1,29 @@
+{
+  "slug": "isaiah-sategna-7279",
+  "slug_verified": true,
+  "player_name": "Isaiah Sategna III",
+  "team": "Oklahoma",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "Oklahoma's most reliable weapon -- a track-fast All-SEC receiver who passed on the draft for one more year",
+  "plan": {
+    "spine": "the most dependable playmaker on a 10-win Oklahoma team passed on the draft to return as its proven No. 1 receiver",
+    "blend": ["2025: 67 rec, 965 yds, 8 TD (led Oklahoma)", "first-team All-SEC (Arkansas transfer)", "track-caliber speed; OU's most reliable offensive playmaker", "forwent the draft after a 10-3 CFP season"],
+    "payoff": "an OU-leading 965 yards and first-team All-SEC",
+    "forward_stake": "whether the proven No. 1 becomes a true NFL-prospect headliner",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "On a 10-win Oklahoma team, Isaiah Sategna was the guy they could count on -- the leading receiver, first-team All-SEC, and the most reliable playmaker on the roster. He passed on the draft to do it again.",
+  "expand": "The Arkansas transfer became Oklahoma's offensive anchor in 2025: 67 catches, 965 yards, eight touchdowns, first-team All-SEC, and a reputation as the Sooners' most dependable weapon on a 10-3 College Football Playoff team. He brings track-caliber speed and, just as valuable, consistency -- the kind of receiver a quarterback trusts on third down. He forwent the draft to return. The forward stakes are a step from proven SEC No. 1 to genuine NFL-prospect headliner: the production and the speed are established, so 2026 is about a bigger volume and a deeper highlight reel in an offense that runs through him.",
+  "style_register": "plain",
+  "style": "Sategna is a speed-based, reliable No. 1 -- the receiver an offense organizes around. The signature traits are well-documented: track-level straight-line speed that stresses a defense vertically, paired with the dependability that made him Oklahoma's most-targeted and most-trusted option (a team-leading 67 catches). He's a separator who can take the top off and also work the intermediate routes, rather than a contested-catch specialist. The profile is an every-down SEC No. 1 whose ceiling in 2026 is tied to volume and an offense leaning on him even harder.",
+  "style_layers_pending": "no PBP percentile row available for this player -- box (rec/yds/TD) + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "OU Daily -- Isaiah Sategna returns to Oklahoma for 2026", "url": "https://www.oudaily.com/sports/oklahoma-sooners-football-sec-isaiah-sategna-returns/article_b93f53c8-dd08-4cf3-84e9-a6c6564a0c96.html" },
+    { "label": "247Sports -- Sategna's 2026 decision", "url": "https://247sports.com/college/oklahoma/article/isaiah-sategna-oklahoma-sooners-decision-2026-268271664/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

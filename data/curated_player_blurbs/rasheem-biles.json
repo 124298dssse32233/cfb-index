@@ -1,0 +1,29 @@
+{
+  "slug": "rasheem-biles-14094",
+  "slug_verified": true,
+  "player_name": "Rasheem Biles",
+  "team": "Texas",
+  "position": "LB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the playmaking linebacker Texas needed -- an ACC TFL leader with two pick-sixes, brought in to anchor a title defense",
+  "plan": {
+    "spine": "the ACC's tackle-for-loss leader, a linebacker who scored three different ways in one season, transfers to Texas to fill a championship-defense hole",
+    "blend": ["2025 (Pitt, 10 games): 101 tackles, 17 TFL (led the ACC), 4.5 sacks", "2 interceptions (both pick-sixes) plus a fumble-return touchdown", "All-ACC; 100 tackles in only 10 games", "transferred to Texas to anchor the linebacker room"],
+    "payoff": "an ACC-leading 17 TFL and three defensive touchdowns",
+    "forward_stake": "whether the explosive playmaker lifts Texas's defense to a title level",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Rasheem Biles led the ACC in tackles for loss, returned two interceptions for touchdowns, and took back a fumble for a third score -- in 10 games. Texas brought him in to plug the one hole in a title defense.",
+  "expand": "Biles's 2025 at Pitt was a highlight reel of disruption: 101 tackles in just 10 games, an ACC-leading 17 tackles for loss, 4.5 sacks, two pick-sixes and a fumble-return touchdown -- three defensive scores from a linebacker who's always around the ball. All-ACC honors followed, and so did Texas, which added him to anchor its linebacker room. The forward stakes are a championship ceiling: the Longhorns had a roster built to contend and a need in the middle of the defense, and Biles is exactly the explosive, ball-producing playmaker that fills it. He's the kind of linebacker who doesn't just stop drives -- he flips games.",
+  "style_register": "descriptive",
+  "style": "Biles is a downhill, ball-producing linebacker whose game is built on disruption and takeaways. The TFL crown (17, most in the ACC) shows a player constantly beating blocks into the backfield, and the three defensive touchdowns -- two pick-sixes and a scoop-and-score -- reveal rare ball skills and instincts for the position. The 100-tackle volume in only 10 games says he's a high-effort, every-snap producer. He's a play-finisher: he gets to the ball, and when he does, good things happen for his defense. The chip-on-the-shoulder former three-star now steps onto a national stage, and the profile -- range, production, takeaways -- is exactly what a title defense wants in the middle.",
+  "style_layers_pending": "no offensive PBP for a linebacker -- box (tackles/TFL/INT) + All-ACC + attributed scouting grounded; PBP percentiles reflect his 2025 Pitt tape (canonical id 14094); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "SI -- 3 reasons Texas's Rasheem Biles will live up to the hype", "url": "https://www.si.com/college/texas/football/3-reasons-why-texas-rasheem-biles-will-live-up-hype-next-season" },
+    { "label": "Burnt Orange Nation -- Texas lands Pitt transfer LB Rasheem Biles", "url": "https://www.burntorangenation.com/general/99859/texas-lands-pittsburgh-transfer-linebacker-rasheem-biles" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

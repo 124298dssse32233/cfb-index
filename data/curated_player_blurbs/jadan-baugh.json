@@ -1,0 +1,29 @@
+{
+  "slug": "jadan-baugh-9502",
+  "slug_verified": true,
+  "player_name": "Jadan Baugh",
+  "team": "Florida",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the three-down workhorse Florida builds around -- a 1,000-yard back and pass-catcher entering a breakout junior year",
+  "plan": {
+    "spine": "a durable three-down back who PFF calls one of the most valuable returning runners in football anchors a new-look Florida offense",
+    "blend": ["2025: 220 carries, 1,170 rush yds, 8 TD; 31 rec, 185 yds, 2 TD", "266-yard game vs. Florida State; 89.5 PFF grade", "PFF: no Power Four back more valuable over two years", "a genuine three-down weapon -- 92nd-pct catch rate"],
+    "payoff": "1,170 rushing yards and 31 catches -- a complete back",
+    "forward_stake": "whether the breakout junior year arrives under a new staff",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Jadan Baugh did everything for Florida in 2025 -- ran for over 1,100 yards, caught 31 passes, and dropped 266 on Florida State. PFF says no Power Four back has been more valuable over the last two years. The breakout is next.",
+  "expand": "He carried it 220 times for 1,170 yards and eight scores, added 31 catches as a genuine receiving threat, and saved a 266-yard explosion for the rivalry game against Florida State -- a 5.3-per-carry, all-situations workhorse who earned an 89.5 PFF grade and, by PFF's measure, has been as valuable as any Power Four back over two seasons. Now he anchors a made-over Florida offense entering his junior year. The forward stakes are the leap from very good to All-America: the durability and the three-down skill set are already there, so 2026 is about volume, health, and an offense that gives him room. For a back this complete, the breakout isn't a question of ability -- it's a question of opportunity.",
+  "style_register": "descriptive",
+  "style": "Baugh is a true three-down back whose value is in his completeness rather than one elite trait. Our play-by-play has him solidly above-average as a runner -- mid-pack yards-per-carry and success rate on heavy volume -- but the number that pops is his 92nd-percentile catch rate: he's a reliable, natural receiver out of the backfield, not just a checkdown. He runs with patience and enough power to handle a feature load (220 carries, and a 266-yard rivalry game says he can take over). He's not a track-speed home-run hitter; he's the every-down hammer who catches, pass-protects, and finishes -- the kind of back a coordinator can build a whole offense's rhythm around.",
+  "style_layers_pending": "PBP run/receiving percentiles woven in (canonical id 9502); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "On3 -- Jadan Baugh returning to Florida for his junior season", "url": "https://www.on3.com/teams/florida-gators/news/jadan-baugh-returning-to-florida-for-his-junior-season/" },
+    { "label": "CBS Sports -- Baugh recruiting/portal & Florida", "url": "https://www.cbssports.com/college-football/news/jadan-baugh-rb-recruiting-transfer-portal-florida-texas-nil" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

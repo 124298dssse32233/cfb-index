@@ -1,0 +1,30 @@
+{
+  "slug": "dj-lagway-9503",
+  "slug_verified": true,
+  "player_name": "DJ Lagway",
+  "team": "Baylor",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the five-star do-over -- the No. 3 recruit in America, a big arm and a turnover problem, gets a fresh start in Waco after Florida fell apart around him",
+  "plan": {
+    "spine": "a former No. 3 overall recruit with elite arm talent and a real turnover problem leaves a collapsed Florida program for a fresh start at Baylor -- pedigree looking for production",
+    "blend": ["No. 3 overall recruit in the 2024 class (Five-Star Plus+)", "2025: 2,264 yds, 16 TD vs 14 INT, 63.2% -- led the nation in interceptions at one point", "Florida went 4-8, fired Billy Napier; Lagway transferred to Baylor", "Dave Aranda's 'defining portal win' -- the upside answer at QB"],
+    "payoff": "16 TDs but 14 INTs (a 5-pick game vs LSU) on a 4-8 team; portal reset to Baylor",
+    "forward_stake": "whether a change of scenery turns five-star arm talent into efficient production -- prove-the-leap, now in Waco",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "DJ Lagway was the No. 3 recruit in America -- a five-star arm everyone wanted. Two years later, after Florida went 4-8 and fired its coach, he's starting over at Baylor. The talent was never the question. The turnovers are.",
+  "expand": "He arrived at Florida as a Five-Star Plus+, the No. 3 overall recruit in the 2024 class, and the arm was every bit as advertised. The results weren't: in 2025 he threw for 2,264 yards but 14 interceptions against 16 touchdowns -- at one point leading the nation in picks, including a five-interception night against LSU -- while fighting through shoulder and calf injuries on a team that went 4-8 and fired Billy Napier. So the five-star did what five-stars now do when it breaks: he reset. Lagway transferred to Baylor, where Dave Aranda called him a defining portal win and needs him to convert pedigree into production after a 5-7 season. The forward stakes are the oldest question in the sport, just in a new city: can a quarterback with this much arm talent finally play efficient, ball-secure football? In Waco, 2026 is the leap -- or the latest reminder that recruiting stars don't throw the passes.",
+  "style_register": "descriptive",
+  "style": "Lagway throws with rare arm talent -- the trait that made him the No. 3 recruit in the country -- and the tape is a tug-of-war between that ceiling and his decision-making. The 2025 efficiency was genuinely poor: our play-by-play put his touchdown rate in the 12th percentile and his dropback success rate in the 36th, and the box score agrees (16 touchdowns, 14 interceptions, a five-pick game against LSU that was the most by a Florida quarterback since 1992). Some of that is volatility you can live with from a big arm; some is the kind of turnover habit that sinks seasons. Durability is part of the profile too -- a shoulder injury that limited spring work and a preseason calf strain are on the record. The honest frame: this is a high-variance gunslinger whose floor showed up more than his ceiling in 2025. Baylor is betting the arm is real and the mistakes are coachable. The film to watch in 2026 is simple -- does the interception number come down?",
+  "style_layers_pending": "PBP passing percentiles are from his 2025 Florida tape (canonical id 9503; production carries to Baylor); specific scout quotes on deep ball/mobility were not independently verified and are intentionally omitted; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Alligator -- Lagway officially signs with Baylor (Jan 18, 2026)", "url": "https://www.alligator.org/article/2026/01/dj-lagway-baylor-official" },
+    { "label": "ESPN -- Florida fires Billy Napier", "url": "https://www.espn.com/college-football/story/_/id/46314212/florida-gators-fire-billy-napier-candidates-lane-kiffin-dj-lagway" },
+    { "label": "StatMuse -- DJ Lagway 2025 season stats", "url": "https://www.statmuse.com/cfb/ask/dj-lagway-season-stats-2025" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "ellis-robinson-13298",
+  "slug_verified": true,
+  "player_name": "Ellis Robinson IV",
+  "team": "Georgia",
+  "position": "CB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the ballhawk who tied the SEC INT lead as a redshirt freshman -- the centerpiece of Georgia's rebuilt secondary",
+  "plan": {
+    "spine": "a former five-star tied for the SEC interception lead as a redshirt freshman and is now the centerpiece of Georgia's rebuilt secondary",
+    "blend": ["2025 (RS-Fr): 4 INT (tied for the SEC lead), 7 PBU, 20 tackles", "FWAA Freshman Defensive Player of the Year; second-team All-SEC", "6-0, 180 former five-star with recovery speed", "minor April-2026 surgery; expected back for the season"],
+    "payoff": "four interceptions as a redshirt freshman -- tied for the SEC lead",
+    "forward_stake": "whether the ballhawk becomes the best corner in the conference",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Ellis Robinson IV tied for the SEC lead in interceptions -- as a redshirt freshman. The former five-star is the centerpiece of Georgia's rebuilt secondary, and his best football is clearly ahead of him.",
+  "expand": "Robinson's first real season was a ballhawk's debut: four interceptions to tie for the SEC lead, seven pass breakups and 20 tackles as a redshirt freshman, earning FWAA Freshman Defensive Player of the Year and second-team All-SEC. At 6-0, 180, the former five-star pairs recovery speed with the instincts to read routes and jump throws. He's a breakout candidate and the building block of a made-over Georgia secondary. The forward stakes carry a small caveat -- a minor April surgery kept him out of the spring game, with a healthy return expected -- but if he's right, a corner this productive this early is on a track toward being the best in the conference. For Georgia, he's the cover man the rest of the defense gets to be built around.",
+  "style_register": "descriptive",
+  "style": "Robinson is an instinctive, ball-hawking cover corner. The four-interception, seven-breakup line as a redshirt freshman is the whole pitch: that's a player who diagnoses route concepts, drives on the throw, and finishes at the catch point -- ball production that usually takes corners years to develop. At 6-0, 180 with five-star recovery speed, he has the tools to carry receivers and the anticipation to undercut them. He's a route-reader and a gambler in the best sense, the kind of corner who takes the ball away rather than just defending. The polish and the physicality will round out with reps; the instincts and the takeaway ability are already elite.",
+  "style_layers_pending": "no offensive PBP for a cornerback -- box (INT/PBU) + honors + attributed scouting grounded; minor April-2026 surgery -- health to re-confirm in fall camp; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Ellis Robinson IV, a better version in 2026", "url": "https://247sports.com/college/georgia/article/georgia-cornerback-ellis-robinson-iv-a-better-version-of-last-year-281620821/" },
+    { "label": "Georgia -- Ellis Robinson IV 2026 roster", "url": "https://georgiadogs.com/sports/football/roster/ellis-robinson-iv/10682" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

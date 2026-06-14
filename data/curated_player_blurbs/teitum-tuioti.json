@@ -1,0 +1,29 @@
+{
+  "slug": "teitum-tuioti-11730",
+  "slug_verified": true,
+  "player_name": "Teitum Tuioti",
+  "team": "Oregon",
+  "position": "EDGE",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the two-way edge of Oregon's elite front -- the only returning Power Four rusher graded elite against both pass and run",
+  "plan": {
+    "spine": "a breakout edge rusher who grades elite against both the pass AND the run returns as half of Oregon's elite edge tandem",
+    "blend": ["2025: 68 tackles, 16.0 TFL, 9.5 sacks (all career highs)", "6-3, 263", "the only returning Power Four edge with 80+ PFF grades as both pass rusher and run defender", "pairs with Matayo Uiagalelei on a loaded Oregon front"],
+    "payoff": "9.5 sacks and 16 TFL -- and elite grades stopping the run, too",
+    "forward_stake": "whether the complete edge becomes an All-American on a title contender",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Teitum Tuioti is the rarest kind of edge rusher: the only returning Power Four player graded elite against both the pass and the run. On a loaded Oregon front, he's the complete one -- and he's only getting better.",
+  "expand": "Tuioti's 2025 was a career-best breakout across the board -- 68 tackles, 16 tackles for loss, 9.5 sacks -- and the distinction underneath it is what sets him apart: per PFF, he was the only returning Power Four edge to grade above 80 as both a pass rusher and a run defender. That two-way completeness, paired with edge-mate Matayo Uiagalelei, gives Oregon a front that can wreck a game without blitzing. The forward stakes are All-America honors on a national-title contender: the production is established and the profile is complete, so 2026 is about turning a great season into a dominant one. He's the every-down edge a championship defense is built on.",
+  "style_register": "descriptive",
+  "style": "Tuioti is a complete, two-way edge -- the kind that doesn't have to come off the field on early downs. The PFF distinction is the whole scouting report: elite grades against both the pass and the run, which means he can set a hard edge against the run game and win as a pass rusher on the next snap. The 9.5 sacks and 16 tackles for loss are the disruption; the run grade is the part most edges his age don't have. At 6-3, 263 he plays with power and balance, holding up at the point and converting it into pressure. On a deep Oregon front he doesn't have to do it alone -- which is exactly what makes him so hard to block one-on-one.",
+  "style_layers_pending": "no offensive PBP for an edge -- box (sacks/TFL) + PFF two-way grade + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Teitum Tuioti announces return to Oregon for 2026", "url": "https://247sports.com/college/oregon/article/teitum-tuioti-is-back-oregons-defensive-star-announces-return-for-2026-270516721/" },
+    { "label": "ESPN -- Washington, Uiagalelei, Tuioti returning to Oregon", "url": "https://www.espn.com/college-football/story/_/id/47586441/oregon-washington-uiagalelei-tuioti-returning-ducks" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

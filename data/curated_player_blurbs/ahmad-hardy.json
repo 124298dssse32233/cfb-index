@@ -1,0 +1,29 @@
+{
+  "slug": "ahmad-hardy-3848",
+  "slug_verified": true,
+  "player_name": "Ahmad Hardy",
+  "team": "Missouri",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the back nobody could tackle -- the Power Four's leading rusher and the nation's yards-after-contact king, back as the favorite to be RB1",
+  "plan": {
+    "spine": "he led the Power Four in rushing and the entire nation in yards after contact -- and he's back as the consensus favorite to be college football's best running back",
+    "blend": ["2025: 1,648 rushing yards (most in the Power Four), 16 TD", "led the nation in yards after contact (1,181)", "former Sun Belt Freshman of the Year (ULM) who transferred up", "PFF's No. 1 returning running back for 2026"],
+    "payoff": "1,648 yards, 16 scores, and a nation-leading 1,181 yards after contact",
+    "forward_stake": "whether the consensus RB1 becomes a non-quarterback Heisman dark horse",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Ahmad Hardy led the Power Four in rushing and the entire country in yards after contact. PFF calls him the No. 1 returning running back in college football. The tackle that brings him down on first contact mostly doesn't exist.",
+  "expand": "In 2025 he ran for 1,648 yards -- the most by any Power Four back -- and 16 touchdowns, and he did it the hard way: a nation-leading 1,181 yards after contact, the signature of a runner defenses simply can't bring down on first touch. He's a transfer-up story too, a former Sun Belt Freshman of the Year at ULM who carried his production straight into the SEC. Now PFF ranks him the No. 1 returning running back in the sport. The forward stakes are individual hardware and a Missouri offense built around him: in a year without an obvious skill-position Heisman favorite, the Power Four's leading returning rusher is exactly the kind of non-quarterback dark horse who can crash the race. For Hardy, 2026 is the year the best-kept secret becomes the headline.",
+  "style_register": "descriptive",
+  "style": "Hardy is contact balance personified. The defining number is the one he led the nation in -- 1,181 yards after contact -- and our play-by-play backs the whole package: an 87th-percentile rushing-touchdown rate (he finishes), an 81st-percentile EPA per carry, and a 71st-percentile yards-per-carry on genuine workhorse volume. He runs behind his pads, keeps his legs churning through arm tackles, and turns would-be three-yard gains into seven. He's not purely a track-speed home-run hitter -- his explosive-run rate is good, not elite (70th percentile) -- which makes the production all the more impressive: this is yards won by force, not just by speed. He's a downhill, between-the-tackles hammer who gets stronger as the game wears on, the kind of back an offense can lean its whole identity on.",
+  "style_layers_pending": "PBP run percentiles woven in (canonical id 3848); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "PFF -- top 10 returning running backs for 2026 (Hardy No. 1)", "url": "https://www.pff.com/news/college-football-top-10-returning-running-backs-for-the-2026-season" },
+    { "label": "On3 -- Ahmad Hardy transfers to Missouri", "url": "https://www.on3.com/news/ahmad-hardy-true-freshman-all-american-rb-commits-to-transfer-to-missouri/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

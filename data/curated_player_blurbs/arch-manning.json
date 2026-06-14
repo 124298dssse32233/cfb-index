@@ -1,0 +1,30 @@
+{
+  "slug": "arch-manning-13074",
+  "slug_verified": false,
+  "player_name": "Arch Manning",
+  "team": "Texas",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "tentpole",
+  "story_shape": "the hype finally answered (Proven-ascendant + legacy weight + coronation-or-bust); the split-season turn as evidence",
+  "plan": {
+    "spine": "the most-hyped QB recruit in history sat three years, finally played and struggled, then figured it out late -- and now Year 2 is the coronation",
+    "blend": ["Manning-dynasty legacy weight", "lukewarm debut -> late surge", "Heisman co-favorite", "Texas title-or-bust in the SEC"],
+    "payoff": "the split season -- ~1 INT/game through 5 games, then 2 turnovers across the final 8; 20 TDs responsible for in his last 6",
+    "forward_stake": "was the second half of 2025 the real Arch, or the first? a full season at his ceiling makes him the story of the sport; less reopens the only debate that's followed him -- was the hype ever real",
+    "register": "projection->imminent",
+    "horizon": "2026 season"
+  },
+  "hook": "For three years, Arch Manning was the most famous backup in football -- the name, the bloodline, the hype with no tape. Then he finally played, struggled, and figured it out. Now he's the Heisman favorite, and the patience is over.",
+  "expand": "The grandson of Archie, nephew of Peyton and Eli, was the most-hyped recruit of his generation before he'd thrown a college pass -- and he sat, behind Quinn Ewers, while the legend grew on zero evidence. His 2025 debut as the starter was supposed to settle it; for five games it only complicated it. He averaged an interception a game, the offense sputtered, and the takes turned. Then the season flipped: over the final eight games he turned the ball over twice, and across his last six he was responsible for 20 touchdowns through the air, on the ground, and even on a catch.\n\nThat late surge is why he enters 2026 as a betting co-favorite -- by some books the favorite -- and why one analyst flatly said there's 'a 0% chance' he isn't in New York for the ceremony. The bar isn't a good season; it's a coronation. A Manning has never won a Heisman; Texas has produced only two. He'd close both gaps at once.\n\nThe forward question isn't talent -- the arm was never in doubt. It's whether the second half of 2025 was the real Arch and the first half was the learning curve, or the other way around. In an SEC where Texas is built to win it all, a full season at his ceiling makes him the story of the sport. Anything less reopens the only debate that's ever followed him: was the hype ever real?",
+  "sources": [
+    { "label": "SI -- Arch Manning steps into the 2026 Heisman spotlight", "url": "https://www.si.com/college/texas/football/texas-longhorns-arch-manning-steps-into-the-2026-heisman-spotlight" },
+    { "label": "CBS -- Manning 100% healthy, Heisman hype builds for 2026", "url": "https://www.cbssports.com/college-football/news/arch-manning-healthy-heisman-texas-breakout-2026/" },
+    { "label": "On3 -- Manning and the 2026 Heisman", "url": "https://www.on3.com/teams/texas-longhorns/news/arch-manning-and-the-2026-heisman-could-texas-qb-become-the-third-winner-in-school-history/" }
+  ],
+  "style_register": "cinematic",
+  "style": "Manning is a big-bodied gunslinger who plays the position downhill -- a live arm that pushes it deep (88th-percentile average depth) and the juice to run for eight scores. But the 2025 tape is the rawness as much as the upside: he graded bottom-fifth in completion and ninth percentile in success rate, throwing his share of picks even as the flashes -- the explosive shots, a top-quarter touchdown rate -- hinted at the ceiling. The lightbulb came late: an interception a game through five weeks, then two turnovers across the final eight. That arc is the whole scouting report -- the tools are loud and the consistency is the project. On schedule, Sarkisian's pro-style attack has a weapon with no ceiling; when he forces it, the efficiency cratered. 2026 is about turning the back-half flashes into the baseline -- making the rare reps the every-down ones.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 13074); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

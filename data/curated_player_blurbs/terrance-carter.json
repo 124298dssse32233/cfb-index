@@ -1,0 +1,29 @@
+{
+  "slug": "terrance-carter-4105",
+  "slug_verified": true,
+  "player_name": "Terrance Carter Jr.",
+  "team": "Texas Tech",
+  "position": "TE",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the YAC tight end anchoring a Playoff hopeful -- a yards-after-catch leader back for a contending Texas Tech",
+  "plan": {
+    "spine": "the FBS tight end who forced the most missed tackles returns to anchor a Texas Tech offense with Playoff ambitions",
+    "blend": ["2025: ~46 rec, ~552 yds, 3 TD", "led all FBS tight ends with 23 forced missed tackles", "6-2, 245 -- a move tight end who excels after the catch", "building chemistry with Texas Tech's quarterback room"],
+    "payoff": "the most forced missed tackles of any FBS tight end",
+    "forward_stake": "whether the YAC weapon becomes a featured target on a contender",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Terrance Carter forced more missed tackles than any tight end in the country. He bypassed the portal and the draft to anchor a Texas Tech team with real Playoff ambitions -- the safety valve who turns a short catch into a long gain.",
+  "expand": "Carter's 2025 was built on what happens after the catch: roughly 46 receptions for 552 yards, and a nation-leading 23 forced missed tackles among FBS tight ends -- a 6-2, 245-pound move tight end who \"excels in space.\" He chose to return rather than test the portal or the draft, staying to build chemistry with the Texas Tech quarterback room. The forward stakes ride the program's: the Red Raiders enter 2026 with playoff ambitions, and Carter is the reliable, run-after-catch security blanket those offenses need. He's not the highlight-reel vertical threat; he's the third-down conversion and the chunk gain that keeps drives alive.",
+  "style_register": "plain",
+  "style": "Carter is a yards-after-catch tight end -- the defining number is the one he led all FBS tight ends in: 23 forced missed tackles. At 6-2, 245, he's described as a player who \"excels in space,\" the move-tight-end profile that wins on the catch-and-run rather than the contested deep ball. He's a chains-mover and a matchup piece in the middle of the field, the reliable target a quarterback finds when the play breaks down. The growth edge is volume and the vertical element; the floor is a dependable, tackle-breaking safety valve on a team that wants to contend.",
+  "style_layers_pending": "no PBP percentile row available -- box (rec/yds/TD) + attributed scouting grounded; minor stat-line variance across sources (46/552/3 vs 52/602/5); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "SI -- Terrance Carter Jr. announces return to Texas Tech for 2026", "url": "https://www.si.com/college/texas-tech/football/red-raiders-tight-end-terrance-carter-jr-announces-return-to-texas-tech-for-2026-season" },
+    { "label": "SI -- Carter ranked among returning Big 12 tight ends by PFF", "url": "https://www.si.com/college/texas-tech/football/texas-tech-terrance-carter-ranked-returning-tight-end-in-big-12-by-pro-football-focus" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

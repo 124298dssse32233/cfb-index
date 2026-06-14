@@ -1,0 +1,29 @@
+{
+  "slug": "anthony-smith-13819",
+  "slug_verified": true,
+  "player_name": "Anthony Smith",
+  "team": "Minnesota",
+  "position": "EDGE",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the Big Ten sack leader runs it back -- a long, heavy power rusher who turned down the NFL to chase first-round status",
+  "plan": {
+    "spine": "the Big Ten's sack leader returned to Minnesota to refine a power-rush game already worthy of an All-America season",
+    "blend": ["2025: 12.5 sacks (led the Big Ten), 17.5 TFL", "6-6, 295 -- a long, heavy power rusher", "rejected transfer interest and the NFL to return", "pairs with Karter Menz for the Big Ten's top edge duo"],
+    "payoff": "a Big Ten-leading 12.5 sacks and 17.5 TFL",
+    "forward_stake": "whether the dominant power rusher climbs into the first-round conversation",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Anthony Smith led the Big Ten in sacks at 6-6, 295 -- a power rusher built like a defensive end and a tackle at once. He turned down the NFL to come back, sharpen the craft, and chase the first round.",
+  "expand": "Smith's 2025 was a wrecking-ball season: 12.5 sacks to lead the Big Ten and 17.5 tackles for loss, the kind of production that usually buys a ticket to the draft. Instead he rejected transfer interest and the NFL to return to Minnesota, pairing with Karter Menz to form one of the conference's best edge duos. The forward stakes are a climb up draft boards: he's already an All-America-caliber rusher, and 2026 is about refining the rush plan around a heavy, powerful base into a first-round profile. At his size, with this production, he's a problem for any tackle in the Big Ten.",
+  "style_register": "descriptive",
+  "style": "Smith is a power-rush edge -- 6-6, 295, a heavy, long defender who wins by walking tackles back into the pocket rather than running the arc around them. The bull rush is the foundation, and the 12.5 sacks and 17.5 tackles for loss say it works: he collapses the edge and the quarterback's launch point at once. At his weight he's stout against the run too, hard to move off the ball -- the kind of edge who sets a firm edge and rushes from a base of strength. The development is the finesse to complement the force: add the counters and the bend, and a dominant power rusher becomes a complete one.",
+  "style_layers_pending": "no offensive PBP for an edge -- box (sacks/TFL) + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Anthony Smith returning to Minnesota for 2026", "url": "https://247sports.com/college/minnesota/article/minnesota-gopher-football-news-anthony-smith-returning-267869811/" },
+    { "label": "SI -- what Anthony Smith's return means for Minnesota", "url": "https://www.si.com/college/minnesota/gophers-football/what-anthony-smith-s-return-means-for-gophers-football-in-2026" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

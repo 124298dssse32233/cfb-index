@@ -1,0 +1,29 @@
+{
+  "slug": "zabien-brown-16462",
+  "slug_verified": true,
+  "player_name": "Zabien Brown",
+  "team": "Alabama",
+  "position": "CB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the best returning cover corner in the country -- a pick-six machine doing things no Alabama corner has since 1992",
+  "plan": {
+    "spine": "a press-man corner who returned two interceptions for touchdowns -- the first Alabama true corner to do so since 1992 -- is back as arguably the nation's top returning cover man",
+    "blend": ["2025: ~39 tackles, 2 INT (both pick-sixes, one vs. Oklahoma in the CFP), 8 PBU, 1 FF", "SEC Co-Defensive Player of the Week", "first Alabama true CB with two pick-sixes since Antonio Langham (1992)", "6-0, 194 press boundary corner; projected premier 2027 prospect"],
+    "payoff": "two pick-sixes -- historic company at Alabama",
+    "forward_stake": "whether the nation's top returning corner becomes a first-round lockdown name",
+    "register": "projection",
+    "horizon": "2026 season (NFL 2027)"
+  },
+  "hook": "Zabien Brown returned two interceptions for touchdowns -- something no Alabama true cornerback had done since Antonio Langham in 1992. He's back as arguably the best returning cover corner in college football.",
+  "expand": "Brown's 2025 put him in historic Alabama company: two pick-sixes -- including one against Oklahoma in the College Football Playoff -- plus eight pass breakups, a forced fumble and SEC Co-Defensive Player of the Week honors, the first Crimson Tide true corner with two interception-return touchdowns since Langham more than three decades ago. At 6-0, 194, he's a press boundary corner projected as a premier 2027 prospect. The forward stakes are first-round lockdown status: he enters 2026 as arguably the nation's top returning cover man and a preseason All-America fixture. The combination of man-coverage technique and game-changing ball production is exactly what separates good corners from great ones -- and Brown already has both.",
+  "style_register": "descriptive",
+  "style": "Brown is a press-man cover corner with rare ball production -- the combination that makes elite corners. At 6-0, 194 he plays on the boundary, mirrors receivers off the line, and trusts his recovery speed, the technical profile of a true man-coverage corner. What elevates him is the takeaway element: two pick-sixes and eight pass breakups say he doesn't just blanket routes, he finishes them at the catch point and turns defense into offense. He plays with the confidence to travel and the instincts to jump throws. There's no obvious hole to attack -- he covers, he produces the ball, and he scores with it -- which is exactly why he's the top returning corner in the country.",
+  "style_layers_pending": "no offensive PBP for a cornerback -- box (INT/PBU) + honors + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Alabama -- Zabien Brown 2026 roster", "url": "https://rolltide.com/sports/football/roster/zabien-brown/17427" },
+    { "label": "Heavy -- Zabien Brown spring practice / 2026 outlook", "url": "https://heavy.com/sports/college-football/alabama-crimson-tide/zabien-brown-kaleb-edwards-spring-practice/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

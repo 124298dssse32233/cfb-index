@@ -1,0 +1,29 @@
+{
+  "slug": "amauri-washington-11733",
+  "slug_verified": true,
+  "player_name": "A'Mauri Washington",
+  "team": "Oregon",
+  "position": "DT",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the 330-pounder who bats down passes -- a uniquely quick interior anchor headlining Oregon's loaded line",
+  "plan": {
+    "spine": "a 330-pound tackle who led all FBS defensive linemen in pass breakups headlines an Oregon front where all four starters chose to come back",
+    "blend": ["2025: 33 tackles, 4.5 TFL, 1.5 sacks, a team-high 8 pass breakups (led FBS DL)", "third-team All-Big Ten; a CBS All-American", "6-3, 330 -- 'exceptionally quick at 330 pounds'", "first-round 2027 buzz; all four Oregon DL starters returning"],
+    "payoff": "a nation-leading (among DL) 8 pass breakups from a 330-pound frame",
+    "forward_stake": "whether the rare quickness-and-size combo becomes a first-round season",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "A'Mauri Washington is 330 pounds and led every defensive lineman in the country in pass breakups. That combination shouldn't exist. He headlines an Oregon line where all four starters decided to come back.",
+  "expand": "Washington's 2025 was a study in a rare combination: 33 tackles, 4.5 tackles for loss, and a team-high eight pass breakups that led all FBS defensive linemen -- batted balls and disruption from a 6-3, 330-pound frame that ESPN called \"exceptionally quick at 330 pounds.\" He earned third-team All-Big Ten and CBS All-America honors and is drawing first-round 2027 buzz. The story is collective, too: he headlines an Oregon front where all four starters returned despite being draft-eligible. The forward stakes are a first-round interior season anchoring what should be one of the nation's best defensive lines. Size-and-quickness like this at the position is the kind of thing offenses simply can't scheme away.",
+  "style_register": "descriptive",
+  "style": "Washington is the rare nose-sized tackle who plays with edge-rusher quickness. The signature stat says it all -- eight pass breakups, most of any FBS defensive lineman -- because to bat down that many balls you have to win your gap fast and get your hands up, not just occupy blockers. At 6-3, 330 he has the anchor to hold the point against the run and, by every account, unusual get-off for his size. He's a disruptive interior presence rather than a pure two-gap plugger: quick into the backfield, active with his hands, and impossible to single-block one-on-one. On a loaded line, he's the piece that makes everyone else's job easier.",
+  "style_layers_pending": "no offensive PBP for a defensive tackle -- box (TFL/sacks/PBU) + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- A'Mauri Washington will return to Oregon in 2026", "url": "https://247sports.com/college/oregon/article/oregon-standout-defensive-tackle-amauri-washington-will-return-in-2026-270538851/" },
+    { "label": "ESPN -- Washington, Uiagalelei, Tuioti returning to Oregon", "url": "https://www.espn.com/college-football/story/_/id/47586441/oregon-washington-uiagalelei-tuioti-returning-ducks" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

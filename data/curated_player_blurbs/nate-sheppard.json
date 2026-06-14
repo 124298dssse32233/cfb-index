@@ -1,0 +1,29 @@
+{
+  "slug": "nate-sheppard-51484",
+  "slug_verified": true,
+  "player_name": "Nate Sheppard",
+  "team": "Duke",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the freshman who ran like a five-star -- a record-setting true-freshman year at Duke, now the hyped sophomore everyone's watching",
+  "plan": {
+    "spine": "he set Duke's freshman rushing records and forced missed tackles like a five-star, and the hype is just getting started",
+    "blend": ["2025 (true freshman): 200 carries, 1,132 rush yds (5.66), 11 TD; 37 rec, 286 yds", "Freshman All-American; second-team All-ACC; Duke freshman rushing records", "63 forced missed tackles -- 9th nationally", "PFF's No. 7 returning running back for 2026"],
+    "payoff": "1,132 rushing yards and 37 catches as a true freshman",
+    "forward_stake": "whether the sophomore leap turns a record-setting freshman into an All-American",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Nate Sheppard ran for over 1,100 yards and broke Duke's freshman records -- as a true freshman. PFF says he \"played like a five-star.\" The scariest part is that the sophomore year hasn't happened yet.",
+  "expand": "As a true freshman he carried it 200 times for 1,132 yards at 5.66 a pop, scored 11 times, caught 37 passes, and set Duke's freshman rushing records on his way to Freshman All-America and second-team All-ACC honors. The trait that travels: 63 forced missed tackles, ninth-most in the country, a make-you-miss elusiveness that already grades among the nation's best. PFF ranks him the No. 7 returning running back for 2026. The forward stakes are simply the leap: he's a three-down back with year-one production most players never reach, and the sophomore year is where hyped underclassmen either consolidate or explode. For Sheppard, there's no arrival question left to answer -- only how high the ceiling goes.",
+  "style_register": "descriptive",
+  "style": "Sheppard is an elusive, explosive three-down back, and the freshman tape already grades like a veteran's. Our play-by-play puts his yards-per-carry in the 89th percentile and his rushing success rate in the 73rd -- efficient and explosive at once -- and the 63 forced missed tackles (ninth nationally) are the make-you-miss element behind it. He's a real receiving threat too (37 catches), which is what makes him a true three-down player rather than a between-the-tackles grinder. The profile is a back who creates yards on his own: a cut, a jump-cut, a missed tackle, and he's gone. At his age, with this production, the development curve is the whole story -- and it's pointing straight up.",
+  "style_layers_pending": "PBP run percentiles woven in (canonical id 51484); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "SI -- where Nate Sheppard ranks among ACC running backs", "url": "https://www.si.com/college/duke/blue-devils-where-nate-sheppard-ranks-amongst-top-acc-running-backs" },
+    { "label": "Wikipedia -- Nate Sheppard (2025 freshman records)", "url": "https://en.wikipedia.org/wiki/Nate_Sheppard" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

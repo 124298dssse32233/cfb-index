@@ -1,0 +1,29 @@
+{
+  "slug": "dakorien-moore-52177",
+  "slug_verified": true,
+  "player_name": "Dakorien Moore",
+  "team": "Oregon",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the No. 1 recruit's sophomore leap -- a hyped freshman flashed through a knee injury, now poised for a featured Oregon role",
+  "plan": {
+    "spine": "the top-ranked receiver in his recruiting class flashed real production as a true freshman before a knee injury, and the featured sophomore role is next",
+    "blend": ["2025 (true freshman): 34 rec, 497 yds, 3 TD + 1 rush TD in 11 games", "the No. 1-ranked WR in the 2025 recruiting class", "7-catch, 89-yard game vs. Penn State", "a knee injury cost the final four regular-season games"],
+    "payoff": "497 yards as a true freshman before a knee injury cut it short",
+    "forward_stake": "whether the No. 1 recruit becomes a featured star in year two",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Dakorien Moore was the No. 1 receiver recruit in the country, and he flashed it as a true freshman -- before a knee injury cut his year short. Healthy and a year stronger, the featured Oregon role is his to take.",
+  "expand": "As a true freshman he showed exactly why he was the top-ranked receiver in his class: 34 catches, 497 yards, three touchdowns and a rushing score across 11 games -- including a seven-catch, 89-yard outing against Penn State -- before a knee injury ended his regular season early. Now projected as an Oregon starter opposite a healthy Evan Stewart, he's the hyped underclassman of this group. The forward stakes are the sophomore leap: the talent and the freshman flashes are there, and a full, healthy season in a featured role is where a No. 1 recruit becomes a star. For Moore, 2026 is the year the recruiting ranking becomes production.",
+  "style_register": "descriptive",
+  "style": "Moore is an explosive, big-play receiver whose freshman tape already grades like a featured weapon. Our play-by-play has him in the 91st percentile for explosive-catch rate and the 77th for both yards-per-catch and touchdown rate -- the chunk-play juice you'd expect from the class's top-ranked receiver, with the production cut short by the knee. He wins with speed and suddenness, the kind of receiver who turns a short throw into a long gain. As the highest-ceiling underclassman in this group, the projection is straightforward: a full, healthy season and a featured role, and the flashes become a breakout.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 52177; 2025 was injury-shortened to 11 games); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Yahoo/Register-Guard -- Oregon's Dakorien Moore returning", "url": "https://sports.yahoo.com/articles/oregon-signs-standout-wr-dakorien-235636347.html" },
+    { "label": "Wikipedia -- Dakorien Moore (2025 freshman season)", "url": "https://en.wikipedia.org/wiki/Dakorien_Moore" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

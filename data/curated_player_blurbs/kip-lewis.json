@@ -1,0 +1,29 @@
+{
+  "slug": "kip-lewis-10478",
+  "slug_verified": true,
+  "player_name": "Kip Lewis",
+  "team": "Oklahoma",
+  "position": "LB",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the captain in the middle -- Oklahoma's leading tackler and signal-caller back for a final SEC run",
+  "plan": {
+    "spine": "the team captain who led Oklahoma in tackles returns for a final season to anchor a defense built to contend in the SEC",
+    "blend": ["2025: 76 tackles (team lead), 10.5 TFL, 4 sacks, 5 PBU", "team captain; Bronko Nagurski preseason watch list", "an every-down signal-caller, starter since mid-2024", "rangy in coverage (5 pass breakups)"],
+    "payoff": "a team-leading 76 tackles plus 10.5 TFL as the defensive captain",
+    "forward_stake": "whether the veteran anchor lifts Oklahoma in its second SEC year",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Kip Lewis led Oklahoma in tackles, calls the defense, and wears the captain's stripe. He's back for a final season to anchor a Sooners defense built to make noise in the SEC.",
+  "expand": "Lewis was the heartbeat of Oklahoma's defense in 2025 -- a team-leading 76 tackles, 10.5 tackles for loss, four sacks and five pass breakups, the every-down signal-caller and captain who's started since the middle of 2024. He returns for a final season already on the Bronko Nagurski preseason watch list. The forward stakes ride with the program's: Oklahoma enters its second SEC year with a defense built to contend, and Lewis is the experienced voice in the middle who sets the front and makes the calls. He's not the flashiest name, but he's the kind of veteran anchor good defenses are organized around.",
+  "style_register": "plain",
+  "style": "Lewis is a balanced, do-everything middle linebacker -- the on-field quarterback of the defense. The stat line is well-rounded rather than spiky: a team-leading tackle count, 10.5 tackles for loss as a downhill run defender, four sacks on timed pressures, and five pass breakups that show real range in coverage. As a captain and multi-year starter, his value is as much in the pre-snap communication and alignment as in the production. He's a steady, instinctive, every-down linebacker who diagnoses plays quickly and is rarely out of position -- the reliable core a contending defense leans on.",
+  "style_layers_pending": "no offensive PBP for a linebacker -- box (tackles/TFL/PBU) + captaincy/role grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Kip Lewis's decision for 2026 (final season)", "url": "https://247sports.com/college/oklahoma/article/kip-lewis-decision-for-2026-268264927/" },
+    { "label": "ESPN -- Oklahoma's Mateer, Lewis to return for final season", "url": "https://www.espn.com/college-football/story/_/id/47625428/oklahoma-qb-mateer-lb-lewis-return-final-season" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

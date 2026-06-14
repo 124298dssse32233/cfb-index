@@ -1,0 +1,30 @@
+{
+  "slug": "sam-leavitt-9245",
+  "slug_verified": false,
+  "player_name": "Sam Leavitt",
+  "team": "LSU",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the portal prize and the new-era engine (acquisition + new-scheme + comeback-from-injury)",
+  "plan": {
+    "spine": "the dual-threat who took Arizona State to the Playoff as a freshman, then lost a year to injury, is now the centerpiece of Lane Kiffin's brand-new LSU",
+    "blend": ["led ASU to a Big 12 title + CFP as a RS frosh (2024)", "injury-wrecked 2025 (7 games)", "top portal QB", "first starter of the Kiffin era at LSU"],
+    "payoff": "the 2024 Big 12 title and Playoff run as a redshirt freshman; the injury that ended 2025 after seven games",
+    "forward_stake": "health and fit -- a full, healthy season of the 2024 Leavitt makes LSU a contender and Kiffin's debut a hit; less, and a new era opens with a familiar QB question",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Two years ago Sam Leavitt dragged Arizona State to a Big 12 title and the Playoff as a redshirt freshman. Then injuries stole his 2025. Now he's the first quarterback of the Lane Kiffin era at LSU.",
+  "expand": "Leavitt's college career has been a spike and a setback. As a redshirt freshman in 2024 he was the engine of one of the sport's best turnaround stories, leading Arizona State to a Big 12 championship and a Playoff berth. His 2025 never got going -- a broken stretch of seven games before injuries ended it.\n\nSo he hit the portal as its top quarterback and chose the highest-pressure landing spot available: Baton Rouge, as the first starter of Lane Kiffin's LSU. The fit is the story -- a mobile, gunslinging passer handed the keys to an offense built by one of the sport's sharpest play-callers, on a roster expected to return to the Playoff in Year 1.\n\nThe forward question is health and fit: a full, healthy season of the 2024 version of Leavitt makes LSU a contender and Kiffin's debut a hit. Anything less, and a new era opens with a familiar question at quarterback.",
+  "sources": [
+    { "label": "CBS -- Leavitt expected to sign with LSU for Kiffin", "url": "https://www.cbssports.com/college-football/news/sam-leavitt-qb-lsu-lane-kiffin-college-football-transfer-portal/" },
+    { "label": "ESPN -- Leavitt signs with LSU after Miami visit", "url": "https://www.espn.com/college-football/story/_/id/47590116/lsu-likely-land-transfer-qb-sam-leavitt-sources-say" },
+    { "label": "nola.com -- Leavitt transferring to LSU from Arizona State", "url": "https://www.nola.com/sports/lsu/sam-leavitt-lsu-football-lane-kiffin-lands-arizona-state-qb/article_9d5735f2-600e-4145-9503-aa31f3e6307f.html" }
+  ],
+  "style_register": "descriptive",
+  "style": "Leavitt is a dual-threat whose legs are the headline -- and the 2025 numbers say so emphatically. In an injury-shortened season his passing graded middling (28th percentile in completion, 41st in efficiency), but as a runner he was elite: top-3% in the country in rushing success rate and yards per carry, 90th percentile in explosive runs. He's a problem the instant the pocket moves. The fit at LSU is the whole story: Lane Kiffin builds explosive, quarterback-friendly attacks, and Leavitt's mobility adds a dimension Kiffin's recent passers haven't had -- if the arm catches up to the legs. The caveats are health and consistency as a thrower, and 2026 is his first year in a new system. Click early and it's the SEC's most fun offense; if the passing stays middling, defenses make him a runner and find the ceiling.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 9245, injury-shortened 2025 sample); fan-vs-rival discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

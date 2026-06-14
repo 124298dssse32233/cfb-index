@@ -1,0 +1,29 @@
+{
+  "slug": "keanu-tanuvasa-5656",
+  "slug_verified": true,
+  "player_name": "Keanu Tanuvasa",
+  "team": "BYU",
+  "position": "DT",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the captain who came home -- a veteran interior anchor returns for a fifth year and a draft-stock final ride",
+  "plan": {
+    "spine": "a 300-pound team captain returns for a fifth season to anchor a BYU defense he believes is on the verge of something special",
+    "blend": ["2025: 26 tackles, 2.0 sacks in his first BYU season (Utah transfer)", "6-4, 300; team captain and defensive line leader", "returned for a fifth year after his coach stayed at BYU", "frames 2026 as his draft-stock final season"],
+    "payoff": "a steady debut BYU year as the line's veteran leader",
+    "forward_stake": "whether the veteran anchor lifts a BYU defense into the CFP conversation",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Keanu Tanuvasa is a captain, a 300-pound anchor, and a veteran who chose to come back for a fifth year -- because he believes this BYU defense is on the verge of something special, and he wants one more shot at it.",
+  "expand": "The Utah transfer settled in as BYU's defensive-line leader in 2025 -- 26 tackles, two sacks, and the steady interior presence a defense organizes around -- and was named a team captain. He returned for a fifth season largely because head coach Kalani Sitake stayed, framing 2026 openly as his draft-stock final ride. The forward stakes are a team's ceiling: a veteran anchor in the middle is the unglamorous foundation of good run defense, and Tanuvasa believes the unit around him is ready to break through. He's not a stat-sheet stuffer -- he's the captain who holds the point and sets the tone for a defense with real ambitions.",
+  "style_register": "plain",
+  "style": "Tanuvasa is a classic anchor tackle -- 6-4, 300, built to occupy blockers and hold the interior against the run. The value isn't in flashy numbers (his sack and tackle totals are modest); it's in the dirty work and the leadership, the captain who two-gaps, eats double-teams, and frees the players around him to make plays. He's a veteran's veteran, a former missionary and fifth-year leader whose game is about reliability and toughness in the middle. On a defense aiming to take a step, his job is the foundation everything else is built on.",
+  "style_layers_pending": "no offensive PBP for a defensive tackle -- box (tackles/sacks) + role/leadership grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Deseret News -- Keanu Tanuvasa, BYU NIL leader, on his last year", "url": "https://www.deseret.com/sports/2026/04/17/byu-cougars-football-keanu-tanuvasa-interview-nil-leader-last-year/" },
+    { "label": "Yahoo Sports -- Tanuvasa determined in his last college season", "url": "https://sports.yahoo.com/articles/keanu-tanuvasa-determined-last-college-030001621.html" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

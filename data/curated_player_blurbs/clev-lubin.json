@@ -1,0 +1,29 @@
+{
+  "slug": "clev-lubin-6286",
+  "slug_verified": true,
+  "player_name": "Clev Lubin",
+  "team": "Louisville",
+  "position": "EDGE",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the pressure machine runs it back -- a high-motor rusher whose 64 pressures were the most by a Cardinal in a decade",
+  "plan": {
+    "spine": "a high-motor edge whose pressure volume was the best at Louisville in ten years returns to headline the Cardinals' pass rush",
+    "blend": ["2025: 61 tackles, 13.5 TFL, 8.5 sacks, 3 FF, 5 PBU; All-ACC", "64 QB pressures -- 5th-most in FBS, most by a Cardinal in a decade", "6-3, 260 (Coastal Carolina transfer)", "bypassed the NFL to return"],
+    "payoff": "64 pressures and 8.5 sacks in a breakout ACC debut",
+    "forward_stake": "whether the pressure volume converts into a higher sack total and draft stock",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Clev Lubin generated 64 quarterback pressures -- fifth-most in the country and the most by a Louisville player in a decade. He bypassed the NFL to run it back as the Cardinals' headliner off the edge.",
+  "expand": "Lubin's first ACC season after transferring from Coastal Carolina was a pressure clinic: 61 tackles, 13.5 tackles for loss, 8.5 sacks, three forced fumbles and five pass breakups, plus 64 quarterback pressures that ranked fifth in FBS and were the most by a Cardinal in ten years. He earned All-ACC honors and chose to return rather than declare. The forward stakes are conversion: the pressure volume says he's constantly in the backfield, so 2026 is about turning more of those hurries into sacks -- and a bigger sack number into a higher draft slot. He's a relentless, high-motor rusher who simply doesn't stop coming.",
+  "style_register": "plain",
+  "style": "Lubin is a high-motor, high-volume pressure rusher -- the defining trait is relentlessness. The 64 pressures (fifth in FBS) tell the story: he wins reps over and over across a game, wearing tackles down even when the sack doesn't show up on the box score. He converts that into real production (8.5 sacks, 13.5 TFL) and adds a finishing element with three forced fumbles and five batted passes -- a rusher who affects the play even when he doesn't get home. At 6-3, 260 he's a motor-and-effort edge more than a freaky athlete, the kind whose pressure volume usually outpaces his sack total -- which is exactly the gap 2026 is about closing.",
+  "style_layers_pending": "no offensive PBP for an edge -- box (sacks/TFL/pressures) + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "SI -- Clev Lubin returning to Louisville for 2026", "url": "https://www.si.com/college/louisville/football/clev-lubin-returning-for-2026-season" },
+    { "label": "Card Chronicle -- Clev Lubin returning to Louisville", "url": "https://www.cardchronicle.com/football/100218/clev-lubin-returning-to-louisville" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

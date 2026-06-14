@@ -1,0 +1,29 @@
+{
+  "slug": "koi-perich-16167",
+  "slug_verified": true,
+  "player_name": "Koi Perich",
+  "team": "Oregon",
+  "position": "S",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the do-everything safety changes teams -- a Freshman All-American ballhawk and two-way weapon lands at Oregon to replace a first-rounder",
+  "plan": {
+    "spine": "the No. 1 transfer safety -- a ballhawk who also plays receiver and returns kicks -- lands at Oregon to replace a first-round pick",
+    "blend": ["2024 (Minnesota): 5 INT as a Freshman All-American", "2025: ~82 tackles, 1 INT, 1 FF; All-Big Ten", "the No. 1 transfer safety; an ESPN top-15 non-QB playmaker", "two-way versatility -- also a receiver and returner"],
+    "payoff": "a Freshman All-America, ball-hawking résumé and rare two-way utility",
+    "forward_stake": "whether he becomes the playmaking centerpiece of Oregon's secondary",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Koi Perich is a ballhawk safety, a receiver, and a returner -- the kind of athlete who does everything. He's the No. 1 transfer safety in the country, and Oregon brought him in to replace a first-round pick.",
+  "expand": "Perich arrived as a national name at Minnesota -- five interceptions and Freshman All-America honors in 2024, then roughly 82 tackles and All-Big Ten production in 2025 -- and he did it as a genuine two-way weapon who also lined up at receiver and returned kicks. Now he's the No. 1 transfer safety in the country and an ESPN top-15 non-quarterback playmaker, landing at Oregon to replace first-round pick Dillon Thieneman. The forward stakes are a featured role on a title contender: a safety with this range, these ball skills and this versatility is the kind of piece a defense builds its disguises around. For Oregon, he's the playmaking centerpiece of a reloaded secondary.",
+  "style_register": "descriptive",
+  "style": "Perich is a rangy, ball-hawking safety with rare athletic versatility. The trait that defines him is the ball production -- five interceptions as a freshman is elite anticipation and range from the back end -- paired with the speed and physicality to play downhill as a tackler (his ~82-tackle 2025 says he'll come up and hit). The two-way utility (snaps at receiver, work as a returner) underlines the athleticism: this is a true playmaker with the ball in the air or in his hands. He's a center-field eraser who can also rob underneath routes, the kind of versatile, instinctive safety the modern two-high game is built to feature.",
+  "style_layers_pending": "no offensive PBP for a safety -- box (INT/tackles) + honors + attributed scouting grounded; 2025 production reflects his Minnesota tape (canonical id 16167); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Minnesota transfer S Koi Perich commits to Oregon", "url": "https://www.espn.com/college-football/story/_/id/47594926/minnesota-transfer-safety-koi-perich-commits-oregon-ducks-football" },
+    { "label": "Wikipedia -- Koi Perich (Freshman All-America, stats)", "url": "https://en.wikipedia.org/wiki/Koi_Perich" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

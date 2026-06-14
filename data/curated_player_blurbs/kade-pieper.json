@@ -1,0 +1,29 @@
+{
+  "slug": "kade-pieper-26661",
+  "slug_verified": true,
+  "player_name": "Kade Pieper",
+  "team": "Iowa",
+  "position": "C",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the young All-American moves to center -- Iowa's best lineman takes over the pivot as a 2027 draft riser",
+  "plan": {
+    "spine": "an All-American who started every game as a redshirt freshman moves to center for 2026, already topping 2027 interior draft boards",
+    "blend": ["2025: All-American and third-team All-Big Ten, starting all 13 at right guard", "did it as a redshirt freshman -- unusually young", "moving to center for 2026", "already among the first interior linemen on 2027 draft boards"],
+    "payoff": "an All-America first full season -- as a redshirt freshman",
+    "forward_stake": "whether the move to center confirms him as a 2027 first-rounder",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Kade Pieper started every game and made All-American -- as a redshirt freshman. Now Iowa is moving its best lineman to center, the position that runs the whole line. He's already climbing 2027 draft boards.",
+  "expand": "Pieper's 2025 was a rare freshman season up front: an All-American and third-team All-Big Ten nod while starting all 13 games at right guard, the kind of debut that usually takes veterans years to earn. The unusual part is his age -- a redshirt freshman playing like a finished product. For 2026 Iowa is moving him to center, handing its best lineman the pivot that sets protections and runs the front. The forward stakes are a draft trajectory: he already tops some 2027 interior boards, and a clean year at center -- the hardest interior job -- would cement first-round status. He's the young anchor an offense gets to build around for years.",
+  "style_register": "plain",
+  "style": "Pieper is a technically advanced interior lineman whose game is well beyond his years -- an All-America season at right guard as a redshirt freshman is the headline trait by itself. The move to center for 2026 is a vote of confidence in his football IQ: the position calls protections, makes the line's pre-snap reads, and snaps under pressure, and coaches don't hand it to a player they don't trust to run the front. He's a powerful, smart, low-mistake blocker with the kind of early production that 2027 draft boards are already noticing. The projection is steep and the floor is high.",
+  "style_layers_pending": "no PBP for an offensive lineman -- All-America honors + draft-board standing + role grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "SI -- Kade Pieper makes surprising decision on NFL future (returns)", "url": "https://www.si.com/college/iowa/football/iowa-hawkeyes-kade-pieper-makes-surprising-decision-nfl-future" },
+    { "label": "SI -- Pieper Iowa's top returning player for 2026", "url": "https://www.si.com/college/iowa/football/kade-pieper-iowa-hawkeyes-top-returning-player-2026" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

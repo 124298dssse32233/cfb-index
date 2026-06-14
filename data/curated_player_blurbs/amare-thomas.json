@@ -1,0 +1,29 @@
+{
+  "slug": "amare-thomas-8808",
+  "slug_verified": true,
+  "player_name": "Amare Thomas",
+  "team": "Houston",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "Houston's red-zone weapon -- a Big 12 touchdown leader back as the unquestioned No. 1",
+  "plan": {
+    "spine": "he tied for the Big 12 lead in touchdowns and re-signed alongside his quarterback as Houston's clear top target",
+    "blend": ["2025: ~66 rec, ~966 yds, 12 TD (tied for the Big 12 lead)", "first-team All-Big 12 (UAB transfer)", "9 slot touchdowns -- most of any returning receiver", "re-signed with QB Conner Weigman"],
+    "payoff": "12 touchdowns and first-team All-Big 12",
+    "forward_stake": "whether the red-zone separator becomes a full-field NFL prospect",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Amare Thomas tied for the Big 12 lead in touchdowns and led every returning receiver in slot scores. He re-signed with his quarterback to run it back as Houston's go-to weapon -- the man they throw it to when it matters.",
+  "expand": "The UAB transfer broke out in 2025: roughly 966 yards, 12 touchdowns to tie for the Big 12 lead, first-team All-Big 12, and a league-best nine slot touchdowns among returning receivers -- a separator where games are decided. He and quarterback Conner Weigman both came back, keeping Houston's most dangerous connection intact. The forward stakes are a breakout into a genuine NFL-prospect profile: he's already a proven scorer, and 2026 is about expanding from red-zone specialist to full-field No. 1. For Houston, he's the weapon the offense leans on when it needs points.",
+  "style_register": "descriptive",
+  "style": "Thomas is a scoring-and-explosive-play receiver, strongest where it counts. Our play-by-play likes the big stuff -- an 82nd-percentile yards-per-catch, an 80th-percentile explosive-catch rate, and an 84th-percentile EPA per target -- and the real-world signature is the nine slot touchdowns, the trait of a receiver who wins the leverage and separation battles inside the 20. The catch rate is more ordinary (43rd percentile), the mark of a vertical, contested-leaning target rather than a high-volume possession type. He's a chunk-play and red-zone specialist -- the guy who turns a third-down target into six points -- and the growth edge is the underneath consistency that rounds him into an every-down No. 1.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 8808); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Yahoo/Houston Chronicle -- Weigman, Thomas among Houston returners", "url": "https://sports.yahoo.com/articles/conner-weigman-amare-thomas-among-183159493.html" },
+    { "label": "PFF -- top 10 returning wide receivers for 2026", "url": "https://www.pff.com/news/college-football-top-10-returning-wide-receivers-for-the-2026-season" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

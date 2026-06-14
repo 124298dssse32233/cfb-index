@@ -1,0 +1,30 @@
+{
+  "slug": "kj-bolden-13297",
+  "slug_verified": true,
+  "player_name": "KJ Bolden",
+  "team": "Georgia",
+  "position": "S",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the nation's top returning safety -- the do-it-all positionless eraser the two-high era was built for",
+  "plan": {
+    "spine": "ESPN calls him the best returning safety in college football, and the case is the completeness -- he does everything a modern safety must",
+    "blend": ["ESPN's No. 1 returning safety; preseason All-American + Thorpe watch", "the two-worlds versatility (76 tkl AND 5 PBU/2 INT)", "one of 5 All-SEC returners anchoring Georgia's title defense"],
+    "payoff": "76 tackles AND 5 breakups + 2 INT as a sophomore -- run-support AND coverage, the modern prototype",
+    "forward_stake": "whether the ball production catches up to the range -- the line between an All-American and a top-ten pick",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "ESPN calls KJ Bolden the best returning safety in college football. He's the player who lets Georgia's defense do everything it does -- and he's only getting started.",
+  "expand": "The case is the completeness. As a sophomore in 2025 he posted 76 tackles, five pass breakups, two interceptions, and 2.5 tackles for loss -- numbers that say he plays downhill in run support AND covers on the back end -- and earned second-team All-SEC, one of five All-SEC players Georgia returns in 2026. He's a preseason All-American and a Jim Thorpe Award watch-list selection: the versatile, communicating safety the modern two-high game is built around. The forward stakes are Georgia's perennial title defense -- Bolden is the eraser who lets the Dawgs disguise and play their cover-everything style. The 2026 question is whether the ball production catches up to the range, whether the five breakups become interceptions and the near-misses become game-changers. For a player already the most complete safety in the country, that's the line between an All-American and a top-ten pick.",
+  "style_register": "descriptive",
+  "style": "Bolden is the rare safety who lives in two worlds at once -- 76 tackles say he plays downhill, fills the alley, and arrives with bad intentions in run support, while five pass breakups and two picks say he can carry a slot or rob a route on the back end. That versatility is the modern safety prototype, and it's why ESPN calls him the best returning one in the country. He's the communicator who sets the secondary, the eraser who lets Georgia disguise -- a defense's quarterback as much as its enforcer. The film texture is in the trigger: how fast he reads run-pass and drives on the throw. The growth edge is the ball production catching up to the range -- turning those five breakups into interceptions.",
+  "style_layers_pending": "no offensive PBP for a safety -- box (tackles/PBU/INT) + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup + in-season data",
+  "sources": [
+    { "label": "247Sports -- Bolden named to ESPN Way-Too-Early 2026 All-America", "url": "https://247sports.com/college/georgia/article/espn-names-georgia-safety-kj-bolden-to-its-way-too-early-2026-all-american-team-274262951/" },
+    { "label": "DawgNation -- Bolden among top returning NFL prospects", "url": "https://www.dawgnation.com/football/espn-ranks-kj-bolden-ellis-robinson-iv-among-top-returning-nfl-prospects/D24THLWCSRCPFMFYIA2DCWEHTY/" },
+    { "label": "Georgia Athletics -- KJ Bolden 2026 roster", "url": "https://georgiadogs.com/sports/football/roster/kj-bolden/10541" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

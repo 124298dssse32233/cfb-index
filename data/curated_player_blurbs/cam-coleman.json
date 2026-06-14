@@ -1,0 +1,30 @@
+{
+  "slug": "cam-coleman-10407",
+  "slug_verified": true,
+  "player_name": "Cam Coleman",
+  "team": "Texas",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the five-star who changed zip codes -- Auburn's flashes, Arch Manning's quarterback, and the breakout that's been waiting for the right thrower",
+  "plan": {
+    "spine": "a top-5 recruit who flashed at Auburn through a coaching change transfers to Texas to become Arch Manning's go-to target -- the talent was never the question, the quarterback was",
+    "blend": ["No. 5 overall in the 2024 class; No. 2 player in the 2026 portal", "1,306 receiving yards in two Auburn seasons (708 in 2025)", "transferred to Texas specifically to pair with Arch Manning", "6-3, 201 -- the contested-catch profile a vertical offense wants"],
+    "payoff": "708 yards through a coaching change in 2025; now paired with a blue-chip quarterback and two years of eligibility",
+    "forward_stake": "whether elite quarterback play finally unlocks the five-star ceiling -- the difference between a good receiver and a 2027 first-round profile",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Cam Coleman was a five-star out of high school and the No. 2 player in the transfer portal. He left Auburn for one reason: to catch passes from Arch Manning. The talent was never the question -- the quarterback was.",
+  "expand": "He was the No. 5 overall recruit in the 2024 class, and even through a 2025 coaching change at Auburn he put up 708 yards -- 1,306 across his two seasons, third-most by an Auburn receiver through a sophomore year. Then he became the marquee move of the offseason: portal's No. 2 player, off to Texas to be Arch Manning's WR1 in Manning's first full year as the unquestioned starter. At 6-3, 201 he's the catch-radius target a vertical passing game is built to feed, and he joins a room that still returns Ryan Wingo. The forward stakes are the swing of the whole bet: a five-star whose production always hinted at more than it showed now has the quarterback to prove it. For Coleman, 2026 is the breakout that's been waiting on the throw -- and the line between a good college receiver and a top-of-the-2027-board profile.",
+  "style_register": "descriptive",
+  "style": "Coleman wins above the rim. At 6-3, 201 he's a jump-ball and contested-catch specialist -- On3's scouting deep-dive calls him a receiver who \"plays above the rim,\" \"climbs the ladder and boxes out defenders,\" and finishes through contact, a \"red-zone nightmare with an exceptional catch radius.\" Our play-by-play backs the vertical profile: his explosive-catch rate graded in the 72nd percentile, the chunk-play element of a downfield target, even as his overall efficiency (mid-pack yards-per-reception and touchdown rate) marks a player whose production hadn't yet caught up to the talent. The honest edge, per the same report, is hip stiffness that makes him gear down on comebacks and curls -- he's a stack-and-go vertical weapon more than a sudden separator underneath. The bet is simple: elite quarterback play turns 72nd-percentile explosiveness into the highlight reel the five-star ranking always promised.",
+  "style_layers_pending": "PBP percentiles are from his 2025 Auburn tape (canonical id 10407); fan-vs-rival discourse descriptors pending discourse-extraction cleanup + in-season Texas data",
+  "sources": [
+    { "label": "ESPN -- Cam Coleman commits to Texas (Jan 11, 2026)", "url": "https://www.espn.com/college-football/story/_/id/47581504/former-auburn-receiver-cam-coleman-commits-texas" },
+    { "label": "On3 -- Deep Dive: Cam Coleman's skill set transforms Texas' offense", "url": "https://www.on3.com/teams/texas-longhorns/news/deep-dive-cam-colemans-skill-set-transforms-texas-offense/" },
+    { "label": "CBS Sports -- Coleman commits to Texas / Arch Manning", "url": "https://www.cbssports.com/college-football/news/cam-coleman-commits-to-texas-transfer-portal-wr-arch-manning/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

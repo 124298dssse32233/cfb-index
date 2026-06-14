@@ -1,0 +1,29 @@
+{
+  "slug": "wyatt-young-14065",
+  "slug_verified": true,
+  "player_name": "Wyatt Young",
+  "team": "Oklahoma State",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the most efficient receiver in the country goes power-conference -- a record-setting producer follows his staff to the Big 12",
+  "plan": {
+    "spine": "he led the nation in yards per route and put up 1,264 yards at North Texas -- now he brings that production to Oklahoma State with his coach and quarterback",
+    "blend": ["2025 (North Texas): 70 rec, 1,264 yds (3rd in FBS), 13 TD", "nation-leading 3.69 yards per route; 32 forced missed tackles", "AAC single-game record 295 yards (vs. Rice)", "followed coach Eric Morris and QB Drew Mestemaker to Stillwater"],
+    "payoff": "1,264 yards, 13 scores, and the nation's best yards-per-route mark",
+    "forward_stake": "whether elite efficiency translates from the AAC to the Big 12",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Wyatt Young led the nation in yards per route, set an AAC record with a 295-yard game, and scored 13 times. Now he's taken it to the Big 12 -- following his coach and his quarterback from North Texas to Oklahoma State.",
+  "expand": "His 2025 was one of the most productive receiver seasons in the country: 70 catches, 1,264 yards (third in FBS), 13 touchdowns, a nation-leading 3.69 yards per route, and an AAC single-game record 295 yards against Rice. He didn't make the jump alone -- he followed coach Eric Morris and quarterback Drew Mestemaker from North Texas to Oklahoma State, carrying a proven connection into a power conference. The forward stakes are the level-up question every G5 star faces: the efficiency was elite against the AAC, and 2026 is the proof that it holds against Big 12 defenses. With his quarterback and scheme intact, the bet is that the production travels.",
+  "style_register": "descriptive",
+  "style": "Young is an efficiency and scoring machine, and our data is loud about it: a 98th-percentile touchdown rate, a 95th-percentile EPA per target, and an 88th-percentile explosive-catch rate -- a receiver who turns targets into points at an elite clip. The nation-leading 3.69 yards per route is the headline, and the 32 forced missed tackles are the after-the-catch engine behind it. He's not a 6-4 jump-ball type; he's a separation-and-YAC weapon who gets open and makes the first man miss. The only honest caveat is competition level -- these grades come against the AAC -- but with the same scheme and quarterback in the Big 12, he has every tool to keep producing.",
+  "style_layers_pending": "PBP receiving percentiles are from his 2025 North Texas tape (canonical id 14065; production carries to Oklahoma State); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- North Texas WR Wyatt Young commits to Oklahoma State", "url": "https://www.espn.com/college-football/story/_/id/47507561/north-texas-wr-wyatt-young-commits-oklahoma-state" },
+    { "label": "PFF -- top 10 returning wide receivers for 2026", "url": "https://www.pff.com/news/college-football-top-10-returning-wide-receivers-for-the-2026-season" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

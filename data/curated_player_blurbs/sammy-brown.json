@@ -1,0 +1,30 @@
+{
+  "slug": "sammy-brown-14733",
+  "slug_verified": true,
+  "player_name": "Sammy Brown",
+  "team": "Clemson",
+  "position": "LB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the most decorated returning linebacker in the sport -- ACC Rookie of the Year to All-American to Clemson's best defender in two years, and a consensus future first-rounder",
+  "plan": {
+    "spine": "in two seasons he went from ACC Defensive Rookie of the Year to third-team All-American and Clemson's top defender -- the most decorated returning linebacker in college football",
+    "blend": ["2025: 106 tackles (2nd in the ACC), 13.5 TFL, 5 sacks -- led the team", "2024 ACC Defensive Rookie of the Year + Freshman All-American", "2025 third-team All-American + Blanchard-Rogers (Clemson's top defender)", "2026 Butkus Award watch list; future first-round projection"],
+    "payoff": "106 tackles, 13.5 TFL, the Blanchard-Rogers Trophy -- and he's only a junior",
+    "forward_stake": "whether a third-year jump puts him in the Butkus/Bednarik conversation and anchors a Playoff-stakes Clemson defense",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "In two years Sammy Brown went from ACC Defensive Rookie of the Year to third-team All-American to Clemson's best defender. His own position coach calls him a first-round NFL linebacker. And he's only a junior.",
+  "expand": "As a freshman he was the ACC's Defensive Rookie of the Year; as a sophomore he led Clemson in tackles with 106 -- second-most in the league -- added 13.5 tackles for loss and five sacks, made third-team All-American, and won the Blanchard-Rogers Trophy as the program's top defender. That makes him, by the hardware, the most decorated returning linebacker in college football. Now he's on the Butkus Award watch list and projected as a future first-round pick. The forward stakes are the leap and the stage: his jump from year one to year two was steep, and if year three matches it, he's in the Butkus and Bednarik conversation, anchoring a Clemson defense with Playoff ambitions. For Brown, 2026 isn't about arriving -- he's already here. It's about becoming the best defender in the sport.",
+  "style_register": "cinematic",
+  "style": "Brown is a sideline-to-sideline force in a 6-2, 234 frame -- range first, violence second. Scouts (A to Z Sports) credit \"rare range,\" the kind that beats running backs \"in a foot race to the perimeter,\" then describe what happens when he arrives: he \"comes to balance and strikes with a ton of violence.\" His position coach, Ben Boulware, put it bluntly after watching him test -- \"This is what a 1st round NFL backer looks like. 4.44 & 4.41\" (Boulware's quoted forty times, not a verified combine number). The production matches the traits: 106 tackles, 13.5 for loss, five sacks, the downhill thumper with \"a clear nose for the football.\" The honest edge, per the same report, is some hip tightness and the occasional tick-slow read-and-react -- the polish a third year is meant to sand down. What you're watching is a linebacker who can run sideline to sideline, blow up a play in the backfield, and finish with bad intentions: the modern every-down profile, already most of the way to elite.",
+  "style_layers_pending": "no offensive PBP for a linebacker -- box (tackles/TFL/sacks) + attributed scouting grounded; Boulware 40 times attributed as his claim (not official); fan-vs-rival discourse descriptors pending discourse-extraction cleanup + in-season data",
+  "sources": [
+    { "label": "A to Z Sports -- 2027 NFL Draft scouting report: Sammy Brown", "url": "https://atozsports.com/nfl-draft/2027-nfl-draft-scouting-report-clemson-linebacker-sammy-brown/" },
+    { "label": "Fox Carolina -- Brown named 2025 Blanchard-Rogers Trophy winner", "url": "https://www.foxcarolina.com/2026/03/05/clemsons-sammy-brown-named-2025-blanchard-rogers-trophy-winner/" },
+    { "label": "The Clemson Insider -- Brown gets early draft hype from Boulware", "url": "https://www.theclemsoninsider.com/2026/04/27/brown-gets-early-draft-hype-from-boulware/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

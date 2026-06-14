@@ -1,0 +1,29 @@
+{
+  "slug": "jamari-johnson-6727",
+  "slug_verified": true,
+  "player_name": "Jamari Johnson",
+  "team": "Oregon",
+  "position": "TE",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the No. 2 tight end steps up -- a receiver-sized weapon inherits Oregon's lead role and a Mackey runway",
+  "plan": {
+    "spine": "a 6-5, 257-pound tight end who moves like a receiver passed on the draft to take over Oregon's lead role with the starter gone to the NFL",
+    "blend": ["2025: 32 rec, 510 yds, 3 TD as the No. 2 TE behind NFL-bound Kenyon Sadiq", "6-5, 257 -- prototype size with receiver movement skills", "5th in PFF tight-end wins-above-average", "forwent the draft to become Oregon's lead tight end"],
+    "payoff": "510 yards as a No. 2 -- now the No. 1",
+    "forward_stake": "whether the lead role makes him a Mackey contender",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Jamari Johnson put up 510 yards as Oregon's second tight end. Now the starter's gone to the NFL, and the 6-5, 257-pound weapon who moves like a receiver gets the lead role he passed on the draft to claim.",
+  "expand": "Even behind NFL-bound Kenyon Sadiq, Johnson produced -- 32 catches, 510 yards, three touchdowns, and a fifth-place finish in PFF's tight-end wins-above-average. At 6-5, 257, scouts describe \"prototype size with the movement skills of a wide receiver,\" the modern flex-tight-end build. He forwent the draft to step into Oregon's featured role. The forward stakes are a Mackey-contender season: he was already efficient as a complementary piece, and a full lead-role workload in a high-powered Oregon offense is the runway to All-America production. The talent and the fit are aligned; 2026 is the volume.",
+  "style_register": "plain",
+  "style": "Johnson is a move-tight-end in the modern mold -- big enough to block, fluid enough to run the routes of a receiver. The scouting consensus is the through-line: \"prototype size with the movement skills of a wide receiver\" at 6-5, 257, and a top-five PFF wins-above-average grade that says he was already one of the most valuable tight ends in the country as a secondary option. He's a matchup piece -- too quick for linebackers, too big for safeties -- and the projection is simple: hand a player this efficient the lead role and the targets multiply. The growth is opportunity, not ability.",
+  "style_layers_pending": "no PBP percentile row available -- box (rec/yds/TD) + PFF grade + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Jamari Johnson announces return to Oregon for 2026", "url": "https://247sports.com/college/oregon/article/jamari-johnson-announces-return-to-oregon-giving-ducks-a-star-tight-end-for-2026-270779380/" },
+    { "label": "On3 -- Johnson returning to Oregon for 2026", "url": "https://www.on3.com/teams/oregon-ducks/news/jamari-johnson-announces-return-to-oregon-for-2026-season/" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

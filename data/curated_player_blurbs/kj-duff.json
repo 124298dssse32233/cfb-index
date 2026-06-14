@@ -1,0 +1,29 @@
+{
+  "slug": "kj-duff-14541",
+  "slug_verified": true,
+  "player_name": "KJ Duff",
+  "team": "Rutgers",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the 6-6 contested-catch king stayed -- a first-round 2027 talent who ran it back to be Rutgers' No. 1",
+  "plan": {
+    "spine": "the nation's contested-catch leader, a projected first-round 2027 pick, chose to come back as Rutgers' clear top target",
+    "blend": ["2025: 60 rec, 1,084 yds, 7 TD; second-team All-Big Ten", "led the nation with 22 contested catches", "6-6, 225 -- a jump-ball matchup nightmare", "PFF top-20 on its 2027 NFL draft board"],
+    "payoff": "1,084 yards and a nation-leading 22 contested catches",
+    "forward_stake": "whether a likely first-rounder pushes Rutgers' receiving record and his own stock higher",
+    "register": "projection",
+    "horizon": "2026 season (NFL 2027)"
+  },
+  "hook": "KJ Duff led the entire country in contested catches. At 6-6, he's a jump-ball most defensive backs simply can't reach -- and a projected first-round pick who chose to stay at Rutgers as its undisputed No. 1.",
+  "expand": "At 6-6 and 225 pounds, Duff is a matchup problem by construction, and 2025 made it official: 60 catches, 1,084 yards, seven touchdowns, second-team All-Big Ten, and a nation-leading 22 contested catches -- the receiver who wins the throw nobody else can. PFF slots him inside its top 20 on the 2027 draft board, the kind of grade that usually leaves school. He stayed. The forward stakes are personal and programmatic: he's a single big year from the Rutgers receiving record and a strong season from cementing first-round status. For a receiver who already owns the contested-catch crown, 2026 is about adding the rest -- and being the player a Big Ten defense has to account for on every snap.",
+  "style_register": "descriptive",
+  "style": "Duff wins where size wins -- above the rim and through contact. The defining number is the one he led the nation in: 22 contested catches, the climb-the-ladder, box-out trait of a true jump-ball receiver at 6-6, 225. Our play-by-play frames the rest honestly: a good (61st-percentile) yards-per-catch and explosive rate, with a more modest catch rate (41st percentile) -- the natural cost of a target who lives on the hardest, most contested throws rather than the easy ones. He's not a separation-by-quickness slot; he's the back-shoulder, red-zone, win-the-50-50 weapon. For a quarterback, he's the answer to \"what do I do on third-and-long\" -- throw it up and let the big man go get it.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 14541); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "On the Banks -- KJ Duff confirms return to Rutgers for 2026", "url": "https://www.onthebanks.com/rutgers-football/50304/rutgers-wide-reciever-kj-duff-confirms-he-will-return-for-the-2026-season" },
+    { "label": "PFF -- top 10 returning wide receivers for 2026", "url": "https://www.pff.com/news/college-football-top-10-returning-wide-receivers-for-the-2026-season" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

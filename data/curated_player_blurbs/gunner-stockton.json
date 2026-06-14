@@ -1,0 +1,30 @@
+{
+  "slug": "gunner-stockton-15263",
+  "slug_verified": true,
+  "player_name": "Gunner Stockton",
+  "team": "Georgia",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the game-manager who keeps winning -- a first-year starter who delivered an SEC title and a Heisman vote, back to push Georgia past the wall it keeps hitting",
+  "plan": {
+    "spine": "the quarterback nobody calls flashy authored a 12-2 SEC-title season as a first-year starter -- now he's back, a fringe-Heisman name, to get Georgia past the playoff quarterfinal",
+    "blend": ["2025: 2,894 pass yds, 24 TD vs 5 INT, 69.7%; 462 rush yds, 10 rush TD", "12-2, second straight SEC title (28-7 over Alabama), No. 3 CFP seed", "7th in the Heisman voting; coaches All-SEC third team", "the 'does everything right' operator -- and a goal-line running threat"],
+    "payoff": "24 TDs to 5 INTs and 10 rushing scores -- an SEC title -- then a CFP quarterfinal exit",
+    "forward_stake": "whether the careful, clutch operator can finally break the quarterfinal wall and finish a national title",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Nobody calls Gunner Stockton flashy. He just went 12-2, won the SEC, beat Alabama 28-7, and finished seventh in the Heisman voting -- as a first-year starter. He's back to do the one thing that got away: finish.",
+  "expand": "In his first year as the starter he threw for 2,894 yards with 24 touchdowns and only five interceptions, ran for 462 more and ten scores, and carried Georgia to a second straight SEC title and the No. 3 Playoff seed. Todd McShay's read was that he \"shows up in clutch moments\" and has \"carried that team while the defense lagged behind\" -- high praise for a quarterback most national lists slot as a game-manager. The season ended one round too early, a 39-34 CFP quarterfinal loss to Ole Miss. So the in-state veteran came back for what should be his final college year, now a fringe-Heisman and preseason-award name. The forward stakes are the wall itself: Georgia has the program, the recruiting, and the standard, but Stockton's job is to push it past the quarterfinal it just lost. His ten rushing touchdowns are the weapon defenses underrate -- and 2026 is his bid to turn \"does everything right\" into a national championship.",
+  "style_register": "descriptive",
+  "style": "Stockton is the operator, not the highlight -- and the numbers say the operating is excellent. He posted a 24-to-5 touchdown-to-interception ratio in 2025, the ball-security of a quarterback who knows where to go with it; McShay praised the way he runs the offense and \"does everything right\" even if \"nothing is super flashy.\" Where he's quietly elite is on the ground near the end zone: ten rushing touchdowns, and our play-by-play grades his rushing-touchdown rate in the 99th percentile -- when Georgia gets close, he's a runner defenses have to account for (he scored five total touchdowns, one with his legs, in the win over Ole Miss). The honest frame is the ceiling debate: CBS and others keep him out of the elite QB tier and light on draft buzz, the \"game-manager\" label he's spent a year outrunning. He's a tough, low-mistake, dual-threat winner -- the kind of quarterback who doesn't lose you games and, at the goal line, wins them.",
+  "style_layers_pending": "PBP rush/pass percentiles woven in (canonical id 15263; the 65th-pctl passing-TD note is our analytics, not an external cite); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "247Sports -- Stockton a 2026 Heisman/award candidate", "url": "https://247sports.com/college/georgia/article/gunner-stockton-heisman-trophy-2026-georgia-bulldogs-284408762/" },
+    { "label": "Sports-Reference -- Gunner Stockton 2025 stats", "url": "https://www.sports-reference.com/cfb/players/gunner-stockton-1.html" },
+    { "label": "SEC Sports -- Stockton's five TDs edge Ole Miss (rushing score)", "url": "https://www.secsports.com/news/2025/10/gunner-stocktons-five-tds-enable-georgia-to-edge-ole-miss" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

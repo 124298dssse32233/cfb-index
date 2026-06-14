@@ -1,0 +1,30 @@
+{
+  "slug": "ryan-williams-4452",
+  "slug_verified": true,
+  "player_name": "Ryan Williams",
+  "team": "Alabama",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the viral freshman, two years later -- the phenom whose sophomore year cooled, back for a bounce-back with a runway almost nobody his age has",
+  "plan": {
+    "spine": "the receiver who broke the internet as a true freshman had a quieter sophomore year -- now he's a preseason All-American with a Heisman number and, because he reclassified, two more years before he can even leave",
+    "blend": ["2024 freshman: 48-865-8 and a national sensation", "2025 sophomore: 49-689-4 -- a step back", "2026 preseason first-team All-American; live Heisman odds", "reclassified up -- a junior who isn't draft-eligible until 2027"],
+    "payoff": "865 yards as a freshman, then 689 as a sophomore -- the dip is the setup",
+    "forward_stake": "whether the bounce-back season restores the generational trajectory -- with a runway most stars never get",
+    "register": "projection",
+    "horizon": "2026 season (NFL 2027)"
+  },
+  "hook": "Ryan Williams broke the internet as a true freshman. His sophomore year cooled off. Now he's a preseason All-American with a Heisman number -- and because he reclassified, Alabama gets him for two more years before he can even leave.",
+  "expand": "As a true freshman in 2024 he was a national sensation: 48 catches, 865 yards, eight touchdowns, the highlight every Saturday. The 2025 sophomore line was quieter -- 49 catches, 689 yards, four scores -- the kind of step back that, for a player this hyped, becomes the whole storyline. The voters didn't blink: he's a preseason first-team All-American across nearly every outlet and a live Heisman candidate entering 2026. The detail that reframes everything is his age. Williams reclassified up to sign a year early, so he's a junior who won't be draft-eligible until 2027 -- Alabama's clear No. 1 target with a runway almost no star his age has. The forward stakes are simple: the bounce-back season that turns a quieter sophomore year back into a generational trajectory. For Williams, 2026 is a contention year, not a farewell.",
+  "style_register": "descriptive",
+  "style": "Williams is a vertical separator -- a slim, wiry frame (listed around 6-0, 180) carrying genuine track speed (he's run 10.49 in the 100 meters). Our play-by-play backs the big-play profile: 78th-percentile yards-per-catch, 85th-percentile EPA per target, a 72nd-percentile explosive-catch rate -- the chunk-play element of a true downfield weapon, and a 78th-percentile catch rate on top of it. Scouts (Ourlads/draft profiles) credit the \"initial burst and long speed to easily separate from DBs\" and consistent ball-tracking over his shoulder. The honest edge is the one his sophomore tape raised: the drop rate ticked up, and evaluators note \"his hands need to improve.\" He's a take-the-top-off vertical threat who also works the intermediate level -- and at his age, the polish is supposed to come.",
+  "style_layers_pending": "PBP receiving percentiles woven in (canonical id 4452; now rostered as 'Ryan Coleman-Williams' -- id-keyed match is stable); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "College Football Network -- Ryan Williams Alabama season stats", "url": "https://collegefootballnetwork.com/ryan-williams-stats-alabama-wrs-season-numbers/" },
+    { "label": "Alabama / Walter Camp -- preseason All-American honors", "url": "https://www.si.com/college/alabama/football/alabama-football-lands-three-walter-camp-preseason-all-american" },
+    { "label": "Ourlads -- Ryan Williams scouting", "url": "https://www.ourlads.com/ncaa-football-depth-charts/player/ryan-williams/170008" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

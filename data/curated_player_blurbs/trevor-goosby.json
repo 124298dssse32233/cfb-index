@@ -1,0 +1,29 @@
+{
+  "slug": "trevor-goosby-27327",
+  "slug_verified": true,
+  "player_name": "Trevor Goosby",
+  "team": "Texas",
+  "position": "OT",
+  "as_of_date": "2026-06-13",
+  "tier": "plain",
+  "story_shape": "the man protecting Arch Manning's blindside -- a first-team All-SEC tackle back for the quarterback's defining year",
+  "plan": {
+    "spine": "a first-team All-SEC left tackle returns to protect Arch Manning's blindside in Manning's draft-year season",
+    "blend": ["2025: first-team All-SEC in his first full year starting", "allowed just 3 sacks and 3 QB hurries protecting Arch Manning", "the returning blindside protector on a national-title contender", "declined a favorable draft projection to come back"],
+    "payoff": "first-team All-SEC and a near-clean sheet at left tackle",
+    "forward_stake": "whether continuity at left tackle helps make Manning's year the one Texas needs",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "If Arch Manning is going to have the year Texas needs, someone has to keep him clean. Trevor Goosby did it as a first-team All-SEC tackle in 2025 -- and he came back to do it again.",
+  "expand": "In his first full year as a starter, Goosby was first-team All-SEC and a wall at left tackle -- just three sacks and three quarterback hurries allowed protecting Arch Manning's blindside. He declined a favorable draft projection to return, giving Texas the most valuable kind of continuity for a title run: a proven blindside protector entering the most scrutinized quarterback season in the country. The forward stakes are tied directly to Manning's: a clean pocket is the difference between a Heisman campaign and a frustrated one, and Goosby is the reason it stays clean. He's not the headline name on the roster -- he's the one who makes the headline name possible.",
+  "style_register": "plain",
+  "style": "Goosby is a pass-protection-first left tackle whose value shows up in what doesn't happen -- the sacks that never reach the quarterback. The 2025 ledger is the case: three sacks and three hurries allowed across a full SEC season protecting a marquee quarterback, the kind of line that earns first-team all-conference. He has the length and footwork to handle SEC edge rushers and the anchor to hold up against the bull rush. He's a steady, technically sound blindside protector rather than a road-grading mauler -- and on a team whose season rides on its quarterback staying upright, that's the most important job on the line.",
+  "style_layers_pending": "no PBP for an offensive lineman -- sacks/hurries-allowed + All-SEC honor + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "Burnt Orange Nation -- Trevor Goosby returning to Texas for 2026", "url": "https://www.burntorangenation.com/texas-longhorns-football/99583/trevor-goosby-return-texas-longhorns-2026" },
+    { "label": "Yahoo Sports -- Texas OT Trevor Goosby returning", "url": "https://sports.yahoo.com/articles/texas-ot-trevor-goosby-returning-031920383.html" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "bo-jackson-52911",
+  "slug_verified": false,
+  "player_name": "Bo Jackson",
+  "team": "Ohio State",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the freshman who joined a pantheon, and the name (breakout + iconic-name + can-he-take-the-leap + title-engine); non-QB",
+  "plan": {
+    "spine": "a freshman named Bo Jackson ran for over 1,000 yards and joined an Ohio State pantheon -- now the question is whether he becomes a true workhorse star",
+    "blend": ["1,090 yds as a true frosh -- 5th OSU freshman ever to top 1,000", "the iconic name (coincidence, but the talent isn't)", "OSU RB1 (a teammate transferred because of him)", "only 6 TDs -- the efficiency/workload question"],
+    "payoff": "the fifth OSU true freshman to crack 1,000 yards -- joining Robert Smith, Maurice Clarett, JK Dobbins, and TreVeyon Henderson; a teammate transferred out because Jackson became the guy",
+    "forward_stake": "the gap between good and great -- turning 1,000 quiet yards into 1,400 loud ones, and the TD efficiency, on a title contender",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "A freshman named Bo Jackson ran for over 1,000 yards at Ohio State last fall -- joining a list that includes Maurice Clarett and JK Dobbins. The name is a coincidence. The talent isn't.",
+  "expand": "Jackson's first season was a statement: 1,090 rushing yards at 6.1 a carry, enough to make him the fifth true freshman in Ohio State history to crack 1,000 -- company that includes Robert Smith, Maurice Clarett, JK Dobbins, and TreVeyon Henderson. A teammate, James Peoples, transferred out this offseason in part because Jackson had simply become the guy.\n\nThe forward case is about the gap between good and great. He scored just six rushing touchdowns -- low for an Ohio State back -- and may share carries with returning and added depth, so 2026 is about efficiency and finishing, not just volume. On a national-title contender stacked with Sayin and Jeremiah Smith, a back who turns 1,000 quiet yards into 1,400 loud ones is the piece that tips a very good offense into an unstoppable one. The name will always draw the double-take. This is the year he makes people remember him for his own.",
+  "sources": [
+    { "label": "247Sports -- OSU top-20 into 2026: No. 4 Bo Jackson", "url": "https://247sports.com/college/ohio-state/article/ohio-state-football-top-20-players-heading-into-2026-no-4-bo-jackson-278203195/" },
+    { "label": "Land-Grant Holy Land -- how Bo Jackson can improve in 2026", "url": "https://www.landgrantholyland.com/ohio-state-football/111806/how-ohio-states-bo-jackson-can-improve-in-2026" },
+    { "label": "SI -- predicting OSU RB room depth chart for 2026", "url": "https://www.si.com/college/ohiostate/news/predicting-ohio-state-running-back-room-depth-chart-heading-into-2026-season-01kqwgnqhjz8" }
+  ],
+  "style_register": "descriptive",
+  "style": "Jackson is a one-cut runner with a second gear -- he presses the hole, plants, and is past the second level before the angle closes, which shows up as an 85th-percentile yards-per-carry and a 72nd-percentile explosive-run rate as a true freshman. He's not just a between-the-tackles back; 19 catches keep him on the field on third down, a fit for the way Ohio State spreads you out and runs behind it. The honest gap is the finish: his success rate sat in the 41st percentile and his touchdown rate in the bottom fifteen -- he hits the big one but doesn't yet own the grind or the red zone, which is how a back with his yardage scored only six times. So 2026 isn't about whether he's good; it's whether the explosive freshman becomes the complete one -- the same chunk runs, more of them ending in the end zone.",
+  "style_layers_pending": "proprietary PBP percentile depth now woven in (canonical id 52911); fan discourse descriptors still pending discourse-extraction cleanup + in-season data",
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "draft"
+}

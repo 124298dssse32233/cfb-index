@@ -1,0 +1,30 @@
+{
+  "slug": "matayo-uiagalelei-11731",
+  "slug_verified": true,
+  "player_name": "Matayo Uiagalelei",
+  "team": "Oregon",
+  "position": "EDGE",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the edge anchor who stayed -- a first-round talent (and NFL bloodline) who came back to anchor maybe the nation's best DL",
+  "plan": {
+    "spine": "a likely first-rounder and the brother of an NFL QB came back to anchor what might be college football's best defensive line",
+    "blend": ["2024 breakout: 10.5 sacks, 1st-team All-Big Ten", "18.5 career sacks; stayed in Eugene", "brother of NFL QB DJ Uiagalelei (5-star bloodline)", "paired with Teitum Tuioti = nation's best DL on a Playoff contender"],
+    "payoff": "10.5 sacks + All-Big-Ten in 2024, 18.5 career; chose to return rather than declare",
+    "forward_stake": "whether the sack production climbs back to its 2024 peak -- if it does, he's a first-rounder and Oregon's D is the problem of the season",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Matayo Uiagalelei could have left -- a likely first-rounder, the brother of an NFL quarterback. He came back to anchor what might be college football's best defensive line.",
+  "expand": "The five-star broke out in 2024 (10.5 sacks, first-team All-Big Ten) and stayed productive in 2025 (six sacks, 9.5 tackles for loss, two forced fumbles), pushing his career total to 18.5 sacks across three seasons. Paired with fellow top-ten edge Teitum Tuioti, he gives Oregon a front that can wreck a game without blitzing -- exactly what a national-title defense is built on. The forward stakes are a Playoff run on a roster that returned its quarterback (Dante Moore) and its defensive core. The question for 2026 is whether the sack production climbs back toward its 2024 peak -- because if it does, Oregon's defense becomes the problem of the season, and Uiagalelei becomes a first-rounder.",
+  "style_register": "descriptive",
+  "style": "Uiagalelei wins with length, power, and a relentless motor more than pure bend -- at five-star size he sets a hard edge against the run and converts speed into power against the pass. The production is real and sustained: 10.5 sacks and All-Big-Ten in 2024, 18.5 for his career. The honest note is the 2025 dip -- his sack total fell to six even as the disruption held (9.5 tackles for loss), the kind of season where the pressures didn't turn into finishes. In Oregon's loaded front, next to Teitum Tuioti, he doesn't have to carry it alone, which only makes him harder to handle one-on-one. The forward question is simple: do the finishes return to the 2024 level? If they do, he's a first-rounder and the Ducks' defense is a nightmare.",
+  "style_layers_pending": "no offensive PBP for an EDGE -- box (sacks/TFL) + attributed scouting grounded; fan-vs-rival discourse descriptors pending discourse-extraction cleanup + in-season data",
+  "sources": [
+    { "label": "247Sports -- Uiagalelei staying at Oregon", "url": "https://247sports.com/college/oregon/article/matayo-uiagalelei-staying-in-eugene-oregon-secures-another-defensive-cornerstone-270521613/" },
+    { "label": "B/R -- Uiagalelei 2026 NFL Draft scouting report", "url": "https://bleacherreport.com/articles/25253246-nfl-draft-2026-scouting-report-oregon-edge-matayo-uiagalelei" },
+    { "label": "SI -- Uiagalelei & Tuioti national spotlight", "url": "https://www.si.com/college/oregon/football/oregon-ducks-matayo-uiagalelei-teitum-tuioti-move-into-national-spotlight-new-ranking" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

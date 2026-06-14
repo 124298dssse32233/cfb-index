@@ -1,0 +1,30 @@
+{
+  "slug": "bryce-underwood-52054",
+  "slug_verified": true,
+  "player_name": "Bryce Underwood",
+  "team": "Michigan",
+  "position": "QB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the most expensive recruit in the sport's history takes the leap -- the No. 1 overall prospect who flashed and faded as a true freshman, now the sophomore everything was built around",
+  "plan": {
+    "spine": "the No. 1 recruit in the country flipped to Michigan in a record NIL deal, started every game as a true freshman, and faded late -- 2026 is the sophomore leap the whole bet was for",
+    "blend": ["No. 1 overall recruit in 2025; the flip from LSU to Michigan", "started all 13 as a true freshman: 2,428 pass yds, 11 TD / 9 INT", "added 392 rush yds and 6 TD -- a dual-threat frame at 6-4, 228", "faded late: 7 of 9 INTs came in the final five games"],
+    "payoff": "a freshman who flashed (debut, early form) and faded (late picks) -- the consolidation is the story",
+    "forward_stake": "whether year two closes the gap between five-star talent and freshman-year output",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Bryce Underwood was the No. 1 recruit in the country, flipped to Michigan in a record NIL deal, and started every game as a true freshman. He flashed early and faded late. The sophomore leap is the whole reason the bet was made.",
+  "expand": "Few recruits have ever arrived with this much weight: the No. 1 overall prospect in 2025, a headline flip from LSU to Michigan, and a true freshman who started all thirteen games. The season was a freshman season -- 2,428 passing yards, 11 touchdowns against nine interceptions, plus 392 rushing yards and six scores from a 6-4, 228 frame. The arc is the tell: a sharp debut and an early Offensive Rookie of the Year nod, then a fade down the stretch, with seven of his nine interceptions coming in the final five games and three in a bowl loss to Texas. Now, with a retooled coaching staff and a year of starts behind him, the forward stakes are consolidation -- cutting the late-season turnovers while keeping the dual-threat upside. For the most hyped quarterback recruit of his era, 2026 is where the talent is supposed to become production.",
+  "style_register": "descriptive",
+  "style": "Underwood already passes the eye test -- 6-4, 228, with what scouts have long called premier arm talent, velocity to every level, and a natural deep ball. The freshman data is genuinely encouraging where it counts: our play-by-play graded his dropback success rate in the 86th percentile and his EPA per dropback in the 74th, and he pushed the ball downfield (75th-percentile average depth of target) rather than checking down. Recruiting evaluators credited his \"confidence and poise\" under center; the development note is mechanical -- he can get tense in the upper body with inconsistent feet in the pocket, the kind of thing that produced his late-season interception spike. Add a real running threat (392 yards, six scores) and the profile is a high-ceiling dual-threat whose year-two job is steadiness, not flash.",
+  "style_layers_pending": "PBP QB percentiles woven in (canonical id 52054); the NIL flip is referenced as a reported news event, not a valuation/hero number; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Underwood returning for sophomore season", "url": "https://www.espn.com/college-football/story/_/id/47519492/michigan-qb-bryce-underwood-returning-sophomore-season" },
+    { "label": "Yahoo Sports -- Bryce Underwood 2025 stats", "url": "https://sports.yahoo.com/article/bryce-underwood-stats-michigan-football-190058755.html" },
+    { "label": "Maize n Brew -- Underwood's sophomore-leap setup", "url": "https://www.maizenbrew.com/football/115117/michigan-wolverines-football-quarterback-bryce-underwood-sophomore-leap-kyle-whittingham-jason-beck" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

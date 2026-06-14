@@ -1,0 +1,30 @@
+{
+  "slug": "isaac-brown-6733",
+  "slug_verified": true,
+  "player_name": "Isaac Brown",
+  "team": "Louisville",
+  "position": "RB",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the home-run back who said no to everyone -- the portal's No. 1 running back who re-signed to stay the centerpiece, one of the most explosive carries in the country",
+  "plan": {
+    "spine": "the most coveted running back in the transfer portal turned down Texas, Notre Dame and Miami to stay at Louisville -- because he's the offense, and he has a statement to make",
+    "blend": ["2,057 rushing yards + 18 TD across two seasons", "8.75 yards per carry in 2025 (our explosiveness metric: 98th percentile)", "ESPN's No. 1 portal RB -- then re-signed with Louisville", "Freshman All-American (2024) -> 3rd-team All-ACC (2025)"],
+    "payoff": "884 yards on 8.75 a carry in nine games; spurned the portal as its top back to come back",
+    "forward_stake": "whether the per-carry magic plus a full healthy season makes him the ACC's premier back and an early-round draft riser",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Isaac Brown was the No. 1 running back in the transfer portal. Texas, Notre Dame, and Miami all called. He stayed at Louisville -- because he's the offense, and he has a statement to make.",
+  "expand": "Two seasons, 2,057 rushing yards, 18 touchdowns -- and in 2025, 884 yards on 8.75 yards a carry in just nine games, one of the most explosive per-carry marks in the country (our explosiveness metric grades it in the 98th percentile). When he entered the portal in January he became its No. 1 back overnight; then he negotiated a new deal and came home, telling Louisville he wanted to \"make a statement.\" Now the Freshman All-American turned third-team All-ACC pick is the undisputed centerpiece of Jeff Brohm's offense for his junior year. The forward stakes are an All-America case and a draft climb: a back who turns the corner and is gone needs only volume and health to be the ACC's premier home-run hitter. For Brown, 2026 is the year the highlight reel becomes a résumé.",
+  "style_register": "descriptive",
+  "style": "Brown is a home-run hitter in a 5-9, 190 frame -- built low, built to disappear around the edge. The explosiveness is the headline and it's real: 8.75 yards per carry in 2025 (up from 7.1 as a freshman), which our play-by-play grades in the 98th percentile, paired with an 82nd-percentile success rate that says the booms don't come at the cost of steady gains. The earliest scouting read (an SI breakdown, from his recruiting days) flagged exactly what the tape now shows -- \"elusive\" and \"very good at avoiding contact,\" with a specialty \"running to the boundary and turning the corner\" off an \"above-average first cut\" -- plus real value as a receiver \"out of the backfield, especially on swing passes.\" The honest note is the frame: at 190 pounds he's a speed-and-space back, not a between-the-tackles grinder. Give him the edge and a crease, and he's one of the fastest players to the perimeter in the sport.",
+  "style_layers_pending": "PBP run percentiles woven in (canonical id 6733); current-tape scouting beyond raw 2025 numbers is thin (oldest eval is a recruiting profile, attributed + dated); fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "ESPN -- Isaac Brown to remain at Louisville (Jan 4, 2026)", "url": "https://www.espn.com/college-football/story/_/id/47509534/rb-isaac-brown-remain-louisville-source-says" },
+    { "label": "247Sports -- All-American RB Isaac Brown returning to Louisville for 2026", "url": "https://247sports.com/article/jeff-brohm-all-american-running-back-isaac-brown-returning-to-louisville-for-2026-season-269396861/" },
+    { "label": "SI/Louisville -- Brown aiming to 'make a statement' for 2026", "url": "https://www.si.com/college/louisville/football/isaac-brown-aiming-to-improve-his-game-make-a-statement-for-2026" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}

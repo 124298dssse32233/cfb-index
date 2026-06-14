@@ -1,0 +1,29 @@
+{
+  "slug": "evan-stewart-11740",
+  "slug_verified": true,
+  "player_name": "Evan Stewart",
+  "team": "Oregon",
+  "position": "WR",
+  "as_of_date": "2026-06-13",
+  "tier": "feature",
+  "story_shape": "the talent that lost a year -- a former five-star back from a torn patellar tendon for a do-or-die final season",
+  "plan": {
+    "spine": "a former five-star who missed all of 2025 with a torn patellar tendon is back at full practice for a contract-year return that could reshape Oregon's offense",
+    "blend": ["missed all of 2025 -- torn right patellar tendon (summer 2025)", "former five-star and ex-Texas A&M / Oregon starter", "back at full spring practice on day one", "a healthy Stewart instantly reshapes Oregon's receiver room"],
+    "payoff": "a lost season -- and a full return to practice",
+    "forward_stake": "whether the talent comes all the way back after a serious knee injury",
+    "register": "projection",
+    "horizon": "2026 season"
+  },
+  "hook": "Evan Stewart didn't play a snap in 2025 -- a torn patellar tendon took the whole year. Now the former five-star is back at full practice, calling it \"do or die.\" A healthy Stewart changes everything about Oregon's offense.",
+  "expand": "The story here is a comeback, not a stat line. Stewart, a former five-star and a productive starter at Texas A&M and Oregon, tore his right patellar tendon before the 2025 season and missed all of it. He returned to full spring practice on day one and has framed 2026 in his own words as \"do or die\" -- a contract-year bet on himself after a serious injury. The forward stakes are the simplest and hardest kind: does the explosive talent come all the way back? If it does, a healthy Stewart reshapes Oregon's receiver room overnight and re-enters the draft conversation. The talent was never in question; the knee is. 2026 is the answer.",
+  "style_register": "plain",
+  "style": "Stewart's game, when healthy, is built on speed and separation -- the five-star traits that made him a productive Power Four starter before the injury. The honest framing for 2026 is that the projection rests on his recovery: he did not play in 2025, so there's no current-season tape to grade, only a serious knee injury and a full return to spring practice. The questions that matter are the burst, the change of direction, and the explosiveness off the line -- everything a torn patellar tendon threatens. If the movement returns, so does a dangerous vertical weapon. Until the fall, this is a talent-and-comeback bet, framed honestly as one.",
+  "style_layers_pending": "no 2025 PBP -- player missed the season with a torn patellar tendon; this blurb is a forward/comeback projection, not a production read; health to be re-confirmed through fall camp; fan-vs-rival discourse descriptors pending discourse-extraction cleanup",
+  "sources": [
+    { "label": "SI -- Evan Stewart takes big step in injury recovery (spring practice)", "url": "https://www.si.com/college/oregon/football/oregon-ducks-evan-stewart-takes-big-step-injury-recovery-spring-practice" },
+    { "label": "SI -- Stewart on his mentality returning from injury", "url": "https://www.si.com/college/oregon/football/evan-stewart-gets-real-mentality-returning-from-injury-oregon-ducks-receiver" }
+  ],
+  "author": "claude-in-chat (Opus 4.8, framework v1)",
+  "status": "approved"
+}
