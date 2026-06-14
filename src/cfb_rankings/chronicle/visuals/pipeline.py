@@ -23,6 +23,7 @@ from .models import (
 from .scorer import score_visual, VISUAL_SUPPRESS_THRESHOLD
 from .registry import (
     list_registered_visuals,
+    list_registered_player_visuals,
     get_query_function,
     get_renderer_function,
     get_chart_family,
@@ -85,6 +86,51 @@ def generate_visuals_for_team(
     return results
 
 
+def generate_visuals_for_player(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,
+    visual_ids: list[VisualId] | None = None,
+    force_regenerate: bool = False,
+) -> list[VisualResult]:
+    """Generate (and cache) all registered PLAYER visuals for one player.
+
+    Mirrors generate_visuals_for_team but iterates the player registry and
+    stamps entity_kind='player' so cache keys never collide with team slugs.
+    `slug` is the player slug (e.g. 'carson-beck-12345'); the queries resolve
+    the player_id from it.
+    """
+    if visual_ids is None:
+        visual_ids = list_registered_player_visuals()
+
+    seen_theses: set[str] = set()
+    results: list[VisualResult] = []
+    for vid in visual_ids:
+        try:
+            result = _generate_one(
+                db,
+                visual_id=vid,
+                slug=slug,
+                season_year=season_year,
+                week_number=week_number,
+                force_regenerate=force_regenerate,
+                entity_kind="player",
+            )
+            if not result:
+                continue
+            if result.visual_thesis_hash in seen_theses and not result.suppressed:
+                result.suppressed = True
+                result.suppression_reason = "duplicate thesis on same player-page run"
+            else:
+                seen_theses.add(result.visual_thesis_hash)
+            results.append(result)
+        except Exception as exc:
+            log.exception("player visual %s failed for %s: %s", vid, slug, exc)
+    return results
+
+
 def generate_all_visuals(
     db: Any,
     *,
@@ -137,6 +183,7 @@ def _generate_one(
     season_year: int,
     week_number: int | None,
     force_regenerate: bool,
+    entity_kind: str = "team",
 ) -> VisualResult | None:
     t0 = time.time()
     query_fn = get_query_function(visual_id)
@@ -156,10 +203,9 @@ def _generate_one(
     query_result = query_fn(db, slug=slug, season_year=effective_season, week_number=week_number)
     data_fingerprint = compute_data_fingerprint(query_result)
 
-    # Step 2: compute cache key — entity_kind defaults to 'team' for this
-    # call site but is derived from spec.entity_scope shape so player/league
-    # visuals get a distinct key namespace and can't collide via shared slugs.
-    entity_kind = "team"  # generate_visuals_for_team contract
+    # Step 2: compute cache key — entity_kind ('team' | 'player' | ...) gives
+    # each entity domain a distinct key namespace so they can't collide via
+    # shared slugs. Passed in by the caller (generate_visuals_for_team/player).
     cache_key = compute_visual_cache_key(
         slug=slug,
         entity_kind=entity_kind,
@@ -202,13 +248,20 @@ def _generate_one(
     # Step 5: render
     rendered = render_fn(query_result)
 
-    # Step 6: build spec + receipt
+    # Step 6: build spec + receipt. For player visuals, thread the resolved
+    # player_id (the query returns it in summary_stats) onto the EntityScope so
+    # the stored entity_kind is 'player' (cache._entity_kind_for keys off it)
+    # and the cache namespace matches the cache_key computed above.
+    scope_player_id = None
+    if entity_kind == "player":
+        scope_player_id = (query_result.get("summary_stats") or {}).get("player_id")
     spec = VisualSpec(
         visual_id=visual_id,
         chart_family=chart_family,
         headline_finding=rendered["headline_finding"],
         data_query_id=query_result["query_id"],
-        entity_scope=EntityScope(slug=slug, season_year=effective_season, week_number=week_number),
+        entity_scope=EntityScope(slug=slug, season_year=effective_season, week_number=week_number,
+                                 player_id=scope_player_id),
         annotations=rendered.get("annotations", []),
         required_sources=query_result.get("source_tables", []),
         alt_text=rendered.get("alt_text", ""),

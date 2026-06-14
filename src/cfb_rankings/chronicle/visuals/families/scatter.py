@@ -1,15 +1,15 @@
-"""Annotated scatter / quadrant family.
+"""Annotated scatter / quadrant family — migrated onto the Editorial Grammar.
 
 Two visuals share this geometry:
     - CFP Bubble Wall: x=resume percentile, y=power percentile
     - Talent Yield Curve: x=talent rank percentile, y=draft yield rate
 
-Common renderer takes a typed query result with rows of {label, x, y, slug,
-highlight, color_band} and produces:
-    - 2D scatter
-    - median crosshair (P50 x P50)
-    - highlighted entity callout
-    - peer labels (max 6)
+Both render through `grammar.editorial_card` (doc 77): finding-headline, human
+receipt, design fonts, mobile type scale, scroll-driven entrance, and
+interactive points. Quadrant-scatter best practice (web research 2026-06-13/14
+— europa.eu data-viz guide on labelling scatters; Visier 2x2 scatter): selective
+labelling (subject + a few peers), quadrant reference + corner labels, highlight
+the one point — all preserved, now on the shared chrome.
 """
 from __future__ import annotations
 
@@ -17,122 +17,90 @@ import html
 from typing import Any
 
 from ..models import Annotation
-from ..svg_helpers import (
-    svg_open,
-    svg_close,
-    text,
-    line,
-    rect,
-    circle,
-    join,
-    PALETTE_GOLD,
-    PALETTE_NAVY,
-    PALETTE_INK,
-    PALETTE_MUTED,
-    PALETTE_CREAM,
-)
+from ..svg_helpers import line, join  # noqa: F401
+from .grammar import editorial_card, cls_text, dot, VIOLET, GRID, SANS, MUTED, CREAM
+
+FIELD = "#bfb9ab"   # the recede-into-background field
+PEER = "#8a8475"    # labelled peers, a touch darker
 
 
 def _render_scatter_core(
     rows: list[dict[str, Any]],
     *,
-    title: str,
-    subtitle: str,
+    eyebrow: str,
+    headline: str,
     x_label: str,
     y_label: str,
     highlight_slug: str | None,
     sr_title: str,
-    headline_finding: str,
+    annotation: str,
+    receipt: str,
     annotations: list[Annotation],
 ) -> dict[str, Any]:
     if not rows:
         return _empty_render("No data available.")
 
-    width = 720
-    height = 500
-    pad_l = 60
-    pad_r = 24
-    pad_t = 80
-    pad_b = 56
-    chart_w = width - pad_l - pad_r
-    chart_h = height - pad_t - pad_b
+    def draw(px, py, pw, ph):
+        gl = 32
+        side = min(pw - gl - 8, ph - 26)
+        fx0, fy0 = px + gl, py + 2
 
-    parts: list[str] = []
-    parts.append(svg_open(width, height, title=sr_title))
-    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
+        def X(v):
+            return fx0 + side * max(0.0, min(1.0, float(v)))
 
-    parts.append(text(pad_l, 30, title, font_size=16, weight="700"))
-    parts.append(text(pad_l, 50, subtitle, font_size=12, color=PALETTE_MUTED, italic=True))
+        def Y(v):
+            return fy0 + side * (1.0 - max(0.0, min(1.0, float(v))))
 
-    # Axis lines
-    parts.append(line(pad_l, pad_t + chart_h, pad_l + chart_w, pad_t + chart_h, color=PALETTE_INK, width=1.0))
-    parts.append(line(pad_l, pad_t, pad_l, pad_t + chart_h, color=PALETTE_INK, width=1.0))
+        out: list[str] = [
+            line(fx0, fy0, fx0, fy0 + side, color=GRID, width=1.0),
+            line(fx0, fy0 + side, fx0 + side, fy0 + side, color=GRID, width=1.0),
+            line(X(0.5), fy0, X(0.5), fy0 + side, color=MUTED, width=1.0, dasharray="2,3"),
+            line(fx0, Y(0.5), fx0 + side, Y(0.5), color=MUTED, width=1.0, dasharray="2,3"),
+        ]
+        out.append(cls_text(fx0 + side / 2, fy0 + side + 16, x_label + " →", "ed-ax",
+                            family=SANS, color=MUTED, anchor="middle"))
+        ylx, yly = px + 8, fy0 + side / 2
+        out.append(f'<text x="{ylx:.1f}" y="{yly:.1f}" class="ed-ax" font-family="{SANS}" '
+                   f'fill="{MUTED}" text-anchor="middle" transform="rotate(-90 {ylx:.1f} {yly:.1f})">'
+                   f'{html.escape(y_label)} →</text>')
 
-    # Median crosshair at 0.5 x 0.5 (proportional space)
-    mx = pad_l + chart_w * 0.5
-    my = pad_t + chart_h * 0.5
-    parts.append(line(mx, pad_t, mx, pad_t + chart_h, color=PALETTE_MUTED, width=0.5, dasharray="3,3"))
-    parts.append(line(pad_l, my, pad_l + chart_w, my, color=PALETTE_MUTED, width=0.5, dasharray="3,3"))
+        subject = None
+        for r in rows:
+            if highlight_slug and r.get("slug") == highlight_slug:
+                subject = r
+                continue
+            if r.get("peer_label"):
+                continue
+            out.append(f'<circle cx="{X(r.get("x", 0.5)):.1f}" cy="{Y(r.get("y", 0.5)):.1f}" '
+                       f'r="2.4" fill="{FIELD}" opacity="0.22" style="mix-blend-mode:multiply"/>')
+        for r in rows:
+            if r.get("peer_label") and not (highlight_slug and r.get("slug") == highlight_slug):
+                cx, cy = X(r.get("x", 0.5)), Y(r.get("y", 0.5))
+                lab = str(r.get("label", ""))
+                out.append(dot(cx, cy, 4.0, fill=PEER,
+                               tip=f"{lab} — {int(float(r.get('x', 0)) * 100)} / {int(float(r.get('y', 0)) * 100)} pctile"))
+                anc = "end" if float(r.get("x", 0.5)) >= 0.72 else "start"
+                out.append(cls_text(cx + (-6 if anc == "end" else 6), cy + 3, lab[:16],
+                                    "ed-ptlabel", family=SANS, color=PEER, anchor=anc))
+        if subject:
+            cx, cy = X(subject.get("x", 0.5)), Y(subject.get("y", 0.5))
+            lab = str(subject.get("label", ""))
+            out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="11" fill="{VIOLET}" opacity="0.14"/>')
+            out.append(dot(cx, cy, 6.5, fill=VIOLET, stroke=CREAM, stroke_width=2.0,
+                           tip=f"{lab} — {int(float(subject.get('x', 0)) * 100)} / {int(float(subject.get('y', 0)) * 100)} pctile"))
+            anc = "end" if float(subject.get("x", 0.5)) >= 0.72 else "start"
+            ly = cy + 18 if float(subject.get("y", 0.5)) >= 0.86 else cy - 11
+            out.append(cls_text(cx + (-10 if anc == "end" else 10), ly, lab,
+                                "ed-ptlabel", family=SANS, weight="700", color=VIOLET, anchor=anc))
+        return out
 
-    # Axis labels
-    parts.append(text(pad_l + chart_w / 2, height - 18, x_label, font_size=11, color=PALETTE_INK, anchor="middle"))
-    # Y label rotated
-    parts.append(
-        f'<text x="{18}" y="{pad_t + chart_h / 2}" font-family="Georgia,serif" font-size="11" '
-        f'fill="{PALETTE_INK}" text-anchor="middle" '
-        f'transform="rotate(-90 18 {pad_t + chart_h / 2})">{html.escape(y_label)}</text>'
-    )
-
-    # Axis tick text
-    for f, t in [(0.0, "0"), (0.25, "25"), (0.5, "50"), (0.75, "75"), (1.0, "100")]:
-        # X ticks
-        x = pad_l + chart_w * f
-        parts.append(line(x, pad_t + chart_h, x, pad_t + chart_h + 4, color=PALETTE_INK, width=0.5))
-        parts.append(text(x, pad_t + chart_h + 18, t, font_size=10, color=PALETTE_MUTED, anchor="middle"))
-        # Y ticks (inverted: 1.0 at top)
-        y = pad_t + chart_h * (1.0 - f)
-        parts.append(line(pad_l - 4, y, pad_l, y, color=PALETTE_INK, width=0.5))
-        parts.append(text(pad_l - 8, y + 4, t, font_size=10, color=PALETTE_MUTED, anchor="end"))
-
-    # Points
-    for r in rows:
-        x_v = max(0.0, min(1.0, float(r.get("x", 0.5))))
-        y_v = max(0.0, min(1.0, float(r.get("y", 0.5))))
-        cx = pad_l + chart_w * x_v
-        cy = pad_t + chart_h * (1.0 - y_v)
-
-        is_highlight = (highlight_slug is not None) and (r.get("slug") == highlight_slug)
-        is_peer = bool(r.get("peer_label"))
-        radius = 8 if is_highlight else (5 if is_peer else 3)
-        color = PALETTE_GOLD if is_highlight else (PALETTE_NAVY if is_peer else PALETTE_MUTED)
-        opacity = 1.0 if is_highlight else (0.85 if is_peer else 0.55)
-        stroke = PALETTE_INK if is_highlight else None
-        # Render dot
-        parts.append(
-            f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{radius}" fill="{color}" opacity="{opacity:.2f}"'
-            + (f' stroke="{stroke}" stroke-width="1.2"' if stroke else "")
-            + '/>'
-        )
-        # Label
-        label = r.get("label") or ""
-        if is_highlight:
-            parts.append(text(cx + radius + 4, cy + 4, label, font_size=13, weight="700"))
-        elif is_peer and label:
-            parts.append(text(cx + radius + 3, cy + 3, label[:14], font_size=10, color=PALETTE_NAVY))
-
-    # Quadrant legend (corner labels)
-    parts.append(text(pad_l + chart_w - 6, pad_t + 14, "elite", font_size=10, color=PALETTE_MUTED, anchor="end"))
-    parts.append(text(pad_l + 6, pad_t + chart_h - 6, "below avg", font_size=10, color=PALETTE_MUTED))
-
-    parts.append(svg_close())
-    svg = join(parts)
-
-    alt_text = sr_title + " — " + headline_finding
+    svg = editorial_card(eyebrow=eyebrow, headline=headline, annotation=annotation,
+                         receipt=receipt, title=sr_title, draw_plot=draw, height=460)
     return {
         "svg_html": svg,
-        "headline_finding": headline_finding,
+        "headline_finding": headline,
         "annotations": annotations,
-        "alt_text": alt_text,
+        "alt_text": sr_title + " — " + headline,
     }
 
 
@@ -141,61 +109,58 @@ def _render_scatter_core(
 # ---------------------------------------------------------------------------
 
 
-def render_cfp_bubble_wall(
-    query_result: dict[str, Any],
-    spec_meta: dict[str, Any] | None = None,
-) -> dict[str, Any]:
+def render_cfp_bubble_wall(query_result: dict[str, Any], spec_meta: dict[str, Any] | None = None) -> dict[str, Any]:
     rows = query_result.get("rows", [])
     summary = query_result.get("summary_stats", {})
     highlight_slug = summary.get("anchor_slug")
     season = summary.get("season_year", "")
     week = summary.get("snapshot_week", "?")
-
+    conf = (query_result.get("confidence") or "unset")
     if not rows:
         return _empty_render("No CFP-window rankings for this snapshot.")
 
-    sr_title = (
-        f"CFP Bubble Wall — {season} week {week}: resume rating vs power rating "
-        f"percentiles for the at-large field"
-    )
+    sr_title = (f"CFP Bubble Wall — {season} week {week}: résumé rating vs power rating "
+                f"percentiles for the at-large field")
     headline = _headline_for_cfp_wall(rows, summary, highlight_slug)
+    anchor_row = next((r for r in rows if r.get("slug") == highlight_slug), None) if highlight_slug else None
+    name = (anchor_row or {}).get("label") or "The at-large field"
 
     annotations: list[Annotation] = []
     if highlight_slug:
-        annotations.append(Annotation(
-            target=highlight_slug,
-            text=_anchor_position_label(rows, highlight_slug),
-            reason="anchor team CFP position",
-        ))
+        annotations.append(Annotation(target=highlight_slug,
+                                      text=_anchor_position_label(rows, highlight_slug),
+                                      reason="anchor team CFP position"))
+    if anchor_row:
+        annotation = (f"▸ Résumé {int(float(anchor_row.get('x', 0)) * 100)}th vs model "
+                      f"{int(float(anchor_row.get('y', 0)) * 100)}th among {len(rows)} at-large teams.")
+    else:
+        annotation = f"▸ The {len(rows)}-team at-large field by résumé and model strength."
 
+    receipt = (f"Source: CFB Index — committee résumé vs model power · {season} Wk {week} · "
+               f"{len(rows)} teams · {conf} confidence")
     return _render_scatter_core(
-        rows,
-        title="CFP Bubble Wall",
-        subtitle=f"{season} week {week}: at-large field by resume + power percentile",
-        x_label="Resume percentile (committee case)",
-        y_label="Power percentile (model)",
-        highlight_slug=highlight_slug,
-        sr_title=sr_title,
-        headline_finding=headline,
-        annotations=annotations,
+        rows, eyebrow=f"{name.upper()}  ·  CFP BUBBLE WALL", headline=headline,
+        x_label="Résumé (committee case)", y_label="Power (model)",
+        highlight_slug=highlight_slug, sr_title=sr_title, annotation=annotation,
+        receipt=receipt, annotations=annotations,
     )
 
 
 def _headline_for_cfp_wall(rows: list[dict], summary: dict, anchor: str | None) -> str:
     if not anchor:
-        return "The at-large CFP field plotted by resume against model strength."
+        return "The at-large CFP field plotted by résumé against model strength."
     anchor_row = next((r for r in rows if r.get("slug") == anchor), None)
     if not anchor_row:
         return "Anchor team not in the CFP at-large field this snapshot."
-    x = anchor_row.get("x", 0.5)
-    y = anchor_row.get("y", 0.5)
+    x = float(anchor_row.get("x", 0.5))
+    y = float(anchor_row.get("y", 0.5))
     name = anchor_row.get("label") or anchor
     if x > 0.65 and y > 0.65:
         return f"{name} clears both the committee case and the model — in the bracket on every read."
     if x < 0.4 and y > 0.65:
-        return f"{name} models like a contender but the resume is sitting near the cut line."
+        return f"{name} models like a contender but the résumé is sitting near the cut line."
     if x > 0.65 and y < 0.4:
-        return f"{name} has the resume the committee wants — the model says it might be borrowed."
+        return f"{name} has the résumé the committee wants — the model says it might be borrowed."
     return f"{name} sits in the bubble zone where one bad result tips the bracket either way."
 
 
@@ -203,7 +168,7 @@ def _anchor_position_label(rows: list[dict], anchor: str) -> str:
     r = next((r for r in rows if r.get("slug") == anchor), None)
     if not r:
         return ""
-    return f"{r.get('label', anchor)}: resume {int(r.get('x', 0) * 100)}P, power {int(r.get('y', 0) * 100)}P"
+    return f"{r.get('label', anchor)}: résumé {int(float(r.get('x', 0)) * 100)}P, power {int(float(r.get('y', 0)) * 100)}P"
 
 
 # ---------------------------------------------------------------------------
@@ -211,44 +176,38 @@ def _anchor_position_label(rows: list[dict], anchor: str) -> str:
 # ---------------------------------------------------------------------------
 
 
-def render_talent_yield_curve(
-    query_result: dict[str, Any],
-    spec_meta: dict[str, Any] | None = None,
-) -> dict[str, Any]:
+def render_talent_yield_curve(query_result: dict[str, Any], spec_meta: dict[str, Any] | None = None) -> dict[str, Any]:
     rows = query_result.get("rows", [])
     summary = query_result.get("summary_stats", {})
     highlight_slug = summary.get("anchor_slug")
     season = summary.get("season_year", "")
-
+    conf = (query_result.get("confidence") or "unset")
     if not rows:
         return _empty_render("No talent / draft data for this snapshot.")
 
-    sr_title = (
-        f"Talent Yield Curve — {season}: recruiting talent rank vs draft-pick yield "
-        f"across FBS programs"
-    )
+    sr_title = (f"Talent Yield Curve — {season}: recruiting talent rank vs draft-pick yield "
+                f"across FBS programs")
     headline = _headline_for_talent_yield(rows, summary, highlight_slug)
+    anchor_row = next((r for r in rows if r.get("slug") == highlight_slug), None) if highlight_slug else None
+    name = (anchor_row or {}).get("label") or "FBS programs"
 
     annotations: list[Annotation] = []
-    if highlight_slug:
-        anchor_row = next((r for r in rows if r.get("slug") == highlight_slug), None)
-        if anchor_row:
-            annotations.append(Annotation(
-                target=highlight_slug,
-                text=f"{anchor_row.get('label', highlight_slug)} yield position",
-                reason="anchor team talent-to-draft yield",
-            ))
+    if anchor_row:
+        annotations.append(Annotation(target=highlight_slug,
+                                      text=f"{name} yield position",
+                                      reason="anchor team talent-to-draft yield"))
+        annotation = (f"▸ Talent {int(float(anchor_row.get('x', 0)) * 100)}th, draft yield "
+                      f"{int(float(anchor_row.get('y', 0)) * 100)}th among {len(rows)} programs.")
+    else:
+        annotation = f"▸ Recruit talent vs draft yield across {len(rows)} FBS programs."
 
+    receipt = (f"Source: CFB Index — recruit talent vs draft-pick yield · {season} · "
+               f"{len(rows)} programs · {conf} confidence")
     return _render_scatter_core(
-        rows,
-        title="Talent Yield Curve",
-        subtitle=f"{season}: recruit talent percentile vs draft-pick yield",
-        x_label="Recruit talent percentile",
-        y_label="Draft yield percentile",
-        highlight_slug=highlight_slug,
-        sr_title=sr_title,
-        headline_finding=headline,
-        annotations=annotations,
+        rows, eyebrow=f"{name.upper()}  ·  TALENT YIELD", headline=headline,
+        x_label="Recruit talent (percentile)", y_label="Draft yield (percentile)",
+        highlight_slug=highlight_slug, sr_title=sr_title, annotation=annotation,
+        receipt=receipt, annotations=annotations,
     )
 
 
@@ -258,8 +217,8 @@ def _headline_for_talent_yield(rows: list[dict], summary: dict, anchor: str | No
     anchor_row = next((r for r in rows if r.get("slug") == anchor), None)
     if not anchor_row:
         return "Anchor program has no draft-yield snapshot for this window."
-    x = anchor_row.get("x", 0.5)
-    y = anchor_row.get("y", 0.5)
+    x = float(anchor_row.get("x", 0.5))
+    y = float(anchor_row.get("y", 0.5))
     name = anchor_row.get("label") or anchor
     if y > x + 0.15:
         return f"{name} converts recruit talent into draft picks better than its class rank suggests."
@@ -270,7 +229,8 @@ def _headline_for_talent_yield(rows: list[dict], summary: dict, anchor: str | No
 
 def _empty_render(msg: str) -> dict[str, Any]:
     return {
-        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
+        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" '
+                    f'font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
         "headline_finding": msg,
         "annotations": [],
         "alt_text": msg,

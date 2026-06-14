@@ -58,6 +58,9 @@ class VisualId(str, Enum):
     RETURNING_PRODUCTION_XRAY = "returning_production_xray"
     HEISMAN_RACE_BRAID = "heisman_race_braid"
     ROSTER_REPLACEMENT_GRID = "roster_replacement_grid"
+    FAN_MOOD_BRAID = "fan_mood_braid"  # belief vs model — the Phantom Delta (design-system 73/77)
+    HOME_AWAY_MIND = "home_away_mind"  # fan vs national sentiment — the Belonging Gap (design-system 73)
+    PERCEPTION_VS_TAPE = "perception_vs_tape"  # player hype vs production — quadrant scatter (design-system 73/76)
     # Deferred to subsequent waves:
     CFP_BUBBLE_WALL = "cfp_bubble_wall"
     MARKET_VS_MODEL_BOARD = "market_vs_model_board"

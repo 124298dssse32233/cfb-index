@@ -58,6 +58,9 @@ def score_clarity(headline: str) -> float:
 def score_fan_relevance(spec: VisualSpec) -> float:
     """Rule-engine proxy: known high-impact modules get a relevance boost."""
     high_impact = {
+        "fan_mood_braid",
+        "home_away_mind",
+        "perception_vs_tape",
         "statement_win_ladder",
         "heisman_race_braid",
         "cfp_bubble_wall",

@@ -18,6 +18,11 @@
  * display face the brief calls for. display=swap prevents FOIT. */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100..900&display=swap');
+/* 2026-06-14: same bug as the Bebas note above — --font-serif (Source Serif Pro),
+ * --font-sans (Inter) and the IBM Plex Mono receipts were declared/used across the
+ * team page (and the Chronicle visuals) but NEVER loaded, so all serif/sans/mono
+ * text silently fell back to Georgia/system. Load them. display=swap prevents FOIT. */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 
 :root {

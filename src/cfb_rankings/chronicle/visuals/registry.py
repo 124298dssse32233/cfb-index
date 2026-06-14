@@ -9,7 +9,7 @@ from typing import Callable
 
 from .models import VisualId, ChartFamily
 from . import queries
-from .families import ladder, waterfall, braid, tilemosaic, scatter, conveyor, signals
+from .families import ladder, waterfall, braid, tilemosaic, scatter, conveyor, signals, mood, perception
 
 
 # Each entry: (chart_family, query_fn, renderer_fn)
@@ -33,6 +33,16 @@ _REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
         ChartFamily.TILE_MOSAIC,
         queries.query_roster_replacement_grid,
         tilemosaic.render_roster_replacement_grid,
+    ),
+    VisualId.FAN_MOOD_BRAID: (
+        ChartFamily.ANNOTATED_SCATTER,  # belief-vs-model diagonal scatter across the field
+        queries.query_fan_mood_braid,
+        mood.render_fan_mood_braid,
+    ),
+    VisualId.HOME_AWAY_MIND: (
+        ChartFamily.RANGE_PLOT,  # dumbbell (fanbase vs national sentiment)
+        queries.query_home_away_mind,
+        mood.render_home_away_mind,
     ),
     VisualId.CFP_BUBBLE_WALL: (
         ChartFamily.ANNOTATED_SCATTER,
@@ -62,6 +72,22 @@ _REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
 }
 
 
+# PLAYER-keyed visuals live in their own registry so the TEAM pipeline
+# (generate_visuals_for_team, which iterates list_registered_visuals with team
+# slugs) never tries to render them. generate_visuals_for_player iterates this
+# one. Lookups (get_query_function/etc.) span both via _ALL — visual_ids are
+# globally unique, so the merge is safe.
+_PLAYER_REGISTRY: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {
+    VisualId.PERCEPTION_VS_TAPE: (
+        ChartFamily.ANNOTATED_SCATTER,
+        queries.query_perception_vs_tape,
+        perception.render_perception_vs_tape,
+    ),
+}
+
+_ALL: dict[VisualId, tuple[ChartFamily, Callable, Callable]] = {**_REGISTRY, **_PLAYER_REGISTRY}
+
+
 # Posture: which visuals are forward-looking PREVIEW content vs backward
 # RETROSPECTIVE recaps. In the offseason (mid-year) the preview set leads and
 # queries the latest forward-data season; the retrospective set is labeled
@@ -71,6 +97,9 @@ PREVIEW = "preview"
 RETROSPECTIVE = "retrospective"
 
 VISUAL_POSTURE: dict[VisualId, str] = {
+    VisualId.FAN_MOOD_BRAID: PREVIEW,  # belief lives in the current (preview) season
+    VisualId.HOME_AWAY_MIND: PREVIEW,
+    VisualId.PERCEPTION_VS_TAPE: PREVIEW,  # hype = current season; tape = prior season (in query)
     VisualId.RETURNING_PRODUCTION_XRAY: PREVIEW,
     VisualId.CONTINUITY_STRESS_TEST: PREVIEW,
     VisualId.ROSTER_REPLACEMENT_GRID: PREVIEW,
@@ -84,6 +113,8 @@ VISUAL_POSTURE: dict[VisualId, str] = {
 
 # Display order within each posture group (lower sorts first).
 VISUAL_DISPLAY_ORDER: dict[VisualId, int] = {
+    VisualId.FAN_MOOD_BRAID: -2,  # the belief lead — sorts first
+    VisualId.HOME_AWAY_MIND: -1,
     VisualId.RETURNING_PRODUCTION_XRAY: 0,
     VisualId.CONTINUITY_STRESS_TEST: 1,
     VisualId.ROSTER_REPLACEMENT_GRID: 2,
@@ -109,16 +140,22 @@ def posture_for_id(visual_id_str: str) -> str:
 
 
 def list_registered_visuals() -> list[VisualId]:
+    """Team-keyed visuals (what the team pipeline iterates). Unchanged on purpose."""
     return list(_REGISTRY.keys())
 
 
+def list_registered_player_visuals() -> list[VisualId]:
+    """Player-keyed visuals (what generate_visuals_for_player iterates)."""
+    return list(_PLAYER_REGISTRY.keys())
+
+
 def get_query_function(visual_id: VisualId) -> Callable:
-    return _REGISTRY[visual_id][1]
+    return _ALL[visual_id][1]
 
 
 def get_renderer_function(visual_id: VisualId) -> Callable:
-    return _REGISTRY[visual_id][2]
+    return _ALL[visual_id][2]
 
 
 def get_chart_family(visual_id: VisualId) -> ChartFamily:
-    return _REGISTRY[visual_id][0]
+    return _ALL[visual_id][0]

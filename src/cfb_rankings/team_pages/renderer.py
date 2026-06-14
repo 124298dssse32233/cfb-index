@@ -1921,6 +1921,17 @@ CHRONICLE_VISUALS_CSS = """
   padding-top: var(--sp-6, 24px);
   border-top: 1px solid var(--border, rgba(0,0,0,0.1));
 }
+/* Shared data-point tooltip (works on hover, touch, and keyboard focus). The
+   inline-SVG <title> is the zero-JS fallback; this is the enhanced layer. */
+.chronicle-visuals .cv-tip {
+  position: fixed; z-index: 60; pointer-events: none; opacity: 0;
+  transition: opacity .12s ease; transform: translateZ(0);
+  background: #101418; color: #EDE6D6;
+  font: 500 12px/1.45 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  padding: 6px 9px; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,.28);
+  max-width: 260px;
+}
+@media (prefers-reduced-motion: reduce) { .chronicle-visuals .cv-tip { transition: none; } }
 .chronicle-visuals__header {
   display: flex;
   align-items: baseline;
@@ -2041,7 +2052,26 @@ def _render_chronicle_visuals_section(
   <div class="chronicle-visuals__grid">
     {grid_html}
   </div>
+  <div class="cv-tip" role="status" aria-live="polite"></div>
+  <script>{CHRONICLE_VISUALS_TOOLTIP_JS}</script>
 </section>"""
+
+
+# Shared data-point tooltip: enhances any element carrying a `data-tip` (the
+# grammar's interactive dots) with hover/touch/keyboard tooltips. Pointer events
+# cover mouse + touch + pen; the inline-SVG <title> remains the no-JS fallback.
+CHRONICLE_VISUALS_TOOLTIP_JS = """
+(function(){var s=document.currentScript&&document.currentScript.closest('.chronicle-visuals');if(!s)return;
+var t=s.querySelector('.cv-tip');if(!t)return;
+function show(el){var v=el.getAttribute('data-tip');if(!v)return;t.textContent=v;t.style.opacity='1';}
+function hide(){t.style.opacity='0';}
+function at(x,y){t.style.left=Math.min(x+12,window.innerWidth-t.offsetWidth-8)+'px';t.style.top=(y+14)+'px';}
+s.addEventListener('pointerover',function(e){var d=e.target.closest('[data-tip]');if(d){show(d);at(e.clientX,e.clientY);}});
+s.addEventListener('pointermove',function(e){if(e.target.closest('[data-tip]'))at(e.clientX,e.clientY);});
+s.addEventListener('pointerout',function(e){if(e.target.closest('[data-tip]'))hide();});
+s.addEventListener('focusin',function(e){var d=e.target.closest('[data-tip]');if(d){var r=d.getBoundingClientRect();show(d);at(r.right,r.top);}});
+s.addEventListener('focusout',hide);})();
+"""
 
 
 def _render_visual_card(card: dict[str, Any]) -> str:

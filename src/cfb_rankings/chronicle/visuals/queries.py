@@ -1029,3 +1029,409 @@ def _empty_result(query_id: str, source_tables: list[str], reason: str) -> dict[
         "limitations": [reason],
         "as_of_utc": _now_utc(),
     }
+
+
+# ---------------------------------------------------------------------------
+# Query: Fan Mood Braid — the Phantom Delta (belief vs the model)
+# ---------------------------------------------------------------------------
+#
+# The honest single-snapshot form (design-system 73 §2.4 / 77): where dense
+# weekly belief history does not yet exist, render the latest full-cohort
+# snapshot as a dumbbell. Belief = backometer_weekly.score; reality =
+# power_ratings_weekly.power_rating. BOTH percentile-ranked within the SAME
+# cohort (teams carrying both signals) so the gap is apples-to-apples. Every
+# value is SQL-sourced; the renderer invents nothing.
+# ---------------------------------------------------------------------------
+
+
+def query_fan_mood_braid(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,
+) -> dict[str, Any]:
+    query_id = "fan_mood_braid_v1"
+    source_tables = ["backometer_weekly", "power_ratings_weekly", "teams"]
+
+    team_id = _team_id_for_slug(db, slug)
+    if team_id is None:
+        return _empty_result(query_id, source_tables, "team slug not found")
+
+    # Latest broad belief snapshot week for the season.
+    bw = _query_one(
+        db,
+        "SELECT MAX(week) AS w FROM backometer_weekly WHERE season_year = :sy",
+        {"sy": season_year},
+    )
+    belief_week = (bw or {}).get("w")
+    if belief_week is None:
+        return _empty_result(query_id, source_tables, "no backometer snapshot for season")
+
+    belief_rows = _query_all(
+        db,
+        """
+        SELECT team_id, score, zone, delta_wow, sample_size, is_low_signal, is_offseason
+        FROM backometer_weekly
+        WHERE season_year = :sy AND week = :w AND score IS NOT NULL
+        """,
+        {"sy": season_year, "w": belief_week},
+    )
+    me_belief = next((r for r in belief_rows if r["team_id"] == team_id), None)
+    if me_belief is None:
+        return _empty_result(query_id, source_tables, "team has no belief snapshot this week")
+
+    # Latest model snapshot week.
+    pw = _query_one(
+        db,
+        "SELECT MAX(week) AS w FROM power_ratings_weekly WHERE season_year = :sy",
+        {"sy": season_year},
+    )
+    power_week = (pw or {}).get("w")
+    if power_week is None:
+        return _empty_result(query_id, source_tables, "no power ratings for season")
+
+    power_rows = _query_all(
+        db,
+        """
+        SELECT team_id, power_rating
+        FROM power_ratings_weekly
+        WHERE season_year = :sy AND week = :w AND power_rating IS NOT NULL
+        """,
+        {"sy": season_year, "w": power_week},
+    )
+    power_by_team = {r["team_id"]: r["power_rating"] for r in power_rows}
+
+    # Cohort = teams present in BOTH signals (fair, apples-to-apples ranking).
+    belief_by_team = {
+        r["team_id"]: r["score"] for r in belief_rows if r["team_id"] in power_by_team
+    }
+    if team_id not in belief_by_team:
+        return _empty_result(query_id, source_tables, "team missing a model rating this week")
+    n = len(belief_by_team)
+    if n < 8:
+        return _empty_result(query_id, source_tables, "cohort too small for a fair percentile")
+
+    belief_scores = sorted(belief_by_team.values())
+    power_scores = sorted(power_by_team[t] for t in belief_by_team)
+
+    def pctile(sorted_vals: list[float], v: float) -> int:
+        i = sum(1 for x in sorted_vals if x <= v)
+        return int(round(100.0 * (i - 0.5) / len(sorted_vals)))
+
+    my_belief = belief_by_team[team_id]
+    my_power = power_by_team[team_id]
+    belief_pctile = pctile(belief_scores, my_belief)
+    model_pctile = pctile(power_scores, my_power)
+
+    # Ranks within the cohort (1 = highest).
+    belief_rank = 1 + sum(1 for v in belief_by_team.values() if v > my_belief)
+    model_rank = 1 + sum(1 for t, v in power_by_team.items() if t in belief_by_team and v > my_power)
+    spots = model_rank - belief_rank  # + => fans rank the team higher than the model does
+    phantom_delta = belief_pctile - model_pctile  # signed percentile-point gap
+    # Cohort context (answers "is this gap big?"): rank the subject's
+    # belief-minus-model gap against every team's. 1 = widest fans-over-model.
+    all_gaps = [pctile(belief_scores, belief_by_team[t]) - pctile(power_scores, power_by_team[t])
+                for t in belief_by_team]
+    gap_rank = 1 + sum(1 for g in all_gaps if g > phantom_delta)
+
+    is_low = bool(me_belief.get("is_low_signal")) or (me_belief.get("sample_size") or 0) < 200
+    # Belief honesty floor (design-system 73 §3): a thin or low-signal belief
+    # reading cannot anchor a confident belief-vs-model claim. Suppress rather
+    # than amplify offseason noise into a manufactured saga.
+    if is_low:
+        return _empty_result(
+            query_id, source_tables,
+            "belief below honesty floor (low-signal or thin sample) — suppressed",
+        )
+    # Offseason gate (owner decision 2026-06-13): the offseason belief snapshot
+    # is compressed (mood regresses toward the mean), so cross-team percentile
+    # amplifies small gaps into false drama. Suppress the belief family until
+    # in-season, where belief diverges meaningfully and volume rises. The gate
+    # is self-clearing: when is_offseason flips to 0, the family activates.
+    is_offseason = bool(me_belief.get("is_offseason"))
+    if is_offseason:
+        return _empty_result(
+            query_id, source_tables,
+            "offseason belief distribution too compressed for a fair percentile — activates in-season",
+        )
+    confidence = "high" if (me_belief.get("sample_size") or 0) >= 300 else "medium"
+
+    name = _team_name_for_id(db, team_id)
+    zone = (me_belief.get("zone") or "").replace("_", " ")
+
+    # Full cohort points for the diagonal scatter (belief x, model y). Each
+    # team is a faint field dot; the subject + the two extremes (most delusion =
+    # widest fans-over-model, most paranoia = widest model-over-fans) get labels.
+    points = []
+    for t in belief_by_team:
+        bpt = pctile(belief_scores, belief_by_team[t])
+        mpt = pctile(power_scores, power_by_team[t])
+        points.append({"team_id": t, "belief": bpt, "model": mpt, "gap": bpt - mpt})
+    delusion_x = max(points, key=lambda p: p["gap"])["team_id"]
+    paranoia_x = min(points, key=lambda p: p["gap"])["team_id"]
+    label_ids = {team_id, delusion_x, paranoia_x}
+    name_rows = _query_all(
+        db,
+        f"SELECT team_id, canonical_name FROM teams WHERE team_id IN ({','.join(str(int(i)) for i in label_ids)})",
+    )
+    names = {r["team_id"]: r["canonical_name"] for r in name_rows}
+    rows = []
+    for p in points:
+        rows.append({
+            "belief": p["belief"], "model": p["model"], "gap": p["gap"],
+            "subject": p["team_id"] == team_id,
+            "label": names.get(p["team_id"]) if p["team_id"] in label_ids else None,
+        })
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": rows,
+        "summary_stats": {
+            "team_id": team_id,
+            "team_name": name,
+            "season_year": season_year,
+            "belief_week": belief_week,
+            "power_week": power_week,
+            "n_cohort": n,
+            "is_offseason": is_offseason,
+            "belief_pctile": belief_pctile,
+            "model_pctile": model_pctile,
+            "phantom_delta": phantom_delta,
+            "net_movement": phantom_delta,
+            "gap_rank": gap_rank,
+            "spots": spots,
+            "zone": zone,
+            "delta_wow": me_belief.get("delta_wow"),
+            "sample_size": me_belief.get("sample_size"),
+        },
+        "sample_n": int(me_belief.get("sample_size") or 0),
+        "confidence": confidence,
+        "limitations": (["offseason snapshot — low fan-discourse volume"] if is_low else []),
+        "as_of_utc": _now_utc(),
+    }
+
+
+def _season_is_offseason(db: Any, season_year: int) -> bool:
+    """True when the latest belief snapshot for the season is offseason-flagged.
+    Shared offseason gate for the belief family (owner decision 2026-06-13)."""
+    r = _query_one(
+        db,
+        "SELECT is_offseason FROM backometer_weekly WHERE season_year = :sy ORDER BY week DESC LIMIT 1",
+        {"sy": season_year},
+    )
+    return bool(r and r.get("is_offseason"))
+
+
+# ---------------------------------------------------------------------------
+# Query: Home/Away Mind — the Belonging Gap (fan vs national net sentiment)
+# ---------------------------------------------------------------------------
+#
+# The proprietary audience-tagged moat: how a fanbase feels vs how the nation
+# talks. belonging_gap = fan_net - national_net (positive = grievance fuel,
+# "the world doubts us, we don't"; negative = "even we've cooled"). Suppressed
+# in the offseason (thin national discourse) — activates in-season.
+# ---------------------------------------------------------------------------
+
+
+def query_home_away_mind(
+    db: Any,
+    *,
+    slug: str,
+    season_year: int,
+    week_number: int | None = None,
+) -> dict[str, Any]:
+    query_id = "home_away_mind_v1"
+    source_tables = ["team_week_conversation_features", "teams"]
+
+    team_id = _team_id_for_slug(db, slug)
+    if team_id is None:
+        return _empty_result(query_id, source_tables, "team slug not found")
+    if _season_is_offseason(db, season_year):
+        return _empty_result(query_id, source_tables,
+                             "offseason fan-vs-national discourse too thin — activates in-season")
+
+    rows = _query_all(
+        db,
+        """
+        SELECT week, audience_bucket, mention_count, unique_author_count, net_sentiment_score
+        FROM team_week_conversation_features
+        WHERE season_year = :sy AND team_id = :tid
+        ORDER BY week DESC
+        """,
+        {"sy": season_year, "tid": team_id},
+    )
+    by_week: dict[int, dict[str, dict]] = {}
+    for r in rows:
+        by_week.setdefault(r["week"], {})[r["audience_bucket"]] = r
+
+    target = None
+    for wk in sorted(by_week, reverse=True):
+        d = by_week[wk]
+        if "fan" in d and "national" in d:
+            target = (wk, d)
+            break
+    if target is None:
+        return _empty_result(query_id, source_tables, "no week with both fan and national discourse")
+
+    wk, d = target
+    fan, nat = d["fan"], d["national"]
+    MIN_MENTIONS = 40
+    if (fan.get("mention_count") or 0) < MIN_MENTIONS or (nat.get("mention_count") or 0) < MIN_MENTIONS:
+        return _empty_result(query_id, source_tables, "fan/national volume below floor")
+
+    fan_net = float(fan.get("net_sentiment_score") or 0.0)
+    nat_net = float(nat.get("net_sentiment_score") or 0.0)
+    gap = fan_net - nat_net
+    nf = int(fan.get("mention_count") or 0)
+    nn = int(nat.get("mention_count") or 0)
+    confidence = "high" if min(nf, nn) >= 150 else "medium"
+    name = _team_name_for_id(db, team_id)
+
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": [
+            {"key": "fan", "label": "Your fanbase", "net": fan_net, "n": nf},
+            {"key": "national", "label": "The nation", "net": nat_net, "n": nn},
+        ],
+        "summary_stats": {
+            "team_id": team_id,
+            "team_name": name,
+            "season_year": season_year,
+            "week": wk,
+            "fan_net": fan_net,
+            "national_net": nat_net,
+            "belonging_gap": gap,
+            "net_movement": gap,
+            "n_fan": nf,
+            "n_national": nn,
+        },
+        "sample_n": nf,
+        "confidence": confidence,
+        "limitations": [],
+        "as_of_utc": _now_utc(),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Query: Perception vs the Tape — player hype vs production (quadrant scatter)
+# ---------------------------------------------------------------------------
+#
+# The player Phantom Delta and the Noir perception-vs-tape moat. X = hype
+# (2025 mention volume) percentile; Y = production (prior-season wEPA)
+# percentile — both ranked within the player's POSITION cohort so the axes are
+# fair. The quadrant (median crosshairs) is the finding: producing-but-unhyped
+# (underrated) vs hyped-but-unproven (overhyped). All values SQL-sourced.
+# ---------------------------------------------------------------------------
+
+
+def _resolve_player_id(db: Any, slug: str | None, player_id: int | None) -> int | None:
+    if player_id is not None:
+        return player_id
+    if not slug:
+        return None
+    tail = slug.rsplit("-", 1)[-1]
+    if tail.isdigit():
+        return int(tail)
+    r = _query_one(db, "SELECT player_id FROM players WHERE LOWER(full_name) = LOWER(:n)",
+                   {"n": slug.replace("-", " ")})
+    return r["player_id"] if r else None
+
+
+def query_perception_vs_tape(
+    db: Any,
+    *,
+    slug: str | None = None,
+    player_id: int | None = None,
+    season_year: int,
+    week_number: int | None = None,
+) -> dict[str, Any]:
+    query_id = "perception_vs_tape_v1"
+    source_tables = ["player_week_conversation_features", "player_value_metrics", "players"]
+
+    pid = _resolve_player_id(db, slug, player_id)
+    if pid is None:
+        return _empty_result(query_id, source_tables, "player not resolved")
+    prow = _query_one(db, "SELECT full_name, position FROM players WHERE player_id = :p", {"p": pid})
+    if not prow:
+        return _empty_result(query_id, source_tables, "player not found")
+    position = (prow.get("position") or "").strip()
+    metric = "wepa_passing" if position.upper() == "QB" else "wepa_rushing"
+    prod_season = season_year - 1  # the completed-season "tape"
+
+    rows = _query_all(
+        db,
+        """
+        WITH hype AS (
+            SELECT player_id, SUM(mention_count) AS m
+            FROM player_week_conversation_features
+            WHERE season_year = :sy GROUP BY player_id
+        ),
+        prod AS (
+            SELECT player_id, metric_value AS v
+            FROM player_value_metrics
+            WHERE season_year = :psy AND metric_name = :mn
+        )
+        SELECT pl.player_id, pl.full_name, h.m AS hype, pr.v AS prod
+        FROM hype h
+        JOIN prod pr ON pr.player_id = h.player_id
+        JOIN players pl ON pl.player_id = h.player_id
+        WHERE pl.position = :pos AND h.m > 0
+        """,
+        {"sy": season_year, "psy": prod_season, "mn": metric, "pos": position},
+    )
+    if len(rows) < 12:
+        return _empty_result(query_id, source_tables, "position cohort too small for a fair scatter")
+    me = next((r for r in rows if r["player_id"] == pid), None)
+    if me is None:
+        return _empty_result(query_id, source_tables, "player missing hype or production")
+
+    hype_sorted = sorted(r["hype"] for r in rows)
+    prod_sorted = sorted(r["prod"] for r in rows)
+    n = len(rows)
+
+    def pct(sorted_vals: list[float], v: float) -> int:
+        i = sum(1 for x in sorted_vals if x <= v)
+        return int(round(100.0 * (i - 0.5) / len(sorted_vals)))
+
+    # Peer labels: the most-hyped and the most-productive (besides the subject).
+    peer_ids = {max(rows, key=lambda r: r["hype"])["player_id"],
+                max(rows, key=lambda r: r["prod"])["player_id"]} - {pid}
+
+    points = [{
+        "x": pct(hype_sorted, r["hype"]),
+        "y": pct(prod_sorted, r["prod"]),
+        "name": r["full_name"],
+        "subject": r["player_id"] == pid,
+        "peer": r["player_id"] in peer_ids,
+    } for r in rows]
+
+    hx, py_ = pct(hype_sorted, me["hype"]), pct(prod_sorted, me["prod"])
+    quadrant = ("PROVEN" if hx >= 50 and py_ >= 50 else
+                "UNDERRATED" if hx < 50 and py_ >= 50 else
+                "OVERHYPED" if hx >= 50 and py_ < 50 else "OFF THE RADAR")
+
+    return {
+        "query_id": query_id,
+        "source_tables": source_tables,
+        "rows": points,
+        "summary_stats": {
+            "player_id": pid,
+            "player_name": prow["full_name"],
+            "position": position,
+            "metric": metric,
+            "season_year": season_year,
+            "prod_season": prod_season,
+            "n_cohort": n,
+            "hype_pctile": hx,
+            "prod_pctile": py_,
+            "quadrant": quadrant,
+            "net_movement": py_ - hx,  # +production over hype = underrated
+            "hype_mentions": int(me["hype"]),
+        },
+        "sample_n": int(me["hype"]),
+        "confidence": "high" if n >= 25 else "medium",
+        "limitations": [],
+        "as_of_utc": _now_utc(),
+    }

@@ -1,7 +1,11 @@
-"""Roster Replacement Grid — tile mosaic showing portal flow per position group.
+"""Roster Replacement Grid — diverging portal-flow tiles per position group.
 
-Each row = position; columns = (out, in). Tile width = count.
-Color encodes net direction (gold = net gain, navy = net loss).
+Migrated onto the Editorial Grammar (doc 77). A diverging tile/bar layout per
+diverging-bar best practice (web research 2026-06-14 — Domo "Divergent Bar
+Charts"; ChartGen): centre spine, out grows left / in grows right, diverging
+colour scheme (red out / green in), net delta on the right rail, interactive
+tiles. Keeps the talent-quality finding-headline (which room upgraded, where
+the hole is).
 """
 from __future__ import annotations
 
@@ -9,151 +13,88 @@ import html
 from typing import Any
 
 from ..models import Annotation
-from ..svg_helpers import (
-    svg_open,
-    svg_close,
-    text,
-    line,
-    rect,
-    circle,
-    join,
-    PALETTE_GOLD,
-    PALETTE_NAVY,
-    PALETTE_INK,
-    PALETTE_MUTED,
-    PALETTE_CREAM,
-)
+from ..svg_helpers import line
+from .grammar import editorial_card, cls_text, SANS, MONO, MUTED, INK, POS, NEG
+
+OUT_C = NEG   # players out (loss) — colour-blind-safe vermillion
+IN_C = POS    # players in (gain) — Okabe-Ito blue
 
 
-def render_roster_replacement_grid(
-    query_result: dict[str, Any],
-    spec_meta: dict[str, Any] | None = None,
-) -> dict[str, Any]:
+def render_roster_replacement_grid(query_result: dict[str, Any], spec_meta: dict[str, Any] | None = None) -> dict[str, Any]:
     rows = query_result.get("rows", [])
     summary = query_result.get("summary_stats", {})
-
     if not rows:
         return _empty_render("No portal activity recorded for this season.")
-
-    width = 600
-    row_h = 30
-    top_pad = 70
-    bottom_pad = 36
-    height = top_pad + bottom_pad + row_h * len(rows)
 
     season = summary.get("season_year", "")
     n_in = summary.get("total_incoming", 0)
     n_out = summary.get("total_outgoing", 0)
-    sr_title = f"Roster Replacement Grid — {season}: {n_in} in, {n_out} out across {len(rows)} positions"
+    headline = _headline_for_grid(rows, summary)
+    height = 152 + 30 * len(rows)
+    max_count = max([r["incoming_n"] for r in rows] + [r["outgoing_n"] for r in rows] + [1])
 
-    parts: list[str] = []
-    parts.append(svg_open(width, height, title=sr_title))
-    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
+    def draw(px, py, pw, ph):
+        tx0, tx1 = px + 58, px + pw - 56
+        mid = (tx0 + tx1) / 2
+        unit = (mid - tx0) / max(1, max_count)
+        n = len(rows)
+        head_h = 16
+        row_h = (ph - head_h) / n
+        out = [
+            line(mid, py + head_h, mid, py + ph, color=INK, width=1.0),
+            cls_text(mid - 6, py + 8, "OUT", "ed-ax", family=SANS, color=MUTED, anchor="end"),
+            cls_text(mid + 6, py + 8, "IN", "ed-ax", family=SANS, color=MUTED, anchor="start"),
+        ]
+        for i, r in enumerate(rows):
+            yc = py + head_h + row_h * i + row_h / 2
+            out.append(cls_text(px, yc + 4, r["position"], "ed-ax", family=SANS, color=INK, weight="700"))
+            ow = r["outgoing_n"] * unit
+            if ow > 0:
+                t = f"{r['position']}: {r['outgoing_n']} out"
+                out.append(f'<rect class="ed-dot" x="{mid - ow:.1f}" y="{yc - 8:.1f}" width="{ow:.1f}" '
+                           f'height="16" fill="{OUT_C}" opacity="0.82" tabindex="0" data-tip="{html.escape(t)}">'
+                           f'<title>{html.escape(t)}</title></rect>')
+                out.append(cls_text(mid - 6, yc + 4, str(r["outgoing_n"]), "ed-ptlabel", family=MONO,
+                                    color=INK, anchor="end"))
+            iw = r["incoming_n"] * unit
+            if iw > 0:
+                t = f"{r['position']}: {r['incoming_n']} in"
+                out.append(f'<rect class="ed-dot" x="{mid:.1f}" y="{yc - 8:.1f}" width="{iw:.1f}" '
+                           f'height="16" fill="{IN_C}" opacity="0.82" tabindex="0" data-tip="{html.escape(t)}">'
+                           f'<title>{html.escape(t)}</title></rect>')
+                out.append(cls_text(mid + 6, yc + 4, str(r["incoming_n"]), "ed-ptlabel", family=MONO, color=INK))
+            net = r["net_n"]
+            col = IN_C if net > 0 else (OUT_C if net < 0 else MUTED)
+            out.append(cls_text(px + pw, yc + 4, f"net {'+' if net > 0 else ''}{net}", "ed-ptlabel",
+                                family=MONO, color=col, anchor="end"))
+        return out
 
-    parts.append(text(20, 28, "Roster Replacement Grid", font_size=16, weight="700"))
-    parts.append(text(
-        20, 48,
-        f"{season} portal: {n_out} out · {n_in} in by position",
-        font_size=12, color=PALETTE_MUTED, italic=True,
-    ))
-
-    # Column layout
-    pos_x = 20
-    mid_x = width / 2
-    out_x_end = mid_x - 8
-    in_x_start = mid_x + 8
-    chart_right = width - 24
-
-    # Determine tile-width unit
-    max_count = max(
-        [r["incoming_n"] for r in rows] + [r["outgoing_n"] for r in rows] + [1]
-    )
-    out_width = mid_x - 80  # space from pos label to mid line
-    in_width = chart_right - in_x_start
-    unit_w = min(out_width, in_width) / max(1, max_count)
-
-    # Header row
-    parts.append(text(mid_x - 12, top_pad - 12, "OUT", font_size=10, color=PALETTE_MUTED, anchor="end"))
-    parts.append(text(mid_x + 12, top_pad - 12, "IN", font_size=10, color=PALETTE_MUTED, anchor="start"))
-    parts.append(line(mid_x, top_pad - 8, mid_x, top_pad + len(rows) * row_h + 4, color=PALETTE_INK, width=1.0))
-
-    for i, r in enumerate(rows):
-        y = top_pad + i * row_h
-        # Position label
-        parts.append(text(pos_x, y + 18, r["position"], font_size=12, weight="700"))
-        # OUT tile
-        out_w = r["outgoing_n"] * unit_w
-        if out_w > 0:
-            parts.append(rect(mid_x - out_w, y + 6, out_w, row_h - 12, fill=PALETTE_NAVY, opacity=0.82))
-            parts.append(text(
-                mid_x - 6, y + 18, str(r["outgoing_n"]),
-                font_size=11, color=PALETTE_INK, anchor="end", weight="700",
-                family="ui-monospace,Menlo,monospace",
-            ))
-        # IN tile
-        in_w = r["incoming_n"] * unit_w
-        if in_w > 0:
-            parts.append(rect(mid_x, y + 6, in_w, row_h - 12, fill=PALETTE_GOLD, opacity=0.82))
-            parts.append(text(
-                mid_x + 6, y + 18, str(r["incoming_n"]),
-                font_size=11, color=PALETTE_INK, weight="700",
-                family="ui-monospace,Menlo,monospace",
-            ))
-        # Net delta on right
-        net = r["net_n"]
-        sign = "+" if net > 0 else ""
-        net_color = PALETTE_GOLD if net > 0 else (PALETTE_NAVY if net < 0 else PALETTE_MUTED)
-        parts.append(text(
-            chart_right, y + 18, f"net {sign}{net}",
-            font_size=11, color=net_color, anchor="end",
-            family="ui-monospace,Menlo,monospace",
-        ))
-
-    # Footer — lead with the QUALITY story (talent upgraded / hole), which is
-    # what fans actually want post-portal, not just headcount.
     up_pos = summary.get("biggest_upgrade_pos")
     hole_pos = summary.get("biggest_hole_pos")
-    footer_bits = [f"Net movement: {summary.get('net_movement', 0):+d}"]
+    bits = [f"Net {summary.get('net_movement', 0):+d}"]
     if up_pos:
-        footer_bits.append(f"upgraded {up_pos}")
+        bits.append(f"upgraded {up_pos}")
     if hole_pos:
-        footer_bits.append(f"hole at {hole_pos}")
-    parts.append(text(
-        20, height - 12,
-        " · ".join(footer_bits),
-        font_size=11, color=PALETTE_MUTED, italic=True,
-    ))
-
-    parts.append(svg_close())
-    svg = join(parts)
-
-    headline = _headline_for_grid(rows, summary)
-    annotations: list[Annotation] = []
-    # Surface the biggest talent upgrade + the hidden hole (the underserved
-    # fan question per 2026-05-25 research).
-    if up_pos:
-        annotations.append(Annotation(
-            target=up_pos,
-            text=f"{up_pos}: biggest talent upgrade",
-            reason="highest net transfer-points gain by position",
-        ))
-    if hole_pos:
-        annotations.append(Annotation(
-            target=hole_pos,
-            text=f"{hole_pos}: biggest talent hole",
-            reason="largest net transfer-points loss by position",
-        ))
-
-    alt_text = (
-        f"Roster Replacement Grid for {season}: "
-        f"{n_out} players out and {n_in} in across {len(rows)} positions."
+        bits.append(f"hole at {hole_pos}")
+    conf = (query_result.get("confidence") or "unset")
+    receipt = (f"Source: CFB Index — transfer portal in/out by position (count) · {season} · "
+               f"{n_in} in / {n_out} out · {conf} confidence")
+    svg = editorial_card(
+        eyebrow=f"TRANSFER PORTAL  ·  {season}", headline=headline,
+        annotation="▸ " + " · ".join(bits) + ".", receipt=receipt,
+        title=f"Roster Replacement Grid — {season}: {n_in} in, {n_out} out across {len(rows)} positions",
+        draw_plot=draw, height=height,
     )
-
+    annotations: list[Annotation] = []
+    if up_pos:
+        annotations.append(Annotation(target=up_pos, text=f"{up_pos}: biggest talent upgrade",
+                                      reason="highest net transfer-points gain by position"))
+    if hole_pos:
+        annotations.append(Annotation(target=hole_pos, text=f"{hole_pos}: biggest talent hole",
+                                      reason="largest net transfer-points loss by position"))
     return {
-        "svg_html": svg,
-        "headline_finding": headline,
-        "annotations": annotations,
-        "alt_text": alt_text,
+        "svg_html": svg, "headline_finding": headline, "annotations": annotations,
+        "alt_text": f"Roster Replacement Grid {season}: {n_out} out and {n_in} in across {len(rows)} positions.",
     }
 
 
@@ -162,9 +103,6 @@ def _headline_for_grid(rows: list[dict], summary: dict) -> str:
     n_out = summary.get("total_outgoing", 0)
     if n_in == 0 and n_out == 0:
         return "No portal activity recorded for this season."
-
-    # Lead with the talent-QUALITY story (what fans actually argue about
-    # post-portal): which room got better, where the hidden hole is.
     up_pos = summary.get("biggest_upgrade_pos")
     hole_pos = summary.get("biggest_hole_pos")
     if up_pos and hole_pos:
@@ -173,26 +111,23 @@ def _headline_for_grid(rows: list[dict], summary: dict) -> str:
         return f"The portal's biggest win was at {up_pos} — the room got better on paper."
     if hole_pos:
         return f"The portal left a hole at {hole_pos} the roster still has to answer."
-
-    # Fall back to count-based language when talent signal is flat.
     net = summary.get("net_movement", 0)
     biggest = max(rows, key=lambda r: abs(r["net_n"])) if rows else None
     if biggest and abs(biggest["net_n"]) >= 3:
         direction = "added" if biggest["net_n"] > 0 else "lost"
-        return (
-            f"The portal {direction} {abs(biggest['net_n'])} net "
-            f"{biggest['position']}s — the season's biggest positional swing."
-        )
+        return (f"The portal {direction} {abs(biggest['net_n'])} net {biggest['position']}s — "
+                f"the season's biggest positional swing.")
     if net > 0:
-        return f"Portal nets {net:+d} bodies across {len(rows)} positions."
+        return f"The portal nets {net:+d} bodies across {len(rows)} positions."
     if net < 0:
-        return f"Portal sheds {abs(net)} net bodies across {len(rows)} positions."
-    return f"Portal in/out balance flat at {n_in}/{n_out}."
+        return f"The portal sheds {abs(net)} net bodies across {len(rows)} positions."
+    return f"Portal in/out balance is flat at {n_in} in, {n_out} out."
 
 
 def _empty_render(msg: str) -> dict[str, Any]:
     return {
-        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
+        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" '
+                    f'font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
         "headline_finding": msg,
         "annotations": [],
         "alt_text": msg,

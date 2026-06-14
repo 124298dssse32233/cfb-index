@@ -75,6 +75,7 @@ from .registry import (
 )
 from .pipeline import (
     generate_visuals_for_team,
+    generate_visuals_for_player,
     generate_all_visuals,
 )
 from .cache import (
@@ -99,6 +100,7 @@ __all__ = [
     "get_query_function",
     "get_renderer_function",
     "generate_visuals_for_team",
+    "generate_visuals_for_player",
     "generate_all_visuals",
     "fetch_visual_cards",
     "store_visual",

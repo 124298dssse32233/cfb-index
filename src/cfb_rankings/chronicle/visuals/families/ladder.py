@@ -1,10 +1,10 @@
-"""Statement Win Ladder — dot/range plot showing which wins moved the resume most.
+"""Statement Win Ladder — diverging bars: which results moved the résumé most.
 
-CFB Index visual design:
-    - X axis: total_delta (power + resume delta)
-    - Y axis: ordered list of games (top = biggest impact)
-    - Each row: result label (W 27-10), opponent name, value bar, delta value
-    - Highlighted dot = the one win that moved the season the most
+Migrated onto the Editorial Grammar (doc 77). Diverging-bar best practice (web
+research 2026-06-14 — Domo "Divergent Bar Charts"; ChartGen diverging-bar
+guide): a centre zero spine, colour by sign, sort by value (the query orders by
+impact), direct value labels. Ours conformed on migration; the single biggest
+mover is additionally highlighted with a halo, now on the shared chrome.
 """
 from __future__ import annotations
 
@@ -12,150 +12,75 @@ import html
 from typing import Any
 
 from ..models import Annotation
-from ..svg_helpers import (
-    svg_open,
-    svg_close,
-    text,
-    line,
-    rect,
-    circle,
-    join,
-    PALETTE_GOLD,
-    PALETTE_NAVY,
-    PALETTE_INK,
-    PALETTE_MUTED,
-    PALETTE_CREAM,
-)
+from ..svg_helpers import line, rect
+from .grammar import editorial_card, cls_text, dot, VIOLET, SANS, MONO, MUTED, INK, CREAM, POS, NEG
+
+UP = POS    # colour-blind-safe (Okabe-Ito blue)
+DOWN = NEG  # vermillion
 
 
-def render_statement_win_ladder(
-    query_result: dict[str, Any],
-    spec_meta: dict[str, Any] | None = None,
-) -> dict[str, Any]:
+def render_statement_win_ladder(query_result: dict[str, Any], spec_meta: dict[str, Any] | None = None) -> dict[str, Any]:
     rows = query_result.get("rows", [])
     summary = query_result.get("summary_stats", {})
-
     if not rows:
         return _empty_render("No completed games yet.")
 
-    # Layout — mobile-first 360px native, scales up.
-    width = 600
-    row_h = 44
-    top_pad = 64
-    bottom_pad = 36
-    height = top_pad + bottom_pad + (row_h * len(rows))
-
-    # Headline finding gets generated next; build a placeholder for the title
-    # that the screen reader will hear ("Statement Win Ladder — <top result>").
-    sr_title = (
-        f"Statement Win Ladder — top result: {rows[0]['result_text']} vs "
-        f"{rows[0]['opponent_name']}"
-    )
-
-    parts: list[str] = []
-    parts.append(svg_open(width, height, title=sr_title))
-    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
-
-    # Title + caption row
-    parts.append(text(20, 28, "Statement Win Ladder", font_size=16, weight="700"))
-    parts.append(text(
-        20, 48,
-        f"Top {len(rows)} results by combined power + resume delta",
-        font_size=12, color=PALETTE_MUTED, italic=True,
-    ))
-
-    # Axis range
-    deltas = [r["total_delta"] for r in rows]
-    max_abs = max(abs(d) for d in deltas) if deltas else 1.0
-    if max_abs == 0:
-        max_abs = 1.0
-
-    chart_x0 = 200
-    chart_x1 = width - 80
-    chart_w = chart_x1 - chart_x0
-    zero_x = chart_x0 + chart_w * (0 - (-max_abs)) / (2 * max_abs)
-
-    # Zero line
-    parts.append(line(
-        zero_x, top_pad - 8, zero_x, height - bottom_pad + 4,
-        color=PALETTE_INK, width=1.0, dasharray="2,3",
-    ))
-
-    # Each row
-    for i, r in enumerate(rows):
-        y = top_pad + row_h * i + row_h / 2
-        d = r["total_delta"]
-        bar_w = (d / max_abs) * (chart_w / 2)
-        bar_x = zero_x if d >= 0 else zero_x + bar_w
-        bar_w_abs = abs(bar_w)
-
-        bar_color = PALETTE_GOLD if r.get("is_top_result") or r["is_win"] else PALETTE_MUTED
-        # Bar
-        parts.append(rect(bar_x, y - 8, bar_w_abs, 16, fill=bar_color, opacity=0.85))
-        # Dot at tip
-        parts.append(circle(
-            bar_x + bar_w_abs if d >= 0 else bar_x,
-            y,
-            5 if r.get("is_top_result") else 3.5,
-            fill=PALETTE_INK if r.get("is_top_result") else bar_color,
-        ))
-
-        # Result + opponent label (left rail) — `text()` already escapes; don't double-escape.
-        opponent_short = (r["opponent_name"] or "")[:18]
-        label_text = f"{r['result_text']}  vs {opponent_short}"
-        if r.get("is_top_result"):
-            parts.append(text(20, y + 5, label_text, font_size=13, weight="700"))
-        else:
-            parts.append(text(20, y + 5, label_text, font_size=12, color=PALETTE_INK))
-
-        # Delta value (right rail)
-        sign = "+" if d >= 0 else ""
-        parts.append(text(
-            width - 12, y + 5,
-            f"{sign}{d:.2f}",
-            font_size=12, color=PALETTE_INK, family="ui-monospace,Menlo,monospace",
-            anchor="end",
-        ))
-
-    # Caption
-    delta_spread = summary.get("delta_spread", 0)
-    if delta_spread > 0 and len(rows) > 1:
-        top_d = rows[0]["total_delta"]
-        rest_avg = sum(r["total_delta"] for r in rows[1:]) / max(1, len(rows) - 1)
-        ratio = top_d / max(0.001, rest_avg) if rest_avg > 0 else 0
-        if ratio >= 1.4:
-            parts.append(text(
-                20, height - 10,
-                f"Top result moved the resume {ratio:.1f}× the rest combined.",
-                font_size=11, color=PALETTE_MUTED, italic=True,
-            ))
-
-    parts.append(svg_close())
-    svg = join(parts)
-
-    # Headline finding generation (deterministic — no LLM)
     headline = _headline_for_ladder(rows, summary)
+    sr_title = f"Statement Win Ladder — top result: {rows[0]['result_text']} vs {rows[0]['opponent_name']}"
+    height = 152 + 32 * len(rows)
+    deltas = [float(r["total_delta"]) for r in rows]
+    max_abs = max((abs(d) for d in deltas), default=1.0) or 1.0
 
-    # Annotations
-    annotations: list[Annotation] = []
-    if rows and rows[0].get("is_top_result"):
-        annotations.append(Annotation(
-            target=rows[0]["opponent_slug"] or rows[0]["opponent_name"],
-            text=f"biggest mover ({rows[0]['result_text']})",
-            reason="top combined power+resume delta on the schedule",
-        ))
+    def draw(px, py, pw, ph):
+        n = len(rows)
+        row_h = ph / n
+        rail_l = px + 172
+        chart_x1 = px + pw - 52
+        chart_w = chart_x1 - rail_l
+        zero_x = rail_l + chart_w * 0.5
+        out = [line(zero_x, py, zero_x, py + ph, color=MUTED, width=1.0, dasharray="2,3")]
+        for i, r in enumerate(rows):
+            yc = py + row_h * i + row_h / 2
+            d = float(r["total_delta"])
+            bw = (d / max_abs) * (chart_w / 2)
+            bx = zero_x if d >= 0 else zero_x + bw
+            bwa = abs(bw)
+            is_top = bool(r.get("is_top_result"))
+            col = VIOLET if is_top else (UP if d >= 0 else DOWN)
+            opp = (r.get("opponent_name") or "")[:18]
+            lab = f"{r['result_text']}  vs {opp}"
+            out.append(cls_text(px, yc + 4, lab, "ed-ax" if not is_top else "ed-ptlabel",
+                                family=SANS, color=INK, weight="700" if is_top else "400"))
+            tip = f"{r['result_text']} vs {r.get('opponent_name', '')} — {d:+.2f} résumé impact"
+            out.append(f'<rect class="ed-dot" x="{bx:.1f}" y="{yc - 8:.1f}" width="{bwa:.1f}" '
+                       f'height="16" rx="2" fill="{col}" opacity="0.85" tabindex="0" '
+                       f'data-tip="{html.escape(tip)}"><title>{html.escape(tip)}</title></rect>')
+            if is_top:
+                tipx = bx + bwa if d >= 0 else bx
+                out.append(f'<circle cx="{tipx:.1f}" cy="{yc:.1f}" r="10" fill="{VIOLET}" opacity="0.14"/>')
+                out.append(dot(tipx, yc, 5.0, fill=VIOLET, stroke=CREAM, stroke_width=1.5, tip=tip))
+            out.append(cls_text(px + pw, yc + 4, f"{'+' if d >= 0 else ''}{d:.2f}", "ed-ptlabel",
+                                family=MONO, color=INK, anchor="end"))
+        return out
 
-    alt_text = (
-        f"Statement Win Ladder showing the top {len(rows)} games "
-        f"by power+resume delta. Largest mover: "
-        f"{rows[0]['result_text']} vs {rows[0]['opponent_name']} ({rows[0]['total_delta']:+.2f})."
+    conf = (query_result.get("confidence") or "unset")
+    receipt = (f"Source: CFB Index — results ranked by combined power + résumé impact · "
+               f"top {len(rows)} games · {conf} confidence")
+    svg = editorial_card(
+        eyebrow=f"STATEMENT WINS  ·  TOP {len(rows)} RESULTS", headline=headline,
+        annotation=f"▸ {rows[0]['result_text']} vs {rows[0]['opponent_name']} is the biggest mover.",
+        receipt=receipt, title=sr_title, draw_plot=draw, height=height,
     )
-
+    annotations: list[Annotation] = []
+    if rows[0].get("is_top_result"):
+        annotations.append(Annotation(target=rows[0].get("opponent_slug") or rows[0]["opponent_name"],
+                                      text=f"biggest mover ({rows[0]['result_text']})",
+                                      reason="top combined power+resume delta on the schedule"))
     return {
-        "svg_html": svg,
-        "headline_finding": headline,
-        "annotations": annotations,
-        "alt_text": alt_text,
+        "svg_html": svg, "headline_finding": headline, "annotations": annotations,
+        "alt_text": (f"Statement Win Ladder: top {len(rows)} games by power+résumé delta. "
+                     f"Largest mover {rows[0]['result_text']} vs {rows[0]['opponent_name']} "
+                     f"({float(rows[0]['total_delta']):+.2f})."),
     }
 
 
@@ -165,22 +90,19 @@ def _headline_for_ladder(rows: list[dict], summary: dict) -> str:
     top = rows[0]
     if len(rows) == 1:
         return f"{top['result_text']} vs {top['opponent_name']} is the season so far."
-    top_d = top["total_delta"]
-    rest_avg = sum(r["total_delta"] for r in rows[1:]) / (len(rows) - 1)
+    top_d = float(top["total_delta"])
+    rest_avg = sum(float(r["total_delta"]) for r in rows[1:]) / (len(rows) - 1)
     if rest_avg > 0 and top_d / max(0.001, rest_avg) >= 1.6:
-        return (
-            f"{top['result_text']} vs {top['opponent_name']} moved the resume "
-            f"more than the next {len(rows)-1} wins combined."
-        )
-    return (
-        f"{top['result_text']} vs {top['opponent_name']} leads the season's "
-        f"top {len(rows)} results by combined power and resume delta."
-    )
+        return (f"{top['result_text']} vs {top['opponent_name']} moved the résumé more than the "
+                f"next {len(rows) - 1} wins combined.")
+    return (f"{top['result_text']} vs {top['opponent_name']} leads the season's top {len(rows)} "
+            f"results by combined power and résumé delta.")
 
 
 def _empty_render(msg: str) -> dict[str, Any]:
     return {
-        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
+        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" '
+                    f'font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
         "headline_finding": msg,
         "annotations": [],
         "alt_text": msg,

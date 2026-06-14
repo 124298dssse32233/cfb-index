@@ -1,9 +1,10 @@
-"""Draft Pipeline Conveyor — draft capital lost by position + replacements.
+"""Draft Pipeline Conveyor — draft capital lost by position + portal answers.
 
-Horizontal bars of round-weighted draft capital lost per position group, with
-a first-rounder marker (gold) and the count of incoming portal replacements
-annotated on the right. Answers "who did the draft take, and who's left to
-replace them?" (research 2026-05-25, fan interest #10).
+Migrated onto the Editorial Grammar (doc 77). Horizontal capital bars per
+bar/lollipop best practice (web research 2026-06-14 — Domo "Lollipop Charts";
+3iap): zero baseline, descending by capital (query-ordered), direct tip labels,
+first-rounder highlighted, portal-replacement read on the right rail,
+interactive bars. Keeps the "who's exposed?" finding-headline.
 """
 from __future__ import annotations
 
@@ -11,117 +12,73 @@ import html
 from typing import Any
 
 from ..models import Annotation
-from ..svg_helpers import (
-    svg_open,
-    svg_close,
-    text,
-    line,
-    rect,
-    circle,
-    join,
-    PALETTE_GOLD,
-    PALETTE_NAVY,
-    PALETTE_INK,
-    PALETTE_MUTED,
-    PALETTE_CREAM,
-)
+from .grammar import editorial_card, cls_text, VIOLET, BLUE, SANS, MONO, MUTED, INK, NEG
+
+EXPOSED = NEG  # colour-blind-safe vermillion
 
 
-def render_draft_pipeline_conveyor(
-    query_result: dict[str, Any],
-    spec_meta: dict[str, Any] | None = None,
-) -> dict[str, Any]:
+def render_draft_pipeline_conveyor(query_result: dict[str, Any], spec_meta: dict[str, Any] | None = None) -> dict[str, Any]:
     rows = query_result.get("rows", [])
     summary = query_result.get("summary_stats", {})
-
     if not rows:
         return _empty_render("No NFL draft picks for this program.")
 
     draft_year = summary.get("draft_year", "")
-    width = 600
-    row_h = 38
-    top_pad = 64
-    bottom_pad = 34
-    height = top_pad + bottom_pad + row_h * len(rows)
-
-    parts: list[str] = []
-    sr_title = (
-        f"Draft Pipeline Conveyor — {draft_year} NFL draft capital lost by "
-        f"position, with portal replacements"
-    )
-    parts.append(svg_open(width, height, title=sr_title))
-    parts.append(rect(0, 0, width, height, fill=PALETTE_CREAM))
-
-    parts.append(text(20, 28, "Draft Pipeline Conveyor", font_size=16, weight="700"))
-    parts.append(text(
-        20, 48,
-        f"{draft_year} draft capital lost by position · portal replacements",
-        font_size=12, color=PALETTE_MUTED, italic=True,
-    ))
-
-    max_cap = max((r["capital"] for r in rows), default=1) or 1
-    bar_x0 = 70
-    bar_x1 = width - 150
-    bar_w = bar_x1 - bar_x0
-
-    for i, r in enumerate(rows):
-        y = top_pad + row_h * i + row_h / 2
-        cap = r["capital"]
-        w = (cap / max_cap) * bar_w
-        is_first = r.get("first_rounder")
-        color = PALETTE_GOLD if is_first else PALETTE_NAVY
-        # Position label
-        parts.append(text(20, y + 5, r["position"], font_size=13, weight="700"))
-        # Capital bar
-        parts.append(rect(bar_x0, y - 9, w, 18, fill=color, opacity=0.9))
-        # Picks count inside/after bar
-        parts.append(text(
-            bar_x0 + w + 6, y + 5,
-            f"{r['picks']} pick{'s' if r['picks'] != 1 else ''}",
-            font_size=11, color=PALETTE_INK, family="ui-monospace,Menlo,monospace",
-        ))
-        # Replacement annotation on the right rail
-        repl = r.get("incoming_replacements", 0)
-        if repl > 0:
-            repl_txt = f"+{repl} portal"
-            repl_color = PALETTE_INK
-        else:
-            repl_txt = "no portal repl"
-            repl_color = "#b3402f"  # exposed
-        parts.append(text(
-            width - 12, y + 5, repl_txt,
-            font_size=11, color=repl_color, anchor="end", italic=(repl == 0),
-        ))
-
-    # Footer
-    exposed = summary.get("exposed_position")
-    footer = f"{summary.get('total_picks', 0)} drafted · {summary.get('total_capital', 0)} capital units"
-    if exposed:
-        footer += f" · exposed at {exposed}"
-    parts.append(text(20, height - 10, footer, font_size=11, color=PALETTE_MUTED, italic=True))
-
-    parts.append(svg_close())
-    svg = join(parts)
-
     headline = _headline(rows, summary)
-    annotations: list[Annotation] = []
-    if summary.get("exposed_position"):
-        annotations.append(Annotation(
-            target=summary["exposed_position"],
-            text=f"{summary['exposed_position']}: draft loss, no portal answer",
-            reason="position lost draft capital with zero incoming transfers",
-        ))
+    height = 152 + 30 * len(rows)
+    max_cap = max((float(r["capital"]) for r in rows), default=1.0) or 1.0
 
-    alt_text = (
-        f"Draft Pipeline Conveyor: {summary.get('total_picks', 0)} {draft_year} NFL "
-        f"draft picks lost across {len(rows)} position groups; "
-        f"most at {summary.get('top_position', '?')}."
+    def draw(px, py, pw, ph):
+        n = len(rows)
+        row_h = ph / n
+        bar_x0 = px + 52
+        bar_x1 = px + pw - 132
+        bw = bar_x1 - bar_x0
+        out: list[str] = []
+        for i, r in enumerate(rows):
+            yc = py + row_h * i + row_h / 2
+            cap = float(r["capital"])
+            w = (cap / max_cap) * bw
+            is_first = bool(r.get("first_rounder"))
+            col = VIOLET if is_first else BLUE
+            out.append(cls_text(px, yc + 4, r["position"], "ed-ax", family=SANS, color=INK, weight="700"))
+            picks = r["picks"]
+            t = f"{r['position']}: {picks} pick{'s' if picks != 1 else ''}" + (" · first-rounder" if is_first else "")
+            out.append(f'<rect class="ed-dot" x="{bar_x0:.1f}" y="{yc - 9:.1f}" width="{w:.1f}" '
+                       f'height="18" rx="2" fill="{col}" opacity="0.9" tabindex="0" data-tip="{html.escape(t)}">'
+                       f'<title>{html.escape(t)}</title></rect>')
+            out.append(cls_text(bar_x0 + w + 6, yc + 4, f"{picks} pick{'s' if picks != 1 else ''}",
+                                "ed-ptlabel", family=MONO, color=INK))
+            repl = r.get("incoming_replacements", 0)
+            if repl > 0:
+                out.append(cls_text(px + pw, yc + 4, f"+{repl} portal", "ed-ptlabel",
+                                    family=SANS, color=INK, anchor="end"))
+            else:
+                out.append(cls_text(px + pw, yc + 4, "no portal answer", "ed-ptlabel",
+                                    family=SANS, color=EXPOSED, anchor="end", italic=True))
+        return out
+
+    exposed = summary.get("exposed_position")
+    bits = [f"{summary.get('total_picks', 0)} drafted · {summary.get('total_capital', 0)} capital units"]
+    if exposed:
+        bits.append(f"exposed at {exposed}")
+    conf = (query_result.get("confidence") or "unset")
+    receipt = (f"Source: CFB Index — round-weighted draft capital lost by position + portal answers · "
+               f"{draft_year} · {conf} confidence")
+    svg = editorial_card(
+        eyebrow=f"NFL DRAFT  ·  {draft_year}", headline=headline,
+        annotation="▸ " + " · ".join(bits) + ".", receipt=receipt,
+        title=f"Draft Pipeline Conveyor — {draft_year} draft capital lost by position",
+        draw_plot=draw, height=height,
     )
+    annotations: list[Annotation] = []
+    if exposed:
+        annotations.append(Annotation(target=exposed, text=f"{exposed}: draft loss, no portal answer",
+                                      reason="position lost draft capital with zero incoming transfers"))
     return {
-        "svg_html": svg,
-        "headline_finding": headline,
-        "annotations": annotations,
-        "alt_text": alt_text,
+        "svg_html": svg, "headline_finding": headline, "annotations": annotations,
+        "alt_text": (f"Draft Pipeline Conveyor: {summary.get('total_picks', 0)} {draft_year} NFL picks "
+                     f"lost across {len(rows)} position groups; most at {summary.get('top_position', '?')}."),
     }
 
 
@@ -138,14 +95,15 @@ def _headline(rows: list[dict], summary: dict) -> str:
     if summary.get("top_position_first_rounder") and top:
         return f"A first-rounder gone at {top} headlines {n} {dy} draft departures to replace."
     if top and top_n >= 2:
-        return f"{top} took the biggest {dy} draft hit ({top_n} picks) — reload watch is on."
+        return f"{top} took the biggest {dy} draft hit ({top_n} picks) — the reload watch is on."
     player_word = "player" if n == 1 else "players"
-    return f"{n} {player_word} drafted in {dy}; the roster reload runs through the portal and recruiting."
+    return f"{n} {player_word} drafted in {dy}; the reload runs through the portal and recruiting."
 
 
 def _empty_render(msg: str) -> dict[str, Any]:
     return {
-        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
+        "svg_html": f'<svg width="100%" viewBox="0 0 400 60"><text x="20" y="32" '
+                    f'font-family="Georgia,serif" font-size="13" fill="#666">{html.escape(msg)}</text></svg>',
         "headline_finding": msg,
         "annotations": [],
         "alt_text": msg,
